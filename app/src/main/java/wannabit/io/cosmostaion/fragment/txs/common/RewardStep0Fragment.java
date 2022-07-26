@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 
 import java.math.BigDecimal;
 
@@ -23,19 +22,15 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class RewardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private CardView        mCardReward;
     private TextView        mTvRewardAmount, mTvDenomTitle;
     private TextView        mTvFromValidators;
     private LinearLayout    mReceiveLayer;
     private TextView        mTvReceiveAddress;
     private RelativeLayout  mProgressBar;
     private Button          mCancelBtn, mNextBtn;
-    private int             mDpDecimal = 6;
 
-    public static RewardStep0Fragment newInstance(Bundle bundle) {
-        RewardStep0Fragment fragment = new RewardStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RewardStep0Fragment newInstance() {
+        return new RewardStep0Fragment();
     }
 
     @Override
@@ -46,17 +41,14 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reward_step0, container, false);
-        mCardReward             = rootView.findViewById(R.id.reward_card);
         mTvRewardAmount         = rootView.findViewById(R.id.reward_amount);
-        mTvDenomTitle           = rootView.findViewById(R.id.reward_denom_title);
+        mTvDenomTitle           = rootView.findViewById(R.id.reward_denom);
         mTvFromValidators       = rootView.findViewById(R.id.reward_moniker);
         mReceiveLayer           = rootView.findViewById(R.id.reward_receive_address_layer);
         mTvReceiveAddress       = rootView.findViewById(R.id.reward_receive_address);
         mProgressBar            = rootView.findViewById(R.id.reward_progress);
         mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                = rootView.findViewById(R.id.btn_next);
-
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvDenomTitle);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -66,12 +58,11 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal rewardSum = BigDecimal.ZERO;
         for (String opAddress: getSActivity().mValAddresses) {
-            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(getSActivity().mChainConfig.mainDenom(), opAddress));
         }
-        mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), rewardSum.toPlainString(), mTvDenomTitle, mTvRewardAmount);
         String monikers = "";
         for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
             boolean isMatch = false;

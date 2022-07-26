@@ -169,6 +169,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {
                 onInsertKeyDialog();
+                return;
             }
             Intent intent = new Intent(getBaseContext(), SendContractActivity.class);
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_EXECUTE_CONTRACT, 0);

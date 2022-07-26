@@ -193,6 +193,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     public void onCheckNewEarning() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         BigDecimal availableAmount = getBaseDao().getAvailable("gamm/pool/" + mPool.getId());
@@ -218,6 +219,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     public void onCheckUnbonding(Lock.PeriodLock lockup) {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         ArrayList<Lock.PeriodLock> tempLockups = new ArrayList<>();

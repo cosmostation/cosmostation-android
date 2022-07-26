@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.txs.common.RewardAddressChangeStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RewardAddressChangeStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
@@ -64,6 +65,7 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 
         mCurrentRewardAddress = getIntent().getStringExtra("currentAddresses");
@@ -155,7 +157,7 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
 
     public void onStartRewardAddressChange() {
         Intent intent = new Intent(RewardAddressChangeActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("newRewardAddress", mNewRewardAddress);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
@@ -171,10 +173,10 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
         public RewardAddressChangePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(RewardAddressChangeStep0Fragment.newInstance(null));
+            mFragments.add(RewardAddressChangeStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(RewardAddressChangeStep3Fragment.newInstance(null));
+            mFragments.add(RewardAddressChangeStep3Fragment.newInstance());
         }
 
         @Override

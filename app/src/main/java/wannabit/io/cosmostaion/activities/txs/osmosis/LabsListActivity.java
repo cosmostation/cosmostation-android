@@ -156,6 +156,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, long poolId) {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
@@ -175,6 +176,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     public void onCheckStartJoinPool(long poolId) {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         BalancerPool.Pool tempPool = null;
@@ -210,6 +212,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     public void onCheckStartExitPool(long poolId) {
         if (!mAccount.hasPrivateKey) {
            onInsertKeyDialog();
+           return;
         }
 
         BigDecimal mainBalance = getBaseDao().getAvailable(mChainConfig.mainDenom());

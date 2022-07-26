@@ -138,6 +138,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, QueryOuterClass.PoolResponse swapPool) {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
         BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
@@ -173,6 +174,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onCheckStartJoinPool(QueryOuterClass.PoolResponse myPool) {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(DAppsList5Activity.this, mBaseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
         String coin0Denom = myPool.getCoins(0).getDenom();
@@ -199,6 +201,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onCheckStartExitPool(QueryOuterClass.PoolResponse myPool, QueryOuterClass.DepositResponse myDeposit) {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
         BigDecimal mainBalance = getBaseDao().getAvailable(mChainConfig.mainDenom());
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_KAVA_EXIT_POOL, 0);

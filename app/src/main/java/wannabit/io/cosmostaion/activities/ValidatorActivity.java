@@ -153,6 +153,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onCheckDelegate() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain, mChainConfig.mainDenom());
@@ -196,6 +197,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     public void onCheckRedelegate() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         if (mGrpcMyDelegation == null || getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
@@ -237,6 +239,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onStartUndelegate() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
         if (getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
@@ -268,6 +271,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onGetReward() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
@@ -298,6 +302,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private void onCheckReInvest() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);

@@ -170,6 +170,7 @@ public class SifDexListActivity extends BaseActivity {
     public void onCheckStartDepositPool(Types.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
         }
 
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_JOIN_POOL, 0);
@@ -191,6 +192,7 @@ public class SifDexListActivity extends BaseActivity {
     public void onCheckStartWithdrawPool(Types.Pool pool, Querier.LiquidityProviderRes myProvider) {
         if (!mAccount.hasPrivateKey) {
            onInsertKeyDialog();
+           return;
         }
 
         BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_EXIT_POOL, 0);
