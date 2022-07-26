@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 import static wannabit.io.cosmostaion.utils.ThemeUtil.themeColor;
 
@@ -10,8 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -50,9 +47,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_MARKET = 9035;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9036;
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey,mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnCurrency,
-                        mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
-                        mBtnTerm, mBtnGithub, mBtnVersion;
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnCurrency,
+            mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
+            mBtnTerm, mBtnGithub, mBtnVersion;
 
     private TextView mTvAppLock, mTvCurrency, mTvVersion, mTvTheme;
 
@@ -70,40 +67,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         themeColor = ThemeUtil.modLoad(getBaseActivity());
         ThemeUtil.applyTheme(themeColor);
     }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().mAccount.pushAlarm) {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-            } else {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-            }
-        } else {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_accounts:
-                getMainActivity().onClickSwitchWallet();
-                break;
-            case R.id.menu_explorer:
-                getMainActivity().onExplorerView();
-                break;
-            case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
-                break;
-            case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -164,11 +127,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             mTvAppLock.setText(R.string.str_app_applock_diabeld);
         }
 
-        if(themeColor.equals("default")){
+        if (themeColor.equals("default")) {
             mTvTheme.setText(R.string.str_theme_system);
-        } else if(themeColor.equals("light")){
+        } else if (themeColor.equals("light")) {
             mTvTheme.setText(R.string.str_theme_light);
-        } else if(themeColor.equals("dark")){
+        } else if (themeColor.equals("dark")) {
             mTvTheme.setText(R.string.str_theme_dark);
         }
     }
@@ -193,23 +156,26 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnWatchAddress)) {
             startActivity(new Intent(getBaseActivity(), WatchingWalletAddActivity.class));
 
-        } else if(v.equals(mBtnTheme)) {
+        } else if (v.equals(mBtnTheme)) {
             FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
                     getString(R.string.str_theme_system), view -> {
                         themeColor = ThemeUtil.DEFAULT_MODE;
                         ThemeUtil.applyTheme(themeColor);
                         mTvTheme.setText(R.string.str_theme_system);
-                        ThemeUtil.modSave(getBaseActivity(), themeColor);}, null,
+                        ThemeUtil.modSave(getBaseActivity(), themeColor);
+                    }, null,
                     getString(R.string.str_theme_light), view -> {
                         themeColor = ThemeUtil.LIGHT_MODE;
                         ThemeUtil.applyTheme(themeColor);
                         mTvTheme.setText(R.string.str_theme_light);
-                        ThemeUtil.modSave(getBaseActivity(), themeColor);}, null,
+                        ThemeUtil.modSave(getBaseActivity(), themeColor);
+                    }, null,
                     getString(R.string.str_theme_dark), view -> {
                         themeColor = ThemeUtil.DARK_MODE;
                         ThemeUtil.applyTheme(themeColor);
                         mTvTheme.setText(R.string.str_theme_dark);
-                        ThemeUtil.modSave(getBaseActivity(), themeColor);},null);
+                        ThemeUtil.modSave(getBaseActivity(), themeColor);
+                    }, null);
 
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
@@ -246,7 +212,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnTelegram)) {
             Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/cosmostation"));
             startActivity(telegram);
-          
+
         } else if (v.equals(mBtnHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
             startActivity(intent);

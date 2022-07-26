@@ -11,8 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -144,39 +142,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if (!isAdded()) return;
         onUpdateView();
         onFetchHistory();
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mChainConfig.pushSupport()) {
-            if (getMainActivity().mAccount.pushAlarm) {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-            } else {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-            }
-        } else {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_accounts:
-                getMainActivity().onClickSwitchWallet();
-                break;
-            case R.id.menu_explorer:
-                getMainActivity().onExplorerView();
-                break;
-            case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(mAccount, true);
-                break;
-            case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(mAccount, false);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void onFetchHistory() {
@@ -311,7 +276,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
             if (headerView == null) {
                 headerView = inflateHeaderView(parent);
-                mTitle = (TextView) headerView.findViewById(R.id.header_title) ;
+                mTitle = (TextView) headerView.findViewById(R.id.header_title);
                 mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
 
                 mTitle.setText(R.string.str_history_title);
