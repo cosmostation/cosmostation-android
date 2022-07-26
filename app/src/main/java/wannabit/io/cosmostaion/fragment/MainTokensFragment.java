@@ -385,39 +385,6 @@ public class MainTokensFragment extends BaseFragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().mAccount.pushAlarm) {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-            } else {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-            }
-        } else {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_accounts:
-                getMainActivity().onClickSwitchWallet();
-                break;
-            case R.id.menu_explorer:
-                getMainActivity().onExplorerView();
-                break;
-            case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
-                break;
-            case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);

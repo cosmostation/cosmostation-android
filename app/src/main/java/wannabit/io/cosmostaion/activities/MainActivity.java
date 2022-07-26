@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
@@ -16,6 +17,8 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -156,6 +159,39 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         mContentsPager.setCurrentItem(getIntent().getIntExtra("page", 0), false);
 
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (mAccount.pushAlarm) {
+                getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
+            } else {
+                getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
+            }
+        } else {
+            getMenuInflater().inflate(R.menu.main_menu, menu);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_accounts:
+                onClickSwitchWallet();
+                break;
+            case R.id.menu_explorer:
+                onExplorerView();
+                break;
+            case R.id.menu_notification_off:
+                onUpdateUserAlarm(mAccount, true);
+                break;
+            case R.id.menu_notification_on:
+                onUpdateUserAlarm(mAccount, false);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
