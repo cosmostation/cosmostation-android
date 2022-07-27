@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.nft.NFTCreateStep0Fragment;
@@ -57,6 +58,7 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_MINT_NFT;
 
         mPageAdapter = new NFTCreateAdapter(getSupportFragmentManager());
@@ -133,7 +135,7 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
 
     public void onCreateNFT() {
         Intent intent = new Intent(NFTCreateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_MINT_NFT);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("nftDenomId", mNftDenomId);
         intent.putExtra("nftDenomName", mNftDenomName);
         intent.putExtra("nftName", mNftName);
@@ -152,10 +154,10 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
         public NFTCreateAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(NFTCreateStep0Fragment.newInstance(null));
+            mFragments.add(NFTCreateStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(NFTCreateStep3Fragment.newInstance(null));
+            mFragments.add(NFTCreateStep3Fragment.newInstance());
         }
 
         @Override

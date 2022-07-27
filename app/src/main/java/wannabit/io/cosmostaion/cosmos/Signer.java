@@ -579,37 +579,6 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcLinkAccountReq(QueryOuterClass.QueryAccountResponse auth, String singer, BaseChain toChain, Account toAccount, ECKey toKey, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth, getLinkAccountMsg(auth, singer, toChain, toAccount, toKey), fee, memo, pKey, chainId);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcLinkAccountSimulateReq(QueryOuterClass.QueryAccountResponse auth, String singer, BaseChain toChain, Account toAccount, ECKey toKey, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getLinkAccountMsg(auth, singer, toChain, toAccount, toKey), fee, memo, pKey, chainId);
-    }
-
-    public static ArrayList<Any> getLinkAccountMsg(QueryOuterClass.QueryAccountResponse auth, String singer, BaseChain toChain, Account toAccount, ECKey toKey) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        byte[] sigbyte = null;
-        String plainString = "Link Chain With Cosmostation";
-        String hexString = "";
-        try {
-            hexString = Hex.toHexString(plainString.getBytes("utf-8"));
-            sigbyte = getGrpcByteSingleSignature(auth, toKey, plainString.getBytes("utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        ModelsChainLinks.Bech32Address desmosBech32 = ModelsChainLinks.Bech32Address.newBuilder().setValue(toAccount.address).setPrefix(WUtil.getDesmosPrefix(toChain)).build();
-        Any chainAddress = Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.Bech32Address").setValue(desmosBech32.toByteString()).build();
-        Keys.PubKey toAccountPub = Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(toKey.getPubKey())).build();
-        Any toAccountPubKey = Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(toAccountPub.toByteString()).build();
-        ModelsChainLinks.Proof desmosProof = ModelsChainLinks.Proof.newBuilder().setSignature(WUtil.ByteArrayToHexString(sigbyte)).setPlainText(hexString).setPubKey(toAccountPubKey).build();
-        ModelsChainLinks.ChainConfig desmosChainConfig = ModelsChainLinks.ChainConfig.newBuilder().setName(WUtil.getDesmosConfig(toChain)).build();
-        MsgsChainLinks.MsgLinkChainAccount linkchain = MsgsChainLinks.MsgLinkChainAccount.newBuilder().setChainAddress(chainAddress).setProof(desmosProof).setChainConfig(desmosChainConfig).setSigner(singer).build();
-
-        msgAnys.add(Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgLinkChainAccount").setValue(linkchain.toByteString()).build());
-        return msgAnys;
-    }
-
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaSwapReq(QueryOuterClass.QueryAccountResponse auth, String requester, Coin swapIn, Coin swapOut, String slippage, Long deadline, Fee fee, String memo, ECKey pKey, String chainId) {
         return getSignTx(auth, getKavaSwapMsg(requester, swapIn, swapOut, slippage, deadline), fee, memo, pKey, chainId);
     }

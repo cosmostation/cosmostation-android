@@ -8,80 +8,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite2DayNight"
+        android:background="@drawable/box_white2_border"
         android:orientation="vertical"
         android:gravity="center_horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
-            style="@style/font_ss_17_gray8"
+            style="@style/font_ss_17_black_daynight"
             android:gravity="center"
-            android:text="@string/str_star_name_service"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:text="@string/str_starname_confirm_title"/>
+        <TextView
+            android:id="@+id/starname_info"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_12"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
-            android:background="@drawable/box_round_gray"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_startname_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    style="@style/font_ss_12_gray1"
-                    android:text="@string/str_star_name"/>
-
-                <TextView
-                    android:id="@+id/tv_startname"
-                    style="@style/font_ss_14_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_16"
-                    android:layout_toRightOf="@+id/tv_startname_title"
-                    android:ellipsize="middle"
-                    android:gravity="right"
-                    android:singleLine="true"
-                    android:text="hello*startname"></TextView>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8">
-                <TextView
-                    android:id="@+id/tv_address_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    style="@style/font_ss_12_gray1"
-                    android:text="@string/str_address"/>
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    style="@style/font_ss_14_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_24"
-                    android:layout_toRightOf="@+id/tv_address_title"
-                    android:ellipsize="middle"
-                    android:gravity="right"
-                    android:singleLine="true"
-                    android:text="cosmosdskjhfldkshfldshflkdshflkdshflkdshflds"></TextView>
-            </RelativeLayout>
-        </LinearLayout>
-
-
+            android:layout_marginTop="@dimen/space_10"
+            style="@style/font_ssl_12_black_daynight"
+            android:gravity="center"
+            android:text="@string/str_starname_confirm_msg"/>
+        
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -111,7 +56,7 @@
                 android:layout_weight="1"
                 android:textAllCaps="false"
                 android:background="@color/colorTrans"
-                style="@style/font_ss_14_red"
+                style="@style/font_ss_14_black_daynight"
                 android:text="@string/str_confirm"/>
         </LinearLayout>
     </LinearLayout>

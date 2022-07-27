@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.desmos.ProfileStep0Fragment;
@@ -63,6 +64,7 @@ public class ProfileActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mPageAdapter = new ProfilePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -107,7 +109,6 @@ public class ProfileActivity extends BaseBroadCastActivity {
         });
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -147,7 +148,7 @@ public class ProfileActivity extends BaseBroadCastActivity {
 
     public void onSaveProfile() {
         Intent intent = new Intent(ProfileActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_PROFILE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("mDtag", mDtag);
         intent.putExtra("mNickname", mNickname);
         intent.putExtra("mBio", mBio);
@@ -167,10 +168,10 @@ public class ProfileActivity extends BaseBroadCastActivity {
         public ProfilePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ProfileStep0Fragment.newInstance(null));
+            mFragments.add(ProfileStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(ProfileStep3Fragment.newInstance(null));
+            mFragments.add(ProfileStep3Fragment.newInstance());
         }
 
         @Override

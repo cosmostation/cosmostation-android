@@ -57,7 +57,6 @@ import wannabit.io.cosmostaion.widget.txDetail.TxUnDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnjailHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxVoterHolder;
-import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxLinkAccountHolder;
 import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxSaveProfileHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxExecuteContractHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxInstantContractHolder;
@@ -262,7 +261,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_TRANSFER_NFT = 92;
 
         private static final int TYPE_TX_SAVE_PROFILE = 100;
-        private static final int TYPE_TX_LINK_ACCOUNT = 101;
 
         private static final int TYPE_TX_KAVA_SWAP = 110;
         private static final int TYPE_TX_KAVA_DEPOSIT_POOL = 111;
@@ -415,8 +413,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             else if (viewType == TYPE_TX_SAVE_PROFILE) {
                 return new TxSaveProfileHolder(getLayoutInflater().inflate(R.layout.item_tx_save_profile, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_LINK_ACCOUNT) {
-                return new TxLinkAccountHolder(getLayoutInflater().inflate(R.layout.item_tx_link_account, viewGroup, false));
             }
 
             // kava
@@ -616,8 +612,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 // desmos msg
                 else if (msg.getTypeUrl().contains(MsgsProfile.MsgSaveProfile.getDescriptor().getFullName())) {
                     return TYPE_TX_SAVE_PROFILE;
-                } else if (msg.getTypeUrl().contains(desmos.profiles.v1beta1.MsgsChainLinks.MsgLinkChainAccount.getDescriptor().getFullName())) {
-                    return TYPE_TX_LINK_ACCOUNT;
                 }
 
                 //kava msg

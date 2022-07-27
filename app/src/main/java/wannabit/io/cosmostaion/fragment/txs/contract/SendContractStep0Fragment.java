@@ -37,7 +37,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.contract.SendContractActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.StarnameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -51,10 +50,8 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
     private LinearLayout        mStarNameLayer;
     private LinearLayout        mBtnQr, mBtnPaste, mBtnHistory;
 
-    public static SendContractStep0Fragment newInstance(Bundle bundle) {
-        SendContractStep0Fragment fragment = new SendContractStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SendContractStep0Fragment newInstance() {
+        return new SendContractStep0Fragment();
     }
 
     @Override
@@ -123,11 +120,11 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
             }
 
             if (WUtil.isValidStarName(userInput.toLowerCase())) {
-                onCheckNameService(userInput.toLowerCase(), ChainFactory.getChain(getSActivity().mBaseChain));
+                onCheckNameService(userInput.toLowerCase(), getSActivity().mChainConfig);
                 return;
             }
 
-            if (WDp.isValidChainAddress(ChainFactory.getChain(getSActivity().mBaseChain), userInput)) {
+            if (WDp.isValidChainAddress(getSActivity().mChainConfig, userInput)) {
                 getSActivity().mToAddress = userInput;
                 getSActivity().onNextStep();
             } else {
@@ -144,7 +141,7 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
                 if(TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
@@ -167,14 +164,13 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_STAR_NAME_ADDRESS) {
             if (resultCode == Activity.RESULT_OK) {
-                getSActivity().mStarName = data.getStringExtra("starname");
                 getSActivity().mToAddress = data.getStringExtra("originAddress");
                 getSActivity().onNextStep();
             }
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if(result != null) {
+            if (result != null) {
                 if(result.getContents() != null) {
                     mAddressInput.setText(result.getContents().trim());
                     mAddressInput.setSelection(mAddressInput.getText().length());

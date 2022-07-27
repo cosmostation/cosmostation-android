@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.txs.nft;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
+import static wannabit.io.cosmostaion.base.BaseConstant.STATION_NFT_DENOM;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -37,9 +40,6 @@ import wannabit.io.cosmostaion.activities.txs.nft.NFTCreateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
-import static wannabit.io.cosmostaion.base.BaseConstant.STATION_NFT_DENOM;
-
 public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClickListener {
     private File        tempFile;
 
@@ -51,10 +51,8 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
 
     private String      mHash;
 
-    public static NFTCreateStep0Fragment newInstance(Bundle bundle) {
-        NFTCreateStep0Fragment fragment = new NFTCreateStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static NFTCreateStep0Fragment newInstance() {
+        return new NFTCreateStep0Fragment();
     }
 
     @Override

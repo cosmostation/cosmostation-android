@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.contract.SendContractStep0Fragment;
@@ -37,8 +38,6 @@ public class SendContractActivity extends BaseBroadCastActivity {
     private TextView mTvStep;
     private ViewPager mViewPager;
     private SendContractPageAdapter mPageAdapter;
-
-    public String mStarName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +57,7 @@ public class SendContractActivity extends BaseBroadCastActivity {
         mTvStep.setText(getString(R.string.str_send_step_0));
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_EXECUTE_CONTRACT;
 
         mContractAddress = getIntent().getStringExtra("mCw20SendContract");
@@ -147,7 +147,7 @@ public class SendContractActivity extends BaseBroadCastActivity {
 
     public void onStartSendContract() {
         Intent intent = new Intent(SendContractActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_EXECUTE_CONTRACT);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("toAddress", mToAddress);
         intent.putExtra("contractAddress", mContractAddress);
         intent.putParcelableArrayListExtra("amount", mAmounts);
@@ -165,11 +165,11 @@ public class SendContractActivity extends BaseBroadCastActivity {
         public SendContractPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(SendContractStep0Fragment.newInstance(null));
-            mFragments.add(SendContractStep1Fragment.newInstance(null));
+            mFragments.add(SendContractStep0Fragment.newInstance());
+            mFragments.add(SendContractStep1Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(SendContractStep4Fragment.newInstance(null));
+            mFragments.add(SendContractStep4Fragment.newInstance());
         }
 
         @Override
