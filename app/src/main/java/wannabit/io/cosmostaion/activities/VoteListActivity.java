@@ -328,7 +328,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 } else if (status.contains("VOTE_OPTION_NO_WITH_VETO")) {
                     holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_nowithveto));
-                } else if (status.contains("VOTE_OPTION_ABSTATIN")) {
+                } else if (status.contains("VOTE_OPTION_ABSTAIN")) {
                     holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_abstain));
                 } else if (status.size() > 1) {
@@ -424,17 +424,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             }
         }
     }
-
-//    public interface OnItemClickListener {
-//        void onItemClick(View v, int position);
-//    }
-//
-//    private OnItemClickListener mListener = null;
-//
-//    public void setOnItemClickListener(OnItemClickListener listener){
-//        this.mListener = listener;
-//    }
-
 
 //
 //    // Section Header

@@ -41,7 +41,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
     private ProposalSelectionAdapter mProposalSelectionAdapter;
     private Map<Integer, String> selectedMap = Maps.newHashMap();
 
-    public ArrayList<ResProposal> mProposalList;
+    public List<ResProposal> mProposalList;
 
     public static VoteStep0Fragment newInstance(Bundle bundle) {
         VoteStep0Fragment fragment = new VoteStep0Fragment();
@@ -123,37 +123,49 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
             holder.noBtnLayout.setAlpha(0.5f);
             holder.noWithVetoBtnLayout.setAlpha(0.5f);
             holder.abstainBtnLayout.setAlpha(0.5f);
+            holder.yesBtnLayout.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
+            holder.noBtnLayout.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
+            holder.noWithVetoBtnLayout.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
+            holder.abstainBtnLayout.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
+            holder.titleYesTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
+            holder.titleNoTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
+            holder.titleNoWithVetoTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
+            holder.titleAbstainTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
+            holder.selectedYesImage.clearColorFilter();
+            holder.selectedNoImage.clearColorFilter();
+            holder.selectedNoWithVetoImage.clearColorFilter();
+            holder.selectedAbstainImage.clearColorFilter();
 
             if (selectedMap.containsKey(item.id)) {
                 String selected = selectedMap.get(item.id);
                 switch (selected) {
                     case "VOTE_OPTION_YES":
                         holder.yesBtnLayout.setAlpha(1f);
+                        holder.yesBtnLayout.setBackground(WDp.getLayoutColor(getSActivity(), getSActivity().mBaseChain));
+                        holder.titleYesTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
                         holder.selectedYesImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-                        holder.selectedNoImage.clearColorFilter();
-                        holder.selectedNoWithVetoImage.clearColorFilter();
-                        holder.selectedAbstainImage.clearColorFilter();
+
                         break;
                     case "VOTE_OPTION_NO":
                         holder.noBtnLayout.setAlpha(1f);
+                        holder.noBtnLayout.setBackground(WDp.getLayoutColor(getSActivity(), getSActivity().mBaseChain));
+                        holder.titleNoTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
                         holder.selectedNoImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-                        holder.selectedYesImage.clearColorFilter();
-                        holder.selectedNoWithVetoImage.clearColorFilter();
-                        holder.selectedAbstainImage.clearColorFilter();
+
                         break;
                     case "VOTE_OPTION_NO_WITH_VETO":
                         holder.noWithVetoBtnLayout.setAlpha(1f);
+                        holder.noWithVetoBtnLayout.setBackground(WDp.getLayoutColor(getSActivity(), getSActivity().mBaseChain));
+                        holder.titleNoWithVetoTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
                         holder.selectedNoWithVetoImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-                        holder.selectedYesImage.clearColorFilter();
-                        holder.selectedNoImage.clearColorFilter();
-                        holder.selectedAbstainImage.clearColorFilter();
+
                         break;
                     case "VOTE_OPTION_ABSTAIN":
                         holder.abstainBtnLayout.setAlpha(1f);
+                        holder.abstainBtnLayout.setBackground(WDp.getLayoutColor(getSActivity(), getSActivity().mBaseChain));
+                        holder.titleAbstainTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
                         holder.selectedAbstainImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-                        holder.selectedYesImage.clearColorFilter();
-                        holder.selectedNoWithVetoImage.clearColorFilter();
-                        holder.selectedNoImage.clearColorFilter();
+
                         break;
                     default:
                         break;
@@ -204,7 +216,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
 
         public class ProposalSelectionHolder extends RecyclerView.ViewHolder {
             CardView cardProposal;
-            TextView proposalId, proposalTitle, proposalDeadLine;
+            TextView proposalId, proposalTitle, proposalDeadLine, titleYesTv, titleNoTv, titleNoWithVetoTv, titleAbstainTv;
             RelativeLayout yesBtnLayout, noBtnLayout, noWithVetoBtnLayout, abstainBtnLayout;
             ImageView selectedYesImage, selectedNoImage, selectedNoWithVetoImage, selectedAbstainImage;
 
@@ -214,6 +226,10 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
                 proposalId = itemView.findViewById(R.id.proposal_id);
                 proposalTitle = itemView.findViewById(R.id.proposal_title);
                 proposalDeadLine = itemView.findViewById(R.id.proposal_deadline);
+                titleYesTv = itemView.findViewById(R.id.vote_yes_title);
+                titleNoTv = itemView.findViewById(R.id.vote_no_title);
+                titleNoWithVetoTv = itemView.findViewById(R.id.vote_nowithveto_title);
+                titleAbstainTv = itemView.findViewById(R.id.vote_abstain_title);
                 yesBtnLayout = itemView.findViewById(R.id.check_btn_yes);
                 noBtnLayout = itemView.findViewById(R.id.check_btn_no);
                 noWithVetoBtnLayout = itemView.findViewById(R.id.check_btn_nowithveto);

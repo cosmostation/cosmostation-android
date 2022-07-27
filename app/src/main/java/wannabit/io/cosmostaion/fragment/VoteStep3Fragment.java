@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import java.util.List;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.VoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class VoteStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -99,6 +101,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mConfirmBtn)) {
             getSActivity().onStartVote();
+
         }
     }
 

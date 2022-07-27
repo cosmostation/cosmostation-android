@@ -67,6 +67,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -1118,12 +1119,12 @@ public class WDp {
         }
     }
 
-    public static Drawable getLayoutColor(Context c, BaseChain baseChain, Button button) {
+    public static Drawable getLayoutColor(Context c, BaseChain baseChain) {
         if (baseChain != null){
             if (baseChain.equals(COSMOS_MAIN)) {
-                button.setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_atom));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_atom);
             } else if (baseChain.equals(IRIS_MAIN)) {
-                button.setBackground(ContextCompat.getDrawable(c, R.drawable.box_round_iris));
+                return ContextCompat.getDrawable(c, R.drawable.box_round_iris);
             } else if (baseChain.equals(BNB_MAIN)) {
                 return ContextCompat.getDrawable(c, R.drawable.box_round_bnb);
             } else if (baseChain.equals(KAVA_MAIN)) {
@@ -1212,8 +1213,7 @@ public class WDp {
                 return ContextCompat.getDrawable(c, R.drawable.box_round_darkgray_daynight);
             }
         }
-        return ContextCompat.getDrawable(c, R.drawable.box_round_darkgray_daynight);
-
+        return ContextCompat.getDrawable(c, R.drawable.box_round_atom);
     }
 
     public static void setLayoutColor(Context c, BaseChain

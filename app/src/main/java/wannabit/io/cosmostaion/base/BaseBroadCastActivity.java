@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.base;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import irismod.nft.QueryOuterClass;
@@ -33,8 +34,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public ArrayList<Coin>              mRewards = new ArrayList<>();       //Reward
     public ArrayList<String>            mValAddresses = new ArrayList<>();  //ClaimReward
     public String                       mNewRewardAddress;                  //SetRewardAddress
-    public String                       mProposalId;                        //Vote
-    public String                       mOpinion;                           //Vote
     public Map<Integer, String>         mSelectedOpinion;                   //Vote
 
     public String                       mStarNameDomain;                            //starname domain

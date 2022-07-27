@@ -97,6 +97,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Map;
 
 import irismod.nft.QueryOuterClass;
 import osmosis.gamm.v1beta1.Tx;
@@ -108,6 +109,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
@@ -213,13 +215,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String mReInvestValAddr;
     private Coin mReInvestAmount;
 
-    private String mProposalId;
-    private String mOpinion;
-
     private String mSwapId;
 
     private Coin mOkStakeCoin;
     private ArrayList<String> mOKVoteValidator = new ArrayList<>();
+
+    private Map<Integer, String> mSelectedOpinion;
 
 
     private String mDomain;
@@ -334,11 +335,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mNewRewardAddress = getIntent().getStringExtra("newRewardAddress");
         mReInvestValAddr = getIntent().getStringExtra("reInvestValAddr");
         mReInvestAmount = getIntent().getParcelableExtra("reInvestAmount");
-        mProposalId = getIntent().getStringExtra("proposal_id");
-        mOpinion = getIntent().getStringExtra("opinion");
         mSwapId = getIntent().getStringExtra("swapId");
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
         mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
+        mSelectedOpinion = (Map<Integer, String>) getIntent().getSerializableExtra("selectedProposals");
 
         mMultiplierName = getIntent().getStringExtra("multiplierName");
 
@@ -555,7 +555,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_VOTE) {
             onShowWaitDialog();
-            new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mProposalId, mOpinion, mTargetMemo, mTargetFee,
+            new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mSelectedOpinion, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
@@ -941,5 +941,4 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             return mFragments;
         }
     }
-
 }

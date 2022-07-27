@@ -20,11 +20,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -48,11 +51,8 @@ public class VoteActivity extends BaseBroadCastActivity {
     private TextView mTvStep;
     private ViewPager mViewPager;
     private VotePageAdapter mPageAdapter;
-    private Fee mTargetFee;
-    private String mTargetMemo;
-    private String mUserInput = "";
 
-    public ArrayList<ResProposal> mProposal;
+    public List<ResProposal> mProposal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +77,8 @@ public class VoteActivity extends BaseBroadCastActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_VOTE;
 
-        mProposal = new Gson().fromJson(getIntent().getStringExtra("selectedProposal"), new TypeToken<List<ResProposal>>() {
+        mProposal = new Gson().fromJson(getIntent().getStringExtra("proposal"), new TypeToken<List<ResProposal>>() {
         }.getType());
-
-        mTargetMemo = getIntent().getStringExtra("memo");
-        mTargetFee = getIntent().getParcelableExtra("fee");
-
 
         mPageAdapter = new VotePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -166,21 +162,13 @@ public class VoteActivity extends BaseBroadCastActivity {
 
     public void onStartVote() {
         Intent intent = new Intent(VoteActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_SIMPLE_CHECK);
-        mStartForResult.launch(intent);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_VOTE);
+        intent.putExtra("selectedProposals", (Serializable) mSelectedOpinion);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
+        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
-
-    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    onShowWaitDialog();
-                    new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mProposalId, mOpinion, mTargetMemo, mTargetFee,
-                            getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-                }
-            }
-    );
 
     private class VotePageAdapter extends FragmentPagerAdapter {
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();

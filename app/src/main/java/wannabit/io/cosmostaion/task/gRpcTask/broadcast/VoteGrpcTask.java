@@ -4,6 +4,7 @@ import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
 import java.math.BigInteger;
+import java.util.Map;
 
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
@@ -29,23 +30,21 @@ import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSW
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_VOTE;
 
 public class VoteGrpcTask extends CommonTask {
-    private BaseChain       mBaseChain;
-    private Account         mAccount;
-    private String          mProposalId;
-    private String          mOpinion;
-    private String          mMemo;
-    private Fee             mFees;
-    private String          mChainId;
+    private BaseChain            mBaseChain;
+    private Account              mAccount;
+    private Map<Integer, String> mOpinionMap;
+    private String               mMemo;
+    private Fee                  mFees;
+    private String               mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public VoteGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String proposalId, String opinion, String memo, Fee fee, String chainId) {
+    public VoteGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, Map<Integer, String> opinionMap, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mBaseChain         = basechain;
         this.mAccount           = account;
-        this.mProposalId        = proposalId;
-        this.mOpinion           = opinion;
+        this.mOpinionMap        = opinionMap;
         this.mMemo              = memo;
         this.mFees              = fee;
         this.mChainId           = chainId;
@@ -77,7 +76,7 @@ public class VoteGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcVoteReq(mAuthResponse, mProposalId, mOpinion, mFees, mMemo, ecKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcVoteReq(mAuthResponse, mOpinionMap, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {

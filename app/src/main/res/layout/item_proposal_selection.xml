@@ -46,7 +46,7 @@
 
                     <TextView
                         android:id="@+id/proposal_title"
-                        style="@style/font_rr_14_black_daynight"
+                        style="@style/font_ss_12_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
@@ -65,7 +65,7 @@
 
                     <TextView
                         android:id="@+id/proposal_deadline"
-                        style="@style/font_rr_12_gray1"
+                        style="@style/font_ss_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/space_6" />
@@ -91,15 +91,15 @@
                             android:id="@+id/check_btn_yes"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_4"
-                            android:layout_marginTop="@dimen/space_16"
                             android:layout_marginRight="@dimen/space_4"
+                            android:layout_marginTop="@dimen/space_16"
                             android:layout_marginBottom="@dimen/space_4"
                             android:layout_weight="0.5"
                             android:background="@drawable/box_vote_quorum"
                             android:clickable="true">
 
                             <TextView
+                                android:id="@+id/vote_yes_title"
                                 style="@style/font_ss_14_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -121,9 +121,7 @@
                             android:id="@+id/check_btn_no"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_4"
                             android:layout_marginTop="@dimen/space_16"
-                            android:layout_marginRight="@dimen/space_4"
                             android:layout_marginBottom="@dimen/space_4"
                             android:layout_toRightOf="@+id/checkBtn_yes"
                             android:layout_weight="0.5"
@@ -131,6 +129,7 @@
                             android:clickable="true">
 
                             <TextView
+                                android:id="@+id/vote_no_title"
                                 style="@style/font_ss_14_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -158,7 +157,6 @@
                         android:id="@+id/check_btn_nowithveto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
                         android:layout_marginRight="@dimen/space_4"
                         android:layout_marginBottom="@dimen/space_4"
                         android:layout_weight="0.5"
@@ -166,6 +164,7 @@
                         android:clickable="true">
 
                         <TextView
+                            android:id="@+id/vote_nowithveto_title"
                             style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -186,8 +185,6 @@
                         android:id="@+id/check_btn_abstain"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
-                        android:layout_marginRight="@dimen/space_4"
                         android:layout_marginBottom="@dimen/space_4"
                         android:layout_toRightOf="@+id/checkBtn_yes"
                         android:layout_weight="0.5"
@@ -195,6 +192,7 @@
                         android:clickable="true">
 
                         <TextView
+                            android:id="@+id/vote_abstain_title"
                             style="@style/font_ss_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
