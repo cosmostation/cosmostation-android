@@ -28,7 +28,7 @@ public class StationTest extends ChainConfig {
     public String addressPrefix() { return "station"; }
 
     public boolean pushSupport() { return false; }
-    public boolean dexSupport() { return true; }
+    public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
 
     public String grpcUrl() { return "lcd-office.cosmostation.io"; }

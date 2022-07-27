@@ -198,7 +198,10 @@
         android:id="@+id/loading_layer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar">
+        android:layout_below="@+id/tool_bar"
+        android:clickable="true"
+        android:background="#88000000"
+        android:focusable="true">
 
         <ProgressBar
             android:layout_width="@dimen/space_60"

@@ -47,7 +47,6 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
@@ -86,6 +85,7 @@ public class ConnectWalletActivity extends BaseActivity {
 
     public static final String WC_URL_SCHEME_HOST_WC = "wc";
     public static final String WC_URL_SCHEME_HOST_DAPP = "dapp";
+    public static final String WC_URL_SCHEME_HOST_DAPP_INTERNAL = "internaldapp";
     public static final String WC_URL_SCHEME_COSMOSTATION = "cosmostation";
     public static final String INTENT_KEY_WC_URL = "wcUrl";
     public static final String INTENT_KEY_DAPP_URL = "dappUrl";
@@ -121,14 +121,30 @@ public class ConnectWalletActivity extends BaseActivity {
             if (WC_URL_SCHEME_HOST_WC.equals(getIntent().getData().getHost())) {
                 isDeepLink = true;
                 settingForWc(getIntent().getData().getQuery());
-            } else {
-                settingForDapp(getIntent().getData().getQuery());
+            } else if (WC_URL_SCHEME_HOST_DAPP.equals(getIntent().getData().getHost())) {
+                settingForDappExternalScheme(getIntent().getData().getQuery());
+            } else if (WC_URL_SCHEME_HOST_DAPP_INTERNAL.equals(getIntent().getData().getHost())) {
+                settingForDappInternalScheme(getIntent().getData().getQuery());
             }
         } else if (getIntent().hasExtra(INTENT_KEY_WC_URL)) {
             settingForWc(getIntent().getStringExtra(INTENT_KEY_WC_URL));
         } else if (getIntent().hasExtra(INTENT_KEY_DAPP_URL)) {
-            settingForDapp(getIntent().getStringExtra(INTENT_KEY_DAPP_URL));
+            settingForDappExternalScheme(getIntent().getStringExtra(INTENT_KEY_DAPP_URL));
         }
+    }
+
+    private void settingForDappInternalScheme(String url) {
+        loadBaseAccount();
+        isDapp = true;
+        mWebView.setVisibility(View.VISIBLE);
+        mWebView.loadUrl(url);
+        changeDappConnectStatus(false);
+        mDappLayout.setVisibility(View.VISIBLE);
+        mDappUrl.setText(url);
+
+        mWcLayer.setVisibility(View.GONE);
+        mLoadingLayer.setVisibility(View.GONE);
+        mBtnDisconnect.setVisibility(View.GONE);
     }
 
     private void settingForWc(String url) {
@@ -143,7 +159,20 @@ public class ConnectWalletActivity extends BaseActivity {
         mDappLayout.setVisibility(View.GONE);
     }
 
-    private void settingForDapp(String url) {
+    private void settingForWcDefaultScheme(String url) {
+        if (wcSession != null && wcClient.getSession() != null && wcClient != null && wcClient.isConnected()) {
+            return;
+        }
+
+        mLoadingLayer.setVisibility(View.VISIBLE);
+        mWcURL = url;
+        isDapp = true;
+        loadBaseAccount();
+        initWalletConnect();
+    }
+
+
+    private void settingForDappExternalScheme(String url) {
         isDapp = true;
         mWebView.setVisibility(View.VISIBLE);
         mWebView.loadUrl(url);
@@ -234,7 +263,18 @@ public class ConnectWalletActivity extends BaseActivity {
         mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("intent:")) {
+                if (url.startsWith("wc:")) {
+                    settingForWcDefaultScheme(url);
+                    return true;
+                } else if (url.startsWith("intent:")) {
+                    if (url.contains("intent://wcV1")) {
+                        url = url.replace("#Intent;package=com.chainapsis.keplr;scheme=keplrwallet;end;", "#Intent;package=wannabit.io.cosmostaion;scheme=cosmostation;end;");
+                        url = url.replace("intent://wcV1", "intent://wc");
+                        url = url.replace("scheme=keplrwallet", "scheme=cosmostation");
+                    }
+                    if (BuildConfig.DEBUG) {
+                        url = url.replace("wannabit.io.cosmostaion", "wannabit.io.cosmostaion.debug");
+                    }
                     try {
                         Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
                         Intent existPackage = getPackageManager().getLaunchIntentForPackage(intent.getPackage());
@@ -284,8 +324,13 @@ public class ConnectWalletActivity extends BaseActivity {
                         wcClient.approveSession(Lists.newArrayList(chainAccountMap.get(mBaseChain.getChain()).address), 1);
                     }
                 } else {
-                    mWcPeerMeta = wcPeerMeta;
-                    wcClient.approveSession(Lists.newArrayList(), 1);
+                    if (BaseChain.EVMOS_MAIN.equals(mBaseChain)) {
+                        wcClient.approveSession(Lists.newArrayList(WKey.generateEthAddressFromPrivateKey(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())))), 9001);
+                    } else {
+                        wcClient.approveSession(Lists.newArrayList(), 1);
+                    }
+                    mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 2500);
+
                 }
                 changeDappConnectStatus(true);
             });
@@ -635,8 +680,9 @@ public class ConnectWalletActivity extends BaseActivity {
                 return;
             }
             mWcURL = intent.getData().getQuery();
+            mLoadingLayer.setVisibility(View.VISIBLE);
             initWalletConnect();
-        } else if (fromScheme(intent) && WC_URL_SCHEME_HOST_DAPP.equals(intent.getData().getHost())) {
+        } else if (fromScheme(intent) && (WC_URL_SCHEME_HOST_DAPP.equals(intent.getData().getHost()) || WC_URL_SCHEME_HOST_DAPP_INTERNAL.equals(intent.getData().getHost()))) {
             if (mWebView.getVisibility() != View.VISIBLE) {
                 Toast.makeText(ConnectWalletActivity.this, R.string.str_unknown_error, Toast.LENGTH_SHORT).show();
                 return;
