@@ -35,6 +35,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TextView
+                                android:id="@+id/fee_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_fees"
@@ -43,22 +44,24 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
+                                android:layout_toRightOf="@+id/fee_title"
                                 android:orientation="horizontal"
-                                android:gravity="center">
+                                android:gravity="end">
                                 <TextView
                                     android:id="@+id/tx_fee_amount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:text="-"
-                                    style="@style/font_ss_12_black_daynight"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/tx_fee_denom"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="IOV"
-                                    style="@style/font_ss_12_iov"/>
+                                    android:textColor="@color/color_starname"
+                                    style="@style/font_ssl_12_black_daynight"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -67,6 +70,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16">
                             <TextView
+                                android:id="@+id/starname_fee_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_starnamne_fee"
@@ -75,29 +79,31 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
+                                android:layout_toRightOf="@+id/starname_fee_title"
                                 android:orientation="horizontal"
-                                android:gravity="center">
+                                android:gravity="end">
                                 <TextView
                                     android:id="@+id/starname_fee_amount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:text="-"
-                                    style="@style/font_ss_12_black_daynight"/>
+                                    style="@style/font_ssl_12_black_daynight"/>
                                 <TextView
                                     android:id="@+id/starname_fee_denom"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:text="IOV"
-                                    style="@style/font_ss_12_iov"/>
+                                    android:textColor="@color/color_starname"
+                                    style="@style/font_ssl_12_black_daynight"/>
                             </LinearLayout>
                         </RelativeLayout>
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/space_view"
                         android:background="@color/colorGrayDayNight"/>
 
                     <LinearLayout
@@ -165,10 +171,6 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-
-
-
 
     <LinearLayout
         android:id="@+id/bottom_control"

@@ -23,10 +23,8 @@ public class RegisterAccount4Fragment extends BaseFragment implements View.OnCli
     private TextView mFeeAmount, mStarnameFeeAmount;
     private TextView mAccount, mExpireTime, mAddresses, mMemo;
 
-    public static RegisterAccount4Fragment newInstance(Bundle bundle) {
-        RegisterAccount4Fragment fragment = new RegisterAccount4Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RegisterAccount4Fragment newInstance() {
+        return new RegisterAccount4Fragment();
     }
 
     @Override
@@ -52,10 +50,9 @@ public class RegisterAccount4Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         BigDecimal starNameFee = getBaseDao().getStarNameRegisterAccountFee("open");
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
         mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
         mExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getStarNameRegisterDomainExpireTime()));
 

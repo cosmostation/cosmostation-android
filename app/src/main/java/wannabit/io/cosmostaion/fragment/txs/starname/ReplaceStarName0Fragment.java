@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.starname;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.starname.ReplaceStarNameActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
+import wannabit.io.cosmostaion.dialog.StarnameResourceDialog;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
@@ -39,14 +40,12 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
     private RecyclerView mRecyclerView;
 
     private ResourceAdapter mResourceAdapter;
-    public ArrayList<Types.Resource> mResources = new ArrayList();
+    public ArrayList<Types.Resource> mResources = new ArrayList<>();
 
     public static String STARNAME       = "asset:iov";
 
-    public static ReplaceStarName0Fragment newInstance(Bundle bundle) {
-        ReplaceStarName0Fragment fragment = new ReplaceStarName0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ReplaceStarName0Fragment newInstance() {
+        return new ReplaceStarName0Fragment();
     }
 
     @Override
@@ -68,7 +67,6 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
 
         mResourceAdapter = new ResourceAdapter();
         mRecyclerView.setAdapter(mResourceAdapter);
-
         return rootView;
     }
 
@@ -138,7 +136,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
                 }
                 mResourceAdapter.notifyDataSetChanged();
 
-            } catch (Exception e) {}
+            } catch (Exception e) { }
         }
     }
 
@@ -159,7 +157,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, @SuppressLint("RecyclerView") int position) {
             if (getItemViewType(position) == TYPE_RESOURCE) {
                 final Types.Resource resource = mResources.get(position);
                 final ResourceHolder holder = (ResourceHolder)viewHolder;
@@ -194,7 +192,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
                         Bundle bundle = new Bundle();
                         StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
                         bundle.putSerializable("resources", wrapper);
-                        Dialog_StarName_Resource dialog = Dialog_StarName_Resource.newInstance(bundle);
+                        StarnameResourceDialog dialog = StarnameResourceDialog.newInstance(bundle);
                         dialog.setTargetFragment(ReplaceStarName0Fragment.this, SELECT_ADD_CHAIN);
                         dialog.show(getFragmentManager(), "dialog");
                     }
@@ -223,8 +221,6 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
                 }
             }
         }
-
-
 
         public class ResourceAddHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;

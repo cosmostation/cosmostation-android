@@ -22,10 +22,8 @@ public class RenewStarName0Fragment extends BaseFragment implements View.OnClick
     private Button mCancelBtn, mConfirmBtn;
     private TextView mStarName, mCurrentExpireTime, mToExpireTime, mStarnameFeeAmount;
 
-    public static RenewStarName0Fragment newInstance(Bundle bundle) {
-        RenewStarName0Fragment fragment = new RenewStarName0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RenewStarName0Fragment newInstance() {
+        return new RenewStarName0Fragment();
     }
 
     @Override
@@ -71,6 +69,5 @@ public class RenewStarName0Fragment extends BaseFragment implements View.OnClick
         } else if (v.equals(mConfirmBtn)) {
             getSActivity().onNextStep();
         }
-
     }
 }

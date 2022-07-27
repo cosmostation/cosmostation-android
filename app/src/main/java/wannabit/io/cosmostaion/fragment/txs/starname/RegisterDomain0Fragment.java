@@ -43,10 +43,8 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
     private TextView mDomainValid, mDomainType, mTypeDescription;
     private SwitchCompat mTypeSwitch;
 
-    public static RegisterDomain0Fragment newInstance(Bundle bundle) {
-        RegisterDomain0Fragment fragment = new RegisterDomain0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RegisterDomain0Fragment newInstance() {
+        return new RegisterDomain0Fragment();
     }
 
     @Override
@@ -136,7 +134,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_domain_format, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal available = getBaseDao().getAvailable(getSActivity().mChainConfig.mainDenom());
             BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_REGISTER_DOMAIN, 0);
             if (available.compareTo(starNameFee.add(txFee)) < 0) {

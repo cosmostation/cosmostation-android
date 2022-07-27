@@ -13,11 +13,9 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.starname.ReNewStarNameActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 
 public class RenewStarName3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -25,10 +23,8 @@ public class RenewStarName3Fragment extends BaseFragment implements View.OnClick
     private TextView mFeeAmount, mStarnameFeeAmount;
     private TextView mStarName, mCurrentExpireTime, mToExpireTime, mMemo;
 
-    public static RenewStarName3Fragment newInstance(Bundle bundle) {
-        RenewStarName3Fragment fragment = new RenewStarName3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RenewStarName3Fragment newInstance() {
+        return new RenewStarName3Fragment();
     }
 
     @Override
@@ -54,14 +50,10 @@ public class RenewStarName3Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onRefreshTab() {
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-
-        if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-        }
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
 
         BigDecimal starnameFee = BigDecimal.ZERO;
-        if (getSActivity().mRenewType.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
+        if (getSActivity().mRenewType.equals(BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN)) {
             mStarName.setText( "*" + getSActivity().mStarNameDomain);
             starnameFee = getBaseDao().getStarNameRenewDomainFee(getSActivity().mStarNameDomain, getSActivity().mStarNameDomainType);
         } else {

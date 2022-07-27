@@ -13,20 +13,17 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.starname.DeleteStarNameActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
 
 public class DeleteStarName3Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mFeeAmount, mStarName, mExpireTime, mMemo;
 
-    public static DeleteStarName3Fragment newInstance(Bundle bundle) {
-        DeleteStarName3Fragment fragment = new DeleteStarName3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DeleteStarName3Fragment newInstance() {
+        return new DeleteStarName3Fragment();
     }
 
     @Override
@@ -51,10 +48,9 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
 
-        if (getSActivity().mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
+        if (getSActivity().mStarNameDomainType.equals(BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN)) {
             mStarName.setText( "*" + getSActivity().mStarNameDomain);
         } else {
             mStarName.setText(getSActivity().mStarNameAccount + "*" + getSActivity().mStarNameDomain);
@@ -62,7 +58,6 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
         mExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mValidTime * 1000));
         mMemo.setText(getSActivity().mTxMemo);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -73,7 +68,6 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
             getSActivity().onDeleteStarName();
         }
     }
-
 
     private DeleteStarNameActivity getSActivity() {
         return (DeleteStarNameActivity)getBaseActivity();

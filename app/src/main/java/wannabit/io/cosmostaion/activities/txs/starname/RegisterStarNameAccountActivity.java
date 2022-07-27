@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.RegisterAccount0Fragment;
@@ -64,6 +65,7 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_REGISTER_ACCOUNT;
 
         mPageAdapter = new RegisterAccountPageAdapter(getSupportFragmentManager());
@@ -159,7 +161,7 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
 
     public void onStartRegAccount() {
         Intent intent = new Intent(RegisterStarNameAccountActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REGISTER_ACCOUNT);
+        intent.putExtra(CONST_PW_PURPOSE, mTxType);
         intent.putExtra("domain", mStarNameDomain);
         intent.putExtra("name", mStarNameAccount);
         StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mStarNameResources);
@@ -170,7 +172,6 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-
     private class RegisterAccountPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
@@ -179,11 +180,11 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
         public RegisterAccountPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(RegisterAccount0Fragment.newInstance(null));
-            mFragments.add(RegisterAccount1Fragment.newInstance(null));
+            mFragments.add(RegisterAccount0Fragment.newInstance());
+            mFragments.add(RegisterAccount1Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(RegisterAccount4Fragment.newInstance(null));
+            mFragments.add(RegisterAccount4Fragment.newInstance());
         }
 
         @Override

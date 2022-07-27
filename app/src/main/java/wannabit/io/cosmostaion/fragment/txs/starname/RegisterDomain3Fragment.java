@@ -22,10 +22,8 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
     private TextView mFeeAmount, mStarnameFeeAmount;
     private TextView mDomain, mExpireTime, mDomainType, mMemo;
 
-    public static RegisterDomain3Fragment newInstance(Bundle bundle) {
-        RegisterDomain3Fragment fragment = new RegisterDomain3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RegisterDomain3Fragment newInstance() {
+        return new RegisterDomain3Fragment();
     }
 
     @Override
@@ -52,9 +50,8 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onRefreshTab() {
         BigDecimal starnameFeeAmount = getBaseDao().getStarNameRegisterDomainFee(getSActivity().mStarNameDomain, getSActivity().mStarNameDomainType);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
         mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starnameFeeAmount, 6, 6));
         mExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getStarNameRegisterDomainExpireTime()));
 

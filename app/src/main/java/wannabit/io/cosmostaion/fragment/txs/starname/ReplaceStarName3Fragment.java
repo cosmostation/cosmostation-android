@@ -23,10 +23,8 @@ public class ReplaceStarName3Fragment extends BaseFragment implements View.OnCli
     private TextView mFeeAmount, mStarnameFeeAmount;
     private TextView mStarName, mExpireTime, mAddresses, mMemo;
 
-    public static ReplaceStarName3Fragment newInstance(Bundle bundle) {
-        ReplaceStarName3Fragment fragment = new ReplaceStarName3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ReplaceStarName3Fragment newInstance() {
+        return new ReplaceStarName3Fragment();
     }
 
     @Override
@@ -53,9 +51,8 @@ public class ReplaceStarName3Fragment extends BaseFragment implements View.OnCli
     @Override
     public void onRefreshTab() {
         BigDecimal starNameFee = getBaseDao().getReplaceFee();
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
         mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
         mExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mAccountResolve_gRPC.getValidUntil() * 1000));
 
@@ -83,7 +80,6 @@ public class ReplaceStarName3Fragment extends BaseFragment implements View.OnCli
             getSActivity().onStartReplaceResource();
         }
     }
-
 
     private ReplaceStarNameActivity getSActivity() {
         return (ReplaceStarNameActivity)getBaseActivity();

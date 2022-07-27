@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment.txs.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,13 +28,10 @@ import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Starname_Domain;
+import wannabit.io.cosmostaion.dialog.StarnameDomainDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class RegisterAccount0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int             SELECT_POPUP_STARNAME_DOMAIN = 1000;
@@ -43,10 +43,8 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     private TextView mSelectDomain;
     private String mSelectedDomain = "iov";
 
-    public static RegisterAccount0Fragment newInstance(Bundle bundle) {
-        RegisterAccount0Fragment fragment = new RegisterAccount0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RegisterAccount0Fragment newInstance() {
+        return new RegisterAccount0Fragment();
     }
 
     @Override
@@ -83,7 +81,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
         if (v.equals(mDomainLayer)) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
-            Dialog_Starname_Domain dialog = Dialog_Starname_Domain.newInstance(bundle);
+            StarnameDomainDialog dialog = StarnameDomainDialog.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_STARNAME_DOMAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -97,7 +95,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_account_format, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal available = getBaseDao().getAvailable(getSActivity().mChainConfig.mainDenom());
             BigDecimal starNameFee = getBaseDao().getStarNameRegisterAccountFee("open");
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_REGISTER_ACCOUNT, 0);
             if (available.compareTo(starNameFee.add(txFee)) < 0) {

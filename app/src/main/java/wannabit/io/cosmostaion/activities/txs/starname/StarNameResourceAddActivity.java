@@ -25,10 +25,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.Dialog_Wallet_for_Starname;
+import wannabit.io.cosmostaion.dialog.WalletStarnameDialog;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class StarNameResourceAddActivity extends BaseActivity implements View.OnClickListener {
 
@@ -46,7 +45,6 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_resource_add);
-
         mCancel  = findViewById(R.id.btn_cancel);
         mConfirm  = findViewById(R.id.btn_confirm);
         mWallet  = findViewById(R.id.btn_wallet);
@@ -132,7 +130,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
             Bundle bundle = new Bundle();
             if (mStarNameAsset != null) { bundle.putParcelable("asset", mStarNameAsset); }
             else if (mStarNameResource != null) { bundle.putString("chainUri", mStarNameResource.getUri()); }
-            Dialog_Wallet_for_Starname dialog = Dialog_Wallet_for_Starname.newInstance(bundle);
+            WalletStarnameDialog dialog = WalletStarnameDialog.newInstance(bundle);
             dialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
@@ -143,7 +141,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
 
         } else if (v.equals(mPaste)) {
             ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
                 if(TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
@@ -160,9 +158,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
 
     @Override
     public void onChoiceStarnameResourceAddress(String address) {
-        WLog.w("address " + address);
         mUserInput.setText(address);
-
     }
 
     @Override

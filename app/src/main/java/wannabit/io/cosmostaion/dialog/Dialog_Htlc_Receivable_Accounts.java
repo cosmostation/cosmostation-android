@@ -73,7 +73,7 @@ public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
         @NonNull
         @Override
         public AccountHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new AccountHolder(getLayoutInflater().inflate(R.layout.item_dialog_accountlist_account, viewGroup, false));
+            return new AccountHolder(getLayoutInflater().inflate(R.layout.item_dialog_account, viewGroup, false));
         }
 
         @Override

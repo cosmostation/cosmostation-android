@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/fee_title"
                         style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -44,12 +45,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:gravity="center"
+                        android:layout_toRightOf="@+id/fee_title"
+                        android:gravity="end"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tx_fee_amount"
-                            style="@style/font_ss_12_black_daynight"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -57,11 +59,12 @@
 
                         <TextView
                             android:id="@+id/tx_fee_denom"
-                            style="@style/font_ss_12_iov"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="IOV" />
+                            android:text="IOV"
+                            android:textColor="@color/color_starname"/>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -85,7 +88,7 @@
 
                         <TextView
                             android:id="@+id/starname_fee_amount"
-                            style="@style/font_ss_12_black_daynight"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -93,18 +96,19 @@
 
                         <TextView
                             android:id="@+id/starname_fee_denom"
-                            style="@style/font_ss_12_iov"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="IOV" />
+                            android:text="IOV"
+                            android:textColor="@color/color_starname"/>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:background="@color/colorGrayDayNight" />
 
             <TextView

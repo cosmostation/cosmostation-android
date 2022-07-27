@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_Htlc_Receive_Chain extends DialogFragment {
@@ -66,7 +65,7 @@ public class Dialog_Htlc_Receive_Chain extends DialogFragment {
         @NonNull
         @Override
         public DestinationChainHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new DestinationChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_ibc_receive_list, viewGroup, false));
+            return new DestinationChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_receive_chian, viewGroup, false));
         }
 
         @Override
