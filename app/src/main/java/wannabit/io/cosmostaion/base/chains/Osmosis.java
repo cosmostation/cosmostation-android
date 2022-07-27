@@ -28,7 +28,7 @@ public class Osmosis extends ChainConfig {
     public String addressPrefix() { return "osmo"; }
 
     public boolean pushSupport() { return false; }
-    public boolean dexSupport() { return false; }
+    public boolean dexSupport() { return true; }
     public boolean wcSupport() { return true; }
 
     public String grpcUrl() { return "lcd-osmosis-app-and.cosmostation.io"; }
