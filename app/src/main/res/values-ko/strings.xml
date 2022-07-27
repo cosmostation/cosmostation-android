@@ -781,6 +781,7 @@
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
     <string name="str_main_tokens">ASSETS</string>
+    <string name="str_main_dapp">DAPP</string>
     <string name="str_main_reward">REWARD</string>
     <string name="str_main_history">HISTORY</string>
     <string name="str_main_vote">VOTE</string>

@@ -7,14 +7,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PROFILE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,8 +50,8 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.fragment.DappFragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
@@ -102,41 +98,18 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         mPageAdapter = new MainViewPageAdapter(getSupportFragmentManager());
         mContentsPager.setPageTransformer(false, new FadePageTransformer());
-        mContentsPager.setOffscreenPageLimit(3);
+        mContentsPager.setOffscreenPageLimit(5);
         mContentsPager.setAdapter(mPageAdapter);
         mTabLayer.setupWithViewPager(mContentsPager);
         mTabLayer.setTabRippleColor(null);
 
-        View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView tabItemIcon0 = tab0.findViewById(R.id.tabItemIcon);
-        TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemIcon0.setImageResource(R.drawable.wallet_ic);
-        tabItemText0.setText(R.string.str_main_wallet);
-        mTabLayer.getTabAt(0).setCustomView(tab0);
-
-        View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView tabItemIcon1 = tab1.findViewById(R.id.tabItemIcon);
-        TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemIcon1.setImageResource(R.drawable.tokens_ic);
-        tabItemText1.setText(R.string.str_main_tokens);
-        mTabLayer.getTabAt(1).setCustomView(tab1);
-
-        View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView tabItemIcon2 = tab2.findViewById(R.id.tabItemIcon);
-        TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemIcon2.setImageResource(R.drawable.ts_ic);
-        tabItemText2.setText(R.string.str_main_history);
-        mTabLayer.getTabAt(2).setCustomView(tab2);
-
-        View tab3 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView tabItemIcon3 = tab3.findViewById(R.id.tabItemIcon);
-        TextView tabItemText3 = tab3.findViewById(R.id.tabItemText);
-        tabItemIcon3.setImageResource(R.drawable.setting_ic);
-        tabItemText3.setText(R.string.str_main_set);
-        mTabLayer.getTabAt(3).setCustomView(tab3);
+        createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
+        createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
+        createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
+        createTab(R.drawable.dapp_ic, R.string.str_main_dapp, 3);
+        createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
 
         mContentsPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -158,7 +131,15 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         });
 
         mContentsPager.setCurrentItem(getIntent().getIntExtra("page", 0), false);
+    }
 
+    private void createTab(int iconResourceId, int stringResourceId, int index) {
+        View tab = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
+        TintableImageView icon = tab.findViewById(R.id.tabItemIcon);
+        TextView titleText = tab.findViewById(R.id.tabItemText);
+        icon.setImageResource(iconResourceId);
+        titleText.setText(stringResourceId);
+        mTabLayer.getTabAt(index).setCustomView(tab);
     }
 
     @Override
@@ -392,6 +373,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFragments.add(MainSendFragment.newInstance(null));
             mFragments.add(MainTokensFragment.newInstance(null));
             mFragments.add(MainHistoryFragment.newInstance(null));
+            mFragments.add(DappFragment.newInstance(null));
             mFragments.add(MainSettingFragment.newInstance(null));
         }
 
@@ -424,8 +406,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == CONST_PW_SIMPLE_CHECK && resultCode == RESULT_OK && !TextUtils.isEmpty(data.getStringExtra("wcUrl"))) {
-            Intent wIntent = null;
+        if (requestCode == CONST_PW_SIMPLE_CHECK && resultCode == RESULT_OK && data != null && !TextUtils.isEmpty(data.getStringExtra("wcUrl"))) {
+            Intent wIntent;
             if (mBaseChain.equals(BNB_MAIN)) {
                 wIntent = new Intent(this, WalletConnectActivity.class);
             } else {

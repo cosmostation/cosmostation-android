@@ -2630,15 +2630,6 @@ public class WUtil {
         } else if (chain.equals(SIF_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_sifdex), null, null, null);
             dexTitle.setText(R.string.str_sif_dex_title);
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_osmosislab), null, null, null);
-            dexTitle.setText(R.string.str_osmosis_defi_lab);
-        } else if (chain.equals(STATION_TEST)) {
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.connect_ic), null, null, null);
-            dexTitle.setText("Cosmostation Dapps");
-        } else if (chain.equals(CRESCENT_MAIN)) {
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_crescentapp), null, null, null);
-            dexTitle.setText(R.string.str_crescent_app);
         } else if (chain.equals(DESMOS_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_profile), null, null, null);
             dexTitle.setText(R.string.str_desmos_airdrop);
@@ -2656,10 +2647,6 @@ public class WUtil {
             return new Intent(mainActivity, SifDexListActivity.class);
         } else if (chain.equals(OSMOSIS_MAIN)) {
             return new Intent(mainActivity, LabsListActivity.class);
-        } else if (chain.equals(CRESCENT_MAIN)) {
-            return new Intent(mainActivity, ConnectWalletActivity.class).putExtra(ConnectWalletActivity.INTENT_KEY_DAPP_URL, "https://wc.dev.cosmostation.io");
-        } else if (chain.equals(STATION_TEST)) {
-            return new Intent(mainActivity, ConnectWalletActivity.class).putExtra(ConnectWalletActivity.INTENT_KEY_DAPP_URL, "https://dapps.cosmostation.io");
         } else {
             return null;
         }
