@@ -214,10 +214,10 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
         public ReplaceStarNamePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ReplaceStarName0Fragment.newInstance(null));
+            mFragments.add(ReplaceStarName0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(ReplaceStarName3Fragment.newInstance(null));
+            mFragments.add(ReplaceStarName3Fragment.newInstance());
         }
 
         @Override

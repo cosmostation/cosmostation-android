@@ -189,10 +189,10 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
         public DeleteStarNamePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(DeleteStarName0Fragment.newInstance(null));
+            mFragments.add(DeleteStarName0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(DeleteStarName3Fragment.newInstance(null));
+            mFragments.add(DeleteStarName3Fragment.newInstance());
         }
 
         @Override

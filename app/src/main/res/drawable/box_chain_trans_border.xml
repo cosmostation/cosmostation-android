@@ -25,7 +25,7 @@
                         android:radius="@dimen/space_6"/>
                     <stroke
                         android:color="@color/colorGray5"
-                        android:width="@dimen/space_1"/>
+                        android:width="@dimen/space_view"/>
                 </shape>
             </item>
         </selector>

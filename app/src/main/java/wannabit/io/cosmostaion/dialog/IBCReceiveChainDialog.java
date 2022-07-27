@@ -74,7 +74,7 @@ public class IBCReceiveChainDialog extends DialogFragment {
         @NonNull
         @Override
         public RelayerListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new RelayerListHolder(getLayoutInflater().inflate(R.layout.item_dialog_ibc_receive_list, viewGroup, false));
+            return new RelayerListHolder(getLayoutInflater().inflate(R.layout.item_dialog_receive_chian, viewGroup, false));
         }
 
         @Override

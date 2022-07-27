@@ -35,12 +35,10 @@ import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcAccountTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class StarNameListActivity extends BaseActivity implements TaskListener {
 
     private Toolbar                     mToolbar;
-    private TextView                    mToolbarTitle;
     private ViewPager                   mNameServicePager;
     private TabLayout                   mNameServiceTapLayer;
     private StarNamePageAdapter         mPageAdapter;
@@ -55,7 +53,6 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_list);
         mToolbar = findViewById(R.id.tool_bar);
-        mToolbarTitle = findViewById(R.id.toolbar_title);
         mNameServiceTapLayer = findViewById(R.id.name_service_tab);
         mNameServicePager = findViewById(R.id.name_service_view_pager);
 
@@ -70,7 +67,6 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
@@ -169,9 +165,6 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         if (mTaskCount == 0) {
             onHideWaitDialog();
             mPageAdapter.getCurrentFragment().onRefreshTab();
-            WLog.w("mAccounts_gRPC " + mAccounts_gRPC.size());
-            WLog.w("mDomains_gRPC " + mDomains_gRPC.size());
-            WLog.w("mDomainResolves_gRPC " + mDomainResolves_gRPC.size());
         }
     }
 
@@ -183,8 +176,8 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         public StarNamePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(MyDomainFragment.newInstance(null));
-            mFragments.add(MyAccountFragment.newInstance(null));
+            mFragments.add(MyDomainFragment.newInstance());
+            mFragments.add(MyAccountFragment.newInstance());
         }
 
         @Override

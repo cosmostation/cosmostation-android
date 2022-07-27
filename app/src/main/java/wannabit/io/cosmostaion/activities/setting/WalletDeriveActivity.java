@@ -252,9 +252,9 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 holder.accountDimLayer.setAlpha(0.5f);
             } else {
                 if (derive.selected) {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_selected));
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
                 } else {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_unselected));
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                 }
                 holder.accountDimLayer.setVisibility(View.GONE);
                 holder.accountState.setText("");
@@ -268,9 +268,9 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     }
                     derive.selected = !derive.selected;
                     if (derive.selected) {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_selected));
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
                     } else {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_unselected));
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                     }
                     onUpdateCnt();
                 }

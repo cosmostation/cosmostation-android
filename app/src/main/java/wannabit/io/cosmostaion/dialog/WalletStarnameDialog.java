@@ -9,10 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,12 +24,15 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Wallet_for_Starname extends DialogFragment {
+public class WalletStarnameDialog extends DialogFragment {
 
+    private ConstraintLayout mDialogLayout;
     private RecyclerView mRecyclerView;
     private WalletForStarNameAdapter mAdapter;
     private TextView mDialogTitle;
@@ -36,8 +40,8 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
     private String mUri;
     private ArrayList<Account> mWalletList = new ArrayList<>();
 
-    public static Dialog_Wallet_for_Starname newInstance(Bundle bundle) {
-        Dialog_Wallet_for_Starname frag = new Dialog_Wallet_for_Starname();
+    public static WalletStarnameDialog newInstance(Bundle bundle) {
+        WalletStarnameDialog frag = new WalletStarnameDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -58,13 +62,17 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
             mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(StarnameAssets.getStarNameGetChain(mUri)));
         }
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_wallet_for_address);
         mRecyclerView = view.findViewById(R.id.recycler);
+
+        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
+        mDialogTitle.setText(R.string.str_select_wallet_for_address);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new WalletForStarNameAdapter();
         mRecyclerView.setAdapter(mAdapter);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
@@ -74,19 +82,23 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
         @NonNull
         @Override
         public WalletForStarNameHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new WalletForStarNameHolder(getLayoutInflater().inflate(R.layout.item_dialog_wallet_for_starname, viewGroup, false));
+            return new WalletForStarNameHolder(getLayoutInflater().inflate(R.layout.item_dialog_account, viewGroup, false));
 
         }
 
         @Override
         public void onBindViewHolder(@NonNull WalletForStarNameHolder holder, int position) {
             final Account account = mWalletList.get(position);
-            WDp.DpMainDenom(getSActivity(), account.baseChain, holder.accountDenom);
+            final BaseChain baseChain = BaseChain.getChain(account.baseChain);
+            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
             holder.accountAddress.setText(account.address);
-            holder.accountAvailable.setText(account.getLastTotal(getSActivity(), BaseChain.getChain(account.baseChain)));
+            holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
+
             holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             if (account.hasPrivateKey) {
-                holder.accountKeyState.setColorFilter(WDp.getChainColor(getSActivity(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.accountKeyState.setImageResource(R.drawable.key_off);
+                holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
             } else {
                 holder.accountKeyState.setImageResource(R.drawable.watchmode);
                 holder.accountKeyState.setColorFilter(null);
@@ -97,7 +109,7 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
             } else {
                 holder.accountName.setText(account.nickName);
             }
-            holder.accountContent.setOnClickListener(new View.OnClickListener() {
+            holder.accountlayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((BaseActivity) getActivity()).onChoiceStarnameResourceAddress(account.address);
@@ -113,14 +125,13 @@ public class Dialog_Wallet_for_Starname extends DialogFragment {
         }
 
         public class WalletForStarNameHolder extends RecyclerView.ViewHolder {
-            LinearLayout accountContent;
-            ImageView accountArrowSort, accountKeyState;
+            RelativeLayout accountlayer;
+            ImageView accountKeyState;
             TextView accountName, accountAddress, accountAvailable, accountDenom;
 
             public WalletForStarNameHolder(@NonNull View itemView) {
                 super(itemView);
-                accountArrowSort = itemView.findViewById(R.id.accountArrowSort);
-                accountContent = itemView.findViewById(R.id.accountContent);
+                accountlayer = itemView.findViewById(R.id.rootLayer);
                 accountKeyState = itemView.findViewById(R.id.accountKeyState);
                 accountName = itemView.findViewById(R.id.accountName);
                 accountAddress = itemView.findViewById(R.id.accountAddress);

@@ -23,7 +23,7 @@
             android:id="@+id/domainName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_4"
+            android:layout_marginLeft="@dimen/space_10"
             style="@style/font_ssm_14_black_daynight"
             android:singleLine="true"/>
     </LinearLayout>

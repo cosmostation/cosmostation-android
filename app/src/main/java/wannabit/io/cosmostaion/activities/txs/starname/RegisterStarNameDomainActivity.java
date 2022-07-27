@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.RegisterDomain0Fragment;
@@ -62,6 +63,7 @@ public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_REGISTER_DOMAIN;
 
         mPageAdapter = new RegisterDomainPageAdapter(getSupportFragmentManager());
@@ -153,7 +155,7 @@ public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
 
     public void onStartRegDomain() {
         Intent intent = new Intent(RegisterStarNameDomainActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REGISTER_DOMAIN);
+        intent.putExtra(CONST_PW_PURPOSE, mTxType);
         intent.putExtra("domain", mStarNameDomain);
         intent.putExtra("domainType", mStarNameDomainType);
         intent.putExtra("memo", mTxMemo);
@@ -170,10 +172,10 @@ public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
         public RegisterDomainPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(RegisterDomain0Fragment.newInstance(null));
+            mFragments.add(RegisterDomain0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(RegisterDomain3Fragment.newInstance(null));
+            mFragments.add(RegisterDomain3Fragment.newInstance());
         }
 
         @Override

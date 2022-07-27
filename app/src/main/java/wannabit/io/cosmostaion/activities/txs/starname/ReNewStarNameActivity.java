@@ -1,10 +1,5 @@
 package wannabit.io.cosmostaion.activities.txs.starname;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,6 +21,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
@@ -62,11 +58,11 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
         mStarNameAccount = getIntent().getStringExtra("ToRenewAccount");
         mValidTime = getIntent().getLongExtra("Time", -1);
 
-        if (mRenewType.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
-            mTxType = CONST_PW_TX_RENEW_DOMAIN;
+        if (mRenewType.equals(BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN)) {
+            mTxType = BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
             mTitle.setText(getString(R.string.str_renew_domain));
         } else {
-            mTxType = CONST_PW_TX_RENEW_ACCOUNT;
+            mTxType = BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
             mTitle.setText(getString(R.string.str_renew_account));
         }
 
@@ -168,10 +164,10 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
 
     public void onRenewStarName() {
         Intent intent = new Intent(ReNewStarNameActivity.this, PasswordCheckActivity.class);
-        if (mRenewType.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
-            intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_RENEW_DOMAIN);
+        if (mRenewType.equals(BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN)) {
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_RENEW_DOMAIN);
         } else {
-            intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_RENEW_ACCOUNT);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_RENEW_ACCOUNT);
         }
         intent.putExtra("domain", mStarNameDomain);
         intent.putExtra("name", mStarNameAccount);
@@ -189,10 +185,10 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
         public RenewStarNamePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(RenewStarName0Fragment.newInstance(null));
+            mFragments.add(RenewStarName0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(RenewStarName3Fragment.newInstance(null));
+            mFragments.add(RenewStarName3Fragment.newInstance());
         }
 
         @Override

@@ -113,7 +113,7 @@ import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Wait;
+import wannabit.io.cosmostaion.dialog.WaitDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
@@ -173,7 +173,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     protected BaseApplication mApplication;
     protected BaseData mData;
-    protected Dialog_Wait mDialogWait;
+    protected WaitDialog mDialogWait;
     protected boolean mNeedLeaveTime = true;
 
     public View mRootview;
@@ -244,7 +244,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowWaitDialog() {
         if (mDialogWait == null) {
-            mDialogWait = new Dialog_Wait();
+            mDialogWait = new WaitDialog();
         }
         if (getSupportFragmentManager().findFragmentByTag("wait") != null && getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
             return;

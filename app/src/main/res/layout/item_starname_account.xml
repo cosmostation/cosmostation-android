@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_ssl_11_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
 
@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_ssl_11_black_daynight"
                         android:text="-"/>
                 </RelativeLayout>
 

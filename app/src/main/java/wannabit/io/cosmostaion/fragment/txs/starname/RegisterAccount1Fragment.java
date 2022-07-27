@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.starname;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
+import wannabit.io.cosmostaion.dialog.StarnameResourceDialog;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
@@ -43,10 +44,8 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
 
     public static String STARNAME       = "asset:iov";
 
-    public static RegisterAccount1Fragment newInstance(Bundle bundle) {
-        RegisterAccount1Fragment fragment = new RegisterAccount1Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RegisterAccount1Fragment newInstance() {
+        return new RegisterAccount1Fragment();
     }
 
     @Override
@@ -157,7 +156,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, @SuppressLint("RecyclerView") int position) {
             if (getItemViewType(position) == TYPE_RESOURCE) {
                 final Types.Resource resource = mResources.get(position);
                 final ResourceHolder holder = (ResourceHolder)viewHolder;
@@ -193,7 +192,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                         Bundle bundle = new Bundle();
                         StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
                         bundle.putSerializable("resources", wrapper);
-                        Dialog_StarName_Resource dialog = Dialog_StarName_Resource.newInstance(bundle);
+                        StarnameResourceDialog dialog = StarnameResourceDialog.newInstance(bundle);
                         dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_CHAIN);
                         dialog.show(getFragmentManager(), "dialog");
                     }

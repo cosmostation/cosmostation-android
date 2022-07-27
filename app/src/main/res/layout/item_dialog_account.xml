@@ -19,7 +19,10 @@
         android:layout_centerVertical="true"
         android:background="@drawable/box_chain_trans_border"
         android:gravity="center_vertical"
-        android:padding="@dimen/space_4"
+        android:paddingBottom="@dimen/space_2"
+        android:paddingTop="@dimen/space_2"
+        android:paddingRight="@dimen/space_4"
+        android:paddingLeft="@dimen/space_4"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -65,8 +68,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_4"
-            android:layout_marginBottom="@dimen/space_4"
+            android:layout_marginBottom="@dimen/space_2"
             android:gravity="right"
             android:orientation="horizontal">
 
@@ -80,12 +82,12 @@
 
             <TextView
                 android:id="@+id/accountDenom"
-                style="@style/font_ss_11_atom"
+                style="@style/font_ss_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_2"
                 android:layout_marginRight="@dimen/space_4"
-                android:text="@string/s_atom" />
+                android:text="-" />
         </LinearLayout>
 
     </LinearLayout>

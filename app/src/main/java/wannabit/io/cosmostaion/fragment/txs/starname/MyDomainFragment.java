@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.fragment.txs.starname;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import wannabit.io.cosmostaion.activities.txs.starname.RegisterStarNameDomainAct
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameDomainDetailActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class MyDomainFragment extends BaseFragment implements View.OnClickListener {
@@ -37,10 +35,8 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
     private MyDomainAdapter mMyDomainAdapter;
     public ArrayList<Types.Domain> mDomains_gRPC = new ArrayList<>();
 
-    public static MyDomainFragment newInstance(Bundle bundle) {
-        MyDomainFragment fragment = new MyDomainFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static MyDomainFragment newInstance() {
+        return new MyDomainFragment();
     }
 
     @Override
@@ -92,9 +88,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         if (v.equals(mRegisterDomain)) {
             if (!getSActivity().mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> getSActivity().onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
+                getSActivity().onInsertKeyDialog();
                 return;
             }
 
@@ -103,11 +97,9 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
-
     private class MyDomainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_MY_DOMAIN = 1;
         private static final int TYPE_PROMOTION = 2;
-
 
         @NonNull
         @Override
