@@ -1,15 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,33 +11,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.chains.Kava;
+import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Htlc_Send_Coin extends DialogFragment {
+public class HtlcSendCoinDialog extends DialogFragment {
 
+    private ConstraintLayout mDialogLayout;
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private ToSwapCoinListAdapter mToSwapCoinListAdapter;
     private BaseChain mBaseChain;
     private ArrayList<String> mSwappableCoinList;
 
-    public static Dialog_Htlc_Send_Coin newInstance(Bundle bundle) {
-        Dialog_Htlc_Send_Coin frag = new Dialog_Htlc_Send_Coin();
+    public static HtlcSendCoinDialog newInstance(Bundle bundle) {
+        HtlcSendCoinDialog frag = new HtlcSendCoinDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -61,23 +52,25 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_to_send_coin);
         mRecyclerView = view.findViewById(R.id.recycler);
         mBaseChain = BaseChain.getChain(getArguments().getString("chainName"));
         mSwappableCoinList = BaseChain.getHtlcSwappableCoin(mBaseChain);
+
+        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
+        mDialogTitle.setText(R.string.str_select_to_send_coin);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mToSwapCoinListAdapter = new ToSwapCoinListAdapter();
         mRecyclerView.setAdapter(mToSwapCoinListAdapter);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
     }
 
-
     private class ToSwapCoinListAdapter extends RecyclerView.Adapter<ToSwapCoinListAdapter.ToSwapCoinHolder> {
-
 
         @NonNull
         @Override
@@ -90,59 +83,22 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
         public void onBindViewHolder(@NonNull ToSwapCoinHolder holder, @SuppressLint("RecyclerView") int position) {
             final String tosendCoin = mSwappableCoinList.get(position);
             if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BNB)) {
-                    holder.coinImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.token_binance));
-                    holder.coinName.setText(getString(R.string.str_bnb_c));
-                } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BTCB)) {
-                    holder.coinName.setText("BTC");
-                    try {
-                        Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BTCB.png").into(holder.coinImg);
-                    } catch (Exception e) {
-                    }
-
-                } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_XRPB)) {
-                    holder.coinName.setText("XRP");
-                    try {
-                        Picasso.get().load(BINANCE_TOKEN_IMG_URL + "XRP.png").into(holder.coinImg);
-                    } catch (Exception e) {
-                    }
-
-                } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BUSD)) {
-                    holder.coinName.setText("BUSD");
-                    try {
-                        Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BUSD.png").into(holder.coinImg);
-                    } catch (Exception e) {
-                    }
-
+                if (tosendCoin.equals(BaseConstant.TOKEN_HTLC_BINANCE_BNB)) {
+                    holder.coinImg.setImageResource(getSActivity().mChainConfig.mainDenomImg());
+                    holder.coinName.setText("BNB");
+                } else {
+                    WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, tosendCoin, holder.coinImg);
+                    WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, tosendCoin, holder.coinName);
                 }
 
             } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                if (tosendCoin.equals(TOKEN_HTLC_KAVA_BNB)) {
-                    holder.coinImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.bnb_on_kava));
-                    holder.coinName.setText(getString(R.string.str_bnb_c));
-                } else if (tosendCoin.equals(TOKEN_HTLC_KAVA_BTCB)) {
-                    holder.coinName.setText("BTC");
-                    try {
-                        Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "btcb.png").into(holder.coinImg);
-                    } catch (Exception e) {
-                    }
-
-                } else if (tosendCoin.equals(TOKEN_HTLC_KAVA_XRPB)) {
-                    holder.coinName.setText("XRP");
-                    try {
-                        Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "xrpb.png").into(holder.coinImg);
-                    } catch (Exception e) {
-                    }
-
-                } else if (tosendCoin.equals(TOKEN_HTLC_KAVA_BUSD)) {
-                    holder.coinName.setText("BUSD");
-                    try {
-                        Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "busd.png").into(holder.coinImg);
-                    } catch (Exception e) {
-                    }
-
+                if (tosendCoin.equals(BaseConstant.TOKEN_HTLC_KAVA_BNB)) {
+                    holder.coinImg.setImageResource(R.drawable.bnb_on_kava);
+                    holder.coinName.setText("BNB");
+                } else {
+                    WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, tosendCoin, holder.coinImg);
+                    WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, tosendCoin, holder.coinName);
                 }
-
             }
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +118,7 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
         }
 
         public class ToSwapCoinHolder extends RecyclerView.ViewHolder {
-            RelativeLayout rootLayer;
+            LinearLayout rootLayer;
             ImageView coinImg;
             TextView coinName;
 
@@ -173,5 +129,9 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
                 coinName = itemView.findViewById(R.id.coinName);
             }
         }
+    }
+
+    private BaseActivity getSActivity() {
+        return (BaseActivity) getActivity();
     }
 }

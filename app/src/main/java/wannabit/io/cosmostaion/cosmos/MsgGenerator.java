@@ -20,12 +20,9 @@ import android.util.Base64;
 
 import com.binance.dex.api.client.domain.broadcast.HtltReq;
 import com.binance.dex.api.client.encoding.message.Token;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import org.bitcoinj.core.ECKey;
@@ -89,19 +86,6 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genRefundAtomicSwap(String from, String swapId, BaseChain chain) {
-        Msg result = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN)) {
-            value.from = from;
-            value.swap_id = swapId.toUpperCase();
-            result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
-            result.value = value;
-
-        }
-        return result;
-    }
-
     public static HtltReq getBnbHtlcCreateMsg(BaseChain fromChain, BaseChain toChain, Account fromAccount, Account toAccount, ArrayList<Coin> sendCoins, long timestamp, byte[] originData) {
         HtltReq htltReq = new HtltReq();
         Coin toSendCoin = sendCoins.get(0);
@@ -142,16 +126,6 @@ public class MsgGenerator {
         }
 
         return htltReq;
-    }
-
-    public static Msg genClaimHardLiquidityProviderMsg(String sender, String multiplierName) {
-        Msg result = new Msg();
-        Msg.Value value = new Msg.Value();
-        value.sender = sender;
-        value.multiplier_name = multiplierName;
-        result.type = BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
-        result.value = value;
-        return result;
     }
 
     public static Msg genOkDeposit(String delegator, Coin coin) {

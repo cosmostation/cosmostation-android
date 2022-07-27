@@ -955,7 +955,7 @@
     <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
     <string name="str_vesting_amount">잠긴수량 (위임만 가능)</string>
     <string name="str_htlc_warn_title">BEP3 스왑에 관해서</string>
-    <string name="str_htlc_warn_msg">BEP3 전송은 전환을 원하는 각 체인의 네트워크와 릴레이어가 처리합니다. 코스모스테이션은 BEP3 전송을 중계하지만 해당 네트워크의 안정성과 전송에 대한 성공을 보장하지 않습니다. 전송 실패 시 해당 네트워크 커뮤니티 채널에 문의하세요. \n\nBEP3 전송 실패 시 해당 트랜잭션 내역에 활성화된 [Refund] 기능을 통해 코인을 전액 반환할 수 있습니다.\n\n</string>
+    <string name="str_htlc_warn_msg">BEP3 전송은 전환을 원하는 각 체인의 네트워크와 릴레이어가 처리합니다. 코스모스테이션은 BEP3 전송을 중계하지만 해당 네트워크의 안정성과 전송에 대한 성공을 보장하지 않습니다. 전송 실패 시 해당 네트워크 커뮤니티 채널에 문의하세요.\n</string>
     <string name="str_cdp_warn_title">CDP에 관해서</string>
     <string name="str_cdp_warn_msg">CDP는 담보물의 가치변동에 따라 청산의 위험이 있습니다. CDP 개설, 상환, 청산을 포함한 모든 결정 권한과 책임은 사용자에게 있습니다. Cosmostation 지갑은 청산과 청산 위험에 대한 알람은 별도로 제공되지 않습니다.</string>
     <string name="str_delegate_warn_title">위임에 관해서</string>

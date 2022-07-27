@@ -1,13 +1,5 @@
 package wannabit.io.cosmostaion.widget.tokenDetail;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -26,6 +18,8 @@ import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
@@ -35,7 +29,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenDetailSupportHolder extends BaseHolder {
-    private CardView            mAmountView;
     private TextView            mTvTotal;
     private TextView            mTvAvailable;
     private RelativeLayout      mLockedLayout;
@@ -61,7 +54,6 @@ public class TokenDetailSupportHolder extends BaseHolder {
 
     public TokenDetailSupportHolder(@NonNull View itemView) {
         super(itemView);
-        mAmountView         = itemView.findViewById(R.id.card_root);
         mTvTotal            = itemView.findViewById(R.id.total_amount);
         mTvAvailable        = itemView.findViewById(R.id.available_amount);
         mLockedLayout       = itemView.findViewById(R.id.locked_layout);
@@ -82,55 +74,28 @@ public class TokenDetailSupportHolder extends BaseHolder {
         mNftRawData         = itemView.findViewById(R.id.nft_raw_data);
     }
 
-    public void onBindNativeTokengRPC(Context c, BaseChain baseChain, BaseData baseData, String denom) {
-        if (baseChain.equals(BaseChain.KAVA_MAIN)) {
-            dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
-            mAvailableAmount = baseData.getAvailable(denom);
+    public void onBindNativeTokengRPC(Context c, ChainConfig chainConfig, BaseData baseData, String denom) {
+        dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
+        mAvailableAmount = baseData.getAvailable(denom);
+        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+
+        if (chainConfig.baseChain().equals(BaseChain.KAVA_MAIN)) {
             BigDecimal vestingAmount = baseData.getVesting(denom);
             mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
             if (vestingAmount.compareTo(BigDecimal.ZERO) > 0){
                 mVestingLayout.setVisibility(View.VISIBLE);
                 mTvVesting.setText(WDp.getDpAmount2(c, vestingAmount, dpDecimal, dpDecimal));
             }
         } else {
-            dpDecimal = 6;
-            mAvailableAmount = baseData.getAvailable(denom);
             mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
         }
     }
 
-    public void onBindPoolToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
-        if (baseChain.equals(CRESCENT_MAIN)) {
-            dpDecimal = 12;
-        } else {
-            dpDecimal = 18;
-        }
+    public void onBindPoolToken(Context c, ChainConfig chainConfig, BaseData baseData, String denom) {
+        dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
         mAvailableAmount = baseData.getAvailable(denom);
         mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
         mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-    }
-
-    public void onBindKavaToken(Context c, BaseData baseData, String denom) {
-        dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
-        mAvailableAmount = baseData.availableAmount(denom);
-        if (denom.equalsIgnoreCase(TOKEN_HARD)) {
-            mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBghard));
-        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
-            mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgusdx));
-        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
-            mAmountView.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgswp));
-        }
-
-        BigDecimal vestingAmount = baseData.lockedAmount(denom);
-        mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
-        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-        if (vestingAmount.compareTo(BigDecimal.ZERO) > 0){
-            mVestingLayout.setVisibility(View.VISIBLE);
-            mTvVesting.setText(WDp.getDpAmount2(c, vestingAmount, dpDecimal, dpDecimal));
-        }
-
     }
 
     public void onBindBNBTokens(Context c, BaseData baseData, String denom) {
@@ -149,7 +114,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindOKTokens(Context c, BaseData baseData, String denom) {
-        final OkToken okToken   = baseData.okToken(denom);
+        final OkToken okToken = baseData.okToken(denom);
         if (okToken != null) {
             mLockedLayout.setVisibility(View.VISIBLE);
         }
@@ -172,14 +137,14 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindNftInfo(Context c, BaseChain baseChain, QueryOuterClass.QueryNFTResponse irisResponse, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo, String denomId, String tokenId) {
-        if (baseChain.equals(IRIS_MAIN) && irisResponse != null) {
-            mNftInfo.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgIris));
+        final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+        mNftInfo.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
+        if (baseChain.equals(BaseChain.IRIS_MAIN) && irisResponse != null) {
             mNftName.setText(irisResponse.getNft().getName());
             mNftContent.setText(WUtil.getNftDescription(irisResponse.getNft().getData()));
             mNftIssuer.setText(WUtil.getNftIssuer(irisResponse.getNft().getData()));
 
-        } else if (baseChain.equals(CRYPTO_MAIN) && myCryptoNftInfo != null) {
-            mNftInfo.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgCryto));
+        } else if (baseChain.equals(BaseChain.CRYPTO_MAIN) && myCryptoNftInfo != null) {
             mNftName.setText(myCryptoNftInfo.getName());
             mNftContent.setText(WUtil.getNftDescription(myCryptoNftInfo.getData()));
             mNftIssuer.setText(myCryptoNftInfo.getOwner());
@@ -189,15 +154,15 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindNftRawData(Context c, BaseChain baseChain, QueryOuterClass.QueryNFTResponse irisResponse, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo) {
-        if (baseChain.equals(IRIS_MAIN) && irisResponse != null) {
-            mNftRawRoot.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgIris));
+        final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+        mNftRawRoot.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
+        if (baseChain.equals(BaseChain.IRIS_MAIN) && irisResponse != null) {
             if (irisResponse.getNft().getData().isEmpty()) {
                 mNftRawData.setText("");
             } else {
                 mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(irisResponse.getNft().getData())));
             }
-        } else if (baseChain.equals(CRYPTO_MAIN) && myCryptoNftInfo != null) {
-            mNftRawRoot.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBgCryto));
+        } else if (baseChain.equals(BaseChain.CRYPTO_MAIN) && myCryptoNftInfo != null) {
             if (myCryptoNftInfo.getData().isEmpty()) {
                 mNftRawData.setText("");
             } else {

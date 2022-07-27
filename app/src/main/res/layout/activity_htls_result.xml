@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
-                    android:layout_marginTop="@dimen/space_2"
+                    android:layout_marginTop="@dimen/space_6"
                     layout="@layout/layout_htlc_result_claim_card"/>
 
             </LinearLayout>

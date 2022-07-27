@@ -74,14 +74,14 @@ public class SwapCoinListDialog extends DialogFragment {
         @NonNull
         @Override
         public SwapChainListAdapter.SwapChainHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new SwapChainListAdapter.SwapChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_swap_chain, viewGroup, false));
+            return new SwapChainListAdapter.SwapChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_swap_coin, viewGroup, false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, @SuppressLint("RecyclerView") int position) {
             final String inputCoin = mSwapCoinList.get(position);
-            WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.chainImg);
-            WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.chainName);
+            WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.coinImg);
+            WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.coinName);
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -101,17 +101,16 @@ public class SwapCoinListDialog extends DialogFragment {
 
         public class SwapChainHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
-            ImageView chainImg;
-            TextView chainName;
+            ImageView coinImg;
+            TextView coinName;
 
             public SwapChainHolder(@NonNull View itemView) {
                 super(itemView);
                 rootLayer = itemView.findViewById(R.id.rootLayer);
-                chainImg = itemView.findViewById(R.id.chainImg);
-                chainName = itemView.findViewById(R.id.chainName);
+                coinImg = itemView.findViewById(R.id.coinImg);
+                coinName = itemView.findViewById(R.id.coinName);
             }
         }
-
     }
 
     private BaseActivity getSActivity() {

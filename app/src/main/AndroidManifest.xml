@@ -366,12 +366,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
-            android:name=".activities.txs.kava.HtlcRefundActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-
-        <activity
             android:name=".activities.WalletSwitchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

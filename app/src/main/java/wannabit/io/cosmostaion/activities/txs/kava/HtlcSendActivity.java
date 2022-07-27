@@ -29,6 +29,8 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.txs.kava.HtlcSendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.HtlcSendStep1Fragment;
@@ -63,6 +65,8 @@ public class HtlcSendActivity extends BaseActivity {
     public ResKavaBep3Param mKavaBep3Param2;
     public ResKavaSwapSupply mKavaSuppies2;
 
+    public ChainConfig mFromChainConfig, mToChainConfig;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,7 @@ public class HtlcSendActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mFromChainConfig = ChainFactory.getChain(mBaseChain);
         mToSwapDenom = getIntent().getStringExtra("toSwapDenom");
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcSendActivity.this, R.drawable.step_4_img_1));
@@ -166,20 +171,15 @@ public class HtlcSendActivity extends BaseActivity {
         }
     }
 
-
     public Fee onInitSendFee() {
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            Coin gasCoin = new Coin();
-            gasCoin.denom = BaseConstant.TOKEN_BNB;
-            gasCoin.amount = FEE_BNB_SEND;
+            Coin gasCoin = new Coin(mFromChainConfig.mainDenom(), FEE_BNB_SEND);
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
             mSendFee = new Fee("", gasCoins);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            Coin gasCoin = new Coin();
-            gasCoin.denom = BaseConstant.TOKEN_KAVA;
-            gasCoin.amount = "12500";
+            Coin gasCoin = new Coin(mFromChainConfig.mainDenom(), "12500");
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
             mSendFee = new Fee(KAVA_GAS_AMOUNT_BEP3, gasCoins);
@@ -187,20 +187,16 @@ public class HtlcSendActivity extends BaseActivity {
         return mSendFee;
     }
 
-
     public Fee onInitClaimFee() {
+        mToChainConfig = ChainFactory.getChain(mRecipientChain);
         if (mRecipientChain.equals(BaseChain.BNB_MAIN)) {
-            Coin gasCoin = new Coin();
-            gasCoin.denom = BaseConstant.TOKEN_BNB;
-            gasCoin.amount = FEE_BNB_SEND;
+            Coin gasCoin = new Coin(mToChainConfig.mainDenom(), FEE_BNB_SEND);
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
             mClaimFee = new Fee("", gasCoins);
 
         } else if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
-            Coin gasCoin = new Coin();
-            gasCoin.denom = BaseConstant.TOKEN_KAVA;
-            gasCoin.amount = "12500";
+            Coin gasCoin = new Coin(mToChainConfig.mainDenom(), "12500");
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
             mClaimFee = new Fee(KAVA_GAS_AMOUNT_BEP3, gasCoins);
@@ -215,7 +211,6 @@ public class HtlcSendActivity extends BaseActivity {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-
     private class HtlcSendPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
@@ -224,10 +219,10 @@ public class HtlcSendActivity extends BaseActivity {
         public HtlcSendPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(HtlcSendStep0Fragment.newInstance(null));
-            mFragments.add(HtlcSendStep1Fragment.newInstance(null));
-            mFragments.add(HtlcSendStep2Fragment.newInstance(null));
-            mFragments.add(HtlcSendStep3Fragment.newInstance(null));
+            mFragments.add(HtlcSendStep0Fragment.newInstance());
+            mFragments.add(HtlcSendStep1Fragment.newInstance());
+            mFragments.add(HtlcSendStep2Fragment.newInstance());
+            mFragments.add(HtlcSendStep3Fragment.newInstance());
         }
 
         @Override
@@ -256,7 +251,6 @@ public class HtlcSendActivity extends BaseActivity {
             return mFragments;
         }
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
