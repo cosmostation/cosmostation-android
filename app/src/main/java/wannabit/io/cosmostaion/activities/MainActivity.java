@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
         createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
         createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
-        createTab(R.drawable.infoicon_station, R.string.str_main_dapp, 3);
+        createTab(R.drawable.dapp_ic, R.string.str_main_dapp, 3);
         createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
 
         mContentsPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
