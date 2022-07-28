@@ -4,6 +4,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 import com.google.common.collect.Lists;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -46,6 +48,13 @@ public class  Nyx extends ChainConfig {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
 
+    public String coinFullName(String denom) {
+        if (denom.equalsIgnoreCase(NYX_NYM_DENOM)) {
+            return "Nym Coin";
+        } else {
+            return StringUtils.capitalize(chainName()) + " Staking Coin";
+        }
+    }
 
     public static String NYX_NYM_DENOM = "unym";
 }

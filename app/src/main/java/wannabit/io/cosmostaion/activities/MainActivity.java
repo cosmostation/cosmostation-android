@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
@@ -57,7 +55,6 @@ import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
-import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -144,7 +141,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mBaseChain.equals(COSMOS_MAIN)) {
+        if (mChainConfig.pushSupport()) {
             if (mAccount.pushAlarm) {
                 getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
             } else {
@@ -185,10 +182,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onAddressDialog() {
         Bundle bundle = new Bundle();
         bundle.putString("address", mAccount.address);
-        if (TextUtils.isEmpty(mAccount.nickName))
-            bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-        else
-            bundle.putString("title", mAccount.nickName);
+        if (TextUtils.isEmpty(mAccount.nickName)) bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+        else bundle.putString("title", mAccount.nickName);
         AccountShowDialog show = AccountShowDialog.newInstance(bundle);
         show.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
@@ -223,8 +218,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onChainSelect(mSelectedChain);
         }
 
-        if (TextUtils.isEmpty(mAccount.nickName))
-            mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
+        if (TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
 
         if (mPageAdapter.mCurrentFragment != null) {
@@ -262,12 +256,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onExplorerView() {
-        String url = "";
-        if (mBaseChain.equals(OKEX_MAIN)) {
-            url = mChainConfig.explorerUrl() + "address/" + mAccount.address;
-        } else {
-            url = mChainConfig.explorerUrl() + "account/" + mAccount.address;
-        }
+        String url = mChainConfig.explorerAccountLink() + mAccount.address;
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
 
@@ -347,7 +336,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
 
-        BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_CLAIM_INCENTIVE, 0);
         if (available.compareTo(txFee) <= 0) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -370,11 +359,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         public MainViewPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(MainSendFragment.newInstance(null));
-            mFragments.add(MainTokensFragment.newInstance(null));
-            mFragments.add(MainHistoryFragment.newInstance(null));
+            mFragments.add(MainSendFragment.newInstance());
+            mFragments.add(MainTokensFragment.newInstance());
+            mFragments.add(MainHistoryFragment.newInstance());
             mFragments.add(DappFragment.newInstance(null));
-            mFragments.add(MainSettingFragment.newInstance(null));
+            mFragments.add(MainSettingFragment.newInstance());
         }
 
         @Override

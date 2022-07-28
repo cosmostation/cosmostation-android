@@ -4,6 +4,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 import com.google.common.collect.Lists;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -48,6 +50,13 @@ public class Emoney extends ChainConfig {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
 
+    public String coinFullName(String denom) {
+        if (denom.startsWith("e")) {
+            return denom.substring(1).toUpperCase() + " on E-Money Network";
+        } else {
+            return StringUtils.capitalize(chainName()) + "Staking Coin";
+        }
+    }
 
     public static String EMONEY_EUR_DENOM = "eeur";
     public static String EMONEY_CHF_DENOM = "echf";

@@ -86,7 +86,7 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        final ChainConfig fromChainConfig = getSActivity().mFromChainConfig;
+        final ChainConfig fromChainConfig = getSActivity().mChainConfig;
         final ChainConfig toChainConfig = ChainFactory.getChain(getSActivity().mRecipientChain);
 
         mToSwapDenom = getSActivity().mToSwapDenom;

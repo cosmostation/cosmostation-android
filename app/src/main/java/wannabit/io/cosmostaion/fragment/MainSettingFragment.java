@@ -37,15 +37,14 @@ import wannabit.io.cosmostaion.activities.txs.starname.StarNameWalletConnectActi
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
+import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_CURRENCY = 9034;
-    public final static int SELECT_MARKET = 9035;
-    public final static int SELECT_STARNAME_WALLET_CONNECT = 9036;
+    public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
 
     private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnCurrency,
             mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
@@ -53,10 +52,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     private TextView mTvAppLock, mTvCurrency, mTvVersion, mTvTheme;
 
-    public static MainSettingFragment newInstance(Bundle bundle) {
-        MainSettingFragment fragment = new MainSettingFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static MainSettingFragment newInstance() {
+        return new MainSettingFragment();
     }
 
     @Override
@@ -127,12 +124,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             mTvAppLock.setText(R.string.str_app_applock_diabeld);
         }
 
-        if (themeColor.equals("default")) {
-            mTvTheme.setText(R.string.str_theme_system);
-        } else if (themeColor.equals("light")) {
+        if (themeColor.equals("light")) {
             mTvTheme.setText(R.string.str_theme_light);
         } else if (themeColor.equals("dark")) {
             mTvTheme.setText(R.string.str_theme_dark);
+        } else {
+            mTvTheme.setText(R.string.str_theme_system);
         }
     }
 
@@ -184,7 +181,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), AppLockSetActivity.class));
 
         } else if (v.equals(mBtnCurrency)) {
-            Dialog_Currency_Set currency_dialog = Dialog_Currency_Set.newInstance(null);
+            CurrencySetDialog currency_dialog = CurrencySetDialog.newInstance(null);
             currency_dialog.setCancelable(true);
             currency_dialog.setTargetFragment(this, SELECT_CURRENCY);
             getFragmentManager().beginTransaction().add(currency_dialog, "dialog").commitNowAllowingStateLoss();
@@ -255,9 +252,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             getBaseDao().setCurrency(data.getIntExtra("currency", 0));
             mTvCurrency.setText(getBaseDao().getCurrencyString());
 
-        } else if (requestCode == SELECT_MARKET && resultCode == Activity.RESULT_OK) {
-
-        } else if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
+        } if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
             new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
                         @Override
                         public void onPermissionGranted() {

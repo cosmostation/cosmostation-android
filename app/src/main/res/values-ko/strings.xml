@@ -847,7 +847,7 @@
     <string name="str_let_start_cosmos2">코스모스테이션과 스테이킹하고 이자를 지급받으세요.\n로컬사이닝을 통한 빠르고 안전한 거래를 제공합니다.</string>
     <string name="str_change_account_nickname">지갑 별칭 변경</string>
     <string name="str_change_mnemonic_nickname">니모닉 별칭 변경</string>
-    <string name="str_start_delegate">코스모스테이션에 코인을 위임하세요.\n이자 즉시위임 기능으로 복리 이자를 축적하고 네트워크 생태계에 기여하세요.</string>
+    <string name="str_start_delegate">코스모스테이션에 코인을 위임하세요.\n이자 즉시위임 기능으로 복리 이자를 축적하고\n네트워크 생태계에 기여하세요.</string>
     <string name="str_create_warn0">복구 단어 분실은 자산 피해로 이어질 수 있습니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.</string>
     <string name="str_create_warn1">고객님의 자산 보호를 위해 \n복구 단어를 반드시 종이에 적어 따로 보관해주세요.\n이 단어들을 이용하여 지갑을 복원할 수 있습니다.\n(지갑관리에서 다시 확인하실 수 있습니다.)</string>
     <string name="str_gaia">Gaia testnet is not fixed coin type, so skip coin amount check logic.\nPlease insert valid amount coin without under point.</string>
@@ -895,7 +895,7 @@
     <string name="str_vote_for_validator">검증인 투표</string>
     <string name="str_name_service">스타네임 서비스</string>
     <string name="str_starname_service">Starname 서비스</string>
-    <string name="str_promotion_title">위임하고 이자받기</string>
+    <string name="기">위임하고 이자받기</string>
     <string name="str_sorting_s">Sorting</string>
     <string name="str_sorting_by_name">이름으로 정렬</string>
     <string name="str_sorting_by_power">전체 위임량으로 정렬</string>

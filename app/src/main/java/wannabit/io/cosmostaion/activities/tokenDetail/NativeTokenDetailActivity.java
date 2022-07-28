@@ -157,10 +157,10 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(mDenom);
-            BigDecimal convertedBnbAmount = WUtil.getBnbConvertAmount(getBaseDao(), mDenom, amount);
+            BigDecimal convertedBnbAmount = WDp.getBnbConvertAmount(getBaseDao(), mDenom, amount);
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mChainConfig.mainDenom(), convertedBnbAmount, 0));
 
-            mItemPerPrice.setText(WUtil.dpBnbTokenUserCurrencyPrice(getBaseDao(), mDenom));
+            mItemPerPrice.setText(WDp.dpBnbTokenUserCurrencyPrice(getBaseDao(), mDenom));
             mItemUpDownPrice.setText("");
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }

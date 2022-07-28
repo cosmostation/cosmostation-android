@@ -31,15 +31,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10"
-                style="@style/font_ssm_17_black_daynight"
+                style="@style/font_ssm_14_black_daynight"
                 android:text="@string/str_promotion_title"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_5"
                 android:layout_marginBottom="@dimen/space_16"
-                style="@style/font_ss_11_gray1"
+                style="@style/font_ss_12_gray1"
                 android:text="@string/str_start_delegate"/>
 
             <View

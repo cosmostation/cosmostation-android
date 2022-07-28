@@ -97,7 +97,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mDecimal = 8;
             setDpDecimals(mDecimal);
-            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mFromChainConfig, getSActivity().mToSwapDenom, mDenomTitle);
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mToSwapDenom, mDenomTitle);
             mMaxAvailable = getSActivity().getAvailable();
 
             // check relayer capacity
@@ -115,13 +115,13 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, 0, mDecimal));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mFromChainConfig, getSActivity().mToSwapDenom);
+            mDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mToSwapDenom);
             setDpDecimals(mDecimal);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB)) {
                 mDenomTitle.setText("BNB");
                 mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_binance));
             } else {
-                WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mFromChainConfig, getSActivity().mToSwapDenom, mDenomTitle);
+                WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mToSwapDenom, mDenomTitle);
             }
 
             mMaxAvailable = getSActivity().getAvailable();

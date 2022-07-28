@@ -80,6 +80,7 @@
                 android:layout_marginTop="@dimen/space_12">
 
                 <TextView
+                    android:id="@+id/available_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -91,7 +92,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
+                    android:layout_toRightOf="@+id/available_title"
+                    android:gravity="end"
                     android:text="-" />
             </RelativeLayout>
 
@@ -124,6 +126,7 @@
                 android:layout_marginTop="@dimen/space_8">
 
                 <TextView
+                    android:id="@+id/delegate_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -135,7 +138,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
+                    android:layout_toRightOf="@+id/delegate_title"
+                    android:gravity="end"
                     android:text="-" />
             </RelativeLayout>
 
@@ -145,6 +149,7 @@
                 android:layout_marginTop="@dimen/space_8">
 
                 <TextView
+                    android:id="@+id/undelegate_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -156,7 +161,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
+                    android:layout_toRightOf="@+id/undelegate_title"
+                    android:gravity="end"
                     android:text="-" />
             </RelativeLayout>
 
@@ -166,6 +172,7 @@
                 android:layout_marginTop="@dimen/space_8">
 
                 <TextView
+                    android:id="@+id/reward_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -177,7 +184,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
+                    android:layout_toRightOf="@+id/reward_title"
+                    android:gravity="end"
                     android:text="-" />
             </RelativeLayout>
 

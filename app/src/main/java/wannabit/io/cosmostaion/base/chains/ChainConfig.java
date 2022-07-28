@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.base.chains;
 
 import com.google.common.collect.ImmutableList;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 
 abstract public class ChainConfig {
     public abstract BaseChain baseChain();
@@ -114,5 +116,19 @@ abstract public class ChainConfig {
 
     public String getHdPath(int customPath, String path) {
         return supportHdPaths().get(customPath).replace("X", path);
+    }
+
+    public String coinFullName(String denom) { return StringUtils.capitalize(chainName()) + " Staking Coin"; }
+
+    public String explorerAccountLink() {
+        return explorerUrl() + "account/";
+    }
+
+    public String explorerHistoryLink() {
+        return explorerUrl() + "txs/";
+    }
+
+    public String noticeLink() {
+        return BaseConstant.EXPLORER_NOTICE_MINTSCAN + chainName() + "/";
     }
 }

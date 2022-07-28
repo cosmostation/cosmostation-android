@@ -6,7 +6,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -37,7 +36,6 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResNotice;
@@ -71,10 +69,8 @@ public class MainSendFragment extends BaseFragment {
     private BaseChain mBaseChain;
     private ChainConfig mChainConfig;
 
-    public static MainSendFragment newInstance(Bundle bundle) {
-        MainSendFragment fragment = new MainSendFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static MainSendFragment newInstance() {
+        return new MainSendFragment();
     }
 
     @Override
@@ -154,25 +150,19 @@ public class MainSendFragment extends BaseFragment {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
         mAccount = getMainActivity().mAccount;
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = getMainActivity().mChainConfig;
 
-        mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
+        mCardView.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), mChainConfig.chainBgColor()));
         onNoticeView();
 
-        if (mAccount.hasPrivateKey) {
-            itemKeyStatus.setImageResource(R.drawable.key_off);
-            itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        } else {
-            itemKeyStatus.setImageResource(R.drawable.watchmode);
-            itemKeyStatus.setColorFilter(null);
-        }
+        getMainActivity().setAccountKeyStatus(itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
-        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
+        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
         mMainWalletAdapter.notifyDataSetChanged();
     }
 
     private void onNoticeView() {
-        mNoticeView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
+        mNoticeView.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), mChainConfig.chainBgColor()));
         ApiClient.getMintscan(getContext()).getNotice(mChainConfig.chainName(), true).enqueue(new Callback<ResNotice>() {
             @Override
             public void onResponse(Call<ResNotice> call, Response<ResNotice> response) {
@@ -186,7 +176,7 @@ public class MainSendFragment extends BaseFragment {
                         mNoticeInfo.setText(noticeInfo.boards.get(0).title);
 
                         mNoticeView.setOnClickListener(view -> {
-                            String url = EXPLORER_NOTICE_MINTSCAN + mChainConfig.chainName() + "/" + noticeInfo.boards.get(0).id;
+                            String url = mChainConfig.noticeLink() + noticeInfo.boards.get(0).id;
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             startActivity(intent);
                         });
@@ -249,8 +239,6 @@ public class MainSendFragment extends BaseFragment {
                 return new WalletMedipassHolder(getLayoutInflater().inflate(R.layout.item_wallet_medipass, viewGroup, false));
 
             }
-
-
             return null;
         }
 
@@ -289,7 +277,7 @@ public class MainSendFragment extends BaseFragment {
                     return TYPE_GIUDE;
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
                 if (position == 0) {
                     return TYPE_WALLET;
                 } else if (position == 1) {
@@ -297,7 +285,11 @@ public class MainSendFragment extends BaseFragment {
                 } else if (position == 2) {
                     return TYPE_MINT;
                 } else if (position == 3) {
-                    return TYPE_DESMOS_APP;
+                    if (getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
+                        return TYPE_DESMOS_APP;
+                    } else if (getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
+                        return TYPE_MEDIPASS;
+                    }
                 } else if (position == 4) {
                     return TYPE_GIUDE;
                 }

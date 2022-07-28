@@ -89,7 +89,7 @@ class DappFragment : BaseFragment() {
         fun newInstance(bundle: Bundle?): DappFragment {
             val fragment = DappFragment()
             fragment.arguments = bundle
-            return fragment
+            return DappFragment()
         }
     }
 }
