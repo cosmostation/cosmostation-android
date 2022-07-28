@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities;
+package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 
@@ -45,6 +45,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
@@ -89,7 +90,8 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private void loadAccount() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChain = WDp.getChainNameByBaseChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChain = mChainConfig.chainName();
     }
 
     private void initRecyclerView() {
@@ -99,6 +101,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         mRecyclerView.setAdapter(mVoteListAdapter);
 
         mVoteHeaderRecyclerView = new VoteHeaderRecyclerView(this, true, getSectionCall());
+
         mRecyclerView.addItemDecoration(mVoteHeaderRecyclerView);
 
     }
@@ -287,7 +290,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             bindVoteStatus(holder, position, item);
 
             holder.card_proposal.setOnClickListener(v -> {
-                String url = WUtil.getExplorer(mBaseChain) + "proposals/" + item.id;
+                String url = mChainConfig.explorerUrl() + "proposals/" + item.id;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             });
@@ -415,7 +418,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 fixLayoutSize(headerView, parent);
             }
 
-            String previousHeader = "";
+            Set<String> headerTitleSet = Sets.newHashSet();
             for (int i = 0; i < parent.getChildCount(); i++) {
                 View child = parent.getChildAt(i);
                 final int position = parent.getChildAdapterPosition(child);
@@ -433,9 +436,9 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     mItemCnt.setText("" + mExtraProposalsList.size());
                 }
                 mHeaderTitle.setText(title);
-                if (!previousHeader.equals(title) || sectionCallback.isSection(position)) {
+                if (!headerTitleSet.contains(title) || sectionCallback.isSection(position)) {
                     drawHeader(c, child, headerView);
-                    previousHeader = title;
+                    headerTitleSet.add(title);
                 }
             }
         }

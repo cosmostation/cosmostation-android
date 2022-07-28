@@ -94,7 +94,7 @@
             android:minHeight="@dimen/space_45"
             android:text="@string/str_next"
             android:textAllCaps="false"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

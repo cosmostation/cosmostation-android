@@ -1,7 +1,6 @@
-package wannabit.io.cosmostaion.fragment;
+package wannabit.io.cosmostaion.fragment.txs.common;
 
-import android.content.Intent;
-import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,13 +22,11 @@ import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.VoteActivity;
-import wannabit.io.cosmostaion.activities.VoteDetailsActivity;
+import wannabit.io.cosmostaion.activities.txs.common.VoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -109,7 +107,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
         @Override
         public void onBindViewHolder(@NonNull final ProposalSelectionHolder proposalSelectionHolder, int position) {
             ResProposal item = mProposalList.get(position);
-            proposalSelectionHolder.proposalId.setText("# " + String.valueOf(item.id));
+            proposalSelectionHolder.proposalId.setText("# " + item.id);
             proposalSelectionHolder.proposalTitle.setText(item.title);
             proposalSelectionHolder.proposalDeadLine.setText(WDp.getTimeVoteformat(getActivity(), item.voting_end_time)
                     + " " + WDp.getGapTime(getActivity(), WDp.dateToLong3(getActivity(), item.voting_end_time)));
@@ -140,32 +138,16 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
                 String selected = selectedMap.get(item.id);
                 switch (selected) {
                     case "VOTE_OPTION_YES":
-                        holder.yesBtnLayout.setAlpha(1f);
-                        holder.yesBtnLayout.setBackground(WDp.getLayoutColor(getSActivity(), getSActivity().mBaseChain));
-                        holder.titleYesTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
-                        holder.selectedYesImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+                        settingSelectedLayout(holder.yesBtnLayout, holder.titleYesTv, holder.selectedYesImage);
                         break;
                     case "VOTE_OPTION_NO":
-                        holder.noBtnLayout.setAlpha(1f);
-                        holder.noBtnLayout.setBackground(WDp.getLayoutColor(getSActivity(), getSActivity().mBaseChain));
-                        holder.titleNoTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
-                        holder.selectedNoImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+                        settingSelectedLayout(holder.noBtnLayout, holder.titleNoTv, holder.selectedNoImage);
                         break;
                     case "VOTE_OPTION_NO_WITH_VETO":
-                        holder.noWithVetoBtnLayout.setAlpha(1f);
-                        holder.noWithVetoBtnLayout.setBackground(WDp.getLayoutColor(getSActivity(), getSActivity().mBaseChain));
-                        holder.titleNoWithVetoTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
-                        holder.selectedNoWithVetoImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+                        settingSelectedLayout(holder.noWithVetoBtnLayout, holder.titleNoWithVetoTv, holder.selectedNoWithVetoImage);
                         break;
                     case "VOTE_OPTION_ABSTAIN":
-                        holder.abstainBtnLayout.setAlpha(1f);
-                        holder.abstainBtnLayout.setBackground(WDp.getLayoutColor(getSActivity(), getSActivity().mBaseChain));
-                        holder.titleAbstainTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
-                        holder.selectedAbstainImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+                        settingSelectedLayout(holder.abstainBtnLayout, holder.titleAbstainTv, holder.selectedAbstainImage);
                         break;
                     default:
                         break;
@@ -207,6 +189,17 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
                 mProposalSelectionAdapter.notifyItemChanged(position);
             });
+        }
+
+        private void settingSelectedLayout(RelativeLayout yesBtnLayout, TextView titleYesTv, ImageView selectedYesImage) {
+            int chainColor = getSActivity().mChainConfig.chainColor();
+            Drawable roundBackground = ContextCompat.getDrawable(getActivity(), R.drawable.box_round_multi_vote);
+            roundBackground = DrawableCompat.wrap(roundBackground);
+            DrawableCompat.setTint(roundBackground, ContextCompat.getColor(getActivity(), chainColor));
+            yesBtnLayout.setAlpha(1f);
+            yesBtnLayout.setBackground(roundBackground);
+            titleYesTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
+            selectedYesImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }
 
         @Override

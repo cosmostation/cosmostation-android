@@ -1,10 +1,8 @@
-package wannabit.io.cosmostaion.activities;
+package wannabit.io.cosmostaion.activities.txs.common;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -12,35 +10,31 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.VoteStep0Fragment;
-import wannabit.io.cosmostaion.fragment.VoteStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.fragment.txs.common.VoteStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.VoteStep3Fragment;
 import wannabit.io.cosmostaion.network.res.ResProposal;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 
 public class VoteActivity extends BaseBroadCastActivity {
 
@@ -75,6 +69,7 @@ public class VoteActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_VOTE;
 
         mProposal = new Gson().fromJson(getIntent().getStringExtra("proposal"), new TypeToken<List<ResProposal>>() {

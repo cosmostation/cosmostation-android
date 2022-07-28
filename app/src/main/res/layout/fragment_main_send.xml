@@ -95,7 +95,7 @@
 
                     <TextView
                         android:id="@+id/wallet_address"
-                        style="@style/font_rmr_14_black_daynight"
+                        style="@style/font_ss_14_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
