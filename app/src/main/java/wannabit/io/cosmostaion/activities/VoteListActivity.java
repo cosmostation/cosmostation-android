@@ -349,10 +349,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
         @Override
         public int getItemCount() {
-            int count = mVotingPeriodProposalsList.size() + mExtraProposalsList.size();
-            count += mVotingPeriodProposalsList.isEmpty() ? 0 : 1;
-            count += mExtraProposalsList.isEmpty() ? 0 : 1;
-            return count;
+            return mVotingPeriodProposalsList.size() + mExtraProposalsList.size();
         }
 
         @Override
