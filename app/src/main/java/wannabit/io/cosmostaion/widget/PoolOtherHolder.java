@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.widget;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,21 +15,25 @@ import java.math.RoundingMode;
 import cosmos.base.v1beta1.CoinOuterClass;
 import kava.swap.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPool;
-import tendermint.liquidity.v1beta1.Liquidity;
+import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
-import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
-import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
+import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class PoolOtherHolder extends BaseHolder {
     CardView itemRoot;
-    TextView itemPoolType;
+    RelativeLayout itemPoolTypeLayer, itemPoolImgLayer;
+    TextView itemPoolType, itemPoolSifType;
+    ImageView itemExternalImg;
     TextView itemTotalDepositValue;
     TextView itemTotalDepositAmount0, itemTotalDepositSymbol0, itemTotalDepositAmount1, itemTotalDepositSymbol1;
     TextView itemMyAvailableAmount0, itemMyAvailableSymbol0, itemMyAvailableAmount1, itemMyAvailableSymbol1;
@@ -35,7 +41,11 @@ public class PoolOtherHolder extends BaseHolder {
     public PoolOtherHolder(@NonNull View itemView) {
         super(itemView);
         itemRoot = itemView.findViewById(R.id.card_pool_all);
+        itemPoolTypeLayer = itemView.findViewById(R.id.pool_type_layer);
+        itemPoolImgLayer = itemView.findViewById(R.id.pool_img_layer);
         itemPoolType = itemView.findViewById(R.id.pool_market_type);
+        itemExternalImg = itemView.findViewById(R.id.pool_external_img);
+        itemPoolSifType = itemView.findViewById(R.id.pool_type);
         itemTotalDepositValue = itemView.findViewById(R.id.pool_total_liquidity_value);
         itemTotalDepositAmount0 = itemView.findViewById(R.id.pool_total_liquidity_amount1);
         itemTotalDepositSymbol0 = itemView.findViewById(R.id.pool_total_liquidity_symbol1);
@@ -50,28 +60,31 @@ public class PoolOtherHolder extends BaseHolder {
 
     @Override
     public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, BalancerPool.Pool otherPool) {
+        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
+        itemPoolTypeLayer.setVisibility(View.VISIBLE);
+        itemPoolImgLayer.setVisibility(View.GONE);
         Coin coin0 = new Coin(otherPool.getPoolAssets(0).getToken().getDenom(), otherPool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), otherPool.getPoolAssets(1).getToken().getAmount());
 
-        itemPoolType.setText("#" + otherPool.getId() + " " + WUtil.dpOsmosisTokenName(baseData, coin0.denom) + "/" + WUtil.dpOsmosisTokenName(baseData, coin1.denom));
+        itemPoolType.setText("#" + otherPool.getId() + " " + WDp.getDpSymbol(baseData, chainConfig, coin0.denom) + "/" + WDp.getDpSymbol(baseData, chainConfig, coin1.denom));
 
-        itemTotalDepositValue.setText("" + WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(baseData, coin0.denom)));
+        itemTotalDepositValue.setText("" + WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom)));
 
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(baseData, coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WUtil.getOsmosisCoinDecimal(baseData, coin1.denom));
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
         BigDecimal PoolValue = coin0Value.add(coin1Value);
         itemTotalDepositValue.setText(WDp.getDpRawDollor(context, PoolValue, 2));
 
-        WDp.showCoinDp(context, baseData, coin0, itemTotalDepositSymbol0, itemTotalDepositAmount0, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(context, baseData, coin1, itemTotalDepositSymbol1, itemTotalDepositAmount1, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpCoin(context, baseData, chainConfig, coin0, itemTotalDepositSymbol0, itemTotalDepositAmount0);
+        WDp.setDpCoin(context, baseData, chainConfig, coin1, itemTotalDepositSymbol1, itemTotalDepositAmount1);
 
         BigDecimal availableCoin0 = baseData.getAvailable(coin0.denom);
         Coin Coin0 = new Coin(otherPool.getPoolAssets(0).getToken().getDenom(), availableCoin0.toPlainString());
         BigDecimal availableCoin1 = baseData.getAvailable(coin1.denom);
         Coin Coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), availableCoin1.toPlainString());
 
-        WDp.showCoinDp(context, baseData, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(context, baseData, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.OSMOSIS_MAIN);
+        WDp.setDpCoin(context, baseData, chainConfig, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0);
+        WDp.setDpCoin(context, baseData, chainConfig, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1);
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,23 +96,26 @@ public class PoolOtherHolder extends BaseHolder {
 
     @Override
     public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse otherPool) {
+        final ChainConfig chainConfig = ChainFactory.getChain(activity.mBaseChain);
+        itemPoolTypeLayer.setVisibility(View.VISIBLE);
+        itemPoolImgLayer.setVisibility(View.GONE);
         CoinOuterClass.Coin coin0 = otherPool.getCoins(0);
         CoinOuterClass.Coin coin1 = otherPool.getCoins(1);
-        int coin0Decimal = WUtil.getKavaCoinDecimal(baseData, coin0.getDenom());
-        int coin1Decimal = WUtil.getKavaCoinDecimal(baseData, coin1.getDenom());
+        int coin0Decimal = WDp.getDenomDecimal(baseData, chainConfig, coin0.getDenom());
+        int coin1Decimal = WDp.getDenomDecimal(baseData, chainConfig, coin1.getDenom());
         BigDecimal coin0price = WDp.getKavaPriceFeed(baseData, coin0.getDenom());
         BigDecimal coin1price = WDp.getKavaPriceFeed(baseData, coin1.getDenom());
         BigDecimal coin0value = new BigDecimal(coin0.getAmount()).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
         BigDecimal coin1value = new BigDecimal(coin1.getAmount()).multiply(coin1price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
 
-        itemPoolType.setText(WUtil.getKavaTokenName(baseData, coin0.getDenom()) + " : " + WUtil.getKavaTokenName(baseData, coin1.getDenom()));
+        itemPoolType.setText(WDp.getDpSymbol(baseData, chainConfig, coin0.getDenom()) + " : " + WDp.getDpSymbol(baseData, chainConfig, coin1.getDenom()));
 
         // Total deposit
         BigDecimal poolValue = coin0value.add(coin1value);
         itemTotalDepositValue.setText(WDp.getDpRawDollor(context, poolValue, 2));
 
-        WUtil.dpKavaTokenName(context, baseData, itemTotalDepositSymbol0, coin0.getDenom());
-        WUtil.dpKavaTokenName(context, baseData, itemTotalDepositSymbol1, coin1.getDenom());
+        WDp.setDpSymbol(context, baseData, chainConfig, coin0.getDenom(), itemTotalDepositSymbol0);
+        WDp.setDpSymbol(context, baseData, chainConfig, coin1.getDenom(), itemTotalDepositSymbol1);
         itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
         itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
 
@@ -107,8 +123,8 @@ public class PoolOtherHolder extends BaseHolder {
         BigDecimal availableCoin0 = baseData.getAvailable(coin0.getDenom());
         BigDecimal availableCoin1 = baseData.getAvailable(coin1.getDenom());
 
-        WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol0, coin0.getDenom());
-        WUtil.dpKavaTokenName(context, baseData, itemMyAvailableSymbol1, coin1.getDenom());
+        WDp.setDpSymbol(context, baseData, chainConfig, coin0.getDenom(), itemMyAvailableSymbol0);
+        WDp.setDpSymbol(context, baseData, chainConfig, coin1.getDenom(), itemMyAvailableSymbol1);
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableCoin0, coin0Decimal, 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
 
@@ -121,37 +137,44 @@ public class PoolOtherHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindGDexOtherPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool otherPool) {
-        String coin0Denom = otherPool.getReserveCoinDenoms(0);
-        String coin1Denom = otherPool.getReserveCoinDenoms(1);
-        BigDecimal coin0Amount = activity.getLpAmount(otherPool.getReserveAccountAddress(), coin0Denom);
-        BigDecimal coin1Amount = activity.getLpAmount(otherPool.getReserveAccountAddress(), coin1Denom);
-        int coin0Decimal = WUtil.getCosmosCoinDecimal(baseData, coin0Denom);
-        int coin1Decimal = WUtil.getCosmosCoinDecimal(baseData, coin1Denom);
+    public void onBindSifOtherPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool otherPool) {
+        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.SIF_MAIN);
+        itemPoolTypeLayer.setVisibility(View.GONE);
+        itemPoolImgLayer.setVisibility(View.VISIBLE);
 
-        itemPoolType.setText("#" + otherPool.getId() + " " + WUtil.dpCosmosTokenName(baseData, coin0Denom) + " : " + WUtil.dpCosmosTokenName(baseData, coin1Denom));
+        int rowanDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
+        BigDecimal rowanAmount = new BigDecimal(otherPool.getNativeAssetBalance());
 
-        // Total deposit
-        BigDecimal PoolValue = activity.getGdexPoolValue(otherPool);
-        itemTotalDepositValue.setText(WDp.getDpRawDollor(context, PoolValue, 2));
+        BigDecimal externalAmount = new BigDecimal(otherPool.getExternalAssetBalance());
+        String exteranlDenom = otherPool.getExternalAsset().getSymbol();
+        int externalDecimal = WDp.getDenomDecimal(baseData, chainConfig, exteranlDenom);
+        BigDecimal poolValue = WUtil.getSifPoolValue(baseData, otherPool);
 
-        WUtil.dpCosmosTokenName(context, baseData, itemTotalDepositSymbol0, coin0Denom);
-        WUtil.dpCosmosTokenName(context, baseData, itemTotalDepositSymbol1, coin1Denom);
-        itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, coin0Amount, coin0Decimal, 6));
-        itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, coin1Amount, coin1Decimal, 6));
+        WDp.setDpSymbolImg(baseData, chainConfig, exteranlDenom, itemExternalImg);
+        itemPoolSifType.setText("ROWAN : " + WDp.getDpSymbol(baseData, chainConfig, exteranlDenom).toUpperCase());
+        itemTotalDepositValue.setText(WDp.getDpRawDollor(context, poolValue, 2));
 
-        BigDecimal availableCoin0 = baseData.getAvailable(coin0Denom);
-        Coin Coin0 = new Coin(coin0Denom, availableCoin0.toPlainString());
-        BigDecimal availableCoin1 = baseData.getAvailable(coin1Denom);
-        Coin Coin1 = new Coin(coin1Denom, availableCoin1.toPlainString());
+        WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemTotalDepositSymbol0);
+        WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemTotalDepositSymbol1);
+        itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, rowanAmount, rowanDecimal, 6));
+        if (WDp.getDpSymbol(baseData, chainConfig, exteranlDenom).equalsIgnoreCase("UNKNOWN")) {
+            itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, BigDecimal.ZERO, externalDecimal, 6));
+        } else {
+            itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, externalAmount, externalDecimal, 6));
+        }
 
-        WDp.showCoinDp(context, baseData, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.COSMOS_MAIN);
-        WDp.showCoinDp(context, baseData, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.COSMOS_MAIN);
+        //dp available
+        BigDecimal availableRowan = baseData.getAvailable(chainConfig.mainDenom());
+        BigDecimal availableExternal = baseData.getAvailable(exteranlDenom);
+        WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemMyAvailableSymbol0);
+        WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemMyAvailableSymbol1);
+        itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableRowan, rowanDecimal, 6));
+        itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableExternal, externalDecimal, 6));
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                (activity).onCheckStartDepositPool(otherPool.getId());
+                ((SifDexListActivity)activity).onCheckStartDepositPool(otherPool);
             }
         });
     }

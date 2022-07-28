@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,10 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.AccountListActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class WalletEditActivity extends BaseActivity implements View.OnClickListener{
@@ -122,8 +121,9 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         @Override
         public void onBindViewHolder(@NonNull DisplayListAdapter.DisplayHolder holder, final int position) {
             final BaseChain chain = mDisplayChains.get(position);
-            WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
-            WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
+            final ChainConfig chainConfig = ChainFactory.getChain(chain);
+            holder.chainTokenImg.setImageResource(chainConfig.chainImg());
+            holder.chainName.setText(chainConfig.chainTitleToUp());
             holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
 
             holder.chainRemoveImg.setOnClickListener(new View.OnClickListener() {
@@ -215,8 +215,9 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         @Override
         public void onBindViewHolder(@NonNull HideListAdapter.HideHolder holder, int position) {
             final BaseChain chain = mHideChains.get(position);
-            WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
-            WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
+            final ChainConfig chainConfig = ChainFactory.getChain(chain);
+            holder.chainTokenImg.setImageResource(chainConfig.chainImg());
+            holder.chainName.setText(chainConfig.chainTitleToUp());
             holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
 
             holder.chainAddImg.setOnClickListener(new View.OnClickListener() {

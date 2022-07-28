@@ -65,15 +65,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_ss_12_black_daynight"
                         android:text="-"/>
                     <TextView
                         android:id="@+id/tv_symbol_coin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        android:text="@string/s_okt"
-                        style="@style/font_ss_12_ok" />
+                        android:text="-"
+                        android:textColor="@color/color_okc"
+                        style="@style/font_ss_12_black_daynight" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -177,7 +178,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>
     </LinearLayout>

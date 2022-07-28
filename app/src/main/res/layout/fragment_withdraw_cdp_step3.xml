@@ -48,19 +48,20 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:gravity="center"
+                            android:layout_toRightOf="@+id/withdraw_title"
+                            android:gravity="end"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/withdraw_amount"
-                                style="@style/font_ss_14_black_daynight"
+                                style="@style/font_ssl_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
 
                             <TextView
                                 android:id="@+id/withdraw_amount_denom"
-                                style="@style/font_ss_14_black_daynight"
+                                style="@style/font_ssl_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -90,6 +91,7 @@
                         android:layout_marginTop="@dimen/space_10">
 
                         <TextView
+                            android:id="@+id/fee_title"
                             style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -99,12 +101,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:gravity="center"
+                            android:layout_toRightOf="@+id/fee_title"
+                            android:gravity="end"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/fees_amount"
-                                style="@style/font_ss_14_black_daynight"
+                                style="@style/font_ssl_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -112,7 +115,8 @@
 
                             <TextView
                                 android:id="@+id/fees_denom"
-                                style="@style/font_ss_14_kava"
+                                android:textSize="@dimen/text_size_12"
+                                android:textColor="@color/color_kava"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -138,7 +142,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/space_view"
                         android:layout_marginTop="@dimen/space_16"
                         android:background="@color/colorGrayDayNight" />
 
@@ -153,6 +157,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/risk_rate_changes"
+                            android:layout_marginBottom="@dimen/space_10"
                             android:text="@string/str_risk_rate" />
 
                         <LinearLayout
@@ -192,6 +197,7 @@
                         android:layout_marginTop="@dimen/space_16">
 
                         <TextView
+                            android:id="@+id/total_collateral_title"
                             style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -203,19 +209,20 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:gravity="center"
+                            android:layout_toRightOf="@+id/total_collateral_title"
+                            android:gravity="end"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/after_total_deposit_amount"
-                                style="@style/font_ss_14_black_daynight"
+                                style="@style/font_ssl_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
 
                             <TextView
                                 android:id="@+id/after_total_deposit_denom"
-                                style="@style/font_ss_14_black_daynight"
+                                style="@style/font_ssl_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -241,7 +248,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_2">
+                        android:layout_marginTop="@dimen/space_10">
 
                         <TextView
                             android:id="@+id/liquidation_price_before_title"
@@ -253,11 +260,13 @@
 
                         <TextView
                             android:id="@+id/liquidation_price_before"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@+id/liquidation_price_before_title"
                             android:layout_centerVertical="true"
+                            android:gravity="end"
                             android:text="-" />
                     </RelativeLayout>
 
@@ -276,13 +285,15 @@
 
                         <TextView
                             android:id="@+id/liquidation_price_after"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_ssl_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@+id/liquidation_price_after_title"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/space_16"
-                            android:text="-" />
+                            android:text="-"
+                            android:gravity="end"/>
                     </RelativeLayout>
 
                     <TextView

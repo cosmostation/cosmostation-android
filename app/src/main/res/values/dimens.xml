@@ -6,6 +6,7 @@
     <dimen name="main_appbar_contents_height">204dp</dimen>
     <dimen name="toolbar_bar_height">56dp</dimen>
 
+    <dimen name="space_view">0.8dp</dimen>
     <dimen name="space_1">1dp</dimen>
     <dimen name="space_2">2dp</dimen>
     <dimen name="space_4">4dp</dimen>
@@ -27,6 +28,7 @@
     <dimen name="space_40">40dp</dimen>
     <dimen name="space_44">44dp</dimen>
     <dimen name="space_45">45dp</dimen>
+    <dimen name="space_48">48dp</dimen>
     <dimen name="space_50">50dp</dimen>
     <dimen name="space_54">54dp</dimen>
     <dimen name="space_60">60dp</dimen>
@@ -64,6 +66,7 @@
     <dimen name="text_size_14">14sp</dimen>
     <dimen name="text_size_15">15sp</dimen>
     <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_19">19sp</dimen>
     <dimen name="text_size_20">20sp</dimen>
     <dimen name="text_size_21">21sp</dimen>

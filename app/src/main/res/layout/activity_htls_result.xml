@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_12"
-                    android:layout_marginTop="@dimen/space_2"
+                    android:layout_marginTop="@dimen/space_6"
                     layout="@layout/layout_htlc_result_claim_card"/>
 
             </LinearLayout>
@@ -164,7 +164,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_check_received_wallet"/>
     </LinearLayout>

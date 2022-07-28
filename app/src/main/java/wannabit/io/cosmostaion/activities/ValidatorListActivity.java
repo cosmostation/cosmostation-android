@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -29,9 +30,12 @@ import java.util.List;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.txs.common.ClaimRewardActivity;
+import wannabit.io.cosmostaion.activities.txs.common.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
@@ -44,7 +48,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
 
     private Toolbar mToolbar;
-    private TextView mToolbarTitle;
     private ViewPager mValidatorPager;
     private TabLayout mValidatorTapLayer;
     private ValidatorPageAdapter mPageAdapter;
@@ -54,7 +57,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validator_list);
         mToolbar = findViewById(R.id.tool_bar);
-        mToolbarTitle = findViewById(R.id.toolbar_title);
         mValidatorTapLayer = findViewById(R.id.validator_tab);
         mValidatorPager = findViewById(R.id.validator_view_pager);
 
@@ -64,6 +66,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mPageAdapter = new ValidatorPageAdapter(getSupportFragmentManager());
         mValidatorPager.setAdapter(mPageAdapter);
@@ -73,22 +76,22 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_my_validators);
-        tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, mChainConfig.chainTabColor()));
         mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, mChainConfig.chainTabColor()));
         tabItemText1.setText(R.string.str_top_100_validators);
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText2.setTextColor(ContextCompat.getColorStateList(this, mChainConfig.chainTabColor()));
         tabItemText2.setText(R.string.str_other_validators);
         mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
 
-        mValidatorTapLayer.setTabIconTint(WDp.getChainTintColor(this, mBaseChain));
+        mValidatorTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, mChainConfig.chainColor()));
         mValidatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, mBaseChain));
 
         mValidatorPager.setOffscreenPageLimit(3);
@@ -108,12 +111,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        if(mAccount == null) finish();
     }
 
     @Override

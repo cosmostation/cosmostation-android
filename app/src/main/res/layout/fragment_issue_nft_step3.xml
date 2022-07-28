@@ -29,6 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/fee_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_tx_fee_c"
@@ -37,22 +38,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/fee_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/tx_fee_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/tx_fee_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="@string/str_atom_c"
-                            style="@style/font_ss_12_atom"/>
+                            android:text="-"
+                            style="@style/font_ssl_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -60,7 +62,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:background="@color/colorGrayDayNight"/>
 
 
@@ -188,7 +190,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>
     </LinearLayout>

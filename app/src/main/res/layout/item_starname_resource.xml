@@ -34,14 +34,14 @@
                     android:layout_height="@dimen/space_20"
                     android:layout_marginLeft="@dimen/space_8"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/default_chain_img"/>
+                    android:src="@drawable/chain_default"/>
                 <TextView
                     android:id="@+id/chain_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
                     style="@style/font_ss_14_black_daynight"
-                    android:text="Chain Name"/>
+                    android:text="-"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/chain_address"
@@ -51,7 +51,11 @@
                 android:paddingRight="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_6"
                 style="@style/font_ss_14_gray1"
-                android:singleLine="true"
+                android:autoSizeMaxTextSize="14dp"
+                android:autoSizeMinTextSize="11dp"
+                android:autoSizeStepGranularity="1dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:ellipsize="middle"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

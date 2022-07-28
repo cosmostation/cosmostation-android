@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.task.gRpcTask;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import chainmain.nft.v1.Nft;
 import kava.swap.v1beta1.QueryGrpc;
 import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;

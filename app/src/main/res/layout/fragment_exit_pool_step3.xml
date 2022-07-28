@@ -46,14 +46,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
-                            android:id="@+id/exit_fee_amount_symbol"
+                            android:id="@+id/exit_fee_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="@string/str_atom_c"
-                            style="@style/font_ss_12_atom"/>
+                            android:text="-"
+                            style="@style/font_ssl_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -61,15 +61,19 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:background="@color/colorGrayDayNight"/>
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/lp_layer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/str_exit_insert_lp_coin"
-                style="@style/font_ss_12_gray1"
-                android:layout_marginTop="@dimen/space_12"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_exit_insert_lp_coin"
+                    style="@style/font_ss_12_gray1"
+                    android:layout_marginTop="@dimen/space_12"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,67 +90,98 @@
                             android:id="@+id/exit_in_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/exit_in_amount_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="@string/str_atom_c"
-                            style="@style/font_ss_12_atom"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                     </LinearLayout>
                 </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/share_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/tx_myshare_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_kava_deposit_my_share_title"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tx_myshare_title">
+                    <TextView
+                        android:id="@+id/tx_my_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text=""
+                        style="@style/font_ssl_12_black_daynight"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
+                android:paddingTop="@dimen/space_16"
+                android:paddingBottom="@dimen/space_16"
+                android:orientation="vertical">
                 <TextView
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_osmosis_exit_to_withdraw_coin" />
+                    android:text="@string/str_to_withdraw_coin_title" />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
-                        <TextView
-                            android:id="@+id/exit_output0_amount"
-                            style="@style/font_ss_12_black_daynight"
+                        android:orientation="vertical">
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="-" />
-                        <TextView
-                            android:id="@+id/exit_output0_amount_symbol"
-                            style="@style/font_ss_12_black_daynight"
+                            android:orientation="horizontal"
+                            android:layout_gravity="right">
+                            <TextView
+                                android:id="@+id/exit_output0_amount"
+                                style="@style/font_ssl_12_black_daynight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-" />
+                            <TextView
+                                android:id="@+id/exit_output0_symbol"
+                                style="@style/font_ssl_12_black_daynight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_2"
+                                android:text="-" />
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_2"
-                            android:text="-" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
-                        <TextView
-                            android:id="@+id/exit_output1_amount"
-                            style="@style/font_ss_12_black_daynight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="-" />
-                        <TextView
-                            android:id="@+id/exit_output1_amount_symbol"
-                            style="@style/font_ss_12_black_daynight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_2"
-                            android:text="-" />
+                            android:orientation="horizontal"
+                            android:layout_gravity="right">
+                            <TextView
+                                android:id="@+id/exit_output1_amount"
+                                style="@style/font_ssl_12_black_daynight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-" />
+                            <TextView
+                                android:id="@+id/exit_output1_symbol"
+                                style="@style/font_ssl_12_black_daynight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_2"
+                                android:text="-" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -197,7 +232,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>
     </LinearLayout>

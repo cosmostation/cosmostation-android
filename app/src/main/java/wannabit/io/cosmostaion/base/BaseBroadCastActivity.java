@@ -11,10 +11,7 @@ import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
-import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.dao.IbcPath;
-import wannabit.io.cosmostaion.model.GDexManager;
-import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -54,15 +51,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mSwapInCoin;
     public Coin                         mSwapOutCoin;
 
-    public long                         mGDexPoolId;                                // cosmos
-    public Liquidity.Pool               mGDexPool;
-    public GDexManager                  mGDexManager;
-    public String                       mGDexSwapOrderPrice;
-    public Coin                         mGDexPoolCoinSupply;
-
-
     public String                       mIncentiveMultiplier;
-
 
     public sifnode.clp.v1.Types.Pool    mSifPool;                                   // sif swap
     public Coin                         mSifSwapInCoin;
@@ -101,8 +90,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                                                 mKavaPoolTokenA;
     public Coin                                                 mKavaPoolTokenB;
     public BigDecimal                                           mKavaShareAmount = BigDecimal.ZERO;
-    public Coin                                                 mKavaMinTokenA;
-    public Coin                                                 mKavaMinTokenB;
     public Coin                                                 mCollateral;
     public Coin                                                 mPrincipal;
     public String                                               mCollateralType;
@@ -110,12 +97,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public ArrayList<Coin>                                      mHardPoolCoins = new ArrayList<>();
 
     // contract
-    public String                       mContractAddress;
-
-
-    public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
-    public BigDecimal                   mHdacBalance;                               //rizon swap amount
-    public ArrayList<String>            mHdacWords;                                 //rizon swap Hdac Mnemonic words
+    public String                                               mContractAddress;
 
     public ArrayList<Validator> mValidators = new ArrayList<>();    //ClaimReward old
 
@@ -123,8 +105,4 @@ public class BaseBroadCastActivity extends BaseActivity {
     public void onNextStep() { }
 
     public void onBeforeStep() { }
-
-    public void onBroadcastTx() {
-
-    }
 }

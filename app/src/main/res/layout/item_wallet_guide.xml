@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_12"
-                    android:src="@drawable/cosmos_infoicon"/>
+                    android:src="@drawable/infoicon_cosmos"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,13 +49,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ssm_14_black_daynight"
-                        android:text="@string/str_front_guide_title"/>
+                        android:text="@string/str_front_guide_title_cosmos"/>
                     <TextView
                         android:id="@+id/msg_guide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/font_ss_12_gray1"
-                        android:text="@string/str_front_guide_msg"/>
+                        android:text="@string/str_front_guide_msg_cosmos"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -65,7 +65,7 @@
                 android:orientation="vertical">
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/space_view"
                     android:layout_marginLeft="@dimen/space_16"
                     android:layout_marginRight="@dimen/space_16"
                     android:layout_marginTop="@dimen/space_10"
@@ -86,7 +86,7 @@
                         android:minHeight="@dimen/space_44"
                         android:background="?android:attr/selectableItemBackground"
                         style="@style/font_ss_14_black_daynight"
-                        android:text="@string/str_guide"/>
+                        android:text="HOME"/>
                     <Button
                         android:id="@+id/btn_guide2"
                         android:layout_width="0dp"
@@ -95,7 +95,7 @@
                         android:minHeight="@dimen/space_44"
                         android:background="?android:attr/selectableItemBackground"
                         style="@style/font_ss_14_black_daynight"
-                        android:text="@string/str_faq"/>
+                        android:text="BLOG"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

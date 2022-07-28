@@ -21,14 +21,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_MULTI_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_WITHDRAW;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +36,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -56,6 +53,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -122,6 +120,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mIsGen = getIntent().getBooleanExtra("isGen", false);
         mIsSuccess = getIntent().getBooleanExtra("isSuccess", false);
         mErrorCode = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);
@@ -220,44 +219,29 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, WUtil.getTxExplorer(mBaseChain, hash));
+            String url = "";
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                url = mChainConfig.explorerUrl() + "tx/" + hash;
+            } else {
+                url = mChainConfig.explorerUrl() + "txs/" + hash;
+            }
+            shareIntent.putExtra(Intent.EXTRA_TEXT, url);
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
 
         } else if (v.equals(mExplorerBtn)) {
             if (mBaseChain.equals(BNB_MAIN)) {
-                String url = WUtil.getTxExplorer(mBaseChain, mResBnbTxInfo.hash);
+                String url = mChainConfig.explorerUrl() + "txs/" + mResBnbTxInfo.hash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)) {
-                String url = WUtil.getTxExplorer(mBaseChain, mResTxInfo.txhash);
+                String url = mChainConfig.explorerUrl() + "tx/" + mResTxInfo.hash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } else {
                 return;
             }
-
-        } else if (v.equals(mRefundBtn)) {
-            if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
-                return;
-            }
-
-            if (mBaseChain.equals(BNB_MAIN)) {
-                if ((getBaseDao().availableAmount(TOKEN_BNB)).compareTo(new BigDecimal(FEE_BNB_SEND)) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-
-            Intent refundIntent = new Intent(TxDetailActivity.this, HtlcRefundActivity.class);
-            refundIntent.putExtra("swapId", mSwapId);
-            startActivity(refundIntent);
-
         }
-
     }
 
 
@@ -686,7 +670,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 WDp.showCoinDp(getBaseContext(), getBaseDao(), sendCoin, holder.itemSendDenom, holder.itemSendAmount, mBaseChain);
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
-                holder.itemStatus.setText(WDp.getBnbHtlcStatus(getBaseContext(), mResBnbSwapInfo, mResBnbNodeInfo));
+                holder.itemStatus.setText(WUtil.getBnbHtlcStatus(getBaseContext(), mResBnbSwapInfo, mResBnbNodeInfo));
 
                 if (mResBnbSwapInfo != null &&
                         mResBnbNodeInfo != null &&

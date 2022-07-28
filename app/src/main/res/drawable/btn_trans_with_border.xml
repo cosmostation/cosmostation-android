@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/colorRipple1">
+    android:color="@color/colorBlackDayNight">
     <item>
         <selector>
             <item
@@ -12,7 +12,7 @@
                         android:radius="@dimen/space_6"/>
                     <stroke
                         android:color="@color/colorBlackDayNight"
-                        android:width="0.8dp"/>
+                        android:width="@dimen/space_view"/>
                     <padding
                         android:left="@dimen/space_8"
                         android:top="@dimen/space_8"
@@ -30,7 +30,7 @@
                         android:radius="@dimen/space_6"/>
                     <stroke
                         android:color="@color/colorBlackDayNight"
-                        android:width="0.8dp"/>
+                        android:width="@dimen/space_view"/>
                     <padding
                         android:left="@dimen/space_8"
                         android:top="@dimen/space_8"

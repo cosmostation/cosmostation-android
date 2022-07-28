@@ -89,7 +89,7 @@
 
                 <TextView
                     android:id="@+id/available_denom"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -97,7 +97,7 @@
 
                 <TextView
                     android:id="@+id/available_amount"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_ssl_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/space_2"

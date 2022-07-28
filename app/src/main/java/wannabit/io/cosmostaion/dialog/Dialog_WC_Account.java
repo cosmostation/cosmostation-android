@@ -74,7 +74,7 @@ public class Dialog_WC_Account extends DialogFragment {
         @NonNull
         @Override
         public AccountListAdapter.AccountHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new AccountListAdapter.AccountHolder(getLayoutInflater().inflate(R.layout.item_dialog_accountlist_account, viewGroup, false));
+            return new AccountListAdapter.AccountHolder(getLayoutInflater().inflate(R.layout.item_dialog_account, viewGroup, false));
         }
 
         @Override

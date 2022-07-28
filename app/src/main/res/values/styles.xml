@@ -58,7 +58,7 @@
     </style>
 
     <style name="ColorSwitchStylesIov">
-        <item name="colorControlActivated">@color/color_iov</item>
+        <item name="colorControlActivated">@color/color_starname</item>
     </style>
 
     <style name="Theme.AppCompat.Translucent">

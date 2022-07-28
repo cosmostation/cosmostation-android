@@ -31,7 +31,8 @@
                     android:textColorHint="@color/colorGray4"
                     android:background="@drawable/edittext_box"
                     android:paddingRight="@dimen/space_60"
-                    style="@style/font_ss_12_black_daynight"
+                    android:paddingLeft="@dimen/space_10"
+                    style="@style/font_ss_14_black_daynight"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionDone"
                     android:gravity="center_vertical|left"/>
@@ -86,7 +87,7 @@
                     <Button
                         android:id="@+id/start_lock_input_1_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -96,7 +97,7 @@
                     <Button
                         android:id="@+id/start_lock_input_half"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -106,7 +107,7 @@
                     <Button
                         android:id="@+id/start_lock_input_3_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -116,7 +117,7 @@
                     <Button
                         android:id="@+id/start_lock_input_max"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -157,7 +158,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>
     </LinearLayout>

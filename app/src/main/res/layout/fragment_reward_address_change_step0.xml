@@ -37,7 +37,7 @@
             android:gravity="center"
             android:padding="@dimen/space_12"
             android:layout_marginTop="@dimen/space_12"
-            android:background="@color/colorTransBg">
+            android:background="@drawable/box_white2_border">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>
     </LinearLayout>

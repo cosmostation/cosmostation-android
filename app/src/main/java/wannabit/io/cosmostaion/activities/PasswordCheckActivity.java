@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
@@ -10,7 +9,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_HARVEST_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
@@ -19,15 +17,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_LINK_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
@@ -46,9 +39,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RIZON_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
@@ -90,11 +81,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.gson.Gson;
 
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.crypto.DeterministicKey;
-
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Map;
@@ -104,26 +91,17 @@ import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
-import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HdacBurnTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimHarvestRewardTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
@@ -141,9 +119,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Cw20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityDepositGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravitySwapGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaBorrowHardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaClaimIncentiveAllGrpcTask;
@@ -158,7 +133,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaWithdrawHardGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.LinkAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.MintNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisBeginUnbondingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
@@ -174,7 +148,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RenewDomainGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReplaceStarNameGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifDepositGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifIncentiveGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.TransferNFTGrpcTask;
@@ -183,7 +156,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -239,9 +211,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private long mOsmosisLockupDuration;
     private ArrayList<Lock.PeriodLock> mOsmosisLockups = new ArrayList<>();
 
-    private Liquidity.Pool mGDexPool;
-    public String mGDexSwapOrderPrice;
-
     private Coin mSifSwapInCoin;
     private Coin mSifSwapOutCoin;
     private Coin mSifDepositCoin0;
@@ -272,8 +241,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Coin mKavaPoolTokenA;
     private Coin mKavaPoolTokenB;
     private String mKavaShareAmount;
-    private Coin mKavaMinTokenA;
-    private Coin mKavaMinTokenB;
     private Coin mCollateral;
     private Coin mPrincipal;
     private String mCollateralType;
@@ -286,13 +253,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String mPortId;
     private String mChannelId;
 
-
-    private String mHdacBurnRawTx;                 //for hdac burn & swap
-
     private long    mIdToDelete;
     private long    mIdMWordDelete;
     private long    mIdToCheck;
-
 
     public ArrayList<String> mValOpAddresses_V1;
 
@@ -362,9 +325,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             mOsmosisLockups = lockupsWrapper.array;
         }
 
-        mGDexPool = (Liquidity.Pool) getIntent().getSerializableExtra("gDexPool");
-        mGDexSwapOrderPrice = getIntent().getStringExtra("gDexSwapOrderPrice");
-
         mSifSwapInCoin = getIntent().getParcelableExtra("SifSwapInCoin");
         mSifSwapOutCoin = getIntent().getParcelableExtra("SifSwapOutCoin");
         mSifDepositCoin0 = getIntent().getParcelableExtra("SifDepositCoin0");
@@ -393,8 +353,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mKavaPoolTokenA = getIntent().getParcelableExtra("mKavaPoolTokenA");
         mKavaPoolTokenB = getIntent().getParcelableExtra("mKavaPoolTokenB");
         mKavaShareAmount = getIntent().getStringExtra("mKavaShare");
-        mKavaMinTokenA = getIntent().getParcelableExtra("mKavaMinTokenA");
-        mKavaMinTokenB = getIntent().getParcelableExtra("mKavaMinTokenB");
+        mKavaPoolTokenA = getIntent().getParcelableExtra("mKavaPoolTokenA");
+        mKavaPoolTokenB = getIntent().getParcelableExtra("mKavaPoolTokenB");
         mCollateral = getIntent().getParcelableExtra("mCollateral");
         mPrincipal = getIntent().getParcelableExtra("mPrincipal");
         mCollateralType = getIntent().getStringExtra("mCollateralType");
@@ -414,8 +374,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 WLog.w("Passing bundle Error");
             }
         }
-
-        mHdacBurnRawTx = getIntent().getStringExtra("hdacBurnRawTx");
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdMWordDelete = getIntent().getLongExtra("mWordId", -1);
@@ -558,17 +516,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mSelectedOpinion, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
-            onShowWaitDialog();
-            if (mBaseChain.equals(BNB_MAIN)) {
-                new SimpleBnbHtlcRefundTask(getBaseApplication(), this, mAccount,
-                        mSwapId, mTargetMemo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-            } else if (mBaseChain.equals(KAVA_MAIN)) {
-                new SimpleHtlcRefundTask(getBaseApplication(), this, mAccount, mSwapId,
-                        mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-            }
-
         } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
             new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -606,10 +553,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new ReplaceStarNameGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
                     mName, mResources, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_CLAIM_HARVEST_REWARD) {
-            new SimpleClaimHarvestRewardTask(getBaseApplication(), this, mAccount, mMultiplierName,
-                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_SWAP) {
             new OsmosisSwapInTask(getBaseApplication(), this, mAccount, mBaseChain, mSwapAmountInRoute, mSwapInCoin, mSwapOutCoin,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
@@ -634,28 +577,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new OsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {
-            BigDecimal offerFee = new BigDecimal(mSwapInCoin.amount).multiply(new BigDecimal("0.0015")).setScale(0, RoundingMode.CEILING);
-            Coin coinFee = new Coin(mSwapInCoin.denom, offerFee.toPlainString());
-            new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mGDexPool.getId(), mSwapInCoin, mSwapOutCoin.denom, coinFee, mGDexSwapOrderPrice, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-        } else if (mPurpose == CONST_PW_TX_GDEX_DEPOSIT) {
-            new GravityDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-        } else if (mPurpose == CONST_PW_TX_GDEX_WITHDRAW) {
-            new GravityWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mLpToken,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
         } else if (mPurpose == CONST_PW_TX_IBC_TRANSFER) {
             new IBCTransferGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mTargetAddress, mTargetCoins.get(0).denom, mTargetCoins.get(0).amount,
                     mPortId, mChannelId, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
-        } else if (mPurpose == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
-            new SifIncentiveGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_SIF_SWAP) {
             new SifSwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
@@ -697,20 +621,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new CreateProfileGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDtag, mNickname, mBio, profileUri, coverUri,
                     mAccount.address, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_LINK_ACCOUNT) {
-            Account toAccount = getBaseDao().onSelectAccount(mDesmosToLinkAccountId.toString());
-            ECKey ecKey;
-            if (toAccount.fromMnemonic) {
-                String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + toAccount.uuid, toAccount.resource, toAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(toAccount, entropy);
-                ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
-            } else {
-                String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + toAccount.uuid, toAccount.resource, toAccount.spec);
-                ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
-            }
-            new LinkAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, BaseChain.getChain(mDesmosToLinkChain),
-                    toAccount, ecKey, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
         } else if (mPurpose == CONST_PW_TX_KAVA_SWAP) {
             new KavaSwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaSwapin, mKavaSwapOut,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
@@ -720,7 +630,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
-            new KavaWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaShareAmount, mKavaMinTokenA, mKavaMinTokenB,
+            new KavaWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mKavaShareAmount, mKavaPoolTokenA, mKavaPoolTokenB,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {
@@ -766,10 +676,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (mPurpose == CONST_PW_TX_EXECUTE_CONTRACT) {
             new Cw20SendGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mTargetAddress, mContractAddress, mTargetCoins,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-        } else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {
-            new HdacBurnTask(getBaseApplication(), this, mBaseChain, mHdacBurnRawTx).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
-
     }
 
     private void onShakeView() {

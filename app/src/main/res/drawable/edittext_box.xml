@@ -7,7 +7,7 @@
             <solid android:color="@color/colorTransBg"/>
             <stroke
                 android:color="@color/colorGray5"
-                android:width="@dimen/space_1"/>
+                android:width="@dimen/space_view"/>
             <corners
                 android:radius="@dimen/space_6"/>
             <padding

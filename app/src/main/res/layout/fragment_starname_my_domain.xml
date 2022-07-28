@@ -52,10 +52,10 @@
             android:layout_marginLeft="@dimen/space_4"
             android:layout_weight="1"
             android:background="@drawable/btn_trans_with_photon_border"
+            android:textColor="@color/colorPhoton"
             android:minHeight="@dimen/space_45"
             android:text="@string/str_buy_new_domain"
-            android:textAllCaps="false"
-            android:textColor="@color/color_btn_photon" />
+            android:textAllCaps="false"/>
     </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

@@ -39,7 +39,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:background="@color/colorGrayDayNight"
                 android:layout_marginTop="@dimen/space_16"/>
 
@@ -49,8 +49,8 @@
                 android:layout_marginTop="@dimen/space_16">
                 <ImageView
                     android:id="@+id/deposit_icon"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="@dimen/space_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:src="@drawable/token_default"/>
                 <TextView
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_ssl_12_black_daynight"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/deposited_amount"
@@ -95,7 +95,7 @@
                         android:layout_alignBaseline="@+id/deposited_symbol"
                         android:layout_toLeftOf="@+id/deposited_symbol"
                         android:text="-"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_ssl_12_black_daynight"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/borrowed_amount"
@@ -137,7 +137,7 @@
                         android:layout_alignBaseline="@+id/borrowed_symbol"
                         android:layout_toLeftOf="@+id/borrowed_symbol"
                         android:text="-"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_ssl_12_black_daynight"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/borrowable_amount"
@@ -180,7 +180,7 @@
                         android:layout_alignBaseline="@+id/borrowable_symbol"
                         android:layout_toLeftOf="@+id/borrowable_symbol"
                         android:text="-"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_ssl_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView

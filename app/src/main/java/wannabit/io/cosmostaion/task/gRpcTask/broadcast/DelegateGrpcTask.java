@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.crypto.HDKeyDerivation;
 
 import java.math.BigInteger;
 
@@ -26,7 +25,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_DELEGATE;
 

@@ -5,69 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite2DayNight"
-    android:padding="@dimen/space_16"  >
-    <LinearLayout
-        android:layout_width="match_parent"
+    android:padding="@dimen/space_16">
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/dialog_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_12"
-            android:text="dialog_title"
-            style="@style/font_ss_17_black_daynight"/>
+        android:layout_marginLeft="@dimen/space_12"
+        android:text="dialog_title"
+        style="@style/font_ss_17_black_daynight"/>
 
-        <TextView
-            android:id="@+id/dialog_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
-            android:layout_marginLeft="@dimen/space_12"
-            android:text="dialog_msg"
-            style="@style/font_ss_14_black_daynight"/>
+    <TextView
+        android:id="@+id/dialog_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginLeft="@dimen/space_12"
+        android:text="dialog_msg"
+        style="@style/font_ss_14_black_daynight"/>
 
-        <Button
-            android:id="@+id/btn_one"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_8"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            android:background="@drawable/box_chain_selected"
-            style="@style/font_ss_14_black_daynight"
-            android:text="Button Title"
-            android:textColor="@color/colorBlackDayNight"
-            android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/btn_one"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_45"
+        android:layout_marginTop="@dimen/space_8"
+        android:minHeight="@dimen/space_45"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:background="@drawable/box_chain_trans_border"
+        style="@style/font_ss_14_black_daynight"
+        android:text="Button Title"
+        android:textColor="@color/colorBlackDayNight"
+        android:textAllCaps="false"/>
 
-        <Button
-            android:id="@+id/btn_two"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_12"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            android:background="@drawable/box_chain_selected"
-            style="@style/font_ss_14_black_daynight"
-            android:text="Button Title"
-            android:textColor="@color/colorBlackDayNight"
-            android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/btn_two"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_45"
+        android:layout_marginTop="@dimen/space_12"
+        android:minHeight="@dimen/space_45"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:background="@drawable/box_chain_trans_border"
+        style="@style/font_ss_14_black_daynight"
+        android:text="Button Title"
+        android:textColor="@color/colorBlackDayNight"
+        android:textAllCaps="false"/>
 
-        <Button
-            android:id="@+id/btn_three"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_12"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginRight="@dimen/space_12"
-            android:background="@drawable/box_chain_selected"
-            style="@style/font_ss_14_black_daynight"
-            android:text="Button Title"
-            android:textColor="@color/colorBlackDayNight"
-            android:textAllCaps="false"
-            android:visibility="gone"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_three"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_45"
+        android:layout_marginTop="@dimen/space_12"
+        android:minHeight="@dimen/space_45"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:background="@drawable/box_chain_trans_border"
+        style="@style/font_ss_14_black_daynight"
+        android:text="Button Title"
+        android:textColor="@color/colorBlackDayNight"
+        android:textAllCaps="false"
+        android:visibility="gone"/>
 </LinearLayout>

@@ -42,7 +42,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_12"
                 android:background="@color/colorGrayDayNight"/>
 
@@ -66,6 +66,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ssl_12_black_daynight"/>
                 <TextView
@@ -98,6 +100,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ssl_12_black_daynight"/>
                 <TextView
@@ -130,6 +134,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ssl_12_black_daynight"/>
                 <TextView
@@ -162,6 +168,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ssl_12_black_daynight"/>
                 <TextView
@@ -194,6 +202,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:maxLines="1"
+                    android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
 

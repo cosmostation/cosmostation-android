@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
@@ -13,8 +12,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,6 +36,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResNotice;
@@ -70,6 +69,7 @@ public class MainSendFragment extends BaseFragment {
 
     private Account mAccount;
     private BaseChain mBaseChain;
+    private ChainConfig mChainConfig;
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -138,40 +138,6 @@ public class MainSendFragment extends BaseFragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().mAccount.pushAlarm) {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-            } else {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-            }
-        } else {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_accounts:
-                getMainActivity().onClickSwitchWallet();
-                break;
-            case R.id.menu_explorer:
-                getMainActivity().onExplorerView();
-                break;
-            case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
-                break;
-            case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
@@ -188,6 +154,7 @@ public class MainSendFragment extends BaseFragment {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
         mAccount = getMainActivity().mAccount;
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
         onNoticeView();
@@ -206,7 +173,7 @@ public class MainSendFragment extends BaseFragment {
 
     private void onNoticeView() {
         mNoticeView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
-        ApiClient.getMintscan(getContext()).getNotice(WDp.getChainNameByBaseChain(mBaseChain), true).enqueue(new Callback<ResNotice>() {
+        ApiClient.getMintscan(getContext()).getNotice(mChainConfig.chainName(), true).enqueue(new Callback<ResNotice>() {
             @Override
             public void onResponse(Call<ResNotice> call, Response<ResNotice> response) {
                 if (response != null && response.body() != null && response.isSuccessful()) {
@@ -219,7 +186,7 @@ public class MainSendFragment extends BaseFragment {
                         mNoticeInfo.setText(noticeInfo.boards.get(0).title);
 
                         mNoticeView.setOnClickListener(view -> {
-                            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(mBaseChain) + "/" + noticeInfo.boards.get(0).id;
+                            String url = EXPLORER_NOTICE_MINTSCAN + mChainConfig.chainName() + "/" + noticeInfo.boards.get(0).id;
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             startActivity(intent);
                         });

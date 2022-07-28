@@ -17,8 +17,8 @@ import androidx.fragment.app.DialogFragment;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.setting.MnemonicCreateActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
-import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
-import wannabit.io.cosmostaion.activities.setting.WatchingAccountAddActivity;
+import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
+import wannabit.io.cosmostaion.activities.setting.WatchingWalletAddActivity;
 
 public class Dialog_AddAccount extends DialogFragment {
 
@@ -49,7 +49,7 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_import_key.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent restoreIntent = new Intent(getActivity(), RestoreKeyActivity.class);
+                Intent restoreIntent = new Intent(getActivity(), PrivateKeyRestoreActivity.class);
                 startActivity(restoreIntent);
                 getDialog().dismiss();
             }
@@ -67,7 +67,7 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_watch_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), WatchingAccountAddActivity.class));
+                startActivity(new Intent(getActivity(), WatchingWalletAddActivity.class));
                 getDialog().dismiss();
             }
         });

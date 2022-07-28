@@ -18,12 +18,12 @@
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
-        android:background="@drawable/box_chain_selected">
+        android:background="@drawable/box_chain_trans_border">
         <TextView
             android:id="@+id/channel_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_4"
+            android:layout_marginLeft="@dimen/space_8"
             style="@style/font_ss_14_black_daynight"
             android:singleLine="true"
             android:text="channel-141"/>
@@ -35,7 +35,7 @@
             android:id="@+id/channel_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/space_4"
+            android:layout_marginRight="@dimen/space_8"
             android:src="@drawable/wellknown"/>
 
     </LinearLayout>

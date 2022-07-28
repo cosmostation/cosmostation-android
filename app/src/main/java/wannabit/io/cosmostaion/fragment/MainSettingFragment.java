@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 import static wannabit.io.cosmostaion.utils.ThemeUtil.themeColor;
 
@@ -8,11 +7,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -20,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -36,16 +31,15 @@ import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicListActivity;
-import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
-import wannabit.io.cosmostaion.activities.setting.WatchingAccountAddActivity;
-import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
+import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
+import wannabit.io.cosmostaion.activities.setting.WatchingWalletAddActivity;
+import wannabit.io.cosmostaion.activities.txs.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -53,9 +47,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_MARKET = 9035;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9036;
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey,mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnCurrency,
-                        mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
-                        mBtnTerm, mBtnGithub, mBtnVersion;
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnCurrency,
+            mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
+            mBtnTerm, mBtnGithub, mBtnVersion;
 
     private TextView mTvAppLock, mTvCurrency, mTvVersion, mTvTheme;
 
@@ -73,40 +67,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         themeColor = ThemeUtil.modLoad(getBaseActivity());
         ThemeUtil.applyTheme(themeColor);
     }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            if (getMainActivity().mAccount.pushAlarm) {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-            } else {
-                getMainActivity().getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-            }
-        } else {
-            getMainActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_accounts:
-                getMainActivity().onClickSwitchWallet();
-                break;
-            case R.id.menu_explorer:
-                getMainActivity().onExplorerView();
-                break;
-            case R.id.menu_notification_off:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
-                break;
-            case R.id.menu_notification_on:
-                getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, false);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -167,11 +127,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             mTvAppLock.setText(R.string.str_app_applock_diabeld);
         }
 
-        if(themeColor.equals("default")){
+        if (themeColor.equals("default")) {
             mTvTheme.setText(R.string.str_theme_system);
-        } else if(themeColor.equals("light")){
+        } else if (themeColor.equals("light")) {
             mTvTheme.setText(R.string.str_theme_light);
-        } else if(themeColor.equals("dark")){
+        } else if (themeColor.equals("dark")) {
             mTvTheme.setText(R.string.str_theme_dark);
         }
     }
@@ -191,28 +151,31 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), MnemonicListActivity.class));
 
         } else if (v.equals(mBtnImportKey)) {
-            startActivity(new Intent(getBaseActivity(), RestoreKeyActivity.class));
+            startActivity(new Intent(getBaseActivity(), PrivateKeyRestoreActivity.class));
 
         } else if (v.equals(mBtnWatchAddress)) {
-            startActivity(new Intent(getBaseActivity(), WatchingAccountAddActivity.class));
+            startActivity(new Intent(getBaseActivity(), WatchingWalletAddActivity.class));
 
-        } else if(v.equals(mBtnTheme)) {
+        } else if (v.equals(mBtnTheme)) {
             FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
                     getString(R.string.str_theme_system), view -> {
                         themeColor = ThemeUtil.DEFAULT_MODE;
                         ThemeUtil.applyTheme(themeColor);
                         mTvTheme.setText(R.string.str_theme_system);
-                        ThemeUtil.modSave(getBaseActivity(), themeColor);}, null,
+                        ThemeUtil.modSave(getBaseActivity(), themeColor);
+                    }, null,
                     getString(R.string.str_theme_light), view -> {
                         themeColor = ThemeUtil.LIGHT_MODE;
                         ThemeUtil.applyTheme(themeColor);
                         mTvTheme.setText(R.string.str_theme_light);
-                        ThemeUtil.modSave(getBaseActivity(), themeColor);}, null,
+                        ThemeUtil.modSave(getBaseActivity(), themeColor);
+                    }, null,
                     getString(R.string.str_theme_dark), view -> {
                         themeColor = ThemeUtil.DARK_MODE;
                         ThemeUtil.applyTheme(themeColor);
                         mTvTheme.setText(R.string.str_theme_dark);
-                        ThemeUtil.modSave(getBaseActivity(), themeColor);},null);
+                        ThemeUtil.modSave(getBaseActivity(), themeColor);
+                    }, null);
 
         } else if (v.equals(mBtnAlaram)) {
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
@@ -228,12 +191,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             return;
 
         } else if (v.equals(mBtnExplore)) {
-            String url = WUtil.getExplorer(getMainActivity().mBaseChain);
+            String url = getMainActivity().mChainConfig.explorerUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
 
         } else if (v.equals(mBtnNotice)) {
-            String url = EXPLORER_NOTICE_MINTSCAN + WDp.getChainNameByBaseChain(getMainActivity().mBaseChain);
+            String url = EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(getMainActivity().mBaseChain).chainName();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
 
@@ -249,7 +212,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnTelegram)) {
             Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/cosmostation"));
             startActivity(telegram);
-          
+
         } else if (v.equals(mBtnHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
             startActivity(intent);

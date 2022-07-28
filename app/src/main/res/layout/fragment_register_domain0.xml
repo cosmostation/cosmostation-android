@@ -70,17 +70,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/space_2"
                     style="@style/font_ss_26_black_daynight"
                     android:text="*"/>
                 <EditText
                     android:id="@+id/et_user_input"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_45"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/space_10"
+                    android:paddingBottom="@dimen/space_10"
                     android:hint="Your Starname"
                     android:textCursorDrawable="@drawable/white_cursor"
                     android:maxLength="40"
                     android:textColorHint="@color/colorGray4"
-                    android:background="@null"
+                    android:background="@drawable/box_white2_border"
                     android:inputType="textNoSuggestions|textVisiblePassword"
                     android:paddingLeft="@dimen/space_4"
                     style="@style/font_ss_26_black_daynight"
@@ -103,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="IOV"
-                    style="@style/font_ssl_14_iov"/>
+                    android:textColor="@color/color_starname"
+                    style="@style/font_ss_14_black_daynight"/>
                 <TextView
                     android:id="@+id/starname_fee_amount"
                     android:layout_width="wrap_content"
@@ -111,7 +116,7 @@
                     android:layout_toLeftOf="@+id/starname_fee_denom"
                     android:layout_marginRight="@dimen/space_2"
                     android:text="-"
-                    style="@style/font_ss_14_black_daynight"/>
+                    style="@style/font_ssl_14_black_daynight"/>
             </RelativeLayout>
 
 
@@ -150,7 +155,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>
     </LinearLayout>

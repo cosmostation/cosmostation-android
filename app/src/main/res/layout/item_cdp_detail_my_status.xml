@@ -40,7 +40,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:background="@color/colorGrayDayNight"
                 android:layout_marginTop="@dimen/space_16"/>
 
@@ -55,14 +55,15 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:id="@+id/collateral_icon"
-                        android:layout_width="@dimen/space_20"
-                        android:layout_height="@dimen/space_20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/collateral_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/collateral_icon"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="COIN"
                         style="@style/font_ss_14_black_daynight"/>
@@ -96,7 +97,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_14_black_daynight"
+                        android:layout_toRightOf="@+id/self_deposited_amount_layer"
+                        style="@style/font_ssl_12_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -106,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-2dp"
                     android:gravity="right"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:text="-"/>
 
                 <RelativeLayout
@@ -137,7 +139,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_14_black_daynight"
+                        android:layout_toRightOf="@+id/total_deposited_amount_layer"
+                        style="@style/font_ssl_12_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -147,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-2dp"
                     android:gravity="right"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:text="-"/>
 
                 <RelativeLayout
@@ -179,7 +182,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_14_black_daynight"
+                        android:layout_toRightOf="@+id/expected_withdrawable_amount_layer"
+                        style="@style/font_ssl_12_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -190,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_ss_11_gray1"
                 android:text="-"/>
 
             <LinearLayout
@@ -251,14 +255,15 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:id="@+id/principal_icon"
-                        android:layout_width="@dimen/space_20"
-                        android:layout_height="@dimen/space_20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/principal_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/principal_icon"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="USDX"
                         style="@style/font_ss_14_black_daynight"/>
@@ -292,7 +297,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_14_black_daynight"
+                        android:layout_toRightOf="@+id/loaned_amount_layer"
+                        style="@style/font_ssl_12_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -302,7 +308,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-2dp"
                     android:gravity="right"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:text="-"/>
 
                 <RelativeLayout
@@ -333,7 +339,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_14_black_daynight"
+                        android:layout_toRightOf="@+id/cdp_fee_amount_layer"
+                        style="@style/font_ssl_12_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -343,7 +350,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-2dp"
                     android:gravity="right"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:text="-"/>
 
                 <RelativeLayout
@@ -374,7 +381,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_14_black_daynight"
+                        android:layout_toRightOf="@+id/expected_loanable_amount_layer"
+                        style="@style/font_ssl_12_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -384,7 +392,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-2dp"
                     android:gravity="right"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:text="-"/>
             </LinearLayout>
 

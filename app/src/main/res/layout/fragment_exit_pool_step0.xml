@@ -24,21 +24,23 @@
                 android:layout_marginTop="@dimen/space_12">
                 <LinearLayout
                     android:id="@+id/exit_pool_input_symbol_layer"
-                    android:layout_width="@dimen/space_64"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
                         android:id="@+id/exit_pool_input_icon"
-                        android:layout_width="@dimen/space_28"
-                        android:layout_height="@dimen/space_28"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/exit_pool_input_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="COIN"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         style="@style/font_ss_10_black_daynight"/>
                 </LinearLayout>
                 <EditText
@@ -46,13 +48,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_8"
+                    android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/exit_pool_input_symbol_layer"
                     android:textCursorDrawable="@drawable/white_cursor"
                     android:maxLength="46"
-                    android:textColorHint="@color/colorGray4"
                     android:background="@drawable/edittext_box"
                     android:paddingRight="@dimen/space_60"
+                    android:paddingLeft="@dimen/space_14"
                     style="@style/font_ss_12_black_daynight"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionDone"
@@ -87,7 +89,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ss_10_black_daynight"
+                            style="@style/font_ss_12_black_daynight"
                             android:text="-"/>
                         <TextView
                             android:id="@+id/exit_pool_input_amount_denom"
@@ -95,7 +97,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="Share"
-                            style="@style/font_ss_10_black_daynight" />
+                            style="@style/font_ss_12_black_daynight" />
                     </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout
@@ -108,7 +110,7 @@
                     <Button
                         android:id="@+id/exit_pool_input_1_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -118,7 +120,7 @@
                     <Button
                         android:id="@+id/exit_pool_input_half"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -128,7 +130,7 @@
                     <Button
                         android:id="@+id/exit_pool_input_3_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -138,7 +140,7 @@
                     <Button
                         android:id="@+id/exit_pool_input_max"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_30"
+                        android:layout_height="@dimen/space_32"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -179,7 +181,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>
     </LinearLayout>

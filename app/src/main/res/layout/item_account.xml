@@ -15,7 +15,7 @@
         android:layout_height="@dimen/space_60"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/box_accout_selected">
+        android:background="@drawable/box_account_selected">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,7 +25,6 @@
                 android:id="@+id/btn_account_chain_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/chain_cosmos"
                 android:layout_centerVertical="true"/>
             <!--<Button-->
                 <!--android:id="@+id/btn_account_detail"-->

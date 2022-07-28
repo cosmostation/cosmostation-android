@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import sifnode.clp.v1.Querier;

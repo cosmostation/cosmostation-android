@@ -1,10 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -29,13 +25,15 @@ import androidx.core.content.ContextCompat;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
-import wannabit.io.cosmostaion.activities.setting.RestoreKeyActivity;
+import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
+import wannabit.io.cosmostaion.activities.txs.common.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
@@ -68,7 +66,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private ImageView mBtnRewardAddressChange;
     private TextView mRewardAddress;
 
-    private View mView;
     private Button mBtnDelete, mBtnCheckKey, mBtnCheck;
 
     @Override
@@ -99,10 +96,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnRewardAddressChange = findViewById(R.id.reward_change_btn);
         mRewardAddress = findViewById(R.id.reward_address);
         mBtnDelete = findViewById(R.id.btn_delete);
-        mView = findViewById(R.id.view);
         mBtnCheckKey = findViewById(R.id.btn_check_key);
         mBtnCheck = findViewById(R.id.btn_check);
-
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -147,13 +142,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onStartChangeRewardAddress() {
-        if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
-            return;
-        }
-
         getBaseDao().setLastUser(mAccount.id);
         Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
         changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
@@ -168,12 +156,13 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         MWords mWords = getBaseDao().onSelectMnemonicById(mAccount.mnemonicId);
         if (mAccount == null) onBackPressed();
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         onUpdatePushStatusUI();
-        WDp.showChainDp(AccountDetailActivity.this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
-        WDp.getChainImg(AccountDetailActivity.this, mBaseChain, mChainImg);
+        WDp.showChainDp(this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
+        mChainImg.setImageResource(mChainConfig.chainImg());
 
-        if (isGRPC(mBaseChain)) {
+        if (BaseChain.isGRPC(mBaseChain)) {
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
@@ -190,7 +179,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         if (mAccount.hasPrivateKey && mAccount.fromMnemonic) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));
-            mAccountPath.setText(WDp.getPath(BaseChain.getChain(mAccount.baseChain), Integer.parseInt(mAccount.path), mAccount.customPath));
+            mAccountPath.setText(mChainConfig.getHdPath(mAccount.customPath, mAccount.path));
             mPathLayer.setVisibility(View.VISIBLE);
             mMnemonicLayer.setVisibility(View.VISIBLE);
             mMnemonicName.setText(mWords.getName());
@@ -208,7 +197,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mBtnCheck.setVisibility(View.VISIBLE);
             mBtnCheckKey.setVisibility(View.VISIBLE);
             mBtnCheckKey.setText(getString(R.string.str_check_private_key));
-            if (mBaseChain.equals(OKEX_MAIN)) {
+            if (mBaseChain.equals(BaseChain.OKEX_MAIN)) {
                 mPathLayer.setVisibility(View.VISIBLE);
                 mAccountPathTitle.setText("Address Type");
                 if (mAccount.customPath > 0) {
@@ -293,7 +282,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
             } else {
-                Intent restoreIntent = new Intent(AccountDetailActivity.this, RestoreKeyActivity.class);
+                Intent restoreIntent = new Intent(AccountDetailActivity.this, PrivateKeyRestoreActivity.class);
                 restoreIntent.putExtra("chain", mBaseChain.getChain());
                 startActivity(restoreIntent);
             }
@@ -316,15 +305,13 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             Bundle bundle = new Bundle();
             bundle.putString("address", mAccount.address);
             bundle.putString("title", mAccountName.getText().toString());
-            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            AccountShowDialog show = AccountShowDialog.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnRewardAddressChange)) {
             if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
+                onInsertKeyDialog();
                 return;
             }
 
@@ -335,7 +322,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
             AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_reward_address_change_title),
                     Html.fromHtml(getString(R.string.str_reward_address_change_msg) + "<br/><br/><font color=\"#ff0000\">" + AlertDialogUtils.highlightingText(getString(R.string.str_reward_address_change_market_no) + "</font>")),
-                    AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
+                    getString(R.string.str_cancel), null,
                     getString(R.string.str_continue), view -> onStartChangeRewardAddress(), true);
         }
 

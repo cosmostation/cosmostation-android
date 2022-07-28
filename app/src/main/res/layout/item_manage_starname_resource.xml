@@ -33,7 +33,7 @@
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/default_chain_img"/>
+                    android:src="@drawable/chain_default"/>
                 <TextView
                     android:id="@+id/chain_name"
                     android:layout_width="wrap_content"
@@ -62,10 +62,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_8"
-                android:singleLine="true"
+                android:autoSizeMaxTextSize="14dp"
+                android:autoSizeMinTextSize="11dp"
+                android:autoSizeStepGranularity="1dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:ellipsize="middle"
                 style="@style/font_ss_12_gray1"
-                android:text="addresssss"/>
+                android:text="-"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

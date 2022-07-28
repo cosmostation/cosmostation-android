@@ -60,7 +60,7 @@
 
                     <TextView
                         android:id="@+id/domain_type"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_ssl_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -82,7 +82,7 @@
 
                     <TextView
                         android:id="@+id/connected_addressed"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_ssl_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -103,7 +103,7 @@
 
                     <TextView
                         android:id="@+id/expire_date"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_ssl_11_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

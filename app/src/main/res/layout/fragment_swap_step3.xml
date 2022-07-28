@@ -30,6 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tx_fee_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_swap_tx_fee"
@@ -39,22 +40,23 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/tx_fee_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_fee_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/swap_fee_amount_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="@string/str_atom_c"
+                            android:text="-"
                             android:gravity="end"
-                            style="@style/font_ss_12_atom"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -63,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16">
                     <TextView
+                        android:id="@+id/swap_fee_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_swap_fee"
@@ -71,22 +74,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/swap_fee_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_fee"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/swap_fee_symbol"
-                            android:layout_width="@dimen/space_50"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="@string/str_atom_c"
-                            style="@style/font_ss_12_atom"
+                            android:text="-"
+                            style="@style/font_ss_12_black_daynight"
                             android:gravity="end"
                             android:visibility="gone"/>
                     </LinearLayout>
@@ -96,7 +100,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:background="@color/colorGrayDayNight"/>
 
             <LinearLayout
@@ -109,6 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/swap_in_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_swap_in"
@@ -118,22 +123,23 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/swap_in_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_in_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/swap_in_amount_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            android:text="@string/str_atom_c"
+                            android:text="-"
                             android:gravity="end"
-                            style="@style/font_ss_12_atom"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
@@ -141,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16">
                     <TextView
+                        android:id="@+id/swap_out_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_swap_out"
@@ -150,22 +157,23 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/swap_out_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_out_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                         <TextView
                             android:id="@+id/swap_out_amount_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:gravity="end"
-                            android:text="@string/str_atom_c"
-                            style="@style/font_ss_12_atom"/>
+                            android:text="-"
+                            style="@style/font_ssl_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
@@ -174,6 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16">
                     <TextView
+                        android:id="@+id/slippage_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_kava_slippage_title"
@@ -183,14 +192,15 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/slippage_title"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="end">
                         <TextView
                             android:id="@+id/swap_slippage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_ssl_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
                 <TextView
@@ -243,7 +253,7 @@
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>
     </LinearLayout>

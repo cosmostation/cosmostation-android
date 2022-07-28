@@ -34,9 +34,7 @@
             <ImageView
                 android:id="@+id/chainImg"
                 android:layout_width="@dimen/space_18"
-                android:layout_height="@dimen/space_18"
-                android:src="@drawable/chain_cosmos" />
-
+                android:layout_height="@dimen/space_18"/>
             <TextView
                 android:id="@+id/chainName"
                 style="@style/font_ssm_14_black_daynight"
@@ -180,9 +178,9 @@
             android:layout_weight="1"
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_ss_14_iov"
-            android:textColor="@color/color_iov"
+            android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>
     </LinearLayout>

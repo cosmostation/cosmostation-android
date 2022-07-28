@@ -1,25 +1,20 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PROFILE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,18 +38,20 @@ import java.util.ArrayList;
 
 import desmos.profiles.v1beta1.ModelsProfile;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.desmos.ProfileActivity;
-import wannabit.io.cosmostaion.activities.chains.desmos.ProfileDetailActivity;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
-import wannabit.io.cosmostaion.activities.chains.sif.SifIncentiveActivity;
+import wannabit.io.cosmostaion.activities.txs.desmos.ProfileActivity;
+import wannabit.io.cosmostaion.activities.txs.desmos.ProfileDetailActivity;
+import wannabit.io.cosmostaion.activities.txs.kava.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.ConnectWalletActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.AccountShowDialog;
+import wannabit.io.cosmostaion.fragment.DappFragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
@@ -101,41 +98,18 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         mPageAdapter = new MainViewPageAdapter(getSupportFragmentManager());
         mContentsPager.setPageTransformer(false, new FadePageTransformer());
-        mContentsPager.setOffscreenPageLimit(3);
+        mContentsPager.setOffscreenPageLimit(5);
         mContentsPager.setAdapter(mPageAdapter);
         mTabLayer.setupWithViewPager(mContentsPager);
         mTabLayer.setTabRippleColor(null);
 
-        View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView tabItemIcon0 = tab0.findViewById(R.id.tabItemIcon);
-        TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemIcon0.setImageResource(R.drawable.wallet_ic);
-        tabItemText0.setText(R.string.str_main_wallet);
-        mTabLayer.getTabAt(0).setCustomView(tab0);
-
-        View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView tabItemIcon1 = tab1.findViewById(R.id.tabItemIcon);
-        TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemIcon1.setImageResource(R.drawable.tokens_ic);
-        tabItemText1.setText(R.string.str_main_tokens);
-        mTabLayer.getTabAt(1).setCustomView(tab1);
-
-        View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView tabItemIcon2 = tab2.findViewById(R.id.tabItemIcon);
-        TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemIcon2.setImageResource(R.drawable.ts_ic);
-        tabItemText2.setText(R.string.str_main_history);
-        mTabLayer.getTabAt(2).setCustomView(tab2);
-
-        View tab3 = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-        TintableImageView tabItemIcon3 = tab3.findViewById(R.id.tabItemIcon);
-        TextView tabItemText3 = tab3.findViewById(R.id.tabItemText);
-        tabItemIcon3.setImageResource(R.drawable.setting_ic);
-        tabItemText3.setText(R.string.str_main_set);
-        mTabLayer.getTabAt(3).setCustomView(tab3);
+        createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
+        createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
+        createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
+        createTab(R.drawable.dapp_ic, R.string.str_main_dapp, 3);
+        createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
 
         mContentsPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -157,7 +131,48 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         });
 
         mContentsPager.setCurrentItem(getIntent().getIntExtra("page", 0), false);
+    }
 
+    private void createTab(int iconResourceId, int stringResourceId, int index) {
+        View tab = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
+        TintableImageView icon = tab.findViewById(R.id.tabItemIcon);
+        TextView titleText = tab.findViewById(R.id.tabItemText);
+        icon.setImageResource(iconResourceId);
+        titleText.setText(stringResourceId);
+        mTabLayer.getTabAt(index).setCustomView(tab);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (mAccount.pushAlarm) {
+                getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
+            } else {
+                getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
+            }
+        } else {
+            getMenuInflater().inflate(R.menu.main_menu, menu);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_accounts:
+                onClickSwitchWallet();
+                break;
+            case R.id.menu_explorer:
+                onExplorerView();
+                break;
+            case R.id.menu_notification_off:
+                onUpdateUserAlarm(mAccount, true);
+                break;
+            case R.id.menu_notification_on:
+                onUpdateUserAlarm(mAccount, false);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -174,7 +189,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
         else
             bundle.putString("title", mAccount.nickName);
-        Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+        AccountShowDialog show = AccountShowDialog.newInstance(bundle);
         show.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
     }
@@ -194,14 +209,15 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         if (needFetch) {
             onShowWaitDialog();
             onFetchAllData();
 
-            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(MainActivity.this, R.color.colorBlackDayNight));
-            WDp.getChainImg(MainActivity.this, mBaseChain, mToolbarChainImg);
-            WDp.getFloatBtn(MainActivity.this, mBaseChain, mFloatBtn);
+            mToolbarChainImg.setImageResource(mChainConfig.chainImg());
+            mFloatBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, mChainConfig.sendBgColor()));
+            mFloatBtn.setImageTintList(ContextCompat.getColorStateList(this, mChainConfig.sendImgColor()));
 
             mSelectedChain = mBaseChain;
             onChainSelect(mSelectedChain);
@@ -210,6 +226,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         if (TextUtils.isEmpty(mAccount.nickName))
             mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
+
+        if (mPageAdapter.mCurrentFragment != null) {
+            mPageAdapter.getCurrentFragment().onRefreshTab();
+        }
     }
 
     private void onChainSelect(BaseChain baseChain) {
@@ -244,29 +264,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onExplorerView() {
         String url = "";
         if (mBaseChain.equals(OKEX_MAIN)) {
-            url = WUtil.getExplorer(mBaseChain) + "address/" + mAccount.address;
+            url = mChainConfig.explorerUrl() + "address/" + mAccount.address;
         } else {
-            url = WUtil.getExplorer(mBaseChain) + "account/" + mAccount.address;
+            url = mChainConfig.explorerUrl() + "account/" + mAccount.address;
         }
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        startActivity(intent);
-    }
-
-    public void onChainSelected(BaseChain baseChain) {
-        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
-            Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Bundle bundle = new Bundle();
-                bundle.putString("chain", baseChain.getChain());
-                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
-                add.setCancelable(true);
-                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            }
-        }, 300);
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
 
     public void onFetchAllData() {
@@ -281,12 +283,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
             } else {
                 if (!mAccount.hasPrivateKey) {
-                    AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                            Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                            getString(R.string.str_close), null);
+                    onInsertKeyDialog();
                     return;
                 }
-                BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+                BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
                 BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_PROFILE, 0);
                 if (available.compareTo(txFee) <= 0) {
                     Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -297,12 +297,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
         } else {
             if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
+                onInsertKeyDialog();
                 return;
             }
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
             BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_PROFILE, 0);
             if (available.compareTo(txFee) <= 0) {
                 Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
@@ -345,41 +343,23 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onClickIncentive() {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
+            onInsertKeyDialog();
             return;
         }
 
-        if (mBaseChain.equals(KAVA_MAIN)) {
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_CLAIM_INCENTIVE, 0);
-            if (available.compareTo(txFee) <= 0) {
-                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_KAVA) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_HARD) == BigDecimal.ZERO &&
-                    getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_SWP) == BigDecimal.ZERO) {
-                Toast.makeText(this, R.string.error_no_incentive_to_claim, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Intent intent = new Intent(MainActivity.this, ClaimIncentiveActivity.class);
-            startActivity(intent);
-
-        } else if (mBaseChain.equals(SIF_MAIN)) {
-            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_SIF_CLAIM_INCENTIVE, 0);
-            if (available.compareTo(txFee) <= 0) {
-                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (getBaseDao().mSifLmIncentive == null || getBaseDao().mSifLmIncentive.totalClaimableCommissionsAndClaimableRewards == 0) {
-                Toast.makeText(this, R.string.error_no_incentive_to_claim, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Intent intent = new Intent(MainActivity.this, SifIncentiveActivity.class);
-            startActivity(intent);
+        BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_CLAIM_INCENTIVE, 0);
+        if (available.compareTo(txFee) <= 0) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
         }
+        if (getBaseDao().mIncentiveRewards.getRewardSum(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO &&
+                getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
+            Toast.makeText(this, R.string.error_no_incentive_to_claim, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(MainActivity.this, ClaimIncentiveActivity.class);
+        startActivity(intent);
     }
 
     private class MainViewPageAdapter extends FragmentPagerAdapter {
@@ -393,6 +373,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFragments.add(MainSendFragment.newInstance(null));
             mFragments.add(MainTokensFragment.newInstance(null));
             mFragments.add(MainHistoryFragment.newInstance(null));
+            mFragments.add(DappFragment.newInstance(null));
             mFragments.add(MainSettingFragment.newInstance(null));
         }
 
@@ -425,8 +406,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == CONST_PW_SIMPLE_CHECK && resultCode == RESULT_OK && !TextUtils.isEmpty(data.getStringExtra("wcUrl"))) {
-            Intent wIntent = null;
+        if (requestCode == CONST_PW_SIMPLE_CHECK && resultCode == RESULT_OK && data != null && !TextUtils.isEmpty(data.getStringExtra("wcUrl"))) {
+            Intent wIntent;
             if (mBaseChain.equals(BNB_MAIN)) {
                 wIntent = new Intent(this, WalletConnectActivity.class);
             } else {

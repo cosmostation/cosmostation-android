@@ -33,6 +33,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Derive;
@@ -152,7 +154,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         mDerives.clear();
         for (BaseChain chain : BaseChain.SUPPORT_CHAINS()) {
-            for (int i = 0; i < hdPathCount(chain); i++) {
+            ChainConfig chainConfig = ChainFactory.getChain(chain);
+            for (int i = 0; i < chainConfig.supportHdPaths().size(); i++) {
                 String dpAddress = "";
                 if (mPrivateKeyMode) {
                     dpAddress = WKey.getCreateDpAddressFromPkey(chain, mPKey, i);
@@ -165,7 +168,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     if (checkAccount.hasPrivateKey) { status = 2; }
                     else { status = 1; }
                 } else { status = 0; }
-                Derive derive = new Derive(chain, i, mPath, WDp.getAllPath(chain, mPath, i), dpAddress, status);
+                Derive derive = new Derive(chain, i, mPath, chainConfig.getHdPath(i, String.valueOf(mPath)), dpAddress, status);
                 if (!mDerives.stream().filter(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress)).findAny().isPresent()) {
                     mDerives.add(derive);
                 }
@@ -231,7 +234,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
             final Derive derive = mDerives.get(position);
             final BaseChain baseChain = derive.baseChain;
-            WDp.getChainImg(WalletDeriveActivity.this, baseChain, holder.accountChainImg);
+            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            holder.accountChainImg.setImageResource(chainConfig.chainImg());
             holder.accountAddress.setText(derive.dpAddress);
 
             if (mPrivateKeyMode) {
@@ -243,14 +247,14 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
             if (derive.status == 2) {
                 holder.accountState.setText("Imported");
-                holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_white2_border));
                 holder.accountDimLayer.setVisibility(View.VISIBLE);
                 holder.accountDimLayer.setAlpha(0.5f);
             } else {
                 if (derive.selected) {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_selected));
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
                 } else {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_unselected));
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                 }
                 holder.accountDimLayer.setVisibility(View.GONE);
                 holder.accountState.setText("");
@@ -264,9 +268,9 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     }
                     derive.selected = !derive.selected;
                     if (derive.selected) {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_selected));
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
                     } else {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_accout_unselected));
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                     }
                     onUpdateCnt();
                 }
@@ -396,21 +400,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 accountAvailable = itemView.findViewById(R.id.accountAvailable);
                 accountDenom = itemView.findViewById(R.id.accountDenom);
             }
-        }
-    }
-
-    public static int hdPathCount(BaseChain baseChain) {
-        switch (baseChain) {
-            case KAVA_MAIN:
-            case LUM_MAIN:
-            case SECRET_MAIN:
-                return 2;
-            case OKEX_MAIN:
-                return 3;
-            case FETCHAI_MAIN:
-                return 4;
-            default:
-                return 1;
         }
     }
 
