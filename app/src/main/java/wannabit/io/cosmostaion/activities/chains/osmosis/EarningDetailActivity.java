@@ -51,7 +51,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     private static final int TYPE_UNBONDING = 2;
     private static final int TYPE_UNBONDED = 3;
 
-    private int mSection;          // section 구분
+    private int mSection;
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
@@ -224,7 +224,6 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         intent.putExtra("osmosisPool", mPool.toByteArray());
         intent.putExtra("osmosisDuration", unbondingDuration);
         startActivity(intent);
-
     }
 
     public void onCheckUnbonding(Lock.PeriodLock lockup) {
@@ -366,9 +365,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
                 final EarningUnbondedHolder holder = (EarningUnbondedHolder) viewHolder;
                 final Lock.PeriodLock lockup = mUnbondedList.get(position - mBondedList.size() - mUnbondingList.size());
                 holder.onBindView(getBaseContext(), EarningDetailActivity.this, getBaseDao(), mPool, lockup, mGauges);
-
             }
-
         }
 
         @Override

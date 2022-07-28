@@ -2,10 +2,14 @@ package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,23 +39,33 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import osmosis.lockup.Lock;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.osmosis.EarningDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.osmosis.EarningBondedHolder;
+import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondedHolder;
+import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondingHolder;
 
 public class VoteListActivity extends BaseActivity implements Serializable, View.OnClickListener {
+    private static final int SECTION_VOTING_PERIOD = 0;
+    private static final int SECTION_PROPOSALS = 1;
+
+    private int mSection;
+
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    private VoteHeaderRecyclerView mVoteHeaderRecyclerView;
     private Button mMultiVote, mCancelBtn, mNextBtn;
 
     private VoteListAdapter mVoteListAdapter;
@@ -88,6 +102,10 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         mRecyclerView.setHasFixedSize(true);
         mVoteListAdapter = new VoteListAdapter();
         mRecyclerView.setAdapter(mVoteListAdapter);
+
+        mVoteHeaderRecyclerView = new VoteHeaderRecyclerView(this, true, getSectionCall());
+        mRecyclerView.addItemDecoration(mVoteHeaderRecyclerView);
+
     }
 
     private void initView() {
@@ -158,7 +176,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             public void onResponse(Call<ArrayList<ResVoteStatus>> call, Response<ArrayList<ResVoteStatus>> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     statusMap.put(proposal.id, response.body().stream().map(item -> item.option).collect(Collectors.toSet()));
-                    mVoteListAdapter.notifyItemChanged(position);
+                    mVoteListAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -183,7 +201,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             multiVoteSelectionMode = false;
             mVoteListAdapter.notifyDataSetChanged();
         } else if (v.equals(mNextBtn)) {
-            if(selectedSet.size() > 0){
+            if (selectedSet.size() > 0) {
                 Intent voteIntent = new Intent(VoteListActivity.this, VoteActivity.class);
                 voteIntent.putExtra("proposal", new Gson().toJson(selectedSet));
                 startActivity(voteIntent);
@@ -206,54 +224,44 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     }
 
     public class VoteListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private final int VIEW_TYPE_EMPTY = -1;
-        private final int VIEW_TYPE_VOTING_PERIOD_PROPOSAL_ITEM = 0;
-        private final int VIEW_TYPE_VOTING_PERIOD_PROPOSAL_HEADER = 1;
-        private final int VIEW_TYPE_PROPOSAL_HEADER = 2;
-        private final int VIEW_TYPE_PROPOSAL_ITEM = 3;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == VIEW_TYPE_VOTING_PERIOD_PROPOSAL_ITEM || viewType == VIEW_TYPE_PROPOSAL_ITEM) {
+            if (viewType == SECTION_VOTING_PERIOD || viewType == SECTION_PROPOSALS) {
                 return new VoteListViewHolder(getLayoutInflater().inflate(R.layout.item_proposal, viewGroup, false));
-            } else {
-                return new VoteListHeaderViewHolder(getLayoutInflater().inflate(R.layout.item_vote_header, viewGroup, false));
             }
+            return null;
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            if (getItemViewType(position) == VIEW_TYPE_VOTING_PERIOD_PROPOSAL_ITEM) {
+            if (getItemViewType(position) == SECTION_VOTING_PERIOD) {
                 onBindPeriodProposalItemViewHolder((VoteListViewHolder) holder, position);
-            } else if (getItemViewType(position) == VIEW_TYPE_PROPOSAL_ITEM) {
+            } else if (getItemViewType(position) == SECTION_PROPOSALS) {
                 onBindProposalItemViewHolder((VoteListViewHolder) holder, position);
-            } else if (getItemViewType(position) == VIEW_TYPE_PROPOSAL_HEADER) {
-                onBindHeaderItemViewHolder((VoteListHeaderViewHolder) holder, position);
-            } else if (getItemViewType(position) == VIEW_TYPE_VOTING_PERIOD_PROPOSAL_HEADER) {
-                onBindVotingPeriodHeaderItemViewHolder((VoteListHeaderViewHolder) holder, position);
             }
         }
 
-        public void onBindPeriodProposalItemViewHolder(VoteListViewHolder voteListViewHolder, int position) {
-            ResProposal item = mVotingPeriodProposalsList.get(position - (mVotingPeriodProposalsList.isEmpty() ? 0 : 1));
-            voteListViewHolder.proposal_status_img.setVisibility(View.GONE);
-            voteListViewHolder.proposal_status.setVisibility(View.GONE);
-            voteListViewHolder.proposal_id.setText("# " + item.id);
-            voteListViewHolder.proposal_title.setText(item.title);
-            voteListViewHolder.proposal_deadline.setVisibility(View.VISIBLE);
-            voteListViewHolder.proposal_deadline.setText(WDp.getTimeVoteformat(VoteListActivity.this, item.voting_end_time)
+        public void onBindPeriodProposalItemViewHolder(VoteListViewHolder holder, int position) {
+            ResProposal item = mVotingPeriodProposalsList.get(position);
+            holder.proposal_status_img.setVisibility(View.GONE);
+            holder.proposal_status.setVisibility(View.GONE);
+            holder.proposal_id.setText("# " + item.id);
+            holder.proposal_title.setText(item.title);
+            holder.proposal_deadline.setVisibility(View.VISIBLE);
+            holder.proposal_deadline.setText(WDp.getTimeVoteformat(VoteListActivity.this, item.voting_end_time)
                     + " " + WDp.getGapTime(VoteListActivity.this, WDp.dateToLong3(VoteListActivity.this, item.voting_end_time)));
 
             if (multiVoteSelectionMode) {
-                voteListViewHolder.card_proposal.setEnabled(false);
-                bindVoteSelect(voteListViewHolder, position, item);
+                holder.card_proposal.setEnabled(false);
+                bindVoteSelect(holder, position, item);
             } else {
-                voteListViewHolder.card_proposal.setEnabled(true);
-                bindVoteStatus(voteListViewHolder, position, item);
+                holder.card_proposal.setEnabled(true);
+                bindVoteStatus(holder, position, item);
             }
 
-            voteListViewHolder.card_proposal.setOnClickListener(v -> {
+            holder.card_proposal.setOnClickListener(v -> {
                 Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
                 voteIntent.putExtra("proposalId", String.valueOf(item.id));
                 startActivity(voteIntent);
@@ -261,7 +269,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         }
 
         public void onBindProposalItemViewHolder(VoteListViewHolder holder, int position) {
-            ResProposal item = mExtraProposalsList.get(position - mVotingPeriodProposalsList.size() - (mVotingPeriodProposalsList.isEmpty() ? 0 : 1) - (mExtraProposalsList.isEmpty() ? 0 : 1));
+            ResProposal item = mExtraProposalsList.get(position);
             holder.proposal_id.setText("# " + item.id);
             holder.proposal_title.setText(item.title);
             if (item.proposal_status.contains("DEPOSIT")) {
@@ -290,25 +298,25 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             });
         }
 
-        private void bindVoteSelect(VoteListViewHolder voteListViewHolder, int position, ResProposal item) {
-            voteListViewHolder.vote_status.setVisibility(View.INVISIBLE);
+        private void bindVoteSelect(VoteListViewHolder holder, int position, ResProposal item) {
+            holder.vote_status.setVisibility(View.INVISIBLE);
             if (selectedSet.contains(item)) {
-                voteListViewHolder.vote_select.setColorFilter(WDp.getChainColor(VoteListActivity.this, mBaseChain));
-                voteListViewHolder.vote_select.setVisibility(View.VISIBLE);
-                voteListViewHolder.vote_not_select.setVisibility(View.INVISIBLE);
+                holder.vote_select.setColorFilter(WDp.getChainColor(VoteListActivity.this, mBaseChain));
+                holder.vote_select.setVisibility(View.VISIBLE);
+                holder.vote_not_select.setVisibility(View.INVISIBLE);
             } else {
-                voteListViewHolder.vote_select.setVisibility(View.INVISIBLE);
-                voteListViewHolder.vote_not_select.setVisibility(View.VISIBLE);
+                holder.vote_select.setVisibility(View.INVISIBLE);
+                holder.vote_not_select.setVisibility(View.VISIBLE);
             }
 
-            voteListViewHolder.vote_select.setOnClickListener(v -> {
+            holder.vote_select.setOnClickListener(v -> {
                 selectedSet.remove(item);
-                mVoteListAdapter.notifyItemChanged(position);
+                mVoteListAdapter.notifyDataSetChanged();
             });
 
-            voteListViewHolder.vote_not_select.setOnClickListener(v -> {
+            holder.vote_not_select.setOnClickListener(v -> {
                 selectedSet.add(item);
-                mVoteListAdapter.notifyItemChanged(position);
+                mVoteListAdapter.notifyDataSetChanged();
             });
         }
 
@@ -367,30 +375,10 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
         @Override
         public int getItemViewType(int position) {
-            if (mVotingPeriodProposalsList.isEmpty() && mExtraProposalsList.isEmpty()) {
-                return VIEW_TYPE_EMPTY;
-            } else if (mVotingPeriodProposalsList.isEmpty()) {
-                if (position == 0) {
-                    return VIEW_TYPE_PROPOSAL_HEADER;
-                } else {
-                    return VIEW_TYPE_PROPOSAL_ITEM;
-                }
-            } else if (mExtraProposalsList.isEmpty()) {
-                if (position == 0) {
-                    return VIEW_TYPE_VOTING_PERIOD_PROPOSAL_HEADER;
-                } else {
-                    return VIEW_TYPE_VOTING_PERIOD_PROPOSAL_ITEM;
-                }
-            } else {
-                if (position == 0) {
-                    return VIEW_TYPE_VOTING_PERIOD_PROPOSAL_HEADER;
-                } else if (mVotingPeriodProposalsList.size() + 1 == position) {
-                    return VIEW_TYPE_PROPOSAL_HEADER;
-                } else if (position <= mVotingPeriodProposalsList.size()) {
-                    return VIEW_TYPE_VOTING_PERIOD_PROPOSAL_ITEM;
-                } else {
-                    return VIEW_TYPE_PROPOSAL_ITEM;
-                }
+            if (position < mVotingPeriodProposalsList.size()) {
+                return SECTION_VOTING_PERIOD;
+            } else  {
+                return SECTION_PROPOSALS;
             }
         }
 
@@ -425,121 +413,131 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         }
     }
 
-//
-//    // Section Header
-//    public class VoteHeaderDecoration extends RecyclerView.ItemDecoration {
-//        private View headerView;
-//        private TextView mHeaderTitle;
-//        private TextView mItemCnt;
-//
-//        // dp -> pixel 단위로 변경
-//        private int dpToPx(Context context, int dp) {
-//            return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
-//        }
-//
-//        @Override
-//        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-//            super.onDrawOver(c, parent, state);
-//
-//            if (headerView == null) {
-//                headerView = inflateHeaderView(parent);
-//                mHeaderTitle = (TextView) headerView.findViewById(R.id.header_title);
-//                mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
-//                fixLayoutSize(headerView, parent);
-//            }
-//
-//            String previousHeader = "";
-//            for (int i = 0; i < parent.getChildCount(); i++) {
-//                View child = parent.getChildAt(i);
-//                final int position = parent.getChildAdapterPosition(child);
-//                if (position == RecyclerView.NO_POSITION) {
-//                    return;
-//                }
-//
-//                String title = "";
-//                mSection = parent.getAdapter().getItemViewType(position);
-//                if (mSection == SECTION_VOTING_PERIOD) {
-//                    title = sectionCallback.SectionHeader(mVotingPeriodProposalsList, mSection);
-//                    mItemCnt.setText("" + mVotingPeriodProposalsList.size());
-//                } else if (mSection == SECTION_PROPOSALS) {
-//                    title = sectionCallback.SectionHeader(mExtraProposalsList, mSection);
-//                    mItemCnt.setText("" + mExtraProposalsList.size());
-//                }
-//                mHeaderTitle.setText(title);
-//                if (!previousHeader.equals(title) || sectionCallback.isSection(position)) {
-//                    drawHeader(c, child, headerView);
-//                    previousHeader = title;
-//                }
-//            }
-//        }
-//
-//        @Override
-//        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-//            super.getItemOffsets(outRect, view, parent, state);
-//
-//            int position = parent.getChildAdapterPosition(view);
-//            if (sectionCallback.isSection(position)) {
-//                outRect.top = topPadding;
-//            }
-//        }
-//
-//        private void drawHeader(Canvas c, View child, View headerView) {
-//            c.save();
-//            if (sticky) {
-//                c.translate(0, Math.max(0, child.getTop() - headerView.getHeight()));
-//            } else {
-//                c.translate(0, child.getTop() - headerView.getHeight());
-//            }
-//            headerView.draw(c);
-//            c.restore();
-//        }
-//
-//        private View inflateHeaderView(RecyclerView parent) {
-//            return LayoutInflater.from(parent.getContext()).inflate(R.layout.item_vote_header, parent, false);
-//        }
-//
-//        private void fixLayoutSize(View view, ViewGroup parent) {
-//            int widthSpec = View.MeasureSpec.makeMeasureSpec(parent.getWidth(),
-//                    View.MeasureSpec.EXACTLY);
-//            int heightSpec = View.MeasureSpec.makeMeasureSpec(parent.getHeight(),
-//                    View.MeasureSpec.UNSPECIFIED);
-//
-//            int childWidth = ViewGroup.getChildMeasureSpec(widthSpec,
-//                    parent.getPaddingLeft() + parent.getPaddingRight(),
-//                    view.getLayoutParams().width);
-//            int childHeight = ViewGroup.getChildMeasureSpec(heightSpec,
-//                    parent.getPaddingTop() + parent.getPaddingBottom(),
-//                    view.getLayoutParams().height);
-//
-//            view.measure(childWidth, childHeight);
-//
-//            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-//        }
-//    }
-//
-//    public interface SectionCallback {
-//        boolean isSection(int position);
-//
-//        String SectionHeader(ArrayList<ResProposal> proposalArrayList, int section);
-//
-//    }
+    // Section Header
+    public class VoteHeaderRecyclerView extends RecyclerView.ItemDecoration {
+        private final int topPadding;
 
-//    private SectionCallback getSectionCall() {
-//        return new SectionCallback() {
-//            @Override
-//            public boolean isSection(int position) {
-//                return position == 0 || position == mVotingPeriodProposalsList.size() || position == mVotingPeriodProposalsList.size() + mExtraProposalsList.size();
-//            }
-//
-//            @Override
-//            public String SectionHeader(ArrayList<ResProposal> proposalArrayList, int section) {
-//                if (section == SECTION_VOTING_PERIOD) {
-//                    return getString(R.string.str_voting_period);
-//                } else if (section == SECTION_PROPOSALS) {
-//                    return getString(R.string.str_vote_proposals);
-//                }
-//                return getString(R.string.str_voting_period);
-//            }
-//        };
-//    }
+        private final boolean sticky;
+        private final SectionCallback sectionCallback;
+
+        private View headerView;
+        private TextView mHeaderTitle;
+        private TextView mItemCnt;
+
+        public VoteHeaderRecyclerView(Context context, boolean sticky, @NonNull SectionCallback sectionCallback) {
+            this.sticky = sticky;
+            this.sectionCallback = sectionCallback;
+
+            topPadding = dpToPx(context, 26);
+        }
+
+        // dp -> pixel 단위로 변경
+        private int dpToPx(Context context, int dp) {
+            return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+        }
+
+        @Override
+        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+            super.onDrawOver(c, parent, state);
+
+            if (headerView == null) {
+                headerView = inflateHeaderView(parent);
+                mHeaderTitle = (TextView) headerView.findViewById(R.id.header_title);
+                mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
+                fixLayoutSize(headerView, parent);
+            }
+
+            String previousHeader = "";
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View child = parent.getChildAt(i);
+                final int position = parent.getChildAdapterPosition(child);
+                if (position == RecyclerView.NO_POSITION) {
+                    return;
+                }
+
+                String title = "";
+                mSection = parent.getAdapter().getItemViewType(position);
+                if (mSection == SECTION_VOTING_PERIOD) {
+                    title = sectionCallback.SectionHeader(mVotingPeriodProposalsList, mSection);
+                    mItemCnt.setText("" + mVotingPeriodProposalsList.size());
+                } else if (mSection == SECTION_PROPOSALS) {
+                    title = sectionCallback.SectionHeader(mExtraProposalsList, mSection);
+                    mItemCnt.setText("" + mExtraProposalsList.size());
+                }
+                mHeaderTitle.setText(title);
+                if (!previousHeader.equals(title) || sectionCallback.isSection(position)) {
+                    drawHeader(c, child, headerView);
+                    previousHeader = title;
+                }
+            }
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+
+            int position = parent.getChildAdapterPosition(view);
+            if (sectionCallback.isSection(position)) {
+                outRect.top = topPadding;
+            }
+        }
+
+        private void drawHeader(Canvas c, View child, View headerView) {
+            c.save();
+            if (sticky) {
+                c.translate(0, Math.max(0, child.getTop() - headerView.getHeight()));
+            } else {
+                c.translate(0, child.getTop() - headerView.getHeight());
+            }
+            headerView.draw(c);
+            c.restore();
+        }
+
+        private View inflateHeaderView(RecyclerView parent) {
+            return LayoutInflater.from(parent.getContext()).inflate(R.layout.item_vote_header, parent, false);
+        }
+
+        private void fixLayoutSize(View view, ViewGroup parent) {
+            int widthSpec = View.MeasureSpec.makeMeasureSpec(parent.getWidth(),
+                    View.MeasureSpec.EXACTLY);
+            int heightSpec = View.MeasureSpec.makeMeasureSpec(parent.getHeight(),
+                    View.MeasureSpec.UNSPECIFIED);
+
+            int childWidth = ViewGroup.getChildMeasureSpec(widthSpec,
+                    parent.getPaddingLeft() + parent.getPaddingRight(),
+                    view.getLayoutParams().width);
+            int childHeight = ViewGroup.getChildMeasureSpec(heightSpec,
+                    parent.getPaddingTop() + parent.getPaddingBottom(),
+                    view.getLayoutParams().height);
+
+            view.measure(childWidth, childHeight);
+
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        }
+    }
+
+    public interface SectionCallback {
+        boolean isSection(int position);
+
+        String SectionHeader(List<ResProposal> proposalList, int section);
+    }
+
+    private SectionCallback getSectionCall() {
+        return new SectionCallback() {
+            @Override
+            public boolean isSection(int position) {
+                return position == 0 || position == mVotingPeriodProposalsList.size() || position == mVotingPeriodProposalsList.size() + mExtraProposalsList.size();
+            }
+
+            @Override
+            public String SectionHeader(List<ResProposal> proposalArrayList, int section) {
+                if (section == SECTION_VOTING_PERIOD) {
+                    return getString(R.string.str_voting_period);
+                } else if (section == SECTION_PROPOSALS) {
+                    return getString(R.string.str_vote_proposals);
+                }
+                return null;
+            }
+        };
+    }
 }

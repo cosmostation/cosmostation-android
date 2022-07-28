@@ -832,26 +832,26 @@
     </style>
 
 
-    <style name="font_rr_14_vote_yes" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">@font/roboto_regular</item>
+    <style name="font_ss_14_vote_yes" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorVoteYes</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_rr_14_vote_no" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">@font/roboto_regular</item>
+    <style name="font_ss_14_vote_no" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorVoteNo</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_rr_14_vote_veto" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">@font/roboto_regular</item>
+    <style name="font_ss_14_vote_veto" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorVoteVeto</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_rr_14_vote_abstain" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">@font/roboto_regular</item>
+    <style name="font_ss_14_vote_abstain" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorVoteAbstain</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>

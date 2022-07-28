@@ -182,7 +182,7 @@ public class MainTokensFragment extends BaseFragment {
     public final static int SECTION_ETC = 21;
     public final static int SECTION_UNKNOWN = 22;
 
-    private int mSection;                       // section 구분
+    private int mSection;
 
     private CardView mCardView;
     private ImageView itemKeyStatus;
