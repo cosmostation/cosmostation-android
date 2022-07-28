@@ -22,7 +22,7 @@
             style="@style/font_ssm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_osmosis_defi_lab" />
+            android:text="-" />
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,9 +35,7 @@
             android:background="@android:color/transparent"
             app:tabMode="fixed"
             app:tabGravity="fill"
-            app:tabIndicatorHeight="2dp"
-            app:tabIndicatorColor="@color/color_osmosis"
-            app:tabIconTint="@color/color_osmosis" />
+            app:tabIndicatorHeight="2dp"/>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/lab_view_pager"

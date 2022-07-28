@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.ok;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 import android.os.Bundle;
@@ -40,13 +39,10 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
     private int mDpDecimal = 18;
-    private String mDecimalChecker, mDecimalSetter,
-            mDecimalDivider2, mDecimalDivider1;
+    private String mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
 
-    public static OKUnbondingFragment0 newInstance(Bundle bundle) {
-        OKUnbondingFragment0 fragment = new OKUnbondingFragment0();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static OKUnbondingFragment0 newInstance() {
+        return new OKUnbondingFragment0();
     }
 
     @Override
@@ -124,7 +120,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
                             mAmountInput.setSelection(recover.length());
                             return;
                         }
-                        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+                        if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {
                             if (inputAmount.compareTo(mMaxAvailable) > 0) {
                                 mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             } else {
@@ -143,11 +139,10 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
     @Override
     public void onResume() {
         super.onResume();
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mAvailableDenom);
-        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-            mMaxAvailable = getBaseDao().okDepositAmount();
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDpDecimal));
-        }
+        mDpDecimal = 18;
+        setDpDecimals(mDpDecimal);
+        mMaxAvailable = getBaseDao().okDepositAmount();
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mMaxAvailable.toPlainString(), mAvailableDenom, mAvailableAmount);
     }
 
     @Override
@@ -195,12 +190,12 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+            if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2"), 8, RoundingMode.DOWN).toPlainString());
             }
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+            if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
             }
 
@@ -213,7 +208,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
 
     private boolean isValidateWithdrawAmount() {
         try {
-            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+            if (getSActivity().mBaseChain.equals(OKEX_MAIN)) {
                 BigDecimal depositTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (depositTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (depositTemp.compareTo(mMaxAvailable) > 0) return false;

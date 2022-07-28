@@ -24,7 +24,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -37,10 +36,8 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
     private TextView mValidatorSize;
     private Button mVote;
 
-    public static OKValidatorMyFragment newInstance(Bundle bundle) {
-        OKValidatorMyFragment fragment = new OKValidatorMyFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static OKValidatorMyFragment newInstance() {
+        return new OKValidatorMyFragment();
     }
 
     @Override
@@ -127,7 +124,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
                 final OKMyValidatorHolder holder = (OKMyValidatorHolder) viewHolder;
                 final Validator validator = getBaseDao().mMyValidators.get(position);
 
-                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBgOkx));
+                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), getSActivity().mChainConfig.chainBgColor()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
                 holder.itemTvCommission.setText(WDp.getCommissionRate("0"));

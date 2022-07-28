@@ -42,21 +42,23 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/deposit_title"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/deposit_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ss_14_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/deposit_amount_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
-                                android:text="TOKT"
-                                style="@style/font_ss_14_ok"/>
+                                android:text=""
+                                android:textColor="@color/color_okc"
+                                style="@style/font_ssl_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -65,6 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_10">
                         <TextView
+                            android:id="@+id/fee_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_fees"
@@ -73,41 +76,30 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@+id/fee_title"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/fees_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ss_14_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/fees_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
-                                android:text="TOKT"
-                                style="@style/font_ss_14_ok"/>
+                                android:text="-"
+                                android:textColor="@color/color_okc"
+                                style="@style/font_ssl_12_black_daynight"/>
                         </LinearLayout>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="-2dp">
-                        <TextView
-                            android:id="@+id/fee_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:gravity="right"
-                            style="@style/font_ss_12_gray1"
-                            android:text="-"/>
                     </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/space_view"
                         android:background="@color/colorGrayDayNight"
                         android:layout_marginTop="@dimen/space_16"/>
 

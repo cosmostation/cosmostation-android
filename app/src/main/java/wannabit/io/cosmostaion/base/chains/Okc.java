@@ -21,9 +21,9 @@ public class Okc extends ChainConfig {
     public int chainInfoImg() { return R.drawable.infoicon_okx; }
     public int chainInfoTitle() { return R.string.str_front_guide_title_okx; }
     public int chainInfoMsg() { return R.string.str_front_guide_msg_okx; }
-    public int chainColor() { return R.color.color_okx; }
-    public int chainBgColor() { return R.color.colorTransBgOkx; }
-    public int chainTabColor() { return R.color.color_tab_myvalidator_okx; }
+    public int chainColor() { return R.color.color_okc; }
+    public int chainBgColor() { return R.color.colorTransBgOkc; }
+    public int chainTabColor() { return R.color.color_tab_myvalidator_okc; }
     public String chainName() { return "okex"; }
     public String chainTitle() { return "(OKC)"; }
     public String chainTitleToUp() { return "OKC"; }
