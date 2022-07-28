@@ -25,8 +25,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKVoteDirectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.base.chains.ChainConfig;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -37,10 +35,8 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
     private TextView mSelectedValidatorCnt;
     private ToValidatorAdapter mToValidatorAdapter;
 
-    public static DirectVoteFragment0 newInstance(Bundle bundle) {
-        DirectVoteFragment0 fragment = new DirectVoteFragment0();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DirectVoteFragment0 newInstance() {
+        return new DirectVoteFragment0();
     }
 
     @Override
@@ -99,11 +95,10 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
         @Override
         public void onBindViewHolder(@NonNull ToValidatorHolder holder, @SuppressLint("RecyclerView") int position) {
             final Validator validator = getBaseDao().mAllValidators.get(position);
-            final ChainConfig chainConfig = ChainFactory.getChain(getSActivity().mBaseChain);
             holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
             holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
             try {
-                Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(getSActivity().mChainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
             holder.itemTvMoniker.setText(validator.description.moniker);
@@ -118,7 +113,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
 
             holder.itemChecked.setColorFilter(null);
             if (getSActivity().mValAddesses.contains(validator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.color_okx), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), getSActivity().mChainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
             } else {
                 holder.itemCheckedBorder.setVisibility(View.GONE);

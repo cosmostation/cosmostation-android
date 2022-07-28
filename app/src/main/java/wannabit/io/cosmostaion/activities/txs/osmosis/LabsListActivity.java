@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.ListFarmingFragment;
@@ -55,6 +56,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class LabsListActivity extends BaseActivity implements TaskListener {
 
     private Toolbar mToolbar;
+    private TextView mToolbarTitle;
     private ViewPager mLabPager;
     private TabLayout mLabTapLayer;
     private OsmoLabPageAdapter mPageAdapter;
@@ -67,19 +69,19 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     public ArrayList<GaugeOuterClass.Gauge> mActiveGauges = new ArrayList<>();
     public ArrayList<Lock.PeriodLock> mPeriodLockUps = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_labs_list);
-        initView();
-        loadData();
-    }
-
-    public void initView() {
+        setContentView(R.layout.activity_defi_list);
         mToolbar = findViewById(R.id.tool_bar);
+        mToolbarTitle = findViewById(R.id.toolbar_title);
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
+
+        mToolbarTitle.setText(getString(R.string.str_osmosis_defi_lab));
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -90,23 +92,9 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         mLabTapLayer.setupWithViewPager(mLabPager);
         mLabTapLayer.setTabRippleColor(null);
 
-        View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(R.string.str_swap);
-        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_osmosis));
-        mLabTapLayer.getTabAt(0).setCustomView(tab0);
-
-        View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_osmosis));
-        tabItemText1.setText(R.string.str_pool);
-        mLabTapLayer.getTabAt(1).setCustomView(tab1);
-
-        View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_osmosis));
-        tabItemText2.setText(R.string.str_osmosis_earning);
-        mLabTapLayer.getTabAt(2).setCustomView(tab2);
+        createTab(mChainConfig, R.string.str_swap, 0);
+        createTab(mChainConfig, R.string.str_pool, 1);
+        createTab(mChainConfig, R.string.str_osmosis_earning, 2);
 
         mLabPager.setOffscreenPageLimit(2);
         mLabPager.setCurrentItem(0, false);
@@ -125,15 +113,19 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
-    }
-
-    public void loadData() {
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
-
         onShowWaitDialog();
         onFetchPoolListInfo();
+    }
+
+    private void createTab(ChainConfig chainConfig, int stringResourceId, int index) {
+        View tab = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
+        TextView tabItemText = tab.findViewById(R.id.tabItemText);
+        tabItemText.setText(stringResourceId);
+        tabItemText.setTextColor(ContextCompat.getColorStateList(this, chainConfig.chainTabColor()));
+        mLabTapLayer.getTabAt(index).setCustomView(tab);
+
+        mLabTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, chainConfig.chainColor()));
+        mLabTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, chainConfig.chainColor()));
     }
 
     @Override

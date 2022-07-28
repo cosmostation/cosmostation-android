@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKStakingFragmentStep0;
@@ -58,11 +59,12 @@ public class OKStakingActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(ContextCompat.getDrawable(OKStakingActivity.this, R.drawable.step_4_img_1));
+        mIvStep.setImageResource(R.drawable.step_4_img_1);
         mTvStep.setText(getString(R.string.str_ok_stake_deposit_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_OK_DEPOSIT;
 
         mPageAdapter = new StakeDepositPageAdapter(getSupportFragmentManager());
@@ -119,7 +121,6 @@ public class OKStakingActivity extends BaseBroadCastActivity {
         }
     }
 
-
     public void onNextStep() {
         if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
@@ -138,15 +139,13 @@ public class OKStakingActivity extends BaseBroadCastActivity {
 
     public void onStartDeposit() {
         Intent intent = new Intent(OKStakingActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OK_DEPOSIT);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("stakeAmount", mToDepositCoin);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-
     }
-
 
     private class StakeDepositPageAdapter extends FragmentPagerAdapter {
 
@@ -156,10 +155,10 @@ public class OKStakingActivity extends BaseBroadCastActivity {
         public StakeDepositPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(OKStakingFragmentStep0.newInstance(null));
+            mFragments.add(OKStakingFragmentStep0.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
-            mFragments.add(OKStakingFragmentStep3.newInstance(null));
+            mFragments.add(OKStakingFragmentStep3.newInstance());
         }
 
         @Override

@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.ok;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-
-import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKStakingActivity;
@@ -31,10 +26,8 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mDepositDenom, mFeeDenom;
 
-    public static OKStakingFragmentStep3 newInstance(Bundle bundle) {
-        OKStakingFragmentStep3 fragment = new OKStakingFragmentStep3();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static OKStakingFragmentStep3 newInstance() {
+        return new OKStakingFragmentStep3();
     }
 
     @Override
@@ -53,9 +46,6 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDepositDenom);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
@@ -64,25 +54,20 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mToDepositCoin.amount);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mToDepositCoin, mDepositDenom, mDepositAmount);
 
-        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-            mDepositAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 0, 18));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
-
-        }
         mMemo.setText(getSActivity().mTxMemo);
     }
-
 
     @Override
     public void onClick(View v) {
         if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
+
         } else if (v.equals(mConfirmBtn)) {
             AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_deposit_warn_title), getString(R.string.str_delegate_warn_msg),
-                    AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
+                    getString(R.string.str_cancel), null,
                     getString(R.string.str_confirm), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_DEPOSIT_CHECK, Activity.RESULT_OK, resultIntent);

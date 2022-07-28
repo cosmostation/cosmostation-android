@@ -23,8 +23,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.base.chains.ChainConfig;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -39,10 +37,8 @@ public class OKValidatorTopFragment extends BaseFragment {
 
     private ResOkStaking mOkDeposit;
 
-    public static OKValidatorTopFragment newInstance(Bundle bundle) {
-        OKValidatorTopFragment fragment = new OKValidatorTopFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static OKValidatorTopFragment newInstance() {
+        return new OKValidatorTopFragment();
     }
 
     @Override
@@ -99,7 +95,6 @@ public class OKValidatorTopFragment extends BaseFragment {
         return (OKValidatorListActivity) getBaseActivity();
     }
 
-
     public class OKTopValidatorAdapter extends RecyclerView.Adapter<OKTopValidatorAdapter.OKTopValidatorHolder> {
 
         @NonNull
@@ -128,7 +123,7 @@ public class OKValidatorTopFragment extends BaseFragment {
             }
 
             if (checkIsMyValidator(validator.operator_address)) {
-                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBgOkx));
+                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), getSActivity().mChainConfig.chainBgColor()));
             }
         }
 
@@ -156,7 +151,6 @@ public class OKValidatorTopFragment extends BaseFragment {
             }
         }
     }
-
 
     private boolean checkIsMyValidator(String valAddress) {
         boolean myVal = false;

@@ -27,6 +27,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.txs.starname.MyAccountFragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.MyDomainFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -34,7 +36,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcAccountTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
-import wannabit.io.cosmostaion.utils.WDp;
 
 public class StarNameListActivity extends BaseActivity implements TaskListener {
 
@@ -47,7 +48,6 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
     public ArrayList<Types.Account>     mDomainResolves_gRPC = new ArrayList<>();
     public ArrayList<Types.Account>     mAccounts_gRPC = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,7 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mPageAdapter = new StarNamePageAdapter(getSupportFragmentManager());
         mNameServicePager.setAdapter(mPageAdapter);
@@ -68,20 +69,8 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(R.string.str_my_domain);
-        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_starname));
-        mNameServiceTapLayer.getTabAt(0).setCustomView(tab0);
-
-        View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_starname));
-        tabItemText1.setText(R.string.str_my_account);
-        mNameServiceTapLayer.getTabAt(1).setCustomView(tab1);
-
-        mNameServiceTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, R.color.color_starname));
-        mNameServiceTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, mBaseChain));
+        createTab(mChainConfig, R.string.str_my_domain, 0);
+        createTab(mChainConfig, R.string.str_my_account, 1);
 
         mNameServicePager.setOffscreenPageLimit(2);
         mNameServicePager.setCurrentItem(0, false);
@@ -101,6 +90,17 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         onShowWaitDialog();
         onFetch();
 
+    }
+
+    private void createTab(ChainConfig chainConfig, int stringResourceId, int index) {
+        View tab = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
+        TextView tabItemText = tab.findViewById(R.id.tabItemText);
+        tabItemText.setText(stringResourceId);
+        tabItemText.setTextColor(ContextCompat.getColorStateList(this, chainConfig.chainTabColor()));
+        mNameServiceTapLayer.getTabAt(index).setCustomView(tab);
+
+        mNameServiceTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, chainConfig.chainColor()));
+        mNameServiceTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, chainConfig.chainColor()));
     }
 
     @Override

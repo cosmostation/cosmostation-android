@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.ok.DirectVoteFragment0;
@@ -66,6 +67,7 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_OK_DIRECT_VOTE;
 
         WUtil.onSortByOKValidatorPower(getBaseDao().mAllValidators);
@@ -131,7 +133,6 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
         }
     }
 
-
     public void onNextStep() {
         if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
@@ -148,17 +149,15 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
         }
     }
 
-
     public void onStartDirectVote() {
         Intent intent = new Intent(OKVoteDirectActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OK_DIRECT_VOTE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putStringArrayListExtra("voteVal", mValAddesses);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
-
 
     private class DirectVotePageAdapter extends FragmentPagerAdapter {
 
@@ -168,10 +167,10 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
         public DirectVotePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(DirectVoteFragment0.newInstance(null));
+            mFragments.add(DirectVoteFragment0.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
-            mFragments.add(DirectVoteFragment3.newInstance(null));
+            mFragments.add(DirectVoteFragment3.newInstance());
         }
 
         @Override

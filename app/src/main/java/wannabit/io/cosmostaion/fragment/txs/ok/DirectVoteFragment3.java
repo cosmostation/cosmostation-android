@@ -9,16 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKVoteDirectActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 public class DirectVoteFragment3 extends BaseFragment implements View.OnClickListener {
 
@@ -27,10 +22,8 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
     private Button              mBeforeBtn, mConfirmBtn;
     private TextView            mToVoteValidator, mFeeDenom;
 
-    public static DirectVoteFragment3 newInstance(Bundle bundle) {
-        DirectVoteFragment3 fragment = new DirectVoteFragment3();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DirectVoteFragment3 newInstance() {
+        return new DirectVoteFragment3();
     }
 
     @Override
@@ -48,8 +41,6 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
         mBeforeBtn          = rootView.findViewById(R.id.btn_before);
         mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
-
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
@@ -59,22 +50,17 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
 
-        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
-
-            String monikers = "";
-            for (String valOp:getSActivity().mValAddesses) {
-                for (Validator validator:getBaseDao().mAllValidators) {
-                    if (validator.operator_address.equals(valOp)) {
-                        monikers = monikers + validator.description.moniker + "\n";
-                    }
+        String monikers = "";
+        for (String valOp:getSActivity().mValAddesses) {
+            for (Validator validator:getBaseDao().mAllValidators) {
+                if (validator.operator_address.equals(valOp)) {
+                    monikers = monikers + validator.description.moniker + "\n";
                 }
             }
-            mToVoteValidator.setText(monikers);
-
         }
+        mToVoteValidator.setText(monikers);
         mMemo.setText(getSActivity().mTxMemo);
     }
 

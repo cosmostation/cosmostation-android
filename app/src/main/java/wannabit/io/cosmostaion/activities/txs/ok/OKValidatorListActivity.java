@@ -1,10 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.ok;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +25,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKValidatorOtherFragment;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKValidatorTopFragment;
@@ -41,7 +37,6 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
     private ViewPager mValidatorPager;
     private TabLayout mValidatorTapLayer;
     private OKValidatorPageAdapter mPageAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +53,8 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         mToolbarTitle.setText(R.string.str_validator_vote);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mChainConfig = ChainFactory.getChain(BaseChain.OKEX_MAIN);
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mPageAdapter = new OKValidatorPageAdapter(getSupportFragmentManager());
         mValidatorPager.setAdapter(mPageAdapter);
@@ -68,27 +64,26 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
         tabItemText0.setText(R.string.str_my_validators);
-        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_okx));
+        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, mChainConfig.chainTabColor()));
         mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_okx));
+        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, mChainConfig.chainTabColor()));
         tabItemText1.setText(R.string.str_top_100_validators);
         mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_okx));
+        tabItemText2.setTextColor(ContextCompat.getColorStateList(this, mChainConfig.chainTabColor()));
         tabItemText2.setText(R.string.str_other_validators);
         mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
 
-        mValidatorTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, R.color.color_okx));
-        mValidatorTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.color_okx));
+        mValidatorTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, mChainConfig.chainColor()));
+        mValidatorTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, mChainConfig.chainColor()));
 
         mValidatorPager.setOffscreenPageLimit(3);
         mValidatorPager.setCurrentItem(0, false);
-
     }
 
     @Override
@@ -112,7 +107,6 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
-
     }
 
     @Override
@@ -126,12 +120,10 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
     public void onStartDirectVote() {
         if (mAccount == null) return;
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
+            onInsertKeyDialog();
             return;
         }
-        BigDecimal availableAmount = getBaseDao().availableAmount(TOKEN_OK);
+        BigDecimal availableAmount = getBaseDao().availableAmount(mChainConfig.mainDenom());
         if (availableAmount.compareTo(new BigDecimal("0.1")) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
             return;
@@ -156,9 +148,9 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
         public OKValidatorPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(OKValidatorMyFragment.newInstance(null));
-            mFragments.add(OKValidatorTopFragment.newInstance(null));
-            mFragments.add(OKValidatorOtherFragment.newInstance(null));
+            mFragments.add(OKValidatorMyFragment.newInstance());
+            mFragments.add(OKValidatorTopFragment.newInstance());
+            mFragments.add(OKValidatorOtherFragment.newInstance());
         }
 
         @Override

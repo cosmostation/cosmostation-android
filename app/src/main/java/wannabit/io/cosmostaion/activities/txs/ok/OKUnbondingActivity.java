@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKUnbondingFragment0;
@@ -58,11 +59,12 @@ public class OKUnbondingActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(ContextCompat.getDrawable(OKUnbondingActivity.this, R.drawable.step_4_img_1));
+        mIvStep.setImageResource(R.drawable.step_4_img_1);
         mTvStep.setText(getString(R.string.str_ok_stake_withdraw_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_OK_WITHDRAW;
 
         mPageAdapter = new StakeWithdrawPageAdapter(getSupportFragmentManager());
@@ -118,7 +120,6 @@ public class OKUnbondingActivity extends BaseBroadCastActivity {
         }
     }
 
-
     public void onNextStep() {
         if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
@@ -135,10 +136,9 @@ public class OKUnbondingActivity extends BaseBroadCastActivity {
         }
     }
 
-
     public void onStartWithdraw() {
         Intent intent = new Intent(OKUnbondingActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OK_WITHDRAW);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("stakeAmount", mToWithdrawCoin);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
@@ -154,10 +154,10 @@ public class OKUnbondingActivity extends BaseBroadCastActivity {
         public StakeWithdrawPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(OKUnbondingFragment0.newInstance(null));
+            mFragments.add(OKUnbondingFragment0.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
-            mFragments.add(OKUnbondingFragment3.newInstance(null));
+            mFragments.add(OKUnbondingFragment3.newInstance());
         }
 
         @Override

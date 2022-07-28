@@ -23,8 +23,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKValidatorListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.base.chains.ChainConfig;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -39,10 +37,8 @@ public class OKValidatorOtherFragment extends BaseFragment {
 
     private ResOkStaking mOkDeposit;
 
-    public static OKValidatorOtherFragment newInstance(Bundle bundle) {
-        OKValidatorOtherFragment fragment = new OKValidatorOtherFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static OKValidatorOtherFragment newInstance() {
+        return new OKValidatorOtherFragment();
     }
 
     @Override
@@ -126,7 +122,7 @@ public class OKValidatorOtherFragment extends BaseFragment {
             }
 
             if (checkIsMyValidator(validator.operator_address)) {
-                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), R.color.colorTransBgOkx));
+                holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), getSActivity().mChainConfig.chainBgColor()));
             }
         }
 

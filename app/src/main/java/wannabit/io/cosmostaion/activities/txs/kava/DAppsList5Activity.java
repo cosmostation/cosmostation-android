@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListCdpFragment;
@@ -59,6 +60,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
     private Toolbar mToolbar;
+    private TextView mToolbarTitle;
     private ViewPager mDappPager;
     private TabLayout mDappTapLayer;
     private KavaDApp5PageAdapter mPageAdapter;
@@ -72,15 +74,17 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dapp_list);
+        setContentView(R.layout.activity_defi_list);
         mToolbar = findViewById(R.id.tool_bar);
-        mDappTapLayer = findViewById(R.id.validator_tab);
-        mDappPager = findViewById(R.id.validator_view_pager);
+        mToolbarTitle = findViewById(R.id.toolbar_title);
+        mDappTapLayer = findViewById(R.id.lab_tab);
+        mDappPager = findViewById(R.id.lab_view_pager);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mToolbarTitle.setText(getString(R.string.str_kava_dapp));
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
@@ -90,29 +94,10 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         mDappTapLayer.setupWithViewPager(mDappPager);
         mDappTapLayer.setTabRippleColor(null);
 
-        View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(R.string.str_kava_swap_list);
-        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_kava));
-        mDappTapLayer.getTabAt(0).setCustomView(tab0);
-
-        View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_kava));
-        tabItemText1.setText(R.string.str_kava_pool_list);
-        mDappTapLayer.getTabAt(1).setCustomView(tab1);
-
-        View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_kava));
-        tabItemText2.setText(R.string.str_kava_cdp_list);
-        mDappTapLayer.getTabAt(2).setCustomView(tab2);
-
-        View tab3 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText3 = tab3.findViewById(R.id.tabItemText);
-        tabItemText3.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_kava));
-        tabItemText3.setText(R.string.str_kava_harvest_list);
-        mDappTapLayer.getTabAt(3).setCustomView(tab3);
+        createTab(mChainConfig, R.string.str_kava_swap_list, 0);
+        createTab(mChainConfig, R.string.str_kava_pool_list, 0);
+        createTab(mChainConfig, R.string.str_kava_cdp_list, 0);
+        createTab(mChainConfig, R.string.str_kava_harvest_list, 0);
 
         mDappPager.setOffscreenPageLimit(3);
         mDappPager.setCurrentItem(0, false);
@@ -133,6 +118,17 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         });
         onShowWaitDialog();
         onFetchData();
+    }
+
+    private void createTab(ChainConfig chainConfig, int stringResourceId, int index) {
+        View tab = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
+        TextView tabItemText = tab.findViewById(R.id.tabItemText);
+        tabItemText.setText(stringResourceId);
+        tabItemText.setTextColor(ContextCompat.getColorStateList(this, chainConfig.chainTabColor()));
+        mDappTapLayer.getTabAt(0).setCustomView(tab);
+
+        mDappTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, chainConfig.chainColor()));
+        mDappTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, chainConfig.chainColor()));
     }
 
     public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, QueryOuterClass.PoolResponse swapPool) {

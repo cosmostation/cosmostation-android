@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.txs.sif.SifDexEthPoolFragment;
@@ -50,6 +51,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class SifDexListActivity extends BaseActivity {
 
     private Toolbar mToolbar;
+    private TextView mToolbarTitle;
     private ViewPager mLabPager;
     private TabLayout mLabTapLayer;
     private SifDexPageAdapter mPageAdapter;
@@ -68,15 +70,17 @@ public class SifDexListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sif_dex_list);
-        initView();
-        loadData();
-    }
-
-    public void initView() {
+        setContentView(R.layout.activity_defi_list);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarTitle = findViewById(R.id.toolbar_title);
         mToolbar = findViewById(R.id.tool_bar);
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
+
+        mToolbarTitle.setText(getString(R.string.str_sif_dex_title));
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -87,23 +91,9 @@ public class SifDexListActivity extends BaseActivity {
         mLabTapLayer.setupWithViewPager(mLabPager);
         mLabTapLayer.setTabRippleColor(null);
 
-        View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(R.string.str_sif_dex_swap);
-        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_sif));
-        mLabTapLayer.getTabAt(0).setCustomView(tab0);
-
-        View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_sif));
-        tabItemText1.setText(R.string.str_sif_dex_eth_pol);
-        mLabTapLayer.getTabAt(1).setCustomView(tab1);
-
-        View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(ContextCompat.getColorStateList(this, R.color.color_tab_myvalidator_sif));
-        tabItemText2.setText(R.string.str_sif_dex_ibc_pool);
-        mLabTapLayer.getTabAt(2).setCustomView(tab2);
+        createTab(mChainConfig, R.string.str_sif_dex_swap, 0);
+        createTab(mChainConfig, R.string.str_sif_dex_eth_pol, 1);
+        createTab(mChainConfig, R.string.str_sif_dex_ibc_pool, 2);
 
         mLabPager.setOffscreenPageLimit(2);
         mLabPager.setCurrentItem(0, false);
@@ -123,14 +113,18 @@ public class SifDexListActivity extends BaseActivity {
             }
         });
         onShowWaitDialog();
+        onFetchPoolListInfo();
     }
 
-    public void loadData() {
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+    private void createTab(ChainConfig chainConfig, int stringResourceId, int index) {
+        View tab = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
+        TextView tabItemText = tab.findViewById(R.id.tabItemText);
+        tabItemText.setTextColor(ContextCompat.getColorStateList(this, chainConfig.chainTabColor()));
+        tabItemText.setText(stringResourceId);
+        mLabTapLayer.getTabAt(index).setCustomView(tab);
 
-        onFetchPoolListInfo();
+        mLabTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, chainConfig.chainColor()));
+        mLabTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, chainConfig.chainColor()));
     }
 
     public void onStartSwap(String inCoinDenom, String outCoinDenom, Types.Pool pool) {
