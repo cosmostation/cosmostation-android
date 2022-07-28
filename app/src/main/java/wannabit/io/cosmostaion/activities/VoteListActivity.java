@@ -234,7 +234,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             if (getItemViewType(position) == SECTION_VOTING_PERIOD) {
                 onBindPeriodProposalItemViewHolder((VoteListViewHolder) holder, position);
             } else if (getItemViewType(position) == SECTION_PROPOSALS) {
-                onBindProposalItemViewHolder((VoteListViewHolder) holder, position);
+                onBindProposalItemViewHolder((VoteListViewHolder) holder, position - mVotingPeriodProposalsList.size());
             }
         }
 
@@ -306,12 +306,12 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
             holder.vote_select.setOnClickListener(v -> {
                 selectedSet.remove(item);
-                mVoteListAdapter.notifyDataSetChanged();
+                mVoteListAdapter.notifyItemChanged(position);
             });
 
             holder.vote_not_select.setOnClickListener(v -> {
                 selectedSet.add(item);
-                mVoteListAdapter.notifyDataSetChanged();
+                mVoteListAdapter.notifyItemChanged(position);
             });
         }
 
