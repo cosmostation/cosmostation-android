@@ -247,11 +247,11 @@
     <color name="colorCommision4">#F31963</color>
 
 
-    <color name="colorVoteYes">#a67dfc</color>
-    <color name="colorVoteNo">#57dca8</color>
-    <color name="colorVoteVeto">#4de8f1</color>
-    <color name="colorVoteAbstain">#9ea1a7</color>
-    <color name="colorVoteBg">#424548</color>
+    <color name="colorVoteYes">#08d152</color>
+    <color name="colorVoteNo">#f31963</color>
+    <color name="colorVoteVeto">#f07e7e</color>
+    <color name="colorVoteAbstain">#7a7f88</color>
+    <color name="colorVoteBg">#bec6d1</color>
 
 
     <color name="colorCdpDanger">#f31963</color>

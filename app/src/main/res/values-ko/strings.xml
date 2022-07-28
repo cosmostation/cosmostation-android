@@ -65,6 +65,7 @@
     <string name="str_dismiss">닫기</string>
     <string name="str_explorer">익스플로러</string>
     <string name="str_memo">메모</string>
+    <string name="str_my_opinion">My Opinion</string>
     <string name="str_fees">Tx 수수료</string>
     <string name="str_fees_c">Tx 수수료</string>
     <string name="str_to_send_amount">전송 수량</string>
@@ -436,6 +437,8 @@
     <string name="str_wc_transfer_price">가격</string>
     <string name="str_quorum">정족율</string>
     <string name="str_turnout">투표율</string>
+    <string name="str_voting_period">Voting Period</string>
+    <string name="str_vote_proposals">Proposals</string>
     <string name="str_vote_yes">찬성</string>
     <string name="str_vote_no">반대</string>
     <string name="str_vote_veto">절대반대</string>
@@ -470,6 +473,7 @@
     <string name="str_tx_status">결과</string>
     <string name="str_tx_height">블록 높이</string>
     <string name="str_tx_time">블록 시간</string>
+    <string name="str_tx_fee">수수료</string>
     <string name="str_tx_fee_info">Tx 수수료 (사용/최대)</string>
     <string name="str_tx_fee_used">Tx 수수료 사용량</string>
     <string name="str_tx_fee_limit">Tx 수수료 최대량</string>
@@ -865,6 +869,7 @@
     <string name="str_delegate">위임 하기</string>
     <string name="str_get_reward">위임 하기</string>
     <string name="str_vote_to">투표 하기</string>
+    <string name="str_vote_multi">Multi Vote</string>
     <string name="str_governance">거버넌스</string>
     <string name="str_commission">검증인 수수료</string>
     <string name="str_voting_power">전체 위임량</string>
@@ -1471,6 +1476,7 @@
     <string name="error_no_bonding_no_vote">위임량이 없음으로 투표를 하실 수 없습니다.</string>
     <string name="error_iris_already_voted">이미 투표를 하였습니다.</string>
     <string name="error_not_voting_period">투표 기간이 아닙니다.</string>
+    <string name="error_not_selected_vote">투표하실 프로포절을 선택하세요.</string>
     <string name="error_no_option">의견을 선택해 주세요.</string>
     <string name="error_no_tx">존재하지 않는 Tx입니다.</string>
     <string name="error_not_yet">준비중 입니다!</string>

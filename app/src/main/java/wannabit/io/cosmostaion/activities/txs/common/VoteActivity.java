@@ -16,7 +16,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -24,10 +29,12 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.VoteStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.VoteStep3Fragment;
+import wannabit.io.cosmostaion.network.res.ResProposal;
 
 public class VoteActivity extends BaseBroadCastActivity {
 
@@ -39,9 +46,7 @@ public class VoteActivity extends BaseBroadCastActivity {
     private ViewPager mViewPager;
     private VotePageAdapter mPageAdapter;
 
-
-    public String mProposeTitle;
-    public String mProposer;
+    public List<ResProposal> mProposal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +65,15 @@ public class VoteActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(VoteActivity.this, R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_delegate_step_1));
+        mTvStep.setText(getString(R.string.str_vote_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_VOTE;
 
-        mProposalId = getIntent().getStringExtra("proposalId");
-        mProposeTitle = getIntent().getStringExtra("title");
-        mProposer = getIntent().getStringExtra("proposer");
+        mProposal = new Gson().fromJson(getIntent().getStringExtra("proposal"), new TypeToken<List<ResProposal>>() {
+        }.getType());
 
         mPageAdapter = new VotePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -150,18 +155,15 @@ public class VoteActivity extends BaseBroadCastActivity {
         }
     }
 
-
     public void onStartVote() {
         Intent intent = new Intent(VoteActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_VOTE);
-        intent.putExtra("proposal_id", mProposalId);
-        intent.putExtra("opinion", mOpinion);
+        intent.putExtra("selectedProposals", (Serializable) mSelectedOpinion);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
-
 
     private class VotePageAdapter extends FragmentPagerAdapter {
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();

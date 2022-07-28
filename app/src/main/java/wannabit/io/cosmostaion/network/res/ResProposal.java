@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -54,6 +55,18 @@ public class ResProposal {
 
     @SerializedName("voteMeta")
     public VoteMeta voteMeta;
+
+    @SerializedName("voter")
+    public String voter;
+
+    @SerializedName("option")
+    public String option;
+
+    @SerializedName("timestamp")
+    public String timestamp;
+
+    @SerializedName("answer")
+    public String answer;
 
     public class Content {
         @SerializedName("type")

@@ -26,67 +26,97 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/space_8"
-                android:layout_toLeftOf="@+id/arrow_propose"
+                android:layout_toLeftOf="@+id/vote_status"
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/proposal_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/font_ss_14_black_daynight"
-                        android:text="#1"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:gravity="center_vertical">
-                        <ImageView
-                            android:id="@+id/proposal_status_img"
-                            android:layout_width="@dimen/space_8"
-                            android:layout_height="@dimen/space_8"
-                            android:src="@drawable/ic_rejected_img"/>
+
                         <TextView
-                            android:id="@+id/proposal_status"
+                            android:id="@+id/proposal_id"
+                            style="@style/font_rb_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_4"
-                            style="@style/font_ss_11_black_daynight"/>
+                            android:text="#1" />
+
+                        <TextView
+                            android:id="@+id/proposal_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_8"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            style="@style/font_ss_14_black_daynight"
+                            android:ellipsize="end"/>
                     </LinearLayout>
                 </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/proposal_title"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_6"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    style="@style/font_ss_14_black_daynight"
-                    android:ellipsize="end"/>
+                    android:layout_marginTop="@dimen/space_12">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/proposal_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_2"
-                    style="@style/font_ss_11_gray1"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:ellipsize="end"/>
+                    <ImageView
+                        android:id="@+id/proposal_status_img"
+                        android:layout_width="@dimen/space_8"
+                        android:layout_height="@dimen/space_8"
+                        android:src="@drawable/ic_rejected_img"/>
 
+                        <TextView
+                            android:id="@+id/proposal_status"
+                            style="@style/font_ss_11_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_6"/>
+
+                        <TextView
+                            android:id="@+id/proposal_deadline"
+                            style="@style/font_ss_11_gray1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_6"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
+
             <ImageView
-                android:id="@+id/arrow_propose"
+                android:id="@+id/vote_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/arrow_next_gr"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_vote_yes"
+                android:visibility="gone"/>
 
+            <ImageView
+                android:id="@+id/vote_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_vote_selection"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/vote_not_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_vote_not_selection"
+                android:visibility="gone"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@color/colorWhiteDayNight"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:src="@color/colorWhiteDayNight">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -16,64 +11,90 @@
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <TextView
             android:id="@+id/toolbar_title"
+            style="@style/font_ss_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_daynight"
-            android:text="@string/str_proposal_list"/>
+            android:text="@string/str_proposal_list" />
     </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/layer_refresher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar">
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/layer_refresher"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <RelativeLayout
+
+            <TextView
+                android:id="@+id/empty_proposal"
+                style="@style/font_ss_14_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/str_no_proposal"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never" />
+        </RelativeLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                <TextView
-                    android:id="@+id/empty_proposal"
-                    style="@style/font_ss_14_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/str_no_proposal"
-                    android:visibility="gone" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/space_4"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never"
-                    android:visibility="gone" />
-            </RelativeLayout>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/loadingLayer"
+    <Button
+        android:id="@+id/btn_multiVote"
+        style="@style/font_ss_14_photon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true">
+        android:layout_height="@dimen/space_45"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:background="@drawable/btn_trans_with_photon_border"
+        android:minHeight="@dimen/space_45"
+        android:text="@string/str_vote_multi"
+        android:textAllCaps="false" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:orientation="horizontal">
 
-            <ProgressBar
-                android:layout_width="@dimen/space_60"
-                android:layout_height="@dimen/space_60"
-                android:indeterminateDrawable="@drawable/loading" />
-        </LinearLayout>
-    </RelativeLayout>
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/font_ss_14_black_daynight"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_weight="1"
+            android:background="@drawable/btn_trans_with_border"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_cancel"
+            android:textAllCaps="false"
+            android:visibility="gone" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/font_ss_14_photon"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:layout_weight="1"
+            android:background="@drawable/btn_trans_with_photon_border"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_next"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPhoton"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

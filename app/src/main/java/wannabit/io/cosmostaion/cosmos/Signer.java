@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryOuterClass;
@@ -205,28 +205,21 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcVoteReq(QueryOuterClass.QueryAccountResponse auth, String proposalId, String option, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth, getVoteMsg(auth, proposalId, option), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcVoteReq(QueryOuterClass.QueryAccountResponse auth, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getVoteMsg(auth, opinionMap), fee, memo, pKey, chainId);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcVoteSimulateReq(QueryOuterClass.QueryAccountResponse auth, String proposalId, String option, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getVoteMsg(auth, proposalId, option), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.SimulateRequest getGrpcVoteSimulateReq(QueryOuterClass.QueryAccountResponse auth, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getVoteMsg(auth, opinionMap), fee, memo, pKey, chainId);
     }
 
-    public static ArrayList<Any> getVoteMsg(QueryOuterClass.QueryAccountResponse auth, String proposalId, String option) {
+    public static ArrayList<Any> getVoteMsg(QueryOuterClass.QueryAccountResponse auth, Map<Integer,String> opinionMap) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        Gov.VoteOption msgOption = null;
-        if (option.equals("Yes")) {
-            msgOption = Gov.VoteOption.VOTE_OPTION_YES;
-        } else if (option.equals("No")) {
-            msgOption = Gov.VoteOption.VOTE_OPTION_NO;
-        } else if (option.equals("NoWithVeto")) {
-            msgOption = Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO;
-        } else if (option.equals("Abstain")) {
-            msgOption = Gov.VoteOption.VOTE_OPTION_ABSTAIN;
-        }
-        Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(proposalId)).setVoter((String) onParseAuthGrpc(auth).get(0)).setOption(msgOption).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build());
+        opinionMap.forEach((id, opinion) -> {
+            Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(String.valueOf(id))).setVoter(onParseAuthGrpc(auth).get(0).toString()).setOption(Gov.VoteOption.valueOf(opinion)).build();
+            Any msgVoteAny = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build();
+            msgAnys.add(msgVoteAny);
+        });
         return msgAnys;
     }
 

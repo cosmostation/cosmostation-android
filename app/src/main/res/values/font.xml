@@ -240,7 +240,6 @@
     </style>
 
 
-
     <style name="font_ss_12_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -411,6 +410,12 @@
 
     <style name="font_ssm_12_black_daynight" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="font_rm_12_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
@@ -857,12 +862,11 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_rmr_14_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">@font/roboto_mono_regular</item>
+    <style name="font_rb_14_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
-
 
 
     <style name="font_ss_15_white" parent="@android:style/TextAppearance">
@@ -1012,7 +1016,6 @@
     </style>
 
 
-
     <style name="font_ss_21_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -1036,6 +1039,7 @@
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">@dimen/text_size_24</item>
     </style>
+
     <style name="font_ss_24_gray1" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray1</item>
