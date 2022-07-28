@@ -482,11 +482,6 @@ public class BaseConstant {
     public final static String TOKEN_HTLC_BINANCE_XRPB             = "XRP-BF2";
     public final static String TOKEN_HTLC_BINANCE_BUSD             = "BUSD-BD1";
 
-    public final static String TOKEN_HTLC_BINANCE_TEST_BNB         = "BNB";
-    public final static String TOKEN_HTLC_BINANCE_TEST_BTC         = "BTCB-101";
-    public final static String TOKEN_HTLC_KAVA_TEST_BNB            = "bnb";
-    public final static String TOKEN_HTLC_KAVA_TEST_BTC            = "btcb";
-
 
     //TODO HardCoding!!
     public final static long COSMOS_UNBONDING_TIME = 1814400000;
@@ -753,15 +748,8 @@ public class BaseConstant {
     public final static String BINANCE_MAIN_BUSD_DEPUTY = "bnb10zq89008gmedc6rrwzdfukjk94swynd7dl97w8";
     public final static String KAVA_MAIN_BUSD_DEPUTY    = "kava1hh4x3a4suu5zyaeauvmv7ypf7w9llwlfufjmuu";
 
-    //For 9000
-    public final static String BINANCE_TEST_BNB_DEPUTY  = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
-    public final static String KAVA_TEST_BNB_DEPUTY     = "kava1tfvn5t8qwngqd2q427za2mel48pcus3z9u73fl";
-    public final static String BINANCE_TEST_BTC_DEPUTY  = "tbnb1dmn2xgnc8kcxn4s0ts5llu9ry3ulp2nlhuh5fz";
-    public final static String KAVA_TEST_BTC_DEPUTY     = "kava1kla4wl0ccv7u85cemvs3y987hqk0afcv7vue84";
-
     public final static String CHAIN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/chains/logo/";
 
-    public final static String OKEX_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
     public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
     public final static String EMONEY_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
@@ -781,11 +769,11 @@ public class BaseConstant {
 
 
     //NFT Denom Default config
-    public final static String STATION_NFT_DENOM            = "station";
+    public final static String STATION_NFT_DENOM        = "station";
 
 
-    public final static BigDecimal DAY_SEC                  = new BigDecimal("86400");
-    public final static BigDecimal MONTH_SEC                = DAY_SEC.multiply(new BigDecimal("30"));
-    public final static BigDecimal YEAR_SEC                 = DAY_SEC.multiply(new BigDecimal("365"));
+    public final static BigDecimal DAY_SEC              = new BigDecimal("86400");
+    public final static BigDecimal MONTH_SEC            = DAY_SEC.multiply(new BigDecimal("30"));
+    public final static BigDecimal YEAR_SEC             = DAY_SEC.multiply(new BigDecimal("365"));
 
 }

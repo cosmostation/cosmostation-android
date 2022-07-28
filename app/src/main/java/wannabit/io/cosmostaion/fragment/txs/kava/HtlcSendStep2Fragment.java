@@ -1,18 +1,7 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -41,7 +30,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -59,10 +47,8 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
     private String mDecimalChecker, mDecimalSetter;
     public String mToSwapDenom;
 
-    public static HtlcSendStep2Fragment newInstance(Bundle bundle) {
-        HtlcSendStep2Fragment fragment = new HtlcSendStep2Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static HtlcSendStep2Fragment newInstance() {
+        return new HtlcSendStep2Fragment();
     }
 
     @Override
@@ -111,23 +97,9 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mDecimal = 8;
             setDpDecimals(mDecimal);
-            if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
-                mDenomTitle.setText(getString(R.string.str_bnb_c));
-                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_binance));
-                mMaxAvailable = getSActivity().getAvailable().subtract(new BigDecimal(FEE_BNB_SEND));
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
-                mDenomTitle.setText(getString(R.string.str_btc_c));
-                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
-                mMaxAvailable = getSActivity().getAvailable();
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
-                mDenomTitle.setText("XRP");
-                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
-                mMaxAvailable = getSActivity().getAvailable();
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
-                mDenomTitle.setText("BUSD");
-                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
-                mMaxAvailable = getSActivity().getAvailable();
-            }
+            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mFromChainConfig, getSActivity().mToSwapDenom, mDenomTitle);
+            mMaxAvailable = getSActivity().getAvailable();
+
             // check relayer capacity
             BigDecimal remainCap = getSActivity().mRemainCap.movePointLeft(mDecimal);
             BigDecimal maxOnce = getSActivity().mMaxOnce.movePointLeft(mDecimal);
@@ -143,21 +115,15 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, 0, mDecimal));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mDecimal = WUtil.getKavaCoinDecimal(getBaseDao(), getSActivity().mToSwapDenom);
+            mDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mFromChainConfig, getSActivity().mToSwapDenom);
             setDpDecimals(mDecimal);
-            if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
-                mDenomTitle.setText(getString(R.string.str_bnb_c));
+            if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB)) {
+                mDenomTitle.setText("BNB");
                 mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_binance));
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB) || mToSwapDenom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
-                mDenomTitle.setText(getString(R.string.str_btc_c));
-                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
-                mDenomTitle.setText("XRP");
-                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
-                mDenomTitle.setText("BUSD");
-                mDenomTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
+            } else {
+                WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mFromChainConfig, getSActivity().mToSwapDenom, mDenomTitle);
             }
+
             mMaxAvailable = getSActivity().getAvailable();
             // check relayer capacity
             BigDecimal maxOnce = getSActivity().mMaxOnce;
@@ -169,7 +135,6 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             mMinAvailable = getSActivity().mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom);
             mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, mDecimal, mDecimal));
         }
-
 
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -335,7 +300,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mAddMax)) {
             if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
-                if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB) || mToSwapDenom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
+                if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB)) {
                     onShowEmptyBalanceWarnDialog();
                 }
             } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {

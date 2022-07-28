@@ -21,14 +21,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_MULTI_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_WITHDRAW;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +36,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -55,7 +52,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.kava.HtlcRefundActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
@@ -245,28 +241,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else {
                 return;
             }
-
-        } else if (v.equals(mRefundBtn)) {
-            if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
-                return;
-            }
-
-            if (mBaseChain.equals(BNB_MAIN)) {
-                if ((getBaseDao().availableAmount(TOKEN_BNB)).compareTo(new BigDecimal(FEE_BNB_SEND)) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-
-            Intent refundIntent = new Intent(TxDetailActivity.this, HtlcRefundActivity.class);
-            refundIntent.putExtra("swapId", mSwapId);
-            startActivity(refundIntent);
-
         }
-
     }
 
 

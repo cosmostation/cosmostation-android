@@ -36,8 +36,8 @@ import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
@@ -152,10 +152,10 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mNativeGrpcDenom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.ic_price_up));
+            mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
         } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(NativeTokenGrpcActivity.this, R.drawable.ic_price_down));
+            mItemUpDownImg.setImageResource(R.drawable.ic_price_down);
         } else {
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
@@ -177,7 +177,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             } else {
                 bundle.putString("title", mAccount.nickName);
             }
-            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            AccountShowDialog show = AccountShowDialog.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
@@ -233,7 +233,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     }
 
     private class NativeTokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_UNKNOWN = -1;
         private static final int TYPE_NATIVE = 0;
 
         private static final int TYPE_VESTING = 99;
@@ -241,14 +240,10 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == TYPE_UNKNOWN) {
-
-            } else if (viewType == TYPE_NATIVE) {
+            if (viewType == TYPE_NATIVE) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
-
             } else if (viewType == TYPE_VESTING) {
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
-
             }
             return null;
         }
@@ -257,7 +252,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_NATIVE) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
+                holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mChainConfig, getBaseDao(), mNativeGrpcDenom);
 
             } else if (getItemViewType(position) == TYPE_VESTING) {
                 VestingHolder holder = (VestingHolder) viewHolder;
@@ -293,7 +288,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                     return TYPE_NATIVE;
                 }
             }
-            return TYPE_UNKNOWN;
+            return -1;
         }
     }
 }

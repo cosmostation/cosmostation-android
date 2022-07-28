@@ -50,7 +50,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.fragment.DappFragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
@@ -189,7 +189,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
         else
             bundle.putString("title", mAccount.nickName);
-        Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+        AccountShowDialog show = AccountShowDialog.newInstance(bundle);
         show.setCancelable(true);
         getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
     }
@@ -228,7 +228,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         else mToolbarTitle.setText(mAccount.nickName);
 
         if (mPageAdapter.mCurrentFragment != null) {
-            ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(0).onRefreshTab();
+            mPageAdapter.getCurrentFragment().onRefreshTab();
         }
     }
 

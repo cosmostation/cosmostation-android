@@ -51,6 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16">
                         <TextView
+                            android:id="@+id/send_amount_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_to_send_amount"
@@ -60,21 +61,22 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/send_amount_title"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/send_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ss_12_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/send_amount_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
-                                android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_black_daynight"/>
+                                android:text="-"
+                                style="@style/font_ssl_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -83,6 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16">
                         <TextView
+                            android:id="@+id/send_fee_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_send_fee"
@@ -91,28 +94,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@+id/send_fee_title"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/send_fee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ss_12_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/send_fee_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
-                                android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_black_daynight"/>
+                                android:text="-"
+                                style="@style/font_ssl_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/space_view"
                         android:background="@color/colorGrayDayNight"
                         android:layout_marginTop="@dimen/space_16"/>
 
@@ -158,7 +162,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_6"
                 app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardCornerRadius="@dimen/space_6"
@@ -192,6 +195,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16">
                         <TextView
+                            android:id="@+id/receivable_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_expected_receive_amount"
@@ -201,21 +205,22 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/receivable_title"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/receive_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ss_12_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/receive_amount_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
-                                android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_black_daynight"/>
+                                android:text="-"
+                                style="@style/font_ssl_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -224,6 +229,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16">
                         <TextView
+                            android:id="@+id/relay_fee_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_relay_fee"
@@ -233,21 +239,22 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/relay_fee_title"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/relay_fee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ss_12_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/relay_fee_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
-                                android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_black_daynight"/>
+                                android:text="-"
+                                style="@style/font_ssl_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -256,6 +263,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16">
                         <TextView
+                            android:id="@+id/claim_fee_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_claim_fee"
@@ -264,28 +272,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_toRightOf="@+id/claim_fee_title"
                             android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="end">
                             <TextView
                                 android:id="@+id/claim_fee"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ss_12_black_daynight"/>
+                                style="@style/font_ssl_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/claim_fee_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
-                                android:text="@string/str_atom_c"
-                                style="@style/font_ss_12_black_daynight"/>
+                                android:text="-"
+                                style="@style/font_ssl_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="@dimen/space_view"
                         android:background="@color/colorGrayDayNight"
                         android:layout_marginTop="@dimen/space_16"/>
 

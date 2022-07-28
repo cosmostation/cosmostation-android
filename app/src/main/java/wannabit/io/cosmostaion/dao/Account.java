@@ -98,26 +98,12 @@ public class Account {
         this.balances = balances;
     }
 
-    public BigDecimal getBnbBalanceScale() {
-        BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
-            return result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
-                result = balance.balance;
-                break;
-            }
-        }
-        return result;
-    }
-
     public BigDecimal getTokenBalance(String symbol) {
         BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
+        if (balances == null || balances.size() == 0)  {
             return result;
         }
-        for(Balance balance:balances) {
+        for (Balance balance:balances) {
             if(balance.symbol.equalsIgnoreCase(symbol)) {
                 result = balance.balance;
                 break;

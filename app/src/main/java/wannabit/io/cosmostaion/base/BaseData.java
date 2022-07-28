@@ -474,7 +474,8 @@ public class BaseData {
     }
 
     public BigDecimal getAllExToken(String denom) {
-        if (denom.equals(TOKEN_OK)) {
+        ChainConfig chainConfig = ChainFactory.getChain(OKEX_MAIN);
+        if (denom.equalsIgnoreCase(chainConfig.mainDenom())) {
             return availableAmount(denom).add(lockedAmount(denom)).add(okDepositAmount()).add(okWithdrawAmount());
         } else {
             return availableAmount(denom).add(lockedAmount(denom));

@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,19 +27,22 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
+public class HtlcReceivableAccountsDialog extends DialogFragment {
 
+    private ConstraintLayout mDialogLayout;
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private AccountListAdapter mAccountListAdapter;
 
     private ArrayList<Account> mAccounts = new ArrayList<>();
 
-    public static Dialog_Htlc_Receivable_Accounts newInstance(Bundle bundle) {
-        Dialog_Htlc_Receivable_Accounts frag = new Dialog_Htlc_Receivable_Accounts();
+    public static HtlcReceivableAccountsDialog newInstance(Bundle bundle) {
+        HtlcReceivableAccountsDialog frag = new HtlcReceivableAccountsDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -54,19 +56,22 @@ public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
-        mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView = view.findViewById(R.id.recycler);
         mAccounts = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(BaseChain.getChain(getArguments().getString("chainName")));
+
+        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
+        mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
         mRecyclerView.setAdapter(mAccountListAdapter);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         return builder.create();
     }
-
 
     private class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountHolder> {
 
@@ -80,18 +85,14 @@ public class Dialog_Htlc_Receivable_Accounts extends DialogFragment {
         public void onBindViewHolder(@NonNull AccountHolder holder, @SuppressLint("RecyclerView") int position) {
             final Account account = mAccounts.get(position);
             final BaseChain baseChain = BaseChain.getChain(account.baseChain);
-            holder.accountKeyState.setColorFilter(WDp.getChainColor(getSActivity(), baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
             holder.accountAddress.setText(account.address);
 
             if (TextUtils.isEmpty(account.nickName))
                 holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             else holder.accountName.setText(account.nickName);
-            if (baseChain.equals(BaseChain.BNB_MAIN)) {
-                WDp.showCoinDp(getContext(), getSActivity().getBaseDao(), TOKEN_BNB, account.getBnbBalanceScale().toPlainString(), holder.accountDenom, holder.accountAvailable, baseChain);
-
-            } else if (baseChain.equals(BaseChain.KAVA_MAIN)) {
-                WDp.showCoinDp(getContext(), getSActivity().getBaseDao(), TOKEN_KAVA, account.getTokenBalance(TOKEN_KAVA).toPlainString(), holder.accountDenom, holder.accountAvailable, baseChain);
-            }
+            WDp.setDpCoin(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), account.getTokenBalance(chainConfig.mainDenom()).toPlainString(), holder.accountDenom, holder.accountAvailable);
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override

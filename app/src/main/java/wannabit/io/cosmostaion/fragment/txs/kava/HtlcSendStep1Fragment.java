@@ -15,17 +15,19 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Accounts;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.dialog.HtlcReceivableAccountsDialog;
 
 public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_ACCOUNT = 9101;
@@ -38,11 +40,10 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
 
     private ArrayList<Account> mToAccountList;
     private Account mToAccount;
+    private ChainConfig mToChainConfig;
 
-    public static HtlcSendStep1Fragment newInstance(Bundle bundle) {
-        HtlcSendStep1Fragment fragment = new HtlcSendStep1Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static HtlcSendStep1Fragment newInstance() {
+        return new HtlcSendStep1Fragment();
     }
 
     @Override
@@ -71,12 +72,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
         if (mToAccount == null) {
             getSActivity().onBeforeStep();
         }
-        if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
-            mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_binance), android.graphics.PorterDuff.Mode.SRC_IN);
-
-        } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
-            mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_kava), android.graphics.PorterDuff.Mode.SRC_IN);
-        }
+        mKeyStatusImg.setColorFilter(ContextCompat.getColor(getContext(), mToChainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
         mKeyStatusImg.setVisibility(View.VISIBLE);
         mRecipientAddressTv.setText(mToAccount.address);
 
@@ -85,13 +81,9 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
+        mToChainConfig = ChainFactory.getChain(getSActivity().mRecipientChain);
         mToAccountList = getSActivity().getBaseDao().onSelectAccountsByHtlcClaim(getSActivity().mRecipientChain);
-        if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
-            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain)));
-
-        } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
-            mWarnMSg.setText(String.format(getString(R.string.error_can_not_bep3_account_msg2), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain)));
-        }
+        mWarnMSg.setText(setWarnMsg());
     }
 
     @Override
@@ -111,20 +103,14 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
             if (mToAccountList.size() > 0) {
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", getSActivity().mRecipientChain.getChain());
-                Dialog_Htlc_Receivable_Accounts dialog = Dialog_Htlc_Receivable_Accounts.newInstance(bundle);
+                HtlcReceivableAccountsDialog dialog = HtlcReceivableAccountsDialog.newInstance(bundle);
                 dialog.setCancelable(true);
                 dialog.setTargetFragment(this, SELECT_ACCOUNT);
                 getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
             } else {
-                String title = String.format(getString(R.string.error_can_not_bep3_account_title), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain));
-                String msg = "";
-                if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
-                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain));
-                } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
-                    msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), WUtil.getDpChainName(getContext(), getSActivity().mRecipientChain));
-                }
-                AlertDialogUtils.showSingleButtonDialog(getSActivity(), title, msg, getContext().getString(R.string.str_ok), null);
+                String title = String.format(getString(R.string.error_can_not_bep3_account_title), StringUtils.capitalize(mToChainConfig.chainName()));
+                AlertDialogUtils.showSingleButtonDialog(getSActivity(), title, setWarnMsg(), getContext().getString(R.string.str_ok), null);
             }
         }
     }
@@ -135,6 +121,16 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
             mToAccount = mToAccountList.get(data.getIntExtra("position", 0));
             onUpdateView();
         }
+    }
+
+    private String setWarnMsg() {
+        String msg = "";
+        if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
+            msg = String.format(getString(R.string.error_can_not_bep3_account_msg), StringUtils.capitalize(mToChainConfig.chainName()));
+        } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
+            msg = String.format(getString(R.string.error_can_not_bep3_account_msg2), StringUtils.capitalize(mToChainConfig.chainName()));
+        }
+        return msg;
     }
 
     private HtlcSendActivity getSActivity() {

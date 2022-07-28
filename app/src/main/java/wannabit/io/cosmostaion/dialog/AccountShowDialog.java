@@ -27,15 +27,15 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 
-public class Dialog_AccountShow extends DialogFragment {
+public class AccountShowDialog extends DialogFragment {
 
     private Button btn_nega, btn_posi;
     private TextView mTitle, mAddress;
     private ImageView mQr;
     private Bitmap mBitmap;
 
-    public static Dialog_AccountShow newInstance(Bundle bundle) {
-        Dialog_AccountShow frag = new Dialog_AccountShow();
+    public static AccountShowDialog newInstance(Bundle bundle) {
+        AccountShowDialog frag = new AccountShowDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -49,15 +49,11 @@ public class Dialog_AccountShow extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_account_show, null);
-
-
         btn_nega = view.findViewById(R.id.btn_nega);
         btn_posi = view.findViewById(R.id.btn_posi);
         mTitle = view.findViewById(R.id.wallet_name);
         mAddress = view.findViewById(R.id.wallet_address_tv);
         mQr = view.findViewById(R.id.wallet_address_qr);
-
-
         final String address = getArguments().getString("address");
 
         mTitle.setText(getArguments().getString("title"));

@@ -36,11 +36,10 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.widget.txDetail.TxClaimHTLCHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxClaimHTLCHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommissionHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommonHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxCreateHTLCHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxCreateTokenSwapHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateHTLCHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxReDelegateHolder;
@@ -250,8 +249,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_BEGIN_UNLOCK_TOKEN = 45;
         private static final int TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL = 46;
 
-        private static final int TYPE_TX_CREATE_TOKEN_SWAP = 62;
-
         private static final int TYPE_TX_ADD_LIQUIDITY = 70;
         private static final int TYPE_TX_REMOVE_LIQUIDITY = 71;
         private static final int TYPE_TX_SWAP = 72;
@@ -379,10 +376,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL) {
                 return new TxBeginUnlockAllTokensHolder(getLayoutInflater().inflate(R.layout.item_tx_begin_unlock_all_token, viewGroup, false));
 
-            }
-
-            else if (viewType == TYPE_TX_CREATE_TOKEN_SWAP) {
-                return new TxCreateTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_create_token_swap, viewGroup, false));
             }
 
             // sifchain
@@ -582,10 +575,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_BEGIN_UNLOCK_TOKEN;
                 } else if (msg.getTypeUrl().equals("/" + osmosis.lockup.Tx.MsgBeginUnlockingAll.getDescriptor().getFullName())) {
                     return TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL;
-                }
-
-                else if (msg.getTypeUrl().contains(rizonworld.rizon.tokenswap.Tx.MsgCreateTokenswapRequest.getDescriptor().getFullName())) {
-                    return TYPE_TX_CREATE_TOKEN_SWAP;
                 }
 
                 // sifchain msg

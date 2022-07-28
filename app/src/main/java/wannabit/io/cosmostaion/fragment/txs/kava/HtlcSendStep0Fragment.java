@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
@@ -24,9 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-
-import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,17 +34,15 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.base.chains.Kava;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receive_Chain;
-import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Send_Coin;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dialog.HtlcSendCoinDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_DESTINATION_CHAIN = 9100;
     public final static int SELECT_TO_SEND_COIN = 9101;
 
     private Button mBtnCancel, mBtnNext;
@@ -56,7 +50,6 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     private ImageView mFromChainImg;
     private TextView mFromChainTv;
 
-    private RelativeLayout mBtnToChain;
     private ImageView mToChainImg;
     private TextView mToChainTv;
 
@@ -82,10 +75,8 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     private BigDecimal onetime_max = BigDecimal.ZERO;
     private BigDecimal available_amount = BigDecimal.ZERO;
 
-    public static HtlcSendStep0Fragment newInstance(Bundle bundle) {
-        HtlcSendStep0Fragment fragment = new HtlcSendStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static HtlcSendStep0Fragment newInstance() {
+        return new HtlcSendStep0Fragment();
     }
 
     @Override
@@ -100,7 +91,6 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         mBtnNext = rootView.findViewById(R.id.btn_next);
         mFromChainImg = rootView.findViewById(R.id.img_from_chain);
         mFromChainTv = rootView.findViewById(R.id.txt_from_chain);
-        mBtnToChain = rootView.findViewById(R.id.btn_to_chain);
         mToChainImg = rootView.findViewById(R.id.img_to_chain);
         mToChainTv = rootView.findViewById(R.id.txt_to_chain);
         mBtnToSendCoin = rootView.findViewById(R.id.btn_to_send_coin);
@@ -118,7 +108,6 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
 
         mBtnCancel.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
-        mBtnToChain.setOnClickListener(this);
         mBtnToSendCoin.setOnClickListener(this);
 
         mToChainList = BaseChain.getHtlcSendable(getSActivity().mBaseChain);
@@ -142,37 +131,31 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         if (mToChain == null) {
             getSActivity().onBeforeStep();
         }
-        WUtil.onDpSwapChain(getContext(), getSActivity().mBaseChain, mFromChainImg, mFromChainTv);
-        WUtil.onDpSwapChain(getContext(), mToChain, mToChainImg, mToChainTv);
+        ChainConfig fromChainConfig = getSActivity().mFromChainConfig;
+        mFromChainImg.setImageResource(fromChainConfig.chainImg());
+        mFromChainTv.setText(fromChainConfig.chainTitleToUp());
+
+        ChainConfig toChainConfig = ChainFactory.getChain(mToChain);
+        mToChainImg.setImageResource(toChainConfig.chainImg());
+        mToChainTv.setText(toChainConfig.chainTitleToUp());
         mToSendCoindenom.setText("(" + mToSwapDenom + ")");
 
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.VISIBLE);
             if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BNB)) {
-                mToSendCoinImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.token_binance));
-                onSetDpDenom(getString(R.string.str_bnb_c));
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB)) {
-                onSetDpDenom("BTC");
-                try {
-                    Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BTCB.png").into(mToSendCoinImg);
-                } catch (Exception e) {
+                mToSendCoinImg.setImageResource(fromChainConfig.mainDenomImg());
+                onSetDpDenom("BNB");
+            } else {
+                if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB)) {
+                    onSetDpDenom("BTC");
+                } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
+                    onSetDpDenom("XRP");
+                } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
+                    onSetDpDenom("BUSD");
                 }
-
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
-                onSetDpDenom("XRP");
-                try {
-                    Picasso.get().load(BINANCE_TOKEN_IMG_URL + "XRP.png").into(mToSendCoinImg);
-                } catch (Exception e) {
-                }
-
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
-                onSetDpDenom("BUSD");
-                try {
-                    Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BUSD.png").into(mToSendCoinImg);
-                } catch (Exception e) {
-                }
-
+                WDp.setDpSymbolImg(getBaseDao(), fromChainConfig, mToSwapDenom, mToSendCoinImg);
             }
+
             available_amount = getSActivity().mAccount.getTokenBalance(mToSwapDenom);
             supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
             supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
@@ -182,43 +165,29 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.GONE);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB)) {
-                mToSendCoinImg.setImageDrawable(ContextCompat.getDrawable(getSActivity(), R.drawable.bnb_on_kava));
+                mToSendCoinImg.setImageResource(R.drawable.bnb_on_kava);
                 onSetDpDenom(getString(R.string.str_bnb_c));
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB)) {
-                onSetDpDenom("BTC");
-                try {
-                    Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "btcb.png").into(mToSendCoinImg);
-                } catch (Exception e) {
+            } else {
+                if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB)) {
+                    onSetDpDenom("BTC");
+                } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
+                    onSetDpDenom("XRP");
+                } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
+                    onSetDpDenom("BUSD");
                 }
-
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_XRPB)) {
-                onSetDpDenom("XRP");
-                try {
-                    Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "xrpb.png").into(mToSendCoinImg);
-                } catch (Exception e) {
-                }
-
-            } else if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BUSD)) {
-                onSetDpDenom("BUSD");
-                try {
-                    Picasso.get().load(Kava.KAVA_COIN_IMG_URL + "busd.png").into(mToSendCoinImg);
-                } catch (Exception e) {
-                }
-
+                WDp.setDpSymbolImg(getBaseDao(), fromChainConfig, mToSwapDenom, mToSendCoinImg);
             }
-            available_amount = getBaseDao().getAvailable(mToSwapDenom);
+
+            available_amount = getSActivity().mAccount.getTokenBalance(mToSwapDenom);
             supply_limit = mKavaBep3Param2.getSupportedSwapAssetLimit(mToSwapDenom);
             supply_remain = mKavaSuppies2.getRemainCap(mToSwapDenom, supply_limit);
             onetime_max = mKavaBep3Param2.getSupportedSwapAssetMaxOnce(mToSwapDenom);
             mToSendCoinAvailable.setText(WDp.getDpAmount2(getContext(), available_amount, 8, 8));
-
         }
 
         mOnceMaxAmount.setText(WDp.getDpAmount2(getContext(), onetime_max, 8, 8));
         mSystemMaxAmount.setText(WDp.getDpAmount2(getContext(), supply_limit, 8, 8));
         mRemainAmount.setText(WDp.getDpAmount2(getContext(), supply_remain, 8, 8));
-
-
     }
 
     private void onSetDpDenom(String dpDenom) {
@@ -226,23 +195,14 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         mOnceMaxDenom.setText(dpDenom);
         mSystemMaxDenom.setText(dpDenom);
         mRemainDenom.setText(dpDenom);
-
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnToChain)) {
+        if (v.equals(mBtnToSendCoin)) {
             Bundle bundle = new Bundle();
             bundle.putString("chainName", getSActivity().mBaseChain.getChain());
-            Dialog_Htlc_Receive_Chain dialog = Dialog_Htlc_Receive_Chain.newInstance(bundle);
-            dialog.setCancelable(true);
-            dialog.setTargetFragment(this, SELECT_DESTINATION_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
-        } else if (v.equals(mBtnToSendCoin)) {
-            Bundle bundle = new Bundle();
-            bundle.putString("chainName", getSActivity().mBaseChain.getChain());
-            Dialog_Htlc_Send_Coin dialog = Dialog_Htlc_Send_Coin.newInstance(bundle);
+            HtlcSendCoinDialog dialog = HtlcSendCoinDialog.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_TO_SEND_COIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
@@ -270,59 +230,50 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_DESTINATION_CHAIN && resultCode == Activity.RESULT_OK) {
-            mToChain = mToChainList.get(data.getIntExtra("position", 0));
-            onUpdateView();
-
-        } else if (requestCode == SELECT_TO_SEND_COIN && resultCode == Activity.RESULT_OK) {
+        if (requestCode == SELECT_TO_SEND_COIN && resultCode == Activity.RESULT_OK) {
             mToSwapDenom = mSwappableCoinList.get(data.getIntExtra("position", 0));
             onUpdateView();
         }
     }
 
     private void onCheckSwapParam() {
-        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            ApiClient.getKavaChain(getContext()).getSwapParams2().enqueue(new Callback<ResKavaBep3Param>() {
-                @Override
-                public void onResponse(Call<ResKavaBep3Param> call, Response<ResKavaBep3Param> response) {
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    } else {
-                        mKavaBep3Param2 = response.body();
-                        getSActivity().mKavaBep3Param2 = mKavaBep3Param2;
-                        onCheckSwapSupply();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResKavaBep3Param> call, Throwable t) {
+        ApiClient.getKavaChain(getContext()).getSwapParams2().enqueue(new Callback<ResKavaBep3Param>() {
+            @Override
+            public void onResponse(Call<ResKavaBep3Param> call, Response<ResKavaBep3Param> response) {
+                if (!response.isSuccessful()) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                } else {
+                    mKavaBep3Param2 = response.body();
+                    getSActivity().mKavaBep3Param2 = mKavaBep3Param2;
+                    onCheckSwapSupply();
                 }
-            });
+            }
 
-        }
+            @Override
+            public void onFailure(Call<ResKavaBep3Param> call, Throwable t) {
+                Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void onCheckSwapSupply() {
-        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            ApiClient.getKavaChain(getContext()).getSupplies2().enqueue(new Callback<ResKavaSwapSupply>() {
-                @Override
-                public void onResponse(Call<ResKavaSwapSupply> call, Response<ResKavaSwapSupply> response) {
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    } else {
-                        mKavaSuppies2 = response.body();
-                        getSActivity().mKavaSuppies2 = mKavaSuppies2;
-                        onUpdateView();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResKavaSwapSupply> call, Throwable t) {
+        ApiClient.getKavaChain(getContext()).getSupplies2().enqueue(new Callback<ResKavaSwapSupply>() {
+            @Override
+            public void onResponse(Call<ResKavaSwapSupply> call, Response<ResKavaSwapSupply> response) {
+                if (!response.isSuccessful()) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                } else {
+                    mKavaSuppies2 = response.body();
+                    getSActivity().mKavaSuppies2 = mKavaSuppies2;
+                    onUpdateView();
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Call<ResKavaSwapSupply> call, Throwable t) {
+                Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private boolean onCheckMinBalance() {

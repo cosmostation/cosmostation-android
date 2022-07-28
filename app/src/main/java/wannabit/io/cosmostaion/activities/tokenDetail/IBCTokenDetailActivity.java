@@ -37,8 +37,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcToken;
+import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -186,7 +186,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             } else {
                 bundle.putString("title", mAccount.nickName);
             }
-            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            AccountShowDialog show = AccountShowDialog.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
@@ -241,40 +241,19 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             public void run() {
                 onBackPressed();
             }
-        }, 100);
+        }, 250);
     }
 
     private class IBCTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_IBC_STATUS = 1;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == TYPE_IBC_STATUS) {
-                return new IbcStatusHolder(getLayoutInflater().inflate(R.layout.item_ibc_token_status, viewGroup, false));
-            }
-            return null;
+            return new IbcStatusHolder(getLayoutInflater().inflate(R.layout.item_ibc_token_status, viewGroup, false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getItemViewType(position) == TYPE_IBC_STATUS) {
-                onBindIbcInfo(viewHolder);
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return 1;
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            if (position == 0) return TYPE_IBC_STATUS;
-            return -1;
-        }
-
-        private void onBindIbcInfo(RecyclerView.ViewHolder viewHolder) {
             final IbcStatusHolder holder = (IBCTokenAdapter.IbcStatusHolder) viewHolder;
             final BigDecimal totalAmount = getBaseDao().getAvailable(mIbcDenom);
             if (mIbcToken.auth) {
@@ -288,6 +267,11 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
             holder.itemAcrossChain.setText(mIbcToken.counter_party.chain_id);
             holder.itemAcrossDenom.setText(mIbcToken.base_denom);
+        }
+
+        @Override
+        public int getItemCount() {
+            return 1;
         }
 
         public class IbcStatusHolder extends RecyclerView.ViewHolder {

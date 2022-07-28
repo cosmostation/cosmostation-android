@@ -33,8 +33,8 @@ import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -139,10 +139,10 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mMainDenom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(StakingTokenGrpcActivity.this, R.drawable.ic_price_up));
+            mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
         } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(StakingTokenGrpcActivity.this, R.drawable.ic_price_down));
+            mItemUpDownImg.setImageResource(R.drawable.ic_price_down);
         } else {
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
@@ -150,7 +150,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         setAccountKeyStatus(mKeyState);
         mAddress.setText(mAccount.address);
-        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.mainDivideDecimal(mBaseChain)));
+        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
@@ -164,7 +164,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
             } else {
                 bundle.putString("title", mAccount.nickName);
             }
-            Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+            AccountShowDialog show = AccountShowDialog.newInstance(bundle);
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
