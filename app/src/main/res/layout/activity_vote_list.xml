@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_rr_17_black_daynight"
+            style="@style/font_ss_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_proposal_list" />

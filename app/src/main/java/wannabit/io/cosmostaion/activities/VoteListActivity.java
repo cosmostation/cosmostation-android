@@ -39,12 +39,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import osmosis.lockup.Lock;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.osmosis.EarningDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -52,9 +50,6 @@ import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-import wannabit.io.cosmostaion.widget.osmosis.EarningBondedHolder;
-import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondedHolder;
-import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondingHolder;
 
 public class VoteListActivity extends BaseActivity implements Serializable, View.OnClickListener {
     private static final int SECTION_VOTING_PERIOD = 0;
@@ -352,19 +347,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             }
         }
 
-        public void onBindVotingPeriodHeaderItemViewHolder(VoteListHeaderViewHolder holder, int position) {
-            setHeader(holder, "Voting Period", mVotingPeriodProposalsList.size());
-        }
-
-        public void onBindHeaderItemViewHolder(VoteListHeaderViewHolder holder, int position) {
-            setHeader(holder, "Proposals", mExtraProposalsList.size());
-        }
-
-        private void setHeader(VoteListHeaderViewHolder holder, String title, int count) {
-            holder.mHeaderTitle.setText(title);
-            holder.mItemCnt.setText(String.valueOf(count));
-        }
-
         @Override
         public int getItemCount() {
             int count = mVotingPeriodProposalsList.size() + mExtraProposalsList.size();
@@ -377,7 +359,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         public int getItemViewType(int position) {
             if (position < mVotingPeriodProposalsList.size()) {
                 return SECTION_VOTING_PERIOD;
-            } else  {
+            } else {
                 return SECTION_PROPOSALS;
             }
         }
@@ -398,17 +380,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 vote_status = itemView.findViewById(R.id.vote_status);
                 vote_select = itemView.findViewById(R.id.vote_select);
                 vote_not_select = itemView.findViewById(R.id.vote_not_select);
-            }
-        }
-
-        class VoteListHeaderViewHolder extends RecyclerView.ViewHolder {
-            public TextView mHeaderTitle;
-            public TextView mItemCnt;
-
-            public VoteListHeaderViewHolder(@NonNull View itemView) {
-                super(itemView);
-                mHeaderTitle = itemView.findViewById(R.id.header_title);
-                mItemCnt = itemView.findViewById(R.id.recycler_cnt);
             }
         }
     }

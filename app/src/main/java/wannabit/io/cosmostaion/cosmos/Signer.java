@@ -330,8 +330,8 @@ public class Signer {
         ArrayList<Any> msgAnys = new ArrayList<>();
         opinionMap.forEach((id, opinion) -> {
             Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(String.valueOf(id))).setVoter(onParseAddress(auth)).setOption(Gov.VoteOption.valueOf(opinion)).build();
-            Any msgClaimRewardAny = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build();
-            msgAnys.add(msgClaimRewardAny);
+            Any msgVoteAny = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build();
+            msgAnys.add(msgVoteAny);
         });
         return msgAnys;
     }

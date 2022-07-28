@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
 
-public class ResProposal implements Serializable{
+public class ResProposal {
     @SerializedName("id")
     public int id;
 
@@ -68,7 +68,7 @@ public class ResProposal implements Serializable{
     @SerializedName("answer")
     public String answer;
 
-    public class Content implements Serializable{
+    public class Content {
         @SerializedName("type")
         public String type;
 
@@ -87,7 +87,7 @@ public class ResProposal implements Serializable{
         }
     }
 
-    public class VoteMeta implements Serializable{
+    public class VoteMeta {
         @SerializedName("yes")
         public String yes;
 

@@ -31,6 +31,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;
@@ -84,8 +85,11 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         mRecyclerView = findViewById(R.id.recycler);
         mLoadingLayer = findViewById(R.id.loadingLayer);
         mVoteBtn = findViewById(R.id.btn_action);
-        mVoteBtn.setOnClickListener(this);
 
+        initView();
+    }
+
+    private void initView() {
         mProposalId = getIntent().getStringExtra("proposalId");
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -109,6 +113,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         mRecyclerView.setAdapter(mVoteDetailsAdapter);
 
         onFetch();
+
+        mVoteBtn.setOnClickListener(this);
     }
 
     @Override
