@@ -228,9 +228,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         else mToolbarTitle.setText(mAccount.nickName);
 
         if (mPageAdapter.mCurrentFragment != null) {
-            ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(0).onRefreshTab();
-            ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(1).onRefreshTab();
-            ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(2).onRefreshTab();
+            mPageAdapter.getCurrentFragment().onRefreshTab();
         }
     }
 
