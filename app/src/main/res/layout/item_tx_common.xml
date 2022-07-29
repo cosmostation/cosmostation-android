@@ -249,6 +249,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/tx_block_time_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
@@ -281,7 +282,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginBottom="@dimen/space_16"
                 android:background="@color/colorGrayDayNight" />

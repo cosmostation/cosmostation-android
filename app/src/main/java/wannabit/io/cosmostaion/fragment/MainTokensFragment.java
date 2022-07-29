@@ -171,7 +171,7 @@ public class MainTokensFragment extends BaseFragment {
         mChainConfig = getMainActivity().mChainConfig;
 
         mCardView.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), mChainConfig.chainBgColor()));
-        getMainActivity().setAccountKeyStatus(itemKeyStatus);
+        getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
     }

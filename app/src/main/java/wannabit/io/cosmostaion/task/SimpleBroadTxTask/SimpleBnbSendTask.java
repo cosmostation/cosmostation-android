@@ -66,7 +66,7 @@ public class SimpleBnbSendTask extends CommonTask {
             }
 
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain().getAccountInfo(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                     return mResult;

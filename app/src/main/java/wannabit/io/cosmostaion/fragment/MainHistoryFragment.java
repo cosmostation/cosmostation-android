@@ -124,7 +124,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mCardView.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
-        getMainActivity().setAccountKeyStatus(itemKeyStatus);
+        getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
     }
@@ -140,7 +140,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mNotYet.setVisibility(View.GONE);
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (mBaseChain.equals(BNB_MAIN)) {
-            new BnbHistoryTask(getBaseApplication(), this, null, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
+            new BnbHistoryTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
         } else if (mBaseChain.equals(OKEX_MAIN)) {
             new OkHistoryTask(getBaseApplication(), this, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {

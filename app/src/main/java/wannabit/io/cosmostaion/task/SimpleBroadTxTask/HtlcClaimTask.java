@@ -66,7 +66,7 @@ public class HtlcClaimTask extends CommonTask {
 
         try {
             if (mReceiveChain.equals(BaseChain.BNB_MAIN)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mReceiveAccount.address).execute();
+                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain().getAccountInfo(mReceiveAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                     return mResult;

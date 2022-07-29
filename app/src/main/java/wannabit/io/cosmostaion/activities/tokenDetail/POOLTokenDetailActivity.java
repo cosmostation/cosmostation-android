@@ -132,7 +132,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         }
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
-        setAccountKeyStatus(mKeyState);
+        setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mAddress.setText(mAccount.address);
         mSwipeRefreshLayout.setRefreshing(false);
     }

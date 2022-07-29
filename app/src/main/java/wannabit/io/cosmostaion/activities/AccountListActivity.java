@@ -183,29 +183,22 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             final AccountHolder holder = (AccountHolder) viewHolder;
             final Account account = mDisplayAccounts.get(position);
+            final BaseChain baseChain = BaseChain.getChain(account.baseChain);
+            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
 
-            WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
+            WDp.setDpSymbol(AccountListActivity.this, getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
             holder.accountAddress.setText(account.address);
-            holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
-            if (account.hasPrivateKey) {
-                holder.accountKeyState.setImageResource(R.drawable.key_off);
-                holder.accountKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
-            } else {
-                holder.accountKeyState.setImageResource(R.drawable.watchmode);
-                holder.accountKeyState.setColorFilter(null);
-            }
+            holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), baseChain));
+            setAccountKeyStatus(AccountListActivity.this, account, chainConfig, holder.accountKeyState);
 
-            if (TextUtils.isEmpty(account.nickName)) {
-                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
-            } else {
-                holder.accountName.setText(account.nickName);
-            }
+            if (TextUtils.isEmpty(account.nickName)) holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
+            else holder.accountName.setText(account.nickName);
 
             holder.accountCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
-                    intent.putExtra("id", "" + account.id);
+                    intent.putExtra("id", account.id.toString());
                     startActivity(intent);
                 }
             });

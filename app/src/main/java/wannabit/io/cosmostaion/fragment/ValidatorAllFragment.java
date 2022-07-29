@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment;
 
-import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -51,10 +50,10 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     private TextView mValidatorSize, mSortType;
     private LinearLayout mBtnSort;
 
-    public static ValidatorAllFragment newInstance(Bundle bundle) {
-        ValidatorAllFragment fragment = new ValidatorAllFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    private ChainConfig mChainConfig;
+
+    public static ValidatorAllFragment newInstance() {
+        return new ValidatorAllFragment();
     }
 
     @Override
@@ -93,6 +92,8 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
+        mChainConfig = ChainFactory.getChain(getMainActivity().mBaseChain);
+
         if (isGRPC(getMainActivity().mBaseChain)) {
             mValidatorSize.setText("" + getBaseDao().mGRpcTopValidators.size());
         } else {
@@ -132,14 +133,14 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-            final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
-            final ChainConfig chainConfig = ChainFactory.getChain(getMainActivity().mBaseChain);
+            final int dpDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom());
+
             if (isGRPC(getMainActivity().mBaseChain)) {
                 final Staking.Validator validator = getBaseDao().mGRpcTopValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
                 try {
-                    Picasso.get().load(chainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(mChainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) { }
 
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
@@ -151,7 +152,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
                 if (getBaseDao().mGRpcMyValidators.contains(validator)) {
-                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
                 }
@@ -164,10 +165,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     } else {
                         holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                     }
-                }
-
-                if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
-                    holder.itemTvCommission.setText("--");
                 }
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +186,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     }
                 });
                 try {
-                    Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(mChainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) { }
 
                 if (validator.jailed) {
@@ -201,7 +198,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 }
 
                 if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
-                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
                 }

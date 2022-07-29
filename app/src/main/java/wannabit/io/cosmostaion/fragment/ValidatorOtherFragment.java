@@ -43,10 +43,10 @@ public class ValidatorOtherFragment extends BaseFragment {
     private OtherValidatorAdapter mOtherValidatorAdapter;
     private TextView mValidatorSize;
 
-    public static ValidatorOtherFragment newInstance(Bundle bundle) {
-        ValidatorOtherFragment fragment = new ValidatorOtherFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    private ChainConfig mChainConfig;
+
+    public static ValidatorOtherFragment newInstance() {
+        return new ValidatorOtherFragment();
     }
 
     @Override
@@ -82,6 +82,8 @@ public class ValidatorOtherFragment extends BaseFragment {
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
+        mChainConfig = ChainFactory.getChain(getMainActivity().mBaseChain);
+
         if (isGRPC(getMainActivity().mBaseChain)) {
             mValidatorSize.setText("" + getBaseDao().mGRpcOtherValidators.size());
             WUtil.onSortByValidatorPowerV1(getBaseDao().mGRpcOtherValidators);
@@ -115,17 +117,17 @@ public class ValidatorOtherFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-            final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
-            final ChainConfig chainConfig = ChainFactory.getChain(getMainActivity().mBaseChain);
+            final int dpDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom());
             if (isGRPC(getMainActivity().mBaseChain)) {
                 final Staking.Validator validator = getBaseDao().mGRpcOtherValidators.get(position);
                 try {
-                    Picasso.get().load(chainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(mChainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) { }
 
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
+
                 if (validator.getJailed()) {
                     holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));
                     holder.itemRevoked.setVisibility(View.VISIBLE);
@@ -133,8 +135,9 @@ public class ValidatorOtherFragment extends BaseFragment {
                     holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorGray3));
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
+
                 if (getBaseDao().mGRpcMyValidators.contains(validator)) {
-                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
                 }
@@ -144,10 +147,6 @@ public class ValidatorOtherFragment extends BaseFragment {
                         getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress());
                     }
                 });
-
-                if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
-                    holder.itemTvCommission.setText("--");
-                }
 
             } else {
                 final Validator validator = getBaseDao().mOtherValidators.get(position);
@@ -161,7 +160,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                     }
                 });
                 try {
-                    Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(mChainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) { }
 
                 if (validator.jailed) {
@@ -173,7 +172,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                 }
 
                 if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
-                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
                 }

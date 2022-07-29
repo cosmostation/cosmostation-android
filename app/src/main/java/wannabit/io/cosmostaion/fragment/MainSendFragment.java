@@ -155,7 +155,7 @@ public class MainSendFragment extends BaseFragment {
         mCardView.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), mChainConfig.chainBgColor()));
         onNoticeView();
 
-        getMainActivity().setAccountKeyStatus(itemKeyStatus);
+        getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
         mMainWalletAdapter.notifyDataSetChanged();

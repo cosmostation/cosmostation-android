@@ -133,17 +133,14 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     }
 
     private void onUpdateView() {
-        final String baseDenom = getBaseDao().getBaseDenom(mIbcDenom);
-        if (mIbcToken == null) {
-            mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.token_default_ibc));
+        final String baseDenom = getBaseDao().getBaseDenom(mChainConfig, mIbcDenom);
+        mIbcDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mIbcDenom);
+        if (mIbcToken != null) {
+            WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mIbcDenom, mToolbarSymbolImg);
+            WDp.setDpSymbol(this, getBaseDao(), mChainConfig, mIbcDenom, mToolbarSymbol);
+            mToolbarChannel.setText("(" + mIbcToken.channel_id + ")");
 
-        } else {
             if (mIbcToken.auth) {
-                mIbcDecimal = mIbcToken.decimal;
-                try {
-                    Picasso.get().load(mIbcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(mToolbarSymbolImg);
-                } catch (Exception e) { }
-
                 mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, getBaseDao().getAvailable(mIbcDenom), mIbcDecimal));
 
                 mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), baseDenom));
@@ -151,27 +148,24 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), baseDenom);
                 if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
                     mItemUpDownImg.setVisibility(View.VISIBLE);
-                    mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.ic_price_up));
+                    mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
                 } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
                     mItemUpDownImg.setVisibility(View.VISIBLE);
-                    mItemUpDownImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.ic_price_down));
+                    mItemUpDownImg.setImageResource(R.drawable.ic_price_down);
                 } else {
                     mItemUpDownImg.setVisibility(View.INVISIBLE);
                 }
 
             } else {
-                mToolbarSymbolImg.setImageDrawable(ContextCompat.getDrawable(IBCTokenDetailActivity.this, R.drawable.token_default_ibc));
-
+                mToolbarSymbolImg.setImageResource(R.drawable.token_default_ibc);
                 mItemPerPrice.setText("");
                 mItemUpDownPrice.setText("");
                 mItemUpDownImg.setVisibility(View.INVISIBLE);
             }
         }
-        mToolbarSymbol.setText(WDp.getDpSymbol(getBaseDao(), mChainConfig, mIbcDenom));
-        mToolbarChannel.setText("(" + mIbcToken.channel_id + ")");
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(IBCTokenDetailActivity.this, mChainConfig.chainBgColor()));
-        setAccountKeyStatus(mKeyState);
+        setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mAddress.setText(mAccount.address);
         mSwipeRefreshLayout.setRefreshing(false);
     }
