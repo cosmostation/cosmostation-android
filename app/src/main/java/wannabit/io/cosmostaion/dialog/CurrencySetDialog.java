@@ -70,7 +70,6 @@ public class CurrencySetDialog extends DialogFragment {
             String[] mUnitList = getResources().getStringArray(R.array.currency_unit_array);
 
             holder.currencyName.setText(mUnitList[position]);
-            holder.currencyName.setText(mUnitList[position]);
 
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override

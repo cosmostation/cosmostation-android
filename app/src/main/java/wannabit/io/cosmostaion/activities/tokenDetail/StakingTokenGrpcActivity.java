@@ -148,7 +148,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         }
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainBgColor()));
-        setAccountKeyStatus(mKeyState);
+        setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mAddress.setText(mAccount.address);
         mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
         mSwipeRefreshLayout.setRefreshing(false);

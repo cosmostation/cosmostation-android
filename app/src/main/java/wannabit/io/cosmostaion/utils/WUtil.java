@@ -205,160 +205,6 @@ public class WUtil {
         return result;
     }
 
-    public static ArrayList<Balance> getBalancesFromKavaLcd(long accountId, ResLcdKavaAccountInfo lcd) {
-        long time = System.currentTimeMillis();
-        ArrayList<Balance> result = new ArrayList<>();
-        if (lcd != null && lcd.result != null && lcd.height != null) {
-            if (lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT)) {
-                if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
-                    for (Coin coin : lcd.result.value.coins) {
-                        Balance temp = new Balance();
-                        temp.accountId = accountId;
-                        temp.symbol = coin.denom;
-                        temp.balance = new BigDecimal(coin.amount);
-                        temp.fetchTime = time;
-                        result.add(temp);
-                    }
-                }
-                return result;
-
-            } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT) || lcd.result.type.equals(COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
-                BigDecimal dpBalance = BigDecimal.ZERO;
-                BigDecimal dpVesting = BigDecimal.ZERO;
-                BigDecimal originalVesting = BigDecimal.ZERO;
-                BigDecimal remainVesting = BigDecimal.ZERO;
-                BigDecimal delegatedVesting = BigDecimal.ZERO;
-
-                if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
-                    for (Coin coin : lcd.result.value.coins) {
-                        if (coin.denom.equals(TOKEN_KAVA)) {
-                            dpBalance = BigDecimal.ZERO;
-                            dpVesting = BigDecimal.ZERO;
-                            originalVesting = BigDecimal.ZERO;
-                            remainVesting = BigDecimal.ZERO;
-                            delegatedVesting = BigDecimal.ZERO;
-                            dpBalance = new BigDecimal(coin.amount);
-
-                            if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
-                                for (Coin vesting : lcd.result.value.original_vesting) {
-                                    if (vesting.denom.equals(TOKEN_KAVA)) {
-                                        originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
-                                    }
-                                }
-                            }
-
-                            if (lcd.result.value.delegated_vesting != null && lcd.result.value.delegated_vesting.size() > 0) {
-                                for (Coin vesting : lcd.result.value.delegated_vesting) {
-                                    if (vesting.denom.equals(TOKEN_KAVA)) {
-                                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.amount));
-                                    }
-                                }
-                            }
-
-                            WLog.w("kava dpBalance " + dpBalance);
-                            WLog.w("kava originalVesting " + originalVesting);
-                            WLog.w("kava delegatedVesting " + delegatedVesting);
-
-                            remainVesting = lcd.result.value.getCalcurateVestingAmountSumByDenom(TOKEN_KAVA);
-                            WLog.w("kava remainVesting " + remainVesting);
-
-                            dpVesting = remainVesting.subtract(delegatedVesting);
-                            WLog.w("kava  dpVesting " + dpVesting);
-                            if (dpVesting.compareTo(BigDecimal.ZERO) <= 0) {
-                                dpVesting = BigDecimal.ZERO;
-                            }
-                            WLog.w("kava  dpVesting1 " + dpVesting);
-
-                            if (remainVesting.compareTo(delegatedVesting) > 0) {
-                                dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
-                            }
-                            WLog.w("kava dpBalancee " + dpBalance);
-
-                            Balance temp = new Balance();
-                            temp.accountId = accountId;
-                            temp.symbol = TOKEN_KAVA;
-                            temp.balance = dpBalance;
-                            temp.frozen = delegatedVesting;
-                            temp.locked = dpVesting;
-                            temp.fetchTime = time;
-                            result.add(temp);
-
-
-                        } else if (coin.denom.equals(TOKEN_HARD)) {
-                            dpBalance = BigDecimal.ZERO;
-                            dpVesting = BigDecimal.ZERO;
-                            originalVesting = BigDecimal.ZERO;
-                            remainVesting = BigDecimal.ZERO;
-                            delegatedVesting = BigDecimal.ZERO;
-                            dpBalance = new BigDecimal(coin.amount);
-
-                            if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
-                                for (Coin vesting : lcd.result.value.original_vesting) {
-                                    if (vesting.denom.equals(TOKEN_HARD)) {
-                                        originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
-                                    }
-                                }
-                            }
-                            WLog.w("hard dpBalance " + dpBalance);
-                            WLog.w("hard originalVesting " + originalVesting);
-                            remainVesting = lcd.result.value.getCalcurateVestingAmountSumByDenom(TOKEN_HARD);
-
-                            dpBalance = dpBalance.subtract(remainVesting);
-                            WLog.w("hard dpBalancee " + dpBalance);
-
-                            Balance temp = new Balance();
-                            temp.accountId = accountId;
-                            temp.symbol = coin.denom;
-                            temp.balance = dpBalance;
-                            temp.locked = remainVesting;
-                            temp.fetchTime = time;
-                            result.add(temp);
-
-                        } else if (coin.denom.equals(TOKEN_SWP)) {
-                            dpBalance = BigDecimal.ZERO;
-                            dpVesting = BigDecimal.ZERO;
-                            originalVesting = BigDecimal.ZERO;
-                            remainVesting = BigDecimal.ZERO;
-                            delegatedVesting = BigDecimal.ZERO;
-                            dpBalance = new BigDecimal(coin.amount);
-
-                            if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
-                                for (Coin vesting : lcd.result.value.original_vesting) {
-                                    if (vesting.denom.equals(TOKEN_SWP)) {
-                                        originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
-                                    }
-                                }
-                            }
-                            WLog.w("TOKEN_SWP dpBalance " + dpBalance);
-                            WLog.w("TOKEN_SWP originalVesting " + originalVesting);
-                            remainVesting = lcd.result.value.getCalcurateVestingAmountSumByDenom(TOKEN_SWP);
-
-                            dpBalance = dpBalance.subtract(remainVesting);
-                            WLog.w("TOKEN_SWP dpBalancee " + dpBalance);
-
-                            Balance temp = new Balance();
-                            temp.accountId = accountId;
-                            temp.symbol = coin.denom;
-                            temp.balance = dpBalance;
-                            temp.locked = remainVesting;
-                            temp.fetchTime = time;
-                            result.add(temp);
-
-                        } else {
-                            Balance temp = new Balance();
-                            temp.accountId = accountId;
-                            temp.symbol = coin.denom;
-                            temp.balance = new BigDecimal(coin.amount);
-                            temp.fetchTime = time;
-                            result.add(temp);
-                        }
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
     public static ArrayList<Balance> getBalancesFromOkLcd(long accountId, ResOkAccountToken lcd) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
@@ -371,192 +217,6 @@ public class WUtil {
                 temp.locked = new BigDecimal(currency.locked);
                 temp.fetchTime = time;
                 result.add(temp);
-            }
-        }
-        return result;
-    }
-
-    public static ArrayList<Balance> getBalancesFromVestingLcd(long accountId, ResLcdVestingAccountInfo lcd) {
-        long time = System.currentTimeMillis();
-        ArrayList<Balance> result = new ArrayList<>();
-        if (lcd != null && lcd.result != null && lcd.height != null) {
-            if (lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT)) {
-                if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
-                    for (Coin coin : lcd.result.value.coins) {
-                        Balance temp = new Balance();
-                        temp.accountId = accountId;
-                        temp.symbol = coin.denom;
-                        temp.balance = new BigDecimal(coin.amount);
-                        temp.fetchTime = time;
-                        result.add(temp);
-                    }
-                }
-
-            } else if (lcd.result.type.equals(COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
-                for (Coin coin : lcd.result.value.coins) {
-                    String denom = coin.denom;
-                    BigDecimal dpBalance = BigDecimal.ZERO;
-                    BigDecimal dpVesting = BigDecimal.ZERO;
-                    BigDecimal originalVesting = BigDecimal.ZERO;
-                    BigDecimal remainVesting = BigDecimal.ZERO;
-                    BigDecimal delegatedVesting = BigDecimal.ZERO;
-
-                    dpBalance = new BigDecimal(coin.amount);
-                    WLog.w("dpBalance " + denom + "  " + dpBalance);
-
-                    for (Coin vesting : lcd.result.value.original_vesting) {
-                        if (vesting.denom.equals(denom)) {
-                            originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
-                        }
-                    }
-                    WLog.w("originalVesting " + denom + "  " + originalVesting);
-
-                    for (Coin vesting : lcd.result.value.delegated_vesting) {
-                        if (vesting.denom.equals(denom)) {
-                            delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.amount));
-                        }
-                    }
-                    WLog.w("delegatedVesting " + denom + "  " + delegatedVesting);
-
-                    remainVesting = lcd.getCalcurateVestingAmountSumByDenom(denom);
-                    WLog.w("remainVesting " + denom + "  " + remainVesting);
-
-                    dpVesting = remainVesting.subtract(delegatedVesting);
-                    WLog.w("dpVestingA " + denom + "  " + dpVesting);
-
-                    dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
-                    WLog.w("dpVestingB " + denom + "  " + dpVesting);
-
-                    if (remainVesting.compareTo(delegatedVesting) > 0) {
-                        dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
-                    }
-                    WLog.w("final dpBalance  " + denom + "  " + dpBalance);
-
-                    Balance temp = new Balance();
-                    temp.accountId = accountId;
-                    temp.symbol = denom;
-                    temp.balance = dpBalance;
-                    temp.frozen = delegatedVesting;
-                    temp.locked = dpVesting;
-                    temp.fetchTime = time;
-                    result.add(temp);
-                }
-
-            } else if (lcd.result.type.equals(COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT)) {
-                for (Coin coin : lcd.result.value.coins) {
-                    String denom = coin.denom;
-                    BigDecimal dpBalance = BigDecimal.ZERO;
-                    BigDecimal dpVesting = BigDecimal.ZERO;
-                    BigDecimal originalVesting = BigDecimal.ZERO;
-                    BigDecimal remainVesting = BigDecimal.ZERO;
-                    BigDecimal delegatedVesting = BigDecimal.ZERO;
-
-                    dpBalance = new BigDecimal(coin.amount);
-                    WLog.w("dpBalance " + denom + "  " + dpBalance);
-
-                    for (Coin vesting : lcd.result.value.original_vesting) {
-                        if (vesting.denom.equals(denom)) {
-                            originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
-                        }
-                    }
-                    WLog.w("originalVesting " + denom + "  " + originalVesting);
-
-                    for (Coin vesting : lcd.result.value.delegated_vesting) {
-                        if (vesting.denom.equals(denom)) {
-                            delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.amount));
-                        }
-                    }
-                    WLog.w("delegatedVesting " + denom + "  " + delegatedVesting);
-
-                    long cTime = Calendar.getInstance().getTime().getTime();
-                    long vestingStart = lcd.result.value.getStartTime() * 1000;
-                    long vestingEnd = lcd.result.value.getEndTime() * 1000;
-                    if (cTime < vestingStart) {
-                        remainVesting = originalVesting;
-                    } else if (cTime > vestingEnd) {
-                        remainVesting = BigDecimal.ZERO;
-                    } else if (cTime < vestingEnd) {
-                        float progress = ((float) (cTime - vestingStart) / (float) (vestingEnd - vestingStart));
-                        remainVesting = originalVesting.multiply(new BigDecimal(1 - progress)).setScale(0, RoundingMode.UP);
-                    }
-                    WLog.w("remainVesting " + denom + "  " + remainVesting);
-
-                    dpVesting = remainVesting.subtract(delegatedVesting);
-                    WLog.w("dpVestingA " + denom + "  " + dpVesting);
-
-                    dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
-                    WLog.w("dpVestingB " + denom + "  " + dpVesting);
-
-                    if (remainVesting.compareTo(delegatedVesting) > 0) {
-                        dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
-                    }
-                    WLog.w("final dpBalance  " + denom + "  " + dpBalance);
-
-                    Balance temp = new Balance();
-                    temp.accountId = accountId;
-                    temp.symbol = denom;
-                    temp.balance = dpBalance;
-                    temp.frozen = delegatedVesting;
-                    temp.locked = dpVesting;
-                    temp.fetchTime = time;
-                    result.add(temp);
-                }
-
-            } else if (lcd.result.type.equals(COSMOS_AUTH_TYPE_D_VESTING_ACCOUNT)) {
-                for (Coin coin : lcd.result.value.coins) {
-                    String denom = coin.denom;
-                    BigDecimal dpBalance = BigDecimal.ZERO;
-                    BigDecimal dpVesting = BigDecimal.ZERO;
-                    BigDecimal originalVesting = BigDecimal.ZERO;
-                    BigDecimal remainVesting = BigDecimal.ZERO;
-                    BigDecimal delegatedVesting = BigDecimal.ZERO;
-
-                    dpBalance = new BigDecimal(coin.amount);
-                    WLog.w("dpBalance " + denom + "  " + dpBalance);
-
-                    for (Coin vesting : lcd.result.value.original_vesting) {
-                        if (vesting.denom.equals(denom)) {
-                            originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
-                        }
-                    }
-                    WLog.w("originalVesting " + denom + "  " + originalVesting);
-
-                    for (Coin vesting : lcd.result.value.delegated_vesting) {
-                        if (vesting.denom.equals(denom)) {
-                            delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.amount));
-                        }
-                    }
-                    WLog.w("delegatedVesting " + denom + "  " + delegatedVesting);
-
-                    long cTime = Calendar.getInstance().getTime().getTime();
-                    long vestingEnd = lcd.result.value.getEndTime() * 1000;
-
-                    if (cTime < vestingEnd) {
-                        remainVesting = originalVesting;
-                    }
-                    WLog.w("remainVesting " + denom + "  " + remainVesting);
-
-                    dpVesting = remainVesting.subtract(delegatedVesting);
-                    WLog.w("dpVestingA " + denom + "  " + dpVesting);
-
-                    dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
-                    WLog.w("dpVestingB " + denom + "  " + dpVesting);
-
-                    if (remainVesting.compareTo(delegatedVesting) > 0) {
-                        dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
-                    }
-                    WLog.w("final dpBalance  " + denom + "  " + dpBalance);
-
-                    Balance temp = new Balance();
-                    temp.accountId = accountId;
-                    temp.symbol = denom;
-                    temp.balance = dpBalance;
-                    temp.frozen = delegatedVesting;
-                    temp.locked = dpVesting;
-                    temp.fetchTime = time;
-                    result.add(temp);
-                }
-
             }
         }
         return result;
@@ -1078,18 +738,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortingInjectivePool(ArrayList<Coin> coins) {
-        Collections.sort(coins, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                if (o1.injectivePoolId() < o2.injectivePoolId()) return -1;
-                else if (o1.injectivePoolId() > o2.injectivePoolId()) return 1;
-                return 0;
-            }
-        });
-    }
-
-
     public static ArrayList<UnbondingInfo.DpEntry> onSortUnbondingsRecent(Context c, ArrayList<UnbondingInfo> unbondingInfos) {
         ArrayList<UnbondingInfo.DpEntry> result = new ArrayList<>();
         for (UnbondingInfo unbondingInfo : unbondingInfos) {
@@ -1286,8 +934,8 @@ public class WUtil {
         ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
         Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig, coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig, coin1.denom), new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
         return coin0Value.add(coin1Value);
     }
 
@@ -1295,33 +943,36 @@ public class WUtil {
         BigDecimal incentive1Day = BigDecimal.ZERO;
         BigDecimal incentive7Day = BigDecimal.ZERO;
         BigDecimal incentive14Day = BigDecimal.ZERO;
-        if (gauges.get(0).getDistributedCoinsCount() == 0) {
-            return BigDecimal.ZERO;
-        } else {
-            for (CoinOuterClass.Coin coin : gauges.get(0).getCoinsList()) {
-                if (coin.getDenom().equalsIgnoreCase(gauges.get(0).getDistributedCoins(0).getDenom())) {
-                    incentive1Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
+        if (gauges.size() > 0) {
+            if (gauges.get(0).getDistributedCoinsCount() == 0) {
+                return BigDecimal.ZERO;
+            } else {
+                for (CoinOuterClass.Coin coin : gauges.get(0).getCoinsList()) {
+                    if (coin.getDenom().equalsIgnoreCase(gauges.get(0).getDistributedCoins(0).getDenom())) {
+                        incentive1Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
+                    }
+                }
+            }
+            if (gauges.get(1).getDistributedCoinsCount() == 0) {
+                return BigDecimal.ZERO;
+            } else {
+                for (CoinOuterClass.Coin coin : gauges.get(1).getCoinsList()) {
+                    if (coin.getDenom().equalsIgnoreCase(gauges.get(1).getDistributedCoins(0).getDenom())) {
+                        incentive7Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
+                    }
+                }
+            }
+            if (gauges.get(2).getDistributedCoinsCount() == 0) {
+                return BigDecimal.ZERO;
+            } else {
+                for (CoinOuterClass.Coin coin : gauges.get(2).getCoinsList()) {
+                    if (coin.getDenom().equalsIgnoreCase(gauges.get(2).getDistributedCoins(0).getDenom())) {
+                        incentive14Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+                    }
                 }
             }
         }
-        if (gauges.get(1).getDistributedCoinsCount() == 0) {
-            return BigDecimal.ZERO;
-        } else {
-            for (CoinOuterClass.Coin coin : gauges.get(1).getCoinsList()) {
-                if (coin.getDenom().equalsIgnoreCase(gauges.get(1).getDistributedCoins(0).getDenom())) {
-                    incentive7Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
-                }
-            }
-        }
-        if (gauges.get(2).getDistributedCoinsCount() == 0) {
-            return BigDecimal.ZERO;
-        } else {
-            for (CoinOuterClass.Coin coin : gauges.get(2).getCoinsList()) {
-                if (coin.getDenom().equalsIgnoreCase(gauges.get(2).getDistributedCoins(0).getDenom())) {
-                    incentive14Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
-                }
-            }
-        }
+
         if (position == 0) {
             return incentive1Day;
         } else if (position == 1) {
@@ -1957,24 +1608,6 @@ public class WUtil {
         return finalBorrowableValue;
     }
 
-    public static String getBnbHtlcStatus(Context c, ResBnbSwapInfo resBnbSwapInfo, ResNodeInfo resNodeInfo) {
-        if (resBnbSwapInfo == null || resNodeInfo == null) {
-            return "-";
-        }
-        if (resBnbSwapInfo.status == BNB_STATUS_REFUNDED) {
-            return c.getString(R.string.str_bep3_status_refunded);
-
-        } else if (resBnbSwapInfo.status == BNB_STATUS_COMPLETED) {
-            return c.getString(R.string.str_bep3_status_completed);
-
-        } else if (resBnbSwapInfo.status == BNB_STATUS_OPEN && resBnbSwapInfo.expireHeight < resNodeInfo.getCHeight()) {
-            return c.getString(R.string.str_bep3_status_expired);
-
-        }
-        return c.getString(R.string.str_bep3_status_open);
-
-    }
-
     public static String getDuputyKavaAddress(String denom) {
         if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
             return KAVA_MAIN_BNB_DEPUTY;
@@ -2057,7 +1690,6 @@ public class WUtil {
         }
         return result;
     }
-
 
     public static byte[] long2Bytes(long x) {
         ByteBuffer buffer = ByteBuffer.allocate(8);

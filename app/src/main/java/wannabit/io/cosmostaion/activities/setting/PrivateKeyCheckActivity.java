@@ -12,16 +12,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClickListener, TaskListener {
@@ -40,7 +41,6 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_key_check);
-
         mToolbar = findViewById(R.id.tool_bar);
         mCardView = findViewById(R.id.card_root);
         mPKey = findViewById(R.id.private_key);
@@ -55,7 +55,9 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
         mOk.setOnClickListener(this);
 
         mAccount = getBaseDao().onSelectAccount("" + getIntent().getLongExtra("checkid", -1));
-        mCardView.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), BaseChain.getChain(mAccount.baseChain)));
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mCardView.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainColor()));
         onUpdateView();
     }
 

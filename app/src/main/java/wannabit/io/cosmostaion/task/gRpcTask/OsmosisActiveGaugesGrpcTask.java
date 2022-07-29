@@ -57,6 +57,9 @@ public class OsmosisActiveGaugesGrpcTask extends CommonTask {
             for (GaugeOuterClass.Gauge gauge: response.getDataList()) {
                 mResultData.add(gauge);
             }
+            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
+                pageJob(response.getPagination().getNextKey());
+            }
 
         } catch (Exception e) { WLog.e( "OsmosisActiveGaugesGrpcTask pageJob "+ e.getMessage()); }
         return  null;

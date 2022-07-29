@@ -21,7 +21,7 @@ public class KavaHardModuleAccountTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResKavaHardModuleAccount> response = ApiClient.getKavaChain(mApp).getHardModuleAccount().execute();
+            Response<ResKavaHardModuleAccount> response = ApiClient.getKavaChain().getHardModuleAccount().execute();
             if(response.isSuccessful() && response.body() != null &&
                     response.body().result != null && response.body().result.size() > 0 && response.body().result.get(0).coins != null) {
                 mResult.resultData = response.body().result.get(0).coins;

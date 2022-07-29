@@ -6,7 +6,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWAR
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,8 +34,8 @@ import wannabit.io.cosmostaion.activities.txs.common.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
@@ -73,26 +72,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         mValidatorTapLayer.setupWithViewPager(mValidatorPager);
         mValidatorTapLayer.setTabRippleColor(null);
 
-        View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(R.string.str_my_validators);
-        tabItemText0.setTextColor(ContextCompat.getColorStateList(this, mChainConfig.chainTabColor()));
-        mValidatorTapLayer.getTabAt(0).setCustomView(tab0);
-
-        View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
-        tabItemText1.setTextColor(ContextCompat.getColorStateList(this, mChainConfig.chainTabColor()));
-        tabItemText1.setText(R.string.str_top_100_validators);
-        mValidatorTapLayer.getTabAt(1).setCustomView(tab1);
-
-        View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
-        TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
-        tabItemText2.setTextColor(ContextCompat.getColorStateList(this, mChainConfig.chainTabColor()));
-        tabItemText2.setText(R.string.str_other_validators);
-        mValidatorTapLayer.getTabAt(2).setCustomView(tab2);
-
-        mValidatorTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, mChainConfig.chainColor()));
-        mValidatorTapLayer.setSelectedTabIndicatorColor(WDp.getChainColor(this, mBaseChain));
+        createTab(mChainConfig, R.string.str_my_validators, 0);
+        createTab(mChainConfig, R.string.str_top_100_validators, 1);
+        createTab(mChainConfig, R.string.str_other_validators, 2);
 
         mValidatorPager.setOffscreenPageLimit(3);
         mValidatorPager.setCurrentItem(0, false);
@@ -111,6 +93,17 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
+    }
+
+    private void createTab(ChainConfig chainConfig, int stringResourceId, int index) {
+        View tab = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
+        TextView tabItemText = tab.findViewById(R.id.tabItemText);
+        tabItemText.setText(stringResourceId);
+        tabItemText.setTextColor(ContextCompat.getColorStateList(this, chainConfig.chainTabColor()));
+        mValidatorTapLayer.getTabAt(index).setCustomView(tab);
+
+        mValidatorTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, chainConfig.chainColor()));
+        mValidatorTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, chainConfig.chainColor()));
     }
 
     @Override
@@ -138,14 +131,12 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     public void onStartDelegate() {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
+            onInsertKeyDialog();
             return;
         }
         String cosmostation = "";
         if (isGRPC(mBaseChain)) {
-            BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain, WDp.mainDenom(mBaseChain));
+            BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain, mChainConfig.mainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
             if (delegatableAmount.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
@@ -163,7 +154,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
         } else {
             Validator toValidator = null;
-            BigDecimal delegatableAmount = getBaseDao().delegatableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal delegatableAmount = getBaseDao().delegatableAmount(mChainConfig.mainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
             if (delegatableAmount.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
@@ -184,9 +175,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     public void onStartRewardAll() {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                    getString(R.string.str_close), null);
+            onInsertKeyDialog();
             return;
         }
 
@@ -199,7 +188,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
             for (Distribution.DelegationDelegatorReward reward : getBaseDao().mGrpcRewards) {
-                if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), reward.getValidatorAddress()).compareTo(BigDecimal.ZERO) > 0) {
+                if (getBaseDao().getReward(mChainConfig.mainDenom(), reward.getValidatorAddress()).compareTo(BigDecimal.ZERO) > 0) {
                     toClaimRewards.add(reward);
                 }
             }
@@ -207,7 +196,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            WUtil.onSortRewardAmount(toClaimRewards, WDp.mainDenom(mBaseChain));
+            WUtil.onSortRewardAmount(toClaimRewards, mChainConfig.mainDenom());
             if (toClaimRewards.size() >= 17) {
                 ArrayList<Distribution.DelegationDelegatorReward> temp = new ArrayList(toClaimRewards.subList(0, 16));
                 toClaimRewards = temp;
@@ -235,14 +224,14 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
         } else {
             ArrayList<Validator> toClaimValidators = new ArrayList<>();
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
+            if (getBaseDao().rewardAmount(mChainConfig.mainDenom()).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             BigDecimal singlefeeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
             for (Validator validator : getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(singlefeeAmount) > 0) {
+                if (getBaseDao().rewardAmountByValidator(mChainConfig.mainDenom(), validator.operator_address).compareTo(singlefeeAmount) > 0) {
                     toClaimValidators.add(validator);
                 }
             }
@@ -252,13 +241,13 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
+            WUtil.onSortByOnlyReward(toClaimValidators, mChainConfig.mainDenom(), getBaseDao());
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0, 16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
             }
 
-            BigDecimal available = mAccount.getTokenBalance(WDp.mainDenom(mBaseChain));
+            BigDecimal available = mAccount.getTokenBalance(mChainConfig.mainDenom());
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimValidators.size());
 
             if (available.compareTo(feeAmount) < 0) {
@@ -304,9 +293,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         public ValidatorPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ValidatorMyFragment.newInstance(null));
-            mFragments.add(ValidatorAllFragment.newInstance(null));
-            mFragments.add(ValidatorOtherFragment.newInstance(null));
+            mFragments.add(ValidatorMyFragment.newInstance());
+            mFragments.add(ValidatorAllFragment.newInstance());
+            mFragments.add(ValidatorOtherFragment.newInstance());
         }
 
         @Override

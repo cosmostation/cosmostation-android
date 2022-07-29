@@ -23,13 +23,7 @@ public class TxTransferHolder extends TxHolder {
     ImageView itemSendReceiveImg;
     TextView itemSendRecieveTv;
     TextView itemFromAddress, itemToAddress;
-    RelativeLayout itemSingleCoinLayer;
     TextView itemAmount, itemAmountDenom;
-    LinearLayout itemMultiCoinLayer;
-    RelativeLayout itemAmountLayer0, itemAmountLayer1, itemAmountLayer2, itemAmountLayer3, itemAmountLayer4;
-    TextView itemAmount0, itemAmountDenom0, itemAmount1, itemAmountDenom1, itemAmount2, itemAmountDenom2,
-            itemAmount3, itemAmountDenom3, itemAmount4, itemAmountDenom4;
-
 
     public TxTransferHolder(@NonNull View itemView) {
         super(itemView);
@@ -38,26 +32,8 @@ public class TxTransferHolder extends TxHolder {
         itemFromAddress = itemView.findViewById(R.id.tx_send_from_address);
         itemToAddress = itemView.findViewById(R.id.tx_send_to_address);
 
-        itemSingleCoinLayer = itemView.findViewById(R.id.tx_send_single_coin_layer);
         itemAmount = itemView.findViewById(R.id.tx_transfer_amount);
         itemAmountDenom = itemView.findViewById(R.id.tx_transfer_amount_symbol);
-
-        itemMultiCoinLayer = itemView.findViewById(R.id.tx_send_multi_coin_layer);
-        itemAmountLayer0 = itemView.findViewById(R.id.tx_transfer_amount_layer0);
-        itemAmountLayer1 = itemView.findViewById(R.id.tx_transfer_amount_layer1);
-        itemAmountLayer2 = itemView.findViewById(R.id.tx_transfer_amount_layer2);
-        itemAmountLayer3 = itemView.findViewById(R.id.tx_transfer_amount_layer3);
-        itemAmountLayer4 = itemView.findViewById(R.id.tx_transfer_amount_layer4);
-        itemAmount0 = itemView.findViewById(R.id.tx_transfer_amount0);
-        itemAmount1 = itemView.findViewById(R.id.tx_transfer_amount1);
-        itemAmount2 = itemView.findViewById(R.id.tx_transfer_amount2);
-        itemAmount3 = itemView.findViewById(R.id.tx_transfer_amount3);
-        itemAmount4 = itemView.findViewById(R.id.tx_transfer_amount4);
-        itemAmountDenom0 = itemView.findViewById(R.id.tx_transfer_amount_symbol0);
-        itemAmountDenom1 = itemView.findViewById(R.id.tx_transfer_amount_symbol1);
-        itemAmountDenom2 = itemView.findViewById(R.id.tx_transfer_amount_symbol2);
-        itemAmountDenom3 = itemView.findViewById(R.id.tx_transfer_amount_symbol3);
-        itemAmountDenom4 = itemView.findViewById(R.id.tx_transfer_amount_symbol4);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -77,25 +53,7 @@ public class TxTransferHolder extends TxHolder {
             for (CoinOuterClass.Coin coin: msg.getAmountList()) {
                 toDpCoin.add(new Coin(coin.getDenom(), coin.getAmount()));
             }
-            itemMultiCoinLayer.setVisibility(View.VISIBLE);
-            itemAmountLayer0.setVisibility(View.VISIBLE);
-            WDp.showCoinDp(c, baseData, toDpCoin.get(0), itemAmountDenom0, itemAmount0, baseChain);
-            if (toDpCoin.size() > 1) {
-                itemAmountLayer1.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, baseData, toDpCoin.get(1), itemAmountDenom1, itemAmount1, baseChain);
-            }
-            if (toDpCoin.size() > 2) {
-                itemAmountLayer2.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, baseData, toDpCoin.get(2), itemAmountDenom2, itemAmount2, baseChain);
-            }
-            if (toDpCoin.size() > 3) {
-                itemAmountLayer3.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, baseData, toDpCoin.get(3), itemAmountDenom1, itemAmount3, baseChain);
-            }
-            if (toDpCoin.size() > 4) {
-                itemAmountLayer4.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, baseData, toDpCoin.get(4), itemAmountDenom4, itemAmount4, baseChain);
-            }
+            WDp.showCoinDp(c, baseData, toDpCoin.get(0), itemAmountDenom, itemAmount, baseChain);
         } catch (Exception e) {}
     }
 }

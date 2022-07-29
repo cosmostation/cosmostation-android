@@ -68,7 +68,7 @@ public class HistoryNewHolder extends BaseHolder {
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = chainConfig.explorerHistoryLink() + history.data.txhash;
+                String url = chainConfig.explorerHistoryLink(history.data.txhash);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 mainActivity.startActivity(intent);
             }

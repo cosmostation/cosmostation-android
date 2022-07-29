@@ -42,7 +42,7 @@ public class Okc extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String lcdUrl() { return "https://exchainrpc.okex.org/okexchain/v1/"; }
-    public String apiUrl() { return "https://www.oklink.com/api/explorer/v1/"; }
+    public String apiUrl() { return "https://www.oklink.com/api/explorer/"; }
 
     public BigDecimal blockTime() { return new BigDecimal("0.4124"); }
     public String explorerUrl() { return "https://www.oklink.com/okexchain/"; }
@@ -70,8 +70,8 @@ public class Okc extends ChainConfig {
         return explorerUrl() + "address/";
     }
 
-    public String explorerHistoryLink() {
-        return explorerUrl() + "tx/";
+    public String explorerHistoryLink(String hash) {
+        return explorerUrl() + "tx/" + hash;
     }
 
 
