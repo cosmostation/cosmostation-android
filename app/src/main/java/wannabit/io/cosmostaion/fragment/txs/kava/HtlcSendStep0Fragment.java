@@ -131,7 +131,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         if (mToChain == null) {
             getSActivity().onBeforeStep();
         }
-        ChainConfig fromChainConfig = getSActivity().mFromChainConfig;
+        ChainConfig fromChainConfig = getSActivity().mChainConfig;
         mFromChainImg.setImageResource(fromChainConfig.chainImg());
         mFromChainTv.setText(fromChainConfig.chainTitleToUp());
 

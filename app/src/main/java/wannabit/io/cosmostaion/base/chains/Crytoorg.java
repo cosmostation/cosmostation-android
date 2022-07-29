@@ -8,6 +8,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
@@ -62,4 +63,6 @@ public class Crytoorg extends ChainConfig {
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/394'/0'/0/X");
     }
+
+    public String coinFullName(String denom) { return "Cronos"; }
 }

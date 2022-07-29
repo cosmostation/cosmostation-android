@@ -88,12 +88,19 @@ public class Coin implements Parcelable {
         return Long.parseLong(id);
     }
 
+    public boolean isInjectivePool() {
+        if (denom.startsWith("share")) {
+            return true;
+        }
+        return false;
+    }
+
     public long injectivePoolId() {
         String id = denom.replace("share", "");
         return Long.parseLong(id);
     }
 
-    public boolean crescnetPool() {
+    public boolean isCrescnetPool() {
         if (denom.startsWith("pool")) {
             return true;
         }

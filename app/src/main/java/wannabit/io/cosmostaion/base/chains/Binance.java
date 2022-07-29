@@ -58,6 +58,8 @@ public class Binance extends ChainConfig {
         return Lists.newArrayList("m/44'/714'/0'/0/X");
     }
 
+    public String coinFullName(String denom) { return "Binance Chain Native Coin"; }
+
 
     public static String BINANCE_COIN_IMG_URL = RESOURCE_BASE_URL + "coin_image/binance/";
 }

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities.txs.kava;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_AMOUNT_BEP3;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -51,7 +50,7 @@ public class HtlcSendActivity extends BaseActivity {
     private ViewPager mViewPager;
     private HtlcSendPageAdapter mPageAdapter;
 
-    public String mToSwapDenom = TOKEN_BNB;
+    public String mToSwapDenom;
     public ArrayList<Coin> mToSendCoins;
     public BaseChain mRecipientChain;
     public Account mRecipientAccount;
@@ -65,7 +64,7 @@ public class HtlcSendActivity extends BaseActivity {
     public ResKavaBep3Param mKavaBep3Param2;
     public ResKavaSwapSupply mKavaSuppies2;
 
-    public ChainConfig mFromChainConfig, mToChainConfig;
+    public ChainConfig mToChainConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +84,7 @@ public class HtlcSendActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mFromChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mBaseChain);
         mToSwapDenom = getIntent().getStringExtra("toSwapDenom");
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcSendActivity.this, R.drawable.step_4_img_1));
@@ -173,13 +172,13 @@ public class HtlcSendActivity extends BaseActivity {
 
     public Fee onInitSendFee() {
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            Coin gasCoin = new Coin(mFromChainConfig.mainDenom(), FEE_BNB_SEND);
+            Coin gasCoin = new Coin(mChainConfig.mainDenom(), FEE_BNB_SEND);
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
             mSendFee = new Fee("", gasCoins);
 
         } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            Coin gasCoin = new Coin(mFromChainConfig.mainDenom(), "12500");
+            Coin gasCoin = new Coin(mChainConfig.mainDenom(), "12500");
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
             mSendFee = new Fee(KAVA_GAS_AMOUNT_BEP3, gasCoins);

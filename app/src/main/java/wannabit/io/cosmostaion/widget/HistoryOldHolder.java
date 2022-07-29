@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.widget;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OEC_TX;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
@@ -14,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -33,23 +31,24 @@ public class HistoryOldHolder extends BaseHolder {
         history_time_gap = itemView.findViewById(R.id.history_time_gap);
     }
 
-    public void onBindOldBnbHistory(@NotNull MainActivity mainActivity, BnbHistory history) {
+    public void onBindOldBnbHistory(@NotNull MainActivity mainActivity, ChainConfig chainConfig, BnbHistory history) {
         historyType.setText(WDp.DpBNBTxType(mainActivity, history, mainActivity.mAccount.address));
         history_time.setText(WDp.getTimeformat(mainActivity, history.timeStamp));
         history_time_gap.setText(WDp.getTimeGap(mainActivity, history.timeStamp));
         history_block.setText(history.blockHeight + " block");
         historySuccess.setVisibility(View.GONE);
+
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = ChainFactory.getChain(mainActivity.mBaseChain).explorerUrl() + "txs/" + history.txHash;
+                String url = chainConfig.explorerHistoryLink() + history.txHash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 mainActivity.startActivity(intent);
             }
         });
     }
 
-    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ResOkHistory.Data.Hit history) {
+    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ChainConfig chainConfig, ResOkHistory.Data.Hit history) {
         String type = history.transactionDatas.get(0).type;
         if (type.contains("/")) {
             historyType.setText(type.split("/")[type.split("/").length - 1].replace("Msg", ""));
@@ -60,10 +59,11 @@ public class HistoryOldHolder extends BaseHolder {
         history_time.setText(WDp.getDpTime(mainActivity, history.blockTimeU0));
         history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.blockTimeU0));
         history_block.setText(history.hash + " block");
+
         historyRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = EXPLORER_OEC_TX + "tx/" + history.hash;
+                String url = chainConfig.explorerHistoryLink() + history.hash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 mainActivity.startActivity(intent);
             }

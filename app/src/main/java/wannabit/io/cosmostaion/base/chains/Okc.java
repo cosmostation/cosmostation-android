@@ -29,7 +29,7 @@ public class Okc extends ChainConfig {
     public String chainTitleToUp() { return "OKC"; }
     public String chainIdPrefix() { return "exchain-"; }
 
-    public int mainDenomImg() { return R.drawable.token_okx; }
+    public int mainDenomImg() { return R.drawable.token_okc; }
     public String mainDenom() { return "okt"; }
     public String mainSymbol() { return "OKT"; }
     public int decimal() {
@@ -62,6 +62,16 @@ public class Okc extends ChainConfig {
 
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/996'/0'/0/X", "m/44'/996'/0'/0/X", "m/44'/60'/0'/0/X");
+    }
+
+    public String coinFullName(String denom) { return "OKC Staking Coin"; }
+
+    public String explorerAccountLink() {
+        return explorerUrl() + "address/";
+    }
+
+    public String explorerHistoryLink() {
+        return explorerUrl() + "tx/";
     }
 
 

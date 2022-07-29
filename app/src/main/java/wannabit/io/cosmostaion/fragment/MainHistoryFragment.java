@@ -68,10 +68,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private BaseChain mBaseChain;
     private ChainConfig mChainConfig;
 
-    public static MainHistoryFragment newInstance(Bundle bundle) {
-        MainHistoryFragment fragment = new MainHistoryFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static MainHistoryFragment newInstance() {
+        return new MainHistoryFragment();
     }
 
     @Override
@@ -125,16 +123,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
 
-        mCardView.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), mBaseChain));
-        if (mAccount.hasPrivateKey) {
-            itemKeyStatus.setImageResource(R.drawable.key_off);
-            itemKeyStatus.setColorFilter(WDp.getChainColor(getMainActivity(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-        } else {
-            itemKeyStatus.setImageResource(R.drawable.watchmode);
-            itemKeyStatus.setColorFilter(null);
-        }
+        mCardView.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
+        getMainActivity().setAccountKeyStatus(itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
-        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
+        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
     }
 
     @Override
@@ -149,10 +141,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (mBaseChain.equals(BNB_MAIN)) {
             new BnbHistoryTask(getBaseApplication(), this, null, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
-
         } else if (mBaseChain.equals(OKEX_MAIN)) {
             new OkHistoryTask(getBaseApplication(), this, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
         } else {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
@@ -220,16 +210,16 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             if (isGRPC(mBaseChain)) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
-                holder.onBindNewHistory(getMainActivity(), getBaseDao(), history);
+                holder.onBindNewHistory(getMainActivity(), getBaseDao(), mChainConfig, history);
 
             } else {
                 HistoryOldHolder holder = (HistoryOldHolder) viewHolder;
                 if (mBaseChain.equals(BNB_MAIN)) {
                     final BnbHistory history = mBnbHistory.get(position);
-                    holder.onBindOldBnbHistory(getMainActivity(), history);
+                    holder.onBindOldBnbHistory(getMainActivity(), mChainConfig, history);
                 } else if (mBaseChain.equals(OKEX_MAIN)) {
                     final ResOkHistory.Data.Hit history = mOkHistory.get(position);
-                    holder.onBindOldOkHistory(getMainActivity(), history);
+                    holder.onBindOldOkHistory(getMainActivity(), mChainConfig, history);
                 }
             }
         }

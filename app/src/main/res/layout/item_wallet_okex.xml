@@ -28,7 +28,7 @@
                     android:id="@+id/ok_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/token_okx"/>
+                    android:src="@drawable/token_okc"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_12"
                 android:background="@color/colorGrayDayNight"/>
 
@@ -70,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12">
                 <TextView
+                    android:id="@+id/available_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available"
@@ -79,7 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
+                    android:layout_toRightOf="@+id/available_title"
+                    android:gravity="end"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
@@ -89,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
                 <TextView
+                    android:id="@+id/lock_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_locked"
@@ -98,7 +101,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
+                    android:layout_toRightOf="@+id/lock_title"
+                    android:gravity="end"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
@@ -108,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
                 <TextView
+                    android:id="@+id/staking_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_staking"
@@ -117,7 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
+                    android:layout_toRightOf="@+id/staking_title"
+                    android:gravity="end"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>
@@ -127,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
                 <TextView
+                    android:id="@+id/unbonding_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_unbonding"
@@ -136,7 +143,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
+                    android:layout_toRightOf="@+id/unbonding_title"
+                    android:gravity="end"
                     android:text="-"
                     style="@style/font_ss_12_black_daynight"/>
             </RelativeLayout>

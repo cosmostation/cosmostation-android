@@ -19,14 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import wannabit.io.cosmostaion.R;
 
-public class Dialog_Currency_Set extends DialogFragment {
+public class CurrencySetDialog extends DialogFragment {
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private CurrencySetAdapter mCurrencySetAdapter;
 
-    public static Dialog_Currency_Set newInstance(Bundle bundle) {
-        Dialog_Currency_Set frag = new Dialog_Currency_Set();
+    public static CurrencySetDialog newInstance(Bundle bundle) {
+        CurrencySetDialog frag = new CurrencySetDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -62,10 +62,16 @@ public class Dialog_Currency_Set extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull CurrencySetAdapter.CurrencyHolder holder, int position) {
+        public void onBindViewHolder(@NonNull CurrencySetAdapter.CurrencyHolder viewHolder, int position) {
+            onCurrencyItem(viewHolder, position);
+        }
+
+        private void onCurrencyItem(CurrencyHolder holder, int position) {
             String[] mUnitList = getResources().getStringArray(R.array.currency_unit_array);
 
             holder.currencyName.setText(mUnitList[position]);
+            holder.currencyName.setText(mUnitList[position]);
+
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/space_240">
+        android:paddingBottom="400dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,18 +28,6 @@
                 android:layout_centerInParent="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/cosmostation" />
-
-            <com.romainpiel.shimmer.ShimmerTextView
-                android:id="@+id/logo_title"
-                style="@style/font_ss_12_gray6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/space_100"
-                android:letterSpacing="0.31"
-                android:lineSpacingExtra="6sp"
-                android:text="by Cosmostation"
-                android:visibility="invisible" />
         </RelativeLayout>
 
     </LinearLayout>

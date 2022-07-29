@@ -1059,7 +1059,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortingOsmosisPool(BaseChain chain, ArrayList<Coin> coins) {
+    public static void onSortingPool(BaseChain chain, ArrayList<Coin> coins) {
         Collections.sort(coins, new Comparator<Coin>() {
             @Override
             public int compare(Coin o1, Coin o2) {
@@ -1069,6 +1069,9 @@ public class WUtil {
                 } else if (chain.equals(CRESCENT_MAIN)) {
                     if (o1.crescnetPoolId() < o2.crescnetPoolId()) return -1;
                     else if (o1.crescnetPoolId() > o2.crescnetPoolId()) return 1;
+                } else if (chain.equals(INJ_MAIN)) {
+                    if (o1.injectivePoolId() < o2.injectivePoolId()) return -1;
+                    else if (o1.injectivePoolId() > o2.injectivePoolId()) return 1;
                 }
                 return 0;
             }
@@ -1144,30 +1147,6 @@ public class WUtil {
     /**
      * coin decimal
      */
-    public static int getKavaCoinDecimal(Coin coin) {
-        if (coin != null && coin.denom != null) {
-            if (coin.denom.equalsIgnoreCase(TOKEN_KAVA)) {
-                return 6;
-            } else if (coin.denom.equalsIgnoreCase(TOKEN_HARD)) {
-                return 6;
-            } else if (coin.denom.equalsIgnoreCase("xrpb") || coin.denom.equalsIgnoreCase("xrbp")) {
-                return 8;
-            } else if (coin.denom.equalsIgnoreCase("btc")) {
-                return 8;
-            } else if (coin.denom.equalsIgnoreCase("usdx")) {
-                return 6;
-            } else if (coin.denom.equalsIgnoreCase("bnb")) {
-                return 8;
-            } else if (coin.denom.equalsIgnoreCase("btcb") || coin.denom.equalsIgnoreCase("hbtc")) {
-                return 8;
-            } else if (coin.denom.equalsIgnoreCase("busd")) {
-                return 8;
-            } else if (coin.denom.equalsIgnoreCase("swp")) {
-                return 6;
-            }
-        }
-        return 6;
-    }
 
     public static int getKavaCoinDecimal(BaseData baseData, String denom) {
         if (denom != null) {
@@ -1194,22 +1173,6 @@ public class WUtil {
             }
         }
         return 6;
-    }
-
-    public static int getSifCoinDecimal(BaseData baseData, String denom) {
-        if (denom != null) {
-            if (denom.equalsIgnoreCase(WDp.mainDenom(SIF_MAIN))) {
-                return 18;
-            } else if (denom.startsWith("ibc/")) {
-                return getIbcDecimal(baseData, denom);
-            } else {
-                Assets assets = baseData.getAsset(denom);
-                if (assets != null) {
-                    return assets.decimal;
-                }
-            }
-        }
-        return 18;
     }
 
     public static int getSifCoinDecimal(String denom) {
@@ -1258,215 +1221,12 @@ public class WUtil {
         return 18;
     }
 
-    public static int getOsmosisCoinDecimal(BaseData baseData, String denom) {
-        if (denom != null) {
-            if (denom.equalsIgnoreCase(TOKEN_OSMOSIS) || denom.equalsIgnoreCase(TOKEN_ION)) {
-                return 6;
-            } else if (denom.startsWith("gamm/pool/")) {
-                return 18;
-            } else if (denom.startsWith("ibc/")) {
-                return getIbcDecimal(baseData, denom);
-            }
-        }
-        return 6;
-    }
-
-    public static int getInjCoinDecimal(BaseData baseData, String denom) {
-        if (denom != null) {
-            if (denom.equalsIgnoreCase(WDp.mainDenom(INJ_MAIN))) {
-                return 18;
-            } else if (denom.startsWith("ibc/")) {
-                return getIbcDecimal(baseData, denom);
-            } else {
-                Assets assets = baseData.getAsset(denom);
-                if (assets != null) {
-                    return assets.decimal;
-                }
-            }
-        }
-        return 18;
-    }
-
     public static int getIbcDecimal(BaseData baseData, String denom) {
         IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
         if (ibcToken != null && ibcToken.auth) {
             return ibcToken.decimal;
         } else {
             return 6;
-        }
-    }
-
-    public static String dpOsmosisTokenName(BaseData baseData, String denom) {
-        if (denom.equals(TOKEN_OSMOSIS)) {
-            return "OSMO";
-
-        } else if (denom.equals(TOKEN_ION)) {
-            return "ION";
-
-        } else if (denom.startsWith("gamm/pool/")) {
-            String[] split = denom.split("/");
-            return "GAMM-" + split[split.length - 1];
-
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                if (ibcToken.base_denom.startsWith("cw20:")) {
-                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                    for (Cw20Assets assets : baseData.mCw20Assets) {
-                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                            return assets.denom;
-                        }
-                    }
-                } else {
-                    return ibcToken.display_denom.toUpperCase();
-                }
-            } else {
-                return "UnKnown";
-            }
-        }
-        return denom;
-    }
-
-    public static String dpOsmosisTokenName(Context c, BaseData baseData, TextView textView, String denom) {
-        if (denom != null) {
-            if (denom.equals(TOKEN_OSMOSIS)) {
-                textView.setTextColor(ContextCompat.getColor(c, R.color.color_osmosis));
-                textView.setText("OSMO");
-
-            } else if (denom.equals(TOKEN_ION)) {
-                textView.setTextColor(ContextCompat.getColor(c, R.color.color_ion));
-                textView.setText("ION");
-
-            } else if (denom.startsWith("gamm/pool/")) {
-                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                String[] split = denom.split("/");
-                textView.setText("GAMM-" + split[split.length - 1]);
-
-            } else if (denom.startsWith("ibc/")) {
-                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-                if (ibcToken != null && ibcToken.auth) {
-                    if (ibcToken.base_denom.startsWith("cw20:")) {
-                        String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                        for (Cw20Assets assets : baseData.mCw20Assets) {
-                            if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                                textView.setText(assets.denom.toUpperCase());
-                            }
-                        }
-                    } else {
-                        textView.setText(ibcToken.display_denom.toUpperCase());
-                    }
-                } else {
-                    textView.setText("UnKnown");
-                }
-            }
-        }
-        return denom;
-    }
-
-    public static String dpSifTokenName(BaseData baseData, String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_SIF)) {
-            return "ROWAN";
-
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                if (ibcToken.base_denom.startsWith("cw20:")) {
-                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                    for (Cw20Assets assets : baseData.mCw20Assets) {
-                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                            return assets.denom.toUpperCase();
-                        }
-                    }
-                } else {
-                    return ibcToken.display_denom.toUpperCase();
-                }
-            } else {
-                return "UnKnown";
-            }
-
-        } else if (denom.startsWith("c")) {
-            return denom.substring(1);
-
-        }
-        return denom;
-    }
-
-    public static String dpSifTokenName(Context c, BaseData baseData, TextView textView, String denom) {
-        if (denom != null) {
-            if (denom.equals(TOKEN_SIF)) {
-                textView.setTextColor(ContextCompat.getColor(c, R.color.color_sif));
-                textView.setText("ROWAN");
-
-            } else if (denom.startsWith("c")) {
-                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                textView.setText(denom.substring(1).toUpperCase());
-
-            } else if (denom.startsWith("ibc/")) {
-                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-                if (ibcToken != null && ibcToken.auth) {
-                    if (ibcToken.base_denom.startsWith("cw20:")) {
-                        String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                        for (Cw20Assets assets : baseData.mCw20Assets) {
-                            if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                                textView.setText(assets.denom.toUpperCase());
-                            }
-                        }
-                    } else {
-                        textView.setText(ibcToken.display_denom.toUpperCase());
-                    }
-                } else {
-                    textView.setText("UnKnown");
-                }
-
-            } else {
-                textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                textView.setText("UnKnown");
-            }
-        }
-        return denom;
-    }
-
-    /**
-     * Token Img
-     */
-    public static void DpOsmosisTokenImg(BaseData baseData, ImageView imageView, String denom) {
-        if (denom != null) {
-            if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
-                Picasso.get().cancelRequest(imageView);
-                imageView.setImageResource(R.drawable.token_osmosis);
-            } else if (denom.equalsIgnoreCase(TOKEN_ION)) {
-                imageView.setImageResource(R.drawable.token_ion);
-            } else if (denom.startsWith("gamm/pool/")) {
-                imageView.setImageResource(R.drawable.token_pool);
-            } else if (denom.startsWith("ibc/")) {
-                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-                try {
-                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
-                } catch (Exception e) {
-                }
-            }
-        }
-    }
-
-    public static void DpSifTokenImg(BaseData baseData, ImageView imageView, String denom) {
-        if (denom != null) {
-            if (denom.equalsIgnoreCase(TOKEN_SIF)) {
-                Picasso.get().cancelRequest(imageView);
-                imageView.setImageResource(R.drawable.token_sif);
-            } else if (denom.startsWith("c")) {
-                Assets assets = baseData.getAsset(denom);
-                if (assets != null) {
-                    Picasso.get().load(ASSET_IMG_URL + assets.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
-                }
-            } else if (denom.startsWith("ibc/")) {
-                IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-                try {
-                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
-                } catch (Exception e) {
-                }
-            }
         }
     }
 
@@ -1712,54 +1472,6 @@ public class WUtil {
         result.add(EMONEY_MAIN);
         result.add(REGEN_MAIN);
         return result;
-    }
-
-    public static String getDesmosPrefix(BaseChain baseChain) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            return "cosmos";
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            return "osmo";
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            return "akash";
-        } else if (baseChain.equals(BAND_MAIN)) {
-            return "band";
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            return "cro";
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            return "juno";
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            return "kava";
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            return "emoney";
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            return "regen";
-        } else {
-            return "";
-        }
-    }
-
-    public static String getDesmosConfig(BaseChain baseChain) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            return "cosmos";
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            return "osmosis";
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            return "akash";
-        } else if (baseChain.equals(BAND_MAIN)) {
-            return "band";
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            return "cro";
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            return "juno";
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            return "kava";
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            return "emoney";
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            return "regen";
-        } else {
-            return "";
-        }
     }
 
     public static String getWalletName(Context c, Account account) {
@@ -2245,64 +1957,6 @@ public class WUtil {
         return finalBorrowableValue;
     }
 
-    // HTLC using
-    public static String getDpChainName(Context c, BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
-            return c.getString(R.string.str_cosmos_hub_2);
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            return c.getString(R.string.str_iris_net_2);
-
-        } else if (chain.equals(BNB_MAIN)) {
-            return c.getString(R.string.str_binance_net_2);
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            return c.getString(R.string.str_kava_net_2);
-
-        } else if (chain.equals(IOV_MAIN)) {
-            return c.getString(R.string.str_iov_net_2);
-
-        } else if (chain.equals(BAND_MAIN)) {
-            return c.getString(R.string.str_band_chain_2);
-
-        } else if (chain.equals(CERTIK_MAIN)) {
-            return c.getString(R.string.str_certik_chain_2);
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            return c.getString(R.string.str_ok_net2);
-
-        }
-        return "";
-
-    }
-
-    // HTLC using
-    public static void onDpChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
-        if (chain.equals(BNB_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_binance));
-            txtView.setText("BINANCE");
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_kava));
-            txtView.setText(c.getString(R.string.str_kava_c));
-        }
-    }
-
-    public static void onDpSwapChain(Context c, BaseChain chain, ImageView imgView, TextView txtView) {
-        if (chain.equals(BNB_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_binance));
-            txtView.setText(c.getString(R.string.str_binance));
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            if (imgView != null)
-                imgView.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.chain_kava));
-            txtView.setText(c.getString(R.string.str_kava));
-        }
-    }
-
     public static String getBnbHtlcStatus(Context c, ResBnbSwapInfo resBnbSwapInfo, ResNodeInfo resNodeInfo) {
         if (resBnbSwapInfo == null || resNodeInfo == null) {
             return "-";
@@ -2345,42 +1999,6 @@ public class WUtil {
             return BINANCE_MAIN_BUSD_DEPUTY;
         }
         return "";
-    }
-
-    public static BigDecimal getBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (BnbTicker ticker : baseData.mBnbTickers) {
-            if (ticker.symbol.equals(getBnbTicSymbol(denom))) {
-                if (isBnbBaseMarketToken(denom)) {
-                    BigDecimal perPrice = BigDecimal.ONE.divide(new BigDecimal(ticker.lastPrice), 8, RoundingMode.DOWN);
-                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, TOKEN_BNB));
-                } else {
-                    BigDecimal perPrice = BigDecimal.ONE.multiply(new BigDecimal(ticker.lastPrice)).setScale(8, RoundingMode.DOWN);
-                    ;
-                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, TOKEN_BNB));
-                }
-            }
-        }
-        return result;
-    }
-
-    public static SpannableString dpBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {
-        final String formatted = baseData.getCurrencySymbol() + " " + WDp.getDecimalFormat(3).format(getBnbTokenUserCurrencyPrice(baseData, denom));
-        return WDp.getDpString(formatted, 3);
-    }
-
-    public static BigDecimal getBnbConvertAmount(BaseData baseData, String denom, BigDecimal amount) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (BnbTicker ticker : baseData.mBnbTickers) {
-            if (ticker.symbol.equals(getBnbTicSymbol(denom))) {
-                if (isBnbBaseMarketToken(denom)) {
-                    return amount.divide(new BigDecimal(ticker.lastPrice), 8, RoundingMode.DOWN);
-                } else {
-                    return amount.multiply(new BigDecimal(ticker.lastPrice)).setScale(8, RoundingMode.DOWN);
-                }
-            }
-        }
-        return result;
     }
 
     public static boolean isBnbBaseMarketToken(String symbol) {

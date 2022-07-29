@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.*;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
@@ -57,6 +58,18 @@ public class Kava extends ChainConfig {
 
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X", "m/44'/459'/0'/0/X");
+    }
+
+    public String coinFullName(String denom) {
+        if (denom.equalsIgnoreCase(KAVA_HARD_DENOM)) {
+            return "HardPool Gov. Coin";
+        } else if (denom.equalsIgnoreCase(KAVA_USDX_DENOM)) {
+            return "USD Stable Asset";
+        } else if (denom.equalsIgnoreCase(KAVA_SWP_DENOM)) {
+            return "Kava Swap Coin";
+        } else {
+            return StringUtils.capitalize(chainName()) + " Staking Coin";
+        }
     }
 
     public static String KAVA_HARD_DENOM = "hard";

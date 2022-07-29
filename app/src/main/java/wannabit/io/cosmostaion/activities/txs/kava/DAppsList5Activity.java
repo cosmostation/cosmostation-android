@@ -95,9 +95,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         mDappTapLayer.setTabRippleColor(null);
 
         createTab(mChainConfig, R.string.str_kava_swap_list, 0);
-        createTab(mChainConfig, R.string.str_kava_pool_list, 0);
-        createTab(mChainConfig, R.string.str_kava_cdp_list, 0);
-        createTab(mChainConfig, R.string.str_kava_harvest_list, 0);
+        createTab(mChainConfig, R.string.str_kava_pool_list, 1);
+        createTab(mChainConfig, R.string.str_kava_cdp_list, 2);
+        createTab(mChainConfig, R.string.str_kava_harvest_list, 3);
 
         mDappPager.setOffscreenPageLimit(3);
         mDappPager.setCurrentItem(0, false);
