@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,6 +51,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class VoteListActivity extends BaseActivity implements Serializable, View.OnClickListener {
@@ -149,11 +151,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     proposals.sort((o1, o2) -> o2.id - o1.id);
                     mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     mExtraProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
-                    if (mVotingPeriodProposalsList.size() > 1) {
-                        mMultiVote.setVisibility(View.VISIBLE);
-                    } else {
-                        mMultiVote.setVisibility(View.GONE);
-                    }
                     runOnUiThread(() -> {
                         mSwipeRefreshLayout.setRefreshing(false);
                         mVoteListAdapter.notifyDataSetChanged();
@@ -168,18 +165,22 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         });
     }
 
-    private void loadStatus(ResProposal proposal, int position) {
-        ApiClient.getMintscan(VoteListActivity.this).getVoteStatus(mChain, proposal.id, mAccount.address).enqueue(new Callback<ArrayList<ResVoteStatus>>() {
+    private void loadStatus(int position) {
+        ApiClient.getMintscan(VoteListActivity.this).getVoteStatus(mChain, mAccount.address).enqueue(new Callback<ResVoteStatus>() {
             @Override
-            public void onResponse(Call<ArrayList<ResVoteStatus>> call, Response<ArrayList<ResVoteStatus>> response) {
+            public void onResponse(Call<ResVoteStatus> call, Response<ResVoteStatus> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    statusMap.put(proposal.id, response.body().stream().map(item -> item.option).collect(Collectors.toSet()));
-                    mVoteListAdapter.notifyDataSetChanged();
+                    WLog.w("test123: " + response);
+                    try{
+                        statusMap.put(response.body().votes.get(position).id, response.body().votes.get(position).voteDetails.stream().map(item->item.option).collect(Collectors.toSet()));
+                        mVoteListAdapter.notifyDataSetChanged();
+                    }catch (Exception e){
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<ResVoteStatus>> call, Throwable t) {
+            public void onFailure(Call<ResVoteStatus> call, Throwable t) {
             }
         });
     }
@@ -345,7 +346,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 }
             } else {
                 holder.vote_status.setVisibility(View.INVISIBLE);
-                loadStatus(item, position);
+                loadStatus(position);
                 statusMap.put(item.id, Sets.newHashSet());
             }
         }
