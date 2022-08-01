@@ -44,6 +44,12 @@ public class Osmosis extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/osmosis"; }
     public String coingeckoLink() { return  COINGECKO_URL + "osmosis"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.00025uosmo", "0.0025uosmo", "0.025uosmo");
+    }
+
+    public int gasDefault() { return 0; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

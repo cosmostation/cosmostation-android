@@ -49,6 +49,12 @@ public class FetchAi extends ChainConfig {
     public String blogInfoLink() { return  "https://fetch.ai/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "fetch-ai"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.0afet");
+    }
+
+    public int gasDefault() { return 0; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         if (customPath == 0) {
             return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);

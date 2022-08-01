@@ -46,6 +46,12 @@ public class Crescent extends ChainConfig {
     public String blogInfoLink() { return  "https://crescentnetwork.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "crescent-network"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.01ucre,0.01ubcre", "0.02ucre,0.02ubcre", "0.05ucre,0.05ubcre");
+    }
+
+    public int gasDefault() { return 1; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

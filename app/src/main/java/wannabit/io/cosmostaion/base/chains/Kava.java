@@ -48,6 +48,12 @@ public class Kava extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/kava-labs"; }
     public String coingeckoLink() { return  COINGECKO_URL + "kava"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.001ukava", "0.0025ukava", "0.025ukava");
+    }
+
+    public int gasDefault() { return 1; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         if (customPath == 0) {
             return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);

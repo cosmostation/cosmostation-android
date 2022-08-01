@@ -159,7 +159,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mChainConfig = ChainFactory.getChain(mBaseChain);
 
         onUpdatePushStatusUI();
-        WDp.showChainDp(this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
+        WDp.showChainDp(this, mChainConfig, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
         mChainImg.setImageResource(mChainConfig.chainImg());
 
         if (BaseChain.isGRPC(mBaseChain)) {

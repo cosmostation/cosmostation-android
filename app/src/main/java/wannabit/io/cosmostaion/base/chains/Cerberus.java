@@ -42,6 +42,12 @@ public class Cerberus extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/@cerberus_zone"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cerberus"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.0ucrbrus");
+    }
+
+    public int gasDefault() { return 0; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

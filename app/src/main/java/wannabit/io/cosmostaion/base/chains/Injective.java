@@ -48,6 +48,12 @@ public class Injective extends ChainConfig {
     public String blogInfoLink() { return  "https://blog.injectiveprotocol.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "injective-protocol"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("500000000inj");
+    }
+
+    public int gasDefault() { return 0; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

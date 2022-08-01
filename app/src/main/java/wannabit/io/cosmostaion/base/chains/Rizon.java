@@ -42,6 +42,12 @@ public class Rizon extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/@hdac-rizon"; }
     public String coingeckoLink() { return  COINGECKO_URL + "rizon"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.00025uatolo", "0.0025uatolo", "0.025uatolo");
+    }
+
+    public int gasDefault() { return 1; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

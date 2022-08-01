@@ -362,24 +362,13 @@
     <string name="str_gas_amount">가스량</string>
     <string name="str_gas_rate">가스 레이트</string>
     <string name="str_fee_amount">Tx 수수료</string>
-    <string name="str_fee_speed_title_0">소수의 검증인들만 처리해 줄 것입니다.</string>
-    <string name="str_fee_speed_title_1">일부의 검증인들만 처리해 줄 것입니다.</string>
-    <string name="str_fee_speed_title_2">대부분의 검증인들이 처리해 줄 것입니다.</string>
-    <string name="str_fee_speed_title_iris">현재 아이리스 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_bnb">현재 바이낸스는 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_kava">현재 카바는 고정 전송 수수료를 지원합니다.\n다양한 트랜잭션 수수료 설정을 지원하겠습니다.</string>
-    <string name="str_fee_speed_title_iov">현재 스타네임은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_ok">현재 오케이이엑스  체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_certik">현재 써틱 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_akash">현재 아카시 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_secret">현재 시크릿 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_sentinel">현재 센티넬 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_fetch">현재 페치 에이아이 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_sif">현재 시프 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_ki">현재 키 파운데이션 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_stargate">현재 스타게이트 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_bifrost">현재 비프로스트 체인은 고정 전송 수수료를 지원합니다.</string>
-    <string name="str_fee_speed_title_cosmos">현재 코스모스 체인은 고정 전송 수수료를 지원합니다.</string>
+    <string name="str_fee_msg_title">수수료는 네트워크에서 청구되는 비용입니다.</string>
+    <string name="str_fee_msg_content">코스모스테이션 지갑은 무료로 사용이 가능하며\n지불하신 트랜젝션 수수료는 검증인과 커뮤니티풀에 분배됩니다.</string>
+    <string name="str_fee_speed_title_tiny">소수의 검증인들만 처리해 줄 것입니다.</string>
+    <string name="str_fee_speed_title_low">일부의 검증인들만 처리해 줄 것입니다.</string>
+    <string name="str_fee_speed_title_average">대부분의 검증인들이 처리해 줄 것입니다.</string>
+    <string name="str_fee_speed_title_zero">이 체인은 무료 전송 수수료를 지원합니다.</string>
+    <string name="str_fee_speed_title_fixed">이 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_fixed">거래 수수료는 네트워크를 안전하게 유지하고 스팸 공격 등을 방지하기 위해 존재합니다. \n지불하시는 Tx 수수료는, 모든 검증인과 위임자들 그리고 커뮤니티 풀에 분배됩니다.</string>
     <string name="str_fee_description_title_0">트랜잭션 수수료 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">트랜잭션 수수료 비율 0.0025</string>
@@ -1142,7 +1131,8 @@
     <string name="str_keeper">키퍼</string>
     <string name="str_type">타입</string>
     <string name="str_check_estimate_gas_amount">예상 가스량 확인</string>
-    <string name="str_apply_estimate_gas_amount">예상 가스량을 사용합니다.</string>
+    <string name="str_gas_checked">가스량 확인 완료</string>
+    <string name="str_select_fee_denom">수수료 지불할 코인을 고르세요.</string>
     <string name="str_mnemonics_warning_title">니모닉을 넣지마세요.</string>
     <string name="str_mnemonics_warning_msg"><b>메모에 니모닉을 입력하면\n당신의 자산을 잃어버리게 됩니다.</b>\n니모닉 문구를 절대로 공유하지 마십시오.\n노출 또는 분실에 대한 책임은 소유자에게 있습니다.</string>
     <string name="str_ibc_sender">보내는 주소</string>
@@ -1552,6 +1542,7 @@
     <string name="error_alreay_imported_mnemonic">이미 등록된 니모닉 입니다.</string>
     <string name="error_not_selected_to_import">등록할 지갑을 골라주세요.</string>
     <string name="error_no_mnemonic">개인키만 존재합니다.</string>
+    <string name="error_simul_error">실행할 수 없는 Tx입니다.</string>
 
 
     <string name="tx_send">보내기</string>

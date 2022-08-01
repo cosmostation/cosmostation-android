@@ -42,6 +42,12 @@ public class Iris extends ChainConfig {
     public String blogInfoLink() { return "https://medium.com/irisnet-blog"; }
     public String coingeckoLink() { return COINGECKO_URL + "irisnet"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.002uiris", "0.02uiris", "0.2uiris");
+    }
+
+    public int gasDefault() { return 1; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

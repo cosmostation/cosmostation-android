@@ -57,7 +57,14 @@ public class Medibloc extends ChainConfig {
             return "https://medium.com/medibloc";
         }
     }
+
     public String coingeckoLink() { return  COINGECKO_URL + "medibloc"; }
+
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("5umed");
+    }
+
+    public int gasDefault() { return 0; }
 
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);

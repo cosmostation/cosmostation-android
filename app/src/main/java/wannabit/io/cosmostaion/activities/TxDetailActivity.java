@@ -91,7 +91,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         mLoadingLayer = findViewById(R.id.loadingLayer);
         mLoadingMsgTv = findViewById(R.id.tx_loading_msg);
         mDismissBtn = findViewById(R.id.btn_dismiss);
-        mRefundBtn = findViewById(R.id.btn_refund);
         mControlLayer2 = findViewById(R.id.control_after);
         mShareBtn = findViewById(R.id.btn_share);
         mExplorerBtn = findViewById(R.id.btn_explorer);
@@ -139,7 +138,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         mTxRecyclerView.setAdapter(mTxDetailAdapter);
 
         mDismissBtn.setOnClickListener(this);
-        mRefundBtn.setOnClickListener(this);
         mShareBtn.setOnClickListener(this);
         mExplorerBtn.setOnClickListener(this);
     }
@@ -309,7 +307,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final TxCommonHolder holder = (TxCommonHolder) viewHolder;
             WDp.setDpSymbol(getBaseContext(), getBaseDao(), mChainConfig, mChainConfig.mainDenom(), holder.itemFeeDenom);
             WDp.setDpSymbol(getBaseContext(), getBaseDao(), mChainConfig, mChainConfig.mainDenom(), holder.itemFeeUsedDenom);
-            WDp.setDpSymbol(getBaseContext(), getBaseDao(), mChainConfig, mChainConfig.mainDenom(), holder.itemFeeLimitDenom);
 
             if (mBaseChain.equals(BNB_MAIN)) {
                 holder.itemStatusImg.setImageResource(R.drawable.success_ic);
@@ -438,8 +435,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         public class TxCommonHolder extends RecyclerView.ViewHolder {
             ImageView itemStatusImg;
             TextView itemStatusTxt, itemFailTxt, itemHash, itemHeight, itemMsgCnt, itemGas, itemTime, itemTimeGap,
-                        itemMemo, itemFee, itemFeeDenom, itemFeeUsed, itemFeeUsedDenom, itemFeeLimit, itemFeeLimitDenom;
-            RelativeLayout itemFeeLayer, itemFeeUsedLayer, itemFeeLimitLayer, itemblockLayer;
+                        itemMemo, itemFee, itemFeeDenom, itemFeeUsed, itemFeeUsedDenom;
+            RelativeLayout itemFeeLayer, itemFeeUsedLayer, itemblockLayer;
 
             public TxCommonHolder(@NonNull View itemView) {
                 super(itemView);
@@ -461,9 +458,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemFeeUsedLayer = itemView.findViewById(R.id.tx_fee_used_layer);
                 itemFeeUsed = itemView.findViewById(R.id.tx_used_fee);
                 itemFeeUsedDenom = itemView.findViewById(R.id.tx_fee_used_symbol);
-//                itemFeeLimitLayer = itemView.findViewById(R.id.tx_fee_limit_layer);
-//                itemFeeLimit = itemView.findViewById(R.id.tx_limit_fee);
-//                itemFeeLimitDenom = itemView.findViewById(R.id.tx_fee_limit_symbol);
             }
         }
 

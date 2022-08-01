@@ -46,6 +46,12 @@ public class Starname extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/iov-internet-of-values"; }
     public String coingeckoLink() { return  COINGECKO_URL + "starname"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.1uiov", "1.0uiov");
+    }
+
+    public int gasDefault() { return 0; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(234, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

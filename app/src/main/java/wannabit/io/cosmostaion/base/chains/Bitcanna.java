@@ -42,6 +42,12 @@ public class Bitcanna extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/@BitCannaGlobal"; }
     public String coingeckoLink() { return  COINGECKO_URL + "bitcanna"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.025ubcna");
+    }
+
+    public int gasDefault() { return 0; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

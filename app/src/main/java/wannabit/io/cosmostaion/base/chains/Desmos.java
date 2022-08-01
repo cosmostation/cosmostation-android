@@ -46,6 +46,12 @@ public class Desmos extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/desmosnetwork"; }
     public String coingeckoLink() { return  COINGECKO_URL + "desmos"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.001udsm", "0.01udsm", "0.025udsm");
+    }
+
+    public int gasDefault() { return 1; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(852, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

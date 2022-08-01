@@ -56,6 +56,12 @@ public class Crytoorg extends ChainConfig {
     public String blogInfoLink() { return  "https://blog.crypto.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cronos"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.025basecro", "0.05basecro", "0.075basecro");
+    }
+
+    public int gasDefault() { return 1; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

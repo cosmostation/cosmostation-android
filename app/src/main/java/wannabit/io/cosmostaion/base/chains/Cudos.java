@@ -45,6 +45,12 @@ public class Cudos extends ChainConfig {
     public String blogInfoLink() { return  "https://www.cudos.org/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cudos"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("5000000000000acudos");
+    }
+
+    public int gasDefault() { return 0; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
