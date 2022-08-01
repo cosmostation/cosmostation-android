@@ -56,7 +56,7 @@ public class SimpleOkDirectVoteTask extends CommonTask {
                 return mResult;
             }
 
-            Response<ResOkAccountInfo> accountResponse = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
+            Response<ResOkAccountInfo> accountResponse = ApiClient.getOkexChain().getAccountInfo(mAccount.address).execute();
             if (!accountResponse.isSuccessful()) {
                 mResult.errorCode = ERROR_CODE_BROADCAST;
                 return mResult;
@@ -79,8 +79,8 @@ public class SimpleOkDirectVoteTask extends CommonTask {
             msgs.add(incentiveMsg);
 
             ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, ecKey, mApp.getBaseDao().getChainId());
-            Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
-            if(response.isSuccessful() && response.body() != null) {
+            Response<ResBroadTx> response = ApiClient.getOkexChain().broadTx(reqBroadCast).execute();
+            if (response.isSuccessful() && response.body() != null) {
                 if (response.body().txhash != null) {
                     mResult.resultData = response.body().txhash;
                 }

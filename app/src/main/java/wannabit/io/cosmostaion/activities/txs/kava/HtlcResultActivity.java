@@ -333,7 +333,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     private void onFetchSendTx(String hash) {
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
+            ApiClient.getBnbChain().getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
                     if (isFinishing()) return;
@@ -380,7 +380,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     private int ClaimFetchCnt = 0;
     private void onFetchClaimTx(String hash) {
         if (mRecipientChain.equals(BaseChain.BNB_MAIN)) {
-            ApiClient.getBnbChain(getBaseContext()).getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
+            ApiClient.getBnbChain().getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbTxInfo> call, Response<ResBnbTxInfo> response) {
                     if (isFinishing()) return;
@@ -453,7 +453,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     private int SwapFetchCnt = 0;
     private void onCheckSwapId(String expectedSwapId) {
         if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
-            ApiClient.getKavaChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResKavaSwapInfo>() {
+            ApiClient.getKavaChain().getSwapById(expectedSwapId).enqueue(new Callback<ResKavaSwapInfo>() {
                 @Override
                 public void onResponse(Call<ResKavaSwapInfo> call, Response<ResKavaSwapInfo> response) {
                     if (response.isSuccessful() && response.body() != null && response.body().result != null) {
@@ -470,7 +470,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             });
 
         } else if (mRecipientChain.equals(BaseChain.BNB_MAIN)) {
-            ApiClient.getBnbChain(this).getSwapById(expectedSwapId).enqueue(new Callback<ResBnbSwapInfo>() {
+            ApiClient.getBnbChain().getSwapById(expectedSwapId).enqueue(new Callback<ResBnbSwapInfo>() {
                 @Override
                 public void onResponse(Call<ResBnbSwapInfo> call, Response<ResBnbSwapInfo> response) {
                     if (response.isSuccessful() && response.body() != null && response.body().swapId != null) {

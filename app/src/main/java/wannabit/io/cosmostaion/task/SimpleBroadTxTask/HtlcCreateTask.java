@@ -93,7 +93,7 @@ public class HtlcCreateTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mSendChain.equals(BaseChain.BNB_MAIN)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mSendAccount.address).execute();
+                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain().getAccountInfo(mSendAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = ERROR_CODE_BROADCAST;
                     return mResult;

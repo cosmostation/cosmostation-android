@@ -20,7 +20,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_72">
+            android:layout_height="@dimen/space_84">
 
             <LinearLayout
                 android:id="@+id/views_validator"

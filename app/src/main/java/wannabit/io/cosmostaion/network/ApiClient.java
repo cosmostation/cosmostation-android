@@ -91,30 +91,12 @@ public class ApiClient {
         }
     }
 
-    //Services for Binance net
-    private static BinanceChain service_binance = null;
-    public static BinanceChain getBnbChain(Context c) {
-        if (service_binance == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_main_bnb))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_binance = retrofit.create(BinanceChain.class);
-            }
-        }
-        return service_binance;
-    }
-
     private static KavaChain service_kava = null;
-    public static KavaChain getKavaChain(Context c) {
+    public static KavaChain getKavaChain() {
         if (service_kava == null) {
+            ChainConfig chainConfig = ChainFactory.getChain(BaseChain.KAVA_MAIN);
             synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_kava_main))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_kava = retrofit.create(KavaChain.class);
+                service_kava = chainConfig.lcdMain().create(KavaChain.class);
             }
         }
         return service_kava;
@@ -135,33 +117,27 @@ public class ApiClient {
         return service_certik;
     }
 
+    //Services for Binance net
+    private static BinanceChain service_binance = null;
+    public static BinanceChain getBnbChain() {
+        ChainConfig chainConfig = ChainFactory.getChain(BaseChain.BNB_MAIN);
+        if (service_binance == null) {
+            synchronized (ApiClient.class) {
+                service_binance = chainConfig.lcdMain().create(BinanceChain.class);
+            }
+        }
+        return service_binance;
+    }
+
     //Services for OEC mainnet chain
     private static OkChain service_ok = null;
-    public static OkChain getOkexChain(Context c) {
+    public static OkChain getOkexChain() {
         if (service_ok == null) {
+            ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OKEX_MAIN);
             synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_ok))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_ok = retrofit.create(OkChain.class);
+                service_ok = chainConfig.lcdMain().create(OkChain.class);
             }
         }
         return service_ok;
-    }
-
-    //Services for OEC mainnet api
-    private static OkChain api_oec = null;
-    public static OkChain getOecApi(Context c) {
-        if (api_oec == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_ok))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_oec = retrofit.create(OkChain.class);
-            }
-        }
-        return api_oec;
     }
 }

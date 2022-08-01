@@ -16,23 +16,17 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class BnbTokenListTask extends CommonTask {
 
-    private Account mAccount;
-
-    public BnbTokenListTask(BaseApplication app, TaskListener listener, Account account) {
+    public BnbTokenListTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mAccount           = account;
         this.mResult.taskType   = BaseConstant.TASK_FETCH_BNB_TOKENS;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN)) {
-                Response<ArrayList<BnbToken>> response = ApiClient.getBnbChain(mApp).getTokens("3000").execute();
-                if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
-                    mResult.resultData = response.body();
-                }
-
+            Response<ArrayList<BnbToken>> response = ApiClient.getBnbChain().getTokens("3000").execute();
+            if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
+                mResult.resultData = response.body();
             }
             mResult.isSuccess = true;
 

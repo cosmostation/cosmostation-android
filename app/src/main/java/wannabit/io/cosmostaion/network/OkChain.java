@@ -51,11 +51,6 @@ public interface OkChain {
     @GET("staking/delegators/{address}/unbonding_delegations")
     Call<ResOkUnbonding> getWithdrawInfo(@Path("address") String address);
 
-    @GET("v1/okexchain/addresses/{addresses}/transactions/condition")
-    Call<ResOkHistory> getNewOecTxs(@Path("addresses") String addresses, @Query("limit") String limit);
-
-
-
     //Broadcast Tx
     @POST("txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);

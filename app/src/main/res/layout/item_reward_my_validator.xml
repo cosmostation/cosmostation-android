@@ -22,7 +22,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_84">
+            android:layout_height="@dimen/space_100">
 
             <LinearLayout
                 android:id="@+id/views_validator"

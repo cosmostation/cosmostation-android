@@ -315,7 +315,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             } else {
                 if (derive.baseChain.equals(BNB_MAIN)) {
                     new Thread(() -> {
-                        ApiClient.getBnbChain(getBaseContext()).getAccountInfo(derive.dpAddress).enqueue(new Callback<ResBnbAccountInfo>() {
+                        ApiClient.getBnbChain().getAccountInfo(derive.dpAddress).enqueue(new Callback<ResBnbAccountInfo>() {
                             @Override
                             public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
                                 if (response.isSuccessful() && response.body() != null && response.body().balances != null) {
@@ -343,7 +343,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
                 } else if (derive.baseChain.equals(OKEX_MAIN)) {
                     new Thread(() -> {
-                        ApiClient.getOkexChain(getBaseContext()).getAccountBalance(derive.dpAddress).enqueue(new Callback<ResOkAccountToken>() {
+                        ApiClient.getOkexChain().getAccountBalance(derive.dpAddress).enqueue(new Callback<ResOkAccountToken>() {
                             @Override
                             public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
                                 if (response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {

@@ -144,7 +144,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         }
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
-        setAccountKeyStatus(mKeyState);
+        setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mAddress.setText(mAccount.address);
         BigDecimal totalAmount = BigDecimal.ZERO;
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) totalAmount = getBaseDao().getAllBnbTokenAmount(mMainDenom);

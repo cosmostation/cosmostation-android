@@ -31,7 +31,7 @@ public class AccountInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(BNB_MAIN)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain().getAccountInfo(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
@@ -40,7 +40,7 @@ public class AccountInfoTask extends CommonTask {
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
-                Response<ResOkAccountInfo> response = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResOkAccountInfo> response = ApiClient.getOkexChain().getAccountInfo(mAccount.address).execute();
                 if (response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().mOkAccountInfo = response.body();

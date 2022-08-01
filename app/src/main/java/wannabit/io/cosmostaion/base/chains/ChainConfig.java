@@ -90,6 +90,10 @@ abstract public class ChainConfig {
         return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().build();
     }
 
+    public Retrofit lcdMain() {
+        return new Retrofit.Builder().baseUrl(lcdUrl()).addConverterFactory(GsonConverterFactory.create()).build();
+    }
+
     public Retrofit apiMain() {
         return new Retrofit.Builder().baseUrl(apiUrl()).addConverterFactory(GsonConverterFactory.create()).build();
     }
@@ -124,8 +128,8 @@ abstract public class ChainConfig {
         return explorerUrl() + "account/";
     }
 
-    public String explorerHistoryLink() {
-        return explorerUrl() + "txs/";
+    public String explorerHistoryLink(String hash) {
+        return explorerUrl() + "txs/" + hash;
     }
 
     public String noticeLink() {

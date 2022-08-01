@@ -19,14 +19,6 @@ import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 
 public interface KavaChain {
 
-    @GET("auth/accounts/{address}")
-    Call<ResLcdKavaAccountInfo> getAccountInfo(@Path("address") String address);
-
-    @POST("txs")
-    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
-
-
-
     @GET("bep3/parameters")
     Call<ResKavaBep3Param> getSwapParams2();
 
@@ -45,7 +37,6 @@ public interface KavaChain {
 
     @GET("incentive/rewards")
     Call<ResKavaIncentiveReward> getIncentiveReward5(@Query("owner") String owner);
-
 
     @GET("hard/accounts")
     Call<ResKavaHardModuleAccount> getHardModuleAccount();

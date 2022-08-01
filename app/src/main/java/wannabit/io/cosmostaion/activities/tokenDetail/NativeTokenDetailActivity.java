@@ -167,7 +167,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
         mAddress.setText(mAccount.address);
-        setAccountKeyStatus(mKeyState);
+        setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

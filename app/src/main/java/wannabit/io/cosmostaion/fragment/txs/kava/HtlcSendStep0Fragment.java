@@ -237,7 +237,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onCheckSwapParam() {
-        ApiClient.getKavaChain(getContext()).getSwapParams2().enqueue(new Callback<ResKavaBep3Param>() {
+        ApiClient.getKavaChain().getSwapParams2().enqueue(new Callback<ResKavaBep3Param>() {
             @Override
             public void onResponse(Call<ResKavaBep3Param> call, Response<ResKavaBep3Param> response) {
                 if (!response.isSuccessful()) {
@@ -257,7 +257,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     }
 
     private void onCheckSwapSupply() {
-        ApiClient.getKavaChain(getContext()).getSupplies2().enqueue(new Callback<ResKavaSwapSupply>() {
+        ApiClient.getKavaChain().getSupplies2().enqueue(new Callback<ResKavaSwapSupply>() {
             @Override
             public void onResponse(Call<ResKavaSwapSupply> call, Response<ResKavaSwapSupply> response) {
                 if (!response.isSuccessful()) {

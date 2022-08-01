@@ -1045,7 +1045,9 @@ public class WDp {
         if (okToken != null) {
             BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
             BigDecimal totalTokenValue = okExTokenDollorValue(baseData, okToken, tokenAmount);
-            return totalTokenValue.divide(perUsdValue(baseData, chainConfig.mainDenom()), 18, RoundingMode.DOWN);
+            if (!BigDecimal.ZERO.equals(perUsdValue(baseData, chainConfig.mainDenom()))) {
+                return totalTokenValue.divide(perUsdValue(baseData, chainConfig.mainDenom()), 18, RoundingMode.DOWN);
+            }
         }
         return BigDecimal.ZERO;
     }
