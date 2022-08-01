@@ -163,11 +163,10 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     proposals.sort((o1, o2) -> o2.id - o1.id);
                     mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     mExtraProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
-                    if (!selectedSet.isEmpty()) {
+                    if (mVotingPeriodProposalsList.size() <= 0) {
                         mMultiVoteBtn.setVisibility(View.GONE);
-                    } else {
-                        mMultiVoteBtn.setVisibility(View.VISIBLE);
                     }
+
                     runOnUiThread(() -> {
                         mSwipeRefreshLayout.setRefreshing(false);
                         mVoteListAdapter.notifyDataSetChanged();
@@ -207,6 +206,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             mMultiVoteBtn.setVisibility(View.GONE);
             mCancelBtn.setVisibility(View.VISIBLE);
             mNextBtn.setVisibility(View.VISIBLE);
+            mSwipeRefreshLayout.setRefreshing(false);
             multiVoteSelectionMode = true;
             mVoteListAdapter.notifyDataSetChanged();
         } else if (v.equals(mCancelBtn)) {
