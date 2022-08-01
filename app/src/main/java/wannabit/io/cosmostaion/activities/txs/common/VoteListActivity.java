@@ -133,7 +133,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         if (animator instanceof SimpleItemAnimator) {
             ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
         }
-
     }
 
     @Override
@@ -148,9 +147,11 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private void loadProposals() {
         if (mAccount == null) return;
         onShowWaitDialog();
-        if (mVotingPeriodProposalsList.isEmpty() && mExtraProposalsList.isEmpty()) {
+        if (mVotingPeriodProposalsList == null && mExtraProposalsList == null) {
             mEmptyProposalText.setVisibility(View.VISIBLE);
             onHideWaitDialog();
+        } else {
+            mEmptyProposalText.setVisibility(View.GONE);
         }
         ApiClient.getMintscan(VoteListActivity.this).getProposalList(mChain).enqueue(new Callback<ArrayList<ResProposal>>() {
             @Override
