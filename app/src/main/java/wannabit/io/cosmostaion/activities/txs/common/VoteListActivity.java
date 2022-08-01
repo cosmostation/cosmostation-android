@@ -24,6 +24,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.common.collect.Lists;
@@ -129,6 +130,11 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(VoteListActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(this::loadProposals);
+
+        RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
+        if(animator instanceof SimpleItemAnimator){
+            ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
+        }
 
     }
 
@@ -375,6 +381,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 return SECTION_PROPOSALS;
             }
         }
+
 
         public class VoteListViewHolder extends RecyclerView.ViewHolder {
             private CardView card_proposal;
