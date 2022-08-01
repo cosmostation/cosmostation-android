@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -37,6 +38,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -63,6 +65,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private VoteHeaderRecyclerView mVoteHeaderRecyclerView;
+    private Layout mBottomControl;
     private Button mMultiVoteBtn, mCancelBtn, mNextBtn;
     private TextView mEmptyProposalText;
 
@@ -87,6 +90,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         initRecyclerView();
         loadAccount();
         loadProposals();
+        loadStatus();
     }
 
     private void loadAccount() {
@@ -107,6 +111,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         mVoteHeaderRecyclerView = new VoteHeaderRecyclerView(this, true, getSectionCall());
         mRecyclerView.addItemDecoration(mVoteHeaderRecyclerView);
 
+        ((SimpleItemAnimator) Objects.requireNonNull(mRecyclerView.getItemAnimator())).setSupportsChangeAnimations(false);
     }
 
     private void initView() {
@@ -129,10 +134,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(VoteListActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(this::loadProposals);
 
-        RecyclerView.ItemAnimator animator = mRecyclerView.getItemAnimator();
-        if (animator instanceof SimpleItemAnimator) {
-            ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
-        }
     }
 
     @Override
@@ -147,12 +148,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private void loadProposals() {
         if (mAccount == null) return;
         onShowWaitDialog();
-        if (mVotingPeriodProposalsList == null && mExtraProposalsList == null) {
-            mEmptyProposalText.setVisibility(View.VISIBLE);
-            onHideWaitDialog();
-        } else {
-            mEmptyProposalText.setVisibility(View.GONE);
-        }
         ApiClient.getMintscan(VoteListActivity.this).getProposalList(mChain).enqueue(new Callback<ArrayList<ResProposal>>() {
             @Override
             public void onResponse(Call<ArrayList<ResProposal>> call, Response<ArrayList<ResProposal>> response) {
@@ -163,14 +158,11 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     proposals.sort((o1, o2) -> o2.id - o1.id);
                     mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     mExtraProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
-                    if (mVotingPeriodProposalsList.size() <= 0) {
-                        mMultiVoteBtn.setVisibility(View.GONE);
-                    }
 
                     runOnUiThread(() -> {
                         mSwipeRefreshLayout.setRefreshing(false);
                         mVoteListAdapter.notifyDataSetChanged();
-                        onHideWaitDialog();
+                        checkEmptyView();
                     });
                 }
             }
@@ -181,13 +173,32 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         });
     }
 
-    private void loadStatus(int position) {
+    private void checkEmptyView() {
+        if (mVotingPeriodProposalsList.isEmpty() && mExtraProposalsList.isEmpty()) {
+            mMultiVoteBtn.setVisibility(View.GONE);
+            mEmptyProposalText.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        } else {
+            if (multiVoteSelectionMode || mVotingPeriodProposalsList.isEmpty()) {
+                mMultiVoteBtn.setVisibility(View.GONE);
+            } else {
+                mMultiVoteBtn.setVisibility(View.VISIBLE);
+            }
+            mEmptyProposalText.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+        onHideWaitDialog();
+    }
+
+    private void loadStatus() {
         ApiClient.getMintscan(VoteListActivity.this).getVoteStatus(mChain, mAccount.address).enqueue(new Callback<ResVoteStatus>() {
             @Override
             public void onResponse(Call<ResVoteStatus> call, Response<ResVoteStatus> response) {
-                if (response.body() != null && response.isSuccessful()) {
+                if (response.body() != null && response.isSuccessful() && response.body().votes != null) {
                     try {
-                        statusMap.put(response.body().votes.get(position).id, response.body().votes.get(position).voteDetails.stream().map(item -> item.option).collect(Collectors.toSet()));
+                        response.body().votes.forEach(votesData -> {
+                            statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet()));
+                        });
                         mVoteListAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                     }
@@ -362,7 +373,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 }
             } else {
                 holder.vote_status.setVisibility(View.INVISIBLE);
-                loadStatus(position);
                 statusMap.put(item.id, Sets.newHashSet());
             }
         }
@@ -380,7 +390,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 return SECTION_PROPOSALS;
             }
         }
-
 
         public class VoteListViewHolder extends RecyclerView.ViewHolder {
             private CardView card_proposal;
