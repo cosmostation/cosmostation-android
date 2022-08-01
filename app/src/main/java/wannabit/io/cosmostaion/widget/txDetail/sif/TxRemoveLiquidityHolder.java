@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.widget.txDetail.sif;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,21 +14,19 @@ import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import sifnode.clp.v1.Tx;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxRemoveLiquidityHolder extends TxHolder {
-    ImageView   itemRLImg;
     TextView    itemRLSigner,
                 itemRLNativeAssetAmount, itemRLNativeAssetSymbol, itemRLExternalAssetlAmount, itemRLExternalAssetSymbol;
 
     public TxRemoveLiquidityHolder(@NonNull View itemView) {
         super(itemView);
-        itemRLImg                   = itemView.findViewById(R.id.tx_remove_liquidity_icon);
         itemRLSigner                = itemView.findViewById(R.id.tx_remove_liquidity_signer);
         itemRLNativeAssetAmount     = itemView.findViewById(R.id.tx_liquidity_native_amount);
         itemRLNativeAssetSymbol     = itemView.findViewById(R.id.tx_liquidity_native_symbol);
@@ -37,9 +34,7 @@ public class TxRemoveLiquidityHolder extends TxHolder {
         itemRLExternalAssetSymbol   = itemView.findViewById(R.id.tx_liquidity_exteranl_symbol);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemRLImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         try {
             Tx.MsgRemoveLiquidity msg = Tx.MsgRemoveLiquidity.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemRLSigner.setText(msg.getSigner());
@@ -65,8 +60,8 @@ public class TxRemoveLiquidityHolder extends TxHolder {
                     }
                 }
             }
-            WDp.showCoinDp(c, baseData, coins.get(0), itemRLNativeAssetSymbol, itemRLNativeAssetAmount, baseChain);
-            WDp.showCoinDp(c, baseData, coins.get(1), itemRLExternalAssetSymbol, itemRLExternalAssetlAmount, baseChain);
+            WDp.setDpCoin(c, baseData, chainConfig, coins.get(0), itemRLNativeAssetSymbol, itemRLNativeAssetAmount);
+            WDp.setDpCoin(c, baseData, chainConfig, coins.get(1), itemRLExternalAssetSymbol, itemRLExternalAssetlAmount);
 
         } catch (Exception e) {
             WLog.w("Exception " + e.getMessage());

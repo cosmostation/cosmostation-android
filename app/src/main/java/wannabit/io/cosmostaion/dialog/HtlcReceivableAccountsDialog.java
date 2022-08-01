@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -82,7 +81,11 @@ public class HtlcReceivableAccountsDialog extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull AccountHolder holder, @SuppressLint("RecyclerView") int position) {
+        public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
+            onBindReceiveAccountItemViewHolder(holder, position);
+        }
+
+        private void onBindReceiveAccountItemViewHolder(AccountHolder holder, int position) {
             final Account account = mAccounts.get(position);
             final BaseChain baseChain = BaseChain.getChain(account.baseChain);
             final ChainConfig chainConfig = ChainFactory.getChain(baseChain);

@@ -80,7 +80,7 @@ public class WalletChainHolder extends BaseHolder {
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
-        mTvChainCard.setCardBackgroundColor(WDp.getChainBgColor(mainActivity, mainActivity.mBaseChain));
+        mTvChainCard.setCardBackgroundColor(ContextCompat.getColor(mainActivity, chainConfig.chainBgColor()));
         mTvChainIcon.setImageResource(chainConfig.mainDenomImg());
         mTvChainDenom.setText(chainConfig.mainSymbol());
         mTvChainDenom.setTextColor(ContextCompat.getColor(mainActivity, chainConfig.chainColor()));

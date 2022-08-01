@@ -10,16 +10,15 @@ import androidx.annotation.NonNull;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class TxCommonHolder extends TxHolder {
     ImageView itemStatusImg;
-    TextView itemStatusTxt, itemFailTxt, itemHash, itemHeight, itemMsgCnt, itemGas,
-            itemTime, itemTimeGap, itemMemo, itemFee, itemFeeDenom , itemFeeUsed, itemFeeUsedDenom,
-            itemFeeLimit, itemFeeLimitDenom;
-    RelativeLayout itemFeeLayer, itemFeeUsedLayer, itemFeeLimitLayer;
+    TextView itemStatusTxt, itemFailTxt, itemHash, itemHeight, itemMsgCnt, itemGas, itemTime, itemTimeGap,
+                itemMemo, itemFee, itemFeeDenom , itemFeeUsed, itemFeeUsedDenom;
+    RelativeLayout itemFeeLayer, itemFeeUsedLayer;
 
     public TxCommonHolder(@NonNull View itemView) {
         super(itemView);
@@ -40,32 +39,26 @@ public class TxCommonHolder extends TxHolder {
         itemFeeUsedLayer = itemView.findViewById(R.id.tx_fee_used_layer);
         itemFeeUsed = itemView.findViewById(R.id.tx_used_fee);
         itemFeeUsedDenom = itemView.findViewById(R.id.tx_fee_used_symbol);
-        itemFeeLimitLayer = itemView.findViewById(R.id.tx_fee_limit_layer);
-        itemFeeLimit = itemView.findViewById(R.id.tx_limit_fee);
-        itemFeeLimitDenom = itemView.findViewById(R.id.tx_fee_limit_symbol);
     }
 
-    public void onBindCommon(TxDetailgRPCActivity c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, boolean isGen) {
-        WDp.DpMainDenom(c, baseChain.getChain(), itemFeeDenom);
-        WDp.DpMainDenom(c, baseChain.getChain(), itemFeeUsedDenom);
-        WDp.DpMainDenom(c, baseChain.getChain(), itemFeeLimitDenom);
-        final int dpDecimal = WDp.mainDivideDecimal(baseChain);
+    public void onBindCommon(TxDetailgRPCActivity c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response) {
         if (response.getTxResponse().getCode() != 0) {
-            itemStatusImg.setImageDrawable(c.getDrawable(R.drawable.fail_ic));
+            itemStatusImg.setImageResource(R.drawable.fail_ic);
             itemStatusTxt.setText(R.string.str_failed_c);
             itemFailTxt.setVisibility(View.VISIBLE);
             itemFailTxt.setText(response.getTxResponse().getRawLog());
         } else {
-            itemStatusImg.setImageDrawable(c.getDrawable(R.drawable.success_ic));
+            itemStatusImg.setImageResource(R.drawable.success_ic);
             itemStatusTxt.setText(R.string.str_success_c);
         }
+
         itemHeight.setText("" + response.getTxResponse().getHeight());
         itemMsgCnt.setText("" + response.getTx().getBody().getMessagesCount());
-        itemGas.setText(String.format("%s / %s", ""+response.getTxResponse().getGasUsed() , ""+response.getTxResponse().getGasWanted()));
-        itemFee.setText(WDp.getDpAmount2(c, WDp.onParseFee(response), dpDecimal, dpDecimal));
-        itemFeeLayer.setVisibility(View.VISIBLE);
+        itemGas.setText(String.format("%s / %s", "" + response.getTxResponse().getGasUsed() , "" + response.getTxResponse().getGasWanted()));
         itemTime.setText(WDp.getTimeTxformat(c, response.getTxResponse().getTimestamp()));
         itemTimeGap.setText(WDp.getTimeTxGap(c, response.getTxResponse().getTimestamp()));
+        itemFeeLayer.setVisibility(View.VISIBLE);
+        WDp.setDpCoin(c, baseData, chainConfig, WDp.onParseFee(chainConfig, response), itemFeeDenom, itemFee);
         itemHash.setText(response.getTxResponse().getTxhash());
         itemMemo.setText(response.getTx().getBody().getMemo());
     }

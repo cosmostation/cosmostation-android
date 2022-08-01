@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -78,7 +77,11 @@ public class SwapCoinListDialog extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, @SuppressLint("RecyclerView") int position) {
+        public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, int position) {
+            onBindSwapListItemViewHolder(holder, position);
+        }
+
+        private void onBindSwapListItemViewHolder(SwapChainHolder holder, int position) {
             final String inputCoin = mSwapCoinList.get(position);
             WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.coinImg);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.coinName);

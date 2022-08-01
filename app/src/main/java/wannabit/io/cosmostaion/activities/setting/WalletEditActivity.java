@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -124,7 +125,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
             final ChainConfig chainConfig = ChainFactory.getChain(chain);
             holder.chainTokenImg.setImageResource(chainConfig.chainImg());
             holder.chainName.setText(chainConfig.chainTitleToUp());
-            holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
+            holder.chainCard.setCardBackgroundColor(ContextCompat.getColor(WalletEditActivity.this, chainConfig.chainBgColor()));
 
             holder.chainRemoveImg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -218,7 +219,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
             final ChainConfig chainConfig = ChainFactory.getChain(chain);
             holder.chainTokenImg.setImageResource(chainConfig.chainImg());
             holder.chainName.setText(chainConfig.chainTitleToUp());
-            holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
+            holder.chainCard.setCardBackgroundColor(ContextCompat.getColor(WalletEditActivity.this, chainConfig.chainBgColor()));
 
             holder.chainAddImg.setOnClickListener(new View.OnClickListener() {
                 @Override

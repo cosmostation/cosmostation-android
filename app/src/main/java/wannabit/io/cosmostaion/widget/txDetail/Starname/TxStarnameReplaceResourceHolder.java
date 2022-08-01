@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.widget.txDetail;
+package wannabit.io.cosmostaion.widget.txDetail.Starname;
 
 import android.content.Context;
 import android.view.View;
@@ -14,9 +14,10 @@ import cosmos.tx.v1beta1.ServiceOuterClass;
 import starnamed.x.starname.v1beta1.Tx;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxStarnameReplaceResourceHolder extends TxHolder {
     ImageView itemMsgImg;
@@ -32,7 +33,7 @@ public class TxStarnameReplaceResourceHolder extends TxHolder {
         itemAddressCnt = itemView.findViewById(R.id.tx_address_cnt);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         try {
             Tx.MsgReplaceAccountResources msg = Tx.MsgReplaceAccountResources.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemStarname.setText(msg.getName() + "*" + msg.getDomain());

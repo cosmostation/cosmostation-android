@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -107,7 +108,7 @@ public class WalletSwitchActivity extends BaseActivity {
             final ChainHolder holder = (ChainHolder) viewHolder;
             final ChainAccounts data = mChainAccounts.get(position);
             final ChainConfig chainConfig = ChainFactory.getChain(data.baseChain);
-            holder.accountCard.setCardBackgroundColor(WDp.getChainBgColor(WalletSwitchActivity.this, data.baseChain));
+            holder.accountCard.setCardBackgroundColor(ContextCompat.getColor(WalletSwitchActivity.this, chainConfig.chainBgColor()));
             holder.accountChainImg.setImageResource(chainConfig.chainImg());
             holder.accountChainName.setText(chainConfig.chainTitleToUp());
             holder.accountWalletCnt.setText("" + data.accounts.size());

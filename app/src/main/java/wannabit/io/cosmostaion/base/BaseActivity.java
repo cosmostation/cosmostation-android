@@ -101,7 +101,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
-import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
+import wannabit.io.cosmostaion.activities.txs.common.IBCSendActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -73,7 +72,11 @@ public class StarnameDomainDialog extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull DomainListHolder holder, @SuppressLint("RecyclerView") int position) {
+        public void onBindViewHolder(@NonNull DomainListHolder holder, int position) {
+            onBindDomainItemViewHolder(holder, position);
+        }
+
+        private void onBindDomainItemViewHolder(DomainListHolder holder, int position) {
             final String domain = mStarnameDomain.get(position);
             holder.domainName.setText(domain);
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {

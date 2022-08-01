@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
+import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
 
 public class MnemonicDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -133,7 +133,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             bundle.putInt("title", R.string.str_change_mnemonic_nickname);
             bundle.putLong("id", mWords.id);
             bundle.putString("name", mWords.getName());
-            Dialog_ChangeNickName delete = Dialog_ChangeNickName.newInstance(bundle);
+            ChangeNickNameDialog delete = ChangeNickNameDialog.newInstance(bundle);
             delete.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
 

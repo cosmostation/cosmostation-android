@@ -125,7 +125,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         TextView tabItemText = tab.findViewById(R.id.tabItemText);
         tabItemText.setText(stringResourceId);
         tabItemText.setTextColor(ContextCompat.getColorStateList(this, chainConfig.chainTabColor()));
-        mDappTapLayer.getTabAt(0).setCustomView(tab);
+        mDappTapLayer.getTabAt(index).setCustomView(tab);
 
         mDappTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, chainConfig.chainColor()));
         mDappTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, chainConfig.chainColor()));

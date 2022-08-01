@@ -3,19 +3,18 @@ package wannabit.io.cosmostaion.widget.txDetail;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -36,8 +35,8 @@ public class TxTransferHolder extends TxHolder {
         itemAmountDenom = itemView.findViewById(R.id.tx_transfer_amount_symbol);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemSendReceiveImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
+        itemSendReceiveImg.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
 
         try {
             cosmos.bank.v1beta1.Tx.MsgSend msg = cosmos.bank.v1beta1.Tx.MsgSend.parseFrom(response.getTx().getBody().getMessages(position).getValue());
@@ -53,7 +52,7 @@ public class TxTransferHolder extends TxHolder {
             for (CoinOuterClass.Coin coin: msg.getAmountList()) {
                 toDpCoin.add(new Coin(coin.getDenom(), coin.getAmount()));
             }
-            WDp.showCoinDp(c, baseData, toDpCoin.get(0), itemAmountDenom, itemAmount, baseChain);
+            WDp.setDpCoin(c, baseData, chainConfig, toDpCoin.get(0), itemAmountDenom, itemAmount);
         } catch (Exception e) {}
     }
 }

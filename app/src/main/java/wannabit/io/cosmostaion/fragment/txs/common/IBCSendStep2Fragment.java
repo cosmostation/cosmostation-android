@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.ibc;
+package wannabit.io.cosmostaion.fragment.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 
@@ -23,7 +23,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
+import wannabit.io.cosmostaion.activities.txs.common.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;

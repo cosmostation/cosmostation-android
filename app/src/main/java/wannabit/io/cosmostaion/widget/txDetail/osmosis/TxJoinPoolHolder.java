@@ -2,14 +2,11 @@ package wannabit.io.cosmostaion.widget.txDetail.osmosis;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,22 +14,20 @@ import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxJoinPoolHolder extends TxHolder {
-    ImageView       itemJoinPoolImg;
     TextView        itemJoinSender, itemJoinPoolId,
                     itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount;
     LinearLayout    itemJoinPoolTokenLayout2;
 
     public TxJoinPoolHolder(@NonNull View itemView) {
         super(itemView);
-        itemJoinPoolImg = itemView.findViewById(R.id.tx_join_pool_icon);
         itemJoinSender = itemView.findViewById(R.id.tx_join_pool_sender);
         itemJoinPoolId = itemView.findViewById(R.id.tx_join_pool_id);
         itemJoinPoolTokenInSymbol1 = itemView.findViewById(R.id.tx_token_in_symbol1);
@@ -44,9 +39,7 @@ public class TxJoinPoolHolder extends TxHolder {
         itemJoinPoolTokenLayout2 = itemView.findViewById(R.id.token_in_layer2);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemJoinPoolImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         if (response.getTx().getBody().getMessages(position).getTypeUrl().contains("MsgJoinPool")) {
             itemJoinPoolTokenLayout2.setVisibility(View.VISIBLE);
             try {
@@ -84,8 +77,8 @@ public class TxJoinPoolHolder extends TxHolder {
                     }
                 }
                 if (inCoin0 != null && inCoin1 != null) {
-                    WDp.showCoinDp(c, baseData, inCoin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, baseChain);
-                    WDp.showCoinDp(c, baseData, inCoin1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, baseChain);
+                    WDp.setDpCoin(c, baseData, chainConfig, inCoin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1);
+                    WDp.setDpCoin(c, baseData, chainConfig, inCoin1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2);
                 } else {
                     itemJoinPoolTokenInAmount1.setText("");
                     itemJoinPoolTokenInSymbol1.setText("");
@@ -93,7 +86,7 @@ public class TxJoinPoolHolder extends TxHolder {
                     itemJoinPoolTokenInSymbol2.setText("");
                 }
                 if (outCoin != null) {
-                    WDp.showCoinDp(c, baseData, outCoin, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount, baseChain);
+                    WDp.setDpCoin(c, baseData, chainConfig, outCoin, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount);
                 } else {
                     itemJoinPoolTokenOutAmount.setText("");
                     itemJoinPoolTokenOutSymbol.setText("");
@@ -130,13 +123,13 @@ public class TxJoinPoolHolder extends TxHolder {
                     }
                 }
                 if (inCoin0 != null) {
-                    WDp.showCoinDp(c, baseData, inCoin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, baseChain);
+                    WDp.setDpCoin(c, baseData, chainConfig, inCoin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1);
                 } else {
                     itemJoinPoolTokenInAmount1.setText("");
                     itemJoinPoolTokenInSymbol1.setText("");
                 }
                 if (outCoin != null) {
-                    WDp.showCoinDp(c, baseData, outCoin, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount, baseChain);
+                    WDp.setDpCoin(c, baseData, chainConfig, outCoin, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount);
                 } else {
                     itemJoinPoolTokenOutAmount.setText("");
                     itemJoinPoolTokenOutSymbol.setText("");

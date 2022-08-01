@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.widget.txDetail.osmosis;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,21 +13,18 @@ import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxTokenSwapHolder extends TxHolder {
-    ImageView itemSwapCoinImg;
     TextView itemSwapCoinType, itemSwapCoinSender, itemSwapCoinPoolId,
             itemSwapTokenInAmount, itemSwapTokenInAmountSymbol, itemSwapTokenOutAmount, itemSwapTokenOutAmountSymbol;
 
     public TxTokenSwapHolder(@NonNull View itemView) {
         super(itemView);
-        itemSwapCoinImg = itemView.findViewById(R.id.tx_swap_coin_icon);
         itemSwapCoinType = itemView.findViewById(R.id.tx_swap_coin_type);
         itemSwapCoinSender = itemView.findViewById(R.id.tx_swap_coin_sender);
         itemSwapCoinPoolId = itemView.findViewById(R.id.tx_swap_coin_pool_id);
@@ -38,8 +34,7 @@ public class TxTokenSwapHolder extends TxHolder {
         itemSwapTokenOutAmountSymbol = itemView.findViewById(R.id.tx_swap_token_out_amount_symbol);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemSwapCoinImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         if (response.getTx().getBody().getMessages(position).getTypeUrl().contains("MsgSwapExactAmountIn")) {
             try {
                 Tx.MsgSwapExactAmountIn msg = Tx.MsgSwapExactAmountIn.parseFrom(response.getTx().getBody().getMessages(position).getValue());
@@ -67,7 +62,7 @@ public class TxTokenSwapHolder extends TxHolder {
                     }
                 }
                 if (inCoin != null) {
-                    WDp.showCoinDp(c, baseData, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain );
+                    WDp.setDpCoin(c, baseData, chainConfig, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount );
                 } else {
                     itemSwapTokenInAmount.setText("");
                     itemSwapTokenInAmountSymbol.setText("");
@@ -91,7 +86,7 @@ public class TxTokenSwapHolder extends TxHolder {
                     }
                 }
                 if (outCoin != null) {
-                    WDp.showCoinDp(c, baseData, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
+                    WDp.setDpCoin(c, baseData, chainConfig, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount);
                 } else {
                     itemSwapTokenOutAmount.setText("");
                     itemSwapTokenOutAmountSymbol.setText("");
@@ -126,7 +121,7 @@ public class TxTokenSwapHolder extends TxHolder {
                     }
                 }
                 if (inCoin != null) {
-                    WDp.showCoinDp(c, baseData, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain);
+                    WDp.setDpCoin(c, baseData, chainConfig, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount);
                 } else {
                     itemSwapTokenInAmount.setText("");
                     itemSwapTokenInAmountSymbol.setText("");
@@ -150,7 +145,7 @@ public class TxTokenSwapHolder extends TxHolder {
                     }
                 }
                 if (outCoin != null) {
-                    WDp.showCoinDp(c, baseData, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
+                    WDp.setDpCoin(c, baseData, chainConfig, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount);
                 } else {
                     itemSwapTokenOutAmount.setText("");
                     itemSwapTokenOutAmountSymbol.setText("");

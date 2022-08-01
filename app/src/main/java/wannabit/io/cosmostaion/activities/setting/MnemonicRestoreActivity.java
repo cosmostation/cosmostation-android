@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.activities.setting;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -345,7 +344,11 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MnemonicHolder holder, @SuppressLint("RecyclerView") final int position) {
+        public void onBindViewHolder(@NonNull MnemonicHolder holder, int position) {
+            onBindMnemonicItemViewHolder(holder, position);
+        }
+
+        private void onBindMnemonicItemViewHolder(MnemonicHolder holder, int position) {
             holder.itemMnemonic.setText(mFilteredMnemonic.get(position));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override

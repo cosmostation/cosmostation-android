@@ -2,12 +2,10 @@ package wannabit.io.cosmostaion.widget.txDetail.osmosis;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,21 +13,18 @@ import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxExitPoolHolder extends TxHolder {
-    ImageView itemExitPoolImg;
     TextView itemExitSender, itemExitPoolId,
             itemExitPoolTokenOutSymbol1, itemExitPoolTokenOutAmount1, itemExitPoolTokenOutSymbol2, itemExitPoolTokenOutAmount2, itemExitPoolTokenInSymbol, itemExitPoolTokenInAmount;
 
     public TxExitPoolHolder(@NonNull View itemView) {
         super(itemView);
-        itemExitPoolImg = itemView.findViewById(R.id.tx_exit_pool_icon);
         itemExitSender = itemView.findViewById(R.id.tx_exit_pool_sender);
         itemExitPoolId = itemView.findViewById(R.id.tx_exit_pool_id);
         itemExitPoolTokenOutSymbol1 = itemView.findViewById(R.id.tx_token_out_symbol1);
@@ -40,9 +35,7 @@ public class TxExitPoolHolder extends TxHolder {
         itemExitPoolTokenInAmount = itemView.findViewById(R.id.tx_exit_token_in_amount);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemExitPoolImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         try {
             Tx.MsgExitPool msg = Tx.MsgExitPool.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemExitSender.setText(msg.getSender());
@@ -78,8 +71,8 @@ public class TxExitPoolHolder extends TxHolder {
                 }
             }
             if (outCoin0 != null && outCoin1 != null) {
-                WDp.showCoinDp(c, baseData, outCoin0, itemExitPoolTokenOutSymbol1, itemExitPoolTokenOutAmount1, baseChain);
-                WDp.showCoinDp(c, baseData, outCoin1, itemExitPoolTokenOutSymbol2, itemExitPoolTokenOutAmount2, baseChain);
+                WDp.setDpCoin(c, baseData, chainConfig, outCoin0, itemExitPoolTokenOutSymbol1, itemExitPoolTokenOutAmount1);
+                WDp.setDpCoin(c, baseData, chainConfig, outCoin1, itemExitPoolTokenOutSymbol2, itemExitPoolTokenOutAmount2);
             } else {
                 itemExitPoolTokenOutAmount1.setText("");
                 itemExitPoolTokenOutSymbol1.setText("");
@@ -87,7 +80,7 @@ public class TxExitPoolHolder extends TxHolder {
                 itemExitPoolTokenOutSymbol2.setText("");
             }
             if (inCoin != null) {
-                WDp.showCoinDp(c, baseData, inCoin, itemExitPoolTokenInSymbol, itemExitPoolTokenInAmount, baseChain);
+                WDp.setDpCoin(c, baseData, chainConfig, inCoin, itemExitPoolTokenInSymbol, itemExitPoolTokenInAmount);
             } else {
                 itemExitPoolTokenInAmount.setText("");
                 itemExitPoolTokenInSymbol.setText("");

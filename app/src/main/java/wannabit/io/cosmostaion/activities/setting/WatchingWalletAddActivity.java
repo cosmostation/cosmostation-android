@@ -44,7 +44,6 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watching_wallet_add);
-
         mToolbar        = findViewById(R.id.tool_bar);
         mInput          = findViewById(R.id.et_address);
         mCancel         = findViewById(R.id.btn_cancel);
@@ -106,7 +105,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-            if(clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
+            if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
                 if(TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
@@ -125,8 +124,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
 
     public void onGenNewAccount(BaseChain chain, String address) {
         onShowWaitDialog();
-        new GenerateEmptyAccountTask(getBaseApplication(), WatchingWalletAddActivity.this).execute(chain.getChain(), address);
-
+        new GenerateEmptyAccountTask(getBaseApplication(), this).execute(chain.getChain(), address);
     }
 
     @Override
@@ -150,7 +148,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
+        if (result != null) {
             if(result.getContents() != null) {
                 mInput.setText(result.getContents().trim());
                 mInput.setSelection(mInput.getText().length());

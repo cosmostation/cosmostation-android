@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,10 +28,10 @@ import desmos.profiles.v1beta1.ModelsProfile;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.ProfileInfoGrpcTask;
-import wannabit.io.cosmostaion.utils.WDp;
 
 public class ProfileDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -130,7 +131,7 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
 
         @Override
         public void onBindViewHolder(@NonNull ProfileHolder profileHolder, int position) {
-            profileHolder.card_root.setCardBackgroundColor(WDp.getChainBgColor(ProfileDetailActivity.this, mBaseChain));
+            profileHolder.card_root.setCardBackgroundColor(ContextCompat.getColor(ProfileDetailActivity.this, ChainFactory.getChain(mBaseChain).chainBgColor()));
             if (mProfile != null) {
                 profileHolder.profile_nickname.setText(mProfile.getNickname());
                 profileHolder.profile_bio.setText(mProfile.getBio());

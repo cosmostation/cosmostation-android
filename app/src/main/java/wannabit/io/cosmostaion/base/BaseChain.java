@@ -301,7 +301,6 @@ public enum BaseChain {
         result.add(UMEE_MAIN);
         result.add(STATION_TEST);
 
-//        result.add(ALTHEA_MAIN);
         return result;
     }
 

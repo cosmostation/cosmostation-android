@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.widget.txDetail.sif;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,21 +13,19 @@ import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import sifnode.clp.v1.Tx;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxSwapHolder extends TxHolder {
-    ImageView   itemSwapImg;
     TextView    itemSwapSigner,
                 itemSwapSendAssetAmount, itemSwapSendAssetSymbol, itemSwapReceiveAssetlAmount, itemSwapReceiveAssetSymbol;
 
     public TxSwapHolder(@NonNull View itemView) {
         super(itemView);
-        itemSwapImg                  = itemView.findViewById(R.id.tx_swap_icon);
         itemSwapSigner               = itemView.findViewById(R.id.tx_swap_signer);
         itemSwapSendAssetAmount      = itemView.findViewById(R.id.tx_swap_send_asset_amount);
         itemSwapSendAssetSymbol      = itemView.findViewById(R.id.tx_swap_send_asset_symbol);
@@ -36,9 +33,7 @@ public class TxSwapHolder extends TxHolder {
         itemSwapReceiveAssetSymbol   = itemView.findViewById(R.id.tx_swap_received_asset_symbol);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemSwapImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         try {
             Tx.MsgSwap msg = sifnode.clp.v1.Tx.MsgSwap.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemSwapSigner.setText(msg.getSigner());
@@ -69,8 +64,8 @@ public class TxSwapHolder extends TxHolder {
                 }
             }
             if (sendCoin != null && receiveCoin != null) {
-                WDp.showCoinDp(c, baseData, sendCoin, itemSwapSendAssetSymbol, itemSwapSendAssetAmount, baseChain);
-                WDp.showCoinDp(c, baseData, receiveCoin, itemSwapReceiveAssetSymbol, itemSwapReceiveAssetlAmount, baseChain);
+                WDp.setDpCoin(c, baseData, chainConfig, sendCoin, itemSwapSendAssetSymbol, itemSwapSendAssetAmount);
+                WDp.setDpCoin(c, baseData, chainConfig, receiveCoin, itemSwapReceiveAssetSymbol, itemSwapReceiveAssetlAmount);
             } else {
                 itemSwapSendAssetAmount.setText("");
                 itemSwapSendAssetSymbol.setText("");

@@ -29,6 +29,7 @@
                     android:id="@+id/tx_swap_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:tint="@color/color_sif"
                     android:src="@drawable/icon_postprice"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -73,9 +74,11 @@
                     android:layout_toRightOf="@+id/tx_swap_send_asset_title">
                     <TextView
                         android:id="@+id/tx_swap_send_asset_symbol"
-                        android:layout_width="@dimen/space_60"
+                        android:layout_width="@dimen/space_50"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:gravity="end"
                         style="@style/font_ss_12_black_daynight"/>
                     <TextView
@@ -105,10 +108,12 @@
                     android:layout_toRightOf="@+id/tx_swap_received_asset_title">
                     <TextView
                         android:id="@+id/tx_swap_received_asset_symbol"
-                        android:layout_width="@dimen/space_60"
+                        android:layout_width="@dimen/space_50"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="end"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:text=""
                         style="@style/font_ss_12_black_daynight"/>
                     <TextView

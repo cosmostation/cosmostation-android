@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.widget;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class HistoryNewHolder extends BaseHolder {
     private CardView historyRoot;
-    private RelativeLayout historyLayout;
     private TextView historyType, historySuccess, history_time, history_amount, history_amount_symbol, history_time_gap;
 
     public HistoryNewHolder(@NonNull @NotNull View itemView) {
@@ -32,7 +30,6 @@ public class HistoryNewHolder extends BaseHolder {
         historySuccess                  = itemView.findViewById(R.id.history_success);
         history_time                    = itemView.findViewById(R.id.history_time);
         history_time_gap                = itemView.findViewById(R.id.history_time_gap);
-        historyLayout                   = itemView.findViewById(R.id.history_amount_layout);
         history_amount                  = itemView.findViewById(R.id.history_amount);
         history_amount_symbol           = itemView.findViewById(R.id.history_amount_symobl);
     }
@@ -56,7 +53,8 @@ public class HistoryNewHolder extends BaseHolder {
             history_amount.setVisibility(View.GONE);
 
         } else {
-            historyLayout.setVisibility(View.INVISIBLE);
+            history_amount_symbol.setVisibility(View.INVISIBLE);
+            history_amount.setVisibility(View.INVISIBLE);
         }
 
         if (history.isSuccess()) {

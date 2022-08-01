@@ -7,14 +7,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -52,10 +52,8 @@ public class TxReDelegateHolder extends TxHolder {
         itemCommissionDenom3 = itemView.findViewById(R.id.tx_commission_symbol3);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        WDp.DpMainDenom(c, baseChain.getChain(), itemReDelegateAmountDenom);
-        final int dpDecimal = WDp.mainDivideDecimal(baseChain);
-        itemRedelegateImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
+        itemRedelegateImg.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
 
         try {
             cosmos.staking.v1beta1.Tx.MsgBeginRedelegate msg = cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.parseFrom(response.getTx().getBody().getMessages(position).getValue());
@@ -64,24 +62,24 @@ public class TxReDelegateHolder extends TxHolder {
             itemToValidator.setText(msg.getValidatorDstAddress());
             itemFromMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorSrcAddress()).getDescription().getMoniker() + ")");
             itemToMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorDstAddress()).getDescription().getMoniker() + ")");
-            itemRedelegateAmount.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getAmount().getAmount()), dpDecimal, dpDecimal));
+            WDp.setDpCoin(c, baseData, chainConfig, msg.getAmount().getDenom(), msg.getAmount().getAmount(), itemReDelegateAmountDenom, itemRedelegateAmount);
 
             ArrayList<Coin> commissionCoins = WDp.onParseAutoReward(response, address, position);
             if (commissionCoins.size() > 0) {
                 commission0Layer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, baseData, commissionCoins.get(0), itemCommissionDenom0, itemCommissionAmount0, baseChain);
+                WDp.setDpCoin(c, baseData, chainConfig, commissionCoins.get(0), itemCommissionDenom0, itemCommissionAmount0);
             }
             if (commissionCoins.size() > 1) {
                 commission1Layer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, baseData, commissionCoins.get(1), itemCommissionDenom1, itemCommissionAmount1, baseChain);
+                WDp.setDpCoin(c, baseData, chainConfig, commissionCoins.get(1), itemCommissionDenom1, itemCommissionAmount1);
             }
             if (commissionCoins.size() > 2) {
                 commission2Layer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, baseData, commissionCoins.get(2), itemCommissionDenom2, itemCommissionAmount2, baseChain);
+                WDp.setDpCoin(c, baseData, chainConfig, commissionCoins.get(2), itemCommissionDenom2, itemCommissionAmount2);
             }
             if (commissionCoins.size() > 3) {
                 commission3Layer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, baseData, commissionCoins.get(3), itemCommissionDenom3, itemCommissionAmount3, baseChain);
+                WDp.setDpCoin(c, baseData, chainConfig, commissionCoins.get(3), itemCommissionDenom3, itemCommissionAmount3);
             }
 
         } catch (Exception e) {}
