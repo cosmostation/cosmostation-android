@@ -29,6 +29,7 @@
                     android:id="@+id/tx_add_liquidity_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:tint="@color/color_sif"
                     android:src="@drawable/icon_postprice"/>
                 <TextView
                     android:layout_width="wrap_content"

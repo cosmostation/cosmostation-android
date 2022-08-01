@@ -92,8 +92,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        mChainConfig = ChainFactory.getChain(getMainActivity().mBaseChain);
-
         if (isGRPC(getMainActivity().mBaseChain)) {
             mValidatorSize.setText("" + getBaseDao().mGRpcTopValidators.size());
         } else {
@@ -133,6 +131,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+            mChainConfig = getMainActivity().mChainConfig;
             final int dpDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom());
 
             if (isGRPC(getMainActivity().mBaseChain)) {

@@ -6,18 +6,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import irismod.nft.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 
 public class TxMintNFTHolder extends TxHolder {
     ImageView itemMintNFTImg;
@@ -33,10 +31,10 @@ public class TxMintNFTHolder extends TxHolder {
         itemMintNFTUri = itemView.findViewById(R.id.tx_mint_nft_url);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemMintNFTImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
+        itemMintNFTImg.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        if (baseChain.equals(IRIS_MAIN)) {
+        if (chainConfig.baseChain().equals(BaseChain.IRIS_MAIN)) {
             try {
                 Tx.MsgMintNFT msg = Tx.MsgMintNFT.parseFrom(response.getTx().getBody().getMessages(position).getValue());
                 itemMintNFTTokenId.setText(msg.getId());
@@ -45,7 +43,8 @@ public class TxMintNFTHolder extends TxHolder {
                 itemMintNFTDescription.setText(WUtil.getNftDescription(msg.getData()));
                 itemMintNFTUri.setText(msg.getUri());
             } catch (Exception e) { }
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
+
+        } else if (chainConfig.baseChain().equals(BaseChain.CRYPTO_MAIN)) {
             try {
                 chainmain.nft.v1.Tx.MsgMintNFT msg = chainmain.nft.v1.Tx.MsgMintNFT.parseFrom(response.getTx().getBody().getMessages(position).getValue());
                 itemMintNFTTokenId.setText(msg.getId());

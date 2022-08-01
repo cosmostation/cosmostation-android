@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -78,7 +77,11 @@ public class IBCReceiveChainDialog extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RelayerListHolder holder, @SuppressLint("RecyclerView") int position) {
+        public void onBindViewHolder(@NonNull RelayerListHolder holder, int position) {
+            onBindIbcReceiveChainItemViewHoler(holder, position);
+        }
+
+        private void onBindIbcReceiveChainItemViewHoler(RelayerListHolder holder, int position) {
             final IbcPath ibcPath = mIbcSendableRelayers.get(position);
             final BaseChain toChain = WDp.getChainTypeByChainId(ibcPath.chain_id);
             final ChainConfig chainConfig = ChainFactory.getChain(toChain);

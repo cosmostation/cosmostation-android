@@ -209,46 +209,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/tx_fee_limit_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/tx_fee_limit_title"
-                    style="@style/font_ss_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_tx_fee_limit" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_fee_limit_title">
-
-                    <TextView
-                        android:id="@+id/tx_fee_limit_symbol"
-                        style="@style/font_ss_12_iris"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="IRIS" />
-
-                    <TextView
-                        android:id="@+id/tx_limit_fee"
-                        style="@style/font_ss_12_black_daynight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_fee_limit_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:layout_toLeftOf="@+id/tx_fee_limit_symbol"
-                        android:singleLine="true"
-                        android:text="-" />
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/tx_block_time_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

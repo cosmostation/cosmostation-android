@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.widget.txDetail.kava;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,21 +13,19 @@ import cosmos.base.abci.v1beta1.Abci;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import kava.swap.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxKavaDepositPoolHolder extends TxHolder {
-    ImageView   itemDepositCoinImg;
     TextView    itemDepositCoinSender,
                 itemDepositTokenInAmount0, itemDepositTokenInSymbol0, itemDepositTokenInAmount1, itemDepositTokenInSymbol1;
 
     public TxKavaDepositPoolHolder(@NonNull View itemView) {
         super(itemView);
-        itemDepositCoinImg          = itemView.findViewById(R.id.tx_join_pool_icon);
         itemDepositCoinSender       = itemView.findViewById(R.id.tx_join_pool_sender);
         itemDepositTokenInAmount0   = itemView.findViewById(R.id.tx_token_in_amount1);
         itemDepositTokenInSymbol0   = itemView.findViewById(R.id.tx_token_in_symbol1);
@@ -36,9 +33,7 @@ public class TxKavaDepositPoolHolder extends TxHolder {
         itemDepositTokenInSymbol1   = itemView.findViewById(R.id.tx_token_in_symbol2);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemDepositCoinImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         try {
             Tx.MsgDeposit msg = Tx.MsgDeposit.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemDepositCoinSender.setText(msg.getDepositor());
@@ -69,8 +64,8 @@ public class TxKavaDepositPoolHolder extends TxHolder {
                 }
             }
             if (inCoin0 != null && inCoin1 != null) {
-                WDp.showCoinDp(c, baseData, inCoin0, itemDepositTokenInSymbol0, itemDepositTokenInAmount0, baseChain);
-                WDp.showCoinDp(c, baseData, inCoin1, itemDepositTokenInSymbol1, itemDepositTokenInAmount1, baseChain);
+                WDp.setDpCoin(c, baseData, chainConfig, inCoin0, itemDepositTokenInSymbol0, itemDepositTokenInAmount0);
+                WDp.setDpCoin(c, baseData, chainConfig, inCoin1, itemDepositTokenInSymbol1, itemDepositTokenInAmount1);
             } else {
                 itemDepositTokenInAmount0.setText("");
                 itemDepositTokenInSymbol0.setText("");

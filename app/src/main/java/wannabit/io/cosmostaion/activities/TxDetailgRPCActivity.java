@@ -35,31 +35,26 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameDeleteAccountHolder;
+import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameDeleteDomainHolder;
+import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameRegisterAccountHolder;
+import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameRegisterDomainHolder;
+import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameRenewHolder;
+import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameReplaceResourceHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommissionHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommonHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxReDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxSetAddressHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxStakingRewardHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxStarnameDeleteAccountHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxStarnameDeleteDomainHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxStarnameRegisterAccountHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxStarnameRegisterDomainHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxStarnameRenewHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxStarnameReplaceResourceHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxTransferHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxVoterHolder;
 import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxSaveProfileHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxExecuteContractHolder;
-import wannabit.io.cosmostaion.widget.txDetail.contract.TxInstantContractHolder;
-import wannabit.io.cosmostaion.widget.txDetail.contract.TxStoreContractHolder;
-import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
-import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
-import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
-import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxBorrowHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCdpLiquidateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCreateCdpHolder;
@@ -219,11 +214,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_ADDRESS_CHANGE = 6;
         private static final int TYPE_TX_VOTE = 7;
         private static final int TYPE_TX_COMMISSION = 8;
-
-        private static final int TYPE_TX_IBC_SEND = 20;
-        private static final int TYPE_TX_IBC_RECEIVE = 21;
-        private static final int TYPE_TX_IBC_UPDATE_CLIENT = 22;
-        private static final int TYPE_TX_IBC_ACKNOWLEDGE = 23;
+        private static final int TYPE_TX_IBC_SEND = 9;
 
         private static final int TYPE_STARNAME_REGISTER_DOMAIN = 30;
         private static final int TYPE_STARNAME_REGISTER_ACCOUNT = 31;
@@ -268,9 +259,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_KAVA_CDP_LIQUIDATE = 127;
         private static final int TYPE_TX_KAVA_HARD_LIQUIDATE = 128;
 
-        private static final int TYPE_TX_STORE_CONTRACT = 141;
-        private static final int TYPE_TX_INSTANT_CONTRACT = 142;
-        private static final int TYPE_TX_EXECUTE_CONTRACT = 143;
+        private static final int TYPE_TX_EXECUTE_CONTRACT = 140;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -308,15 +297,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             else if (viewType == TYPE_TX_IBC_SEND) {
                 return new TxIBCSendHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_send, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_IBC_RECEIVE) {
-                return new TxIBCReceiveHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_receive, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_IBC_UPDATE_CLIENT) {
-                return new TxIBCUpdateClientHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_update_client, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_IBC_ACKNOWLEDGE) {
-                return new TxIBCAcknowledgeHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_acknowledge, viewGroup, false));
 
             }
 
@@ -445,13 +425,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             }
 
             // wasm
-            else if (viewType == TYPE_TX_STORE_CONTRACT) {
-                return new TxStoreContractHolder(getLayoutInflater().inflate(R.layout.item_tx_store_contract, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_INSTANT_CONTRACT) {
-                return new TxInstantContractHolder(getLayoutInflater().inflate(R.layout.item_tx_instant_contract, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_EXECUTE_CONTRACT) {
+            else if (viewType == TYPE_TX_EXECUTE_CONTRACT) {
                 return new TxExecuteContractHolder(getLayoutInflater().inflate(R.layout.item_tx_execute_contract, viewGroup, false));
 
             }
@@ -463,11 +437,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             if (position == 0) {
                 final TxCommonHolder viewHolder = (TxCommonHolder)holder;
-                viewHolder.onBindCommon(TxDetailgRPCActivity.this, getBaseDao(),  mBaseChain, mResponse, mIsGen);
+                viewHolder.onBindCommon(TxDetailgRPCActivity.this, getBaseDao(), mChainConfig, mResponse);
 
             } else {
                 final TxHolder viewHolder = (TxHolder)holder;
-                viewHolder.onBindMsg(getBaseContext(), getBaseDao(),  mBaseChain, mResponse, position - 1, mAccount.address, mIsGen);
+                viewHolder.onBindMsg(getBaseContext(), getBaseDao(), mChainConfig, mResponse, position - 1, mAccount.address);
             }
         }
 
@@ -506,12 +480,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
                 else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
                     return TYPE_TX_IBC_SEND;
-                } else if (msg.getTypeUrl().contains(ibc.core.channel.v1.Tx.MsgRecvPacket.getDescriptor().getFullName())) {
-                    return TYPE_TX_IBC_RECEIVE;
-                } else if (msg.getTypeUrl().contains(ibc.core.client.v1.Tx.MsgUpdateClient.getDescriptor().getFullName())) {
-                    return TYPE_TX_IBC_UPDATE_CLIENT;
-                } else if (msg.getTypeUrl().contains(ibc.core.channel.v1.Tx.MsgAcknowledgement.getDescriptor().getFullName())) {
-                    return TYPE_TX_IBC_ACKNOWLEDGE;
                 }
 
                 else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.getDescriptor().getFullName())) {
@@ -608,11 +576,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_HARD_LIQUIDATE;
                 }
 
-                else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgStoreCode.getDescriptor().getFullName())) {
-                    return TYPE_TX_STORE_CONTRACT;
-                } else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgInstantiateContract.getDescriptor().getFullName())) {
-                    return TYPE_TX_INSTANT_CONTRACT;
-                } else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgExecuteContract.getDescriptor().getFullName())) {
+                else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgExecuteContract.getDescriptor().getFullName())) {
                     return TYPE_TX_EXECUTE_CONTRACT;
                 }
                 return TYPE_TX_UNKNOWN;

@@ -461,9 +461,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemFeeUsedLayer = itemView.findViewById(R.id.tx_fee_used_layer);
                 itemFeeUsed = itemView.findViewById(R.id.tx_used_fee);
                 itemFeeUsedDenom = itemView.findViewById(R.id.tx_fee_used_symbol);
-                itemFeeLimitLayer = itemView.findViewById(R.id.tx_fee_limit_layer);
-                itemFeeLimit = itemView.findViewById(R.id.tx_limit_fee);
-                itemFeeLimitDenom = itemView.findViewById(R.id.tx_fee_limit_symbol);
+//                itemFeeLimitLayer = itemView.findViewById(R.id.tx_fee_limit_layer);
+//                itemFeeLimit = itemView.findViewById(R.id.tx_limit_fee);
+//                itemFeeLimitDenom = itemView.findViewById(R.id.tx_fee_limit_symbol);
             }
         }
 

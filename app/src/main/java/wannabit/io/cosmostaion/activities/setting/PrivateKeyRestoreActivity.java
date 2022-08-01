@@ -41,7 +41,6 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_key_restore);
-
         mToolbar        = findViewById(R.id.tool_bar);
         mInput          = findViewById(R.id.et_address);
         mCancel         = findViewById(R.id.btn_cancel);

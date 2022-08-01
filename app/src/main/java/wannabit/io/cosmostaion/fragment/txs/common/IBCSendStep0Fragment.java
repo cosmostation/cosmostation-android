@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.ibc;
+package wannabit.io.cosmostaion.fragment.txs.common;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
+import wannabit.io.cosmostaion.activities.txs.common.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;

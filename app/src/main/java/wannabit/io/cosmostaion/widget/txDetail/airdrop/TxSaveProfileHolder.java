@@ -10,9 +10,8 @@ import androidx.annotation.NonNull;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import desmos.profiles.v1beta1.MsgsProfile;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxSaveProfileHolder extends TxHolder {
@@ -29,9 +28,7 @@ public class TxSaveProfileHolder extends TxHolder {
         itemSaveProfileCoverUrl     = itemView.findViewById(R.id.tx_save_profile_cover_url);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemSaveProfileImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         try {
             MsgsProfile.MsgSaveProfile msg = MsgsProfile.MsgSaveProfile.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemSaveProfileDtag.setText(msg.getDtag());
@@ -39,7 +36,6 @@ public class TxSaveProfileHolder extends TxHolder {
             itemSaveProfileBio.setText(msg.getBio());
             itemSaveProfileUrl.setText(msg.getProfilePicture());
             itemSaveProfileCoverUrl.setText(msg.getCoverPicture());
-
         } catch (Exception e) { }
     }
 }

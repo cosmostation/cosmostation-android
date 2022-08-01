@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.starname;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -156,48 +155,55 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, @SuppressLint("RecyclerView") int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_RESOURCE) {
-                final Types.Resource resource = mResources.get(position);
-                final ResourceHolder holder = (ResourceHolder)viewHolder;
-                Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.getUri())).fit().into(holder.itemChainImg);
-                holder.itemChainName.setText(StarnameAssets.getStarNameChainName(resource.getUri()));
-                holder.itemChainAddress.setText(resource.getResource());
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
-                        intent.putExtra("resource", resource.toByteArray());
-                        startActivityForResult(intent, SELECT_ADD_ADDRESS);
-                        getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-                    }
-                });
-
-                if (mResources.size() <= 1) { holder.itemBtnRemove.setVisibility(View.GONE); }
-                else { holder.itemBtnRemove.setVisibility(View.VISIBLE); }
-
-                holder.itemBtnRemove.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mResources.remove(position);
-                        mResourceAdapter.notifyDataSetChanged();
-                    }
-                });
-
+                onBindResourceItemViewHolder(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_ADD) {
-                final ResourceAddHolder holder = (ResourceAddHolder)viewHolder;
-                holder.itemBtnAdd.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
-                        bundle.putSerializable("resources", wrapper);
-                        StarnameResourceDialog dialog = StarnameResourceDialog.newInstance(bundle);
-                        dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_CHAIN);
-                        dialog.show(getFragmentManager(), "dialog");
-                    }
-                });
+                onBindAddItemViewHolder(viewHolder);
             }
+        }
+
+        private void onBindResourceItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+            final Types.Resource resource = mResources.get(position);
+            final ResourceHolder holder = (ResourceHolder)viewHolder;
+            Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.getUri())).fit().into(holder.itemChainImg);
+            holder.itemChainName.setText(StarnameAssets.getStarNameChainName(resource.getUri()));
+            holder.itemChainAddress.setText(resource.getResource());
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
+                    intent.putExtra("resource", resource.toByteArray());
+                    startActivityForResult(intent, SELECT_ADD_ADDRESS);
+                    getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                }
+            });
+
+            if (mResources.size() <= 1) { holder.itemBtnRemove.setVisibility(View.GONE); }
+            else { holder.itemBtnRemove.setVisibility(View.VISIBLE); }
+
+            holder.itemBtnRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mResources.remove(position);
+                    mResourceAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
+        private void onBindAddItemViewHolder(RecyclerView.ViewHolder viewHolder) {
+            final ResourceAddHolder holder = (ResourceAddHolder)viewHolder;
+            holder.itemBtnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
+                    bundle.putSerializable("resources", wrapper);
+                    StarnameResourceDialog dialog = StarnameResourceDialog.newInstance(bundle);
+                    dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_CHAIN);
+                    dialog.show(getFragmentManager(), "dialog");
+                }
+            });
         }
 
         @Override

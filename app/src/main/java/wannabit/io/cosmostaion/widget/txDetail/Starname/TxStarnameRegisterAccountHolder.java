@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.widget.txDetail;
+package wannabit.io.cosmostaion.widget.txDetail.Starname;
 
 import android.content.Context;
 import android.view.View;
@@ -14,7 +14,9 @@ import starnamed.x.starname.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxStarnameRegisterAccountHolder extends TxHolder {
     ImageView itemMsgImg;
@@ -31,7 +33,7 @@ public class TxStarnameRegisterAccountHolder extends TxHolder {
         itemStarnameFee = itemView.findViewById(R.id.tx_starname_fee_amount);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         try {
             Tx.MsgRegisterAccount msg = Tx.MsgRegisterAccount.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemStarname.setText(msg.getName() + "*" + msg.getDomain());

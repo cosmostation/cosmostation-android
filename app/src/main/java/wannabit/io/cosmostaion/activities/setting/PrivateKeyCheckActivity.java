@@ -55,9 +55,9 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
         mOk.setOnClickListener(this);
 
         mAccount = getBaseDao().onSelectAccount("" + getIntent().getLongExtra("checkid", -1));
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
-        mCardView.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainColor()));
+        mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain));
+        mCardView.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
+
         onUpdateView();
     }
 

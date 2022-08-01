@@ -20,15 +20,15 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountDetailActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 
-public class Dialog_ChangeNickName extends DialogFragment {
+public class ChangeNickNameDialog extends DialogFragment {
 
     private TextView mDialogTitle;
     private Button btn_nega, btn_posi;
     private EditText mNameInput;
 
 
-    public static Dialog_ChangeNickName newInstance(Bundle bundle) {
-        Dialog_ChangeNickName frag = new Dialog_ChangeNickName();
+    public static ChangeNickNameDialog newInstance(Bundle bundle) {
+        ChangeNickNameDialog frag = new ChangeNickNameDialog();
         frag.setArguments(bundle);
         return frag;
     }

@@ -6,17 +6,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import irismod.nft.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 
 public class TxTransferNFTHolder extends TxHolder {
     ImageView itemSendNFTImg;
@@ -32,10 +30,10 @@ public class TxTransferNFTHolder extends TxHolder {
         itemSendNFTDenomId = itemView.findViewById(R.id.tx_send_nft_denom_id);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemSendNFTImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
+        itemSendNFTImg.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        if (baseChain.equals(IRIS_MAIN)) {
+        if (chainConfig.baseChain().equals(BaseChain.IRIS_MAIN)) {
             try {
                 Tx.MsgTransferNFT msg = Tx.MsgTransferNFT.parseFrom(response.getTx().getBody().getMessages(position).getValue());
                 if (address.equalsIgnoreCase(msg.getSender())) {
@@ -48,7 +46,8 @@ public class TxTransferNFTHolder extends TxHolder {
                 itemSendNFTTokenId.setText(msg.getId());
                 itemSendNFTDenomId.setText(msg.getDenomId());
             } catch (Exception e) { }
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
+
+        } else if (chainConfig.baseChain().equals(BaseChain.CRYPTO_MAIN)) {
             try {
                 chainmain.nft.v1.Tx.MsgTransferNFT msg = chainmain.nft.v1.Tx.MsgTransferNFT.parseFrom(response.getTx().getBody().getMessages(position).getValue());
                 if (address.equalsIgnoreCase(msg.getSender())) {

@@ -33,6 +33,7 @@
                     android:id="@+id/tx_swap_coin_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:tint="@color/color_kava"
                     android:src="@drawable/msgicon_kavaswap" />
 
                 <TextView

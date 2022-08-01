@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -74,7 +73,11 @@ public class IBCRelayerChannelDialog extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RelayerListAdapter.RelayerListHolder holder, @SuppressLint("RecyclerView") int position) {
+        public void onBindViewHolder(@NonNull RelayerListAdapter.RelayerListHolder holder, int position) {
+            onBindRelayerChannelItemViewHolder(holder, position);
+        }
+
+        private void onBindRelayerChannelItemViewHolder(RelayerListHolder holder, int position) {
             final IbcPath.Path path = mIbcSendablePaths.get(position);
             holder.channelTitle.setText(path.channel_id);
             if (path.auth == null) {

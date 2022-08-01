@@ -29,6 +29,7 @@
                     android:id="@+id/tx_unlock_token_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:tint="@color/color_osmosis"
                     android:src="@drawable/msgicon_miningunbond"/>
                 <TextView
                     android:id="@+id/tx_unlock_token_text"

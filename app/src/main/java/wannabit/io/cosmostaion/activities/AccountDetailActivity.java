@@ -34,7 +34,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.AccountShowDialog;
-import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
+import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
@@ -297,7 +297,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             bundle.putInt("title", R.string.str_change_account_nickname);
             bundle.putLong("id", mAccount.id);
             bundle.putString("name", mAccount.nickName);
-            Dialog_ChangeNickName delete = Dialog_ChangeNickName.newInstance(bundle);
+            ChangeNickNameDialog delete = ChangeNickNameDialog.newInstance(bundle);
             delete.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
 

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -80,7 +79,11 @@ public class HtlcSendCoinDialog extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ToSwapCoinHolder holder, @SuppressLint("RecyclerView") int position) {
+        public void onBindViewHolder(@NonNull ToSwapCoinHolder holder, int position) {
+            onBindBep3CoinItemViewHolder(holder, position);
+        }
+
+        private void onBindBep3CoinItemViewHolder(ToSwapCoinHolder holder, int position) {
             final String tosendCoin = mSwappableCoinList.get(position);
             if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 if (tosendCoin.equals(BaseConstant.TOKEN_HTLC_BINANCE_BNB)) {

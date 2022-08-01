@@ -306,6 +306,7 @@ public class WDp {
         setDpSymbol(c, baseData, chainConfig, denom, denomTv);
         int divideDecimal = 6;
         int displayDecimal = 6;
+
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null && ibcToken.auth) {
@@ -323,494 +324,6 @@ public class WDp {
             displayDecimal = getDenomDecimal(baseData, chainConfig, denom);
         }
         amountTv.setText(getDpAmount2(c, new BigDecimal(amount), divideDecimal, displayDecimal));
-    }
-
-    public static void showCoinDp(Context c, BaseData baseData, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
-        showCoinDp(c, baseData, coin.denom, coin.amount, denomTv, amountTv, chain);
-    }
-
-    public static void showCoinDp(Context c, BaseData baseData, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
-        if (isGRPC(chain) && symbol.startsWith("ibc")) {
-            IbcToken ibcToken = baseData.getIbcToken(symbol.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                denomTv.setText(ibcToken.display_denom.toUpperCase());
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
-
-            } else {
-                denomTv.setText("Unknown");
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-            }
-            denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-
-        } else if (chain.equals(COSMOS_MAIN)) {
-            if (symbol.equals(TOKEN_ATOM)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                denomTv.setText(symbol.toUpperCase());
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            if (symbol.equals(TOKEN_IRIS)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                denomTv.setText(symbol.toUpperCase());
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            if (symbol.equals(TOKEN_KAVA)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else if (symbol.equals(TOKEN_HARD)) {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_hard));
-            } else if (symbol.equals(TOKEN_USDX)) {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_usdx));
-            } else if (symbol.equals(TOKEN_SWP)) {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_swp));
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            if (amountTv != null)
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(baseData, symbol), WUtil.getKavaCoinDecimal(baseData, symbol)));
-
-        } else if (chain.equals(IOV_MAIN)) {
-            if (symbol.equals(TOKEN_IOV)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-
-            } else {
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                denomTv.setText(symbol.toUpperCase());
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(BNB_MAIN)) {
-            if (symbol.equals(TOKEN_BNB)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 8));
-
-        } else if (chain.equals(BAND_MAIN)) {
-            if (symbol.equals(TOKEN_BAND)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(OKEX_MAIN)) {
-            if (symbol.equals(TOKEN_OK)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 18));
-
-        } else if (chain.equals(CERTIK_MAIN)) {
-            if (symbol.equals(TOKEN_CERTIK)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(SECRET_MAIN)) {
-            if (symbol.equals(TOKEN_SECRET)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(AKASH_MAIN)) {
-            if (symbol.equals(TOKEN_AKASH)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(PERSIS_MAIN)) {
-            if (symbol.equals(TOKEN_XPRT)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            if (symbol.equals(TOKEN_DVPN)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            if (symbol.equals(TOKEN_FET)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
-
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            if (symbol.equals(TOKEN_CRO)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
-
-        } else if (chain.equals(SIF_MAIN)) {
-            int decimal = WUtil.getSifCoinDecimal(symbol);
-            if (symbol.equals(TOKEN_SIF)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else if (symbol.startsWith("c")) {
-                denomTv.setText(symbol.substring(1).toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), decimal, decimal));
-
-        } else if (chain.equals(KI_MAIN)) {
-            if (symbol.equals(TOKEN_KI)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            if (symbol.equals(TOKEN_OSMOSIS)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-            } else if (symbol.equals(TOKEN_ION)) {
-                denomTv.setText("ION");
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_ion));
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-            } else if (symbol.startsWith("gamm/pool/")) {
-                String[] value = symbol.split("/");
-                denomTv.setText("GAMM-" + value[value.length - 1]);
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
-
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-            }
-
-        } else if (chain.equals(MEDI_MAIN)) {
-            if (symbol.equals(TOKEN_MEDI)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(EMONEY_MAIN)) {
-            if (symbol.equalsIgnoreCase(TOKEN_NGM)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(RIZON_MAIN)) {
-            if (symbol.equals(TOKEN_RIZON)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(JUNO_MAIN)) {
-            if (symbol.equals(TOKEN_JUNO)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(REGEN_MAIN)) {
-            if (symbol.equals(TOKEN_REGEN)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            if (symbol.equals(TOKEN_BITCANNA)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(ALTHEA_MAIN)) {
-            if (symbol.equals(TOKEN_ALTHEA)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            if (symbol.equals(TOKEN_STARGAZE)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            int decimal = WUtil.getGBridgeCoinDecimal(baseData, symbol);
-            if (symbol.equals(TOKEN_GRABRIDGE)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else if (symbol.startsWith("gravity")) {
-                final Assets assets = baseData.getAsset(symbol);
-                if (assets != null) {
-                    denomTv.setText(assets.origin_symbol);
-                    denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                }
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), decimal, decimal));
-
-        } else if (chain.equals(COMDEX_MAIN)) {
-            if (symbol.equals(TOKEN_COMDEX)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(INJ_MAIN)) {
-            if (symbol.equals(TOKEN_INJ)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
-            } else if (symbol.startsWith("peggy")) {
-                final Assets assets = baseData.getAsset(symbol);
-                if (assets != null) {
-                    denomTv.setText(assets.origin_symbol);
-                    denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                    amountTv.setText(getDpAmount2(c, new BigDecimal(amount), assets.decimal, assets.decimal));
-                }
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
-            }
-
-        } else if (chain.equals(BITSONG_MAIN)) {
-            if (symbol.equals(TOKEN_BITSONG)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(DESMOS_MAIN)) {
-            if (symbol.equals(TOKEN_DESMOS)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(LUM_MAIN)) {
-            if (symbol.equals(TOKEN_LUM)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(CHIHUAHUA_MAIN)) {
-            if (symbol.equals(TOKEN_CHIHUAHUA)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(AXELAR_MAIN)) {
-            if (symbol.equals(TOKEN_AXELAR)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(KONSTELL_MAIN)) {
-            if (symbol.equals(TOKEN_DARC)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(UMEE_MAIN)) {
-            if (symbol.equals(TOKEN_UMEE)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(EVMOS_MAIN)) {
-            if (symbol.equals(TOKEN_EVMOS)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
-
-        } else if (chain.equals(CUDOS_MAIN)) {
-            if (symbol.equals(TOKEN_CUDOS)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
-
-        } else if (chain.equals(PROVENANCE_MAIN)) {
-            if (symbol.equals(TOKEN_HASH)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 9, 9));
-
-        } else if (chain.equals(CERBERUS_MAIN)) {
-            if (symbol.equals(TOKEN_CRBRUS)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(OMNIFLIX_MAIN)) {
-            if (symbol.equals(TOKEN_FLIX)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(CRESCENT_MAIN)) {
-            if (symbol.equals(TOKEN_CRE)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else if (symbol.equals(TOKEN_BCRE)) {
-                denomTv.setText(R.string.str_bcre_c);
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_bcre));
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(ASSETMANTLE_MAIN)) {
-            if (symbol.equals(TOKEN_MANTLE)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(NYX_MAIN)) {
-            if (symbol.equals(TOKEN_NYX)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else if (symbol.equals(TOKEN_NYM)) {
-                denomTv.setText(R.string.str_nym_c);
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_nym));
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(STATION_TEST)) {
-            if (symbol.equals(TOKEN_STATION)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(COSMOS_TEST)) {
-            if (symbol.equals(TOKEN_COSMOS_TEST)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(IRIS_TEST)) {
-            if (symbol.equals(TOKEN_IRIS_TEST)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-
-        } else if (chain.equals(CRESCENT_TEST)) {
-            if (symbol.equals(TOKEN_CRESCENT_TEST)) {
-                DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
-        }
     }
 
     public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
@@ -988,7 +501,6 @@ public class WDp {
                     return perPrice.multiply(WDp.perUserCurrencyValue(baseData, chainConfig.mainDenom()));
                 } else {
                     BigDecimal perPrice = BigDecimal.ONE.multiply(new BigDecimal(ticker.lastPrice)).setScale(8, RoundingMode.DOWN);
-                    ;
                     return perPrice.multiply(WDp.perUserCurrencyValue(baseData, chainConfig.mainDenom()));
                 }
             }
@@ -1871,22 +1383,6 @@ public class WDp {
         }
     }
 
-    public static int mainDivideDecimal(String denom) {
-        if (denom.equals(TOKEN_BNB)) {
-            return 8;
-        } else if (denom.equals(TOKEN_OK)) {
-            return 18;
-        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ) || denom.equals(TOKEN_EVMOS) || denom.equals(TOKEN_CUDOS)) {
-            return 18;
-        } else if (denom.equals(TOKEN_CRO)) {
-            return 8;
-        } else if (denom.equals(TOKEN_HASH)) {
-            return 9;
-        } else {
-            return 6;
-        }
-    }
-
     public static ArrayList<Coin> getCoins(Object amount) {
         ArrayList<Coin> result = new ArrayList<>();
         try {
@@ -1975,12 +1471,12 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal onParseFee(ServiceOuterClass.GetTxResponse response) {
-        BigDecimal result = BigDecimal.ZERO;
+    public static Coin onParseFee(ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response) {
         if (response.getTx().getAuthInfo().getFee().getAmountCount() > 0) {
-            return new BigDecimal(response.getTx().getAuthInfo().getFee().getAmount(0).getAmount());
+            return new Coin(response.getTx().getAuthInfo().getFee().getAmount(0).getDenom(), response.getTx().getAuthInfo().getFee().getAmount(0).getAmount());
+        } else {
+            return new Coin(chainConfig.mainDenom(), "0");
         }
-        return result;
     }
 
     public static ArrayList<Coin> onParseAutoReward(ServiceOuterClass.GetTxResponse response, String Addr, int position) {
@@ -2012,23 +1508,25 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal onParseStakeReward(BaseChain baseChain, ServiceOuterClass.GetTxResponse response, String valAddr, int position) {
-        BigDecimal result = BigDecimal.ZERO;
+    public static ArrayList<Coin> onParseStakeReward(ServiceOuterClass.GetTxResponse response, int position) {
+        ArrayList<Coin> result = new ArrayList<>();
         if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
                 if (event.getType().equals("withdraw_rewards")) {
                     for (int i = 0; i < event.getAttributesList().size(); i++) {
-                        if (event.getAttributes(i).getKey().equals("validator") && event.getAttributes(i).getValue().equals(valAddr)) {
-                            String rawValue = event.getAttributes(i - 1).getValue();
-                            if (rawValue != null) {
-                                for (String rawCoin : rawValue.split(",")) {
-                                    if (rawCoin.contains(WDp.mainDenom(baseChain))) {
-                                        result = result.add(new BigDecimal(rawCoin.replaceAll("[^0-9]", "")));
-                                        break;
-                                    }
+                        String rawValue = event.getAttributes(i).getValue();
+                        if (rawValue != null) {
+                            for (String rawCoin : rawValue.split(",")) {
+                                Pattern p = Pattern.compile("([0-9])+");
+                                Matcher m = p.matcher(rawCoin);
+                                if (m.find()) {
+                                    String amount = m.group();
+                                    String denom = rawCoin.substring(m.end());
+                                    result.add(new Coin(denom, amount));
                                 }
                             }
                         }
+
                     }
                 }
             }

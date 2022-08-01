@@ -59,7 +59,6 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
         mMyMnemonics = getBaseDao().onSelectAllMnemonics();
-
         mAdapter.notifyDataSetChanged();
     }
 

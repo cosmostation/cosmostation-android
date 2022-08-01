@@ -29,6 +29,7 @@
                     android:id="@+id/tx_save_profile_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:tint="@color/color_desmos"
                     android:src="@drawable/msgicon_profile"/>
                 <TextView
                     android:id="@+id/tx_save_profile"

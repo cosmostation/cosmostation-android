@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -65,6 +66,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
@@ -225,7 +227,8 @@ public class ConnectWalletActivity extends BaseActivity {
         Account currentAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         chainAccountMap.put(currentAccount.baseChain, currentAccount);
         mBaseChain = BaseChain.getChain(currentAccount.baseChain);
-        mWcCardView.setCardBackgroundColor(WDp.getChainBgColor(this, mBaseChain));
+        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mWcCardView.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
     }
 
     private void initView() {
@@ -496,7 +499,7 @@ public class ConnectWalletActivity extends BaseActivity {
         mWcLayer.setVisibility(View.VISIBLE);
         mLoadingLayer.setVisibility(View.GONE);
 
-        mWcCardView.setCardBackgroundColor(WDp.getChainBgColor(this, mBaseChain));
+        mWcCardView.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
         mWcAccount.setText(chainAccountMap.get(mBaseChain.getChain()).address);
     }
 

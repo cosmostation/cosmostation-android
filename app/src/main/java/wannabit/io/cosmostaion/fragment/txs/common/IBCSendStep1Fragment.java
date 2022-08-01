@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.ibc;
+package wannabit.io.cosmostaion.fragment.txs.common;
 
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
@@ -35,7 +35,7 @@ import io.grpc.stub.StreamObserver;
 import starnamed.x.starname.v1beta1.QueryGrpc;
 import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.ibc.IBCSendActivity;
+import wannabit.io.cosmostaion.activities.txs.common.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;

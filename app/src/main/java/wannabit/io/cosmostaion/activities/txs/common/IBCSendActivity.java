@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities.txs.ibc;
+package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 
@@ -27,10 +27,10 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.txs.ibc.IBCSendStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.ibc.IBCSendStep1Fragment;
-import wannabit.io.cosmostaion.fragment.txs.ibc.IBCSendStep2Fragment;
-import wannabit.io.cosmostaion.fragment.txs.ibc.IBCSendStep4Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.IBCSendStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.IBCSendStep1Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.IBCSendStep2Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.IBCSendStep4Fragment;
 
 public class IBCSendActivity extends BaseBroadCastActivity {
 

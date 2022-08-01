@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -15,8 +16,8 @@ import org.json.JSONObject;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmwasm.wasm.v1.Tx;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
@@ -35,8 +36,8 @@ public class TxExecuteContractHolder extends TxHolder {
         itemContractDenom       = itemView.findViewById(R.id.contract_denom);
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemMsgImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
+        itemMsgImg.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
 
         try {
             Tx.MsgExecuteContract msg = Tx.MsgExecuteContract.parseFrom(response.getTx().getBody().getMessages(position).getValue());
@@ -49,7 +50,7 @@ public class TxExecuteContractHolder extends TxHolder {
                 itemContractMsg.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json.getString(json.keys().next()))));
             }
             if (msg.getFundsList().size() > 0) {
-                WDp.showCoinDp(c, baseData, msg.getFunds(0).getDenom(), msg.getFunds(0).getAmount(), itemContractDenom, itemContractAmount, baseChain);
+                WDp.setDpCoin(c, baseData, chainConfig, msg.getFunds(0).getDenom(), msg.getFunds(0).getAmount(), itemContractDenom, itemContractAmount);
             } else {
                 itemContractAmount.setText("");
                 itemContractDenom.setText("");

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.widget.txDetail.ibc;
+package wannabit.io.cosmostaion.widget.txDetail;
 
 import android.content.Context;
 import android.view.View;
@@ -7,15 +7,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
-import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import ibc.applications.transfer.v1.Tx;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
@@ -41,8 +41,8 @@ public class TxIBCSendHolder extends TxHolder {
 
     }
 
-    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        itemIbcSendImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+    public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
+        itemIbcSendImg.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
 
         try {
             Tx.MsgTransfer msg = Tx.MsgTransfer.parseFrom(response.getTx().getBody().getMessages(position).getValue());
@@ -53,7 +53,7 @@ public class TxIBCSendHolder extends TxHolder {
             toDpCoin.add(new Coin(msg.getToken().getDenom(), msg.getToken().getAmount()));
 
             itemIbcSingleCoinLayer.setVisibility(View.VISIBLE);
-            WDp.showCoinDp(c, baseData, toDpCoin.get(0), itemIbcAmountDenom, itemIbcAmount, baseChain);
+            WDp.setDpCoin(c, baseData, chainConfig, toDpCoin.get(0), itemIbcAmountDenom, itemIbcAmount);
         } catch (Exception e) {}
     }
 }

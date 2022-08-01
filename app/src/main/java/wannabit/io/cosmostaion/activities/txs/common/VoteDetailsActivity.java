@@ -6,7 +6,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_PROPOSAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSAL_MY_VOTE;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.net.Uri;
@@ -33,7 +32,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;
@@ -272,7 +270,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     if (mApiProposal.content != null && mApiProposal.content.amount != null && mApiProposal.content.amount.size() != 0) {
                         holder.itemRequestLayer.setVisibility(View.VISIBLE);
                         ArrayList<Coin> requestCoin = mApiProposal.content.amount;
-                        WDp.showCoinDp(getBaseContext(), getBaseDao(), requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount, mBaseChain);
+                        WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount);
                     } else {
                         holder.itemRequestLayer.setVisibility(View.GONE);
                     }
@@ -280,7 +278,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     if (mApiProposal.content != null && mApiProposal.content.recipients != null && mApiProposal.content.recipients.get(0).amount != null) {
                         holder.itemRequestLayer.setVisibility(View.VISIBLE);
                         ArrayList<Coin> requestCoin = mApiProposal.content.recipients.get(0).amount;
-                        WDp.showCoinDp(getBaseContext(), getBaseDao(), requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount, mBaseChain);
+                        WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount);
                     } else {
                         holder.itemRequestLayer.setVisibility(View.GONE);
                     }

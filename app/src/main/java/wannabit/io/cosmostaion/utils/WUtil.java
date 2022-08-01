@@ -158,24 +158,6 @@ public class WUtil {
         return result;
     }
 
-    public static Account getAccountFromKavaLcd(long id, ResLcdKavaAccountInfo lcd) {
-        Account result = new Account();
-        result.id = id;
-        if (lcd.result != null && lcd.height != null) {
-            if (lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT)) {
-                result.address = lcd.result.value.address;
-                result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
-                result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
-
-            } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT) || lcd.result.type.equals(COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
-                result.address = lcd.result.value.address;
-                result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
-                result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
-            }
-        }
-        return result;
-    }
-
     public static Account getAccountFromOkLcd(long id, ResOkAccountInfo lcd) {
         Account result = new Account();
         result.id = id;
