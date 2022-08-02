@@ -41,6 +41,8 @@
                     android:fontFamily="sans-serif"
                     android:gravity="center"
                     android:paddingHorizontal="@dimen/space_6"
+                    android:paddingTop="@dimen/space_2"
+                    android:paddingBottom="@dimen/space_2"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size_8"
                     android:textStyle="bold"
