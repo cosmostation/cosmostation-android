@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -33,7 +31,6 @@ import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +48,6 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class VoteListActivity extends BaseActivity implements Serializable, View.OnClickListener {
     private static final int SECTION_VOTING_PERIOD = 0;
@@ -219,31 +215,30 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             mSwipeRefreshLayout.setRefreshing(false);
             multiVoteSelectionMode = true;
             mVoteListAdapter.notifyDataSetChanged();
+
         } else if (v.equals(mCancelBtn)) {
             mMultiVoteBtn.setVisibility(View.VISIBLE);
             mCancelBtn.setVisibility(View.GONE);
             mNextBtn.setVisibility(View.GONE);
             multiVoteSelectionMode = false;
             mVoteListAdapter.notifyDataSetChanged();
+
         } else if (v.equals(mNextBtn)) {
+            if (!mAccount.hasPrivateKey) {
+                onInsertKeyDialog();
+                return;
+            }
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             if (selectedSet.size() > 0) {
                 Intent voteIntent = new Intent(VoteListActivity.this, VoteActivity.class);
                 voteIntent.putExtra("proposal", new Gson().toJson(selectedSet));
                 startActivity(voteIntent);
             } else {
                 Toast.makeText(getBaseContext(), getString(R.string.error_not_selected_vote), Toast.LENGTH_SHORT).show();
-            }
-
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
-            List<String> availableFeeDenomList = Lists.newArrayList();
-            for (String denom : WDp.getGasDenomList(mBaseChain)) {
-                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                    availableFeeDenomList.add(denom);
-                }
-            }
-            if (availableFeeDenomList.isEmpty()) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
             }
         }
     }

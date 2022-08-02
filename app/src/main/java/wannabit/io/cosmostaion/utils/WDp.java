@@ -1408,45 +1408,12 @@ public class WDp {
         return ContextCompat.getColor(c, R.color.colorTransBg);
     }
 
-    public static void DpMainDenom(Context c, BaseChain chain, TextView textview) {
-        DpMainDenom(c, chain.getChain(), textview);
-    }
-
-    public static void DpMainDenom(Context c, String chain, TextView textview) {
-        if (!chain.isEmpty()) {
-            ChainConfig chainConfig = ChainFactory.getChain(getChain(chain));
-            textview.setText(chainConfig.mainSymbol());
-            textview.setTextColor(ContextCompat.getColor(c, chainConfig.chainColor()));
-        }
-    }
-
     public static String mainDenom(BaseChain chain) {
         if (chain != null) {
             ChainConfig chainConfig = ChainFactory.getChain(chain);
             return chainConfig.mainDenom();
         }
         return "";
-    }
-
-    public static ArrayList<String> getGasDenomList(BaseChain baseChain) {
-        if (baseChain.equals(NYX_MAIN)) {
-            return Lists.newArrayList(TOKEN_NYM);
-        } else if (baseChain.equals(CRESCENT_MAIN)) {
-            return Lists.newArrayList(TOKEN_CRE, TOKEN_BCRE);
-        }
-        return Lists.newArrayList(mainDenom(baseChain));
-    }
-
-    public static void setGasDenomTv(Context c, BaseChain baseChain, String denom, TextView denomTv) {
-        if (denom.equalsIgnoreCase(TOKEN_BCRE)) {
-            denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_bcre));
-            denomTv.setText(c.getString(R.string.str_bcre_c));
-        } else if (denom.equalsIgnoreCase(TOKEN_NYM)) {
-            denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_nym));
-            denomTv.setText(c.getString(R.string.str_nym_c));
-        } else {
-            WDp.DpMainDenom(c, baseChain, denomTv);
-        }
     }
 
     public static int mainDivideDecimal(BaseChain chain) {
