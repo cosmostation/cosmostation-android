@@ -151,7 +151,7 @@ public class WalletSwitchActivity extends BaseActivity {
                 } else {
                     accountCard.setBackground(getResources().getDrawable(R.drawable.box_round_darkgray_daynight));
                 }
-                WDp.DpMainDenom(WalletSwitchActivity.this, account.baseChain, accountDenom);
+                WDp.setDpSymbol(WalletSwitchActivity.this, getBaseDao(), chainConfig, chainConfig.mainDenom(), accountDenom);
                 accountAddress.setText(account.address);
                 accountAvailable.setText(account.getLastTotal(WalletSwitchActivity.this, BaseChain.getChain(account.baseChain)));
                 if (account.hasPrivateKey) {

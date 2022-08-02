@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -23,10 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.common.collect.Lists;
-
 import java.math.BigDecimal;
-import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
@@ -36,7 +30,6 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingNewHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
@@ -97,7 +90,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mMainDenom = mChainConfig.mainDenom();
         mToolbarChannel.setVisibility(View.GONE);
 
-        if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) {
+        if (getBaseDao().onParseRemainVestingsByDenom(mChainConfig.mainDenom()).size() > 0) {
             mHasVesting = true;
         }
 
@@ -173,20 +166,13 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
                 onInsertKeyDialog();
                 return;
             }
-            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
-            if (mainAvailable.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            List<String> availableFeeDenomList = Lists.newArrayList();
-            for (String denom : WDp.getGasDenomList(mBaseChain)) {
-                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                    availableFeeDenomList.add(denom);
-                }
-            }
-            if (availableFeeDenomList.isEmpty()) {
+            BigDecimal mainAvailable = getBaseDao().getAvailable(mChainConfig.mainDenom());
+            if (BigDecimal.ZERO.compareTo(mainAvailable) >= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -200,24 +186,19 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
                 onInsertKeyDialog();
                 return;
             }
-            Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-            if (mainAvailable.compareTo(feeAmount) < 0) {
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            BigDecimal mainAvailable = getBaseDao().getAvailable(mChainConfig.mainDenom());
+
+            if (BigDecimal.ZERO.compareTo(mainAvailable) >= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            List<String> availableFeeDenomList = Lists.newArrayList();
-            for (String denom : WDp.getGasDenomList(mBaseChain)) {
-                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                    availableFeeDenomList.add(denom);
-                }
-            }
-            if (availableFeeDenomList.isEmpty()) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
+            Intent intent = new Intent(getBaseContext(), SendActivity.class);
             intent.putExtra("sendTokenDenom", mMainDenom);
             startActivity(intent);
         }
@@ -245,12 +226,12 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
             if (getItemViewType(position) == TYPE_STAKE_NEW) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mChainConfig.mainDenom());
             } else if (getItemViewType(position) == TYPE_VESTING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mChainConfig.mainDenom());
 
             } else if (getItemViewType(position) == TYPE_UNBONDING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mChainConfig.mainDenom());
 
             }
         }

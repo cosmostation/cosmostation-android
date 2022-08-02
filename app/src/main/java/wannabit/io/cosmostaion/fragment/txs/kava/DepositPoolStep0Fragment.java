@@ -34,7 +34,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class DepositPoolStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -129,7 +128,6 @@ public class DepositPoolStep0Fragment extends BaseFragment implements View.OnCli
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxType, 0);
         mCoin0Denom = mSwapPool.get(0).getCoins(0).getDenom();
         mCoin1Denom = mSwapPool.get(0).getCoins(1).getDenom();
         mCoin0Decimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mCoin0Denom);
@@ -147,11 +145,11 @@ public class DepositPoolStep0Fragment extends BaseFragment implements View.OnCli
 
         mAvailable0MaxAmount = getBaseDao().getAvailable(mCoin0Denom);
         if (mCoin0Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
-            mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(txFeeAmount);
+            mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
         }
         mAvailable1MaxAmount = getBaseDao().getAvailable(mCoin1Denom);
         if (mCoin1Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
-            mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount);
+            mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
         }
 
         setDpDecimals(mCoin0Decimal, mCoin1Decimal);

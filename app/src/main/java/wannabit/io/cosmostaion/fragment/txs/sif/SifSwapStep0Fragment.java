@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.sif;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_INFO;
 
 import android.os.AsyncTask;
@@ -113,9 +112,8 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
             setDpDecimals(mInputCoinDecimal);
 
             mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIF_SWAP, 0);
             if (getSActivity().mInputDenom.equals(getSActivity().mChainConfig.mainDenom())) {
-                mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
+                mAvailableMaxAmount = mAvailableMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
             }
 
             mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));

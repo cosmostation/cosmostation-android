@@ -362,6 +362,32 @@ public class WDp {
         return result;
     }
 
+    public static boolean isTxFeePayable(Context c, BaseData baseData, ChainConfig chainConfig) {
+        if (chainConfig.baseChain().equals(SIF_MAIN)) {
+            if (new BigDecimal("100000000000000000").compareTo(baseData.getAvailable(chainConfig.mainDenom())) < 0) {
+                return true;
+            }
+            return false;
+        } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
+            if (new BigDecimal(FEE_BNB_SEND).compareTo(baseData.availableAmount(chainConfig.mainDenom())) < 0) {
+                return true;
+            }
+            return false;
+        } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
+            if (new BigDecimal(FEE_OKC_BASE).compareTo(baseData.availableAmount(chainConfig.mainDenom())) < 0) {
+                return true;
+            }
+            return false;
+        }
+        boolean result = false;
+        for (Coin coin : getMinTxFeeAmounts(c, chainConfig)) {
+            if (baseData.getAvailable(coin.denom).compareTo(new BigDecimal(coin.amount)) >= 0) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     public static ArrayList<Coin> getMinTxFeeAmounts(Context c, ChainConfig chainConfig) {
         ArrayList<Coin> result = new ArrayList<>();
         BigDecimal gasAmount = new BigDecimal(BASE_GAS_AMOUNT);

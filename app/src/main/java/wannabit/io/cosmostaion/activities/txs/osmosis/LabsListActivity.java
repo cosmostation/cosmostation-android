@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.activities.txs.osmosis;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS;
@@ -51,7 +48,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.OsmosisActiveGaugesGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisIncentivizedPoolsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisLockupStatusGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolListGrpcTask;
-import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.utils.WDp;
 
 public class LabsListActivity extends BaseActivity implements TaskListener {
 
@@ -150,11 +147,14 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
-
-        BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
-        if (available.compareTo(txFee) < 0) {
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        BigDecimal inputBalance = getBaseDao().getAvailable(inputCoinDenom);
+        if (BigDecimal.ZERO.compareTo(inputBalance) >= 0) {
+            Toast.makeText(this, R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -170,6 +170,10 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         BalancerPool.Pool tempPool = null;
         for (BalancerPool.Pool pool : mPoolList) {
@@ -179,19 +183,9 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
         String coin0denom = tempPool.getPoolAssets(0).getToken().getDenom();
         String coin1Denom = tempPool.getPoolAssets(1).getToken().getDenom();
-
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(LabsListActivity.this, mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
         BigDecimal coin0Available = getBaseDao().getAvailable(coin0denom);
         BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
-
-        if (coin0denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
-            coin0Available = coin0Available.subtract(feeAmount);
-        }
-        if (coin1Denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
-            coin1Available = coin1Available.subtract(feeAmount);
-        }
-
-        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <= 0) {
+        if (BigDecimal.ZERO.compareTo(coin0Available) >= 0 || BigDecimal.ZERO.compareTo(coin1Available) >= 0) {
             Toast.makeText(LabsListActivity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -206,12 +200,8 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
            onInsertKeyDialog();
            return;
         }
-
-        BigDecimal mainBalance = getBaseDao().getAvailable(mChainConfig.mainDenom());
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_OSMOSIS_EXIT_POOL, 0);
-
-        if (mainBalance.compareTo(feeAmount) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
             return;
         }
 

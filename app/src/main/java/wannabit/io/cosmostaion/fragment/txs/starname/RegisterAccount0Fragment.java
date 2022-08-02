@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.starname;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import android.app.Activity;
@@ -34,7 +33,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RegisterAccount0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int             SELECT_POPUP_STARNAME_DOMAIN = 1000;
+    public final static int SELECT_POPUP_STARNAME_DOMAIN = 1000;
 
     private Button mCancelBtn, mConfirmBtn;
     private EditText mAccountInput;
@@ -95,10 +94,14 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_account_format, Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (!WDp.isTxFeePayable(getActivity(), getBaseDao(), getSActivity().mChainConfig)) {
+                Toast.makeText(getActivity(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             BigDecimal available = getBaseDao().getAvailable(getSActivity().mChainConfig.mainDenom());
             BigDecimal starNameFee = getBaseDao().getStarNameRegisterAccountFee("open");
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_REGISTER_ACCOUNT, 0);
-            if (available.compareTo(starNameFee.add(txFee)) < 0) {
+            if (available.compareTo(starNameFee) < 0) {
                 Toast.makeText(getBaseActivity(), R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
                 return;
             }

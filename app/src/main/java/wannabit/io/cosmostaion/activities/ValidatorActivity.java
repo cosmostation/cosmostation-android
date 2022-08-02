@@ -1,7 +1,12 @@
 package wannabit.io.cosmostaion.activities;
 
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_TO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SELF_BONDING;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_VALIDATOR_INFO;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -25,7 +30,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.common.collect.Lists;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -60,7 +64,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.ValidatorInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
@@ -155,21 +158,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
-
-        BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain, mChainConfig.mainDenom());
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-        if (delegatableAmount.compareTo(feeAmount) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        List<String> availableFeeDenomList = Lists.newArrayList();
-        for (String denom : WDp.getGasDenomList(mBaseChain)) {
-            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                availableFeeDenomList.add(denom);
-            }
-        }
-        if (availableFeeDenomList.isEmpty()) {
+        BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain, mChainConfig.mainDenom());
+        if (BigDecimal.ZERO.compareTo(delegatableAmount) >= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -199,22 +194,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
-
-        if (mGrpcMyDelegation == null || getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
-
-        List<String> availableFeeDenomList = Lists.newArrayList();
-        for (String denom : WDp.getGasDenomList(mBaseChain)) {
-            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                availableFeeDenomList.add(denom);
-            }
-        }
-        if (availableFeeDenomList.isEmpty()) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+        if (mGrpcMyDelegation == null || BigDecimal.ZERO.compareTo(getBaseDao().getDelegation(mValOpAddress)) >= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -241,25 +227,18 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
-        if (getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (BigDecimal.ZERO.compareTo(getBaseDao().getDelegation(mValOpAddress)) >= 0) {
             Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
             return;
         }
+
         if (getBaseDao().getUndelegationInfo(mValOpAddress) != null && getBaseDao().getUndelegationInfo(mValOpAddress).getEntriesList() != null && getBaseDao().getUndelegationInfo(mValOpAddress).getEntriesList().size() >= 7) {
             Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
-
-        List<String> availableFeeDenomList = Lists.newArrayList();
-        for (String denom : WDp.getGasDenomList(mBaseChain)) {
-            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                availableFeeDenomList.add(denom);
-            }
-        }
-        if (availableFeeDenomList.isEmpty()) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -273,21 +252,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
-
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-
-        List<String> availableFeeDenomList = Lists.newArrayList();
-        for (String denom : WDp.getGasDenomList(mBaseChain)) {
-            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                availableFeeDenomList.add(denom);
-            }
-        }
-        if (availableFeeDenomList.isEmpty()) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (getBaseDao().getReward(mChainConfig.mainDenom(), mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
+        if (BigDecimal.ZERO.compareTo(getBaseDao().getReward(mChainConfig.mainDenom(), mValOpAddress)) >= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -304,21 +274,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
-
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);
-
-        List<String> availableFeeDenomList = Lists.newArrayList();
-        for (String denom : WDp.getGasDenomList(mBaseChain)) {
-            if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                availableFeeDenomList.add(denom);
-            }
-        }
-        if (availableFeeDenomList.isEmpty()) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (getBaseDao().getReward(mChainConfig.mainDenom(), mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
+        if (BigDecimal.ZERO.compareTo(getBaseDao().getReward(mChainConfig.mainDenom(), mValOpAddress)) >= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
             return;
         }

@@ -1,12 +1,9 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SEND_NFT;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.common.collect.Lists;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
@@ -128,8 +120,8 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {
-               onInsertKeyDialog();
-               return;
+                onInsertKeyDialog();
+                return;
             } else {
                 Toast.makeText(NFTokenDetailActivity.this, R.string.error_prepare, Toast.LENGTH_SHORT).show();
                 return;
@@ -139,27 +131,17 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
             if (!mAccount.hasPrivateKey) {
                 onInsertKeyDialog();
                 return;
-
-            } else {
-                Intent intent = new Intent(getBaseContext(), NFTSendActivity.class);
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SEND_NFT, 0);
-
-                List<String> availableFeeDenomList = Lists.newArrayList();
-                for (String denom : WDp.getGasDenomList(mBaseChain)) {
-                    if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                        availableFeeDenomList.add(denom);
-                    }
-                }
-                if (availableFeeDenomList.isEmpty()) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                intent.putExtra("mDenomId", mDenomId);
-                intent.putExtra("mTokenId", mTokenId);
-                intent.putExtra("mIrisResponse", mIrisResponse);
-                startActivity(intent);
             }
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent intent = new Intent(getBaseContext(), NFTSendActivity.class);
+            intent.putExtra("mDenomId", mDenomId);
+            intent.putExtra("mTokenId", mTokenId);
+            intent.putExtra("mIrisResponse", mIrisResponse);
+            startActivity(intent);
         }
     }
 

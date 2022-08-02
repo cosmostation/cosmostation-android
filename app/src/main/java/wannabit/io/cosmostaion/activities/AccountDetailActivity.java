@@ -314,6 +314,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 onInsertKeyDialog();
                 return;
             }
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if (TextUtils.isEmpty(mRewardAddress.getText().toString())) {
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();

@@ -195,9 +195,13 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
             onInsertKeyDialog();
             return;
         }
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         BigDecimal availableAmount = getBaseDao().getAvailable("gamm/pool/" + mPool.getId());
-        if (availableAmount.compareTo(BigDecimal.ZERO) <= 0) {
+        if (BigDecimal.ZERO.compareTo(availableAmount) >= 0) {
             Toast.makeText(EarningDetailActivity.this, R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -219,6 +223,10 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     public void onCheckUnbonding(Lock.PeriodLock lockup) {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return;
+        }
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -259,7 +267,6 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onStartUnbonding(ArrayList<Lock.PeriodLock> lockups) {
-        WLog.w("onStartUnbonding " + lockups.size());
         Intent intent = new Intent(this, StartUnbondingActivity.class);
         OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
         intent.putExtra("osmosislockups", lockupsWrapper);

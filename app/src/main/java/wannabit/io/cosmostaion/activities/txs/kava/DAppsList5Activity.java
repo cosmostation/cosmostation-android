@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.activities.txs.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_CDP_PARAMS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_PARAMS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
@@ -55,6 +52,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.KavaHardParamGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapParamsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapPoolsGrpcTask;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class DAppsList5Activity extends BaseActivity implements TaskListener {
@@ -136,9 +134,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
-        BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
-        if (available.compareTo(txFee) <= 0) {
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -172,23 +168,20 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(DAppsList5Activity.this, mBaseChain, CONST_PW_TX_KAVA_JOIN_POOL, 0);
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String coin0Denom = myPool.getCoins(0).getDenom();
         String coin1Denom = myPool.getCoins(1).getDenom();
-
         BigDecimal available0MaxAmount = getBaseDao().getAvailable(coin0Denom);
-        if (coin0Denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
-            available0MaxAmount = available0MaxAmount.subtract(feeAmount);
-        }
         BigDecimal available1MaxAmount = getBaseDao().getAvailable(coin1Denom);
-        if (coin1Denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
-            available1MaxAmount = available1MaxAmount.subtract(feeAmount);
-        }
-
-        if (available0MaxAmount.compareTo(BigDecimal.ZERO) <= 0 || available1MaxAmount.compareTo(BigDecimal.ZERO) <= 0) {
+        if (BigDecimal.ZERO.compareTo(available0MaxAmount) >= 0 || BigDecimal.ZERO.compareTo(available1MaxAmount) >= 0) {
             Toast.makeText(DAppsList5Activity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
+
         Intent intent = new Intent(getBaseContext(), DepositPoolActivity.class);
         intent.putExtra("mKavaPool", myPool);
         startActivity(intent);
@@ -199,11 +192,8 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
             return;
         }
-        BigDecimal mainBalance = getBaseDao().getAvailable(mChainConfig.mainDenom());
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_KAVA_EXIT_POOL, 0);
-
-        if (mainBalance.compareTo(feeAmount) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
 
