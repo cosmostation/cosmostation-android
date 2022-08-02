@@ -40,8 +40,8 @@ public interface Station {
     @GET("v1/{chain}/proposals/{proposalId}")
     Call<ResProposal> getProposal(@Path("chain") String chain, @Path("proposalId") String proposalId);
 
-    @GET("v1/{chain}/proposals/{proposalId}/votes")
-    Call<ArrayList<ResVoteStatus>> getVoteStatus(@Path("chain") String chain, @Path("proposalId") int proposalId, @Query("voter") String voter);
+    @GET("v1/{chain}/account/{account}/votes")
+    Call<ResVoteStatus> getVoteStatus(@Path("chain") String chain, @Path("account") String account);
 
     @GET("v1/{chain}/proposals")
     Call<ArrayList<ResProposal>> getProposalList(@Path("chain") String chain);

@@ -24,6 +24,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.common.collect.Lists;
@@ -62,7 +63,8 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private VoteHeaderRecyclerView mVoteHeaderRecyclerView;
-    private Button mMultiVote, mCancelBtn, mNextBtn;
+    private Button mMultiVoteBtn, mCancelBtn, mNextBtn;
+    private TextView mEmptyProposalText;
 
     private VoteListAdapter mVoteListAdapter;
 
@@ -85,6 +87,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         initRecyclerView();
         loadAccount();
         loadProposals();
+        loadStatus();
     }
 
     private void loadAccount() {
@@ -97,24 +100,29 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
         mVoteListAdapter = new VoteListAdapter();
         mRecyclerView.setAdapter(mVoteListAdapter);
 
         mVoteHeaderRecyclerView = new VoteHeaderRecyclerView(this, true, getSectionCall());
-
         mRecyclerView.addItemDecoration(mVoteHeaderRecyclerView);
 
+        if (mRecyclerView.getItemAnimator() != null && mRecyclerView.getItemAnimator() instanceof SimpleItemAnimator) {
+            ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        }
     }
 
     private void initView() {
         mToolbar = findViewById(R.id.tool_bar);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
-        mMultiVote = findViewById(R.id.btn_multiVote);
+        mMultiVoteBtn = findViewById(R.id.btn_multiVote);
         mCancelBtn = findViewById(R.id.btn_cancel);
         mNextBtn = findViewById(R.id.btn_next);
+        mEmptyProposalText = findViewById(R.id.empty_proposal);
 
-        mMultiVote.setOnClickListener(this);
+        mMultiVoteBtn.setOnClickListener(this);
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
@@ -137,8 +145,8 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
     private void loadProposals() {
         if (mAccount == null) return;
-
         onShowWaitDialog();
+        checkEmptyView();
         ApiClient.getMintscan(VoteListActivity.this).getProposalList(mChain).enqueue(new Callback<ArrayList<ResProposal>>() {
             @Override
             public void onResponse(Call<ArrayList<ResProposal>> call, Response<ArrayList<ResProposal>> response) {
@@ -149,15 +157,11 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     proposals.sort((o1, o2) -> o2.id - o1.id);
                     mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     mExtraProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
-                    if (mVotingPeriodProposalsList.size() > 1) {
-                        mMultiVote.setVisibility(View.VISIBLE);
-                    } else {
-                        mMultiVote.setVisibility(View.GONE);
-                    }
+
                     runOnUiThread(() -> {
                         mSwipeRefreshLayout.setRefreshing(false);
                         mVoteListAdapter.notifyDataSetChanged();
-                        onHideWaitDialog();
+                        checkEmptyView();
                     });
                 }
             }
@@ -168,32 +172,55 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         });
     }
 
-    private void loadStatus(ResProposal proposal, int position) {
-        ApiClient.getMintscan(VoteListActivity.this).getVoteStatus(mChain, proposal.id, mAccount.address).enqueue(new Callback<ArrayList<ResVoteStatus>>() {
+    private void checkEmptyView() {
+        if (mVotingPeriodProposalsList.isEmpty() && mExtraProposalsList.isEmpty()) {
+            mMultiVoteBtn.setVisibility(View.GONE);
+            mEmptyProposalText.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        } else {
+            if (multiVoteSelectionMode || mVotingPeriodProposalsList.isEmpty()) {
+                mMultiVoteBtn.setVisibility(View.GONE);
+            } else {
+                mMultiVoteBtn.setVisibility(View.VISIBLE);
+            }
+            mEmptyProposalText.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+        onHideWaitDialog();
+    }
+
+    private void loadStatus() {
+        ApiClient.getMintscan(VoteListActivity.this).getVoteStatus(mChain, mAccount.address).enqueue(new Callback<ResVoteStatus>() {
             @Override
-            public void onResponse(Call<ArrayList<ResVoteStatus>> call, Response<ArrayList<ResVoteStatus>> response) {
-                if (response.body() != null && response.isSuccessful()) {
-                    statusMap.put(proposal.id, response.body().stream().map(item -> item.option).collect(Collectors.toSet()));
-                    mVoteListAdapter.notifyDataSetChanged();
+            public void onResponse(Call<ResVoteStatus> call, Response<ResVoteStatus> response) {
+                if (response.body() != null && response.isSuccessful() && response.body().votes != null) {
+                    try {
+                        response.body().votes.forEach(votesData -> {
+                            statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet()));
+                        });
+                        mVoteListAdapter.notifyDataSetChanged();
+                    } catch (Exception e) {
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<ResVoteStatus>> call, Throwable t) {
+            public void onFailure(Call<ResVoteStatus> call, Throwable t) {
             }
         });
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mMultiVote)) {
-            mMultiVote.setVisibility(View.GONE);
+        if (v.equals(mMultiVoteBtn)) {
+            mMultiVoteBtn.setVisibility(View.GONE);
             mCancelBtn.setVisibility(View.VISIBLE);
             mNextBtn.setVisibility(View.VISIBLE);
+            mSwipeRefreshLayout.setRefreshing(false);
             multiVoteSelectionMode = true;
             mVoteListAdapter.notifyDataSetChanged();
         } else if (v.equals(mCancelBtn)) {
-            mMultiVote.setVisibility(View.VISIBLE);
+            mMultiVoteBtn.setVisibility(View.VISIBLE);
             mCancelBtn.setVisibility(View.GONE);
             mNextBtn.setVisibility(View.GONE);
             multiVoteSelectionMode = false;
@@ -345,7 +372,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 }
             } else {
                 holder.vote_status.setVisibility(View.INVISIBLE);
-                loadStatus(item, position);
                 statusMap.put(item.id, Sets.newHashSet());
             }
         }
