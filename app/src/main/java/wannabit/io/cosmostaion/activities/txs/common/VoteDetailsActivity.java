@@ -427,7 +427,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         }
 
-        private void initBgColor(VoteTallyHolder holder){
+        private void initBgColor(VoteTallyHolder holder) {
             holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
             holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
             holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));

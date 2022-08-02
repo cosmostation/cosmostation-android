@@ -68,6 +68,17 @@ public class ResProposal {
     @SerializedName("answer")
     public String answer;
 
+    @SerializedName("votes")
+    public ArrayList<VotesData> votes;
+
+    public class VotesData {
+        @SerializedName("proposal_id")
+        public int id;
+
+        @SerializedName("votes")
+        public ArrayList<VoteDetail> voteDetails;
+    }
+
     public class Content {
         @SerializedName("type")
         public String type;
@@ -111,5 +122,19 @@ public class ResProposal {
 
         @SerializedName("abstain_amount")
         public String abstain_amount;
+    }
+
+    public class VoteDetail {
+        @SerializedName("voter")
+        public String voter;
+
+        @SerializedName("option")
+        public String option;
+
+        @SerializedName("tx_hash")
+        public String tx_hash;
+
+        @SerializedName("timestamp")
+        public String timestamp;
     }
 }

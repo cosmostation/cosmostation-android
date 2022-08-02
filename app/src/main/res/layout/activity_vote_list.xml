@@ -48,53 +48,62 @@
         </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <Button
-        android:id="@+id/btn_multiVote"
-        style="@style/font_ss_14_photon"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_45"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
-        android:background="@drawable/btn_trans_with_photon_border"
-        android:minHeight="@dimen/space_45"
-        android:text="@string/str_vote_multi"
-        android:textAllCaps="false" />
-
-    <LinearLayout
-        android:id="@+id/bottom_control"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btn_cancel"
-            style="@style/font_ss_14_black_daynight"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/space_45"
-            android:layout_marginRight="@dimen/space_4"
-            android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
-            android:minHeight="@dimen/space_45"
-            android:text="@string/str_cancel"
-            android:textAllCaps="false"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/btn_next"
+            android:id="@+id/btn_multiVote"
             style="@style/font_ss_14_photon"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
-            android:layout_marginLeft="@dimen/space_4"
-            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_16"
             android:background="@drawable/btn_trans_with_photon_border"
             android:minHeight="@dimen/space_45"
-            android:text="@string/str_next"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPhoton"
-            android:visibility="gone" />
-    </LinearLayout>
+            android:text="@string/str_vote_multi"
+            android:textAllCaps="false" />
+
+        <LinearLayout
+            android:id="@+id/bottom_control"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/font_ss_14_black_daynight"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_45"
+                android:layout_marginRight="@dimen/space_4"
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginBottom="@dimen/space_16"
+                android:layout_weight="1"
+                android:background="@drawable/btn_trans_with_border"
+                android:minHeight="@dimen/space_45"
+                android:text="@string/str_cancel"
+                android:textAllCaps="false"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_next"
+                style="@style/font_ss_14_photon"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_45"
+                android:layout_marginLeft="@dimen/space_4"
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginBottom="@dimen/space_16"
+                android:layout_weight="1"
+                android:background="@drawable/btn_trans_with_photon_border"
+                android:minHeight="@dimen/space_45"
+                android:text="@string/str_next"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPhoton"
+                android:visibility="gone" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
