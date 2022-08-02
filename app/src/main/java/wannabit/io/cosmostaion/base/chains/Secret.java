@@ -53,8 +53,6 @@ public class Secret extends ChainConfig {
         return Lists.newArrayList("0.25uscrt");
     }
 
-    public int gasDefault() { return 0; }
-
     public List<ChildNumber> setParentPath(int customPath) {
         if (customPath == 0) {
             return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);

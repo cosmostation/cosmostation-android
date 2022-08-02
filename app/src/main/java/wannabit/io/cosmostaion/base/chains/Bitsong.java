@@ -53,8 +53,6 @@ public class Bitsong extends ChainConfig {
         return Lists.newArrayList("0.025ubtsg");
     }
 
-    public int gasDefault() { return 0; }
-
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(639, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

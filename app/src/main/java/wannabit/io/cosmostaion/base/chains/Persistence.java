@@ -52,8 +52,6 @@ public class Persistence extends ChainConfig {
         return Lists.newArrayList("0.0uxprt", "0.025uxprt");
     }
 
-    public int gasDefault() { return 0; }
-
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

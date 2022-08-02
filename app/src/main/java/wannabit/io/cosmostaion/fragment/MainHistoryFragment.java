@@ -33,7 +33,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
@@ -51,7 +50,7 @@ import wannabit.io.cosmostaion.widget.HistoryOldHolder;
 public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private CardView mCardView;
     private ImageView itemKeyStatus;
-    private TextView mWalletAddress;
+    private TextView mWalletAddress, mEthAddress;
     private TextView mTotalValue;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -84,6 +83,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mCardView = rootView.findViewById(R.id.card_root);
         itemKeyStatus = rootView.findViewById(R.id.img_account);
         mWalletAddress = rootView.findViewById(R.id.wallet_address);
+        mEthAddress = rootView.findViewById(R.id.eth_address);
         mTotalValue = rootView.findViewById(R.id.total_value);
         mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView = rootView.findViewById(R.id.recycler);
@@ -93,7 +93,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMainActivity().onAddressDialog();
+                getMainActivity().onClickQrCopy(mChainConfig, mAccount);
             }
         });
 
@@ -121,11 +121,12 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
         mAccount = getMainActivity().mAccount;
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = getMainActivity().mChainConfig;
 
         mCardView.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
         getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
+        getMainActivity().setEthAddress(mChainConfig, mEthAddress);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
     }
 

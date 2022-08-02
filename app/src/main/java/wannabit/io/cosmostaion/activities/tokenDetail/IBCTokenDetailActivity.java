@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcToken;
-import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -48,7 +46,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
     private CardView mBtnAddressPopup;
     private ImageView mKeyState;
-    private TextView mAddress;
+    private TextView mAddress, mEthAddress;
     private TextView mTotalValue;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -77,6 +75,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         mBtnAddressPopup = findViewById(R.id.card_root);
         mKeyState = findViewById(R.id.img_account);
         mAddress = findViewById(R.id.account_Address);
+        mEthAddress = findViewById(R.id.eth_address);
         mTotalValue = findViewById(R.id.total_value);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
@@ -161,22 +160,14 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(IBCTokenDetailActivity.this, mChainConfig.chainBgColor()));
         setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mAddress.setText(mAccount.address);
+        setEthAddress(mChainConfig, mEthAddress);
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
-            Bundle bundle = new Bundle();
-            bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) {
-                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-            } else {
-                bundle.putString("title", mAccount.nickName);
-            }
-            AccountShowDialog show = AccountShowDialog.newInstance(bundle);
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            onClickQrCopy(mChainConfig, mAccount);
 
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {

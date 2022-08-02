@@ -51,8 +51,6 @@ public class Provenance extends ChainConfig {
         return Lists.newArrayList("2000nhash");
     }
 
-    public int gasDefault() { return 0; }
-
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(505, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

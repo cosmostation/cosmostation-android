@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
-import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
@@ -45,7 +43,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
     private CardView mBtnAddressPopup;
     private ImageView mKeyState;
     private TextView mTotalValue;
-    private TextView mAddress;
+    private TextView mAddress, mEthAddress;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
 
@@ -71,6 +69,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
         mBtnAddressPopup = findViewById(R.id.card_root);
         mKeyState = findViewById(R.id.img_account);
         mAddress = findViewById(R.id.account_Address);
+        mEthAddress = findViewById(R.id.eth_address);
         mTotalValue = findViewById(R.id.total_value);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
@@ -137,6 +136,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
             mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(ContractTokenGrpcActivity.this, mChainConfig.chainBgColor()));
             setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
             mAddress.setText(mAccount.address);
+            setEthAddress(mChainConfig, mEthAddress);
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mCw20Asset.denom, mCw20Asset.getAmount(), mCw20Asset.decimal));
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -146,16 +146,7 @@ public class ContractTokenGrpcActivity extends BaseActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
-            Bundle bundle = new Bundle();
-            bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) {
-                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-            } else {
-                bundle.putString("title", mAccount.nickName);
-            }
-            AccountShowDialog show = AccountShowDialog.newInstance(bundle);
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            onClickQrCopy(mChainConfig, mAccount);
 
         } else if (v.equals(mBtnIbcSend)) {
             Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();

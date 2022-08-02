@@ -46,7 +46,6 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
-import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.fragment.DappFragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
@@ -175,16 +174,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         onAccountSwitched();
         onChainSelect(mBaseChain);
-    }
-
-    public void onAddressDialog() {
-        Bundle bundle = new Bundle();
-        bundle.putString("address", mAccount.address);
-        if (TextUtils.isEmpty(mAccount.nickName)) bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-        else bundle.putString("title", mAccount.nickName);
-        AccountShowDialog show = AccountShowDialog.newInstance(bundle);
-        show.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
     }
 
     public void onAccountSwitched() {

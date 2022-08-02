@@ -180,7 +180,9 @@
     <string name="str_import_time">등록 날짜</string>
     <string name="str_import_state">상태</string>
     <string name="str_import_path">경로</string>
-    <string name="str_import_address_type">주소 타입</string>
+    <string name="str_address_type">주소 타입</string>
+    <string name="str_tender_type">텐더민트 타입</string>
+    <string name="str_eth_type">이더리움 타입</string>
     <string name="str_import_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.</string>
     <string name="str_import_mnemonic">니모닉 복원</string>
     <string name="str_import_key">개인키 등록</string>

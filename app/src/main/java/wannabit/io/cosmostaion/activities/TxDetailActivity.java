@@ -364,8 +364,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 ArrayList<Coin> toDpCoin = new ArrayList<>();
                 try {
-                    holder.itemFromAddress.setText(WKey.convertAddressOkexToEth(msg.value.from_address));
-                    holder.itemToAddress.setText(WKey.convertAddressOkexToEth(msg.value.to_address));
+                    holder.itemFromAddress.setText(WKey.convertAddressToEth(msg.value.from_address));
+                    holder.itemToAddress.setText(WKey.convertAddressToEth(msg.value.to_address));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -396,7 +396,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemMsgImg.setImageResource(R.drawable.withdraw_ic);
             }
             try {
-                holder.itemDeleagtor.setText(WKey.convertAddressOkexToEth(msg.value.delegator_address));
+                holder.itemDeleagtor.setText(WKey.convertAddressToEth(msg.value.delegator_address));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -409,7 +409,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
             final Msg msg = mResTxInfo.getMsg(position - 1);
             try {
-                holder.itemVoter.setText(WKey.convertAddressOkexToEth(msg.value.delegator_address));
+                holder.itemVoter.setText(WKey.convertAddressToEth(msg.value.delegator_address));
             } catch (Exception e) {
                 e.printStackTrace();
             }

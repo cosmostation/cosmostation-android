@@ -452,7 +452,9 @@
     <string name="str_import_time">Imported Date</string>
     <string name="str_import_state">Imported State</string>
     <string name="str_import_path">Key Path</string>
-    <string name="str_import_address_type">Address Type</string>
+    <string name="str_address_type">Address Type</string>
+    <string name="str_tender_type">Tendermint Style</string>
+    <string name="str_eth_type">Ethereum Style</string>
     <string name="str_import_msg">Currently in watch mode.\nAll transactions are made available after registering your mnemonic phrase.</string>
     <string name="str_import_mnemonic">Import Mnemonic</string>
     <string name="str_import_key">Import PrivateKey</string>
