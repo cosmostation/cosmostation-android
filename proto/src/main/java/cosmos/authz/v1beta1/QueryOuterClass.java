@@ -3210,46 +3210,46 @@ public final class QueryOuterClass {
 
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
-    java.util.List<cosmos.authz.v1beta1.Authz.Grant> 
+    java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> 
         getGrantsList();
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
-    cosmos.authz.v1beta1.Authz.Grant getGrants(int index);
+    cosmos.authz.v1beta1.Authz.GrantAuthorization getGrants(int index);
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
     int getGrantsCount();
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
-    java.util.List<? extends cosmos.authz.v1beta1.Authz.GrantOrBuilder> 
+    java.util.List<? extends cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> 
         getGrantsOrBuilderList();
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
-    cosmos.authz.v1beta1.Authz.GrantOrBuilder getGrantsOrBuilder(
+    cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder getGrantsOrBuilder(
         int index);
 
     /**
@@ -3332,11 +3332,11 @@ public final class QueryOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                grants_ = new java.util.ArrayList<cosmos.authz.v1beta1.Authz.Grant>();
+                grants_ = new java.util.ArrayList<cosmos.authz.v1beta1.Authz.GrantAuthorization>();
                 mutable_bitField0_ |= 0x00000001;
               }
               grants_.add(
-                  input.readMessage(cosmos.authz.v1beta1.Authz.Grant.parser(), extensionRegistry));
+                  input.readMessage(cosmos.authz.v1beta1.Authz.GrantAuthorization.parser(), extensionRegistry));
               break;
             }
             case 18: {
@@ -3388,36 +3388,36 @@ public final class QueryOuterClass {
     }
 
     public static final int GRANTS_FIELD_NUMBER = 1;
-    private java.util.List<cosmos.authz.v1beta1.Authz.Grant> grants_;
+    private java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> grants_;
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<cosmos.authz.v1beta1.Authz.Grant> getGrantsList() {
+    public java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> getGrantsList() {
       return grants_;
     }
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends cosmos.authz.v1beta1.Authz.GrantOrBuilder> 
+    public java.util.List<? extends cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> 
         getGrantsOrBuilderList() {
       return grants_;
     }
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
     @java.lang.Override
     public int getGrantsCount() {
@@ -3425,24 +3425,24 @@ public final class QueryOuterClass {
     }
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
     @java.lang.Override
-    public cosmos.authz.v1beta1.Authz.Grant getGrants(int index) {
+    public cosmos.authz.v1beta1.Authz.GrantAuthorization getGrants(int index) {
       return grants_.get(index);
     }
     /**
      * <pre>
-     * authorizations is a list of grants granted for grantee by granter.
+     * grants is a list of grants granted by the granter.
      * </pre>
      *
-     * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
      */
     @java.lang.Override
-    public cosmos.authz.v1beta1.Authz.GrantOrBuilder getGrantsOrBuilder(
+    public cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder getGrantsOrBuilder(
         int index) {
       return grants_.get(index);
     }
@@ -3861,26 +3861,26 @@ public final class QueryOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<cosmos.authz.v1beta1.Authz.Grant> grants_ =
+      private java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> grants_ =
         java.util.Collections.emptyList();
       private void ensureGrantsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          grants_ = new java.util.ArrayList<cosmos.authz.v1beta1.Authz.Grant>(grants_);
+          grants_ = new java.util.ArrayList<cosmos.authz.v1beta1.Authz.GrantAuthorization>(grants_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmos.authz.v1beta1.Authz.Grant, cosmos.authz.v1beta1.Authz.Grant.Builder, cosmos.authz.v1beta1.Authz.GrantOrBuilder> grantsBuilder_;
+          cosmos.authz.v1beta1.Authz.GrantAuthorization, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder, cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> grantsBuilder_;
 
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
-      public java.util.List<cosmos.authz.v1beta1.Authz.Grant> getGrantsList() {
+      public java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> getGrantsList() {
         if (grantsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(grants_);
         } else {
@@ -3889,10 +3889,10 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
       public int getGrantsCount() {
         if (grantsBuilder_ == null) {
@@ -3903,12 +3903,12 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
-      public cosmos.authz.v1beta1.Authz.Grant getGrants(int index) {
+      public cosmos.authz.v1beta1.Authz.GrantAuthorization getGrants(int index) {
         if (grantsBuilder_ == null) {
           return grants_.get(index);
         } else {
@@ -3917,13 +3917,13 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
       public Builder setGrants(
-          int index, cosmos.authz.v1beta1.Authz.Grant value) {
+          int index, cosmos.authz.v1beta1.Authz.GrantAuthorization value) {
         if (grantsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3938,13 +3938,13 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
       public Builder setGrants(
-          int index, cosmos.authz.v1beta1.Authz.Grant.Builder builderForValue) {
+          int index, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder builderForValue) {
         if (grantsBuilder_ == null) {
           ensureGrantsIsMutable();
           grants_.set(index, builderForValue.build());
@@ -3956,12 +3956,12 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
-      public Builder addGrants(cosmos.authz.v1beta1.Authz.Grant value) {
+      public Builder addGrants(cosmos.authz.v1beta1.Authz.GrantAuthorization value) {
         if (grantsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3976,13 +3976,13 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
       public Builder addGrants(
-          int index, cosmos.authz.v1beta1.Authz.Grant value) {
+          int index, cosmos.authz.v1beta1.Authz.GrantAuthorization value) {
         if (grantsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3997,13 +3997,13 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
       public Builder addGrants(
-          cosmos.authz.v1beta1.Authz.Grant.Builder builderForValue) {
+          cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder builderForValue) {
         if (grantsBuilder_ == null) {
           ensureGrantsIsMutable();
           grants_.add(builderForValue.build());
@@ -4015,13 +4015,13 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
       public Builder addGrants(
-          int index, cosmos.authz.v1beta1.Authz.Grant.Builder builderForValue) {
+          int index, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder builderForValue) {
         if (grantsBuilder_ == null) {
           ensureGrantsIsMutable();
           grants_.add(index, builderForValue.build());
@@ -4033,13 +4033,13 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
       public Builder addAllGrants(
-          java.lang.Iterable<? extends cosmos.authz.v1beta1.Authz.Grant> values) {
+          java.lang.Iterable<? extends cosmos.authz.v1beta1.Authz.GrantAuthorization> values) {
         if (grantsBuilder_ == null) {
           ensureGrantsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -4052,10 +4052,10 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
       public Builder clearGrants() {
         if (grantsBuilder_ == null) {
@@ -4069,10 +4069,10 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
       public Builder removeGrants(int index) {
         if (grantsBuilder_ == null) {
@@ -4086,23 +4086,23 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
-      public cosmos.authz.v1beta1.Authz.Grant.Builder getGrantsBuilder(
+      public cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder getGrantsBuilder(
           int index) {
         return getGrantsFieldBuilder().getBuilder(index);
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
-      public cosmos.authz.v1beta1.Authz.GrantOrBuilder getGrantsOrBuilder(
+      public cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder getGrantsOrBuilder(
           int index) {
         if (grantsBuilder_ == null) {
           return grants_.get(index);  } else {
@@ -4111,12 +4111,12 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
-      public java.util.List<? extends cosmos.authz.v1beta1.Authz.GrantOrBuilder> 
+      public java.util.List<? extends cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> 
            getGrantsOrBuilderList() {
         if (grantsBuilder_ != null) {
           return grantsBuilder_.getMessageOrBuilderList();
@@ -4126,44 +4126,44 @@ public final class QueryOuterClass {
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
-      public cosmos.authz.v1beta1.Authz.Grant.Builder addGrantsBuilder() {
+      public cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder addGrantsBuilder() {
         return getGrantsFieldBuilder().addBuilder(
-            cosmos.authz.v1beta1.Authz.Grant.getDefaultInstance());
+            cosmos.authz.v1beta1.Authz.GrantAuthorization.getDefaultInstance());
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
-      public cosmos.authz.v1beta1.Authz.Grant.Builder addGrantsBuilder(
+      public cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder addGrantsBuilder(
           int index) {
         return getGrantsFieldBuilder().addBuilder(
-            index, cosmos.authz.v1beta1.Authz.Grant.getDefaultInstance());
+            index, cosmos.authz.v1beta1.Authz.GrantAuthorization.getDefaultInstance());
       }
       /**
        * <pre>
-       * authorizations is a list of grants granted for grantee by granter.
+       * grants is a list of grants granted by the granter.
        * </pre>
        *
-       * <code>repeated .cosmos.authz.v1beta1.Grant grants = 1;</code>
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
        */
-      public java.util.List<cosmos.authz.v1beta1.Authz.Grant.Builder> 
+      public java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder> 
            getGrantsBuilderList() {
         return getGrantsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmos.authz.v1beta1.Authz.Grant, cosmos.authz.v1beta1.Authz.Grant.Builder, cosmos.authz.v1beta1.Authz.GrantOrBuilder> 
+          cosmos.authz.v1beta1.Authz.GrantAuthorization, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder, cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> 
           getGrantsFieldBuilder() {
         if (grantsBuilder_ == null) {
           grantsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              cosmos.authz.v1beta1.Authz.Grant, cosmos.authz.v1beta1.Authz.Grant.Builder, cosmos.authz.v1beta1.Authz.GrantOrBuilder>(
+              cosmos.authz.v1beta1.Authz.GrantAuthorization, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder, cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder>(
                   grants_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -4380,6 +4380,2021 @@ public final class QueryOuterClass {
 
   }
 
+  public interface QueryGranteeGrantsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.authz.v1beta1.QueryGranteeGrantsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string grantee = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+     * @return The grantee.
+     */
+    java.lang.String getGrantee();
+    /**
+     * <code>string grantee = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+     * @return The bytes for grantee.
+     */
+    com.google.protobuf.ByteString
+        getGranteeBytes();
+
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * <pre>
+   * QueryGranteeGrantsRequest is the request type for the Query/IssuedGrants RPC method.
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.authz.v1beta1.QueryGranteeGrantsRequest}
+   */
+  public static final class QueryGranteeGrantsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.authz.v1beta1.QueryGranteeGrantsRequest)
+      QueryGranteeGrantsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryGranteeGrantsRequest.newBuilder() to construct.
+    private QueryGranteeGrantsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryGranteeGrantsRequest() {
+      grantee_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryGranteeGrantsRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryGranteeGrantsRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              grantee_ = s;
+              break;
+            }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest.class, cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest.Builder.class);
+    }
+
+    public static final int GRANTEE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object grantee_;
+    /**
+     * <code>string grantee = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+     * @return The grantee.
+     */
+    @java.lang.Override
+    public java.lang.String getGrantee() {
+      java.lang.Object ref = grantee_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        grantee_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string grantee = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+     * @return The bytes for grantee.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getGranteeBytes() {
+      java.lang.Object ref = grantee_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        grantee_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines an pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getGranteeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, grantee_);
+      }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getGranteeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, grantee_);
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest)) {
+        return super.equals(obj);
+      }
+      cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest other = (cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest) obj;
+
+      if (!getGrantee()
+          .equals(other.getGrantee())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + GRANTEE_FIELD_NUMBER;
+      hash = (53 * hash) + getGrantee().hashCode();
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryGranteeGrantsRequest is the request type for the Query/IssuedGrants RPC method.
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.authz.v1beta1.QueryGranteeGrantsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.authz.v1beta1.QueryGranteeGrantsRequest)
+        cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest.class, cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest.Builder.class);
+      }
+
+      // Construct using cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        grantee_ = "";
+
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest getDefaultInstanceForType() {
+        return cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest build() {
+        cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest buildPartial() {
+        cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest result = new cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest(this);
+        result.grantee_ = grantee_;
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest) {
+          return mergeFrom((cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest other) {
+        if (other == cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest.getDefaultInstance()) return this;
+        if (!other.getGrantee().isEmpty()) {
+          grantee_ = other.grantee_;
+          onChanged();
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object grantee_ = "";
+      /**
+       * <code>string grantee = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * @return The grantee.
+       */
+      public java.lang.String getGrantee() {
+        java.lang.Object ref = grantee_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          grantee_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string grantee = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * @return The bytes for grantee.
+       */
+      public com.google.protobuf.ByteString
+          getGranteeBytes() {
+        java.lang.Object ref = grantee_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          grantee_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string grantee = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * @param value The grantee to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGrantee(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        grantee_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string grantee = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearGrantee() {
+        
+        grantee_ = getDefaultInstance().getGrantee();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string grantee = 1 [(.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * @param value The bytes for grantee to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGranteeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        grantee_ = value;
+        onChanged();
+        return this;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.authz.v1beta1.QueryGranteeGrantsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.authz.v1beta1.QueryGranteeGrantsRequest)
+    private static final cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest();
+    }
+
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryGranteeGrantsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryGranteeGrantsRequest>() {
+      @java.lang.Override
+      public QueryGranteeGrantsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryGranteeGrantsRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryGranteeGrantsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryGranteeGrantsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryGranteeGrantsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.authz.v1beta1.QueryGranteeGrantsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> 
+        getGrantsList();
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    cosmos.authz.v1beta1.Authz.GrantAuthorization getGrants(int index);
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    int getGrantsCount();
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    java.util.List<? extends cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> 
+        getGrantsOrBuilderList();
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder getGrantsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponse getPagination();
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * <pre>
+   * QueryGranteeGrantsResponse is the response type for the Query/GranteeGrants RPC method.
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.authz.v1beta1.QueryGranteeGrantsResponse}
+   */
+  public static final class QueryGranteeGrantsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.authz.v1beta1.QueryGranteeGrantsResponse)
+      QueryGranteeGrantsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryGranteeGrantsResponse.newBuilder() to construct.
+    private QueryGranteeGrantsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryGranteeGrantsResponse() {
+      grants_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryGranteeGrantsResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryGranteeGrantsResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                grants_ = new java.util.ArrayList<cosmos.authz.v1beta1.Authz.GrantAuthorization>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              grants_.add(
+                  input.readMessage(cosmos.authz.v1beta1.Authz.GrantAuthorization.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageResponse.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          grants_ = java.util.Collections.unmodifiableList(grants_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse.class, cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse.Builder.class);
+    }
+
+    public static final int GRANTS_FIELD_NUMBER = 1;
+    private java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> grants_;
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> getGrantsList() {
+      return grants_;
+    }
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> 
+        getGrantsOrBuilderList() {
+      return grants_;
+    }
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    @java.lang.Override
+    public int getGrantsCount() {
+      return grants_.size();
+    }
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    @java.lang.Override
+    public cosmos.authz.v1beta1.Authz.GrantAuthorization getGrants(int index) {
+      return grants_.get(index);
+    }
+    /**
+     * <pre>
+     * grants is a list of grants granted to the grantee.
+     * </pre>
+     *
+     * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+     */
+    @java.lang.Override
+    public cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder getGrantsOrBuilder(
+        int index) {
+      return grants_.get(index);
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines an pagination for the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < grants_.size(); i++) {
+        output.writeMessage(1, grants_.get(i));
+      }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < grants_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, grants_.get(i));
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse)) {
+        return super.equals(obj);
+      }
+      cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse other = (cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse) obj;
+
+      if (!getGrantsList()
+          .equals(other.getGrantsList())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getGrantsCount() > 0) {
+        hash = (37 * hash) + GRANTS_FIELD_NUMBER;
+        hash = (53 * hash) + getGrantsList().hashCode();
+      }
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryGranteeGrantsResponse is the response type for the Query/GranteeGrants RPC method.
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.authz.v1beta1.QueryGranteeGrantsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.authz.v1beta1.QueryGranteeGrantsResponse)
+        cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse.class, cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse.Builder.class);
+      }
+
+      // Construct using cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getGrantsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (grantsBuilder_ == null) {
+          grants_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          grantsBuilder_.clear();
+        }
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return cosmos.authz.v1beta1.QueryOuterClass.internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse getDefaultInstanceForType() {
+        return cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse build() {
+        cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse buildPartial() {
+        cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse result = new cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (grantsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            grants_ = java.util.Collections.unmodifiableList(grants_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.grants_ = grants_;
+        } else {
+          result.grants_ = grantsBuilder_.build();
+        }
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse) {
+          return mergeFrom((cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse other) {
+        if (other == cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse.getDefaultInstance()) return this;
+        if (grantsBuilder_ == null) {
+          if (!other.grants_.isEmpty()) {
+            if (grants_.isEmpty()) {
+              grants_ = other.grants_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureGrantsIsMutable();
+              grants_.addAll(other.grants_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.grants_.isEmpty()) {
+            if (grantsBuilder_.isEmpty()) {
+              grantsBuilder_.dispose();
+              grantsBuilder_ = null;
+              grants_ = other.grants_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              grantsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getGrantsFieldBuilder() : null;
+            } else {
+              grantsBuilder_.addAllMessages(other.grants_);
+            }
+          }
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> grants_ =
+        java.util.Collections.emptyList();
+      private void ensureGrantsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          grants_ = new java.util.ArrayList<cosmos.authz.v1beta1.Authz.GrantAuthorization>(grants_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cosmos.authz.v1beta1.Authz.GrantAuthorization, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder, cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> grantsBuilder_;
+
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization> getGrantsList() {
+        if (grantsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(grants_);
+        } else {
+          return grantsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public int getGrantsCount() {
+        if (grantsBuilder_ == null) {
+          return grants_.size();
+        } else {
+          return grantsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public cosmos.authz.v1beta1.Authz.GrantAuthorization getGrants(int index) {
+        if (grantsBuilder_ == null) {
+          return grants_.get(index);
+        } else {
+          return grantsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public Builder setGrants(
+          int index, cosmos.authz.v1beta1.Authz.GrantAuthorization value) {
+        if (grantsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureGrantsIsMutable();
+          grants_.set(index, value);
+          onChanged();
+        } else {
+          grantsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public Builder setGrants(
+          int index, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder builderForValue) {
+        if (grantsBuilder_ == null) {
+          ensureGrantsIsMutable();
+          grants_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          grantsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public Builder addGrants(cosmos.authz.v1beta1.Authz.GrantAuthorization value) {
+        if (grantsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureGrantsIsMutable();
+          grants_.add(value);
+          onChanged();
+        } else {
+          grantsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public Builder addGrants(
+          int index, cosmos.authz.v1beta1.Authz.GrantAuthorization value) {
+        if (grantsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureGrantsIsMutable();
+          grants_.add(index, value);
+          onChanged();
+        } else {
+          grantsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public Builder addGrants(
+          cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder builderForValue) {
+        if (grantsBuilder_ == null) {
+          ensureGrantsIsMutable();
+          grants_.add(builderForValue.build());
+          onChanged();
+        } else {
+          grantsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public Builder addGrants(
+          int index, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder builderForValue) {
+        if (grantsBuilder_ == null) {
+          ensureGrantsIsMutable();
+          grants_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          grantsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public Builder addAllGrants(
+          java.lang.Iterable<? extends cosmos.authz.v1beta1.Authz.GrantAuthorization> values) {
+        if (grantsBuilder_ == null) {
+          ensureGrantsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, grants_);
+          onChanged();
+        } else {
+          grantsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public Builder clearGrants() {
+        if (grantsBuilder_ == null) {
+          grants_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          grantsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public Builder removeGrants(int index) {
+        if (grantsBuilder_ == null) {
+          ensureGrantsIsMutable();
+          grants_.remove(index);
+          onChanged();
+        } else {
+          grantsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder getGrantsBuilder(
+          int index) {
+        return getGrantsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder getGrantsOrBuilder(
+          int index) {
+        if (grantsBuilder_ == null) {
+          return grants_.get(index);  } else {
+          return grantsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public java.util.List<? extends cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> 
+           getGrantsOrBuilderList() {
+        if (grantsBuilder_ != null) {
+          return grantsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(grants_);
+        }
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder addGrantsBuilder() {
+        return getGrantsFieldBuilder().addBuilder(
+            cosmos.authz.v1beta1.Authz.GrantAuthorization.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder addGrantsBuilder(
+          int index) {
+        return getGrantsFieldBuilder().addBuilder(
+            index, cosmos.authz.v1beta1.Authz.GrantAuthorization.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * grants is a list of grants granted to the grantee.
+       * </pre>
+       *
+       * <code>repeated .cosmos.authz.v1beta1.GrantAuthorization grants = 1;</code>
+       */
+      public java.util.List<cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder> 
+           getGrantsBuilderList() {
+        return getGrantsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          cosmos.authz.v1beta1.Authz.GrantAuthorization, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder, cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder> 
+          getGrantsFieldBuilder() {
+        if (grantsBuilder_ == null) {
+          grantsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              cosmos.authz.v1beta1.Authz.GrantAuthorization, cosmos.authz.v1beta1.Authz.GrantAuthorization.Builder, cosmos.authz.v1beta1.Authz.GrantAuthorizationOrBuilder>(
+                  grants_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          grants_ = null;
+        }
+        return grantsBuilder_;
+      }
+
+      private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageResponse.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageResponse.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponse.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an pagination for the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.authz.v1beta1.QueryGranteeGrantsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.authz.v1beta1.QueryGranteeGrantsResponse)
+    private static final cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse();
+    }
+
+    public static cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryGranteeGrantsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryGranteeGrantsResponse>() {
+      @java.lang.Override
+      public QueryGranteeGrantsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryGranteeGrantsResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryGranteeGrantsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryGranteeGrantsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public cosmos.authz.v1beta1.QueryOuterClass.QueryGranteeGrantsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_authz_v1beta1_QueryGrantsRequest_descriptor;
   private static final 
@@ -4400,6 +6415,16 @@ public final class QueryOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmos_authz_v1beta1_QueryGranterGrantsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4425,19 +6450,31 @@ public final class QueryOuterClass {
       "yGranterGrantsRequest\022)\n\007granter\030\001 \001(\tB\030" +
       "\322\264-\024cosmos.AddressString\022:\n\npagination\030\002" +
       " \001(\0132&.cosmos.base.query.v1beta1.PageReq" +
-      "uest\"\206\001\n\032QueryGranterGrantsResponse\022+\n\006g" +
-      "rants\030\001 \003(\0132\033.cosmos.authz.v1beta1.Grant" +
-      "\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.query" +
-      ".v1beta1.PageResponse2\262\002\n\005Query\022\203\001\n\006Gran" +
-      "ts\022(.cosmos.authz.v1beta1.QueryGrantsReq" +
-      "uest\032).cosmos.authz.v1beta1.QueryGrantsR" +
-      "esponse\"$\202\323\344\223\002\036\022\034/cosmos/authz/v1beta1/g" +
-      "rants\022\242\001\n\rGranterGrants\022/.cosmos.authz.v" +
-      "1beta1.QueryGranterGrantsRequest\0320.cosmo" +
-      "s.authz.v1beta1.QueryGranterGrantsRespon" +
-      "se\".\202\323\344\223\002(\022&/cosmos/authz/v1beta1/grants" +
-      "/{granter}B&Z$github.com/cosmos/cosmos-s" +
-      "dk/x/authzb\006proto3"
+      "uest\"\223\001\n\032QueryGranterGrantsResponse\0228\n\006g" +
+      "rants\030\001 \003(\0132(.cosmos.authz.v1beta1.Grant" +
+      "Authorization\022;\n\npagination\030\002 \001(\0132\'.cosm" +
+      "os.base.query.v1beta1.PageResponse\"\202\001\n\031Q" +
+      "ueryGranteeGrantsRequest\022)\n\007grantee\030\001 \001(" +
+      "\tB\030\322\264-\024cosmos.AddressString\022:\n\npaginatio" +
+      "n\030\002 \001(\0132&.cosmos.base.query.v1beta1.Page" +
+      "Request\"\223\001\n\032QueryGranteeGrantsResponse\0228" +
+      "\n\006grants\030\001 \003(\0132(.cosmos.authz.v1beta1.Gr" +
+      "antAuthorization\022;\n\npagination\030\002 \001(\0132\'.c" +
+      "osmos.base.query.v1beta1.PageResponse2\347\003" +
+      "\n\005Query\022\203\001\n\006Grants\022(.cosmos.authz.v1beta" +
+      "1.QueryGrantsRequest\032).cosmos.authz.v1be" +
+      "ta1.QueryGrantsResponse\"$\202\323\344\223\002\036\022\034/cosmos" +
+      "/authz/v1beta1/grants\022\252\001\n\rGranterGrants\022" +
+      "/.cosmos.authz.v1beta1.QueryGranterGrant" +
+      "sRequest\0320.cosmos.authz.v1beta1.QueryGra" +
+      "nterGrantsResponse\"6\202\323\344\223\0020\022./cosmos/auth" +
+      "z/v1beta1/grants/granter/{granter}\022\252\001\n\rG" +
+      "ranteeGrants\022/.cosmos.authz.v1beta1.Quer" +
+      "yGranteeGrantsRequest\0320.cosmos.authz.v1b" +
+      "eta1.QueryGranteeGrantsResponse\"6\202\323\344\223\0020\022" +
+      "./cosmos/authz/v1beta1/grants/grantee/{g" +
+      "rantee}B&Z$github.com/cosmos/cosmos-sdk/" +
+      "x/authzb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4470,6 +6507,18 @@ public final class QueryOuterClass {
     internal_static_cosmos_authz_v1beta1_QueryGranterGrantsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_authz_v1beta1_QueryGranterGrantsResponse_descriptor,
+        new java.lang.String[] { "Grants", "Pagination", });
+    internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsRequest_descriptor,
+        new java.lang.String[] { "Grantee", "Pagination", });
+    internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_authz_v1beta1_QueryGranteeGrantsResponse_descriptor,
         new java.lang.String[] { "Grants", "Pagination", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
