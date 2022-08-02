@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -38,7 +37,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -65,7 +63,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private VoteHeaderRecyclerView mVoteHeaderRecyclerView;
-    private Layout mBottomControl;
     private Button mMultiVoteBtn, mCancelBtn, mNextBtn;
     private TextView mEmptyProposalText;
 
@@ -111,7 +108,9 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         mVoteHeaderRecyclerView = new VoteHeaderRecyclerView(this, true, getSectionCall());
         mRecyclerView.addItemDecoration(mVoteHeaderRecyclerView);
 
-        ((SimpleItemAnimator) Objects.requireNonNull(mRecyclerView.getItemAnimator())).setSupportsChangeAnimations(false);
+        if (mRecyclerView.getItemAnimator() != null && mRecyclerView.getItemAnimator() instanceof SimpleItemAnimator) {
+            ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        }
     }
 
     private void initView() {
@@ -133,7 +132,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(VoteListActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(this::loadProposals);
-
     }
 
     @Override
@@ -148,6 +146,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private void loadProposals() {
         if (mAccount == null) return;
         onShowWaitDialog();
+        checkEmptyView();
         ApiClient.getMintscan(VoteListActivity.this).getProposalList(mChain).enqueue(new Callback<ArrayList<ResProposal>>() {
             @Override
             public void onResponse(Call<ArrayList<ResProposal>> call, Response<ArrayList<ResProposal>> response) {
