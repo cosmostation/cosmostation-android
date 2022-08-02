@@ -1,11 +1,8 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -23,7 +20,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,7 +46,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.fragment.txs.common.VoteStep0Fragment;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
@@ -339,7 +334,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             }
 
             holder.card_proposal.setOnClickListener(v -> {
-                if(selectedSet.contains(item)){
+                if (selectedSet.contains(item)) {
                     selectedSet.remove(item);
                 } else {
                     selectedSet.add(item);
@@ -368,7 +363,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 } else if (status.size() > 1) {
                     holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_weight));
-                } else{
+                } else {
                     holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_not_voted));
                 }
