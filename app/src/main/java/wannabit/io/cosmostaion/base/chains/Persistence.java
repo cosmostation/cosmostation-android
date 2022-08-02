@@ -48,6 +48,12 @@ public class Persistence extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/persistence-blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "persistence"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.0uxprt", "0.025uxprt");
+    }
+
+    public int gasDefault() { return 0; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

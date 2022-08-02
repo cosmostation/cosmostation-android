@@ -159,7 +159,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mChainConfig = ChainFactory.getChain(mBaseChain);
 
         onUpdatePushStatusUI();
-        WDp.showChainDp(this, mBaseChain, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
+        WDp.showChainDp(this, mChainConfig, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
         mChainImg.setImageResource(mChainConfig.chainImg());
 
         if (BaseChain.isGRPC(mBaseChain)) {
@@ -312,6 +312,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (v.equals(mBtnRewardAddressChange)) {
             if (!mAccount.hasPrivateKey) {
                 onInsertKeyDialog();
+                return;
+            }
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
 

@@ -749,24 +749,13 @@
     <string name="str_gas_amount">Gas Amount</string>
     <string name="str_gas_rate">Gas Rate</string>
     <string name="str_fee_amount">Tx Fee Amount</string>
-    <string name="str_fee_speed_title_0">Only a handful of validators will process this Tx.</string>
-    <string name="str_fee_speed_title_1">A few validators will process this Tx.</string>
-    <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
-    <string name="str_fee_speed_title_iris">Support fixed transfer fee for IRIS Mainnet..</string>
-    <string name="str_fee_speed_title_bnb">Support fixed transfer fee for Bianace dex.</string>
-    <string name="str_fee_speed_title_kava">Support fixed transfer fee for KAVA Chain.\nSoon update for custom fees.</string>
-    <string name="str_fee_speed_title_iov">Support fixed transfer fee for Starname Chain.</string>
-    <string name="str_fee_speed_title_ok">Support fixed transfer fee for OKC Chain.</string>
-    <string name="str_fee_speed_title_certik">Support fixed transfer fee for Certik Chain.</string>
-    <string name="str_fee_speed_title_akash">Support fixed transfer fee for Akash Chain.</string>
-    <string name="str_fee_speed_title_secret">Support fixed transfer fee for Secret Chain.</string>
-    <string name="str_fee_speed_title_sentinel">Support fixed transfer fee for Sentinel Chain.</string>
-    <string name="str_fee_speed_title_fetch">Support fixed transfer fee for Fetch.ai Chain.</string>
-    <string name="str_fee_speed_title_sif">Support fixed transfer fee for Sif Chain.</string>
-    <string name="str_fee_speed_title_ki">Support fixed transfer fee for Ki Foundation Chain.</string>
-    <string name="str_fee_speed_title_stargate">Support fixed transfer fee for Cosmos Testnet.</string>
-    <string name="str_fee_speed_title_bifrost">Support fixed transfer fee for Iris Testnet.</string>
-    <string name="str_fee_speed_title_cosmos">Support fixed transfer fee for Cosmos Mainnet.</string>
+    <string name="str_fee_msg_title">Tx Fee is a cost charged by the network.</string>
+    <string name="str_fee_msg_content">Cosmostation Wallet service is free to use, and the Tx fee you pay is distributed to all validators and community pool.</string>
+    <string name="str_fee_speed_title_tiny">Only a handful of validators will process this Tx.</string>
+    <string name="str_fee_speed_title_low">A few validators will process this Tx.</string>
+    <string name="str_fee_speed_title_average">Most validators will process this Tx.</string>
+    <string name="str_fee_speed_title_zero">This chain support zero Tx fee</string>
+    <string name="str_fee_speed_title_fixed">This chain support fixed Tx fee</string>
     <string name="str_fee_speed_fixed">Tx fees are for transactions on the network, distributed to the community pool, delegators, and validators. It safeguards the network and prevents congestion due to excessive spamming.</string>
     <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
@@ -1534,7 +1523,8 @@
     <string name="str_keeper">Keeper</string>
     <string name="str_type">Type</string>
     <string name="str_check_estimate_gas_amount">Check Estimate Gas Amount</string>
-    <string name="str_apply_estimate_gas_amount">Estimate Gas Amount Applied</string>
+    <string name="str_gas_checked">Gas amount checked successfully</string>
+    <string name="str_select_fee_denom">Select coin for Tx fee pay</string>
     <string name="str_mnemonics_warning_title">Do NOT enter your mnemonics.</string>
     <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\nthe memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are soley responsible for the exposure or loss of your keys.</string>
     <string name="str_ibc_sender">Sender</string>
@@ -1946,6 +1936,7 @@
     <string name="error_alreay_imported_mnemonic">Already imported mnemonic</string>
     <string name="error_not_selected_to_import">Select address to import</string>
     <string name="error_no_mnemonic">Only private key imported</string>
+    <string name="error_simul_error">This Tx not executable</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>

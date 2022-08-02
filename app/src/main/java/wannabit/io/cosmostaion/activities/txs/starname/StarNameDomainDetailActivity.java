@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.activities.txs.starname;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
@@ -12,7 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,15 +34,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainInfoTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class StarNameDomainDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -121,16 +114,16 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                 onInsertKeyDialog();
                 return;
             }
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             if (mDomain_gRPC.getType().equals("open")) {
                 Toast.makeText(getBaseContext(), R.string.error_cannot_delete_open_domain, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_DELETE_DOMAIN, 0);
-            if (available.compareTo(txFee) < 0) {
-                Toast.makeText(this, R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
+
             Intent intent = new Intent(this, DeleteStarNameActivity.class);
             intent.putExtra("ToDeleType", IOV_MSG_TYPE_DELETE_DOMAIN);
             intent.putExtra("ToDeleDomain", mDomain_gRPC.getName());
@@ -142,11 +135,14 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                 onInsertKeyDialog();
                 return;
             }
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
             BigDecimal starNameFee = getBaseDao().getStarNameRenewDomainFee(mDomain_gRPC.getName(), mDomain_gRPC.getType());
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_RENEW_DOMAIN, 0);
-            if (available.compareTo(starNameFee.add(txFee)) < 0) {
+            if (available.compareTo(starNameFee) < 0) {
                 Toast.makeText(this, R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -163,11 +159,14 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                 onInsertKeyDialog();
                 return;
             }
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
             BigDecimal starNameFee = getBaseDao().getReplaceFee();
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REPLACE_STARNAME, 0);
-            if (available.compareTo(starNameFee.add(txFee)) < 0) {
+            if (available.compareTo(starNameFee) < 0) {
                 Toast.makeText(this, R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
                 return;
             }

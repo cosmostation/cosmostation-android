@@ -34,7 +34,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaSwapPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -127,9 +126,8 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
         setDpDecimals(mInputCoinDecimal);
 
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, 0);
         if (getSActivity().mInputDenom.equals(TOKEN_KAVA)) {
-            mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
+            mAvailableMaxAmount = mAvailableMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapAvailAmountSymbol);

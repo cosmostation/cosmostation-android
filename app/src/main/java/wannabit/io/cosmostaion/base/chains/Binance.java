@@ -50,6 +50,12 @@ public class Binance extends ChainConfig {
     public String blogInfoLink() { return  "https://www.bnbchain.org/en/blog/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "binancecoin"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.0BNB");
+    }
+
+    public int gasDefault() { return 0; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

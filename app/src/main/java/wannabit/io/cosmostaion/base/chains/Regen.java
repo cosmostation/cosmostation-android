@@ -45,6 +45,12 @@ public class Regen extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/regen-network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "regen"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.00025uregen", "0.0025uregen", "0.025uregen");
+    }
+
+    public int gasDefault() { return 1; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

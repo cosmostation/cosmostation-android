@@ -47,6 +47,12 @@ public class Provenance extends ChainConfig {
     public String blogInfoLink() { return  "https://www.provenance.io/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "provenance-blockchain"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("2000nhash");
+    }
+
+    public int gasDefault() { return 0; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(505, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

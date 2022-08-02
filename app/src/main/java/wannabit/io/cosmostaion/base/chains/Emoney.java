@@ -46,6 +46,12 @@ public class Emoney extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/e-money-com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "e-money"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.1ungm", "0.3ungm", "1ungm");
+    }
+
+    public int gasDefault() { return 1; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

@@ -42,6 +42,12 @@ public class Stargaze extends ChainConfig {
     public String blogInfoLink() { return  "https://mirror.xyz/stargazezone.eth"; }
     public String coingeckoLink() { return  COINGECKO_URL + "stargaze"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.0ustars", "0.0025ustars");
+    }
+
+    public int gasDefault() { return 1; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

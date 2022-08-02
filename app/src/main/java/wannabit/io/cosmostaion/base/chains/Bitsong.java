@@ -49,6 +49,12 @@ public class Bitsong extends ChainConfig {
     public String blogInfoLink() { return  "https://bitsongofficial.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "bitsong"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.025ubtsg");
+    }
+
+    public int gasDefault() { return 0; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(639, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

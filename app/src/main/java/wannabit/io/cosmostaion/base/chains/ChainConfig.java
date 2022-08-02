@@ -112,6 +112,10 @@ abstract public class ChainConfig {
 
     public abstract String coingeckoLink();
 
+    public abstract ArrayList<String> gasRates();
+
+    public abstract int gasDefault();
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

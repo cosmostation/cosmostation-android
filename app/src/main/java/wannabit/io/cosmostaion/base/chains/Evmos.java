@@ -49,6 +49,12 @@ public class Evmos extends ChainConfig {
     public String blogInfoLink() { return  "https://evmos.blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "evmos"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("20000000000aevmos");
+    }
+
+    public int gasDefault() { return 0; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

@@ -46,6 +46,12 @@ public class Sif extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/sifchain-finance"; }
     public String coingeckoLink() { return  COINGECKO_URL + "sifchain"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.0rowan");
+    }
+
+    public int gasDefault() { return 0; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

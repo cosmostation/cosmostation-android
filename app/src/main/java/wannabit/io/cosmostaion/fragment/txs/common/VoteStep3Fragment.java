@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +13,11 @@ import com.google.common.collect.Lists;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.VoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class VoteStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -29,7 +26,6 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
     private TextView mFeeAmount, mDenomFeeType;
     private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
-    private int mDpDecimal = 6;
 
     public static VoteStep3Fragment newInstance(Bundle bundle) {
         VoteStep3Fragment fragment = new VoteStep3Fragment();
@@ -59,10 +55,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.setGasDenomTv(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxFee.amount.get(0).denom, mDenomFeeType);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mDenomFeeType, mFeeAmount);
 
         List<String> texts = Lists.newArrayList();
         getSActivity().mSelectedOpinion.forEach((key, value) -> {

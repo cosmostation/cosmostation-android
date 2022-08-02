@@ -45,6 +45,12 @@ public class Certik extends ChainConfig {
     public String blogInfoLink() { return  "https://www.certik.foundation/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "certik"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.05uctk");
+    }
+
+    public int gasDefault() { return 0; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

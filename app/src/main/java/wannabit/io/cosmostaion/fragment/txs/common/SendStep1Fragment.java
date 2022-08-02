@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -30,7 +28,6 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SendStep1Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -93,12 +90,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
         final String mainDenom = getSActivity().mChainConfig.mainDenom();
         final String toSendDenom = getSActivity().mDenom;
-        final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
 
         if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
             mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom);
             if (toSendDenom.equals(mainDenom)) {
-                mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(feeAmount);
+                mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
                 WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
 
             } else {
@@ -109,7 +105,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         } else {
             mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             if (toSendDenom.equals(mainDenom)) {
-                mMaxAvailable = getBaseDao().availableAmount(toSendDenom).subtract(feeAmount);
+                mMaxAvailable = getBaseDao().availableAmount(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
             } else {
                 mMaxAvailable = getBaseDao().availableAmount(toSendDenom);
             }

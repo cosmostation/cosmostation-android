@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
+import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
@@ -326,18 +327,109 @@ public class WDp {
         amountTv.setText(getDpAmount2(c, new BigDecimal(amount), divideDecimal, displayDecimal));
     }
 
-    public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
-        if (baseChain.equals(OKEX_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(FETCHAI_MAIN)) {
+    public static ArrayList<FeeInfo> getFeeInfos(Context c, ChainConfig chainConfig) {
+        ArrayList<FeeInfo> result = new ArrayList<>();
+        for (String gasInfo : chainConfig.gasRates()) {
+            result.add(new FeeInfo(gasInfo));
+        }
+
+        if (result.size() == 1) {
+            result.get(0).tiile = "Fixed";
+            result.get(0).msg = c.getString(R.string.str_fee_speed_title_fixed);
+        } else if (result.size() == 2) {
+            result.get(1).tiile = "Average";
+            result.get(1).msg = c.getString(R.string.str_fee_speed_title_average);
+            if (result.get(0).feeDatas.get(0).gasRate == BigDecimal.ZERO) {
+                result.get(0).tiile = "Zero";
+                result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
+            } else {
+                result.get(0).tiile = "Tiny";
+                result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
+            }
+        } else if (result.size() == 3) {
+            result.get(2).tiile = "Average";
+            result.get(2).msg = c.getString(R.string.str_fee_speed_title_average);
+            result.get(1).tiile = "Low";
+            result.get(1).msg = c.getString(R.string.str_fee_speed_title_low);
+            if (result.get(0).feeDatas.get(0).gasRate == BigDecimal.ZERO) {
+                result.get(0).tiile = "Zero";
+                result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
+            } else {
+                result.get(0).tiile = "Tiny";
+                result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
+            }
+        }
+        return result;
+    }
+
+    public static boolean isTxFeePayable(Context c, BaseData baseData, ChainConfig chainConfig) {
+        if (chainConfig.baseChain().equals(SIF_MAIN)) {
+            if (new BigDecimal("100000000000000000").compareTo(baseData.getAvailable(chainConfig.mainDenom())) < 0) {
+                return true;
+            }
+            return false;
+        } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
+            if (new BigDecimal(FEE_BNB_SEND).compareTo(baseData.availableAmount(chainConfig.mainDenom())) < 0) {
+                return true;
+            }
+            return false;
+        } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
+            if (new BigDecimal(FEE_OKC_BASE).compareTo(baseData.availableAmount(chainConfig.mainDenom())) < 0) {
+                return true;
+            }
+            return false;
+        }
+        boolean result = false;
+        for (Coin coin : getMinTxFeeAmounts(c, chainConfig)) {
+            if (baseData.getAvailable(coin.denom).compareTo(new BigDecimal(coin.amount)) >= 0) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<Coin> getMinTxFeeAmounts(Context c, ChainConfig chainConfig) {
+        ArrayList<Coin> result = new ArrayList<>();
+        BigDecimal gasAmount = new BigDecimal(BASE_GAS_AMOUNT);
+        ArrayList<FeeInfo.FeeData> feeDatas = getFeeInfos(c, chainConfig).get(0).feeDatas;
+
+        for (FeeInfo.FeeData feeData : feeDatas) {
+            BigDecimal amount = feeData.gasRate.multiply(gasAmount).setScale(0, RoundingMode.UP);
+            result.add(new Coin(feeData.denom, amount.toPlainString()));
+        }
+        return result;
+    }
+
+    public static BigDecimal getMainDenomFee(Context c, ChainConfig chainConfig) {
+        if (chainConfig.baseChain().equals(SIF_MAIN)) {
+            return new BigDecimal("100000000000000000");
+        } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
+            return new BigDecimal(FEE_BNB_SEND);
+        } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
+            return new BigDecimal(FEE_OKC_BASE);
+        }
+        for (Coin coin : getMinTxFeeAmounts(c, chainConfig)) {
+            if (coin.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                return new BigDecimal(coin.amount);
+            } else {
+                return BigDecimal.ZERO;
+            }
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public static void showChainDp(Context c, ChainConfig chainConfig, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
+        if (chainConfig.baseChain().equals(OKEX_MAIN) || chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(FETCHAI_MAIN)) {
             cardRewardAddress.setVisibility(View.GONE);
         } else {
             cardRewardAddress.setVisibility(View.VISIBLE);
         }
-        cardName.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
-        cardAlarm.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
-        cardBody.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
-        cardRewardAddress.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
+        cardName.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
+        cardAlarm.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
+        cardBody.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
+        cardRewardAddress.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
 
-        if (baseChain.equals(COSMOS_MAIN)) {
+        if (chainConfig.baseChain().equals(COSMOS_MAIN)) {
             cardAlarm.setVisibility(View.VISIBLE);
         } else {
             cardAlarm.setVisibility(View.GONE);
@@ -1316,45 +1408,12 @@ public class WDp {
         return ContextCompat.getColor(c, R.color.colorTransBg);
     }
 
-    public static void DpMainDenom(Context c, BaseChain chain, TextView textview) {
-        DpMainDenom(c, chain.getChain(), textview);
-    }
-
-    public static void DpMainDenom(Context c, String chain, TextView textview) {
-        if (!chain.isEmpty()) {
-            ChainConfig chainConfig = ChainFactory.getChain(getChain(chain));
-            textview.setText(chainConfig.mainSymbol());
-            textview.setTextColor(ContextCompat.getColor(c, chainConfig.chainColor()));
-        }
-    }
-
     public static String mainDenom(BaseChain chain) {
         if (chain != null) {
             ChainConfig chainConfig = ChainFactory.getChain(chain);
             return chainConfig.mainDenom();
         }
         return "";
-    }
-
-    public static ArrayList<String> getGasDenomList(BaseChain baseChain) {
-        if (baseChain.equals(NYX_MAIN)) {
-            return Lists.newArrayList(TOKEN_NYM);
-        } else if (baseChain.equals(CRESCENT_MAIN)) {
-            return Lists.newArrayList(TOKEN_CRE, TOKEN_BCRE);
-        }
-        return Lists.newArrayList(mainDenom(baseChain));
-    }
-
-    public static void setGasDenomTv(Context c, BaseChain baseChain, String denom, TextView denomTv) {
-        if (denom.equalsIgnoreCase(TOKEN_BCRE)) {
-            denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_bcre));
-            denomTv.setText(c.getString(R.string.str_bcre_c));
-        } else if (denom.equalsIgnoreCase(TOKEN_NYM)) {
-            denomTv.setTextColor(ContextCompat.getColor(c, R.color.color_nym));
-            denomTv.setText(c.getString(R.string.str_nym_c));
-        } else {
-            WDp.DpMainDenom(c, baseChain, denomTv);
-        }
     }
 
     public static int mainDivideDecimal(BaseChain chain) {

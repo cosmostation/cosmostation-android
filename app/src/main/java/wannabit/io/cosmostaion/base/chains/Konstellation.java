@@ -42,6 +42,12 @@ public class Konstellation extends ChainConfig {
     public String blogInfoLink() { return  "https://konstellation.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "konstellation"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.0001udarc", "0.001udarc", "0.01udarc");
+    }
+
+    public int gasDefault() { return 1; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

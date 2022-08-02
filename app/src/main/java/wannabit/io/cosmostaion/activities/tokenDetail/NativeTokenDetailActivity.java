@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -193,13 +191,12 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                 onInsertKeyDialog();
                 return;
             }
-            Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainAvailable = getBaseDao().availableAmount(mChainConfig.mainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-            if (mainAvailable.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            Intent intent = new Intent(getBaseContext(), SendActivity.class);
             intent.putExtra("sendTokenDenom", mDenom);
             startActivity(intent);
         }

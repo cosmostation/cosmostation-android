@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
-public class  Nyx extends ChainConfig {
+public class Nyx extends ChainConfig {
 
     public BaseChain baseChain() { return BaseChain.NYX_MAIN; }
     public int chainImg() { return R.drawable.chain_nyx; }
@@ -43,6 +43,12 @@ public class  Nyx extends ChainConfig {
     public String homeInfoLink() { return  "https://nymtech.net"; }
     public String blogInfoLink() { return  "https://nymtech.net/blog"; }
     public String coingeckoLink() { return  ""; }
+
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.025unym");
+    }
+
+    public int gasDefault() { return 0; }
 
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");

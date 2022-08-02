@@ -3,8 +3,6 @@ package wannabit.io.cosmostaion.activities;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PROFILE;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -55,7 +53,7 @@ import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
-import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
@@ -275,12 +273,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     onInsertKeyDialog();
                     return;
                 }
-                BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
-                BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_PROFILE, 0);
-                if (available.compareTo(txFee) <= 0) {
+                if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
                     Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 Intent profile = new Intent(this, ProfileActivity.class);
                 startActivity(profile);
             }
@@ -289,12 +286,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 onInsertKeyDialog();
                 return;
             }
-            BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_PROFILE, 0);
-            if (available.compareTo(txFee) <= 0) {
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
                 Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
+
             Intent profile = new Intent(this, ProfileActivity.class);
             startActivity(profile);
         }
@@ -335,13 +331,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onInsertKeyDialog();
             return;
         }
-
-        BigDecimal available = getBaseDao().getAvailable(mChainConfig.mainDenom());
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_CLAIM_INCENTIVE, 0);
-        if (available.compareTo(txFee) <= 0) {
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
+
         if (getBaseDao().mIncentiveRewards.getRewardSum(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO &&
                 getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
             Toast.makeText(this, R.string.error_no_incentive_to_claim, Toast.LENGTH_SHORT).show();

@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.activities.txs.sif;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
@@ -46,7 +43,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.SifDexPoolAssetListGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.SifDexPoolListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SifDexListActivity extends BaseActivity {
 
@@ -131,10 +127,7 @@ public class SifDexListActivity extends BaseActivity {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
         }
-
-        BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_SIF_SWAP, 0);
-        if (available.compareTo(txFee) < 0) {
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
             Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -166,14 +159,15 @@ public class SifDexListActivity extends BaseActivity {
             onInsertKeyDialog();
             return;
         }
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_JOIN_POOL, 0);
         String externalDenom = pool.getExternalAsset().getSymbol();
         BigDecimal rowanAvailable = getBaseDao().getAvailable(mChainConfig.mainDenom());
-        rowanAvailable = rowanAvailable.subtract(feeAmount);
         BigDecimal externalAvailable = getBaseDao().getAvailable(externalDenom);
-
-        if (rowanAvailable.compareTo(BigDecimal.ZERO) <= 0 || externalAvailable.compareTo(BigDecimal.ZERO) <= 0) {
+        if (BigDecimal.ZERO.compareTo(rowanAvailable) >= 0 || BigDecimal.ZERO.compareTo(externalAvailable) >= 0) {
             Toast.makeText(SifDexListActivity.this, R.string.error_not_enough_to_deposit_pool, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -188,12 +182,13 @@ public class SifDexListActivity extends BaseActivity {
            onInsertKeyDialog();
            return;
         }
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_EXIT_POOL, 0);
-        BigDecimal rowanAvailable = getBaseDao().getAvailable(TOKEN_SIF);
-        rowanAvailable = rowanAvailable.subtract(feeAmount);
-
-        if (rowanAvailable.compareTo(BigDecimal.ZERO) <= 0) {
+        BigDecimal rowanAvailable = getBaseDao().getAvailable(mChainConfig.mainDenom());
+        if (BigDecimal.ZERO.compareTo(rowanAvailable) >= 0) {
             Toast.makeText(SifDexListActivity.this, R.string.error_not_enough_to_withdraw_pool, Toast.LENGTH_SHORT).show();
             return;
         }

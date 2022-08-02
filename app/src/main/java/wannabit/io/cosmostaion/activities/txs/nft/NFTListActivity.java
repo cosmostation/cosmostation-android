@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.activities.txs.nft;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NFTOKEN_LIST;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,7 +22,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.protobuf.ByteString;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import irismod.nft.Nft;
@@ -34,7 +33,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NFTokenListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.NftMyHolder;
 
 public class NFTListActivity extends BaseActivity implements TaskListener {
@@ -97,13 +95,12 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
                             getString(R.string.str_close), null);
                     return;
                 }
-                Intent intent = new Intent(NFTListActivity.this, NFTCreateActivity.class);
-                BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(NFTListActivity.this, mBaseChain, CONST_PW_TX_MINT_NFT, 0);
-                if (mainAvailable.compareTo(feeAmount) <= 0) {
-                    Toast.makeText(NFTListActivity.this, R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                if (!WDp.isTxFeePayable(NFTListActivity.this, getBaseDao(), mChainConfig)) {
+                    Toast.makeText(NFTListActivity.this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                Intent intent = new Intent(NFTListActivity.this, NFTCreateActivity.class);
                 startActivity(intent);
             }
         });

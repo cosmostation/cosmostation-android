@@ -42,6 +42,12 @@ public class Sentinel extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/sentinel"; }
     public String coingeckoLink() { return  COINGECKO_URL + "sentinel"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.01udvpn", "0.1udvpn");
+    }
+
+    public int gasDefault() { return 0; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

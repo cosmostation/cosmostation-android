@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -28,7 +26,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -95,11 +92,10 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
 
     private void onUpdateInitInfo() {
         final String mainDenom = getSActivity().mChainConfig.mainDenom();
-        final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
 
         mMaxAvailable = getBaseDao().getAvailable(getSActivity().mToIbcDenom);
         if (mainDenom.equalsIgnoreCase(getSActivity().mToIbcDenom)) {
-            mMaxAvailable = mMaxAvailable.subtract(feeAmount);
+            mMaxAvailable = mMaxAvailable.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
         }
         WDp.setDpCoin(getSActivity(), getBaseDao(),getSActivity().mChainConfig, getSActivity().mToIbcDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
 

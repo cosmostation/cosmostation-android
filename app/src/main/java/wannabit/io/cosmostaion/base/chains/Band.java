@@ -46,6 +46,12 @@ public class Band extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/bandprotocol"; }
     public String coingeckoLink() { return  COINGECKO_URL + "band-protocol"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.00025uband", "0.0025uband", "0.025uband");
+    }
+
+    public int gasDefault() { return 1; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(494, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

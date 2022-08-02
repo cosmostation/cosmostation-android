@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class SwapCoinListDialog extends DialogFragment {
@@ -31,7 +32,9 @@ public class SwapCoinListDialog extends DialogFragment {
     private TextView mDialogTitle;
     private RecyclerView mRecyclerView;
     private SwapChainListAdapter mSwapChainListAdapter;
+
     private ArrayList<String> mSwapCoinList;
+    private ArrayList<FeeInfo.FeeData> mFeeDataList;
 
     public static SwapCoinListDialog newInstance(Bundle bundle) {
         SwapCoinListDialog frag = new SwapCoinListDialog();
@@ -48,14 +51,17 @@ public class SwapCoinListDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
         mSwapCoinList = getArguments().getStringArrayList("denoms");
+        mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable("feeDatas");
         mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
 
         mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
         if (getTargetRequestCode() == 8500) {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in));
-        } else {
+        } else if (getTargetRequestCode() == 8501) {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out));
+        } else {
+            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_fee_denom));
         }
         mRecyclerView = view.findViewById(R.id.recycler);
         mSwapChainListAdapter = new SwapChainListAdapter();
@@ -69,6 +75,8 @@ public class SwapCoinListDialog extends DialogFragment {
     }
 
     private class SwapChainListAdapter extends RecyclerView.Adapter<SwapChainListAdapter.SwapChainHolder> {
+        private static final int TYPE_SWAP_LIST = 0;
+        private static final int TYPE_FEE_LIST = 1;
 
         @NonNull
         @Override
@@ -78,7 +86,11 @@ public class SwapCoinListDialog extends DialogFragment {
 
         @Override
         public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, int position) {
-            onBindSwapListItemViewHolder(holder, position);
+            if (getItemViewType(position) == TYPE_SWAP_LIST) {
+                onBindSwapListItemViewHolder(holder, position);
+            } else if (getItemViewType(position) == TYPE_FEE_LIST){
+                onBindFeeListItemViewHolder(holder, position);
+            }
         }
 
         private void onBindSwapListItemViewHolder(SwapChainHolder holder, int position) {
@@ -97,9 +109,38 @@ public class SwapCoinListDialog extends DialogFragment {
             });
         }
 
+        private void onBindFeeListItemViewHolder(SwapChainHolder holder, int position) {
+            String denom = mFeeDataList.get(position).denom;
+            WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinImg);
+            WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinName);
+
+            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("position", position);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
         @Override
         public int getItemCount() {
-            return mSwapCoinList.size();
+            if (getTargetRequestCode() == 8502) {
+                return mFeeDataList.size();
+            } else {
+                return mSwapCoinList.size();
+            }
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (getTargetRequestCode() == 8502) {
+                return TYPE_FEE_LIST;
+            } else {
+                return TYPE_SWAP_LIST;
+            }
         }
 
         public class SwapChainHolder extends RecyclerView.ViewHolder {

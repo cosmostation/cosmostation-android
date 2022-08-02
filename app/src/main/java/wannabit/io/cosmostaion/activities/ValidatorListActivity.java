@@ -1,9 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,11 +16,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.common.collect.Lists;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
@@ -134,42 +128,26 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             onInsertKeyDialog();
             return;
         }
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String cosmostation = "";
-        if (isGRPC(mBaseChain)) {
-            BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain, mChainConfig.mainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-            if (delegatableAmount.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
-                return;
+        BigDecimal delegatableAmount = getBaseDao().getDelegatable(mBaseChain, mChainConfig.mainDenom());
+        if (BigDecimal.ZERO.compareTo(delegatableAmount) >= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
+            if (validator.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) {
+                cosmostation = validator.getOperatorAddress();
             }
-            for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
-                if (validator.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) {
-                    cosmostation = validator.getOperatorAddress();
-                }
-            }
-            if (!cosmostation.isEmpty()) {
-                Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
-                toDelegate.putExtra("valOpAddress", cosmostation);
-                startActivity(toDelegate);
-            }
-        } else {
-            Validator toValidator = null;
-            BigDecimal delegatableAmount = getBaseDao().delegatableAmount(mChainConfig.mainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-            if (delegatableAmount.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            for (Validator validator : getBaseDao().mAllValidators) {
-                if (validator.description.moniker.equalsIgnoreCase("Cosmostation")) {
-                    toValidator = validator;
-                }
-            }
-            if (toValidator != null) {
-                Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
-                toDelegate.putExtra("validator", toValidator);
-                startActivity(toDelegate);
-            }
+        }
+        if (!cosmostation.isEmpty()) {
+            Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
+            toDelegate.putExtra("valOpAddress", cosmostation);
+            startActivity(toDelegate);
         }
     }
 
@@ -178,89 +156,41 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             onInsertKeyDialog();
             return;
         }
-
-        if (isGRPC(mBaseChain)) {
-            ArrayList<String> toClaimValaddr = new ArrayList<>();
-            ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = new ArrayList<>();
-            if (getBaseDao().mGrpcRewards == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Distribution.DelegationDelegatorReward reward : getBaseDao().mGrpcRewards) {
-                if (getBaseDao().getReward(mChainConfig.mainDenom(), reward.getValidatorAddress()).compareTo(BigDecimal.ZERO) > 0) {
-                    toClaimRewards.add(reward);
-                }
-            }
-            if (toClaimRewards.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            WUtil.onSortRewardAmount(toClaimRewards, mChainConfig.mainDenom());
-            if (toClaimRewards.size() >= 17) {
-                ArrayList<Distribution.DelegationDelegatorReward> temp = new ArrayList(toClaimRewards.subList(0, 16));
-                toClaimRewards = temp;
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimRewards.size());
-            List<String> availableFeeDenomList = Lists.newArrayList();
-            for (String denom : WDp.getGasDenomList(mBaseChain)) {
-                if (getBaseDao().getAvailable(denom).compareTo(feeAmount) >= 0) {
-                    availableFeeDenomList.add(denom);
-                }
-            }
-            if (availableFeeDenomList.isEmpty()) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            for (Distribution.DelegationDelegatorReward reward : toClaimRewards) {
-                toClaimValaddr.add(reward.getValidatorAddress());
-            }
-
-            Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
-            claimReward.putStringArrayListExtra("valOpAddresses", toClaimValaddr);
-            startActivity(claimReward);
-
-        } else {
-            ArrayList<Validator> toClaimValidators = new ArrayList<>();
-            if (getBaseDao().rewardAmount(mChainConfig.mainDenom()).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal singlefeeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-            for (Validator validator : getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(mChainConfig.mainDenom(), validator.operator_address).compareTo(singlefeeAmount) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, mChainConfig.mainDenom(), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0, 16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            BigDecimal available = mAccount.getTokenBalance(mChainConfig.mainDenom());
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimValidators.size());
-
-            if (available.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
-            claimReward.putExtra("opAddresses", toClaimValidators);
-            startActivity(claimReward);
-
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
         }
 
+        ArrayList<String> toClaimValaddr = new ArrayList<>();
+        ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = new ArrayList<>();
+        if (getBaseDao().mGrpcRewards == null) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        for (Distribution.DelegationDelegatorReward reward : getBaseDao().mGrpcRewards) {
+            if (getBaseDao().getReward(mChainConfig.mainDenom(), reward.getValidatorAddress()).compareTo(BigDecimal.ZERO) > 0) {
+                toClaimRewards.add(reward);
+            }
+        }
+        if (toClaimRewards.size() == 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        WUtil.onSortRewardAmount(toClaimRewards, mChainConfig.mainDenom());
+        if (toClaimRewards.size() >= 17) {
+            ArrayList<Distribution.DelegationDelegatorReward> temp = new ArrayList(toClaimRewards.subList(0, 16));
+            toClaimRewards = temp;
+            Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+        }
+
+        for (Distribution.DelegationDelegatorReward reward : toClaimRewards) {
+            toClaimValaddr.add(reward.getValidatorAddress());
+        }
+
+        Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
+        claimReward.putStringArrayListExtra("valOpAddresses", toClaimValaddr);
+        startActivity(claimReward);
     }
 
     public void onFetchAllData() {

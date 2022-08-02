@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,7 +28,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingOldHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
@@ -175,13 +172,18 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 onInsertKeyDialog();
                 return;
             }
-            Intent intent = new Intent(getBaseContext(), SendActivity.class);
+            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             BigDecimal mainAvailable = getBaseDao().availableAmount(mMainDenom);
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-            if (mainAvailable.compareTo(feeAmount) < 0) {
+            if (BigDecimal.ZERO.compareTo(mainAvailable) >= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            Intent intent = new Intent(getBaseContext(), SendActivity.class);
             intent.putExtra("sendTokenDenom", mMainDenom);
             startActivity(intent);
         }
@@ -209,12 +211,12 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
             if (getItemViewType(position) == TYPE_STAKE_OLD) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mChainConfig.mainDenom());
             } else if (getItemViewType(position) == TYPE_VESTING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mChainConfig.mainDenom());
 
             } else if (getItemViewType(position) == TYPE_UNBONDING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mChainConfig.mainDenom());
 
             }
         }

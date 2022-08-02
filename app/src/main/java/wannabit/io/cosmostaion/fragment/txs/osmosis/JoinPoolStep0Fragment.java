@@ -32,7 +32,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -125,17 +124,16 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, getSActivity().mTxType, 0);
         String coin0Denom = getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getDenom();
         String coin1Denom = getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getDenom();
 
         mAvailable0MaxAmount = getBaseDao().getAvailable(coin0Denom);
         if (coin0Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
-            mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(txFeeAmount);
+            mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
         }
         mAvailable1MaxAmount = getBaseDao().getAvailable(coin1Denom);
         if (coin1Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
-            mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount);
+            mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
         }
 
         mCoin0Decimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, coin0Denom);

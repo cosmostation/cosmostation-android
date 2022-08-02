@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.starname;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import android.os.Bundle;
@@ -134,10 +133,14 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_domain_format, Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (!WDp.isTxFeePayable(getActivity(), getBaseDao(), getSActivity().mChainConfig)) {
+                Toast.makeText(getActivity(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             BigDecimal available = getBaseDao().getAvailable(getSActivity().mChainConfig.mainDenom());
             BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
-            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_REGISTER_DOMAIN, 0);
-            if (available.compareTo(starNameFee.add(txFee)) < 0) {
+            if (available.compareTo(starNameFee) < 0) {
                 Toast.makeText(getBaseActivity(), R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
                 return;
             }

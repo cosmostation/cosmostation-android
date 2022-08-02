@@ -42,6 +42,12 @@ public class Comdex extends ChainConfig {
     public String blogInfoLink() { return  "https://blog.comdex.one"; }
     public String coingeckoLink() { return  COINGECKO_URL + "comdex"; }
 
+    public ArrayList<String> gasRates() {
+        return Lists.newArrayList("0.25ucmdx");
+    }
+
+    public int gasDefault() { return 0; }
+
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
