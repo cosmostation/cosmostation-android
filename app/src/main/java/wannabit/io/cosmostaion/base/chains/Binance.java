@@ -54,8 +54,6 @@ public class Binance extends ChainConfig {
         return Lists.newArrayList("0.0BNB");
     }
 
-    public int gasDefault() { return 0; }
-
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

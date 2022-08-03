@@ -307,7 +307,7 @@ public class WKey {
         return "0x" + WUtil.ByteArrayToHexString(generateTenderAddressBytesFromPrivateKey(privateKey));
     }
 
-    public static String convertAddressOkexToEth(String exAddress) throws Exception {
+    public static String convertAddressToEth(String exAddress) throws Exception {
         byte[] pub = convertBits(bech32Decode(exAddress).data, 5, 8, false);
         return "0x" + WUtil.ByteArrayToHexString(pub);
     }

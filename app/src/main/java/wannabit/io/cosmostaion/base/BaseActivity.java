@@ -56,6 +56,7 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -108,6 +109,7 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.dialog.WaitDialog;
@@ -163,6 +165,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -274,6 +277,42 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             keyState.setImageResource(R.drawable.watchmode);
             keyState.setColorFilter(null);
         }
+    }
+
+    public void setEthAddress(ChainConfig chainConfig, TextView ethTxt) {
+        if (chainConfig.etherAddressSupport()) {
+            ethTxt.setVisibility(View.VISIBLE);
+            try {
+                ethTxt.setText("(" + WKey.convertAddressToEth(mAccount.address) + ")");
+            } catch (Exception e) { e.printStackTrace(); }
+        } else {
+            ethTxt.setVisibility(View.GONE);
+        }
+    }
+
+    public void onClickQrCopy(ChainConfig chainConfig, Account account) {
+        String nickName;
+        if (TextUtils.isEmpty(account.nickName)) nickName = getString(R.string.str_my_wallet) + account.id;
+        else nickName = account.nickName;
+
+        if (chainConfig.etherAddressSupport()) {
+            try {
+                String ethAddress = WKey.convertAddressToEth(account.address);
+                AlertDialogUtils.showDoubleButtonDialog(this, Html.fromHtml(getString(R.string.str_address_type) + "<br>"), "",
+                        getString(R.string.str_tender_type), view -> onClickShowAccountDialog(account.address, nickName), getString(R.string.str_eth_type), view -> onClickShowAccountDialog(ethAddress, nickName));
+            } catch (Exception e) { e.printStackTrace(); }
+        } else {
+            onClickShowAccountDialog(account.address, nickName);
+        }
+    }
+
+    private void onClickShowAccountDialog(String address, String nickName) {
+        Bundle bundle = new Bundle();
+        bundle.putString("title", nickName);
+        bundle.putString("address", address);
+        AccountShowDialog show = AccountShowDialog.newInstance(bundle);
+        show.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
     }
 
     public void onHideKeyboard() {

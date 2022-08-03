@@ -68,6 +68,8 @@ abstract public class ChainConfig {
 
     public abstract String addressPrefix();
 
+    public boolean etherAddressSupport() { return false; }
+
     public abstract boolean pushSupport();
 
     public abstract boolean dexSupport();
@@ -114,7 +116,7 @@ abstract public class ChainConfig {
 
     public abstract ArrayList<String> gasRates();
 
-    public abstract int gasDefault();
+    public int gasDefault() { return 0; }
 
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);

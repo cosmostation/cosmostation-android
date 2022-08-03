@@ -46,8 +46,6 @@ public class Assetmantle extends ChainConfig {
         return Lists.newArrayList("0.0umntl");
     }
 
-    public int gasDefault() { return 0; }
-
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

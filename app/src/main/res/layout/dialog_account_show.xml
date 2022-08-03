@@ -27,21 +27,16 @@
             android:layout_width="@dimen/space_120"
             android:layout_height="@dimen/space_120"
             android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/space_16"
             android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/wallet_address_tv"
-            style="@style/font_rmr_11_gray1"
+            style="@style/font_rmr_10_gray1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginTop="@dimen/space_8"
             android:layout_marginRight="@dimen/space_12"
-            android:autoSizeMaxTextSize="12sp"
-            android:autoSizeMinTextSize="11sp"
-            android:autoSizeStepGranularity="1sp"
-            android:autoSizeTextType="uniform"
             android:gravity="center" />
 
 
@@ -58,7 +53,7 @@
 
             <Button
                 android:id="@+id/btn_nega"
-                style="@style/font_ss_14_iris"
+                style="@style/font_ss_14_black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -73,7 +68,7 @@
 
             <Button
                 android:id="@+id/btn_posi"
-                style="@style/font_ss_14_iris"
+                style="@style/font_ss_14_black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -48,8 +48,6 @@ public class Omniflix extends ChainConfig {
         return Lists.newArrayList("0.001uflix");
     }
 
-    public int gasDefault() { return 0; }
-
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

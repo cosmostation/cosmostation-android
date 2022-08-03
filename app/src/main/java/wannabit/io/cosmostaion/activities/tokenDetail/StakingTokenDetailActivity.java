@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingOldHolder;
@@ -44,7 +42,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
     private CardView mBtnAddressPopup;
     private ImageView mKeyState;
-    private TextView mAddress;
+    private TextView mAddress, mEthAddress;
     private TextView mTotalValue;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -72,6 +70,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         mBtnAddressPopup = findViewById(R.id.card_root);
         mKeyState = findViewById(R.id.img_account);
         mAddress = findViewById(R.id.account_Address);
+        mEthAddress = findViewById(R.id.eth_address);
         mTotalValue = findViewById(R.id.total_value);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
@@ -143,6 +142,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
         setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mAddress.setText(mAccount.address);
+        setEthAddress(mChainConfig, mEthAddress);
         BigDecimal totalAmount = BigDecimal.ZERO;
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) totalAmount = getBaseDao().getAllBnbTokenAmount(mMainDenom);
         else totalAmount = getBaseDao().getAllExToken(mMainDenom);
@@ -153,16 +153,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
-            Bundle bundle = new Bundle();
-            bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) {
-                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-            } else {
-                bundle.putString("title", mAccount.nickName);
-            }
-            AccountShowDialog show = AccountShowDialog.newInstance(bundle);
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            onClickQrCopy(mChainConfig, mAccount);
 
         } else if (v.equals(mBtnBep3Send)) {
             onStartHTLCSendActivity(mMainDenom);
