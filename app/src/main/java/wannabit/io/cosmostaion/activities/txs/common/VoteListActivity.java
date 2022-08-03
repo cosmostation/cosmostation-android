@@ -24,7 +24,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.common.collect.Lists;
@@ -224,6 +223,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             mNextBtn.setVisibility(View.GONE);
             mSwipeRefreshLayout.setEnabled(true);
             multiVoteSelectionMode = false;
+            selectedSet.clear();
             loadProposals();
 
         } else if (v.equals(mNextBtn)) {
@@ -327,22 +327,22 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 roundBackground = DrawableCompat.wrap(roundBackground);
                 DrawableCompat.setTint(roundBackground, ContextCompat.getColor(VoteListActivity.this, mChainConfig.chainColor()));
                 holder.card_proposal.setBackground(roundBackground);
+                holder.card_proposal.setOnClickListener(v -> {
+                    selectedSet.remove(item);
+                    mVoteListAdapter.notifyItemChanged(position);
+                });
             } else {
                 holder.card_proposal.setBackgroundColor(ContextCompat.getColor(VoteListActivity.this, R.color.colorTransBg));
-            }
-
-            holder.card_proposal.setOnClickListener(v -> {
-                if (selectedSet.contains(item)) {
-                    selectedSet.remove(item);
-                } else {
+                holder.card_proposal.setOnClickListener(v -> {
                     selectedSet.add(item);
-                }
-                mVoteListAdapter.notifyItemChanged(position);
-            });
+                    mVoteListAdapter.notifyItemChanged(position);
+                });
+            }
         }
 
         private void bindVoteStatus(VoteListViewHolder holder, ResProposal item) {
             holder.vote_status.setVisibility(View.VISIBLE);
+            holder.card_proposal.setBackgroundColor(ContextCompat.getColor(VoteListActivity.this, R.color.colorTransBg));
 
             if (statusMap.containsKey(item.id)) {
                 Set<String> status = statusMap.get(item.id);
