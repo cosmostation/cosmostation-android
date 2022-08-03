@@ -106,9 +106,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         mVoteHeaderRecyclerView = new VoteHeaderRecyclerView(this, true, getSectionCall());
         mRecyclerView.addItemDecoration(mVoteHeaderRecyclerView);
 
-        if (mRecyclerView.getItemAnimator() != null && mRecyclerView.getItemAnimator() instanceof SimpleItemAnimator) {
-            ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-        }
+        mRecyclerView.setItemAnimator(null);
     }
 
     private void initView() {
