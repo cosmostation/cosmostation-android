@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -13,16 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.common.collect.Lists;
@@ -104,9 +105,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         mVoteHeaderRecyclerView = new VoteHeaderRecyclerView(this, true, getSectionCall());
         mRecyclerView.addItemDecoration(mVoteHeaderRecyclerView);
 
-        if (mRecyclerView.getItemAnimator() != null && mRecyclerView.getItemAnimator() instanceof SimpleItemAnimator) {
-            ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-        }
+        mRecyclerView.setItemAnimator(null);
     }
 
     private void initView() {
@@ -128,6 +127,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(VoteListActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(this::loadProposals);
+
     }
 
     @Override
@@ -212,16 +212,19 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             mMultiVoteBtn.setVisibility(View.GONE);
             mCancelBtn.setVisibility(View.VISIBLE);
             mNextBtn.setVisibility(View.VISIBLE);
-            mSwipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.setEnabled(false);
             multiVoteSelectionMode = true;
+            mExtraProposalsList.clear();
             mVoteListAdapter.notifyDataSetChanged();
 
         } else if (v.equals(mCancelBtn)) {
             mMultiVoteBtn.setVisibility(View.VISIBLE);
             mCancelBtn.setVisibility(View.GONE);
             mNextBtn.setVisibility(View.GONE);
+            mSwipeRefreshLayout.setEnabled(true);
             multiVoteSelectionMode = false;
-            mVoteListAdapter.notifyDataSetChanged();
+            selectedSet.clear();
+            loadProposals();
 
         } else if (v.equals(mNextBtn)) {
             if (!mAccount.hasPrivateKey) {
@@ -274,18 +277,15 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     + " " + WDp.getGapTime(VoteListActivity.this, WDp.dateToLong3(VoteListActivity.this, item.voting_end_time)));
 
             if (multiVoteSelectionMode) {
-                holder.card_proposal.setEnabled(false);
                 bindVoteSelect(holder, position, item);
             } else {
-                holder.card_proposal.setEnabled(true);
-                bindVoteStatus(holder, position, item);
+                bindVoteStatus(holder, item);
+                holder.card_proposal.setOnClickListener(v -> {
+                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                    voteIntent.putExtra("proposalId", String.valueOf(item.id));
+                    startActivity(voteIntent);
+                });
             }
-
-            holder.card_proposal.setOnClickListener(v -> {
-                Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                voteIntent.putExtra("proposalId", String.valueOf(item.id));
-                startActivity(voteIntent);
-            });
         }
 
         public void onBindProposalItemViewHolder(VoteListViewHolder holder, int position) {
@@ -309,7 +309,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             holder.proposal_id.setText("# " + item.id);
             holder.proposal_title.setText(item.title);
 
-            bindVoteStatus(holder, position, item);
+            bindVoteStatus(holder, item);
 
             holder.card_proposal.setOnClickListener(v -> {
                 String url = mChainConfig.explorerUrl() + "proposals/" + item.id;
@@ -319,31 +319,30 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         }
 
         private void bindVoteSelect(VoteListViewHolder holder, int position, ResProposal item) {
-            holder.vote_status.setVisibility(View.INVISIBLE);
+            holder.vote_status.setVisibility(View.VISIBLE);
+            holder.card_proposal.setBackgroundColor(ContextCompat.getColor(VoteListActivity.this, R.color.colorTransBg));
+
             if (selectedSet.contains(item)) {
-                holder.vote_select.setColorFilter(WDp.getChainColor(VoteListActivity.this, mBaseChain));
-                holder.vote_select.setVisibility(View.VISIBLE);
-                holder.vote_not_select.setVisibility(View.INVISIBLE);
+                Drawable roundBackground = ContextCompat.getDrawable(VoteListActivity.this, R.drawable.box_round_multi_vote);
+                roundBackground = DrawableCompat.wrap(roundBackground);
+                DrawableCompat.setTint(roundBackground, ContextCompat.getColor(VoteListActivity.this, mChainConfig.chainColor()));
+                holder.card_proposal.setBackground(roundBackground);
+                holder.card_proposal.setOnClickListener(v -> {
+                    selectedSet.remove(item);
+                    mVoteListAdapter.notifyItemChanged(position);
+                });
             } else {
-                holder.vote_select.setVisibility(View.INVISIBLE);
-                holder.vote_not_select.setVisibility(View.VISIBLE);
+                holder.card_proposal.setBackgroundColor(ContextCompat.getColor(VoteListActivity.this, R.color.colorTransBg));
+                holder.card_proposal.setOnClickListener(v -> {
+                    selectedSet.add(item);
+                    mVoteListAdapter.notifyItemChanged(position);
+                });
             }
-
-            holder.vote_select.setOnClickListener(v -> {
-                selectedSet.remove(item);
-                mVoteListAdapter.notifyItemChanged(position);
-            });
-
-            holder.vote_not_select.setOnClickListener(v -> {
-                selectedSet.add(item);
-                mVoteListAdapter.notifyItemChanged(position);
-            });
         }
 
-        private void bindVoteStatus(VoteListViewHolder holder, int position, ResProposal item) {
-            holder.vote_status.setVisibility(View.INVISIBLE);
-            holder.vote_select.setVisibility(View.INVISIBLE);
-            holder.vote_not_select.setVisibility(View.INVISIBLE);
+        private void bindVoteStatus(VoteListViewHolder holder, ResProposal item) {
+            holder.vote_status.setVisibility(View.VISIBLE);
+            holder.card_proposal.setBackgroundColor(ContextCompat.getColor(VoteListActivity.this, R.color.colorTransBg));
 
             if (statusMap.containsKey(item.id)) {
                 Set<String> status = statusMap.get(item.id);
@@ -363,10 +362,12 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_weight));
                 } else {
-                    holder.vote_status.setVisibility(View.INVISIBLE);
+                    holder.vote_status.setVisibility(View.VISIBLE);
+                    holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_not_voted));
                 }
             } else {
-                holder.vote_status.setVisibility(View.INVISIBLE);
+                holder.vote_status.setVisibility(View.VISIBLE);
+                holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_not_voted));
                 statusMap.put(item.id, Sets.newHashSet());
             }
         }
@@ -386,21 +387,19 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         }
 
         public class VoteListViewHolder extends RecyclerView.ViewHolder {
-            private CardView card_proposal;
+            private RelativeLayout card_proposal;
             private TextView proposal_id, proposal_status, proposal_title, proposal_deadline;
-            private ImageView proposal_status_img, vote_status, vote_select, vote_not_select;
+            private ImageView proposal_status_img, vote_status;
 
             public VoteListViewHolder(@NonNull View itemView) {
                 super(itemView);
-                card_proposal = itemView.findViewById(R.id.card_proposal);
+                card_proposal = itemView.findViewById(R.id.card_background);
                 proposal_id = itemView.findViewById(R.id.proposal_id);
                 proposal_status = itemView.findViewById(R.id.proposal_status);
                 proposal_title = itemView.findViewById(R.id.proposal_title);
                 proposal_status_img = itemView.findViewById(R.id.proposal_status_img);
                 proposal_deadline = itemView.findViewById(R.id.proposal_deadline);
                 vote_status = itemView.findViewById(R.id.vote_status);
-                vote_select = itemView.findViewById(R.id.vote_select);
-                vote_not_select = itemView.findViewById(R.id.vote_not_select);
             }
         }
     }

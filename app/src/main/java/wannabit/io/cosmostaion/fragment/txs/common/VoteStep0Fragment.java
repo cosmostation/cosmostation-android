@@ -70,6 +70,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
         mRecyclerView.setDrawingCacheEnabled(true);
         mProposalSelectionAdapter = new ProposalSelectionAdapter();
         mRecyclerView.setAdapter(mProposalSelectionAdapter);
+        mRecyclerView.setItemAnimator(null);
         mProposalSelectionAdapter.notifyDataSetChanged();
 
         mCancelBtn.setOnClickListener(this);
