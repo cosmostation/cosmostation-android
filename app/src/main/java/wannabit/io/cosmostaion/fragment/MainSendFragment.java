@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.fragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -27,8 +26,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Locale;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,10 +38,9 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletAuthzHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletChainHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletDesmosAppHolder;
@@ -209,6 +205,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_KAVA_INCENTIVE = 40;
         private static final int TYPE_DESMOS_APP = 50;
         private static final int TYPE_MEDIPASS = 60;
+        private static final int TYPE_AUTHZ = 70;
         private static final int TYPE_PRICE = 80;
         private static final int TYPE_MINT = 81;
         private static final int TYPE_GIUDE = 82;
@@ -243,6 +240,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_MEDIPASS) {
                 return new WalletMedipassHolder(getLayoutInflater().inflate(R.layout.item_wallet_medipass, viewGroup, false));
 
+            } else if (viewType == TYPE_AUTHZ) {
+                return new WalletAuthzHolder(getLayoutInflater().inflate(R.layout.item_wallet_authz, viewGroup, false));
+
             }
             return null;
         }
@@ -258,7 +258,8 @@ public class MainSendFragment extends BaseFragment {
             if (getMainActivity().mBaseChain == null) {
                 return 0;
             }
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN) ||
+                mChainConfig.authzSupport()) {
                 return 5;
             } else if (isGRPC(getMainActivity().mBaseChain)) {
                 return 4;
@@ -282,7 +283,7 @@ public class MainSendFragment extends BaseFragment {
                     return TYPE_GIUDE;
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN) || mChainConfig.authzSupport()) {
                 if (position == 0) {
                     return TYPE_WALLET;
                 } else if (position == 1) {
@@ -294,20 +295,9 @@ public class MainSendFragment extends BaseFragment {
                         return TYPE_DESMOS_APP;
                     } else if (getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
                         return TYPE_MEDIPASS;
+                    } else if (mChainConfig.authzSupport()) {
+                        return TYPE_AUTHZ;
                     }
-                } else if (position == 4) {
-                    return TYPE_GIUDE;
-                }
-
-            } else if (getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
-                if (position == 0) {
-                    return TYPE_WALLET;
-                } else if (position == 1) {
-                    return TYPE_PRICE;
-                } else if (position == 2) {
-                    return TYPE_MINT;
-                } else if (position == 3) {
-                    return TYPE_MEDIPASS;
                 } else if (position == 4) {
                     return TYPE_GIUDE;
                 }

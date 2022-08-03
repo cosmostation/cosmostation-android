@@ -76,6 +76,8 @@ abstract public class ChainConfig {
 
     public abstract boolean wcSupport();
 
+    public boolean authzSupport() { return false; }
+
     public String grpcUrl() { return ""; }
 
     public int grpcPort() {
