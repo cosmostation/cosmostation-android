@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/header_title"
-            style="@style/font_rm_12_black_daynight"
+            style="@style/font_rm_12_gray1"
             android:layout_width="@dimen/space_300"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_14"
