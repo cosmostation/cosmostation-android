@@ -92,6 +92,37 @@ public final class QueryGrpc {
     return getAccountMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest,
+      cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse> getAccountAddressByIDMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "AccountAddressByID",
+      requestType = cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest.class,
+      responseType = cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest,
+      cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse> getAccountAddressByIDMethod() {
+    io.grpc.MethodDescriptor<cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest, cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse> getAccountAddressByIDMethod;
+    if ((getAccountAddressByIDMethod = QueryGrpc.getAccountAddressByIDMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getAccountAddressByIDMethod = QueryGrpc.getAccountAddressByIDMethod) == null) {
+          QueryGrpc.getAccountAddressByIDMethod = getAccountAddressByIDMethod =
+              io.grpc.MethodDescriptor.<cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest, cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AccountAddressByID"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("AccountAddressByID"))
+              .build();
+        }
+      }
+    }
+    return getAccountAddressByIDMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<cosmos.auth.v1beta1.QueryOuterClass.QueryParamsRequest,
       cosmos.auth.v1beta1.QueryOuterClass.QueryParamsResponse> getParamsMethod;
 
@@ -321,6 +352,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * AccountAddressByID returns account address based on account id
+     * </pre>
+     */
+    public void accountAddressByID(cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest request,
+        io.grpc.stub.StreamObserver<cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getAccountAddressByIDMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Params queries all parameters.
      * </pre>
      */
@@ -332,6 +373,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * ModuleAccounts returns all the existing module accounts.
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public void moduleAccounts(cosmos.auth.v1beta1.QueryOuterClass.QueryModuleAccountsRequest request,
@@ -341,7 +383,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Bech32 queries bech32Prefix
+     * Bech32Prefix queries bech32Prefix
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public void bech32Prefix(cosmos.auth.v1beta1.QueryOuterClass.Bech32PrefixRequest request,
@@ -352,6 +395,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * AddressBytesToString converts Account Address bytes to string
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public void addressBytesToString(cosmos.auth.v1beta1.QueryOuterClass.AddressBytesToStringRequest request,
@@ -362,6 +406,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * AddressStringToBytes converts Address string to bytes
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public void addressStringToBytes(cosmos.auth.v1beta1.QueryOuterClass.AddressStringToBytesRequest request,
@@ -385,6 +430,13 @@ public final class QueryGrpc {
                 cosmos.auth.v1beta1.QueryOuterClass.QueryAccountRequest,
                 cosmos.auth.v1beta1.QueryOuterClass.QueryAccountResponse>(
                   this, METHODID_ACCOUNT)))
+          .addMethod(
+            getAccountAddressByIDMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest,
+                cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse>(
+                  this, METHODID_ACCOUNT_ADDRESS_BY_ID)))
           .addMethod(
             getParamsMethod(),
             asyncUnaryCall(
@@ -466,6 +518,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * AccountAddressByID returns account address based on account id
+     * </pre>
+     */
+    public void accountAddressByID(cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest request,
+        io.grpc.stub.StreamObserver<cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getAccountAddressByIDMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * Params queries all parameters.
      * </pre>
      */
@@ -478,6 +541,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * ModuleAccounts returns all the existing module accounts.
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public void moduleAccounts(cosmos.auth.v1beta1.QueryOuterClass.QueryModuleAccountsRequest request,
@@ -488,7 +552,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Bech32 queries bech32Prefix
+     * Bech32Prefix queries bech32Prefix
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public void bech32Prefix(cosmos.auth.v1beta1.QueryOuterClass.Bech32PrefixRequest request,
@@ -500,6 +565,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * AddressBytesToString converts Account Address bytes to string
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public void addressBytesToString(cosmos.auth.v1beta1.QueryOuterClass.AddressBytesToStringRequest request,
@@ -511,6 +577,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * AddressStringToBytes converts Address string to bytes
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public void addressStringToBytes(cosmos.auth.v1beta1.QueryOuterClass.AddressStringToBytesRequest request,
@@ -560,6 +627,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * AccountAddressByID returns account address based on account id
+     * </pre>
+     */
+    public cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse accountAddressByID(cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getAccountAddressByIDMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * Params queries all parameters.
      * </pre>
      */
@@ -571,6 +648,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * ModuleAccounts returns all the existing module accounts.
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public cosmos.auth.v1beta1.QueryOuterClass.QueryModuleAccountsResponse moduleAccounts(cosmos.auth.v1beta1.QueryOuterClass.QueryModuleAccountsRequest request) {
@@ -580,7 +658,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Bech32 queries bech32Prefix
+     * Bech32Prefix queries bech32Prefix
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public cosmos.auth.v1beta1.QueryOuterClass.Bech32PrefixResponse bech32Prefix(cosmos.auth.v1beta1.QueryOuterClass.Bech32PrefixRequest request) {
@@ -591,6 +670,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * AddressBytesToString converts Account Address bytes to string
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public cosmos.auth.v1beta1.QueryOuterClass.AddressBytesToStringResponse addressBytesToString(cosmos.auth.v1beta1.QueryOuterClass.AddressBytesToStringRequest request) {
@@ -601,6 +681,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * AddressStringToBytes converts Address string to bytes
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public cosmos.auth.v1beta1.QueryOuterClass.AddressStringToBytesResponse addressStringToBytes(cosmos.auth.v1beta1.QueryOuterClass.AddressStringToBytesRequest request) {
@@ -651,6 +732,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * AccountAddressByID returns account address based on account id
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse> accountAddressByID(
+        cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getAccountAddressByIDMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * Params queries all parameters.
      * </pre>
      */
@@ -663,6 +755,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * ModuleAccounts returns all the existing module accounts.
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<cosmos.auth.v1beta1.QueryOuterClass.QueryModuleAccountsResponse> moduleAccounts(
@@ -673,7 +766,8 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Bech32 queries bech32Prefix
+     * Bech32Prefix queries bech32Prefix
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<cosmos.auth.v1beta1.QueryOuterClass.Bech32PrefixResponse> bech32Prefix(
@@ -685,6 +779,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * AddressBytesToString converts Account Address bytes to string
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<cosmos.auth.v1beta1.QueryOuterClass.AddressBytesToStringResponse> addressBytesToString(
@@ -696,6 +791,7 @@ public final class QueryGrpc {
     /**
      * <pre>
      * AddressStringToBytes converts Address string to bytes
+     * Since: cosmos-sdk 0.46
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<cosmos.auth.v1beta1.QueryOuterClass.AddressStringToBytesResponse> addressStringToBytes(
@@ -707,11 +803,12 @@ public final class QueryGrpc {
 
   private static final int METHODID_ACCOUNTS = 0;
   private static final int METHODID_ACCOUNT = 1;
-  private static final int METHODID_PARAMS = 2;
-  private static final int METHODID_MODULE_ACCOUNTS = 3;
-  private static final int METHODID_BECH32PREFIX = 4;
-  private static final int METHODID_ADDRESS_BYTES_TO_STRING = 5;
-  private static final int METHODID_ADDRESS_STRING_TO_BYTES = 6;
+  private static final int METHODID_ACCOUNT_ADDRESS_BY_ID = 2;
+  private static final int METHODID_PARAMS = 3;
+  private static final int METHODID_MODULE_ACCOUNTS = 4;
+  private static final int METHODID_BECH32PREFIX = 5;
+  private static final int METHODID_ADDRESS_BYTES_TO_STRING = 6;
+  private static final int METHODID_ADDRESS_STRING_TO_BYTES = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -737,6 +834,10 @@ public final class QueryGrpc {
         case METHODID_ACCOUNT:
           serviceImpl.account((cosmos.auth.v1beta1.QueryOuterClass.QueryAccountRequest) request,
               (io.grpc.stub.StreamObserver<cosmos.auth.v1beta1.QueryOuterClass.QueryAccountResponse>) responseObserver);
+          break;
+        case METHODID_ACCOUNT_ADDRESS_BY_ID:
+          serviceImpl.accountAddressByID((cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDRequest) request,
+              (io.grpc.stub.StreamObserver<cosmos.auth.v1beta1.QueryOuterClass.QueryAccountAddressByIDResponse>) responseObserver);
           break;
         case METHODID_PARAMS:
           serviceImpl.params((cosmos.auth.v1beta1.QueryOuterClass.QueryParamsRequest) request,
@@ -821,6 +922,7 @@ public final class QueryGrpc {
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
               .addMethod(getAccountsMethod())
               .addMethod(getAccountMethod())
+              .addMethod(getAccountAddressByIDMethod())
               .addMethod(getParamsMethod())
               .addMethod(getModuleAccountsMethod())
               .addMethod(getBech32PrefixMethod())

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.dao;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
@@ -25,7 +24,6 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 
 public class ChainParam {
@@ -87,11 +85,11 @@ public class ChainParam {
         @SerializedName("sifchain_token_registry")
         public SifTokenRegistry mSifTokenRegistry;
 
-        @SerializedName("gdex_status")
-        public ArrayList<GdexStatus> mGdexStatus;
-
         @SerializedName("stargaze_minting_params")
         public StargazeMintingParams mStargazeMintingParams;
+
+        @SerializedName("stargaze_alloc_params")
+        public StargazeAllocParams mStargazeAllocParams;
 
         @SerializedName("inflation_params")
         public EvmosInflationParams mEvmosInflationParams;
@@ -137,7 +135,7 @@ public class ChainParam {
                 BigDecimal annualProvisions = new BigDecimal(mEvmosEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
                 BigDecimal evmosSupply = getMainSupply(baseChain).subtract(new BigDecimal("200000000000000000000000000"));
                 return annualProvisions.divide(evmosSupply, 18, RoundingMode.DOWN);
-            } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+            } else if (baseChain.equals(CRESCENT_MAIN)) {
                 long now = Calendar.getInstance().getTime().getTime();
                 BigDecimal genesisSupply = new BigDecimal("200000000000000");
                 BigDecimal thisInflation = getCurrentInflationAmount(baseChain);
@@ -206,7 +204,7 @@ public class ChainParam {
         // Crescent
         public BigDecimal getCurrentInflationAmount(BaseChain baseChain) {
             BigDecimal inflationAmount = BigDecimal.ZERO;
-            if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+            if (baseChain.equals(CRESCENT_MAIN)) {
                 long now = Calendar.getInstance().getTime().getTime();
                 for (Schedules schedules: mCrescentMintingParams.mParams.mSchedules) {
                     if (schedules.getStart_time() < now && schedules.getEnd_time() > now) {
@@ -219,7 +217,7 @@ public class ChainParam {
 
         public BigDecimal getBudgetRate(BaseChain baseChain) {
             BigDecimal budgetRate = BigDecimal.ZERO;
-            if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+            if (baseChain.equals(CRESCENT_MAIN)) {
                 for (Budgets budgets: mCrescentBudgets.mBudgets) {
                     if (budgets.mBudget.name.equalsIgnoreCase("budget-ecosystem-incentive") || budgets.mBudget.name.equalsIgnoreCase("budget-dev-team")) {
                         budgetRate = budgetRate.add(new BigDecimal(budgets.mBudget.rate));
@@ -242,7 +240,7 @@ public class ChainParam {
                         BigDecimal stakingDistribution = new BigDecimal(osmosisMingtingParams.params.distributionProportions.staking);
                         return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
                     } else if (baseChain.equals(STARGAZE_MAIN)) {
-                        BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeMintingParams.params.reduction_factor));
+                        BigDecimal reductionFactor = BigDecimal.ONE.subtract(new BigDecimal(mStargazeAllocParams.params.mDistributionProportion.nft_incentives).add(new BigDecimal(mStargazeAllocParams.params.mDistributionProportion.developer_rewards)));
                         return inflation.multiply(calTax).multiply(reductionFactor).divide(bondingRate, 6, RoundingMode.DOWN);
                     } else if (baseChain.equals(EVMOS_MAIN)) {
                         if (!mEvmosInflationParams.params.enable_inflation) {
@@ -254,7 +252,7 @@ public class ChainParam {
                             stakingRewardsFactor = new BigDecimal(mEvmosInflationParams.params.mInflationDistributions.staking_rewards);
                         }
                         return ap.multiply(stakingRewardsFactor).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
-                    } else if (baseChain.equals(CRESCENT_MAIN) || baseChain.equals(CRESCENT_TEST)) {
+                    } else if (baseChain.equals(CRESCENT_MAIN)) {
                         BigDecimal inflationAmount = getCurrentInflationAmount(baseChain);
                         BigDecimal budgetRate = BigDecimal.ONE.subtract(getBudgetRate(baseChain));
                         return budgetRate.multiply(calTax).multiply(inflationAmount).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
@@ -365,10 +363,6 @@ public class ChainParam {
                 }
             }
             return false;
-        }
-
-        public ArrayList<GdexStatus> getmGdexList() {
-            return mGdexStatus;
         }
 
         public int getUnbonding(BaseChain baseChain) {
@@ -726,20 +720,6 @@ public class ChainParam {
         }
     }
 
-    public class GdexStatus {
-        @SerializedName("id")
-        public String id;
-
-        @SerializedName("reserve_address")
-        public String reserve_address;
-
-        @SerializedName("token_pair")
-        public ArrayList<Coin> tokenPairs;
-
-        @SerializedName("pool_token")
-        public String pool_token;
-    }
-
     public class StargazeMintingParams {
         @SerializedName("params")
         public StargazeMintingParam params;
@@ -759,6 +739,24 @@ public class ChainParam {
 
             @SerializedName("initial_annual_provisions")
             public String initial_annual_provisions;
+        }
+    }
+
+    public class StargazeAllocParams {
+        @SerializedName("params")
+        public StargazeAllocParam params;
+
+        public class StargazeAllocParam {
+            @SerializedName("distribution_proportions")
+            public DistributionProportion mDistributionProportion;
+
+            public class DistributionProportion {
+                @SerializedName("nft_incentives")
+                public String nft_incentives;
+
+                @SerializedName("developer_rewards")
+                public String developer_rewards;
+            }
         }
     }
 

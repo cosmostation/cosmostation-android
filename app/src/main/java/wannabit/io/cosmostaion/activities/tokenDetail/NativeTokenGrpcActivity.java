@@ -7,7 +7,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,6 @@ import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -49,7 +47,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
     private CardView mBtnAddressPopup;
     private ImageView mKeyState;
-    private TextView mAddress;
+    private TextView mAddress, mEthAddress;
     private TextView mTotalValue;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -78,6 +76,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mBtnAddressPopup = findViewById(R.id.card_root);
         mKeyState = findViewById(R.id.img_account);
         mAddress = findViewById(R.id.account_Address);
+        mEthAddress = findViewById(R.id.eth_address);
         mTotalValue = findViewById(R.id.total_value);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
@@ -157,6 +156,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         mAddress.setText(mAccount.address);
+        setEthAddress(mChainConfig, mEthAddress);
         setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -165,16 +165,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
-            Bundle bundle = new Bundle();
-            bundle.putString("address", mAccount.address);
-            if (TextUtils.isEmpty(mAccount.nickName)) {
-                bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
-            } else {
-                bundle.putString("title", mAccount.nickName);
-            }
-            AccountShowDialog show = AccountShowDialog.newInstance(bundle);
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            onClickQrCopy(mChainConfig, mAccount);
 
         } else if (v.equals(mBtnIbcSend)) {
             if (!mAccount.hasPrivateKey) {

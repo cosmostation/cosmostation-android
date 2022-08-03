@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.fragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -40,7 +41,9 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletChainHolder;
@@ -56,7 +59,7 @@ public class MainSendFragment extends BaseFragment {
     private CardView mCardView;
     private CardView mNoticeView;
     private ImageView itemKeyStatus;
-    private TextView mWalletAddress;
+    private TextView mWalletAddress, mEthAddress;
     private TextView mNoticeTitle;
     private TextView mNoticeInfo;
     private TextView mTotalValue;
@@ -89,6 +92,7 @@ public class MainSendFragment extends BaseFragment {
         mCardView = rootView.findViewById(R.id.card_root);
         itemKeyStatus = rootView.findViewById(R.id.img_account);
         mWalletAddress = rootView.findViewById(R.id.wallet_address);
+        mEthAddress = rootView.findViewById(R.id.eth_address);
         mTotalValue = rootView.findViewById(R.id.total_value);
         mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView = rootView.findViewById(R.id.recycler);
@@ -96,7 +100,7 @@ public class MainSendFragment extends BaseFragment {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMainActivity().onAddressDialog();
+                getMainActivity().onClickQrCopy(mChainConfig, mAccount);
             }
         });
 
@@ -157,6 +161,7 @@ public class MainSendFragment extends BaseFragment {
 
         getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
+        getMainActivity().setEthAddress(mChainConfig, mEthAddress);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
         mMainWalletAdapter.notifyDataSetChanged();
     }
@@ -172,7 +177,7 @@ public class MainSendFragment extends BaseFragment {
                         mNoticeView.setVisibility(View.GONE);
                     } else {
                         mNoticeView.setVisibility(View.VISIBLE);
-                        mNoticeTitle.setText(StringUtils.capitalize(noticeInfo.boards.get(0).type.toLowerCase(Locale.ROOT)));
+                        mNoticeTitle.setText(StringUtils.capitalize(noticeInfo.boards.get(0).type.toUpperCase()));
                         mNoticeInfo.setText(noticeInfo.boards.get(0).title);
 
                         mNoticeView.setOnClickListener(view -> {

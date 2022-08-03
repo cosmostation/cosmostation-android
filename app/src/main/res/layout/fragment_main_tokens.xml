@@ -39,7 +39,7 @@
                     android:layout_toRightOf="@+id/img_account"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rmr_14_black_daynight"
                     android:maxLines="1"
                     android:ellipsize="middle"
                     android:autoSizeTextType="uniform"
@@ -48,6 +48,13 @@
                     android:autoSizeStepGranularity="1dp"
                     android:text=""/>
             </RelativeLayout>
+            <TextView
+                android:id="@+id/eth_address"
+                style="@style/font_rmr_10_gray1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:singleLine="true" />
             <TextView
                 android:id="@+id/total_value"
                 android:layout_width="match_parent"

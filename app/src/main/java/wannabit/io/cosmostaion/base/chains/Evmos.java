@@ -34,6 +34,7 @@ public class Evmos extends ChainConfig {
     }
     public String addressPrefix() { return "evmos"; }
 
+    public boolean etherAddressSupport() { return true; }
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
@@ -52,8 +53,6 @@ public class Evmos extends ChainConfig {
     public ArrayList<String> gasRates() {
         return Lists.newArrayList("20000000000aevmos");
     }
-
-    public int gasDefault() { return 0; }
 
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);

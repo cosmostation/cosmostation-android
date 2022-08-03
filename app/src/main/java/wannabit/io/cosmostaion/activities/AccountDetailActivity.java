@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -33,7 +35,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
@@ -58,7 +59,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
     private CardView mCardBody;
     private ImageView mBtnQr;
-    private TextView mAccountAddress, mAccountGenTime;
+    private TextView mAccountAddress, mAccountGenTime, mAccountEthAddress;
     private TextView mAccountChain, mAccountState, mMnemonicName, mAccountPathTitle, mAccountPath, mImportMsg;
     private RelativeLayout mMnemonicLayer, mPathLayer;
 
@@ -83,6 +84,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mCardBody = findViewById(R.id.card_body);
         mBtnQr = findViewById(R.id.account_qr);
         mAccountAddress = findViewById(R.id.account_address);
+        mAccountEthAddress = findViewById(R.id.eth_address);
         mAccountChain = findViewById(R.id.account_chain);
         mAccountGenTime = findViewById(R.id.account_import_time);
         mAccountState = findViewById(R.id.account_import_state);
@@ -175,6 +177,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAccountName.setText(mAccount.nickName);
         }
         mAccountAddress.setText(mAccount.address);
+        setEthAddress(mChainConfig, mAccountEthAddress);
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
 
         if (mAccount.hasPrivateKey && mAccount.fromMnemonic) {
@@ -302,12 +305,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnQr)) {
-            Bundle bundle = new Bundle();
-            bundle.putString("address", mAccount.address);
-            bundle.putString("title", mAccountName.getText().toString());
-            AccountShowDialog show = AccountShowDialog.newInstance(bundle);
-            show.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            onClickQrCopy(mChainConfig, mAccount);
 
         } else if (v.equals(mBtnRewardAddressChange)) {
             if (!mAccount.hasPrivateKey) {
@@ -331,7 +329,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         }
 
     }
-
 
     @Override
     public void onTaskResponse(TaskResult result) {

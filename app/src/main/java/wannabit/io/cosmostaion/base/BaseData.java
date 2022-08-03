@@ -1576,7 +1576,7 @@ public class BaseData {
         for (Account account: allOKAccounts) {
             if (account.address.startsWith("ex")) {
                 try {
-                    account.address = WKey.convertAddressOkexToEth(account.address);
+                    account.address = WKey.convertAddressToEth(account.address);
                     updateAccountAddress(account);
                 } catch (Exception e) { e.printStackTrace(); }
             }

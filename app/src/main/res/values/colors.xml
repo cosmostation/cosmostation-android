@@ -46,7 +46,7 @@
     <color name="colorTransBgLum">#e7ecfe</color>
     <color name="colorTransBgChihuahua">#f1f1f1</color>
     <color name="colorTransBgKonstellation">#edf3fd</color>
-    <color name="colorTransBgEvmos">#eeeef3</color>
+    <color name="colorTransBgEvmos">#fef1ef</color>
     <color name="colorTransBgCudos">#edf6f8</color>
     <color name="colorTransBgProvenance">#eef3fc</color>
     <color name="colorTransBgCerberus">#faf5e3</color>
@@ -201,8 +201,7 @@
     <color name="color_konstellation2">#6279a0</color>
     <color name="color_konstellation3">#122951</color>
 
-    <color name="color_evmos">#a79ed8</color>
-    <color name="color_evmos2">#6f6c80</color>
+    <color name="color_evmos">#ed4e33</color>
 
     <color name="color_cudos">#10aecc</color>
     <color name="color_cudos2">#0d697a</color>

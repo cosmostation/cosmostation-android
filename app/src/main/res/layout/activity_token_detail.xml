@@ -133,7 +133,7 @@
 
                 <TextView
                     android:id="@+id/account_Address"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rmr_14_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -147,6 +147,14 @@
                     android:autoSizeStepGranularity="1dp"
                     android:text="" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/eth_address"
+                style="@style/font_rmr_10_gray1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:singleLine="true" />
 
             <TextView
                 android:id="@+id/total_value"

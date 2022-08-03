@@ -48,8 +48,6 @@ public class Osmosis extends ChainConfig {
         return Lists.newArrayList("0.00025uosmo", "0.0025uosmo", "0.025uosmo");
     }
 
-    public int gasDefault() { return 0; }
-
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }

@@ -4446,26 +4446,28 @@ public final class Tx {
       "authz.v1beta1\032\031cosmos_proto/cosmos.proto" +
       "\032\024gogoproto/gogo.proto\032\032google/protobuf2" +
       "/any.proto\032 cosmos/authz/v1beta1/authz.p" +
-      "roto\"\222\001\n\010MsgGrant\022)\n\007granter\030\001 \001(\tB\030\322\264-\024" +
-      "cosmos.AddressString\022)\n\007grantee\030\002 \001(\tB\030\322" +
-      "\264-\024cosmos.AddressString\0220\n\005grant\030\003 \001(\0132\033" +
-      ".cosmos.authz.v1beta1.GrantB\004\310\336\037\000\"\"\n\017Msg" +
-      "ExecResponse\022\017\n\007results\030\001 \003(\014\"{\n\007MsgExec" +
+      "roto\032\027cosmos/msg/v1/msg.proto\"\240\001\n\010MsgGra" +
+      "nt\022)\n\007granter\030\001 \001(\tB\030\322\264-\024cosmos.AddressS" +
+      "tring\022)\n\007grantee\030\002 \001(\tB\030\322\264-\024cosmos.Addre" +
+      "ssString\0220\n\005grant\030\003 \001(\0132\033.cosmos.authz.v" +
+      "1beta1.GrantB\004\310\336\037\000:\014\202\347\260*\007granter\"\"\n\017MsgE" +
+      "xecResponse\022\017\n\007results\030\001 \003(\014\"\211\001\n\007MsgExec" +
       "\022)\n\007grantee\030\001 \001(\tB\030\322\264-\024cosmos.AddressStr" +
       "ing\022E\n\004msgs\030\002 \003(\0132\025.google.protobuf2.Any" +
-      "B \312\264-\034sdk.Msg, authz.Authorization\"\022\n\020Ms" +
-      "gGrantResponse\"w\n\tMsgRevoke\022)\n\007granter\030\001" +
-      " \001(\tB\030\322\264-\024cosmos.AddressString\022)\n\007grante" +
-      "e\030\002 \001(\tB\030\322\264-\024cosmos.AddressString\022\024\n\014msg" +
-      "_type_url\030\003 \001(\t\"\023\n\021MsgRevokeResponse2\370\001\n" +
-      "\003Msg\022O\n\005Grant\022\036.cosmos.authz.v1beta1.Msg" +
-      "Grant\032&.cosmos.authz.v1beta1.MsgGrantRes" +
-      "ponse\022L\n\004Exec\022\035.cosmos.authz.v1beta1.Msg" +
-      "Exec\032%.cosmos.authz.v1beta1.MsgExecRespo" +
-      "nse\022R\n\006Revoke\022\037.cosmos.authz.v1beta1.Msg" +
-      "Revoke\032\'.cosmos.authz.v1beta1.MsgRevokeR" +
-      "esponseB*Z$github.com/cosmos/cosmos-sdk/" +
-      "x/authz\310\341\036\000b\006proto3"
+      "B \312\264-\034sdk.Msg, authz.Authorization:\014\202\347\260*" +
+      "\007grantee\"\022\n\020MsgGrantResponse\"\205\001\n\tMsgRevo" +
+      "ke\022)\n\007granter\030\001 \001(\tB\030\322\264-\024cosmos.AddressS" +
+      "tring\022)\n\007grantee\030\002 \001(\tB\030\322\264-\024cosmos.Addre" +
+      "ssString\022\024\n\014msg_type_url\030\003 \001(\t:\014\202\347\260*\007gra" +
+      "nter\"\023\n\021MsgRevokeResponse2\370\001\n\003Msg\022O\n\005Gra" +
+      "nt\022\036.cosmos.authz.v1beta1.MsgGrant\032&.cos" +
+      "mos.authz.v1beta1.MsgGrantResponse\022L\n\004Ex" +
+      "ec\022\035.cosmos.authz.v1beta1.MsgExec\032%.cosm" +
+      "os.authz.v1beta1.MsgExecResponse\022R\n\006Revo" +
+      "ke\022\037.cosmos.authz.v1beta1.MsgRevoke\032\'.co" +
+      "smos.authz.v1beta1.MsgRevokeResponseB*Z$" +
+      "github.com/cosmos/cosmos-sdk/x/authz\310\341\036\000" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4474,6 +4476,7 @@ public final class Tx {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos.authz.v1beta1.Authz.getDescriptor(),
+          cosmos.msg.v1.Msg.getDescriptor(),
         });
     internal_static_cosmos_authz_v1beta1_MsgGrant_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -4513,6 +4516,7 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(cosmos.msg.v1.Msg.signer);
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
     registry.add(cosmos_proto.Cosmos.scalar);
     registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
@@ -4523,6 +4527,7 @@ public final class Tx {
     com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.protobuf2.AnyProto.getDescriptor();
     cosmos.authz.v1beta1.Authz.getDescriptor();
+    cosmos.msg.v1.Msg.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

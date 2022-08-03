@@ -75,7 +75,7 @@ public class MainTokensFragment extends BaseFragment {
 
     private CardView mCardView;
     private ImageView itemKeyStatus;
-    private TextView mWalletAddress;
+    private TextView mWalletAddress, mEthAddress;
     private TextView mTotalValue;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -120,6 +120,7 @@ public class MainTokensFragment extends BaseFragment {
         mCardView = rootView.findViewById(R.id.card_root);
         itemKeyStatus = rootView.findViewById(R.id.img_account);
         mWalletAddress = rootView.findViewById(R.id.wallet_address);
+        mEthAddress = rootView.findViewById(R.id.eth_address);
         mTotalValue = rootView.findViewById(R.id.total_value);
         mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView = rootView.findViewById(R.id.recycler);
@@ -128,7 +129,7 @@ public class MainTokensFragment extends BaseFragment {
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getMainActivity().onAddressDialog();
+                getMainActivity().onClickQrCopy(mChainConfig, mAccount);
             }
         });
 
@@ -173,6 +174,7 @@ public class MainTokensFragment extends BaseFragment {
         mCardView.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), mChainConfig.chainBgColor()));
         getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
+        getMainActivity().setEthAddress(mChainConfig, mEthAddress);
         mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
     }
 
