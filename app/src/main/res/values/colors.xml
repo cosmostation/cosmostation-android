@@ -15,7 +15,7 @@
     <color name="colorTransBgKava">#ffeeed</color>
     <color name="colorTransBgBand">#eef1ff</color>
     <color name="colorTransBgOkc">#e9f0fd</color>
-    <color name="colorTransBgCertik">#f9f3e8</color>
+    <color name="colorTransBgShentu">#f9f3e8</color>
     <color name="colorTransBgAkash">#fceceb</color>
     <color name="colorTransBgSecret">#eaeaea</color>
     <color name="colorTransBghard">#328626E1</color>
@@ -85,148 +85,100 @@
     <color name="colorBlackDayWhite">#000000</color>
 
     <color name="color_cosmos">#9C6CFF</color>
-    <color name="color_cosmos2">#372758</color>
 
     <color name="colorPhoton">#05D2DD</color>
 
     <color name="color_iris">#00A8FF</color>
-    <color name="color_iris2">#003870</color>
 
     <color name="color_binance">#E9BC00</color>
-    <color name="color_binance2">#634C04</color>
 
     <color name="color_starname">#6e7cde</color>
-    <color name="color_starname2">#2c367e</color>
 
     <color name="color_kava">#FF564F</color>
-    <color name="color_kava2">#631D1B</color>
     <color name="color_hard">#8626E1</color>
     <color name="color_swp">#5A42FF</color>
     <color name="color_usdx">#06D6A0</color>
 
     <color name="color_band">#516FFA</color>
-    <color name="color_band2">#2A3C8B</color>
 
     <color name="color_okc">#4d87ee</color>
-    <color name="color_okc2">#365fa7</color>
 
-    <color name="color_certik">#E1AA4C</color>
-    <color name="color_certik2">#59441E</color>
+    <color name="color_shentu">#E1AA4C</color>
 
     <color name="color_secret">#9496a0</color>
-    <color name="color_secret2">#585858</color>
 
     <color name="color_akash">#c71e10</color>
-    <color name="color_akash2">#631008</color>
 
     <color name="color_persistence">#e50a13</color>
-    <color name="color_persistence2">#670000</color>
 
     <color name="color_sentinel">#5b8ed7</color>
-    <color name="color_sentinel2">#1e447b</color>
-    <color name="color_sentinel3">#142d51</color>
 
     <color name="color_fetch">#57b5a8</color>
-    <color name="color_fetch2">#265750</color>
-    <color name="color_fetch3">#1d284c</color>
 
     <color name="color_cryto">#1199fa</color>
-    <color name="color_cryto2">#032d74</color>
 
     <color name="color_sif">#c19f33</color>
-    <color name="color_sif2">#5e4d19</color>
 
     <color name="color_ki">#3756fc</color>
-    <color name="color_ki2">#02188d</color>
 
     <color name="color_rizon">#8c8af2</color>
-    <color name="color_rizon2">#484773</color>
-
-    <color name="color_hdac">#138fce</color>
 
     <color name="color_medi">#79aaf2</color>
-    <color name="color_medi2">#0d3d84</color>
 
     <color name="color_althea">#4d99d1</color>
-    <color name="color_althea2">#908277</color>
 
     <color name="color_osmosis">#9248db</color>
-    <color name="color_osmosis2">#4e1a82</color>
     <color name="color_ion">#3C90FC</color>
 
     <color name="color_umee">#bb90f8</color>
-    <color name="color_umee2">#7e63a6</color>
 
     <color name="color_emoney">#78c6b2</color>
-    <color name="color_emoney2">#43655c</color>
 
     <color name="color_axelar">#a1a1a1</color>
-    <color name="color_axelar2">#6c7076</color>
 
     <color name="color_juno">#f0827d</color>
-    <color name="color_juno2">#854947</color>
 
     <color name="color_regen">#43ad6b</color>
-    <color name="color_regen2">#27643e</color>
 
     <color name="color_bitcanna">#00b786</color>
-    <color name="color_bitcanna2">#04684f</color>
 
     <color name="color_stargaze">#e38cd4</color>
-    <color name="color_stargaze2">#8a5a84</color>
 
     <color name="color_grabridge">#0088c8</color>
-    <color name="color_grabridge2">#04547a</color>
 
     <color name="color_comdex">#fe4350</color>
-    <color name="color_comdex2">#802938</color>
-    <color name="color_comdex3">#005ac5</color>
 
     <color name="color_injective">#00bbdd</color>
-    <color name="color_inj2">#016c80</color>
 
     <color name="color_bitsong">#ff005c</color>
-    <color name="color_bitsong2">#870b38</color>
 
     <color name="color_desmos">#ed6c53</color>
-    <color name="color_desmos2">#8e4537</color>
 
     <color name="color_lum">#3e68f9</color>
-    <color name="color_lum2">#264099</color>
 
     <color name="color_chihuahua">#f4b330</color>
-    <color name="color_chihuahua2">#8e6d2c</color>
 
     <color name="color_konstellation">#6299ea</color>
-    <color name="color_konstellation2">#6279a0</color>
-    <color name="color_konstellation3">#122951</color>
 
     <color name="color_evmos">#ed4e33</color>
 
     <color name="color_cudos">#10aecc</color>
-    <color name="color_cudos2">#0d697a</color>
 
     <color name="color_provenance">#628ee4</color>
-    <color name="color_provenance2">#3257a0</color>
 
     <color name="color_cerberus">#d7ad17</color>
-    <color name="color_cerberus2">#7d6610</color>
 
     <color name="color_omniflix">#6c63ff</color>
-    <color name="color_omniflix2">#3228ab</color>
 
     <color name="color_crescent">#f4bc76</color>
     <color name="color_bcre">#ac8a5e</color>
     <color name="color_crescent3">#452318</color>
 
     <color name="color_assetmantle">#f3b519</color>
-    <color name="color_assetmantle2">#a48e59</color>
 
     <color name="color_station">#05c3cd</color>
-    <color name="color_station2">#007d84</color>
 
     <color name="color_nyx">#ff6c5a</color>
-    <color name="color_nyx2">#ca5345</color>
     <color name="color_nym">#5F82C8</color>
 
     <color name="colorRed">#f31963</color>

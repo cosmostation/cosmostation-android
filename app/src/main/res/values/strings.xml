@@ -660,7 +660,7 @@
     <string name="str_front_guide_title_starname"><![CDATA[Starname Service]]></string>
     <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
     <string name="str_front_guide_title_okx"><![CDATA[OKC CHAIN]]></string>
-    <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
+    <string name="str_front_guide_title_shentu"><![CDATA[SHENTU CHAIN]]></string>
     <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
     <string name="str_front_guide_title_persistence"><![CDATA[PERSISTENCE NETWORK]]></string>
@@ -704,7 +704,7 @@
     <string name="str_front_guide_msg_starname">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
     <string name="str_front_guide_msg_okx">OKC Chain is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
-    <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>
+    <string name="str_front_guide_msg_shentu"><![CDATA[A public platform based on the Shentu Foundation\'s unique Formal Verification security system.]]></string>
     <string name="str_front_guide_msg_akash"><![CDATA[The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.]]></string>
     <string name="str_front_guide_msg_secret"><![CDATA[First Proof-of-Stake network to enable privacy-preserving smart contracts. Secret allows private, secure computation.]]></string>
     <string name="str_front_guide_msg_persistence"><![CDATA[A protocol enabling exposure to multiple asset classes such as Liquid Staking, NFTs and Synthetics.]]></string>
