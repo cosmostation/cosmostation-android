@@ -815,7 +815,7 @@
     <string name="str_wc_transfer_price">Price</string>
     <string name="str_quorum">Quorum</string>
     <string name="str_turnout">Turnout</string>
-    <string name="str_voting_period">Voting Period</string>
+    <string name="str_voting_period">Voting Period Proposals</string>
     <string name="str_vote_proposals">Proposals</string>
     <string name="str_vote_yes">YES</string>
     <string name="str_vote_no">NO</string>

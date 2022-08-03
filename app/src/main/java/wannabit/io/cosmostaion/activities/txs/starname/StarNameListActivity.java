@@ -98,7 +98,6 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         tabItemText.setText(stringResourceId);
         tabItemText.setTextColor(ContextCompat.getColorStateList(this, chainConfig.chainTabColor()));
         mNameServiceTapLayer.getTabAt(index).setCustomView(tab);
-
         mNameServiceTapLayer.setTabIconTint(ContextCompat.getColorStateList(this, chainConfig.chainColor()));
         mNameServiceTapLayer.setSelectedTabIndicatorColor(ContextCompat.getColor(this, chainConfig.chainColor()));
     }

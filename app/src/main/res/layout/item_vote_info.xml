@@ -84,17 +84,18 @@
                     android:layout_width="@dimen/space_180"
                     android:layout_height="wrap_content"
                     android:text="@string/str_proposer" />
+
                 <TextView
                     android:id="@+id/vote_proposer"
+                    style="@style/font_ss_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/vote_proposer_title"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:gravity="right"
-                    android:singleLine="true"
+                    android:layout_toRightOf="@+id/vote_proposer_title"
                     android:ellipsize="middle"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:gravity="right"
+                    android:singleLine="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -212,7 +213,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/space_view"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16"

@@ -416,10 +416,10 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
             holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
             holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg));
-            holder.itemYesProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg)));
-            holder.itemNoProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg)));
-            holder.itemVetoProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg)));
-            holder.itemAbstainProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteBg)));
+            holder.itemYesProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain)));
+            holder.itemNoProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain)));
+            holder.itemVetoProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain)));
+            holder.itemAbstainProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain)));
             holder.itemYesCard.setAlpha(0.5f);
             holder.itemNoCard.setAlpha(0.5f);
             holder.itemVetoCard.setAlpha(0.5f);
