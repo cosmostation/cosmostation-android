@@ -319,9 +319,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         }
 
         private void bindVoteSelect(VoteListViewHolder holder, int position, ResProposal item) {
-            holder.vote_status.setVisibility(View.VISIBLE);
-            holder.card_proposal.setBackgroundColor(ContextCompat.getColor(VoteListActivity.this, R.color.colorTransBg));
-
             if (selectedSet.contains(item)) {
                 Drawable roundBackground = ContextCompat.getDrawable(VoteListActivity.this, R.drawable.box_round_multi_vote);
                 roundBackground = DrawableCompat.wrap(roundBackground);
@@ -341,32 +338,24 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         }
 
         private void bindVoteStatus(VoteListViewHolder holder, ResProposal item) {
-            holder.vote_status.setVisibility(View.VISIBLE);
             holder.card_proposal.setBackgroundColor(ContextCompat.getColor(VoteListActivity.this, R.color.colorTransBg));
 
             if (statusMap.containsKey(item.id)) {
                 Set<String> status = statusMap.get(item.id);
                 if (status.contains("VOTE_OPTION_YES")) {
-                    holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_yes));
                 } else if (status.contains("VOTE_OPTION_NO")) {
-                    holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_no));
                 } else if (status.contains("VOTE_OPTION_NO_WITH_VETO")) {
-                    holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_nowithveto));
                 } else if (status.contains("VOTE_OPTION_ABSTAIN")) {
-                    holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_abstain));
                 } else if (status.size() > 1) {
-                    holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_weight));
                 } else {
-                    holder.vote_status.setVisibility(View.VISIBLE);
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_not_voted));
                 }
             } else {
-                holder.vote_status.setVisibility(View.VISIBLE);
                 holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_not_voted));
                 statusMap.put(item.id, Sets.newHashSet());
             }
