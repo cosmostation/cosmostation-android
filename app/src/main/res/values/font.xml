@@ -95,7 +95,7 @@
 
     <style name="font_ss_9_certik" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_certik</item>
+        <item name="android:textColor">@color/color_shentu</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
@@ -303,12 +303,6 @@
     <style name="font_ss_12_hard" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/color_hard</item>
-        <item name="android:textSize">@dimen/text_size_12</item>
-    </style>
-
-    <style name="font_ss_12_hdac" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_hdac</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
@@ -538,7 +532,7 @@
 
     <style name="font_ss_14_certik" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_certik</item>
+        <item name="android:textColor">@color/color_shentu</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
@@ -758,13 +752,6 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_hdac" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_hdac</item>
-        <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
-
-
     <style name="font_ssl_14_photon" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorPhoton</item>
@@ -902,12 +889,6 @@
     <style name="font_ss_15_gray8" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray8</item>
-        <item name="android:textSize">@dimen/text_size_15</item>
-    </style>
-
-    <style name="font_ss_15_hdac" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_hdac</item>
         <item name="android:textSize">@dimen/text_size_15</item>
     </style>
 

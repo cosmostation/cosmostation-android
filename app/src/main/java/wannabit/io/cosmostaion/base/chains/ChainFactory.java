@@ -53,7 +53,7 @@ public class ChainFactory {
                 case CERTIK_LEGACY1:
                 case CERTIK_LEGACY2:
                 case CERTIK_MAIN:
-                    return new Certik();
+                    return new Shentu();
 
                 case CHIHUAHUA_MAIN:
                     return new Chihuahua();
