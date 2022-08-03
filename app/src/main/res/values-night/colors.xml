@@ -66,4 +66,6 @@
     <color name="colorBlackDayNight">#ffffff</color>
     <color name="colorBlackDayWhite">#FFFFFF</color>
 
+    <color name="colorVoteBg">#565b60</color>
+
 </resources>

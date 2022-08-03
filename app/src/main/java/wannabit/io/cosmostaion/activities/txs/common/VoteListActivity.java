@@ -174,7 +174,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             mEmptyProposalText.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.GONE);
         } else {
-            if (multiVoteSelectionMode || mVotingPeriodProposalsList.isEmpty()) {
+            if (multiVoteSelectionMode || mVotingPeriodProposalsList.isEmpty() || mVotingPeriodProposalsList.size() <= 1) {
                 mMultiVoteBtn.setVisibility(View.GONE);
             } else {
                 mMultiVoteBtn.setVisibility(View.VISIBLE);
@@ -302,7 +302,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_passed_img));
                 holder.proposal_status.setText("Passed");
             } else if (item.proposal_status.contains("FAILED")) {
-                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.failed));
+                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_failed_img));
                 holder.proposal_status.setText("Failed");
             }
 
