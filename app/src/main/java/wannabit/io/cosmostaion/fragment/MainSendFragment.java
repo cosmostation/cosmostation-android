@@ -172,7 +172,7 @@ public class MainSendFragment extends BaseFragment {
                         mNoticeView.setVisibility(View.GONE);
                     } else {
                         mNoticeView.setVisibility(View.VISIBLE);
-                        mNoticeTitle.setText(StringUtils.capitalize(noticeInfo.boards.get(0).type.toLowerCase(Locale.ROOT)));
+                        mNoticeTitle.setText(StringUtils.capitalize(noticeInfo.boards.get(0).type.toUpperCase()));
                         mNoticeInfo.setText(noticeInfo.boards.get(0).title);
 
                         mNoticeView.setOnClickListener(view -> {

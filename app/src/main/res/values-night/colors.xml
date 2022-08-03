@@ -4,10 +4,6 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#7A7f88</color>
 
-    <!--<color name="colorPrimary">#5b72c5</color>-->
-    <!--<color name="colorPrimaryDark">#234794</color>-->
-    <!--<color name="colorAccent">#dcb86b</color>-->
-
     <color name="colorTrans">#00000000</color>
     <color name="colorTransBg">#232428</color>
     <color name="colorTransBg0">#222E2E2E</color>
@@ -50,7 +46,7 @@
     <color name="colorTransBgLum">#111c43</color>
     <color name="colorTransBgChihuahua">#303030</color>
     <color name="colorTransBgKonstellation">#11213D</color>
-    <color name="colorTransBgEvmos">#2f2d3f</color>
+    <color name="colorTransBgEvmos">#3b130d</color>
     <color name="colorTransBgCudos">#0a363f</color>
     <color name="colorTransBgProvenance">#182339</color>
     <color name="colorTransBgCerberus">#362b06</color>
@@ -59,22 +55,6 @@
     <color name="colorTransBgAssetmantle">#382c0f</color>
     <color name="colorTransBgStation">#012f31</color>
     <color name="colorTransBgNyx">#401b16</color>
-    <color name="colorTransBgGray">#E63D3D3D</color>
-    <color name="colorBlack">#000000</color>
-    <color name="colorBlack2">#171718</color>
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorGray0">#3D3D3D</color>
-    <color name="colorGray1">#7A7f88</color>
-    <color name="colorGray2">#1D1F21</color>
-    <color name="colorGray3">#47494d</color>
-    <color name="colorGray5">#9ca2ac</color>
-    <color name="colorGray6">#bfc6d2</color>
-    <color name="colorGray7">#66313539</color>
-    <color name="colorGray8">#161819</color>
-    <color name="colorGray9">#88EDEDED</color>
-    <color name="colorGray10">#ebecee</color>
-    <color name="colorGray11">#242627</color>
-    <color name="colorGray12">#f5f5f5</color>
 
     <color name="colorWhiteDayNight">#000000</color>
     <color name="colorWhite2DayNight">#232428</color>
@@ -85,189 +65,5 @@
     <color name="colorGray5DayNight">#565b60</color>
     <color name="colorBlackDayNight">#ffffff</color>
     <color name="colorBlackDayWhite">#FFFFFF</color>
-
-    <color name="color_cosmos">#9C6CFF</color>
-    <color name="color_cosmos2">#372758</color>
-
-    <color name="colorPhoton">#05D2DD</color>
-
-    <color name="color_iris">#00A8FF</color>
-    <color name="color_iris2">#003870</color>
-
-    <color name="color_binance">#E9BC00</color>
-    <color name="color_binance2">#634C04</color>
-
-    <color name="color_starname">#6e7cde</color>
-    <color name="color_starname2">#2c367e</color>
-
-    <color name="color_kava">#FF564F</color>
-    <color name="color_kava2">#631D1B</color>
-    <color name="color_hard">#8626E1</color>
-    <color name="color_swp">#5A42FF</color>
-    <color name="color_usdx">#06D6A0</color>
-
-    <color name="color_band">#516FFA</color>
-    <color name="color_band2">#2A3C8B</color>
-
-    <color name="color_okc">#4d87ee</color>
-    <color name="color_okc2">#365fa7</color>
-
-    <color name="color_certik">#E1AA4C</color>
-    <color name="color_certik2">#59441E</color>
-
-    <color name="color_secret">#9496a0</color>
-    <color name="color_secret2">#585858</color>
-
-    <color name="color_akash">#c71e10</color>
-    <color name="color_akash2">#631008</color>
-
-    <color name="color_persistence">#e50a13</color>
-    <color name="color_persistence2">#670000</color>
-
-    <color name="color_sentinel">#5b8ed7</color>
-    <color name="color_sentinel2">#1e447b</color>
-    <color name="color_sentinel3">#142d51</color>
-
-    <color name="color_fetch">#57b5a8</color>
-    <color name="color_fetch2">#265750</color>
-    <color name="color_fetch3">#1d284c</color>
-
-    <color name="color_cryto">#1199fa</color>
-    <color name="color_cryto2">#032d74</color>
-
-    <color name="color_sif">#c19f33</color>
-    <color name="color_sif2">#5e4d19</color>
-
-    <color name="color_ki">#3756fc</color>
-    <color name="color_ki2">#02188d</color>
-
-    <color name="color_rizon">#8c8af2</color>
-    <color name="color_rizon2">#484773</color>
-
-    <color name="color_hdac">#138fce</color>
-
-    <color name="color_medi">#79aaf2</color>
-    <color name="color_medi2">#0d3d84</color>
-
-    <color name="color_althea">#f8d9c0</color>
-    <color name="color_althea2">#908277</color>
-
-    <color name="color_osmosis">#9248db</color>
-    <color name="color_osmosis2">#4e1a82</color>
-    <color name="color_ion">#3C90FC</color>
-
-    <color name="color_umee">#bb90f8</color>
-    <color name="color_umee2">#7e63a6</color>
-
-    <color name="color_emoney">#78c6b2</color>
-    <color name="color_emoney2">#43655c</color>
-
-    <color name="color_axelar">#a1a1a1</color>
-    <color name="color_axelar2">#6c7076</color>
-
-    <color name="color_juno">#f0827d</color>
-    <color name="color_juno2">#854947</color>
-
-    <color name="color_regen">#43ad6b</color>
-    <color name="color_regen2">#27643e</color>
-
-    <color name="color_bitcanna">#00b786</color>
-    <color name="color_bitcanna2">#04684f</color>
-
-    <color name="color_stargaze">#e38cd4</color>
-    <color name="color_stargaze2">#8a5a84</color>
-
-    <color name="color_grabridge">#0088c8</color>
-    <color name="color_grabridge2">#04547a</color>
-
-    <color name="color_comdex">#fe4350</color>
-    <color name="color_comdex2">#802938</color>
-    <color name="color_comdex3">#005ac5</color>
-
-    <color name="color_injective">#00bbdd</color>
-    <color name="color_inj2">#016c80</color>
-
-    <color name="color_bitsong">#ff005c</color>
-    <color name="color_bitsong2">#870b38</color>
-
-    <color name="color_desmos">#ed6c53</color>
-    <color name="color_desmos2">#8e4537</color>
-
-    <color name="color_lum">#3e68f9</color>
-    <color name="color_lum2">#264099</color>
-
-    <color name="color_chihuahua">#f4b330</color>
-    <color name="color_chihuahua2">#8e6d2c</color>
-
-    <color name="color_konstellation">#6299ea</color>
-    <color name="color_konstellation2">#6279a0</color>
-    <color name="color_konstellation3">#122951</color>
-
-    <color name="color_evmos">#a79ed8</color>
-    <color name="color_evmos2">#6f6c80</color>
-
-    <color name="color_cudos">#10aecc</color>
-    <color name="color_cudos2">#0d697a</color>
-
-    <color name="color_provenance">#628ee4</color>
-    <color name="color_provenance2">#3257a0</color>
-
-    <color name="color_cerberus">#d7ad17</color>
-    <color name="color_cerberus2">#7d6610</color>
-
-    <color name="color_omniflix">#6c63ff</color>
-    <color name="color_omniflix2">#3228ab</color>
-
-    <color name="color_crescent">#f4bc76</color>
-    <color name="color_bcre">#ac8a5e</color>
-    <color name="color_crescent3">#452318</color>
-
-    <color name="color_assetmantle">#f3b519</color>
-    <color name="color_assetmantle2">#a48e59</color>
-
-    <color name="color_station">#05c3cd</color>
-    <color name="color_station2">#007d84</color>
-
-    <color name="color_nyx">#ff6c5a</color>
-    <color name="color_nyx2">#ca5345</color>
-    <color name="color_nym">#5F82C8</color>
-
-    <color name="colorRed">#f31963</color>
-    <color name="colorRipple1">#AA000000</color>
-    <color name="colorRipple2">#99FFFFFF</color>
-
-    <color name="colorNotiReceive">#37cc6e</color>
-    <color name="colorNotiSend">#f31963</color>
-
-
-    <color name="colorStakeDrop">#E1AA4C</color>
-    <color name="colorStakeDropBG">#24E1AA4C</color>
-
-    <!--<color name="colorCommision1">#3366ff</color>-->
-    <color name="colorCommision2">#51FFA8</color>
-    <color name="colorCommision3">#2BBEFF</color>
-    <color name="colorCommision4">#F31963</color>
-
-
-    <color name="colorVoteYes">#08d152</color>
-    <color name="colorVoteNo">#f31963</color>
-    <color name="colorVoteVeto">#f07e7e</color>
-    <color name="colorVoteAbstain">#7a7f88</color>
-    <color name="colorVoteBg">#565b60</color>
-
-
-    <color name="colorCdpDanger">#f31963</color>
-    <color name="colorCdpDanger2">#E8233D</color>
-    <color name="colorCdpStable">#f99831</color>
-    <color name="colorCdpStable2">#E7CF27</color>
-    <color name="colorCdpSafe">#08d152</color>
-    <color name="colorCdpSafe2">#31E072</color>
-
-    <color name="color_bnbBuy">#37CC6E</color>
-    <color name="color_bnbSell">#FF2745</color>
-
-    <color name="colorAuth">#40F683</color>
-
-    <color name="colorDialog">#007AFF</color>
 
 </resources>
