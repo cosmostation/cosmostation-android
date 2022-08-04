@@ -155,6 +155,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
+import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -733,8 +734,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             if (result.isSuccess) {
                 if (mIdToDelete != -1) {
                     onDeleteAccountExternal(getBaseDao().onSelectAccount("" + mIdToDelete));
+                    PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
                 } else {
                     onDeleteMnemonic(getBaseDao().onSelectMnemonicById(mIdMWordDelete));
+                    PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
                 }
             } else {
                 onShakeView();

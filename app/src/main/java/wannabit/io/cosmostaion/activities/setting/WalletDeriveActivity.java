@@ -50,6 +50,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
+import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
@@ -414,6 +415,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 }
             }
         }
+        PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
     }
 
     @Override

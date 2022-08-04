@@ -141,7 +141,6 @@ import wannabit.io.cosmostaion.task.FetchTask.OkDexTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkStakingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationIbcPathsTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationIbcTokensTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
@@ -451,7 +450,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onDeleteAccount(Account account) {
-        new PushUpdateTask(getBaseApplication(), null, mAccount, getBaseDao().getFCMToken(), false).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         try {
             CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount("" + account.id).uuid);
         } catch (Exception e) {
@@ -510,10 +508,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             intent.setFlags(FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-    }
-
-    public void onUpdateUserAlarm(Account account, boolean useAlarm) {
-        new PushUpdateTask(getBaseApplication(), this, account, getBaseDao().getFCMToken(), useAlarm).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public void onCheckIbcTransfer(String denom) {
@@ -727,14 +721,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
-            if (result.isSuccess) {
-                mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean) result.resultData);
-            }
-            invalidateOptionsMenu();
-            return;
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
+        if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mPrices.clear();
                 ArrayList<Price> tempPrice = new ArrayList<>();

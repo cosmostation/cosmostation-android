@@ -142,7 +142,8 @@
     <string name="str_theme_system">시스템</string>
     <string name="str_theme_light">라이트 모드</string>
     <string name="str_theme_dark">다크 모드</string>
-    <string name="str_alarm">알람</string>
+    <string name="str_notice_alarm">공지 알람</string>
+    <string name="str_tx_alarm">트랜잭션 알람</string>
     <string name="str_app_applock">앱 잠금</string>
     <string name="str_app_applock_enabled">사용중</string>
     <string name="str_app_applock_diabeld">사용안함</string>

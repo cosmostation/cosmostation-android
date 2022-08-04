@@ -21,12 +21,14 @@ public class BaseConstant {
     public final static String PRE_SELECTED_CHAINS          = "PRE_SELECTED_CHAINS";
     public final static String PRE_VALIDATOR_SORTING        = "PRE_VALIDATOR_SORTING";
     public final static String PRE_MY_VALIDATOR_SORTING     = "PRE_MY_VALIDATOR_SORTING";
+    public final static String PRE_TX_PUSH_STATUS           = "PRE_TX_PUSH_STATUS";
+    public final static String PRE_NOTICE_PUSH_STATUS       = "PRE_NOTICE_PUSH_STATUS";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
     public final static String PRE_USING_FINGERPRINT        = "PRE_USING_FINGERPRINT";
     public final static String PRE_APP_LOCK_TIME            = "PRE_APP_LOCK_TIME";
     public final static String PRE_APP_LOCK_LEAVE_TIME      = "PRE_APP_LOCK_LEAVE_TIME";
-    public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
+    public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN_NEW";
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
     public final static String PRE_USER_EXPENDED_CHAINS     = "PRE_USER_EXPENDED_CHAINS";

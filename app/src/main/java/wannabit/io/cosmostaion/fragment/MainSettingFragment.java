@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -25,6 +27,9 @@ import com.gun0912.tedpermission.TedPermission;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
@@ -39,6 +44,11 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.req.PushStatusRequest;
+import wannabit.io.cosmostaion.network.res.PushStatusResponse;
+import wannabit.io.cosmostaion.network.res.ResMoonPaySignature;
+import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
@@ -46,11 +56,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_CURRENCY = 9034;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnCurrency,
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAppLock, mBtnCurrency,
             mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
             mBtnTerm, mBtnGithub, mBtnVersion;
 
     private TextView mTvAppLock, mTvCurrency, mTvVersion, mTvTheme;
+
+    private SwitchCompat txAlarmSwitch, noticeAlarmSwitch;
 
     public static MainSettingFragment newInstance() {
         return new MainSettingFragment();
@@ -73,7 +85,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnImportKey = rootView.findViewById(R.id.card_key);
         mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
         mBtnTheme = rootView.findViewById(R.id.card_theme);
-        mBtnAlaram = rootView.findViewById(R.id.card_alaram);
         mBtnAppLock = rootView.findViewById(R.id.card_applock);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
         mBtnExplore = rootView.findViewById(R.id.card_explore);
@@ -89,13 +100,16 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mTvTheme = rootView.findViewById(R.id.theme_text);
+        txAlarmSwitch = rootView.findViewById(R.id.switch_tx_alaram);
+        noticeAlarmSwitch = rootView.findViewById(R.id.switch_notice_alaram);
+        txAlarmSwitch.setOnCheckedChangeListener(switchListener());
+        noticeAlarmSwitch.setOnCheckedChangeListener(switchListener());
 
         mBtnMnemonic.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
         mBtnImportKey.setOnClickListener(this);
         mBtnWatchAddress.setOnClickListener(this);
         mBtnTheme.setOnClickListener(this);
-        mBtnAlaram.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
         mBtnExplore.setOnClickListener(this);
@@ -109,10 +123,20 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnVersion.setOnClickListener(this);
 
         mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
-
-        mBtnAlaram.setVisibility(View.GONE);
         return rootView;
 
+    }
+
+    private CompoundButton.OnCheckedChangeListener switchListener() {
+        return (view, checked) -> syncPushStatus();
+    }
+
+    private void syncPushStatus() {
+        if (!getBaseDao().getNoticePushEnable() && !getBaseDao().getTxPushEnable()) {
+            PushManager.syncAddresses(requireContext(), getBaseDao(), getBaseDao().getFCMToken());
+        }
+
+        PushManager.updateStatus(requireContext(), getBaseDao(), txAlarmSwitch.isChecked(), noticeAlarmSwitch.isChecked(), getBaseDao().getFCMToken());
     }
 
     @Override
@@ -131,6 +155,27 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else {
             mTvTheme.setText(R.string.str_theme_system);
         }
+
+        loadPushStatus();
+    }
+
+    private void loadPushStatus() {
+        ApiClient.getCosmostationOld(requireContext()).getPushStatus(getBaseDao().getFCMToken()).enqueue(new Callback<PushStatusResponse>() {
+            @Override
+            public void onResponse(Call<PushStatusResponse> call, Response<PushStatusResponse> response) {
+                if (response.isSuccessful()) {
+                    noticeAlarmSwitch.setChecked(response.body().sub_notice);
+                    txAlarmSwitch.setChecked(response.body().sub_tx);
+                    getBaseDao().setTxPushEnable(response.body().sub_tx);
+                    getBaseDao().setNoticePushEnable(response.body().sub_notice);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PushStatusResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -173,9 +218,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                         mTvTheme.setText(R.string.str_theme_dark);
                         ThemeUtil.modSave(getBaseActivity(), themeColor);
                     }, null);
-
-        } else if (v.equals(mBtnAlaram)) {
-            Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnAppLock)) {
             startActivity(new Intent(getBaseActivity(), AppLockSetActivity.class));
@@ -252,7 +294,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             getBaseDao().setCurrency(data.getIntExtra("currency", 0));
             mTvCurrency.setText(getBaseDao().getCurrencyString());
 
-        } if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
+        }
+        if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
             new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
                         @Override
                         public void onPermissionGranted() {

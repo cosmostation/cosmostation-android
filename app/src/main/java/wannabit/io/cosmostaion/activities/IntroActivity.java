@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
+import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.WLog;
 
 
@@ -55,10 +56,14 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             if (!task.isSuccessful()) {
                 return;
             }
-
             String token = task.getResult();
-            WLog.w("FCM token new : " + token);
-            getBaseDao().setFCMToken(token);
+            if (!getBaseDao().getFCMToken().equals(token)) {
+                if (getBaseDao().getTxPushEnable() || getBaseDao().getNoticePushEnable()) {
+                    PushManager.syncAddresses(this, getBaseDao(), token);
+                } else {
+                    getBaseDao().setFCMToken(token);
+                }
+            }
         });
 
         getBaseDao().upgradeAaccountAddressforPath();
