@@ -96,6 +96,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_DELEGATIONS                 = 4005;
     public final static int TASK_GRPC_FETCH_UNDELEGATIONS               = 4006;
     public final static int TASK_GRPC_FETCH_ALL_REWARDS                 = 4007;
+    public final static int TASK_GRPC_FETCH_COMMISSION                  = 4008;
     public final static int TASK_GRPC_FETCH_IRIS_PARAM_MINT             = 4009;
     public final static int TASK_GRPC_FETCH_STAKING_POOL                = 4012;
     public final static int TASK_GRPC_FETCH_IRIS_TOKEN_LIST             = 4013;
@@ -157,6 +158,10 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_KAVA_HARD_RESERVES          = 4291;
     public final static int TASK_GRPC_FETCH_KAVA_HARD_TOTAL_DEPOSIT     = 4292;
     public final static int TASK_GRPC_FETCH_KAVA_HARD_TOTAL_BORROW      = 4293;
+
+    public final static int TASK_GRPC_FETCH_AUTHZ_GRANTER_LIST          = 4294;
+    public final static int TASK_GRPC_FETCH_AUTHZ_GRANT_LIST            = 4295;
+
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;

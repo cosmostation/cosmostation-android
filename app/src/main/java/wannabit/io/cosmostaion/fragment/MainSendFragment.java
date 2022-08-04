@@ -259,7 +259,7 @@ public class MainSendFragment extends BaseFragment {
                 return 0;
             }
             if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN) ||
-                mChainConfig.authzSupport()) {
+                getMainActivity().mChainConfig.authzSupport()) {
                 return 5;
             } else if (isGRPC(getMainActivity().mBaseChain)) {
                 return 4;
@@ -283,7 +283,7 @@ public class MainSendFragment extends BaseFragment {
                     return TYPE_GIUDE;
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN) || mChainConfig.authzSupport()) {
+            } else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN) || getMainActivity().mChainConfig.authzSupport()) {
                 if (position == 0) {
                     return TYPE_WALLET;
                 } else if (position == 1) {
@@ -295,7 +295,7 @@ public class MainSendFragment extends BaseFragment {
                         return TYPE_DESMOS_APP;
                     } else if (getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
                         return TYPE_MEDIPASS;
-                    } else if (mChainConfig.authzSupport()) {
+                    } else if (getMainActivity().mChainConfig.authzSupport()) {
                         return TYPE_AUTHZ;
                     }
                 } else if (position == 4) {

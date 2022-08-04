@@ -1417,6 +1417,11 @@
     <string name="str_key_confirm_msg">Private Key는 현재 선택된 지갑을 복원할 때만 사용됩니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.\n\n
                                        Private Key는 Mnemonics이 아닙니다\nMnemonics이 있는 경우 반드시 Mnemonics을 백업하세요.\nMnemonics으로 지갑을 만든 경우 파생된 지갑을 복원하려면 Mnemonics이 필요합니다.</string>
 
+    <string name="str_authz_list_title">Authz 목록</string>
+    <string name="str_authz_detail_title">Authz 상세</string>
+    <string name="str_authz_empty_title">RECEIVE GRANT TO START AUTHZ</string>
+    <string name="str_authz_empty_msg">You do not have any grants at the moment\nPlease manage your grants from a web wallet</string>
+
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
     <string name="error_invalid_address_pubkey">부정확한 주소 입니다. 정확한 문자를 입력해 주세요.</string>

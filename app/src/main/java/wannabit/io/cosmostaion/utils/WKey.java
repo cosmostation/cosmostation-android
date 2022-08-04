@@ -336,10 +336,16 @@ public class WKey {
         return bech32Encode("ex".getBytes(), bech32Decode(oldAddress).data);
     }
 
-    public static String convertDpOpAddressToDpAddress(String dpOpAddress, BaseChain chain) {
-        if (chain != null) {
-            ChainConfig chainConfig = ChainFactory.getChain(chain);
+    public static String convertDpOpAddressToDpAddress(String dpOpAddress, ChainConfig chainConfig) {
+        if (chainConfig != null) {
             return bech32Encode(chainConfig.addressPrefix().getBytes(), bech32Decode(dpOpAddress).data);
+        }
+        return "";
+    }
+
+    public static String convertDpAddressToDpOpAddress(String dpOpAddress, ChainConfig chainConfig) {
+        if (chainConfig != null) {
+            return bech32Encode(chainConfig.validatorPrefix().getBytes(), bech32Decode(dpOpAddress).data);
         }
         return "";
     }

@@ -68,6 +68,8 @@ abstract public class ChainConfig {
 
     public abstract String addressPrefix();
 
+    public String validatorPrefix() { return null; }
+
     public boolean etherAddressSupport() { return false; }
 
     public abstract boolean pushSupport();

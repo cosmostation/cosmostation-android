@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.txs.authz.AuthzListActivity;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -35,7 +35,8 @@ public class WalletAuthzHolder extends BaseHolder {
         mBtnAuthz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(mainActivity, AuthzListActivity.class);
+                mainActivity.startActivity(intent);
             }
         });
     }

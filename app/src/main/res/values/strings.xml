@@ -1810,6 +1810,11 @@
     <string name="str_key_confirm_msg">Private Key is only used to restore the\ncurrently selected wallet.\nWe highly recommend keeping your mnemonics\noffline in a secure location, and never share your\nmnemonics with anyone else.\n\n
                                        Private key is NOT mnemonics.\nYou MUST backup your mnemonics if you have one.\nYou need your mnemonics to restore your original wallets if you created them with mnemonics.</string>
 
+    <string name="str_authz_list_title">Authz List</string>
+    <string name="str_authz_detail_title">Authz Detail</string>
+    <string name="str_authz_empty_title">RECEIVE GRANT TO START AUTHZ</string>
+    <string name="str_authz_empty_msg">You do not have any grants at the moment\nPlease manage your grants from a web wallet</string>
+
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
     <string name="error_invalid_address_pubkey">Invalid Address, please check again.</string>
