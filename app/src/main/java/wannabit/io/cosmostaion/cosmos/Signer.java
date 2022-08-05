@@ -59,27 +59,27 @@ public class Signer {
             }
 
             if (rawAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Auth.BaseAccount.parseFrom(auth.getAccount().getValue());
+                Auth.BaseAccount account = Auth.BaseAccount.parseFrom(rawAccount.getValue());
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Vesting.PeriodicVestingAccount.parseFrom(auth.getAccount().getValue()).getBaseVestingAccount().getBaseAccount();
+                Auth.BaseAccount account = Vesting.PeriodicVestingAccount.parseFrom(rawAccount.getValue()).getBaseVestingAccount().getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue()).getBaseVestingAccount().getBaseAccount();
+                Auth.BaseAccount account = Vesting.ContinuousVestingAccount.parseFrom(rawAccount.getValue()).getBaseVestingAccount().getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue()).getBaseVestingAccount().getBaseAccount();
+                Auth.BaseAccount account = Vesting.DelayedVestingAccount.parseFrom(rawAccount.getValue()).getBaseVestingAccount().getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(injective.types.v1beta1.Account.EthAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(auth.getAccount().getValue()).getBaseAccount();
+                Auth.BaseAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(rawAccount.getValue()).getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue()).getBaseAccount();
+                Auth.BaseAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(rawAccount.getValue()).getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
             }
         } catch (Exception e) { }
