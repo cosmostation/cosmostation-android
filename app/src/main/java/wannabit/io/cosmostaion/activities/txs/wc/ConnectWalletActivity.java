@@ -45,6 +45,9 @@ import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthBlock;
+import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
@@ -335,6 +338,7 @@ public class ConnectWalletActivity extends BaseActivity {
                     mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 2500);
 
                 }
+                Toast.makeText(getBaseContext(), getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show();
                 changeDappConnectStatus(true);
             });
             return null;
@@ -407,17 +411,20 @@ public class ConnectWalletActivity extends BaseActivity {
         if (StringUtils.isNotBlank(wcEthereumTransaction.getValue())) {
             value = new BigInteger(wcEthereumTransaction.getValue().replace("0x", ""), 16);
         }
+
+        Transaction transaction = new Transaction(wcEthereumTransaction.getFrom(), nonce, BigInteger.ZERO, BigInteger.ZERO, wcEthereumTransaction.getTo(), value, wcEthereumTransaction.getData());
+        EthEstimateGas limit = web3.ethEstimateGas(transaction).sendAsync().get();
         RawTransaction rawTransaction = RawTransaction.createTransaction(
+                9001,
                 nonce,
-                BigInteger.valueOf(27500000000L),
-                BigInteger.valueOf(900000L),
+                limit.getAmountUsed(),
                 wcEthereumTransaction.getTo(),
                 value,
                 wcEthereumTransaction.getData(),
-                BigInteger.valueOf(27500000000L),
+                BigInteger.valueOf(500000000L),
                 BigInteger.valueOf(27500000000L)
         );
-        byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, 9001, credentials);
+        byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
         String hexValue = Numeric.toHexString(signedMessage);
         return web3.ethSendRawTransaction(hexValue).sendAsync().get();
     }
@@ -486,7 +493,6 @@ public class ConnectWalletActivity extends BaseActivity {
             return;
         }
 
-        Toast.makeText(getBaseContext(), getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show();
         if (!meta.getIcons().isEmpty()) {
             Picasso.get()
                     .load(meta.getIcons().get(0))
