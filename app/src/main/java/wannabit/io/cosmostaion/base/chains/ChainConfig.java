@@ -68,7 +68,7 @@ abstract public class ChainConfig {
 
     public abstract String addressPrefix();
 
-    public String validatorPrefix() { return null; }
+    public String validatorPrefix() { return addressPrefix() + "valoper"; }
 
     public boolean etherAddressSupport() { return false; }
 

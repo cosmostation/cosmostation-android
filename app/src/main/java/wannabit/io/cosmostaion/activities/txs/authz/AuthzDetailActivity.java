@@ -24,13 +24,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import cosmos.authz.v1beta1.Authz;
 import cosmos.bank.v1beta1.Tx;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
+import cosmos.vesting.v1beta1.Vesting;
+import desmos.profiles.v1beta1.ModelsProfile;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -45,6 +50,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.CommissionGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.DelegationsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.widget.authz.AuthzExecuteInfoHolder;
 import wannabit.io.cosmostaion.widget.authz.AuthzGranteeInfoHolder;
@@ -63,9 +69,9 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
     private ArrayList<Authz.Grant> mGrants = new ArrayList<>();
 
     private Any mGranterAuth;
-    private Coin mGranterBalance;
-    private Coin mGranterAvailable;
-    private Coin mGranterVesting;
+    private ArrayList<Coin> mGranterBalance = new ArrayList<>();
+    private ArrayList<Coin> mGranterAvailable = new ArrayList<>();;
+    private ArrayList<Coin> mGranterVesting = new ArrayList<>();;
     private ArrayList<Staking.DelegationResponse> mGranterDelegations = new ArrayList<>();
     private ArrayList<Staking.UnbondingDelegation> mGranterUndelegations = new ArrayList<>();
     private ArrayList<Distribution.DelegationDelegatorReward> mGranterRewards = new ArrayList<>();
@@ -94,6 +100,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                onFetchAuthzGranter();
             }
         });
 
@@ -120,12 +127,14 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
     public void onFetchAuthzGranter() {
         onShowWaitDialog();
         mGrants.clear();
-        mGranterBalance = new Coin(mChainConfig.mainDenom(), "0");
-        mGranterAvailable = new Coin(mChainConfig.mainDenom(), "0");
-        mGranterVesting = new Coin(mChainConfig.mainDenom(), "0");
+        mGranterAuth = null;
+        mGranterBalance.clear();
+        mGranterAvailable.clear();
+        mGranterVesting.clear();
         mGranterDelegations.clear();
         mGranterUndelegations.clear();
         mGranterRewards.clear();
+        mGranterCommission = new Coin(mChainConfig.mainDenom(), "0");
         mTaskCount = 7;
         new AuthzGrantsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -156,7 +165,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
                 if (balance.size() > 0) {
                     for (CoinOuterClass.Coin coin : balance) {
                         if (coin.getDenom().equalsIgnoreCase(mChainConfig.mainDenom())) {
-                            mGranterBalance = new Coin(coin.getDenom(), coin.getAmount());
+                            mGranterBalance.add(new Coin(coin.getDenom(), coin.getAmount()));
                         }
                     }
                 }
@@ -186,8 +195,212 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
         if (mTaskCount == 0) {
             onHideWaitDialog();
             mSwipeRefreshLayout.setRefreshing(false);
+
+            checkAccountType();
             mAuthzDetailAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void checkAccountType() {
+        if (mGranterAuth == null) return;
+        Any rawAccount = mGranterAuth;
+        if (mChainConfig.baseChain().equals(BaseChain.DESMOS_MAIN) && rawAccount.getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
+            try {
+                ModelsProfile.Profile profileAccount = ModelsProfile.Profile.parseFrom(rawAccount.getValue());
+                if (profileAccount != null) {
+                    onCheckVesting(profileAccount.getAccount());
+                } else {
+                    onCheckVesting(rawAccount);
+                }
+            } catch (InvalidProtocolBufferException e) {
+                e.printStackTrace();
+            }
+        } else {
+            onCheckVesting(rawAccount);
+        }
+    }
+
+    private void onCheckVesting(Any rawAccount) {
+        ArrayList<Coin> balances = new ArrayList<>();
+        for (Coin coin : mGranterBalance) {
+            balances.add(coin);
+        }
+
+        if (rawAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+            Vesting.PeriodicVestingAccount vestingAccount = null;
+            try {
+                vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(rawAccount.getValue());
+            } catch (InvalidProtocolBufferException e) {
+                return;
+            }
+            for (Coin coin : balances) {
+                String denom = coin.denom;
+                BigDecimal dpAvailable = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
+                BigDecimal remainVesting = BigDecimal.ZERO;
+                BigDecimal delegatedVesting = BigDecimal.ZERO;
+
+                dpAvailable = new BigDecimal(coin.amount);
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                remainVesting = WDp.onParsePeriodicRemainVestingsAmountByDenom(vestingAccount, denom);
+                dpVesting = remainVesting.subtract(delegatedVesting);
+                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                if (remainVesting.compareTo(delegatedVesting) > 0) {
+                    dpAvailable = dpAvailable.subtract(remainVesting).add(delegatedVesting);
+                }
+                mGranterAvailable.add(new Coin(denom, dpAvailable.toPlainString()));
+                mGranterVesting.add(new Coin(denom, dpVesting.toPlainString()));
+            }
+
+        } else if (rawAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+            Vesting.ContinuousVestingAccount vestingAccount = null;
+            try {
+                vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(rawAccount.getValue());
+            } catch (InvalidProtocolBufferException e) {
+                return;
+            }
+            for (Coin coin : balances) {
+                String denom = coin.denom;
+                BigDecimal dpAvailable = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
+                BigDecimal remainVesting = BigDecimal.ZERO;
+                BigDecimal delegatedVesting = BigDecimal.ZERO;
+
+                dpAvailable = new BigDecimal(coin.amount);
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                long cTime = Calendar.getInstance().getTime().getTime();
+                long vestingStart = vestingAccount.getStartTime() * 1000;
+                long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                if (cTime < vestingStart) {
+                    remainVesting = originalVesting;
+                } else if (cTime > vestingEnd) {
+                    remainVesting = BigDecimal.ZERO;
+                } else if (cTime < vestingEnd) {
+                    float progress = ((float) (cTime - vestingStart) / (float) (vestingEnd - vestingStart));
+                    remainVesting = originalVesting.multiply(new BigDecimal(1 - progress)).setScale(0, RoundingMode.UP);
+                }
+                dpVesting = remainVesting.subtract(delegatedVesting);
+                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                if (remainVesting.compareTo(delegatedVesting) > 0) {
+                    dpAvailable = dpAvailable.subtract(remainVesting).add(delegatedVesting);
+                }
+                mGranterAvailable.add(new Coin(denom, dpAvailable.toPlainString()));
+                mGranterVesting.add(new Coin(denom, dpVesting.toPlainString()));
+            }
+
+        } else if (rawAccount.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+            Vesting.DelayedVestingAccount vestingAccount = null;
+            try {
+                vestingAccount = Vesting.DelayedVestingAccount.parseFrom(rawAccount.getValue());
+            } catch (InvalidProtocolBufferException e) {
+                return;
+            }
+            for (Coin coin : balances) {
+                String denom = coin.denom;
+                BigDecimal dpAvailable = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
+                BigDecimal remainVesting = BigDecimal.ZERO;
+                BigDecimal delegatedVesting = BigDecimal.ZERO;
+
+                dpAvailable = new BigDecimal(coin.amount);
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                long cTime = Calendar.getInstance().getTime().getTime();
+                long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                if (cTime < vestingEnd) {
+                    remainVesting = originalVesting;
+                }
+                dpVesting = remainVesting.subtract(delegatedVesting);
+                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                if (remainVesting.compareTo(delegatedVesting) > 0) {
+                    dpAvailable = dpAvailable.subtract(remainVesting).add(delegatedVesting);
+                }
+                mGranterAvailable.add(new Coin(denom, dpAvailable.toPlainString()));
+                mGranterVesting.add(new Coin(denom, dpVesting.toPlainString()));
+            }
+        } else {
+            mGranterAvailable = mGranterBalance;
+        }
+    }
+
+    private Coin getAvailableMain() {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Coin coin : mGranterAvailable) {
+            if (coin.denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
+                result = new BigDecimal(coin.amount);
+            }
+        }
+        return new Coin(mChainConfig.mainDenom(), result.toPlainString());
+    }
+
+    private Coin getVestingMain() {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Coin coin : mGranterVesting) {
+            if (coin.denom.equalsIgnoreCase(mChainConfig.mainDenom())) {
+                result = new BigDecimal(coin.amount);
+            }
+        }
+        return new Coin(mChainConfig.mainDenom(), result.toPlainString());
+    }
+
+    private Coin getDelegatedSum() {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Staking.DelegationResponse delegation : mGranterDelegations) {
+            result = result.add(new BigDecimal(delegation.getBalance().getAmount()));
+        }
+        return new Coin(mChainConfig.mainDenom(), result.toPlainString());
+    }
+
+    private Coin getUnbondingSum() {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Staking.UnbondingDelegation unbondingDelegation : mGranterUndelegations) {
+            for (Staking.UnbondingDelegationEntry entry : unbondingDelegation.getEntriesList()) {
+                result = result.add(new BigDecimal(entry.getBalance()));
+            }
+        }
+        return new Coin(mChainConfig.mainDenom(), result.toPlainString());
+    }
+
+    private Coin getRewardSum() {
+        BigDecimal result = BigDecimal.ZERO;
+        for (cosmos.distribution.v1beta1.Distribution.DelegationDelegatorReward reward : mGranterRewards) {
+            for (cosmos.base.v1beta1.CoinOuterClass.DecCoin coin : reward.getRewardList()) {
+                if (coin.getDenom().equalsIgnoreCase(mChainConfig.mainDenom())) {
+                    result = result.add(new BigDecimal(coin.getAmount()));
+                }
+            }
+        }
+        result = result.movePointLeft(18);
+        return new Coin(mChainConfig.mainDenom(), result.toPlainString());
     }
 
     private class AuthzDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -215,7 +428,8 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
                 holder.onBindGranteeInfo(AuthzDetailActivity.this, getBaseDao(), mChainConfig, mAccount);
             } else if (getItemViewType(position) == TYPE_AUTHZ_GRANTER) {
                 AuthzGranterInfoHolder holder = (AuthzGranterInfoHolder) viewHolder;
-                holder.onBindGranterInfo(AuthzDetailActivity.this, getBaseDao(), mChainConfig, mGranter);
+                holder.onBindGranterInfo(AuthzDetailActivity.this, getBaseDao(), mChainConfig, mGranter, getAvailableMain(), getVestingMain(), getDelegatedSum(), getUnbondingSum(),
+                                            getRewardSum(), mGranterCommission);
             } else if (getItemViewType(position) == TYPE_AUTHZ_EXECUTE) {
                 AuthzExecuteInfoHolder holder = (AuthzExecuteInfoHolder) viewHolder;
                 holder.onBindGrantsInfoHolder(AuthzDetailActivity.this, getBaseDao(), mChainConfig, position - 2);

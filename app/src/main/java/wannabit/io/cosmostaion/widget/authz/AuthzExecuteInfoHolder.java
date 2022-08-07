@@ -13,9 +13,11 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import cosmos.authz.v1beta1.Authz;
 import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzDetailActivity;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -309,9 +311,14 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
             return null;
         }
 
-        String moniker = baseData.mGRpcAllValidators.stream().filter(item -> item.getOperatorAddress().equalsIgnoreCase(opAddresses.get(0))).findFirst().get().getDescription().getMoniker();
-        if (moniker.isEmpty() || moniker == null) {
-            moniker = "Known Val";
+        String moniker = "";
+        for (Staking.Validator validator : baseData.mGRpcAllValidators) {
+            if (validator.getOperatorAddress().equalsIgnoreCase(opAddresses.get(0))) {
+                moniker = validator.getDescription().getMoniker();
+            }
+        }
+        if (moniker.isEmpty()) {
+            moniker = "known";
         }
         if (opAddresses.size() > 1) {
             return moniker + " + " + String.valueOf(opAddresses.size() - 1);
