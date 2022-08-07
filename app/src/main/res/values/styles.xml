@@ -11,6 +11,13 @@
         <item name="android:actionButtonStyle">@style/MenuActionButtonStyle</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/colorWhite2DayNight</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textColorPrimary">@color/colorBlackDayNight</item>
+        <item name="colorAccent">@color/colorBlackDayNight</item>
+    </style>
+
     <style name="MenuActionButtonStyle" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:minWidth">20dip</item>
         <item name="android:padding">6dip</item>
