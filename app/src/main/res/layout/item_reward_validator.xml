@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_6"
+        android:layout_marginBottom="@dimen/space_6"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardElevation="0dp"

@@ -11,136 +11,12 @@
 
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
 
-
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
-    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
-
 
     <string name="url_lcd_certik_main" translatable="false">https://lcd-certik-app.cosmostation.io/</string>
 
-
-    <string name="url_api_iov_main" translatable="false">https://api-iov.cosmostation.io/</string>
-
-
-    <string name="url_api_band_main" translatable="false">https://api-band.cosmostation.io/</string>
-
-
     <string name="url_lcd_ok" translatable="false">https://exchainrpc.okex.org/okexchain/v1/</string>
-    <string name="url_api_ok" translatable="false">https://www.oklink.com/api/explorer/</string>
 
-
-    <string name="url_api_certik" translatable="false">https://api-certik.cosmostation.io/</string>
-
-
-    <string name="url_api_secret" translatable="false">https://api-secret.cosmostation.io/</string>
-
-
-    <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>
-
-
-    <string name="url_api_persis" translatable="false">https://api-persistence.cosmostation.io/</string>
-
-
-    <string name="url_api_sentinel" translatable="false">https://api-sentinel.cosmostation.io/</string>
-
-
-    <string name="url_api_fetch" translatable="false">https://api-fetchai.cosmostation.io/</string>
-
-
-    <string name="url_api_crypto" translatable="false">https://api-cryptocom.cosmostation.io/</string>
-
-
-    <string name="url_api_sif" translatable="false">https://api-sifchain.cosmostation.io/</string>
-
-
-    <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
-
-
-    <string name="url_api_medibloc" translatable="false">https://api-medibloc.cosmostation.io/</string>
-
-
-    <string name="url_api_emoney" translatable="false">https://api-emoney.cosmostation.io/</string>
-
-
-    <string name="url_api_regen" translatable="false">https://api-regen.cosmostation.io/</string>
-
-
-    <string name="url_api_bitcanna" translatable="false">https://api-bitcanna.cosmostation.io/</string>
-
-
-    <string name="url_api_althea" translatable="false">https://api-althea.cosmostation.io/</string>
-
-
-    <string name="url_api_stargaze" translatable="false">https://api-stargaze.cosmostation.io/</string>
-
-
-    <string name="url_api_grabridge" translatable="false">https://api-gravity-bridge.cosmostation.io/</string>
-
-
-    <string name="url_api_comdex" translatable="false">https://api-comdex.cosmostation.io/</string>
-
-
-    <string name="url_api_bitsong" translatable="false">https://api-bitsong.cosmostation.io/</string>
-
-
-    <string name="url_api_desmos" translatable="false">https://api-desmos.cosmostation.io/</string>
-    <string name="url_api_airdrop_desmos" translatable="false">https://api.airdrop.desmos.network/</string>
-
-
-    <string name="url_api_lum" translatable="false">https://api-lum.cosmostation.io/</string>
-
-
-    <string name="url_api_chihuahua" translatable="false">https://api-chihuahua.cosmostation.io/</string>
-
-
-    <string name="url_api_axelar" translatable="false">https://api-axelar.cosmostation.io/</string>
-
-
-    <string name="url_api_konstellation" translatable="false">https://api-konstellation.cosmostation.io/</string>
-
-
-    <string name="url_api_umee" translatable="false">https://api-umee.cosmostation.io/</string>
-
-
-    <string name="url_api_evmos" translatable="false">https://api-evmos.cosmostation.io/</string>
-
-
-    <string name="url_api_cudos" translatable="false">https://api-cudos.cosmostation.io/</string>
-
-
-    <string name="url_api_provenance" translatable="false">https://api-provenance.cosmostation.io/</string>
-
-
-    <string name="url_api_cerberus" translatable="false">https://api-cerberus.cosmostation.io/</string>
-
-
-    <string name="url_api_omniflix" translatable="false">https://api-omniflix.cosmostation.io/</string>
-
-
-    <string name="url_api_mantle" translatable="false">https://api-asset-mantle.cosmostation.io/</string>
-
-
-    <string name="url_api_station" translatable="false">https://api-office.cosmostation.io/station-testnet/</string>
-
-    <string name="url_api_nyx" translatable="false">https://api-nym.cosmostation.io/</string>
-
-
-    <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
-    <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
-    <string name="url_api_rizon" translatable="false">https://api-rizon.cosmostation.io/</string>
-
-    <string name="url_hdac_testnet" translatable="false">https://insight-api.testnet.rizon.world/insight-api/</string>
-    <string name="url_rizon_swap_status_testnet" translatable="false">https://swap-api.testnet.rizon.world/</string>
-    <string name="url_api_rizon_test" translatable="false">https://api-rizon-testnet.cosmostation.io/</string>
-
-
-    <string name="url_hdac" translatable="false">https://wallet.new.hdactech.com/insight-api/</string>
-
-
-    <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
-
-
-    <string name="url_api_crescent_test" translatable="false">https://api-office.cosmostation.io/mooncat-1-1/</string>
 
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
@@ -1810,10 +1686,21 @@
     <string name="str_key_confirm_msg">Private Key is only used to restore the\ncurrently selected wallet.\nWe highly recommend keeping your mnemonics\noffline in a secure location, and never share your\nmnemonics with anyone else.\n\n
                                        Private key is NOT mnemonics.\nYou MUST backup your mnemonics if you have one.\nYou need your mnemonics to restore your original wallets if you created them with mnemonics.</string>
 
+    <string name="str_tx_step_memo">Insert memo (optional)</string>
+    <string name="str_tx_step_fee">Select transaction fee</string>
+    <string name="str_tx_step_confirm">Check transaction detail</string>
+
     <string name="str_authz_list_title">Authz List</string>
     <string name="str_authz_detail_title">Authz Detail</string>
     <string name="str_authz_empty_title">RECEIVE GRANT TO START AUTHZ</string>
     <string name="str_authz_empty_msg">You do not have any grants at the moment\nPlease manage your grants from a web wallet</string>
+
+    <string name="str_authz_delegate_title">Authz Delegate</string>
+    <string name="str_authz_myvalidator_title">My Validator</string>
+    <string name="str_authz_othervalidator_title">Other Validator</string>
+    <string name="str_authz_select_msg">Select validator</string>
+    <string name="str_authz_delegate_step_0">Select validator</string>
+    <string name="str_authz_delegate_step_1">Insert amount to delegate</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1944,6 +1831,7 @@
     <string name="error_not_selected_to_import">Select address to import</string>
     <string name="error_no_mnemonic">Only private key imported</string>
     <string name="error_simul_error">This Tx not executable</string>
+    <string name="error_no_authz_type">No auth for this type</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>

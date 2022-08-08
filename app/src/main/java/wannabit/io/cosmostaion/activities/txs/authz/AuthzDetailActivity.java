@@ -8,11 +8,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_COMMISSI
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -401,6 +403,27 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
         }
         result = result.movePointLeft(18);
         return new Coin(mChainConfig.mainDenom(), result.toPlainString());
+    }
+
+    public void onStartAuthzDelegate() {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog();
+        }
+
+        if (getDelegateAuthz() != null) {
+            Intent intent = new Intent(this, AuthzDelegateActivity.class);
+            intent.putExtra("grant", getDelegateAuthz());
+            intent.putExtra("granter", mGranter);
+            intent.putExtra("grantAvailable", mGranterAvailable);
+            intent.putExtra("grantVesting", mGranterVesting);
+            intent.putExtra("granterDelegations", mGranterDelegations);
+            intent.putExtra("granterUndelegations", mGranterUndelegations);
+            intent.putExtra("granterRewards", mGranterRewards);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, getString(R.string.error_no_authz_type), Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 
     private class AuthzDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

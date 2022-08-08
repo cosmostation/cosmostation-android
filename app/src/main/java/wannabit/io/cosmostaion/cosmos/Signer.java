@@ -11,12 +11,10 @@ import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
-import org.bouncycastle.util.encoders.Hex;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -26,22 +24,17 @@ import java.util.Map;
 import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.base.v1beta1.CoinOuterClass;
-import cosmos.crypto.secp256k1.Keys;
 import cosmos.gov.v1beta1.Gov;
 import cosmos.gov.v1beta1.Tx;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
-import desmos.profiles.v1beta1.ModelsChainLinks;
 import desmos.profiles.v1beta1.ModelsProfile;
-import desmos.profiles.v1beta1.MsgsChainLinks;
 import desmos.profiles.v1beta1.MsgsProfile;
 import ibc.core.client.v1.Client;
 import starnamed.x.starname.v1beta1.Types;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.crypto.Sha256;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Cw20TransferReq;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -871,6 +864,26 @@ public class Signer {
         ByteString msg = ByteString.copyFromUtf8(jsonData);
         cosmwasm.wasm.v1.Tx.MsgExecuteContract msgExecuteContract = cosmwasm.wasm.v1.Tx.MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzDelegateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toValAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzDelegateMsg(grantee, granter, toValAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzDelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toValAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzDelegateMsg(grantee, granter, toValAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzDelegateMsg(String grantee, String granter, String toValAddress, Coin amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+
+        CoinOuterClass.Coin toDelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.amount).setDenom(amount.denom).build();
+        cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress(granter).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
+        Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
+
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addMsgs(innerMsg).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
         return msgAnys;
     }
 

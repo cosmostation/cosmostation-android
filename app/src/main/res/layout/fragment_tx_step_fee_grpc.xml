@@ -77,13 +77,15 @@
                             android:id="@+id/total_fee_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_14_black_daynight"/>
+                            style="@style/font_ss_14_black_daynight"
+                            android:visibility="gone"/>
                         <TextView
                             android:id="@+id/total_fee_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ss_14_black_daynight"/>
+                            style="@style/font_ss_14_black_daynight"
+                            android:visibility="gone"/>
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
@@ -96,6 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
+                        android:visibility="gone"
                         style="@style/font_ss_12_gray1"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -139,7 +142,8 @@
                     android:layout_marginTop="@dimen/space_14"
                     android:layout_marginBottom="@dimen/space_10"
                     style="@style/font_ss_12_black_daynight"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:visibility="gone"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

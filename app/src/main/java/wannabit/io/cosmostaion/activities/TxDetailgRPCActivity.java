@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameRegisterAccoun
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameRegisterDomainHolder;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameRenewHolder;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameReplaceResourceHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxAuthzExecHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommissionHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommonHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
@@ -261,6 +262,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         private static final int TYPE_TX_EXECUTE_CONTRACT = 140;
 
+        private static final int TYPE_TX_AUTHZ_EXEC = 150;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -429,6 +432,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 return new TxExecuteContractHolder(getLayoutInflater().inflate(R.layout.item_tx_execute_contract, viewGroup, false));
 
             }
+
+            // authz
+            else if (viewType == TYPE_TX_AUTHZ_EXEC) {
+                return new TxAuthzExecHolder(getLayoutInflater().inflate(R.layout.item_tx_authz_exec, viewGroup, false));
+
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -578,6 +587,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
                 else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgExecuteContract.getDescriptor().getFullName())) {
                     return TYPE_TX_EXECUTE_CONTRACT;
+                }
+
+                else if (msg.getTypeUrl().contains(cosmos.authz.v1beta1.Tx.MsgExec.getDescriptor().getFullName())) {
+                    return TYPE_TX_AUTHZ_EXEC;
                 }
                 return TYPE_TX_UNKNOWN;
             }
