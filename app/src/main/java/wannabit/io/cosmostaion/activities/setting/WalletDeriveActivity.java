@@ -415,7 +415,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 }
             }
         }
-        PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
     }
 
     @Override
@@ -424,6 +423,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if (result.isSuccess) {
                 Derive initDerive = mDerives.stream().filter(derive -> derive.selected).findFirst().get();
+                PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
                 Account initAccount = getBaseDao().onSelectExistAccount(initDerive.dpAddress, initDerive.baseChain);
                 if (initAccount != null && initAccount.id != null) {
                     getBaseDao().setLastUser(initAccount.id);
@@ -434,6 +434,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
             if (result.isSuccess) {
+                PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
                 onStartMainActivity(0);
             }
         }
