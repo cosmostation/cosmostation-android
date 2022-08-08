@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -64,6 +65,7 @@ public class Dialog_WC_Account extends DialogFragment {
         mRecyclerView.setAdapter(mAccountListAdapter);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
+        builder.setOnDismissListener(dialogInterface -> mOnSelectListener.onCancel());
         return builder.create();
     }
 
@@ -131,5 +133,7 @@ public class Dialog_WC_Account extends DialogFragment {
 
     public interface OnDialogSelectListener {
         void onSelect(Long id, Account account);
+
+        void onCancel();
     }
 }

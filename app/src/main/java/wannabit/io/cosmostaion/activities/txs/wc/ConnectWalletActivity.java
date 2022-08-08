@@ -1,11 +1,13 @@
 package wannabit.io.cosmostaion.activities.txs.wc;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebStorage;
@@ -18,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
@@ -266,7 +269,30 @@ public class ConnectWalletActivity extends BaseActivity {
         mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + " Cosmostation/APP/Android/" + BuildConfig.VERSION_NAME);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        mWebView.setWebChromeClient(new WebChromeClient());
+        mWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme)
+                        .setMessage(message)
+                        .setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm())
+                        .setOnDismissListener((DialogInterface dialog) -> result.confirm())
+                        .create()
+                        .show();
+                return true;
+            }
+
+            @Override
+            public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
+                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme)
+                        .setMessage(message)
+                        .setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm())
+                        .setNegativeButton("Cancel", (DialogInterface dialog, int which) -> result.cancel())
+                        .setOnDismissListener((DialogInterface dialog) -> result.cancel())
+                        .create()
+                        .show();
+                return true;
+            }
+        });
         mWebView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith("wc:")) {
@@ -537,14 +563,23 @@ public class ConnectWalletActivity extends BaseActivity {
         bundle.putString("chainName", chainId);
         Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
         mDialogWcAccount.setCancelable(true);
-        mDialogWcAccount.setOnSelectListener((wcId, account) -> {
-            chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
-            if (mBaseChain == null) {
-                mBaseChain = WDp.getChainTypeByChainId(chainId);
-                onInitView(mWcPeerMeta);
+        mDialogWcAccount.setOnSelectListener(new Dialog_WC_Account.OnDialogSelectListener() {
+            @Override
+            public void onSelect(Long id, Account account) {
+                chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
+                if (mBaseChain == null) {
+                    mBaseChain = WDp.getChainTypeByChainId(chainId);
+                    onInitView(mWcPeerMeta);
+                }
+                wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
+                moveToBackIfNeed();
             }
-            wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
-            moveToBackIfNeed();
+
+            @Override
+            public void onCancel() {
+                wcClient.approveRequest(id, Lists.newArrayList());
+                moveToBackIfNeed();
+            }
         });
         getSupportFragmentManager().beginTransaction().add(mDialogWcAccount, "dialog").commitNowAllowingStateLoss();
     }
@@ -572,14 +607,22 @@ public class ConnectWalletActivity extends BaseActivity {
         bundle.putString("chainName", chains.get(index));
         Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
         mDialogWcAccount.setCancelable(true);
-        mDialogWcAccount.setOnSelectListener((wcId, account) -> {
-            chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
-            if (mBaseChain == null) {
-                mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
-                onInitView(mWcPeerMeta);
+        mDialogWcAccount.setOnSelectListener(new Dialog_WC_Account.OnDialogSelectListener() {
+            @Override
+            public void onSelect(Long id, Account account) {
+                chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
+                if (mBaseChain == null) {
+                    mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
+                    onInitView(mWcPeerMeta);
+                }
+                selectedAccounts.add(account);
+                onShowAccountDialog(id, chains, selectedAccounts, index + 1);
             }
-            selectedAccounts.add(account);
-            onShowAccountDialog(id, chains, selectedAccounts, index + 1);
+
+            @Override
+            public void onCancel() {
+                onShowAccountDialog(id, chains, selectedAccounts, index + 1);
+            }
         });
         getSupportFragmentManager().beginTransaction().add(mDialogWcAccount, "dialog" + index).commitNowAllowingStateLoss();
     }
