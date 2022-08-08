@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget.authz;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
@@ -52,7 +51,7 @@ public class AuthzGranterInfoHolder extends RecyclerView.ViewHolder {
         mBtnExploer = itemView.findViewById(R.id.btn_explorer);
     }
 
-    public void onBindGranterInfo(Context c, BaseData baseData, ChainConfig chainConfig, String granter, Coin available, Coin vesting, Coin delegated, Coin unDelegated,
+    public void onBindGranterInfo(BaseData baseData, ChainConfig chainConfig, String granter, Coin available, Coin vesting, Coin delegated, Coin unDelegated,
                                   Coin reward, Coin commission) {
         if (chainConfig == null) return;
         final String stakingDenom = chainConfig.mainDenom();
@@ -68,12 +67,12 @@ public class AuthzGranterInfoHolder extends RecyclerView.ViewHolder {
 
         mGranterAddress.setText(granter);
 
-        mGranterAvailable.setText(WDp.getDpAmount2(c, availableAmount, divideDecimal, 6));
-        mGranterVesting.setText(WDp.getDpAmount2(c, vestingAmount, divideDecimal, 6));
-        mGranterDelegated.setText(WDp.getDpAmount2(c, delegateAmount, divideDecimal, 6));
-        mGranterUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, divideDecimal, 6));
-        mGranterReward.setText(WDp.getDpAmount2(c, rewardAmount, divideDecimal, 6));
-        mGranterCommission.setText(WDp.getDpAmount2(c, commissionAmount, divideDecimal, 6));
+        mGranterAvailable.setText(WDp.getDpAmount2(availableAmount, divideDecimal, 6));
+        mGranterVesting.setText(WDp.getDpAmount2(vestingAmount, divideDecimal, 6));
+        mGranterDelegated.setText(WDp.getDpAmount2(delegateAmount, divideDecimal, 6));
+        mGranterUnBonding.setText(WDp.getDpAmount2(unbondingAmount, divideDecimal, 6));
+        mGranterReward.setText(WDp.getDpAmount2(rewardAmount, divideDecimal, 6));
+        mGranterCommission.setText(WDp.getDpAmount2(commissionAmount, divideDecimal, 6));
         if (BigDecimal.ZERO.compareTo(vestingAmount) < 0) {
             mGranterVestingLayer.setVisibility(View.VISIBLE);
         }
@@ -81,14 +80,14 @@ public class AuthzGranterInfoHolder extends RecyclerView.ViewHolder {
             mGranterCommissionLayer.setVisibility(View.VISIBLE);
         }
 
-        mGranterTotalAmount.setText(WDp.getDpAmount2(c, totalAmount, divideDecimal, 6));
+        mGranterTotalAmount.setText(WDp.getDpAmount2(totalAmount, divideDecimal, 6));
         mGranterTotalValue.setText(WDp.dpUserCurrencyValue(baseData, stakingDenom, totalAmount, divideDecimal));
 
         mBtnExploer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String url = chainConfig.explorerAccountLink() + granter;
-                c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             }
         });
     }

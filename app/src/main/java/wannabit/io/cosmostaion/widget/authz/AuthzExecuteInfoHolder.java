@@ -1,11 +1,8 @@
 package wannabit.io.cosmostaion.widget.authz;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -16,15 +13,12 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Optional;
 
 import cosmos.authz.v1beta1.Authz;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.authz.AuthzDelegateActivity;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzDetailActivity;
-import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -50,25 +44,26 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         mLimitedAddress = itemView.findViewById(R.id.limited_address);
     }
 
-    public void onBindGrantsInfoHolder(AuthzDetailActivity activity, BaseData baseData, ChainConfig chainConfig, int position) {
+    public void onBindGrantsInfoHolder(BaseData baseData, ChainConfig chainConfig, int position) {
+
         if (position == 0) {
-            onBindSendItem(activity, baseData, chainConfig, activity.getSendAuthz());
+            onBindSendItem(baseData, chainConfig, ((AuthzDetailActivity) itemView.getContext()).getSendAuthz());
         } else if (position == 1) {
-            onBindDelegateItem(activity, baseData, chainConfig, activity.getDelegateAuthz());
+            onBindDelegateItem(baseData, chainConfig, ((AuthzDetailActivity) itemView.getContext()).getDelegateAuthz());
         } else if (position == 2) {
-            onBindUndelegateItem(activity, baseData, chainConfig, activity.getUndelegateAuthz());
+            onBindUndelegateItem(baseData, chainConfig, ((AuthzDetailActivity) itemView.getContext()).getUndelegateAuthz());
         } else if (position == 3) {
-            onBindRedelegateItem(activity, baseData, chainConfig, activity.getRedelegateAuthz());
+            onBindRedelegateItem(baseData, chainConfig, ((AuthzDetailActivity) itemView.getContext()).getRedelegateAuthz());
         } else if (position == 4) {
-            onBindRewardItem(activity, chainConfig, activity.getRewardAuthz());
+            onBindRewardItem(chainConfig, ((AuthzDetailActivity) itemView.getContext()).getRewardAuthz());
         } else if (position == 5) {
-            onBindCommissionItem(activity, chainConfig, activity.getCommissionAuthz());
+            onBindCommissionItem(chainConfig, ((AuthzDetailActivity) itemView.getContext()).getCommissionAuthz());
         } else if (position == 6) {
-            onBindVoteItem(activity, chainConfig, activity.getVoteAuthz());
+            onBindVoteItem(chainConfig, ((AuthzDetailActivity) itemView.getContext()).getVoteAuthz());
         }
     }
 
-    private void onBindSendItem(Context c, BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
+    private void onBindSendItem(BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
         if (chainConfig == null) return;
         mStakingDenom = chainConfig.mainDenom();
         mDivideDecimal = WDp.getDenomDecimal(baseData, chainConfig, mStakingDenom);
@@ -77,8 +72,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         mGrantTitle.setText("Send");
 
         if (grant != null) {
-            setColor(c, chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(c, grant.getExpiration().getSeconds() * 1000));
+            setColor(chainConfig, true);
+            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -89,7 +84,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
                     cosmos.bank.v1beta1.Authz.SendAuthorization transAuth = cosmos.bank.v1beta1.Authz.SendAuthorization.parseFrom(grant.getAuthorization().getValue());
                     String maxAmount = getSpendMax(transAuth);
                     if (maxAmount != null) {
-                        mLimitedAmount.setText(WDp.getDpAmount2(c, new BigDecimal(maxAmount), mDivideDecimal, 6));
+                        mLimitedAmount.setText(WDp.getDpAmount2(new BigDecimal(maxAmount), mDivideDecimal, 6));
                     } else {
                         mLimitedAmount.setText("-");
                     }
@@ -99,11 +94,11 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
                 }
             }
         } else {
-            setColor(c, chainConfig, false);
+            setColor(chainConfig, false);
         }
     }
 
-    private void onBindDelegateItem(AuthzDetailActivity c, BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
+    private void onBindDelegateItem(BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
         if (chainConfig == null) return;
         mStakingDenom = chainConfig.mainDenom();
         mDivideDecimal = WDp.getDenomDecimal(baseData, chainConfig, mStakingDenom);
@@ -112,8 +107,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         mGrantTitle.setText("Delegate");
 
         if (grant != null) {
-            setColor(c, chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(c, grant.getExpiration().getSeconds() * 1000));
+            setColor(chainConfig, true);
+            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -124,7 +119,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
                     cosmos.staking.v1beta1.Authz.StakeAuthorization stakeAuth = cosmos.staking.v1beta1.Authz.StakeAuthorization.parseFrom(grant.getAuthorization().getValue());
                     String maxAmount = getMaxToken(stakeAuth);
                     if (maxAmount != null) {
-                        mLimitedAmount.setText(WDp.getDpAmount2(c, new BigDecimal(maxAmount), mDivideDecimal, 6));
+                        mLimitedAmount.setText(WDp.getDpAmount2(new BigDecimal(maxAmount), mDivideDecimal, 6));
                     } else {
                         mLimitedAmount.setText("-");
                     }
@@ -141,18 +136,18 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
                 }
             }
         } else {
-            setColor(c, chainConfig, false);
+            setColor(chainConfig, false);
         }
 
         mGrantLayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                c.onStartAuthzDelegate();
+                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzDelegate();
             }
         });
     }
 
-    private void onBindUndelegateItem(AuthzDetailActivity c, BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
+    private void onBindUndelegateItem(BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
         if (chainConfig == null) return;
         mStakingDenom = chainConfig.mainDenom();
         mDivideDecimal = WDp.getDenomDecimal(baseData, chainConfig, mStakingDenom);
@@ -161,8 +156,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         mGrantTitle.setText("Undelegate");
 
         if (grant != null) {
-            setColor(c, chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(c, grant.getExpiration().getSeconds() * 1000));
+            setColor(chainConfig, true);
+            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -173,7 +168,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
                     cosmos.staking.v1beta1.Authz.StakeAuthorization stakeAuth = cosmos.staking.v1beta1.Authz.StakeAuthorization.parseFrom(grant.getAuthorization().getValue());
                     String maxAmount = getMaxToken(stakeAuth);
                     if (maxAmount != null) {
-                        mLimitedAmount.setText(WDp.getDpAmount2(c, new BigDecimal(maxAmount), mDivideDecimal, 6));
+                        mLimitedAmount.setText(WDp.getDpAmount2(new BigDecimal(maxAmount), mDivideDecimal, 6));
                     } else {
                         mLimitedAmount.setText("-");
                     }
@@ -190,18 +185,18 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
                 }
             }
         } else {
-            setColor(c, chainConfig, false);
+            setColor(chainConfig, false);
         }
 
         mGrantLayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                c.onStartAuthzUndelegate();
+                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzUndelegate();
             }
         });
     }
 
-    private void onBindRedelegateItem(Context c, BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
+    private void onBindRedelegateItem(BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
         if (chainConfig == null) return;
         mStakingDenom = chainConfig.mainDenom();
         mDivideDecimal = WDp.getDenomDecimal(baseData, chainConfig, mStakingDenom);
@@ -210,8 +205,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         mGrantTitle.setText("Redelegate");
 
         if (grant != null) {
-            setColor(c, chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(c, grant.getExpiration().getSeconds() * 1000));
+            setColor(chainConfig, true);
+            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -222,7 +217,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
                     cosmos.staking.v1beta1.Authz.StakeAuthorization stakeAuth = cosmos.staking.v1beta1.Authz.StakeAuthorization.parseFrom(grant.getAuthorization().getValue());
                     String maxAmount = getMaxToken(stakeAuth);
                     if (maxAmount != null) {
-                        mLimitedAmount.setText(WDp.getDpAmount2(c, new BigDecimal(maxAmount), mDivideDecimal, 6));
+                        mLimitedAmount.setText(WDp.getDpAmount2(new BigDecimal(maxAmount), mDivideDecimal, 6));
                     } else {
                         mLimitedAmount.setText("-");
                     }
@@ -239,63 +234,63 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
                 }
             }
         } else {
-            setColor(c, chainConfig, false);
+            setColor(chainConfig, false);
         }
     }
 
-    private void onBindRewardItem(Context c, ChainConfig chainConfig, Authz.Grant grant) {
+    private void onBindRewardItem(ChainConfig chainConfig, Authz.Grant grant) {
         mGrantIcon.setImageResource(R.drawable.icon_authz_reward);
         mGrantTitle.setText("Claim Reward");
 
         if (grant != null) {
-            setColor(c, chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(c, grant.getExpiration().getSeconds() * 1000));
+            setColor(chainConfig, true);
+            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {
-            setColor(c, chainConfig, false);
+            setColor(chainConfig, false);
         }
     }
 
-    private void onBindCommissionItem(Context c, ChainConfig chainConfig, Authz.Grant grant) {
+    private void onBindCommissionItem(ChainConfig chainConfig, Authz.Grant grant) {
         mGrantIcon.setImageResource(R.drawable.icon_authz_commission);
         mGrantTitle.setText("Claim Commission");
 
         if (grant != null) {
-            setColor(c, chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(c, grant.getExpiration().getSeconds() * 1000));
+            setColor(chainConfig, true);
+            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {
-            setColor(c, chainConfig, false);
+            setColor(chainConfig, false);
         }
     }
 
-    private void onBindVoteItem(Context c, ChainConfig chainConfig, Authz.Grant grant) {
+    private void onBindVoteItem(ChainConfig chainConfig, Authz.Grant grant) {
         mGrantIcon.setImageResource(R.drawable.icon_authz_vote);
         mGrantTitle.setText("Vote");
 
         if (grant != null) {
-            setColor(c, chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(c, grant.getExpiration().getSeconds() * 1000));
+            setColor(chainConfig, true);
+            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {
-            setColor(c, chainConfig, false);
+            setColor(chainConfig, false);
         }
     }
 
-    private void setColor(Context c, ChainConfig chainConfig, boolean isGrant) {
+    private void setColor(ChainConfig chainConfig, boolean isGrant) {
         if (isGrant) {
-            mGrantIcon.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
-            mGrantTitle.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            mGrantImportTime.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            mLimitedAmount.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-            mLimitedAddress.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
+            mGrantIcon.setColorFilter(ContextCompat.getColor(itemView.getContext(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
+            mGrantTitle.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorBlackDayNight));
+            mGrantImportTime.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorBlackDayNight));
+            mLimitedAmount.setTextColor(ContextCompat.getColor(itemView.getContext(),  R.color.colorBlackDayNight));
+            mLimitedAddress.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorBlackDayNight));
 
         } else {
-            mGrantIcon.setColorFilter(ContextCompat.getColor(c, R.color.colorGray1), android.graphics.PorterDuff.Mode.SRC_IN);
-            mGrantTitle.setTextColor(ContextCompat.getColor(c, R.color.colorGray1));
+            mGrantIcon.setColorFilter(ContextCompat.getColor(itemView.getContext(), R.color.colorGray1), android.graphics.PorterDuff.Mode.SRC_IN);
+            mGrantTitle.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorGray1));
             mGrantImportTime.setText("");
             mLimitedAmount.setText("");
             mLimitedAddress.setText("");

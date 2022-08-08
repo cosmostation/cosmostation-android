@@ -467,14 +467,14 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_AUTHZ_GRANTEE) {
                 AuthzGranteeInfoHolder holder = (AuthzGranteeInfoHolder) viewHolder;
-                holder.onBindGranteeInfo(AuthzDetailActivity.this, getBaseDao(), mChainConfig, mAccount);
+                holder.onBindGranteeInfo(getBaseDao(), mChainConfig, mAccount);
             } else if (getItemViewType(position) == TYPE_AUTHZ_GRANTER) {
                 AuthzGranterInfoHolder holder = (AuthzGranterInfoHolder) viewHolder;
-                holder.onBindGranterInfo(AuthzDetailActivity.this, getBaseDao(), mChainConfig, mGranter, getAvailableMain(), getVestingMain(), getDelegatedSum(), getUnbondingSum(),
+                holder.onBindGranterInfo(getBaseDao(), mChainConfig, mGranter, getAvailableMain(), getVestingMain(), getDelegatedSum(), getUnbondingSum(),
                                             getRewardSum(), mGranterCommission);
             } else if (getItemViewType(position) == TYPE_AUTHZ_EXECUTE) {
                 AuthzExecuteInfoHolder holder = (AuthzExecuteInfoHolder) viewHolder;
-                holder.onBindGrantsInfoHolder(AuthzDetailActivity.this, getBaseDao(), mChainConfig, position - 2);
+                holder.onBindGrantsInfoHolder(getBaseDao(), mChainConfig, position - 2);
             }
         }
 

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget.authz;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
@@ -32,18 +31,18 @@ public class AuthzGranteeInfoHolder extends RecyclerView.ViewHolder {
         mBtnExplorer = itemView.findViewById(R.id.btn_explorer);
     }
 
-    public void onBindGranteeInfo(Context c, BaseData baseData, ChainConfig chainConfig, Account account) {
-        mGranteeCardView.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
+    public void onBindGranteeInfo(BaseData baseData, ChainConfig chainConfig, Account account) {
+        mGranteeCardView.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), chainConfig.chainBgColor()));
         mGranteeAddress.setText(account.address);
 
         final int divideDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
-        mGranteeAvailable.setText(WDp.getDpAmount2(c, baseData.getAvailable(chainConfig.mainDenom()), divideDecimal, 6));
+        mGranteeAvailable.setText(WDp.getDpAmount2(baseData.getAvailable(chainConfig.mainDenom()), divideDecimal, 6));
 
         mBtnExplorer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String url = chainConfig.explorerAccountLink() + account.address;
-                c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             }
         });
     }
