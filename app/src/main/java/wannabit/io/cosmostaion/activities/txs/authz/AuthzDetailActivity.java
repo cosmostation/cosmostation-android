@@ -426,6 +426,25 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
         }
     }
 
+    public void onStartAuthzUndelegate() {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog();
+        }
+
+        if (getUndelegateAuthz() != null) {
+            Intent intent = new Intent(this, AuthzUndelegateActivity.class);
+            intent.putExtra("grant", getUndelegateAuthz());
+            intent.putExtra("granter", mGranter);
+            intent.putExtra("granterDelegations", mGranterDelegations);
+            intent.putExtra("granterUndelegations", mGranterUndelegations);
+            intent.putExtra("granterRewards", mGranterRewards);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, getString(R.string.error_no_authz_type), Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
     private class AuthzDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_AUTHZ_GRANTEE = 0;
         private static final int TYPE_AUTHZ_GRANTER = 1;

@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.authz.AuthzDelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -41,10 +40,10 @@ public class AllValidatorHolder extends RecyclerView.ViewHolder {
         itemTvCommission = itemView.findViewById(R.id.delegate_commission_validator);
     }
 
-    public void onBindAuthzAllValidatorList(AuthzDelegateActivity c, BaseData baseData, ChainConfig chainConfig, Staking.Validator otherValidator) {
+    public void onBindAuthzAllValidatorList(BaseData baseData, ChainConfig chainConfig, Staking.Validator otherValidator) {
         if (chainConfig == null) return;
         final int dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
-        itemTvVotingPower.setText(WDp.getDpAmount2(c, new BigDecimal(otherValidator.getTokens()), dpDecimal, 6));
+        itemTvVotingPower.setText(WDp.getDpAmount2(itemView.getContext(), new BigDecimal(otherValidator.getTokens()), dpDecimal, 6));
         itemTvCommission.setText(WDp.getDpEstAprCommission(baseData, chainConfig.baseChain(), new BigDecimal(otherValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
         try {
             Picasso.get().load(chainConfig.monikerUrl() + otherValidator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(itemAvatar);
@@ -52,16 +51,16 @@ public class AllValidatorHolder extends RecyclerView.ViewHolder {
 
         itemTvMoniker.setText(otherValidator.getDescription().getMoniker());
         if (otherValidator.getJailed()) {
-            itemAvatar.setBorderColor(ContextCompat.getColor(c, R.color.colorRed));
+            itemAvatar.setBorderColor(ContextCompat.getColor(itemView.getContext(), R.color.colorRed));
             itemRevoked.setVisibility(View.VISIBLE);
         } else {
-            itemAvatar.setBorderColor(ContextCompat.getColor(c, R.color.colorGray3));
+            itemAvatar.setBorderColor(ContextCompat.getColor(itemView.getContext(), R.color.colorGray3));
             itemRevoked.setVisibility(View.GONE);
         }
         if (baseData.mGRpcMyValidators.contains(otherValidator)) {
-            itemRoot.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
+            itemRoot.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), chainConfig.chainBgColor()));
         } else {
-            itemRoot.setCardBackgroundColor(ContextCompat.getColor(c, R.color.colorTransBg));
+            itemRoot.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.colorTransBg));
         }
 
         if (chainConfig.baseChain().equals(BaseChain.BAND_MAIN)) {
@@ -69,13 +68,5 @@ public class AllValidatorHolder extends RecyclerView.ViewHolder {
                 itemBandOracleOff.setVisibility(View.VISIBLE);
             }
         }
-
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                c.mValAddress = otherValidator.getOperatorAddress();
-                c.onNextStep();
-            }
-        });
     }
 }

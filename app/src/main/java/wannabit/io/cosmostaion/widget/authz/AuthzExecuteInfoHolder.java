@@ -152,7 +152,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    private void onBindUndelegateItem(Context c, BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
+    private void onBindUndelegateItem(AuthzDetailActivity c, BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
         if (chainConfig == null) return;
         mStakingDenom = chainConfig.mainDenom();
         mDivideDecimal = WDp.getDenomDecimal(baseData, chainConfig, mStakingDenom);
@@ -192,6 +192,13 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         } else {
             setColor(c, chainConfig, false);
         }
+
+        mGrantLayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                c.onStartAuthzUndelegate();
+            }
+        });
     }
 
     private void onBindRedelegateItem(Context c, BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {

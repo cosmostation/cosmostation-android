@@ -19,7 +19,6 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.authz.AuthzDelegateActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -46,7 +45,7 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
         itemTvReward = itemView.findViewById(R.id.my_reward_validator);
     }
 
-    public void onBindAuthzValidatorList(AuthzDelegateActivity c, BaseData baseData, ChainConfig chainConfig, Staking.Validator myValidator,
+    public void onBindAuthzValidatorList(BaseData baseData, ChainConfig chainConfig, Staking.Validator myValidator,
                                          ArrayList<Staking.DelegationResponse> granterDelegations, ArrayList<Staking.UnbondingDelegation> granterUndelegations, ArrayList<Distribution.DelegationDelegatorReward> granterRewards) {
         if (chainConfig == null) return;
         int dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
@@ -54,12 +53,12 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
             Picasso.get().load(chainConfig.monikerUrl() + myValidator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(itemAvatar);
         } catch (Exception e) { }
         itemTvMoniker.setText(myValidator.getDescription().getMoniker());
-        itemRoot.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
+        itemRoot.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), chainConfig.chainBgColor()));
         if (myValidator.getJailed()) {
-            itemAvatar.setBorderColor(ContextCompat.getColor(c, R.color.colorRed));
+            itemAvatar.setBorderColor(ContextCompat.getColor(itemView.getContext(), R.color.colorRed));
             itemRevoked.setVisibility(View.VISIBLE);
         } else {
-            itemAvatar.setBorderColor(ContextCompat.getColor(c, R.color.colorGray3));
+            itemAvatar.setBorderColor(ContextCompat.getColor(itemView.getContext(), R.color.colorGray3));
             itemRevoked.setVisibility(View.GONE);
         }
 
@@ -69,7 +68,7 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
                 delegatedAmount = new BigDecimal(delegation.getBalance().getAmount());
             }
         }
-        itemTvDelegateAmount.setText(WDp.getDpAmount2(c, delegatedAmount, dpDecimal, 6));
+        itemTvDelegateAmount.setText(WDp.getDpAmount2(itemView.getContext(), delegatedAmount, dpDecimal, 6));
         BigDecimal unbondingAmount = BigDecimal.ZERO;
         for (Staking.UnbondingDelegation unbonding : granterUndelegations) {
             if (unbonding.getValidatorAddress().equalsIgnoreCase(myValidator.getOperatorAddress())) {
@@ -78,7 +77,7 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
                 }
             }
         }
-        itemTvUndelegateAmount.setText(WDp.getDpAmount2(c, unbondingAmount, dpDecimal, 6));
+        itemTvUndelegateAmount.setText(WDp.getDpAmount2(itemView.getContext(), unbondingAmount, dpDecimal, 6));
 
         BigDecimal rewardAmount = BigDecimal.ZERO;
         for (Distribution.DelegationDelegatorReward reward : granterRewards) {
@@ -90,20 +89,12 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
                 }
             }
         }
-        itemTvReward.setText(WDp.getDpAmount2(c, rewardAmount.movePointLeft(18), dpDecimal, 6));
+        itemTvReward.setText(WDp.getDpAmount2(itemView.getContext(), rewardAmount.movePointLeft(18), dpDecimal, 6));
 
         if (chainConfig.baseChain().equals(BaseChain.BAND_MAIN)) {
             if (!baseData.mChainParam.isOracleEnable(myValidator.getOperatorAddress())) {
                 itemBandOracleOff.setVisibility(View.VISIBLE);
             }
         }
-
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                c.mValAddress = myValidator.getOperatorAddress();
-                c.onNextStep();
-            }
-        });
     }
 }

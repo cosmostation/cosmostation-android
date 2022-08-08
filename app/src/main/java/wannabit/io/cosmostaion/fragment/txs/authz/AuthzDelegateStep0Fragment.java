@@ -198,13 +198,24 @@ public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnC
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == SECTION_MY_VALIDATOR) {
                 MyValidatorHolder holder = (MyValidatorHolder) viewHolder;
-                holder.onBindAuthzValidatorList(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mMyValidator.get(position), mGranterDelegations, mGranterUndelegations, mGranterRewards);
+                holder.onBindAuthzValidatorList(getBaseDao(), getSActivity().mChainConfig, mMyValidator.get(position), mGranterDelegations, mGranterUndelegations, mGranterRewards);
+
+                holder.itemView.findViewById(R.id.card_validator).setOnClickListener(view -> {
+                    getSActivity().mValAddress = mMyValidator.get(position).getOperatorAddress();
+                    getSActivity().onNextStep();
+                });
+
             } else {
                 AllValidatorHolder holder = (AllValidatorHolder) viewHolder;
-                holder.onBindAuthzAllValidatorList(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOtherValidators.get(position - mMyValidator.size()));
+                holder.onBindAuthzAllValidatorList(getBaseDao(), getSActivity().mChainConfig, mOtherValidators.get(position - mMyValidator.size()));
+
+                holder.itemView.findViewById(R.id.card_validator).setOnClickListener(view -> {
+                    getSActivity().mValAddress = mOtherValidators.get(position - mMyValidator.size()).getOperatorAddress();
+                    getSActivity().onNextStep();
+                });
             }
         }
 
