@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
@@ -55,7 +56,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         mBtnSend = findViewById(R.id.btn_send);
 
         Window window = this.getWindow();
-        window.setStatusBarColor(Color.TRANSPARENT);;
+        window.setStatusBarColor(Color.TRANSPARENT);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -70,6 +71,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         }
         mDenomId = getIntent().getStringExtra("mDenomId");
         mTokenId = getIntent().getStringExtra("mTokenId");
+        mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
