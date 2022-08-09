@@ -947,6 +947,28 @@ public class Signer {
         return msgAnys;
     }
 
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzAVoteReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzVoteMsg(grantee, granter, opinionMap), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzVoteSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzVoteMsg(grantee, granter, opinionMap), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzVoteMsg(String grantee, String granter, Map<Integer,String> opinionMap) {
+        ArrayList<Any> innerMsgs = new ArrayList<>();
+        opinionMap.forEach((id, opinion) -> {
+            Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(String.valueOf(id))).setVoter(granter).setOption(Gov.VoteOption.valueOf(opinion)).build();
+            Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build();
+            innerMsgs.add(innerMsg);
+        });
+
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addAllMsgs(innerMsgs).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+
 
     public static TxOuterClass.TxBody getGrpcTxBodys(ArrayList<Any> msgsAny, String memo) {
         TxOuterClass.TxBody.Builder builder = TxOuterClass.TxBody.newBuilder();

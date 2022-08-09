@@ -291,6 +291,13 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         } else {
             setColor(chainConfig, false);
         }
+
+        mGrantLayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzVote();
+            }
+        });
     }
 
     private void setColor(ChainConfig chainConfig, boolean isGrant) {
