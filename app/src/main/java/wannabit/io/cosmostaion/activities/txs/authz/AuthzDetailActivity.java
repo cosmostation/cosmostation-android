@@ -417,6 +417,23 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
         return true;
     }
 
+    public void onStartAuthzSend() {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog();
+        }
+
+        if (getDelegateAuthz() != null) {
+            Intent intent = new Intent(this, AuthzSendActivity.class);
+            intent.putExtra("grant", getSendAuthz());
+            intent.putExtra("granter", mGranter);
+            intent.putExtra("grantAvailable", mGranterAvailable);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, getString(R.string.error_no_authz_type), Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
     public void onStartAuthzDelegate() {
         if (!onCommonCheck()) return;
 

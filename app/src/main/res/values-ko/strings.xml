@@ -1438,6 +1438,10 @@
     <string name="str_authz_redelegate_step_0">검증인을 선택하세요</string>
     <string name="str_authz_redelegate_step_1">재위임 수량을 입력하세요</string>
     <string name="str_authz_select_valiator">검증인 선택</string>
+    <string name="str_authz_send_title">Authz 전송하기</string>
+    <string name="str_authz_send_step_0">받을 주소를 입력하세요</string>
+    <string name="str_authz_send_step_1">수량을 입력하세요</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

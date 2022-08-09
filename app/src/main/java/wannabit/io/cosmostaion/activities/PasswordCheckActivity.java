@@ -10,6 +10,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
@@ -60,7 +61,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
 
 import android.app.Activity;
@@ -117,6 +117,7 @@ import wannabit.io.cosmostaion.task.UserTask.CheckPrivateKeyTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzDelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzRedelegateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
@@ -183,7 +184,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private ArrayList<Coin> mTargetCoins;
     private String mTargetMemo;
     private Fee mTargetFee;
-    private Coin mDAmount;
+    private Coin mAmount;
     private Coin mUAmount;
     private String mFromReDelegateAddr;
     private String mToReDelegateAddr;
@@ -294,7 +295,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mTargetCoins = getIntent().getParcelableArrayListExtra("amount");
         mTargetMemo = getIntent().getStringExtra("memo");
         mTargetFee = getIntent().getParcelableExtra("fee");
-        mDAmount = getIntent().getParcelableExtra("dAmount");
+        mAmount = getIntent().getParcelableExtra("Amount");
         mUAmount = getIntent().getParcelableExtra("uAmount");
         mRAmount = getIntent().getParcelableExtra("rAmount");
         mFromReDelegateAddr = getIntent().getStringExtra("fromValidatorAddr");
@@ -474,7 +475,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_DELEGATE) {
             onShowWaitDialog();
-            new DelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mDAmount, mTargetMemo, mTargetFee,
+            new DelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mAmount, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_UNDELEGATE) {
@@ -681,7 +682,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_AUTHZ_DELEGATE) {
-            new AuthzDelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mTargetAddress, mDAmount,
+            new AuthzDelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mTargetAddress, mAmount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_AUTHZ_UNDELEGATE) {
@@ -690,6 +691,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_AUTHZ_REDELEGATE) {
             new AuthzRedelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mFromReDelegateAddr, mToReDelegateAddr, mRAmount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if ((mPurpose == CONST_PW_TX_AUTHZ_SEND)) {
+            new AuthzSendGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mTargetAddress, mAmount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
     }
@@ -789,18 +794,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 return;
             }
 
-            if ((mBaseChain.equals(BNB_MAIN)) && result.taskType == TASK_GEN_TX_BNB_HTLC_REFUND) {
-                Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash))
-                    txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-
-            } else if (isGRPC(mBaseChain)) {
+            if (isGRPC(mBaseChain)) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailgRPCActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);

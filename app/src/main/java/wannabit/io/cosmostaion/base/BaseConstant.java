@@ -413,6 +413,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_AUTHZ_DELEGATE                      = 5060;
     public final static int CONST_PW_TX_AUTHZ_UNDELEGATE                    = 5061;
     public final static int CONST_PW_TX_AUTHZ_REDELEGATE                    = 5062;
+    public final static int CONST_PW_TX_AUTHZ_SEND                          = 5063;
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
     public final static int ERROR_CODE_NETWORK              = 8001;

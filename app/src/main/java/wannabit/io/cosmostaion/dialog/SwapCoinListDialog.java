@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.FeeInfo;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class SwapCoinListDialog extends DialogFragment {
@@ -35,6 +36,7 @@ public class SwapCoinListDialog extends DialogFragment {
 
     private ArrayList<String> mSwapCoinList;
     private ArrayList<FeeInfo.FeeData> mFeeDataList;
+    private ArrayList<Coin> mSendCoinList;
 
     public static SwapCoinListDialog newInstance(Bundle bundle) {
         SwapCoinListDialog frag = new SwapCoinListDialog();
@@ -52,6 +54,7 @@ public class SwapCoinListDialog extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
         mSwapCoinList = getArguments().getStringArrayList("denoms");
         mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable("feeDatas");
+        mSendCoinList = (ArrayList<Coin>) getArguments().getSerializable("sendCoins");
         mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
 
@@ -60,8 +63,10 @@ public class SwapCoinListDialog extends DialogFragment {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in));
         } else if (getTargetRequestCode() == 8501) {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out));
-        } else {
+        } else if (getTargetRequestCode() == 8502){
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_fee_denom));
+        } else {
+            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_to_send_coin));
         }
         mRecyclerView = view.findViewById(R.id.recycler);
         mSwapChainListAdapter = new SwapChainListAdapter();
@@ -77,6 +82,7 @@ public class SwapCoinListDialog extends DialogFragment {
     private class SwapChainListAdapter extends RecyclerView.Adapter<SwapChainListAdapter.SwapChainHolder> {
         private static final int TYPE_SWAP_LIST = 0;
         private static final int TYPE_FEE_LIST = 1;
+        private static final int TYPE_SEND_COIN_LIST = 2;
 
         @NonNull
         @Override
@@ -90,6 +96,8 @@ public class SwapCoinListDialog extends DialogFragment {
                 onBindSwapListItemViewHolder(holder, position);
             } else if (getItemViewType(position) == TYPE_FEE_LIST){
                 onBindFeeListItemViewHolder(holder, position);
+            } else if (getItemViewType(position) == TYPE_SEND_COIN_LIST){
+                onBindSendListItemViewHolder(holder, position);
             }
         }
 
@@ -125,10 +133,28 @@ public class SwapCoinListDialog extends DialogFragment {
             });
         }
 
+        private void onBindSendListItemViewHolder(SwapChainHolder holder, int position) {
+            String denom = mSendCoinList.get(position).denom;
+            WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinImg);
+            WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinName);
+
+            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("position", position);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
         @Override
         public int getItemCount() {
             if (getTargetRequestCode() == 8502) {
                 return mFeeDataList.size();
+            } else if (getTargetRequestCode() == 8503){
+                return mSendCoinList.size();
             } else {
                 return mSwapCoinList.size();
             }
@@ -138,6 +164,8 @@ public class SwapCoinListDialog extends DialogFragment {
         public int getItemViewType(int position) {
             if (getTargetRequestCode() == 8502) {
                 return TYPE_FEE_LIST;
+            } else if (getTargetRequestCode() == 8503) {
+                return TYPE_SEND_COIN_LIST;
             } else {
                 return TYPE_SWAP_LIST;
             }

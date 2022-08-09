@@ -918,9 +918,29 @@ public class Signer {
     public static ArrayList<Any> getAuthzRedelegateMsg(String grantee, String granter, String fromValAddress, String toValAddress, Coin amount) {
         ArrayList<Any> msgAnys = new ArrayList<>();
 
-        CoinOuterClass.Coin toUndelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.amount).setDenom(amount.denom).build();
-        cosmos.staking.v1beta1.Tx.MsgBeginRedelegate msgRedelegate = cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.newBuilder().setDelegatorAddress(granter).setValidatorSrcAddress(fromValAddress).setValidatorDstAddress(toValAddress).setAmount(toUndelegateCoin).build();
+        CoinOuterClass.Coin toRedelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.amount).setDenom(amount.denom).build();
+        cosmos.staking.v1beta1.Tx.MsgBeginRedelegate msgRedelegate = cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.newBuilder().setDelegatorAddress(granter).setValidatorSrcAddress(fromValAddress).setValidatorDstAddress(toValAddress).setAmount(toRedelegateCoin).build();
         Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgBeginRedelegate").setValue(msgRedelegate.toByteString()).build();
+
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addMsgs(innerMsg).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzSendReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzSendMsg(grantee, granter, toAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzSendSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzSendMsg(grantee, granter, toAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzSendMsg(String grantee, String granter, String toAddress, Coin amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+
+        CoinOuterClass.Coin toSendCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.amount).setDenom(amount.denom).build();
+        cosmos.bank.v1beta1.Tx.MsgSend msgSend = cosmos.bank.v1beta1.Tx.MsgSend.newBuilder().setFromAddress(granter).setToAddress(toAddress).addAmount(toSendCoin).build();
+        Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.bank.v1beta1.MsgSend").setValue(msgSend.toByteString()).build();
 
         cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addMsgs(innerMsg).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
