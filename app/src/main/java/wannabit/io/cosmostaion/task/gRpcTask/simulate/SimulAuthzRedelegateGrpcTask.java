@@ -24,11 +24,12 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class SimulAuthzUndelegateGrpcTask extends CommonTask {
+public class SimulAuthzRedelegateGrpcTask extends CommonTask {
     private BaseChain       mBaseChain;
     private Account         mAccount;
     private String          mGranter;
-    private String          mValAddress;
+    private String          mFromValAddress;
+    private String          mToValAddress;
     private Coin            mAmount;
     private String          mMemo;
     private Fee             mFee;
@@ -37,12 +38,13 @@ public class SimulAuthzUndelegateGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public SimulAuthzUndelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String granter, String toValAddress, Coin amount, String memo, Fee fee, String chainId) {
+    public SimulAuthzRedelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String granter, String fromValAddress, String toValAddress, Coin amount, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
         this.mGranter = granter;
-        this.mValAddress = toValAddress;
+        this.mFromValAddress = fromValAddress;
+        this.mToValAddress = toValAddress;
         this.mAmount = amount;
         this.mMemo = memo;
         this.mFee = fee;
@@ -67,14 +69,14 @@ public class SimulAuthzUndelegateGrpcTask extends CommonTask {
 
             //Simulate
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcAuthzUndelegateSimulateReq(mAuthResponse, mAccount.address, mGranter, mValAddress, mAmount, mFee, mMemo, ecKey, mChainId);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcAuthzRedelegateSimulateReq(mAuthResponse, mAccount.address, mGranter, mFromValAddress, mToValAddress, mAmount, mFee, mMemo, ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e("SimulAuthzUndelegateGrpcTask " + e.getMessage());
+            WLog.e("SimulAuthzRedelegateGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

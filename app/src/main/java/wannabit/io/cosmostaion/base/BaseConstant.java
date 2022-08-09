@@ -258,9 +258,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_HARD          = 4544;
     public final static int TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES    = 4545;
     public final static int TASK_GRPC_SIMULATE_EXECUTE_CONTRACT         = 4546;
-    public final static int TASK_GRPC_SIMULATE_AUTHZ_DELEGATE           = 4547;
-    public final static int TASK_GRPC_SIMULATE_AUTHZ_UNDELEGATE         = 4548;
-
 
 
 
@@ -415,6 +412,7 @@ public class BaseConstant {
 
     public final static int CONST_PW_TX_AUTHZ_DELEGATE                      = 5060;
     public final static int CONST_PW_TX_AUTHZ_UNDELEGATE                    = 5061;
+    public final static int CONST_PW_TX_AUTHZ_REDELEGATE                    = 5062;
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
     public final static int ERROR_CODE_NETWORK              = 8001;

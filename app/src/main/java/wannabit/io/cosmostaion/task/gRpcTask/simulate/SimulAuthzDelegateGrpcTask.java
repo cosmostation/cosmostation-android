@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_AUTHZ_DELEGATE;
-
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -49,7 +47,6 @@ public class SimulAuthzDelegateGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFee = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_AUTHZ_DELEGATE;
     }
 
     @Override

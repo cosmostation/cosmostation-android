@@ -35,7 +35,7 @@ public class AuthzUndelegateStep0Fragment extends BaseFragment implements View.O
     private ArrayList<Staking.DelegationResponse> mGranterDelegations = new ArrayList<>();
     private ArrayList<Staking.UnbondingDelegation> mGranterUndelegations = new ArrayList<>();
     private ArrayList<Distribution.DelegationDelegatorReward> mGranterRewards = new ArrayList<>();
-    private ArrayList<Staking.Validator> mMyValidator = new ArrayList<>();
+    private ArrayList<Staking.Validator> mMyValidators = new ArrayList<>();
 
     public static AuthzUndelegateStep0Fragment newInstance() {
         return new AuthzUndelegateStep0Fragment();
@@ -71,7 +71,7 @@ public class AuthzUndelegateStep0Fragment extends BaseFragment implements View.O
     }
 
     private void onUpdateView() {
-        mMyValidator.clear();
+        mMyValidators.clear();
 
         for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
             boolean mine = false;
@@ -87,7 +87,7 @@ public class AuthzUndelegateStep0Fragment extends BaseFragment implements View.O
                     break;
                 }
             }
-            if (mine) mMyValidator.add(validator);
+            if (mine) mMyValidators.add(validator);
         }
 
         if (mGrant.getAuthorization().getTypeUrl().contains(cosmos.staking.v1beta1.Authz.StakeAuthorization.getDescriptor().getFullName())) {
@@ -95,21 +95,21 @@ public class AuthzUndelegateStep0Fragment extends BaseFragment implements View.O
                 cosmos.staking.v1beta1.Authz.StakeAuthorization stakeAuth = cosmos.staking.v1beta1.Authz.StakeAuthorization.parseFrom(mGrant.getAuthorization().getValue());
                 ArrayList<Staking.Validator> filteredValidators = new ArrayList<>();
                 if (stakeAuth.getAllowList().getAddressCount() > 0) {
-                    for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
+                    for (Staking.Validator validator : mMyValidators) {
                         if (stakeAuth.getAllowList().getAddressList().contains(validator.getOperatorAddress())) {
                             filteredValidators.add(validator);
                         }
                     }
 
                 } else if (stakeAuth.getDenyList().getAddressCount() > 0) {
-                    for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
+                    for (Staking.Validator validator : mMyValidators) {
                         if (!stakeAuth.getDenyList().getAddressList().contains(validator.getOperatorAddress())) {
                             filteredValidators.add(validator);
                         }
                     }
                 }
 
-                mMyValidator = filteredValidators;
+                mMyValidators = filteredValidators;
             } catch (InvalidProtocolBufferException e) {
                 e.printStackTrace();
             }
@@ -139,20 +139,17 @@ public class AuthzUndelegateStep0Fragment extends BaseFragment implements View.O
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             MyValidatorHolder holder = (MyValidatorHolder) viewHolder;
-            holder.onBindAuthzValidatorList(getBaseDao(), getSActivity().mChainConfig, mMyValidator.get(position), mGranterDelegations, mGranterUndelegations, mGranterRewards);
+            holder.onBindAuthzValidatorList(getBaseDao(), getSActivity().mChainConfig, mMyValidators.get(position), mGranterDelegations, mGranterUndelegations, mGranterRewards);
 
-            holder.itemView.findViewById(R.id.card_validator).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    getSActivity().mValAddress = mMyValidator.get(position).getOperatorAddress();
-                    getSActivity().onNextStep();
-                }
+            holder.itemView.findViewById(R.id.card_validator).setOnClickListener(view -> {
+                getSActivity().mValAddress = mMyValidators.get(position).getOperatorAddress();
+                getSActivity().onNextStep();
             });
         }
 
         @Override
         public int getItemCount() {
-            return mMyValidator.size();
+            return mMyValidators.size();
         }
     }
 

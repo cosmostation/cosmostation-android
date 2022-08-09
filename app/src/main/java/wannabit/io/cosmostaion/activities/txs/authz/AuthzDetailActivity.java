@@ -405,10 +405,20 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
         return new Coin(mChainConfig.mainDenom(), result.toPlainString());
     }
 
-    public void onStartAuthzDelegate() {
+    private boolean onCommonCheck() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
+            return false;
         }
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    public void onStartAuthzDelegate() {
+        if (!onCommonCheck()) return;
 
         if (getDelegateAuthz() != null) {
             Intent intent = new Intent(this, AuthzDelegateActivity.class);
@@ -427,13 +437,28 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
     }
 
     public void onStartAuthzUndelegate() {
-        if (!mAccount.hasPrivateKey) {
-            onInsertKeyDialog();
-        }
+        if (!onCommonCheck()) return;
 
         if (getUndelegateAuthz() != null) {
             Intent intent = new Intent(this, AuthzUndelegateActivity.class);
             intent.putExtra("grant", getUndelegateAuthz());
+            intent.putExtra("granter", mGranter);
+            intent.putExtra("granterDelegations", mGranterDelegations);
+            intent.putExtra("granterUndelegations", mGranterUndelegations);
+            intent.putExtra("granterRewards", mGranterRewards);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, getString(R.string.error_no_authz_type), Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
+    public void onStartAuthzRedelegate() {
+        if (!onCommonCheck()) return;
+
+        if (getRedelegateAuthz() != null) {
+            Intent intent = new Intent(this, AuthzRedelegateActivity.class);
+            intent.putExtra("grant", getRedelegateAuthz());
             intent.putExtra("granter", mGranter);
             intent.putExtra("granterDelegations", mGranterDelegations);
             intent.putExtra("granterUndelegations", mGranterUndelegations);

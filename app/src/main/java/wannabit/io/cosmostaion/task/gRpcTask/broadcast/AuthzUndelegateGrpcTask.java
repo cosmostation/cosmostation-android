@@ -51,7 +51,6 @@ public class AuthzUndelegateGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFee = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_GEN_TX_AUTHZ_UNDELEGATE;
     }
 
     @Override

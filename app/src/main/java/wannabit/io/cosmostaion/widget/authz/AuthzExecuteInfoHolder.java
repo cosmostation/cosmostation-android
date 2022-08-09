@@ -45,7 +45,6 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBindGrantsInfoHolder(BaseData baseData, ChainConfig chainConfig, int position) {
-
         if (position == 0) {
             onBindSendItem(baseData, chainConfig, ((AuthzDetailActivity) itemView.getContext()).getSendAuthz());
         } else if (position == 1) {
@@ -236,6 +235,13 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         } else {
             setColor(chainConfig, false);
         }
+
+        mGrantLayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzRedelegate();
+            }
+        });
     }
 
     private void onBindRewardItem(ChainConfig chainConfig, Authz.Grant grant) {

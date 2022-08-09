@@ -1,4 +1,6 @@
-package wannabit.io.cosmostaion.task.gRpcTask.simulate;
+package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -15,6 +17,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -24,11 +27,12 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class SimulAuthzUndelegateGrpcTask extends CommonTask {
+public class AuthzRedelegateGrpcTask extends CommonTask {
     private BaseChain       mBaseChain;
     private Account         mAccount;
     private String          mGranter;
-    private String          mValAddress;
+    private String          mFromValAddress;
+    private String          mToValAddress;
     private Coin            mAmount;
     private String          mMemo;
     private Fee             mFee;
@@ -37,12 +41,13 @@ public class SimulAuthzUndelegateGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public SimulAuthzUndelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String granter, String toValAddress, Coin amount, String memo, Fee fee, String chainId) {
+    public AuthzRedelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String granter, String fromValAddress, String toValAddress, Coin amount, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
         this.mGranter = granter;
-        this.mValAddress = toValAddress;
+        this.mFromValAddress = fromValAddress;
+        this.mToValAddress = toValAddress;
         this.mAmount = amount;
         this.mMemo = memo;
         this.mFee = fee;
@@ -51,6 +56,13 @@ public class SimulAuthzUndelegateGrpcTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
+        Password checkPw = mApp.getBaseDao().onSelectPassword();
+        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+            mResult.isSuccess = false;
+            mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
+            return mResult;
+        }
+
         try {
             if (mAccount.fromMnemonic) {
                 String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -65,16 +77,21 @@ public class SimulAuthzUndelegateGrpcTask extends CommonTask {
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
             mAuthResponse = authStub.account(request);
 
-            //Simulate
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcAuthzUndelegateSimulateReq(mAuthResponse, mAccount.address, mGranter, mValAddress, mAmount, mFee, mMemo, ecKey, mChainId);
-            ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcAuthzRedelegateReq(mAuthResponse, mAccount.address, mGranter, mFromValAddress, mToValAddress, mAmount, mFee, mMemo, ecKey, mChainId);
+            ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
+            mResult.resultData = response.getTxResponse().getTxhash();
 
-            mResult.resultData = response.getGasInfo();
-            mResult.isSuccess = true;
+            if (response.getTxResponse().getCode() > 0) {
+                mResult.errorCode = response.getTxResponse().getCode();
+                mResult.errorMsg = response.getTxResponse().getRawLog();
+                mResult.isSuccess = false;
+            } else {
+                mResult.isSuccess = true;
+            }
 
         } catch (Exception e) {
-            WLog.e("SimulAuthzUndelegateGrpcTask " + e.getMessage());
+            WLog.e("AuthzRedelegateGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;
