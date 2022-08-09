@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.activities.txs.authz;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_UNDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_REDELEGATE;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,11 +31,11 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzUndelegateStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzUndelegateStep1Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzUndelegateStep4Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.AuthzRedelegateStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.AuthzRedelegateStep1Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.AuthzRedelegateStep4Fragment;
 
-public class AuthzUndelegateActivity extends BaseBroadCastActivity {
+public class AuthzRedelegateActivity extends BaseBroadCastActivity {
 
     private RelativeLayout mRootView;
     private Toolbar mToolbar;
@@ -43,7 +43,7 @@ public class AuthzUndelegateActivity extends BaseBroadCastActivity {
     private ImageView mIvStep;
     private TextView mTvStep;
     private ViewPager mViewPager;
-    private AuthzUndelegatePageAdapter mPageAdapter;
+    private AuthzRedelegatePageAdapter mPageAdapter;
 
     public Authz.Grant mGrant;
     public ArrayList<Staking.DelegationResponse> mGranterDelegations = new ArrayList<>();
@@ -60,19 +60,19 @@ public class AuthzUndelegateActivity extends BaseBroadCastActivity {
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_authz_undelegate_title));
+        mTitle.setText(getString(R.string.str_authz_redelegate_title));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.step_1_img));
-        mTvStep.setText(getString(R.string.str_authz_undelegate_step_0));
+        mTvStep.setText(getString(R.string.str_authz_redelegate_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mTxType = CONST_PW_TX_AUTHZ_UNDELEGATE;
+        mTxType = CONST_PW_TX_AUTHZ_REDELEGATE;
 
         mGrant = (Authz.Grant) getIntent().getSerializableExtra("grant");
         mGranter = getIntent().getStringExtra("granter");
@@ -80,7 +80,7 @@ public class AuthzUndelegateActivity extends BaseBroadCastActivity {
         mGranterUndelegations = (ArrayList<Staking.UnbondingDelegation>) getIntent().getSerializableExtra("granterUndelegations");
         mGranterRewards = (ArrayList<Distribution.DelegationDelegatorReward>) getIntent().getSerializableExtra("granterRewards");
 
-        mPageAdapter = new AuthzUndelegatePageAdapter(getSupportFragmentManager());
+        mPageAdapter = new AuthzRedelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -92,22 +92,22 @@ public class AuthzUndelegateActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzUndelegateActivity.this, R.drawable.step_1_img));
-                    mTvStep.setText(getString(R.string.str_authz_undelegate_step_0));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzRedelegateActivity.this, R.drawable.step_1_img));
+                    mTvStep.setText(getString(R.string.str_authz_redelegate_step_0));
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzUndelegateActivity.this, R.drawable.step_2_img));
-                    mTvStep.setText(getString(R.string.str_authz_undelegate_step_1));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzRedelegateActivity.this, R.drawable.step_2_img));
+                    mTvStep.setText(getString(R.string.str_authz_redelegate_step_1));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzUndelegateActivity.this, R.drawable.step_3_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzRedelegateActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_tx_step_memo));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzUndelegateActivity.this, R.drawable.step_4_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzRedelegateActivity.this, R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_tx_step_fee));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 4) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzUndelegateActivity.this, R.drawable.step_5_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzRedelegateActivity.this, R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_tx_step_confirm));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
@@ -170,31 +170,32 @@ public class AuthzUndelegateActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void onAuthzUndelegate() {
-        Intent intent = new Intent(AuthzUndelegateActivity.this, PasswordCheckActivity.class);
+    public void onAuthzRedelegate() {
+        Intent intent = new Intent(AuthzRedelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("granter", mGranter);
-        intent.putExtra("toAddress", mValAddress);
-        intent.putExtra("uAmount", mAmount);
+        intent.putExtra("fromValidatorAddr", mValAddress);
+        intent.putExtra("toValidatorAddr", mToValAddress);
+        intent.putExtra("rAmount", mAmount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-    private class AuthzUndelegatePageAdapter extends FragmentPagerAdapter {
+    private class AuthzRedelegatePageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public AuthzUndelegatePageAdapter(FragmentManager fm) {
+        public AuthzRedelegatePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(AuthzUndelegateStep0Fragment.newInstance());
-            mFragments.add(AuthzUndelegateStep1Fragment.newInstance());
+            mFragments.add(AuthzRedelegateStep0Fragment.newInstance());
+            mFragments.add(AuthzRedelegateStep1Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(AuthzUndelegateStep4Fragment.newInstance());
+            mFragments.add(AuthzRedelegateStep4Fragment.newInstance());
         }
 
         @Override

@@ -49,6 +49,9 @@ public class TxAuthzExecHolder extends TxHolder {
             } else if (typeUrl.contains(cosmos.staking.v1beta1.Tx.MsgUndelegate.getDescriptor().getFullName())) {
                 message = c.getString(R.string.tx_undelegate);
 
+            } else if (typeUrl.contains(cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.getDescriptor().getFullName())) {
+                message = c.getString(R.string.tx_redelegate);
+
             } else if (typeUrl.contains(cosmos.bank.v1beta1.Tx.MsgSend.getDescriptor().getFullName())) {
                 message = c.getString(R.string.tx_transfer);
 

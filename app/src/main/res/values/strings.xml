@@ -1701,8 +1701,13 @@
     <string name="str_authz_select_msg">Select validator</string>
     <string name="str_authz_delegate_step_0">Select validator</string>
     <string name="str_authz_delegate_step_1">Insert amount to delegate</string>
+    <string name="str_authz_undelegate_title">Authz Undelegate</string>
     <string name="str_authz_undelegate_step_0">Select validator</string>
     <string name="str_authz_undelegate_step_1">Insert amount to undelegate</string>
+    <string name="str_authz_redelegate_title">Authz Redelegate</string>
+    <string name="str_authz_redelegate_step_0">Select validator</string>
+    <string name="str_authz_redelegate_step_1">Insert amount to redelegate</string>
+    <string name="str_authz_select_valiator">Select To Validator</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

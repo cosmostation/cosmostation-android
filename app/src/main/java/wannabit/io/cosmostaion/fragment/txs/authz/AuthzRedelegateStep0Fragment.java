@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.fragment.txs.authz;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,18 +23,23 @@ import com.google.common.collect.Sets;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import cosmos.authz.v1beta1.Authz;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.authz.AuthzDelegateActivity;
+import wannabit.io.cosmostaion.activities.txs.authz.AuthzRedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.ReDelegationsToGrpcTask;
 import wannabit.io.cosmostaion.widget.AllValidatorHolder;
 import wannabit.io.cosmostaion.widget.MyValidatorHolder;
 
-public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class AuthzRedelegateStep0Fragment extends BaseFragment implements View.OnClickListener{
     private static final int SECTION_MY_VALIDATOR = 1;
     private static final int SECTION_ALL_VALIDATOR = 2;
 
@@ -49,11 +56,16 @@ public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnC
     private ArrayList<Staking.UnbondingDelegation> mGranterUndelegations = new ArrayList<>();
     private ArrayList<Distribution.DelegationDelegatorReward> mGranterRewards = new ArrayList<>();
 
-    private ArrayList<Staking.Validator> mMyValidator = new ArrayList<>();
-    private ArrayList<Staking.Validator> mOtherValidators = new ArrayList<>();
+    private ArrayList<Staking.Validator> mMyValidators = new ArrayList<>();
+    private Staking.Validator mFromValidator;
+    private ArrayList<Staking.Validator> mToValidators = new ArrayList<>();
 
-    public static AuthzDelegateStep0Fragment newInstance() {
-        return new AuthzDelegateStep0Fragment();
+    private List<Staking.RedelegationResponse> mGrpcRedelegates = new ArrayList<>();
+
+    private boolean mIsToSelectMode = false;
+
+    public static AuthzRedelegateStep0Fragment newInstance() {
+        return new AuthzRedelegateStep0Fragment();
     }
 
     @Override
@@ -63,7 +75,7 @@ public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnC
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_authz_delegate_step0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_authz_redelegate_step0, container, false);
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mCancel = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
@@ -72,9 +84,7 @@ public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnC
         mRecyclerView.setHasFixedSize(true);
         mValidatorAdapter = new ValidatorAdapter();
         mRecyclerView.setAdapter(mValidatorAdapter);
-
         mRecyclerViewHeader = new RecyclerViewHeader(getActivity(), true, getSectionCall());
-        mRecyclerView.addItemDecoration(mRecyclerViewHeader);
 
         mGrant = getSActivity().mGrant;
         mGranterDelegations = getSActivity().mGranterDelegations;
@@ -89,69 +99,83 @@ public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnC
     }
 
     public void onUpdateView() {
-        mMyValidator.clear();
-        mOtherValidators.clear();
+        mMyValidators.clear();
 
-        if (mGrant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
-            for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
-                boolean mine = false;
-                for (Staking.DelegationResponse delegation : mGranterDelegations) {
-                    if (delegation.getDelegation().getValidatorAddress().equalsIgnoreCase(validator.getOperatorAddress())) {
-                        mine = true;
-                        break;
-                    }
+        for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
+            boolean mine = false;
+            for (Staking.DelegationResponse delegation : mGranterDelegations) {
+                if (delegation.getDelegation().getValidatorAddress().equalsIgnoreCase(validator.getOperatorAddress())) {
+                    mine = true;
+                    break;
                 }
-                for (Staking.UnbondingDelegation unbonding : mGranterUndelegations) {
-                    if (unbonding.getValidatorAddress().equalsIgnoreCase(validator.getOperatorAddress())) {
-                        mine = true;
-                        break;
-                    }
-                }
-
-                if (mine) mMyValidator.add(validator);
-                else mOtherValidators.add(validator);
             }
+            if (mine) mMyValidators.add(validator);
+        }
 
-        } else if (mGrant.getAuthorization().getTypeUrl().contains(cosmos.staking.v1beta1.Authz.StakeAuthorization.getDescriptor().getFullName())) {
+        if (mGrant.getAuthorization().getTypeUrl().contains(cosmos.staking.v1beta1.Authz.StakeAuthorization.getDescriptor().getFullName())) {
             try {
                 cosmos.staking.v1beta1.Authz.StakeAuthorization stakeAuth = cosmos.staking.v1beta1.Authz.StakeAuthorization.parseFrom(mGrant.getAuthorization().getValue());
                 ArrayList<Staking.Validator> filteredValidators = new ArrayList<>();
                 if (stakeAuth.getAllowList().getAddressCount() > 0) {
-                    for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
+                    for (Staking.Validator validator : mMyValidators) {
                         if (stakeAuth.getAllowList().getAddressList().contains(validator.getOperatorAddress())) {
                             filteredValidators.add(validator);
                         }
                     }
 
                 } else if (stakeAuth.getDenyList().getAddressCount() > 0) {
-                    for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
+                    for (Staking.Validator validator : mMyValidators) {
                         if (!stakeAuth.getDenyList().getAddressList().contains(validator.getOperatorAddress())) {
                             filteredValidators.add(validator);
                         }
                     }
                 }
-
-                for (Staking.Validator validator : filteredValidators) {
-                    boolean mine = false;
-                    for (Staking.DelegationResponse delegation : mGranterDelegations) {
-                        if (delegation.getDelegation().getValidatorAddress().equalsIgnoreCase(validator.getOperatorAddress())) {
-                            mine = true;
-                            break;
-                        }
-                    }
-                    for (Staking.UnbondingDelegation unbonding : mGranterUndelegations) {
-                        if (unbonding.getValidatorAddress().equalsIgnoreCase(validator.getOperatorAddress())) {
-                            mine = true;
-                            break;
-                        }
-                    }
-                    if (mine) mMyValidator.add(validator);
-                    else mOtherValidators.add(validator);
-                }
+                mMyValidators = filteredValidators;
             } catch (InvalidProtocolBufferException e) {
                 e.printStackTrace();
             }
         }
+        mRecyclerView.removeItemDecoration(mRecyclerViewHeader);
+        mValidatorAdapter.notifyDataSetChanged();
+    }
+
+    private void onSelectUpdateView() {
+        mToValidators.clear();
+
+        if (mIsToSelectMode) {
+            for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
+                mToValidators.add(validator);
+            }
+
+            if (mGrant.getAuthorization().getTypeUrl().contains(cosmos.staking.v1beta1.Authz.StakeAuthorization.getDescriptor().getFullName())) {
+                try {
+                    cosmos.staking.v1beta1.Authz.StakeAuthorization stakeAuth = cosmos.staking.v1beta1.Authz.StakeAuthorization.parseFrom(mGrant.getAuthorization().getValue());
+                    ArrayList<Staking.Validator> filteredValidators = new ArrayList<>();
+                    if (stakeAuth.getAllowList().getAddressCount() > 0) {
+                        for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
+                            if (stakeAuth.getAllowList().getAddressList().contains(validator.getOperatorAddress())) {
+                                filteredValidators.add(validator);
+                            }
+                        }
+
+                    } else if (stakeAuth.getDenyList().getAddressCount() > 0) {
+                        for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
+                            if (!stakeAuth.getDenyList().getAddressList().contains(validator.getOperatorAddress())) {
+                                filteredValidators.add(validator);
+                            }
+                        }
+                    }
+                    mToValidators = filteredValidators;
+                } catch (InvalidProtocolBufferException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (mToValidators.contains(mFromValidator)) {
+                mToValidators.remove(mFromValidator);
+            }
+        }
+        mRecyclerView.addItemDecoration(mRecyclerViewHeader);
         mValidatorAdapter.notifyDataSetChanged();
     }
 
@@ -159,19 +183,28 @@ public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnC
         return new SectionCallback() {
             @Override
             public boolean isSection(int position) {
-                return position == 0 || position == mMyValidator.size();
+                return position == 1;
             }
 
             @Override
             public String getSectionValidatorHeader(ArrayList<Staking.Validator> validators, int section) {
-                if (section == SECTION_MY_VALIDATOR) {
-                    return getString(R.string.str_authz_myvalidator_title);
-                } else if (section == SECTION_ALL_VALIDATOR) {
-                    return getString(R.string.str_authz_othervalidator_title);
+                if (section == SECTION_ALL_VALIDATOR) {
+                    return getString(R.string.str_authz_select_valiator);
                 }
                 return null;
             }
         };
+    }
+
+    private void onCheckRedelgateTo(String valOpAddress) {
+        new ReDelegationsToGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess && result.resultData != null) {
+                    mGrpcRedelegates = (List<Staking.RedelegationResponse>) result.resultData;
+                }
+            }
+        }, getSActivity().mBaseChain, getSActivity().mGranter, valOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -190,63 +223,99 @@ public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnC
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == SECTION_MY_VALIDATOR) {
-                return new MyValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_my_validator, viewGroup, false));
+            if (mIsToSelectMode) {
+                if (viewType == SECTION_MY_VALIDATOR) {
+                    return new MyValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_my_validator, viewGroup, false));
+                } else {
+                    return new AllValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_validator, viewGroup, false));
+                }
+
             } else {
-                return new AllValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_validator, viewGroup, false));
+                return new MyValidatorHolder(getLayoutInflater().inflate(R.layout.item_reward_my_validator, viewGroup, false));
             }
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getItemViewType(position) == SECTION_MY_VALIDATOR) {
-                MyValidatorHolder holder = (MyValidatorHolder) viewHolder;
-                holder.onBindAuthzValidatorList(getBaseDao(), getSActivity().mChainConfig, mMyValidator.get(position), mGranterDelegations, mGranterUndelegations, mGranterRewards);
+            if (mIsToSelectMode) {
+                if (getItemViewType(position) == SECTION_MY_VALIDATOR) {
+                    MyValidatorHolder holder = (MyValidatorHolder) viewHolder;
+                    holder.onBindAuthzValidatorList(getBaseDao(), getSActivity().mChainConfig, mFromValidator, mGranterDelegations, mGranterUndelegations, mGranterRewards);
 
-                holder.itemView.findViewById(R.id.card_validator).setOnClickListener(view -> {
-                    getSActivity().mValAddress = mMyValidator.get(position).getOperatorAddress();
-                    getSActivity().onNextStep();
-                });
+                    holder.itemView.findViewById(R.id.card_validator).setOnClickListener(view -> {
+                        mIsToSelectMode = false;
+                        onUpdateView();
+                    });
+
+                } else {
+                    AllValidatorHolder holder = (AllValidatorHolder) viewHolder;
+                    holder.onBindAuthzAllValidatorList(getBaseDao(), getSActivity().mChainConfig, mToValidators.get(position - 1));
+
+                    holder.itemView.findViewById(R.id.card_validator).setOnClickListener(view -> {
+                        if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
+                            for (Staking.RedelegationResponse data : mGrpcRedelegates) {
+                                if (data.getRedelegation().getValidatorDstAddress().equals(mFromValidator.getOperatorAddress())) {
+                                    AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg), AlertDialogUtils.highlightingText(getString(R.string.str_ok)), null);
+                                    return;
+                                }
+                            }
+                        }
+                        getSActivity().mValAddress = mFromValidator.getOperatorAddress();
+                        getSActivity().mToValAddress = mToValidators.get(position - 1).getOperatorAddress();
+                        getSActivity().onNextStep();
+                    });
+                }
 
             } else {
-                AllValidatorHolder holder = (AllValidatorHolder) viewHolder;
-                holder.onBindAuthzAllValidatorList(getBaseDao(), getSActivity().mChainConfig, mOtherValidators.get(position - mMyValidator.size()));
+                MyValidatorHolder holder = (MyValidatorHolder) viewHolder;
+                holder.onBindAuthzValidatorList(getBaseDao(), getSActivity().mChainConfig, mMyValidators.get(position), mGranterDelegations, mGranterUndelegations, mGranterRewards);
 
                 holder.itemView.findViewById(R.id.card_validator).setOnClickListener(view -> {
-                    getSActivity().mValAddress = mOtherValidators.get(position - mMyValidator.size()).getOperatorAddress();
-                    getSActivity().onNextStep();
+                    onCheckRedelgateTo(mMyValidators.get(position).getOperatorAddress());
+                    mFromValidator = mMyValidators.get(position);
+                    mIsToSelectMode = true;
+                    onSelectUpdateView();
                 });
             }
+
         }
 
         @Override
         public int getItemCount() {
-            return mMyValidator.size() + mOtherValidators.size();
+            if (mIsToSelectMode) {
+                return mToValidators.size() + 1;
+            } else {
+                return mMyValidators.size();
+            }
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (position < mMyValidator.size()) {
-                return SECTION_MY_VALIDATOR;
-            } else if (position < (mMyValidator.size() + mOtherValidators.size())) {
-                return SECTION_ALL_VALIDATOR;
+            if (mIsToSelectMode) {
+                if (position < 1) {
+                    return SECTION_MY_VALIDATOR;
+                } else if (position < (mToValidators.size() + 1)) {
+                    return SECTION_ALL_VALIDATOR;
+                }
             }
             return -1;
         }
     }
 
-    private AuthzDelegateActivity getSActivity() {
-        return (AuthzDelegateActivity) getBaseActivity();
+    private AuthzRedelegateActivity getSActivity() {
+        return (AuthzRedelegateActivity) getBaseActivity();
     }
+
 
     // Section Header
     public class RecyclerViewHeader extends RecyclerView.ItemDecoration {
-        private final int topPadding;
+        private int topPadding;
 
         private final boolean sticky;
         private final SectionCallback sectionCallback;
 
         private View headerView;
+        private CardView mHeaderLayer;
         private TextView mHeaderTitle;
         private TextView mItemCnt;
 
@@ -268,6 +337,7 @@ public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnC
 
             if (headerView == null) {
                 headerView = inflateHeaderView(parent);
+                mHeaderLayer = (CardView) headerView.findViewById(R.id.root);
                 mHeaderTitle = (TextView) headerView.findViewById(R.id.header_title);
                 mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
                 fixLayoutSize(headerView, parent);
@@ -284,11 +354,12 @@ public class AuthzDelegateStep0Fragment extends BaseFragment implements View.OnC
                 String title = "";
                 mSection = parent.getAdapter().getItemViewType(position);
                 if (mSection == SECTION_MY_VALIDATOR) {
-                    title = sectionCallback.getSectionValidatorHeader(mMyValidator, mSection);
-                    mItemCnt.setText("" + mMyValidator.size());
+                    mHeaderLayer.setVisibility(View.GONE);
+
                 } else if (mSection == SECTION_ALL_VALIDATOR) {
-                    title = sectionCallback.getSectionValidatorHeader(mOtherValidators, mSection);
-                    mItemCnt.setText("" + mOtherValidators.size());
+                    mHeaderLayer.setVisibility(View.VISIBLE);
+                    title = sectionCallback.getSectionValidatorHeader(mToValidators, mSection);
+                    mItemCnt.setText("" + mToValidators.size());
                 }
                 mHeaderTitle.setText(title);
                 if (!headerTitleSet.contains(title) || sectionCallback.isSection(position)) {

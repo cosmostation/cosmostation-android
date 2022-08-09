@@ -32,7 +32,7 @@ public class AuthzUndelegateStep4Fragment extends BaseFragment implements View.O
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_authz_delegate_step4, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_authz_undelegate_step4, container, false);
         mTvUndelegateAmount     = rootView.findViewById(R.id.undelegate_amount);
         mTvUndelegateDenom      = rootView.findViewById(R.id.undelegate_denom);
         mFeeAmount              = rootView.findViewById(R.id.undelegate_fees);
