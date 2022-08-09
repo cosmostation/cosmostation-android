@@ -487,6 +487,20 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
         }
     }
 
+    public void onStartAuthzVote() {
+        if (!onCommonCheck()) return;
+
+        if (getRedelegateAuthz() != null) {
+            Intent intent = new Intent(this, AuthzVoteActivity.class);
+            intent.putExtra("grant", getVoteAuthz());
+            intent.putExtra("granter", mGranter);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, getString(R.string.error_no_authz_type), Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
     private class AuthzDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_AUTHZ_GRANTEE = 0;
         private static final int TYPE_AUTHZ_GRANTER = 1;
