@@ -662,6 +662,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
+        <activity
+            android:name=".activities.txs.authz.AuthzSendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
 
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"

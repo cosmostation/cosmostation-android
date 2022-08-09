@@ -1708,6 +1708,10 @@
     <string name="str_authz_redelegate_step_0">Select validator</string>
     <string name="str_authz_redelegate_step_1">Insert amount to redelegate</string>
     <string name="str_authz_select_valiator">Select To Validator</string>
+    <string name="str_authz_send_title">Authz Trnsfer</string>
+    <string name="str_authz_send_step_0">Enter recipient address</string>
+    <string name="str_authz_send_step_1">Enter to send amount</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

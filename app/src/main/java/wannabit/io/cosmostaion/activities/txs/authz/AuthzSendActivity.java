@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.activities.txs.authz;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_SEND;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +20,6 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import cosmos.authz.v1beta1.Authz;
-import cosmos.distribution.v1beta1.Distribution;
-import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -31,12 +29,12 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzDelegateStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzDelegateStep1Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzDelegateStep4Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.AuthzSendStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.AuthzSendStep1Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.AuthzSendStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 
-public class AuthzDelegateActivity extends BaseBroadCastActivity {
+public class AuthzSendActivity extends BaseBroadCastActivity {
 
     private RelativeLayout mRootView;
     private Toolbar mToolbar;
@@ -44,14 +42,10 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
     private ImageView mIvStep;
     private TextView mTvStep;
     private ViewPager mViewPager;
-    private AuthzDelegatePageAdapter mPageAdapter;
+    private AuthzSendPageAdapter mPageAdapter;
 
     public Authz.Grant mGrant;
     public ArrayList<Coin> mGrantAvailbale = new ArrayList<>();
-    public ArrayList<Coin> mGrantVesting = new ArrayList<>();
-    public ArrayList<Staking.DelegationResponse> mGranterDelegations = new ArrayList<>();
-    public ArrayList<Staking.UnbondingDelegation> mGranterUndelegations = new ArrayList<>();
-    public ArrayList<Distribution.DelegationDelegatorReward> mGranterRewards = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,29 +57,25 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_authz_delegate_title));
+        mTitle.setText(getString(R.string.str_authz_send_title));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.step_1_img));
-        mTvStep.setText(getString(R.string.str_authz_delegate_step_0));
+        mTvStep.setText(getString(R.string.str_authz_send_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mTxType = CONST_PW_TX_AUTHZ_DELEGATE;
+        mTxType = CONST_PW_TX_AUTHZ_SEND;
 
         mGrant = (Authz.Grant) getIntent().getSerializableExtra("grant");
         mGranter = getIntent().getStringExtra("granter");
         mGrantAvailbale = (ArrayList<Coin>) getIntent().getSerializableExtra("grantAvailable");
-        mGrantVesting = (ArrayList<Coin>) getIntent().getSerializableExtra("grantVesting");
-        mGranterDelegations = (ArrayList<Staking.DelegationResponse>) getIntent().getSerializableExtra("granterDelegations");
-        mGranterUndelegations = (ArrayList<Staking.UnbondingDelegation>) getIntent().getSerializableExtra("granterUndelegations");
-        mGranterRewards = (ArrayList<Distribution.DelegationDelegatorReward>) getIntent().getSerializableExtra("granterRewards");
 
-        mPageAdapter = new AuthzDelegatePageAdapter(getSupportFragmentManager());
+        mPageAdapter = new AuthzSendPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -97,21 +87,21 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzDelegateActivity.this, R.drawable.step_1_img));
-                    mTvStep.setText(getString(R.string.str_authz_delegate_step_0));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzSendActivity.this, R.drawable.step_1_img));
+                    mTvStep.setText(getString(R.string.str_authz_send_step_0));
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzDelegateActivity.this, R.drawable.step_2_img));
-                    mTvStep.setText(getString(R.string.str_authz_delegate_step_1));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzSendActivity.this, R.drawable.step_2_img));
+                    mTvStep.setText(getString(R.string.str_authz_send_step_1));
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzDelegateActivity.this, R.drawable.step_3_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzSendActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_tx_step_memo));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzDelegateActivity.this, R.drawable.step_4_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzSendActivity.this, R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_tx_step_fee));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 4) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzDelegateActivity.this, R.drawable.step_5_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzSendActivity.this, R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_tx_step_confirm));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
@@ -175,11 +165,11 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void onAuthzDelegate() {
-        Intent intent = new Intent(AuthzDelegateActivity.this, PasswordCheckActivity.class);
+    public void onAuthzSend() {
+        Intent intent = new Intent(AuthzSendActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("granter", mGranter);
-        intent.putExtra("toAddress", mValAddress);
+        intent.putExtra("toAddress", mToAddress);
         intent.putExtra("Amount", mAmount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
@@ -187,19 +177,19 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-    private class AuthzDelegatePageAdapter extends FragmentPagerAdapter {
+    private class AuthzSendPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public AuthzDelegatePageAdapter(FragmentManager fm) {
+        public AuthzSendPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(AuthzDelegateStep0Fragment.newInstance());
-            mFragments.add(AuthzDelegateStep1Fragment.newInstance());
+            mFragments.add(AuthzSendStep0Fragment.newInstance());
+            mFragments.add(AuthzSendStep1Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(AuthzDelegateStep4Fragment.newInstance());
+            mFragments.add(AuthzSendStep4Fragment.newInstance());
         }
 
         @Override
