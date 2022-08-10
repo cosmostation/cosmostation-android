@@ -72,7 +72,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            String timpStamp = WDp.getGapTime(grant.getExpiration().getSeconds() * 1000);
+            mGrantImportTime.setText(timpStamp.substring(1, timpStamp.length() - 1));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -114,7 +115,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            String timpStamp = WDp.getGapTime(grant.getExpiration().getSeconds() * 1000);
+            mGrantImportTime.setText(timpStamp.substring(1, timpStamp.length() - 1));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -163,7 +165,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            String timpStamp = WDp.getGapTime(grant.getExpiration().getSeconds() * 1000);
+            mGrantImportTime.setText(timpStamp.substring(1, timpStamp.length() - 1));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -212,7 +215,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            String timpStamp = WDp.getGapTime(grant.getExpiration().getSeconds() * 1000);
+            mGrantImportTime.setText(timpStamp.substring(1, timpStamp.length() - 1));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -257,7 +261,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            String timpStamp = WDp.getGapTime(grant.getExpiration().getSeconds() * 1000);
+            mGrantImportTime.setText(timpStamp.substring(1, timpStamp.length() - 1));
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {
@@ -278,7 +283,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            String timpStamp = WDp.getGapTime(grant.getExpiration().getSeconds() * 1000);
+            mGrantImportTime.setText(timpStamp.substring(1, timpStamp.length() - 1));
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {
@@ -299,7 +305,8 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            String timpStamp = WDp.getGapTime(grant.getExpiration().getSeconds() * 1000);
+            mGrantImportTime.setText(timpStamp.substring(1, timpStamp.length() - 1));
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {

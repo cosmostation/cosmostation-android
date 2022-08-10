@@ -22,7 +22,7 @@
 
             <TextView
                 android:id="@+id/granter_title"
-                style="@style/font_ssl_12_gray1"
+                style="@style/font_ss_12_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

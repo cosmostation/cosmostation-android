@@ -26,7 +26,9 @@
                 android:gravity="center_vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/space_4"
+                    android:paddingRight="@dimen/space_4">
 
                     <ImageView
                         android:id="@+id/accountKeyState"
@@ -60,9 +62,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
                     android:gravity="right"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/space_4"
+                    android:paddingRight="@dimen/space_4">
                     <TextView
                         android:id="@+id/accountAvailable"
                         android:layout_width="wrap_content"
