@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg_colorwhite2daynight"
     android:id="@+id/dialog_layout">
 
     <LinearLayout
