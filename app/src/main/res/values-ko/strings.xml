@@ -95,6 +95,8 @@
     <string name="str_reward_from">이자 지급 검증인</string>
     <string name="str_reward_to">이자 지급 주소</string>
     <string name="str_expected_balance">예상 사용 가능 수량</string>
+    <string name="str_commission_amount">커미션 이자량</string>
+    <string name="str_commission_from">커미션 지급 검증인</string>
     <string name="str_success">성공</string>
     <string name="str_failed">(실패)</string>
     <string name="str_preparing">Preparing...</string>
@@ -1444,6 +1446,10 @@
     <string name="str_authz_vote_title">Authz 투표하기</string>
     <string name="str_authz_vote_step_0">투표하실 의제를 선택하세요</string>
     <string name="str_authz_vote_step_1">의견을 입력하세요</string>
+    <string name="str_authz_reward_title">Authz 이자 받기</string>
+    <string name="str_authz_reward_step_0">받을 이자 정보 확인하세요</string>
+    <string name="str_authz_commission_title">Authz 커미션 받기</string>
+    <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

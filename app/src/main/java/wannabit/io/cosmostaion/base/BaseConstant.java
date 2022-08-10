@@ -415,6 +415,8 @@ public class BaseConstant {
     public final static int CONST_PW_TX_AUTHZ_REDELEGATE                    = 5062;
     public final static int CONST_PW_TX_AUTHZ_SEND                          = 5063;
     public final static int CONST_PW_TX_AUTHZ_VOTE                          = 5064;
+    public final static int CONST_PW_TX_AUTHZ_CLAIM_REWARD                  = 5065;
+    public final static int CONST_PW_TX_AUTHZ_CLAIM_COMMISSION              = 5066;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;

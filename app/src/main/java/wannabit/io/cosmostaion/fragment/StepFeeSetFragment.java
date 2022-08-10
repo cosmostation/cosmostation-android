@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_CLAIM_COMMISSION;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_CLAIM_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_SEND;
@@ -91,6 +93,8 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimCommissionGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzDelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzRedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzSendGrpcTask;
@@ -139,6 +143,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.DisplayUtils;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
     public final static int SELECT_FEE_DENOM = 8502;
@@ -510,6 +515,14 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         } else if (getSActivity().mTxType == CONST_PW_TX_AUTHZ_VOTE) {
             new SimulAuthzVoteGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mGranter, getSActivity().mSelectedOpinion,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (getSActivity().mTxType == CONST_PW_TX_AUTHZ_CLAIM_REWARD) {
+            new SimulAuthzClaimRewardGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mGranter, getSActivity().mValAddresses,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (getSActivity().mTxType == CONST_PW_TX_AUTHZ_CLAIM_COMMISSION) {
+            new SimulAuthzClaimCommissionGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, WKey.convertDpAddressToDpOpAddress(getSActivity().mGranter, getSActivity().mChainConfig),
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }

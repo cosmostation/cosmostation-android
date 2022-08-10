@@ -243,6 +243,8 @@
     <string name="str_reward_from">Reward From</string>
     <string name="str_reward_to">Reward Recipient Address</string>
     <string name="str_expected_balance">Expected Available</string>
+    <string name="str_commission_amount">Commission Amount</string>
+    <string name="str_commission_from">Commission From</string>
     <string name="str_success">success</string>
     <string name="str_failed">(failed)</string>
     <string name="str_preparing">Preparing...</string>
@@ -1714,6 +1716,10 @@
     <string name="str_authz_vote_title">Authz Vote</string>
     <string name="str_authz_vote_step_0">Please select proposals to vote</string>
     <string name="str_authz_vote_step_1">Please select your opinion</string>
+    <string name="str_authz_reward_title">Authz Claim Rewards</string>
+    <string name="str_authz_reward_step_0">Confirm your staking reward info</string>
+    <string name="str_authz_commission_title">Authz Claim Commission</string>
+    <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>

@@ -297,7 +297,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     startActivity(reinvest);
                 }
             }
-        }, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onFetchValHistory() {

@@ -263,6 +263,13 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         } else {
             setColor(chainConfig, false);
         }
+
+        mGrantLayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzClaimReward();
+            }
+        });
     }
 
     private void onBindCommissionItem(ChainConfig chainConfig, Authz.Grant grant) {
@@ -277,6 +284,13 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
         } else {
             setColor(chainConfig, false);
         }
+
+        mGrantLayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzClaimCommission();
+            }
+        });
     }
 
     private void onBindVoteItem(ChainConfig chainConfig, Authz.Grant grant) {
