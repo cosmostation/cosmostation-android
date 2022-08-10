@@ -422,7 +422,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
             onInsertKeyDialog();
         }
 
-        if (getDelegateAuthz() != null) {
+        if (getSendAuthz() != null) {
             Intent intent = new Intent(this, AuthzSendActivity.class);
             intent.putExtra("grant", getSendAuthz());
             intent.putExtra("granter", mGranter);
@@ -492,7 +492,35 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
 
         if (getRedelegateAuthz() != null) {
             Intent intent = new Intent(this, AuthzVoteActivity.class);
-            intent.putExtra("grant", getVoteAuthz());
+            intent.putExtra("granter", mGranter);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, getString(R.string.error_no_authz_type), Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
+    public void onStartAuthzClaimReward() {
+        if (!onCommonCheck()) return;
+
+        if (getRewardAuthz() != null) {
+            Intent intent = new Intent(this, AuthzClaimRewardActivity.class);
+            intent.putExtra("granterRewardSum", getRewardSum());
+            intent.putExtra("granter", mGranter);
+            intent.putExtra("granterRewards", mGranterRewards);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, getString(R.string.error_no_authz_type), Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
+    public void onStartAuthzClaimCommission() {
+        if (!onCommonCheck()) return;
+
+        if (getCommissionAuthz() != null) {
+            Intent intent = new Intent(this, AuthzClaimCommissionActivity.class);
+            intent.putExtra("granterCommission", mGranterCommission);
             intent.putExtra("granter", mGranter);
             startActivity(intent);
         } else {

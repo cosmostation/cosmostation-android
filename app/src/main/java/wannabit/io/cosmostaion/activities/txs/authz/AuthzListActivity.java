@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AuthzGranterGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 
 public class AuthzListActivity extends BaseActivity implements TaskListener {
@@ -96,15 +97,13 @@ public class AuthzListActivity extends BaseActivity implements TaskListener {
         new AuthzGranterGrpcTask(getBaseApplication(), new TaskListener() {
             @Override
             public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess && result.resultData != null) {
-                    mGranters = (ArrayList<String>) result.resultData;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            onUpdateView();
-                        }
-                    });
-                }
+                mGranters = (ArrayList<String>) result.resultData;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onUpdateView();
+                    }
+                });
 
             }
         }, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

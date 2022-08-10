@@ -1,9 +1,6 @@
-package wannabit.io.cosmostaion.activities.txs.common;
+package wannabit.io.cosmostaion.activities.txs.authz;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_CLAIM_COMMISSION;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -21,33 +18,33 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.txs.common.RewardStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.common.RewardStep3Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.AuthzClaimCommissionStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.AuthzClaimCommissionStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 
-public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskListener {
+public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
 
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
     private TextView mTvStep;
     private ViewPager mViewPager;
-    private RewardPageAdapter mPageAdapter;
+    private AuthzCommissionPageAdapter mPageAdapter;
 
+    public Coin mGranterCommission;
     public String mWithdrawAddress;
-    private int mTaskCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,23 +55,24 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_reward_c));
+        mTitle.setText(getString(R.string.str_authz_commission_title));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_reward_step_1));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.step_1_img));
+        mTvStep.setText(getString(R.string.str_authz_commission_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = getChain(mAccount.baseChain);
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mTxType = CONST_PW_TX_SIMPLE_REWARD;
+        mTxType = CONST_PW_TX_AUTHZ_CLAIM_COMMISSION;
 
-        mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
+        mGranterCommission = getIntent().getParcelableExtra("granterCommission");
+        mGranter = getIntent().getStringExtra("granter");
 
-        mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
+        mPageAdapter = new AuthzCommissionPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -86,21 +84,20 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_reward_step_1));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzClaimCommissionActivity.this, R.drawable.step_4_img_1));
+                    mTvStep.setText(getString(R.string.str_authz_commission_step_0));
 
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_reward_step_2));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzClaimCommissionActivity.this, R.drawable.step_4_img_2));
+                    mTvStep.setText(getString(R.string.str_tx_step_memo));
 
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_reward_step_3));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzClaimCommissionActivity.this, R.drawable.step_4_img_3));
+                    mTvStep.setText(getString(R.string.str_tx_step_fee));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
-
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_reward_step_4));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzClaimCommissionActivity.this, R.drawable.step_4_img_4));
+                    mTvStep.setText(getString(R.string.str_tx_step_confirm));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -157,15 +154,21 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     }
 
     private void onFetchReward() {
-        if (mTaskCount > 0) return;
-        mTaskCount = 2;
-        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new WithdrawAddressGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess && result.resultData != null) {
+                    mWithdrawAddress = (String) result.resultData;
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
+            }
+        }, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    public void onStartReward() {
-        Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
+    public void onAuthzClaimReward() {
+        Intent intent = new Intent(AuthzClaimCommissionActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+        intent.putExtra("granter", mGranter);
         intent.putExtra("valOpAddresses", mValAddresses);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
@@ -173,38 +176,18 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-
-    @Override
-    public void onTaskResponse(TaskResult result) {
-        mTaskCount--;
-        if (isFinishing()) return;
-        if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
-            ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
-            if (rewards != null) {
-                getBaseDao().mGrpcRewards = rewards;
-            }
-
-        } else if (result.taskType == TASK_GRPC_FETCH_WITHDRAW_ADDRESS) {
-            mWithdrawAddress = (String) result.resultData;
-        }
-
-        if (mTaskCount == 0) {
-            mPageAdapter.mCurrentFragment.onRefreshTab();
-        }
-    }
-
-    private class RewardPageAdapter extends FragmentPagerAdapter {
+    private class AuthzCommissionPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public RewardPageAdapter(FragmentManager fm) {
+        public AuthzCommissionPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(RewardStep0Fragment.newInstance());
+            mFragments.add(AuthzClaimCommissionStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(RewardStep3Fragment.newInstance());
+            mFragments.add(AuthzClaimCommissionStep3Fragment.newInstance());
         }
 
         @Override
@@ -232,6 +215,5 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
         }
-
     }
 }
