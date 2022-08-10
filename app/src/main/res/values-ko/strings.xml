@@ -95,6 +95,8 @@
     <string name="str_reward_from">이자 지급 검증인</string>
     <string name="str_reward_to">이자 지급 주소</string>
     <string name="str_expected_balance">예상 사용 가능 수량</string>
+    <string name="str_commission_amount">커미션 이자량</string>
+    <string name="str_commission_from">커미션 지급 검증인</string>
     <string name="str_success">성공</string>
     <string name="str_failed">(실패)</string>
     <string name="str_preparing">Preparing...</string>
@@ -1417,6 +1419,39 @@
     <string name="str_key_confirm_msg">Private Key는 현재 선택된 지갑을 복원할 때만 사용됩니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.\n\n
                                        Private Key는 Mnemonics이 아닙니다\nMnemonics이 있는 경우 반드시 Mnemonics을 백업하세요.\nMnemonics으로 지갑을 만든 경우 파생된 지갑을 복원하려면 Mnemonics이 필요합니다.</string>
 
+    <string name="str_tx_step_memo">메모를 입력하세요 (선택사항)</string>
+    <string name="str_tx_step_fee">Tx 수수료를 선택하세요</string>
+    <string name="str_tx_step_confirm">입력하신 정보를 확인하세요</string>
+
+    <string name="str_authz_list_title">Authz 목록</string>
+    <string name="str_authz_detail_title">Authz 상세</string>
+    <string name="str_authz_myvalidator_title">나의 검증인</string>
+    <string name="str_authz_othervalidator_title">다른 검증인</string>
+    <string name="str_authz_select_msg">검증인을 선택하세요</string>
+    <string name="str_authz_empty_title">RECEIVE GRANT TO START AUTHZ</string>
+    <string name="str_authz_empty_msg">You do not have any grants at the moment\nPlease manage your grants from a web wallet</string>
+    <string name="str_authz_delegate_title">Authz 위임하기</string>
+    <string name="str_authz_delegate_step_0">검증인을 선택하세요</string>
+    <string name="str_authz_delegate_step_1">위임 수량을 입력하세요</string>
+    <string name="str_authz_undelegate_title">Authz 위임철회 하기</string>
+    <string name="str_authz_undelegate_step_0">검증인을 선택하세요</string>
+    <string name="str_authz_undelegate_step_1">위임해제 수량을 입력하세요</string>
+    <string name="str_authz_redelegate_title">Authz 재위임 하기</string>
+    <string name="str_authz_redelegate_step_0">검증인을 선택하세요</string>
+    <string name="str_authz_redelegate_step_1">재위임 수량을 입력하세요</string>
+    <string name="str_authz_select_valiator">검증인 선택</string>
+    <string name="str_authz_send_title">Authz 전송하기</string>
+    <string name="str_authz_send_step_0">받을 주소를 입력하세요</string>
+    <string name="str_authz_send_step_1">수량을 입력하세요</string>
+    <string name="str_authz_vote_title">Authz 투표하기</string>
+    <string name="str_authz_vote_step_0">투표하실 의제를 선택하세요</string>
+    <string name="str_authz_vote_step_1">의견을 입력하세요</string>
+    <string name="str_authz_reward_title">Authz 이자 받기</string>
+    <string name="str_authz_reward_step_0">받을 이자 정보 확인하세요</string>
+    <string name="str_authz_commission_title">Authz 커미션 받기</string>
+    <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
+
+
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
     <string name="error_invalid_address_pubkey">부정확한 주소 입니다. 정확한 문자를 입력해 주세요.</string>
@@ -1545,6 +1580,7 @@
     <string name="error_not_selected_to_import">등록할 지갑을 골라주세요.</string>
     <string name="error_no_mnemonic">개인키만 존재합니다.</string>
     <string name="error_simul_error">실행할 수 없는 Tx입니다.</string>
+    <string name="error_no_authz_type">이 타입에 대한 권한이 없습니다.</string>
 
 
     <string name="tx_send">보내기</string>

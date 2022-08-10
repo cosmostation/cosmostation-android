@@ -68,6 +68,8 @@ abstract public class ChainConfig {
 
     public abstract String addressPrefix();
 
+    public String validatorPrefix() { return addressPrefix() + "valoper"; }
+
     public boolean etherAddressSupport() { return false; }
 
     public abstract boolean pushSupport();
@@ -75,6 +77,8 @@ abstract public class ChainConfig {
     public abstract boolean dexSupport();
 
     public abstract boolean wcSupport();
+
+    public boolean authzSupport() { return false; }
 
     public String grpcUrl() { return ""; }
 

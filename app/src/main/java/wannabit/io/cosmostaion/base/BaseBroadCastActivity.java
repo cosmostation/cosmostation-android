@@ -78,9 +78,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String                       mBio;
     public String                       mCoverImg;
     public String                       mProfileImg;
-    public BaseChain                    mDesmosToLinkChain;
-    public Long                         mDesmosToLinkAccountId;
-    public BigDecimal                   mDesmosAirDropAmount = BigDecimal.ZERO;
 
     // Kava
     public kava.swap.v1beta1.QueryOuterClass.PoolResponse       mKavaSwapPool;
@@ -99,7 +96,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     // contract
     public String                                               mContractAddress;
 
-    public ArrayList<Validator> mValidators = new ArrayList<>();    //ClaimReward old
+    // Authz
+    public String mGranter;
 
 
     public void onNextStep() { }

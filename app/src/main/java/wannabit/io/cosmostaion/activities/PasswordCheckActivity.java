@@ -8,6 +8,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_PRIVATE_K
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_CLAIM_COMMISSION;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_CLAIM_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_UNDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
@@ -57,7 +64,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_BNB_HTLC_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
 
 import android.app.Activity;
@@ -95,6 +101,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
@@ -112,6 +119,13 @@ import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPrivateKeyTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzClaimCommissionGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzClaimRewardGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzDelegateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzRedelegateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzSendGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzUndelegateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzVoteGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.CreateProfileGrpcTask;
@@ -156,6 +170,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -177,7 +192,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private ArrayList<Coin> mTargetCoins;
     private String mTargetMemo;
     private Fee mTargetFee;
-    private Coin mDAmount;
+    private Coin mAmount;
     private Coin mUAmount;
     private String mFromReDelegateAddr;
     private String mToReDelegateAddr;
@@ -186,8 +201,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private String mReInvestValAddr;
     private Coin mReInvestAmount;
-
-    private String mSwapId;
 
     private Coin mOkStakeCoin;
     private ArrayList<String> mOKVoteValidator = new ArrayList<>();
@@ -233,8 +246,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String mBio;
     private String mProfileUri;
     private String mCoverUri;
-    private String mDesmosToLinkChain;
-    private Long mDesmosToLinkAccountId;
 
     private Coin mKavaSwapin;
     private Coin mKavaSwapOut;
@@ -252,6 +263,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private String mPortId;
     private String mChannelId;
+
+    private String mGranter;
 
     private long    mIdToDelete;
     private long    mIdMWordDelete;
@@ -290,7 +303,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mTargetCoins = getIntent().getParcelableArrayListExtra("amount");
         mTargetMemo = getIntent().getStringExtra("memo");
         mTargetFee = getIntent().getParcelableExtra("fee");
-        mDAmount = getIntent().getParcelableExtra("dAmount");
+        mAmount = getIntent().getParcelableExtra("Amount");
         mUAmount = getIntent().getParcelableExtra("uAmount");
         mRAmount = getIntent().getParcelableExtra("rAmount");
         mFromReDelegateAddr = getIntent().getStringExtra("fromValidatorAddr");
@@ -298,7 +311,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mNewRewardAddress = getIntent().getStringExtra("newRewardAddress");
         mReInvestValAddr = getIntent().getStringExtra("reInvestValAddr");
         mReInvestAmount = getIntent().getParcelableExtra("reInvestAmount");
-        mSwapId = getIntent().getStringExtra("swapId");
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
         mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
         mSelectedOpinion = (Map<Integer, String>) getIntent().getSerializableExtra("selectedProposals");
@@ -345,8 +357,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mBio = getIntent().getStringExtra("mBio");
         mProfileUri = getIntent().getStringExtra("mProfileImg");
         mCoverUri = getIntent().getStringExtra("mCoverImg");
-        mDesmosToLinkChain = getIntent().getStringExtra("mDesmosToLinkChain");
-        mDesmosToLinkAccountId = getIntent().getLongExtra("mDesmosToLinkAccountId", -1);
 
         mKavaSwapin = getIntent().getParcelableExtra("kavaSwapIn");
         mKavaSwapOut = getIntent().getParcelableExtra("kavaSwapOut");
@@ -374,6 +384,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 WLog.w("Passing bundle Error");
             }
         }
+
+        mGranter = getIntent().getStringExtra("granter");
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdMWordDelete = getIntent().getLongExtra("mWordId", -1);
@@ -471,7 +483,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_DELEGATE) {
             onShowWaitDialog();
-            new DelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mDAmount, mTargetMemo, mTargetFee,
+            new DelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mAmount, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_UNDELEGATE) {
@@ -676,6 +688,34 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (mPurpose == CONST_PW_TX_EXECUTE_CONTRACT) {
             new Cw20SendGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mTargetAddress, mContractAddress, mTargetCoins,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_AUTHZ_DELEGATE) {
+            new AuthzDelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mTargetAddress, mAmount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_AUTHZ_UNDELEGATE) {
+            new AuthzUndelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mTargetAddress, mUAmount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_AUTHZ_REDELEGATE) {
+            new AuthzRedelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mFromReDelegateAddr, mToReDelegateAddr, mRAmount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if ((mPurpose == CONST_PW_TX_AUTHZ_SEND)) {
+            new AuthzSendGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mTargetAddress, mAmount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_AUTHZ_VOTE) {
+            new AuthzVoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mSelectedOpinion,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if ((mPurpose == CONST_PW_TX_AUTHZ_CLAIM_REWARD)) {
+            new AuthzClaimRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter, mValOpAddresses_V1,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if ((mPurpose == CONST_PW_TX_AUTHZ_CLAIM_COMMISSION)) {
+            new AuthzClaimCommissionGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, WKey.convertDpAddressToDpOpAddress(mGranter, ChainFactory.getChain(mBaseChain)),
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
     }
 
@@ -774,18 +814,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 return;
             }
 
-            if ((mBaseChain.equals(BNB_MAIN)) && result.taskType == TASK_GEN_TX_BNB_HTLC_REFUND) {
-                Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash))
-                    txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-
-            } else if (isGRPC(mBaseChain)) {
+            if (isGRPC(mBaseChain)) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailgRPCActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);

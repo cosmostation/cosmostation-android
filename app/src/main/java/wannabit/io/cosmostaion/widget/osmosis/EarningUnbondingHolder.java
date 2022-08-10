@@ -70,7 +70,7 @@ public class EarningUnbondingHolder extends RecyclerView.ViewHolder {
 
         itemLockId.setText("# " + lockup.getID());
         itemUnbondingTime.setText(WDp.getDpTime(c, endTime));
-        itemUnbondingGap.setText(WDp.getGapTime(c, endTime));
+        itemUnbondingGap.setText(WDp.getGapTime(endTime));
 
         itemAmount.setText(WDp.getDpAmount2(c, myShare, 18, 18));
         itemAmountDenom.setText("GAMM-" + pool.getId());

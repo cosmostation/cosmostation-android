@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:src="@color/colorWhiteDayNight">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_control"
+        android:clipToPadding="false"
+        android:overScrollMode="never"/>
+
+    <LinearLayout
+        android:id="@+id/empty_proposal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingBottom="@dimen/space_240"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/history_none_img"
+            android:scaleType="fitXY"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:layout_centerInParent="true"
+            style="@style/font_ss_14_black_daynight"
+            android:text="@string/str_no_proposal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_black_daynight"
+            android:textAllCaps="false"
+            android:text="@string/str_cancel"/>
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_photon_border"
+            style="@style/font_ss_14_photon"
+            android:textColor="@color/colorPhoton"
+            android:textAllCaps="false"
+            android:text="@string/str_next"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/loadingLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/space_240">
+
+            <ProgressBar
+                android:layout_width="@dimen/space_60"
+                android:layout_height="@dimen/space_60"
+                android:indeterminateDrawable="@drawable/loading" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

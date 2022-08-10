@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.widget.tokenDetail;
 
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -19,8 +21,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class UnBondingHolder extends BaseHolder {
     private CardView            mUndelegateCard;
@@ -83,32 +83,32 @@ public class UnBondingHolder extends BaseHolder {
         mUndelegateCnt.setText(String.valueOf(unbondings.size()));
         mUndelegateTime0.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(0).completion_time) * 1000));
         mUndelegateAmount0.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(0).balance), stakingDivideDecimal, stakingDisplayDecimal));
-        mUndelegateRemain0.setText(WDp.getGapTime(c, Long.parseLong(unbondings.get(0).completion_time) * 1000));
+        mUndelegateRemain0.setText(WDp.getGapTime(Long.parseLong(unbondings.get(0).completion_time) * 1000));
 
         if (unbondings.size() > 1) {
             WLog.w("1 " + unbondings.get(1).completion_time);
             mUndelegateLayer1.setVisibility(View.VISIBLE);
             mUndelegateTime1.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(1).completion_time) * 1000));
             mUndelegateAmount1.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(1).balance), stakingDivideDecimal, stakingDisplayDecimal));
-            mUndelegateRemain1.setText(WDp.getGapTime(c, Long.parseLong(unbondings.get(1).completion_time) * 1000));
+            mUndelegateRemain1.setText(WDp.getGapTime(Long.parseLong(unbondings.get(1).completion_time) * 1000));
         }
         if (unbondings.size() > 2) {
             mUndelegateLayer2.setVisibility(View.VISIBLE);
             mUndelegateTime2.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(2).completion_time) * 1000));
             mUndelegateAmount2.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(2).balance), stakingDivideDecimal, stakingDisplayDecimal));
-            mUndelegateRemain2.setText(WDp.getGapTime(c, Long.parseLong(unbondings.get(2).completion_time) * 1000));
+            mUndelegateRemain2.setText(WDp.getGapTime(Long.parseLong(unbondings.get(2).completion_time) * 1000));
         }
         if (unbondings.size() > 3) {
             mUndelegateLayer3.setVisibility(View.VISIBLE);
             mUndelegateTime3.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(3).completion_time) * 1000));
             mUndelegateAmount3.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(3).balance), stakingDivideDecimal, stakingDisplayDecimal));
-            mUndelegateRemain3.setText(WDp.getGapTime(c, Long.parseLong(unbondings.get(3).completion_time) * 1000));
+            mUndelegateRemain3.setText(WDp.getGapTime(Long.parseLong(unbondings.get(3).completion_time) * 1000));
         }
         if (unbondings.size() > 4) {
             mUndelegateLayer4.setVisibility(View.VISIBLE);
             mUndelegateTime4.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(4).completion_time) * 1000));
             mUndelegateAmount4.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(4).balance), stakingDivideDecimal, stakingDisplayDecimal));
-            mUndelegateRemain4.setText(WDp.getGapTime(c, Long.parseLong(unbondings.get(4).completion_time) * 1000));
+            mUndelegateRemain4.setText(WDp.getGapTime(Long.parseLong(unbondings.get(4).completion_time) * 1000));
         }
     }
 
@@ -125,31 +125,31 @@ public class UnBondingHolder extends BaseHolder {
         mUndelegateCnt.setText(String.valueOf(unbondings.size()));
         mUndelegateTime0.setText(WDp.getTimeformat(c, unbondings.get(0).completion_time));
         mUndelegateAmount0.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(0).balance), stakingDivideDecimal, stakingDisplayDecimal));
-        mUndelegateRemain0.setText(WDp.getGapTime(c, WDp.dateToLong(c, unbondings.get(0).completion_time)));
+        mUndelegateRemain0.setText(WDp.getGapTime(WDp.dateToLong(c, unbondings.get(0).completion_time)));
 
         if (unbondings.size() > 1) {
             mUndelegateLayer1.setVisibility(View.VISIBLE);
             mUndelegateTime1.setText(WDp.getTimeformat(c, unbondings.get(1).completion_time));
             mUndelegateAmount1.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(1).balance), stakingDivideDecimal, stakingDisplayDecimal));
-            mUndelegateRemain1.setText(WDp.getGapTime(c, WDp.dateToLong(c, unbondings.get(1).completion_time)));
+            mUndelegateRemain1.setText(WDp.getGapTime(WDp.dateToLong(c, unbondings.get(1).completion_time)));
         }
         if (unbondings.size() > 2) {
             mUndelegateLayer2.setVisibility(View.VISIBLE);
             mUndelegateTime2.setText(WDp.getTimeformat(c, unbondings.get(2).completion_time));
             mUndelegateAmount2.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(2).balance), stakingDivideDecimal, stakingDisplayDecimal));
-            mUndelegateRemain2.setText(WDp.getGapTime(c, WDp.dateToLong(c, unbondings.get(2).completion_time)));
+            mUndelegateRemain2.setText(WDp.getGapTime(WDp.dateToLong(c, unbondings.get(2).completion_time)));
         }
         if (unbondings.size() > 3) {
             mUndelegateLayer3.setVisibility(View.VISIBLE);
             mUndelegateTime3.setText(WDp.getTimeformat(c, unbondings.get(3).completion_time));
             mUndelegateAmount3.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(3).balance), stakingDivideDecimal, stakingDisplayDecimal));
-            mUndelegateRemain3.setText(WDp.getGapTime(c, WDp.dateToLong(c, unbondings.get(3).completion_time)));
+            mUndelegateRemain3.setText(WDp.getGapTime(WDp.dateToLong(c, unbondings.get(3).completion_time)));
         }
         if (unbondings.size() > 4) {
             mUndelegateLayer4.setVisibility(View.VISIBLE);
             mUndelegateTime4.setText(WDp.getTimeformat(c, unbondings.get(4).completion_time));
             mUndelegateAmount4.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(4).balance), stakingDivideDecimal, stakingDisplayDecimal));
-            mUndelegateRemain4.setText(WDp.getGapTime(c, WDp.dateToLong(c, unbondings.get(4).completion_time)));
+            mUndelegateRemain4.setText(WDp.getGapTime(WDp.dateToLong(c, unbondings.get(4).completion_time)));
         }
     }
 }

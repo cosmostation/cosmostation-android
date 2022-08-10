@@ -40,6 +40,7 @@ public class Crytoorg extends ChainConfig {
         return 8;
     }
     public String addressPrefix() { return "cro"; }
+    public String validatorPrefix() { return "crocncl"; }
 
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }

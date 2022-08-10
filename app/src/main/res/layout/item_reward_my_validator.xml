@@ -15,7 +15,6 @@
         android:layout_marginBottom="@dimen/space_6"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/colorTransBgCosmos"
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true">
