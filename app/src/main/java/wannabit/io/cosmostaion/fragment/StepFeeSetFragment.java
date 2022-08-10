@@ -212,9 +212,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onPositionChanged(int position) {
                 mSelectedFeeInfo = position;
-                if (mChainConfig.gasRates().size() > 1) {
-                    onCheckTxType();
-                }
+                onCheckTxType();
             }
         });
         onUpdateView();
