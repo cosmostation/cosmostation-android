@@ -188,8 +188,9 @@ public class WDp {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            return ibcToken.decimal;
-
+            if (ibcToken != null) {
+                return ibcToken.decimal;
+            }
         } else if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
             return chainConfig.decimal();
 
