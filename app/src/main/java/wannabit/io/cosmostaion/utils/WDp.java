@@ -1117,15 +1117,18 @@ public class WDp {
                 result = "(" + (left / BaseConstant.CONSTANT_H) + " hours ago)";
             } else if (left >= BaseConstant.CONSTANT_M) {
                 result = "(" + (left / BaseConstant.CONSTANT_M) + " minutes ago)";
-            } else if (left >= BaseConstant.CONSTANT_S) {
-                result =  "(" + (left / BaseConstant.CONSTANT_S) + " seconds ago)";
             } else {
-                result = "Soon";
+                result =  "(" + (left / BaseConstant.CONSTANT_S) + " seconds ago)";
             }
 
         } catch (Exception e) { }
 
         return result;
+    }
+
+    public static String getTimeWithoutTransVerse(long finishTime) {
+        String remainTime = getGapTime(finishTime);
+        return remainTime.substring(1, remainTime.length() - 1);
     }
 
     public static String getUnbondingTimefrom(Context c, String rawStartTime) {

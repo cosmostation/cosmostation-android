@@ -72,7 +72,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            mGrantImportTime.setText(WDp.getTimeWithoutTransVerse(grant.getExpiration().getSeconds() * 1000));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -114,7 +114,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            mGrantImportTime.setText(WDp.getTimeWithoutTransVerse(grant.getExpiration().getSeconds() * 1000));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -163,7 +163,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            mGrantImportTime.setText(WDp.getTimeWithoutTransVerse(grant.getExpiration().getSeconds() * 1000));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -212,7 +212,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            mGrantImportTime.setText(WDp.getTimeWithoutTransVerse(grant.getExpiration().getSeconds() * 1000));
 
             if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
                 mLimitedAmount.setText("-");
@@ -257,7 +257,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            mGrantImportTime.setText(WDp.getTimeWithoutTransVerse(grant.getExpiration().getSeconds() * 1000));
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {
@@ -278,7 +278,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            mGrantImportTime.setText(WDp.getTimeWithoutTransVerse(grant.getExpiration().getSeconds() * 1000));
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {
@@ -299,7 +299,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getGapTime(grant.getExpiration().getSeconds() * 1000));
+            mGrantImportTime.setText(WDp.getTimeWithoutTransVerse(grant.getExpiration().getSeconds() * 1000));
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {
