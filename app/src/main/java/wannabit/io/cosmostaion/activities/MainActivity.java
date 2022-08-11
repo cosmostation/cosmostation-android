@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
         createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
         createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
-        createTab(R.drawable.dapp_ic, R.string.str_main_dapp, 3);
+        createDappTab(R.string.str_main_dapp, 3);
         createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
 
         mContentsPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -132,6 +132,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         TintableImageView icon = tab.findViewById(R.id.tabItemIcon);
         TextView titleText = tab.findViewById(R.id.tabItemText);
         icon.setImageResource(iconResourceId);
+        titleText.setText(stringResourceId);
+        mTabLayer.getTabAt(index).setCustomView(tab);
+    }
+
+    private void createDappTab(int stringResourceId, int index) {
+        View tab = LayoutInflater.from(this).inflate(R.layout.view_tab_item_dapp, null);
+        TextView titleText = tab.findViewById(R.id.tabItemText);
         titleText.setText(stringResourceId);
         mTabLayer.getTabAt(index).setCustomView(tab);
     }
