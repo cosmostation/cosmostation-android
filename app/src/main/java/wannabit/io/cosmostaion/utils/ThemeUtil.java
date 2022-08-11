@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -46,10 +47,23 @@ public class ThemeUtil {
         editor.apply();
     }
 
+    public static String currentMode(Context context) {
+        if (DEFAULT_MODE.equals(modLoad(context)) || modLoad(context).isEmpty()) {
+            int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                return DARK_MODE;
+            } else {
+                return LIGHT_MODE;
+            }
+        } else {
+            return modLoad(context);
+        }
+
+    }
+
     public static String modLoad(Context context) {
         SharedPreferences sp = context.getSharedPreferences(BaseConstant.PRE_THEME_MOD, MODE_PRIVATE);
-        String loadMod = sp.getString(BaseConstant.PRE_THEME_MOD, "");
-        return loadMod;
+        return sp.getString(BaseConstant.PRE_THEME_MOD, "");
     }
 
 
