@@ -49,7 +49,6 @@ import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -77,7 +76,7 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.dialog.Dialog_WC_Account;
+import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.WcSignModel;
@@ -561,9 +560,9 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chainId);
-        Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
+        Dialog_Wc_Account mDialogWcAccount = Dialog_Wc_Account.newInstance(bundle);
         mDialogWcAccount.setCancelable(true);
-        mDialogWcAccount.setOnSelectListener(new Dialog_WC_Account.OnDialogSelectListener() {
+        mDialogWcAccount.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
             @Override
             public void onSelect(Long id, Account account) {
                 chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
@@ -605,9 +604,9 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chains.get(index));
-        Dialog_WC_Account mDialogWcAccount = Dialog_WC_Account.newInstance(bundle);
+        Dialog_Wc_Account mDialogWcAccount = Dialog_Wc_Account.newInstance(bundle);
         mDialogWcAccount.setCancelable(true);
-        mDialogWcAccount.setOnSelectListener(new Dialog_WC_Account.OnDialogSelectListener() {
+        mDialogWcAccount.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
             @Override
             public void onSelect(Long id, Account account) {
                 chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);

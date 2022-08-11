@@ -17,6 +17,7 @@ public class PaddedVerticalButtonAlertDialog extends AlertDialog {
 
     public PaddedVerticalButtonAlertDialog(Context context) {
         super(context);
+        getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg_colorwhite2daynight);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_template_paddedvertical, null);
 
         titleTextView = view.findViewById(R.id.dialog_title);

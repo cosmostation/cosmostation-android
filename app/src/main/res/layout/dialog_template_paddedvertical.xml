@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite2DayNight"
+    android:background="@drawable/dialog_bg_colorwhite2daynight"
+    android:orientation="vertical"
     android:padding="@dimen/space_16">
+
     <TextView
         android:id="@+id/dialog_title"
+        style="@style/font_ss_17_black_daynight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
-        android:text="dialog_title"
-        style="@style/font_ss_17_black_daynight"/>
+        android:text="dialog_title" />
 
     <TextView
         android:id="@+id/dialog_msg"
+        style="@style/font_ss_14_black_daynight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_8"
         android:layout_marginLeft="@dimen/space_12"
-        android:text="dialog_msg"
-        style="@style/font_ss_14_black_daynight"/>
+        android:layout_marginTop="@dimen/space_8"
+        android:text="dialog_msg" />
 
     <Button
         android:id="@+id/btn_one"
+        style="@style/font_ss_14_black_daynight"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
-        android:layout_marginTop="@dimen/space_8"
-        android:minHeight="@dimen/space_45"
         android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_8"
         android:layout_marginRight="@dimen/space_12"
         android:background="@drawable/box_chain_trans_border"
-        style="@style/font_ss_14_black_daynight"
+        android:minHeight="@dimen/space_45"
         android:text="Button Title"
-        android:textColor="@color/colorBlackDayNight"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:textColor="@color/colorBlackDayNight" />
 
     <Button
         android:id="@+id/btn_two"
+        style="@style/font_ss_14_black_daynight"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
-        android:layout_marginTop="@dimen/space_12"
-        android:minHeight="@dimen/space_45"
         android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:background="@drawable/box_chain_trans_border"
-        style="@style/font_ss_14_black_daynight"
+        android:minHeight="@dimen/space_45"
         android:text="Button Title"
-        android:textColor="@color/colorBlackDayNight"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:textColor="@color/colorBlackDayNight" />
 
     <Button
         android:id="@+id/btn_three"
+        style="@style/font_ss_14_black_daynight"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
-        android:layout_marginTop="@dimen/space_12"
-        android:minHeight="@dimen/space_45"
         android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:background="@drawable/box_chain_trans_border"
-        style="@style/font_ss_14_black_daynight"
+        android:minHeight="@dimen/space_45"
         android:text="Button Title"
-        android:textColor="@color/colorBlackDayNight"
         android:textAllCaps="false"
-        android:visibility="gone"/>
+        android:textColor="@color/colorBlackDayNight"
+        android:visibility="gone" />
 </LinearLayout>

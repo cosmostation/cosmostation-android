@@ -1,63 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="@dimen/space_32">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/box_white2_border"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <TextView
+            style="@style/font_ss_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
-            style="@style/font_ss_17_black_daynight"
             android:gravity="center"
-            android:text="@string/str_starname_confirm_title"/>
+            android:text="@string/str_starname_confirm_title" />
+
         <TextView
             android:id="@+id/starname_info"
+            style="@style/font_ssl_12_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_10"
-            style="@style/font_ssl_12_black_daynight"
             android:gravity="center"
-            android:text="@string/str_starname_confirm_msg"/>
-        
+            android:text="@string/str_starname_confirm_msg" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="@dimen/space_24"
-            android:background="@color/colorGray4"/>
+            android:background="@color/colorGray4" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_nega"
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAllCaps="false"
                 android:background="@color/colorTrans"
-                style="@style/font_ss_14_black_daynight"
-                android:text="@string/str_cancel"/>
+                android:text="@string/str_cancel"
+                android:textAllCaps="false" />
+
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/colorGray4"/>
+                android:background="@color/colorGray4" />
+
             <Button
                 android:id="@+id/btn_posi"
+                style="@style/font_ss_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAllCaps="false"
                 android:background="@color/colorTrans"
-                style="@style/font_ss_14_black_daynight"
-                android:text="@string/str_confirm"/>
+                android:text="@string/str_confirm"
+                android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
