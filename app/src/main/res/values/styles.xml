@@ -16,6 +16,7 @@
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textColorPrimary">@color/colorBlackDayNight</item>
         <item name="colorAccent">@color/colorBlackDayNight</item>
+        <item name="textColorAlertDialogListItem">@color/colorBlackDayNight</item>
     </style>
 
     <style name="MenuActionButtonStyle" parent="Theme.AppCompat.Light.DarkActionBar">
