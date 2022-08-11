@@ -9,7 +9,7 @@ android:color="@color/colorRipple1">
                 android:shape="rectangle">
                 <solid android:color="@color/colorWhite"/>
                 <corners
-                    android:bottomLeftRadius="@dimen/space_4"/>
+                    android:bottomLeftRadius="@dimen/space_6"/>
                 <padding
                     android:left="@dimen/space_8"
                     android:top="@dimen/space_8"
@@ -24,7 +24,7 @@ android:color="@color/colorRipple1">
                 android:shape="rectangle">
                 <solid android:color="@color/colorWhite"/>
                 <corners
-                    android:bottomLeftRadius="@dimen/space_4"/>
+                    android:bottomLeftRadius="@dimen/space_6"/>
                 <padding
                     android:left="@dimen/space_8"
                     android:top="@dimen/space_8"

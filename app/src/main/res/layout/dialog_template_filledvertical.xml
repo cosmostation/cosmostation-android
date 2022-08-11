@@ -33,11 +33,6 @@
             android:text=""
             android:visibility="gone" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorGrayDayNight" />
-
         <Button
             android:id="@+id/btn_one"
             style="@style/font_ss_15_black_daynight"
@@ -84,11 +79,6 @@
             android:text="Button Title"
             android:textAllCaps="false"
             android:visibility="gone" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorGrayDayNight" />
 
         <Button
             android:id="@+id/btn_four"
