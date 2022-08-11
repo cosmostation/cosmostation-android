@@ -58,12 +58,12 @@ public class SwapCoinListDialog extends DialogFragment {
         mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
 
-        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
+        mDialogLayout.setBackgroundResource(R.drawable.dialog_bg_colorwhite2daynight);
         if (getTargetRequestCode() == 8500) {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in));
         } else if (getTargetRequestCode() == 8501) {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out));
-        } else if (getTargetRequestCode() == 8502){
+        } else if (getTargetRequestCode() == 8502) {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_fee_denom));
         } else {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_to_send_coin));
@@ -94,9 +94,9 @@ public class SwapCoinListDialog extends DialogFragment {
         public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, int position) {
             if (getItemViewType(position) == TYPE_SWAP_LIST) {
                 onBindSwapListItemViewHolder(holder, position);
-            } else if (getItemViewType(position) == TYPE_FEE_LIST){
+            } else if (getItemViewType(position) == TYPE_FEE_LIST) {
                 onBindFeeListItemViewHolder(holder, position);
-            } else if (getItemViewType(position) == TYPE_SEND_COIN_LIST){
+            } else if (getItemViewType(position) == TYPE_SEND_COIN_LIST) {
                 onBindSendListItemViewHolder(holder, position);
             }
         }
@@ -153,7 +153,7 @@ public class SwapCoinListDialog extends DialogFragment {
         public int getItemCount() {
             if (getTargetRequestCode() == 8502) {
                 return mFeeDataList.size();
-            } else if (getTargetRequestCode() == 8503){
+            } else if (getTargetRequestCode() == 8503) {
                 return mSendCoinList.size();
             } else {
                 return mSwapCoinList.size();

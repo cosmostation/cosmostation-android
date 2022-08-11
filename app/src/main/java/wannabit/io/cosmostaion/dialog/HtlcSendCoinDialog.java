@@ -57,7 +57,7 @@ public class HtlcSendCoinDialog extends DialogFragment {
         mBaseChain = BaseChain.getChain(getArguments().getString("chainName"));
         mSwappableCoinList = BaseChain.getHtlcSwappableCoin(mBaseChain);
 
-        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
+        mDialogLayout.setBackgroundResource(R.drawable.dialog_bg_colorwhite2daynight);
         mDialogTitle.setText(R.string.str_select_to_send_coin);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

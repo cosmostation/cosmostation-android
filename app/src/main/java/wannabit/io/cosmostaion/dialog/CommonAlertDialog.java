@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class CommonAlertDialog extends AlertDialog {
 
     public CommonAlertDialog(Context context) {
         super(context);
+        getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg_colorwhite2daynight);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_template_default, null);
 
         headerImageView = view.findViewById(R.id.dialog_header_image);

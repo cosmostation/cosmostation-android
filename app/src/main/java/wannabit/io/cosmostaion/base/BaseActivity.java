@@ -299,7 +299,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             try {
                 String ethAddress = WKey.convertAddressToEth(account.address);
                 AlertDialogUtils.showDoubleButtonDialog(this, Html.fromHtml(getString(R.string.str_address_type) + "<br>"), "",
-                        getString(R.string.str_tender_type), view -> onClickShowAccountDialog(account.address, nickName), getString(R.string.str_eth_type), view -> onClickShowAccountDialog(ethAddress, nickName));
+                        Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_tender_type) + "</font>"), view -> onClickShowAccountDialog(account.address, nickName),
+                        Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_eth_type) + "</font>"), view -> onClickShowAccountDialog(ethAddress, nickName));
             } catch (Exception e) { e.printStackTrace(); }
         } else {
             onClickShowAccountDialog(account.address, nickName);

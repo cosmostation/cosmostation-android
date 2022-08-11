@@ -1,107 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite2DayNight"
+        android:background="@drawable/dialog_bg_colorwhite2daynight"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/dialog_title"
+            style="@style/font_ss_17_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24"
             android:layout_gravity="center"
-            style="@style/font_ss_17_black_daynight"
+            android:layout_marginTop="@dimen/space_24"
             android:gravity="center"
             android:text=""
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/dialog_msg"
+            style="@style/font_ss_12_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginBottom="@dimen/space_12"
-            android:layout_gravity="center"
-            style="@style/font_ss_12_black_daynight"
             android:gravity="center"
             android:text=""
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorGrayDayNight"/>
+            android:background="@color/colorGrayDayNight" />
 
         <Button
             android:id="@+id/btn_one"
+            style="@style/font_ss_15_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
+            android:background="@color/colorTrans"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
-            android:background="@color/colorTrans"
-            style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorGrayDayNight"/>
+            android:background="@color/colorGrayDayNight" />
 
         <Button
             android:id="@+id/btn_two"
+            style="@style/font_ss_15_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
+            android:background="@color/colorTrans"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
-            android:background="@color/colorTrans"
-            style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorGrayDayNight"/>
+            android:background="@color/colorGrayDayNight" />
 
         <Button
             android:id="@+id/btn_three"
+            style="@style/font_ss_15_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
+            android:background="@color/colorTrans"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
-            android:background="@color/colorTrans"
-            style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorGrayDayNight"/>
+            android:background="@color/colorGrayDayNight" />
 
         <Button
             android:id="@+id/btn_four"
+            style="@style/font_ss_15_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
+            android:background="@color/colorTrans"
             android:drawablePadding="@dimen/space_24"
             android:paddingRight="@dimen/space_10"
-            android:background="@color/colorTrans"
-            style="@style/font_ss_15_black_daynight"
             android:text="Button Title"
             android:textAllCaps="false"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
 
     </LinearLayout>

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,7 +28,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class Dialog_WC_Account extends DialogFragment {
+public class Dialog_Wc_Account extends DialogFragment {
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
@@ -39,8 +38,8 @@ public class Dialog_WC_Account extends DialogFragment {
     private OnDialogSelectListener mOnSelectListener = null;
     private Long id;
 
-    public static Dialog_WC_Account newInstance(Bundle bundle) {
-        Dialog_WC_Account frag = new Dialog_WC_Account();
+    public static Dialog_Wc_Account newInstance(Bundle bundle) {
+        Dialog_Wc_Account frag = new Dialog_Wc_Account();
         frag.setArguments(bundle);
         return frag;
     }
