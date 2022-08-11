@@ -164,6 +164,13 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     }
                 });
 
+                holder.itemBtnCompounding.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getMainActivity().onCheckEasyCompounding();
+                    }
+                });
+
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder = (RewardMyValidatorHolder) viewHolder;
                 holder.itemBandOracleOff.setVisibility(View.INVISIBLE);

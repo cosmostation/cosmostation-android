@@ -199,7 +199,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         }
 
         ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = getClaimableReward();
-        if (toClaimRewards.size() == 0) {
+        if (toClaimRewards.size() <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -212,25 +212,67 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         ArrayList<String> toClaimValAddr = targetClaimValidatorAddresses();
         FeeInfo.FeeData feeData = calculateFee(selectFee);
         new Thread(() -> {
-            ServiceOuterClass.SimulateResponse simulateClaimResponse = simulateClaim(toClaimValAddr);
-            runOnUiThread(this::onHideWaitDialog);
+            ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateClaim(toClaimValAddr);
+            ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
             if (simulateClaimResponse == null) {
                 return;
             }
-            ServiceOuterClass.BroadcastTxResponse executeClaimResponse = executeClaim(simulateClaimResponse, feeData, toClaimValAddr);
+            ServiceOuterClass.BroadcastTxResponse executeClaimResponse = ValidatorListActivity.this.executeClaim(simulateClaimResponse, feeData, toClaimValAddr);
             if (executeClaimResponse == null) {
                 return;
             }
-            processClaimResponse(executeClaimResponse);
+            ValidatorListActivity.this.processResponse(executeClaimResponse);
         }).start();
     }
 
-    public void onCheckEasyCompoundng() {
+    public void onCheckEasyCompounding() {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog();
+            return;
+        }
 
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = getClaimableReward();
+        if (toClaimRewards.size() <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        cosmos.distribution.v1beta1.QueryGrpc.QueryBlockingStub mStub = cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));;
+        cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressRequest request = cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressRequest.newBuilder().setDelegatorAddress(mAccount.address).build();
+        cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressResponse response = mStub.delegatorWithdrawAddress(request);
+        if (response.getWithdrawAddress() == null || !response.getWithdrawAddress().equals(mAccount.address)) {
+            Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mEasyMode = EASY_MODE_COMPOUNDING;
+        onPasswordCheck();
     }
 
     public void onStartEasyCompounding(int selectFee) {
+        onShowWaitDialog();
+        FeeInfo.FeeData feeData = calculateFee(selectFee);
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ServiceOuterClass.SimulateResponse simulateCompoundingResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mBaseChain);
+                ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
+                if (simulateCompoundingResponse == null) {
+                    return;
+                }
+                ServiceOuterClass.BroadcastTxResponse executeCompoundingResponse = ValidatorListActivity.this.executeCompounding(simulateCompoundingResponse, feeData, getClaimableReward(), mBaseChain);
+                if (executeCompoundingResponse == null) {
+                    return;
+                }
+                ValidatorListActivity.this.processResponse(executeCompoundingResponse);
+            }
+        }).start();
     }
 
     @NonNull
@@ -268,7 +310,27 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         return broadcastTx.broadcastTx(broadcastTxRequest);
     }
 
-    private void processClaimResponse(ServiceOuterClass.BroadcastTxResponse broadcastTxResponse) {
+    private ServiceOuterClass.SimulateResponse simulateCompounding(ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
+        ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
+        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCompoundingSimulateReq(getAuthResponse(), rewards, baseChain ,fee, "", getEcKey(), getBaseDao().getChainIdGrpc());
+        return txService.simulate(simulateTxRequest);
+    }
+
+    private ServiceOuterClass.BroadcastTxResponse executeCompounding(ServiceOuterClass.SimulateResponse response, FeeInfo.FeeData feeData, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
+        Abci.GasInfo gasInfo = response.getGasInfo();
+        feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
+        if (mBaseChain.equals(BaseChain.SIF_MAIN)) {
+            BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
+            feeCoin = new Coin(feeData.denom, amount.toPlainString());
+        }
+
+        fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
+        ServiceGrpc.ServiceBlockingStub broadcastTx = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCompoundingReq(getAuthResponse(), rewards, baseChain, fee, "", getEcKey(), getBaseDao().getChainIdGrpc());
+        return broadcastTx.broadcastTx(broadcastTxRequest);
+    }
+
+    private void processResponse(ServiceOuterClass.BroadcastTxResponse broadcastTxResponse) {
         runOnUiThread(() -> {
             if (StringUtils.isEmpty(broadcastTxResponse.getTxResponse().getTxhash())) {
                 return;

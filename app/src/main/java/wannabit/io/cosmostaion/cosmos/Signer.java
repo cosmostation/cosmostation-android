@@ -17,6 +17,7 @@ import org.web3j.crypto.Sign;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Map;
@@ -24,6 +25,7 @@ import java.util.Map;
 import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
 import cosmos.gov.v1beta1.Tx;
 import cosmos.tx.v1beta1.ServiceOuterClass;
@@ -33,7 +35,10 @@ import desmos.profiles.v1beta1.ModelsProfile;
 import desmos.profiles.v1beta1.MsgsProfile;
 import ibc.core.client.v1.Client;
 import starnamed.x.starname.v1beta1.Types;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Cw20TransferReq;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
@@ -180,6 +185,36 @@ public class Signer {
         cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(valAddress).setAmount(toReinvsetCoin).build();
         Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
         msgsAny.add(msgDelegateAny);
+        return msgsAny;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcCompoundingReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getCompoundingMsg(auth, rewards, baseChain), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcCompoundingSimulateReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getCompoundingMsg(auth, rewards, baseChain), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getCompoundingMsg(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+        for (Distribution.DelegationDelegatorReward reward : rewards) {
+            cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msgClaimReward = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(reward.getValidatorAddress()).build();
+            Any msgClaimRewardAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward").setValue(msgClaimReward.toByteString()).build();
+            msgsAny.add(msgClaimRewardAny);
+
+            CoinOuterClass.Coin rewardCoin = null;
+            for (CoinOuterClass.DecCoin coin : reward.getRewardList()) {
+                if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
+                    rewardCoin = CoinOuterClass.Coin.newBuilder().setAmount(new BigDecimal(coin.getAmount()).movePointLeft(18).setScale(0, RoundingMode.UP).toPlainString()).setDenom(coin.getDenom()).build();
+                }
+            }
+
+            cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(reward.getValidatorAddress()).setAmount(rewardCoin).build();
+            Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
+            msgsAny.add(msgDelegateAny);
+        }
         return msgsAny;
     }
 
