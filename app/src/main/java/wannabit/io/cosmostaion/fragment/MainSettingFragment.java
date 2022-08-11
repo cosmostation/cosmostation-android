@@ -7,6 +7,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -28,12 +31,13 @@ import java.util.Locale;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
-import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicListActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
 import wannabit.io.cosmostaion.activities.setting.WatchingWalletAddActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameWalletConnectActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
@@ -46,11 +50,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_CURRENCY = 9034;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnCurrency,
-            mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnBio,
+            mBtnCurrency, mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
             mBtnTerm, mBtnGithub, mBtnVersion;
 
-    private TextView mTvAppLock, mTvCurrency, mTvVersion, mTvTheme;
+    private TextView mTvBio, mTvCurrency, mTvVersion, mTvTheme;
+
+    private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
 
     public static MainSettingFragment newInstance() {
         return new MainSettingFragment();
@@ -75,6 +81,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTheme = rootView.findViewById(R.id.card_theme);
         mBtnAlaram = rootView.findViewById(R.id.card_alaram);
         mBtnAppLock = rootView.findViewById(R.id.card_applock);
+        mBtnBio = rootView.findViewById(R.id.card_bio);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
         mBtnExplore = rootView.findViewById(R.id.card_explore);
         mBtnNotice = rootView.findViewById(R.id.card_notice);
@@ -85,10 +92,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTerm = rootView.findViewById(R.id.card_term);
         mBtnGithub = rootView.findViewById(R.id.card_github);
         mBtnVersion = rootView.findViewById(R.id.card_version);
-        mTvAppLock = rootView.findViewById(R.id.applock_text);
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mTvTheme = rootView.findViewById(R.id.theme_text);
+
+        mSwitchUsingAppLock = rootView.findViewById(R.id.switch_using_applock);
+        mTvBio = rootView.findViewById(R.id.bio_title);
+        mSwitchUsingUsingBio = rootView.findViewById(R.id.switch_using_bio);
 
         mBtnMnemonic.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
@@ -97,6 +107,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTheme.setOnClickListener(this);
         mBtnAlaram.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
+        mBtnBio.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
         mBtnExplore.setOnClickListener(this);
         mBtnNotice.setOnClickListener(this);
@@ -111,6 +122,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
 
         mBtnAlaram.setVisibility(View.GONE);
+        onUpdateView();
         return rootView;
 
     }
@@ -118,12 +130,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        if (getBaseDao().getUsingAppLock()) {
-            mTvAppLock.setText(R.string.str_app_applock_enabled);
-        } else {
-            mTvAppLock.setText(R.string.str_app_applock_diabeld);
-        }
-
         if (themeColor.equals("light")) {
             mTvTheme.setText(R.string.str_theme_light);
         } else if (themeColor.equals("dark")) {
@@ -137,6 +143,18 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if (!isAdded()) return;
         mTvCurrency.setText(getBaseDao().getCurrencyString());
+    }
+
+    private void onUpdateView() {
+        mSwitchUsingAppLock.setChecked(getBaseDao().getUsingAppLock());
+        mSwitchUsingUsingBio.setChecked(getBaseDao().getUsingFingerPrint());
+
+        FingerprintManagerCompat mFingerprintManagerCompat = FingerprintManagerCompat.from(getActivity());
+        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) && mFingerprintManagerCompat.isHardwareDetected() && mFingerprintManagerCompat.hasEnrolledFingerprints()) {
+            mTvBio.setText(getString(R.string.str_using_fingerprints));
+        } else {
+            mTvBio.setText("");
+        }
     }
 
     @Override
@@ -178,7 +196,25 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnAppLock)) {
-            startActivity(new Intent(getBaseActivity(), AppLockSetActivity.class));
+            if (getBaseDao().getUsingAppLock()) {
+                Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
+                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+            } else {
+                if (getBaseDao().onHasPassword()) {
+                    getBaseDao().setUsingAppLock(true);
+                    onUpdateView();
+
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.error_no_password), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        } else if (v.equals(mBtnBio)) {
+            getBaseDao().setUsingFingerPrint(!getBaseDao().getUsingFingerPrint());
+            onUpdateView();
 
         } else if (v.equals(mBtnCurrency)) {
             CurrencySetDialog currency_dialog = CurrencySetDialog.newInstance(null);
@@ -269,6 +305,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                     .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     .setRationaleMessage(getString(R.string.str_permission_qr))
                     .check();
+
+        } else if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
+            getBaseDao().setUsingAppLock(false);
+            onUpdateView();
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
