@@ -127,7 +127,6 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/space_16"
                     android:background="@color/colorTransBg"
-                    android:clickable="false"
                     app:borderColor ="@color/colorGray1"
                     app:borderWidth="1dp"
                     app:divider="@color/colorGray1"
