@@ -246,7 +246,7 @@
                     android:text="@string/str_claim_reward" />
 
                 <Button
-                    android:id="@+id/validator_btn_reinvest"
+                    android:id="@+id/validator_btn_compounding"
                     style="@style/font_ss_12_black_daynight"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_40"
@@ -255,7 +255,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
                     android:minHeight="@dimen/space_40"
-                    android:text="@string/str_reinvest" />
+                    android:text="@string/str_compounding" />
             </LinearLayout>
 
 

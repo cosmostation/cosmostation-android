@@ -141,7 +141,7 @@ public class ResApiNewTxListCustom {
 
                     if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
                             msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
-                        return c.getString(R.string.tx_reinvest);
+                        return c.getString(R.string.tx_compounding);
                     }
 
                     if (msgType1.contains("ibc") && msgType1.contains("MsgRecvPacket")) {

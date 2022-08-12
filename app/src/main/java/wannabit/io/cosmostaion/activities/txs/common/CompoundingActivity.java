@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_COMPOUNDING;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 
 import android.content.Intent;
@@ -32,14 +32,14 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.txs.common.ReInvestStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.common.ReInvestStep3Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.CompoundingStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.common.CompoundingStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 
-public class ReInvestActivity extends BaseBroadCastActivity implements TaskListener {
+public class CompoundingActivity extends BaseBroadCastActivity implements TaskListener {
 
     private RelativeLayout mRootView;
     private Toolbar mToolbar;
@@ -47,7 +47,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     private ImageView mIvStep;
     private TextView mTvStep;
     private ViewPager mViewPager;
-    private ReInvestPageAdapter mPageAdapter;
+    private CompoundingPageAdapter mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,23 +59,23 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_reinvest_c));
+        mTitle.setText(getString(R.string.str_compounding));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(ContextCompat.getDrawable(ReInvestActivity.this, R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_reinvest_step_0));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(CompoundingActivity.this, R.drawable.step_4_img_1));
+        mTvStep.setText(getString(R.string.str_compounding_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mTxType = CONST_PW_TX_REINVEST;
+        mTxType = CONST_PW_TX_COMPOUNDING;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
-        mPageAdapter = new ReInvestPageAdapter(getSupportFragmentManager());
+        mPageAdapter = new CompoundingPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -87,18 +87,18 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReInvestActivity.this, R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_reinvest_step_0));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(CompoundingActivity.this, R.drawable.step_4_img_1));
+                    mTvStep.setText(getString(R.string.str_compounding_step_0));
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReInvestActivity.this, R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_reinvest_step_1));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(CompoundingActivity.this, R.drawable.step_4_img_2));
+                    mTvStep.setText(getString(R.string.str_compounding_step_1));
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReInvestActivity.this, R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_reinvest_step_2));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(CompoundingActivity.this, R.drawable.step_4_img_3));
+                    mTvStep.setText(getString(R.string.str_compounding_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReInvestActivity.this, R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_reinvest_step_3));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(CompoundingActivity.this, R.drawable.step_4_img_4));
+                    mTvStep.setText(getString(R.string.str_compounding_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -161,12 +161,12 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
         }
     }
 
-    public void onStartReInvest() {
-        Intent intent = new Intent(ReInvestActivity.this, PasswordCheckActivity.class);
+    public void onStartCompounding() {
+        Intent intent = new Intent(CompoundingActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("reInvestValAddr", mValAddress);
+        intent.putExtra("compoundingAddr", mValAddress);
         mAmount.amount = new BigDecimal(mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
-        intent.putExtra("reInvestAmount", mAmount);
+        intent.putExtra("compoundingAmount", mAmount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -188,18 +188,18 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
         }
     }
 
-    private class ReInvestPageAdapter extends FragmentPagerAdapter {
+    private class CompoundingPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public ReInvestPageAdapter(FragmentManager fm) {
+        public CompoundingPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ReInvestStep0Fragment.newInstance());
+            mFragments.add(CompoundingStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(ReInvestStep3Fragment.newInstance());
+            mFragments.add(CompoundingStep3Fragment.newInstance());
         }
 
         @Override

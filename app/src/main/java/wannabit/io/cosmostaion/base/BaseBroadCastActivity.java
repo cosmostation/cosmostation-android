@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import irismod.nft.QueryOuterClass;
@@ -14,8 +13,6 @@ import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResProposal;
 
 public class BaseBroadCastActivity extends BaseActivity {
 
@@ -25,8 +22,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String                       mDenom;                             //Transfer
     public String                       mToAddress;                         //Transfer
     public ArrayList<Coin>              mAmounts;                           //Transfer
-    public Coin                         mAmount;                            //Delegate, Undelegate, Redelegate, ReInvest
-    public String                       mValAddress;                        //Delegate, Undelegate, ReInvest
+    public Coin                         mAmount;                            //Delegate, Undelegate, Redelegate, Compounding
+    public String                       mValAddress;                        //Delegate, Undelegate, Compounding
     public String                       mToValAddress;                      //Redelegate
     public ArrayList<Coin>              mRewards = new ArrayList<>();       //Reward
     public ArrayList<String>            mValAddresses = new ArrayList<>();  //ClaimReward

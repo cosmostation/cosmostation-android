@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task.gRpcTask.simulate;
+package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -24,35 +25,43 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_BROAD_COMPOUNDING;
 
-public class SimulReInvestGrpcTask extends CommonTask {
+public class CompoundingGrpcTask extends CommonTask {
 
-    private BaseChain   mBaseChain;
-    private Account     mAccount;
-    private String      mValidatorAddress;
-    private Coin        mReInvestAmount;
-    private String      mReInvestMemo;
-    private Fee         mReInvestFees;
-    private String      mChainId;
+    private BaseChain       mBaseChain;
+    private Account         mAccount;
+    private String          mValidatorAddress;
+    private Coin            mCompoundingAmount;
+    private String          mCompoundingMemo;
+    private Fee             mCompoundingFees;
+    private String          mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private ECKey ecKey;
 
-    public SimulReInvestGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mValidatorAddress, Coin mReInvestAmount, String mReInvestMemo, Fee mReInvestFees, String chainId) {
+    public CompoundingGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mValidatorAddress, Coin mCompoundingAmount, String mCompoundingMemo, Fee mCompoundingFees, String chainId) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = mAccount;
         this.mValidatorAddress = mValidatorAddress;
-        this.mReInvestAmount = mReInvestAmount;
-        this.mReInvestMemo = mReInvestMemo;
-        this.mReInvestFees = mReInvestFees;
+        this.mCompoundingAmount = mCompoundingAmount;
+        this.mCompoundingMemo = mCompoundingMemo;
+        this.mCompoundingFees = mCompoundingFees;
         this.mChainId = chainId;
-        this.mResult.taskType   = TASK_GRPC_SIMULATE_REINVEST;
+        this.mResult.taskType = TASK_GRPC_BROAD_COMPOUNDING;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
+        Password checkPw = mApp.getBaseDao().onSelectPassword();
+        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+            mResult.isSuccess = false;
+            mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
+            return mResult;
+        }
+
         try {
             if (mAccount.fromMnemonic) {
                 String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -67,16 +76,21 @@ public class SimulReInvestGrpcTask extends CommonTask {
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
             mAuthResponse = authStub.account(request);
 
-            //Simulate
+            //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcReInvestSimulateReq(mAuthResponse, mValidatorAddress, mReInvestAmount, mReInvestFees, mReInvestMemo, ecKey, mChainId);
-            ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
-//            WLog.w("response " +  response);
-            mResult.resultData = response.getGasInfo();
-            mResult.isSuccess = true;
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCompoundingReq(mAuthResponse, mValidatorAddress, mCompoundingAmount, mCompoundingFees, mCompoundingMemo, ecKey, mChainId);
+            ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
+            mResult.resultData = response.getTxResponse().getTxhash();
+            if (response.getTxResponse().getCode() > 0) {
+                mResult.errorCode = response.getTxResponse().getCode();
+                mResult.errorMsg = response.getTxResponse().getRawLog();
+                mResult.isSuccess = false;
+            } else {
+                mResult.isSuccess = true;
+            }
 
         } catch (Exception e) {
-            WLog.e( "SimulReInvestGrpcTask "+ e.getMessage());
+            WLog.e( "CompoundingGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

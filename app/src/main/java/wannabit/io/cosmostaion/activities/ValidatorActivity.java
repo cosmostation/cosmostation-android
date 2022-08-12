@@ -42,7 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.ClaimRewardActivity;
 import wannabit.io.cosmostaion.activities.txs.common.DelegateActivity;
-import wannabit.io.cosmostaion.activities.txs.common.ReInvestActivity;
+import wannabit.io.cosmostaion.activities.txs.common.CompoundingActivity;
 import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.activities.txs.common.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -269,7 +269,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         startActivity(claimReward);
     }
 
-    private void onCheckReInvest() {
+    private void onCheckCompounding() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog();
             return;
@@ -292,9 +292,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    Intent reinvest = new Intent(ValidatorActivity.this, ReInvestActivity.class);
-                    reinvest.putExtra("valOpAddress", mValOpAddress);
-                    startActivity(reinvest);
+                    Intent compounding = new Intent(ValidatorActivity.this, CompoundingActivity.class);
+                    compounding.putExtra("valOpAddress", mValOpAddress);
+                    startActivity(compounding);
                 }
             }
         }, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -611,10 +611,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     onGetReward();
                 }
             });
-            holder.itemBtnReinvest.setOnClickListener(new View.OnClickListener() {
+            holder.itemBtnCompounding.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onCheckReInvest();
+                    onCheckCompounding();
                 }
             });
 
@@ -720,7 +720,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         public class MyActionHolder extends RecyclerView.ViewHolder {
             CardView itemRoot;
             TextView itemTvDelegatedAmount, itemTvUnbondingAmount, itemTvAtomReward, itemTvPhotonReward, itemTvSimpleReward;
-            Button itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward, itemBtnReinvest;
+            Button itemBtnDelegate, itemBtnUndelegate, itemBtnRedelegate, itemBtnReward, itemBtnCompounding;
             TextView itemAtomTitle, itemPhotonTitle;
             RelativeLayout itemAtomLayer, itemPhotonLayer;
             TextView itemDailyReturn, itemMonthlyReturn;
@@ -736,7 +736,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 itemBtnUndelegate = itemView.findViewById(R.id.validator_btn_undelegate);
                 itemBtnRedelegate = itemView.findViewById(R.id.validator_btn_redelegate);
                 itemBtnReward = itemView.findViewById(R.id.validator_btn_claim_reward);
-                itemBtnReinvest = itemView.findViewById(R.id.validator_btn_reinvest);
+                itemBtnCompounding = itemView.findViewById(R.id.validator_btn_compounding);
                 itemAtomTitle = itemView.findViewById(R.id.action_atom_title);
                 itemPhotonTitle = itemView.findViewById(R.id.action_photon_title);
                 itemPhotonLayer = itemView.findViewById(R.id.validator_photon_reward_layer);

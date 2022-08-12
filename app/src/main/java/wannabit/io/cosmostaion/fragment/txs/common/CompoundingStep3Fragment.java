@@ -12,11 +12,11 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.common.ReInvestActivity;
+import wannabit.io.cosmostaion.activities.txs.common.CompoundingActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class CompoundingStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView    mRewardAmount, mFeeAmount;
     private TextView    mRewardDenom, mFeeDenom;
@@ -24,8 +24,8 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView    mCurrentDenom, mExpectedDenom;
     private Button      mBeforeBtn, mConfirmBtn;
 
-    public static ReInvestStep3Fragment newInstance() {
-        return new ReInvestStep3Fragment();
+    public static CompoundingStep3Fragment newInstance() {
+        return new CompoundingStep3Fragment();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_reinvest_step3, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_compounding_step3, container, false);
         mRewardAmount       = rootView.findViewById(R.id.reward_amount);
         mRewardDenom        = rootView.findViewById(R.id.reward_denom);
         mFeeAmount          = rootView.findViewById(R.id.reward_fees);
@@ -75,11 +75,11 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onStartReInvest();
+            getSActivity().onStartCompounding();
         }
     }
 
-    private ReInvestActivity getSActivity() {
-        return (ReInvestActivity)getBaseActivity();
+    private CompoundingActivity getSActivity() {
+        return (CompoundingActivity)getBaseActivity();
     }
 }

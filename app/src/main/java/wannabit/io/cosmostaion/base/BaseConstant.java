@@ -168,7 +168,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;
     public final static int TASK_GRPC_BROAD_SEND                        = 4303;
     public final static int TASK_GRPC_BROAD_REDELEGATE                  = 4304;
-    public final static int TASK_GRPC_BROAD_REINVEST                    = 4305;
+    public final static int TASK_GRPC_BROAD_COMPOUNDING                 = 4305;
     public final static int TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE       = 4306;
     public final static int TASK_GRPC_BROAD_VOTE                        = 4307;
     public final static int TASK_GRPC_GEN_TX_REGISTER_DOMAIN            = 4308;
@@ -218,7 +218,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_CLAIM_REWARDS            = 4502;
     public final static int TASK_GRPC_SIMULATE_SEND                     = 4503;
     public final static int TASK_GRPC_SIMULATE_REDELEGATE               = 4504;
-    public final static int TASK_GRPC_SIMULATE_REINVEST                 = 4505;
+    public final static int TASK_GRPC_SIMULATE_COMPUNDING               = 4505;
     public final static int TASK_GRPC_SIMULATE_REWARD_ADDRESS_CHANGE    = 4506;
     public final static int TASK_GRPC_SIMULATE_VOTE                     = 4507;
     public final static int TASK_GRPC_SIMULATE_REGISTER_DOMAIN          = 4508;
@@ -362,7 +362,7 @@ public class BaseConstant {
     public final static int CONST_PW_CHECK_MNEMONIC                         = 5008;
     public final static int CONST_PW_TX_SIMPLE_REDELEGATE                   = 5009;
     public final static int CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS        = 5010;
-    public final static int CONST_PW_TX_REINVEST                            = 5011;
+    public final static int CONST_PW_TX_COMPOUNDING                         = 5011;
     public final static int CONST_PW_TX_VOTE                                = 5012;
     public final static int CONST_PW_TX_CREATE_CDP                          = 5013;
     public final static int CONST_PW_TX_REPAY_CDP                           = 5014;
@@ -516,7 +516,7 @@ public class BaseConstant {
 
     public final static String KAVA_GAS_AMOUNT_SEND                     = "400000";
     public final static String KAVA_GAS_AMOUNT_STAKE                    = "800000";
-    public final static String KAVA_GAS_AMOUNT_REINVEST                 = "800000";
+    public final static String KAVA_GAS_AMOUNT_COMPOUNDING              = "800000";
     public final static String KAVA_GAS_AMOUNT_REDELEGATE               = "800000";
     public final static String KAVA_GAS_AMOUNT_VOTE                     = "300000";
     public final static String KAVA_GAS_AMOUNT_CLAIM_INCENTIVE          = "2000000";
@@ -532,7 +532,7 @@ public class BaseConstant {
     public final static String BAND_GAS_AMOUNT_SEND                     = "100000";
     public final static String BAND_GAS_AMOUNT_STAKE                    = "200000";
     public final static String BAND_GAS_AMOUNT_REDELEGATE               = "240000";
-    public final static String BAND_GAS_AMOUNT_REINVEST                 = "220000";
+    public final static String BAND_GAS_AMOUNT_COMPOUNDING              = "220000";
     public final static String BAND_GAS_AMOUNT_ADDRESS_CHANGE           = "100000";
     public final static String BAND_GAS_AMOUNT_VOTE                     = "100000";
     public final static String BAND_GAS_AMOUNT_IBC_SEND                 = "500000";
@@ -540,7 +540,7 @@ public class BaseConstant {
     public final static String IOV_GAS_AMOUNT_SEND                      = "100000";
     public final static String IOV_GAS_AMOUNT_STAKE                     = "200000";
     public final static String IOV_GAS_AMOUNT_REDELEGATE                = "300000";
-    public final static String IOV_GAS_AMOUNT_REINVEST                  = "300000";
+    public final static String IOV_GAS_AMOUNT_COMPOUNDING               = "300000";
     public final static String IOV_GAS_AMOUNT_LOW                       = "100000";
     public final static String IOV_GAS_AMOUNT_REGISTER                  = "300000";
     public final static String IOV_GAS_AMOUNT_DELETE                    = "150000";
@@ -558,7 +558,7 @@ public class BaseConstant {
     public final static String CERTIK_GAS_AMOUNT_SEND                   = "100000";
     public final static String CERTIK_GAS_AMOUNT_STAKE                  = "200000";
     public final static String CERTIK_GAS_AMOUNT_REDELEGATE             = "300000";
-    public final static String CERTIK_GAS_AMOUNT_REINVEST               = "300000";
+    public final static String CERTIK_GAS_AMOUNT_COMPOUNDING            = "300000";
     public final static String CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
     public final static String CERTIK_GAS_AMOUNT_VOTE                   = "100000";
     public final static String CERTIK_GAS_AMOUNT_IBC_SEND               = "500000";
@@ -566,7 +566,7 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_SEND                   = "80000";
     public final static String SECRET_GAS_AMOUNT_STAKE                  = "200000";
     public final static String SECRET_GAS_AMOUNT_REDELEGATE             = "300000";
-    public final static String SECRET_GAS_AMOUNT_REINVEST               = "350000";
+    public final static String SECRET_GAS_AMOUNT_COMPOUNDING            = "350000";
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
     public final static String SECRET_GAS_AMOUNT_IBC_SEND               = "500000";
@@ -577,7 +577,7 @@ public class BaseConstant {
     public final static String GAS_AMOUNT_SEND                          = "100000";
     public final static String GAS_AMOUNT_STAKE                         = "200000";
     public final static String GAS_AMOUNT_REDELEGATE                    = "300000";
-    public final static String GAS_AMOUNT_REINVEST                      = "350000";
+    public final static String GAS_AMOUNT_COMPOUNDING                   = "350000";
     public final static String GAS_AMOUNT_REWARD_ADDRESS_CHANGE         = "100000";
     public final static String GAS_AMOUNT_VOTE                          = "100000";
     public final static String GAS_AMOUNT_IBC_SEND                      = "500000";
@@ -585,7 +585,7 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
     public final static String OSMOSIS_GAS_AMOUNT_REDELEGATE            = "300000";
-    public final static String OSMOSIS_GAS_AMOUNT_REINVEST              = "350000";
+    public final static String OSMOSIS_GAS_AMOUNT_COMPOUNDING           = "350000";
     public final static String OSMOSIS_GAS_AMOUNT_LOW                   = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "1500000";
     public final static String OSMOSIS_GAS_AMOUNT_SWAP                  = "500000";

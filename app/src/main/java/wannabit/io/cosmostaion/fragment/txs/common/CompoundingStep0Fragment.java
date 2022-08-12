@@ -14,11 +14,11 @@ import androidx.cardview.widget.CardView;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.common.ReInvestActivity;
+import wannabit.io.cosmostaion.activities.txs.common.CompoundingActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class CompoundingStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private CardView        mCardReward;
     private TextView        mTvRewardAmount, mTvRewardDenom;
@@ -27,8 +27,8 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     private Button          mCancelBtn, mNextBtn;
     private int             mDpDecimal = 6;
 
-    public static ReInvestStep0Fragment newInstance() {
-        return new ReInvestStep0Fragment();
+    public static CompoundingStep0Fragment newInstance() {
+        return new CompoundingStep0Fragment();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_reinvest_step0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_compounding_step0, container, false);
         mCardReward             = rootView.findViewById(R.id.reward_card);
         mTvRewardAmount         = rootView.findViewById(R.id.reward_amount);
         mTvRewardDenom          = rootView.findViewById(R.id.reward_denom);
@@ -76,7 +76,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
 
     }
 
-    private ReInvestActivity getSActivity() {
-        return (ReInvestActivity)getBaseActivity();
+    private CompoundingActivity getSActivity() {
+        return (CompoundingActivity)getBaseActivity();
     }
 }

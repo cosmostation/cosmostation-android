@@ -17,6 +17,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_UNDELE
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_COMPOUNDING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
@@ -40,7 +41,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PROFILE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
@@ -128,6 +128,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzVoteGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.CompoundingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.CreateProfileGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Cw20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
@@ -153,7 +154,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisStartLockGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisSwapInTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RegisterAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RegisterDomainGrpcTask;
@@ -199,8 +199,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Coin mRAmount;
     private String mNewRewardAddress;
 
-    private String mReInvestValAddr;
-    private Coin mReInvestAmount;
+    private String mCompoundingAddr;
+    private Coin mCompoundingAmount;
 
     private Coin mOkStakeCoin;
     private ArrayList<String> mOKVoteValidator = new ArrayList<>();
@@ -309,8 +309,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mFromReDelegateAddr = getIntent().getStringExtra("fromValidatorAddr");
         mToReDelegateAddr = getIntent().getStringExtra("toValidatorAddr");
         mNewRewardAddress = getIntent().getStringExtra("newRewardAddress");
-        mReInvestValAddr = getIntent().getStringExtra("reInvestValAddr");
-        mReInvestAmount = getIntent().getParcelableExtra("reInvestAmount");
+        mCompoundingAddr = getIntent().getStringExtra("compoundingAddr");
+        mCompoundingAmount = getIntent().getParcelableExtra("compoundingAmount");
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
         mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
         mSelectedOpinion = (Map<Integer, String>) getIntent().getSerializableExtra("selectedProposals");
@@ -518,9 +518,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new ChangeRewardAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mNewRewardAddress, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_REINVEST) {
+        } else if (mPurpose == CONST_PW_TX_COMPOUNDING) {
             onShowWaitDialog();
-            new ReInvestGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mReInvestValAddr, mReInvestAmount, mTargetMemo, mTargetFee,
+            new CompoundingGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mCompoundingAddr, mCompoundingAmount, mTargetMemo, mTargetFee,
                     getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_VOTE) {
