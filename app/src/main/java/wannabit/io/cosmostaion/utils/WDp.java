@@ -264,8 +264,9 @@ public class WDp {
     }
 
     public static void setDpSymbolImg(BaseData baseData, ChainConfig chainConfig, String denom, ImageView imageView) {
-        if (chainConfig == null || denom == null || denom.isEmpty()) return;
+        if (chainConfig == null || denom == null || denom.isEmpty()){
             imageView.setImageResource(R.drawable.token_default);
+        }
 
         if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
             imageView.setImageResource(chainConfig.mainDenomImg());
