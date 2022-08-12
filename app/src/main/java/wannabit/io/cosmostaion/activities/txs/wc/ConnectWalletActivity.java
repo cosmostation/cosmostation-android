@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebStorage;
@@ -34,6 +36,7 @@ import com.trustwallet.walletconnect.WCClient;
 import com.trustwallet.walletconnect.models.WCAccount;
 import com.trustwallet.walletconnect.models.WCPeerMeta;
 import com.trustwallet.walletconnect.models.cosmostation.WCCosmostationAccount;
+import com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage;
 import com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction;
 import com.trustwallet.walletconnect.models.keplr.WCKeplrWallet;
 import com.trustwallet.walletconnect.models.session.WCSession;
@@ -45,8 +48,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.Sign;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.admin.methods.response.PersonalSign;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthEstimateGas;
@@ -376,6 +381,21 @@ public class ConnectWalletActivity extends BaseActivity {
             runOnUiThread(() -> onKeplrEnable(id, strings));
             return null;
         });
+        wcClient.setOnEthSign((id, signMessage) -> {
+            runOnUiThread(() ->
+                    AlertDialogUtils.showDoubleButtonDialog(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), signMessage.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
+                        new Thread(() -> {
+                            try {
+                                Sign.SignatureData signResult = processEthSign(signMessage);
+                                wcClient.approveRequest(id, signResult);
+                            } catch (Exception e) {
+                                wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
+                            }
+                        }).start();
+                    })
+            );
+            return null;
+        });
         wcClient.setOnEthSendTransaction((id, wcEthereumTransaction) -> {
             runOnUiThread(() ->
                     AlertDialogUtils.showDoubleButtonDialog(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), wcEthereumTransaction.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
@@ -419,6 +439,11 @@ public class ConnectWalletActivity extends BaseActivity {
             runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
             return null;
         });
+    }
+
+    private Sign.SignatureData processEthSign(WCEthereumSignMessage signMessage) throws Exception {
+        Credentials credentials = Credentials.create(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())));
+        return Sign.signPrefixedMessage(signMessage.getData().getBytes(), credentials.getEcKeyPair());
     }
 
     private EthSendTransaction processEthSend(WCEthereumTransaction wcEthereumTransaction) throws InterruptedException, ExecutionException {
