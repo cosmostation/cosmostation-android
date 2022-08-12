@@ -21,6 +21,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -947,6 +948,52 @@ public class BaseData {
 
     public void setUsingFingerPrint(boolean using) {
         getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_FINGERPRINT, using).commit();
+    }
+
+    public int getUsingAutoPassTime() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_USING_PASS, 0);
+    }
+
+    public void setUsingAutoPassTime(int time) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_USING_PASS, time).commit();
+    }
+
+    public String getAutoPass(Context c) {
+        if (getUsingAutoPassTime() == 1) {
+            return c.getString(R.string.str_app_auto_pass_5m);
+        } else if (getUsingAutoPassTime() == 2) {
+            return c.getString(R.string.str_app_auto_pass_10m);
+        } else if (getUsingAutoPassTime() == 3) {
+            return c.getString(R.string.str_app_auto_pass_30m);
+        } else {
+            return c.getString(R.string.str_app_auto_pass_never);
+        }
+    }
+
+    public long getLastPassTime() {
+        return getSharedPreferences().getLong(BaseConstant.PRE_LAST_PASS_TIME, 0);
+    }
+
+    public void setLastPassTime() {
+        long now = Calendar.getInstance().getTimeInMillis();
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PASS_TIME, now).commit();
+    }
+
+    public boolean isAutoPass() {
+        long now = Calendar.getInstance().getTimeInMillis();
+        if (getUsingAutoPassTime() == 1) {
+            if ((getLastPassTime() + BaseConstant.CONSTANT_M * 5) > now) return true;
+            else return false;
+
+        } else if (getUsingAutoPassTime() == 2) {
+            if ((getLastPassTime() + BaseConstant.CONSTANT_M * 10) > now) return true;
+            else return false;
+
+        } else if (getUsingAutoPassTime() == 3) {
+            if ((getLastPassTime() + BaseConstant.CONSTANT_M * 30) > now) return true;
+            else return false;
+        }
+        return false;
     }
 
     public void setFCMToken(String token) {

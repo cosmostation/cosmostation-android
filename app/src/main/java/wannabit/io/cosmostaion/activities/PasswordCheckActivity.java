@@ -760,6 +760,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         onHideWaitDialog();
         if (result.taskType == TASK_PASSWORD_CHECK) {
             if (result.isSuccess) {
+                getBaseDao().setLastPassTime();
                 setResult(Activity.RESULT_OK, getIntent());
                 finish();
                 overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);

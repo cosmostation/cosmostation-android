@@ -24,6 +24,8 @@ public class BaseConstant {
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
     public final static String PRE_USING_FINGERPRINT        = "PRE_USING_FINGERPRINT";
+    public final static String PRE_USING_PASS               = "PRE_USING_AUTO_PASS";
+    public final static String PRE_LAST_PASS_TIME           = "PRE_LAST_PASS_TIME";
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
