@@ -50,8 +50,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_CURRENCY = 9034;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnBio,
-            mBtnCurrency, mBtnExplore, mBtnNotice, mBtnGuide, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnBio, mBtnCurrency,
+            mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
             mBtnTerm, mBtnGithub, mBtnVersion;
 
     private TextView mTvBio, mTvCurrency, mTvVersion, mTvTheme;
@@ -85,9 +85,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
         mBtnExplore = rootView.findViewById(R.id.card_explore);
         mBtnNotice = rootView.findViewById(R.id.card_notice);
-        mBtnGuide = rootView.findViewById(R.id.card_guide);
-        mBtnTelegram = rootView.findViewById(R.id.card_telegram);
         mBtnHomepage = rootView.findViewById(R.id.card_homepage);
+        mBtnBlog = rootView.findViewById(R.id.card_blog);
+        mBtnTelegram = rootView.findViewById(R.id.card_telegram);
         mBtnStarnameWc = rootView.findViewById(R.id.card_starname_wallet_connect);
         mBtnTerm = rootView.findViewById(R.id.card_term);
         mBtnGithub = rootView.findViewById(R.id.card_github);
@@ -111,9 +111,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnCurrency.setOnClickListener(this);
         mBtnExplore.setOnClickListener(this);
         mBtnNotice.setOnClickListener(this);
-        mBtnGuide.setOnClickListener(this);
-        mBtnTelegram.setOnClickListener(this);
         mBtnHomepage.setOnClickListener(this);
+        mBtnBlog.setOnClickListener(this);
+        mBtnTelegram.setOnClickListener(this);
         mBtnStarnameWc.setOnClickListener(this);
         mBtnTerm.setOnClickListener(this);
         mBtnGithub.setOnClickListener(this);
@@ -233,22 +233,17 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
 
-        } else if (v.equals(mBtnGuide)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://guide.cosmostation.io/app_wallet_ko.html"));
-                startActivity(guideIntent);
-            } else {
-                Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://guide.cosmostation.io/app_wallet_en.html"));
-                startActivity(guideIntent);
-            }
+        } else if (v.equals(mBtnHomepage)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
+            startActivity(intent);
+
+        } else if (v.equals(mBtnBlog)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mikeyjhlee.medium.com/"));
+            startActivity(intent);
 
         } else if (v.equals(mBtnTelegram)) {
             Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/cosmostation"));
             startActivity(telegram);
-
-        } else if (v.equals(mBtnHomepage)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
-            startActivity(intent);
 
         } else if (v.equals(mBtnTerm)) {
             if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {

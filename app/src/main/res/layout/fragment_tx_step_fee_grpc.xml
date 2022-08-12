@@ -16,7 +16,7 @@
             android:layout_marginTop="@dimen/space_6"
             app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true"
-            app:cardCornerRadius="@dimen/space_6"
+            app:cardCornerRadius="@dimen/space_8"
             app:cardBackgroundColor="@color/colorTransBgCosmos">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,7 +113,7 @@
             android:layout_marginTop="@dimen/space_6"
             app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true"
-            app:cardCornerRadius="@dimen/space_6"
+            app:cardCornerRadius="@dimen/space_8"
             app:cardBackgroundColor="@color/colorTransBg">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                     app:divider="@color/colorGray1"
                     app:dividerWidth="1dp"
                     app:position="1"
-                    app:radius="@dimen/space_6"
+                    app:radius="@dimen/space_8"
                     app:ripple="true"
                     app:rippleColor="@color/colorGray1"/>
                 <TextView

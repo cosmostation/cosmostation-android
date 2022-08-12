@@ -9,7 +9,7 @@
                     android:shape="rectangle">
                     <solid android:color="@color/colorCdpDanger"/>
                     <corners
-                        android:radius="@dimen/space_6"/>
+                        android:radius="@dimen/space_8"/>
                     <stroke
                         android:color="@color/colorCdpDanger"
                         android:width="@dimen/space_1"/>
@@ -27,7 +27,7 @@
                     android:shape="rectangle">
                     <solid android:color="@color/colorCdpDanger2"/>
                     <corners
-                        android:radius="@dimen/space_6"/>
+                        android:radius="@dimen/space_8"/>
                     <stroke
                         android:color="@color/colorCdpDanger2"
                         android:width="@dimen/space_1"/>

@@ -3,9 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite2DayNight"
-    android:paddingLeft="@dimen/space_8"
-    android:paddingRight="@dimen/space_8"
     android:orientation="vertical"
     android:clickable="true">
 
@@ -14,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_50"
         android:orientation="horizontal"
+        android:background="@drawable/dialog_bg_colorwhite2daynight"
         android:gravity="center"
         android:layout_centerVertical="true">
         <TextView
