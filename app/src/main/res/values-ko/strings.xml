@@ -162,7 +162,8 @@
     <string name="str_telegram">텔레그램</string>
     <string name="str_explore">익스플로러</string>
     <string name="str_explore_bnb">바이낸스 익스플로러</string>
-    <string name="str_homepage">코스모스테이션</string>
+    <string name="str_homepage">코스모스테이션 홈페이지</string>
+    <string name="str_cosmostation_blog">코스모스테이션 블로그</string>
     <string name="str_starname_wallet_connect">스타네임 Wallet Connect</string>
     <string name="str_app_info">앱 정보</string>
     <string name="str_term">약관</string>

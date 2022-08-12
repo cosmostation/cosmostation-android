@@ -12,7 +12,7 @@
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardCornerRadius="@dimen/space_6"
+        app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true">
 
@@ -20,10 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/space_16"
-            android:paddingTop="@dimen/space_12"
-            android:paddingRight="@dimen/space_6"
-            android:paddingBottom="@dimen/space_12">
+            android:padding="@dimen/space_12">
 
             <RelativeLayout
                 android:layout_width="match_parent"

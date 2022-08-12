@@ -218,7 +218,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             mButtonGroup.addView(segmentView, i, new LinearLayout.LayoutParams(0, DisplayUtils.dpToPx(getActivity(), 32), 1));
 
             SegmentedButton btnTxt = segmentView.findViewById(R.id.btn_title);
-            btnTxt.setText(mFeeInfo.get(i).tiile);
+            btnTxt.setText(mFeeInfo.get(i).title);
         }
 
         mSelectedFeeInfo = mChainConfig.gasDefault();

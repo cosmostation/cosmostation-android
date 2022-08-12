@@ -9,7 +9,7 @@
                     android:shape="rectangle">
                     <solid android:color="@color/colorWhite2DayNight"/>
                     <corners
-                        android:radius="@dimen/space_6"/>
+                        android:radius="@dimen/space_8"/>
                 </shape>
             </item>
 
@@ -19,7 +19,7 @@
                     android:shape="rectangle">
                     <solid android:color="@color/colorWhite2DayNight"/>
                     <corners
-                        android:radius="@dimen/space_6"/>
+                        android:radius="@dimen/space_8"/>
                 </shape>
             </item>
 

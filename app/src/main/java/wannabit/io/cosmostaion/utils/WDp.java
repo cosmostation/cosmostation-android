@@ -264,13 +264,12 @@ public class WDp {
     }
 
     public static void setDpSymbolImg(BaseData baseData, ChainConfig chainConfig, String denom, ImageView imageView) {
-        if (chainConfig == null || denom == null || denom.isEmpty()) {
+        if (chainConfig == null || denom == null || denom.isEmpty()){
             imageView.setImageResource(R.drawable.token_default);
         }
 
         if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
             imageView.setImageResource(chainConfig.mainDenomImg());
-
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null) {
@@ -367,28 +366,28 @@ public class WDp {
         }
 
         if (result.size() == 1) {
-            result.get(0).tiile = "Fixed";
+            result.get(0).title = "Fixed";
             result.get(0).msg = c.getString(R.string.str_fee_speed_title_fixed);
         } else if (result.size() == 2) {
-            result.get(1).tiile = "Average";
+            result.get(1).title = "Average";
             result.get(1).msg = c.getString(R.string.str_fee_speed_title_average);
             if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
-                result.get(0).tiile = "Zero";
+                result.get(0).title = "Zero";
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
             } else {
-                result.get(0).tiile = "Tiny";
+                result.get(0).title = "Tiny";
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
             }
         } else if (result.size() == 3) {
-            result.get(2).tiile = "Average";
+            result.get(2).title = "Average";
             result.get(2).msg = c.getString(R.string.str_fee_speed_title_average);
-            result.get(1).tiile = "Low";
+            result.get(1).title = "Low";
             result.get(1).msg = c.getString(R.string.str_fee_speed_title_low);
             if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
-                result.get(0).tiile = "Zero";
+                result.get(0).title = "Zero";
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
             } else {
-                result.get(0).tiile = "Tiny";
+                result.get(0).title = "Tiny";
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
             }
         }
