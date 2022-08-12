@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/history_line"
                 android:paddingLeft="@dimen/space_12"
-                android:paddingRight="@dimen/space_8"
+                android:paddingRight="@dimen/space_4"
                 android:orientation="vertical"
                 android:gravity="center_vertical|right">
                 <TextView
