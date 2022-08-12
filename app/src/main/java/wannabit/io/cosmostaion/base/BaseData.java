@@ -19,10 +19,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -87,7 +85,6 @@ import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseData {
@@ -950,35 +947,6 @@ public class BaseData {
 
     public void setUsingFingerPrint(boolean using) {
         getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_FINGERPRINT, using).commit();
-    }
-
-    public int getAppLockTriggerTime() {
-        return getSharedPreferences().getInt(BaseConstant.PRE_APP_LOCK_TIME, 0);
-    }
-
-    public void setAppLockTriggerTime(int trigger) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_APP_LOCK_TIME, trigger).commit();
-    }
-
-    public long getAppLockLeaveTime() {
-        return getSharedPreferences().getLong(BaseConstant.PRE_APP_LOCK_LEAVE_TIME, 0);
-    }
-
-    public void setAppLockLeaveTime() {
-        getSharedPreferences().edit().putLong(BaseConstant.PRE_APP_LOCK_LEAVE_TIME, System.currentTimeMillis()).commit();
-    }
-
-    public String getAppLockLeaveTimeString(Context c) {
-        WLog.w("getAppLockLeaveTime " + getAppLockTriggerTime());
-        if (getAppLockTriggerTime() == 1) {
-            return c.getString(R.string.str_applock_time_10sec);
-        } else if (getAppLockTriggerTime() == 2) {
-            return c.getString(R.string.str_applock_time_30sec);
-        } else if (getAppLockTriggerTime() == 3) {
-            return c.getString(R.string.str_applock_time_60sec);
-        } else {
-            return c.getString(R.string.str_applock_time_immediately);
-        }
     }
 
     public void setFCMToken(String token) {

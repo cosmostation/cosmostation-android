@@ -223,10 +223,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     @Override
     protected void onStop() {
         super.onStop();
-        if (mNeedLeaveTime) {
-            getBaseDao().setAppLockLeaveTime();
-        }
-
     }
 
     public BaseApplication getBaseApplication() {
