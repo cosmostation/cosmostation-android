@@ -15,7 +15,7 @@
         android:clickable="true"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        app:cardCornerRadius="@dimen/space_8"
         app:cardBackgroundColor="@color/colorTransBg"
         android:padding="@dimen/space_4"
         app:cardUseCompatPadding="true" >

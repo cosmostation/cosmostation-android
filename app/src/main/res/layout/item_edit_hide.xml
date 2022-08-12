@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/space_8"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
+        app:cardCornerRadius="@dimen/space_8"
         app:cardBackgroundColor="@color/colorWhite2DayNight">
         <RelativeLayout
             android:layout_width="match_parent"

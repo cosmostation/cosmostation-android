@@ -9,8 +9,8 @@
                     android:shape="rectangle">
                     <solid android:color="@color/colorGray5DayNight"/>
                     <corners
-                        android:bottomLeftRadius="@dimen/space_4"
-                        android:bottomRightRadius="@dimen/space_4"/>
+                        android:bottomLeftRadius="@dimen/space_8"
+                        android:bottomRightRadius="@dimen/space_8"/>
                     <padding
                         android:left="@dimen/space_8"
                         android:top="@dimen/space_8"
@@ -25,8 +25,8 @@
                     android:shape="rectangle">
                     <solid android:color="@color/colorGray2DayNight"/>
                     <corners
-                        android:bottomLeftRadius="@dimen/space_4"
-                        android:bottomRightRadius="@dimen/space_4"/>
+                        android:bottomLeftRadius="@dimen/space_8"
+                        android:bottomRightRadius="@dimen/space_8"/>
                     <padding
                         android:left="@dimen/space_8"
                         android:top="@dimen/space_8"

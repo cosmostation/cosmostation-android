@@ -9,7 +9,7 @@
                 android:color="@color/colorGray5"
                 android:width="@dimen/space_view"/>
             <corners
-                android:radius="@dimen/space_6"/>
+                android:radius="@dimen/space_8"/>
             <padding
                 android:left="@dimen/space_8"
                 android:top="@dimen/space_8"
