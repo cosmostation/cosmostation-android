@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.common.util.CollectionUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
@@ -543,17 +544,19 @@ public class ConnectWalletActivity extends BaseActivity {
             return;
         }
 
-        if (!meta.getIcons().isEmpty()) {
-            Picasso.get()
-                    .load(meta.getIcons().get(0))
-                    .fit()
-                    .placeholder(R.drawable.validator_none_img)
-                    .into(mWcImg);
+        if (meta != null) {
+            if (!CollectionUtils.isEmpty(meta.getIcons())) {
+                Picasso.get()
+                        .load(meta.getIcons().get(0))
+                        .fit()
+                        .placeholder(R.drawable.validator_none_img)
+                        .into(mWcImg);
+            }
+            mWcName.setText(meta.getName());
+            mWcUrl.setText(meta.getUrl());
+            mWcLayer.setVisibility(View.VISIBLE);
+            mLoadingLayer.setVisibility(View.GONE);
         }
-        mWcName.setText(meta.getName());
-        mWcUrl.setText(meta.getUrl());
-        mWcLayer.setVisibility(View.VISIBLE);
-        mLoadingLayer.setVisibility(View.GONE);
 
         mWcCardView.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
         mWcAccount.setText(chainAccountMap.get(mBaseChain.getChain()).address);
@@ -593,6 +596,7 @@ public class ConnectWalletActivity extends BaseActivity {
                 chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
                 if (mBaseChain == null) {
                     mBaseChain = WDp.getChainTypeByChainId(chainId);
+                    mChainConfig = ChainFactory.getChain(mBaseChain);
                     onInitView(mWcPeerMeta);
                 }
                 wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
@@ -637,6 +641,7 @@ public class ConnectWalletActivity extends BaseActivity {
                 chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
                 if (mBaseChain == null) {
                     mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
+                    mChainConfig = ChainFactory.getChain(mBaseChain);
                     onInitView(mWcPeerMeta);
                 }
                 selectedAccounts.add(account);
