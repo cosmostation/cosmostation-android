@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/compounding_title"
                         android:layout_centerHorizontal="true"
-                        android:text="Compounding"/>
+                        android:text="@string/str_reinvest"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
