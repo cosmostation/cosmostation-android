@@ -20,6 +20,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import cosmos.authz.v1beta1.Authz;
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -27,6 +28,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzSendStep0Fragment;
@@ -166,15 +168,22 @@ public class AuthzSendActivity extends BaseBroadCastActivity {
     }
 
     public void onAuthzSend() {
-        Intent intent = new Intent(AuthzSendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("granter", mGranter);
-        intent.putExtra("toAddress", mToAddress);
-        intent.putExtra("Amount", mAmount);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcAuthzSendReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mGranter, mToAddress, mAmount,
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(AuthzSendActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("granter", mGranter);
+            intent.putExtra("toAddress", mToAddress);
+            intent.putExtra("Amount", mAmount);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class AuthzSendPageAdapter extends FragmentPagerAdapter {
@@ -187,8 +196,8 @@ public class AuthzSendActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(AuthzSendStep0Fragment.newInstance());
             mFragments.add(AuthzSendStep1Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(AuthzSendStep4Fragment.newInstance());
         }
 

@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -25,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
@@ -153,14 +155,20 @@ public class SendActivity extends BaseBroadCastActivity {
     }
 
     public void onStartSend() {
-        Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("toAddress", mToAddress);
-        intent.putParcelableArrayListExtra("amount", mAmounts);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSendReq(getAuthResponse(mBaseChain, mAccount), mToAddress, mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("toAddress", mToAddress);
+            intent.putParcelableArrayListExtra("amount", mAmounts);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class SendPageAdapter extends FragmentPagerAdapter {
@@ -173,9 +181,9 @@ public class SendActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(SendStep0Fragment.newInstance(null));
             mFragments.add(SendStep1Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
             if (isGRPC(mBaseChain)) {
-                mFragments.add(StepFeeSetFragment.newInstance(null));
+                mFragments.add(StepFeeSetFragment.newInstance());
             } else {
                 mFragments.add(StepFeeSetOldFragment.newInstance(null));
             }

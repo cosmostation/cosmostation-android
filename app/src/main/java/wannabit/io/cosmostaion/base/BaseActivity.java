@@ -77,17 +77,27 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.shasin.notificationbanner.Banner;
 
+import org.apache.commons.lang3.StringUtils;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.crypto.DeterministicKey;
+
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import cosmos.auth.v1beta1.Auth;
+import cosmos.auth.v1beta1.QueryGrpc;
+import cosmos.auth.v1beta1.QueryOuterClass.QueryAccountRequest;
+import cosmos.auth.v1beta1.QueryOuterClass.QueryAccountResponse;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
+import cosmos.tx.v1beta1.ServiceGrpc;
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
@@ -96,6 +106,7 @@ import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.txs.common.IBCSendActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
@@ -120,6 +131,7 @@ import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTickersList;
@@ -519,6 +531,51 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         startActivity(intent);
     }
 
+    public ECKey getEcKey(Account account) {
+        if (account.fromMnemonic) {
+            String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
+            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(account, entropy);
+            return ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+        } else {
+            String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + account.uuid, account.resource, account.spec);
+            return ECKey.fromPrivate(new BigInteger(privateKey, 16));
+        }
+    }
+
+    public QueryAccountResponse getAuthResponse(BaseChain baseChain, Account account) {
+        QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain));
+        QueryAccountRequest request = QueryAccountRequest.newBuilder().setAddress(account.address).build();
+        return authStub.account(request);
+    }
+
+    public void onBroadcastGrpcTx(BaseChain baseChain, ServiceOuterClass.BroadcastTxRequest broadcastTxRequest) {
+        new Thread(() -> {
+            ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain));
+            ServiceOuterClass.BroadcastTxResponse broadcastTxResponse = txService.broadcastTx(broadcastTxRequest);
+
+            runOnUiThread(() -> {
+                if (StringUtils.isEmpty(broadcastTxResponse.getTxResponse().getTxhash())) {
+                    return;
+                }
+                String txHash = broadcastTxResponse.getTxResponse().getTxhash();
+                if (broadcastTxResponse.getTxResponse().getCode() > 0) {
+                    onStartTxDetailActivity(txHash, broadcastTxResponse.getTxResponse().getCode(), broadcastTxResponse.getTxResponse().getRawLog(), false);
+                } else {
+                    onStartTxDetailActivity(txHash, 0, "", true);
+                }
+            });
+        }).start();
+    }
+
+    private void onStartTxDetailActivity(String txHash, int errorCode, String errorMsg, boolean isSuccess) {
+        Intent txIntent = new Intent(this, TxDetailgRPCActivity.class);
+        txIntent.putExtra("isGen", true);
+        txIntent.putExtra("isSuccess", isSuccess);
+        txIntent.putExtra("errorCode", errorCode);
+        txIntent.putExtra("errorMsg", errorMsg);
+        txIntent.putExtra("txHash", txHash);
+        startActivity(txIntent);
+    }
 
     private CardView mPushBody;
     private ImageView mPushType, mPushClose;

@@ -122,8 +122,8 @@ public class ResApiNewTxListCustom {
         } else {
             try {
                 String result = c.getString(R.string.tx_known);
-                ;
-                if (getMsgCnt() == 2) {
+
+                if (getMsgCnt() >= 2) {
                     String msgType0 = "";
                     String msgType1 = "";
                     try {
@@ -141,7 +141,8 @@ public class ResApiNewTxListCustom {
 
                     if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
                             msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
-                        return c.getString(R.string.tx_reinvest);
+                        if (getMsgCnt() == 2) return c.getString(R.string.tx_reinvest);
+                        else return c.getString(R.string.tx_reinvest) + " + " + (getMsgCnt() - 1) / 2;
                     }
 
                     if (msgType1.contains("ibc") && msgType1.contains("MsgRecvPacket")) {

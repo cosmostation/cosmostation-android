@@ -7,7 +7,7 @@
     android:layout_weight="1"
     android:padding="10dp"
     app:textSize="@dimen/text_size_12"
-    app:selectedTextColor="@color/colorBlackDayNight"
+    app:selectedTextColor="@color/colorWhite"
     app:borderColor ="@color/colorGray1"
     app:textColor="@color/colorBlackDayNight">
 </com.addisonelliott.segmentedbutton.SegmentedButton>

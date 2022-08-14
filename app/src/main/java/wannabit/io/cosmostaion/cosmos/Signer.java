@@ -982,7 +982,7 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzAVoteReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzVoteReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
         return getSignTx(auth, getAuthzVoteMsg(grantee, granter, opinionMap), fee, memo, pKey, chainId);
     }
 

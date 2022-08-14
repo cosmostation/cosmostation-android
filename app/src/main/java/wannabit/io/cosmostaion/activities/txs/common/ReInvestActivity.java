@@ -24,12 +24,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.ReInvestStep0Fragment;
@@ -162,15 +164,21 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     }
 
     public void onStartReInvest() {
-        Intent intent = new Intent(ReInvestActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("reInvestValAddr", mValAddress);
-        mAmount.amount = new BigDecimal(mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
-        intent.putExtra("reInvestAmount", mAmount);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcReInvestReq(getAuthResponse(mBaseChain, mAccount), mValAddress, mAmount, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(ReInvestActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("reInvestValAddr", mValAddress);
+            mAmount.amount = new BigDecimal(mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
+            intent.putExtra("reInvestAmount", mAmount);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     @Override
@@ -197,8 +205,8 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             super(fm);
             mFragments.clear();
             mFragments.add(ReInvestStep0Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(ReInvestStep3Fragment.newInstance());
         }
 

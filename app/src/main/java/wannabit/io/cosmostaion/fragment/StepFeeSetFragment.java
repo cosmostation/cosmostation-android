@@ -172,10 +172,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     private int mSelectedFeeInfo = 1;
     private int mSelectedFeeData = 0;
 
-    public static StepFeeSetFragment newInstance(Bundle bundle) {
-        StepFeeSetFragment fragment = new StepFeeSetFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static StepFeeSetFragment newInstance() {
+        return new StepFeeSetFragment();
     }
 
     @Override
