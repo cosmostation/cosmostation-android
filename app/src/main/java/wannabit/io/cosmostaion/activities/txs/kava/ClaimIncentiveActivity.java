@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -26,6 +27,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.ClaimIncentiveStep0Fragment;
@@ -149,13 +151,20 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
     }
 
     public void onStartIncentiveClaim() {
-        Intent intent = new Intent(ClaimIncentiveActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("multiplierName", mIncentiveMultiplier);
-        intent.putExtra("fee", mTxFee);
-        intent.putExtra("memo", mTxMemo);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaIncentiveAllReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mIncentiveMultiplier, getBaseDao(),
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(ClaimIncentiveActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("multiplierName", mIncentiveMultiplier);
+            intent.putExtra("fee", mTxFee);
+            intent.putExtra("memo", mTxMemo);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
 
@@ -168,8 +177,8 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(ClaimIncentiveStep0Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(ClaimIncentiveStep3Fragment.newInstance(null));
         }
 

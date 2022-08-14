@@ -204,10 +204,25 @@ public class HtlcSendActivity extends BaseActivity {
     }
 
     public void onStartHtlcSend() {
-        Intent intent = new Intent(HtlcSendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-        startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            onIntentHtlcResult();
+
+        } else {
+            Intent intent = new Intent(HtlcSendActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    private void onIntentHtlcResult() {
+        Intent intent = new Intent(HtlcSendActivity.this, HtlcResultActivity.class);
+        intent.putExtra("toChain", mRecipientChain.getChain());
+        intent.putExtra("recipientId", "" + mRecipientAccount.id);
+        intent.putParcelableArrayListExtra("amount", mToSendCoins);
+        intent.putExtra("sendFee", mSendFee);
+        intent.putExtra("claimFee", mClaimFee);
+        startActivity(intent);
     }
 
     private class HtlcSendPageAdapter extends FragmentPagerAdapter {
@@ -255,13 +270,7 @@ public class HtlcSendActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
-            Intent intent = new Intent(HtlcSendActivity.this, HtlcResultActivity.class);
-            intent.putExtra("toChain", mRecipientChain.getChain());
-            intent.putExtra("recipientId", "" + mRecipientAccount.id);
-            intent.putParcelableArrayListExtra("amount", mToSendCoins);
-            intent.putExtra("sendFee", mSendFee);
-            intent.putExtra("claimFee", mClaimFee);
-            startActivity(intent);
+            onIntentHtlcResult();
         }
     }
 

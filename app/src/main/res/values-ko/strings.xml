@@ -634,7 +634,7 @@
     <string name="str_outstanding_debt">Outstanding Debt</string>
     <string name="str_cdp_total_fee">대출 이자</string>
     <string name="str_collateral_deposit">Deposit</string>
-    <string name="str_collateral_withdraw">Withdraw</string>
+    <string name="str_collateral_withdraw">유동성 출금</string>
     <string name="str_principal_drawdebt">추가 USDX 대출</string>
     <string name="str_principal_repay">USDX 상환</string>
     <string name="str_star_name_service">스타네임 서비스</string>

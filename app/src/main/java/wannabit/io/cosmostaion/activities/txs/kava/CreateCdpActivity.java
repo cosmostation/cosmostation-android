@@ -23,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import kava.cdp.v1beta1.Genesis;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
@@ -32,6 +33,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.CreateCdpStep0Fragment;
@@ -186,16 +188,22 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
     }
 
     public void onStartCreateCdp() {
-        Intent intent = new Intent(CreateCdpActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("mCollateral", mCollateral);
-        intent.putExtra("mPrincipal", mPrincipal);
-        intent.putExtra("mCollateralType", mCollateralType);
-        intent.putExtra("fee", mTxFee);
-        intent.putExtra("memo", mTxMemo);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaCreateCdpReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mCollateral, mPrincipal, mCollateralType,
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
 
+        } else {
+            Intent intent = new Intent(CreateCdpActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("mCollateral", mCollateral);
+            intent.putExtra("mPrincipal", mPrincipal);
+            intent.putExtra("mCollateralType", mCollateralType);
+            intent.putExtra("fee", mTxFee);
+            intent.putExtra("memo", mTxMemo);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class CreateCdpPageAdapter extends FragmentPagerAdapter {
@@ -207,8 +215,8 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
             super(fm);
             mFragments.clear();
             mFragments.add(CreateCdpStep0Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(CreateCdpStep3Fragment.newInstance(null));
         }
 
