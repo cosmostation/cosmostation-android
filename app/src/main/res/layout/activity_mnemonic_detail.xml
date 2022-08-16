@@ -67,8 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/card_mnemonic_nickname_layer"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_8"
+        android:layout_marginRight="@dimen/space_8"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
@@ -90,9 +90,9 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_0"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -114,10 +114,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_1"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -139,10 +139,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_2"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -164,10 +164,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_3"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -190,7 +190,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_4"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -198,9 +198,9 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_4"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -222,10 +222,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_5"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -247,10 +247,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_6"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -272,10 +272,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_7"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -298,7 +298,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_4"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -306,9 +306,9 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_8"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -330,10 +330,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_9"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -355,10 +355,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_10"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -380,10 +380,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_11"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -406,7 +406,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_4"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -414,9 +414,9 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_12"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -438,10 +438,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_13"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -463,10 +463,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_14"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -488,10 +488,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_15"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -514,7 +514,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_4"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -522,9 +522,9 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_16"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -546,10 +546,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_17"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -571,10 +571,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_18"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -596,10 +596,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_19"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -622,7 +622,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_4"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -630,9 +630,9 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_20"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -654,10 +654,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_21"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -679,10 +679,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_22"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -704,10 +704,10 @@
                 <LinearLayout
                     android:id="@+id/layer_mnemonic_23"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/space_28"
+                    android:layout_height="@dimen/space_24"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/box_vote_quorum"
+                    android:background="@drawable/box_mnemonic"
                     android:gravity="center_vertical">
 
                     <TextView
