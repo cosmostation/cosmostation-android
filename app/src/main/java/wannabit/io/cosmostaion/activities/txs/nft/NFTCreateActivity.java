@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.nft;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
+import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +16,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -24,6 +28,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
+import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.nft.NFTCreateStep0Fragment;
@@ -134,17 +140,37 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
     }
 
     public void onCreateNFT() {
-        Intent intent = new Intent(NFTCreateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("nftDenomId", mNftDenomId);
-        intent.putExtra("nftDenomName", mNftDenomName);
-        intent.putExtra("nftName", mNftName);
-        intent.putExtra("nftDescription", mNftDescription);
-        intent.putExtra("nftHash", mNftHash);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
+            if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                broadcastTxRequest = Signer.getGrpcCreateNftIrisReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mNftDenomId, mNftDenomName,
+                        mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, getJsonData(), mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+
+            } else if (mBaseChain.equals(BaseChain.CRYPTO_MAIN)) {
+                broadcastTxRequest = Signer.getGrpcCreateNftCroReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mNftDenomId, mNftDenomName,
+                        mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, getJsonData(), mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            }
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(NFTCreateActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("nftDenomId", mNftDenomId);
+            intent.putExtra("nftDenomName", mNftDenomName);
+            intent.putExtra("nftName", mNftName);
+            intent.putExtra("nftDescription", mNftDescription);
+            intent.putExtra("nftHash", mNftHash);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    private String getJsonData() {
+        StationNFTData nftData = new StationNFTData(mAccount.address, mNftName, mNftDescription, mNftDenomId, NFT_INFURA + mNftHash);
+        Gson gson = new Gson();
+        return gson.toJson(nftData);
     }
 
     private class NFTCreateAdapter extends FragmentPagerAdapter {
@@ -155,8 +181,8 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(NFTCreateStep0Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(NFTCreateStep3Fragment.newInstance());
         }
 

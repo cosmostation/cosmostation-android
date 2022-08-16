@@ -17,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import irismod.nft.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -25,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.nft.NFTSendStep0Fragment;
@@ -139,16 +141,30 @@ public class NFTSendActivity extends BaseBroadCastActivity {
     }
 
     public void onSendNFT() {
-        Intent intent = new Intent(NFTSendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("toAddress", mToAddress);
-        intent.putExtra("nftDenomId", mNftDenomId);
-        intent.putExtra("nftTokenId", mNftTokenId);
-        intent.putExtra("irisResponse", mIrisResponse);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
+            if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                broadcastTxRequest = Signer.getGrpcSendNftIrisReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mNftDenomId,
+                        mNftTokenId, mIrisResponse, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+
+            } else if (mBaseChain.equals(BaseChain.CRYPTO_MAIN)) {
+                broadcastTxRequest = Signer.getGrpcSendNftCroReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mNftDenomId,
+                        mNftTokenId, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            }
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(NFTSendActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("toAddress", mToAddress);
+            intent.putExtra("nftDenomId", mNftDenomId);
+            intent.putExtra("nftTokenId", mNftTokenId);
+            intent.putExtra("irisResponse", mIrisResponse);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class NFTSendAdapter extends FragmentPagerAdapter {
@@ -159,8 +175,8 @@ public class NFTSendActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(NFTSendStep0Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(NFTSendStep3Fragment.newInstance());
         }
 

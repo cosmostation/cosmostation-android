@@ -168,7 +168,7 @@
                             style="@style/font_ss_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/space_8"
+                            android:layout_marginTop="@dimen/space_14"
                             android:text="@string/str_my_address" />
 
                         <RelativeLayout

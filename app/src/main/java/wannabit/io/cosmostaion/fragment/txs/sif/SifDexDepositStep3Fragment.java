@@ -28,10 +28,8 @@ public class SifDexDepositStep3Fragment extends BaseFragment implements View.OnC
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static SifDexDepositStep3Fragment newInstance(Bundle bundle) {
-        SifDexDepositStep3Fragment fragment = new SifDexDepositStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifDexDepositStep3Fragment newInstance() {
+        return new SifDexDepositStep3Fragment();
     }
 
     @Override

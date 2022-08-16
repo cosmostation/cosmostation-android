@@ -466,19 +466,19 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcSifSwapReq(QueryOuterClass.QueryAccountResponse auth, String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth,getSifSwapMsg(signer, inputDenom, inputAmount, outputDenom, outputAmount), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcSifSwapReq(QueryOuterClass.QueryAccountResponse auth, String signer, Coin swapInCoin, Coin swapOutCoin, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth,getSifSwapMsg(signer, swapInCoin, swapOutCoin), fee, memo, pKey, chainId);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcSifSwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getSifSwapMsg(signer, inputDenom, inputAmount, outputDenom, outputAmount), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.SimulateRequest getGrpcSifSwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, Coin swapInCoin, Coin swapOutCoin, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getSifSwapMsg(signer, swapInCoin, swapOutCoin), fee, memo, pKey, chainId);
     }
 
-    public static ArrayList<Any> getSifSwapMsg(String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount) {
+    public static ArrayList<Any> getSifSwapMsg(String signer, Coin swapInCoin, Coin swapOutCoin) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        sifnode.clp.v1.Types.Asset inputAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(inputDenom).build();
-        sifnode.clp.v1.Types.Asset outpuAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(outputDenom).build();
-        sifnode.clp.v1.Tx.MsgSwap msgSwap = sifnode.clp.v1.Tx.MsgSwap.newBuilder().setSigner(signer).setSentAsset(inputAsset).setReceivedAsset(outpuAsset).setSentAmount(inputAmount).setMinReceivingAmount(outputAmount).build();
+        sifnode.clp.v1.Types.Asset inputAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(swapInCoin.denom).build();
+        sifnode.clp.v1.Types.Asset outpuAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(swapOutCoin.denom).build();
+        sifnode.clp.v1.Tx.MsgSwap msgSwap = sifnode.clp.v1.Tx.MsgSwap.newBuilder().setSigner(signer).setSentAsset(inputAsset).setReceivedAsset(outpuAsset).setSentAmount(swapInCoin.amount).setMinReceivingAmount(swapOutCoin.amount).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgSwap").setValue(msgSwap.toByteString()).build());
         return msgAnys;
     }

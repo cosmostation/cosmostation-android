@@ -17,8 +17,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
@@ -28,6 +31,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.sif.SifDexWithdrawStep0Fragment;
@@ -158,14 +162,27 @@ public class SifWithdrawPoolActivity extends BaseBroadCastActivity {
     }
 
     public void onStartExitPool() {
-        Intent intent = new Intent(SifWithdrawPoolActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("SifWithdrawCoin", mSifWithdrawCoin);
-        intent.putExtra("MyProvider", mMyProvider);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSifWithdrawReq(getAuthResponse(mBaseChain, mAccount), mAccount.address,
+                    mSifWithdrawCoin.denom, getBasePoint(), mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(SifWithdrawPoolActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("SifWithdrawCoin", mSifWithdrawCoin);
+            intent.putExtra("MyProvider", mMyProvider);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    private String getBasePoint() {
+        BigDecimal myShareAllAmount = new BigDecimal(mMyProvider.getLiquidityProvider().getLiquidityProviderUnits());
+        BigDecimal myShareWithdrawAmount = new BigDecimal(mSifWithdrawCoin.amount);
+        return myShareWithdrawAmount.movePointRight(4).divide(myShareAllAmount, 0, RoundingMode.DOWN).toPlainString();
     }
 
     private class ExitPoolPageAdapter extends FragmentPagerAdapter {
@@ -176,10 +193,10 @@ public class SifWithdrawPoolActivity extends BaseBroadCastActivity {
         public ExitPoolPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(SifDexWithdrawStep0Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(SifDexWithdrawStep3Fragment.newInstance(null));
+            mFragments.add(SifDexWithdrawStep0Fragment.newInstance());
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
+            mFragments.add(SifDexWithdrawStep3Fragment.newInstance());
         }
 
         @Override
