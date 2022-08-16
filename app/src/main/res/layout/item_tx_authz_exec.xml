@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="Authz Exec"
-                    style="@style/font_ss_15_black_daynight"/>
+                    style="@style/font_rr_15_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Grantee"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_grantee"
                     android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Message"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_message"
                     android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_mnemonic_detail" />
@@ -53,7 +53,7 @@
 
             <TextView
                 android:id="@+id/mnemonic_nickname"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -96,7 +96,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -104,7 +104,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_0"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -121,7 +121,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -129,7 +129,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_1"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -146,7 +146,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -154,7 +154,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_2"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -171,7 +171,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -179,7 +179,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_3"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -204,7 +204,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -212,7 +212,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_4"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -229,7 +229,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -237,7 +237,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_5"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -254,7 +254,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -262,7 +262,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_6"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -279,7 +279,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -287,7 +287,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_7"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -312,7 +312,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -320,7 +320,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_8"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -337,7 +337,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -345,7 +345,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_9"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -362,7 +362,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -370,7 +370,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_10"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -387,7 +387,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -395,7 +395,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_11"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -420,7 +420,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -428,7 +428,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_12"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -445,7 +445,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -453,7 +453,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_13"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -470,7 +470,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -478,7 +478,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_14"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -495,7 +495,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -503,7 +503,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_15"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -528,7 +528,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -536,7 +536,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_16"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -553,7 +553,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -561,7 +561,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_17"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -578,7 +578,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -586,7 +586,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_18"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -603,7 +603,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -611,7 +611,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_19"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -636,7 +636,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -644,7 +644,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_20"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -661,7 +661,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -669,7 +669,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_21"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -686,7 +686,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -694,7 +694,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_22"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -711,7 +711,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="@dimen/space_18"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_4"
@@ -719,7 +719,7 @@
 
                     <TextView
                         android:id="@+id/tv_mnemonic_23"
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/space_2"
@@ -747,7 +747,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_10"
             android:gravity="center"
-            style="@style/font_ss_12_gray1"
+            style="@style/font_rr_12_gray1"
             android:text="@string/str_mnemonic_confirm_msg"/>
     </LinearLayout>
 
@@ -788,7 +788,7 @@
                 android:minHeight="@dimen/space_45"
                 android:background="@drawable/btn_trans_with_photon_border"
                 android:layout_weight="1"
-                style="@style/font_ss_14_photon"
+                style="@style/font_rr_14_photon"
                 android:text="@string/str_copy"/>
         </LinearLayout>
         <Button
@@ -800,7 +800,7 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:text="@string/str_derive_wallet"/>
     </LinearLayout>
 </RelativeLayout>

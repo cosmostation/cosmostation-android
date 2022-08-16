@@ -38,7 +38,7 @@
 
                 <TextView
                     android:id="@+id/tx_swap_coin_text"
-                    style="@style/font_ss_15_black_daynight"
+                    style="@style/font_rr_15_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -52,14 +52,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_swap_coin_type" />
 
                 <TextView
                     android:id="@+id/tx_swap_coin_type"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -68,7 +68,7 @@
                     android:text="-" />
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_14"
@@ -76,7 +76,7 @@
 
                 <TextView
                     android:id="@+id/tx_swap_coin_sender"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -92,7 +92,7 @@
 
                 <TextView
                     android:id="@+id/tx_swap_token_in_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_swap_in" />
@@ -118,14 +118,14 @@
 
                             <TextView
                                 android:id="@+id/tx_swap_token_in_amount"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
 
                             <TextView
                                 android:id="@+id/tx_swap_token_in_amount_symbol"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -142,7 +142,7 @@
 
                 <TextView
                     android:id="@+id/tx_swap_token_out_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_swap_out" />
@@ -168,14 +168,14 @@
 
                             <TextView
                                 android:id="@+id/tx_swap_token_out_amount"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
 
                             <TextView
                                 android:id="@+id/tx_swap_token_out_amount_symbol"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"

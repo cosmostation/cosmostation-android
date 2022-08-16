@@ -26,14 +26,14 @@
 
             <TextView
                 android:id="@+id/toolbar_title"
-                style="@style/font_ssm_17_black_daynight"
+                style="@style/font_rr_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_wallet_manage" />
 
             <TextView
                 android:id="@+id/btn_edit"
-                style="@style/font_ssm_17_black_daynight"
+                style="@style/font_rr_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

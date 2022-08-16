@@ -82,7 +82,7 @@
 
                     <TextView
                         android:id="@+id/market_title"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/market_img"
@@ -105,14 +105,14 @@
 
                 <TextView
                     android:id="@+id/cdp_debt_value_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="USDX debt Value" />
 
                 <TextView
                     android:id="@+id/cdp_debt_value"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -128,14 +128,14 @@
 
                 <TextView
                     android:id="@+id/cdp_collateral_value_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Collateral BTC Value" />
 
                 <TextView
                     android:id="@+id/cdp_collateral_value"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -151,7 +151,7 @@
 
                 <TextView
                     android:id="@+id/current_price_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -159,7 +159,7 @@
 
                 <TextView
                     android:id="@+id/current_price"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/current_price_title"
@@ -177,7 +177,7 @@
 
                 <TextView
                     android:id="@+id/liquidation_price_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

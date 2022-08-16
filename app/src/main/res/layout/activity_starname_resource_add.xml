@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/font_ss_17_black_daynight"
+            style="@style/font_rm_17_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
@@ -37,7 +37,7 @@
                 android:layout_height="@dimen/space_18"/>
             <TextView
                 android:id="@+id/chainName"
-                style="@style/font_ssm_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_6"
@@ -47,7 +47,7 @@
 
         <EditText
             android:id="@+id/user_inputs"
-            style="@style/font_ssm_12_black_daynight"
+            style="@style/font_rr_12_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_50"
             android:layout_marginLeft="@dimen/space_16"
@@ -92,7 +92,7 @@
                     android:src="@drawable/list_ic" />
 
                 <TextView
-                    style="@style/font_ss_9_black_daynight"
+                    style="@style/font_rr_9_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -116,7 +116,7 @@
                     android:src="@drawable/qr_ic" />
 
                 <TextView
-                    style="@style/font_ss_9_black_daynight"
+                    style="@style/font_rr_9_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -140,7 +140,7 @@
                     android:src="@drawable/copy_ic" />
 
                 <TextView
-                    style="@style/font_ss_9_black_daynight"
+                    style="@style/font_rr_9_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -168,7 +168,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button
@@ -179,7 +179,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_iov"
+            style="@style/font_rr_14_iov"
             android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>

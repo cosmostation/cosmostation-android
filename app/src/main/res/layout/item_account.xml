@@ -32,7 +32,7 @@
                 <!--android:layout_height="@dimen/space_60"-->
                 <!--android:layout_alignParentRight="true"-->
                 <!--android:padding="0dp"-->
-                <!--style="@style/font_ss_14_photon"-->
+                <!--style="@style/font_rr_14_photon"-->
                 <!--android:text="@string/str_detail"-->
                 <!--android:textAllCaps="false"-->
                 <!--android:background="@null"/>-->
@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:text="this is wallet"/>
                     <TextView
                         android:id="@+id/tv_chain"
@@ -72,7 +72,7 @@
                         android:layout_toRightOf="@+id/img_name"
                         android:layout_alignBaseline="@+id/img_name"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_9_gray1"
+                        style="@style/font_rr_9_gray1"
                         android:text="-"/>
                 </RelativeLayout>
                 <TextView
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
-                    style="@style/font_ss_9_gray1"
+                    style="@style/font_rr_9_gray1"
                     android:text="-"/>
             </LinearLayout>
         </RelativeLayout>

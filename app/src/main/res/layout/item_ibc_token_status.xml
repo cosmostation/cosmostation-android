@@ -53,7 +53,7 @@
 
                         <TextView
                             android:id="@+id/current_amount"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -81,7 +81,7 @@
 
                         <TextView
                             android:id="@+id/current_denom"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="@dimen/space_180"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -125,7 +125,7 @@
 
                         <TextView
                             android:id="@+id/across_chain"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -152,7 +152,7 @@
 
                         <TextView
                             android:id="@+id/across_denom"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="@dimen/space_180"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

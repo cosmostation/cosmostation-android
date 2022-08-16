@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:text="Earning Detail"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/pool_id"
-                        style="@style/font_ssm_17_black_daynight"
+                        style="@style/font_rr_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="MY EARNING #0"/>
@@ -66,7 +66,7 @@
                         android:layout_toRightOf="@+id/pool_id"
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="ATMO / OSMO"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -77,17 +77,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="APR (1, 7, 14 Day)"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <TextView
                         android:id="@+id/aprs14"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="140%" />
                     <TextView
                         android:id="@+id/aprs7"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/aprs14"
@@ -95,7 +95,7 @@
                         android:text="700%" />
                     <TextView
                         android:id="@+id/aprs1"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/aprs7"
@@ -117,10 +117,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Available"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <TextView
                         android:id="@+id/available_denom"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -131,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/available_denom"
                         android:layout_marginRight="@dimen/space_2"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:gravity="right"
                         android:text="-"/>
                     <TextView
@@ -140,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/available_amount"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:gravity="right"
                         android:text="-"/>
                 </RelativeLayout>
@@ -174,7 +174,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="Start New Earning"/>

@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/total_value"
-                style="@style/font_ss_21_black_daynight"
+                style="@style/font_rm_21_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_centerInParent="true"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:text="@string/str_no_history"/>
             </LinearLayout>
 
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:layout_centerInParent="true"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:text="Coming Soon!!"/>
         </RelativeLayout>
 

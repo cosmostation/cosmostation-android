@@ -24,14 +24,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:text="@string/str_lp_reward_title"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text="@string/str_lp_reward_msg"/>
 
 
@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_my_total_lp_reward"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="HARD"
-                        style="@style/font_ss_12_hard"/>
+                        style="@style/font_rr_12_hard"/>
                     <TextView
                         android:id="@+id/lp_reward_amount"
                         android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                         android:layout_toLeftOf="@+id/lp_reward_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 

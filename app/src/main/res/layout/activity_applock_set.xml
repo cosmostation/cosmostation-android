@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_app_applock" />
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="@string/str_using_applock"/>
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="@string/str_using_fingerprints"/>
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="@string/str_applock_time"/>
                 <ImageView
                     android:id="@+id/arrow_currency"
@@ -127,7 +127,7 @@
                     android:layout_toLeftOf="@+id/arrow_currency"
                     android:layout_marginRight="@dimen/space_4"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:text=""/>
             </RelativeLayout>
         </FrameLayout>

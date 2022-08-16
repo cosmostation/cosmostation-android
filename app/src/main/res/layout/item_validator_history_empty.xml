@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_6"
             android:singleLine="true"
-            style="@style/font_ss_11_gray1"
+            style="@style/font_rr_11_gray1"
             android:text="@string/str_no_history_with_this_validator"/>
     </LinearLayout>
 </RelativeLayout>

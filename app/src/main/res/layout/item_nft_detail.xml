@@ -43,7 +43,7 @@
 
                         <TextView
                             android:id="@+id/nft_name"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="name" />
@@ -56,7 +56,7 @@
 
                         <TextView
                             android:id="@+id/nft_content"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="content" />
@@ -78,7 +78,7 @@
 
                 <TextView
                     android:id="@+id/denom_id_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/space_30"
@@ -86,7 +86,7 @@
 
                 <TextView
                     android:id="@+id/denom_id"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
@@ -103,7 +103,7 @@
 
                 <TextView
                     android:id="@+id/token_id_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/space_30"
@@ -111,7 +111,7 @@
 
                 <TextView
                     android:id="@+id/token_id"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
@@ -128,7 +128,7 @@
 
                 <TextView
                     android:id="@+id/issuer_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/space_30"
@@ -136,7 +136,7 @@
 
                 <TextView
                     android:id="@+id/issuer"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"

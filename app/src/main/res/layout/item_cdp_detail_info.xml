@@ -74,7 +74,7 @@
 
                         <TextView
                             android:id="@+id/market_title"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/market_img"
@@ -107,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_min_collateral_rate"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
@@ -121,7 +121,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/collateral_rate_layer"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -142,7 +142,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_stability_fee"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
@@ -156,7 +156,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/stability_fee_layer"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -177,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_liquidation_penalty"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
@@ -191,7 +191,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/liquidation_penalty_layer"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/str_current_price"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/current_price"
                     android:layout_width="wrap_content"
@@ -221,7 +221,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/current_price_title"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -239,7 +239,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/str_liquidation_title1"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/liquidation_price"
                     android:layout_width="wrap_content"
@@ -247,7 +247,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/liquidation_price_title"
-                    style="@style/font_ssl_14_kava"
+                    style="@style/font_rr_14_kava"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -262,7 +262,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/str_max_global_debt"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/max_debt_amount"
                     android:layout_width="wrap_content"
@@ -270,7 +270,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/system_max_title"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -285,7 +285,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/str_remain_debt"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/remain_debt_amount"
                     android:layout_width="wrap_content"
@@ -293,7 +293,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/remain_title"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>

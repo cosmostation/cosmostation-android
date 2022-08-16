@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
-                style="@style/font_ss_17_black_daynight"
+                style="@style/font_rm_17_black_daynight"
                 android:text="@string/str_my_cdp_information"/>
         </LinearLayout>
 
@@ -51,14 +51,15 @@
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
                     android:src="@drawable/token_default"/>
+
                 <TextView
                     android:id="@+id/collateral_denom"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/collateral_icon"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:text="COIN"
-                    style="@style/font_ss_14_black_daynight"/>
+                    android:layout_toRightOf="@+id/collateral_icon"
+                    android:text="COIN" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -77,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_self_deposited_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
@@ -89,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -99,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text="-"/>
 
             <RelativeLayout
@@ -118,7 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_total_deposited_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
@@ -130,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -140,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text="-"/>
 
             <RelativeLayout
@@ -160,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_expected_withdrawable_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
@@ -172,7 +173,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -183,7 +184,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:gravity="right"
-            style="@style/font_ss_12_gray1"
+            style="@style/font_rr_12_gray1"
             android:text="-"/>
 
         <LinearLayout
@@ -209,7 +210,7 @@
                     android:drawableLeft="@drawable/deposit_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="@string/str_collateral_deposit" />
             </RelativeLayout>
 
@@ -230,7 +231,7 @@
                     android:drawableLeft="@drawable/withdraw_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="@string/str_collateral_withdraw" />
             </RelativeLayout>
         </LinearLayout>
@@ -255,7 +256,7 @@
                     android:layout_toRightOf="@+id/principal_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="USDX"
-                    style="@style/font_ss_14_black_daynight"/>
+                    style="@style/font_rr_14_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -274,7 +275,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_loaned_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
@@ -286,7 +287,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -296,7 +297,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text="-"/>
 
             <RelativeLayout
@@ -315,7 +316,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_cdp_total_fee"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
@@ -327,7 +328,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -337,7 +338,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text="-"/>
 
             <RelativeLayout
@@ -356,7 +357,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_expected_loanable_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <ImageView
                         android:layout_width="@dimen/space_14"
                         android:layout_height="@dimen/space_14"
@@ -368,7 +369,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -378,7 +379,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text="-"/>
         </LinearLayout>
 
@@ -404,7 +405,7 @@
                     android:drawableLeft="@drawable/drawdebt_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="@string/str_principal_drawdebt" />
             </RelativeLayout>
 
@@ -424,7 +425,7 @@
                     android:drawableLeft="@drawable/repaydebt_s_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="@string/str_principal_repay" />
             </RelativeLayout>
         </LinearLayout>
@@ -449,7 +450,7 @@
                     android:layout_toRightOf="@+id/kava_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="KAVA"
-                    style="@style/font_ss_14_kava"/>
+                    style="@style/font_rr_14_kava"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -460,13 +461,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_unclaimed_incentive"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/incentive_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -487,7 +488,7 @@
                 android:drawableLeft="@drawable/incentive_s_ic"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:text="@string/str_claim_incentive" />
         </RelativeLayout>
 

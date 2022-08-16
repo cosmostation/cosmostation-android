@@ -31,7 +31,7 @@
                     android:id="@+id/granter_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:text="Granter"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                     android:id="@+id/total_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="@string/str_total_amount"/>
 
                 <LinearLayout
@@ -89,13 +89,13 @@
                         android:id="@+id/granter_total_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_17_black_daynight"
+                        style="@style/font_rm_17_black_daynight"
                         android:gravity="end" />
                     <TextView
                         android:id="@+id/granter_total_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:gravity="end" />
                 </LinearLayout>
 
@@ -108,14 +108,14 @@
 
                 <TextView
                     android:id="@+id/available_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available" />
 
                 <TextView
                     android:id="@+id/granter_available"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -131,14 +131,14 @@
                 android:visibility="gone">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_vesting_amount" />
 
                 <TextView
                     android:id="@+id/granter_vesting"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -153,14 +153,14 @@
 
                 <TextView
                     android:id="@+id/delegate_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_delegated" />
 
                 <TextView
                     android:id="@+id/granter_delegate"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -175,14 +175,14 @@
 
                 <TextView
                     android:id="@+id/undelegate_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_unbonding" />
 
                 <TextView
                     android:id="@+id/granter_unbonding"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -197,14 +197,14 @@
 
                 <TextView
                     android:id="@+id/reward_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_reward" />
 
                 <TextView
                     android:id="@+id/granter_reward"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -221,14 +221,14 @@
 
                 <TextView
                     android:id="@+id/commission_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_commission" />
 
                 <TextView
                     android:id="@+id/granter_commission"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

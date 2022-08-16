@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_kava_incentive_reward2"
-                    style="@style/font_ss_17_black_daynight"/>
+                    style="@style/font_rm_17_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_sender"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_incentive_sender"
                     android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_denom_cdp"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_incentive_denom"
                     android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
 
             <LinearLayout
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_multiplier_name"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_multiplier_name"
                     android:layout_width="match_parent"
@@ -100,7 +100,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:singleLine="true"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -48,13 +48,13 @@
                         android:id="@+id/title_guide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ssm_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:text="@string/str_front_guide_title_cosmos"/>
                     <TextView
                         android:id="@+id/msg_guide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:text="@string/str_front_guide_msg_cosmos"/>
                 </LinearLayout>
             </LinearLayout>
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="@dimen/space_44"
                         android:background="?android:attr/selectableItemBackground"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:text="HOME"/>
                     <Button
                         android:id="@+id/btn_guide2"
@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="@dimen/space_44"
                         android:background="?android:attr/selectableItemBackground"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:text="BLOG"/>
                 </LinearLayout>
             </LinearLayout>

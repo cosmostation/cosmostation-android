@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_wallet_connect"
@@ -45,7 +45,7 @@
 
                     <TextView
                         android:id="@+id/dapp_title"
-                        style="@style/font_ssm_17_black_daynight"
+                        style="@style/font_rr_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_wc_dapp_title" />
@@ -61,7 +61,7 @@
 
                     <TextView
                         android:id="@+id/wc_state"
-                        style="@style/font_ss_10_gray5"
+                        style="@style/font_rr_10_gray5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
@@ -71,7 +71,7 @@
 
                 <TextView
                     android:id="@+id/wc_peer"
-                    style="@style/font_ss_10_gray5"
+                    style="@style/font_rr_10_gray5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="https://" />
@@ -132,7 +132,7 @@
 
                 <TextView
                     android:id="@+id/wc_name"
-                    style="@style/font_ss_15_black_daynight"
+                    style="@style/font_rr_15_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_16"
@@ -148,7 +148,7 @@
                     android:background="@color/colorGrayDayNight" />
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_14"
@@ -156,14 +156,14 @@
 
                 <TextView
                     android:id="@+id/wc_url"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:text="" />
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_14"
@@ -171,7 +171,7 @@
 
                 <TextView
                     android:id="@+id/wc_address"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -220,7 +220,7 @@
         android:visibility="gone">
 
         <TextView
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -230,7 +230,7 @@
 
     <Button
         android:id="@+id/btn_disconnect"
-        style="@style/font_ss_14_photon"
+        style="@style/font_rr_14_photon"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
         android:layout_alignParentBottom="true"

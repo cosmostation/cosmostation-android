@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/wallet_name"
-            style="@style/font_ss_17_gray8"
+            style="@style/font_rr_17_gray8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
@@ -53,7 +53,7 @@
 
             <Button
                 android:id="@+id/btn_nega"
-                style="@style/font_ss_14_black"
+                style="@style/font_rr_14_black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -68,7 +68,7 @@
 
             <Button
                 android:id="@+id/btn_posi"
-                style="@style/font_ss_14_black"
+                style="@style/font_rr_14_black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

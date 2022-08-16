@@ -53,7 +53,7 @@
                             android:layout_marginLeft="@dimen/space_8"
                             android:singleLine="true"
                             android:maxLines="1"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:ellipsize="end"/>
                     </LinearLayout>
                 </RelativeLayout>
@@ -76,14 +76,14 @@
 
                         <TextView
                             android:id="@+id/proposal_status"
-                            style="@style/font_ss_11_black_daynight"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_6"/>
 
                         <TextView
                             android:id="@+id/proposal_deadline"
-                            style="@style/font_ss_11_gray1"
+                            style="@style/font_rr_11_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_6"

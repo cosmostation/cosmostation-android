@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10"
-                style="@style/font_ssm_15_black_daynight"
+                style="@style/font_rr_15_black_daynight"
                 android:text="@string/str_starname_domain_promotion_title"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                 android:layout_marginBottom="@dimen/space_16"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16"
-                style="@style/font_ss_11_gray1"
+                style="@style/font_rr_11_gray1"
                 android:text="@string/str_starname_domain_promotion_msg"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

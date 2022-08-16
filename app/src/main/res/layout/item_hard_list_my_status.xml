@@ -36,7 +36,7 @@
                     android:src="@drawable/cdp_ic" />
 
                 <TextView
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -50,14 +50,14 @@
 
                 <TextView
                     android:id="@+id/total_deposit_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_deposit_value" />
 
                 <TextView
                     android:id="@+id/total_deposit_value"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/total_deposit_title"
@@ -74,14 +74,14 @@
 
                 <TextView
                     android:id="@+id/total_borrow_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_ltv_value" />
 
                 <TextView
                     android:id="@+id/total_borrow_value"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/total_borrow_title"
@@ -104,14 +104,14 @@
 
                 <TextView
                     android:id="@+id/ltv_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_borrowed_value" />
 
                 <TextView
                     android:id="@+id/ltv_value"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/ltv_title"
@@ -128,14 +128,14 @@
 
                 <TextView
                     android:id="@+id/borrowable_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_borrow_limit_value" />
 
                 <TextView
                     android:id="@+id/borrowable_value"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/borrowable_title"

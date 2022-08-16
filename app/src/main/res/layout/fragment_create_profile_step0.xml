@@ -39,7 +39,7 @@
                         android:layout_margin="1dp"
                         android:layout_gravity="center"
                         android:drawableTop="@drawable/icon_addimage"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:padding="@dimen/space_12"
                         android:text="Add Image"/>
                     <LinearLayout
@@ -99,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
                     android:background="@drawable/edittext_box"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_marginLeft="@dimen/space_16"
                     android:layout_marginRight="@dimen/space_16" />
@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
                     android:background="@drawable/edittext_box"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_marginLeft="@dimen/space_16"
                     android:layout_marginRight="@dimen/space_16" />
@@ -131,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_100"
                     android:background="@drawable/edittext_box"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_marginLeft="@dimen/space_16"
                     android:layout_marginRight="@dimen/space_16"
@@ -158,7 +158,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button
@@ -169,7 +169,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>

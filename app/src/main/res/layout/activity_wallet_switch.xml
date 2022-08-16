@@ -35,7 +35,7 @@
                     android:src="@drawable/close_btn" />
 
                 <TextView
-                    style="@style/font_ssm_17_black_daynight"
+                    style="@style/font_rr_17_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

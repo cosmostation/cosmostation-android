@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_2"
-                style="@style/font_ss_21_black_daynight"
+                style="@style/font_rm_21_black_daynight"
                 android:singleLine="true"
                 android:text="0.000"
                 android:gravity="center_horizontal"/>
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
                     android:layout_centerInParent="true"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:text="@string/str_no_coin"/>
             </LinearLayout>
 

@@ -30,14 +30,14 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_tx_delegated_amount" />
 
                 <TextView
                     android:id="@+id/validator_delegated"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -51,7 +51,7 @@
                 android:layout_marginTop="@dimen/space_6">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/validator_unbonding"
@@ -59,7 +59,7 @@
 
                 <TextView
                     android:id="@+id/validator_unbonding"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -74,7 +74,7 @@
 
                 <Button
                     android:id="@+id/validator_btn_delegate"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_40"
                     android:layout_marginRight="@dimen/space_4"
@@ -85,7 +85,7 @@
 
                 <Button
                     android:id="@+id/validator_btn_undelegate"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_40"
                     android:layout_marginLeft="@dimen/space_4"
@@ -97,7 +97,7 @@
 
                 <Button
                     android:id="@+id/validator_btn_redelegate"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_40"
                     android:layout_marginLeft="@dimen/space_4"
@@ -120,14 +120,14 @@
                 android:layout_marginTop="@dimen/space_12">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_reward" />
 
                 <TextView
                     android:id="@+id/validator_simple_reward"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -141,14 +141,14 @@
                 android:layout_marginTop="@dimen/space_6">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_daily_return" />
 
                 <TextView
                     android:id="@+id/validator_daily_return"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -161,14 +161,14 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_monthly_return" />
 
                 <TextView
                     android:id="@+id/validator_monthly_return"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -185,7 +185,7 @@
 
                 <TextView
                     android:id="@+id/action_atom_title"
-                    style="@style/font_ss_10_atom"
+                    style="@style/font_rr_10_atom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/validator_atom_reward"
@@ -194,7 +194,7 @@
 
                 <TextView
                     android:id="@+id/validator_atom_reward"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -211,7 +211,7 @@
 
                 <TextView
                     android:id="@+id/action_photon_title"
-                    style="@style/font_ss_10_photon"
+                    style="@style/font_rr_10_photon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/validator_photon_reward"
@@ -220,7 +220,7 @@
 
                 <TextView
                     android:id="@+id/validator_photon_reward"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -235,7 +235,7 @@
 
                 <Button
                     android:id="@+id/validator_btn_claim_reward"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_40"
                     android:layout_marginTop="@dimen/space_12"
@@ -247,7 +247,7 @@
 
                 <Button
                     android:id="@+id/validator_btn_reinvest"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_40"
                     android:layout_marginLeft="@dimen/space_4"

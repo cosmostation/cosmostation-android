@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/dialog_title"
-            style="@style/font_ss_17_black_daynight"
+            style="@style/font_rm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_24"
@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/dialog_msg"
-            style="@style/font_ss_12_black_daynight"
+            style="@style/font_rr_12_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_24"
@@ -52,7 +52,7 @@
 
             <Button
                 android:id="@+id/btn_left"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -69,11 +69,11 @@
 
             <Button
                 android:id="@+id/btn_right"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorWhite2DayNight"
+                android:background="@color/colorTrans"
                 android:textAllCaps="false"
                 android:visibility="gone"
                 tools:text="Button Title" />

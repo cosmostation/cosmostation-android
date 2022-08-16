@@ -33,8 +33,8 @@
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
-    <style name="font_ss_9_gray1" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_9_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
@@ -45,8 +45,8 @@
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
-    <style name="font_ss_9_photon" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_9_photon" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorPhoton</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
@@ -117,8 +117,8 @@
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
-    <style name="font_ss_9_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_9_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
@@ -142,14 +142,14 @@
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
 
-    <style name="font_ss_10_atom" parent="@android:style/TextAppearance">
+    <style name="font_rr_10_atom" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
 
-    <style name="font_ss_10_photon" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_10_photon" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorPhoton</item>
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
@@ -166,8 +166,8 @@
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
 
-    <style name="font_ss_10_gray1" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-light</item>
+    <style name="font_rr_10_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
@@ -178,8 +178,8 @@
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
 
-    <style name="font_ss_10_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_10_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
@@ -197,9 +197,15 @@
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
-    <style name="font_ss_11_gray1" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_11_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/text_size_11</item>
+    </style>
+
+    <style name="font_rr_11_gray_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/colorGrayDayNight</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
@@ -209,26 +215,26 @@
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
-    <style name="font_ss_11_atom" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_11_atom" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
-    <style name="font_ss_11_photon" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_11_photon" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorPhoton</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
-    <style name="font_ss_11_red" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_11_red" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorRed</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
 
-    <style name="font_ss_11_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_11_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_11</item>
     </style>
@@ -270,8 +276,8 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_gray1" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
@@ -288,8 +294,8 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ssl_12_iov" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-light</item>
+    <style name="font_rr_12_iov" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_starname</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
@@ -300,32 +306,32 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_hard" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_hard" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_hard</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_osmo" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_osmo" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_osmosis</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_gray6" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_gray6" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorGray6</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_10_gray5" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_10_gray5" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorGray5</item>
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
 
-    <style name="font_ss_12_atom" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_atom" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
@@ -336,32 +342,32 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_red" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_red" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorRed</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_iris" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_iris" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_iris</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_kava" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_kava</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_rizon" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_rizon" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_rizon</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_ok" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_ok" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_okc</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
@@ -378,8 +384,8 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-    <style name="font_ss_12_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_12_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
@@ -427,8 +433,8 @@
     </style>
 
 
-    <style name="font_ss_14_white" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_white" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -458,8 +464,8 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_black" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_black" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -470,14 +476,14 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_atom" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_atom" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_cosmos</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_photon" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_photon" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorPhoton</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -488,20 +494,20 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_bnb" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_bnb" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_binance</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_iov" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_iov" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_starname</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_kava" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_kava</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -512,8 +518,8 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_hard" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_hard" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_hard</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -524,8 +530,8 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_ok" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_ok" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_okc</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -752,12 +758,6 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ssl_14_photon" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/colorPhoton</item>
-        <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
-
     <style name="font_ss_14_gray8" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray8</item>
@@ -813,26 +813,26 @@
     </style>
 
 
-    <style name="font_ss_14_vote_yes" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_vote_yes" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorVoteYes</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_vote_no" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_vote_no" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorVoteNo</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_vote_veto" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_vote_veto" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorVoteVeto</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_vote_abstain" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_vote_abstain" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorVoteAbstain</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -849,8 +849,8 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_14_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -898,8 +898,8 @@
         <item name="android:textSize">@dimen/text_size_15</item>
     </style>
 
-    <style name="font_ss_15_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_15_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_15</item>
     </style>
@@ -936,8 +936,8 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
-    <style name="font_ss_17_gray8" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_17_gray8" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorGray8</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
@@ -960,8 +960,8 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
-    <style name="font_ss_17_gray1" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rr_17_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
@@ -978,8 +978,8 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
-    <style name="font_ssm_17_kava" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-medium</item>
+    <style name="font_rr_17_kava" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_kava</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
@@ -990,14 +990,14 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
-    <style name="font_ssm_17_osmosis" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-medium</item>
+    <style name="font_rr_17_osmosis" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_osmosis</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
-    <style name="font_ssm_17_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-medium</item>
+    <style name="font_rr_17_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
@@ -1008,8 +1008,8 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
-    <style name="font_ss_17_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="font_rm_17_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
@@ -1027,8 +1027,8 @@
         <item name="android:textSize">@dimen/text_size_21</item>
     </style>
 
-    <style name="font_ss_21_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-medium</item>
+    <style name="font_rm_21_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_21</item>
     </style>
@@ -1045,8 +1045,8 @@
         <item name="android:textSize">@dimen/text_size_24</item>
     </style>
 
-    <style name="font_ssm_24_black_daynight" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-medium</item>
+    <style name="font_rr_24_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_24</item>
     </style>
@@ -1076,13 +1076,13 @@
     </style>
 
 
-    <style name="font_ssm_keyboard_white" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif-light</item>
+    <style name="font_rr_keyboard_white" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_33</item>
     </style>
 
-    <style name="font_ssm_17_keyboard" parent="@android:style/TextAppearance">
+    <style name="font_rr_17_keyboard" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_17</item>

@@ -24,6 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_4"
         android:layout_centerVertical="true"
-        style="@style/font_ss_11_gray1"
+        style="@style/font_rr_11_gray1"
         android:text="@string/str_only_address"/>
 </LinearLayout>

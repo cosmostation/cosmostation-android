@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/font_ss_17_black_daynight"
+            style="@style/font_rm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
@@ -34,7 +34,7 @@
 
                 <TextView
                     android:id="@+id/wc_raw_data"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_40"
@@ -72,7 +72,7 @@
 
             <Button
                 android:id="@+id/btn_posi"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

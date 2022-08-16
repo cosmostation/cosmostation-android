@@ -35,7 +35,7 @@
                     android:layout_toRightOf="@+id/bnb_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="BNB"
-                    style="@style/font_ss_14_bnb"/>
+                    style="@style/font_rr_14_bnb"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_black_daynight"/>
+                        style="@style/font_rr_17_black_daynight"/>
                     <TextView
                         android:id="@+id/bnb_value"
                         android:layout_width="wrap_content"
@@ -69,21 +69,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12">
+
                 <TextView
                     android:id="@+id/available_title"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_available"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_available" />
+
                 <TextView
                     android:id="@+id/bnb_available"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/available_title"
                     android:gravity="end"
-                    android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -95,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_locked"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/bnb_locked"
                     android:layout_width="wrap_content"
@@ -104,7 +106,7 @@
                     android:layout_toRightOf="@+id/lock_title"
                     android:gravity="end"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -116,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_frozen"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/bnb_frozen"
                     android:layout_width="wrap_content"
@@ -125,7 +127,7 @@
                     android:layout_toRightOf="@+id/frozen_title"
                     android:gravity="end"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -143,7 +145,7 @@
                     android:clickable="true">
 
                     <TextView
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -164,7 +166,7 @@
                     android:clickable="true">
 
                     <TextView
-                        style="@style/font_ss_11_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
