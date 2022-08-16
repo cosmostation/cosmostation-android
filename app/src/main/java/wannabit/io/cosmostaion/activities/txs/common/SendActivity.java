@@ -1,10 +1,12 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,16 +18,28 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.binance.dex.api.client.BinanceDexApiClientFactory;
+import com.binance.dex.api.client.BinanceDexApiRestClient;
+import com.binance.dex.api.client.BinanceDexEnvironment;
+import com.binance.dex.api.client.Wallet;
+import com.binance.dex.api.client.domain.TransactionMetadata;
+import com.binance.dex.api.client.domain.broadcast.TransactionOption;
+import com.binance.dex.api.client.domain.broadcast.Transfer;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
@@ -34,6 +48,10 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep4Fragment;
+import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
 
 public class SendActivity extends BaseBroadCastActivity {
 
@@ -156,8 +174,7 @@ public class SendActivity extends BaseBroadCastActivity {
 
     public void onStartSend() {
         if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSendReq(getAuthResponse(mBaseChain, mAccount), mToAddress, mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+            onAutoStartSend();
 
         } else {
             Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
@@ -168,6 +185,73 @@ public class SendActivity extends BaseBroadCastActivity {
             intent.putExtra("fee", mTxFee);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    private void onAutoStartSend() {
+        if (isGRPC(mBaseChain)) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSendReq(getAuthResponse(mBaseChain, mAccount), mToAddress, mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else if (mBaseChain.equals(BNB_MAIN)) {
+            new Thread(() -> {
+                try {
+                    Wallet wallet = new Wallet(getEcKey(mAccount).getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
+                    wallet.setAccountNumber(mAccount.accountNumber);
+                    wallet.setSequence(Long.valueOf(mAccount.sequenceNumber));
+
+                    Transfer transfer = new Transfer();
+                    transfer.setCoin(mAmounts.get(0).denom);
+                    transfer.setFromAddress(mAccount.address);
+                    transfer.setToAddress(mToAddress);
+                    transfer.setAmount(mAmounts.get(0).amount);
+
+                    TransactionOption options = new TransactionOption(mTxMemo, 82, null);
+
+                    BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
+                    List<TransactionMetadata> resp = client.transfer(transfer, wallet, options, true);
+
+                    if (resp.get(0).isOk()) {
+                        Intent txIntent = new Intent(SendActivity.this, TxDetailActivity.class);
+                        txIntent.putExtra("isGen", true);
+                        txIntent.putExtra("isSuccess", true);
+                        txIntent.putExtra("errorCode",  resp.get(0).getCode());
+                        txIntent.putExtra("errorMsg", resp.get(0).getLog());
+                        String hash = resp.get(0).getHash();
+                        if (!TextUtils.isEmpty(hash))
+                            txIntent.putExtra("txHash", hash);
+                        startActivity(txIntent);
+                    }
+                } catch (Exception e) { }
+            }).start();
+
+        } else {
+            new Thread(() -> {
+                try {
+                    Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mAmounts, mBaseChain);
+                    ArrayList<Msg> msgs= new ArrayList<>();
+                    msgs.add(singleSendMsg);
+
+                    ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainId());
+                    Response<ResBroadTx> response = ApiClient.getOkexChain().broadTx(reqBroadCast).execute();
+
+                    if (response.isSuccessful() && response.body() != null) {
+                        Intent txIntent = new Intent(SendActivity.this, TxDetailActivity.class);
+                        if (response.body().txhash != null) {
+                            String hash = response.body().txhash;
+                            if (!TextUtils.isEmpty(hash))
+                                txIntent.putExtra("txHash", hash);
+                        }
+                        if (response.body().code != null) {
+                            txIntent.putExtra("errorCode", response.body().code);
+                            txIntent.putExtra("errorMsg", response.body().raw_log);
+                        }
+                        txIntent.putExtra("isGen", true);
+                        txIntent.putExtra("isSuccess", true);
+                        startActivity(txIntent);
+                    }
+                } catch (Exception e) { }
+            }).start();
         }
     }
 

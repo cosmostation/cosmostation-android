@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +20,25 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKStakingFragmentStep0;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKStakingFragmentStep3;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
 
 public class OKStakingActivity extends BaseBroadCastActivity {
     private RelativeLayout mRootView;
@@ -138,13 +146,48 @@ public class OKStakingActivity extends BaseBroadCastActivity {
     }
 
     public void onStartDeposit() {
-        Intent intent = new Intent(OKStakingActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("stakeAmount", mToDepositCoin);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            onAutoPassMode();
+
+        } else {
+            Intent intent = new Intent(OKStakingActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("stakeAmount", mToDepositCoin);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    private void onAutoPassMode() {
+        new Thread(() -> {
+            try {
+                Msg depositMsg = MsgGenerator.genOkDeposit(mAccount.address, mToDepositCoin);
+                ArrayList<Msg> msgs= new ArrayList<>();
+                msgs.add(depositMsg);
+
+                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainId());
+                Response<ResBroadTx> response = ApiClient.getOkexChain().broadTx(reqBroadCast).execute();
+
+                if (response.isSuccessful() && response.body() != null) {
+                    Intent txIntent = new Intent(OKStakingActivity.this, TxDetailActivity.class);
+                    if (response.body().txhash != null) {
+                        String hash = response.body().txhash;
+                        if (!TextUtils.isEmpty(hash))
+                            txIntent.putExtra("txHash", hash);
+                    }
+                    if (response.body().code != null) {
+                        txIntent.putExtra("errorCode", response.body().code);
+                        txIntent.putExtra("errorMsg", response.body().raw_log);
+                    }
+                    txIntent.putExtra("isGen", true);
+                    txIntent.putExtra("isSuccess", true);
+                    startActivity(txIntent);
+                }
+
+            } catch (Exception e) { }
+        }).start();
     }
 
     private class StakeDepositPageAdapter extends FragmentPagerAdapter {
@@ -156,7 +199,7 @@ public class OKStakingActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(OKStakingFragmentStep0.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(OKStakingFragmentStep3.newInstance());
         }
