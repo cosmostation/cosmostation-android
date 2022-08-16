@@ -628,6 +628,11 @@ public class ConnectWalletActivity extends BaseActivity {
         if (!hasAccount(chains.get(index))) {
             onShowAccountDialog(id, chains, selectedAccounts, index + 1);
             return;
+        } else if (chainAccountMap.containsKey(WDp.getChainTypeByChainId(chains.get(index)).getChain())) {
+            Account account = chainAccountMap.get(WDp.getChainTypeByChainId(chains.get(index)).getChain());
+            selectedAccounts.add(account);
+            onShowAccountDialog(id, chains, selectedAccounts, index + 1);
+            return;
         }
 
         Bundle bundle = new Bundle();
