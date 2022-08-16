@@ -1088,7 +1088,7 @@
     <string name="str_change_reward_address_step_1">Insert memo (optional)</string>
     <string name="str_change_reward_address_step_2">Select transaction fee</string>
     <string name="str_change_reward_address_step_3">Check transaction detail</string>
-    <string name="str_reinvest_step_0">Check reward for Compounding</string>
+    <string name="str_reinvest_step_0">Check reward amount for compounding</string>
     <string name="str_reinvest_step_1">Insert memo (optional)</string>
     <string name="str_reinvest_step_2">Select transaction fee</string>
     <string name="str_reinvest_step_3">Check transaction detail</string>
@@ -1765,7 +1765,7 @@
     <string name="error_no_to_validator">Please select validator to redelegate.</string>
     <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>
     <string name="error_max_account_over">Max account is 5.</string>
-    <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can compounding feature after reset your reward address to self.</string>
+    <string name="error_reward_address_changed_msg">This account has changed its Reward Recipient Address. \n To use the Compounding feature, please reset your Reward Recipient Address.</string>
     <string name="error_no_password">PIN number not set</string>
     <string name="error_invalid_address_target">Invalid Address.</string>
     <string name="error_invalid_star_name">Invalid Start Name.</string>
