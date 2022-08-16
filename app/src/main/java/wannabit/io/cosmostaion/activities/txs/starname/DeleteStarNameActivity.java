@@ -22,12 +22,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.DeleteStarName0Fragment;
@@ -169,18 +171,27 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
     }
 
     public void onDeleteStarName() {
-        Intent intent = new Intent(DeleteStarNameActivity.this, PasswordCheckActivity.class);
-        if (mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
-            intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_DELETE_DOMAIN);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
+            if (mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
+                broadcastTxRequest = Signer.getGrpcDeleteDomainReq(getAuthResponse(mBaseChain, mAccount), mStarNameDomain, mAccount.address,
+                        mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            } else {
+                broadcastTxRequest = Signer.getGrpcDeleteAccountReq(getAuthResponse(mBaseChain, mAccount), mStarNameDomain, mStarNameAccount, mAccount.address,
+                        mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            }
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
         } else {
-            intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_DELETE_ACCOUNT);
+            Intent intent = new Intent(DeleteStarNameActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("domain", mStarNameDomain);
+            intent.putExtra("name", mStarNameAccount);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
-        intent.putExtra("domain", mStarNameDomain);
-        intent.putExtra("name", mStarNameAccount);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class DeleteStarNamePageAdapter extends FragmentPagerAdapter {
@@ -192,8 +203,8 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(DeleteStarName0Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(DeleteStarName3Fragment.newInstance());
         }
 

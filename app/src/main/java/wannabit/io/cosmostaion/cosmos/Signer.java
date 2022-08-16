@@ -356,17 +356,17 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcSwapInReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, String inputDenom, String inputAmount, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth, getSwapInMsg(auth, swapRoute, inputDenom, inputAmount, outputAmount), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcSwapInReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getSwapInMsg(auth, swapRoute, swapInputCoin, outputAmount), fee, memo, pKey, chainId);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcSwapInSimulateReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, String inputDenom, String inputAmount, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getSwapInMsg(auth, swapRoute, inputDenom, inputAmount, outputAmount), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.SimulateRequest getGrpcSwapInSimulateReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getSwapInMsg(auth, swapRoute, swapInputCoin, outputAmount), fee, memo, pKey, chainId);
     }
 
-    public static ArrayList<Any> getSwapInMsg(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, String inputDenom, String inputAmount, String outputAmount) {
+    public static ArrayList<Any> getSwapInMsg(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(inputDenom).setAmount(inputAmount).build();
+        CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(swapInputCoin.denom).setAmount(swapInputCoin.amount).build();
         osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn msgSwapExactAmountIn = osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.newBuilder().setSender((String) onParseAuthGrpc(auth).get(0)).addRoutes(swapRoute).setTokenIn(inputCoin).setTokenOutMinAmount(outputAmount).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgSwapExactAmountIn").setValue(msgSwapExactAmountIn.toByteString()).build());
         return msgAnys;
