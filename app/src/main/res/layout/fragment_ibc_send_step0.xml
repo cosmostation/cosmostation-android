@@ -51,7 +51,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toRightOf="@+id/img_from_chain"
-                        android:text="Cosmos" />
+                        tools:text="Cosmos" />
                 </RelativeLayout>
             </LinearLayout>
 
