@@ -55,6 +55,7 @@
     <color name="colorTransBgAssetmantle">#382c0f</color>
     <color name="colorTransBgStation">#012f31</color>
     <color name="colorTransBgNyx">#401b16</color>
+    <color name="colorTransBgPassage">#17293f</color>
 
     <color name="colorWhiteDayNight">#000000</color>
     <color name="colorWhite2DayNight">#232428</color>

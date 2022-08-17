@@ -125,6 +125,9 @@ public class ChainFactory {
                 case OSMOSIS_MAIN:
                     return new Osmosis();
 
+                case PASSAGE_MAIN:
+                    return new Passage();
+
                 case PERSIS_MAIN:
                     return new Persistence();
 

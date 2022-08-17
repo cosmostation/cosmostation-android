@@ -576,6 +576,7 @@
     <string name="str_front_guide_title_assetmantle"><![CDATA[ASSETMANTLE]]></string>
     <string name="str_front_guide_title_station"><![CDATA[STATION]]></string>
     <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
+    <string name="str_front_guide_title_passage"><![CDATA[PASSAGE]]></string>
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_binance">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -620,6 +621,7 @@
     <string name="str_front_guide_msg_assetmantle"><![CDATA[AssetMantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
     <string name="str_front_guide_msg_station"><![CDATA[Station Test]]></string>
     <string name="str_front_guide_msg_nyx"><![CDATA[Nyx is a decentralized and incentivized infrastructure providing next generation privacy infrastructure.]]></string>
+    <string name="str_front_guide_msg_passage"><![CDATA[Passage is building a virtual 3D world/metaverse that is mainly powered by Unreal Engine 5, Akash and IBC.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
