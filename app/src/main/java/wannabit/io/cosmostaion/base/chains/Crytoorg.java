@@ -43,7 +43,7 @@ public class Crytoorg extends ChainConfig {
     public String validatorPrefix() { return "crocncl"; }
 
     public boolean pushSupport() { return false; }
-    public boolean dexSupport() { return true; }
+    public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "lcd-cryptocom-app.cosmostation.io"; }
