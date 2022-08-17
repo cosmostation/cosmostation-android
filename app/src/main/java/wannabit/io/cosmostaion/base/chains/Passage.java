@@ -36,7 +36,7 @@ public class Passage extends ChainConfig {
     public String grpcUrl() { return "lcd-passage-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-passage.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("5.8630"); }
+    public BigDecimal blockTime() { return new BigDecimal("5.8680"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "passage/"; }
     public String monikerUrl() { return MONIKER_URL + "passage/"; }
     public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "passage/relay-passage-unknown.png"; }
@@ -45,7 +45,7 @@ public class Passage extends ChainConfig {
     public String coingeckoLink() { return  ""; }
 
     public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0upasg");
+        return Lists.newArrayList("0.0upasg");
     }
 
     public ArrayList<String> supportHdPaths() {
