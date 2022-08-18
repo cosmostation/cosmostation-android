@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    style="@style/font_ss_17_black_daynight"
+                    style="@style/font_rm_17_black_daynight"
                     android:text="@string/str_my_available_assets"/>
             </LinearLayout>
 
@@ -60,7 +60,7 @@
                     android:layout_toRightOf="@+id/collateral_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="COIN"
-                    style="@style/font_ss_14_black_daynight"/>
+                    style="@style/font_rr_14_black_daynight"/>
                 <TextView
                     android:id="@+id/collateral_amount"
                     android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_14_black_daynight"/>
+                    style="@style/font_rr_14_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:text="@string/str_approximate_value"
                         android:visibility="gone"/>
                     <TextView
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -112,7 +112,7 @@
                     android:layout_toRightOf="@+id/kava_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="KAVA"
-                    style="@style/font_ss_14_kava"/>
+                    style="@style/font_rr_14_kava"/>
                 <TextView
                     android:id="@+id/kava_amount"
                     android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_14_black_daynight"/>
+                    style="@style/font_rr_14_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:text="@string/str_approximate_value"
                         android:visibility="gone"/>
                     <TextView
@@ -143,7 +143,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>

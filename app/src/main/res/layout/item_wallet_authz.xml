@@ -44,7 +44,7 @@
                         android:src="@drawable/manage_authz_for_transactions" />
 
                     <TextView
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
@@ -60,7 +60,7 @@
                         android:minHeight="@dimen/space_40">
 
                         <TextView
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"

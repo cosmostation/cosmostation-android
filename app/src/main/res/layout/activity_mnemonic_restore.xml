@@ -23,14 +23,14 @@
 
             <TextView
                 android:id="@+id/toolbar_title"
-                style="@style/font_ssm_17_black_daynight"
+                style="@style/font_rr_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_import" />
 
             <TextView
                 android:id="@+id/toolbar_clear"
-                style="@style/font_ssm_17_black_daynight"
+                style="@style/font_rr_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -71,7 +71,7 @@
 
                     <TextView
                         android:id="@+id/words_title"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_14_atom"
+                        style="@style/font_rr_14_atom"
                         android:singleLine="true"
                         android:text="12 words"/>
                     <TextView
@@ -89,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/words_title"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:singleLine="true"
                         android:text="@string/str_mnemonic_msg"/>
                 </RelativeLayout>
@@ -121,7 +121,7 @@
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_0"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
@@ -136,7 +136,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="01 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -152,7 +152,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -163,7 +163,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="02 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -179,7 +179,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -190,7 +190,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="03 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -206,7 +206,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -217,7 +217,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="04 :"/>
                         </RelativeLayout>
                     </LinearLayout>
@@ -236,7 +236,7 @@
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_4"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
@@ -251,7 +251,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="05 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -267,7 +267,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -278,7 +278,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="06 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -294,7 +294,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -305,7 +305,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="07 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -321,7 +321,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -332,7 +332,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="08 :"/>
                         </RelativeLayout>
                     </LinearLayout>
@@ -354,7 +354,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -365,7 +365,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="09 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -378,7 +378,7 @@
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_9"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
@@ -393,7 +393,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="10 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -409,7 +409,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -420,7 +420,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="11 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -436,7 +436,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -447,7 +447,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="12 :"/>
                         </RelativeLayout>
                     </LinearLayout>
@@ -469,7 +469,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -480,7 +480,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="13 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -496,7 +496,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -507,7 +507,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="14 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -523,7 +523,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -534,7 +534,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="15 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -550,7 +550,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -561,7 +561,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="16 :"/>
                         </RelativeLayout>
                     </LinearLayout>
@@ -580,7 +580,7 @@
 
                             <EditText
                                 android:id="@+id/tv_mnemonic_16"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
@@ -595,7 +595,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="17 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -611,7 +611,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -622,7 +622,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="18 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -638,7 +638,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -649,7 +649,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="19 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -665,7 +665,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -676,7 +676,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="20 :"/>
                         </RelativeLayout>
                     </LinearLayout>
@@ -699,7 +699,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -710,7 +710,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="21 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -726,7 +726,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -737,7 +737,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="22 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -753,7 +753,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -764,7 +764,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="23 :"/>
                         </RelativeLayout>
                         <RelativeLayout
@@ -780,7 +780,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_centerVertical="true"
                                 android:background="@drawable/edittext_mnemonic"
-                                style="@style/font_ss_11_black_daynight"
+                                style="@style/font_rr_11_black_daynight"
                                 android:paddingLeft="@dimen/space_28"
                                 android:inputType="none"
                                 android:singleLine="true"
@@ -791,7 +791,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_8"
                                 android:layout_centerVertical="true"
-                                style="@style/font_ss_10_gray1"
+                                style="@style/font_rr_10_gray1"
                                 android:text="24 :"/>
                         </RelativeLayout>
                     </LinearLayout>
@@ -828,7 +828,7 @@
                     android:layout_weight="1"
                     android:minHeight="@dimen/space_45"
                     android:background="@drawable/btn_square_with_border"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:textAllCaps="false"
                     android:text="@string/str_paste"/>
                 <Button
@@ -838,7 +838,7 @@
                     android:layout_weight="1"
                     android:minHeight="@dimen/space_45"
                     android:background="@drawable/btn_square_with_border"
-                    style="@style/font_ss_14_photon"
+                    style="@style/font_rr_14_photon"
                     android:textAllCaps="false"
                     android:text="@string/str_confirm"/>
             </LinearLayout>
@@ -856,7 +856,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="q" />
                 <Button
@@ -866,7 +866,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="w" />
                 <Button
@@ -876,7 +876,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="e" />
                 <Button
@@ -886,7 +886,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="r" />
                 <Button
@@ -896,7 +896,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="t" />
                 <Button
@@ -906,7 +906,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="y" />
                 <Button
@@ -916,7 +916,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="u" />
                 <Button
@@ -926,7 +926,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="i" />
                 <Button
@@ -936,7 +936,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="o" />
                 <Button
@@ -946,7 +946,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="p" />
             </LinearLayout>
@@ -964,7 +964,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="a" />
                 <Button
@@ -974,7 +974,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="s" />
                 <Button
@@ -984,7 +984,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="d" />
                 <Button
@@ -994,7 +994,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="f" />
                 <Button
@@ -1004,7 +1004,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="g" />
                 <Button
@@ -1014,7 +1014,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="h" />
                 <Button
@@ -1024,7 +1024,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="j" />
                 <Button
@@ -1034,7 +1034,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="k" />
                 <Button
@@ -1044,7 +1044,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="l" />
             </LinearLayout>
@@ -1062,7 +1062,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="z" />
                 <Button
@@ -1072,7 +1072,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="x" />
                 <Button
@@ -1082,7 +1082,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="c" />
                 <Button
@@ -1092,7 +1092,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="v" />
                 <Button
@@ -1102,7 +1102,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="b" />
                 <Button
@@ -1112,7 +1112,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="n" />
                 <Button
@@ -1122,7 +1122,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/space_6"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
-                    style="@style/font_ssm_keyboard_white"
+                    style="@style/font_rr_keyboard_white"
                     android:textAllCaps="false"
                     android:text="m" />
                 <ImageButton
@@ -1151,7 +1151,7 @@
                     android:minHeight="@dimen/space_36"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/btn_black_boarder"
-                    style="@style/font_ssm_17_keyboard"
+                    style="@style/font_rr_17_keyboard"
                     android:textAllCaps="false"
                     android:stateListAnimator="@null"
                     android:text="@string/str_next_word"/>

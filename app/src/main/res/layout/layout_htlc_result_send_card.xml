@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
                 android:text="Create Interchain Send"
-                style="@style/font_ss_14_black_daynight"/>
+                style="@style/font_rr_14_black_daynight"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_tx_status"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Success"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -72,7 +72,7 @@
             android:background="@drawable/box_round_tx_error"
             android:layout_marginTop="@dimen/space_4"
             android:text="-"
-            style="@style/font_ss_11_red"
+            style="@style/font_rr_11_red"
             android:visibility="gone"/>
 
         <RelativeLayout
@@ -84,14 +84,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_tx_height"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/send_block_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="-"
-                style="@style/font_ss_12_black_daynight"/>
+                style="@style/font_rr_12_black_daynight"/>
         </RelativeLayout>
 
         <LinearLayout
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_tx_hash"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/send_hash"
                 android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_black_daynight"/>
+                style="@style/font_rr_12_black_daynight"/>
         </LinearLayout>
 
         <LinearLayout
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_memo"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/send_tx_memo"
                 android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                 android:layout_marginTop="@dimen/space_4"
                 android:maxLines="3"
                 android:text="-"
-                style="@style/font_ss_12_black_daynight"/>
+                style="@style/font_rr_12_black_daynight"/>
         </LinearLayout>
 
         <View
@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_to_send_amount"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -162,14 +162,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
                 <TextView
                     android:id="@+id/send_amount_denom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_2"
                     android:text="@string/str_atom_c"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -181,7 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_fees"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -194,14 +194,14 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
                 <TextView
                     android:id="@+id/send_fee_denom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_2"
                     android:text="@string/str_atom_c"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -214,7 +214,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_sender"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/sender_addr"
                 android:layout_width="match_parent"
@@ -223,7 +223,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_black_daynight"/>
+                style="@style/font_rr_12_black_daynight"/>
         </LinearLayout>
 
         <LinearLayout
@@ -235,7 +235,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_relay_recipient"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/relay_recipient_addr"
                 android:layout_width="match_parent"
@@ -244,7 +244,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_black_daynight"/>
+                style="@style/font_rr_12_black_daynight"/>
         </LinearLayout>
 
         <LinearLayout
@@ -256,7 +256,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_relay_sender"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/relay_sender_addr"
                 android:layout_width="match_parent"
@@ -265,7 +265,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_black_daynight"/>
+                style="@style/font_rr_12_black_daynight"/>
         </LinearLayout>
 
         <LinearLayout
@@ -277,7 +277,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_recipient"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/recipient_addr"
                 android:layout_width="match_parent"
@@ -286,7 +286,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_black_daynight"/>
+                style="@style/font_rr_12_black_daynight"/>
         </LinearLayout>
 
         <LinearLayout
@@ -298,7 +298,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_random_hash"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/random_hash"
                 android:layout_width="match_parent"
@@ -307,7 +307,7 @@
                 android:singleLine="true"
                 android:ellipsize="middle"
                 android:text="-"
-                style="@style/font_ss_12_black_daynight"/>
+                style="@style/font_rr_12_black_daynight"/>
         </LinearLayout>
 
     </LinearLayout>

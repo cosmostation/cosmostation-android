@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text="Total Reward"
                 android:layout_gravity="center"/>
 
@@ -42,13 +42,13 @@
                     android:id="@+id/tx_all_rewards"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_12_black_daynight" />
+                    style="@style/font_rr_12_black_daynight" />
                 <TextView
                     android:id="@+id/tx_demon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_2"
-                    style="@style/font_ss_12_black_daynight" />
+                    style="@style/font_rr_12_black_daynight" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,7 +67,7 @@
 
                     <TextView
                         android:id="@+id/reward_title"
-                        style="@style/font_ss_10_black_daynight"
+                        style="@style/font_rr_10_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -75,7 +75,7 @@
                         android:text="One Click"/>
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/reward_title"
@@ -97,7 +97,7 @@
 
                     <TextView
                         android:id="@+id/compounding_title"
-                        style="@style/font_ss_10_black_daynight"
+                        style="@style/font_rr_10_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -105,7 +105,7 @@
                         android:text="One Click"/>
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/compounding_title"

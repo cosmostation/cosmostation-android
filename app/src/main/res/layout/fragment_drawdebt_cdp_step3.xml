@@ -36,7 +36,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="@string/str_loan_more_amount"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -50,14 +50,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_rr_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/more_loan_amount_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="COIN"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_rr_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
                     <RelativeLayout
@@ -70,7 +70,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:gravity="right"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_rr_12_gray1"
                             android:text="-"/>
                     </RelativeLayout>
 
@@ -84,7 +84,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_fees"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_rr_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/fees_denom"
                                 android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:gravity="right"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_rr_12_gray1"
                             android:text="-"/>
                     </RelativeLayout>
 
@@ -140,7 +140,7 @@
                             android:text="@string/str_risk_rate"
                             android:layout_alignBottom="@+id/risk_rate_changes"
                             android:layout_marginBottom="@dimen/space_10"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <LinearLayout
                             android:id="@+id/risk_rate_changes"
                             android:layout_width="wrap_content"
@@ -180,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="@string/str_after_total_debt"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -194,14 +194,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_rr_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/after_total_debt_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="COIN"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_rr_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
                     <RelativeLayout
@@ -214,7 +214,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:gravity="right"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_rr_12_gray1"
                             android:text="-"/>
                     </RelativeLayout>
 
@@ -228,7 +228,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="@string/str_liquidation_title1"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <TextView
                             android:id="@+id/liquidation_price_before"
                             android:layout_width="wrap_content"
@@ -236,7 +236,7 @@
                             android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
                             android:layout_toRightOf="@+id/liquidation_price_before_title"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:text="-"
                             android:gravity="end"/>
                     </RelativeLayout>
@@ -251,7 +251,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="@string/str_liquidation_title1"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <TextView
                             android:id="@+id/liquidation_price_after"
                             android:layout_width="wrap_content"
@@ -260,7 +260,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_toRightOf="@+id/liquidation_price_after_title"
                             android:layout_marginLeft="@dimen/space_16"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:text="-"
                             android:gravity="end"/>
                     </RelativeLayout>
@@ -271,7 +271,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16"
                         android:text="@string/str_memo"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <TextView
                         android:id="@+id/memo"
                         android:layout_width="wrap_content"
@@ -280,7 +280,7 @@
                         android:lines="2"
                         android:ellipsize="end"
                         android:text="java.util.concurrent.ExecutionException: com.android.builder.internal.aapt.v2.Aapt2Exception: Android resource compilation failed"
-                        style="@style/font_ss_11_black_daynight"/>
+                        style="@style/font_rr_11_black_daynight"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -305,7 +305,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_back"/>
         <Button
@@ -316,7 +316,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>
     </LinearLayout>

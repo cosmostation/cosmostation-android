@@ -19,7 +19,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:text="@string/str_nft_c"/>
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:text="@string/str_no_nfts"
                     android:visibility="gone"/>
                 <androidx.recyclerview.widget.RecyclerView
@@ -74,7 +74,7 @@
             android:drawableTint="@color/colorPhoton"
             android:drawablePadding="@dimen/space_4"
             android:gravity="center"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:text="@string/str_create_nfts"/>
     </RelativeLayout>
 

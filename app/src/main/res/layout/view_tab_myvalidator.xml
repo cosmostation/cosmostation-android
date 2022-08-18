@@ -11,5 +11,5 @@
         android:gravity="center"
         android:textColor="@color/color_tab_myvalidator_cosmos"
         android:textSize="@dimen/text_size_14"
-        android:fontFamily="sans-serif"/>
+        android:fontFamily="@font/roboto_regular"/>
 </RelativeLayout>

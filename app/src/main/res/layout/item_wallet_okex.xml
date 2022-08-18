@@ -35,7 +35,7 @@
                     android:layout_toRightOf="@+id/ok_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="OKT"
-                    style="@style/font_ss_14_ok"/>
+                    style="@style/font_rr_14_ok"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_black_daynight"/>
+                        style="@style/font_rr_17_black_daynight"/>
                     <TextView
                         android:id="@+id/ok_total_value"
                         android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/ok_available"
                     android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                     android:layout_toRightOf="@+id/available_title"
                     android:gravity="end"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_locked"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/ok_locked"
                     android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
                     android:layout_toRightOf="@+id/lock_title"
                     android:gravity="end"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_staking"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/ok_deposit"
                     android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
                     android:layout_toRightOf="@+id/staking_title"
                     android:gravity="end"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -137,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_unbonding"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/ok_withdrawing"
                     android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
                     android:layout_toRightOf="@+id/unbonding_title"
                     android:gravity="end"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -165,7 +165,7 @@
                     android:clickable="true">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -187,7 +187,7 @@
                     android:clickable="true">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -208,7 +208,7 @@
                 android:clickable="true">
 
                 <TextView
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -233,7 +233,7 @@
                     android:drawableLeft="@drawable/vote_ic"
                     android:drawablePadding="@dimen/space_4"
                     android:gravity="center"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="@string/str_governance" />
             </RelativeLayout>
 

@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_account_to_register"
-            style="@style/font_ss_12_gray1"
+            style="@style/font_rr_12_gray1"
             android:visibility="gone"/>
 
         <RelativeLayout
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_6"
                 android:text="1~63 lowercase alphabet or number"
-                style="@style/font_ss_12_gray6"/>
+                style="@style/font_rr_12_gray6"/>
 
             <TextView
                 android:id="@+id/starname_fee_denom"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="IOV"
-                style="@style/font_ssl_14_iov"/>
+                style="@style/font_rr_14_iov"/>
             <TextView
                 android:id="@+id/starname_fee_amount"
                 android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
                 android:layout_toLeftOf="@+id/starname_fee_denom"
                 android:layout_marginRight="@dimen/space_2"
                 android:text="-"
-                style="@style/font_ss_14_black_daynight"/>
+                style="@style/font_rr_14_black_daynight"/>
         </RelativeLayout>
 
     </LinearLayout>
@@ -132,7 +132,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button
@@ -143,7 +143,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>

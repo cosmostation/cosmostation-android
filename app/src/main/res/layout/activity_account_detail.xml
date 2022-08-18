@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_wallet_detail" />
@@ -72,7 +72,7 @@
 
                     <TextView
                         android:id="@+id/account_name"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -123,14 +123,14 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_push_alarm" />
 
                         <TextView
                             android:id="@+id/account_alarm_msg"
-                            style="@style/font_ss_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:lines="2"
@@ -165,7 +165,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_14"
@@ -224,14 +224,14 @@
                             android:paddingRight="@dimen/space_8">
 
                             <TextView
-                                style="@style/font_ss_12_gray1"
+                                style="@style/font_rr_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_chain_info" />
 
                             <TextView
                                 android:id="@+id/account_chain"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -246,14 +246,14 @@
                             android:paddingRight="@dimen/space_8">
 
                             <TextView
-                                style="@style/font_ss_12_gray1"
+                                style="@style/font_rr_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_import_time" />
 
                             <TextView
                                 android:id="@+id/account_import_time"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -267,14 +267,14 @@
                             android:paddingRight="@dimen/space_8">
 
                             <TextView
-                                style="@style/font_ss_12_gray1"
+                                style="@style/font_rr_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_import_state" />
 
                             <TextView
                                 android:id="@+id/account_import_state"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -289,14 +289,14 @@
                             android:paddingRight="@dimen/space_8">
 
                             <TextView
-                                style="@style/font_ss_12_gray1"
+                                style="@style/font_rr_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_mnemonic" />
 
                             <TextView
                                 android:id="@+id/mnemonic_name"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -312,14 +312,14 @@
 
                             <TextView
                                 android:id="@+id/path_title"
-                                style="@style/font_ss_12_gray1"
+                                style="@style/font_rr_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_address_type" />
 
                             <TextView
                                 android:id="@+id/account_path"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -328,7 +328,7 @@
 
                         <TextView
                             android:id="@+id/import_msg"
-                            style="@style/font_ss_11_photon"
+                            style="@style/font_rr_11_photon"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_10"
@@ -362,7 +362,7 @@
                     android:paddingBottom="@dimen/space_8">
 
                     <TextView
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_8"
@@ -436,7 +436,7 @@
 
             <Button
                 android:id="@+id/btn_check_key"
-                style="@style/font_ss_14_photon"
+                style="@style/font_rr_14_photon"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
                 android:layout_weight="1"
@@ -447,7 +447,7 @@
 
         <Button
             android:id="@+id/btn_check"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"

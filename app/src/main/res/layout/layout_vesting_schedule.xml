@@ -27,20 +27,21 @@
 
                 <TextView
                     android:id="@+id/vesting_title"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/str_vesting_schedule" />
+
                 <TextView
                     android:id="@+id/vesting_count"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ss_14_black_daynight"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <View
@@ -59,14 +60,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vesting_time0"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_amount0"
                     android:layout_width="wrap_content"
@@ -77,7 +78,7 @@
                     android:maxLines="1"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -91,14 +92,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vesting_time1"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_amount1"
                     android:layout_width="wrap_content"
@@ -109,7 +110,7 @@
                     android:maxLines="1"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -123,14 +124,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vesting_time2"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_amount2"
                     android:layout_width="wrap_content"
@@ -141,7 +142,7 @@
                     android:maxLines="1"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -155,14 +156,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vesting_time3"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_amount3"
                     android:layout_width="wrap_content"
@@ -173,7 +174,7 @@
                     android:maxLines="1"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -187,14 +188,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_gap4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vesting_time4"
                     android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    style="@style/font_rr_11_gray1"/>
                 <TextView
                     android:id="@+id/vesting_amount4"
                     android:layout_width="wrap_content"
@@ -205,7 +206,7 @@
                     android:maxLines="1"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
         </LinearLayout>

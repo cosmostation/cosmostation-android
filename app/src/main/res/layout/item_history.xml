@@ -36,7 +36,7 @@
 
                 <TextView
                     android:id="@+id/history_type"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Send" />
@@ -70,7 +70,7 @@
 
                 <TextView
                     android:id="@+id/history_time"
-                    style="@style/font_ss_11_black_daynight"
+                    style="@style/font_rr_11_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -78,7 +78,7 @@
 
                 <TextView
                     android:id="@+id/history_time_gap"
-                    style="@style/font_ss_10_gray1"
+                    style="@style/font_rr_10_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -86,7 +86,7 @@
 
                 <TextView
                     android:id="@+id/history_block_height"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"

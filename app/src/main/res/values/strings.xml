@@ -580,6 +580,7 @@
     <string name="str_front_guide_title_assetmantle"><![CDATA[ASSETMANTLE]]></string>
     <string name="str_front_guide_title_station"><![CDATA[STATION]]></string>
     <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
+    <string name="str_front_guide_title_passage"><![CDATA[PASSAGE]]></string>
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_binance">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -624,6 +625,7 @@
     <string name="str_front_guide_msg_assetmantle"><![CDATA[AssetMantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
     <string name="str_front_guide_msg_station"><![CDATA[Station Test]]></string>
     <string name="str_front_guide_msg_nyx"><![CDATA[Nyx is a decentralized and incentivized infrastructure providing next generation privacy infrastructure.]]></string>
+    <string name="str_front_guide_msg_passage"><![CDATA[Passage is building a virtual 3D world/metaverse that is mainly powered by Unreal Engine 5, Akash and IBC.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1092,7 +1094,7 @@
     <string name="str_change_reward_address_step_1">Insert memo (optional)</string>
     <string name="str_change_reward_address_step_2">Select transaction fee</string>
     <string name="str_change_reward_address_step_3">Check transaction detail</string>
-    <string name="str_reinvest_step_0">Check reward for Compounding</string>
+    <string name="str_reinvest_step_0">Check reward amount for compounding</string>
     <string name="str_reinvest_step_1">Insert memo (optional)</string>
     <string name="str_reinvest_step_2">Select transaction fee</string>
     <string name="str_reinvest_step_3">Check transaction detail</string>
@@ -1769,7 +1771,7 @@
     <string name="error_no_to_validator">Please select validator to redelegate.</string>
     <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>
     <string name="error_max_account_over">Max account is 5.</string>
-    <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can compounding feature after reset your reward address to self.</string>
+    <string name="error_reward_address_changed_msg">This account has changed its Reward Recipient Address. \n To use the Compounding feature, please reset your Reward Recipient Address.</string>
     <string name="error_no_password">PIN number not set</string>
     <string name="error_invalid_address_target">Invalid Address.</string>
     <string name="error_invalid_star_name">Invalid Start Name.</string>

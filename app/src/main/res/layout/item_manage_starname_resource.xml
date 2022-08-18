@@ -41,7 +41,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/chain_img"
                     android:layout_marginLeft="@dimen/space_8"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:text="Chain Name"/>
                 <TextView
                     android:id="@+id/btn_remove"
@@ -54,7 +54,7 @@
                     android:paddingRight="@dimen/space_4"
                     android:clickable="true"
                     android:layout_centerVertical="true"
-                    style="@style/font_ss_12_red"
+                    style="@style/font_rr_12_red"
                     android:text="Remove"/>
             </RelativeLayout>
             <TextView
@@ -68,7 +68,7 @@
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
                 android:ellipsize="middle"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text="-"/>
 
         </LinearLayout>

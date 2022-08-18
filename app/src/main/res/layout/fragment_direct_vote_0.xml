@@ -22,7 +22,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/space_16"
                 android:text="@string/str_validator"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/selected_cnt"
                 android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
                 android:layout_toLeftOf="@+id/validator_cnt_title"
                 android:layout_marginRight="@dimen/space_4"
                 android:text="0"
-                style="@style/font_ss_12_black_daynight"/>
+                style="@style/font_rr_12_black_daynight"/>
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -60,7 +60,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_back"/>
         <Button
@@ -71,7 +71,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>

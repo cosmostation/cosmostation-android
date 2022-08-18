@@ -50,7 +50,7 @@
 
                 <TextView
                     android:id="@+id/toolbar_channel"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -60,7 +60,7 @@
 
                 <TextView
                     android:id="@+id/per_price"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -88,7 +88,7 @@
 
                     <TextView
                         android:id="@+id/dash_price_updown_tx"
-                        style="@style/font_ss_10_black_daynight"
+                        style="@style/font_rr_10_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -158,7 +158,7 @@
 
             <TextView
                 android:id="@+id/total_value"
-                style="@style/font_ss_21_black_daynight"
+                style="@style/font_rm_21_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_2"
@@ -214,7 +214,7 @@
                 android:layout_centerInParent="true"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:text="@string/str_ibc_send" />
         </RelativeLayout>
         <RelativeLayout
@@ -234,7 +234,7 @@
                 android:layout_centerInParent="true"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:text="@string/str_bep3_send" />
         </RelativeLayout>
         <RelativeLayout
@@ -249,7 +249,7 @@
             android:clickable="true">
 
             <TextView
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

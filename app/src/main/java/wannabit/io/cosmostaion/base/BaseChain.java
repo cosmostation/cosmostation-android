@@ -78,7 +78,8 @@ public enum BaseChain {
     CRESCENT_MAIN("crescent-mainnet"),
     ASSETMANTLE_MAIN("assetmantle-mainnet"),
     STATION_TEST("station-testnet"),
-    NYX_MAIN("nyx-mainnet");
+    NYX_MAIN("nyx-mainnet"),
+    PASSAGE_MAIN("passage-mainnet");
 
     private final String chainName;
 
@@ -244,6 +245,9 @@ public enum BaseChain {
         if (chainName.equals(NYX_MAIN.chainName)) {
             return NYX_MAIN;
         }
+        if (chainName.equals(PASSAGE_MAIN.chainName)) {
+            return PASSAGE_MAIN;
+        }
 
         return null;
     }
@@ -281,6 +285,7 @@ public enum BaseChain {
         result.add(OKEX_MAIN);
         result.add(OMNIFLIX_MAIN);
         result.add(OSMOSIS_MAIN);
+        result.add(PASSAGE_MAIN);
         result.add(PERSIS_MAIN);
         result.add(PROVENANCE_MAIN);
         result.add(REGEN_MAIN);

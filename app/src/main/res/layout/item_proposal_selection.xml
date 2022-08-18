@@ -45,7 +45,7 @@
 
                     <TextView
                         android:id="@+id/proposal_title"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
@@ -64,7 +64,7 @@
 
                     <TextView
                         android:id="@+id/proposal_deadline"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/space_6" />
@@ -99,7 +99,7 @@
 
                             <TextView
                                 android:id="@+id/vote_yes_title"
-                                style="@style/font_ss_14_black_daynight"
+                                style="@style/font_rr_14_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -129,7 +129,7 @@
 
                             <TextView
                                 android:id="@+id/vote_no_title"
-                                style="@style/font_ss_14_black_daynight"
+                                style="@style/font_rr_14_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -164,7 +164,7 @@
 
                         <TextView
                             android:id="@+id/vote_nowithveto_title"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -192,7 +192,7 @@
 
                         <TextView
                             android:id="@+id/vote_abstain_title"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"

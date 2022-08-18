@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/font_ss_11_gray1"
+                style="@style/font_rr_11_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -39,7 +39,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -68,7 +68,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -97,7 +97,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -126,7 +126,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -143,7 +143,7 @@
             </FrameLayout>
 
             <TextView
-                style="@style/font_ss_11_gray1"
+                style="@style/font_rr_11_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -164,7 +164,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -181,7 +181,7 @@
 
                     <TextView
                         android:id="@+id/theme_text"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -204,7 +204,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -233,7 +233,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -268,7 +268,7 @@
 
                     <TextView
                         android:id="@+id/bio_title"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -301,7 +301,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -310,7 +310,7 @@
 
                     <TextView
                         android:id="@+id/auto_pass_time"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -341,7 +341,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -358,7 +358,7 @@
 
                     <TextView
                         android:id="@+id/currency_text"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -369,7 +369,7 @@
             </FrameLayout>
 
             <TextView
-                style="@style/font_ss_11_gray1"
+                style="@style/font_rr_11_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -391,7 +391,7 @@
 
                     <TextView
                         android:id="@+id/title_explore"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -420,7 +420,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -449,7 +449,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -478,7 +478,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -507,7 +507,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -536,7 +536,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -553,7 +553,7 @@
             </FrameLayout>
 
             <TextView
-                style="@style/font_ss_11_gray1"
+                style="@style/font_rr_11_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -574,7 +574,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -603,7 +603,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -632,7 +632,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -649,7 +649,7 @@
 
                     <TextView
                         android:id="@+id/version_text"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

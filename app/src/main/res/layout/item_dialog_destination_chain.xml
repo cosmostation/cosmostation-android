@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/chainName"
-            style="@style/font_ssm_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_8"

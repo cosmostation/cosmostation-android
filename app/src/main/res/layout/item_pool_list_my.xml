@@ -52,7 +52,7 @@
 
                     <TextView
                         android:id="@+id/mypool_market_type"
-                        style="@style/font_ss_17_gray1"
+                        style="@style/font_rr_17_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/mypool_market_img"
@@ -109,14 +109,14 @@
 
                 <TextView
                     android:id="@+id/total_deposit_value_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_pool_total_liquidity_value" />
 
                 <TextView
                     android:id="@+id/mypool_total_liquidity_value"
-                    style="@style/font_ssm_15_black_daynight"
+                    style="@style/font_rr_15_black_daynight"
                     android:layout_toRightOf="@+id/total_deposit_value_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                 android:layout_marginTop="@dimen/space_12">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_pool_total_liquidity_amount" />
@@ -151,7 +151,7 @@
 
                         <TextView
                             android:id="@+id/mypool_total_liquidity_amount1"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
@@ -160,7 +160,7 @@
 
                         <TextView
                             android:id="@+id/mypool_total_liquidity_symbol1"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="@dimen/space_48"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -178,7 +178,7 @@
 
                         <TextView
                             android:id="@+id/mypool_total_liquidity_amount2"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
@@ -187,7 +187,7 @@
 
                         <TextView
                             android:id="@+id/mypool_total_liquidity_symbol2"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="@dimen/space_48"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -212,14 +212,14 @@
 
                 <TextView
                     android:id="@+id/my_deposit_value_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_deposit_my_value" />
 
                 <TextView
                     android:id="@+id/mypool_deposit_value"
-                    style="@style/font_ssm_15_black_daynight"
+                    style="@style/font_rr_15_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/my_deposit_value_title"
@@ -234,7 +234,7 @@
                 android:layout_marginTop="@dimen/space_12">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_deposit_my_coins" />
@@ -252,7 +252,7 @@
 
                         <TextView
                             android:id="@+id/mypool_deposit_amout0"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
@@ -261,7 +261,7 @@
 
                         <TextView
                             android:id="@+id/mypool_deposit_symbol0"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="@dimen/space_48"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -279,14 +279,14 @@
 
                         <TextView
                             android:id="@+id/mypool_deposit_amout1"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="" />
 
                         <TextView
                             android:id="@+id/mypool_deposit_symbol1"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="@dimen/space_48"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -305,7 +305,7 @@
 
                 <TextView
                     android:id="@+id/mypool_available_liquidity_amount"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_pool_my_liquidity_available_amount" />
@@ -332,7 +332,7 @@
 
                                 <TextView
                                     android:id="@+id/my_available_amount0"
-                                    style="@style/font_ssl_12_black_daynight"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:maxLines="1"
@@ -341,7 +341,7 @@
 
                                 <TextView
                                     android:id="@+id/my_available_symbol0"
-                                    style="@style/font_ssl_12_black_daynight"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="@dimen/space_48"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
@@ -359,7 +359,7 @@
 
                                 <TextView
                                     android:id="@+id/my_available_amount1"
-                                    style="@style/font_ssl_12_black_daynight"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:maxLines="1"
@@ -368,7 +368,7 @@
 
                                 <TextView
                                     android:id="@+id/my_available_symbol1"
-                                    style="@style/font_ssl_12_black_daynight"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="@dimen/space_48"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"

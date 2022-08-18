@@ -70,7 +70,7 @@
 
                             <TextView
                                 android:id="@+id/validator_moniker"
-                                style="@style/font_ss_14_black_daynight"
+                                style="@style/font_rr_14_black_daynight"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/space_8"
@@ -91,7 +91,7 @@
 
                         <TextView
                             android:id="@+id/validator_address"
-                            style="@style/font_ss_10_gray1"
+                            style="@style/font_rr_10_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_2"
@@ -101,7 +101,7 @@
 
                         <TextView
                             android:id="@+id/validator_site"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_2"
@@ -114,7 +114,7 @@
 
                 <TextView
                     android:id="@+id/validator_description"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -142,14 +142,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_total_bonded" />
 
                     <TextView
                         android:id="@+id/validator_total_bonded"
-                        style="@style/font_ssl_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -163,14 +163,14 @@
                     android:layout_marginTop="@dimen/space_6">
 
                     <TextView
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_self_bonded_rate" />
 
                     <TextView
                         android:id="@+id/validator_self_bond_rate"
-                        style="@style/font_ssl_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -184,14 +184,14 @@
                     android:layout_marginTop="@dimen/space_6">
 
                     <TextView
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_est_apr" />
 
                     <TextView
                         android:id="@+id/validator_yield"
-                        style="@style/font_ssl_14_photon"
+                        style="@style/font_rr_14_photon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -205,14 +205,14 @@
                     android:layout_marginTop="@dimen/space_6">
 
                     <TextView
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_commission" />
 
                     <TextView
                         android:id="@+id/validator_commission"
-                        style="@style/font_ssl_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
