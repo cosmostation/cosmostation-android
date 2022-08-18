@@ -98,7 +98,7 @@ public class PrivateKeyCheckActivity extends BaseActivity implements View.OnClic
                     AlertDialogUtils.highlightingText(getString(R.string.str_raw_copy)), view -> onRawCopy(),
                     getString(R.string.str_safe_copy), view -> onSafeCopy());
         } else if (v.equals(mOk)) {
-            onStartMainActivity(3);
+            onStartMainActivity(4);
         }
     }
 

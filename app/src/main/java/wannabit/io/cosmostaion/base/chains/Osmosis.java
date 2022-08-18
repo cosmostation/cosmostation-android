@@ -45,7 +45,7 @@ public class Osmosis extends ChainConfig {
     public String coingeckoLink() { return  COINGECKO_URL + "osmosis"; }
 
     public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.00025uosmo", "0.0025uosmo", "0.025uosmo");
+        return Lists.newArrayList("0.0025uosmo", "0.025uosmo");
     }
 
     public ArrayList<String> supportHdPaths() {

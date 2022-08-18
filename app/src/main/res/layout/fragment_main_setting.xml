@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -332,45 +331,6 @@
                 </RelativeLayout>
             </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/card_base_price"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_6"
-                android:background="@drawable/box_trans_round"
-                android:clickable="true">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        style="@style/font_ss_12_black_daynight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_6"
-                        android:text="@string/str_base_price" />
-
-                    <ImageView
-                        android:id="@+id/arrow_base_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/arrow_next_gr" />
-
-                    <TextView
-                        style="@style/font_ss_11_gray1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/space_4"
-                        android:layout_toLeftOf="@+id/arrow_base_price"
-                        android:text="@string/str_coingecko" />
-                </RelativeLayout>
-            </FrameLayout>
-
             <TextView
                 style="@style/font_ss_11_gray1"
                 android:layout_width="wrap_content"
@@ -440,7 +400,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/card_guide"
+                android:id="@+id/card_homepage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
                 android:layout_marginTop="@dimen/space_6"
@@ -457,7 +417,36 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
-                        android:text="@string/str_faq" />
+                        android:text="@string/str_homepage" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_next_gr" />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/card_blog"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_6"
+                android:background="@drawable/box_trans_round"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/font_ss_12_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_cosmostation_blog" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -487,35 +476,6 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
                         android:text="@string/str_telegram" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/arrow_next_gr" />
-                </RelativeLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/card_homepage"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_6"
-                android:background="@drawable/box_trans_round"
-                android:clickable="true">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        style="@style/font_ss_12_black_daynight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_6"
-                        android:text="@string/str_homepage" />
 
                     <ImageView
                         android:layout_width="wrap_content"

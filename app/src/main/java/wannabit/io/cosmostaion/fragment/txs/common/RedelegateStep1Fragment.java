@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.fragment.txs.common;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
 
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +32,7 @@ import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
+import wannabit.io.cosmostaion.activities.txs.common.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -141,8 +144,12 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             }
             holder.itemChecked.setColorFilter(null);
             if (mCheckedGRpcValidator != null && mGrpcValidator.getOperatorAddress().equals(mCheckedGRpcValidator.getOperatorAddress())) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), PorterDuff.Mode.SRC_IN);
+                Drawable roundBackground = ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected);
+                roundBackground = DrawableCompat.wrap(roundBackground);
+                DrawableCompat.setTint(roundBackground, ContextCompat.getColor(getSActivity(), chainConfig.chainColor()));
+                holder.itemCheckedBorder.setBackground(roundBackground);
                 holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), PorterDuff.Mode.SRC_IN);
             } else {
                 holder.itemCheckedBorder.setVisibility(View.GONE);
             }

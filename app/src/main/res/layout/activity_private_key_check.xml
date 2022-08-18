@@ -33,10 +33,10 @@
         android:layout_below="@+id/tool_bar"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardCornerRadius="@dimen/space_6"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="@dimen/space_8"
+        app:cardPreventCornerOverlap="true">
 
         <LinearLayout
             android:layout_width="match_parent"

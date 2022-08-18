@@ -27,7 +27,7 @@ public class Persistence extends ChainConfig {
     public String chainName() { return "persistence"; }
     public String chainIdPrefix() { return "core-"; }
 
-    public int mainDenomImg() { return R.drawable.tokenpersistence; }
+    public int mainDenomImg() { return R.drawable.token_persistence; }
     public String mainDenom() { return "uxprt"; }
     public int sendImgColor() { return chainColor(); }
     public int sendBgColor() { return R.color.colorBlack2; }

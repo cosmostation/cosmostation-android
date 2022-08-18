@@ -8,7 +8,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
@@ -33,16 +32,17 @@ public class Crytoorg extends ChainConfig {
     public String chainTitleToUp() { return "CRYPTO.ORG"; }
     public String chainIdPrefix() { return "crypto-org-"; }
 
-    public int mainDenomImg() { return R.drawable.tokencrypto; }
+    public int mainDenomImg() { return R.drawable.token_crypto; }
     public String mainDenom() { return "basecro"; }
     public String mainSymbol() { return "CRO"; }
     public int decimal() {
         return 8;
     }
     public String addressPrefix() { return "cro"; }
+    public String validatorPrefix() { return "crocncl"; }
 
     public boolean pushSupport() { return false; }
-    public boolean dexSupport() { return true; }
+    public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "lcd-cryptocom-app.cosmostation.io"; }

@@ -159,7 +159,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
         Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
         intent.putExtra("toAddress", mValAddress);
-        intent.putExtra("dAmount", mAmount);
+        intent.putExtra("Amount", mAmount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

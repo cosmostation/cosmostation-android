@@ -60,7 +60,7 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
         mRecyclerView = view.findViewById(R.id.recycler);
 
         mAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(getArguments().getString("chainName")));
-        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
+        mDialogLayout.setBackgroundResource(R.drawable.dialog_bg_colorwhite2daynight);
         mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -91,7 +91,8 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
             final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
             holder.accountAddress.setText(account.address);
 
-            if (TextUtils.isEmpty(account.nickName)) holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
+            if (TextUtils.isEmpty(account.nickName))
+                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             else holder.accountName.setText(account.nickName);
 
             if (account.hasPrivateKey) {

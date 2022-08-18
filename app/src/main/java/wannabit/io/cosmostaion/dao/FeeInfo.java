@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FeeInfo {
-    public String tiile = "";
+    public String title = "";
     public String msg = "";
     public ArrayList<FeeData> feeDatas = new ArrayList<>();
 

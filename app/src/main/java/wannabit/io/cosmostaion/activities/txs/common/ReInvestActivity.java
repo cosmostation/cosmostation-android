@@ -115,7 +115,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
                 onHideKeyboard();
             }
         });
-        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

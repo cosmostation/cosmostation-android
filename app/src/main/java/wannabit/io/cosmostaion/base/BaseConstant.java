@@ -98,6 +98,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_DELEGATIONS                 = 4005;
     public final static int TASK_GRPC_FETCH_UNDELEGATIONS               = 4006;
     public final static int TASK_GRPC_FETCH_ALL_REWARDS                 = 4007;
+    public final static int TASK_GRPC_FETCH_COMMISSION                  = 4008;
     public final static int TASK_GRPC_FETCH_IRIS_PARAM_MINT             = 4009;
     public final static int TASK_GRPC_FETCH_STAKING_POOL                = 4012;
     public final static int TASK_GRPC_FETCH_IRIS_TOKEN_LIST             = 4013;
@@ -160,6 +161,10 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_KAVA_HARD_TOTAL_DEPOSIT     = 4292;
     public final static int TASK_GRPC_FETCH_KAVA_HARD_TOTAL_BORROW      = 4293;
 
+    public final static int TASK_GRPC_FETCH_AUTHZ_GRANTER_LIST          = 4294;
+    public final static int TASK_GRPC_FETCH_AUTHZ_GRANT_LIST            = 4295;
+
+
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
     public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;
@@ -206,6 +211,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_HARD            = 4344;
     public final static int TASK_GRPC_GEN_TX_KAVA_CLAIM_INCENTIVES      = 4345;
     public final static int TASK_GRPC_GEN_TX_EXECUTE_CONTRACT           = 4346;
+    public final static int TASK_GRPC_GEN_TX_AUTHZ_DELEGATE             = 4347;
+    public final static int TASK_GRPC_GEN_TX_AUTHZ_UNDELEGATE           = 4348;
 
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
@@ -253,7 +260,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_HARD          = 4544;
     public final static int TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES    = 4545;
     public final static int TASK_GRPC_SIMULATE_EXECUTE_CONTRACT         = 4546;
-
 
 
 
@@ -405,7 +411,15 @@ public class BaseConstant {
     public final static int CONST_PW_TX_PROFILE                             = 5057;
     public final static int CONST_PW_TX_LINK_ACCOUNT                        = 5058;
     public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5059;
-    public final static int CONST_PW_TX_INSERT_MNEMONIC                     = 5060;
+
+    public final static int CONST_PW_TX_AUTHZ_DELEGATE                      = 5060;
+    public final static int CONST_PW_TX_AUTHZ_UNDELEGATE                    = 5061;
+    public final static int CONST_PW_TX_AUTHZ_REDELEGATE                    = 5062;
+    public final static int CONST_PW_TX_AUTHZ_SEND                          = 5063;
+    public final static int CONST_PW_TX_AUTHZ_VOTE                          = 5064;
+    public final static int CONST_PW_TX_AUTHZ_CLAIM_REWARD                  = 5065;
+    public final static int CONST_PW_TX_AUTHZ_CLAIM_COMMISSION              = 5066;
+
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
     public final static int ERROR_CODE_NETWORK              = 8001;

@@ -71,7 +71,7 @@ public class WalletChainHolder extends BaseHolder {
         final BaseData baseData = mainActivity.getBaseDao();
         final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
         final String denom = chainConfig.mainDenom();
-        final int decimal = WDp.mainDivideDecimal(mainActivity.mBaseChain);
+        final int decimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
 
         final BigDecimal availableAmount = baseData.getAvailable(denom);
         final BigDecimal vestingAmount = baseData.getVesting(denom);

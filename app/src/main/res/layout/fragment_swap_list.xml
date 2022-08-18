@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
-            app:cardCornerRadius="@dimen/space_6">
+            app:cardCornerRadius="@dimen/space_8">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
-            app:cardCornerRadius="@dimen/space_6">
+            app:cardCornerRadius="@dimen/space_8">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,7 +191,7 @@
         android:layout_marginEnd="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_12"
         app:cardBackgroundColor="@color/colorTransBg"
-        app:cardCornerRadius="@dimen/space_6"
+        app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
         app:cardUseCompatPadding="true">
 

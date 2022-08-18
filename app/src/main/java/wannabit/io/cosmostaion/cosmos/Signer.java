@@ -11,14 +11,13 @@ import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
-import org.bouncycastle.util.encoders.Hex;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Map;
@@ -26,22 +25,21 @@ import java.util.Map;
 import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.base.v1beta1.CoinOuterClass;
-import cosmos.crypto.secp256k1.Keys;
+import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
 import cosmos.gov.v1beta1.Tx;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
-import desmos.profiles.v1beta1.ModelsChainLinks;
 import desmos.profiles.v1beta1.ModelsProfile;
-import desmos.profiles.v1beta1.MsgsChainLinks;
 import desmos.profiles.v1beta1.MsgsProfile;
 import ibc.core.client.v1.Client;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.Sha256;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Cw20TransferReq;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -59,27 +57,27 @@ public class Signer {
             }
 
             if (rawAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Auth.BaseAccount.parseFrom(auth.getAccount().getValue());
+                Auth.BaseAccount account = Auth.BaseAccount.parseFrom(rawAccount.getValue());
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Vesting.PeriodicVestingAccount.parseFrom(auth.getAccount().getValue()).getBaseVestingAccount().getBaseAccount();
+                Auth.BaseAccount account = Vesting.PeriodicVestingAccount.parseFrom(rawAccount.getValue()).getBaseVestingAccount().getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue()).getBaseVestingAccount().getBaseAccount();
+                Auth.BaseAccount account = Vesting.ContinuousVestingAccount.parseFrom(rawAccount.getValue()).getBaseVestingAccount().getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = Vesting.DelayedVestingAccount.parseFrom(auth.getAccount().getValue()).getBaseVestingAccount().getBaseAccount();
+                Auth.BaseAccount account = Vesting.DelayedVestingAccount.parseFrom(rawAccount.getValue()).getBaseVestingAccount().getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(injective.types.v1beta1.Account.EthAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(auth.getAccount().getValue()).getBaseAccount();
+                Auth.BaseAccount account = injective.types.v1beta1.Account.EthAccount.parseFrom(rawAccount.getValue()).getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
 
             } else if (rawAccount.getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
-                Auth.BaseAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(auth.getAccount().getValue()).getBaseAccount();
+                Auth.BaseAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(rawAccount.getValue()).getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
             }
         } catch (Exception e) { }
@@ -187,6 +185,36 @@ public class Signer {
         cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(valAddress).setAmount(toReinvsetCoin).build();
         Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
         msgsAny.add(msgDelegateAny);
+        return msgsAny;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcCompoundingReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getCompoundingMsg(auth, rewards, baseChain), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcCompoundingSimulateReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getCompoundingMsg(auth, rewards, baseChain), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getCompoundingMsg(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+        for (Distribution.DelegationDelegatorReward reward : rewards) {
+            cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msgClaimReward = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(reward.getValidatorAddress()).build();
+            Any msgClaimRewardAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward").setValue(msgClaimReward.toByteString()).build();
+            msgsAny.add(msgClaimRewardAny);
+
+            CoinOuterClass.Coin rewardCoin = null;
+            for (CoinOuterClass.DecCoin coin : reward.getRewardList()) {
+                if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
+                    rewardCoin = CoinOuterClass.Coin.newBuilder().setAmount(new BigDecimal(coin.getAmount()).movePointLeft(18).setScale(0, RoundingMode.UP).toPlainString()).setDenom(coin.getDenom()).build();
+                }
+            }
+
+            cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress((String) onParseAuthGrpc(auth).get(0)).setValidatorAddress(reward.getValidatorAddress()).setAmount(rewardCoin).build();
+            Any msgDelegateAny = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
+            msgsAny.add(msgDelegateAny);
+        }
         return msgsAny;
     }
 
@@ -873,6 +901,150 @@ public class Signer {
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build());
         return msgAnys;
     }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzDelegateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toValAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzDelegateMsg(grantee, granter, toValAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzDelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toValAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzDelegateMsg(grantee, granter, toValAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzDelegateMsg(String grantee, String granter, String toValAddress, Coin amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+
+        CoinOuterClass.Coin toDelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.amount).setDenom(amount.denom).build();
+        cosmos.staking.v1beta1.Tx.MsgDelegate msgDelegate = cosmos.staking.v1beta1.Tx.MsgDelegate.newBuilder().setDelegatorAddress(granter).setValidatorAddress(toValAddress).setAmount(toDelegateCoin).build();
+        Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate").setValue(msgDelegate.toByteString()).build();
+
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addMsgs(innerMsg).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzUndelegateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toValAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzUndelegateMsg(grantee, granter, toValAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzUndelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toValAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzUndelegateMsg(grantee, granter, toValAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzUndelegateMsg(String grantee, String granter, String toValAddress, Coin amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+
+        CoinOuterClass.Coin toUndelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.amount).setDenom(amount.denom).build();
+        cosmos.staking.v1beta1.Tx.MsgUndelegate msgUndelegate = cosmos.staking.v1beta1.Tx.MsgUndelegate.newBuilder().setDelegatorAddress(granter).setValidatorAddress(toValAddress).setAmount(toUndelegateCoin).build();
+        Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgUndelegate").setValue(msgUndelegate.toByteString()).build();
+
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addMsgs(innerMsg).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzRedelegateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String fromValAddress, String toValAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzRedelegateMsg(grantee, granter, fromValAddress, toValAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzRedelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String fromValAddress, String toValAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzRedelegateMsg(grantee, granter, fromValAddress, toValAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzRedelegateMsg(String grantee, String granter, String fromValAddress, String toValAddress, Coin amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+
+        CoinOuterClass.Coin toRedelegateCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.amount).setDenom(amount.denom).build();
+        cosmos.staking.v1beta1.Tx.MsgBeginRedelegate msgRedelegate = cosmos.staking.v1beta1.Tx.MsgBeginRedelegate.newBuilder().setDelegatorAddress(granter).setValidatorSrcAddress(fromValAddress).setValidatorDstAddress(toValAddress).setAmount(toRedelegateCoin).build();
+        Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgBeginRedelegate").setValue(msgRedelegate.toByteString()).build();
+
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addMsgs(innerMsg).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzSendReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzSendMsg(grantee, granter, toAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzSendSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, String toAddress, Coin amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzSendMsg(grantee, granter, toAddress, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzSendMsg(String grantee, String granter, String toAddress, Coin amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+
+        CoinOuterClass.Coin toSendCoin = CoinOuterClass.Coin.newBuilder().setAmount(amount.amount).setDenom(amount.denom).build();
+        cosmos.bank.v1beta1.Tx.MsgSend msgSend = cosmos.bank.v1beta1.Tx.MsgSend.newBuilder().setFromAddress(granter).setToAddress(toAddress).addAmount(toSendCoin).build();
+        Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.bank.v1beta1.MsgSend").setValue(msgSend.toByteString()).build();
+
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addMsgs(innerMsg).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzAVoteReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzVoteMsg(grantee, granter, opinionMap), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzVoteSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzVoteMsg(grantee, granter, opinionMap), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzVoteMsg(String grantee, String granter, Map<Integer,String> opinionMap) {
+        ArrayList<Any> innerMsgs = new ArrayList<>();
+        opinionMap.forEach((id, opinion) -> {
+            Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(String.valueOf(id))).setVoter(granter).setOption(Gov.VoteOption.valueOf(opinion)).build();
+            Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build();
+            innerMsgs.add(innerMsg);
+        });
+
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addAllMsgs(innerMsgs).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzClaimRewardReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, ArrayList<String> valAddressList, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzClaimRewardMsg(grantee, granter, valAddressList), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzClaimRewardSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, ArrayList<String> valAddressList, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzClaimRewardMsg(grantee, granter, valAddressList), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzClaimRewardMsg(String grantee, String granter, ArrayList<String> valAddressList) {
+        ArrayList<Any> innerMsgs = new ArrayList<>();
+
+        for (String valAddr: valAddressList) {
+            cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward msgClaimReward = cosmos.distribution.v1beta1.Tx.MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(granter).setValidatorAddress(valAddr).build();
+            Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward").setValue(msgClaimReward.toByteString()).build();
+            innerMsgs.add(innerMsg);
+        }
+
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addAllMsgs(innerMsgs).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzClaimCommissionReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String valAddress, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getAuthzClaimCommissionMsg(grantee, valAddress), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzClaimCommissionSimulateReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String valAddress, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getAuthzClaimCommissionMsg(grantee, valAddress), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getAuthzClaimCommissionMsg(String grantee, String valAddress) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+
+        cosmos.distribution.v1beta1.Tx.MsgWithdrawValidatorCommission msgClaimCommission = cosmos.distribution.v1beta1.Tx.MsgWithdrawValidatorCommission.newBuilder().setValidatorAddress(valAddress).build();
+        Any innerMsg = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission").setValue(msgClaimCommission.toByteString()).build();
+
+        cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addMsgs(innerMsg).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+
 
     public static TxOuterClass.TxBody getGrpcTxBodys(ArrayList<Any> msgsAny, String memo) {
         TxOuterClass.TxBody.Builder builder = TxOuterClass.TxBody.newBuilder();

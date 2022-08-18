@@ -38,6 +38,7 @@ public class Evmos extends ChainConfig {
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-evmos-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-evmos.cosmostation.io/"; }

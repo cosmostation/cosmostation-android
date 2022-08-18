@@ -1,8 +1,39 @@
 package wannabit.io.cosmostaion.utils;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static wannabit.io.cosmostaion.base.BaseChain.*;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BCRE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_NYM;
 import static wannabit.io.cosmostaion.utils.WUtil.getBnbTicSymbol;
 import static wannabit.io.cosmostaion.utils.WUtil.isBnbBaseMarketToken;
 
@@ -81,17 +112,18 @@ public class WDp {
         return result;
     }
 
+    public static SpannableString getDpAmount2(BigDecimal input, int divideDecimal, int displayDecimal) {
+        SpannableString result;
+        BigDecimal amount = input.movePointLeft(divideDecimal).setScale(displayDecimal, BigDecimal.ROUND_DOWN);
+        result = new SpannableString(getDecimalFormat(displayDecimal).format(amount));
+        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - displayDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+    }
+
     public static SpannableString getDpString(String input, int point) {
         SpannableString result;
         result = new SpannableString(input);
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        return result;
-    }
-
-    public static SpannableString getDpGasRate(String input) {
-        SpannableString result;
-        result = new SpannableString(input);
-        result.setSpan(new RelativeSizeSpan(0.8f), 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
     }
 
@@ -188,8 +220,9 @@ public class WDp {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            return ibcToken.decimal;
-
+            if (ibcToken != null) {
+                return ibcToken.decimal;
+            }
         } else if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
             return chainConfig.decimal();
 
@@ -231,13 +264,12 @@ public class WDp {
     }
 
     public static void setDpSymbolImg(BaseData baseData, ChainConfig chainConfig, String denom, ImageView imageView) {
-        if (chainConfig == null || denom == null || denom.isEmpty()) {
+        if (chainConfig == null || denom == null || denom.isEmpty()){
             imageView.setImageResource(R.drawable.token_default);
         }
 
         if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
             imageView.setImageResource(chainConfig.mainDenomImg());
-
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken != null) {
@@ -334,28 +366,28 @@ public class WDp {
         }
 
         if (result.size() == 1) {
-            result.get(0).tiile = "Fixed";
+            result.get(0).title = "Fixed";
             result.get(0).msg = c.getString(R.string.str_fee_speed_title_fixed);
         } else if (result.size() == 2) {
-            result.get(1).tiile = "Average";
+            result.get(1).title = "Average";
             result.get(1).msg = c.getString(R.string.str_fee_speed_title_average);
-            if (result.get(0).feeDatas.get(0).gasRate == BigDecimal.ZERO) {
-                result.get(0).tiile = "Zero";
+            if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
+                result.get(0).title = "Zero";
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
             } else {
-                result.get(0).tiile = "Tiny";
+                result.get(0).title = "Tiny";
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
             }
         } else if (result.size() == 3) {
-            result.get(2).tiile = "Average";
+            result.get(2).title = "Average";
             result.get(2).msg = c.getString(R.string.str_fee_speed_title_average);
-            result.get(1).tiile = "Low";
+            result.get(1).title = "Low";
             result.get(1).msg = c.getString(R.string.str_fee_speed_title_low);
-            if (result.get(0).feeDatas.get(0).gasRate == BigDecimal.ZERO) {
-                result.get(0).tiile = "Zero";
+            if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
+                result.get(0).title = "Zero";
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
             } else {
-                result.get(0).tiile = "Tiny";
+                result.get(0).title = "Tiny";
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
             }
         }
@@ -1097,7 +1129,7 @@ public class WDp {
         }
     }
 
-    public static String getGapTime(Context c, long finishTime) {
+    public static String getGapTime(long finishTime) {
         String result = "??";
         try {
             long now = Calendar.getInstance().getTimeInMillis();
@@ -1109,15 +1141,18 @@ public class WDp {
                 result = "(" + (left / BaseConstant.CONSTANT_H) + " hours ago)";
             } else if (left >= BaseConstant.CONSTANT_M) {
                 result = "(" + (left / BaseConstant.CONSTANT_M) + " minutes ago)";
-            } else if (left >= BaseConstant.CONSTANT_S) {
-                result =  "(" + (left / BaseConstant.CONSTANT_S) + " seconds ago)";
             } else {
-                result = "Soon";
+                result =  "(" + (left / BaseConstant.CONSTANT_S) + " seconds ago)";
             }
 
         } catch (Exception e) { }
 
         return result;
+    }
+
+    public static String getTimeWithoutTransVerse(long finishTime) {
+        String remainTime = getGapTime(finishTime);
+        return remainTime.substring(1, remainTime.length() - 1);
     }
 
     public static String getUnbondingTimefrom(Context c, String rawStartTime) {

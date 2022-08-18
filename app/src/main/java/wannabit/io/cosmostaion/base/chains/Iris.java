@@ -28,7 +28,7 @@ public class Iris extends ChainConfig {
     public String addressPrefix() { return "iaa"; }
 
     public boolean pushSupport() { return false; }
-    public boolean dexSupport() { return true; }
+    public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "lcd-iris-app.cosmostation.io"; }

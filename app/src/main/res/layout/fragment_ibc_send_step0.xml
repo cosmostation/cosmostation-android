@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,12 +34,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_50"
                         android:background="@drawable/box_gray"/>
+
                     <ImageView
                         android:id="@+id/img_from_chain"
                         android:layout_width="@dimen/space_32"
                         android:layout_height="@dimen/space_32"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:layout_centerVertical="true"/>
+                        tools:src="@drawable/chain_cosmos" />
 
                     <TextView
                         android:id="@+id/txt_from_chain"
@@ -49,7 +51,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toRightOf="@+id/img_from_chain"
-                        android:text="Cosmos" />
+                        tools:text="Cosmos" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -88,7 +90,7 @@
                         android:layout_height="@dimen/space_32"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/chain_iris"/>
+                        tools:src="@drawable/chain_iris" />
 
                     <TextView
                         android:id="@+id/txt_to_chain"
@@ -98,7 +100,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
                         android:layout_toRightOf="@+id/img_to_chain"
-                        android:text="Iris" />
+                        tools:text="Iris" />
                     <ImageView
                         android:id="@+id/dialog_img"
                         android:layout_width="wrap_content"
