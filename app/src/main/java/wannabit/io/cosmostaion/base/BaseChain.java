@@ -10,6 +10,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 
 public enum BaseChain {
     // chain_id is checked on-chain. no need update chain version  21.03.20
@@ -300,6 +306,10 @@ public enum BaseChain {
         result.add(STATION_TEST);
 
         return result;
+    }
+
+    public static List<ChainConfig> SUPPORT_CHAIN_CONFIG() {
+        return SUPPORT_CHAINS().stream().map(ChainFactory::getChain).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     public static boolean IS_SUPPORT_CHAIN(String chain) {
