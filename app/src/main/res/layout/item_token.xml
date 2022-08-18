@@ -52,7 +52,7 @@
 
                         <TextView
                             android:id="@+id/token_symbol"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="middle"
@@ -62,7 +62,7 @@
 
                         <TextView
                             android:id="@+id/token_inner_symbol"
-                            style="@style/font_ss_12_gray1"
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
@@ -71,7 +71,7 @@
 
                     <TextView
                         android:id="@+id/token_fullname"
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
@@ -92,14 +92,14 @@
 
                     <TextView
                         android:id="@+id/token_balance"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-" />
 
                     <TextView
                         android:id="@+id/token_value"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"

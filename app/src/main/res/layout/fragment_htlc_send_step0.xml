@@ -49,7 +49,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/img_from_chain"
                         android:layout_marginLeft="@dimen/space_4"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:text="Cosmos"/>
                 </RelativeLayout>
             </LinearLayout>
@@ -94,7 +94,7 @@
 
                     <TextView
                         android:id="@+id/txt_to_chain"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -138,7 +138,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/img_to_send_coin"
                 android:layout_marginLeft="@dimen/space_6"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:text="Coin"/>
             <TextView
                 android:id="@+id/txt_to_send_denom"
@@ -147,7 +147,7 @@
                 android:layout_alignBaseline="@+id/txt_to_send_coin"
                 android:layout_toRightOf="@+id/txt_to_send_coin"
                 android:layout_marginLeft="@dimen/space_4"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text="()"/>
             <TextView
                 android:id="@+id/txt_to_send_available"
@@ -159,7 +159,7 @@
                 android:layout_toLeftOf="@+id/img_send_arrow"
                 android:layout_marginLeft="@dimen/space_6"
                 android:layout_marginRight="@dimen/space_6"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:text="-"/>
             <ImageView
                 android:id="@+id/img_send_arrow"
@@ -199,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/str_bep3_max_once"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -212,14 +212,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                     <TextView
                         android:id="@+id/once_max_denom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
                         android:text="Coin"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -239,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_bep3_system_max"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -252,14 +252,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_rr_12_black_daynight"/>
                         <TextView
                             android:id="@+id/system_max_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="Coin"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_rr_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -272,7 +272,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/str_bep3_remain_cap"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -285,14 +285,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_rr_12_black_daynight"/>
                         <TextView
                             android:id="@+id/remain_cap_denom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="Coin"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_rr_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -324,7 +324,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button
@@ -335,7 +335,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>

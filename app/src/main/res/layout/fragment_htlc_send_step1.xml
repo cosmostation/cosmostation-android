@@ -55,7 +55,7 @@
                 android:layout_marginRight="@dimen/space_8"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                style="@style/font_ss_12_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:text="@string/str_press_select_recipient_account"/>
         </RelativeLayout>
 
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_6"
             android:gravity="center"
-            style="@style/font_ss_11_gray1"
+            style="@style/font_rr_11_gray1"
             android:text="@string/error_can_not_bep3_account_msg"/>
     </LinearLayout>
 
@@ -103,7 +103,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_back"/>
         <Button
@@ -114,7 +114,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>

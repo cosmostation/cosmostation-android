@@ -39,7 +39,7 @@
 
             <TextView
                 android:id="@+id/accountName"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -51,7 +51,7 @@
 
             <TextView
                 android:id="@+id/accountAddress"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -74,7 +74,7 @@
 
             <TextView
                 android:id="@+id/accountAvailable"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_2"
@@ -82,7 +82,7 @@
 
             <TextView
                 android:id="@+id/accountDenom"
-                style="@style/font_ss_12_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_2"

@@ -38,7 +38,7 @@
 
                 <TextView
                     android:id="@+id/tx_msg_text"
-                    style="@style/font_ss_17_black_daynight"
+                    style="@style/font_rm_17_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -52,14 +52,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_starnamne" />
 
                 <TextView
                     android:id="@+id/tx_starname"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -75,7 +75,7 @@
 
                 <TextView
                     android:id="@+id/tx_starname_fee"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_starnamne_fee" />
@@ -87,7 +87,7 @@
 
                     <TextView
                         android:id="@+id/tx_starname_feet_symbol"
-                        style="@style/font_ssl_12_iov"
+                        style="@style/font_rr_12_iov"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -95,7 +95,7 @@
 
                     <TextView
                         android:id="@+id/tx_starname_fee_amount"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/tx_starname_feet_symbol"
@@ -122,14 +122,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_connected_addressed" />
 
                     <TextView
                         android:id="@+id/tx_address_cnt"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

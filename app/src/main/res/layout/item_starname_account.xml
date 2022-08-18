@@ -46,7 +46,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:letterSpacing="0.05"
-                    style="@style/font_ssm_17_black_daynight"
+                    style="@style/font_rr_17_black_daynight"
                     android:text="-"/>
 
                 <RelativeLayout
@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:text="@string/str_connected_addressed"/>
                     <TextView
                         android:id="@+id/connected_addressed"
@@ -76,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:text="@string/str_expire_date"/>
                     <TextView
                         android:id="@+id/expire_date"

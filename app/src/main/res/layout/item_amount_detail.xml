@@ -29,7 +29,7 @@
 
                 <TextView
                     android:id="@+id/total_amount_title"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_amount" />
@@ -41,7 +41,7 @@
 
                     <TextView
                         android:id="@+id/total_amount"
-                        style="@style/font_ss_17_black_daynight"
+                        style="@style/font_rm_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -66,7 +66,7 @@
 
                 <TextView
                     android:id="@+id/available_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available" />
@@ -83,7 +83,7 @@
                         android:layout_alignParentRight="true"
                         android:maxLines="1"
                         android:ellipsize="middle"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_locked"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                         android:layout_marginRight="@dimen/space_2"
                         android:text="12313123"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_frozen"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                         android:layout_marginRight="@dimen/space_2"
                         android:text="12313123"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -155,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_vesting"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
 
                     <TextView
                         android:id="@+id/vesrting_amount"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

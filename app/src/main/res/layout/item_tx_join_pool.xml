@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_osmosis_join_pool"
-                    style="@style/font_ss_15_black_daynight"/>
+                    style="@style/font_rr_15_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_sender"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_join_pool_sender"
                     android:layout_width="match_parent"
@@ -57,13 +57,13 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_pool_id"
                     android:layout_marginTop="@dimen/space_4"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_join_pool_id"
                     android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 android:layout_marginTop="@dimen/space_12">
                 <TextView
                     android:id="@+id/tx_join_token_in_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_in" />
@@ -95,13 +95,13 @@
                             android:layout_gravity="right">
                             <TextView
                                 android:id="@+id/tx_token_in_amount1"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
                             <TextView
                                 android:id="@+id/tx_token_in_symbol1"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -115,13 +115,13 @@
                             android:layout_gravity="right">
                             <TextView
                                 android:id="@+id/tx_token_in_amount2"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
                             <TextView
                                 android:id="@+id/tx_token_in_symbol2"
-                                style="@style/font_ss_12_black_daynight"
+                                style="@style/font_rr_12_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
@@ -138,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_out"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text=""
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                     <TextView
                         android:id="@+id/tx_join_token_out_amount"
                         android:layout_width="wrap_content"
@@ -158,7 +158,7 @@
                         android:layout_toLeftOf="@+id/tx_join_token_out_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ss_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

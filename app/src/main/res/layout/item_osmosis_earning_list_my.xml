@@ -41,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/myfarming_apr"
-                    style="@style/font_ssm_24_black_daynight"
+                    style="@style/font_rr_24_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -58,7 +58,7 @@
 
                     <TextView
                         android:id="@+id/myfarming_pool_id"
-                        style="@style/font_ssm_17_osmosis"
+                        style="@style/font_rr_17_osmosis"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="MY EARNING #0"/>
@@ -69,7 +69,7 @@
                         android:gravity="center"
                         android:text="ATMO / OSMO"
                         android:layout_marginTop="@dimen/space_8"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -87,10 +87,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bonded\n(Locked &amp; Earning)"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/bonded_denom"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/bonded_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/bonded_amount"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -123,10 +123,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Unbonding\n(On Unlocking)"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/unbonding_denom"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/unbonding_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/unbonding_amount"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -159,10 +159,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Unbonded\n(Ready to Unlock)"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/unbonded_denom"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -173,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/unbonded_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -182,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/unbonded_amount"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -195,10 +195,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Next Reward"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/next_reward_denom"
-                    style="@style/font_ss_12_osmo"
+                    style="@style/font_rr_12_osmo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -209,7 +209,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/next_reward_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -229,10 +229,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Available"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/available_denom"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -243,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/available_denom"
                     android:layout_marginRight="@dimen/space_2"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:gravity="right"
                     android:text="-"/>
                 <TextView
@@ -252,7 +252,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/available_amount"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>

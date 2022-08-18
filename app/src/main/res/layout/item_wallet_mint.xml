@@ -28,14 +28,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_inflation"
-                style="@style/font_ss_12_gray1"/>
+                style="@style/font_rr_12_gray1"/>
             <TextView
                 android:id="@+id/mint_inflation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:text="-"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_apr_help_title"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <ImageView
                     android:layout_width="@dimen/space_14"
                     android:layout_height="@dimen/space_14"
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:text="-"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

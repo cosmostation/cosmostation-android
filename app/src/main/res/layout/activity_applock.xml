@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8"
-                    style="@style/font_ss_17_black_daynight"
+                    style="@style/font_rm_17_black_daynight"
                     android:text="@string/str_app_unlock_title"/>
 
                 <TextView

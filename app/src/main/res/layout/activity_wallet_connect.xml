@@ -20,7 +20,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:text="@string/str_wallet_connect"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -57,7 +57,7 @@
 
                 <TextView
                     android:id="@+id/wc_name"
-                    style="@style/font_ss_15_black_daynight"
+                    style="@style/font_rr_15_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_16"
@@ -73,7 +73,7 @@
                     android:background="@color/colorGrayDayNight" />
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_14"
@@ -81,14 +81,14 @@
 
                 <TextView
                     android:id="@+id/wc_url"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:text="" />
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_14"
@@ -96,7 +96,7 @@
 
                 <TextView
                     android:id="@+id/wc_address"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -127,7 +127,7 @@
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_24"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textAllCaps="false"
             android:text="@string/str_disconnect"/>
     </RelativeLayout>

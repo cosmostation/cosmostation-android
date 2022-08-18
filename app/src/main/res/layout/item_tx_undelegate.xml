@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_undelegate"
-                    style="@style/font_ss_15_black_daynight"/>
+                    style="@style/font_rr_15_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_undelegator"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_undelegate_undelegator"
                     android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_validator"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_undelegate_validator"
                     android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
                 <TextView
                     android:id="@+id/tx_undelegate_moniker"
                     android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:text="-"
-                    style="@style/font_ss_11_black_daynight"/>
+                    style="@style/font_rr_11_black_daynight"/>
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                     <TextView
                         android:id="@+id/tx_undelegate_amount"
                         android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
                         android:layout_toLeftOf="@+id/tx_undelegate_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_auto_claimed_reward"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -143,13 +143,13 @@
 
                         <TextView
                             android:id="@+id/tx_commission_symbol0"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true" />
                         <TextView
                             android:id="@+id/tx_commission_amount0"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol0"
@@ -166,11 +166,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_rr_12_black_daynight"/>
 
                         <TextView
                             android:id="@+id/tx_commission_amount1"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol1"
@@ -187,11 +187,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_rr_12_black_daynight"/>
 
                         <TextView
                             android:id="@+id/tx_commission_amount2"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol2"
@@ -208,11 +208,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ssl_12_black_daynight"/>
+                            style="@style/font_rr_12_black_daynight"/>
 
                         <TextView
                             android:id="@+id/tx_commission_amount3"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/tx_commission_symbol3"

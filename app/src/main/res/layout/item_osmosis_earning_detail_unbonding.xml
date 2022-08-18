@@ -32,14 +32,14 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lock ID / Status" />
 
                 <TextView
                     android:id="@+id/lock_id"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/lock_bar"
@@ -47,7 +47,7 @@
 
                 <TextView
                     android:id="@+id/lock_bar"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/lock_status"
@@ -56,7 +56,7 @@
 
                 <TextView
                     android:id="@+id/lock_status"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -70,14 +70,14 @@
                 android:layout_marginTop="@dimen/space_12">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Unbonding Complete Time" />
 
                 <TextView
                     android:id="@+id/time"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -85,7 +85,7 @@
 
                 <TextView
                     android:id="@+id/time_gap"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/time"
@@ -100,14 +100,14 @@
                 android:layout_marginTop="@dimen/space_8">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Amount" />
 
                 <TextView
                     android:id="@+id/amount_denom"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -115,7 +115,7 @@
 
                 <TextView
                     android:id="@+id/amount"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/space_2"
@@ -125,7 +125,7 @@
 
                 <TextView
                     android:id="@+id/amount_value"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/amount"
@@ -140,14 +140,14 @@
                 android:layout_marginTop="@dimen/space_8">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Next Reward" />
 
                 <TextView
                     android:id="@+id/next_reward_denom"
-                    style="@style/font_ss_12_osmo"
+                    style="@style/font_rr_12_osmo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -155,7 +155,7 @@
 
                 <TextView
                     android:id="@+id/next_reward_amount"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/space_2"

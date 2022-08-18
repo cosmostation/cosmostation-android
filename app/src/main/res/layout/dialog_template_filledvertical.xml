@@ -12,7 +12,7 @@
 
         <TextView
             android:id="@+id/dialog_title"
-            style="@style/font_ss_17_black_daynight"
+            style="@style/font_rm_17_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/dialog_msg"
-            style="@style/font_ss_12_black_daynight"
+            style="@style/font_rr_12_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -35,7 +35,7 @@
 
         <Button
             android:id="@+id/btn_one"
-            style="@style/font_ss_15_black_daynight"
+            style="@style/font_rr_15_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
@@ -52,7 +52,7 @@
 
         <Button
             android:id="@+id/btn_two"
-            style="@style/font_ss_15_black_daynight"
+            style="@style/font_rr_15_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
@@ -69,7 +69,7 @@
 
         <Button
             android:id="@+id/btn_three"
-            style="@style/font_ss_15_black_daynight"
+            style="@style/font_rr_15_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"
@@ -82,7 +82,7 @@
 
         <Button
             android:id="@+id/btn_four"
-            style="@style/font_ss_15_black_daynight"
+            style="@style/font_rr_15_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_gravity="center"

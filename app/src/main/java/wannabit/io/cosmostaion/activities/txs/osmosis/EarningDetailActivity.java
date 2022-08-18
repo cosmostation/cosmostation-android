@@ -209,7 +209,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         PaddedVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_select_lockup_duration), null,
                 "1 Day", view -> onStartNewEarning(86400),
                 "7 Day", view -> onStartNewEarning(604800),
-                "14Day", view -> onStartNewEarning(1209600));
+                "14 Day", view -> onStartNewEarning(1209600));
     }
 
     public void onStartNewEarning(long unbondingDuration) {

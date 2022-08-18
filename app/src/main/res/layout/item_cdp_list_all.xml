@@ -50,13 +50,13 @@
 
                     <TextView
                         android:id="@+id/cdp_market_type"
-                        style="@style/font_ssm_17_kava"
+                        style="@style/font_rr_17_kava"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/cdp_market_title"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/market_img"
@@ -79,14 +79,14 @@
 
                 <TextView
                     android:id="@+id/collateral_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_min_collateral_rate" />
 
                 <TextView
                     android:id="@+id/cdp_collateral_rate"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -102,14 +102,14 @@
 
                 <TextView
                     android:id="@+id/stability_fee_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_stability_fee" />
 
                 <TextView
                     android:id="@+id/cdp_stability_fee"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -125,14 +125,14 @@
 
                 <TextView
                     android:id="@+id/liquidation_penalty_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_liquidation_penalty" />
 
                 <TextView
                     android:id="@+id/cdp_str_liquidation_penalty"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
