@@ -299,7 +299,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     private ServiceOuterClass.BroadcastTxResponse executeClaim(ServiceOuterClass.SimulateResponse response, FeeInfo.FeeData feeData, ArrayList<String> toClaimValaddr) {
         Abci.GasInfo gasInfo = response.getGasInfo();
         feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
-        if (mBaseChain.equals(BaseChain.SIF_MAIN)) {
+        if (!mBaseChain.equals(BaseChain.SIF_MAIN)) {
             BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
             feeCoin = new Coin(feeData.denom, amount.toPlainString());
         }
@@ -319,7 +319,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     private ServiceOuterClass.BroadcastTxResponse executeCompounding(ServiceOuterClass.SimulateResponse response, FeeInfo.FeeData feeData, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
         Abci.GasInfo gasInfo = response.getGasInfo();
         feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
-        if (mBaseChain.equals(BaseChain.SIF_MAIN)) {
+        if (!mBaseChain.equals(BaseChain.SIF_MAIN)) {
             BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
             feeCoin = new Coin(feeData.denom, amount.toPlainString());
         }

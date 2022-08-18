@@ -1433,8 +1433,8 @@
     <string name="str_authz_myvalidator_title">나의 검증인</string>
     <string name="str_authz_othervalidator_title">다른 검증인</string>
     <string name="str_authz_select_msg">검증인을 선택하세요</string>
-    <string name="str_authz_empty_title">RECEIVE GRANT TO START AUTHZ</string>
-    <string name="str_authz_empty_msg">You do not have any grants at the moment\nPlease manage your grants from a web wallet</string>
+    <string name="str_authz_empty_title">그랜트를 받고 AUTHZ 시작하기</string>
+    <string name="str_authz_empty_msg">현재 관리하고 있는 그랜트가 없습니다.\n웹지갑에서 그랜트를 관리하세요.</string>
     <string name="str_authz_delegate_title">Authz 위임하기</string>
     <string name="str_authz_delegate_step_0">검증인을 선택하세요</string>
     <string name="str_authz_delegate_step_1">위임 수량을 입력하세요</string>

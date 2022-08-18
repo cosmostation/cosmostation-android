@@ -300,6 +300,10 @@ public class ConnectWalletActivity extends BaseActivity {
         });
         mWebView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (isFinishing()) {
+                    return true;
+                }
+
                 if (url.startsWith("wc:")) {
                     settingForWcDefaultScheme(url);
                     return true;
@@ -626,6 +630,11 @@ public class ConnectWalletActivity extends BaseActivity {
         }
 
         if (!hasAccount(chains.get(index))) {
+            onShowAccountDialog(id, chains, selectedAccounts, index + 1);
+            return;
+        } else if (chainAccountMap.containsKey(WDp.getChainTypeByChainId(chains.get(index)).getChain())) {
+            Account account = chainAccountMap.get(WDp.getChainTypeByChainId(chains.get(index)).getChain());
+            selectedAccounts.add(account);
             onShowAccountDialog(id, chains, selectedAccounts, index + 1);
             return;
         }
