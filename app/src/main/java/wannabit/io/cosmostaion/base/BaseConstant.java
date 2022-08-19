@@ -23,8 +23,8 @@ public class BaseConstant {
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
     public final static String PRE_USING_FINGERPRINT        = "PRE_USING_FINGERPRINT";
-    public final static String PRE_APP_LOCK_TIME            = "PRE_APP_LOCK_TIME";
-    public final static String PRE_APP_LOCK_LEAVE_TIME      = "PRE_APP_LOCK_LEAVE_TIME";
+    public final static String PRE_USING_PASS               = "PRE_USING_AUTO_PASS";
+    public final static String PRE_LAST_PASS_TIME           = "PRE_LAST_PASS_TIME";
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
@@ -353,6 +353,8 @@ public class BaseConstant {
     public final static String BASE_GAS_AMOUNT                          = "500000";
     public final static String FEE_BNB_SEND                             = "0.000075";
     public final static String FEE_OKC_BASE                             = "0.00005";
+
+    public final static String KAVA_SLIPPAGE                            = "30000000000000000";
 
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
     public final static String KAVA_MAIN_BNB_DEPUTY     = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";

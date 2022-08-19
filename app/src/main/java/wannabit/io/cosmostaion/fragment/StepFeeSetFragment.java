@@ -172,10 +172,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     private int mSelectedFeeInfo = 1;
     private int mSelectedFeeData = 0;
 
-    public static StepFeeSetFragment newInstance(Bundle bundle) {
-        StepFeeSetFragment fragment = new StepFeeSetFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static StepFeeSetFragment newInstance() {
+        return new StepFeeSetFragment();
     }
 
     @Override
@@ -400,8 +398,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         } else if (getSActivity().mTxType == CONST_PW_TX_SIF_SWAP) {
             new SimulSifSwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,
-                    getSActivity().mSifSwapInCoin.denom, getSActivity().mSifSwapInCoin.amount, getSActivity().mSifSwapOutCoin.denom, getSActivity().mSifSwapOutCoin.amount,
-                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    getSActivity().mSifSwapInCoin, getSActivity().mSifSwapOutCoin, getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_SIF_JOIN_POOL) {
             new SimulSifDepositGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,

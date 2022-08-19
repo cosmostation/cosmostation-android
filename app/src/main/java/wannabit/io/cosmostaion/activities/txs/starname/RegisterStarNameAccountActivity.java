@@ -20,12 +20,15 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.RegisterAccount0Fragment;
@@ -160,16 +163,28 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
     }
 
     public void onStartRegAccount() {
-        Intent intent = new Intent(RegisterStarNameAccountActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("domain", mStarNameDomain);
-        intent.putExtra("name", mStarNameAccount);
-        StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mStarNameResources);
-        intent.putExtra("resource", wrapper);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ArrayList<Types.Resource> resources = new ArrayList();
+            StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mStarNameResources);
+            if (wrapper != null) {
+                resources = wrapper.array;
+            }
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRegisterAccountReq(getAuthResponse(mBaseChain, mAccount), mStarNameDomain, mStarNameAccount, mAccount.address, mAccount.address,
+                    resources, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(RegisterStarNameAccountActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("domain", mStarNameDomain);
+            intent.putExtra("name", mStarNameAccount);
+            StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mStarNameResources);
+            intent.putExtra("resource", wrapper);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class RegisterAccountPageAdapter extends FragmentPagerAdapter {
@@ -182,8 +197,8 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(RegisterAccount0Fragment.newInstance());
             mFragments.add(RegisterAccount1Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(RegisterAccount4Fragment.newInstance());
         }
 

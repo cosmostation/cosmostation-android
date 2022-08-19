@@ -65,47 +65,44 @@ public class SimpleBnbSendTask extends CommonTask {
                 return mResult;
             }
 
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.BNB_MAIN)) {
-                Response<ResBnbAccountInfo> response = ApiClient.getBnbChain().getAccountInfo(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+            Response<ResBnbAccountInfo> response = ApiClient.getBnbChain().getAccountInfo(mAccount.address).execute();
+            if(!response.isSuccessful()) {
+                mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                return mResult;
+            }
+            mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromBnbLcd(mAccount.id, response.body()));
+            mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
+            mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
-                if (mAccount.fromMnemonic) {
-                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
-                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
-                } else {
-                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
-                }
+            if (mAccount.fromMnemonic) {
+                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
+                ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+            } else {
+                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
+            }
 
-                Wallet wallet = new Wallet(ecKey.getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
-                wallet.setAccountNumber(mAccount.accountNumber);
-                wallet.setSequence(Long.valueOf(mAccount.sequenceNumber));
+            Wallet wallet = new Wallet(ecKey.getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
+            wallet.setAccountNumber(mAccount.accountNumber);
+            wallet.setSequence(Long.valueOf(mAccount.sequenceNumber));
 
-                Transfer transfer = new Transfer();
-                transfer.setCoin(mToSendAmount.get(0).denom);
-                transfer.setFromAddress(mAccount.address);
-                transfer.setToAddress(mToAddress);
-                transfer.setAmount(mToSendAmount.get(0).amount);
+            Transfer transfer = new Transfer();
+            transfer.setCoin(mToSendAmount.get(0).denom);
+            transfer.setFromAddress(mAccount.address);
+            transfer.setToAddress(mToAddress);
+            transfer.setAmount(mToSendAmount.get(0).amount);
 
-                TransactionOption options = new TransactionOption(mToSendMemo, 82, null);
+            TransactionOption options = new TransactionOption(mToSendMemo, 82, null);
 
-                BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
-                List<TransactionMetadata> resp = client.transfer(transfer, wallet, options, true);
-                if (resp.get(0).isOk()) {
-                    mResult.resultData = resp.get(0).getHash();
-                    mResult.isSuccess = true;
-                } else {
-                    mResult.errorCode = resp.get(0).getCode();
-                    mResult.errorMsg = resp.get(0).getLog();
-                }
-
+            BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
+            List<TransactionMetadata> resp = client.transfer(transfer, wallet, options, true);
+            if (resp.get(0).isOk()) {
+                mResult.resultData = resp.get(0).getHash();
+                mResult.isSuccess = true;
+            } else {
+                mResult.errorCode = resp.get(0).getCode();
+                mResult.errorMsg = resp.get(0).getLog();
             }
 
         } catch (Exception e) {

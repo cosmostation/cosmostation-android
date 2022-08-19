@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import cosmos.staking.v1beta1.Staking;
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -28,6 +29,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RedelegateStep0Fragment;
@@ -161,17 +163,21 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     }
 
     public void onStartRedelegate() {
-        Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("fromValidatorAddr", mValAddress);
-        intent.putExtra("toValidatorAddr", mToValAddress);
-        intent.putExtra("rAmount", mAmount);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcReDelegateReq(getAuthResponse(mBaseChain, mAccount), mValAddress, mToValAddress, mAmount, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
 
-
+        } else {
+            Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("fromValidatorAddr", mValAddress);
+            intent.putExtra("toValidatorAddr", mToValAddress);
+            intent.putExtra("rAmount", mAmount);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private void onFetchValidtors() {
@@ -214,8 +220,8 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
             mFragments.clear();
             mFragments.add(RedelegateStep0Fragment.newInstance());
             mFragments.add(RedelegateStep1Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(RedelegateStep4Fragment.newInstance());
         }
 

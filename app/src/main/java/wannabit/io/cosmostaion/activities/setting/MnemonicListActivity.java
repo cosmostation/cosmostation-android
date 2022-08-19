@@ -102,11 +102,18 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
-                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
-                    intent.putExtra("checkid", mWord.id);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                    if (getBaseDao().isAutoPass()) {
+                        Intent checkintent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
+                        checkintent.putExtra("mnemonicId", mWord.id);
+                        startActivity(checkintent);
+
+                    } else {
+                        Intent intent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
+                        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
+                        intent.putExtra("checkid", mWord.id);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                    }
                 }
             });
         }

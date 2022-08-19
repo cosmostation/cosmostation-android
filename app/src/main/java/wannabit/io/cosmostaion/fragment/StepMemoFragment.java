@@ -51,10 +51,8 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
     private Button mBeforeBtn, mNextBtn;
     private LinearLayout mBtnQr, mBtnPaste;
 
-    public static StepMemoFragment newInstance(Bundle bundle) {
-        StepMemoFragment fragment = new StepMemoFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static StepMemoFragment newInstance() {
+        return new StepMemoFragment();
     }
 
     @Override

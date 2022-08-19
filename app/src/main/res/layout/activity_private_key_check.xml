@@ -29,7 +29,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_80"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tool_bar"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"

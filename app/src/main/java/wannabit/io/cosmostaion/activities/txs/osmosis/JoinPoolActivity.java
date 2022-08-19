@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -26,6 +27,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.JoinPoolStep0Fragment;
@@ -155,16 +157,23 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
     }
 
     public void onStartJoinPool() {
-        Intent intent = new Intent(JoinPoolActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("mPoolId", mOsmosisPoolId);
-        intent.putExtra("mPoolCoin0", mPoolCoin0);
-        intent.putExtra("mPoolCoin1", mPoolCoin1);
-        intent.putExtra("mLpToken", mLpToken);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcJoinPoolReq(getAuthResponse(mBaseChain, mAccount), mOsmosisPoolId, mPoolCoin0, mPoolCoin1, mLpToken.amount,
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(JoinPoolActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("mPoolId", mOsmosisPoolId);
+            intent.putExtra("mPoolCoin0", mPoolCoin0);
+            intent.putExtra("mPoolCoin1", mPoolCoin1);
+            intent.putExtra("mLpToken", mLpToken);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class JoinPoolPageAdapter extends FragmentPagerAdapter {
@@ -176,8 +185,8 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(JoinPoolStep0Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(JoinPoolStep3Fragment.newInstance(null));
         }
 

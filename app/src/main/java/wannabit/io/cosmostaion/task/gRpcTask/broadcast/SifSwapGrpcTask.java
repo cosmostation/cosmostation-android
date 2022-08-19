@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_SIF_SWAP;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -16,6 +19,7 @@ import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -24,18 +28,13 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_SIF_SWAP;
-
 public class SifSwapGrpcTask extends CommonTask {
 
     private Account             mAccount;
     private BaseChain           mBaseChain;
     private String              mSinger;
-    private String              mInputDenom;
-    private String              mInputAmount;
-    private String              mOutputDenom;
-    private String              mOutputAmount;
+    private Coin                mSwapInCoin;
+    private Coin                mSwapOutCoin;
     private String              mMemo;
     private Fee                 mFees;
     private String              mChainId;
@@ -43,15 +42,13 @@ public class SifSwapGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse    mAuthResponse;
     private ECKey ecKey;
 
-    public SifSwapGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount, String memo, Fee fee, String chainId) {
+    public SifSwapGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String signer, Coin swapInCoin, Coin swapOutCoin, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
         this.mSinger = signer;
-        this.mInputDenom = inputDenom;
-        this.mInputAmount = inputAmount;
-        this.mOutputDenom = outputDenom;
-        this.mOutputAmount = outputAmount;
+        this.mSwapInCoin = swapInCoin;
+        this.mSwapOutCoin = swapOutCoin;
         this.mFees = fee;
         this.mMemo = memo;
         this.mChainId = chainId;
@@ -83,7 +80,7 @@ public class SifSwapGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSifSwapReq(mAuthResponse, mSinger, mInputDenom, mInputAmount, mOutputDenom, mOutputAmount, mFees, mMemo, ecKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSifSwapReq(mAuthResponse, mSinger, mSwapInCoin, mSwapOutCoin, mFees, mMemo, ecKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {

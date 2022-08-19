@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import cosmos.authz.v1beta1.Authz;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -29,6 +30,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzRedelegateStep0Fragment;
@@ -171,16 +173,23 @@ public class AuthzRedelegateActivity extends BaseBroadCastActivity {
     }
 
     public void onAuthzRedelegate() {
-        Intent intent = new Intent(AuthzRedelegateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("granter", mGranter);
-        intent.putExtra("fromValidatorAddr", mValAddress);
-        intent.putExtra("toValidatorAddr", mToValAddress);
-        intent.putExtra("rAmount", mAmount);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcAuthzRedelegateReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mGranter, mValAddress, mToValAddress, mAmount,
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(AuthzRedelegateActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("granter", mGranter);
+            intent.putExtra("fromValidatorAddr", mValAddress);
+            intent.putExtra("toValidatorAddr", mToValAddress);
+            intent.putExtra("rAmount", mAmount);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class AuthzRedelegatePageAdapter extends FragmentPagerAdapter {
@@ -193,8 +202,8 @@ public class AuthzRedelegateActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(AuthzRedelegateStep0Fragment.newInstance());
             mFragments.add(AuthzRedelegateStep1Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(AuthzRedelegateStep4Fragment.newInstance());
         }
 

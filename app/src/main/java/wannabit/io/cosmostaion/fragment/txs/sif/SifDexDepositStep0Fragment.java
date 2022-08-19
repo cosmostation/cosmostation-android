@@ -57,10 +57,8 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
 
     private boolean mIsInput0Focused;
 
-    public static SifDexDepositStep0Fragment newInstance(Bundle bundle) {
-        SifDexDepositStep0Fragment fragment = new SifDexDepositStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifDexDepositStep0Fragment newInstance() {
+        return new SifDexDepositStep0Fragment();
     }
 
     @Override

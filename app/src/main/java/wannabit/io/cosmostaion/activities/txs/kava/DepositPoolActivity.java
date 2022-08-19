@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import kava.swap.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -27,6 +28,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.DepositPoolStep0Fragment;
@@ -150,14 +152,21 @@ public class DepositPoolActivity extends BaseBroadCastActivity {
     }
 
     public void onStartJoinPool() {
-        Intent intent = new Intent(DepositPoolActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("mKavaPoolTokenA", mKavaPoolTokenA);
-        intent.putExtra("mKavaPoolTokenB", mKavaPoolTokenB);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaDepositReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mKavaPoolTokenA, mKavaPoolTokenB,
+                    BaseConstant.KAVA_SLIPPAGE, (System.currentTimeMillis() / 1000) + 300, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(DepositPoolActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("mKavaPoolTokenA", mKavaPoolTokenA);
+            intent.putExtra("mKavaPoolTokenB", mKavaPoolTokenB);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class DepositPoolPageAdapter extends FragmentPagerAdapter {
@@ -169,8 +178,8 @@ public class DepositPoolActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(DepositPoolStep0Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(DepositPoolStep3Fragment.newInstance(null));
         }
 

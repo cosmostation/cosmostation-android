@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -25,6 +26,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzClaimCommissionStep0Fragment;
@@ -33,6 +35,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
 
@@ -165,15 +168,21 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
         }, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    public void onAuthzClaimReward() {
-        Intent intent = new Intent(AuthzClaimCommissionActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("granter", mGranter);
-        intent.putExtra("valOpAddresses", mValAddresses);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    public void onAuthzClaimCommission() {
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcAuthzClaimCommissionReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, WKey.convertDpAddressToDpOpAddress(mGranter, ChainFactory.getChain(mBaseChain)),
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(AuthzClaimCommissionActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("granter", mGranter);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class AuthzCommissionPageAdapter extends FragmentPagerAdapter {
@@ -185,8 +194,8 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(AuthzClaimCommissionStep0Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(AuthzClaimCommissionStep3Fragment.newInstance());
         }
 

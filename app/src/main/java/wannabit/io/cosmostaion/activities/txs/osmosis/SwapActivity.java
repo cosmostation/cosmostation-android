@@ -17,8 +17,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -26,6 +30,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.CoinSwapStep0Fragment;
@@ -159,15 +164,28 @@ public class SwapActivity extends BaseBroadCastActivity {
     }
 
     public void onStartSwap() {
-        Intent intent = new Intent(SwapActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("osmosisSwapRoute", mOsmosisSwapAmountInRoute.toByteArray());
-        intent.putExtra("SwapInputCoin", mSwapInCoin);
-        intent.putExtra("SwapOutputcoin", mSwapOutCoin);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            Tx.SwapAmountInRoute swapAmountInRoute = null;
+            try {
+                swapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(mOsmosisSwapAmountInRoute.toByteArray());
+            } catch (InvalidProtocolBufferException e) {
+                e.printStackTrace();
+            }
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSwapInReq(getAuthResponse(mBaseChain, mAccount), swapAmountInRoute, mSwapInCoin, mSwapOutCoin.amount,
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(SwapActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("osmosisSwapRoute", mOsmosisSwapAmountInRoute.toByteArray());
+            intent.putExtra("SwapInputCoin", mSwapInCoin);
+            intent.putExtra("SwapOutputcoin", mSwapOutCoin);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class CoinSwapPageAdapter extends FragmentPagerAdapter {
@@ -179,8 +197,8 @@ public class SwapActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(CoinSwapStep0Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(CoinSwapStep3Fragment.newInstance(null));
         }
 

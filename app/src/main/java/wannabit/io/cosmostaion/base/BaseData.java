@@ -84,7 +84,6 @@ import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseData {
@@ -949,33 +948,50 @@ public class BaseData {
         getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_FINGERPRINT, using).commit();
     }
 
-    public int getAppLockTriggerTime() {
-        return getSharedPreferences().getInt(BaseConstant.PRE_APP_LOCK_TIME, 0);
+    public int getUsingAutoPassTime() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_USING_PASS, 0);
     }
 
-    public void setAppLockTriggerTime(int trigger) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_APP_LOCK_TIME, trigger).commit();
+    public void setUsingAutoPassTime(int time) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_USING_PASS, time).commit();
     }
 
-    public long getAppLockLeaveTime() {
-        return getSharedPreferences().getLong(BaseConstant.PRE_APP_LOCK_LEAVE_TIME, 0);
-    }
-
-    public void setAppLockLeaveTime() {
-        getSharedPreferences().edit().putLong(BaseConstant.PRE_APP_LOCK_LEAVE_TIME, System.currentTimeMillis()).commit();
-    }
-
-    public String getAppLockLeaveTimeString(Context c) {
-        WLog.w("getAppLockLeaveTime " + getAppLockTriggerTime());
-        if (getAppLockTriggerTime() == 1) {
-            return c.getString(R.string.str_applock_time_10sec);
-        } else if (getAppLockTriggerTime() == 2) {
-            return c.getString(R.string.str_applock_time_30sec);
-        } else if (getAppLockTriggerTime() == 3) {
-            return c.getString(R.string.str_applock_time_60sec);
+    public String getAutoPass(Context c) {
+        if (getUsingAutoPassTime() == 1) {
+            return c.getString(R.string.str_app_auto_pass_5m);
+        } else if (getUsingAutoPassTime() == 2) {
+            return c.getString(R.string.str_app_auto_pass_10m);
+        } else if (getUsingAutoPassTime() == 3) {
+            return c.getString(R.string.str_app_auto_pass_30m);
         } else {
-            return c.getString(R.string.str_applock_time_immediately);
+            return c.getString(R.string.str_app_auto_pass_never);
         }
+    }
+
+    public long getLastPassTime() {
+        return getSharedPreferences().getLong(BaseConstant.PRE_LAST_PASS_TIME, 0);
+    }
+
+    public void setLastPassTime() {
+        long now = Calendar.getInstance().getTimeInMillis();
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PASS_TIME, now).commit();
+    }
+
+    public boolean isAutoPass() {
+        long now = Calendar.getInstance().getTimeInMillis();
+        if (getUsingAutoPassTime() == 1) {
+            if ((getLastPassTime() + BaseConstant.CONSTANT_M * 5) > now) return true;
+            else return false;
+
+        } else if (getUsingAutoPassTime() == 2) {
+            if ((getLastPassTime() + BaseConstant.CONSTANT_M * 10) > now) return true;
+            else return false;
+
+        } else if (getUsingAutoPassTime() == 3) {
+            if ((getLastPassTime() + BaseConstant.CONSTANT_M * 30) > now) return true;
+            else return false;
+        }
+        return false;
     }
 
     public void setFCMToken(String token) {
