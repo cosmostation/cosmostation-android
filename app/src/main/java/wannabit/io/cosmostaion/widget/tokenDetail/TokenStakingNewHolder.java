@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
@@ -39,7 +40,7 @@ public class TokenStakingNewHolder extends BaseHolder {
 
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
-        final int stakingDivideDecimal = WDp.mainDivideDecimal(chain);
+        final int stakingDivideDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(chain), denom);
         final int stakingDisplayDecimal = WDp.mainDisplayDecimal(chain);
         final BigDecimal totalToken = baseData.getAllMainAsset(denom);
         mTotalAmount.setText(WDp.getDpAmount2(c, totalToken, stakingDivideDecimal, stakingDisplayDecimal));

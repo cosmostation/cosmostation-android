@@ -775,7 +775,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemFullName.setText(coin.denom.toUpperCase() + " on Kava Chain");
 
         BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
-        BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), coin.denom);
+        BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), chainConfig, coin.denom);
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WDp.getDenomDecimal(getBaseDao(), chainConfig, coin.denom), 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), chainConfig.mainDenom(), convertedKavaAmount, 6));
     }
