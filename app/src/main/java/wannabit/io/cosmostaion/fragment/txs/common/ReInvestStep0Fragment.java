@@ -25,7 +25,6 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     private TextView        mTvFromValidators;
     private RelativeLayout  mProgressBar;
     private Button          mCancelBtn, mNextBtn;
-    private int             mDpDecimal = 6;
 
     public static ReInvestStep0Fragment newInstance() {
         return new ReInvestStep0Fragment();
@@ -55,7 +54,6 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         if (getSActivity().mAmount != null) {
             BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
             WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), rewardSum.toPlainString(), mTvRewardDenom, mTvRewardAmount);

@@ -216,7 +216,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
                     if (o1.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return -1;
                     if (o2.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return 1;
                 }
-                if (getSActivity().mToIbcDenom.equalsIgnoreCase(WDp.mainDenom(getSActivity().mBaseChain))) {
+                if (getSActivity().mToIbcDenom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
                     if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
                         return -1;
                     if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))

@@ -112,7 +112,6 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -667,11 +666,12 @@ public class WUtil {
     }
 
     public static void onSortingCoins(ArrayList<Coin> coins, BaseChain chain) {
+        ChainConfig chainConfig = ChainFactory.getChain(chain);
         Collections.sort(coins, new Comparator<Coin>() {
             @Override
             public int compare(Coin o1, Coin o2) {
-                if (o1.denom.equals(WDp.mainDenom(chain))) return -1;
-                if (o2.denom.equals(WDp.mainDenom(chain))) return 1;
+                if (o1.denom.equals(chainConfig.mainDenom())) return -1;
+                if (o2.denom.equals(chainConfig.mainDenom())) return 1;
                 else return 0;
             }
         });
@@ -748,46 +748,6 @@ public class WUtil {
         }
 
         return result;
-    }
-
-    /**
-     * coin decimal
-     */
-
-    public static int getKavaCoinDecimal(BaseData baseData, String denom) {
-        if (denom != null) {
-            if (denom.equalsIgnoreCase(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
-                return 6;
-            } else if (denom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM)) {
-                return 6;
-            } else if (denom.equalsIgnoreCase("xrpb") || denom.equalsIgnoreCase("xrbp")) {
-                return 8;
-            } else if (denom.equalsIgnoreCase("btc")) {
-                return 8;
-            } else if (denom.equalsIgnoreCase("usdx")) {
-                return 6;
-            } else if (denom.equalsIgnoreCase("bnb")) {
-                return 8;
-            } else if (denom.equalsIgnoreCase("btcb") || denom.equalsIgnoreCase("hbtc")) {
-                return 8;
-            } else if (denom.equalsIgnoreCase("busd")) {
-                return 8;
-            } else if (denom.equalsIgnoreCase("swp")) {
-                return 6;
-            } else if (denom.startsWith("ibc/")) {
-                return getIbcDecimal(baseData, denom);
-            }
-        }
-        return 6;
-    }
-
-    public static int getIbcDecimal(BaseData baseData, String denom) {
-        IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-        if (ibcToken != null && ibcToken.auth) {
-            return ibcToken.decimal;
-        } else {
-            return 6;
-        }
     }
 
     /**
@@ -1326,7 +1286,7 @@ public class WUtil {
 
     public static BigDecimal getHardSuppliedValueByDenom(Context context, BaseData baseData, String denom, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit) {
         final BigDecimal denomPrice = getKavaPrice(baseData, denom);
-        final int decimal = WUtil.getKavaCoinDecimal(baseData, denom);
+        final int decimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), denom);
         return (getHardSuppliedAmountByDenom(context, baseData, denom, myDeposit)).movePointLeft(decimal).multiply(denomPrice);
     }
 
@@ -1344,7 +1304,7 @@ public class WUtil {
 
     public static BigDecimal getHardBorrowedValueByDenom(Context context, BaseData baseData, String denom, ArrayList<kava.hard.v1beta1.QueryOuterClass.BorrowResponse> myBorrow) {
         final BigDecimal denomPrice = getKavaPrice(baseData, denom);
-        final int decimal = WUtil.getKavaCoinDecimal(baseData, denom);
+        final int decimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), denom);
         return (getHardBorrowedAmountByDenom(context, baseData, denom, myBorrow)).movePointLeft(decimal).multiply(denomPrice);
 
     }
@@ -1362,11 +1322,11 @@ public class WUtil {
         final Hard.Params hardParam = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket = WUtil.getHardMoneyMarket(hardParam, denom);
         final BigDecimal denomPrice = getKavaPrice(baseData, denom);
-        final int decimal = WUtil.getKavaCoinDecimal(baseData, denom);
+        final int decimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), denom);
 
         if (myDeposit != null && myDeposit.size() > 0) {
             for (CoinOuterClass.Coin coin : myDeposit.get(0).getAmountList()) {
-                int innnerDecimal = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
+                int innnerDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), coin.getDenom());
                 BigDecimal LTV = WUtil.getLTV(hardParam, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue = BigDecimal.ZERO;
@@ -1385,7 +1345,7 @@ public class WUtil {
 
         if (myBorrow != null && myBorrow.size() > 0) {
             for (CoinOuterClass.Coin coin : myBorrow.get(0).getAmountList()) {
-                int innnerDecimal = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
+                int innnerDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), coin.getDenom());
                 BigDecimal borrowedValue = BigDecimal.ZERO;
                 if (coin.getDenom().equalsIgnoreCase("usdx")) {
                     borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
@@ -1440,11 +1400,11 @@ public class WUtil {
         final Hard.Params hardParam = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket = WUtil.getHardMoneyMarket(hardParam, denom);
         final BigDecimal denomPrice = getKavaPrice(baseData, denom);
-        final int decimal = WUtil.getKavaCoinDecimal(baseData, denom);
+        final int decimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), denom);
 
         if (myDeposit != null && myDeposit.size() > 0) {
             for (CoinOuterClass.Coin coin : myDeposit.get(0).getAmountList()) {
-                int innnerDecimal = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
+                int innnerDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), coin.getDenom());
                 BigDecimal LTV = WUtil.getLTV(hardParam, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue = BigDecimal.ZERO;
@@ -1464,7 +1424,7 @@ public class WUtil {
 
         if (myBorrow != null && myBorrow.size() > 0) {
             for (CoinOuterClass.Coin coin : myBorrow.get(0).getAmountList()) {
-                int innnerDecimal = WUtil.getKavaCoinDecimal(baseData, coin.getDenom());
+                int innnerDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), coin.getDenom());
                 BigDecimal borrowedValue = BigDecimal.ZERO;
                 if (coin.getDenom().equals("usdx")) {
                     borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);

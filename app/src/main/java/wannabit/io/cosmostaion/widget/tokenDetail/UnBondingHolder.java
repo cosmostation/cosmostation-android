@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
@@ -76,8 +76,8 @@ public class UnBondingHolder extends BaseHolder {
         mUndelegateLayer3.setVisibility(View.GONE);
         mUndelegateLayer4.setVisibility(View.GONE);
 
-        final int stakingDivideDecimal = WDp.mainDivideDecimal(chain);
-        final int stakingDisplayDecimal = WDp.mainDivideDecimal(chain);
+        final int stakingDivideDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(chain), denom);
+        final int stakingDisplayDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(chain), denom);
 
         final ArrayList<UnbondingInfo.DpEntry> unbondings = WUtil.onSortUnbondingsRecent_Grpc(c, baseData.mGrpcUndelegations);
         mUndelegateCnt.setText(String.valueOf(unbondings.size()));
@@ -86,7 +86,6 @@ public class UnBondingHolder extends BaseHolder {
         mUndelegateRemain0.setText(WDp.getGapTime(Long.parseLong(unbondings.get(0).completion_time) * 1000));
 
         if (unbondings.size() > 1) {
-            WLog.w("1 " + unbondings.get(1).completion_time);
             mUndelegateLayer1.setVisibility(View.VISIBLE);
             mUndelegateTime1.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(1).completion_time) * 1000));
             mUndelegateAmount1.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(1).balance), stakingDivideDecimal, stakingDisplayDecimal));
@@ -118,8 +117,8 @@ public class UnBondingHolder extends BaseHolder {
         mUndelegateLayer3.setVisibility(View.GONE);
         mUndelegateLayer4.setVisibility(View.GONE);
 
-        final int stakingDivideDecimal = WDp.mainDivideDecimal(chain);
-        final int stakingDisplayDecimal = WDp.mainDivideDecimal(chain);
+        final int stakingDivideDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(chain), denom);
+        final int stakingDisplayDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(chain), denom);
 
         final ArrayList<UnbondingInfo.DpEntry> unbondings = WUtil.onSortUnbondingsRecent(c, baseData.mMyUnbondings);
         mUndelegateCnt.setText(String.valueOf(unbondings.size()));

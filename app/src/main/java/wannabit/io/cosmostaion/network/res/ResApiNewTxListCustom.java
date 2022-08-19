@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResApiNewTxListCustom {
@@ -714,7 +714,7 @@ public class ResApiNewTxListCustom {
                                     String value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).
                                                     getJSONArray("attributes").getJSONObject(2).getString("value");
                                     for (String rawCoin: value.split(",")) {
-                                        if (rawCoin.contains(WDp.mainDenom(chain))) {
+                                        if (rawCoin.contains(ChainFactory.getChain(chain).mainDenom())) {
                                             totalRewardSum = totalRewardSum.add(new BigDecimal(rawCoin.replaceAll("[^0-9]", "")));
                                         }
                                     }
@@ -722,7 +722,7 @@ public class ResApiNewTxListCustom {
                             }
                         } catch (Exception e) { }
                     }
-                    return new Coin(WDp.mainDenom(chain), totalRewardSum.toString());
+                    return new Coin(ChainFactory.getChain(chain).mainDenom(), totalRewardSum.toString());
                 }
             }
         }

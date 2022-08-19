@@ -521,6 +521,7 @@ public class WDp {
 
     public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
+        final ChainConfig chainConfig = ChainFactory.getChain(chain);
         BigDecimal apr = BigDecimal.ZERO;
         if (param != null) {
             if (BigDecimal.ZERO.compareTo(param.getRealApr(chain)) == 0) {
@@ -532,11 +533,12 @@ public class WDp {
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("365"), 0, RoundingMode.DOWN);
-        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
+        return getDpAmount2(c, dayReward, getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
     }
 
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
+        final ChainConfig chainConfig = ChainFactory.getChain(chain);
         BigDecimal apr = BigDecimal.ZERO;
         if (param != null) {
             if (BigDecimal.ZERO.compareTo(param.getRealApr(chain)) == 0) {
@@ -548,12 +550,12 @@ public class WDp {
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("12"), 0, RoundingMode.DOWN);
-        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
+        return getDpAmount2(c, dayReward, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
     }
 
-    public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal
+    public static BigDecimal kavaTokenDollorValue(BaseData baseData, ChainConfig chainConfig, String denom, BigDecimal
             amount) {
-        int dpDecimal = WUtil.getKavaCoinDecimal(baseData, denom);
+        int dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
         HashMap<String, kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse> prices = baseData.mKavaTokenPrice;
         if (denom.equals("hard") && prices.get("hard:usd") != null) {
             BigDecimal price = new BigDecimal(prices.get("hard:usd").getPrice());
@@ -647,10 +649,10 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal convertTokenToKava(BaseData baseData, String denom) {
+    public static BigDecimal convertTokenToKava(BaseData baseData, ChainConfig chainConfig, String denom) {
         BigDecimal tokenAmount = baseData.getAvailable(denom).add(baseData.getVesting(denom));
-        BigDecimal totalTokenValue = kavaTokenDollorValue(baseData, denom, tokenAmount);
-        return totalTokenValue.movePointRight(6).divide(perUsdValue(baseData, ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom()), 6, RoundingMode.DOWN);
+        BigDecimal totalTokenValue = kavaTokenDollorValue(baseData, chainConfig, denom, tokenAmount);
+        return totalTokenValue.movePointRight(6).divide(perUsdValue(baseData, chainConfig.mainDenom()), 6, RoundingMode.DOWN);
     }
 
     public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken
@@ -1438,28 +1440,6 @@ public class WDp {
             return ContextCompat.getColor(c, chainConfig.chainBgColor());
         }
         return ContextCompat.getColor(c, R.color.colorTransBg);
-    }
-
-    public static String mainDenom(BaseChain chain) {
-        if (chain != null) {
-            ChainConfig chainConfig = ChainFactory.getChain(chain);
-            return chainConfig.mainDenom();
-        }
-        return "";
-    }
-
-    public static int mainDivideDecimal(BaseChain chain) {
-        if (chain.equals(BNB_MAIN) || chain.equals(OKEX_MAIN)) {
-            return 0;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
-            return 18;
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return 8;
-        } else if (chain.equals(PROVENANCE_MAIN)) {
-            return 9;
-        } else {
-            return 6;
-        }
     }
 
     public static int mainDisplayDecimal(BaseChain chain) {
