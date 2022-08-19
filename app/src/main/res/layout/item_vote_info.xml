@@ -238,7 +238,7 @@
                 android:maxLines="3"
                 android:autoLink="web"
                 android:clickable="true"
-                android:textColorLink="@color/colorPhoton"
+                android:textColorLink="@color/colorPhotonDayNight"
                 style="@style/font_rr_11_black_daynight"/>
 
             <ImageView

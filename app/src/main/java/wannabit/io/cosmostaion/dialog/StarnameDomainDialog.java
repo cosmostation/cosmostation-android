@@ -51,7 +51,7 @@ public class StarnameDomainDialog extends DialogFragment {
         mRecyclerView = view.findViewById(R.id.recycler);
         mStarnameDomain = getArguments().getStringArrayList("domain");
 
-        mDialogLayout.setBackgroundResource(R.drawable.dialog_bg_colorwhite2daynight);
+        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
         mDialogTitle.setText(R.string.str_select_starname_domain);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

@@ -191,7 +191,7 @@
 
                     <TextView
                         android:id="@+id/validator_yield"
-                        style="@style/font_rr_14_photon"
+                        style="@style/font_rr_14_photon_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

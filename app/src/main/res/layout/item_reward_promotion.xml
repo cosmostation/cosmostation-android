@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16"
-                app:tint="@color/colorPhoton"
+                app:tint="@color/colorPhotonDayNight"
                 android:src="@drawable/reward_img"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/space_44"
                 android:background="?android:attr/selectableItemBackground"
-                style="@style/font_rr_14_photon"
+                style="@style/font_rr_14_photon_daynight"
                 android:text="이자 받기"
                 android:visibility="gone"/>
         </LinearLayout>

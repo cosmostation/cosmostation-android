@@ -340,7 +340,7 @@
 
         <Button
             android:id="@+id/btn_start_swap"
-            style="@style/font_rr_14_photon"
+            style="@style/font_rr_14_photon_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
@@ -348,7 +348,6 @@
             android:background="@drawable/btn_trans_with_photon_border"
             android:minHeight="@dimen/space_45"
             android:text="@string/str_token_swap_start"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPhoton" />
+            android:textAllCaps="false" />
     </LinearLayout>
 </RelativeLayout>

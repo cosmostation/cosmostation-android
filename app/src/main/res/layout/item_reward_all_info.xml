@@ -66,11 +66,10 @@
 
                     <TextView
                         android:id="@+id/reward_title"
-                        style="@style/font_rr_10_black_daynight"
+                        style="@style/font_rr_10_photon_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:textColor="@color/colorPhoton"
                         android:text="One Click"/>
 
                     <TextView
@@ -96,11 +95,10 @@
 
                     <TextView
                         android:id="@+id/compounding_title"
-                        style="@style/font_rr_10_black_daynight"
+                        style="@style/font_rr_10_photon_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:textColor="@color/colorPhoton"
                         android:text="One Click"/>
 
                     <TextView

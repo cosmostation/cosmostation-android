@@ -72,12 +72,11 @@
 
                 <Button
                     android:id="@+id/btn_right"
-                    style="@style/font_rr_14_black_daynight"
+                    style="@style/font_rr_14_photon_daynight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/colorTrans"
-                    android:textColor="@color/colorPhoton"
                     android:text="@string/str_import_watchaddress"
                     android:textAllCaps="false" />
             </LinearLayout>

@@ -32,7 +32,7 @@
                 <!--android:layout_height="@dimen/space_60"-->
                 <!--android:layout_alignParentRight="true"-->
                 <!--android:padding="0dp"-->
-                <!--style="@style/font_rr_14_photon"-->
+                <!--style="@style/font_rr_14_photon_daynight"-->
                 <!--android:text="@string/str_detail"-->
                 <!--android:textAllCaps="false"-->
                 <!--android:background="@null"/>-->
