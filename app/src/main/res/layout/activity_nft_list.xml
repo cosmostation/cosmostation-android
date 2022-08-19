@@ -71,10 +71,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:drawableLeft="@drawable/icon_nft"
-            android:drawableTint="@color/colorPhoton"
+            android:drawableTint="@color/colorPhotonDayNight"
             android:drawablePadding="@dimen/space_4"
             android:gravity="center"
-            style="@style/font_rr_14_photon"
+            style="@style/font_rr_14_photon_daynight"
             android:text="@string/str_create_nfts"/>
     </RelativeLayout>
 

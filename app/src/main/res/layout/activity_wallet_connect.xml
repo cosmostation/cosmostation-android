@@ -127,7 +127,7 @@
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_24"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_rr_14_photon"
+            style="@style/font_rr_14_photon_daynight"
             android:textAllCaps="false"
             android:text="@string/str_disconnect"/>
     </RelativeLayout>

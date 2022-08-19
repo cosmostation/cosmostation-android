@@ -52,7 +52,7 @@ public class IBCRelayerChannelDialog extends DialogFragment {
         mRecyclerView = view.findViewById(R.id.recycler);
         mIbcSendablePaths = (ArrayList<IbcPath.Path>) getArguments().getSerializable("channel");
 
-        mDialogLayout.setBackgroundResource(R.drawable.dialog_bg_colorwhite2daynight);
+        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
         mDialogTitle.setText(R.string.str_select_ibc_relayer);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

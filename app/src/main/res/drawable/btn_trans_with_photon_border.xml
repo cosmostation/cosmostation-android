@@ -11,7 +11,7 @@
                     <corners
                         android:radius="@dimen/space_8"/>
                     <stroke
-                        android:color="@color/colorPhoton"
+                        android:color="@color/colorPhotonDayNight"
                         android:width="@dimen/space_1"/>
                     <padding
                         android:left="@dimen/space_8"

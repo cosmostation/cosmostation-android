@@ -230,7 +230,7 @@
 
     <Button
         android:id="@+id/btn_disconnect"
-        style="@style/font_rr_14_photon"
+        style="@style/font_rr_14_photon_daynight"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
         android:layout_alignParentBottom="true"

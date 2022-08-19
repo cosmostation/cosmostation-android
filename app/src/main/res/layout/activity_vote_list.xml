@@ -54,7 +54,7 @@
 
         <Button
             android:id="@+id/btn_multiVote"
-            style="@style/font_rr_14_photon"
+            style="@style/font_rr_14_photon_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
@@ -91,7 +91,7 @@
 
             <Button
                 android:id="@+id/btn_next"
-                style="@style/font_rr_14_photon"
+                style="@style/font_rr_14_photon_daynight"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_45"
                 android:layout_marginLeft="@dimen/space_4"
@@ -102,7 +102,6 @@
                 android:minHeight="@dimen/space_45"
                 android:text="@string/str_next"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPhoton"
                 android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>

@@ -788,7 +788,7 @@
                 android:minHeight="@dimen/space_45"
                 android:background="@drawable/btn_trans_with_photon_border"
                 android:layout_weight="1"
-                style="@style/font_rr_14_photon"
+                style="@style/font_rr_14_photon_daynight"
                 android:text="@string/str_copy"/>
         </LinearLayout>
         <Button
@@ -800,7 +800,7 @@
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_rr_14_photon"
+            style="@style/font_rr_14_photon_daynight"
             android:text="@string/str_derive_wallet"/>
     </LinearLayout>
 </RelativeLayout>

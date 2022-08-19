@@ -66,7 +66,7 @@ public class WalletStarnameDialog extends DialogFragment {
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mRecyclerView = view.findViewById(R.id.recycler);
 
-        mDialogLayout.setBackgroundResource(R.drawable.dialog_bg_colorwhite2daynight);
+        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
         mDialogTitle.setText(R.string.str_select_wallet_for_address);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

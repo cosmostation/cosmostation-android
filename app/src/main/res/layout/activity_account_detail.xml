@@ -328,7 +328,7 @@
 
                         <TextView
                             android:id="@+id/import_msg"
-                            style="@style/font_rr_11_photon"
+                            style="@style/font_rr_11_photon_daynight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_10"
@@ -436,7 +436,7 @@
 
             <Button
                 android:id="@+id/btn_check_key"
-                style="@style/font_rr_14_photon"
+                style="@style/font_rr_14_photon_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
                 android:layout_weight="1"
@@ -447,7 +447,7 @@
 
         <Button
             android:id="@+id/btn_check"
-            style="@style/font_rr_14_photon"
+            style="@style/font_rr_14_photon_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"

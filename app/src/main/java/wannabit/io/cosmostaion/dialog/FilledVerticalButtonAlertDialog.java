@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.R;
 public class FilledVerticalButtonAlertDialog extends AlertDialog {
     TextView titleTextView, messageTextView;
     Button firstButton, secondButton, thirdButton, quadrupleButton;
+    View btnLine;
 
     public FilledVerticalButtonAlertDialog(Context context) {
         super(context);
@@ -27,6 +28,8 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
         secondButton = view.findViewById(R.id.btn_two);
         thirdButton = view.findViewById(R.id.btn_three);
         quadrupleButton = view.findViewById(R.id.btn_four);
+        btnLine = view.findViewById(R.id.btn_line);
+
         setView(view);
 
     }
@@ -90,6 +93,7 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
         } else {
             dialog.messageTextView.setText(message);
             dialog.messageTextView.setVisibility(View.VISIBLE);
+            dialog.btnLine.setVisibility(View.VISIBLE);
         }
 
         if (firstButtonImage == null && secondButtonImage == null) {
@@ -134,6 +138,7 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
 
         dialog.thirdButton.setText(thirdButtonTitle);
         dialog.thirdButton.setVisibility(View.VISIBLE);
+        dialog.btnLine.setVisibility(View.VISIBLE);
 
         dialog.thirdButton.setOnClickListener(view -> {
             if (thirdButtonListener != null) {

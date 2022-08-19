@@ -63,9 +63,11 @@
             android:textAllCaps="false" />
 
         <View
+            android:id="@+id/btn_line"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_view"
-            android:background="@color/colorGrayDayNight" />
+            android:layout_height="1px"
+            android:background="@color/colorGrayDayNight"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btn_three"
