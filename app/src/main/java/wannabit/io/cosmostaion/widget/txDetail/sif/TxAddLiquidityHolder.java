@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -34,7 +33,7 @@ public class TxAddLiquidityHolder extends TxHolder {
             sifnode.clp.v1.Tx.MsgAddLiquidity msg = sifnode.clp.v1.Tx.MsgAddLiquidity.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemALSigner.setText(msg.getSigner());
 
-            Coin nativeCoin = new Coin(BaseConstant.TOKEN_SIF, msg.getNativeAssetAmount());
+            Coin nativeCoin = new Coin(chainConfig.mainDenom(), msg.getNativeAssetAmount());
             Coin externalCoin = new Coin(msg.getExternalAsset().getSymbol(), msg.getExternalAssetAmount());
 
             WDp.setDpCoin(c, baseData, chainConfig, nativeCoin, itemALNativeAssetSymbol, itemALNativeAssetAmount);

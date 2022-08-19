@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities.txs.sif;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_LIST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -249,7 +248,7 @@ public class SifDexListActivity extends BaseActivity {
 
         }
         if (mTaskCount == 0) {
-            mAllDenoms.add(TOKEN_SIF);
+            mAllDenoms.add(mChainConfig.mainDenom());
             for (Types.Pool pool : mPoolList) {
                 if (!mAllDenoms.contains(pool.getExternalAsset().getSymbol())) {
                     mAllDenoms.add(pool.getExternalAsset().getSymbol());

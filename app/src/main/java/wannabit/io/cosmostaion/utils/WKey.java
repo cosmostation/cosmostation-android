@@ -4,6 +4,7 @@ import static org.bitcoinj.core.ECKey.CURVE;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
@@ -267,7 +268,27 @@ public class WKey {
         return "0x" + WUtil.ByteArrayToHexString(pub);
     }
 
-    public static String convertAddressEthToOkex(String esAddress) throws Exception {
+    public static String convertAddressEthToTender(BaseChain baseChain, String esAddress) {
+        String cosmoTypeAddress = esAddress;
+        if (cosmoTypeAddress.startsWith("0x")) {
+            cosmoTypeAddress = cosmoTypeAddress.replace("0x", "");
+        }
+        byte[] pub = WUtil.HexStringToByteArray(cosmoTypeAddress);
+        String addressResult = null;
+        try {
+            byte[] bytes = convertBits(pub, 8, 5, true);
+            if (baseChain.equals(KAVA_MAIN)) {
+                addressResult = Bech32.encode("kava", bytes);
+            } else {
+                addressResult = Bech32.encode("evmos", bytes);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return addressResult;
+    }
+
+    public static String convertAddressEthToOkex(String esAddress) {
         String cosmoTypeAddress = esAddress;
         if (cosmoTypeAddress.startsWith("0x")) {
             cosmoTypeAddress = cosmoTypeAddress.replace("0x", "");

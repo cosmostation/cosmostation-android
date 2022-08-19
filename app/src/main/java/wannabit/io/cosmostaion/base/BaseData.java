@@ -14,11 +14,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAI
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -1282,11 +1280,11 @@ public class BaseData {
         for (Account account:AllAccount) {
             if (BaseChain.getChain(account.baseChain).equals(chain) && account.hasPrivateKey) {
                 if (chain.equals(BNB_MAIN)) {
-                    if (getTokenAmount(account.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
+                    if (getTokenAmount(account.balances, ChainFactory.getChain(BNB_MAIN).mainDenom()).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
                         result.add(account);
                     }
                 } else if (chain.equals(KAVA_MAIN)) {
-                    if (getTokenAmount(account.balances, TOKEN_KAVA).compareTo(new BigDecimal("12500")) >= 0) {
+                    if (getTokenAmount(account.balances, ChainFactory.getChain(KAVA_MAIN).mainDenom()).compareTo(new BigDecimal("12500")) >= 0) {
                         result.add(account);
                     }
                 }

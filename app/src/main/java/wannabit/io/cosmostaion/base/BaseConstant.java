@@ -14,7 +14,6 @@ public class BaseConstant {
     public final static String DB_TABLE_BALANCE         = "balan";
     public final static String DB_TABLE_BONDING         = "bondi";
     public final static String DB_TABLE_UNBONDING       = "unbond";
-    public final static String DB_TABLE_PRICE           = "price";
     public final static String DB_TABLE_MNEMONIC        = "mnemonic";
 
     public final static String PRE_USER_ID                  = "PRE_USER_ID";
@@ -37,7 +36,6 @@ public class BaseConstant {
     public final static int TASK_INIT_ACCOUNT                           = 2002;
     public final static int TASK_INIT_EMPTY_ACCOUNT                     = 2003;
     public final static int TASK_FETCH_ACCOUNT                          = 2004;
-    public final static int TASK_FETCH_ALL_REWARDS                      = 2008;
     public final static int TASK_PASSWORD_CHECK                         = 2015;
     public final static int TASK_GEN_TX_SIMPLE_SEND                     = 2018;
     public final static int TASK_OVERRIDE_ACCOUNT                       = 2019;
@@ -51,8 +49,6 @@ public class BaseConstant {
     public final static int TASK_PUSH_STATUS_UPDATE                     = 2057;
     public final static int TASK_MOON_PAY_SIGNATURE                     = 2058;
     public final static int TASK_FETCH_KAVA_CDP_DEPOSIT                 = 2061;
-    public final static int TASK_GEN_TX_HTLC_REFUND                     = 2071;
-    public final static int TASK_GEN_TX_BNB_HTLC_REFUND                 = 2072;
     public final static int TASK_FETCH_KAVA_INCENTIVE_PARAM             = 2074;
     public final static int TASK_FETCH_KAVA_INCENTIVE_REWARD            = 2076;
     public final static int TASK_FETCH_BNB_MINI_TOKENS                  = 2078;
@@ -66,7 +62,6 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_OK_DEPOSIT                      = 2086;
     public final static int TASK_GEN_TX_OK_WITHDRAW                     = 2087;
     public final static int TASK_GEN_TX_OK_DIRECT_VOTE                  = 2088;
-    public final static int TASK_GEN_TX_KAVA_CLAIM_HARVEST              = 2109;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
     public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
     public final static int TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT         = 2123;
@@ -85,7 +80,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_MINTSCAN_ASSETS                  = 2805;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
-    public final static int TASK_FETCH_MINTSCAN_VOTE_STATUS             = 2808;
 
 
     //gRPC
@@ -97,9 +91,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_UNDELEGATIONS               = 4006;
     public final static int TASK_GRPC_FETCH_ALL_REWARDS                 = 4007;
     public final static int TASK_GRPC_FETCH_COMMISSION                  = 4008;
-    public final static int TASK_GRPC_FETCH_IRIS_PARAM_MINT             = 4009;
     public final static int TASK_GRPC_FETCH_STAKING_POOL                = 4012;
-    public final static int TASK_GRPC_FETCH_IRIS_TOKEN_LIST             = 4013;
     public final static int TASK_GRPC_FETCH_VALIDATOR_INFO              = 4014;
     public final static int TASK_GRPC_FETCH_SELF_BONDING                = 4015;
     public final static int TASK_GRPC_FETCH_WITHDRAW_ADDRESS            = 4016;
@@ -108,16 +100,10 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_PROPOSAL_MY_VOTE            = 4023;
     public final static int TASK_GRPC_FETCH_NODE_INFO                   = 4024;
     public final static int TASK_GRPC_FETCH_AUTH                        = 4025;
-    public final static int TASK_GRPC_FETCH_GRAVITY_POOL_LIST           = 4026;
-    public final static int TASK_GRPC_FETCH_GRAVITY_PARAM               = 4027;
-    public final static int TASK_GRPC_FETCH_GRAVITY_MANAGER             = 4028;
     public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
-    public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
     public final static int TASK_GRPC_FETCH_DESMOS_PROFILE_INFO         = 4031;
-    public final static int TASK_GRPC_FETCH_SUPPLY_OF_INFO              = 4032;
     public final static int TASK_GRPC_FETCH_BALANCE_OF_CW20             = 4033;
 
-    public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
     public final static int TASK_GRPC_FETCH_STARNAME_CONFIG             = 4102;
     public final static int TASK_GRPC_FETCH_STARNAME_ACCOUNT            = 4103;
@@ -183,18 +169,13 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_EXIT_POOL                  = 4317;
     public final static int TASK_GRPC_GEN_TX_START_LOCK                 = 4318;
     public final static int TASK_GRPC_GEN_TX_BEGIN_UNBONDING            = 4319;
-    public final static int TASK_GRPC_GEN_TX_GRAVITY_SWAP               = 4321;
-    public final static int TASK_GRPC_GEN_TX_GRAVITY_JOIN_POOL          = 4322;
-    public final static int TASK_GRPC_GEN_TX_GRAVITY_EXIT_POOL          = 4323;
     public final static int TASK_GRPC_GEN_TX_IBC_TRANSFER               = 4324;
-    public final static int TASK_GRPC_GEN_TX_SIF_CLAIM_INCENTIVE        = 4325;
     public final static int TASK_GRPC_GEN_TX_SIF_SWAP                   = 4326;
     public final static int TASK_GRPC_GEN_TX_SIF_JOIN_POOL              = 4327;
     public final static int TASK_GRPC_GEN_TX_SIF_EXIT_POOL              = 4328;
     public final static int TASK_GRPC_GEN_TX_MINT_NFT                   = 4329;
     public final static int TASK_GRPC_GEN_TX_TRANSFER_NFT               = 4330;
     public final static int TASK_GRPC_GEN_TX_CREATE_PROFILE             = 4331;
-    public final static int TASK_GRPC_GEN_TX_LINK_ACCOUNT               = 4332;
     public final static int TASK_GRPC_GEN_TX_KAVA_SWAP                  = 4333;
     public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT               = 4334;
     public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW              = 4335;
@@ -233,11 +214,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_EXIT_POOL                = 4517;
     public final static int TASK_GRPC_SIMULATE_START_LOCK               = 4518;
     public final static int TASK_GRPC_SIMULATE_BEGIN_UNBONDING          = 4519;
-    public final static int TASK_GRPC_SIMULATE_GRAVITY_SWAP             = 4521;
-    public final static int TASK_GRPC_SIMULATE_GRAVITY_JOIN_POOL        = 4522;
-    public final static int TASK_GRPC_SIMULATE_GRAVITY_EXIT_POOL        = 4523;
     public final static int TASK_GRPC_SIMULATE_IBC_TRANSFER             = 4524;
-    public final static int TASK_GRPC_SIMULATE_SIF_CLAIM_INCENTIVE      = 4526;
     public final static int TASK_GRPC_SIMULATE_SIF_SWAP                 = 4527;
     public final static int TASK_GRPC_SIMULATE_SIF_JOIN_POOL            = 4528;
     public final static int TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL        = 4529;
@@ -261,68 +238,11 @@ public class BaseConstant {
 
 
 
-
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
-
-    public final static String COSMOS_AUTH_TYPE_DELAYEDACCOUNT              = "cosmos-sdk/DelayedVestingAccount";
-    public final static String COSMOS_AUTH_TYPE_VESTING_ACCOUNT             = "cosmos-sdk/ValidatorVestingAccount";
-    public final static String COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT           = "cosmos-sdk/PeriodicVestingAccount";
-    public final static String COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT           = "cosmos-sdk/ContinuousVestingAccount";
-    public final static String COSMOS_AUTH_TYPE_D_VESTING_ACCOUNT           = "cosmos-sdk/DelayedVestingAccount";
-    public final static String COSMOS_AUTH_TYPE_ACCOUNT                     = "cosmos-sdk/Account";
-    public final static String COSMOS_AUTH_TYPE_ACCOUNT_LEGACY              = "auth/Account";
-    public final static String COSMOS_AUTH_TYPE_CERTIK_MANUAL               = "auth/ManualVestingAccount";
     public final static String COSMOS_AUTH_TYPE_OKEX_ACCOUNT                = "okexchain/EthAccount";
 
     public final static String COSMOS_MSG_TYPE_TRANSFER                     = "cosmos-sdk/Send";
     public final static String COSMOS_MSG_TYPE_TRANSFER2                    = "cosmos-sdk/MsgSend";
-    public final static String COSMOS_MSG_TYPE_TRANSFER3                    = "cosmos-sdk/MsgMultiSend";
-    public final static String COSMOS_MSG_TYPE_DELEGATE                     = "cosmos-sdk/MsgDelegate";
-    public final static String COSMOS_MSG_TYPE_UNDELEGATE                   = "cosmos-sdk/Undelegate";
-    public final static String COSMOS_MSG_TYPE_UNDELEGATE2                  = "cosmos-sdk/MsgUndelegate";
-    public final static String COSMOS_MSG_TYPE_REDELEGATE                   = "cosmos-sdk/BeginRedelegate";
-    public final static String COSMOS_MSG_TYPE_REDELEGATE2                  = "cosmos-sdk/MsgBeginRedelegate";
-    public final static String COSMOS_MSG_TYPE_WITHDRAW_DEL                 = "cosmos-sdk/MsgWithdrawDelegationReward";
-    public final static String COSMOS_MSG_TYPE_WITHDRAW_VAL                 = "cosmos-sdk/MsgWithdrawValidatorCommission";
-    public final static String COSMOS_MSG_TYPE_WITHDRAW_MIDIFY              = "cosmos-sdk/MsgModifyWithdrawAddress";
-    public final static String COSMOS_MSG_TYPE_VOTE                         = "cosmos-sdk/MsgVote";
-    public final static String COSMOS_MSG_TYPE_SUBMIT_PROPOSAL              = "cosmos-sdk/MsgSubmitProposal";
-    public final static String COSMOS_MSG_TYPE_DEPOSIT                      = "cosmos-sdk/MsgDeposit";
-    public final static String COSMOS_MSG_TYPE_CREATE_VALIDATOR             = "cosmos-sdk/MsgCreateValidator";
-    public final static String COSMOS_MSG_TYPE_EDIT_VALIDATOR               = "cosmos-sdk/MsgEditValidator";
-    public final static String COSMOS_MSG_TYPE_UNJAIL                       = "cosmos-sdk/MsgUnjail";
-
-    public final static String KAVA_MSG_TYPE_POST_PRICE                     = "/kava.pricefeed.v1beta1.MsgPostPrice";
-    public final static String KAVA_MSG_TYPE_CREATE_CDP                     = "/kava.cdp.v1beta1.MsgCreateCDP";
-    public final static String KAVA_MSG_TYPE_DEPOSIT_CDP                    = "/kava.cdp.v1beta1.MsgDeposit";
-    public final static String KAVA_MSG_TYPE_WITHDRAW_CDP                   = "/kava.cdp.v1beta1.MsgWithdraw";
-    public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "/kava.cdp.v1beta1.MsgDrawDebt";
-    public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "/kava.cdp.v1beta1.MsgRepayDebt";
-    public final static String KAVA_MSG_TYPE_LIQUIDATE_CDP                  = "/kava.cdp.v1beta1.MsgLiquidate";
-    public final static String KAVA_MSG_TYPE_BEP3_CREATE_SWAP               = "/kava.bep3.v1beta1.MsgCreateAtomicSwap";
-    public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "/kava.bep3.v1beta1.MsgClaimAtomicSwap";
-    public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "/kava.bep3.v1beta1.MsgRefundAtomicSwap";
-    public final static String KAVA_MSG_TYPE_INCENTIVE_REWARD               = "incentive/MsgClaimReward";
-    public final static String KAVA_MSG_TYPE_USDX_MINT_INCENTIVE            = "/kava.incentive.v1beta1.MsgClaimUSDXMintingReward";
-    public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE           = "/kava.incentive.v1beta1.MsgClaimHardReward";
-    public final static String KAVA_MSG_TYPE_DELEGATOR_INCENTIVE            = "/kava.incentive.v1beta1.MsgClaimDelegatorReward";
-    public final static String KAVA_MSG_TYPE_SWAP_INCENTIVE                 = "/kava.incentive.v1beta1.MsgClaimSwapReward";
-    public final static String KAVA_MSG_TYPE_CLAIM_HAVEST                   = "harvest/MsgClaimReward";
-    public final static String KAVA_MSG_TYPE_DEPOSIT_HARD                   = "/kava.hard.v1beta1.MsgDeposit";
-    public final static String KAVA_MSG_TYPE_WITHDRAW_HARD                  = "/kava.hard.v1beta1.MsgWithdraw";
-    public final static String KAVA_MSG_TYPE_BORROW_HARD                    = "/kava.hard.v1beta1.MsgBorrow";
-    public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "/kava.hard.v1beta1.MsgRepay";
-    public final static String KAVA_MSG_TYPE_LIQUIDATE_HARD                 = "hard/MsgLiquidate";
-    public final static String KAVA_MSG_TYPE_SWAP_TOKEN                     = "/kava.swap.v1beta1.MsgSwapExactForTokens";
-    public final static String KAVA_MSG_TYPE_SWAP_TOKEN2                    = "/kava.swap.v1beta1.MsgSwapForExactTokens";
-    public final static String KAVA_MSG_TYPE_DEPOSIT                        = "/kava.swap.v1beta1.MsgDeposit";
-    public final static String KAVA_MSG_TYPE_WITHDRAW                       = "/kava.swap.v1beta1.MsgWithdraw";
-
-
-    public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
-    public final static String BNB_MSG_TYPE_HTLC_CLIAM                      = "tokens/ClaimHTLTMsg";
-    public final static String BNB_MSG_TYPE_HTLC_REFUND                     = "tokens/RefundHTLTMsg";
-
 
     public final static String OK_MSG_TYPE_TRANSFER                         = "okexchain/token/MsgTransfer";
     public final static String OK_MSG_TYPE_MULTI_TRANSFER                   = "okexchain/token/MsgMultiTransfer";
@@ -330,29 +250,17 @@ public class BaseConstant {
     public final static String OK_MSG_TYPE_WITHDRAW                         = "okexchain/staking/MsgWithdraw";
     public final static String OK_MSG_TYPE_DIRECT_VOTE                      = "okexchain/staking/MsgAddShares";
 
-
-
-    public final static String IOV_MSG_TYPE_REGISTER_DOMAIN                 = "starname/RegisterDomain";
-    public final static String IOV_MSG_TYPE_REGISTER_ACCOUNT                = "starname/RegisterAccount";
     public final static String IOV_MSG_TYPE_DELETE_ACCOUNT                  = "starname/DeleteAccount";
     public final static String IOV_MSG_TYPE_DELETE_DOMAIN                   = "starname/DeleteDomain";
-    public final static String IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE        = "starname/ReplaceAccountResources";
     public final static String IOV_MSG_TYPE_RENEW_DOMAIN                    = "starname/RenewDomain";
     public final static String IOV_MSG_TYPE_RENEW_ACCOUNT                   = "starname/RenewAccount";
 
 
-    public final static String CERTIK_MSG_TYPE_TRANSFER                     = "bank/MsgSend";
-
-
     public final static String COSMOS_KEY_TYPE_PUBLIC                       = "tendermint/PubKeySecp256k1";
     public final static String ETHERMINT_KEY_TYPE_PUBLIC                    = "ethermint/PubKeyEthSecp256k1";
-    public final static String IOV_KEY_TYPE                                 = "sigs/ed25519/";
-
-    public final static String LIQUIDITY_MSG_TYPE_SWAP                      = "liquidity/MsgSwapWithinBatch";
 
     public final static String CONST_PW_PURPOSE                             = "CONST_PW_PURPOSE";
     public final static int CONST_PW_INIT                                   = 5000;
-    public final static int CONST_PW_UNLOUCK                                = 5001;
     public final static int CONST_PW_SIMPLE_CHECK                           = 5002;
     public final static int CONST_PW_TX_SIMPLE_SEND                         = 5003;
     public final static int CONST_PW_TX_SIMPLE_DELEGATE                     = 5004;
@@ -369,7 +277,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_DRAW_DEBT_CDP                       = 5015;
     public final static int CONST_PW_TX_DEPOSIT_CDP                         = 5016;
     public final static int CONST_PW_TX_WITHDRAW_CDP                        = 5017;
-    public final static int CONST_PW_TX_HTLS_REFUND                         = 5019;
     public final static int CONST_PW_TX_CLAIM_INCENTIVE                     = 5020;
     public final static int CONST_PW_TX_OK_DEPOSIT                          = 5021;
     public final static int CONST_PW_TX_OK_WITHDRAW                         = 5022;
@@ -383,7 +290,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_REPLACE_STARNAME                    = 5030;
     public final static int CONST_PW_TX_DEPOSIT_HARD                        = 5031;
     public final static int CONST_PW_TX_WITHDRAW_HARD                       = 5032;
-    public final static int CONST_PW_TX_CLAIM_HARVEST_REWARD                = 5033;
     public final static int CONST_PW_TX_BORROW_HARD                         = 5034;
     public final static int CONST_PW_TX_REPAY_HARD                          = 5035;
     public final static int CONST_PW_TX_OSMOSIS_SWAP                        = 5036;
@@ -391,15 +297,10 @@ public class BaseConstant {
     public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5038;
     public final static int CONST_PW_TX_OSMOSIS_EARNING                     = 5040;
     public final static int CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING             = 5041;
-    public final static int CONST_PW_TX_OSMOSIS_UNLOCK                      = 5042;
     public final static int CONST_PW_TX_KAVA_SWAP                           = 5043;
     public final static int CONST_PW_TX_KAVA_JOIN_POOL                      = 5044;
     public final static int CONST_PW_TX_KAVA_EXIT_POOL                      = 5045;
-    public final static int CONST_PW_TX_GDEX_SWAP                           = 5046;
-    public final static int CONST_PW_TX_GDEX_DEPOSIT                        = 5047;
-    public final static int CONST_PW_TX_GDEX_WITHDRAW                       = 5048;
     public final static int CONST_PW_TX_IBC_TRANSFER                        = 5049;
-    public final static int CONST_PW_TX_SIF_CLAIM_INCENTIVE                 = 5050;
     public final static int CONST_PW_TX_SIF_SWAP                            = 5051;
     public final static int CONST_PW_TX_SIF_JOIN_POOL                       = 5052;
     public final static int CONST_PW_TX_SIF_EXIT_POOL                       = 5053;
@@ -407,7 +308,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
     public final static int CONST_PW_TX_PROFILE                             = 5057;
-    public final static int CONST_PW_TX_LINK_ACCOUNT                        = 5058;
     public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5059;
 
     public final static int CONST_PW_TX_AUTHZ_DELEGATE                      = 5060;
@@ -424,66 +324,6 @@ public class BaseConstant {
     public final static int ERROR_CODE_INVALID_PASSWORD     = 8002;
     public final static int ERROR_CODE_TIMEOUT              = 8003;
     public final static int ERROR_CODE_BROADCAST            = 8004;
-
-
-    public final static String TOKEN_ATOM           = "uatom";
-    public final static String TOKEN_IRIS           = "uiris";
-    public final static String TOKEN_IRIS_ATTO      = "iris-atto";
-    public final static String TOKEN_BNB            = "BNB";
-    public final static String TOKEN_KAVA           = "ukava";
-    public final static String TOKEN_HARD           = "hard";
-    public final static String TOKEN_USDX           = "usdx";
-    public final static String TOKEN_SWP            = "swp";
-    public final static String TOKEN_IOV            = "uiov";
-    public final static String TOKEN_CERTIK         = "uctk";
-    public final static String TOKEN_BAND           = "uband";
-    public final static String TOKEN_AKASH          = "uakt";
-    public final static String TOKEN_SECRET         = "uscrt";
-    public final static String TOKEN_OK             = "okt";
-    public final static String TOKEN_OK_OKB         = "okb";
-    public final static String TOKEN_XPRT           = "uxprt";
-    public final static String TOKEN_DVPN           = "udvpn";
-    public final static String TOKEN_FET            = "afet";
-    public final static String TOKEN_CRO            = "basecro";
-    public final static String TOKEN_SIF            = "rowan";
-    public final static String TOKEN_KI             = "uxki";
-    public final static String TOKEN_RIZON          = "uatolo";
-    public final static String TOKEN_MEDI           = "umed";
-    public final static String TOKEN_ALTHEA         = "ualtg";
-    public final static String TOKEN_OSMOSIS        = "uosmo";
-    public final static String TOKEN_ION            = "uion";
-    public final static String TOKEN_UMEE           = "uumee";
-    public final static String TOKEN_NGM            = "ungm";
-    public final static String TOKEN_AXELAR         = "uaxl";
-    public final static String TOKEN_JUNO           = "ujuno";
-    public final static String TOKEN_REGEN          = "uregen";
-    public final static String TOKEN_BITCANNA       = "ubcna";
-    public final static String TOKEN_STARGAZE       = "ustars";
-    public final static String TOKEN_GRABRIDGE      = "ugraviton";
-    public final static String TOKEN_COMDEX         = "ucmdx";
-    public final static String TOKEN_INJ            = "inj";
-    public final static String TOKEN_BITSONG        = "ubtsg";
-    public final static String TOKEN_DESMOS         = "udsm";
-    public final static String TOKEN_LUM            = "ulum";
-    public final static String TOKEN_CHIHUAHUA      = "uhuahua";
-    public final static String TOKEN_DARC           = "udarc";
-    public final static String TOKEN_EVMOS          = "aevmos";
-    public final static String TOKEN_CUDOS          = "acudos";
-    public final static String TOKEN_HASH           = "nhash";
-    public final static String TOKEN_CRBRUS         = "ucrbrus";
-    public final static String TOKEN_FLIX           = "uflix";
-    public final static String TOKEN_CRE            = "ucre";
-    public final static String TOKEN_BCRE           = "ubcre";
-    public final static String TOKEN_MANTLE         = "umntl";
-    public final static String TOKEN_STATION        = "uiss";
-    public final static String TOKEN_NYX            = "unyx";
-    public final static String TOKEN_NYM            = "unym";
-
-    public final static String TOKEN_IOV_TEST       = "uvoi";
-    public final static String TOKEN_COSMOS_TEST    = "umuon";
-    public final static String TOKEN_IRIS_TEST      = "ubif";
-    public final static String TOKEN_CRESCENT_TEST  = "ucre";
-    public final static String TOKEN_BCRESCENT_TEST = "ubcre";
 
 
     //HTLC swap support Token Types
@@ -516,247 +356,6 @@ public class BaseConstant {
 
     public final static String KAVA_SLIPPAGE                            = "30000000000000000";
 
-    public final static String KAVA_GAS_AMOUNT_SEND                     = "400000";
-    public final static String KAVA_GAS_AMOUNT_STAKE                    = "800000";
-    public final static String KAVA_GAS_AMOUNT_REINVEST                 = "800000";
-    public final static String KAVA_GAS_AMOUNT_REDELEGATE               = "800000";
-    public final static String KAVA_GAS_AMOUNT_VOTE                     = "300000";
-    public final static String KAVA_GAS_AMOUNT_CLAIM_INCENTIVE          = "2000000";
-    public final static String KAVA_GAS_AMOUNT_CDP                      = "2000000";
-    public final static String KAVA_GAS_AMOUNT_HARD_POOL                = "800000";
-    public final static String KAVA_GAS_AMOUNT_BEP3                     = "500000";
-    public final static String KAVA_GAS_AMOUNT_SWAP                     = "800000";
-    public final static String KAVA_GAS_AMOUNT_JOIN_POOL                = "800000";
-    public final static String KAVA_GAS_AMOUNT_EXIT_POOL                = "800000";
-    public final static String KAVA_GAS_AMOUNT_IBC_SEND                 = "500000";
-    public final static String KAVA_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000";
-
-    public final static String BAND_GAS_AMOUNT_SEND                     = "100000";
-    public final static String BAND_GAS_AMOUNT_STAKE                    = "200000";
-    public final static String BAND_GAS_AMOUNT_REDELEGATE               = "240000";
-    public final static String BAND_GAS_AMOUNT_REINVEST                 = "220000";
-    public final static String BAND_GAS_AMOUNT_ADDRESS_CHANGE           = "100000";
-    public final static String BAND_GAS_AMOUNT_VOTE                     = "100000";
-    public final static String BAND_GAS_AMOUNT_IBC_SEND                 = "500000";
-
-    public final static String IOV_GAS_AMOUNT_SEND                      = "100000";
-    public final static String IOV_GAS_AMOUNT_STAKE                     = "200000";
-    public final static String IOV_GAS_AMOUNT_REDELEGATE                = "300000";
-    public final static String IOV_GAS_AMOUNT_REINVEST                  = "300000";
-    public final static String IOV_GAS_AMOUNT_LOW                       = "100000";
-    public final static String IOV_GAS_AMOUNT_REGISTER                  = "300000";
-    public final static String IOV_GAS_AMOUNT_DELETE                    = "150000";
-    public final static String IOV_GAS_AMOUNT_RENEW                     = "300000";
-    public final static String IOV_GAS_AMOUNT_REPLACE                   = "300000";
-    public final static String IOV_GAS_AMOUNT_IBC_SEND                  = "500000";
-
-    public final static String OK_GAS_RATE_AVERAGE                      = "0.0000000001";
-    public final static String OK_GAS_AMOUNT_SEND                       = "200000";
-    public final static String OK_GAS_AMOUNT_STAKE                      = "200000";
-    public final static String OK_GAS_AMOUNT_STAKE_MUX                  = "20000";
-    public final static String OK_GAS_AMOUNT_VOTE                       = "200000";
-    public final static String OK_GAS_AMOUNT_VOTE_MUX                   = "50000";
-
-    public final static String CERTIK_GAS_AMOUNT_SEND                   = "100000";
-    public final static String CERTIK_GAS_AMOUNT_STAKE                  = "200000";
-    public final static String CERTIK_GAS_AMOUNT_REDELEGATE             = "300000";
-    public final static String CERTIK_GAS_AMOUNT_REINVEST               = "300000";
-    public final static String CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
-    public final static String CERTIK_GAS_AMOUNT_VOTE                   = "100000";
-    public final static String CERTIK_GAS_AMOUNT_IBC_SEND               = "500000";
-
-    public final static String SECRET_GAS_AMOUNT_SEND                   = "80000";
-    public final static String SECRET_GAS_AMOUNT_STAKE                  = "200000";
-    public final static String SECRET_GAS_AMOUNT_REDELEGATE             = "300000";
-    public final static String SECRET_GAS_AMOUNT_REINVEST               = "350000";
-    public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
-    public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
-    public final static String SECRET_GAS_AMOUNT_IBC_SEND               = "500000";
-
-    public final static String SIF_GAS_AMOUNT_CLAIM_INCENTIVE           = "250000";
-    public final static String SIF_GAS_AMOUNT_DEX                       = "250000";
-
-    public final static String GAS_AMOUNT_SEND                          = "100000";
-    public final static String GAS_AMOUNT_STAKE                         = "200000";
-    public final static String GAS_AMOUNT_REDELEGATE                    = "300000";
-    public final static String GAS_AMOUNT_REINVEST                      = "350000";
-    public final static String GAS_AMOUNT_REWARD_ADDRESS_CHANGE         = "100000";
-    public final static String GAS_AMOUNT_VOTE                          = "100000";
-    public final static String GAS_AMOUNT_IBC_SEND                      = "500000";
-
-    public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
-    public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
-    public final static String OSMOSIS_GAS_AMOUNT_REDELEGATE            = "300000";
-    public final static String OSMOSIS_GAS_AMOUNT_REINVEST              = "350000";
-    public final static String OSMOSIS_GAS_AMOUNT_LOW                   = "100000";
-    public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "1500000";
-    public final static String OSMOSIS_GAS_AMOUNT_SWAP                  = "500000";
-    public final static String OSMOSIS_GAS_AMOUNT_LOCK                  = "1500000";
-    public final static String OSMOSIS_GAS_AMOUNT_BEGIN_UNBONDING       = "1500000";
-    public final static String OSMOSIS_GAS_AMOUNT_UNLOCK                = "1500000";
-    public final static String OSMOSIS_GAS_AMOUNT_IBC_SEND              = "500000";
-
-    public final static String COSMOS_GAS_AMOUNT_SWAP                   = "200000";
-    public final static String COSMOS_GAS_AMOUNT_JOIN_POOL              = "300000";
-    public final static String COSMOS_GAS_AMOUNT_EXIT_POOL              = "300000";
-    public final static String COSMOS_GAS_AMOUNT_IBC_SEND               = "500000";
-
-    public final static String COSMOS_GAS_AMOUNT_EXECUTE_CONTRACT       = "500000";
-
-    public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
-    public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
-    public final static String COSMOS_GAS_RATE_AVERAGE                  = "0.025";
-
-    public final static String IRIS_GAS_RATE_TINY                       = "0.002";
-    public final static String IRIS_GAS_RATE_LOW                        = "0.02";
-    public final static String IRIS_GAS_RATE_AVERAGE                    = "0.2";
-
-    public final static String SENTINEL_GAS_RATE_TINY                   = "0.01";
-    public final static String SENTINEL_GAS_RATE_LOW                    = "0.1";
-    public final static String SENTINEL_GAS_RATE_AVERAGE                = "0.1";
-
-    public final static String PERSIS_GAS_RATE_TINY                     = "0.000";
-    public final static String PERSIS_GAS_RATE_LOW                      = "0.000";
-    public final static String PERSIS_GAS_RATE_AVERAGE                  = "0.000";
-
-    public final static String CRYPTO_GAS_RATE_TINY                     = "0.025";
-    public final static String CRYPTO_GAS_RATE_LOW                      = "0.05";
-    public final static String CRYPTO_GAS_RATE_AVERAGE                  = "0.075";
-
-    public final static String OSMOSIS_GAS_RATE_TINY                    = "0.000";
-    public final static String OSMOSIS_GAS_RATE_LOW                     = "0.0025";
-    public final static String OSMOSIS_GAS_RATE_AVERAGE                 = "0.025";
-
-    public final static String SIF_GAS_RATE_TINY                        = "0.50";
-    public final static String SIF_GAS_RATE_LOW                         = "0.50";
-    public final static String SIF_GAS_RATE_AVERAGE                     = "0.50";
-
-    public final static String BAND_GAS_RATE_TINY                       = "0.000";
-    public final static String BAND_GAS_RATE_LOW                        = "0.0025";
-    public final static String BAND_GAS_RATE_AVERAGE                    = "0.025";
-
-    public final static String STARNAME_GAS_RATE_TINY                   = "0.10";
-    public final static String STARNAME_GAS_RATE_LOW                    = "1.00";
-    public final static String STARNAME_GAS_RATE_AVERAGE                = "1.00";
-
-    public final static String MEDI_GAS_RATE_TINY                       = "5.00";
-    public final static String MEDI_GAS_RATE_LOW                        = "5.00";
-    public final static String MEDI_GAS_RATE_AVERAGE                    = "5.00";
-
-    public final static String CERTIK_GAS_RATE_TINY                     = "0.05";
-    public final static String CERTIK_GAS_RATE_LOW                      = "0.05";
-    public final static String CERTIK_GAS_RATE_AVERAGE                  = "0.05";
-
-    public final static String EMONEY_GAS_RATE_TINY                     = "0.10";
-    public final static String EMONEY_GAS_RATE_LOW                      = "0.30";
-    public final static String EMONEY_GAS_RATE_AVERAGE                  = "1.00";
-
-    public final static String FETCH_GAS_RATE_TINY                      = "0.00";
-    public final static String FETCH_GAS_RATE_LOW                       = "0.00";
-    public final static String FETCH_GAS_RATE_AVERAGE                   = "0.00";
-
-    public final static String BITCANNA_GAS_RATE_TINY                   = "0.025";
-    public final static String BITCANNA_GAS_RATE_LOW                    = "0.025";
-    public final static String BITCANNA_GAS_RATE_AVERAGE                = "0.025";
-
-    public final static String STARGAZE_GAS_RATE_TINY                   = "0.00";
-    public final static String STARGAZE_GAS_RATE_LOW                    = "0.00";
-    public final static String STARGAZE_GAS_RATE_AVERAGE                = "0.00";
-
-    public final static String KI_GAS_RATE_TINY                         = "0.025";
-    public final static String KI_GAS_RATE_LOW                          = "0.025";
-    public final static String KI_GAS_RATE_AVERAGE                      = "0.025";
-
-    public final static String COMDEX_GAS_RATE_TINY                     = "0.025";
-    public final static String COMDEX_GAS_RATE_LOW                      = "0.025";
-    public final static String COMDEX_GAS_RATE_AVERAGE                  = "0.025";
-
-    public final static String SECRET_GAS_RATE_TINY                     = "0.25";
-    public final static String SECRET_GAS_RATE_LOW                      = "0.25";
-    public final static String SECRET_GAS_RATE_AVERAGE                  = "0.25";
-
-    public final static String BITSONG_GAS_RATE_TINY                    = "0.025";
-    public final static String BITSONG_GAS_RATE_LOW                     = "0.025";
-    public final static String BITSONG_GAS_RATE_AVERAGE                 = "0.025";
-
-    public final static String DESMOS_GAS_RATE_TINY                     = "0.001";
-    public final static String DESMOS_GAS_RATE_LOW                      = "0.010";
-    public final static String DESMOS_GAS_RATE_AVERAGE                  = "0.025";
-
-    public final static String LUM_GAS_RATE_TINY                        = "0.001";
-    public final static String LUM_GAS_RATE_LOW                         = "0.001";
-    public final static String LUM_GAS_RATE_AVERAGE                     = "0.001";
-
-    public final static String INJ_GAS_RATE_TINY                        = "500000000.00";
-    public final static String INJ_GAS_RATE_LOW                         = "500000000.00";
-    public final static String INJ_GAS_RATE_AVERAGE                     = "500000000.00";
-
-    public final static String GRAV_GAS_RATE_TINY                       = "0.00";
-    public final static String GRAV_GAS_RATE_LOW                        = "0.00";
-    public final static String GRAV_GAS_RATE_AVERAGE                    = "0.00";
-
-    public final static String CHIHUAHUA_GAS_RATE_TINY                  = "0.00035";
-    public final static String CHIHUAHUA_GAS_RATE_LOW                   = "0.0035";
-    public final static String CHIHUAHUA_GAS_RATE_AVERAGE               = "0.035";
-
-    public final static String AXELAR_GAS_RATE_TINY                     = "0.05";
-    public final static String AXELAR_GAS_RATE_LOW                      = "0.05";
-    public final static String AXELAR_GAS_RATE_AVERAGE                  = "0.05";
-
-    public final static String KAVA_GAS_RATE_TINY                       = "0.001";
-    public final static String KAVA_GAS_RATE_LOW                        = "0.0025";
-    public final static String KAVA_GAS_RATE_AVERAGE                    = "0.025";
-
-    public final static String JUNO_GAS_RATE_TINY                       = "0.0025";
-    public final static String JUNO_GAS_RATE_LOW                        = "0.005";
-    public final static String JUNO_GAS_RATE_AVERAGE                    = "0.025";
-
-    public final static String KONSTELL_GAS_RATE_TINY                   = "0.0001";
-    public final static String KONSTELL_GAS_RATE_LOW                    = "0.001";
-    public final static String KONSTELL_GAS_RATE_AVERAGE                = "0.01";
-
-    public final static String UMEE_GAS_RATE_TINY                       = "0.000";
-    public final static String UMEE_GAS_RATE_LOW                        = "0.001";
-    public final static String UMEE_GAS_RATE_AVERAGE                    = "0.005";
-
-    public final static String EVMOS_GAS_RATE_TINY                      = "20000000000.00";
-    public final static String EVMOS_GAS_RATE_LOW                       = "20000000000.00";
-    public final static String EVMOS_GAS_RATE_AVERAGE                   = "20000000000.00";
-    
-    public final static String CUDOS_GAS_RATE_TINY                      = "5000000000000.00";
-    public final static String CUDOS_GAS_RATE_LOW                       = "5000000000000.00";
-    public final static String CUDOS_GAS_RATE_AVERAGE                   = "5000000000000.00";
-
-    public final static String PROVENANCE_GAS_RATE_TINY                 = "2000.00";
-    public final static String PROVENANCE_GAS_RATE_LOW                  = "2000.00";
-    public final static String PROVENANCE_GAS_RATE_AVERAGE              = "2000.00";
-
-    public final static String CERBERUS_GAS_RATE_TINY                   = "0.00";
-    public final static String CERBERUS_GAS_RATE_LOW                    = "0.00";
-    public final static String CERBERUS_GAS_RATE_AVERAGE                = "0.00";
-
-    public final static String OMNIFLIX_GAS_RATE_TINY                   = "0.001";
-    public final static String OMNIFLIX_GAS_RATE_LOW                    = "0.001";
-    public final static String OMNIFLIX_GAS_RATE_AVERAGE                = "0.001";
-
-    public final static String CRESCENT_GAS_RATE_TINY                   = "0.01";
-    public final static String CRESCENT_GAS_RATE_LOW                    = "0.02";
-    public final static String CRESCENT_GAS_RATE_AVERAGE                = "0.05";
-
-    public final static String MANTLE_GAS_RATE_TINY                     = "0.000";
-    public final static String MANTLE_GAS_RATE_LOW                      = "0.000";
-    public final static String MANTLE_GAS_RATE_AVERAGE                  = "0.000";
-
-    public final static String NYM_GAS_RATE_TINY                        = "0.025";
-    public final static String NYM_GAS_RATE_LOW                         = "0.025";
-    public final static String NYM_GAS_RATE_AVERAGE                     = "0.025";
-
-    public final static String V1_GAS_AMOUNT_LOW                        = "100000";
-    public final static String V1_GAS_AMOUNT_MID                        = "200000";
-    public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
-    public final static String V1_GAS_AMOUNT_TOO_HIGH                   = "350000";
-
-
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
     public final static String KAVA_MAIN_BNB_DEPUTY     = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
     public final static String BINANCE_MAIN_BTCB_DEPUTY = "bnb1xz3xqf4p2ygrw9lhp5g5df4ep4nd20vsywnmpr";
@@ -767,14 +366,9 @@ public class BaseConstant {
     public final static String KAVA_MAIN_BUSD_DEPUTY    = "kava1hh4x3a4suu5zyaeauvmv7ypf7w9llwlfufjmuu";
 
     public final static String CHAIN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/chains/logo/";
-
     public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
-    public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
-    public final static String EMONEY_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
 
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
-
-    public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
 
     public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";
 

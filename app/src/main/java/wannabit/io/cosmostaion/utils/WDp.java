@@ -22,7 +22,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BCRE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
@@ -31,9 +30,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_NYM;
 import static wannabit.io.cosmostaion.utils.WUtil.getBnbTicSymbol;
 import static wannabit.io.cosmostaion.utils.WUtil.isBnbBaseMarketToken;
 
@@ -496,7 +492,7 @@ public class WDp {
     public static ArrayList<BaseChain> getChainsFromAddress(String address) {
         if (address != null) {
             if (address.startsWith("0x")) {
-                if (WKey.isValidEthAddress(address)) { return Lists.newArrayList(OKEX_MAIN); }
+                if (WKey.isValidEthAddress(address)) { return Lists.newArrayList(EVMOS_MAIN, KAVA_MAIN, OKEX_MAIN); }
                 return null;
             }
 
@@ -594,7 +590,7 @@ public class WDp {
                 return ibcToken.display_denom + ":usd";
             } else {
                 String priceDenom = "";
-                if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+                if (denom.equalsIgnoreCase(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
                     priceDenom = "kava";
                 } else if (denom.contains("btc")) {
                     priceDenom = "btc";
@@ -654,7 +650,7 @@ public class WDp {
     public static BigDecimal convertTokenToKava(BaseData baseData, String denom) {
         BigDecimal tokenAmount = baseData.getAvailable(denom).add(baseData.getVesting(denom));
         BigDecimal totalTokenValue = kavaTokenDollorValue(baseData, denom, tokenAmount);
-        return totalTokenValue.movePointRight(6).divide(perUsdValue(baseData, TOKEN_KAVA), 6, RoundingMode.DOWN);
+        return totalTokenValue.movePointRight(6).divide(perUsdValue(baseData, ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom()), 6, RoundingMode.DOWN);
     }
 
     public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken
@@ -799,7 +795,8 @@ public class WDp {
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, getDenomDecimal(baseData, chainConfig, coin.denom));
                     totalValue = totalValue.add(assetValue);
 
-                } else if (coin.denom.equals(TOKEN_ION) || coin.denom.equals(TOKEN_BCRE) || coin.denom.equals(TOKEN_NYM) || coin.denom.contains("gamm/pool")) {
+                } else if (coin.denom.equals(Osmosis.OSMOSIS_ION_DENOM) || coin.denom.equals(Crescent.CRESCENT_BCRE_DENOM) ||
+                        coin.denom.equals(Nyx.NYX_NYM_DENOM) || coin.denom.contains("gamm/pool")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, getDenomDecimal(baseData, chainConfig, coin.denom));
                     totalValue = totalValue.add(assetValue);

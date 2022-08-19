@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_AMOUNT_BEP3;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -181,7 +181,7 @@ public class HtlcSendActivity extends BaseActivity {
             Coin gasCoin = new Coin(mChainConfig.mainDenom(), "12500");
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
-            mSendFee = new Fee(KAVA_GAS_AMOUNT_BEP3, gasCoins);
+            mSendFee = new Fee(BASE_GAS_AMOUNT, gasCoins);
         }
         return mSendFee;
     }
@@ -198,7 +198,7 @@ public class HtlcSendActivity extends BaseActivity {
             Coin gasCoin = new Coin(mToChainConfig.mainDenom(), "12500");
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
-            mClaimFee = new Fee(KAVA_GAS_AMOUNT_BEP3, gasCoins);
+            mClaimFee = new Fee(BASE_GAS_AMOUNT, gasCoins);
         }
         return mClaimFee;
     }
