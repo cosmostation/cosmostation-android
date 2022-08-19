@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.ok;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 import android.os.Bundle;
@@ -26,7 +24,6 @@ import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKStakingActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -143,15 +140,9 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-        mDpDecimal = 18;
         setDpDecimals(mDpDecimal);
-        int myValidatorCnt = 0;
-        if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
-            myValidatorCnt = getBaseDao().mOkStaking.validator_address.size();
-        }
-        BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal("" + myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
-        BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
-        mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mChainConfig.mainDenom()).subtract(feeAmount);
+
+        mMaxAvailable = getBaseDao().availableAmount(getSActivity().mChainConfig.mainDenom()).subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mMaxAvailable.toPlainString(), mAvailableDenom, mAvailableAmount);
     }
 

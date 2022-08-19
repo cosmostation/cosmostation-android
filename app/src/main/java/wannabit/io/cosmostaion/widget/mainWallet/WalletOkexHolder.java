@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
-import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
-
 import android.content.Intent;
 import android.text.Html;
 import android.view.View;
@@ -21,8 +18,10 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.txs.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.activities.txs.ok.OKUnbondingActivity;
 import wannabit.io.cosmostaion.activities.txs.ok.OKValidatorListActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -47,7 +46,8 @@ public class WalletOkexHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OKEX_MAIN);
+        final String denom = chainConfig.mainDenom();
         final BigDecimal availableAmount = baseData.availableAmount(denom);
         final BigDecimal lockedAmount = baseData.lockedAmount(denom);
         final BigDecimal depositAmount = baseData.okDepositAmount();
@@ -55,11 +55,11 @@ public class WalletOkexHolder extends BaseHolder {
         final BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
 
 
-        mOkTotalAmount.setText(WDp.getDpAmount2(mainActivity, totalAmount, 0, 6));
-        mOkAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 0, 6));
-        mOkLocked.setText(WDp.getDpAmount2(mainActivity, lockedAmount, 0, 6));
-        mOkDeposit.setText(WDp.getDpAmount2(mainActivity, depositAmount, 0, 6));
-        mOkWithdrawing.setText(WDp.getDpAmount2(mainActivity, withdrawAmount, 0, 6));
+        mOkTotalAmount.setText(WDp.getDpAmount2(totalAmount, 0, 6));
+        mOkAvailable.setText(WDp.getDpAmount2(availableAmount, 0, 6));
+        mOkLocked.setText(WDp.getDpAmount2(lockedAmount, 0, 6));
+        mOkDeposit.setText(WDp.getDpAmount2(depositAmount, 0, 6));
+        mOkWithdrawing.setText(WDp.getDpAmount2(withdrawAmount, 0, 6));
         mOkTotalValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
@@ -75,12 +75,8 @@ public class WalletOkexHolder extends BaseHolder {
                             mainActivity.getString(R.string.str_close), null);
                     return;
                 }
-                int myValidatorCnt = 0;
-                if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
-                    myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
-                }
-                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal("" + myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
-                BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
+
+                BigDecimal feeAmount = WDp.getMainDenomFee(mainActivity, chainConfig);
                 if (availableAmount.compareTo(feeAmount) <= 0) {
                     Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
@@ -111,12 +107,7 @@ public class WalletOkexHolder extends BaseHolder {
                     return;
                 }
 
-                int myValidatorCnt = 0;
-                if (mainActivity.getBaseDao().mOkStaking != null && mainActivity.getBaseDao().mOkStaking.validator_address != null) {
-                    myValidatorCnt = mainActivity.getBaseDao().mOkStaking.validator_address.size();
-                }
-                BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal("" + myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
-                BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
+                BigDecimal feeAmount = WDp.getMainDenomFee(mainActivity, chainConfig);
                 if (availableAmount.compareTo(feeAmount) <= 0) {
                     Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
