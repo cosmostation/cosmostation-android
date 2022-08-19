@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.fragment.txs.ok;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -222,7 +221,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
                 BigDecimal depositTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (depositTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (depositTemp.compareTo(mMaxAvailable) > 0) return false;
-                Coin token = new Coin(TOKEN_OK, depositTemp.setScale(mDpDecimal).toPlainString());
+                Coin token = new Coin(getSActivity().mChainConfig.mainDenom(), depositTemp.setScale(mDpDecimal).toPlainString());
                 getSActivity().mToDepositCoin = token;
                 return true;
             }

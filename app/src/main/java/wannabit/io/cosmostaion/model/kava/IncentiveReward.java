@@ -1,12 +1,12 @@
 package wannabit.io.cosmostaion.model.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 
 public class IncentiveReward {
@@ -71,7 +71,7 @@ public class IncentiveReward {
         if (usdx_minting_claims != null) {
             for (UsdxMintingClaim reward : usdx_minting_claims) {
                 if (reward.base_claim.reward != null) {
-                    if (reward.base_claim.reward.denom.equals(TOKEN_KAVA)) {
+                    if (reward.base_claim.reward.denom.equals(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
                         result = result.add(new BigDecimal(reward.base_claim.reward.amount));
                     }
                 }
@@ -152,7 +152,7 @@ public class IncentiveReward {
     }
 
     public BigDecimal getRewardSum(String denom) {
-        if (denom.equals(TOKEN_KAVA)) {
+        if (denom.equals(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
             return getHardPoolRewardAmount(denom).add(getMintingRewardAmount()).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));
         } else {
             return getHardPoolRewardAmount(denom).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));

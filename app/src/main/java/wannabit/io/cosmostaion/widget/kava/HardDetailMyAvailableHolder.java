@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.widget.kava;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -48,7 +47,7 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
         final Hard.Params hardParam             = baseData.mHardParams;
         final Hard.MoneyMarket hardMoneyMarket  = WUtil.getHardMoneyMarket(hardParam, denom);
 
-        if (denom.equals(TOKEN_KAVA)) {
+        if (denom.equals(chainConfig.mainDenom())) {
             mAssetDepositLayer.setVisibility(View.GONE);
             mDepositValue.setVisibility(View.GONE);
         }

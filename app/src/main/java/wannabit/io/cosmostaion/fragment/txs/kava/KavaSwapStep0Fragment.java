@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_POOLS_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -126,7 +125,7 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
         setDpDecimals(mInputCoinDecimal);
 
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-        if (getSActivity().mInputDenom.equals(TOKEN_KAVA)) {
+        if (getSActivity().mInputDenom.equals(getSActivity().mChainConfig.mainDenom())) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));

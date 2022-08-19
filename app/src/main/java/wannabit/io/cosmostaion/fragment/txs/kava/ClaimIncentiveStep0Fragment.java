@@ -1,9 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,9 +76,9 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         mIncentiveReward = getBaseDao().mIncentiveRewards;
 
         if (mIncentiveReward != null) {
-            mKavaIncetiveAmount = mIncentiveReward.getRewardSum(TOKEN_KAVA);
-            mHardIncetiveAmount = mIncentiveReward.getRewardSum(TOKEN_HARD);
-            mSwpIncetiveAmount = mIncentiveReward.getRewardSum(TOKEN_SWP);
+            mKavaIncetiveAmount = mIncentiveReward.getRewardSum(getSActivity().mChainConfig.mainDenom());
+            mHardIncetiveAmount = mIncentiveReward.getRewardSum(Kava.KAVA_HARD_DENOM);
+            mSwpIncetiveAmount = mIncentiveReward.getRewardSum(Kava.KAVA_SWP_DENOM);
         }
 
         mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), mKavaIncetiveAmount, 6, 6));
