@@ -492,7 +492,7 @@ public class WDp {
     public static ArrayList<BaseChain> getChainsFromAddress(String address) {
         if (address != null) {
             if (address.startsWith("0x")) {
-                if (WKey.isValidEthAddress(address)) { return Lists.newArrayList(OKEX_MAIN); }
+                if (WKey.isValidEthAddress(address)) { return Lists.newArrayList(EVMOS_MAIN, KAVA_MAIN, OKEX_MAIN); }
                 return null;
             }
 
