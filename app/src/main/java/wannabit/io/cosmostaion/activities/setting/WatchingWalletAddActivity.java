@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.activities.setting;
 
-import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
+import static wannabit.io.cosmostaion.dialog.SwapCoinListDialog.WATCH_ADDRESS;
 
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -17,19 +17,24 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class WatchingWalletAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -37,20 +42,20 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
     private EditText mInput;
     private Button mCancel, mNext;
     private LinearLayout mBtnQr, mBtnPaste, mBtnHistory;
-
+    private List<BaseChain> mWatchAddressChainList;
     private String mUserInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watching_wallet_add);
-        mToolbar        = findViewById(R.id.tool_bar);
-        mInput          = findViewById(R.id.et_address);
-        mCancel         = findViewById(R.id.btn_cancel);
-        mNext           = findViewById(R.id.btn_next);
-        mBtnQr          = findViewById(R.id.btn_qr);
-        mBtnPaste       = findViewById(R.id.btn_paste);
-        mBtnHistory     = findViewById(R.id.btn_history);
+        mToolbar = findViewById(R.id.tool_bar);
+        mInput = findViewById(R.id.et_address);
+        mCancel = findViewById(R.id.btn_cancel);
+        mNext = findViewById(R.id.btn_next);
+        mBtnQr = findViewById(R.id.btn_qr);
+        mBtnPaste = findViewById(R.id.btn_paste);
+        mBtnHistory = findViewById(R.id.btn_history);
         mBtnHistory.setVisibility(View.GONE);
 
         setSupportActionBar(mToolbar);
@@ -78,7 +83,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mCancel)) {
+        if (v.equals(mCancel)) {
             onBackPressed();
 
         } else if (v.equals(mNext)) {
@@ -88,11 +93,27 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
                 if (chains.size() == 1) {
                     onGenNewAccount(chains.get(0), mUserInput);
                 } else {
-                    if (!SUPPORT_CHAINS().contains(chains.get(1))) {
-                        onGenNewAccount(chains.get(0), mUserInput);
-                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("watchAddressChains", chains);
+                    SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
+                    dialog.setCancelable(true);
+                    dialog.show(getSupportFragmentManager(), WATCH_ADDRESS);
+                    dialog.setSelectChainsDialogResult(result -> {
+                        mWatchAddressChainList = new Gson().fromJson(result, new TypeToken<List<BaseChain>>() {
+                        }.getType());
+                        for (BaseChain baseChain : mWatchAddressChainList) {
+                            if (baseChain.equals(BaseChain.OKEX_MAIN)) {
+                                onGenNewAccount(baseChain, mUserInput);
+                            } else {
+                                try {
+                                    onGenNewAccount(baseChain, WKey.convertAddressEthToTender(baseChain, mUserInput));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
                 }
-
             } else {
                 Toast.makeText(this, R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 return;
@@ -104,10 +125,10 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
             integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
-                if(TextUtils.isEmpty(userPaste)) {
+                if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -132,10 +153,10 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
         if (isFinishing()) return;
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
-            if(result.isSuccess) {
+            if (result.isSuccess) {
                 onStartMainActivity(0);
             } else {
-                if(result.errorCode == 7001) {
+                if (result.errorCode == 7001) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_already_imported_address), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getBaseContext(), getString(R.string.error_import_errer), Toast.LENGTH_SHORT).show();
@@ -149,7 +170,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
-            if(result.getContents() != null) {
+            if (result.getContents() != null) {
                 mInput.setText(result.getContents().trim());
                 mInput.setSelection(mInput.getText().length());
             }

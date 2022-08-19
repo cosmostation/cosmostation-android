@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:text="@string/str_tx_detail"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -48,7 +48,7 @@
 
                 <Button
                     android:id="@+id/btn_share"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_45"
                     android:layout_marginRight="@dimen/space_4"
@@ -60,7 +60,7 @@
 
                 <Button
                     android:id="@+id/btn_explorer"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_45"
                     android:layout_marginLeft="@dimen/space_4"
@@ -73,7 +73,7 @@
 
             <Button
                 android:id="@+id/btn_dismiss"
-                style="@style/font_ss_14_photon"
+                style="@style/font_rr_14_photon"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
                 android:layout_marginTop="@dimen/space_6"
@@ -130,14 +130,14 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="center"
                     android:text="@string/str_tx_error_description"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
                 <TextView
                     android:id="@+id/error_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="-"
-                    style="@style/font_ss_12_red"/>
+                    style="@style/font_rr_12_red"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -163,7 +163,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     android:gravity="center"
                     android:text="@string/str_success_loading"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:visibility="gone"/>
             </LinearLayout>
         </RelativeLayout>

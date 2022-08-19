@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.ok;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -212,7 +211,7 @@ public class OKUnbondingFragment0 extends BaseFragment implements View.OnClickLi
                 BigDecimal depositTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (depositTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (depositTemp.compareTo(mMaxAvailable) > 0) return false;
-                Coin token = new Coin(TOKEN_OK, depositTemp.setScale(mDpDecimal).toPlainString());
+                Coin token = new Coin(getSActivity().mChainConfig.mainDenom(), depositTemp.setScale(mDpDecimal).toPlainString());
                 getSActivity().mToWithdrawCoin = token;
                 return true;
             }

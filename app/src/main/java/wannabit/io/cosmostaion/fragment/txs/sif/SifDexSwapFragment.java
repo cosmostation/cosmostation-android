@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -111,7 +110,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         if (mSelectedPool == null || mInputCoinDenom.isEmpty() || mOutputCoinDenom.isEmpty()) {
             if (mPoolList != null && mPoolList.size() > 0) {
                 mSelectedPool = mPoolList.get(0);
-                mInputCoinDenom = WDp.mainDenom(getSActivity().mBaseChain);
+                mInputCoinDenom = getSActivity().mChainConfig.mainDenom();
                 mOutputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
             }
         }
@@ -197,7 +196,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
                 for (Types.Pool pool : mPoolList) {
                     if (pool.getExternalAsset().getSymbol().equals(mInputCoinDenom)) {
                         mSelectedPool = pool;
-                        mOutputCoinDenom = BaseConstant.TOKEN_SIF;
+                        mOutputCoinDenom = getSActivity().mChainConfig.mainDenom();
                     }
                 }
             }

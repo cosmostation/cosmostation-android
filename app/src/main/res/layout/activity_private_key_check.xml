@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_check_private_key_c" />
@@ -29,7 +29,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_80"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tool_bar"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
@@ -50,7 +50,7 @@
 
                 <TextView
                     android:id="@+id/private_key"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_10"
             android:gravity="center"
-            style="@style/font_ss_12_gray1"
+            style="@style/font_rr_12_gray1"
             android:text="@string/str_key_confirm_msg"/>
 
     </LinearLayout>
@@ -96,7 +96,7 @@
             android:layout_height="@dimen/space_45"
             android:minHeight="@dimen/space_45"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textAllCaps="false"
             android:visibility="gone"
             android:text="@string/str_copy_to"/>
@@ -107,7 +107,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginTop="@dimen/space_8"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_ok"/>
     </LinearLayout>

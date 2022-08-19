@@ -42,7 +42,7 @@
 
                     <TextView
                         android:id="@+id/current_quorum"
-                        style="@style/font_ssm_17_black_daynight"
+                        style="@style/font_rr_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -64,7 +64,7 @@
 
                     <TextView
                         android:id="@+id/current_turnout"
-                        style="@style/font_ssm_17_black_daynight"
+                        style="@style/font_rr_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -106,7 +106,7 @@
 
                     <TextView
                         android:id="@+id/vote_yes_title"
-                        style="@style/font_ss_14_vote_yes"
+                        style="@style/font_rr_14_vote_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_vote_yes" />
@@ -132,7 +132,7 @@
 
                         <TextView
                             android:id="@+id/vote_yes_rate"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -140,7 +140,7 @@
 
                         <TextView
                             android:id="@+id/vote_yes_cnt"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -180,7 +180,7 @@
 
                     <TextView
                         android:id="@+id/vote_no_title"
-                        style="@style/font_ss_14_vote_no"
+                        style="@style/font_rr_14_vote_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_vote_no" />
@@ -206,7 +206,7 @@
 
                         <TextView
                             android:id="@+id/vote_no_rate"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -214,7 +214,7 @@
 
                         <TextView
                             android:id="@+id/vote_no_cnt"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -260,7 +260,7 @@
 
                     <TextView
                         android:id="@+id/vote_veto_title"
-                        style="@style/font_ss_14_vote_veto"
+                        style="@style/font_rr_14_vote_veto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_vote_veto" />
@@ -286,7 +286,7 @@
 
                         <TextView
                             android:id="@+id/vote_vetos_rate"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -294,7 +294,7 @@
 
                         <TextView
                             android:id="@+id/vote_veto_cnt"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -334,7 +334,7 @@
 
                     <TextView
                         android:id="@+id/vote_abstain_title"
-                        style="@style/font_ss_14_vote_abstain"
+                        style="@style/font_rr_14_vote_abstain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_vote_abstain" />
@@ -360,7 +360,7 @@
 
                         <TextView
                             android:id="@+id/vote_abstain_rate"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -368,7 +368,7 @@
 
                         <TextView
                             android:id="@+id/vote_abstain_cnt"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

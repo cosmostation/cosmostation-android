@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.starname;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -17,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -24,6 +27,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.RenewStarName0Fragment;
@@ -165,18 +169,27 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
     }
 
     public void onRenewStarName() {
-        Intent intent = new Intent(ReNewStarNameActivity.this, PasswordCheckActivity.class);
-        if (mRenewType.equals(BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN)) {
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_RENEW_DOMAIN);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
+            if (mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
+                broadcastTxRequest = Signer.getGrpcRenewDomainReq(getAuthResponse(mBaseChain, mAccount), mStarNameDomain, mAccount.address,
+                        mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            } else {
+                broadcastTxRequest = Signer.getGrpcRenewAccountReq(getAuthResponse(mBaseChain, mAccount), mStarNameDomain, mStarNameAccount, mAccount.address,
+                        mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            }
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
         } else {
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_RENEW_ACCOUNT);
+            Intent intent = new Intent(ReNewStarNameActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("domain", mStarNameDomain);
+            intent.putExtra("name", mStarNameAccount);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
-        intent.putExtra("domain", mStarNameDomain);
-        intent.putExtra("name", mStarNameAccount);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class RenewStarNamePageAdapter extends FragmentPagerAdapter {
@@ -188,8 +201,8 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(RenewStarName0Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(RenewStarName3Fragment.newInstance());
         }
 

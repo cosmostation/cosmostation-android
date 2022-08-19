@@ -74,7 +74,7 @@ public class AuthzVoteGrpcTask extends CommonTask {
             mAuthResponse = authStub.account(request);
 
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcAuthzAVoteReq(mAuthResponse, mAccount.address, mGranter, mOpinionMap, mFee, mMemo, ecKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcAuthzVoteReq(mAuthResponse, mAccount.address, mGranter, mOpinionMap, mFee, mMemo, ecKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
 

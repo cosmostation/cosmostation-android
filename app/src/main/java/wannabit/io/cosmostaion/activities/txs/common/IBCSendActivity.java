@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +16,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import java.util.ArrayList;
+import com.google.protobuf.InvalidProtocolBufferException;
 
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import ibc.core.channel.v1.QueryGrpc;
+import ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest;
+import ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateResponse;
+import ibc.lightclients.tendermint.v1.Tendermint;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -24,6 +33,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
@@ -31,6 +41,7 @@ import wannabit.io.cosmostaion.fragment.txs.common.IBCSendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.IBCSendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.IBCSendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.IBCSendStep4Fragment;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 
 public class IBCSendActivity extends BaseBroadCastActivity {
 
@@ -152,16 +163,23 @@ public class IBCSendActivity extends BaseBroadCastActivity {
     }
 
     public void onStartIbcSend() {
-        Intent intent = new Intent(IBCSendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("toAddress", mToAddress);
-        intent.putParcelableArrayListExtra("amount", mAmounts);
-        intent.putExtra("channelId", mPath.channel_id);
-        intent.putExtra("portId", mPath.port_id);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress,
+                    mAmounts.get(0).denom, mAmounts.get(0).amount, mPath.port_id, mPath.channel_id, getClientState().getLatestHeight(), mTxFee, "", getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(IBCSendActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("toAddress", mToAddress);
+            intent.putParcelableArrayListExtra("amount", mAmounts);
+            intent.putExtra("channelId", mPath.channel_id);
+            intent.putExtra("portId", mPath.port_id);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class IbcSendPageAdapter extends FragmentPagerAdapter {
@@ -175,7 +193,7 @@ public class IBCSendActivity extends BaseBroadCastActivity {
             mFragments.add(IBCSendStep0Fragment.newInstance(null));
             mFragments.add(IBCSendStep1Fragment.newInstance(null));
             mFragments.add(IBCSendStep2Fragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(IBCSendStep4Fragment.newInstance(null));
         }
 
@@ -204,5 +222,18 @@ public class IBCSendActivity extends BaseBroadCastActivity {
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
         }
+    }
+
+    private Tendermint.ClientState getClientState() {
+        try {
+            QueryGrpc.QueryBlockingStub channelStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+            QueryChannelClientStateRequest request = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mPath.channel_id).setPortId(mPath.port_id).build();
+            QueryChannelClientStateResponse response = channelStub.channelClientState(request);
+
+            if (response != null) {
+                return Tendermint.ClientState.parseFrom(response.getIdentifiedClientState().getClientState().getValue());
+            }
+        } catch (InvalidProtocolBufferException e) { e.printStackTrace(); }
+        return null;
     }
 }

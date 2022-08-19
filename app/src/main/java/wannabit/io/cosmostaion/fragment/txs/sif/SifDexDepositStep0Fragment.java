@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.sif;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -59,10 +57,8 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
 
     private boolean mIsInput0Focused;
 
-    public static SifDexDepositStep0Fragment newInstance(Bundle bundle) {
-        SifDexDepositStep0Fragment fragment = new SifDexDepositStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifDexDepositStep0Fragment newInstance() {
+        return new SifDexDepositStep0Fragment();
     }
 
     @Override
@@ -119,7 +115,7 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
 
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
-        mRowanMaxAmount = getBaseDao().getAvailable(TOKEN_SIF);
+        mRowanMaxAmount = getBaseDao().getAvailable(getSActivity().mChainConfig.mainDenom());
         mRowanMaxAmount = mRowanMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
 
         String externalDenom = getSActivity().mSifPool.getExternalAsset().getSymbol();
@@ -382,7 +378,7 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
             if (OutputAmountTemp.compareTo(mExternalMaxAmount.movePointLeft(mExternalDecimal).setScale(mExternalDecimal, RoundingMode.CEILING)) > 0)
                 return false;
 
-            getSActivity().mSifDepositCoin0 = new Coin(TOKEN_SIF, InputAmountTemp.movePointRight(mRowanDecimal).toPlainString());
+            getSActivity().mSifDepositCoin0 = new Coin(getSActivity().mChainConfig.mainDenom(), InputAmountTemp.movePointRight(mRowanDecimal).toPlainString());
             getSActivity().mSifDepositCoin1 = new Coin(getSActivity().mSifPool.getExternalAsset().getSymbol(), OutputAmountTemp.movePointRight(mExternalDecimal).toPlainString());
             return true;
 

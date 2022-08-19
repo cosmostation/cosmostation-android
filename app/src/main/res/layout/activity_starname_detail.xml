@@ -19,7 +19,7 @@
             android:id="@+id/tool_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_black_daynight"
+            style="@style/font_rr_17_black_daynight"
             android:text="@string/str_domain_detail"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -55,7 +55,7 @@
                 android:minHeight="@dimen/space_45"
                 android:layout_marginLeft="@dimen/space_4"
                 android:background="@drawable/btn_trans_with_border"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:textAllCaps="false"
                 android:text="@string/str_renew_starname"/>
         </LinearLayout>
@@ -66,7 +66,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginTop="@dimen/space_8"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_connected_address_replace"/>
     </LinearLayout>

@@ -20,12 +20,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.DepositHardStep0Fragment;
@@ -155,14 +157,20 @@ public class DepositHardActivity extends BaseBroadCastActivity {
     }
 
     public void onStartDepositHarvest() {
-        Intent intent = new Intent(DepositHardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("hardPoolCoins", mHardPoolCoins);
-        intent.putExtra("fee", mTxFee);
-        intent.putExtra("memo", mTxMemo);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaDepositHardReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mHardPoolCoins,
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
 
+        } else {
+            Intent intent = new Intent(DepositHardActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("hardPoolCoins", mHardPoolCoins);
+            intent.putExtra("fee", mTxFee);
+            intent.putExtra("memo", mTxMemo);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class DepositHarvestPageAdapter extends FragmentPagerAdapter {
@@ -174,8 +182,8 @@ public class DepositHardActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(DepositHardStep0Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(DepositHardStep3Fragment.newInstance(null));
         }
 

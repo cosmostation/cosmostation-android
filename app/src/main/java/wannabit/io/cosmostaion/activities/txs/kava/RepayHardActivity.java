@@ -19,12 +19,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.RepayHardStep0Fragment;
@@ -32,7 +34,6 @@ import wannabit.io.cosmostaion.fragment.txs.kava.RepayHardStep3Fragment;
 
 public class RepayHardActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout mRootView;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -51,7 +52,6 @@ public class RepayHardActivity extends BaseBroadCastActivity {
     }
 
     public void initView() {
-        mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -147,14 +147,20 @@ public class RepayHardActivity extends BaseBroadCastActivity {
     }
 
     public void onStartRepayHard() {
-        Intent intent = new Intent(RepayHardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, mTxType);
-        intent.putExtra("hardPoolCoins", mHardPoolCoins);
-        intent.putExtra("fee", mTxFee);
-        intent.putExtra("memo", mTxMemo);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaRepayHardReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mAccount.address, mHardPoolCoins,
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
 
+        } else {
+            Intent intent = new Intent(RepayHardActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("hardPoolCoins", mHardPoolCoins);
+            intent.putExtra("fee", mTxFee);
+            intent.putExtra("memo", mTxMemo);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class RepayHardPageAdapter extends FragmentPagerAdapter {
@@ -166,8 +172,8 @@ public class RepayHardActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(RepayHardStep0Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(RepayHardStep3Fragment.newInstance(null));
         }
 

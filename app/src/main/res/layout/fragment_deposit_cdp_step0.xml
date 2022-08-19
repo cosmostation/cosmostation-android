@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="COIN"
-                        style="@style/font_ss_10_black_daynight"/>
+                        style="@style/font_rr_10_black_daynight"/>
                 </LinearLayout>
                 <EditText
                     android:id="@+id/collateral_input"
@@ -51,7 +51,7 @@
                     android:textColorHint="@color/colorGray4"
                     android:background="@drawable/edittext_box"
                     android:paddingRight="@dimen/space_60"
-                    style="@style/font_ss_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionDone"
                     android:gravity="center_vertical|left"/>
@@ -85,7 +85,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
-                            style="@style/font_ss_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:text="-"/>
                         <TextView
                             android:id="@+id/collateral_denom"
@@ -93,7 +93,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="COIN"
-                            style="@style/font_ssl_12_black_daynight" />
+                            style="@style/font_rr_12_black_daynight" />
                     </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout
@@ -109,7 +109,7 @@
                         android:layout_height="@dimen/space_36"
                         android:layout_weight="1"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:textAllCaps="false"
                         android:text="@string/str_add1"/>
                     <Button
@@ -119,7 +119,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:textAllCaps="false"
                         android:text="@string/str_add_one_fourths"/>
                     <Button
@@ -129,7 +129,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:textAllCaps="false"
                         android:text="@string/str_add_half"/>
                     <Button
@@ -139,7 +139,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:textAllCaps="false"
                         android:text="@string/str_add_three_fourths"/>
                     <Button
@@ -149,7 +149,7 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:textAllCaps="false"
                         android:text="@string/str_add_max"/>
                 </LinearLayout>
@@ -181,7 +181,7 @@
                             android:id="@+id/risk_rate_before"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_10_black_daynight"
+                            style="@style/font_rr_10_black_daynight"
                             android:text="SAFE"/>
                         <TextView
                             android:id="@+id/risk_score_before"
@@ -211,7 +211,7 @@
                             android:id="@+id/risk_rate_after"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/font_ss_10_black_daynight"
+                            style="@style/font_rr_10_black_daynight"
                             android:text="SAFE"/>
                         <TextView
                             android:id="@+id/risk_score_after"
@@ -239,14 +239,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/space_16"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:text="1232131231"/>
                         <TextView
                             android:id="@+id/deposit_after"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_16"
-                            style="@style/font_ss_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:text="1232131231"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -272,7 +272,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_cancel"/>
         <Button
@@ -283,7 +283,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_next"/>

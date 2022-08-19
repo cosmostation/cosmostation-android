@@ -43,7 +43,7 @@
 
                 <TextView
                     android:id="@+id/farming_apr"
-                    style="@style/font_ssm_24_black_daynight"
+                    style="@style/font_rr_24_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -60,14 +60,14 @@
 
                     <TextView
                         android:id="@+id/farming_pool_id"
-                        style="@style/font_ssm_17_black_daynight"
+                        style="@style/font_rr_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="EARNING #0" />
 
                     <TextView
                         android:id="@+id/farming_coin_pair"
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_8"
@@ -82,14 +82,14 @@
                 android:layout_marginTop="@dimen/space_20">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Available" />
 
                 <TextView
                     android:id="@+id/available_denom"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -97,7 +97,7 @@
 
                 <TextView
                     android:id="@+id/available_amount"
-                    style="@style/font_ssl_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/space_2"
@@ -107,7 +107,7 @@
 
                 <TextView
                     android:id="@+id/available_value"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/available_amount"

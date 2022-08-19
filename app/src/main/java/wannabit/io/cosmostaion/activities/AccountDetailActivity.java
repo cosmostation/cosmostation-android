@@ -24,13 +24,16 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
+import wannabit.io.cosmostaion.activities.setting.PrivateKeyCheckActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
 import wannabit.io.cosmostaion.activities.txs.common.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
@@ -228,11 +231,19 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                     Toast.makeText(this, R.string.error_no_mnemonic, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
-                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
-                intent.putExtra("checkid", mAccount.mnemonicId);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+                if (getBaseDao().isAutoPass()) {
+                    Intent checkintent = new Intent(this, MnemonicDetailActivity.class);
+                    checkintent.putExtra("mnemonicId", mAccount.mnemonicId);
+                    startActivity(checkintent);
+
+                } else {
+                    Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
+                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
+                    intent.putExtra("checkid", mAccount.mnemonicId);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                }
 
             } else {
                 Intent restoreIntent = new Intent(AccountDetailActivity.this, MnemonicRestoreActivity.class);
@@ -242,11 +253,20 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnCheckKey)) {
             if (mAccount.hasPrivateKey) {
-                Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
-                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_PRIVATE_KEY);
-                intent.putExtra("checkid", mAccount.id);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                if (getBaseDao().isAutoPass()) {
+                    String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                    Intent checkintent = new Intent(this, PrivateKeyCheckActivity.class);
+                    checkintent.putExtra("checkid",  mAccount.id);
+                    checkintent.putExtra("entropy", entropy);
+                    startActivity(checkintent);
+
+                } else {
+                    Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
+                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_PRIVATE_KEY);
+                    intent.putExtra("checkid", mAccount.id);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                }
 
             } else {
                 Intent restoreIntent = new Intent(AccountDetailActivity.this, PrivateKeyRestoreActivity.class);

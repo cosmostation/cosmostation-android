@@ -19,6 +19,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -26,6 +28,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.StartUnbondingStep0Fragment;
@@ -161,14 +164,25 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
     }
 
     public void onStartUnBonding() {
-        Intent intent = new Intent(StartUnbondingActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-        OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(mOsmosisLockups);
-        intent.putExtra("osmosislockups", lockupsWrapper);
-        intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxFee);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            ArrayList<Long> tempList = new ArrayList<>();
+            for (Lock.PeriodLock lockup : mOsmosisLockups) {
+                tempList.add(lockup.getID());
+            }
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcBeginUnbondingReq(getAuthResponse(mBaseChain, mAccount), tempList,
+                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(StartUnbondingActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(mOsmosisLockups);
+            intent.putExtra("osmosislockups", lockupsWrapper);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private class UnBondingPageAdapter extends FragmentPagerAdapter {
@@ -180,8 +194,8 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(StartUnbondingStep0Fragment.newInstance(null));
-            mFragments.add(StepMemoFragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance());
+            mFragments.add(StepFeeSetFragment.newInstance());
             mFragments.add(StartUnbondingStep3Fragment.newInstance(null));
         }
 

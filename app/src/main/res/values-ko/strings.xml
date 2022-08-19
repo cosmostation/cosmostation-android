@@ -5,6 +5,7 @@
     <string name="str_no">No</string>
     <string name="str_yes">Yes</string>
     <string name="str_next">다음</string>
+    <string name="str_import_watchaddress">등록</string>
     <string name="str_refresh">새로고침</string>
     <string name="str_settings">Settings</string>
     <string name="str_sorting">정열</string>
@@ -147,8 +148,12 @@
     <string name="str_notice_alarm">공지 알람</string>
     <string name="str_tx_alarm">트랜잭션 알람</string>
     <string name="str_app_applock">앱 잠금</string>
-    <string name="str_app_applock_enabled">사용중</string>
-    <string name="str_app_applock_diabeld">사용안함</string>
+    <string name="str_app_auto_pass">핀코드 자동 통과</string>
+    <string name="str_app_auto_pass_msg">최초 핀코드를 통과한 이후 설정한 시간동안 핀코드를 자동으로 통과합니다.\nTx 전송, 개인 데이터 확인에 해당 됩니다.\n(앱 잠금은 항상 작동합니다.)</string>
+    <string name="str_app_auto_pass_5m">5분</string>
+    <string name="str_app_auto_pass_10m">10분</string>
+    <string name="str_app_auto_pass_30m">30분</string>
+    <string name="str_app_auto_pass_never">사용 안함 (추천)</string>
     <string name="str_currency">통화</string>
     <string name="str_base_price">가격 정보 출처</string>
     <string name="str_support">지원</string>
@@ -633,7 +638,7 @@
     <string name="str_outstanding_debt">Outstanding Debt</string>
     <string name="str_cdp_total_fee">대출 이자</string>
     <string name="str_collateral_deposit">Deposit</string>
-    <string name="str_collateral_withdraw">Withdraw</string>
+    <string name="str_collateral_withdraw">유동성 출금</string>
     <string name="str_principal_drawdebt">추가 USDX 대출</string>
     <string name="str_principal_repay">USDX 상환</string>
     <string name="str_star_name_service">스타네임 서비스</string>
@@ -1026,6 +1031,8 @@
     <string name="str_register_account_step_4">입력하신 정보를 확인하세요</string>
     <string name="str_account_to_register">등록할 어카운트</string>
     <string name="str_select_chain_for_address">등록할 주소의 체인을 선택하세요.</string>
+    <string name="str_select_chains">체인을 선택하세요</string>
+    <string name="str_imported_chains">등록 완료</string>
     <string name="str_add_address_to_chain">연결할 주소를 입력하세요</string>
     <string name="str_select_wallet_for_address">등록할 주소의 지갑을 선택하세요.</string>
     <string name="str_domain_detail">프리미엄 스타네임 상세</string>
@@ -1585,7 +1592,7 @@
     <string name="error_no_mnemonic">개인키만 존재합니다.</string>
     <string name="error_simul_error">실행할 수 없는 Tx입니다.</string>
     <string name="error_no_authz_type">이 타입에 대한 권한이 없습니다.</string>
-
+    <string name="error_no_select_chains">체인을 선택해주세요.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

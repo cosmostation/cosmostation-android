@@ -36,7 +36,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="@string/str_ok_deposit_amount"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_rr_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/deposit_amount_denom"
                                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text=""
                                 android:textColor="@color/color_okc"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_rr_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -71,7 +71,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_fees"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="-"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_rr_12_black_daynight"/>
                             <TextView
                                 android:id="@+id/fees_denom"
                                 android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="-"
                                 android:textColor="@color/color_okc"
-                                style="@style/font_ssl_12_black_daynight"/>
+                                style="@style/font_rr_12_black_daynight"/>
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -113,7 +113,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16"
                             android:text="@string/str_memo"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <TextView
                             android:id="@+id/memo"
                             android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
                             android:lines="2"
                             android:ellipsize="end"
                             android:text=""
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_rr_12_black_daynight"/>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -146,7 +146,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_back"/>
         <Button
@@ -157,7 +157,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>
     </LinearLayout>

@@ -42,10 +42,8 @@ public class SifDexWithdrawStep0Fragment extends BaseFragment implements View.On
     private int mCoinDecimal = 18;
     private String mDecimalChecker, mDecimalSetter;
 
-    public static SifDexWithdrawStep0Fragment newInstance(Bundle bundle) {
-        SifDexWithdrawStep0Fragment fragment = new SifDexWithdrawStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifDexWithdrawStep0Fragment newInstance() {
+        return new SifDexWithdrawStep0Fragment();
     }
 
     @Override

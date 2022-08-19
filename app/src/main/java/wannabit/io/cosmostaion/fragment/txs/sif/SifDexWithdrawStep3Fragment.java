@@ -31,10 +31,8 @@ public class SifDexWithdrawStep3Fragment extends BaseFragment implements View.On
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static SifDexWithdrawStep3Fragment newInstance(Bundle bundle) {
-        SifDexWithdrawStep3Fragment fragment = new SifDexWithdrawStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifDexWithdrawStep3Fragment newInstance() {
+        return new SifDexWithdrawStep3Fragment();
     }
 
     @Override

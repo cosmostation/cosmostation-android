@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ss_17_black_daynight"
+            style="@style/font_rm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_proposal_detail" />
@@ -34,7 +34,7 @@
         android:layout_height="@dimen/space_45"
         android:minHeight="@dimen/space_45"
         android:background="@drawable/btn_trans_with_photon_border"
-        style="@style/font_ss_14_photon"
+        style="@style/font_rr_14_photon"
         android:textAllCaps="false"
         android:text="@string/str_vote_to"
         android:layout_marginLeft="@dimen/space_16"

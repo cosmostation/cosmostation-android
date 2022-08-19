@@ -29,8 +29,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_XRPB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
@@ -39,7 +37,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 import android.content.Context;
 import android.content.Intent;
@@ -112,6 +109,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.IbcToken;
@@ -630,15 +628,16 @@ public class WUtil {
     }
 
     public static void onSortingDenom(ArrayList<String> denom, BaseChain chain) {
+        ChainConfig chainConfig = ChainFactory.getChain(chain);
         Collections.sort(denom, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                if (o1.equals(WDp.mainDenom(chain))) return -1;
-                if (o2.equals(WDp.mainDenom(chain))) return 1;
+                if (o1.equals(chainConfig.mainDenom())) return -1;
+                if (o2.equals(chainConfig.mainDenom())) return 1;
 
                 if (chain.equals(KAVA_MAIN)) {
-                    if (o1.equals(TOKEN_HARD)) return -1;
-                    if (o2.equals(TOKEN_HARD)) return 1;
+                    if (o1.equals(Kava.KAVA_HARD_DENOM)) return -1;
+                    if (o2.equals(Kava.KAVA_HARD_DENOM)) return 1;
 
                 }
                 return 0;
@@ -647,15 +646,16 @@ public class WUtil {
     }
 
     public static void onSortingNativeCoins(ArrayList<Balance> balances, final BaseChain chain) {
+        ChainConfig chainConfig = ChainFactory.getChain(chain);
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
-                if (o1.symbol.equals(WDp.mainDenom(chain))) return -1;
-                if (o2.symbol.equals(WDp.mainDenom(chain))) return 1;
+                if (o1.symbol.equals(chainConfig.mainDenom())) return -1;
+                if (o2.symbol.equals(chainConfig.mainDenom())) return 1;
 
                 if (chain.equals(KAVA_MAIN)) {
-                    if (o1.symbol.equals(TOKEN_HARD)) return -1;
-                    if (o2.symbol.equals(TOKEN_HARD)) return 1;
+                    if (o1.symbol.equals(Kava.KAVA_HARD_DENOM)) return -1;
+                    if (o2.symbol.equals(Kava.KAVA_HARD_DENOM)) return 1;
 
                 } else if (chain.equals(OKEX_MAIN)) {
                     if (o1.symbol.equals("okb-c4d")) return -1;
@@ -756,9 +756,9 @@ public class WUtil {
 
     public static int getKavaCoinDecimal(BaseData baseData, String denom) {
         if (denom != null) {
-            if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            if (denom.equalsIgnoreCase(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
                 return 6;
-            } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+            } else if (denom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM)) {
                 return 6;
             } else if (denom.equalsIgnoreCase("xrpb") || denom.equalsIgnoreCase("xrbp")) {
                 return 8;
@@ -1567,10 +1567,10 @@ public class WUtil {
 
     public static String getBnbTicSymbol(String symbol) {
         if (isBnbBaseMarketToken(symbol)) {
-            return TOKEN_BNB + "_" + symbol;
+            return ChainFactory.getChain(BNB_MAIN).mainDenom() + "_" + symbol;
 
         } else {
-            return symbol + "_" + TOKEN_BNB;
+            return symbol + "_" + ChainFactory.getChain(BNB_MAIN).mainDenom();
         }
     }
 

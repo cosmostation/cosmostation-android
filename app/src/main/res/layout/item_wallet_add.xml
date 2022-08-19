@@ -11,14 +11,15 @@
         android:layout_height="@dimen/space_40"
         android:layout_centerInParent="true"
         android:src="@drawable/ic_add"/>
+
     <Button
         android:id="@+id/btn_wallet_add"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_50"
-        android:minHeight="@dimen/space_50"
         android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginTop="2dp"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="2dp"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/btn_trans_with_border"/>
+        android:background="@drawable/btn_trans_with_border"
+        android:minHeight="@dimen/space_50" />
 </RelativeLayout>

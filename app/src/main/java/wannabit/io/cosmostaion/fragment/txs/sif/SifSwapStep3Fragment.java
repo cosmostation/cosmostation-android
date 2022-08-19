@@ -30,10 +30,8 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static SifSwapStep3Fragment newInstance(Bundle bundle) {
-        SifSwapStep3Fragment fragment = new SifSwapStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifSwapStep3Fragment newInstance() {
+        return new SifSwapStep3Fragment();
     }
 
     @Override

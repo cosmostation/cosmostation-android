@@ -32,7 +32,7 @@
 
                 <TextView
                     android:id="@+id/grant_title"
-                    style="@style/font_ssl_14_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -48,7 +48,7 @@
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/grant_import_time"
-                        style="@style/font_ssl_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"/>
@@ -61,14 +61,14 @@
                 android:layout_marginTop="@dimen/space_12">
                 <TextView
                     android:id="@+id/limited_amount_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Limited Amount" />
 
                 <TextView
                     android:id="@+id/limited_amount"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -82,14 +82,14 @@
                 android:layout_marginTop="@dimen/space_8">
                 <TextView
                     android:id="@+id/limited_address_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Limited Address" />
 
                 <TextView
                     android:id="@+id/limited_address"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

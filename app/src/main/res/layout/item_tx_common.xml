@@ -28,7 +28,7 @@
 
                 <TextView
                     android:id="@+id/tx_status_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_tx_status" />
@@ -50,7 +50,7 @@
 
                     <TextView
                         android:id="@+id/tx_status"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Success" />
@@ -59,7 +59,7 @@
 
             <TextView
                 android:id="@+id/tx_fail_msg"
-                style="@style/font_ss_11_red"
+                style="@style/font_rr_11_red"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4"
@@ -74,14 +74,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_tx_height" />
 
                 <TextView
                     android:id="@+id/tx_block_height"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -94,14 +94,14 @@
                 android:layout_marginTop="@dimen/space_16">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_tx_msg_cnt" />
 
                 <TextView
                     android:id="@+id/tx_msg_cnt"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -114,14 +114,14 @@
                 android:layout_marginTop="@dimen/space_16">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_tx_gas_info" />
 
                 <TextView
                     android:id="@+id/tx_gas_info"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -137,7 +137,7 @@
 
                 <TextView
                     android:id="@+id/tx_fee_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_fees" />
@@ -149,7 +149,7 @@
 
                     <TextView
                         android:id="@+id/tx_fee_symbol"
-                        style="@style/font_ss_12_atom"
+                        style="@style/font_rr_12_atom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -157,7 +157,7 @@
 
                     <TextView
                         android:id="@+id/tx_fee"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/tx_fee_symbol"
@@ -177,7 +177,7 @@
 
                 <TextView
                     android:id="@+id/tx_fee_used_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_tx_fee_used" />
@@ -189,7 +189,7 @@
 
                     <TextView
                         android:id="@+id/tx_fee_used_symbol"
-                        style="@style/font_ss_12_iris"
+                        style="@style/font_rr_12_iris"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -197,7 +197,7 @@
 
                     <TextView
                         android:id="@+id/tx_used_fee"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/tx_fee_used_symbol"
@@ -215,14 +215,14 @@
                 android:layout_marginTop="@dimen/space_16">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_tx_time" />
 
                 <TextView
                     android:id="@+id/tx_block_time"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -231,7 +231,7 @@
 
                 <TextView
                     android:id="@+id/tx_block_time_gap"
-                    style="@style/font_ss_11_gray1"
+                    style="@style/font_rr_11_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tx_block_time"
@@ -257,14 +257,14 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_tx_hash" />
 
                     <TextView
                         android:id="@+id/tx_hash"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_4"
@@ -279,14 +279,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_memo" />
 
                 <TextView
                     android:id="@+id/str_tx_memo"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"

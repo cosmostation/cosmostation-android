@@ -45,7 +45,7 @@
                         android:singleLine="true"
                         android:ellipsize="end"
                         android:gravity="center"
-                        style="@style/font_ss_12_kava"/>
+                        style="@style/font_rr_12_kava"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,13 +61,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_supply_apy"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <TextView
                             android:id="@+id/supply_apy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:gravity="right"
                             android:text="-"/>
                     </RelativeLayout>
@@ -78,13 +78,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_borrow_apy"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <TextView
                             android:id="@+id/borrow_apy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:gravity="right"
                             android:text="-"/>
                     </RelativeLayout>
@@ -96,13 +96,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_supply_incentive_apy"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <TextView
                             android:id="@+id/supply_incentive_apy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:gravity="right"
                             android:text="-"/>
                     </RelativeLayout>
@@ -114,13 +114,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_borrow_incentive_apy"
-                            style="@style/font_ss_12_gray1"/>
+                            style="@style/font_rr_12_gray1"/>
                         <TextView
                             android:id="@+id/borrow_incentive_apy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/font_ssl_14_black_daynight"
+                            style="@style/font_rr_14_black_daynight"
                             android:gravity="right"
                             android:text="-"/>
                     </RelativeLayout>
@@ -145,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_deposited_supplies"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text=""
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                     <TextView
                         android:id="@+id/total_deposited_amount"
                         android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                         android:layout_toLeftOf="@+id/total_deposited_symbol"
                         android:layout_marginRight="@dimen/space_4"
                         android:text=""
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -173,7 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text=""/>
 
             <RelativeLayout
@@ -185,7 +185,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_borrowed_supplies"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -196,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text=""
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                     <TextView
                         android:id="@+id/total_borrow_amount"
                         android:layout_width="wrap_content"
@@ -205,7 +205,7 @@
                         android:layout_toLeftOf="@+id/total_borrow_symbol"
                         android:layout_marginRight="@dimen/space_4"
                         android:text=""
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -213,7 +213,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text=""/>
 
             <RelativeLayout
@@ -225,7 +225,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_remain_supplies"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -236,7 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text=""
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                     <TextView
                         android:id="@+id/remain_borrowable_amount"
                         android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
                         android:layout_toLeftOf="@+id/remain_borrowable_symbol"
                         android:layout_marginRight="@dimen/space_4"
                         android:text=""
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -253,7 +253,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text=""/>
 
         </LinearLayout>

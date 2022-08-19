@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/dialog_title"
-            style="@style/font_ss_17_black_daynight"
+            style="@style/font_rm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
@@ -55,7 +55,7 @@
 
             <Button
                 android:id="@+id/btn_posi"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

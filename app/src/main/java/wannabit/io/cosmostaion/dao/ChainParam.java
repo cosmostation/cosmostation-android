@@ -120,7 +120,7 @@ public class ChainParam {
                 return epochProvisions.multiply(epochPeriods).divide(osmoSupply, 18, RoundingMode.DOWN);
             } else if (baseChain.equals(EMONEY_MAIN)) {
                 for (Asset asset: mEmoneyInflations.mEmoneyInflation.assets) {
-                    if (asset.denom.equalsIgnoreCase(BaseConstant.TOKEN_NGM)) {
+                    if (asset.denom.equalsIgnoreCase(ChainFactory.getChain(EMONEY_MAIN).mainDenom())) {
                         return new BigDecimal(asset.inflation);
                     }
                 }

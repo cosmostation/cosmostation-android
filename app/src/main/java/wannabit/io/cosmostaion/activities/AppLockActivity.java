@@ -234,6 +234,7 @@ public class AppLockActivity extends BaseActivity implements KeyboardListener, T
         if (isFinishing()) return;
         onHideWaitDialog();
         if (result.isSuccess) {
+            getBaseDao().setLastPassTime();
             onUnlock();
         } else {
             onShakeView();

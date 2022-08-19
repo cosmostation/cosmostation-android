@@ -153,6 +153,7 @@
     <string name="str_no">No</string>
     <string name="str_yes">Yes</string>
     <string name="str_next">Next</string>
+    <string name="str_import_watchaddress">Import</string>
     <string name="str_refresh">Refresh</string>
     <string name="str_settings">Settings</string>
     <string name="str_sorting">Sorting</string>
@@ -295,8 +296,12 @@
     <string name="str_notice_alarm">Notice Alarm</string>
     <string name="str_tx_alarm">Tx Alarm</string>
     <string name="str_app_applock">App Lock</string>
-    <string name="str_app_applock_enabled">Enabled</string>
-    <string name="str_app_applock_diabeld">Disabled</string>
+    <string name="str_app_auto_pass">PIN Auto Pass</string>
+    <string name="str_app_auto_pass_msg">After passing the first pin code, it automatically passes through the pin code for a set time.\nTx transfer, personal data verification.\n(App lock always works.)</string>
+    <string name="str_app_auto_pass_5m">5min</string>
+    <string name="str_app_auto_pass_10m">10min</string>
+    <string name="str_app_auto_pass_30m">30min</string>
+    <string name="str_app_auto_pass_never">Never (recommend)</string>
     <string name="str_currency">Currency</string>
     <string name="str_base_price">Base Price</string>
     <string name="str_support">Support</string>
@@ -1091,7 +1096,7 @@
     <string name="str_change_reward_address_step_1">Insert memo (optional)</string>
     <string name="str_change_reward_address_step_2">Select transaction fee</string>
     <string name="str_change_reward_address_step_3">Check transaction detail</string>
-    <string name="str_reinvest_step_0">Check reward for Compounding</string>
+    <string name="str_reinvest_step_0">Check reward amount for compounding</string>
     <string name="str_reinvest_step_1">Insert memo (optional)</string>
     <string name="str_reinvest_step_2">Select transaction fee</string>
     <string name="str_reinvest_step_3">Check transaction detail</string>
@@ -1293,6 +1298,8 @@
     <string name="str_register_account_step_4">Check transaction detail</string>
     <string name="str_account_to_register">Account To Register</string>
     <string name="str_select_chain_for_address">Select chain for register address</string>
+    <string name="str_select_chains">Select Chains</string>
+    <string name="str_imported_chains"> Import Compelete</string>
     <string name="str_add_address_to_chain">Address to Connect</string>
     <string name="str_select_wallet_for_address">Select wallet for register address</string>
     <string name="str_domain_detail">Premium Starname Detail</string>
@@ -1768,7 +1775,7 @@
     <string name="error_no_to_validator">Please select validator to redelegate.</string>
     <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>
     <string name="error_max_account_over">Max account is 5.</string>
-    <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can compounding feature after reset your reward address to self.</string>
+    <string name="error_reward_address_changed_msg">This account has changed its Reward Recipient Address. \n To use the Compounding feature, please reset your Reward Recipient Address.</string>
     <string name="error_no_password">PIN number not set</string>
     <string name="error_invalid_address_target">Invalid Address.</string>
     <string name="error_invalid_star_name">Invalid Start Name.</string>
@@ -1856,6 +1863,7 @@
     <string name="error_no_mnemonic">Only private key imported</string>
     <string name="error_simul_error">This Tx not executable</string>
     <string name="error_no_authz_type">No auth for this type</string>
+    <string name="error_no_select_chains">Please select chains</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>

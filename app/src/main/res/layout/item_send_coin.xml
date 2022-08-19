@@ -39,7 +39,7 @@
                 android:background="@drawable/edittext_box"
                 android:paddingLeft="@dimen/space_60"
                 android:paddingRight="@dimen/space_12"
-                style="@style/font_ss_12_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:inputType="numberDecimal"
                 android:imeOptions="actionDone"
                 android:gravity="center_vertical|right"/>
@@ -50,7 +50,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_12"
                 android:text="ATOM"
-                style="@style/font_ss_14_atom" />
+                style="@style/font_rr_14_atom" />
         </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
@@ -67,14 +67,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_2"
-                style="@style/font_ss_11_gray1"
+                style="@style/font_rr_11_gray1"
                 android:text="available : "/>
             <TextView
                 android:id="@+id/tv_max_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_2"
-                style="@style/font_ss_11_gray1"
+                style="@style/font_rr_11_gray1"
                 android:text="12,343,343.000000"/>
         </LinearLayout>
         <TextView
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            style="@style/font_ss_11_red"
+            style="@style/font_rr_11_red"
             android:text="@string/error_invalid_amounts"/>
     </RelativeLayout>
 

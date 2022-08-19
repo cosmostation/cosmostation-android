@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        style="@style/font_ss_12_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_swap_tx_fee" />
@@ -52,14 +52,14 @@
 
                         <TextView
                             android:id="@+id/join_fee_amount"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
 
                         <TextView
                             android:id="@+id/join_fee_amount_symbol"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -81,7 +81,7 @@
                 android:paddingTop="@dimen/space_16"
                 android:paddingBottom="@dimen/space_16">
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_osmosis_join_deposit_coin" />
@@ -98,14 +98,14 @@
 
                         <TextView
                             android:id="@+id/join_input0_amount"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
 
                         <TextView
                             android:id="@+id/join_input0_symbol"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -121,14 +121,14 @@
 
                         <TextView
                             android:id="@+id/join_input1_amount"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
 
                         <TextView
                             android:id="@+id/join_input1_symbol"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -146,7 +146,7 @@
 
                 <TextView
                     android:id="@+id/lp_amount_title"
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_osmosis_join_receive_lp_coin" />
@@ -168,14 +168,14 @@
 
                         <TextView
                             android:id="@+id/join_out_amount"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
 
                         <TextView
                             android:id="@+id/join_out_symbol"
-                            style="@style/font_ssl_12_black_daynight"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -194,7 +194,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_kava_slippage_title"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -205,12 +205,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text=""
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
 
             <TextView
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
@@ -218,7 +218,7 @@
 
             <TextView
                 android:id="@+id/memo"
-                style="@style/font_ss_12_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
@@ -246,7 +246,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_black_daynight"
+            style="@style/font_rr_14_black_daynight"
             android:textAllCaps="false"
             android:text="@string/str_back"/>
         <Button
@@ -257,7 +257,7 @@
             android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:textColor="@color/colorPhoton"
             android:textAllCaps="false"
             android:text="@string/str_confirm"/>

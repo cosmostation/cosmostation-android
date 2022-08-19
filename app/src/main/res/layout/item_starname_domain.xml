@@ -49,7 +49,7 @@
 
                     <TextView
                         android:id="@+id/starname_domain_name"
-                        style="@style/font_ssm_17_black_daynight"
+                        style="@style/font_rr_17_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -60,7 +60,7 @@
 
                     <TextView
                         android:id="@+id/domain_type"
-                        style="@style/font_ssl_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -74,7 +74,7 @@
                     android:layout_marginTop="@dimen/space_8">
 
                     <TextView
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -82,7 +82,7 @@
 
                     <TextView
                         android:id="@+id/connected_addressed"
-                        style="@style/font_ssl_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -95,7 +95,7 @@
                     android:layout_marginTop="@dimen/space_4">
 
                     <TextView
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

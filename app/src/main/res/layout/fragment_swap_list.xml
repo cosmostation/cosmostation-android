@@ -20,7 +20,7 @@
                 android:orientation="vertical"
                 android:padding="@dimen/space_12">
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_swap_input_coin" />
@@ -39,7 +39,7 @@
                         android:src="@drawable/token_default" />
                     <TextView
                         android:id="@+id/txt_input_coin"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
                         android:text="-" />
                     <TextView
                         android:id="@+id/inpus_amount"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -84,14 +84,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Swap Fee" />
 
                 <TextView
                     android:id="@+id/token_swap_fee"
-                    style="@style/font_ss_11_black_daynight"
+                    style="@style/font_rr_11_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="" />
@@ -113,14 +113,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Max Slippage" />
 
                 <TextView
                     android:id="@+id/swap_slippage"
-                    style="@style/font_ss_11_black_daynight"
+                    style="@style/font_rr_11_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
@@ -141,7 +141,7 @@
                 android:padding="@dimen/space_12">
 
                 <TextView
-                    style="@style/font_ss_12_gray1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_swap_output_coin" />
@@ -161,7 +161,7 @@
                         android:src="@drawable/token_default" />
                     <TextView
                         android:id="@+id/txt_output_coin"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -204,13 +204,13 @@
 
             <TextView
                 android:id="@+id/swap_title"
-                style="@style/font_ss_12_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-" />
 
             <TextView
-                style="@style/font_ss_10_gray1"
+                style="@style/font_rr_10_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(Swap rate on this Pool)" />
@@ -224,21 +224,21 @@
 
                 <TextView
                     android:id="@+id/inputs_rate"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
                     android:id="@+id/inputs_rate_symbol"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="-" />
 
                 <TextView
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
@@ -247,14 +247,14 @@
 
                 <TextView
                     android:id="@+id/outputs_rate"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
                     android:id="@+id/outputs_rate_symbol"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -269,13 +269,13 @@
                 android:background="@color/colorGrayDayNight" />
 
             <TextView
-                style="@style/font_ss_12_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Global Swap Rate" />
 
             <TextView
-                style="@style/font_ss_10_gray1"
+                style="@style/font_rr_10_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(Average Swap Rate on global exchanges)" />
@@ -289,21 +289,21 @@
 
                 <TextView
                     android:id="@+id/global_inputs_rate"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
                     android:id="@+id/global_inputs_rate_symbol"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="-" />
 
                 <TextView
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
@@ -312,14 +312,14 @@
 
                 <TextView
                     android:id="@+id/global_outputs_rate"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
                     android:id="@+id/global_outputs_rate_symbol"
-                    style="@style/font_ss_10_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -340,7 +340,7 @@
 
         <Button
             android:id="@+id/btn_start_swap"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"

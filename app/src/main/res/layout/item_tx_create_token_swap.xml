@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     android:text="@string/tx_rizon_create_Token_swap"
-                    style="@style/font_ss_15_black_daynight"/>
+                    style="@style/font_rr_15_black_daynight"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_rizon_create_token_swap_hash"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_create_token_swap_hash"
                     android:layout_width="match_parent"
@@ -55,13 +55,13 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_rizon_create_token_swap_recipient"
                     android:layout_marginTop="@dimen/space_10"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_create_token_swap_recipient"
                     android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     android:singleLine="true"
                     android:ellipsize="middle"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_rizon_create_token_swap_amount"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_rr_12_gray1"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="ATOLO"
-                            style="@style/font_ss_12_rizon"/>
+                            style="@style/font_rr_12_rizon"/>
                         <TextView
                             android:id="@+id/tx_create_token_swap_amount"
                             android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                             android:layout_toLeftOf="@+id/tx_create_token_swap_symbol"
                             android:layout_marginRight="@dimen/space_2"
                             android:text="-"
-                            style="@style/font_ss_12_black_daynight"/>
+                            style="@style/font_rr_12_black_daynight"/>
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>

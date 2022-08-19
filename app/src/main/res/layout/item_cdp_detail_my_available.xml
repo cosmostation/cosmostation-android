@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    style="@style/font_ss_17_black_daynight"
+                    style="@style/font_rm_17_black_daynight"
                     android:text="@string/str_my_available_assets"/>
             </LinearLayout>
 
@@ -62,7 +62,7 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:layout_centerVertical="true"
                     android:text="COIN"
-                    style="@style/font_ss_14_black_daynight"/>
+                    style="@style/font_rr_14_black_daynight"/>
                 <TextView
                     android:id="@+id/collateral_amount"
                     android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                     android:gravity="right"
                     android:layout_centerVertical="true"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -110,7 +110,7 @@
                     android:layout_marginLeft="@dimen/space_8"
                     android:layout_centerVertical="true"
                     android:text="USDX"
-                    style="@style/font_ss_14_black_daynight"/>
+                    style="@style/font_rr_14_black_daynight"/>
                 <TextView
                     android:id="@+id/principal_amount"
                     android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                     android:gravity="right"
                     android:layout_centerVertical="true"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -136,7 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -170,7 +170,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/kava_value_layout"
@@ -187,7 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_2"
-                        style="@style/font_ss_10_gray1"
+                        style="@style/font_rr_10_gray1"
                         android:text="-"/>
                 </LinearLayout>
             </RelativeLayout>

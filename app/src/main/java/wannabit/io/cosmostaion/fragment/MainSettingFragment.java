@@ -7,7 +7,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -33,12 +37,14 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
-import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicListActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
 import wannabit.io.cosmostaion.activities.setting.WatchingWalletAddActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameWalletConnectActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
@@ -54,11 +60,18 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_CURRENCY = 9034;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAppLock, mBtnCurrency,
-            mBtnExplore, mBtnNotice, mBtnBlog, mBtnTelegram, mBtnHomepage, mBtnStarnameWc,
+    public final static int SELECT_CHECK_FOR_APP_LOCK = 1;
+    public final static int SELECT_CHECK_FOR_AUTO_PASS = 2;
+
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAppLock, mBtnBio, mBtnAutoPass, mBtnCurrency,
+            mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
             mBtnTerm, mBtnGithub, mBtnVersion;
 
-    private TextView mTvAppLock, mTvCurrency, mTvVersion, mTvTheme;
+    private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme;
+
+    private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
+
+    private int mCheckMode = -1;
 
     private SwitchCompat txAlarmSwitch, noticeAlarmSwitch;
 
@@ -84,6 +97,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
         mBtnTheme = rootView.findViewById(R.id.card_theme);
         mBtnAppLock = rootView.findViewById(R.id.card_applock);
+        mBtnBio = rootView.findViewById(R.id.card_bio);
+        mBtnAutoPass = rootView.findViewById(R.id.card_auto_pass);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
         mBtnExplore = rootView.findViewById(R.id.card_explore);
         mBtnNotice = rootView.findViewById(R.id.card_notice);
@@ -94,7 +109,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTerm = rootView.findViewById(R.id.card_term);
         mBtnGithub = rootView.findViewById(R.id.card_github);
         mBtnVersion = rootView.findViewById(R.id.card_version);
-        mTvAppLock = rootView.findViewById(R.id.applock_text);
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mTvTheme = rootView.findViewById(R.id.theme_text);
@@ -103,12 +117,19 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         txAlarmSwitch.setOnCheckedChangeListener(switchListener());
         noticeAlarmSwitch.setOnCheckedChangeListener(switchListener());
 
+        mSwitchUsingAppLock = rootView.findViewById(R.id.switch_using_applock);
+        mTvBio = rootView.findViewById(R.id.bio_title);
+        mSwitchUsingUsingBio = rootView.findViewById(R.id.switch_using_bio);
+        mTvAutoPassTime = rootView.findViewById(R.id.auto_pass_time);
+
         mBtnMnemonic.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
         mBtnImportKey.setOnClickListener(this);
         mBtnWatchAddress.setOnClickListener(this);
         mBtnTheme.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
+        mBtnBio.setOnClickListener(this);
+        mBtnAutoPass.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
         mBtnExplore.setOnClickListener(this);
         mBtnNotice.setOnClickListener(this);
@@ -121,6 +142,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnVersion.setOnClickListener(this);
 
         mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
+        onUpdateView();
         return rootView;
 
     }
@@ -140,12 +162,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        if (getBaseDao().getUsingAppLock()) {
-            mTvAppLock.setText(R.string.str_app_applock_enabled);
-        } else {
-            mTvAppLock.setText(R.string.str_app_applock_diabeld);
-        }
-
         if (themeColor.equals("light")) {
             mTvTheme.setText(R.string.str_theme_light);
         } else if (themeColor.equals("dark")) {
@@ -180,6 +196,19 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if (!isAdded()) return;
         mTvCurrency.setText(getBaseDao().getCurrencyString());
+        onUpdateAutoPass();
+    }
+
+    private void onUpdateView() {
+        mSwitchUsingAppLock.setChecked(getBaseDao().getUsingAppLock());
+        mSwitchUsingUsingBio.setChecked(getBaseDao().getUsingFingerPrint());
+
+        FingerprintManagerCompat mFingerprintManagerCompat = FingerprintManagerCompat.from(getActivity());
+        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) && mFingerprintManagerCompat.isHardwareDetected() && mFingerprintManagerCompat.hasEnrolledFingerprints()) {
+            mTvBio.setText(getString(R.string.str_using_fingerprints));
+        } else {
+            mTvBio.setText("");
+        }
     }
 
     @Override
@@ -218,7 +247,14 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                     }, null);
 
         } else if (v.equals(mBtnAppLock)) {
-            startActivity(new Intent(getBaseActivity(), AppLockSetActivity.class));
+            onClickAppLock();
+
+        } else if (v.equals(mBtnBio)) {
+            getBaseDao().setUsingFingerPrint(!getBaseDao().getUsingFingerPrint());
+            onUpdateView();
+
+        } else if (v.equals(mBtnAutoPass)) {
+            onClickAutoPass();
 
         } else if (v.equals(mBtnCurrency)) {
             CurrencySetDialog currency_dialog = CurrencySetDialog.newInstance(null);
@@ -277,6 +313,64 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
+    private void onClickAppLock() {
+        mCheckMode = SELECT_CHECK_FOR_APP_LOCK;
+
+        if (getBaseDao().getUsingAppLock()) {
+            Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+        } else {
+            if (getBaseDao().onHasPassword()) {
+                getBaseDao().setUsingAppLock(true);
+                onUpdateView();
+
+            } else {
+                Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
+                startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
+                getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            }
+        }
+    }
+
+    private void onClickAutoPass() {
+        mCheckMode = SELECT_CHECK_FOR_AUTO_PASS;
+
+        if (!getBaseDao().onHasPassword()) {
+            Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
+            startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
+
+        } else {
+            Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+        }
+        getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    }
+
+    private void onShowAutoPassDialog() {
+        FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg),
+                getString(R.string.str_app_auto_pass_5m),  view -> onSetAutoPass(1), null,
+                getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null,
+                getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null,
+                getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
+    }
+
+    private void onSetAutoPass(int value) {
+        if (getBaseDao().getUsingAutoPassTime() != value) {
+            getBaseDao().setUsingAutoPassTime(value);
+            onUpdateAutoPass();
+        }
+    }
+
+    private void onUpdateAutoPass() {
+        if (!getBaseDao().isAutoPass()) {
+            onSetAutoPass(0);
+        }
+        mTvAutoPassTime.setText(getBaseDao().getAutoPass(getActivity()));
+    }
     public MainActivity getMainActivity() {
         return (MainActivity) getBaseActivity();
     }
@@ -305,6 +399,20 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                     .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     .setRationaleMessage(getString(R.string.str_permission_qr))
                     .check();
+
+        } else if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
+            if (mCheckMode == SELECT_CHECK_FOR_APP_LOCK) {
+                getBaseDao().setUsingAppLock(false);
+                onUpdateView();
+
+            } else {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onShowAutoPassDialog();
+                    }
+                }, 300);
+            }
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);

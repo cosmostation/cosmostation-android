@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/font_ss_17_black_daynight"
+            style="@style/font_rm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_proposal_list" />
@@ -32,7 +32,7 @@
 
             <TextView
                 android:id="@+id/empty_proposal"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -54,7 +54,7 @@
 
         <Button
             android:id="@+id/btn_multiVote"
-            style="@style/font_ss_14_photon"
+            style="@style/font_rr_14_photon"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
@@ -76,7 +76,7 @@
 
             <Button
                 android:id="@+id/btn_cancel"
-                style="@style/font_ss_14_black_daynight"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_45"
                 android:layout_marginRight="@dimen/space_4"
@@ -91,7 +91,7 @@
 
             <Button
                 android:id="@+id/btn_next"
-                style="@style/font_ss_14_photon"
+                style="@style/font_rr_14_photon"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_45"
                 android:layout_marginLeft="@dimen/space_4"

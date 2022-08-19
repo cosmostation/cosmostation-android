@@ -36,7 +36,7 @@
                     android:layout_toRightOf="@+id/atom_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="ATOM"
-                    style="@style/font_ss_14_atom"/>
+                    style="@style/font_rr_14_atom"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
-                        style="@style/font_ssm_17_black_daynight"/>
+                        style="@style/font_rr_17_black_daynight"/>
                     <TextView
                         android:id="@+id/atom_value"
                         android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/atom_available"
                     android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_delegated"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/atom_delegate"
                     android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -112,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_unbonding"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/atom_unbonding"
                     android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_reward"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <TextView
                     android:id="@+id/atom_reward"
                     android:layout_width="wrap_content"
@@ -139,7 +139,7 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ss_12_black_daynight"/>
+                    style="@style/font_rr_12_black_daynight"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -163,7 +163,7 @@
                         android:drawableLeft="@drawable/reward_ic"
                         android:drawablePadding="@dimen/space_4"
                         android:gravity="center"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:text="@string/str_get_reward" />
                 </RelativeLayout>
 
@@ -184,7 +184,7 @@
                         android:drawableLeft="@drawable/vote_ic"
                         android:drawablePadding="@dimen/space_4"
                         android:gravity="center"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:text="@string/str_governance" />
                 </RelativeLayout>
             </LinearLayout>
@@ -204,7 +204,7 @@
                     android:drawableLeft="@drawable/icon_gravitydex"
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="Gravity Dex" />
             </RelativeLayout>
 
@@ -223,7 +223,7 @@
                     android:drawableLeft="@drawable/icon_walletconnect"
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
-                    style="@style/font_ss_12_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:text="Wallet Connect" />
             </RelativeLayout>
 

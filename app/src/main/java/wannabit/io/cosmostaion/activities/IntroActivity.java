@@ -60,9 +60,9 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             if (!getBaseDao().getFCMToken().equals(token)) {
                 if (getBaseDao().getTxPushEnable() || getBaseDao().getNoticePushEnable()) {
                     PushManager.syncAddresses(this, getBaseDao(), token);
-                } else {
-                    getBaseDao().setFCMToken(token);
+                    PushManager.updateStatus(this, getBaseDao(), getBaseDao().getTxPushEnable(), getBaseDao().getNoticePushEnable(), token);
                 }
+                getBaseDao().setFCMToken(token);
             }
         });
 

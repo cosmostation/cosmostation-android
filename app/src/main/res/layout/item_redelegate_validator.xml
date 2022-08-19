@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:ellipsize="end"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:text="moniker"/>
                 </RelativeLayout>
 
@@ -101,14 +101,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_power_validator"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:text="@string/str_voting_power"/>
                     <TextView
                         android:id="@+id/delegate_power_validator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:text="-"/>
                 </RelativeLayout>
 
@@ -119,14 +119,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_yield_commission"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:text="@string/str_average_yield"/>
                     <TextView
                         android:id="@+id/delegate_yield_commission"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:text="-"/>
                 </RelativeLayout>
             </LinearLayout>

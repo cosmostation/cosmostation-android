@@ -78,7 +78,7 @@
 
                     <TextView
                         android:id="@+id/moniker_validator"
-                        style="@style/font_ss_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -104,7 +104,7 @@
                     android:layout_marginTop="@dimen/space_6">
 
                     <TextView
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_power_validator"
@@ -112,7 +112,7 @@
 
                     <TextView
                         android:id="@+id/delegate_power_validator"
-                        style="@style/font_ssl_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -125,7 +125,7 @@
 
                     <TextView
                         android:id="@+id/subTitle2"
-                        style="@style/font_ss_11_gray1"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_commission_validator"
@@ -133,7 +133,7 @@
 
                     <TextView
                         android:id="@+id/delegate_commission_validator"
-                        style="@style/font_ssl_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

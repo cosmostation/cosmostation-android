@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    style="@style/font_ss_17_black_daynight"
+                    style="@style/font_rm_17_black_daynight"
                     android:text="@string/str_my_harvest_information"/>
             </LinearLayout>
 
@@ -61,7 +61,7 @@
                     android:layout_toRightOf="@+id/deposit_icon"
                     android:layout_marginLeft="@dimen/space_8"
                     android:text="COIN"
-                    style="@style/font_ss_14_black_daynight"/>
+                    style="@style/font_rr_14_black_daynight"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_my_deposited_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ssl_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/deposited_amount"
@@ -95,7 +95,7 @@
                         android:layout_alignBaseline="@+id/deposited_symbol"
                         android:layout_toLeftOf="@+id/deposited_symbol"
                         android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text=""/>
 
             <RelativeLayout
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_my_borrowed_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ssl_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/borrowed_amount"
@@ -137,7 +137,7 @@
                         android:layout_alignBaseline="@+id/borrowed_symbol"
                         android:layout_toLeftOf="@+id/borrowed_symbol"
                         android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -145,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text=""/>
 
 
@@ -158,7 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_my_borrowable_amount"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="Coin"
-                        style="@style/font_ssl_12_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/borrowable_amount"
@@ -180,7 +180,7 @@
                         android:layout_alignBaseline="@+id/borrowable_symbol"
                         android:layout_toLeftOf="@+id/borrowable_symbol"
                         android:text="-"
-                        style="@style/font_ssl_12_black_daynight"/>
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -188,7 +188,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                style="@style/font_ss_12_gray1"
+                style="@style/font_rr_12_gray1"
                 android:text=""/>
 
             <LinearLayout
@@ -208,7 +208,7 @@
 
                     <TextView
                         android:id="@+id/btn_deposit_txt"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -229,7 +229,7 @@
 
                     <TextView
                         android:id="@+id/btn_withdraw_txt"
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -255,7 +255,7 @@
                     android:clickable="true">
 
                     <TextView
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -275,7 +275,7 @@
                     android:clickable="true">
 
                     <TextView
-                        style="@style/font_ss_14_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
