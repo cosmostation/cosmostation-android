@@ -217,6 +217,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:theme="@style/ColorSwitchStyles"
                         android:src="@drawable/arrow_next_gr" />
                 </RelativeLayout>
             </FrameLayout>
@@ -247,6 +248,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:theme="@style/ColorSwitchStyles"
                         android:src="@drawable/arrow_next_gr" />
                 </RelativeLayout>
             </FrameLayout>
