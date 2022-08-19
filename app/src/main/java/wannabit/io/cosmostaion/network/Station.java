@@ -3,17 +3,11 @@ package wannabit.io.cosmostaion.network;
 import java.util.ArrayList;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Price;
-import wannabit.io.cosmostaion.network.req.ReqBroadAirDrop;
-import wannabit.io.cosmostaion.network.req.ReqDesmosAirDrop;
-import wannabit.io.cosmostaion.network.res.ResAirdropClaimCheck;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResCw20Assets;
 import wannabit.io.cosmostaion.network.res.ResIbcPaths;
@@ -54,16 +48,6 @@ public interface Station {
 
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);
-
-    //desmos airdrop
-    @POST("airdrop/grants")
-    Call<String> broadAirDrop(@Body ReqBroadAirDrop data);
-
-    @GET("users/{address}")
-    Call<ResAirdropClaimCheck> getClaimable(@Path("address") String address);
-
-    @POST("airdrop/claims")
-    Call<String> ClaimAirDrop(@Body ReqDesmosAirDrop data);
 
     //certik lcd
     @GET("/shentu/gov/v1alpha1/proposals/{proposal_id}/votes/{voter}")
