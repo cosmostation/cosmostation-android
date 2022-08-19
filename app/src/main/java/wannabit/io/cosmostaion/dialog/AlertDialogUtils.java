@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
@@ -16,9 +17,11 @@ public class AlertDialogUtils {
 
     public static void showSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener, Boolean cancelable) {
         CommonAlertDialog dialog = makeSingleButtonDialog(context, title, message, buttonTitle, listener);
-        dialog.setCancelable(cancelable);
-        dialog.create();
-        dialog.show();
+        if (!((Activity) context).isFinishing()) {
+            dialog.setCancelable(cancelable);
+            dialog.create();
+            dialog.show();
+        }
     }
 
     public static void showSingleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener) {
@@ -33,9 +36,11 @@ public class AlertDialogUtils {
 
     public static void showDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, Boolean cancelable) {
         CommonAlertDialog dialog = makeDoubleButtonDialog(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener);
-        dialog.setCancelable(cancelable);
-        dialog.create();
-        dialog.show();
+        if (!((Activity) context).isFinishing()) {
+            dialog.setCancelable(cancelable);
+            dialog.create();
+            dialog.show();
+        }
     }
 
     public static void showDoubleButtonDialog(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener) {

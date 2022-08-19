@@ -326,66 +326,6 @@ public class BaseConstant {
     public final static int ERROR_CODE_BROADCAST            = 8004;
 
 
-    public final static String TOKEN_ATOM           = "uatom";
-    public final static String TOKEN_IRIS           = "uiris";
-    public final static String TOKEN_IRIS_ATTO      = "iris-atto";
-    public final static String TOKEN_BNB            = "BNB";
-    public final static String TOKEN_KAVA           = "ukava";
-    public final static String TOKEN_HARD           = "hard";
-    public final static String TOKEN_USDX           = "usdx";
-    public final static String TOKEN_SWP            = "swp";
-    public final static String TOKEN_IOV            = "uiov";
-    public final static String TOKEN_CERTIK         = "uctk";
-    public final static String TOKEN_BAND           = "uband";
-    public final static String TOKEN_AKASH          = "uakt";
-    public final static String TOKEN_SECRET         = "uscrt";
-    public final static String TOKEN_OK             = "okt";
-    public final static String TOKEN_OK_OKB         = "okb";
-    public final static String TOKEN_XPRT           = "uxprt";
-    public final static String TOKEN_DVPN           = "udvpn";
-    public final static String TOKEN_FET            = "afet";
-    public final static String TOKEN_CRO            = "basecro";
-    public final static String TOKEN_SIF            = "rowan";
-    public final static String TOKEN_KI             = "uxki";
-    public final static String TOKEN_RIZON          = "uatolo";
-    public final static String TOKEN_MEDI           = "umed";
-    public final static String TOKEN_ALTHEA         = "ualtg";
-    public final static String TOKEN_OSMOSIS        = "uosmo";
-    public final static String TOKEN_ION            = "uion";
-    public final static String TOKEN_UMEE           = "uumee";
-    public final static String TOKEN_NGM            = "ungm";
-    public final static String TOKEN_AXELAR         = "uaxl";
-    public final static String TOKEN_JUNO           = "ujuno";
-    public final static String TOKEN_REGEN          = "uregen";
-    public final static String TOKEN_BITCANNA       = "ubcna";
-    public final static String TOKEN_STARGAZE       = "ustars";
-    public final static String TOKEN_GRABRIDGE      = "ugraviton";
-    public final static String TOKEN_COMDEX         = "ucmdx";
-    public final static String TOKEN_INJ            = "inj";
-    public final static String TOKEN_BITSONG        = "ubtsg";
-    public final static String TOKEN_DESMOS         = "udsm";
-    public final static String TOKEN_LUM            = "ulum";
-    public final static String TOKEN_CHIHUAHUA      = "uhuahua";
-    public final static String TOKEN_DARC           = "udarc";
-    public final static String TOKEN_EVMOS          = "aevmos";
-    public final static String TOKEN_CUDOS          = "acudos";
-    public final static String TOKEN_HASH           = "nhash";
-    public final static String TOKEN_CRBRUS         = "ucrbrus";
-    public final static String TOKEN_FLIX           = "uflix";
-    public final static String TOKEN_CRE            = "ucre";
-    public final static String TOKEN_BCRE           = "ubcre";
-    public final static String TOKEN_MANTLE         = "umntl";
-    public final static String TOKEN_STATION        = "uiss";
-    public final static String TOKEN_NYX            = "unyx";
-    public final static String TOKEN_NYM            = "unym";
-
-    public final static String TOKEN_IOV_TEST       = "uvoi";
-    public final static String TOKEN_COSMOS_TEST    = "umuon";
-    public final static String TOKEN_IRIS_TEST      = "ubif";
-    public final static String TOKEN_CRESCENT_TEST  = "ucre";
-    public final static String TOKEN_BCRESCENT_TEST = "ubcre";
-
-
     //HTLC swap support Token Types
     public final static String TOKEN_HTLC_KAVA_BNB                 = "bnb";
     public final static String TOKEN_HTLC_KAVA_BTCB                = "btcb";
@@ -427,8 +367,6 @@ public class BaseConstant {
     public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
 
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
-
-    public final static String EXPLORER_OEC_TX          = "https://www.oklink.com/oec/";
 
     public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";
 

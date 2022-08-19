@@ -1077,7 +1077,7 @@
 
 
     <style name="font_rr_keyboard_white" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_33</item>
     </style>

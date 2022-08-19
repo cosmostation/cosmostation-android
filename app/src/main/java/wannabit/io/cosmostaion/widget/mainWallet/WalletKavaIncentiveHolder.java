@@ -12,13 +12,12 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
 public class WalletKavaIncentiveHolder extends BaseHolder {
 
@@ -42,9 +41,9 @@ public class WalletKavaIncentiveHolder extends BaseHolder {
         BigDecimal mSwpIncetiveAmount   = BigDecimal.ZERO;
 
         if (baseData.mIncentiveRewards != null) {
-            mKavaIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(TOKEN_KAVA);
-            mHardIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(TOKEN_HARD);
-            mSwpIncetiveAmount  = baseData.mIncentiveRewards.getRewardSum(TOKEN_SWP);
+            mKavaIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom());
+            mHardIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(Kava.KAVA_HARD_DENOM);
+            mSwpIncetiveAmount  = baseData.mIncentiveRewards.getRewardSum(Kava.KAVA_SWP_DENOM);
         }
 
         mKavaIncetive.setText(WDp.getDpAmount2(mainActivity, mKavaIncetiveAmount, 6, 6));

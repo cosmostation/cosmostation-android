@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +28,7 @@ import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -203,8 +202,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
     private class NativeTokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_NATIVE = 0;
-
-        private static final int TYPE_VESTING = 99;
+        private static final int TYPE_VESTING = 1;
 
         @NonNull
         @Override
@@ -238,7 +236,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         @Override
         public int getItemViewType(int position) {
             if (mBaseChain.equals(KAVA_MAIN)) {
-                if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_HARD) || mNativeGrpcDenom.equalsIgnoreCase(TOKEN_SWP)) {
+                if (mNativeGrpcDenom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM) || mNativeGrpcDenom.equalsIgnoreCase(Kava.KAVA_SWP_DENOM)) {
                     if (mHasVesting) {
                         if (position == 0) return TYPE_NATIVE;
                         if (position == 1) return TYPE_VESTING;
