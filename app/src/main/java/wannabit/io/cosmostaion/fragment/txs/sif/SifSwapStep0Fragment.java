@@ -57,10 +57,8 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
 
     private String mInDecimalChecker, mInDecimalSetter;
 
-    public static SifSwapStep0Fragment newInstance(Bundle bundle) {
-        SifSwapStep0Fragment fragment = new SifSwapStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifSwapStep0Fragment newInstance() {
+        return new SifSwapStep0Fragment();
     }
 
     @Override

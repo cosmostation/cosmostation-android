@@ -85,7 +85,7 @@ public class AuthzClaimCommissionStep3Fragment extends BaseFragment implements V
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onAuthzClaimReward();
+            getSActivity().onAuthzClaimCommission();
         }
     }
 

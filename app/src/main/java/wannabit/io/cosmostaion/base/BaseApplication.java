@@ -68,23 +68,8 @@ public class BaseApplication extends Application {
                 !getBaseDao().onHasPassword() ||
                 !getBaseDao().getUsingAppLock() ||
                 (getBaseDao().onSelectAccounts().size() <= 0 )) return false;
-
-        if (getBaseDao().getAppLockTriggerTime() == 0) {
-            return true;
-        } else if (getBaseDao().getAppLockTriggerTime() == 1) {
-            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_10S) >= System.currentTimeMillis()) return false;
-
-        } else if (getBaseDao().getAppLockTriggerTime() == 2) {
-            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_30S) >= System.currentTimeMillis()) return false;
-
-        } else if (getBaseDao().getAppLockTriggerTime() == 3) {
-            if ((getBaseDao().getAppLockLeaveTime() + BaseConstant.CONSTANT_M) >= System.currentTimeMillis()) return false;
-
-        }
         return true;
     }
-
-
 
     public enum AppStatus {
         BACKGROUND,

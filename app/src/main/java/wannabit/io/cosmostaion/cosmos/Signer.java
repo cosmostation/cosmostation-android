@@ -356,17 +356,17 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcSwapInReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, String inputDenom, String inputAmount, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth, getSwapInMsg(auth, swapRoute, inputDenom, inputAmount, outputAmount), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcSwapInReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getSwapInMsg(auth, swapRoute, swapInputCoin, outputAmount), fee, memo, pKey, chainId);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcSwapInSimulateReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, String inputDenom, String inputAmount, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getSwapInMsg(auth, swapRoute, inputDenom, inputAmount, outputAmount), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.SimulateRequest getGrpcSwapInSimulateReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getSwapInMsg(auth, swapRoute, swapInputCoin, outputAmount), fee, memo, pKey, chainId);
     }
 
-    public static ArrayList<Any> getSwapInMsg(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, String inputDenom, String inputAmount, String outputAmount) {
+    public static ArrayList<Any> getSwapInMsg(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(inputDenom).setAmount(inputAmount).build();
+        CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(swapInputCoin.denom).setAmount(swapInputCoin.amount).build();
         osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn msgSwapExactAmountIn = osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.newBuilder().setSender((String) onParseAuthGrpc(auth).get(0)).addRoutes(swapRoute).setTokenIn(inputCoin).setTokenOutMinAmount(outputAmount).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgSwapExactAmountIn").setValue(msgSwapExactAmountIn.toByteString()).build());
         return msgAnys;
@@ -466,19 +466,19 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcSifSwapReq(QueryOuterClass.QueryAccountResponse auth, String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth,getSifSwapMsg(signer, inputDenom, inputAmount, outputDenom, outputAmount), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcSifSwapReq(QueryOuterClass.QueryAccountResponse auth, String signer, Coin swapInCoin, Coin swapOutCoin, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth,getSifSwapMsg(signer, swapInCoin, swapOutCoin), fee, memo, pKey, chainId);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcSifSwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getSifSwapMsg(signer, inputDenom, inputAmount, outputDenom, outputAmount), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.SimulateRequest getGrpcSifSwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, String signer, Coin swapInCoin, Coin swapOutCoin, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getSifSwapMsg(signer, swapInCoin, swapOutCoin), fee, memo, pKey, chainId);
     }
 
-    public static ArrayList<Any> getSifSwapMsg(String signer, String inputDenom, String inputAmount, String outputDenom, String outputAmount) {
+    public static ArrayList<Any> getSifSwapMsg(String signer, Coin swapInCoin, Coin swapOutCoin) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        sifnode.clp.v1.Types.Asset inputAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(inputDenom).build();
-        sifnode.clp.v1.Types.Asset outpuAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(outputDenom).build();
-        sifnode.clp.v1.Tx.MsgSwap msgSwap = sifnode.clp.v1.Tx.MsgSwap.newBuilder().setSigner(signer).setSentAsset(inputAsset).setReceivedAsset(outpuAsset).setSentAmount(inputAmount).setMinReceivingAmount(outputAmount).build();
+        sifnode.clp.v1.Types.Asset inputAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(swapInCoin.denom).build();
+        sifnode.clp.v1.Types.Asset outpuAsset = sifnode.clp.v1.Types.Asset.newBuilder().setSymbol(swapOutCoin.denom).build();
+        sifnode.clp.v1.Tx.MsgSwap msgSwap = sifnode.clp.v1.Tx.MsgSwap.newBuilder().setSigner(signer).setSentAsset(inputAsset).setReceivedAsset(outpuAsset).setSentAmount(swapInCoin.amount).setMinReceivingAmount(swapOutCoin.amount).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/sifnode.clp.v1.MsgSwap").setValue(msgSwap.toByteString()).build());
         return msgAnys;
     }
@@ -982,7 +982,7 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzAVoteReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzVoteReq(QueryOuterClass.QueryAccountResponse auth, String grantee, String granter, Map<Integer,String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId) {
         return getSignTx(auth, getAuthzVoteMsg(grantee, granter, opinionMap), fee, memo, pKey, chainId);
     }
 

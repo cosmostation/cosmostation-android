@@ -60,12 +60,6 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".activities.AppLockSetActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-
-        <activity
             android:name=".activities.setting.MnemonicRestoreActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

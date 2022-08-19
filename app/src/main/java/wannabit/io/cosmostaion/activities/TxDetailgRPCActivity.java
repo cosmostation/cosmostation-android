@@ -561,6 +561,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_WITHDRAW_CDP;
                 } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_DEPOSIT_CDP;
+                } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgDrawDebt.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_DRAW_DEBT_CDP;
                 } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgRepayDebt.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_REPAY_CDP;
                 } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {

@@ -147,8 +147,12 @@
     <string name="str_theme_dark">다크 모드</string>
     <string name="str_alarm">알람</string>
     <string name="str_app_applock">앱 잠금</string>
-    <string name="str_app_applock_enabled">사용중</string>
-    <string name="str_app_applock_diabeld">사용안함</string>
+    <string name="str_app_auto_pass">핀코드 자동 통과</string>
+    <string name="str_app_auto_pass_msg">최초 핀코드를 통과한 이후 설정한 시간동안 핀코드를 자동으로 통과합니다.\nTx 전송, 개인 데이터 확인에 해당 됩니다.\n(앱 잠금은 항상 작동합니다.)</string>
+    <string name="str_app_auto_pass_5m">5분</string>
+    <string name="str_app_auto_pass_10m">10분</string>
+    <string name="str_app_auto_pass_30m">30분</string>
+    <string name="str_app_auto_pass_never">사용 안함 (추천)</string>
     <string name="str_currency">통화</string>
     <string name="str_base_price">가격 정보 출처</string>
     <string name="str_support">지원</string>
@@ -633,7 +637,7 @@
     <string name="str_outstanding_debt">Outstanding Debt</string>
     <string name="str_cdp_total_fee">대출 이자</string>
     <string name="str_collateral_deposit">Deposit</string>
-    <string name="str_collateral_withdraw">Withdraw</string>
+    <string name="str_collateral_withdraw">유동성 출금</string>
     <string name="str_principal_drawdebt">추가 USDX 대출</string>
     <string name="str_principal_repay">USDX 상환</string>
     <string name="str_star_name_service">스타네임 서비스</string>

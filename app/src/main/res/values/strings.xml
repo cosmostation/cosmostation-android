@@ -295,8 +295,12 @@
     <string name="str_theme_dark">Dark Mode</string>
     <string name="str_alarm">Alarm</string>
     <string name="str_app_applock">App Lock</string>
-    <string name="str_app_applock_enabled">Enabled</string>
-    <string name="str_app_applock_diabeld">Disabled</string>
+    <string name="str_app_auto_pass">PIN Auto Pass</string>
+    <string name="str_app_auto_pass_msg">After passing the first pin code, it automatically passes through the pin code for a set time.\nTx transfer, personal data verification.\n(App lock always works.)</string>
+    <string name="str_app_auto_pass_5m">5min</string>
+    <string name="str_app_auto_pass_10m">10min</string>
+    <string name="str_app_auto_pass_30m">30min</string>
+    <string name="str_app_auto_pass_never">Never (recommend)</string>
     <string name="str_currency">Currency</string>
     <string name="str_base_price">Base Price</string>
     <string name="str_support">Support</string>

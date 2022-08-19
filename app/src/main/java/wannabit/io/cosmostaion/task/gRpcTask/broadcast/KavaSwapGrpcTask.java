@@ -12,6 +12,7 @@ import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
@@ -51,7 +52,7 @@ public class KavaSwapGrpcTask extends CommonTask {
         this.mRequester = requester;
         this.mSwapIn = swapIn;
         this.mSwapOut = swapOut;
-        this.mSlippage = "30000000000000000";
+        this.mSlippage = BaseConstant.KAVA_SLIPPAGE;
         this.mDeadline = (System.currentTimeMillis() / 1000) + 300;
         this.mMemo = memo;
         this.mFees = fee;

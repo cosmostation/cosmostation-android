@@ -595,8 +595,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIF_SWAP) {
             new SifSwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
-                    mSifSwapInCoin.denom, mSifSwapInCoin.amount, mSifSwapOutCoin.denom, mSifSwapOutCoin.amount,
-                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mSifSwapInCoin, mSifSwapOutCoin, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_SIF_JOIN_POOL) {
             new SifDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mSifDepositCoin1.denom, mSifDepositCoin0.amount, mSifDepositCoin1.amount,
@@ -760,6 +759,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         onHideWaitDialog();
         if (result.taskType == TASK_PASSWORD_CHECK) {
             if (result.isSuccess) {
+                getBaseDao().setLastPassTime();
                 setResult(Activity.RESULT_OK, getIntent());
                 finish();
                 overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
