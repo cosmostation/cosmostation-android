@@ -33,6 +33,13 @@
             android:text=""
             android:visibility="gone" />
 
+        <View
+            android:id="@+id/btn_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_view"
+            android:background="@color/colorGrayDayNight"
+            android:visibility="gone"/>
+
         <Button
             android:id="@+id/btn_one"
             style="@style/font_rr_15_black_daynight"
@@ -46,9 +53,11 @@
             android:textAllCaps="false" />
 
         <View
+            android:id="@+id/btn_line2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_view"
-            android:background="@color/colorGrayDayNight" />
+            android:background="@color/colorGrayDayNight"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btn_two"
@@ -63,9 +72,9 @@
             android:textAllCaps="false" />
 
         <View
-            android:id="@+id/btn_line"
+            android:id="@+id/btn_line3"
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="@dimen/space_view"
             android:background="@color/colorGrayDayNight"
             android:visibility="gone"/>
 
@@ -83,9 +92,11 @@
             android:visibility="gone" />
 
         <View
+            android:id="@+id/btn_line4"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_view"
-            android:background="@color/colorGrayDayNight" />
+            android:background="@color/colorGrayDayNight"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btn_four"

@@ -15,11 +15,11 @@ import wannabit.io.cosmostaion.R;
 public class FilledVerticalButtonAlertDialog extends AlertDialog {
     TextView titleTextView, messageTextView;
     Button firstButton, secondButton, thirdButton, quadrupleButton;
-    View btnLine;
+    View btnLine, btnLine2, btnLine3, btnLine4;
 
     public FilledVerticalButtonAlertDialog(Context context) {
         super(context);
-        getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg_colorwhite2daynight);
+        getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_template_filledvertical, null);
 
         titleTextView = view.findViewById(R.id.dialog_title);
@@ -29,6 +29,9 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
         thirdButton = view.findViewById(R.id.btn_three);
         quadrupleButton = view.findViewById(R.id.btn_four);
         btnLine = view.findViewById(R.id.btn_line);
+        btnLine2 = view.findViewById(R.id.btn_line2);
+        btnLine3 = view.findViewById(R.id.btn_line3);
+        btnLine4 = view.findViewById(R.id.btn_line4);
 
         setView(view);
 
@@ -93,7 +96,6 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
         } else {
             dialog.messageTextView.setText(message);
             dialog.messageTextView.setVisibility(View.VISIBLE);
-            dialog.btnLine.setVisibility(View.VISIBLE);
         }
 
         if (firstButtonImage == null && secondButtonImage == null) {
@@ -120,6 +122,7 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
             dialog.dismiss();
         });
 
+        dialog.btnLine2.setVisibility(View.VISIBLE);
         dialog.thirdButton.setVisibility(View.GONE);
 
         return dialog;
@@ -138,7 +141,8 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
 
         dialog.thirdButton.setText(thirdButtonTitle);
         dialog.thirdButton.setVisibility(View.VISIBLE);
-        dialog.btnLine.setVisibility(View.VISIBLE);
+        dialog.btnLine2.setVisibility(View.VISIBLE);
+        dialog.btnLine3.setVisibility(View.VISIBLE);
 
         dialog.thirdButton.setOnClickListener(view -> {
             if (thirdButtonListener != null) {
@@ -160,6 +164,17 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
             dialog.quadrupleButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         } else {
             dialog.quadrupleButton.setCompoundDrawablesWithIntrinsicBounds(quadrupleButtonImage, null, null, null);
+        }
+
+        if (StringUtils.isEmpty(message)) {
+            dialog.messageTextView.setVisibility(View.GONE);
+        } else {
+            dialog.messageTextView.setText(message);
+            dialog.messageTextView.setVisibility(View.VISIBLE);
+            dialog.btnLine.setVisibility(View.VISIBLE);
+            dialog.btnLine2.setVisibility(View.VISIBLE);
+            dialog.btnLine3.setVisibility(View.VISIBLE);
+            dialog.btnLine4.setVisibility(View.VISIBLE);
         }
 
         dialog.quadrupleButton.setText(quadrupleButtonTitle);
