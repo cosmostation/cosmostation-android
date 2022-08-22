@@ -73,7 +73,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     private int mCheckMode = -1;
 
-    private SwitchCompat txAlarmSwitch, noticeAlarmSwitch;
+    private SwitchCompat alarmSwitch;
 
     public static MainSettingFragment newInstance() {
         return new MainSettingFragment();
@@ -112,10 +112,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mTvTheme = rootView.findViewById(R.id.theme_text);
-        txAlarmSwitch = rootView.findViewById(R.id.switch_tx_alaram);
-        noticeAlarmSwitch = rootView.findViewById(R.id.switch_notice_alaram);
-        txAlarmSwitch.setOnCheckedChangeListener(switchListener());
-        noticeAlarmSwitch.setOnCheckedChangeListener(switchListener());
+        alarmSwitch = rootView.findViewById(R.id.switch_alaram);
+        alarmSwitch.setOnCheckedChangeListener(switchListener());
 
         mSwitchUsingAppLock = rootView.findViewById(R.id.switch_using_applock);
         mTvBio = rootView.findViewById(R.id.bio_title);
@@ -152,11 +150,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void syncPushStatus() {
-        if (!getBaseDao().getNoticePushEnable() && !getBaseDao().getTxPushEnable()) {
+        if (!getBaseDao().getAlarmEnable()) {
             PushManager.syncAddresses(requireContext(), getBaseDao(), getBaseDao().getFCMToken());
         }
 
-        PushManager.updateStatus(requireContext(), getBaseDao(), txAlarmSwitch.isChecked(), noticeAlarmSwitch.isChecked(), getBaseDao().getFCMToken());
+        PushManager.updateStatus(requireContext(), getBaseDao(), alarmSwitch.isChecked(), getBaseDao().getFCMToken());
     }
 
     @Override
@@ -178,10 +176,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onResponse(Call<PushStatusResponse> call, Response<PushStatusResponse> response) {
                 if (response.isSuccessful()) {
-                    noticeAlarmSwitch.setChecked(response.body().sub_notice);
-                    txAlarmSwitch.setChecked(response.body().sub_tx);
-                    getBaseDao().setTxPushEnable(response.body().sub_tx);
-                    getBaseDao().setNoticePushEnable(response.body().sub_notice);
+                    alarmSwitch.setChecked(response.body().subscribe);
+                    getBaseDao().setAlarmEnable(response.body().subscribe);
                 }
             }
 
@@ -352,7 +348,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     private void onShowAutoPassDialog() {
         FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg),
-                getString(R.string.str_app_auto_pass_5m),  view -> onSetAutoPass(1), null,
+                getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null,
                 getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null,
                 getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null,
                 getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
@@ -371,6 +367,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         }
         mTvAutoPassTime.setText(getBaseDao().getAutoPass(getActivity()));
     }
+
     public MainActivity getMainActivity() {
         return (MainActivity) getBaseActivity();
     }

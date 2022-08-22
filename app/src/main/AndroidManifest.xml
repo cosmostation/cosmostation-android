@@ -686,6 +686,12 @@
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
 
+
+        <activity
+            android:name=".dialog.AlertDialogActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+
         <service
             android:name=".base.BaseFCM"
             android:exported="true">

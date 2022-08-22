@@ -58,9 +58,9 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             }
             String token = task.getResult();
             if (!getBaseDao().getFCMToken().equals(token)) {
-                if (getBaseDao().getTxPushEnable() || getBaseDao().getNoticePushEnable()) {
+                if (getBaseDao().getAlarmEnable()) {
                     PushManager.syncAddresses(this, getBaseDao(), token);
-                    PushManager.updateStatus(this, getBaseDao(), getBaseDao().getTxPushEnable(), getBaseDao().getNoticePushEnable(), token);
+                    PushManager.updateStatus(this, getBaseDao(), getBaseDao().getAlarmEnable(), token);
                 }
                 getBaseDao().setFCMToken(token);
             }

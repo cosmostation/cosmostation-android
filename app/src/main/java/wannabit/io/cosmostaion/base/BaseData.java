@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
@@ -832,20 +831,12 @@ public class BaseData {
         return getSharedPreferences().getInt(BaseConstant.PRE_MY_VALIDATOR_SORTING, 1);
     }
 
-    public void setTxPushEnable(Boolean enable) {
-        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_TX_PUSH_STATUS, enable).commit();
+    public void setAlarmEnable(Boolean enable) {
+        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_ALARM_STATUS, enable).commit();
     }
 
-    public Boolean getTxPushEnable() {
-        return getSharedPreferences().getBoolean(BaseConstant.PRE_TX_PUSH_STATUS, true);
-    }
-
-    public void setNoticePushEnable(Boolean enable) {
-        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_NOTICE_PUSH_STATUS, enable).commit();
-    }
-
-    public Boolean getNoticePushEnable() {
-        return getSharedPreferences().getBoolean(BaseConstant.PRE_NOTICE_PUSH_STATUS, true);
+    public Boolean getAlarmEnable() {
+        return getSharedPreferences().getBoolean(BaseConstant.PRE_ALARM_STATUS, false);
     }
 
     public void setLastUser(long user) {

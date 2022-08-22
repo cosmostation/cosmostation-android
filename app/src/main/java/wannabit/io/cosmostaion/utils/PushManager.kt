@@ -33,22 +33,19 @@ object PushManager {
     fun updateStatus(
         context: Context,
         baseDao: BaseData,
-        txEnable: Boolean,
-        noticeEnable: Boolean,
+        enable: Boolean,
         token: String
     ) {
         ApiClient.getCosmostationOld(context)
-            .putAlarmStatus(PushStatusRequest(txEnable, noticeEnable, token))
+            .putAlarmStatus(PushStatusRequest(enable, token))
             .enqueue(object : Callback<Void?> {
                 override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
                     if (response.isSuccessful) {
-                        baseDao.txPushEnable = txEnable
-                        baseDao.noticePushEnable = noticeEnable
+                        baseDao.alarmEnable = enable
                     }
                 }
 
                 override fun onFailure(call: Call<Void?>, t: Throwable) {}
             })
     }
-
 }

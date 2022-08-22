@@ -14,11 +14,11 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.Map;
+import java.util.Random;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.dialog.AlertDialogActivity;
 
 
 public class BaseFCM extends FirebaseMessagingService {
@@ -36,36 +36,43 @@ public class BaseFCM extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             String messageBody = remoteMessage.getNotification().getBody();
             String messageTitle = remoteMessage.getNotification().getTitle();
-
-            Intent intent = makeIntentByPushData(remoteMessage.getData());
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder notificationBuilder =
-                    new NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
-                            .setSmallIcon(R.drawable.ic_notification)
-                            .setContentTitle(messageTitle)
-                            .setContentText(messageBody)
-                            .setAutoCancel(true)
-                            .setSound(defaultSoundUri)
-                            .setContentIntent(pendingIntent);
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = new NotificationChannel(PUSH_CHANNEL_ID, PUSH_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
-                notificationManager.createNotificationChannel(channel);
-            }
-            notificationManager.notify(0, notificationBuilder.build());
+            makeNotification(messageBody, messageTitle, makeAlertIntent(remoteMessage));
         }
     }
 
-    private Intent makeIntentByPushData(Map<String, String> data) {
-        if (data.containsKey("chain") && data.containsKey("txhash")) {
-            ChainConfig chainConfig = BaseChain.SUPPORT_CHAIN_CONFIG().stream().filter(item -> item.chainName().equals(data.get("chain"))).findFirst().get();
-            return new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.explorerHistoryLink(data.get("txhash"))));
+    private void makeNotification(String messageBody, String messageTitle, Intent intent) {
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_notification)
+                        .setContentTitle(messageTitle)
+                        .setContentText(messageBody)
+                        .setAutoCancel(true)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(PUSH_CHANNEL_ID, PUSH_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
         }
+        notificationManager.notify(new Random(System.nanoTime()).nextInt(), notificationBuilder.build());
+    }
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("page", 0);
-        return intent;
+    private Intent makeAlertIntent(RemoteMessage remoteMessage) {
+        try {
+            Intent intent = new Intent(this, AlertDialogActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("title", remoteMessage.getNotification().getTitle());
+            intent.putExtra("body", remoteMessage.getNotification().getBody());
+            String url = remoteMessage.getData().get("url");
+            intent.putExtra("link", url);
+            return intent;
+        } catch (Exception e) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("page", 0);
+            return intent;
+        }
     }
 }

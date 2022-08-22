@@ -293,8 +293,6 @@
     <string name="str_theme_system">System</string>
     <string name="str_theme_light">Light Mode</string>
     <string name="str_theme_dark">Dark Mode</string>
-    <string name="str_notice_alarm">Notice Alarm</string>
-    <string name="str_tx_alarm">Tx Alarm</string>
     <string name="str_app_applock">App Lock</string>
     <string name="str_app_auto_pass">PIN Auto Pass</string>
     <string name="str_app_auto_pass_msg">After passing the first pin code, it automatically passes through the pin code for a set time.\nTx transfer, personal data verification.\n(App lock always works.)</string>
