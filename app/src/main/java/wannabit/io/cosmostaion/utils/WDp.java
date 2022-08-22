@@ -1161,55 +1161,13 @@ public class WDp {
         return remainTime.substring(1, remainTime.length() - 1);
     }
 
-    public static String getUnbondingTimefrom(Context c, String rawStartTime) {
-        String result = "??";
+    public static long convertDateToLong(String format, String rawValue) {
+        long result = 0;
         try {
-            long now = Calendar.getInstance().getTimeInMillis();
-
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(format);
             blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            long start = blockDateFormat.parse(rawStartTime).getTime();
-            long left = start + BaseConstant.COSMOS_UNBONDING_TIME - now;
-
-//            WLog.w("start : " + start);
-//            WLog.w("COSMOS_UNBONDING_TIME : " + BaseConstant.COSMOS_UNBONDING_TIME);
-//            WLog.w("now : " + now);
-
-            if (left >= BaseConstant.CONSTANT_D) {
-                result = "(D-" + (left / BaseConstant.CONSTANT_D) + ")";
-            } else if (left >= BaseConstant.CONSTANT_H) {
-                result = "(H-" + (left / BaseConstant.CONSTANT_H) + ")";
-            } else if (left < 0) {
-                return "completed";
-            } else {
-                return "in hour";
-            }
-
+            result = blockDateFormat.parse(rawValue).getTime();
         } catch (Exception e) { }
-
-        return result;
-    }
-
-    public static long dateToLong(Context c, String rawValue) {
-        long result = 0;
-        try {
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
-            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            result = blockDateFormat.parse(rawValue).getTime();
-        } catch (Exception e) {
-        }
-
-        return result;
-    }
-
-    public static long dateToLong2(Context c, String rawValue) {
-        long result = 0;
-        try {
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_tx_time_format));
-            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            result = blockDateFormat.parse(rawValue).getTime();
-        } catch (Exception e) {
-        }
 
         return result;
     }
@@ -1220,31 +1178,6 @@ public class WDp {
             SimpleDateFormat blockDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             result = blockDateFormat.parse(rawValue).getTime();
-        } catch (Exception e) {
-        }
-
-        return result;
-    }
-
-    public static long dateToLong3(Context c, String rawValue) {
-        long result = 0;
-        try {
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_vote_time_format));
-            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            result = blockDateFormat.parse(rawValue).getTime();
-        } catch (Exception e) {
-        }
-        ;
-        return result;
-    }
-
-    public static String getDateformat(Context c, String rawValue) {
-        String result = "??";
-        try {
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
-            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_date_format));
-            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            result = myFormat.format(blockDateFormat.parse(rawValue));
         } catch (Exception e) {
         }
 
@@ -1282,19 +1215,6 @@ public class WDp {
         try {
             SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_vote_time_format));
             SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
-            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            result = myFormat.format(blockDateFormat.parse(rawValue));
-        } catch (Exception e) {
-        }
-
-        return result;
-    }
-
-    public static String getTimeTxformatShort(Context c, String rawValue) {
-        String result = "??";
-        try {
-            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_tx_time_format));
-            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format4));
             blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             result = myFormat.format(blockDateFormat.parse(rawValue));
         } catch (Exception e) {

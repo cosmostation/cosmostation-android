@@ -111,7 +111,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
             proposalSelectionHolder.proposalId.setText("# " + item.id);
             proposalSelectionHolder.proposalTitle.setText(item.title);
             proposalSelectionHolder.proposalDeadLine.setText(WDp.getTimeVoteformat(getActivity(), item.voting_end_time)
-                    + " " + WDp.getGapTime(WDp.dateToLong3(getActivity(), item.voting_end_time)));
+                    + " " + WDp.getGapTime(WDp.convertDateToLong(getString(R.string.str_vote_time_format), item.voting_end_time)));
 
             bindVoteSelect(proposalSelectionHolder, position, item);
 

@@ -175,7 +175,8 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
             holder.proposal_id.setText("# " + proposal.id);
             holder.proposal_title.setText(proposal.title);
             holder.proposal_deadline.setVisibility(View.VISIBLE);
-            holder.proposal_deadline.setText(WDp.getTimeVoteformat(getActivity(), proposal.voting_end_time) + " " + WDp.getGapTime(WDp.dateToLong3(getActivity(), proposal.voting_end_time)));
+            holder.proposal_deadline.setText(WDp.getTimeVoteformat(getActivity(), proposal.voting_end_time) + " " +
+                    WDp.convertDateToLong(getString(R.string.str_vote_time_format), proposal.voting_end_time));
 
             if (statusMap.containsKey(proposal.id)) {
                 Set<String> status = statusMap.get(proposal.id);

@@ -103,7 +103,7 @@ public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClick
             proposalSelectionHolder.proposalId.setText("# " + proposal.id);
             proposalSelectionHolder.proposalTitle.setText(proposal.title);
             proposalSelectionHolder.proposalDeadLine.setText(WDp.getTimeVoteformat(getActivity(), proposal.voting_end_time)
-                    + " " + WDp.getGapTime(WDp.dateToLong3(getActivity(), proposal.voting_end_time)));
+                    + " " + WDp.convertDateToLong(getString(R.string.str_vote_time_format), proposal.voting_end_time));
 
             bindVoteSelect(proposalSelectionHolder, position, proposal);
 

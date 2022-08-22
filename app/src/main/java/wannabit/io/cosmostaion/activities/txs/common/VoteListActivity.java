@@ -274,7 +274,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             holder.proposal_title.setText(item.title);
             holder.proposal_deadline.setVisibility(View.VISIBLE);
             holder.proposal_deadline.setText(WDp.getTimeVoteformat(VoteListActivity.this, item.voting_end_time)
-                    + " " + WDp.getGapTime(WDp.dateToLong3(VoteListActivity.this, item.voting_end_time)));
+                    + " " + WDp.getGapTime(WDp.convertDateToLong(getString(R.string.str_vote_time_format), item.voting_end_time)));
 
             if (multiVoteSelectionMode) {
                 bindVoteSelect(holder, position, item);
