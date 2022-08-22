@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class UnBondingHolder extends BaseHolder {
 
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
-        mUndelegateCard.setCardBackgroundColor(ChainFactory.getChain(chain).chainBgColor());
+        mUndelegateCard.setCardBackgroundColor(ContextCompat.getColor(c, ChainFactory.getChain(chain).chainBgColor()));
         if (isGRPC(chain)) {
             onBindUnbondingGRPC(c, chain, baseData, denom);
         } else {

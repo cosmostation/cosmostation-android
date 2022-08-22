@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 
@@ -54,6 +55,6 @@ public class TokenStakingNewHolder extends BaseHolder {
             mVestingLayer.setVisibility(View.VISIBLE);
             mVestingAmount.setText(WDp.getDpAmount2(c, vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
         }
-        mCardRoot.setCardBackgroundColor(ChainFactory.getChain(chain).chainBgColor());
+        mCardRoot.setCardBackgroundColor(ContextCompat.getColor(c, ChainFactory.getChain(chain).chainBgColor()));
     }
 }
