@@ -41,11 +41,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -64,10 +62,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.protobuf2.Any;
 import com.google.zxing.BarcodeFormat;
@@ -75,7 +71,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.shasin.notificationbanner.Banner;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.core.ECKey;
@@ -153,7 +148,6 @@ import wannabit.io.cosmostaion.task.FetchTask.OkDexTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkStakingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationIbcPathsTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationIbcTokensTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
@@ -195,13 +189,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     protected int mTaskCount;
     private FetchCallBack mFetchCallback;
 
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            onDisplayNotification(intent);
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,18 +205,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             }
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("pushAlarm"));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
 
     @Override
@@ -292,7 +267,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             ethTxt.setVisibility(View.VISIBLE);
             try {
                 ethTxt.setText("(" + WKey.convertAddressToEth(mAccount.address) + ")");
-            } catch (Exception e) { e.printStackTrace(); }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             ethTxt.setVisibility(View.GONE);
         }
@@ -300,7 +277,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onClickQrCopy(ChainConfig chainConfig, Account account) {
         String nickName;
-        if (TextUtils.isEmpty(account.nickName)) nickName = getString(R.string.str_my_wallet) + account.id;
+        if (TextUtils.isEmpty(account.nickName))
+            nickName = getString(R.string.str_my_wallet) + account.id;
         else nickName = account.nickName;
 
         if (chainConfig.etherAddressSupport()) {
@@ -309,7 +287,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 AlertDialogUtils.showDoubleButtonDialog(this, Html.fromHtml(getString(R.string.str_address_type) + "<br>"), "",
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_tender_type) + "</font>"), view -> onClickShowAccountDialog(account.address, nickName),
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_eth_type) + "</font>"), view -> onClickShowAccountDialog(ethAddress, nickName));
-            } catch (Exception e) { e.printStackTrace(); }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             onClickShowAccountDialog(account.address, nickName);
         }
@@ -460,7 +440,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onDeleteAccount(Account account) {
-        new PushUpdateTask(getBaseApplication(), null, mAccount, getBaseDao().getFCMToken(), false).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         try {
             CryptoHelper.deleteKey(getString(R.string.key_mnemonic) + getBaseDao().onSelectAccount("" + account.id).uuid);
         } catch (Exception e) {
@@ -521,10 +500,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
     }
 
-    public void onUpdateUserAlarm(Account account, boolean useAlarm) {
-        new PushUpdateTask(getBaseApplication(), this, account, getBaseDao().getFCMToken(), useAlarm).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
     public void onCheckIbcTransfer(String denom) {
         Intent intent = new Intent(BaseActivity.this, IBCSendActivity.class);
         intent.putExtra("sendTokenDenom", denom);
@@ -576,59 +551,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         txIntent.putExtra("txHash", txHash);
         startActivity(txIntent);
     }
-
-    private CardView mPushBody;
-    private ImageView mPushType, mPushClose;
-    private TextView mPushTitle, mPushMsg;
-
-    public void onDisplayNotification(Intent intent) {
-        if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity) && !(this instanceof AppLockActivity)) {
-            Banner.make(mRootview, this, Banner.TOP, R.layout.foreground_push);
-            mPushBody = Banner.getInstance().getBannerView().findViewById(R.id.push_body);
-            mPushType = Banner.getInstance().getBannerView().findViewById(R.id.push_type);
-            mPushClose = Banner.getInstance().getBannerView().findViewById(R.id.push_close);
-            mPushTitle = Banner.getInstance().getBannerView().findViewById(R.id.push_title);
-            mPushMsg = Banner.getInstance().getBannerView().findViewById(R.id.push_msg);
-
-            if (intent.getStringExtra("type").equals("sent")) {
-                mPushType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_notifications_send));
-                mPushTitle.setTextColor(getColor(R.color.colorNotiSend));
-            } else if (intent.getStringExtra("type").equals("received")) {
-                mPushType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_notifications_receive));
-                mPushTitle.setTextColor(getColor(R.color.colorNotiReceive));
-            } else {
-                return;
-            }
-            mPushTitle.setText(intent.getStringExtra("title"));
-            mPushMsg.setText(intent.getStringExtra("Body"));
-
-            bannerClickListener(intent.getStringExtra("pushNotifyto"));
-            Banner.getInstance().setCustomAnimationStyle(R.style.topAnimation);
-            Banner.getInstance().setDuration(4000);
-            Banner.getInstance().show();
-        }
-    }
-
-    private void bannerClickListener(String address) {
-        mPushBody.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Account account = getBaseDao().onSelectExistAccount2(address);
-                if (account != null) {
-                    getBaseDao().setLastUser(account.id);
-                    onStartMainActivity(2);
-                }
-            }
-        });
-
-        mPushClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Banner.getInstance().dismissBanner();
-            }
-        });
-    }
-
 
     public void onFetchAccountInfo(FetchCallBack callback) {
         if (mTaskCount > 0) {
@@ -781,14 +703,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
-            if (result.isSuccess) {
-                mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean) result.resultData);
-            }
-            invalidateOptionsMenu();
-            return;
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
+        if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mPrices.clear();
                 ArrayList<Price> tempPrice = new ArrayList<>();
@@ -962,7 +877,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mGrpcStarNameConfig = ((starnamed.x.configuration.v1beta1.Types.Config) result.resultData);
             }
 
-        } if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
+        }
+        if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
                 List<BalancerPool.Pool> pools = (List<BalancerPool.Pool>) result.resultData;
                 getBaseDao().mGrpcOsmosisPool = new ArrayList<BalancerPool.Pool>(pools);
@@ -1184,7 +1100,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public void onShowBuySelectFiat() {
         FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
                 Html.fromHtml("<font color=\"#007AFF\">" + "USD" + "</font>"), view -> onStartMoonpaySignature("usd"), null,
-                Html.fromHtml("<font color=\"#007AFF\">" + "EUR" + "</font>"), view -> onStartMoonpaySignature("eur"),null,
+                Html.fromHtml("<font color=\"#007AFF\">" + "EUR" + "</font>"), view -> onStartMoonpaySignature("eur"), null,
                 Html.fromHtml("<font color=\"#007AFF\">" + "GBP" + "</font>"), view -> onStartMoonpaySignature("gbp"), null);
     }
 

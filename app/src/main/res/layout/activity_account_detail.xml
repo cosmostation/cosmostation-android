@@ -84,62 +84,6 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_alarm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_12"
-                android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_6"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/colorTransBgCosmos"
-                app:cardCornerRadius="@dimen/space_8"
-                app:cardPreventCornerOverlap="true">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/space_8"
-                    android:paddingTop="@dimen/space_8"
-                    android:paddingRight="@dimen/space_8"
-                    android:paddingBottom="@dimen/space_8">
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switch_using_alarm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/space_6"
-                        android:scaleType="fitXY"
-                        android:theme="@style/ColorSwitchStyles" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/space_12"
-                        android:layout_marginRight="@dimen/space_16"
-                        android:layout_toLeftOf="@+id/switch_using_alarm"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/font_rr_12_gray1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/str_push_alarm" />
-
-                        <TextView
-                            android:id="@+id/account_alarm_msg"
-                            style="@style/font_rr_12_black_daynight"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:lines="2"
-                            android:text="Enabled push alarm for each send and received tx with this address" />
-                    </LinearLayout>
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
                 android:id="@+id/card_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

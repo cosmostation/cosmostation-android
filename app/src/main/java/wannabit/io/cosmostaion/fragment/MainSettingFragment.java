@@ -14,6 +14,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,9 @@ import com.gun0912.tedpermission.TedPermission;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
@@ -46,6 +50,9 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.PushStatusResponse;
+import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
@@ -56,7 +63,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_CHECK_FOR_APP_LOCK = 1;
     public final static int SELECT_CHECK_FOR_AUTO_PASS = 2;
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAlaram, mBtnAppLock, mBtnBio, mBtnAutoPass, mBtnCurrency,
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAppLock, mBtnBio, mBtnAutoPass, mBtnCurrency,
             mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
             mBtnTerm, mBtnGithub, mBtnVersion;
 
@@ -65,6 +72,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
 
     private int mCheckMode = -1;
+
+    private SwitchCompat alarmSwitch;
 
     public static MainSettingFragment newInstance() {
         return new MainSettingFragment();
@@ -87,7 +96,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnImportKey = rootView.findViewById(R.id.card_key);
         mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
         mBtnTheme = rootView.findViewById(R.id.card_theme);
-        mBtnAlaram = rootView.findViewById(R.id.card_alaram);
         mBtnAppLock = rootView.findViewById(R.id.card_applock);
         mBtnBio = rootView.findViewById(R.id.card_bio);
         mBtnAutoPass = rootView.findViewById(R.id.card_auto_pass);
@@ -104,6 +112,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mTvTheme = rootView.findViewById(R.id.theme_text);
+        alarmSwitch = rootView.findViewById(R.id.switch_alaram);
+        alarmSwitch.setOnCheckedChangeListener(switchListener());
 
         mSwitchUsingAppLock = rootView.findViewById(R.id.switch_using_applock);
         mTvBio = rootView.findViewById(R.id.bio_title);
@@ -115,7 +125,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnImportKey.setOnClickListener(this);
         mBtnWatchAddress.setOnClickListener(this);
         mBtnTheme.setOnClickListener(this);
-        mBtnAlaram.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);
         mBtnBio.setOnClickListener(this);
         mBtnAutoPass.setOnClickListener(this);
@@ -131,11 +140,21 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnVersion.setOnClickListener(this);
 
         mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
-
-        mBtnAlaram.setVisibility(View.GONE);
         onUpdateView();
         return rootView;
 
+    }
+
+    private CompoundButton.OnCheckedChangeListener switchListener() {
+        return (view, checked) -> syncPushStatus();
+    }
+
+    private void syncPushStatus() {
+        if (!getBaseDao().getAlarmEnable()) {
+            PushManager.syncAddresses(requireContext(), getBaseDao(), getBaseDao().getFCMToken());
+        }
+
+        PushManager.updateStatus(requireContext(), getBaseDao(), alarmSwitch.isChecked(), getBaseDao().getFCMToken());
     }
 
     @Override
@@ -148,6 +167,25 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else {
             mTvTheme.setText(R.string.str_theme_system);
         }
+
+        loadPushStatus();
+    }
+
+    private void loadPushStatus() {
+        ApiClient.getCosmostationOld(requireContext()).getPushStatus(getBaseDao().getFCMToken()).enqueue(new Callback<PushStatusResponse>() {
+            @Override
+            public void onResponse(Call<PushStatusResponse> call, Response<PushStatusResponse> response) {
+                if (response.isSuccessful()) {
+                    alarmSwitch.setChecked(response.body().subscribe);
+                    getBaseDao().setAlarmEnable(response.body().subscribe);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PushStatusResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -203,9 +241,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                         mTvTheme.setText(R.string.str_theme_dark);
                         ThemeUtil.modSave(getBaseActivity(), themeColor);
                     }, null);
-
-        } else if (v.equals(mBtnAlaram)) {
-            Toast.makeText(getBaseActivity(), R.string.str_preparing, Toast.LENGTH_SHORT).show();
 
         } else if (v.equals(mBtnAppLock)) {
             onClickAppLock();
@@ -313,7 +348,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     private void onShowAutoPassDialog() {
         FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg),
-                getString(R.string.str_app_auto_pass_5m),  view -> onSetAutoPass(1), null,
+                getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null,
                 getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null,
                 getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null,
                 getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
@@ -332,6 +367,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         }
         mTvAutoPassTime.setText(getBaseDao().getAutoPass(getActivity()));
     }
+
     public MainActivity getMainActivity() {
         return (MainActivity) getBaseActivity();
     }
@@ -342,7 +378,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             getBaseDao().setCurrency(data.getIntExtra("currency", 0));
             mTvCurrency.setText(getBaseDao().getCurrencyString());
 
-        } if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
+        }
+        if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
             new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
                         @Override
                         public void onPermissionGranted() {

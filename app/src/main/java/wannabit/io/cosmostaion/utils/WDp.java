@@ -446,22 +446,15 @@ public class WDp {
         return BigDecimal.ZERO;
     }
 
-    public static void showChainDp(Context c, ChainConfig chainConfig, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
+    public static void showChainDp(Context c, ChainConfig chainConfig, CardView cardName, CardView cardBody, CardView cardRewardAddress) {
         if (chainConfig.baseChain().equals(OKEX_MAIN) || chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(FETCHAI_MAIN)) {
             cardRewardAddress.setVisibility(View.GONE);
         } else {
             cardRewardAddress.setVisibility(View.VISIBLE);
         }
         cardName.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
-        cardAlarm.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
         cardBody.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
         cardRewardAddress.setCardBackgroundColor(ContextCompat.getColor(c, chainConfig.chainBgColor()));
-
-        if (chainConfig.baseChain().equals(COSMOS_MAIN)) {
-            cardAlarm.setVisibility(View.VISIBLE);
-        } else {
-            cardAlarm.setVisibility(View.GONE);
-        }
     }
 
     public static BaseChain getChainTypeByChainId(String chainId) {

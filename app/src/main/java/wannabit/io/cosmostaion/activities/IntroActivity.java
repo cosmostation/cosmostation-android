@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
+import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.WLog;
 
 
@@ -55,10 +56,14 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             if (!task.isSuccessful()) {
                 return;
             }
-
             String token = task.getResult();
-            WLog.w("FCM token new : " + token);
-            getBaseDao().setFCMToken(token);
+            if (!getBaseDao().getFCMToken().equals(token)) {
+                if (getBaseDao().getAlarmEnable()) {
+                    PushManager.syncAddresses(this, getBaseDao(), token);
+                    PushManager.updateStatus(this, getBaseDao(), getBaseDao().getAlarmEnable(), token);
+                }
+                getBaseDao().setFCMToken(token);
+            }
         });
 
         getBaseDao().upgradeAaccountAddressforPath();
@@ -87,8 +92,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                     } else {
-                        if (getIntent().getExtras() != null && getIntent().getExtras().getString("notifyto") != null) {
-                            Account account = getBaseDao().onSelectExistAccount2(getIntent().getExtras().getString("notifyto"));
+                        if (getIntent().getExtras() != null && getIntent().getExtras().getString("address") != null) {
+                            Account account = getBaseDao().onSelectExistAccount2(getIntent().getExtras().getString("address"));
                             if (account != null) {
                                 getBaseDao().setLastUser(account.id);
                                 onStartMainActivity(2);

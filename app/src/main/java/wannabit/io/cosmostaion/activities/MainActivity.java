@@ -145,15 +145,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mChainConfig.pushSupport()) {
-            if (mAccount.pushAlarm) {
-                getMenuInflater().inflate(R.menu.main_menu_alaram_on, menu);
-            } else {
-                getMenuInflater().inflate(R.menu.main_menu_alaram_off, menu);
-            }
-        } else {
-            getMenuInflater().inflate(R.menu.main_menu, menu);
-        }
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -165,12 +157,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 break;
             case R.id.menu_explorer:
                 onExplorerView();
-                break;
-            case R.id.menu_notification_off:
-                onUpdateUserAlarm(mAccount, true);
-                break;
-            case R.id.menu_notification_on:
-                onUpdateUserAlarm(mAccount, false);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -212,7 +198,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onChainSelect(mSelectedChain);
         }
 
-        if (TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
+        if (TextUtils.isEmpty(mAccount.nickName))
+            mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
 
         if (mPageAdapter.mCurrentFragment != null) {

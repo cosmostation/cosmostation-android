@@ -145,7 +145,7 @@
     <string name="str_theme_system">시스템</string>
     <string name="str_theme_light">라이트 모드</string>
     <string name="str_theme_dark">다크 모드</string>
-    <string name="str_alarm">알람</string>
+    <string name="str_notification">알림</string>
     <string name="str_app_applock">앱 잠금</string>
     <string name="str_app_auto_pass">핀코드 자동 통과</string>
     <string name="str_app_auto_pass_msg">최초 핀코드를 통과한 이후 설정한 시간동안 핀코드를 자동으로 통과합니다.\nTx 전송, 개인 데이터 확인에 해당 됩니다.\n(앱 잠금은 항상 작동합니다.)</string>
@@ -454,7 +454,6 @@
     <string name="str_iris_proposal_type_CommunityTaxUsageProposal">커뮤니티 풀 코인 사용 제안</string>
     <string name="str_opinion">내 투표</string>
     <string name="str_proposal_id">의제 번호</string>
-    <string name="str_notification">알람</string>
     <string name="str_network_error_title">네트워크 에러</string>
     <string name="str_network_error_msg">현재 네트워크에 접속할 수 없습니다. \n잠시후 다시 시도해 주세요.</string>
     <string name="str_retry">재시도</string>

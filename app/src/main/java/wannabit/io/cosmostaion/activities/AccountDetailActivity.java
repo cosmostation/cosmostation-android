@@ -14,13 +14,11 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -41,7 +39,6 @@ import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
@@ -55,10 +52,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private CardView mCardName;
     private ImageView mChainImg, mNameEditImg;
     private TextView mAccountName;
-
-    private CardView mCardAlarm;
-    private SwitchCompat mAlarmSwitch;
-    private TextView mAlarmMsg;
 
     private CardView mCardBody;
     private ImageView mBtnQr;
@@ -81,9 +74,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mChainImg = findViewById(R.id.chain_img);
         mNameEditImg = findViewById(R.id.account_edit);
         mAccountName = findViewById(R.id.account_name);
-        mCardAlarm = findViewById(R.id.card_alarm);
-        mAlarmSwitch = findViewById(R.id.switch_using_alarm);
-        mAlarmMsg = findViewById(R.id.account_alarm_msg);
         mCardBody = findViewById(R.id.card_body);
         mBtnQr = findViewById(R.id.account_qr);
         mAccountAddress = findViewById(R.id.account_address);
@@ -163,8 +153,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
 
-        onUpdatePushStatusUI();
-        WDp.showChainDp(this, mChainConfig, mCardName, mCardAlarm, mCardBody, mCardRewardAddress);
+        WDp.showChainDp(this, mChainConfig, mCardName, mCardBody, mCardRewardAddress);
         mChainImg.setImageResource(mChainConfig.chainImg());
 
         if (BaseChain.isGRPC(mBaseChain)) {
@@ -225,31 +214,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mBtnCheckKey.setText(getString(R.string.str_insert_private_key));
         }
 
-    }
-
-    private void onUpdatePushStatusUI() {
-        if (mAccount.pushAlarm && isNotificationsEnabled()) {
-            mAlarmSwitch.setChecked(true);
-            mAlarmMsg.setText(getString(R.string.str_alarm_enabled));
-        } else {
-            mAlarmSwitch.setChecked(false);
-            mAlarmMsg.setText(getString(R.string.str_alarm_disabled));
-        }
-
-        mAlarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isPressed()) {
-                    if (!isNotificationsEnabled()) {
-                        onShowPushEnableDialog();
-                        buttonView.setEnabled(false);
-                        return;
-                    }
-                    new PushUpdateTask(getBaseApplication(), AccountDetailActivity.this, mAccount, getBaseDao().getFCMToken(), isChecked).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                    onShowWaitDialog();
-                }
-            }
-        });
     }
 
     public void onChangeNickName(String name) {
@@ -380,14 +344,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 }, 100);
 
             }
-
-        } else if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
-            if (result.isSuccess) {
-                mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean) result.resultData);
-            }
-            onUpdatePushStatusUI();
-            onHideWaitDialog();
-
         }
     }
 }
