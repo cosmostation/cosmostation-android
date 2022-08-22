@@ -54,6 +54,6 @@ public class TokenStakingNewHolder extends BaseHolder {
             mVestingLayer.setVisibility(View.VISIBLE);
             mVestingAmount.setText(WDp.getDpAmount2(c, vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
         }
-        mCardRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
+        mCardRoot.setCardBackgroundColor(ChainFactory.getChain(chain).chainBgColor());
     }
 }

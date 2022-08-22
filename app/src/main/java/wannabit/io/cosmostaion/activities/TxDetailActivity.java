@@ -252,7 +252,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else if (getItemViewType(position) == TYPE_TX_OK_DIRECT_VOTE) {
                 onBindOkDirectVote(viewHolder, position);
             } else {
-                onBindUnKnown(viewHolder, position);
+                onBindUnKnown(viewHolder);
             }
         }
 
@@ -426,9 +426,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemValList.setText(monikers);
         }
 
-        private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, int position) {
+        private void onBindUnKnown(RecyclerView.ViewHolder viewHolder) {
             final TxUnKnownHolder holder = (TxUnKnownHolder) viewHolder;
-            holder.itemUnknownImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            holder.itemUnknownImg.setColorFilter(ContextCompat.getColor(TxDetailActivity.this, mChainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
         }
 
 

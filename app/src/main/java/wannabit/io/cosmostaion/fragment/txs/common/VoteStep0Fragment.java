@@ -199,8 +199,8 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
             DrawableCompat.setTint(roundBackground, ContextCompat.getColor(getActivity(), chainColor));
             yesBtnLayout.setAlpha(1f);
             yesBtnLayout.setBackground(roundBackground);
-            titleYesTv.setTextColor(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain));
-            selectedYesImage.setColorFilter(WDp.getChainColor(getSActivity(), getSActivity().mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            titleYesTv.setTextColor(ContextCompat.getColor(getActivity(), chainColor));
+            selectedYesImage.setColorFilter(ContextCompat.getColor(getActivity(), chainColor), android.graphics.PorterDuff.Mode.SRC_IN);
         }
 
         @Override

@@ -62,7 +62,7 @@ public class UnBondingHolder extends BaseHolder {
 
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
-        mUndelegateCard.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
+        mUndelegateCard.setCardBackgroundColor(ChainFactory.getChain(chain).chainBgColor());
         if (isGRPC(chain)) {
             onBindUnbondingGRPC(c, chain, baseData, denom);
         } else {
