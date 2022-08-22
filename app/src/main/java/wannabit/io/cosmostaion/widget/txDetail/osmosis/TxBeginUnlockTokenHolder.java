@@ -46,7 +46,7 @@ public class TxBeginUnlockTokenHolder extends TxHolder {
             }
 
             if (duraion != 0) {
-                long timeStampSeconds = WDp.dateToLong2(c, response.getTxResponse().getTimestamp());
+                long timeStampSeconds = WDp.convertDateToLong(c.getString(R.string.str_tx_time_format), response.getTxResponse().getTimestamp());
                 long completeTime = timeStampSeconds + duraion;
                 itemUnlockTokenCompleteTime.setText(WDp.getDpTime(c, completeTime));
             } else {

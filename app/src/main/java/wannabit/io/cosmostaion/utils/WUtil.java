@@ -707,7 +707,8 @@ public class WUtil {
         Collections.sort(result, new Comparator<UnbondingInfo.DpEntry>() {
             @Override
             public int compare(UnbondingInfo.DpEntry o1, UnbondingInfo.DpEntry o2) {
-                return WDp.dateToLong(c, o1.completion_time) < WDp.dateToLong(c, o2.completion_time) ? -1 : 1;
+                return WDp.convertDateToLong(c.getString(R.string.str_block_time_format), o1.completion_time) <
+                        WDp.convertDateToLong(c.getString(R.string.str_block_time_format), o2.completion_time) ? -1 : 1;
             }
         });
         return result;
