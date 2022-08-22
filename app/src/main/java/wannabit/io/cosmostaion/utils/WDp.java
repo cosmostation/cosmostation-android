@@ -1426,22 +1426,6 @@ public class WDp {
         return "" + c.getTimeInMillis();
     }
 
-    public static int getChainColor(Context c, BaseChain chain) {
-        if (chain != null) {
-            ChainConfig chainConfig = ChainFactory.getChain(chain);
-            return ContextCompat.getColor(c, chainConfig.chainColor());
-        }
-        return ContextCompat.getColor(c, R.color.colorTrans);
-    }
-
-    public static int getChainBgColor(Context c, BaseChain chain) {
-        if (chain != null) {
-            ChainConfig chainConfig = ChainFactory.getChain(chain);
-            return ContextCompat.getColor(c, chainConfig.chainBgColor());
-        }
-        return ContextCompat.getColor(c, R.color.colorTransBg);
-    }
-
     public static int mainDisplayDecimal(BaseChain chain) {
         if (chain.equals(BNB_MAIN) || chain.equals(CRYPTO_MAIN)) {
             return 8;

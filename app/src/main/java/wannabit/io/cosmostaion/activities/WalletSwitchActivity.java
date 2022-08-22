@@ -156,7 +156,7 @@ public class WalletSwitchActivity extends BaseActivity {
                 accountAvailable.setText(account.getLastTotal(WalletSwitchActivity.this, BaseChain.getChain(account.baseChain)));
                 if (account.hasPrivateKey) {
                     accountState.setImageResource(R.drawable.key_off);
-                    accountState.setColorFilter(WDp.getChainColor(WalletSwitchActivity.this, BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
+                    accountState.setColorFilter(ContextCompat.getColor(WalletSwitchActivity.this, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
                 } else {
                     accountState.setImageResource(R.drawable.watchmode);
                     accountState.setColorFilter(null);

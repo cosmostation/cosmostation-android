@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -132,7 +133,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         mChainConfig = ChainFactory.getChain(mTochain);
         mToAccountList = getBaseDao().onSelectAccountsByChain(mTochain);
         mDesitination.setText(mChainConfig.chainTitle());
-        mDesitination.setTextColor(WDp.getChainColor(getSActivity(), mTochain));
+        mDesitination.setTextColor(ContextCompat.getColor(getActivity(), mChainConfig.chainColor()));
     }
 
     private void onUpdateView() {
