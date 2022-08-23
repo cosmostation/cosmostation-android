@@ -1,7 +1,21 @@
 package wannabit.io.cosmostaion.fragment;
 
-import static wannabit.io.cosmostaion.base.BaseChain.*;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import android.content.Context;
 import android.content.Intent;
@@ -48,7 +62,7 @@ import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.AssetsV2;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
@@ -616,27 +630,20 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onNativeGrpcItem(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, final int position) {
         final Coin coin = mNativeGrpc.get(position);
-        final int denomDecimal = WDp.getDenomDecimal(getBaseDao(), chainConfig, coin.denom);
+        final AssetsV2 asset = getBaseDao().getAssetV2(coin.denom);
 
+        BigDecimal totalAmount = BigDecimal.ZERO;
         if (coin.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
-            BigDecimal totalAmount = getBaseDao().getAllMainAsset(chainConfig.mainDenom());
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, denomDecimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, denomDecimal));
-
+            totalAmount = getBaseDao().getAllMainAsset(chainConfig.mainDenom());
         } else {
-            BigDecimal totalAmount = BigDecimal.ZERO;
-            if (coin.denom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM) || coin.denom.equalsIgnoreCase(Kava.KAVA_USDX_DENOM) || coin.denom.equalsIgnoreCase(Kava.KAVA_SWP_DENOM)) {
-                totalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
-            } else {
-                totalAmount = getBaseDao().getAvailable(coin.denom);
-            }
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, denomDecimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+            totalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
         }
-        WDp.setDpSymbolImg(getBaseDao(), chainConfig, coin.denom, holder.itemImg);
-        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, coin.denom, holder.itemSymbol);
-        holder.itemFullName.setText(chainConfig.coinFullName(coin.denom));
-        holder.itemInnerSymbol.setText("");
+
+        WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
+        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
+        holder.itemFullName.setText(asset.description);
+        holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimal, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, asset.decimal));
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -647,7 +654,7 @@ public class MainTokensFragment extends BaseFragment {
                 } else {
                     intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
                 }
-                intent.putExtra("denom", coin.denom);
+                intent.putExtra("denom", asset.denom);
                 startActivity(intent);
             }
         });
@@ -656,20 +663,19 @@ public class MainTokensFragment extends BaseFragment {
     //with Authed IBC gRPC
     private void onBindIbcAuthToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mIbcAuthedGrpc.get(position);
-        final IbcToken ibcToken = getBaseDao().getIbcToken(coin.denom);
-        WDp.setDpSymbolImg(getBaseDao(), chainConfig, coin.denom, holder.itemImg);
-        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, coin.denom, holder.itemSymbol);
+        final AssetsV2 asset = getBaseDao().getAssetV2(mIbcAuthedGrpc.get(position).denom);
 
-        holder.itemInnerSymbol.setText("");
-        holder.itemFullName.setText(ibcToken.channel_id);
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), ibcToken.decimal, 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), getBaseDao().getBaseDenom(chainConfig, coin.denom), new BigDecimal(coin.amount), ibcToken.decimal));
+        WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
+        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
+        holder.itemFullName.setText(asset.channel);
+        holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
-                intent.putExtra("denom", coin.denom);
+                intent.putExtra("denom", asset.denom);
                 startActivity(intent);
             }
         });
@@ -679,10 +685,9 @@ public class MainTokensFragment extends BaseFragment {
     private void onBindIbcUnknownToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mIbcUnknownGrpc.get(position);
         final IbcToken ibcToken = getBaseDao().getIbcToken(coin.denom);
+
         WDp.setDpSymbolImg(getBaseDao(), chainConfig, coin.denom, holder.itemImg);
         WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, coin.denom, holder.itemSymbol);
-
-        holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText(ibcToken.channel_id);
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
@@ -701,12 +706,11 @@ public class MainTokensFragment extends BaseFragment {
     private void onBindPoolToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mPoolGrpc.get(position);
         final int poolDecimal = WDp.getDenomDecimal(getBaseDao(), chainConfig, coin.denom);
+
         WDp.setDpSymbolImg(getBaseDao(), chainConfig, coin.denom, holder.itemImg);
         WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, coin.denom, holder.itemSymbol);
-        holder.itemInnerSymbol.setText("");
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), poolDecimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), poolDecimal));
-
         if (mBaseChain.equals(OSMOSIS_MAIN)) holder.itemFullName.setText(coin.denom);
         else holder.itemFullName.setText("Pool Asset");
 
@@ -723,21 +727,20 @@ public class MainTokensFragment extends BaseFragment {
     //with Erc gRPC
     private void onBindErcToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mEtherGrpc.get(position);
-        final Assets assets = getBaseDao().getAsset(coin.denom);
-        if (assets != null) {
-            WDp.setDpSymbolImg(getBaseDao(), chainConfig, coin.denom, holder.itemImg);
-            WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, coin.denom, holder.itemSymbol);
-            holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText(assets.display_symbol);
-            
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), assets.decimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.origin_symbol, new BigDecimal(coin.amount), assets.decimal));
+        final AssetsV2 asset = getBaseDao().getAssetV2(coin.denom);
+
+        if (asset != null) {
+            WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
+            WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
+            holder.itemFullName.setText("Bridge Coin " + "(" + asset.base_type + ")");
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getMainActivity(), BridgeTokenGrpcActivity.class);
-                    intent.putExtra("denom", assets.denom);
+                    intent.putExtra("denom", asset.denom);
                     startActivity(intent);
                 }
             });
@@ -747,20 +750,19 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava bep2 tokens with gRPC
     private void onBindKavaBep2Token(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mKavaBep2Grpc.get(position);
-        WDp.setDpSymbolImg(getBaseDao(), chainConfig, coin.denom, holder.itemImg);
-        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, coin.denom, holder.itemSymbol);
-        holder.itemInnerSymbol.setText("");
+        final AssetsV2 asset = getBaseDao().getAssetV2(coin.denom);
+
+        WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
+        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
         holder.itemFullName.setText(coin.denom.toUpperCase() + " on Kava Chain");
-        
-        int bep2decimal = WDp.getDenomDecimal(getBaseDao(), chainConfig, WDp.getDpSymbol(getBaseDao(), chainConfig, coin.denom));
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), bep2decimal, 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.getDpSymbol(getBaseDao(), chainConfig, coin.denom), new BigDecimal(coin.amount), bep2decimal));
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
-                intent.putExtra("denom", coin.denom);
+                intent.putExtra("denom", asset.denom);
                 startActivity(intent);
             }
         });
@@ -769,14 +771,16 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava etc tokens with gRPC
     private void onBindEtcGrpcToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mEtcGrpc.get(position);
-        WDp.setDpSymbolImg(getBaseDao(), chainConfig, coin.denom, holder.itemImg);
-        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, coin.denom, holder.itemSymbol);
+        final AssetsV2 asset = getBaseDao().getAssetV2(coin.denom);
+
+        WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
+        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
         holder.itemInnerSymbol.setText("(" + coin.denom + ")");
-        holder.itemFullName.setText(coin.denom.toUpperCase() + " on Kava Chain");
+        holder.itemFullName.setText(asset.description);
 
         BigDecimal tokenTotalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
         BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), chainConfig, coin.denom);
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WDp.getDenomDecimal(getBaseDao(), chainConfig, coin.denom), 6));
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, asset.decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), chainConfig.mainDenom(), convertedKavaAmount, 6));
     }
 
@@ -812,11 +816,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText("UNKNOWN");
         }
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
-        holder.itemInnerSymbol.setText("");
-        holder.itemFullName.setText("");
         holder.itemImg.setImageResource(R.drawable.token_default);
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
-        holder.itemValue.setText("");
     }
     
     //with native tokens
@@ -884,8 +885,6 @@ public class MainTokensFragment extends BaseFragment {
         final Balance balance = mUnKnown.get(position);
         holder.itemSymbol.setText("UNKNOWN");
         holder.itemSymbol.setTextColor(ContextCompat.getColor(getMainActivity(), R.color.colorBlackDayNight));
-        holder.itemInnerSymbol.setText("");
-        holder.itemFullName.setText("");
         holder.itemImg.setImageResource(R.drawable.token_default);
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, BigDecimal.ZERO, 6));

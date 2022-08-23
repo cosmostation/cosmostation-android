@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/token_img"
-                android:layout_width="@dimen/space_28"
-                android:layout_height="@dimen/space_28"
+                android:layout_width="@dimen/space_26"
+                android:layout_height="@dimen/space_26"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_12"
                 android:adjustViewBounds="true"
@@ -57,16 +57,14 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="middle"
                             android:maxWidth="@dimen/space_140"
-                            android:singleLine="true"
-                            android:text="-" />
+                            android:singleLine="true" />
 
                         <TextView
                             android:id="@+id/token_inner_symbol"
                             style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_4"
-                            android:text="-" />
+                            android:layout_marginLeft="@dimen/space_4" />
                     </LinearLayout>
 
                     <TextView
@@ -77,8 +75,7 @@
                         android:layout_marginTop="@dimen/space_4"
                         android:ellipsize="middle"
                         android:maxWidth="@dimen/space_140"
-                        android:singleLine="true"
-                        android:text="-" />
+                        android:singleLine="true" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -94,16 +91,14 @@
                         android:id="@+id/token_balance"
                         style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/token_value"
                         style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_4"
-                        android:text="-" />
+                        android:layout_marginTop="@dimen/space_4" />
 
                 </LinearLayout>
             </RelativeLayout>

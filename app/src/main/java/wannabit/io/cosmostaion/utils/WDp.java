@@ -2,14 +2,12 @@ package wannabit.io.cosmostaion.utils;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
@@ -18,18 +16,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.utils.WUtil.getBnbTicSymbol;
 import static wannabit.io.cosmostaion.utils.WUtil.isBnbBaseMarketToken;
 
@@ -84,6 +73,7 @@ import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Okc;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
 import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.AssetsV2;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -125,62 +115,32 @@ public class WDp {
 
     public static String getDpSymbol(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) { return "UNKNOWN"; }
-        if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
-            return chainConfig.mainSymbol();
+        final AssetsV2 asset = baseData.getAssetV2(denom);
 
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                return ibcToken.display_denom.toUpperCase();
-            } else {
-                return "UNKNOWN";
-            }
+        if (asset != null) {
+            return asset.dp_denom;
 
-        } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            if (denom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM)) return "HARD";
-            else if (denom.equalsIgnoreCase(Kava.KAVA_USDX_DENOM)) return "USDX";
-            else if (denom.equalsIgnoreCase(Kava.KAVA_SWP_DENOM)) return "SWP";
-            else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB) || denom.equalsIgnoreCase(TOKEN_HTLC_BINANCE_BNB)) return "BNB";
-            else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || denom.equalsIgnoreCase(TOKEN_HTLC_BINANCE_XRPB)) return "XRPB";
-            else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD) || denom.equalsIgnoreCase(TOKEN_HTLC_BINANCE_BUSD)) return "BUSD";
-            else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB) || denom.equalsIgnoreCase(TOKEN_HTLC_BINANCE_BTCB)) return "BTCB";
+        } else {
+            if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
+                return chainConfig.mainSymbol();
 
-        } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
-            if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM)) return "ION";
-            else if (denom.startsWith("gamm/pool/")) {
+            } else if (denom.startsWith("gamm/pool/")) {
                 String[] split = denom.split("/");
                 return "GAMM-" + split[split.length - 1];
+
+            } else if (denom.startsWith("pool") || denom.startsWith("share")) {
+                return denom.toUpperCase();
+
+            } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
+                if (baseData.getBnbToken(denom) != null) return baseData.getBnbToken(denom).original_symbol.toUpperCase();
+                else return denom.toUpperCase();
+
+            } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
+                if (baseData.okToken(denom) != null) return baseData.okToken(denom).original_symbol.toUpperCase();
+                else return denom.toUpperCase();
             }
-
-        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
-            if (denom.startsWith("c")) return denom.substring(1).toUpperCase();
-            else denom.toUpperCase();
-
-        } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
-            if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) return "BCRE";
-            else if (denom.startsWith("pool")) { return denom.toUpperCase(); }
-
-        } else if (chainConfig.baseChain().equals(GRABRIDGE_MAIN)) {
-            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).origin_symbol;
-            else return denom.toUpperCase();
-
-        } else if (chainConfig.baseChain().equals(INJ_MAIN)) {
-            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).origin_symbol;
-            else if (denom.startsWith("share")) return denom.toUpperCase();
-
-        } else if (chainConfig.baseChain().equals(NYX_MAIN)) {
-            if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) return "NYM";
-            else return denom.toUpperCase();
-
-        } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
-            if (baseData.getBnbToken(denom) != null) return baseData.getBnbToken(denom).original_symbol.toUpperCase();
-            else return denom.toUpperCase();
-
-        } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
-            if (baseData.okToken(denom) != null) return baseData.okToken(denom).original_symbol.toUpperCase();
-            else return denom.toUpperCase();
         }
-        return denom.toUpperCase();
+        return "UNKNOWN";
     }
 
     public static void setDpSymbol(Context c, BaseData baseData, ChainConfig chainConfig, String denom, TextView textView) {
@@ -214,115 +174,48 @@ public class WDp {
 
     public static int getDenomDecimal(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
-        if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null) {
-                return ibcToken.decimal;
-            }
-        } else if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
-            return chainConfig.decimal();
+        final AssetsV2 asset = baseData.getAssetV2(denom);
 
-        } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
-            if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM)) return 6;
-            else if (denom.startsWith("gamm/pool/")) return 18;
-            else return 6;
+        if (asset != null) {
+            return asset.decimal;
 
-        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
-            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).decimal;
-            else return 18;
-
-        } else if (chainConfig.baseChain().equals(GRABRIDGE_MAIN)) {
-            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).decimal;
-            else return 18;
-
-        } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            if (denom.equalsIgnoreCase("btc")) return 8;
-            else if (denom.equalsIgnoreCase("bnb")) return 8;
-            else if (denom.equalsIgnoreCase("btcb") || denom.equalsIgnoreCase("hbtc")) return 8;
-            else if (denom.equalsIgnoreCase("busd")) return 8;
-            else if (denom.equalsIgnoreCase("xrpb") || denom.equalsIgnoreCase("xrbp")) return 8;
-            else return 6;
-
-        } else if (chainConfig.baseChain().equals(INJ_MAIN)) {
-            if (denom.startsWith("share")) return 18;
-            else if (denom.startsWith("peggy0x")) {
-                if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).decimal;
-            } else {
-                return 18;
-            }
-
-        } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
-            if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) return 6;
+        } else {
+            if (chainConfig.mainDenom().equalsIgnoreCase(denom)) return chainConfig.decimal();
+            if (denom.startsWith("gamm/pool/") || denom.startsWith("share")) return 18;
             else if (denom.startsWith("pool")) return 12;
-
         }
         return chainConfig.decimal();
     }
 
     public static void setDpSymbolImg(BaseData baseData, ChainConfig chainConfig, String denom, ImageView imageView) {
-        if (chainConfig == null || denom == null || denom.isEmpty()){
-            imageView.setImageResource(R.drawable.token_default);
-        }
+        if (chainConfig == null || denom == null || denom.isEmpty()) imageView.setImageResource(R.drawable.token_default);
+        final AssetsV2 asset = baseData.getAssetV2(denom);
 
-        if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
-            imageView.setImageResource(chainConfig.mainDenomImg());
-        } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null) {
-                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
-            }
-
-        } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            Picasso.get().load(Kava.KAVA_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
-
-        } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
-            if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM)) imageView.setImageResource(R.drawable.token_ion);
-            else if (denom.startsWith("gamm/pool/")) imageView.setImageResource(R.drawable.token_pool);
-
-        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
-            if (baseData.getAsset(denom) != null) {
-                Assets asset = baseData.getAsset(denom);
-                Picasso.get().load(ASSET_IMG_URL + asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
-            }
-
-        } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
-            if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) imageView.setImageResource(R.drawable.token_bcre);
-            else if (denom.startsWith("pool")) imageView.setImageResource(R.drawable.token_crescentpool);
-
-        } else if (chainConfig.baseChain().equals(EMONEY_MAIN)) {
-            Picasso.get().load(Emoney.EMONEY_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
-
-        } else if (chainConfig.baseChain().equals(GRABRIDGE_MAIN)) {
-            if (baseData.getAsset(denom) != null) {
-                Assets asset = baseData.getAsset(denom);
-                Picasso.get().load(ASSET_IMG_URL + asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
-            }
-
-        } else if (chainConfig.baseChain().equals(INJ_MAIN)) {
-            if (denom.startsWith("share")) imageView.setImageResource(R.drawable.injectivepool_token);
-            else if (baseData.getAsset(denom) != null) {
-                Assets asset = baseData.getAsset(denom);
-                Picasso.get().load(ASSET_IMG_URL + asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
-            }
-
-        } else if (chainConfig.baseChain().equals(NYX_MAIN)) {
-            if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) imageView.setImageResource(R.drawable.token_nym);
-            else imageView.setImageResource(R.drawable.token_default);
-
-        } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
-            BnbToken bnbToken = baseData.getBnbToken(denom);
-            if (bnbToken != null) {
-                Picasso.get().load(Binance.BINANCE_COIN_IMG_URL + bnbToken.original_symbol + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
-            }
-
-        } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
-            OkToken okToken = baseData.okToken(denom);
-            if (okToken != null) {
-                Picasso.get().load(Okc.OKC_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_default).error(R.drawable.token_default).fit().into(imageView);
-            }
+        if (asset != null) {
+            Picasso.get().load(BaseConstant.ASSETV2_IMG_URL + asset.image).error(R.drawable.token_default).into(imageView);
 
         } else {
-            imageView.setImageResource(R.drawable.token_default);
+            if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
+                imageView.setImageResource(chainConfig.mainDenomImg());
+
+            } else if (denom.startsWith("gamm/pool") || denom.startsWith("pool") || denom.startsWith("share")) {
+                Picasso.get().load(BaseConstant.ASSETV2_IMG_URL + chainConfig.chainName() + "/pool.png").error(R.drawable.token_default).into(imageView);
+
+            } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
+                BnbToken bnbToken = baseData.getBnbToken(denom);
+                if (bnbToken != null) {
+                    Picasso.get().load(Binance.BINANCE_COIN_IMG_URL + bnbToken.original_symbol + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
+                }
+
+            } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
+                OkToken okToken = baseData.okToken(denom);
+                if (okToken != null) {
+                    Picasso.get().load(Okc.OKC_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_default).error(R.drawable.token_default).fit().into(imageView);
+                }
+
+            } else {
+                Picasso.get().load(BaseConstant.ASSETV2_IMG_URL + "common/unknown.png").error(R.drawable.token_default).into(imageView);
+            }
         }
     }
 

@@ -27,8 +27,8 @@
 
             <ImageView
                 android:id="@+id/toolbar_symbol_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/space_26"
+                android:layout_height="@dimen/space_26"
                 android:layout_centerVertical="true" />
 
             <RelativeLayout

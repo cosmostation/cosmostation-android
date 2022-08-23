@@ -378,6 +378,7 @@ public class BaseConstant {
     public final static String MONIKER_URL              = RESOURCE_BASE_URL + "moniker/";
     public final static String UNKNOWN_RELAYER_URL      = RESOURCE_BASE_URL + "relayer/";
     public final static String ASSET_IMG_URL            = RESOURCE_BASE_URL + "assets/images/ethereum/";
+    public final static String ASSETV2_IMG_URL          = RESOURCE_BASE_URL + "assets/images/";
     public final static String COINGECKO_URL            = "https://www.coingecko.com/en/coins/";
 
 

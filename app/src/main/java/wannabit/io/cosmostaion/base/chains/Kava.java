@@ -1,11 +1,14 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.RESOURCE_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
@@ -67,17 +70,6 @@ public class Kava extends ChainConfig {
         return Lists.newArrayList("m/44'/118'/0'/0/X", "m/44'/459'/0'/0/X");
     }
 
-    public String coinFullName(String denom) {
-        if (denom.equalsIgnoreCase(KAVA_HARD_DENOM)) {
-            return "HardPool Gov. Coin";
-        } else if (denom.equalsIgnoreCase(KAVA_USDX_DENOM)) {
-            return "USD Stable Asset";
-        } else if (denom.equalsIgnoreCase(KAVA_SWP_DENOM)) {
-            return "Kava Swap Coin";
-        } else {
-            return StringUtils.capitalize(chainName()) + " Staking Coin";
-        }
-    }
 
     public static String KAVA_HARD_DENOM = "hard";
     public static String KAVA_USDX_DENOM = "usdx";
@@ -85,5 +77,4 @@ public class Kava extends ChainConfig {
 
     public static String KAVA_CDP_IMG_URL = RESOURCE_BASE_URL + "kava/cdp/";
     public static String KAVA_HARD_POOL_IMG_URL = RESOURCE_BASE_URL + "kava/hard/";
-    public static String KAVA_COIN_IMG_URL = RESOURCE_BASE_URL + "coin_image/kava/";
 }

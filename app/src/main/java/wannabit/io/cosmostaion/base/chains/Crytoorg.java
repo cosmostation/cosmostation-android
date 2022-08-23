@@ -69,6 +69,4 @@ public class Crytoorg extends ChainConfig {
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/394'/0'/0/X");
     }
-
-    public String coinFullName(String denom) { return "Cronos"; }
 }
