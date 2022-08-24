@@ -139,6 +139,8 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
             dialog.thirdButton.setCompoundDrawablesWithIntrinsicBounds(thirdButtonImage, null, null, null);
         }
 
+        if (!StringUtils.isEmpty(message)) dialog.btnLine.setVisibility(View.VISIBLE);
+
         dialog.thirdButton.setText(thirdButtonTitle);
         dialog.thirdButton.setVisibility(View.VISIBLE);
         dialog.btnLine2.setVisibility(View.VISIBLE);
