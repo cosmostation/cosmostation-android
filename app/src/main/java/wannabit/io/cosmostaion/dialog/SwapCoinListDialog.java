@@ -33,13 +33,13 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class SwapCoinListDialog extends DialogFragment {
-
-    public static String WATCH_ADDRESS = "WatchingAddressDialog";
 
     private OnSelectChainsDialogResult mSelectChainsDialogResult;
 
@@ -53,7 +53,7 @@ public class SwapCoinListDialog extends DialogFragment {
     private ArrayList<String> mSwapCoinList;
     private ArrayList<FeeInfo.FeeData> mFeeDataList;
     private ArrayList<Coin> mSendCoinList;
-    private ArrayList<BaseChain> mWatchAddressChainList;
+    private String mWatchAddress = "";
 
     private Set<BaseChain> selectedSet = Sets.newHashSet();
 
@@ -74,7 +74,7 @@ public class SwapCoinListDialog extends DialogFragment {
         mSwapCoinList = getArguments().getStringArrayList("denoms");
         mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable("feeDatas");
         mSendCoinList = (ArrayList<Coin>) getArguments().getSerializable("sendCoins");
-        mWatchAddressChainList = (ArrayList<BaseChain>) getArguments().getSerializable("watchAddressChains");
+        mWatchAddress = getArguments().getString("watchAddress");
         mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mBtnLayer = view.findViewById(R.id.btn_layer);
@@ -191,10 +191,23 @@ public class SwapCoinListDialog extends DialogFragment {
         }
 
         private void onBindSelectedChainListItemViewHolder(SwapChainHolder holder, int position) {
-            BaseChain baseChain = mWatchAddressChainList.get(position);
+            BaseChain baseChain = WDp.getChainsFromAddress(mWatchAddress).get(position);
             ChainConfig chainConfig = ChainFactory.getChain(baseChain);
             WDp.setDpSymbolImg(getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.coinImg);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.coinName);
+
+            ArrayList<Account> accounts = getSActivity().getBaseDao().onSelectAccountsByChain(baseChain);
+            for (Account account : accounts) {
+                if (chainConfig.baseChain().equals(BaseChain.OKEX_MAIN)) {
+                    if (account.address.equalsIgnoreCase(mWatchAddress)) {
+                        holder.coinName.setText("등록되어 있는 주소");
+                    }
+                } else {
+                    if (account.address.equalsIgnoreCase(WKey.convertAddressEthToTender(chainConfig.baseChain(), mWatchAddress))) {
+                        holder.coinName.setText("등록되어 있는 주소");
+                    }
+                }
+            }
 
             bindChainSelect(holder, position, baseChain);
         }
@@ -221,7 +234,7 @@ public class SwapCoinListDialog extends DialogFragment {
                 return mSwapCoinList.size();
             else if (getTargetRequestCode() == 8502) return mFeeDataList.size();
             else if (getTargetRequestCode() == 8503) return mSendCoinList.size();
-            else return mWatchAddressChainList.size();
+            else return WDp.getChainsFromAddress(mWatchAddress).size();
         }
 
         @Override
