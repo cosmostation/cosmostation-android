@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -196,31 +197,39 @@ public class SwapCoinListDialog extends DialogFragment {
             WDp.setDpSymbolImg(getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.coinImg);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.coinName);
 
-            ArrayList<Account> accounts = getSActivity().getBaseDao().onSelectAccountsByChain(baseChain);
-            for (Account account : accounts) {
+            ArrayList<Account> watchAddressAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(baseChain);
+            for (Account account : watchAddressAccounts) {
                 if (chainConfig.baseChain().equals(BaseChain.OKEX_MAIN)) {
                     if (account.address.equalsIgnoreCase(mWatchAddress)) {
-                        holder.coinName.setText("등록되어 있는 주소");
+                        holder.rootLayer.setClickable(false);
+                        holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_gray));
+                        holder.rootDimLayer.setVisibility(View.VISIBLE);
+                        holder.rootDimLayer.setAlpha(0.5f);
+                    } else {
+                        bindChainSelect(holder, position, baseChain);
                     }
                 } else {
                     if (account.address.equalsIgnoreCase(WKey.convertAddressEthToTender(chainConfig.baseChain(), mWatchAddress))) {
-                        holder.coinName.setText("등록되어 있는 주소");
+                        holder.rootLayer.setClickable(false);
+                        holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_gray));
+                        holder.rootDimLayer.setVisibility(View.VISIBLE);
+                        holder.rootDimLayer.setAlpha(0.5f);
+                    } else {
+                        bindChainSelect(holder, position, baseChain);
                     }
                 }
             }
-
-            bindChainSelect(holder, position, baseChain);
         }
 
         private void bindChainSelect(SwapChainHolder holder, int position, BaseChain item) {
             if (selectedSet.contains(item)) {
-                holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
+                holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_voted));
                 holder.rootLayer.setOnClickListener(v -> {
                     selectedSet.remove(item);
                     mSwapChainListAdapter.notifyItemChanged(position);
                 });
             } else {
-                holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_unselected));
+                holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
                 holder.rootLayer.setOnClickListener(v -> {
                     selectedSet.add(item);
                     mSwapChainListAdapter.notifyItemChanged(position);
@@ -247,12 +256,14 @@ public class SwapCoinListDialog extends DialogFragment {
         }
 
         public class SwapChainHolder extends RecyclerView.ViewHolder {
+            FrameLayout rootDimLayer;
             LinearLayout rootLayer;
             ImageView coinImg;
             TextView coinName;
 
             public SwapChainHolder(@NonNull View itemView) {
                 super(itemView);
+                rootDimLayer = itemView.findViewById(R.id.dim_layer);
                 rootLayer = itemView.findViewById(R.id.rootLayer);
                 coinImg = itemView.findViewById(R.id.coinImg);
                 coinName = itemView.findViewById(R.id.coinName);
