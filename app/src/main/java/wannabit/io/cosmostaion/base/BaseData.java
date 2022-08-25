@@ -56,7 +56,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -119,7 +119,7 @@ public class BaseData {
     public ArrayList<IbcPath>               mIbcPaths = new ArrayList<>();
     public ArrayList<IbcToken>              mIbcTokens = new ArrayList<>();
     public ArrayList<Cw20Assets>            mCw20Assets = new ArrayList<>();
-    public ArrayList<Assets>                mAssets = new ArrayList<>();
+    public ArrayList<Asset>                 mAssets = new ArrayList<>();
 
     public Price getPrice(String denom) {
         if (mPrices != null && mPrices.size() > 0) {
@@ -157,9 +157,9 @@ public class BaseData {
         return null;
     }
 
-    public Assets getAsset(String denom) {
+    public Asset getAsset(String denom) {
         if (mAssets != null && mAssets.size() > 0) {
-            for (Assets asset: mAssets) {
+            for (Asset asset: mAssets) {
                 if (asset.denom.equalsIgnoreCase(denom)) {
                     return asset;
                 }

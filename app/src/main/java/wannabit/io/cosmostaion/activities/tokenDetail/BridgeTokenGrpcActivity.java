@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -121,13 +121,13 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
     }
 
     private void onUpdateView() {
-        final Assets assets = getBaseDao().getAsset(mBridgeDenom);
+        final Asset asset = getBaseDao().getAsset(mBridgeDenom);
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mBridgeDenom, mToolbarSymbolImg);
         WDp.setDpSymbol(this, getBaseDao(), mChainConfig, mBridgeDenom, mToolbarSymbol);
 
-        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), assets.base_denom));
-        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), assets.base_denom));
-        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), assets.base_denom);
+        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), asset.base_denom));
+        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), asset.base_denom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
             mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
@@ -142,7 +142,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mAddress.setText(mAccount.address);
         setEthAddress(mChainConfig, mEthAddress);
         setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
-        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.base_denom, getBaseDao().getAvailable(mBridgeDenom), assets.decimal));
+        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, getBaseDao().getAvailable(mBridgeDenom), asset.decimal));
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

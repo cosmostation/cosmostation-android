@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.OkToken;
@@ -128,7 +128,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindBridgeToken(Context c, BaseData baseData, String denom) {
-        final Assets asset = baseData.getAsset(denom);
+        final Asset asset = baseData.getAsset(denom);
         if (asset != null) {
             mAvailableAmount = baseData.getAvailable(asset.denom);
             mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, asset.decimal, asset.decimal));

@@ -62,7 +62,7 @@ import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.IbcToken;
@@ -630,7 +630,7 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onNativeGrpcItem(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, final int position) {
         final Coin coin = mNativeGrpc.get(position);
-        final Assets asset = getBaseDao().getAsset(coin.denom);
+        final Asset asset = getBaseDao().getAsset(coin.denom);
 
         BigDecimal totalAmount = BigDecimal.ZERO;
         if (coin.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
@@ -665,7 +665,7 @@ public class MainTokensFragment extends BaseFragment {
     //with Authed IBC gRPC
     private void onBindIbcAuthToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mIbcAuthedGrpc.get(position);
-        final Assets asset = getBaseDao().getAsset(mIbcAuthedGrpc.get(position).denom);
+        final Asset asset = getBaseDao().getAsset(mIbcAuthedGrpc.get(position).denom);
 
         WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
         WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
@@ -729,7 +729,7 @@ public class MainTokensFragment extends BaseFragment {
     //with Erc gRPC
     private void onBindErcToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mEtherGrpc.get(position);
-        final Assets asset = getBaseDao().getAsset(coin.denom);
+        final Asset asset = getBaseDao().getAsset(coin.denom);
 
         if (asset != null) {
             WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
@@ -752,7 +752,7 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava bep2 tokens with gRPC
     private void onBindKavaBep2Token(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mKavaBep2Grpc.get(position);
-        final Assets asset = getBaseDao().getAsset(coin.denom);
+        final Asset asset = getBaseDao().getAsset(coin.denom);
 
         WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
         WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
@@ -773,7 +773,7 @@ public class MainTokensFragment extends BaseFragment {
     //bind kava etc tokens with gRPC
     private void onBindEtcGrpcToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
         final Coin coin = mEtcGrpc.get(position);
-        final Assets asset = getBaseDao().getAsset(coin.denom);
+        final Asset asset = getBaseDao().getAsset(coin.denom);
 
         WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
         WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);

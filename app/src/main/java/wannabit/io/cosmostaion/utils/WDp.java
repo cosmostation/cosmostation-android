@@ -71,7 +71,7 @@ import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Okc;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
-import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -112,7 +112,7 @@ public class WDp {
 
     public static String getDpSymbol(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) { return "UNKNOWN"; }
-        final Assets asset = baseData.getAsset(denom);
+        final Asset asset = baseData.getAsset(denom);
 
         if (asset != null) {
             return asset.dp_denom;
@@ -171,7 +171,7 @@ public class WDp {
 
     public static int getDenomDecimal(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
-        final Assets asset = baseData.getAsset(denom);
+        final Asset asset = baseData.getAsset(denom);
 
         if (asset != null) {
             return asset.decimal;
@@ -186,7 +186,7 @@ public class WDp {
 
     public static void setDpSymbolImg(BaseData baseData, ChainConfig chainConfig, String denom, ImageView imageView) {
         if (chainConfig == null || denom == null || denom.isEmpty()) imageView.setImageResource(R.drawable.token_default);
-        final Assets asset = baseData.getAsset(denom);
+        final Asset asset = baseData.getAsset(denom);
 
         if (asset != null) {
             Picasso.get().load(BaseConstant.ASSETV2_IMG_URL + asset.image).error(R.drawable.token_default).into(imageView);
@@ -662,7 +662,7 @@ public class WDp {
         BigDecimal totalValue = BigDecimal.ZERO;
         if (isGRPC(baseChain)) {
             for (Coin coin : baseData.mGrpcBalance) {
-                final Assets asset = baseData.getAsset(coin.denom);
+                final Asset asset = baseData.getAsset(coin.denom);
                 if (asset != null) {
                     if (asset.type.equalsIgnoreCase("staking")) {
                         BigDecimal totalAmount = baseData.getAllMainAsset(asset.denom);

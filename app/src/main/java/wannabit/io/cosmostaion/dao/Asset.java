@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.dao;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Assets {
+public class Asset {
     @SerializedName("chain")
     public String chain;
 
