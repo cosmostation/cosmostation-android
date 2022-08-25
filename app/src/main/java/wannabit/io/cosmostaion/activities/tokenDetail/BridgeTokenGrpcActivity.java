@@ -125,9 +125,9 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mBridgeDenom, mToolbarSymbolImg);
         WDp.setDpSymbol(this, getBaseDao(), mChainConfig, mBridgeDenom, mToolbarSymbol);
 
-        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), assets.origin_symbol));
-        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), assets.origin_symbol));
-        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), assets.origin_symbol);
+        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), assets.base_denom));
+        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), assets.base_denom));
+        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), assets.base_denom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
             mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
@@ -142,7 +142,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mAddress.setText(mAccount.address);
         setEthAddress(mChainConfig, mEthAddress);
         setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
-        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.origin_symbol, getBaseDao().getAvailable(mBridgeDenom), assets.decimal));
+        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.base_denom, getBaseDao().getAvailable(mBridgeDenom), assets.decimal));
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

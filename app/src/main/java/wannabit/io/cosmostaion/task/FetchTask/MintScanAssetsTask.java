@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_NETWORK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_ASSETS;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -21,7 +20,6 @@ public class MintScanAssetsTask extends CommonTask {
     public MintScanAssetsTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain           = chain;
-        this.mResult.taskType = TASK_FETCH_MINTSCAN_ASSETS;
     }
 
     @Override

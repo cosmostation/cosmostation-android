@@ -128,11 +128,11 @@ public class TokenDetailSupportHolder extends BaseHolder {
     }
 
     public void onBindBridgeToken(Context c, BaseData baseData, String denom) {
-        final Assets assets = baseData.getAsset(denom);
-        if (assets != null) {
-            mAvailableAmount = baseData.getAvailable(assets.denom);
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, assets.decimal, assets.decimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, assets.decimal, assets.decimal));
+        final Assets asset = baseData.getAsset(denom);
+        if (asset != null) {
+            mAvailableAmount = baseData.getAvailable(asset.denom);
+            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, asset.decimal, asset.decimal));
+            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, asset.decimal, asset.decimal));
         }
     }
 

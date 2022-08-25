@@ -57,7 +57,6 @@ import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Assets;
-import wannabit.io.cosmostaion.dao.AssetsV2;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -119,9 +118,8 @@ public class BaseData {
     public ChainParam.Params                mChainParam;
     public ArrayList<IbcPath>               mIbcPaths = new ArrayList<>();
     public ArrayList<IbcToken>              mIbcTokens = new ArrayList<>();
-    public ArrayList<Assets>                mAssets = new ArrayList<>();
     public ArrayList<Cw20Assets>            mCw20Assets = new ArrayList<>();
-    public ArrayList<AssetsV2>              mAssetsV2 = new ArrayList<>();
+    public ArrayList<Assets>                mAssets = new ArrayList<>();
 
     public Price getPrice(String denom) {
         if (mPrices != null && mPrices.size() > 0) {
@@ -161,18 +159,7 @@ public class BaseData {
 
     public Assets getAsset(String denom) {
         if (mAssets != null && mAssets.size() > 0) {
-            for (Assets assets : mAssets) {
-                if (assets.denom.equalsIgnoreCase(denom)) {
-                    return assets;
-                }
-            }
-        }
-        return null;
-    }
-
-    public AssetsV2 getAssetV2(String denom) {
-        if (mAssetsV2 != null && mAssetsV2.size() > 0) {
-            for (AssetsV2 asset: mAssetsV2) {
+            for (Assets asset: mAssets) {
                 if (asset.denom.equalsIgnoreCase(denom)) {
                     return asset;
                 }
