@@ -16,6 +16,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:statusBarColor">@color/colorWhiteDayNight</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowContentTransitions">true</item>
