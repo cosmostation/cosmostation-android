@@ -356,6 +356,7 @@ public class ConnectWalletActivity extends BaseActivity {
             return null;
         });
         wcClient.setOnSessionRequest((id, wcPeerMeta) -> {
+            mWcPeerMeta = wcPeerMeta;
             runOnUiThread(() -> {
                 if (!isDeepLink && !isDapp) {
                     onInitView(wcPeerMeta);
@@ -748,6 +749,7 @@ public class ConnectWalletActivity extends BaseActivity {
     private Bundle makeSignBundle(int type, Long id, String transaction) {
         Bundle bundle = new Bundle();
         bundle.putString("transaction", transaction);
+        bundle.putString("url", mWcPeerMeta.getUrl());
         bundle.putLong("id", id);
         bundle.putInt("type", type);
         return bundle;

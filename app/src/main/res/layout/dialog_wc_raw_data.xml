@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="@dimen/space_32">
 
@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/chain_name"
             style="@style/font_rm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,14 +28,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4"
+            android:layout_marginBottom="@dimen/space_4"
             android:gravity="center"
             tools:text="chain_homepage" />
 
         <LinearLayout
+            android:id="@+id/btn_wrap_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_10"
             android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginTop="@dimen/space_6"
             android:layout_marginRight="@dimen/space_14"
             android:orientation="horizontal">
 
@@ -62,9 +65,8 @@
         <LinearLayout
             android:id="@+id/layout_wc_detail"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginTop="@dimen/space_14"
             android:layout_marginRight="@dimen/space_14"
             android:background="@color/colorTrans">
 
@@ -77,20 +79,20 @@
                     style="@style/font_rr_11_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_40"
-                    android:layout_marginTop="@dimen/space_10"
-                    android:layout_marginRight="@dimen/space_40"
-                    android:gravity="left" />
+                    android:layout_marginLeft="@dimen/space_16"
+                    android:layout_marginRight="@dimen/space_16"
+                    android:gravity="left"
+                    android:paddingTop="@dimen/space_16"
+                    android:paddingBottom="@dimen/space_16" />
             </ScrollView>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_wc_raw_data"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginTop="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_10"
+            android:layout_height="250dp"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14"
             android:background="@color/colorTrans"
             android:visibility="gone">
 
@@ -103,105 +105,115 @@
                     style="@style/font_rr_11_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_40"
-                    android:layout_marginTop="@dimen/space_10"
-                    android:layout_marginRight="@dimen/space_40"
-                    android:gravity="left" />
+                    android:layout_marginLeft="@dimen/space_16"
+                    android:layout_marginRight="@dimen/space_16"
+                    android:gravity="left"
+                    android:paddingTop="@dimen/space_16"
+                    android:paddingBottom="@dimen/space_16" />
             </ScrollView>
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/info_wrap_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_14">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/address"
-                style="@style/font_rr_12_gray1"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/str_address" />
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14">
 
-            <TextView
-                android:id="@+id/address_detail"
-                style="@style/font_rmr_12_black_daynight"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/address"
+                    style="@style/font_rr_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/str_address" />
+
+                <TextView
+                    android:id="@+id/address_detail"
+                    style="@style/font_rmr_12_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/address"
+                    android:ellipsize="middle"
+                    android:gravity="end"
+                    android:singleLine="true"
+                    android:text="-"
+                    tools:text="asdfasdfasfdasdfsasdfjkasfhasdjkfahsdflasjdflasf" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/address"
-                android:ellipsize="middle"
-                android:gravity="end"
-                android:singleLine="true"
-                android:text="-" />
-        </RelativeLayout>
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_14">
+                <TextView
+                    android:id="@+id/memo"
+                    style="@style/font_rr_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/str_memo" />
 
-            <TextView
-                android:id="@+id/memo"
-                style="@style/font_rr_12_gray1"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/memo_detail"
+                    style="@style/font_rr_12_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/memo"
+                    android:ellipsize="end"
+                    android:gravity="end"
+                    android:singleLine="true"
+                    android:text="-" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4px"
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                android:background="@color/colorBorderGray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/str_memo" />
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14">
 
-            <TextView
-                android:id="@+id/memo_detail"
-                style="@style/font_rr_12_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/memo"
-                android:ellipsize="end"
-                android:gravity="end"
-                android:singleLine="true"
-                android:text="-" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/total_fee"
+                    style="@style/font_rr_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/str_total_fee" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.4px"
-            android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_14"
-            android:background="@color/colorBorderGray" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_14">
-
-            <TextView
-                android:id="@+id/total_fee"
-                style="@style/font_rr_12_gray1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/str_total_fee" />
-
-            <TextView
-                android:id="@+id/total_fee_amount"
-                style="@style/font_rr_12_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/total_fee"
-                android:gravity="end"
-                android:text="-" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/total_fee_amount"
+                    style="@style/font_rr_12_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/total_fee"
+                    android:gravity="end"
+                    android:text="-" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
