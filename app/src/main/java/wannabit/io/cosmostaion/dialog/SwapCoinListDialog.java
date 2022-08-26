@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,13 +34,13 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class SwapCoinListDialog extends DialogFragment {
-
-    public static String WATCH_ADDRESS = "WatchingAddressDialog";
 
     private OnSelectChainsDialogResult mSelectChainsDialogResult;
 
@@ -53,7 +54,7 @@ public class SwapCoinListDialog extends DialogFragment {
     private ArrayList<String> mSwapCoinList;
     private ArrayList<FeeInfo.FeeData> mFeeDataList;
     private ArrayList<Coin> mSendCoinList;
-    private ArrayList<BaseChain> mWatchAddressChainList;
+    private String mWatchAddress = "";
 
     private Set<BaseChain> selectedSet = Sets.newHashSet();
 
@@ -74,7 +75,7 @@ public class SwapCoinListDialog extends DialogFragment {
         mSwapCoinList = getArguments().getStringArrayList("denoms");
         mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable("feeDatas");
         mSendCoinList = (ArrayList<Coin>) getArguments().getSerializable("sendCoins");
-        mWatchAddressChainList = (ArrayList<BaseChain>) getArguments().getSerializable("watchAddressChains");
+        mWatchAddress = getArguments().getString("watchAddress");
         mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mBtnLayer = view.findViewById(R.id.btn_layer);
@@ -191,23 +192,34 @@ public class SwapCoinListDialog extends DialogFragment {
         }
 
         private void onBindSelectedChainListItemViewHolder(SwapChainHolder holder, int position) {
-            BaseChain baseChain = mWatchAddressChainList.get(position);
+            BaseChain baseChain = WDp.getChainsFromAddress(mWatchAddress).get(position);
             ChainConfig chainConfig = ChainFactory.getChain(baseChain);
             WDp.setDpSymbolImg(getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.coinImg);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.coinName);
 
-            bindChainSelect(holder, position, baseChain);
+            ArrayList<Account> watchAddressAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(baseChain);
+            for (Account account : watchAddressAccounts) {
+                if ((chainConfig.baseChain().equals(BaseChain.OKEX_MAIN) && account.address.equalsIgnoreCase(mWatchAddress))
+                        || account.address.equalsIgnoreCase(WKey.convertAddressEthToTender(chainConfig.baseChain(), mWatchAddress))) {
+                    holder.rootLayer.setClickable(false);
+                    holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_gray));
+                    holder.rootDimLayer.setVisibility(View.VISIBLE);
+                    holder.rootDimLayer.setAlpha(0.5f);
+                } else {
+                    bindChainSelect(holder, position, baseChain);
+                }
+            }
         }
 
         private void bindChainSelect(SwapChainHolder holder, int position, BaseChain item) {
             if (selectedSet.contains(item)) {
-                holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
+                holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_voted));
                 holder.rootLayer.setOnClickListener(v -> {
                     selectedSet.remove(item);
                     mSwapChainListAdapter.notifyItemChanged(position);
                 });
             } else {
-                holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_unselected));
+                holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
                 holder.rootLayer.setOnClickListener(v -> {
                     selectedSet.add(item);
                     mSwapChainListAdapter.notifyItemChanged(position);
@@ -221,7 +233,7 @@ public class SwapCoinListDialog extends DialogFragment {
                 return mSwapCoinList.size();
             else if (getTargetRequestCode() == 8502) return mFeeDataList.size();
             else if (getTargetRequestCode() == 8503) return mSendCoinList.size();
-            else return mWatchAddressChainList.size();
+            else return WDp.getChainsFromAddress(mWatchAddress).size();
         }
 
         @Override
@@ -234,12 +246,14 @@ public class SwapCoinListDialog extends DialogFragment {
         }
 
         public class SwapChainHolder extends RecyclerView.ViewHolder {
+            FrameLayout rootDimLayer;
             LinearLayout rootLayer;
             ImageView coinImg;
             TextView coinName;
 
             public SwapChainHolder(@NonNull View itemView) {
                 super(itemView);
+                rootDimLayer = itemView.findViewById(R.id.dim_layer);
                 rootLayer = itemView.findViewById(R.id.rootLayer);
                 coinImg = itemView.findViewById(R.id.coinImg);
                 coinName = itemView.findViewById(R.id.coinName);
