@@ -199,24 +199,14 @@ public class SwapCoinListDialog extends DialogFragment {
 
             ArrayList<Account> watchAddressAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(baseChain);
             for (Account account : watchAddressAccounts) {
-                if (chainConfig.baseChain().equals(BaseChain.OKEX_MAIN)) {
-                    if (account.address.equalsIgnoreCase(mWatchAddress)) {
-                        holder.rootLayer.setClickable(false);
-                        holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_gray));
-                        holder.rootDimLayer.setVisibility(View.VISIBLE);
-                        holder.rootDimLayer.setAlpha(0.5f);
-                    } else {
-                        bindChainSelect(holder, position, baseChain);
-                    }
+                if ((chainConfig.baseChain().equals(BaseChain.OKEX_MAIN) && account.address.equalsIgnoreCase(mWatchAddress))
+                        || account.address.equalsIgnoreCase(WKey.convertAddressEthToTender(chainConfig.baseChain(), mWatchAddress))) {
+                    holder.rootLayer.setClickable(false);
+                    holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_gray));
+                    holder.rootDimLayer.setVisibility(View.VISIBLE);
+                    holder.rootDimLayer.setAlpha(0.5f);
                 } else {
-                    if (account.address.equalsIgnoreCase(WKey.convertAddressEthToTender(chainConfig.baseChain(), mWatchAddress))) {
-                        holder.rootLayer.setClickable(false);
-                        holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_gray));
-                        holder.rootDimLayer.setVisibility(View.VISIBLE);
-                        holder.rootDimLayer.setAlpha(0.5f);
-                    } else {
-                        bindChainSelect(holder, position, baseChain);
-                    }
+                    bindChainSelect(holder, position, baseChain);
                 }
             }
         }
