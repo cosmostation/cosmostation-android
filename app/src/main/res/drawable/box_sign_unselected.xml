@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/colorTrans" />
+    <item android:gravity="bottom"
+        android:bottom="@dimen/space_5">
+        <shape android:shape="rectangle">
+            <size android:height="1dp" />
+            <solid android:color="@color/colorGrayDayNight" />
+        </shape>
+    </item>
+</layer-list>
