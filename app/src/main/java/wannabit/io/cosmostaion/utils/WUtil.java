@@ -652,11 +652,7 @@ public class WUtil {
                 if (o1.symbol.equals(chainConfig.mainDenom())) return -1;
                 if (o2.symbol.equals(chainConfig.mainDenom())) return 1;
 
-                if (chain.equals(KAVA_MAIN)) {
-                    if (o1.symbol.equals(Kava.KAVA_HARD_DENOM)) return -1;
-                    if (o2.symbol.equals(Kava.KAVA_HARD_DENOM)) return 1;
-
-                } else if (chain.equals(OKEX_MAIN)) {
+                if (chain.equals(OKEX_MAIN)) {
                     if (o1.symbol.equals("okb-c4d")) return -1;
                     if (o2.symbol.equals("okb-c4d")) return 1;
                 }
@@ -673,25 +669,6 @@ public class WUtil {
                 if (o1.denom.equals(chainConfig.mainDenom())) return -1;
                 if (o2.denom.equals(chainConfig.mainDenom())) return 1;
                 else return 0;
-            }
-        });
-    }
-
-    public static void onSortingPool(BaseChain chain, ArrayList<Coin> coins) {
-        Collections.sort(coins, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                if (chain.equals(OSMOSIS_MAIN)) {
-                    if (o1.osmosisAmmPoolId() < o2.osmosisAmmPoolId()) return -1;
-                    else if (o1.osmosisAmmPoolId() > o2.osmosisAmmPoolId()) return 1;
-                } else if (chain.equals(CRESCENT_MAIN)) {
-                    if (o1.crescnetPoolId() < o2.crescnetPoolId()) return -1;
-                    else if (o1.crescnetPoolId() > o2.crescnetPoolId()) return 1;
-                } else if (chain.equals(INJ_MAIN)) {
-                    if (o1.injectivePoolId() < o2.injectivePoolId()) return -1;
-                    else if (o1.injectivePoolId() > o2.injectivePoolId()) return 1;
-                }
-                return 0;
             }
         });
     }
