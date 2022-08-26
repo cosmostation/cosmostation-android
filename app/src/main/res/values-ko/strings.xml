@@ -123,7 +123,7 @@
     <string name="str_accounts">accounts</string>
     <string name="str_web">web</string>
     <string name="str_manage">Manage</string>
-    <string name="str_detail">Detail</string>
+    <string name="str_detail">자세히</string>
     <string name="str_wallet">지갑</string>
     <string name="str_mnemonic_manage">니모닉 관리</string>
     <string name="str_mnemonic_detail">니모닉 상세</string>

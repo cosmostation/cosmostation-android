@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.gson.GsonBuilder;
@@ -36,23 +38,60 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_raw_data, null);
-        TextView raw_data = view.findViewById(R.id.wc_raw_data);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+        LinearLayout wcRawDetailLayout = view.findViewById(R.id.layout_wc_detail);
+        LinearLayout wcRawDataLayout = view.findViewById(R.id.layout_wc_raw_data);
+        TextView chainHomepage = view.findViewById(R.id.chain_homepage);
+        TextView wcDetail = view.findViewById(R.id.wc_detail);
+        TextView wcRawData = view.findViewById(R.id.wc_raw_data);
+        TextView addressDetail = view.findViewById(R.id.address_detail);
+        TextView memoDetail = view.findViewById(R.id.memo_detail);
+        TextView totalFeeAmount = view.findViewById(R.id.total_fee_amount);
+        Button btnDetail = view.findViewById(R.id.btn_detail);
+        Button btnData = view.findViewById(R.id.btn_data);
+        Button btnNegative = view.findViewById(R.id.btn_nega);
+        Button btnPositive = view.findViewById(R.id.btn_posi);
 
         String transaction = getArguments().getString("transaction");
         Long id = getArguments().getLong("id");
         int type = getArguments().getInt("type");
-        raw_data.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(transaction)));
 
-        btn_negative.setOnClickListener(v -> {
+        chainHomepage.setText("https://osmosis.com");
+        addressDetail.setText("addressDetail");
+        memoDetail.setText("memoDetail");
+        totalFeeAmount.setText("totalFeeAmount");
+
+        wcDetail.setText("TEST");
+        btnDetail.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPhotonDayNight));
+        btnDetail.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_sign_selected));
+
+        btnDetail.setOnClickListener(v -> {
+            wcRawDataLayout.setVisibility(View.GONE);
+            wcRawDetailLayout.setVisibility(View.VISIBLE);
+            btnDetail.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_sign_selected));
+            btnData.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_sign_unselected));
+            btnDetail.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPhotonDayNight));
+            btnData.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGrayDayNight));
+            wcDetail.setText("TEST");
+        });
+
+        btnData.setOnClickListener(v -> {
+            wcRawDataLayout.setVisibility(View.VISIBLE);
+            wcRawDetailLayout.setVisibility(View.GONE);
+            btnData.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_sign_selected));
+            btnDetail.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.box_sign_unselected));
+            btnData.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPhotonDayNight));
+            btnDetail.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGrayDayNight));
+            wcRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(transaction)));
+        });
+
+        btnNegative.setOnClickListener(v -> {
             if (listener != null) {
                 listener.reject(id);
             }
             getDialog().dismiss();
         });
 
-        btn_positive.setOnClickListener(v -> {
+        btnPositive.setOnClickListener(v -> {
             if (listener != null) {
                 listener.sign(type, id, transaction);
             }

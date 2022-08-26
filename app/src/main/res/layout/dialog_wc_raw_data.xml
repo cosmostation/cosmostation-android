@@ -22,19 +22,20 @@
             android:text="Sign Request" />
 
         <TextView
+            android:id="@+id/chain_homepage"
             style="@style/font_rr_12_gray1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4"
             android:gravity="center"
-            android:text="Sign Request" />
+            tools:text="chain_homepage" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14"
             android:orientation="horizontal">
 
             <Button
@@ -59,11 +60,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_wc_detail"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_14"
             android:layout_marginTop="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_14"
             android:background="@color/colorTrans">
 
             <ScrollView
@@ -71,7 +73,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/wc_raw_detail"
+                    android:id="@+id/wc_detail"
                     style="@style/font_rr_11_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,6 +85,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_wc_raw_data"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginLeft="@dimen/space_10"
@@ -111,8 +114,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginRight="@dimen/space_10">
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14">
 
             <TextView
                 android:id="@+id/address"
@@ -140,8 +143,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginRight="@dimen/space_10">
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14">
 
             <TextView
                 android:id="@+id/memo"
@@ -160,8 +163,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/memo"
                 android:ellipsize="end"
-                android:singleLine="true"
                 android:gravity="end"
+                android:singleLine="true"
                 android:text="-" />
         </RelativeLayout>
 
@@ -169,16 +172,16 @@
             android:layout_width="match_parent"
             android:layout_height="0.4px"
             android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginRight="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14"
             android:background="@color/colorBorderGray" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_14"
-            android:layout_marginLeft="@dimen/space_10"
-            android:layout_marginRight="@dimen/space_10">
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14">
 
             <TextView
                 android:id="@+id/total_fee"
