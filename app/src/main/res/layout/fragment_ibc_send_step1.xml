@@ -119,15 +119,16 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:background="@drawable/btn_trans_with_border">
+                android:background="@drawable/btn_trans_with_border2">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/copy_ic"/>
+                    android:src="@drawable/copy_ic" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
                     style="@style/font_rr_9_black_daynight"
                     android:text="@string/str_paste"/>
             </LinearLayout>
