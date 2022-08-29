@@ -41,7 +41,7 @@ public class BaseFCM extends FirebaseMessagingService {
     }
 
     private void makeNotification(String messageBody, String messageTitle, Intent intent) {
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, new Random(System.currentTimeMillis()).nextInt(), intent, PendingIntent.FLAG_IMMUTABLE);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
@@ -56,7 +56,7 @@ public class BaseFCM extends FirebaseMessagingService {
             NotificationChannel channel = new NotificationChannel(PUSH_CHANNEL_ID, PUSH_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);
         }
-        notificationManager.notify(new Random(System.nanoTime()).nextInt(), notificationBuilder.build());
+        notificationManager.notify(new Random(System.currentTimeMillis()).nextInt(), notificationBuilder.build());
     }
 
     private Intent makeAlertIntent(RemoteMessage remoteMessage) {
