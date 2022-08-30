@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.base.chains;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
@@ -42,7 +43,7 @@ public class Sommelier extends ChainConfig {
     public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "sommelier/relay-sommelier-unknown.png"; }
     public String homeInfoLink() { return  "https://sommelier.finance/"; }
     public String blogInfoLink() { return  "https://sommelier.finance/"; }
-    public String coingeckoLink() { return  ""; }
+    public String coingeckoLink() { return  COINGECKO_URL + "sommelier"; }
 
     public ArrayList<String> gasRates() {
         return Lists.newArrayList("0.0usomm");
