@@ -54,10 +54,14 @@
                             android:id="@+id/token_symbol"
                             style="@style/font_rr_14_black_daynight"
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/token_path"
+                            style="@style/font_rr_10_gray1"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:ellipsize="middle"
-                            android:maxWidth="@dimen/space_140"
-                            android:singleLine="true" />
+                            android:layout_marginLeft="@dimen/space_4" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -71,15 +75,10 @@
                             android:id="@+id/per_price"
                             style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <ImageView
-                            android:id="@+id/ic_price_updown"
-                            android:layout_width="@dimen/space_12"
-                            android:layout_height="@dimen/space_12"
-                            android:src="@drawable/ic_price_down"
-                            android:layout_marginTop="@dimen/space_2"
-                            android:layout_marginLeft="@dimen/space_2" />
+                            android:layout_height="wrap_content"
+                            android:ellipsize="middle"
+                            android:maxWidth="@dimen/space_180"
+                            android:singleLine="true"/>
 
                         <TextView
                             android:id="@+id/up_down"
@@ -87,7 +86,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_2"
-                            android:layout_marginLeft="@dimen/space_2"/>
+                            android:layout_marginLeft="@dimen/space_4"/>
                     </LinearLayout>
                 </LinearLayout>
 

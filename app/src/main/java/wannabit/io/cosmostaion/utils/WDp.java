@@ -76,6 +76,7 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkTicker;
@@ -682,12 +683,12 @@ public class WDp {
                 }
             }
 
-//            if (baseData.getCw20sGrpc(baseChain).size() > 0) {
-//                for (Cw20Assets assets : baseData.getCw20sGrpc(baseChain)) {
-//                    BigDecimal amount = assets.getAmount();
-//                    totalValue = totalValue.add(userCurrencyValue(baseData, assets.denom, amount, assets.decimal));
-//                }
-//            }
+            if (baseData.getCw20sGrpc(baseChain).size() > 0) {
+                for (Cw20Assets assets : baseData.getCw20sGrpc(baseChain)) {
+                    BigDecimal amount = assets.getAmount();
+                    totalValue = totalValue.add(userCurrencyValue(baseData, assets.denom, amount, assets.decimal));
+                }
+            }
 
         } else if (baseChain.equals(BNB_MAIN)) {
             for (Balance balance : baseData.mBalances) {
