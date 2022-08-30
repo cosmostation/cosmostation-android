@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.activities.setting;
 
-import static wannabit.io.cosmostaion.dialog.SwapCoinListDialog.WATCH_ADDRESS;
-
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -94,10 +92,10 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
                     onGenNewAccount(chains.get(0), mUserInput);
                 } else {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("watchAddressChains", chains);
+                    bundle.putString("watchAddress", mUserInput);
                     SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
                     dialog.setCancelable(true);
-                    dialog.show(getSupportFragmentManager(), WATCH_ADDRESS);
+                    dialog.show(getSupportFragmentManager(), "dialog");
                     dialog.setSelectChainsDialogResult(result -> {
                         mWatchAddressChainList = new Gson().fromJson(result, new TypeToken<List<BaseChain>>() {
                         }.getType());

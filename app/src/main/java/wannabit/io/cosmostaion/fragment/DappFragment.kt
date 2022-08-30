@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.view.*
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
@@ -11,8 +12,8 @@ import android.webkit.WebViewClient
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
-import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseFragment
+import wannabit.io.cosmostaion.dialog.AlertDialogUtils
 import wannabit.io.cosmostaion.utils.ThemeUtil
 
 class DappFragment : BaseFragment() {
@@ -27,7 +28,11 @@ class DappFragment : BaseFragment() {
 
     override fun onRefreshTab() {
         super.onRefreshTab()
-        webView.loadUrl("https://dapps.cosmostation.io?chain=" + baseActivity.mChainConfig.chainName() + "&theme=" + ThemeUtil.currentMode(context))
+        webView.loadUrl(
+            "https://dapps.cosmostation.io?chain=" + baseActivity.mChainConfig.chainName() + "&theme=" + ThemeUtil.currentMode(
+                context
+            )
+        )
     }
 
     override fun onCreateView(
@@ -50,6 +55,21 @@ class DappFragment : BaseFragment() {
         webView.webChromeClient = WebChromeClient()
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                (activity as? MainActivity)?.let {
+                    if (!it.mAccount.hasPrivateKey) {
+                        AlertDialogUtils.showDoubleButtonDialog(
+                            it,
+                            it.getString(R.string.str_only_observe_title),
+                            it.getString(R.string.str_only_observe_msg),
+                            Html.fromHtml("<font color=\"#9C6CFF\">" + it.getString(R.string.str_add_mnemonics) + "</font>"),
+                            { view: View? -> it.onAddMnemonicForAccount() },
+                            it.getString(R.string.str_close),
+                            null
+                        )
+                        return true
+                    }
+                }
+
                 if (url.startsWith("intent:")) {
                     val replacedUrl = if (BuildConfig.DEBUG) {
                         url.replace("wannabit.io.cosmostaion", "wannabit.io.cosmostaion.debug")
