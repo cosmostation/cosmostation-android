@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.dialog;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,27 +25,23 @@ import com.google.gson.JsonParser;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_Wc_Raw_Data extends DialogFragment {
     public WcSignRawDataListener listener = null;
-    LinearLayout wcRawDetailLayout;
-    LinearLayout wcRawDataLayout;
-    LinearLayout buttonWrapLayout;
-    LinearLayout infoWrapLayout;
-    TextView chainName;
-    TextView chainHomepage;
-    TextView wcDetail;
-    TextView wcRawData;
-    TextView addressDetail;
-    TextView memoDetail;
-    TextView totalFeeAmount;
-    Button btnDetail;
-    Button btnData;
-    Button btnNegative;
-    Button btnPositive;
+    private LinearLayout wcRawDetailLayout, wcRawDataLayout, buttonWrapLayout, infoWrapLayout;
+    private TextView chainNameTv, chainUrlTv, wcDetailTv, wcRawDataTv, addressDetailTv, memoDetailTv, totalFeeAmountTv;
+    private Button btnDetail, btnData, btnNegative, btnPositive;
+    private String transaction;
+    private JsonArray txJsonArray;
 
     public static Dialog_Wc_Raw_Data newInstance(Bundle bundle, WcSignRawDataListener listener) {
         Dialog_Wc_Raw_Data dialog = new Dialog_Wc_Raw_Data();
@@ -64,12 +61,12 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
         View view = settingViews();
 
         assert getArguments() != null;
-        String transaction = getArguments().getString("transaction");
+        transaction = getArguments().getString("transaction");
         Long id = getArguments().getLong("id");
         int type = getArguments().getInt("type");
         String url = getArguments().getString("url");
-        
-        chainHomepage.setText(url);
+
+        chainUrlTv.setText(url);
 
         try {
             fillTxData(transaction);
@@ -103,13 +100,13 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
         wcRawDataLayout = view.findViewById(R.id.layout_wc_raw_data);
         buttonWrapLayout = view.findViewById(R.id.btn_wrap_layout);
         infoWrapLayout = view.findViewById(R.id.info_wrap_layout);
-        chainName = view.findViewById(R.id.chain_name);
-        chainHomepage = view.findViewById(R.id.chain_homepage);
-        wcDetail = view.findViewById(R.id.wc_detail);
-        wcRawData = view.findViewById(R.id.wc_raw_data);
-        addressDetail = view.findViewById(R.id.address_detail);
-        memoDetail = view.findViewById(R.id.memo_detail);
-        totalFeeAmount = view.findViewById(R.id.total_fee_amount);
+        chainNameTv = view.findViewById(R.id.chain_name);
+        chainUrlTv = view.findViewById(R.id.chain_url);
+        wcDetailTv = view.findViewById(R.id.wc_detail);
+        wcRawDataTv = view.findViewById(R.id.wc_raw_data);
+        addressDetailTv = view.findViewById(R.id.address_detail);
+        memoDetailTv = view.findViewById(R.id.memo_detail);
+        totalFeeAmountTv = view.findViewById(R.id.total_fee_amount);
         btnDetail = view.findViewById(R.id.btn_detail);
         btnData = view.findViewById(R.id.btn_data);
         btnNegative = view.findViewById(R.id.btn_nega);
@@ -118,28 +115,28 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
     }
 
     private void defaultTxView(String transaction) {
-        chainName.setText(getString(R.string.str_wc_sign_title));
+        chainNameTv.setText(getString(R.string.str_wc_sign_title));
         buttonWrapLayout.setVisibility(View.GONE);
         infoWrapLayout.setVisibility(View.GONE);
         wcRawDataLayout.setVisibility(View.VISIBLE);
         wcRawDetailLayout.setVisibility(View.GONE);
         String prettierTxString = new GsonBuilder().setPrettyPrinting().create().toJson(JsonParser.parseString(transaction));
-        wcRawData.setText(prettierTxString);
+        wcRawDataTv.setText(prettierTxString);
     }
 
     private void fillTxData(String transaction) {
-        JsonArray txJsonArray = JsonParser.parseString(transaction).getAsJsonArray();
+        txJsonArray = JsonParser.parseString(transaction).getAsJsonArray();
         String chainId = txJsonArray.get(0).getAsString();
         String address = txJsonArray.get(1).getAsString();
         JsonObject txJsonObject = txJsonArray.get(2).getAsJsonObject();
         JsonArray msgJsonArray = txJsonObject.getAsJsonArray("msgs");
-        chainName.setText(StringUtils.isNotEmpty(chainId) ? chainId : getString(R.string.str_wc_sign_title));
-        addressDetail.setText(address);
-        memoDetail.setText(txJsonObject.get("memo").getAsString());
-        totalFeeAmount.setText(makeFeeString(txJsonObject));
+        chainNameTv.setText(StringUtils.isNotEmpty(chainId) ? chainId : getString(R.string.str_wc_sign_title));
+        addressDetailTv.setText(address);
+        memoDetailTv.setText(txJsonObject.get("memo").getAsString());
+        totalFeeAmountTv.setText(makeFeeString(txJsonObject));
 
-        wcRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(txJsonObject));
-        wcDetail.setText(new GsonBuilder().setPrettyPrinting().create().toJson(msgJsonArray));
+        wcRawDataTv.setText(new GsonBuilder().setPrettyPrinting().create().toJson(txJsonObject));
+        wcDetailTv.setText(new GsonBuilder().setPrettyPrinting().create().toJson(msgJsonArray));
 
         enableTab(0);
 
@@ -155,12 +152,22 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
     private String makeFeeString(JsonObject txJsonObject) {
         JsonObject feeJson = txJsonObject.getAsJsonObject("fee");
         JsonArray amountArray = feeJson.getAsJsonArray("amount");
+
         List<String> fees = Lists.newArrayList();
         for (JsonElement element : amountArray) {
             JsonObject elementObject = element.getAsJsonObject();
             String amount = elementObject.get("amount").getAsString();
             String denom = elementObject.get("denom").getAsString();
-            fees.add(amount + " " + denom);
+            String chainId = txJsonArray.get(0).getAsString();
+            BaseChain baseChain = WDp.getChainTypeByChainId(chainId);
+            ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            String Chain = chainConfig.mainSymbol();
+
+            int decimal = WDp.getDenomDecimal(getSActivity().getBaseDao(), chainConfig, denom);
+            SpannableString mAmount = WDp.getDpAmount2(getSActivity(), new BigDecimal(amount), decimal, 6);
+
+            fees.add(mAmount + " " + Chain);
+
         }
         return String.join("\n", fees);
     }
@@ -181,4 +188,9 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
 
         void reject(Long id);
     }
+
+    private BaseActivity getSActivity() {
+        return (BaseActivity) getActivity();
+    }
+
 }

@@ -23,21 +23,20 @@
             android:text="Sign Request" />
 
         <TextView
-            android:id="@+id/chain_homepage"
+            android:id="@+id/chain_url"
             style="@style/font_rr_12_gray1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4"
             android:layout_marginBottom="@dimen/space_4"
             android:gravity="center"
-            tools:text="chain_homepage" />
+            tools:text="chain_url" />
 
         <LinearLayout
             android:id="@+id/btn_wrap_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginTop="@dimen/space_6"
             android:layout_marginRight="@dimen/space_14"
             android:orientation="horizontal">
 
@@ -64,52 +63,52 @@
 
         <LinearLayout
             android:id="@+id/layout_wc_detail"
+            android:background="@color/colorBlack2DayWhite"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginLeft="@dimen/space_14"
             android:layout_marginRight="@dimen/space_14"
-            android:background="@color/colorTrans">
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginBottom="@dimen/space_14">
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/wc_detail"
+                    android:background="@color/colorBlack2DayWhite"
                     style="@style/font_rr_11_black_daynight"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_16"
-                    android:layout_marginRight="@dimen/space_16"
                     android:gravity="left"
-                    android:paddingTop="@dimen/space_16"
-                    android:paddingBottom="@dimen/space_16" />
+                    android:padding="@dimen/space_16" />
             </ScrollView>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_wc_raw_data"
+            android:background="@color/colorBlack2DayWhite"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginLeft="@dimen/space_14"
             android:layout_marginRight="@dimen/space_14"
-            android:background="@color/colorTrans"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginBottom="@dimen/space_14"
             android:visibility="gone">
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/wc_raw_data"
+                    android:background="@color/colorBlack2DayWhite"
                     style="@style/font_rr_11_black_daynight"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_16"
-                    android:layout_marginRight="@dimen/space_16"
                     android:gravity="left"
-                    android:paddingTop="@dimen/space_16"
-                    android:paddingBottom="@dimen/space_16" />
+                    android:padding="@dimen/space_16" />
             </ScrollView>
         </LinearLayout>
 
@@ -123,7 +122,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_14"
-                android:layout_marginTop="@dimen/space_14"
                 android:layout_marginRight="@dimen/space_14">
 
                 <TextView
