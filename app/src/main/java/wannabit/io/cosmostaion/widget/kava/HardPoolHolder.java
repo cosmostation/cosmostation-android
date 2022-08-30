@@ -61,7 +61,7 @@ public class HardPoolHolder extends BaseHolder {
                                  ArrayList<QueryOuterClass.MoneyMarketInterestRate> HardInterestRates, ArrayList<QueryOuterClass.DepositResponse> myDeposit, ArrayList<QueryOuterClass.BorrowResponse> myBorrow, int position) {
         final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.KAVA_MAIN);
         String baseDenom = "";
-        if (hardMoneyMarket.getDenom().startsWith("ibc/")) baseDenom = baseData.getBaseDenom(chainConfig, hardMoneyMarket.getDenom());
+        if (hardMoneyMarket.getDenom().startsWith("ibc/")) baseDenom = baseData.getBaseDenom(hardMoneyMarket.getDenom());
         else baseDenom = hardMoneyMarket.getDenom();
         try {
             Picasso.get().load(Kava.KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(hardPoolImg);

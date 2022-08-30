@@ -35,7 +35,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.ContractTokenGrpcActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.IBCTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
@@ -464,14 +463,14 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
-                    intent.putExtra("denom", asset.denom);
-                    startActivity(intent);
-                }
-            });
+//            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
+//                    intent.putExtra("denom", asset.denom);
+//                    startActivity(intent);
+//                }
+//            });
         }
     }
 
@@ -483,6 +482,7 @@ public class MainTokensFragment extends BaseFragment {
         if (asset != null) {
             WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
             WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
+            holder.itemPath.setText(assetDpPath(asset.path));
 
             holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
             valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);

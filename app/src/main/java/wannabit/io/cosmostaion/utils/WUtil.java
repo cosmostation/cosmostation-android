@@ -784,8 +784,8 @@ public class WUtil {
         ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
         Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig, coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig, coin1.denom), new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
         return coin0Value.add(coin1Value);
     }
 
@@ -836,7 +836,7 @@ public class WUtil {
         ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
         BigDecimal poolValue = getPoolValue(baseData, pool);
         BigDecimal incentiveAmount = getNextIncentiveAmount(gauges, position);
-        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig, chainConfig.mainDenom()), incentiveAmount, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()));
+        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig.mainDenom()), incentiveAmount, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()));
         try {
             return incentiveValue.multiply(new BigDecimal("36500")).divide(poolValue, 12, RoundingMode.DOWN);
         } catch (Exception e) {
@@ -892,7 +892,7 @@ public class WUtil {
 
         int externalDecimal = WDp.getDenomDecimal(baseData, chainConfig, pool.getExternalAsset().getSymbol());
         BigDecimal externalAmount = new BigDecimal(pool.getExternalAssetBalance());
-        String exteranlBaseDenom = baseData.getBaseDenom(chainConfig, pool.getExternalAsset().getSymbol());
+        String exteranlBaseDenom = baseData.getBaseDenom(pool.getExternalAsset().getSymbol());
         BigDecimal exteranlPrice = WDp.perUsdValue(baseData, exteranlBaseDenom);
 
         BigDecimal rowanValue = rowanAmount.multiply(rowanPrice).movePointLeft(rowanDecimal);

@@ -129,12 +129,6 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".activities.tokenDetail.IBCTokenDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
-
-        <activity
             android:name=".activities.tokenDetail.NFTokenDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

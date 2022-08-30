@@ -78,7 +78,6 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.FeeInfo;
-import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
@@ -190,14 +189,14 @@ public class WDp {
         final Asset asset = baseData.getAsset(denom);
 
         if (asset != null) {
-            Picasso.get().load(BaseConstant.ASSETV2_IMG_URL + asset.image).error(R.drawable.token_default).into(imageView);
+            Picasso.get().load(BaseConstant.ASSET_IMG_URL + asset.image).error(R.drawable.token_default).into(imageView);
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
                 imageView.setImageResource(chainConfig.mainDenomImg());
 
             } else if (denom.startsWith("gamm/pool") || denom.startsWith("pool") || denom.startsWith("share")) {
-                Picasso.get().load(BaseConstant.ASSETV2_IMG_URL + chainConfig.chainName() + "/pool.png").error(R.drawable.token_default).into(imageView);
+                Picasso.get().load(BaseConstant.ASSET_IMG_URL + chainConfig.chainName() + "/pool.png").error(R.drawable.token_default).into(imageView);
 
             } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
                 BnbToken bnbToken = baseData.getBnbToken(denom);
@@ -212,7 +211,7 @@ public class WDp {
                 }
 
             } else {
-                Picasso.get().load(BaseConstant.ASSETV2_IMG_URL + "common/unknown.png").error(R.drawable.token_default).into(imageView);
+                Picasso.get().load(BaseConstant.ASSET_IMG_URL + "common/unknown.png").error(R.drawable.token_default).into(imageView);
             }
         }
     }
@@ -227,23 +226,20 @@ public class WDp {
         int divideDecimal = 6;
         int displayDecimal = 6;
 
-        if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
+        final Asset asset = baseData.getAsset(denom);
+        if (asset != null) {
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), asset.decimal, asset.decimal));
+
+        } else {
+            if (chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(OKEX_MAIN)) {
+                divideDecimal = getDenomDecimal(baseData, chainConfig, denom);
+                displayDecimal = mainDisplayDecimal(chainConfig.baseChain());
+            } else {
                 divideDecimal = getDenomDecimal(baseData, chainConfig, denom);
                 displayDecimal = getDenomDecimal(baseData, chainConfig, denom);
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), divideDecimal, displayDecimal));
         }
-
-        if (chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(OKEX_MAIN)) {
-            divideDecimal = getDenomDecimal(baseData, chainConfig, denom);
-            displayDecimal = mainDisplayDecimal(chainConfig.baseChain());
-        } else {
-            divideDecimal = getDenomDecimal(baseData, chainConfig, denom);
-            displayDecimal = getDenomDecimal(baseData, chainConfig, denom);
-        }
-        amountTv.setText(getDpAmount2(c, new BigDecimal(amount), divideDecimal, displayDecimal));
     }
 
     public static ArrayList<FeeInfo> getFeeInfos(Context c, ChainConfig chainConfig) {
@@ -471,19 +467,21 @@ public class WDp {
 
     public static String getKavaPriceFeedSymbol(BaseData baseData, String denom) {
         if (denom != null) {
-            if (denom.startsWith("ibc/")) {
-                IbcToken ibcToken = baseData.getIbcToken(denom);
-                return ibcToken.display_denom + ":usd";
-            } else {
-                String priceDenom = "";
-                if (denom.equalsIgnoreCase(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
-                    priceDenom = "kava";
-                } else if (denom.contains("btc")) {
-                    priceDenom = "btc";
+            Asset asset = baseData.getAsset(denom);
+            if (asset != null) {
+                if (denom.startsWith("ibc/")) {
+                    return asset.base_denom + ":usd";
                 } else {
-                    priceDenom = denom;
+                    String priceDenom = "";
+                    if (denom.equalsIgnoreCase(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
+                        priceDenom = "kava";
+                    } else if (denom.contains("btc")) {
+                        priceDenom = "btc";
+                    } else {
+                        priceDenom = denom;
+                    }
+                    return priceDenom + ":usd";
                 }
-                return priceDenom + ":usd";
             }
         }
         return "";

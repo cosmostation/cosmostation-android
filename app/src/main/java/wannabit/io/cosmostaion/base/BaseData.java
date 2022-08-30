@@ -7,16 +7,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -144,19 +140,6 @@ public class BaseData {
         return null;
     }
 
-    public IbcPath.Path getIbcPath(String channelId) {
-        if (mIbcPaths != null && mIbcPaths.size() > 0) {
-            for (IbcPath ibcPath : mIbcPaths) {
-                for (IbcPath.Path path : ibcPath.paths) {
-                    if (path.channel_id.equals(channelId)) {
-                        return path;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     public Asset getAsset(String denom) {
         if (mAssets != null && mAssets.size() > 0) {
             for (Asset asset: mAssets) {
@@ -201,42 +184,13 @@ public class BaseData {
         return null;
     }
 
-    public String getBaseDenom(ChainConfig chainConfig, String denom) {
-        if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                if (ibcToken.base_denom.startsWith("cw20:")) {
-                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                    for (Cw20Assets assets : mCw20Assets) {
-                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                            return assets.denom;
-                        } else {
-                            return ibcToken.base_denom;
-                        }
-                    }
-                } else {
-                    return ibcToken.base_denom;
-                }
-            } else {
-                return "UNKNOWN";
-            }
-        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
-            if (denom.startsWith("c") || denom.startsWith("x")) return denom.substring(1);
-
-        } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
-                return "bnb";
-            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
-                return "xrp";
-            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
-                return "busd";
-            } else if (denom.contains("btc")) {
-                return "btc";
-            } else {
-                return denom;
-            }
+    public String getBaseDenom(String denom) {
+        Asset asset = getAsset(denom);
+        if (asset != null) {
+            return asset.base_denom;
+        } else {
+            return denom;
         }
-        return denom;
     }
 
     //COMMON DATA
