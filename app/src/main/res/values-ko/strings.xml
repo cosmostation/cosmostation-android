@@ -317,6 +317,7 @@
     <string name="str_front_guide_title_station"><![CDATA[스테이션]]></string>
     <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
     <string name="str_front_guide_title_passage"><![CDATA[PASSAGE]]></string>
+    <string name="str_front_guide_title_sommelier"><![CDATA[소믈리에]]></string>
     <string name="str_front_guide_msg_cosmos">Tendermint BFT와 ABCI 기반의 분산형 블록체인 네트워크.</string>
     <string name="str_front_guide_msg_iris">분산형 비즈니스 생태계를 위한 인터체인 서비스 인프라 <![CDATA[&]]> 프로토콜.</string>
     <string name="str_front_guide_msg_binance">바이낸스가 구축한 Tendermint 기반의 빠르고 안전한 분산형 디지털 자산 거래소.</string>
@@ -359,6 +360,7 @@
     <string name="str_front_guide_msg_omniflix"><![CDATA[NFT 창작자들과 커뮤니티에게 탈중앙화된 미디어 플랫폼을 제공하는 블록체인 프로젝트.]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[$CRE 토큰과 인터-블록체인 통신기술을 활용한 텐더민트 기반 디파이 허브.]]></string>
     <string name="str_front_guide_msg_assetmantle"><![CDATA[Asset Mantle은 Persistence 생태계 내 NFT 창작자와 수집가 모두를 위해 구축된 NFT 마켓플레이스 및 플랫폼입니다.]]></string>
+    <string name="str_front_guide_msg_sommelier"><![CDATA[Somelier Finance는 위험이 최소화된 멀티체인 디파이 전략을 제공하는 Cosmos SDK 기반 블록체인 네트워크입니다.]]></string>
     <string name="str_front_guide_msg_station"><![CDATA[Station]]></string>
     <string name="str_front_guide_msg_nyx"><![CDATA[NYX는 차세대 개인 정보 보호 인프라를 제공하는 분산형 및 인센티브 인프라 네트워크.]]></string>
     <string name="str_front_guide_msg_passage"><![CDATA[언리얼엔진5, Akash 그리고 IBC 기술을 활용하여 가상현실 및 메타버스를 구현하는 Cosmos SDK 기반 블록체인 프로토콜]]></string>
