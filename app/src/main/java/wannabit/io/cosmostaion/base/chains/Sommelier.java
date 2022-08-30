@@ -37,7 +37,7 @@ public class Sommelier extends ChainConfig {
     public String grpcUrl() { return "lcd-sommelier-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-sommelier.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal(""); }
+    public BigDecimal blockTime() { return new BigDecimal("6.1000"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "sommelier/"; }
     public String monikerUrl() { return MONIKER_URL + "sommelier/"; }
     public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "sommelier/relay-sommelier-unknown.png"; }
