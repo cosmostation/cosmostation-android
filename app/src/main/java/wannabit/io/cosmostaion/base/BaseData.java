@@ -11,6 +11,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_FAVO_TOKENS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
 
@@ -57,7 +58,7 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
-import wannabit.io.cosmostaion.dao.Cw20Assets;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.MWords;
@@ -114,8 +115,9 @@ public class BaseData {
     public ChainParam.Params                mChainParam;
     public ArrayList<IbcPath>               mIbcPaths = new ArrayList<>();
     public ArrayList<IbcToken>              mIbcTokens = new ArrayList<>();
-    public ArrayList<Cw20Assets>            mCw20Assets = new ArrayList<>();
     public ArrayList<Asset>                 mAssets = new ArrayList<>();
+    public ArrayList<Cw20Asset>           mCw20Assets = new ArrayList<>();
+    public ArrayList<Cw20Asset>           mCw20MyAssets = new ArrayList<>();
 
     public Price getPrice(String denom) {
         if (mPrices != null && mPrices.size() > 0) {
@@ -151,37 +153,25 @@ public class BaseData {
         return null;
     }
 
-    public void setCw20Balance(String contAddress, String amount) {
-        if (mCw20Assets != null && mCw20Assets.size() > 0) {
-            for (Cw20Assets assets : mCw20Assets) {
-                if (assets.contract_address.equalsIgnoreCase(contAddress)) {
-                    assets.setAmount(amount);
-                }
+    public void setMyTokens(String address) {
+        for (Cw20Asset asset : mCw20Assets) {
+            if (asset.default_show) {
+                mCw20MyAssets.add(asset);
+            }
+        }
+        for (Cw20Asset asset : getUserFavoTokens(address)) {
+            if (!mCw20MyAssets.stream().filter(item -> item.contract_address.equalsIgnoreCase(asset.contract_address)).findAny().isPresent()) {
+                mCw20MyAssets.add(asset);
             }
         }
     }
 
-    public ArrayList<Cw20Assets> getCw20sGrpc(BaseChain baseChain) {
-        ArrayList<Cw20Assets> result = new ArrayList<>();
-        if (mCw20Assets != null && mCw20Assets.size() > 0) {
-            for (Cw20Assets assets : mCw20Assets) {
-                if (assets.chain.equalsIgnoreCase(ChainFactory.getChain(baseChain).chainName()) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
-                    result.add(assets);
-                }
+    public void setMyTokenBalance(String contractAddress, String amount) {
+        for (Cw20Asset myAsset : mCw20MyAssets) {
+            if (myAsset.contract_address.equalsIgnoreCase(contractAddress)) {
+                myAsset.setAmount(amount);
             }
         }
-        return result;
-    }
-
-    public Cw20Assets getCw20_gRPC(String contAddress) {
-        if (mCw20Assets != null && mCw20Assets.size() > 0) {
-            for (Cw20Assets assets : mCw20Assets) {
-                if (assets.contract_address.equalsIgnoreCase(contAddress)) {
-                    return assets;
-                }
-            }
-        }
-        return null;
     }
 
     public String getBaseDenom(String denom) {
@@ -257,10 +247,6 @@ public class BaseData {
         return result;
     }
 
-    public BigDecimal delegatableAmount(String denom) {
-        return availableAmount(denom).add(lockedAmount(denom));
-    }
-
     public BigDecimal frozenAmount(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         for (Balance balance : mBalances) {
@@ -295,18 +281,6 @@ public class BaseData {
         BigDecimal result = BigDecimal.ZERO;
         for (UnbondingInfo unbondingInfo : mMyUnbondings) {
             if (unbondingInfo.entries != null) {
-                for (UnbondingInfo.Entry entry : unbondingInfo.entries) {
-                    result = result.add(new BigDecimal(entry.balance));
-                }
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal unbondingAmountByValidator(String opAddress) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (UnbondingInfo unbondingInfo : mMyUnbondings) {
-            if (unbondingInfo.validator_address.equals(opAddress) && unbondingInfo.entries != null) {
                 for (UnbondingInfo.Entry entry : unbondingInfo.entries) {
                     result = result.add(new BigDecimal(entry.balance));
                 }
@@ -1143,6 +1117,43 @@ public class BaseData {
 
         }
         return chains;
+    }
+
+    public ArrayList<Cw20Asset> getUserFavoTokens(String address) {
+        ArrayList<Cw20Asset> result = new ArrayList<>();
+        String json = getSharedPreferences().getString(address + " " + PRE_USER_FAVO_TOKENS, null);
+        ArrayList<String> contracts = new ArrayList<>();
+        if (json != null) {
+            try {
+                JSONArray array = new JSONArray(json);
+                for (int i = 0; i < array.length(); i++) {
+                    contracts.add(array.optString(i));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        for (String contract : contracts) {
+            result.add(mCw20MyAssets.stream().filter(item -> item.contract_address.equalsIgnoreCase(contract)).findFirst().get());
+        }
+        return result;
+    }
+
+    public void setUserFavoTokens(String address, ArrayList<String> contracts) {
+        JSONArray array = new JSONArray();
+        for (String contract : contracts) {
+            array.put(contract);
+        }
+        if (!contracts.isEmpty()) {
+            getSharedPreferences().edit().putString(address + " " + PRE_USER_FAVO_TOKENS, array.toString()).commit();
+        } else {
+            getSharedPreferences().edit().putString(address + " " + PRE_USER_FAVO_TOKENS, null).commit();
+        }
+    }
+
+    public void deleteUserFavoTokens(String address) {
+        getSharedPreferences().edit().remove(address + " " + PRE_USER_FAVO_TOKENS);
     }
 
     public Password onSelectPassword() {

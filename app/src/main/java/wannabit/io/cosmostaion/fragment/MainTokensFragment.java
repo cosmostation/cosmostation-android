@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.ContractTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
@@ -46,7 +45,7 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.Cw20Assets;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -78,7 +77,7 @@ public class MainTokensFragment extends BaseFragment {
     private ArrayList<Coin> mNativeGrpc = new ArrayList<>();
     private ArrayList<Coin> mIbcGrpc = new ArrayList<>();
     private ArrayList<Coin> mEtherGrpc = new ArrayList<>();
-    private ArrayList<Cw20Assets> mErc20Grpc = new ArrayList<>();
+    private ArrayList<Cw20Asset> mErc20Grpc = new ArrayList<>();
 
     private ArrayList<Balance> mNative = new ArrayList<>();
     private ArrayList<Balance> mEtc = new ArrayList<>();
@@ -189,7 +188,7 @@ public class MainTokensFragment extends BaseFragment {
             }
 
             @Override
-            public String getSectionCw20Header(BaseChain baseChain, ArrayList<Cw20Assets> cw20Assets, int section) {
+            public String getSectionCw20Header(BaseChain baseChain, ArrayList<Cw20Asset> cw20Assets, int section) {
                 if (section == SECTION_ERC20_GRPC) {
                     return getMainActivity().getString(R.string.str_cw20_token_title);
                 }
@@ -228,7 +227,7 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onUpdateView() {
         final String mainDenom = mChainConfig.mainDenom();
-        mErc20Grpc = getBaseDao().getCw20sGrpc(mBaseChain);
+        mErc20Grpc = getBaseDao().mCw20MyAssets;
         mNativeGrpc.clear();
         mIbcGrpc.clear();
         mEtherGrpc.clear();
@@ -503,23 +502,16 @@ public class MainTokensFragment extends BaseFragment {
 
     //bind cw20 tokens with gRPC
     private void onBindCw20GrpcToken(TokensAdapter.AssetHolder holder, int position) {
-        final Cw20Assets cw20Asset = mErc20Grpc.get(position);
-        Picasso.get().load(cw20Asset.logo).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-        holder.itemSymbol.setText(cw20Asset.denom.toUpperCase());
-        holder.itemPerPrice.setText(cw20Asset.contract_address);
-        holder.itemPerPrice.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGray1));
+        final Cw20Asset asset = mErc20Grpc.get(position);
+        Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
+        holder.itemSymbol.setText(asset.denom.toUpperCase());
+        holder.itemPath.setText(asset.contract_address);
 
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), cw20Asset.getAmount(), cw20Asset.decimal, 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), cw20Asset.denom, cw20Asset.getAmount(), cw20Asset.decimal));
+        holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.denom));
+        valueChangeStatus(getActivity(), getBaseDao(), asset.denom, holder.itemUpDown);
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), ContractTokenGrpcActivity.class);
-                intent.putExtra("cw20Asset", cw20Asset);
-                startActivity(intent);
-            }
-        });
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
     }
 
     //with native tokens
@@ -742,7 +734,7 @@ public class MainTokensFragment extends BaseFragment {
 
         String getSectionGrpcHeader(BaseChain baseChain, ArrayList<Coin> coins, int section);
 
-        String getSectionCw20Header(BaseChain baseChain, ArrayList<Cw20Assets> cw20Assets, int section);
+        String getSectionCw20Header(BaseChain baseChain, ArrayList<Cw20Asset> cw20Assets, int section);
 
         String getSecitonHeader(BaseChain baseChain, ArrayList<Balance> balances, int section);
     }

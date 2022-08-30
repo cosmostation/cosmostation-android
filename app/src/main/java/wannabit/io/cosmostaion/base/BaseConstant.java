@@ -30,6 +30,7 @@ public class BaseConstant {
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
     public final static String PRE_USER_EXPENDED_CHAINS     = "PRE_USER_EXPENDED_CHAINS";
+    public final static String PRE_USER_FAVO_TOKENS         = "PRE_USER_FAVO_TOKENS";
     public final static String PRE_DB_VERSION               = "PRE_DB_VERSION";
     public final static String PRE_THEME_MOD                = "PRE_THEME_MOD";
 
@@ -78,7 +79,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_IBC_PATHS                        = 2802;
     public final static int TASK_FETCH_IBC_TOKENS                       = 2803;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
-    public final static int TASK_FETCH_MINTSCAN_ASSETS                  = 2805;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
 
