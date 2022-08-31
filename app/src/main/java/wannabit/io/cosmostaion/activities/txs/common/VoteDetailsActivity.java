@@ -242,7 +242,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
                 holder.itemTitle.setText("# " + mApiProposal.id + ". " + mApiProposal.title);
                 holder.itemType.setText(mApiProposal.proposal_type);
-                if (mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD") || mApiProposal.proposal_status.equalsIgnoreCase("DepositPeriod")) {
+                if ("PROPOSAL_STATUS_DEPOSIT_PERIOD".equalsIgnoreCase(mApiProposal.proposal_status) || "DepositPeriod".equalsIgnoreCase(mApiProposal.proposal_status)) {
                     holder.itemStartTime.setText(R.string.str_vote_wait_deposit);
                     holder.itemFinishTime.setText(R.string.str_vote_wait_deposit);
                 } else {
@@ -321,28 +321,28 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 if (mBaseChain.equals(CERTIK_MAIN) && mResMyProposal != null) {
                     initBgColor(holder);
                     String voteOption = mResMyProposal.vote.options.get(0).option;
-                    if (voteOption.equalsIgnoreCase("VOTE_OPTION_YES")) {
+                    if ("VOTE_OPTION_YES".equals(voteOption)) {
                         holder.itemYesCard.setAlpha(1f);
                         holder.itemYesDone.setVisibility(View.VISIBLE);
                         holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteYes));
                         holder.itemYesCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                         holder.itemYesProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteYes)));
 
-                    } else if (voteOption.equals("VOTE_OPTION_NO")) {
+                    } else if ("VOTE_OPTION_NO".equals(voteOption)) {
                         holder.itemNoCard.setAlpha(1f);
                         holder.itemNoDone.setVisibility(View.VISIBLE);
                         holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteNo));
                         holder.itemNoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                         holder.itemNoProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteNo)));
 
-                    } else if (voteOption.equals("VOTE_OPTION_NO_WITH_VETO")) {
+                    } else if ("VOTE_OPTION_NO_WITH_VETO".equals(voteOption)) {
                         holder.itemVetoCard.setAlpha(1f);
                         holder.itemVetoDone.setVisibility(View.VISIBLE);
                         holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteVeto));
                         holder.itemVetoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                         holder.itemVetoProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteVeto)));
 
-                    } else if (voteOption.equals("VOTE_OPTION_ABSTAIN")) {
+                    } else if ("VOTE_OPTION_ABSTAIN".equals(voteOption)) {
                         holder.itemAbstainCard.setAlpha(1f);
                         holder.itemAbstainDone.setVisibility(View.VISIBLE);
                         holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain));

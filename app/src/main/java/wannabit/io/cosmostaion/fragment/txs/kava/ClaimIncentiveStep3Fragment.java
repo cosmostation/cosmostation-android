@@ -67,7 +67,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
         BigDecimal hardIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_HARD_DENOM);
         BigDecimal swpIncentiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_SWP_DENOM);
 
-        if (getSActivity().mIncentiveMultiplier.equalsIgnoreCase("small")) {
+        if ("small".equalsIgnoreCase(getSActivity().mIncentiveMultiplier)) {
             mLockTime.setText("1 Month");
             kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 0)).setScale(0, RoundingMode.DOWN);
             hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_HARD_DENOM, 0)).setScale(0, RoundingMode.DOWN);
