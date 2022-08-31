@@ -42,7 +42,7 @@ public class Sommelier extends ChainConfig {
     public String monikerUrl() { return MONIKER_URL + "sommelier/"; }
     public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "sommelier/relay-sommelier-unknown.png"; }
     public String homeInfoLink() { return  "https://sommelier.finance/"; }
-    public String blogInfoLink() { return  "https://sommelier.finance/"; }
+    public String blogInfoLink() { return  "https://medium.com/@sommelierfinance"; }
     public String coingeckoLink() { return  COINGECKO_URL + "sommelier"; }
 
     public ArrayList<String> gasRates() {
