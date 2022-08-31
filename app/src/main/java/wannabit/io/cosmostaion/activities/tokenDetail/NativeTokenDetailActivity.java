@@ -133,7 +133,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             BigDecimal convertedOktAmount = WDp.convertTokenToOkt(getBaseDao(), mDenom);
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mChainConfig.mainDenom(), convertedOktAmount, 0));
 
-            if (okToken.original_symbol.equalsIgnoreCase("okb")) {
+            if ("okb".equalsIgnoreCase(okToken.original_symbol)) {
                 mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), "okb"));
                 mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), "okb"));
                 final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), "okb");

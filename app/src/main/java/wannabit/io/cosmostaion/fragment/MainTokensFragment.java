@@ -323,7 +323,7 @@ public class MainTokensFragment extends BaseFragment {
                 } else if (coin.denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB) || coin.denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB) ||
                         coin.denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || coin.denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
                     mKavaBep2Grpc.add(coin);
-                } else if (coin.denom.equalsIgnoreCase("btch") || coin.denom.equalsIgnoreCase("hbtc")) {
+                } else if ("btch".equalsIgnoreCase(coin.denom) || "hbtc".equalsIgnoreCase(coin.denom)) {
                     mEtcGrpc.add(coin);
                 }
             } else {

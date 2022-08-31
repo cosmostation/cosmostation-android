@@ -103,7 +103,7 @@ public class ResApiNewTxListCustom {
     public JSONArray getMsgs() {
         if (data != null && data.tx != null && data.tx.body != null && data.tx.body.messages != null) {
             return new JSONArray(data.tx.body.messages);
-        } else if  (data != null && data.tx != null && data.tx.value != null && data.tx.value.msg != null) {
+        } else if (data != null && data.tx != null && data.tx.value != null && data.tx.value.msg != null) {
             return new JSONArray(data.tx.value.msg);
         }
         return null;
@@ -128,21 +128,26 @@ public class ResApiNewTxListCustom {
                     String msgType1 = "";
                     try {
                         msgType0 = getMsgs().getJSONObject(0).getString("@type");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                     try {
                         msgType0 = getMsgs().getJSONObject(0).getString("type");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                     try {
                         msgType1 = getMsgs().getJSONObject(1).getString("@type");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                     try {
                         msgType1 = getMsgs().getJSONObject(1).getString("type");
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
 
                     if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
                             msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
                         if (getMsgCnt() == 2) return c.getString(R.string.tx_reinvest);
-                        else return c.getString(R.string.tx_reinvest) + " + " + (getMsgCnt() - 1) / 2;
+                        else
+                            return c.getString(R.string.tx_reinvest) + " + " + (getMsgCnt() - 1) / 2;
                     }
 
                     if (msgType1.contains("ibc") && msgType1.contains("MsgRecvPacket")) {
@@ -153,10 +158,12 @@ public class ResApiNewTxListCustom {
                 String msgType = "";
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("@type");
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("type");
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
 
                 // cosmos default msg type
                 if (msgType.contains("cosmos.") && msgType.contains("staking")) {
@@ -181,11 +188,13 @@ public class ResApiNewTxListCustom {
                         try {
                             to_address = getMsgs().getJSONObject(0).getString("to_address");
                             from_address = getMsgs().getJSONObject(0).getString("from_address");
-                        } catch (Exception e) { }
+                        } catch (Exception e) {
+                        }
                         try {
                             to_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("to_address");
                             from_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("from_address");
-                        } catch (Exception e) { }
+                        } catch (Exception e) {
+                        }
                         if (to_address.equals(address)) {
                             result = c.getString(R.string.tx_receive);
                         } else if (from_address.equals(address)) {
@@ -658,25 +667,25 @@ public class ResApiNewTxListCustom {
                     if (msgType.contains("MsgTaskResponse")) {
                         result = c.getString(R.string.tx_task_response);
                     } else if (msgType.contains("MsgCreateTask")) {
-                        result = c .getString(R.string.tx_create_task);
+                        result = c.getString(R.string.tx_create_task);
                     }
                 }
 
                 // osmosis superfluid
                 else if (msgType.contains("osmosis.") && msgType.contains("superfluid")) {
-                if (msgType.contains("MsgSuperfluidDelegate")) {
-                    result = c.getString(R.string.tx_osmosis_super_fluid_delegate);
-                } else if (msgType.contains("MsgSuperfluidUndelegate")) {
-                    result = c.getString(R.string.tx_osmosis_super_fluid_undelegate);
-                } else if (msgType.contains("MsgSuperfluidUnbondLock")) {
-                    result = c.getString(R.string.tx_osmosis_super_fluid_unbondinglock);
-                } else if (msgType.contains("MsgLockAndSuperfluidDelegate")) {
-                    result = c.getString(R.string.tx_osmosis_super_fluid_lockanddelegate);
+                    if (msgType.contains("MsgSuperfluidDelegate")) {
+                        result = c.getString(R.string.tx_osmosis_super_fluid_delegate);
+                    } else if (msgType.contains("MsgSuperfluidUndelegate")) {
+                        result = c.getString(R.string.tx_osmosis_super_fluid_undelegate);
+                    } else if (msgType.contains("MsgSuperfluidUnbondLock")) {
+                        result = c.getString(R.string.tx_osmosis_super_fluid_unbondinglock);
+                    } else if (msgType.contains("MsgLockAndSuperfluidDelegate")) {
+                        result = c.getString(R.string.tx_osmosis_super_fluid_lockanddelegate);
+                    }
                 }
-            }
 
 
-            if (getMsgCnt() > 1) {
+                if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }
                 return result;
@@ -695,10 +704,12 @@ public class ResApiNewTxListCustom {
                 String msgType = "";
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("@type");
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("type");
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
                 if (!msgType.contains("MsgWithdrawDelegatorReward")) {
                     allReward = false;
                     break;
@@ -707,20 +718,21 @@ public class ResApiNewTxListCustom {
             if (allReward) {
                 if (data != null && data.logs != null) {
                     BigDecimal totalRewardSum = BigDecimal.ZERO;
-                    for (int i = 0; i < data.logs.size(); i ++) {
+                    for (int i = 0; i < data.logs.size(); i++) {
                         try {
                             for (int j = 0; j < new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").length(); j++) {
-                                if (new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).getString("type").equalsIgnoreCase("transfer")) {
+                                if ("transfer".equalsIgnoreCase(new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).getString("type"))) {
                                     String value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(j).
-                                                    getJSONArray("attributes").getJSONObject(2).getString("value");
-                                    for (String rawCoin: value.split(",")) {
+                                            getJSONArray("attributes").getJSONObject(2).getString("value");
+                                    for (String rawCoin : value.split(",")) {
                                         if (rawCoin.contains(ChainFactory.getChain(chain).mainDenom())) {
                                             totalRewardSum = totalRewardSum.add(new BigDecimal(rawCoin.replaceAll("[^0-9]", "")));
                                         }
                                     }
                                 }
                             }
-                        } catch (Exception e) { }
+                        } catch (Exception e) {
+                        }
                     }
                     return new Coin(ChainFactory.getChain(chain).mainDenom(), totalRewardSum.toString());
                 }
@@ -733,16 +745,20 @@ public class ResApiNewTxListCustom {
             String msgType1 = "";
             try {
                 msgType0 = getMsgs().getJSONObject(0).getString("@type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 msgType0 = getMsgs().getJSONObject(0).getString("type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 msgType1 = getMsgs().getJSONObject(1).getString("@type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 msgType1 = getMsgs().getJSONObject(1).getString("type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
                     msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
                 String denom = "";
@@ -750,11 +766,15 @@ public class ResApiNewTxListCustom {
                 try {
                     denom = getMsgs().getJSONObject(1).getJSONObject("amount").getString("denom");
                     amount = getMsgs().getJSONObject(1).getJSONObject("amount").getString("amount");
-                } catch (JSONException e) { e.printStackTrace(); }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 try {
                     denom = getMsgs().getJSONObject(1).getJSONObject("value").getJSONObject("amount").getString("denom");
                     amount = getMsgs().getJSONObject(1).getJSONObject("value").getJSONObject("amount").getString("amount");
-                } catch (JSONException e) { e.printStackTrace(); }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 return new Coin(denom, amount);
             }
         }
@@ -765,11 +785,13 @@ public class ResApiNewTxListCustom {
         String msgType = "";
         try {
             msgType = getMsgs().getJSONObject(0).getString("@type");
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
 
         try {
             msgType = getMsgs().getJSONObject(0).getString("type");
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
 
         String denom = "";
         String amount = "";
@@ -779,29 +801,34 @@ public class ResApiNewTxListCustom {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("amount");
-            } catch (JSONException e) {  }
+            } catch (JSONException e) {
+            }
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("amount");
-            } catch (JSONException e) {  }
+            } catch (JSONException e) {
+            }
             return new Coin(denom, amount);
 
         } else if (msgType.contains("MsgDelegate") || msgType.contains("MsgUndelegate") || msgType.contains("MsgBeginRedelegate")) {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("amount").getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("amount").getString("amount");
-            } catch (JSONException e) {   }
+            } catch (JSONException e) {
+            }
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("amount");
-            } catch (JSONException e) {  }
+            } catch (JSONException e) {
+            }
             return new Coin(denom, amount);
 
         } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("token").getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("token").getString("amount");
-            } catch (JSONException e) {   }
+            } catch (JSONException e) {
+            }
             return new Coin(denom, amount);
         }
         return null;
@@ -813,30 +840,36 @@ public class ResApiNewTxListCustom {
             String msgType = "";
             try {
                 msgType = getMsgs().getJSONObject(0).getString("@type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 msgType = getMsgs().getJSONObject(0).getString("type");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             String option = "";
             try {
                 option = getMsgs().getJSONObject(0).getString("option");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             try {
                 option = getMsgs().getJSONObject(0).getJSONObject("value").getString("option");
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             if (msgType.contains("MsgVote")) {
-                if (option.equals("VOTE_OPTION_YES") || option.equals("Yes")) {
+                if ("VOTE_OPTION_YES".equals(option) || "Yes".equals(option)) {
                     result = "YES";
-                } else if (option.equals("VOTE_OPTION_NO") || option.equals("No")) {
+                } else if ("VOTE_OPTION_NO".equals(option) || "No".equals(option)) {
                     result = "NO";
-                } else if (option.equals("VOTE_OPTION_ABSTAIN") || option.equals("Abstain")) {
+                } else if ("VOTE_OPTION_ABSTAIN".equals(option) || "Abstain".equals(option)) {
                     result = "ABSTAIN";
-                } else if (option.equals("VOTE_OPTION_NO_WITH_VETO") || option.equals("NoWithVeto")) {
+                } else if ("VOTE_OPTION_NO_WITH_VETO".equals(option) || "NoWithVeto".equals(option)) {
                     result = "VETO";
                 }
             }
             return result;
-        } catch (Exception e) { WLog.w("Exception : " + e.getMessage()); }
+        } catch (Exception e) {
+            WLog.w("Exception : " + e.getMessage());
+        }
         return null;
     }
 
