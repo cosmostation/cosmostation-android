@@ -40,7 +40,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
-public class SwapCoinListDialog extends DialogFragment {
+public class SelectChainListDialog extends DialogFragment {
 
     private OnSelectChainsDialogResult mSelectChainsDialogResult;
 
@@ -58,8 +58,8 @@ public class SwapCoinListDialog extends DialogFragment {
 
     private Set<BaseChain> selectedSet = Sets.newHashSet();
 
-    public static SwapCoinListDialog newInstance(Bundle bundle) {
-        SwapCoinListDialog frag = new SwapCoinListDialog();
+    public static SelectChainListDialog newInstance(Bundle bundle) {
+        SelectChainListDialog frag = new SelectChainListDialog();
         frag.setArguments(bundle);
         return frag;
     }

@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -46,6 +47,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dialog.SelectCWTokenDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -55,6 +57,8 @@ public class MainTokensFragment extends BaseFragment {
     public final static int SECTION_IBC_GRPC = 1;
     public final static int SECTION_ETHER_GRPC = 2;
     public final static int SECTION_ERC20_GRPC = 3;
+
+    public final static int SECITON_CONTRACT_EDIT = 10;
 
     public final static int SECTION_NATIVE = 20;
     public final static int SECTION_ETC = 21;
@@ -260,6 +264,7 @@ public class MainTokensFragment extends BaseFragment {
 
         if (isGRPC(mBaseChain)) {
             WUtil.onSortingCoins(mNativeGrpc, mBaseChain);
+            WUtil.onSortingContract(mErc20Grpc);
         } else {
             WUtil.onSortingNativeCoins(mEtc, mBaseChain);
         }
@@ -286,41 +291,36 @@ public class MainTokensFragment extends BaseFragment {
         }
     }
 
-    private class TokensAdapter extends RecyclerView.Adapter<TokensAdapter.AssetHolder> {
+    private class TokensAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @NonNull
         @Override
-        public AssetHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View rowView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_token, viewGroup, false);
-            AssetHolder viewHolder = new AssetHolder(rowView);
-            return viewHolder;
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            if (viewType == SECITON_CONTRACT_EDIT) {
+                return new EditHolder(getLayoutInflater().inflate(R.layout.item_edit, viewGroup, false));
+            } else {
+                return new AssetHolder(getLayoutInflater().inflate(R.layout.item_token, viewGroup, false));
+            }
         }
 
         @Override
-        public void onBindViewHolder(@NonNull AssetHolder viewHolder, int position) {
-            if (mChainConfig.bridgeCoinSupport()) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+            if (isGRPC(mBaseChain)) {
                 if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
                     onNativeGrpcItem(viewHolder, mChainConfig, position);
                 } else if (getItemViewType(position) == SECTION_IBC_GRPC) {
                     onBindIbcAuthToken(viewHolder, mChainConfig, position - mNativeGrpc.size());
-                } else if (getItemViewType(position) == SECTION_ETHER_GRPC) {
-                    onBindErcToken(viewHolder, mChainConfig, position - mNativeGrpc.size() - mIbcGrpc.size());
-                }
+                } else {
+                    if (mChainConfig.bridgeCoinSupport() && getItemViewType(position) == SECTION_ETHER_GRPC) {
+                        onBindEthToken(viewHolder, mChainConfig, position - mNativeGrpc.size() - mIbcGrpc.size());
 
-            } else if (mChainConfig.erc20CoinSupport()) {
-                if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
-                    onNativeGrpcItem(viewHolder, mChainConfig, position);
-                } else if (getItemViewType(position) == SECTION_IBC_GRPC) {
-                    onBindIbcAuthToken(viewHolder, mChainConfig,position - mNativeGrpc.size());
-                } else if (getItemViewType(position) == SECTION_ERC20_GRPC) {
-                    onBindCw20GrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcGrpc.size());
-                }
-
-            } else if (isGRPC(mBaseChain)) {
-                if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
-                    onNativeGrpcItem(viewHolder, mChainConfig, position);
-                } else if (getItemViewType(position) == SECTION_IBC_GRPC) {
-                    onBindIbcAuthToken(viewHolder, mChainConfig, position - mNativeGrpc.size());
+                    } else if (mChainConfig.erc20CoinSupport()) {
+                        if (getItemViewType(position) == SECTION_ERC20_GRPC) {
+                            onBindCw20GrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcGrpc.size());
+                        } else if (getItemViewType(position) == SECITON_CONTRACT_EDIT) {
+                            onBindEdit(viewHolder);
+                        }
+                    }
                 }
 
             } else {
@@ -332,15 +332,191 @@ public class MainTokensFragment extends BaseFragment {
             }
         }
 
+        private void onNativeGrpcItem(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
+            final AssetHolder holder = (AssetHolder) viewHolder;
+            final Coin coin = mNativeGrpc.get(position);
+            final Asset asset = getBaseDao().getAsset(coin.denom);
+
+            BigDecimal totalAmount = BigDecimal.ZERO;
+            if (asset != null) {
+                if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                    totalAmount = getBaseDao().getAllMainAsset(chainConfig.mainDenom());
+                } else {
+                    totalAmount = getBaseDao().getAvailable(asset.base_denom).add(getBaseDao().getVesting(asset.base_denom));
+                }
+
+                WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.base_denom, holder.itemImg);
+                WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.base_denom, holder.itemSymbol);
+                holder.itemPath.setText(asset.description);
+
+                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+                valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
+
+                holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimal, 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
+
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent;
+                        if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                            intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
+                        } else {
+                            intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
+                        }
+                        intent.putExtra("denom", asset.base_denom);
+                        startActivity(intent);
+                    }
+                });
+            }
+        }
+
+        private void onBindIbcAuthToken(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
+            final AssetHolder holder = (AssetHolder) viewHolder;
+            final Coin coin = mIbcGrpc.get(position);
+            final Asset asset = getBaseDao().getAsset(mIbcGrpc.get(position).denom);
+
+            if (asset != null) {
+                WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
+                WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
+                holder.itemPath.setText(assetDpPath(asset.path));
+
+                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+                valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
+
+                holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
+            }
+        }
+
+        private void onBindEthToken(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
+            final AssetHolder holder = (AssetHolder) viewHolder;
+            final Coin coin = mEtherGrpc.get(position);
+            final Asset asset = getBaseDao().getAsset(coin.denom);
+
+            if (asset != null) {
+                WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
+                WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
+                holder.itemPath.setText(assetDpPath(asset.path));
+
+                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+                valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
+
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
+
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getMainActivity(), BridgeTokenGrpcActivity.class);
+                        intent.putExtra("denom", asset.denom);
+                        startActivity(intent);
+                    }
+                });
+            }
+        }
+
+        private void onBindCw20GrpcToken(RecyclerView.ViewHolder viewHolder, int position) {
+            final AssetHolder holder = (AssetHolder) viewHolder;
+            final Cw20Asset asset = mErc20Grpc.get(position);
+            Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
+            holder.itemSymbol.setText(asset.denom.toUpperCase());
+            holder.itemPath.setText("");
+
+            holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.denom));
+            valueChangeStatus(getActivity(), getBaseDao(), asset.denom, holder.itemUpDown);
+
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
+        }
+
+        private void onBindEdit(RecyclerView.ViewHolder viewHolder) {
+            final EditHolder holder = (EditHolder) viewHolder;
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(bundle);
+                    dialog.setCancelable(true);
+                    dialog.setTargetFragment(MainTokensFragment.this, SECITON_CONTRACT_EDIT);
+                    getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                }
+            });
+        }
+
+        private void onBindNativeItem(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
+            final AssetHolder holder = (AssetHolder) viewHolder;
+            final Balance balance = mNative.get(position);
+            BigDecimal totalAmount = BigDecimal.ZERO;
+
+            WDp.setDpSymbolImg(getBaseDao(), chainConfig, balance.symbol, holder.itemImg);
+            WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, balance.symbol, holder.itemSymbol);
+            holder.itemPerPrice.setText(chainConfig.coinFullName(balance.symbol));
+            holder.itemPath.setText("(" + balance.symbol + ")");
+            holder.itemPerPrice.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGray1));
+
+            if (mBaseChain.equals(BNB_MAIN))
+                totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
+            else totalAmount = getBaseDao().getAllExToken(balance.symbol);
+
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        private void onBindEtcToken(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
+            final AssetHolder holder = (AssetHolder) viewHolder;
+            final Balance balance = mEtc.get(position);
+            BigDecimal totalAmount = BigDecimal.ZERO;
+            BigDecimal convertAmount = BigDecimal.ZERO;
+
+            WDp.setDpSymbolImg(getBaseDao(), chainConfig, balance.symbol, holder.itemImg);
+            WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, balance.symbol, holder.itemSymbol);
+            holder.itemPath.setText("(" + balance.symbol + ")");
+
+            if (mBaseChain.equals(BNB_MAIN)) {
+                holder.itemPerPrice.setText(getBaseDao().getBnbToken(balance.symbol).name);
+                totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
+                convertAmount = WDp.getBnbConvertAmount(getBaseDao(), balance.symbol, totalAmount);
+
+            } else {
+                holder.itemPerPrice.setText(getBaseDao().okToken(balance.symbol).description);
+                totalAmount = getBaseDao().getAllExToken(balance.symbol);
+                convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
+            }
+            holder.itemPerPrice.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGray1));
+
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
+        }
+
         @Override
         public int getItemCount() {
             int defaultCount = mNativeGrpc.size() + mIbcGrpc.size();
-            if (mChainConfig.erc20CoinSupport()) {
-                return defaultCount + mErc20Grpc.size();
-            } else if (mChainConfig.bridgeCoinSupport()) {
-                return defaultCount + mEtherGrpc.size();
-            } else if (isGRPC(mBaseChain)) {
-                return defaultCount;
+            if (isGRPC(mBaseChain)) {
+                if (mChainConfig.bridgeCoinSupport()) {
+                    return defaultCount + mEtherGrpc.size();
+                } else if (mChainConfig.erc20CoinSupport()) {
+                    return defaultCount + mErc20Grpc.size() + 1;
+                } else {
+                    return defaultCount;
+                }
             } else {
                 return getBaseDao().mBalances.size();
             }
@@ -364,6 +540,8 @@ public class MainTokensFragment extends BaseFragment {
                     return SECTION_IBC_GRPC;
                 } else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mErc20Grpc.size()) {
                     return SECTION_ERC20_GRPC;
+                } else {
+                    return SECITON_CONTRACT_EDIT;
                 }
 
             } else if (isGRPC(mBaseChain)) {
@@ -406,175 +584,15 @@ public class MainTokensFragment extends BaseFragment {
                 itemValue = itemView.findViewById(R.id.token_value);
             }
         }
-    }
 
-    private void onNativeGrpcItem(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
-        final Coin coin = mNativeGrpc.get(position);
-        final Asset asset = getBaseDao().getAsset(coin.denom);
+        public class EditHolder extends RecyclerView.ViewHolder {
+            private CardView itemRoot;
 
-        BigDecimal totalAmount = BigDecimal.ZERO;
-        if (asset != null) {
-            if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
-                totalAmount = getBaseDao().getAllMainAsset(chainConfig.mainDenom());
-            } else {
-                totalAmount = getBaseDao().getAvailable(asset.base_denom).add(getBaseDao().getVesting(asset.base_denom));
+            public EditHolder(@NonNull View itemView) {
+                super(itemView);
+                itemRoot = itemView.findViewById(R.id.edit_card);
             }
-
-            WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.base_denom, holder.itemImg);
-            WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.base_denom, holder.itemSymbol);
-            holder.itemPath.setText(asset.description);
-
-            holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
-            valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-
-            holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
-
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent;
-                    if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
-                        intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
-                    } else {
-                        intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
-                    }
-                    intent.putExtra("denom", asset.base_denom);
-                    startActivity(intent);
-                }
-            });
         }
-    }
-
-    //with Authed IBC gRPC
-    private void onBindIbcAuthToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
-        final Coin coin = mIbcGrpc.get(position);
-        final Asset asset = getBaseDao().getAsset(mIbcGrpc.get(position).denom);
-
-        if (asset != null) {
-            WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
-            WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
-            holder.itemPath.setText(assetDpPath(asset.path));
-
-            holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
-            valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-
-            holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
-
-//            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
-//                    intent.putExtra("denom", asset.denom);
-//                    startActivity(intent);
-//                }
-//            });
-        }
-    }
-
-    //with Erc gRPC
-    private void onBindErcToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
-        final Coin coin = mEtherGrpc.get(position);
-        final Asset asset = getBaseDao().getAsset(coin.denom);
-
-        if (asset != null) {
-            WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
-            WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
-            holder.itemPath.setText(assetDpPath(asset.path));
-
-            holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
-            valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
-
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), BridgeTokenGrpcActivity.class);
-                    intent.putExtra("denom", asset.denom);
-                    startActivity(intent);
-                }
-            });
-        }
-    }
-
-    //bind cw20 tokens with gRPC
-    private void onBindCw20GrpcToken(TokensAdapter.AssetHolder holder, int position) {
-        final Cw20Asset asset = mErc20Grpc.get(position);
-        Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-        holder.itemSymbol.setText(asset.denom.toUpperCase());
-        holder.itemPath.setText(asset.contract_address);
-
-        holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.denom));
-        valueChangeStatus(getActivity(), getBaseDao(), asset.denom, holder.itemUpDown);
-
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
-    }
-
-    //with native tokens
-    private void onBindNativeItem(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
-        final Balance balance = mNative.get(position);
-        BigDecimal totalAmount = BigDecimal.ZERO;
-
-        WDp.setDpSymbolImg(getBaseDao(), chainConfig, balance.symbol, holder.itemImg);
-        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, balance.symbol, holder.itemSymbol);
-        holder.itemPerPrice.setText(chainConfig.coinFullName(balance.symbol));
-        holder.itemPath.setText("(" + balance.symbol + ")");
-        holder.itemPerPrice.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGray1));
-
-        if (mBaseChain.equals(BNB_MAIN))
-            totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
-        else totalAmount = getBaseDao().getAllExToken(balance.symbol);
-
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
-
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    //with Etc tokens (binance, okex)
-    private void onBindEtcToken(TokensAdapter.AssetHolder holder, ChainConfig chainConfig, int position) {
-        final Balance balance = mEtc.get(position);
-        BigDecimal totalAmount = BigDecimal.ZERO;
-        BigDecimal convertAmount = BigDecimal.ZERO;
-
-        WDp.setDpSymbolImg(getBaseDao(), chainConfig, balance.symbol, holder.itemImg);
-        WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, balance.symbol, holder.itemSymbol);
-        holder.itemPath.setText("(" + balance.symbol + ")");
-
-        if (mBaseChain.equals(BNB_MAIN)) {
-            holder.itemPerPrice.setText(getBaseDao().getBnbToken(balance.symbol).name);
-            totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
-            convertAmount = WDp.getBnbConvertAmount(getBaseDao(), balance.symbol, totalAmount);
-
-        } else {
-            holder.itemPerPrice.setText(getBaseDao().okToken(balance.symbol).description);
-            totalAmount = getBaseDao().getAllExToken(balance.symbol);
-            convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
-        }
-        holder.itemPerPrice.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGray1));
-
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
-
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                intent.putExtra("denom", balance.symbol);
-                startActivity(intent);
-            }
-        });
-
     }
 
     private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
@@ -583,9 +601,12 @@ public class MainTokensFragment extends BaseFragment {
             changeTxt.setText(lastUpDown + "%");
             changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
 
-        } else {
+        } else if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
             changeTxt.setText("+" + lastUpDown + "%");
             changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
+
+        } else {
+            changeTxt.setText("");
         }
     }
 
@@ -602,6 +623,14 @@ public class MainTokensFragment extends BaseFragment {
 
     public MainActivity getMainActivity() { return (MainActivity) getBaseActivity(); }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SECITON_CONTRACT_EDIT && resultCode == Activity.RESULT_OK) {
+            onUpdateInfo();
+            getMainActivity().onFetchAllData();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     // Section Header
     public class RecyclerViewHeader extends RecyclerView.ItemDecoration {
@@ -611,6 +640,7 @@ public class MainTokensFragment extends BaseFragment {
         private final SectionCallback sectionCallback;
 
         private View headerView;
+        private CardView mRoot;
         private TextView mHeaderTitle;
         private TextView mItemCnt;
 
@@ -632,6 +662,7 @@ public class MainTokensFragment extends BaseFragment {
 
             if (headerView == null) {
                 headerView = inflateHeaderView(parent);
+                mRoot = (CardView) headerView.findViewById(R.id.root);
                 mHeaderTitle = (TextView) headerView.findViewById(R.id.header_title);
                 mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
                 fixLayoutSize(headerView, parent);
@@ -649,23 +680,31 @@ public class MainTokensFragment extends BaseFragment {
                 mSection = parent.getAdapter().getItemViewType(position);
                 if (isGRPC(mBaseChain)) {
                     if (mSection == SECTION_NATIVE_GRPC) {
+                        mRoot.setVisibility(View.VISIBLE);
                         title = sectionCallback.getSectionGrpcHeader(mBaseChain, mNativeGrpc, mSection);
                         mItemCnt.setText("" + mNativeGrpc.size());
                     } else if (mSection == SECTION_IBC_GRPC) {
+                        mRoot.setVisibility(View.VISIBLE);
                         title = sectionCallback.getSectionGrpcHeader(mBaseChain, mIbcGrpc, mSection);
                         mItemCnt.setText("" + mIbcGrpc.size());
                     }
 
                     // ether bridge token
                     else if (mSection == SECTION_ETHER_GRPC) {
+                        mRoot.setVisibility(View.VISIBLE);
                         title = sectionCallback.getSectionGrpcHeader(mBaseChain, mEtherGrpc, mSection);
                         mItemCnt.setText("" + mEtherGrpc.size());
                     }
 
                     // cw20 token
                     else if (mSection == SECTION_ERC20_GRPC) {
+                        mRoot.setVisibility(View.VISIBLE);
                         title = sectionCallback.getSectionCw20Header(mBaseChain, mErc20Grpc, mSection);
                         mItemCnt.setText("" + mErc20Grpc.size());
+                    }
+
+                    else if (mSection == SECITON_CONTRACT_EDIT) {
+                        mRoot.setVisibility(View.GONE);
                     }
 
                 } else {

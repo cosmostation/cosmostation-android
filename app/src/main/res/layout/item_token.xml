@@ -64,7 +64,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
                             android:ellipsize="middle"
-                            android:maxWidth="@dimen/space_140"
+                            android:maxWidth="@dimen/space_180"
                             android:singleLine="true" />
                     </LinearLayout>
 

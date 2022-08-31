@@ -5,10 +5,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -112,6 +110,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -669,6 +668,19 @@ public class WUtil {
                 if (o1.denom.equals(chainConfig.mainDenom())) return -1;
                 if (o2.denom.equals(chainConfig.mainDenom())) return 1;
                 else return 0;
+            }
+        });
+    }
+
+    public static void onSortingContract(ArrayList<Cw20Asset> denom) {
+        Collections.sort(denom, new Comparator<Cw20Asset>() {
+            @Override
+            public int compare(Cw20Asset o1, Cw20Asset o2) {
+                if (o1.denom.equalsIgnoreCase("NETA")) return -1;
+                if (o2.denom.equalsIgnoreCase("NETA")) return 1;
+                if (o1.denom.equalsIgnoreCase("MARBLE")) return -1;
+                if (o2.denom.equalsIgnoreCase("MARBLE")) return 1;
+                return 0;
             }
         });
     }

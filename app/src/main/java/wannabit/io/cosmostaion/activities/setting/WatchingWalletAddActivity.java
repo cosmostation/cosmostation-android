@@ -27,7 +27,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
+import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
@@ -93,7 +93,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
                 } else {
                     Bundle bundle = new Bundle();
                     bundle.putString("watchAddress", mUserInput);
-                    SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
+                    SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
                     dialog.setCancelable(true);
                     dialog.show(getSupportFragmentManager(), "dialog");
                     dialog.setSelectChainsDialogResult(result -> {

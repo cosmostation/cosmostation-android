@@ -88,7 +88,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.StationNFTData;
-import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
+import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -267,7 +267,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         if (v.equals(mBtnSelectFeeCoin)) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("feeDatas", mFeeInfo.get(mSelectedFeeInfo).feeDatas);
-            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_FEE_DENOM);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 

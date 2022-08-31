@@ -1263,7 +1263,7 @@
     <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
     <string name="str_kava_bep2_token_title">BEP2 Coins</string>
     <string name="str_etc_token_title">Etc Coins</string>
-    <string name="str_cw20_token_title">CW20 Tokens</string>
+    <string name="str_cw20_token_title">Contract Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
     <string name="str_ibc_info_title">IBC information</string>
@@ -1459,6 +1459,8 @@
     <string name="str_authz_reward_step_0">받을 이자 정보 확인하세요</string>
     <string name="str_authz_commission_title">Authz 커미션 받기</string>
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
+
+    <string name="str_select_contract_token">표시할 토큰을 선택하세요</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
