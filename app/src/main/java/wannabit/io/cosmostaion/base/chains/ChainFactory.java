@@ -157,6 +157,9 @@ public class ChainFactory {
                 case IOV_MAIN:
                     return new Starname();
 
+                case IXO_MAIN:
+                    return new Ixo();
+
                 case UMEE_MAIN:
                     return new Umee();
 
