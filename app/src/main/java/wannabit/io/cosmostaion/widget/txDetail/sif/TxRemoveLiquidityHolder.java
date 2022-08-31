@@ -42,9 +42,9 @@ public class TxRemoveLiquidityHolder extends TxHolder {
             ArrayList<Coin> coins = new ArrayList<>();
             if (response.getTxResponse().getLogsCount() > position) {
                 for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
-                    if (event.getType().equals("transfer")) {
+                    if ("transfer".equals(event.getType())) {
                         for (int i = 0; i < event.getAttributesList().size(); i++) {
-                            if (event.getAttributes(i).getKey().equalsIgnoreCase("amount")) {
+                            if ("amount".equalsIgnoreCase(event.getAttributes(i).getKey())) {
                                 String rawValue = event.getAttributes(i).getValue();
                                 for (String rawCoin : rawValue.split(",")) {
                                     Pattern p = Pattern.compile("([0-9])+");

@@ -114,7 +114,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
         if (mSwapPoolList != null && mSwapParams != null) {
             for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
-                if (pool.getCoins(0).getDenom().equalsIgnoreCase("ukava") && pool.getCoins(1).getDenom().equalsIgnoreCase("usdx")) {
+                if ("ukava".equalsIgnoreCase(pool.getCoins(0).getDenom()) && "usdx".equalsIgnoreCase(pool.getCoins(1).getDenom())) {
                     mSelectedPool = pool;
                     mInputCoinDenom = "ukava";
                     mOutputCoinDenom = "usdx";
