@@ -1,35 +1,8 @@
 package wannabit.io.cosmostaion.utils;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.ASSET_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
+import static wannabit.io.cosmostaion.base.BaseChain.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 import static wannabit.io.cosmostaion.utils.WUtil.getBnbTicSymbol;
 import static wannabit.io.cosmostaion.utils.WUtil.isBnbBaseMarketToken;
 
@@ -236,11 +209,11 @@ public class WDp {
             else return 18;
 
         } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            if (denom.equalsIgnoreCase("btc")) return 8;
-            else if (denom.equalsIgnoreCase("bnb")) return 8;
-            else if (denom.equalsIgnoreCase("btcb") || denom.equalsIgnoreCase("hbtc")) return 8;
-            else if (denom.equalsIgnoreCase("busd")) return 8;
-            else if (denom.equalsIgnoreCase("xrpb") || denom.equalsIgnoreCase("xrbp")) return 8;
+            if ("btc".equalsIgnoreCase(denom)) return 8;
+            else if ("bnb".equalsIgnoreCase(denom)) return 8;
+            else if ("btcb".equalsIgnoreCase(denom) || "hbtc".equalsIgnoreCase(denom)) return 8;
+            else if ("busd".equalsIgnoreCase(denom)) return 8;
+            else if ("xrpb".equalsIgnoreCase(denom) || "xrbp".equalsIgnoreCase(denom)) return 8;
             else return 6;
 
         } else if (chainConfig.baseChain().equals(INJ_MAIN)) {

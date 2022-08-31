@@ -46,7 +46,7 @@ public class HardMyStatusHolder extends BaseHolder {
                 BigDecimal LTV          = WUtil.getLTV(hardParams, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue     = BigDecimal.ZERO;
-                if (coin.getDenom().equalsIgnoreCase("usdx") || coin.getDenom().equalsIgnoreCase("busd")) {
+                if ("usdx".equalsIgnoreCase(coin.getDenom()) || "busd".equalsIgnoreCase(coin.getDenom())) {
                     depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(decimal);
                 } else {
                     depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParams, coin.getDenom())));
@@ -65,7 +65,7 @@ public class HardMyStatusHolder extends BaseHolder {
             for (CoinOuterClass.Coin coin: myBorrow.get(0).getAmountList()) {
                 int decimal = WDp.getDenomDecimal(baseData, chainConfig, coin.getDenom());
                 BigDecimal value = BigDecimal.ZERO;
-                if (coin.getDenom().equalsIgnoreCase("usdx") || coin.getDenom().equalsIgnoreCase("busd")) {
+                if ("usdx".equalsIgnoreCase(coin.getDenom()) || "busd".equalsIgnoreCase(coin.getDenom())) {
                     value = (new BigDecimal(coin.getAmount())).movePointLeft(decimal);
                 } else {
                     value = (new BigDecimal(coin.getAmount())).movePointLeft(decimal).multiply(baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParams, coin.getDenom())));

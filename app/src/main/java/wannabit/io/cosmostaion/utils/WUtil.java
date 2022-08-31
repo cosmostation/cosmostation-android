@@ -1,42 +1,7 @@
 package wannabit.io.cosmostaion.utils;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_XRPB_DEPUTY;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
+import static wannabit.io.cosmostaion.base.BaseChain.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 import android.content.Context;
 import android.content.Intent;
@@ -351,8 +316,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.description.moniker)) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.description.moniker)) return 1;
                 return o1.description.moniker.compareTo(o2.description.moniker);
             }
         });
@@ -370,8 +335,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
             public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.getDescription().getMoniker())) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.getDescription().getMoniker())) return 1;
                 return o1.getDescription().getMoniker().compareTo(o2.getDescription().getMoniker());
             }
         });
@@ -389,8 +354,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.description.moniker)) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.description.moniker)) return 1;
 
                 if (Double.parseDouble(o1.tokens) > Double.parseDouble(o2.tokens)) return -1;
                 else if (Double.parseDouble(o1.tokens) < Double.parseDouble(o2.tokens)) return 1;
@@ -411,8 +376,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
             public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.getDescription().getMoniker())) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.getDescription().getMoniker())) return 1;
 
                 if (Double.parseDouble(o1.getTokens()) > Double.parseDouble(o2.getTokens()))
                     return -1;
@@ -435,8 +400,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.description.moniker)) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.description.moniker)) return 1;
 
                 if (Double.parseDouble(o1.delegator_shares) > Double.parseDouble(o2.delegator_shares))
                     return -1;
@@ -460,8 +425,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.description.moniker)) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.description.moniker)) return 1;
                 BigDecimal bondingO1 = dao.delegatedAmountByValidator(o1.operator_address);
                 BigDecimal bondingO2 = dao.delegatedAmountByValidator(o2.operator_address);
                 return bondingO2.compareTo(bondingO1);
@@ -482,8 +447,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
             public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.getDescription().getMoniker())) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.getDescription().getMoniker())) return 1;
                 BigDecimal bondingO1 = dao.getDelegation(o1.getOperatorAddress());
                 BigDecimal bondingO2 = dao.getDelegation(o2.getOperatorAddress());
                 return bondingO2.compareTo(bondingO1);
@@ -503,8 +468,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.description.moniker)) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.description.moniker)) return 1;
 
                 BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
                 BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
@@ -525,8 +490,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
             public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.getDescription().getMoniker())) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.getDescription().getMoniker())) return 1;
                 BigDecimal rewardO1 = dao.getReward(denom, o1.getOperatorAddress());
                 BigDecimal rewardO2 = dao.getReward(denom, o2.getOperatorAddress());
                 return rewardO2.compareTo(rewardO1);
@@ -584,8 +549,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                if (o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.description.moniker)) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.description.moniker)) return 1;
                 if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate))
                     return 1;
                 else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate))
@@ -607,8 +572,8 @@ public class WUtil {
         Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
             public int compare(Staking.Validator o1, Staking.Validator o2) {
-                if (o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
-                if (o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+                if ("Cosmostation".equalsIgnoreCase(o1.getDescription().getMoniker())) return -1;
+                if ("Cosmostation".equalsIgnoreCase(o2.getDescription().getMoniker())) return 1;
                 if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) > Float.parseFloat(o2.getCommission().getCommissionRates().getRate()))
                     return 1;
                 else if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) < Float.parseFloat(o2.getCommission().getCommissionRates().getRate()))
@@ -657,8 +622,8 @@ public class WUtil {
                     if (o2.symbol.equals(Kava.KAVA_HARD_DENOM)) return 1;
 
                 } else if (chain.equals(OKEX_MAIN)) {
-                    if (o1.symbol.equals("okb-c4d")) return -1;
-                    if (o2.symbol.equals("okb-c4d")) return 1;
+                    if ("okb-c4d".equals(o1.symbol)) return -1;
+                    if ("okb-c4d".equals(o2.symbol)) return 1;
                 }
                 return o1.symbol.compareTo(o2.symbol);
             }
@@ -1264,7 +1229,7 @@ public class WUtil {
 
     public static BigDecimal getKavaPrice(BaseData baseData, String denom) {
         BigDecimal result = BigDecimal.ZERO;
-        if (denom.equals("usdx")) {
+        if ("usdx".equals(denom)) {
             result = BigDecimal.ONE;
         } else {
             Hard.Params hardParam = baseData.mHardParams;
@@ -1331,7 +1296,7 @@ public class WUtil {
                 BigDecimal LTV = WUtil.getLTV(hardParam, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue = BigDecimal.ZERO;
-                if (coin.getDenom().equalsIgnoreCase("usdx")) {
+                if ("usdx".equalsIgnoreCase(coin.getDenom())) {
                     depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
 
                 } else {
@@ -1348,7 +1313,7 @@ public class WUtil {
             for (CoinOuterClass.Coin coin : myBorrow.get(0).getAmountList()) {
                 int innnerDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), coin.getDenom());
                 BigDecimal borrowedValue = BigDecimal.ZERO;
-                if (coin.getDenom().equalsIgnoreCase("usdx")) {
+                if ("usdx".equalsIgnoreCase(coin.getDenom())) {
                     borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
 
                 } else {
@@ -1409,7 +1374,7 @@ public class WUtil {
                 BigDecimal LTV = WUtil.getLTV(hardParam, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue = BigDecimal.ZERO;
-                if (coin.getDenom().equalsIgnoreCase("usdx")) {
+                if ("usdx".equalsIgnoreCase(coin.getDenom())) {
                     depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
 
                 } else {
@@ -1427,7 +1392,7 @@ public class WUtil {
             for (CoinOuterClass.Coin coin : myBorrow.get(0).getAmountList()) {
                 int innnerDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), coin.getDenom());
                 BigDecimal borrowedValue = BigDecimal.ZERO;
-                if (coin.getDenom().equals("usdx")) {
+                if ("usdx".equals(coin.getDenom())) {
                     borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
 
                 } else {

@@ -176,7 +176,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             return;
         }
         for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
-            if (validator.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) {
+            if ("Cosmostation".equalsIgnoreCase(validator.getDescription().getMoniker())) {
                 cosmostation = validator.getOperatorAddress();
             }
         }
