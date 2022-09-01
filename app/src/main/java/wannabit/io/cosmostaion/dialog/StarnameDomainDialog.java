@@ -25,7 +25,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class StarnameDomainDialog extends DialogFragment {
 
-    private ConstraintLayout mDialogLayout;
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private DomainListAdapter mDomainListAdapter;
@@ -46,21 +45,20 @@ public class StarnameDomainDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
-        mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mRecyclerView = view.findViewById(R.id.recycler);
         mStarnameDomain = getArguments().getStringArrayList("domain");
 
-        mDialogLayout.setBackgroundResource(R.drawable.layout_trans_with_border);
         mDialogTitle.setText(R.string.str_select_starname_domain);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mDomainListAdapter = new DomainListAdapter();
         mRecyclerView.setAdapter(mDomainListAdapter);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
+        setCancelable(true);
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
+        return dialog;
     }
 
     private class DomainListAdapter extends RecyclerView.Adapter<DomainListAdapter.DomainListHolder> {
@@ -79,14 +77,11 @@ public class StarnameDomainDialog extends DialogFragment {
         private void onBindDomainItemViewHolder(DomainListHolder holder, int position) {
             final String domain = mStarnameDomain.get(position);
             holder.domainName.setText(domain);
-            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("position", position);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
-                }
+            holder.rootLayer.setOnClickListener(v -> {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("position", position);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
             });
         }
 

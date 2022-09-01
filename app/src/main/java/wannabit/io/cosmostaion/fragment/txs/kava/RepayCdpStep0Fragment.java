@@ -62,7 +62,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
     private BigDecimal mCurrentTotalDebetAmount, mCurrentCollateralAmount;
     private BigDecimal pMinAmount, pMaxAmount, pAllAmount, pAvailableAmount;
     private BigDecimal mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mRemainLoanAmount, mToPaymentAmount;
-    
+
     private String mPrincipalChecker, mPrincipalSetter;
     private int mCDecimal, mPDecimal;
 
@@ -314,9 +314,8 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                 bundle.putString("denom", cDenom);
                 SafeScoreConfirmDialog dialog = SafeScoreConfirmDialog.newInstance(bundle);
-                dialog.setCancelable(true);
                 dialog.setTargetFragment(this, CDP_REPAY_CONFIRM_DIALOG);
-                dialog.show(getFragmentManager().beginTransaction(), "dialog");
+                getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }

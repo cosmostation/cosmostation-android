@@ -72,7 +72,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     }
 
     private RegisterStarNameAccountActivity getSActivity() {
-        return (RegisterStarNameAccountActivity)getBaseActivity();
+        return (RegisterStarNameAccountActivity) getBaseActivity();
     }
 
     @Override
@@ -81,11 +81,11 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
             StarnameDomainDialog dialog = StarnameDomainDialog.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_STARNAME_DOMAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
-        } if (v.equals(mCancelBtn)) {
+        }
+        if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -123,24 +123,18 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
             @Override
             public void onNext(QueryOuterClass.QueryStarnameResponse value) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getSActivity().onHideWaitDialog();
-                        Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
-                    }
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    getSActivity().onHideWaitDialog();
+                    Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
                 }, 500);
 
             }
 
             @Override
             public void onError(Throwable t) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getSActivity().onHideWaitDialog();
-                        onNextStep();
-                    }
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    getSActivity().onHideWaitDialog();
+                    onNextStep();
                 }, 500);
             }
 

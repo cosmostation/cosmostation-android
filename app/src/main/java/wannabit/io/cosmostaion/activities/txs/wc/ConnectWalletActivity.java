@@ -592,9 +592,8 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chainId);
-        Dialog_Wc_Account mDialogWcAccount = Dialog_Wc_Account.newInstance(bundle);
-        mDialogWcAccount.setCancelable(true);
-        mDialogWcAccount.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
+        Dialog_Wc_Account wcAccountDialog = Dialog_Wc_Account.newInstance(bundle);
+        wcAccountDialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
             @Override
             public void onSelect(Long id, Account account) {
                 chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
@@ -613,7 +612,7 @@ public class ConnectWalletActivity extends BaseActivity {
                 moveToBackIfNeed();
             }
         });
-        getSupportFragmentManager().beginTransaction().add(mDialogWcAccount, "dialog").commitNowAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().add(wcAccountDialog, "dialog").commitNowAllowingStateLoss();
     }
 
     private void onShowAccountDialog(Long id, List<String> chains, List<Account> selectedAccounts, int index) {
@@ -642,9 +641,8 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chains.get(index));
-        Dialog_Wc_Account mDialogWcAccount = Dialog_Wc_Account.newInstance(bundle);
-        mDialogWcAccount.setCancelable(true);
-        mDialogWcAccount.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
+        Dialog_Wc_Account wcAccountDialog = Dialog_Wc_Account.newInstance(bundle);
+        wcAccountDialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
             @Override
             public void onSelect(Long id, Account account) {
                 chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
@@ -662,7 +660,7 @@ public class ConnectWalletActivity extends BaseActivity {
                 onShowAccountDialog(id, chains, selectedAccounts, index + 1);
             }
         });
-        getSupportFragmentManager().beginTransaction().add(mDialogWcAccount, "dialog" + index).commitNowAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().add(wcAccountDialog, "dialog" + index).commitNowAllowingStateLoss();
     }
 
 
@@ -727,7 +725,6 @@ public class ConnectWalletActivity extends BaseActivity {
                 rejectSignRequest(id);
             }
         });
-        dialog.setCancelable(false);
         getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
     }
 

@@ -256,7 +256,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             CurrencySetDialog currency_dialog = CurrencySetDialog.newInstance(null);
             currency_dialog.setCancelable(true);
             currency_dialog.setTargetFragment(this, SELECT_CURRENCY);
-            getFragmentManager().beginTransaction().add(currency_dialog, "dialog").commitNowAllowingStateLoss();
+            getActivity().getSupportFragmentManager().beginTransaction().add(currency_dialog, "dialog").commitNowAllowingStateLoss();
             return;
 
         } else if (v.equals(mBtnExplore)) {

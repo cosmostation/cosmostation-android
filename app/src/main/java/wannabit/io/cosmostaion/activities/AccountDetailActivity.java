@@ -284,9 +284,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             bundle.putInt("title", R.string.str_change_account_nickname);
             bundle.putLong("id", mAccount.id);
             bundle.putString("name", mAccount.nickName);
-            ChangeNickNameDialog delete = ChangeNickNameDialog.newInstance(bundle);
-            delete.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+            ChangeNickNameDialog deleteDialog = ChangeNickNameDialog.newInstance(bundle);
+            getSupportFragmentManager().beginTransaction().add(deleteDialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnQr)) {
             onClickQrCopy(mChainConfig, mAccount);

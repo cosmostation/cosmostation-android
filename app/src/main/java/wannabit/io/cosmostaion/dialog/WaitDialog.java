@@ -21,19 +21,14 @@ public class WaitDialog extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        getDialog().getWindow().setDimAmount(0.2f);
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wait, null);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
+        setCancelable(true);
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
+        dialog.getWindow().setDimAmount(0.2f);
+        return dialog;
     }
 
 }

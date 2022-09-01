@@ -202,7 +202,8 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
                     bundle.putSerializable("resources", wrapper);
                     StarnameResourceDialog dialog = StarnameResourceDialog.newInstance(bundle);
                     dialog.setTargetFragment(ReplaceStarName0Fragment.this, SELECT_ADD_CHAIN);
-                    dialog.show(getFragmentManager(), "dialog");
+                    getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
                 }
             });
         }

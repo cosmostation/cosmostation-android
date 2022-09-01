@@ -180,17 +180,15 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
             Bundle bundle = new Bundle();
             bundle.putSerializable("chain", mIbcSendableRelayers);
             IBCReceiveChainDialog dialog = IBCReceiveChainDialog.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mToRelayer)) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("channel", mIbcSendablePaths);
             IBCRelayerChannelDialog dialog = IBCRelayerChannelDialog.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_RELAYER);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
         }
     }
 
@@ -252,8 +250,8 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
 
     public ArrayList<IbcPath> getIbcSendableRelayers() {
         ArrayList<IbcPath> result = new ArrayList<>();
-        for (IbcPath ibcPath: getBaseDao().mIbcPaths) {
-            for (IbcPath.Path path: ibcPath.paths) {
+        for (IbcPath ibcPath : getBaseDao().mIbcPaths) {
+            for (IbcPath.Path path : ibcPath.paths) {
                 if (path.auth != null && path.auth) {
                     result.add(ibcPath);
                 }
@@ -268,8 +266,8 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         ArrayList<IbcPath> result = new ArrayList<>();
         IbcToken ibcToken = getBaseDao().getIbcToken(denom.replaceAll("ibc/", ""));
         if (getBaseDao().mIbcPaths != null && getBaseDao().mIbcPaths.size() > 0) {
-            for (IbcPath ibcPath: getBaseDao().mIbcPaths) {
-                for (IbcPath.Path path: ibcPath.paths) {
+            for (IbcPath ibcPath : getBaseDao().mIbcPaths) {
+                for (IbcPath.Path path : ibcPath.paths) {
                     if (path.channel_id != null && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
                         result.add(ibcPath);
                     }
@@ -283,7 +281,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         ArrayList<IbcPath.Path> result = new ArrayList<>();
         IbcToken ibcToken = getBaseDao().getIbcToken(denom);
         if (paths != null && paths.size() > 0) {
-            for (IbcPath.Path path: paths) {
+            for (IbcPath.Path path : paths) {
                 if (path.auth != null && path.auth && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
                     result.add(path);
                 }

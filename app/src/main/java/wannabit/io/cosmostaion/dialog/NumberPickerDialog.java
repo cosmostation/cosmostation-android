@@ -2,11 +2,9 @@ package wannabit.io.cosmostaion.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
@@ -24,12 +22,6 @@ public class NumberPickerDialog extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_number_picker, null);
 
@@ -38,12 +30,7 @@ public class NumberPickerDialog extends DialogFragment {
 
         final NumberPicker numberPicker = view.findViewById(R.id.numberPicker);
 
-        btnCancel.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                getDialog().dismiss();
-            }
-        });
+        btnCancel.setOnClickListener(view12 -> getDialog().dismiss());
 
         btnConfirm.setOnClickListener(view1 -> {
             if (selectListener != null) {
@@ -57,9 +44,10 @@ public class NumberPickerDialog extends DialogFragment {
         numberPicker.setWrapSelectorWheel(false);
         numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
+        setCancelable(false);
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
+        return dialog;
     }
 
     public interface SelectListener {

@@ -201,7 +201,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                     bundle.putSerializable("resources", wrapper);
                     StarnameResourceDialog dialog = StarnameResourceDialog.newInstance(bundle);
                     dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_CHAIN);
-                    dialog.show(getFragmentManager(), "dialog");
+                    getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                 }
             });
         }

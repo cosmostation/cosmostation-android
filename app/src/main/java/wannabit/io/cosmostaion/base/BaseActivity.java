@@ -299,9 +299,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         Bundle bundle = new Bundle();
         bundle.putString("title", nickName);
         bundle.putString("address", address);
-        AccountShowDialog show = AccountShowDialog.newInstance(bundle);
-        show.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+        AccountShowDialog showDialog = AccountShowDialog.newInstance(bundle);
+        getSupportFragmentManager().beginTransaction().add(showDialog, "dialog").commitNowAllowingStateLoss();
     }
 
     public void onHideKeyboard() {

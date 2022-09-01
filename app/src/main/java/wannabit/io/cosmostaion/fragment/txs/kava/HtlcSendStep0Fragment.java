@@ -203,9 +203,8 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             Bundle bundle = new Bundle();
             bundle.putString("chainName", getSActivity().mBaseChain.getChain());
             HtlcSendCoinDialog dialog = HtlcSendCoinDialog.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_TO_SEND_COIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnCancel)) {
             getSActivity().onBeforeStep();

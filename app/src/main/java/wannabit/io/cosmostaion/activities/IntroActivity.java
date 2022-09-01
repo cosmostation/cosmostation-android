@@ -136,9 +136,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v.equals(mStart)) {
-            Dialog_AddAccount add = Dialog_AddAccount.newInstance(null);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            Dialog_AddAccount addDialog = Dialog_AddAccount.newInstance(null);
+            getSupportFragmentManager().beginTransaction().add(addDialog, "dialog").commitNowAllowingStateLoss();
         }
     }
 

@@ -103,40 +103,19 @@ public class CdpDetailInfoHolder extends BaseHolder {
 
         }
 
-        mInfoRiskHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("riskRate", mRiskRate.toPlainString());
-                bundle.putString("liquidationPrice", mLiquidationPrice.toPlainString());
-                bundle.putString("currentPrice", currentPrice.toPlainString());
-                bundle.putString("denom", cDenom);
-                SafeScoreStatusDialog dialog = SafeScoreStatusDialog.newInstance(bundle);
-                dialog.setCancelable(true);
-                context.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        mInfoRiskHelp.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("riskRate", mRiskRate.toPlainString());
+            bundle.putString("liquidationPrice", mLiquidationPrice.toPlainString());
+            bundle.putString("currentPrice", currentPrice.toPlainString());
+            bundle.putString("denom", cDenom);
+            SafeScoreStatusDialog dialog = SafeScoreStatusDialog.newInstance(bundle);
+            context.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
-            }
         });
-        mInfoCollateralRateHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_help_collateral_rate_t), context.getString(R.string.str_help_collateral_rate));
-            }
-        });
-        mStabilityFeeHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_help_stability_fee_t), context.getString(R.string.str_help_stability_fee));
-
-            }
-        });
-        mInfoLiquidationPenaltyHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onShowHelpPopup(context, context.getString(R.string.str_help_liquidation_penalty_t), context.getString(R.string.str_help_liquidation_penalty));
-
-            }
-        });
+        mInfoCollateralRateHelp.setOnClickListener(v -> onShowHelpPopup(context, context.getString(R.string.str_help_collateral_rate_t), context.getString(R.string.str_help_collateral_rate)));
+        mStabilityFeeHelp.setOnClickListener(v -> onShowHelpPopup(context, context.getString(R.string.str_help_stability_fee_t), context.getString(R.string.str_help_stability_fee)));
+        mInfoLiquidationPenaltyHelp.setOnClickListener(v -> onShowHelpPopup(context, context.getString(R.string.str_help_liquidation_penalty_t), context.getString(R.string.str_help_liquidation_penalty)));
     }
 
     private void onShowHelpPopup(CdpDetailActivity context, String title, String msg) {

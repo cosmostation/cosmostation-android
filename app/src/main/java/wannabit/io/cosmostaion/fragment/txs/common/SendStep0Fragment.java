@@ -46,10 +46,10 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
-    private EditText        mAddressInput;
-    private Button          mCancel, mNextBtn;
-    private LinearLayout    mStarNameLayer;
-    private LinearLayout    mBtnQr, mBtnPaste, mBtnHistory;
+    private EditText mAddressInput;
+    private Button mCancel, mNextBtn;
+    private LinearLayout mStarNameLayer;
+    private LinearLayout mBtnQr, mBtnPaste, mBtnHistory;
 
     public static SendStep0Fragment newInstance(Bundle bundle) {
         SendStep0Fragment fragment = new SendStep0Fragment();
@@ -100,12 +100,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 if (alreadyOpen) {
                     mStarNameLayer.setVisibility(View.GONE);
                 } else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mStarNameLayer.setVisibility(View.VISIBLE);
-                        }
-                    },100);
+                    new Handler().postDelayed(() -> mStarNameLayer.setVisibility(View.VISIBLE), 100);
                 }
             }
         });
@@ -144,7 +139,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
                 if (TextUtils.isEmpty(userPaste)) {
@@ -166,7 +161,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private SendActivity getSActivity() {
-        return (SendActivity)getBaseActivity();
+        return (SendActivity) getBaseActivity();
     }
 
 
@@ -180,8 +175,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if(result != null) {
-                if(result.getContents() != null) {
+            if (result != null) {
+                if (result.getContents() != null) {
                     mAddressInput.setText(result.getContents().trim());
                     mAddressInput.setSelection(mAddressInput.getText().length());
                 }
@@ -197,44 +192,36 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
             @Override
             public void onNext(QueryOuterClass.QueryStarnameResponse value) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        final String matchAddress = WUtil.checkStarnameWithResource(chainConfig, value.getAccount().getResourcesList());
-                        if (TextUtils.isEmpty(matchAddress)) {
-                            Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        if (getSActivity().mAccount.address.equals(matchAddress)) {
-                            Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        Bundle bundle = new Bundle();
-                        bundle.putString("starname", userInput);
-                        bundle.putString("originAddress", matchAddress);
-                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
-                        dialog.setCancelable(true);
-                        dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                        getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    final String matchAddress = WUtil.checkStarnameWithResource(chainConfig, value.getAccount().getResourcesList());
+                    if (TextUtils.isEmpty(matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                        return;
                     }
+
+                    if (getSActivity().mAccount.address.equals(matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("starname", userInput);
+                    bundle.putString("originAddress", matchAddress);
+                    StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
+                    dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                    getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                 }, 0);
 
             }
 
             @Override
             public void onError(Throwable t) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show();
-                    }
-                }, 0);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show(), 0);
             }
 
             @Override
-            public void onCompleted() { }
+            public void onCompleted() {
+            }
         });
 
 

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.dialog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
@@ -33,12 +33,6 @@ public class Dialog_Wc_Trade extends DialogFragment {
         Dialog_Wc_Trade frag = new Dialog_Wc_Trade();
         frag.setArguments(bundle);
         return frag;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -105,23 +99,16 @@ public class Dialog_Wc_Trade extends DialogFragment {
 
         }
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
-            }
+        btn_negative.setOnClickListener(v -> getDialog().dismiss());
+
+        btn_positive.setOnClickListener(v -> {
+            ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
+            getDialog().dismiss();
         });
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
-                getDialog().dismiss();
-            }
-        });
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
+        setCancelable(true);
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
+        return dialog;
     }
 }

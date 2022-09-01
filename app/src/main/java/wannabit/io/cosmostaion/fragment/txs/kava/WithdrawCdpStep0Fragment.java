@@ -305,10 +305,8 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                     bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                     bundle.putString("denom", mCollateralDenom);
                     SafeScoreConfirmDialog dialog = SafeScoreConfirmDialog.newInstance(bundle);
-                    dialog.setCancelable(true);
                     dialog.setTargetFragment(this, CDP_WITHDRAW_CONFIRM_DIALOG);
-                    dialog.show(getFragmentManager().beginTransaction(), "dialog");
-
+                    getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                 }
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();

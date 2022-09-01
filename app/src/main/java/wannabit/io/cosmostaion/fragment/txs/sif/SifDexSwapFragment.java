@@ -158,7 +158,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
             bundle.putStringArrayList("denoms", mAllDenoms);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnOutputCoinList)) {
             mSwapableDenoms.clear();
@@ -172,7 +172,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnToggle)) {
             String temp = mInputCoinDenom;

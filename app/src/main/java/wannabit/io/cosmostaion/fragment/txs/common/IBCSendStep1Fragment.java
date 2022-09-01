@@ -48,21 +48,21 @@ import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickListener{
+public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickListener {
 
     public final static int SELECT_ACCOUNT = 9101;
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
-    private TextView        mDesitination;
-    private EditText        mAddressInput;
-    private Button          mCancel, mNextBtn;
-    private LinearLayout    mStarNameLayer;
-    private LinearLayout    mBtnQr, mBtnPaste, mBtnWallet;
+    private TextView mDesitination;
+    private EditText mAddressInput;
+    private Button mCancel, mNextBtn;
+    private LinearLayout mStarNameLayer;
+    private LinearLayout mBtnQr, mBtnPaste, mBtnWallet;
 
-    private BaseChain           mTochain;
-    private ArrayList<Account>  mToAccountList;
-    private Account             mToAccount;
-    private ChainConfig         mChainConfig;
+    private BaseChain mTochain;
+    private ArrayList<Account> mToAccountList;
+    private Account mToAccount;
+    private ChainConfig mChainConfig;
 
     public static IBCSendStep1Fragment newInstance(Bundle bundle) {
         IBCSendStep1Fragment fragment = new IBCSendStep1Fragment();
@@ -113,12 +113,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                 if (alreadyOpen) {
                     mStarNameLayer.setVisibility(View.GONE);
                 } else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mStarNameLayer.setVisibility(View.VISIBLE);
-                        }
-                    },100);
+                    new Handler().postDelayed(() -> mStarNameLayer.setVisibility(View.VISIBLE), 100);
                 }
             }
         });
@@ -137,7 +132,9 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onUpdateView() {
-        if (mToAccount == null) { getSActivity().onBeforeStep(); }
+        if (mToAccount == null) {
+            getSActivity().onBeforeStep();
+        }
         mAddressInput.setText(mToAccount.address);
     }
 
@@ -174,9 +171,8 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", mTochain.getChain());
                 IBCReceiveAccountsDialog dialog = IBCReceiveAccountsDialog.newInstance(bundle);
-                dialog.setCancelable(true);
                 dialog.setTargetFragment(this, SELECT_ACCOUNT);
-                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
             }
 
         } else if (v.equals(mBtnQr)) {
@@ -185,7 +181,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
             integrator.initiateScan();
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
                 if (TextUtils.isEmpty(userPaste)) {
@@ -202,13 +198,13 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private IBCSendActivity getSActivity() {
-        return (IBCSendActivity)getBaseActivity();
+        return (IBCSendActivity) getBaseActivity();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
-            mToAccount = mToAccountList.get(data.getIntExtra("position" , 0));
+            mToAccount = mToAccountList.get(data.getIntExtra("position", 0));
             onUpdateView();
 
         } else if (requestCode == SELECT_STAR_NAME_ADDRESS && resultCode == Activity.RESULT_OK) {
@@ -218,7 +214,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (result != null) {
-                if(result.getContents() != null) {
+                if (result.getContents() != null) {
                     mAddressInput.setText(result.getContents().trim());
                     mAddressInput.setSelection(mAddressInput.getText().length());
                 }
@@ -234,44 +230,36 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
             @Override
             public void onNext(QueryOuterClass.QueryStarnameResponse value) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        final String matchAddress = WUtil.checkStarnameWithResource(chainConfig, value.getAccount().getResourcesList());
-                        if (TextUtils.isEmpty(matchAddress)) {
-                            Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        if (getSActivity().mAccount.address.equals(matchAddress)) {
-                            Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        Bundle bundle = new Bundle();
-                        bundle.putString("starname", userInput);
-                        bundle.putString("originAddress", matchAddress);
-                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
-                        dialog.setCancelable(true);
-                        dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                        getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    final String matchAddress = WUtil.checkStarnameWithResource(chainConfig, value.getAccount().getResourcesList());
+                    if (TextUtils.isEmpty(matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                        return;
                     }
+
+                    if (getSActivity().mAccount.address.equals(matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("starname", userInput);
+                    bundle.putString("originAddress", matchAddress);
+                    StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
+                    dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                    getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                 }, 0);
 
             }
 
             @Override
             public void onError(Throwable t) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show();
-                    }
-                }, 0);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show(), 0);
             }
 
             @Override
-            public void onCompleted() { }
+            public void onCompleted() {
+            }
         });
     }
 }
