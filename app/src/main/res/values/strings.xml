@@ -207,7 +207,7 @@
     <string name="str_connect">Connect</string>
     <string name="str_wait">Wait</string>
     <string name="str_recipient_address">Recipient Address</string>
-    <string name="str_starname_recipient_address">StarName or Recipient Address</string>
+    <string name="str_starname_recipient_address">insert *starname or recipient address</string>
     <string name="str_recipient_chain">Recipient Chain</string>
     <string name="str_claim_address">Claim Address</string>
     <string name="str_done">Done</string>
@@ -1001,6 +1001,7 @@
     <string name="str_bep3_bnb_cap_over">The total amount of BNB available for swap has reached its network capacity.\n\nThe maximum swap capacity is determined through Kava policies <![CDATA[&]]> governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\n\nhttps://t.me/kavalabs</string>
     <string name="str_bep3_bnb_cap">Current remaining swap capacity is %1$s\n\nThe maximum swap capacity is determined through Kava policies <![CDATA[&]]> governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\nhttps://t.me/kavalabs</string>
     <string name="str_select_to_send_coin">Select To Send Coin Type</string>
+    <string name="str_select_to_send_chain">Select Recipient Chain</string>
 
 
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
@@ -1731,7 +1732,9 @@
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
 
     <string name="str_select_contract_token">Select token to Display</string>
-
+    <string name="str_ibc_transfer_title">IBC Transfer</string>
+    <string name="str_ibc_transfer_msg1">IBC transactions are NOT supported on centralized exchanges.</string>
+    <string name="str_ibc_transfer_msg2">Transfer your asset back to its origin chain by IBC before sending it to a centralized exchange.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

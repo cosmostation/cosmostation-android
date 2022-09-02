@@ -43,10 +43,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
-    public static SendStep1Fragment newInstance(Bundle bundle) {
-        SendStep1Fragment fragment = new SendStep1Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SendStep1Fragment newInstance() {
+        return new SendStep1Fragment();
     }
 
     @Override
@@ -87,7 +85,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null) {
             getSActivity().onBackPressed();
         }
-
         final String mainDenom = getSActivity().mChainConfig.mainDenom();
         final String toSendDenom = getSActivity().mDenom;
 

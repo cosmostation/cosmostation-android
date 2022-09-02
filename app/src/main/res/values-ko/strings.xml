@@ -737,6 +737,7 @@
     <string name="str_bep3_bnb_cap_over">현재 스왑 가능한 BNB가 모두 소진되었습니다.\n\nKava 정책에 따라 최대 스왑 가능 수량이 정해집니다.\n\n스왑 가능한 최대 수량에 관련된 문의는 아래 공식 Kava 커뮤니티 채널에 문의하세요.\n\nhttps://t.me/kavalabs</string>
     <string name="str_bep3_bnb_cap">현재 네트워크에 남은 스왑 가능 수량은 %1$s 입니다.\n\nKava 정책에 따라 최대 스왑 가능 수량이 정해집니다.\n\n스왑 가능한 최대 수량에 관련된 문의는 아래 공식 Kava 커뮤니티 채널에 문의하세요. \n\nhttps://t.me/kavalabs</string>
     <string name="str_select_to_send_coin">보낼 코인 종류를 선택하세요</string>
+    <string name="str_select_to_send_chain">전송할 체인을 골라주세요</string>
 
 
     <string name="str_create_cdp_step_1">USDX 발행을 위해 담보물을 설정하세요</string>
@@ -1461,7 +1462,9 @@
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
 
     <string name="str_select_contract_token">표시할 토큰을 선택하세요</string>
-
+    <string name="str_ibc_transfer_title">IBC 전송하기</string>
+    <string name="str_ibc_transfer_msg1">중앙화 거래소에서는 가상자산의 IBC 기능을 지원하지 않습니다.</string>
+    <string name="str_ibc_transfer_msg2">반드시 IBC를 통해 해당 자산을 원래 체인으로 전송한 후, 거래소로의 출금을 진행하세요.</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

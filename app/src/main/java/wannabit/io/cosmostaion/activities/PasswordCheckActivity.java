@@ -102,6 +102,7 @@ import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
@@ -262,8 +263,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private String mContractAddress;
 
-    private String mPortId;
-    private String mChannelId;
+    private Asset mAsset;
 
     private String mGranter;
 
@@ -375,9 +375,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         mContractAddress = getIntent().getStringExtra("contractAddress");
 
-        mPortId = getIntent().getStringExtra("portId");
-        mChannelId = getIntent().getStringExtra("channelId");
-
         if (getIntent().getByteArrayExtra("osmosisSwapRoute") != null) {
             try {
                 mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
@@ -385,6 +382,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 WLog.w("Passing bundle Error");
             }
         }
+
+        mAsset = getIntent().getParcelableExtra("asset");
 
         mGranter = getIntent().getStringExtra("granter");
 
@@ -592,7 +591,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_IBC_TRANSFER) {
             new IBCTransferGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mTargetAddress, mTargetCoins.get(0).denom, mTargetCoins.get(0).amount,
-                    mPortId, mChannelId, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mAsset, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_SIF_SWAP) {
             new SifSwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,

@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -17,6 +20,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -25,9 +29,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_IBC_TRANSFER;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class SimulIBCTransferGrpcTask extends CommonTask {
 
     private Account                 mAccount;
@@ -35,7 +36,7 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
     private String                  mSender;
     private String                  mReceiver;
     private String                  mTokenDenom, mTokenAmount;
-    private String                  mPortId, mChannelId;
+    private Asset                   mAsset;
     private Fee                     mFees;
     private String                  mChainId;
 
@@ -44,7 +45,7 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
     private ibc.core.channel.v1.QueryGrpc.QueryBlockingStub mStub;
 
     public SimulIBCTransferGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recevier, String tokenDenom, String tokenAmount,
-                                    String portId, String channelId, Fee fee, String chainId) {
+                                    Asset asset, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -52,8 +53,7 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
         this.mReceiver = recevier;
         this.mTokenDenom = tokenDenom;
         this.mTokenAmount = tokenAmount;
-        this.mPortId = portId;
-        this.mChannelId = channelId;;
+        this.mAsset = asset;
         this.mFees = fee;
         this.mChainId = chainId;
         this.mResult.taskType = TASK_GRPC_SIMULATE_IBC_TRANSFER;
@@ -63,7 +63,7 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest req = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mChannelId).setPortId(mPortId).build();
+            ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest req = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mAsset.channel).setPortId(mAsset.port).build();
             ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateResponse res = mStub.channelClientState(req);
             Tendermint.ClientState value = Tendermint.ClientState.parseFrom(res.getIdentifiedClientState().getClientState().getValue());
 
@@ -82,7 +82,7 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
             mAuthResponse = authStub.account(request);
 
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcIbcTransferSimulateReq(mAuthResponse, mSender, mReceiver, mTokenDenom, mTokenAmount, mPortId, mChannelId, value.getLatestHeight(), mFees, "", ecKey, mChainId);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcIbcTransferSimulateReq(mAuthResponse, mSender, mReceiver, mTokenDenom, mTokenAmount, mAsset, value.getLatestHeight(), mFees, "", ecKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;

@@ -28,6 +28,7 @@ import com.google.protobuf2.Any;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -1116,11 +1117,12 @@ public class BaseData {
     }
 
     public void setUserFavoTokens(String address, Set<String> contractSet) {
-        getSharedPreferences().edit().putStringSet(address + " " + PRE_USER_FAVO_TOKENS, contractSet).commit();
+        getSharedPreferences().edit().putString(address + " " + PRE_USER_FAVO_TOKENS, StringUtils.join(contractSet, ",")).commit();
     }
 
     public Set<String> getUserFavoTokens(String address) {
-        return getSharedPreferences().getStringSet(address + " " + PRE_USER_FAVO_TOKENS, Sets.newHashSet());
+        String contracts = getSharedPreferences().getString(address + " " + PRE_USER_FAVO_TOKENS, "");
+        return Sets.newHashSet(contracts.split(","));
     }
 
     public Password onSelectPassword() {
@@ -1192,6 +1194,17 @@ public class BaseData {
         ArrayList<Account> AllAccount = onSelectAccounts();
         for (Account account : AllAccount) {
             if (BaseChain.getChain(account.baseChain).equals(chain)) {
+                result.add(account);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Account> onSelectAccountsExceptSelfByChain(BaseChain chain, Account selfAccount) {
+        ArrayList<Account> result = new ArrayList<>();
+        ArrayList<Account> AllAccount = onSelectAccounts();
+        for (Account account : AllAccount) {
+            if (BaseChain.getChain(account.baseChain).equals(chain) && !account.address.equalsIgnoreCase(selfAccount.address)) {
                 result.add(account);
             }
         }

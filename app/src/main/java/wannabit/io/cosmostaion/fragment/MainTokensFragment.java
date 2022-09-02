@@ -437,7 +437,7 @@ public class MainTokensFragment extends BaseFragment {
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
                     SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(bundle);
-                    dialog.setCancelable(true);
+                    dialog.setCancelable(false);
                     dialog.setTargetFragment(MainTokensFragment.this, SECITON_CONTRACT_EDIT);
                     getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                 }
@@ -601,7 +601,7 @@ public class MainTokensFragment extends BaseFragment {
             changeTxt.setText(lastUpDown + "%");
             changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
 
-        } else if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
+        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             changeTxt.setText("+" + lastUpDown + "%");
             changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
 

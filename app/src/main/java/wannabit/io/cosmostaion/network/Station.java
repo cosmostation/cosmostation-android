@@ -40,8 +40,8 @@ public interface Station {
     @GET("v1/{chain}/proposals")
     Call<ArrayList<ResProposal>> getProposalList(@Path("chain") String chain);
 
-    @GET("v2/assets/{chain}")
-    Call<ResAssets> getAssets(@Path("chain") String chain);
+    @GET("v2/assets")
+    Call<ResAssets> getAssets();
 
     @GET("/v2/assets/{chain}/token/cw20")
     Call<ResCw20Assets> getCw20Assets(@Path("chain") String chain);

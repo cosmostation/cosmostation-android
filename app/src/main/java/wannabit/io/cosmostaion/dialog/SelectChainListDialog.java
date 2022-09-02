@@ -55,6 +55,7 @@ public class SelectChainListDialog extends DialogFragment {
     private ArrayList<FeeInfo.FeeData> mFeeDataList;
     private ArrayList<Coin> mSendCoinList;
     private String mWatchAddress = "";
+    private ArrayList<ChainConfig> mToSendableChainConfig;
 
     private Set<BaseChain> selectedSet = Sets.newHashSet();
 
@@ -76,6 +77,8 @@ public class SelectChainListDialog extends DialogFragment {
         mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable("feeDatas");
         mSendCoinList = (ArrayList<Coin>) getArguments().getSerializable("sendCoins");
         mWatchAddress = getArguments().getString("watchAddress");
+        mToSendableChainConfig = (ArrayList<ChainConfig>) getArguments().getSerializable("toSendCoins");
+
         mDialogLayout = view.findViewById(R.id.dialog_layout);
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mBtnLayer = view.findViewById(R.id.btn_layer);
@@ -91,6 +94,8 @@ public class SelectChainListDialog extends DialogFragment {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_fee_denom));
         } else if (getTargetRequestCode() == 8503) {
             mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_to_send_coin));
+        } else if (getTargetRequestCode() == 8504) {
+            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_to_send_chain));
         } else {
             mDialogTitle.setText(getSActivity().getString(R.string.str_select_chains));
             mBtnLayer.setVisibility(View.VISIBLE);
@@ -118,20 +123,25 @@ public class SelectChainListDialog extends DialogFragment {
         return builder.create();
     }
 
-    private class SwapChainListAdapter extends RecyclerView.Adapter<SwapChainListAdapter.SwapChainHolder> {
+    private class SwapChainListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_SWAP_LIST = 0;
         private static final int TYPE_FEE_LIST = 1;
         private static final int TYPE_SEND_COIN_LIST = 2;
         private static final int TYPE_WATCHING_ADDRESS_LIST = 3;
+        private static final int TYPE_SEND_CHAIN_LIST = 4;
 
         @NonNull
         @Override
-        public SwapChainListAdapter.SwapChainHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new SwapChainListAdapter.SwapChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_swap_coin, viewGroup, false));
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            if (viewType == TYPE_SEND_CHAIN_LIST) {
+                return new SendChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_receive_chian, viewGroup, false));
+            } else {
+                return new SwapChainHolder(getLayoutInflater().inflate(R.layout.item_dialog_swap_coin, viewGroup, false));
+            }
         }
 
         @Override
-        public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             if (getItemViewType(position) == TYPE_SWAP_LIST) {
                 onBindSwapListItemViewHolder(holder, position);
             } else if (getItemViewType(position) == TYPE_FEE_LIST) {
@@ -140,10 +150,13 @@ public class SelectChainListDialog extends DialogFragment {
                 onBindSendListItemViewHolder(holder, position);
             } else if (getItemViewType(position) == TYPE_WATCHING_ADDRESS_LIST) {
                 onBindSelectedChainListItemViewHolder(holder, position);
+            } else if (getItemViewType(position) == TYPE_SEND_CHAIN_LIST) {
+                onBindRecipientChainListItemViewHolder(holder, position);
             }
         }
 
-        private void onBindSwapListItemViewHolder(SwapChainHolder holder, int position) {
+        private void onBindSwapListItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+            final SwapChainHolder holder = (SwapChainHolder) viewHolder;
             final String inputCoin = mSwapCoinList.get(position);
             WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.coinImg);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.coinName);
@@ -159,7 +172,8 @@ public class SelectChainListDialog extends DialogFragment {
             });
         }
 
-        private void onBindFeeListItemViewHolder(SwapChainHolder holder, int position) {
+        private void onBindFeeListItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+            final SwapChainHolder holder = (SwapChainHolder) viewHolder;
             String denom = mFeeDataList.get(position).denom;
             WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinImg);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinName);
@@ -175,7 +189,8 @@ public class SelectChainListDialog extends DialogFragment {
             });
         }
 
-        private void onBindSendListItemViewHolder(SwapChainHolder holder, int position) {
+        private void onBindSendListItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+            final SwapChainHolder holder = (SwapChainHolder) viewHolder;
             String denom = mSendCoinList.get(position).denom;
             WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinImg);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinName);
@@ -191,7 +206,8 @@ public class SelectChainListDialog extends DialogFragment {
             });
         }
 
-        private void onBindSelectedChainListItemViewHolder(SwapChainHolder holder, int position) {
+        private void onBindSelectedChainListItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+            final SwapChainHolder holder = (SwapChainHolder) viewHolder;
             BaseChain baseChain = WDp.getChainsFromAddress(mWatchAddress).get(position);
             ChainConfig chainConfig = ChainFactory.getChain(baseChain);
             WDp.setDpSymbolImg(getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.coinImg);
@@ -227,12 +243,28 @@ public class SelectChainListDialog extends DialogFragment {
             }
         }
 
+        private void onBindRecipientChainListItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+            final SendChainHolder holder = (SendChainHolder) viewHolder;
+            final ChainConfig chainConfig = mToSendableChainConfig.get(position);
+            holder.itemChainImg.setImageResource(chainConfig.chainImg());
+            holder.itemChainName.setText(chainConfig.chainTitleToUp());
+            holder.itemChainName.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
+
+            holder.rootLayer.setOnClickListener(view -> {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("position", position);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
+            });
+        }
+
         @Override
         public int getItemCount() {
             if (getTargetRequestCode() == 8500 || getTargetRequestCode() == 8501)
                 return mSwapCoinList.size();
             else if (getTargetRequestCode() == 8502) return mFeeDataList.size();
             else if (getTargetRequestCode() == 8503) return mSendCoinList.size();
+            else if (getTargetRequestCode() == 8504) return mToSendableChainConfig.size();
             else return WDp.getChainsFromAddress(mWatchAddress).size();
         }
 
@@ -242,6 +274,7 @@ public class SelectChainListDialog extends DialogFragment {
                 return TYPE_SWAP_LIST;
             else if (getTargetRequestCode() == 8502) return TYPE_FEE_LIST;
             else if (getTargetRequestCode() == 8503) return TYPE_SEND_COIN_LIST;
+            else if (getTargetRequestCode() == 8504) return TYPE_SEND_CHAIN_LIST;
             else return TYPE_WATCHING_ADDRESS_LIST;
         }
 
@@ -257,6 +290,19 @@ public class SelectChainListDialog extends DialogFragment {
                 rootLayer = itemView.findViewById(R.id.rootLayer);
                 coinImg = itemView.findViewById(R.id.coinImg);
                 coinName = itemView.findViewById(R.id.coinName);
+            }
+        }
+
+        public class SendChainHolder extends RecyclerView.ViewHolder {
+            LinearLayout rootLayer;
+            ImageView itemChainImg;
+            TextView itemChainName;
+
+            public SendChainHolder(@NonNull View itemView) {
+                super(itemView);
+                rootLayer = itemView.findViewById(R.id.rootLayer);
+                itemChainImg = itemView.findViewById(R.id.chainImg);
+                itemChainName = itemView.findViewById(R.id.chainName);
             }
         }
     }

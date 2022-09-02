@@ -11,6 +11,7 @@ import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -62,6 +63,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Querier.LiquidityProviderRes mMyProvider;
 
     public IbcPath.Path                 mPath;
+    public Asset                        mAsset;
 
     // NFT
     public String                           mNftDenomId;

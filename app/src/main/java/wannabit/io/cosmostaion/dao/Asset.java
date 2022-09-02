@@ -1,8 +1,11 @@
 package wannabit.io.cosmostaion.dao;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Asset {
+public class Asset implements Parcelable {
     @SerializedName("chain")
     public String chain;
 
@@ -50,6 +53,60 @@ public class Asset {
 
     @SerializedName("contract")
     public String contract;
+
+    protected Asset(Parcel in) {
+        chain = in.readString();
+        denom = in.readString();
+        type = in.readString();
+        base_denom = in.readString();
+        base_type = in.readString();
+        dp_denom = in.readString();
+        origin_chain = in.readString();
+        decimal = in.readInt();
+        description = in.readString();
+        path = in.readString();
+        channel = in.readString();
+        port = in.readString();
+        image = in.readString();
+        coinGeckoId = in.readString();
+        contract = in.readString();
+    }
+
+    public static final Creator<Asset> CREATOR = new Creator<Asset>() {
+        @Override
+        public Asset createFromParcel(Parcel in) {
+            return new Asset(in);
+        }
+
+        @Override
+        public Asset[] newArray(int size) {
+            return new Asset[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(chain);
+        parcel.writeString(denom);
+        parcel.writeString(type);
+        parcel.writeString(base_denom);
+        parcel.writeString(base_type);
+        parcel.writeString(dp_denom);
+        parcel.writeString(origin_chain);
+        parcel.writeInt(decimal);
+        parcel.writeString(description);
+        parcel.writeString(path);
+        parcel.writeString(channel);
+        parcel.writeString(port);
+        parcel.writeString(image);
+        parcel.writeString(coinGeckoId);
+        parcel.writeString(contract);
+    }
 
 
     public class CounterParty {
