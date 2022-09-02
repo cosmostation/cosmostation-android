@@ -105,12 +105,7 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
         }
 
         if (mTaskCount == 0) {
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mAdapter.notifyDataSetChanged();
-                }
-            }, 300);
+            new Handler(Looper.getMainLooper()).postDelayed(() -> mAdapter.notifyDataSetChanged(), 300);
         }
     }
 

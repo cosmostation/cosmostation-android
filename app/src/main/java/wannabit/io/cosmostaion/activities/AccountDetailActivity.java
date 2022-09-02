@@ -335,12 +335,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
             tendermint.p2p.Types.NodeInfo nodeinfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (nodeinfo != null) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAccountChain.setText(nodeinfo.getNetwork());
-                    }
-                }, 100);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> mAccountChain.setText(nodeinfo.getNetwork()), 100);
 
             }
         }

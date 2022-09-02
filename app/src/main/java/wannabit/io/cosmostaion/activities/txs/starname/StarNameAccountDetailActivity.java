@@ -234,12 +234,9 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                     holder.itemStarName.setText(mAccountResolve_gRPC.getName().getValue() + "*" + mAccountResolve_gRPC.getDomain());
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mAccountResolve_gRPC.getValidUntil() * 1000));
                     holder.itemAddressCnt.setText("" + mAccountResolve_gRPC.getResourcesCount());
-                    holder.itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://starname.me/" + mAccountResolve_gRPC.getName().getValue() + "*" + mAccountResolve_gRPC.getDomain()));
-                            startActivity(guideIntent);
-                        }
+                    holder.itemBtnWebLink.setOnClickListener(v -> {
+                        Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://starname.me/" + mAccountResolve_gRPC.getName().getValue() + "*" + mAccountResolve_gRPC.getDomain()));
+                        startActivity(guideIntent);
                     });
                 }
 

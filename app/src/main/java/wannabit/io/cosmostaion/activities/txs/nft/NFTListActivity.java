@@ -87,24 +87,21 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
         mNFTListAdapter = new NFTListAdapter();
         mRecyclerView.setAdapter(mNFTListAdapter);
 
-        mBtnCreateNft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mAccount == null) return;
-                if (!mAccount.hasPrivateKey) {
-                    AlertDialogUtils.showDoubleButtonDialog(NFTListActivity.this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                            Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                            getString(R.string.str_close), null);
-                    return;
-                }
-                if (!WDp.isTxFeePayable(NFTListActivity.this, getBaseDao(), mChainConfig)) {
-                    Toast.makeText(NFTListActivity.this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Intent intent = new Intent(NFTListActivity.this, NFTCreateActivity.class);
-                startActivity(intent);
+        mBtnCreateNft.setOnClickListener(v -> {
+            if (mAccount == null) return;
+            if (!mAccount.hasPrivateKey) {
+                AlertDialogUtils.showDoubleButtonDialog(NFTListActivity.this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
+                        getString(R.string.str_close), null);
+                return;
             }
+            if (!WDp.isTxFeePayable(NFTListActivity.this, getBaseDao(), mChainConfig)) {
+                Toast.makeText(NFTListActivity.this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent intent = new Intent(NFTListActivity.this, NFTCreateActivity.class);
+            startActivity(intent);
         });
 
         onFetchNftListInfo();

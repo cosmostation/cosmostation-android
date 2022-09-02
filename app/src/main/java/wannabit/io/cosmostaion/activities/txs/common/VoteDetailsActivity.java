@@ -269,26 +269,18 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
             }
 
-            holder.itemWebBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onExplorerLink();
-                }
-            });
+            holder.itemWebBtn.setOnClickListener(v -> onExplorerLink());
 
-            holder.itemExpendBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (holder.itemMsg.getMaxLines() == 500) {
-                        holder.itemMsg.setMaxLines(3);
-                        holder.itemExpendBtn.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_down_gr));
+            holder.itemExpendBtn.setOnClickListener(v -> {
+                if (holder.itemMsg.getMaxLines() == 500) {
+                    holder.itemMsg.setMaxLines(3);
+                    holder.itemExpendBtn.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_down_gr));
 
-                    } else {
-                        holder.itemMsg.setMaxLines(500);
-                        holder.itemExpendBtn.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_up_gr));
-                    }
-                    mVoteDetailsAdapter.notifyDataSetChanged();
+                } else {
+                    holder.itemMsg.setMaxLines(500);
+                    holder.itemExpendBtn.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_up_gr));
                 }
+                mVoteDetailsAdapter.notifyDataSetChanged();
             });
 
         }

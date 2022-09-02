@@ -1035,12 +1035,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new StationPriceInfoTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             //callback with delay fix gRPC  timming issue
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mFetchCallback != null) {
-                        mFetchCallback.fetchFinished();
-                    }
+            mHandler.postDelayed(() -> {
+                if (mFetchCallback != null) {
+                    mFetchCallback.fetchFinished();
                 }
             }, 300);
         }
@@ -1117,21 +1114,18 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         query = query + "&walletAddress=" + mAccount.address + "&baseCurrencyCode=" + fiat;
         final String data = query;
 
-        new MoonPayTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess) {
-                    try {
-                        String en = URLEncoder.encode((String) result.resultData, "UTF-8");
-                        Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
-                        startActivity(guideIntent);
-                    } catch (Exception e) {
-                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
+        new MoonPayTask(getBaseApplication(), result -> {
+            if (result.isSuccess) {
+                try {
+                    String en = URLEncoder.encode((String) result.resultData, "UTF-8");
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
+                    startActivity(guideIntent);
+                } catch (Exception e) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
+
+            } else {
+                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
             }
         }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }

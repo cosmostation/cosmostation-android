@@ -111,12 +111,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
         });
         mViewPager.setCurrentItem(0);
 
-        mRootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onHideKeyboard();
-            }
-        });
+        mRootView.setOnClickListener(v -> onHideKeyboard());
         new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

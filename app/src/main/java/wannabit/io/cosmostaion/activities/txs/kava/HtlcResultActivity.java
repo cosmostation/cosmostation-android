@@ -355,14 +355,11 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             mStub.getTx(request, new StreamObserver<ServiceOuterClass.GetTxResponse>() {
                 @Override
                 public void onNext(ServiceOuterClass.GetTxResponse response) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (response != null && response.hasTxResponse()) {
-                                mResponse = response;
-                            }
-                            onUpdateSendView();
+                    runOnUiThread(() -> {
+                        if (response != null && response.hasTxResponse()) {
+                            mResponse = response;
                         }
+                        onUpdateSendView();
                     });
                 }
 
@@ -389,12 +386,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                         onUpdateView();
                     } else {
                         if (ClaimFetchCnt < 20) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ClaimFetchCnt++;
-                                    onFetchClaimTx(hash);
-                                }
+                            new Handler().postDelayed(() -> {
+                                ClaimFetchCnt++;
+                                onFetchClaimTx(hash);
                             }, 3000);
 
                         } else {
@@ -417,24 +411,18 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             mStub.getTx(request, new StreamObserver<ServiceOuterClass.GetTxResponse>() {
                 @Override
                 public void onNext(ServiceOuterClass.GetTxResponse response) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mResponse = response;
-                            onUpdateView();
-                        }
+                    runOnUiThread(() -> {
+                        mResponse = response;
+                        onUpdateView();
                     });
                 }
 
                 @Override
                 public void onError(Throwable t) {
                     if (ClaimFetchCnt < 15) {
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                ClaimFetchCnt++;
-                                onFetchClaimTx(hash);
-                            }
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            ClaimFetchCnt++;
+                            onFetchClaimTx(hash);
                         }, 3000);
                     }
                 }
@@ -497,12 +485,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     private void onHandleNotfound(String expectedSwapId) {
         if (SwapFetchCnt < 10) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    SwapFetchCnt++;
-                    onCheckSwapId(expectedSwapId);
-                }
+            new Handler().postDelayed(() -> {
+                SwapFetchCnt++;
+                onCheckSwapId(expectedSwapId);
             }, 6000);
         } else {
             onShowMoreSwapWait();

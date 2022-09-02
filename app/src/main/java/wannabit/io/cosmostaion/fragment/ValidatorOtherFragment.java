@@ -136,24 +136,14 @@ public class ValidatorOtherFragment extends BaseFragment {
                 } else {
                     holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
                 }
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress());
-                    }
-                });
+                holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress()));
 
             } else {
                 final Validator validator = getBaseDao().mOtherValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 holder.itemTvMoniker.setText(validator.description.moniker);
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getMainActivity().onStartValidatorDetail(validator);
-                    }
-                });
+                holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetail(validator));
                 try {
                     Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) { }

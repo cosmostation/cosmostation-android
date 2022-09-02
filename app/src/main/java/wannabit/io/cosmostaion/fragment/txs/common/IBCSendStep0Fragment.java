@@ -239,12 +239,9 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onForceBack() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getSActivity(), R.string.error_no_relayer_channel, Toast.LENGTH_SHORT).show();
-                getSActivity().onBeforeStep();
-            }
+        mHandler.postDelayed(() -> {
+            Toast.makeText(getSActivity(), R.string.error_no_relayer_channel, Toast.LENGTH_SHORT).show();
+            getSActivity().onBeforeStep();
         }, 610);
     }
 

@@ -60,39 +60,31 @@ public class WalletBinanceHolder extends BaseHolder {
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
-        mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mainActivity.mAccount.hasPrivateKey) {
-                    AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                            Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
-                            mainActivity.getString(R.string.str_close), null);
-                    return;
+        mBtnWalletConnect.setOnClickListener(v -> {
+            if (!mainActivity.mAccount.hasPrivateKey) {
+                AlertDialogUtils.showDoubleButtonDialog(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
+                        mainActivity.getString(R.string.str_close), null);
+                return;
+            }
+            new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    IntentIntegrator integrator = new IntentIntegrator(mainActivity);
+                    integrator.setOrientationLocked(true);
+                    integrator.initiateScan();
                 }
-                new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        IntentIntegrator integrator = new IntentIntegrator(mainActivity);
-                        integrator.setOrientationLocked(true);
-                        integrator.initiateScan();
-                    }
 
-                    @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                        Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .setRationaleMessage(mainActivity.getString(R.string.str_permission_qr))
-                        .check();
-            }
+                @Override
+                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
+                }
+            })
+                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .setRationaleMessage(mainActivity.getString(R.string.str_permission_qr))
+                    .check();
         });
-        mBtnBep3Send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.onStartHTLCSendActivity(TOKEN_HTLC_BINANCE_BNB);
-            }
-        });
+        mBtnBep3Send.setOnClickListener(v -> mainActivity.onStartHTLCSendActivity(TOKEN_HTLC_BINANCE_BNB));
     }
 }
 

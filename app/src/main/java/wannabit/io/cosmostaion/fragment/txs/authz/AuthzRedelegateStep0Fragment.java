@@ -197,12 +197,9 @@ public class AuthzRedelegateStep0Fragment extends BaseFragment implements View.O
     }
 
     private void onCheckRedelgateTo(String valOpAddress) {
-        new ReDelegationsToGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess && result.resultData != null) {
-                    mGrpcRedelegates = (List<Staking.RedelegationResponse>) result.resultData;
-                }
+        new ReDelegationsToGrpcTask(getBaseApplication(), result -> {
+            if (result.isSuccess && result.resultData != null) {
+                mGrpcRedelegates = (List<Staking.RedelegationResponse>) result.resultData;
             }
         }, getSActivity().mBaseChain, getSActivity().mGranter, valOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

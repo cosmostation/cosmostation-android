@@ -48,12 +48,9 @@ public class WalletSwitchActivity extends BaseActivity {
         mBtnClose = findViewById(R.id.btn_close);
         mChainRecyclerView = findViewById(R.id.account_recycler);
 
-        mBtnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setExpendChains();
-                finish();
-            }
+        mBtnClose.setOnClickListener(v -> {
+            setExpendChains();
+            finish();
         });
         mChainRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mChainRecyclerView.setHasFixedSize(true);
@@ -117,19 +114,16 @@ public class WalletSwitchActivity extends BaseActivity {
                 holder.hiddenView.setVisibility(View.VISIBLE);
             }
 
-            holder.accountSelect.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    data.opened = !data.opened;
-                    if (holder.hiddenView.getVisibility() == View.VISIBLE) {
-                        holder.hiddenView.setVisibility(View.GONE);
-                    } else {
-                        TransitionManager.beginDelayedTransition(holder.accountCard, new AutoTransition());
-                        holder.hiddenView.setVisibility(View.VISIBLE);
-                    }
-                    if (data.opened && data.accounts.size() > 0) {
-                        holder.hiddenView.setVisibility(View.VISIBLE);
-                    }
+            holder.accountSelect.setOnClickListener(view -> {
+                data.opened = !data.opened;
+                if (holder.hiddenView.getVisibility() == View.VISIBLE) {
+                    holder.hiddenView.setVisibility(View.GONE);
+                } else {
+                    TransitionManager.beginDelayedTransition(holder.accountCard, new AutoTransition());
+                    holder.hiddenView.setVisibility(View.VISIBLE);
+                }
+                if (data.opened && data.accounts.size() > 0) {
+                    holder.hiddenView.setVisibility(View.VISIBLE);
                 }
             });
 
@@ -168,15 +162,12 @@ public class WalletSwitchActivity extends BaseActivity {
                     accountName.setText(account.nickName);
                 }
 
-                accountCard.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (account.id.equals(mAccount.id)) {
-                           finish();
-                           return;
-                        }
-                        onChangeWallet(account.id);
+                accountCard.setOnClickListener(v -> {
+                    if (account.id.equals(mAccount.id)) {
+                       finish();
+                       return;
                     }
+                    onChangeWallet(account.id);
                 });
             }
         }

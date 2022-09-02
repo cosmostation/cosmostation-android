@@ -50,11 +50,6 @@ public class WalletKavaIncentiveHolder extends BaseHolder {
         mHardIncetive.setText(WDp.getDpAmount2(mainActivity, mHardIncetiveAmount, 6, 6));
         mSwpIncetive.setText(WDp.getDpAmount2(mainActivity, mSwpIncetiveAmount, 6, 6));
 
-        mBtnIncentive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.onClickIncentive();
-            }
-        });
+        mBtnIncentive.setOnClickListener(v -> mainActivity.onClickIncentive());
     }
 }

@@ -198,16 +198,13 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
                 statusMap.put(proposal.id, Sets.newHashSet());
             }
 
-            holder.card_proposal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mSelectedProposalIds.contains(String.valueOf(proposal.id))) {
-                        mSelectedProposalIds.remove(String.valueOf(proposal.id));
-                    } else {
-                        mSelectedProposalIds.add(String.valueOf(proposal.id));
-                    }
-                    mVoteListAdapter.notifyItemChanged(position);
+            holder.card_proposal.setOnClickListener(view -> {
+                if (mSelectedProposalIds.contains(String.valueOf(proposal.id))) {
+                    mSelectedProposalIds.remove(String.valueOf(proposal.id));
+                } else {
+                    mSelectedProposalIds.add(String.valueOf(proposal.id));
                 }
+                mVoteListAdapter.notifyItemChanged(position);
             });
 
             if (mSelectedProposalIds.contains(String.valueOf(proposal.id))) {

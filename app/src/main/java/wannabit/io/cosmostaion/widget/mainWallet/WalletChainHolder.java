@@ -101,19 +101,13 @@ public class WalletChainHolder extends BaseHolder {
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
-        mBtnStake.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                mainActivity.startActivity(validators);
-            }
+        mBtnStake.setOnClickListener(v -> {
+            Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
+            mainActivity.startActivity(validators);
         });
-        mBtnVote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
-                mainActivity.startActivity(proposals);
-            }
+        mBtnVote.setOnClickListener(v -> {
+            Intent proposals = new Intent(mainActivity, VoteListActivity.class);
+            mainActivity.startActivity(proposals);
         });
 
         if (chainConfig.dexSupport()) {

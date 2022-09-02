@@ -22,12 +22,9 @@ public class WalletDesmosAppHolder extends BaseHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
-        mBtnDownloadApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://dpm.desmos.network/"));
-                mainActivity.startActivity(intent);
-            }
+        mBtnDownloadApp.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://dpm.desmos.network/"));
+            mainActivity.startActivity(intent);
         });
     }
 }

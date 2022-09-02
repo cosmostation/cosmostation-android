@@ -171,14 +171,11 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
             Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.getUri())).fit().into(holder.itemChainImg);
             holder.itemChainName.setText(StarnameAssets.getStarNameChainName(resource.getUri()));
             holder.itemChainAddress.setText(resource.getResource());
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
-                    intent.putExtra("resource", resource.toByteArray());
-                    startActivityForResult(intent, SELECT_ADD_ADDRESS);
-                    getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-                }
+            holder.itemRoot.setOnClickListener(v -> {
+                Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
+                intent.putExtra("resource", resource.toByteArray());
+                startActivityForResult(intent, SELECT_ADD_ADDRESS);
+                getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             });
 
             if (mResources.size() <= 1) {
@@ -187,27 +184,21 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                 holder.itemBtnRemove.setVisibility(View.VISIBLE);
             }
 
-            holder.itemBtnRemove.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mResources.remove(position);
-                    mResourceAdapter.notifyDataSetChanged();
-                }
+            holder.itemBtnRemove.setOnClickListener(v -> {
+                mResources.remove(position);
+                mResourceAdapter.notifyDataSetChanged();
             });
         }
 
         private void onBindAddItemViewHolder(RecyclerView.ViewHolder viewHolder) {
             final ResourceAddHolder holder = (ResourceAddHolder) viewHolder;
-            holder.itemBtnAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
-                    bundle.putSerializable("resources", wrapper);
-                    StarnameResourceDialog dialog = StarnameResourceDialog.newInstance(bundle);
-                    dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_CHAIN);
-                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
-                }
+            holder.itemBtnAdd.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
+                bundle.putSerializable("resources", wrapper);
+                StarnameResourceDialog dialog = StarnameResourceDialog.newInstance(bundle);
+                dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_CHAIN);
+                dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
             });
         }
 

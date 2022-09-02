@@ -284,18 +284,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        new WithdrawAddressGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                String rewardAddress = (String) result.resultData;
-                if (rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
-                    Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    Intent reinvest = new Intent(ValidatorActivity.this, ReInvestActivity.class);
-                    reinvest.putExtra("valOpAddress", mValOpAddress);
-                    startActivity(reinvest);
-                }
+        new WithdrawAddressGrpcTask(getBaseApplication(), result -> {
+            String rewardAddress = (String) result.resultData;
+            if (rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
+                Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                Intent reinvest = new Intent(ValidatorActivity.this, ReInvestActivity.class);
+                reinvest.putExtra("valOpAddress", mValOpAddress);
+                startActivity(reinvest);
             }
         }, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -440,14 +437,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.historySuccess.setVisibility(View.VISIBLE);
             }
 
-            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (history.data.txhash != null) {
-                        String url = mChainConfig.explorerUrl() + "txs/" + history.data.txhash;
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
-                    }
+            holder.historyRoot.setOnClickListener(v -> {
+                if (history.data.txhash != null) {
+                    String url = mChainConfig.explorerUrl() + "txs/" + history.data.txhash;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
                 }
             });
         }
@@ -504,12 +498,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(mChainConfig.monikerUrl() + mValOpAddress + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
-            holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckDelegate();
-                }
-            });
+            holder.itemBtnDelegate.setOnClickListener(v -> onCheckDelegate());
         }
 
         private void onBindMyValidatorV1(RecyclerView.ViewHolder viewHolder) {

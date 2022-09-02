@@ -128,13 +128,10 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                 }
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), domain.getValidUntil() * 1000));
                 holder.itemAddressCnt.setText("" + domainAccount.getResourcesCount());
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getSActivity(), StarNameDomainDetailActivity.class);
-                        intent.putExtra("domain", domain.getName());
-                        startActivity(intent);
-                    }
+                holder.itemRoot.setOnClickListener(v -> {
+                    Intent intent = new Intent(getSActivity(), StarNameDomainDetailActivity.class);
+                    intent.putExtra("domain", domain.getName());
+                    startActivity(intent);
                 });
             }
         }

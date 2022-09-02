@@ -93,21 +93,13 @@ public class MainSendFragment extends BaseFragment {
         mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView = rootView.findViewById(R.id.recycler);
 
-        mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getMainActivity().onClickQrCopy(mChainConfig, mAccount);
-            }
-        });
+        mCardView.setOnClickListener(v -> getMainActivity().onClickQrCopy(mChainConfig, mAccount));
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getMainActivity().onFetchAllData();
-                onUpdateView();
-                mMainWalletAdapter.notifyDataSetChanged();
-            }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            getMainActivity().onFetchAllData();
+            onUpdateView();
+            mMainWalletAdapter.notifyDataSetChanged();
         });
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

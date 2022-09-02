@@ -403,12 +403,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 onUpdateView();
 
             } else {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        onShowAutoPassDialog();
-                    }
-                }, 300);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> onShowAutoPassDialog(), 300);
             }
 
         } else {

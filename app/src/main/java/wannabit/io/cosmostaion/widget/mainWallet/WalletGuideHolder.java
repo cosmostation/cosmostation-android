@@ -42,17 +42,11 @@ public class WalletGuideHolder extends BaseHolder {
         itemGuideTitle.setText(chainConfig.chainInfoTitle());
         itemGuideMsg.setText(chainConfig.chainInfoMsg());
 
-        itemBtnGuide1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!chainConfig.homeInfoLink().isEmpty()) mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.homeInfoLink())));
-            }
+        itemBtnGuide1.setOnClickListener(v -> {
+            if (!chainConfig.homeInfoLink().isEmpty()) mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.homeInfoLink())));
         });
-        itemBtnGuide2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!chainConfig.blogInfoLink().isEmpty()) mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.blogInfoLink())));
-            }
+        itemBtnGuide2.setOnClickListener(v -> {
+            if (!chainConfig.blogInfoLink().isEmpty()) mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.blogInfoLink())));
         });
     }
 }

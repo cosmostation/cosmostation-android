@@ -200,12 +200,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     }
 
     private void onForceBack() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                onBackPressed();
-            }
-        }, 250);
+        new Handler().postDelayed(() -> onBackPressed(), 250);
     }
 
     private class IBCTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

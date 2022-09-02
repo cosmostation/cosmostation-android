@@ -136,12 +136,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                     if (alreadyOpen) {
                         mMemoWranLayer.setVisibility(View.GONE);
                     } else {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                mMemoWranLayer.setVisibility(View.VISIBLE);
-                            }
-                        }, 100);
+                        new Handler().postDelayed(() -> mMemoWranLayer.setVisibility(View.VISIBLE), 100);
                     }
                 }
             });

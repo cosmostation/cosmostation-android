@@ -82,27 +82,24 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onInitJob() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (getBaseDao().onSelectAccounts().size() == 0) {
-                    onInitView();
+        new Handler().postDelayed(() -> {
+            if (getBaseDao().onSelectAccounts().size() == 0) {
+                onInitView();
+            } else {
+                if (getBaseApplication().needShowLockScreen()) {
+                    Intent intent = new Intent(IntroActivity.this, AppLockActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 } else {
-                    if (getBaseApplication().needShowLockScreen()) {
-                        Intent intent = new Intent(IntroActivity.this, AppLockActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-                    } else {
-                        if (getIntent().getExtras() != null && getIntent().getExtras().getString("address") != null) {
-                            Account account = getBaseDao().onSelectExistAccount2(getIntent().getExtras().getString("address"));
-                            if (account != null) {
-                                getBaseDao().setLastUser(account.id);
-                                onStartMainActivity(2);
-                                return;
-                            }
+                    if (getIntent().getExtras() != null && getIntent().getExtras().getString("address") != null) {
+                        Account account = getBaseDao().onSelectExistAccount2(getIntent().getExtras().getString("address"));
+                        if (account != null) {
+                            getBaseDao().setLastUser(account.id);
+                            onStartMainActivity(2);
+                            return;
                         }
-                        onStartMainActivity(0);
                     }
+                    onStartMainActivity(0);
                 }
             }
         }, 2500);
@@ -153,13 +150,10 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             public void run() {
                 getBaseDao().upgradeMnemonicDB();
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                        getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
-                        onCheckAppVersion();
-                    }
+                runOnUiThread(() -> {
+                    dialog.dismiss();
+                    getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
+                    onCheckAppVersion();
                 });
             }
         };
