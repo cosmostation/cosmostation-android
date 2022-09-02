@@ -22,7 +22,7 @@ public class WaitDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wait, null);
 
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(false).create();
         dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         dialog.getWindow().setDimAmount(0.2f);
         return dialog;

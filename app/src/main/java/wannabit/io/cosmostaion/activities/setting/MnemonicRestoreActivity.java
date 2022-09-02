@@ -97,12 +97,9 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
             final int position = i;
             mEtMnemonics[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", getPackageName()));
             mEtMnemonics[i].setShowSoftInputOnFocus(false);
-            mEtMnemonics[i].setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        mMnemonicPosition = position;
-                    }
+            mEtMnemonics[i].setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    mMnemonicPosition = position;
                 }
             });
         }

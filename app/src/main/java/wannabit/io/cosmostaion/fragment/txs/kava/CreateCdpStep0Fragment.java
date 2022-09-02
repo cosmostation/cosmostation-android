@@ -139,13 +139,10 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         mBtnCancel.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
 
-        mCollateralInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    mStep = STEP_COLLATERAL;
-                    onUpdateStep();
-                }
+        mCollateralInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                mStep = STEP_COLLATERAL;
+                onUpdateStep();
             }
         });
 

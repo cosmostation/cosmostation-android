@@ -232,7 +232,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
         }
 
-        mDialogWait.setCancelable(false);
         mDialogWait.show(getSupportFragmentManager(), "wait");
     }
 
