@@ -209,7 +209,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     bundle.putString("originAddress", matchAddress);
                     StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
                     dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                    getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
                 }, 0);
 
             }

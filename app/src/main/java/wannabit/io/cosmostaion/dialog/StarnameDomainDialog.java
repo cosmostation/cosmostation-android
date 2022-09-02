@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,8 +54,7 @@ public class StarnameDomainDialog extends DialogFragment {
         mDomainListAdapter = new DomainListAdapter();
         mRecyclerView.setAdapter(mDomainListAdapter);
 
-        setCancelable(true);
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         return dialog;
     }

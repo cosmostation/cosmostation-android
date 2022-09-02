@@ -187,7 +187,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             bundle.putStringArrayList("denoms", mAllDenoms);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
-            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnOutputCoinList)) {
             mSwapablePools.clear();
@@ -212,7 +212,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             bundle.putStringArrayList("denoms", mSwapableDenoms);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
-            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnToggle)) {
             String temp = mInputCoinDenom;

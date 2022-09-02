@@ -104,7 +104,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
 
         return rootView;
     }
-    
+
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
@@ -312,7 +312,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
                     bundle.putString("denom", mCollateralDenom);
                     SafeScoreConfirmDialog dialog = SafeScoreConfirmDialog.newInstance(bundle);
                     dialog.setTargetFragment(this, CDP_DEPOSIT_CONFIRM_DIALOG);
-                    getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
                 }
             } else {

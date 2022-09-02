@@ -106,8 +106,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
             getDialog().dismiss();
         });
 
-        setCancelable(true);
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
         dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         return dialog;
     }

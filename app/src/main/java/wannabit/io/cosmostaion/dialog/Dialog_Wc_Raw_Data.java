@@ -2,11 +2,9 @@ package wannabit.io.cosmostaion.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -53,8 +51,7 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
             getDialog().dismiss();
         });
 
-        setCancelable(false);
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
         dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         return dialog;
     }

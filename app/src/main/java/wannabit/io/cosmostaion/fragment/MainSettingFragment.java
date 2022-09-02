@@ -253,10 +253,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             onClickAutoPass();
 
         } else if (v.equals(mBtnCurrency)) {
-            CurrencySetDialog currency_dialog = CurrencySetDialog.newInstance(null);
-            currency_dialog.setCancelable(true);
-            currency_dialog.setTargetFragment(this, SELECT_CURRENCY);
-            getActivity().getSupportFragmentManager().beginTransaction().add(currency_dialog, "dialog").commitNowAllowingStateLoss();
+            CurrencySetDialog dialog = CurrencySetDialog.newInstance(null);
+            dialog.setCancelable(true);
+            dialog.setTargetFragment(this, SELECT_CURRENCY);
+            dialog.show(getActivity().getSupportFragmentManager(), "dialog");
             return;
 
         } else if (v.equals(mBtnExplore)) {

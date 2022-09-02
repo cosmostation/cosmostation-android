@@ -256,7 +256,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 if (getBaseDao().isAutoPass()) {
                     String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
                     Intent checkintent = new Intent(this, PrivateKeyCheckActivity.class);
-                    checkintent.putExtra("checkid",  mAccount.id);
+                    checkintent.putExtra("checkid", mAccount.id);
                     checkintent.putExtra("entropy", entropy);
                     startActivity(checkintent);
 
@@ -284,8 +284,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             bundle.putInt("title", R.string.str_change_account_nickname);
             bundle.putLong("id", mAccount.id);
             bundle.putString("name", mAccount.nickName);
-            ChangeNickNameDialog deleteDialog = ChangeNickNameDialog.newInstance(bundle);
-            getSupportFragmentManager().beginTransaction().add(deleteDialog, "dialog").commitNowAllowingStateLoss();
+            ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
+            dialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnQr)) {
             onClickQrCopy(mChainConfig, mAccount);

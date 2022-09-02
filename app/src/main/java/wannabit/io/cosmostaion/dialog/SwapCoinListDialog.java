@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,8 +102,7 @@ public class SwapCoinListDialog extends DialogFragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mSwapChainListAdapter);
 
-        setCancelable(true);
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         return dialog;
     }

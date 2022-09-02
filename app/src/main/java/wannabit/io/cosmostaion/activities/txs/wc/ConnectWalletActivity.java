@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.JsResult;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebStorage;
@@ -52,7 +50,6 @@ import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.Sign;
 import org.web3j.crypto.TransactionEncoder;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.admin.methods.response.PersonalSign;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthEstimateGas;
@@ -592,8 +589,8 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chainId);
-        Dialog_Wc_Account wcAccountDialog = Dialog_Wc_Account.newInstance(bundle);
-        wcAccountDialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
+        Dialog_Wc_Account dialog = Dialog_Wc_Account.newInstance(bundle);
+        dialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
             @Override
             public void onSelect(Long id, Account account) {
                 chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
@@ -612,7 +609,7 @@ public class ConnectWalletActivity extends BaseActivity {
                 moveToBackIfNeed();
             }
         });
-        getSupportFragmentManager().beginTransaction().add(wcAccountDialog, "dialog").commitNowAllowingStateLoss();
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 
     private void onShowAccountDialog(Long id, List<String> chains, List<Account> selectedAccounts, int index) {
@@ -641,8 +638,8 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chains.get(index));
-        Dialog_Wc_Account wcAccountDialog = Dialog_Wc_Account.newInstance(bundle);
-        wcAccountDialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
+        Dialog_Wc_Account dialog = Dialog_Wc_Account.newInstance(bundle);
+        dialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
             @Override
             public void onSelect(Long id, Account account) {
                 chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
@@ -660,7 +657,7 @@ public class ConnectWalletActivity extends BaseActivity {
                 onShowAccountDialog(id, chains, selectedAccounts, index + 1);
             }
         });
-        getSupportFragmentManager().beginTransaction().add(wcAccountDialog, "dialog" + index).commitNowAllowingStateLoss();
+        dialog.show(getSupportFragmentManager(), "dialog" + index);
     }
 
 
@@ -710,7 +707,7 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowSignDialog(Bundle bundle) {
-        Dialog_Wc_Raw_Data dialog = Dialog_Wc_Raw_Data.newInstance(bundle, new Dialog_Wc_Raw_Data.WcSignRawDataListener() {
+        Dialog_Wc_Raw_Data wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, new Dialog_Wc_Raw_Data.WcSignRawDataListener() {
             @Override
             public void sign(int type, Long id, String transaction) {
                 if (type == ConnectWalletActivity.TYPE_TRUST_WALLET) {
@@ -725,7 +722,7 @@ public class ConnectWalletActivity extends BaseActivity {
                 rejectSignRequest(id);
             }
         });
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        wcRawDataDialog.show(getSupportFragmentManager(), "dialog");
     }
 
     private void rejectSignRequest(Long id) {

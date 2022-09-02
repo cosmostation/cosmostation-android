@@ -133,9 +133,8 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             bundle.putInt("title", R.string.str_change_mnemonic_nickname);
             bundle.putLong("id", mWords.id);
             bundle.putString("name", mWords.getName());
-            ChangeNickNameDialog delete = ChangeNickNameDialog.newInstance(bundle);
-            delete.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+            ChangeNickNameDialog deleteDialog = ChangeNickNameDialog.newInstance(bundle);
+            deleteDialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mCopy)) {
             AlertDialogUtils.showDoubleButtonDialog(MnemonicDetailActivity.this, getString(R.string.str_safe_copy_title), getString(R.string.str_safe_copy_msg),

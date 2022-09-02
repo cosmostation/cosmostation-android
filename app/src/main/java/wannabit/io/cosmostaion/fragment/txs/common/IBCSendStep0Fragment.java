@@ -181,14 +181,14 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
             bundle.putSerializable("chain", mIbcSendableRelayers);
             IBCReceiveChainDialog dialog = IBCReceiveChainDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_CHAIN);
-            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mToRelayer)) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("channel", mIbcSendablePaths);
             IBCRelayerChannelDialog dialog = IBCRelayerChannelDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_RELAYER);
-            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
         }
     }
 

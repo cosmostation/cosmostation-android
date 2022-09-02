@@ -57,9 +57,8 @@ public class Dialog_Wc_Account extends DialogFragment {
         mAccountListAdapter = new AccountListAdapter();
         mRecyclerView.setAdapter(mAccountListAdapter);
 
-        setCancelable(true);
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setOnDismissListener(dialogInterface -> mOnSelectListener.onCancel()).create();
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         return dialog;
 
     }

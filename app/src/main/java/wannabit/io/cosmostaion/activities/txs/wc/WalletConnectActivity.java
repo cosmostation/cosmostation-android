@@ -203,17 +203,17 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
 
     private void onShowNewOrderDialog(Bundle bundle) {
         mDialogTrade = Dialog_Wc_Trade.newInstance(bundle);
-        getSupportFragmentManager().beginTransaction().add(mDialogTrade, "dialog").commitNowAllowingStateLoss();
+        mDialogTrade.show(getSupportFragmentManager(), "dialog");
     }
 
     private void onShowCancelDialog(Bundle bundle) {
         mDialogCancel = Dialog_Wc_Cancel.newInstance(bundle);
-        getSupportFragmentManager().beginTransaction().add(mDialogCancel, "dialog").commitNowAllowingStateLoss();
+        mDialogCancel.show(getSupportFragmentManager(), "dialog");
     }
 
     private void onShowTransferDialog(Bundle bundle) {
         mDialogTransfer = Dialog_Wc_Transfer.newInstance(bundle);
-        getSupportFragmentManager().beginTransaction().add(mDialogTransfer, "dialog").commitNowAllowingStateLoss();
+        mDialogTransfer.show(getSupportFragmentManager(), "dialog");
     }
 
     private void onDismissDialog() {

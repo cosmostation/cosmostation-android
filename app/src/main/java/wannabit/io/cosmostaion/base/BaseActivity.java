@@ -233,7 +233,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         mDialogWait.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(mDialogWait, "wait").commitNowAllowingStateLoss();
+        mDialogWait.show(getSupportFragmentManager(), "wait");
     }
 
     public void onHideWaitDialog() {
@@ -299,8 +299,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         Bundle bundle = new Bundle();
         bundle.putString("title", nickName);
         bundle.putString("address", address);
-        AccountShowDialog showDialog = AccountShowDialog.newInstance(bundle);
-        getSupportFragmentManager().beginTransaction().add(showDialog, "dialog").commitNowAllowingStateLoss();
+        AccountShowDialog dialog = AccountShowDialog.newInstance(bundle);
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 
     public void onHideKeyboard() {

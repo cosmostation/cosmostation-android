@@ -94,7 +94,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
                     Bundle bundle = new Bundle();
                     bundle.putString("watchAddress", mUserInput);
                     SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    dialog.show(getSupportFragmentManager(), "dialog");
                     dialog.setSelectChainsDialogResult(result -> {
                         mWatchAddressChainList = new Gson().fromJson(result, new TypeToken<List<BaseChain>>() {
                         }.getType());

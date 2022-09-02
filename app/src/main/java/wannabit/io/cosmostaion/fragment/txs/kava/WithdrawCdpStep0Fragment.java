@@ -306,7 +306,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
                     bundle.putString("denom", mCollateralDenom);
                     SafeScoreConfirmDialog dialog = SafeScoreConfirmDialog.newInstance(bundle);
                     dialog.setTargetFragment(this, CDP_WITHDRAW_CONFIRM_DIALOG);
-                    getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
                 }
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();

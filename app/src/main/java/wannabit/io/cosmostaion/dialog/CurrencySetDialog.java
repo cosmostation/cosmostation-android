@@ -41,9 +41,8 @@ public class CurrencySetDialog extends DialogFragment {
         mCurrencySetAdapter = new CurrencySetAdapter();
         mRecyclerView.setAdapter(mCurrencySetAdapter);
 
-        setCancelable(true);
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         return dialog;
     }
 

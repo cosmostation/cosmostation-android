@@ -40,6 +40,7 @@ public class AccountShowDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        super.onCreateDialog(savedInstanceState);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_account_show, null);
         btn_nega = view.findViewById(R.id.btn_nega);
         btn_posi = view.findViewById(R.id.btn_posi);
@@ -74,8 +75,7 @@ public class AccountShowDialog extends DialogFragment {
             getDialog().dismiss();
         });
 
-        setCancelable(true);
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
         dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         return dialog;
     }

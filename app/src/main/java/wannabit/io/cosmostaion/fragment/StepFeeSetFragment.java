@@ -269,7 +269,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             bundle.putSerializable("feeDatas", mFeeInfo.get(mSelectedFeeInfo).feeDatas);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_FEE_DENOM);
-            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnBefore)) {
             getSActivity().onBeforeStep();
@@ -539,7 +539,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         if (result.isSuccess && result.resultData != null) {
             Abci.GasInfo gasInfo = ((Abci.GasInfo) result.resultData);
             long gasused = gasInfo.getGasUsed();
-            if (mBaseChain.equals(BaseChain.PROVENANCE_MAIN)) gasused = (long) ((double) gasused * 1.3d);
+            if (mBaseChain.equals(BaseChain.PROVENANCE_MAIN))
+                gasused = (long) ((double) gasused * 1.3d);
             else gasused = (long) ((double) gasused * 1.1d);
             mFeeGasAmount = new BigDecimal(gasused);
             onUpdateView();

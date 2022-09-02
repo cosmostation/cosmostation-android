@@ -44,8 +44,7 @@ public class NumberPickerDialog extends DialogFragment {
         numberPicker.setWrapSelectorWheel(false);
         numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
-        setCancelable(false);
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(false).create();
         dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         return dialog;
     }

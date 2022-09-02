@@ -24,7 +24,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import cosmos.authz.v1beta1.Authz;
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -219,7 +218,7 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
             bundle.putSerializable("sendCoins", mGrantAvailbale);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_SEND_COIN);
-            getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;

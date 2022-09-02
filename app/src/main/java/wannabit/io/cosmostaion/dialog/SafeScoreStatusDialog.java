@@ -48,8 +48,7 @@ public class SafeScoreStatusDialog extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
         btn_negative.setOnClickListener(v -> getDialog().dismiss());
 
-        setCancelable(true);
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
         dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         return dialog;
     }

@@ -105,7 +105,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
                 bundle.putString("chainName", getSActivity().mRecipientChain.getChain());
                 HtlcReceivableAccountsDialog dialog = HtlcReceivableAccountsDialog.newInstance(bundle);
                 dialog.setTargetFragment(this, SELECT_ACCOUNT);
-                getSActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
             } else {
                 String title = String.format(getString(R.string.error_can_not_bep3_account_title), StringUtils.capitalize(mToChainConfig.chainName()));
