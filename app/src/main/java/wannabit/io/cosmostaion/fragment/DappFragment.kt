@@ -54,6 +54,10 @@ class DappFragment : BaseFragment() {
         webView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         webView.webChromeClient = WebChromeClient()
         webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                webView.visibility = View.VISIBLE
+                super.onPageFinished(view, url)
+            }
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 (activity as? MainActivity)?.let {
                     if (!it.mAccount.hasPrivateKey) {

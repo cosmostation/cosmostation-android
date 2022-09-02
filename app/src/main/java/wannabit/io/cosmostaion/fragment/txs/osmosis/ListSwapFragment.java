@@ -133,7 +133,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
             BigDecimal outputAssetAmount = BigDecimal.ZERO;
             BigDecimal outputAssetWeight = BigDecimal.ZERO;
 
-            for (BalancerPool.PoolAsset asset: mSelectedPool.getPoolAssetsList()) {
+            for (BalancerPool.PoolAsset asset : mSelectedPool.getPoolAssetsList()) {
                 if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
                     inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
                     inputAssetWeight = new BigDecimal(asset.getWeight());
@@ -180,8 +180,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnOutputCoinList)) {
             mSwapablePools.clear();
             mSwapableDenoms.clear();
-            for (BalancerPool.Pool pool: mPoolList) {
-                for (BalancerPool.PoolAsset asset: pool.getPoolAssetsList()) {
+            for (BalancerPool.Pool pool : mPoolList) {
+                for (BalancerPool.PoolAsset asset : pool.getPoolAssetsList()) {
                     if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
                         mSwapablePools.add(pool);
                         break;
@@ -189,8 +189,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
                 }
             }
 
-            for (BalancerPool.Pool sPool: mSwapablePools) {
-                for (BalancerPool.PoolAsset  asset: sPool.getPoolAssetsList()) {
+            for (BalancerPool.Pool sPool : mSwapablePools) {
+                for (BalancerPool.PoolAsset asset : sPool.getPoolAssetsList()) {
                     if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
                         mSwapableDenoms.add(asset.getToken().getDenom());
                     }
@@ -211,7 +211,9 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
             onUpdateView();
 
         } else if (v.equals(mBtnSwapStart)) {
-            getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId());
+            if (mInputCoinDenom != null && mOutputCoinDenom != null && mSelectedPool != null) {
+                getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId());
+            }
         }
     }
 
@@ -219,15 +221,16 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (BalancerPool.Pool pool: mPoolList) {
-                for (BalancerPool.PoolAsset  asset: pool.getPoolAssetsList()) {
+            loop:
+            for (BalancerPool.Pool pool : mPoolList) {
+                for (BalancerPool.PoolAsset asset : pool.getPoolAssetsList()) {
                     if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
                         mSelectedPool = pool;
                         break loop;
                     }
                 }
             }
-            for (BalancerPool.PoolAsset  asset: mSelectedPool.getPoolAssetsList()) {
+            for (BalancerPool.PoolAsset asset : mSelectedPool.getPoolAssetsList()) {
                 if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
                     mOutputCoinDenom = asset.getToken().getDenom();
                     break;
@@ -237,8 +240,9 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
         } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (BalancerPool.Pool pool: mSwapablePools) {
-                for (BalancerPool.PoolAsset  asset: pool.getPoolAssetsList()) {
+            loop:
+            for (BalancerPool.Pool pool : mSwapablePools) {
+                for (BalancerPool.PoolAsset asset : pool.getPoolAssetsList()) {
                     if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
                         mSelectedPool = pool;
                         break loop;

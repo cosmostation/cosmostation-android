@@ -114,7 +114,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
         if (mSwapPoolList != null && mSwapParams != null) {
             for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
-                if (pool.getCoins(0).getDenom().equalsIgnoreCase("ukava") && pool.getCoins(1).getDenom().equalsIgnoreCase("usdx")) {
+                if ("ukava".equalsIgnoreCase(pool.getCoins(0).getDenom()) && "usdx".equalsIgnoreCase(pool.getCoins(1).getDenom())) {
                     mSelectedPool = pool;
                     mInputCoinDenom = "ukava";
                     mOutputCoinDenom = "usdx";
@@ -129,7 +129,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         if (mSelectedPool == null) {
             getSActivity().onBackPressed();
         }
-        if (!mInputCoinDenom.isEmpty() && !mOutputCoinDenom.isEmpty()) {
+        if (mInputCoinDenom != null && mOutputCoinDenom != null) {
             WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputImg);
             WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputImg);
             WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputCoin);
@@ -231,7 +231,8 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
+            loop:
+            for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
                 for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
                     if (coin.getDenom().equalsIgnoreCase(mInputCoinDenom)) {
                         mSelectedPool = pool;
@@ -248,7 +249,8 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
         } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
             mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop : for (QueryOuterClass.PoolResponse pool : mSwapablePools) {
+            loop:
+            for (QueryOuterClass.PoolResponse pool : mSwapablePools) {
                 for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
                     if (coin.getDenom().equalsIgnoreCase(mOutputCoinDenom)) {
                         mSelectedPool = pool;

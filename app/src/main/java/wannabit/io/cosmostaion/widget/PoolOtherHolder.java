@@ -52,10 +52,10 @@ public class PoolOtherHolder extends BaseHolder {
         itemTotalDepositAmount1 = itemView.findViewById(R.id.pool_total_liquidity_amount2);
         itemTotalDepositSymbol1 = itemView.findViewById(R.id.pool_total_liquidity_symbol2);
 
-        itemMyAvailableAmount0  = itemView.findViewById(R.id.mypool_amount1);
-        itemMyAvailableSymbol0  = itemView.findViewById(R.id.mypool_symbol1);
-        itemMyAvailableAmount1  = itemView.findViewById(R.id.mypool_amount2);
-        itemMyAvailableSymbol1  = itemView.findViewById(R.id.mypool_symbol2);
+        itemMyAvailableAmount0 = itemView.findViewById(R.id.mypool_amount1);
+        itemMyAvailableSymbol0 = itemView.findViewById(R.id.mypool_symbol1);
+        itemMyAvailableAmount1 = itemView.findViewById(R.id.mypool_amount2);
+        itemMyAvailableSymbol1 = itemView.findViewById(R.id.mypool_symbol2);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class PoolOtherHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((LabsListActivity)activity).onCheckStartJoinPool(otherPool.getId());
+                ((LabsListActivity) activity).onCheckStartJoinPool(otherPool.getId());
             }
         });
     }
@@ -135,7 +135,7 @@ public class PoolOtherHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DAppsList5Activity)activity).onCheckStartJoinPool(otherPool);
+                ((DAppsList5Activity) activity).onCheckStartJoinPool(otherPool);
             }
         });
     }
@@ -161,7 +161,7 @@ public class PoolOtherHolder extends BaseHolder {
         WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemTotalDepositSymbol0);
         WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemTotalDepositSymbol1);
         itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, rowanAmount, rowanDecimal, 6));
-        if (WDp.getDpSymbol(baseData, chainConfig, exteranlDenom).equalsIgnoreCase("UNKNOWN")) {
+        if ("UNKNOWN".equalsIgnoreCase(WDp.getDpSymbol(baseData, chainConfig, exteranlDenom))) {
             itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, BigDecimal.ZERO, externalDecimal, 6));
         } else {
             itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, externalAmount, externalDecimal, 6));
@@ -178,7 +178,7 @@ public class PoolOtherHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SifDexListActivity)activity).onCheckStartDepositPool(otherPool);
+                ((SifDexListActivity) activity).onCheckStartDepositPool(otherPool);
             }
         });
     }

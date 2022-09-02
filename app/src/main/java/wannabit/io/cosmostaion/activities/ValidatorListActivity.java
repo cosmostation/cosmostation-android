@@ -176,7 +176,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             return;
         }
         for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
-            if (validator.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) {
+            if ("Cosmostation".equalsIgnoreCase(validator.getDescription().getMoniker())) {
                 cosmostation = validator.getOperatorAddress();
             }
         }
@@ -242,7 +242,8 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             return;
         }
 
-        cosmos.distribution.v1beta1.QueryGrpc.QueryBlockingStub mStub = cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));;
+        cosmos.distribution.v1beta1.QueryGrpc.QueryBlockingStub mStub = cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
+        ;
         cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressRequest request = cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressRequest.newBuilder().setDelegatorAddress(mAccount.address).build();
         cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressResponse response = mStub.delegatorWithdrawAddress(request);
         if (response.getWithdrawAddress() == null || !response.getWithdrawAddress().equals(mAccount.address)) {
@@ -312,7 +313,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     private ServiceOuterClass.SimulateResponse simulateCompounding(ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
         ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCompoundingSimulateReq(getAuthResponse(), rewards, baseChain ,fee, "", getEcKey(), getBaseDao().getChainIdGrpc());
+        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCompoundingSimulateReq(getAuthResponse(), rewards, baseChain, fee, "", getEcKey(), getBaseDao().getChainIdGrpc());
         return txService.simulate(simulateTxRequest);
     }
 
@@ -368,11 +369,12 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                         stakeCoin = coin;
                     }
                 }
-                BigDecimal rewardAmount = new BigDecimal(stakeCoin.getAmount()).movePointLeft(18).movePointLeft(WDp.getDenomDecimal(getBaseDao(), mChainConfig, stakeCoin.getDenom()));
-                if (new BigDecimal("0.01").compareTo(rewardAmount) < 0) {
-                    result.add(reward);
+                if (stakeCoin != null) {
+                    BigDecimal rewardAmount = new BigDecimal(stakeCoin.getAmount()).movePointLeft(18).movePointLeft(WDp.getDenomDecimal(getBaseDao(), mChainConfig, stakeCoin.getDenom()));
+                    if (new BigDecimal("0.01").compareTo(rewardAmount) < 0) {
+                        result.add(reward);
+                    }
                 }
-
             }
         }
         if (result.size() > 10) {
