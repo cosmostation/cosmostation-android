@@ -67,7 +67,7 @@ public class ChangeNickNameDialog extends DialogFragment {
         });
 
         Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
-        dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         return dialog;
     }
 }
