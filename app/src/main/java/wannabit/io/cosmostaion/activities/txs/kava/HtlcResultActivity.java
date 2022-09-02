@@ -44,7 +44,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -496,7 +496,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     //SWAP ID LOOP CHECK
     private void onShowMoreSwapWait() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
                 getString(R.string.str_close), view -> onFinishWithError(),
                 getString(R.string.str_wait), view -> onWaitSwapMore(), false);
     }
@@ -518,8 +518,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 onCheckSwapId(mExpectedSwapId);
 
             } else {
-                AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_swap_error_title),
-                        Html.fromHtml(getString(R.string.str_swap_error_msg_create) + "<br/><br/><font color=\"#ff0000\">" + AlertDialogUtils.highlightingText(result.errorMsg) + "</font>"),
+                CommonAlertDialog.showSingleButton(this, getString(R.string.str_swap_error_title),
+                        Html.fromHtml(getString(R.string.str_swap_error_msg_create) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(result.errorMsg) + "</font>"),
                         getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
 
@@ -531,8 +531,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 onFetchClaimTx(mClaimTxHash);
 
             } else {
-                AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_swap_error_title),
-                        Html.fromHtml(getString(R.string.str_swap_error_msg_claim) + "<br/><br/><font color=\"#ff0000\">" + AlertDialogUtils.highlightingText(result.errorMsg) + "</font>"),
+                CommonAlertDialog.showSingleButton(this, getString(R.string.str_swap_error_title),
+                        Html.fromHtml(getString(R.string.str_swap_error_msg_claim) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(result.errorMsg) + "</font>"),
                         getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
         }

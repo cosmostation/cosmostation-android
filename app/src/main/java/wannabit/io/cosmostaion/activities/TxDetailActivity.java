@@ -45,7 +45,7 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -523,7 +523,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
 
     private void onShowMoreWait() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_title), getString(R.string.str_more_wait_msg),
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_more_wait_title), getString(R.string.str_more_wait_msg),
                 getString(R.string.str_close), view -> onBackPressed(),
                 getString(R.string.str_wait), view -> onWaitMore(), false);
     }

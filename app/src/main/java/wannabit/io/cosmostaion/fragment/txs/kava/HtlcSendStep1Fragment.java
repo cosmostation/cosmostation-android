@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.HtlcReceivableAccountsDialog;
 
 public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
@@ -109,7 +109,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
 
             } else {
                 String title = String.format(getString(R.string.error_can_not_bep3_account_title), StringUtils.capitalize(mToChainConfig.chainName()));
-                AlertDialogUtils.showSingleButtonDialog(getSActivity(), title, setWarnMsg(), getContext().getString(R.string.str_ok), null);
+                CommonAlertDialog.showSingleButton(getSActivity(), title, setWarnMsg(), getContext().getString(R.string.str_ok), null);
             }
         }
     }

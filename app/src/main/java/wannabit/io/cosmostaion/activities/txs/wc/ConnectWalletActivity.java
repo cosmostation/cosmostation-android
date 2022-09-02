@@ -78,7 +78,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
 import wannabit.io.cosmostaion.model.StdSignMsg;
@@ -385,7 +385,7 @@ public class ConnectWalletActivity extends BaseActivity {
         });
         wcClient.setOnEthSign((id, signMessage) -> {
             runOnUiThread(() ->
-                    AlertDialogUtils.showDoubleButtonDialog(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), signMessage.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
+                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), signMessage.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
                         new Thread(() -> {
                             try {
                                 Sign.SignatureData signResult = processEthSign(signMessage);
@@ -400,7 +400,7 @@ public class ConnectWalletActivity extends BaseActivity {
         });
         wcClient.setOnEthSendTransaction((id, wcEthereumTransaction) -> {
             runOnUiThread(() ->
-                    AlertDialogUtils.showDoubleButtonDialog(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), wcEthereumTransaction.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
+                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), wcEthereumTransaction.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
                         new Thread(() -> {
                             try {
                                 EthSendTransaction sendResult = processEthSend(wcEthereumTransaction);
@@ -732,11 +732,11 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowNoAccountsForChain() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), getString(R.string.str_error_not_support_chain_msg), getString(R.string.str_ok), null, false);
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_error_not_support_chain_title), getString(R.string.str_error_not_support_chain_msg), getString(R.string.str_ok), null, false);
     }
 
     private void onShowNotSupportChain(String chainId) {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), String.format(getString(R.string.str_error_not_support_msg), chainId), getString(R.string.str_ok), null, false);
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_error_not_support_chain_title), String.format(getString(R.string.str_error_not_support_msg), chainId), getString(R.string.str_ok), null, false);
     }
 
     private Bundle makeSignBundle(int type, Long id, String transaction) {

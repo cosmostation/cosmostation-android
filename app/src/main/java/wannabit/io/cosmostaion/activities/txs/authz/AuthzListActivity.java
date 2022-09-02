@@ -67,12 +67,7 @@ public class AuthzListActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(AuthzListActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetchAuthzGranterListInfo();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchAuthzGranterListInfo());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

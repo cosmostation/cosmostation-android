@@ -24,8 +24,8 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 
 public class MnemonicDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -137,8 +137,8 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             deleteDialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mCopy)) {
-            AlertDialogUtils.showDoubleButtonDialog(MnemonicDetailActivity.this, getString(R.string.str_safe_copy_title), getString(R.string.str_safe_copy_msg),
-                    AlertDialogUtils.highlightingText(getString(R.string.str_raw_copy)), view -> onRawCopy(),
+            CommonAlertDialog.showDoubleButton(MnemonicDetailActivity.this, getString(R.string.str_safe_copy_title), getString(R.string.str_safe_copy_msg),
+                    CommonAlertDialog.highlightingText(getString(R.string.str_raw_copy)), view -> onRawCopy(),
                     getString(R.string.str_safe_copy), view -> onSafeCopy());
 
         } else if (v.equals(mDerive)) {
@@ -148,9 +148,9 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             startActivity(intent);
 
         } else if (v.equals(mDelete)) {
-            AlertDialogUtils.showDoubleButtonDialog(MnemonicDetailActivity.this, getString(R.string.str_mnemonic_delete),
+            CommonAlertDialog.showDoubleButton(MnemonicDetailActivity.this, getString(R.string.str_mnemonic_delete),
                     String.format(getString(R.string.str_mnemonic_delete_msg), String.valueOf(mWords.getLinkedWalletCnt(getBaseDao()))),
-                    AlertDialogUtils.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteMnemonic(),
+                    CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteMnemonic(),
                     getString(R.string.str_close), null);
         }
     }

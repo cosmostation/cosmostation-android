@@ -49,7 +49,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
@@ -99,13 +99,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(ValidatorActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onInitFetch();
-                onFetchValHistory();
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            onInitFetch();
+            onFetchValHistory();
 
-            }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -175,7 +172,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_not_validator_title), getString(R.string.str_not_validator_msg),
+            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_not_validator_title), getString(R.string.str_not_validator_msg),
                     getString(R.string.str_cancel), view -> onBackPressed(),
                     getString(R.string.str_continue), view -> onStartDelegate());
         } else {
@@ -207,8 +204,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
             for (Staking.RedelegationResponse data : mGrpcRedelegates) {
                 if (data.getRedelegation().getValidatorDstAddress().equals(mValOpAddress)) {
-                    AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg),
-                            AlertDialogUtils.highlightingText(getString(R.string.str_ok)), null);
+                    CommonAlertDialog.showSingleButton(this, getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg),
+                            CommonAlertDialog.highlightingText(getString(R.string.str_ok)), null);
                     return;
                 }
             }
@@ -576,36 +573,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             }
 
-            holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckDelegate();
-                }
-            });
-            holder.itemBtnUndelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onStartUndelegate();
-                }
-            });
-            holder.itemBtnRedelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckRedelegate();
-                }
-            });
-            holder.itemBtnReward.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onGetReward();
-                }
-            });
-            holder.itemBtnReinvest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckReInvest();
-                }
-            });
+            holder.itemBtnDelegate.setOnClickListener(v -> onCheckDelegate());
+            holder.itemBtnUndelegate.setOnClickListener(v -> onStartUndelegate());
+            holder.itemBtnRedelegate.setOnClickListener(v -> onCheckRedelegate());
+            holder.itemBtnReward.setOnClickListener(v -> onGetReward());
+            holder.itemBtnReinvest.setOnClickListener(v -> onCheckReInvest());
 
         }
 

@@ -32,9 +32,7 @@ import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzRedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.task.gRpcTask.ReDelegationsToGrpcTask;
 import wannabit.io.cosmostaion.widget.AllValidatorHolder;
 import wannabit.io.cosmostaion.widget.MyValidatorHolder;
@@ -252,7 +250,7 @@ public class AuthzRedelegateStep0Fragment extends BaseFragment implements View.O
                         if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
                             for (Staking.RedelegationResponse data : mGrpcRedelegates) {
                                 if (data.getRedelegation().getValidatorDstAddress().equals(mFromValidator.getOperatorAddress())) {
-                                    AlertDialogUtils.showSingleButtonDialog(getActivity(), getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg), AlertDialogUtils.highlightingText(getString(R.string.str_ok)), null);
+                                    CommonAlertDialog.showSingleButton(getActivity(), getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg), CommonAlertDialog.highlightingText(getString(R.string.str_ok)), null);
                                     return;
                                 }
                             }

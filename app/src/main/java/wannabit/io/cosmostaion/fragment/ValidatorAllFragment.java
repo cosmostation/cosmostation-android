@@ -67,12 +67,9 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         mSortType = rootView.findViewById(R.id.token_sort_type);
         mBtnSort = rootView.findViewById(R.id.btn_validator_sort);
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getMainActivity().onFetchAllData();
-                mAllValidatorAdapter.notifyDataSetChanged();
-            }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            getMainActivity().onFetchAllData();
+            mAllValidatorAdapter.notifyDataSetChanged();
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
@@ -163,24 +160,14 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     }
                 }
 
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress());
-                    }
-                });
+                holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress()));
 
             } else {
                 final Validator validator = getBaseDao().mTopValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getMainActivity().onStartValidatorDetail(validator);
-                    }
-                });
+                holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetail(validator));
                 try {
                     Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) { }

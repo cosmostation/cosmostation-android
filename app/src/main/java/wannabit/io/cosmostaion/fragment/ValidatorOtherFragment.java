@@ -58,12 +58,9 @@ public class ValidatorOtherFragment extends BaseFragment {
         mValidatorSize = rootView.findViewById(R.id.validator_cnt);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getMainActivity().onFetchAllData();
-                mOtherValidatorAdapter.notifyDataSetChanged();
-            }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            getMainActivity().onFetchAllData();
+            mOtherValidatorAdapter.notifyDataSetChanged();
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));

@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveChainDialog;
 import wannabit.io.cosmostaion.dialog.IBCRelayerChannelDialog;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -163,7 +163,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
 
         } else if (v.equals(mBtnNext)) {
             if (mIbcSelectedPath.auth == null) {
-                AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_ibc_warning_c), getString(R.string.str_ibc_unknown_relayer_msg),
+                CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_ibc_warning_c), getString(R.string.str_ibc_unknown_relayer_msg),
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_cancel) + "</font>"), null,
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_continue) + "</font>"), view -> {
                             Intent resultIntent = new Intent();

@@ -347,12 +347,9 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
 
         private void onBindMnemonicItemViewHolder(MnemonicHolder holder, int position) {
             holder.itemMnemonic.setText(mFilteredMnemonic.get(position));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mEtMnemonics[mMnemonicPosition].setText(mFilteredMnemonic.get(position));
-                    onNextWord();
-                }
+            holder.itemRoot.setOnClickListener(v -> {
+                mEtMnemonics[mMnemonicPosition].setText(mFilteredMnemonic.get(position));
+                onNextWord();
             });
         }
 

@@ -129,22 +129,16 @@ public class MainTokensFragment extends BaseFragment {
         mCardView.setOnClickListener(v -> getMainActivity().onClickQrCopy(mChainConfig, mAccount));
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onUpdateInfo();
-                getMainActivity().onFetchAllData();
-            }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            onUpdateInfo();
+            getMainActivity().onFetchAllData();
         });
 
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    return true;
-                } else {
-                    return false;
-                }
+        mRecyclerView.setOnTouchListener((view, motionEvent) -> {
+            if (mSwipeRefreshLayout.isRefreshing()) {
+                return true;
+            } else {
+                return false;
             }
         });
 

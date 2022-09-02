@@ -39,7 +39,7 @@ import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Derive;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.NumberPickerDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -217,7 +217,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 Toast.makeText(this, R.string.error_not_selected_to_import, Toast.LENGTH_SHORT).show();
                 return;
             }
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_add_new), String.format(getString(R.string.str_add_wallet), String.valueOf(selectedCnt)), getString(R.string.str_cancel), null, getString(R.string.str_confirm), view -> onSaveAccount());
+            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_add_new), String.format(getString(R.string.str_add_wallet), String.valueOf(selectedCnt)), getString(R.string.str_cancel), null, getString(R.string.str_confirm), view -> onSaveAccount());
         }
     }
 
@@ -265,20 +265,17 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 holder.accountState.setText("");
             }
 
-            holder.accountCard.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (derive.status == 2) {
-                        return;
-                    }
-                    derive.selected = !derive.selected;
-                    if (derive.selected) {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
-                    } else {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
-                    }
-                    onUpdateCnt();
+            holder.accountCard.setOnClickListener(view -> {
+                if (derive.status == 2) {
+                    return;
                 }
+                derive.selected = !derive.selected;
+                if (derive.selected) {
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
+                } else {
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                }
+                onUpdateCnt();
             });
 
             loadBalance(holder, derive);

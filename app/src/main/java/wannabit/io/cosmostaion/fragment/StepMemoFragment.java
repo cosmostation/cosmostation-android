@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class StepMemoFragment extends BaseFragment implements View.OnClickListener {
@@ -165,9 +165,9 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                     getSActivity().mTxMemo = mMemo.getText().toString().trim();
                     getSActivity().onNextStep();
                 } else {
-                    AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), AlertDialogUtils.highlightingText(getString(R.string.str_mnemonics_warning_title)),
+                    CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), CommonAlertDialog.highlightingText(getString(R.string.str_mnemonics_warning_title)),
                             getString(R.string.str_mnemonics_warning_msg),
-                            AlertDialogUtils.highlightingText(getString(R.string.str_enter_again)), View -> {
+                            CommonAlertDialog.highlightingText(getString(R.string.str_enter_again)), View -> {
                                 Intent resultIntent = new Intent();
                                 resultIntent.putExtra("memo", 0);
                                 onActivityResult(AGAIN_MEMO, Activity.RESULT_OK, resultIntent);

@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.SafeScoreStatusDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -120,6 +120,6 @@ public class CdpDetailInfoHolder extends BaseHolder {
     }
 
     private void onShowHelpPopup(CdpDetailActivity context, String title, String msg) {
-        AlertDialogUtils.showSingleButtonDialog(context, title, msg, Html.fromHtml("<font color=\"#007AFF\">" + context.getString(R.string.str_ok) + "</font>"), null);
+        CommonAlertDialog.showSingleButton(context, title, msg, Html.fromHtml("<font color=\"#007AFF\">" + context.getString(R.string.str_ok) + "</font>"), null);
     }
 }

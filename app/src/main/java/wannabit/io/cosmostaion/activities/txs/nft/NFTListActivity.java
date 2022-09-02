@@ -29,7 +29,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NFTokenListGrpcTask;
@@ -75,12 +75,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
         mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(NFTListActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetchNftListInfo();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchNftListInfo());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -90,7 +85,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
         mBtnCreateNft.setOnClickListener(v -> {
             if (mAccount == null) return;
             if (!mAccount.hasPrivateKey) {
-                AlertDialogUtils.showDoubleButtonDialog(NFTListActivity.this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+                CommonAlertDialog.showDoubleButton(NFTListActivity.this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                         Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
                         getString(R.string.str_close), null);
                 return;

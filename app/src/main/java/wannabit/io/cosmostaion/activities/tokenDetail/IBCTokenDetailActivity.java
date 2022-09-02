@@ -31,7 +31,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcToken;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class IBCTokenDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -92,12 +92,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         mIbcDenom = getIntent().getStringExtra("denom");
         mIbcToken = getBaseDao().getIbcToken(mIbcDenom);
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onUpdateView();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onUpdateView());
 
         if (mIbcToken != null) {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -179,7 +174,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 return;
             }
 
-            AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_ibc_warning_c),
+            CommonAlertDialog.showSingleButton(this, getString(R.string.str_ibc_warning_c),
                     Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" + getString(R.string.str_ibc_warning_msg2)),
                     Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_ibc_continue_c) + "</font>"), view -> onCheckIbcTransfer(mIbcDenom));
 

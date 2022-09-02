@@ -77,12 +77,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetchData();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchData());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new MyDomainAdapter();

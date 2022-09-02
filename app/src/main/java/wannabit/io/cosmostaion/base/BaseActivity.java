@@ -116,7 +116,7 @@ import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AccountShowDialog;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.dialog.WaitDialog;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -242,7 +242,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onInsertKeyDialog() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                 getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
                 getString(R.string.str_close), null);
     }
@@ -283,7 +283,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (chainConfig.etherAddressSupport()) {
             try {
                 String ethAddress = WKey.convertAddressToEth(account.address);
-                AlertDialogUtils.showDoubleButtonDialog(this, Html.fromHtml(getString(R.string.str_address_type) + "<br>"), "",
+                CommonAlertDialog.showDoubleButton(this, Html.fromHtml(getString(R.string.str_address_type) + "<br>"), "",
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_tender_type) + "</font>"), view -> onClickShowAccountDialog(account.address, nickName),
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_eth_type) + "</font>"), view -> onClickShowAccountDialog(ethAddress, nickName));
             } catch (Exception e) {
@@ -1063,8 +1063,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowPushEnableDialog() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_push_permission_title), getString(R.string.str_push_permission_msg),
-                AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), view -> onRedirectPushSet(),
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_push_permission_title), getString(R.string.str_push_permission_msg),
+                CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), view -> onRedirectPushSet(),
                 getString(R.string.str_continue), null, false);
     }
 
@@ -1087,8 +1087,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowBuyWarnNoKey() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
+                CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null,
                 getString(R.string.str_continue), view -> onShowBuySelectFiat());
     }
 

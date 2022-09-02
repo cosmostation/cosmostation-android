@@ -69,12 +69,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         mBtnSort = rootView.findViewById(R.id.btn_validator_sort);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getMainActivity().onFetchAllData();
-                mMyValidatorAdapter.notifyDataSetChanged();
-            }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            getMainActivity().onFetchAllData();
+            mMyValidatorAdapter.notifyDataSetChanged();
         });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
@@ -142,12 +139,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 RewardPromotionHolder holder = (RewardPromotionHolder) viewHolder;
                 holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
 
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getMainActivity().onStartDelegate();
-                    }
-                });
+                holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartDelegate());
 
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder = (RewardWithdrawHolder) viewHolder;
@@ -157,19 +149,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 final BigDecimal allRewardAmount = getBaseDao().getRewardSum(mChainConfig.mainDenom());
                 holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, dpDecimal, 6));
 
-                holder.itemBtnAllRewards.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        getMainActivity().onCheckEasyClaim();
-                    }
-                });
+                holder.itemBtnAllRewards.setOnClickListener(view -> getMainActivity().onCheckEasyClaim());
 
-                holder.itemBtnCompounding.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        getMainActivity().onCheckEasyCompounding();
-                    }
-                });
+                holder.itemBtnCompounding.setOnClickListener(view -> getMainActivity().onCheckEasyCompounding());
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder = (RewardMyValidatorHolder) viewHolder;
@@ -198,12 +180,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemRevoked.setVisibility(View.GONE);
                 }
 
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress());
-                    }
-                });
+                holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress()));
 
                 if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                     if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(validator.getOperatorAddress())) {

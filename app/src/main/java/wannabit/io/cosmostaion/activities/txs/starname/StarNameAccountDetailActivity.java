@@ -79,12 +79,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(StarNameAccountDetailActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetchData();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchData());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new MyAccountAdapter();

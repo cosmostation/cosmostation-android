@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
@@ -192,17 +192,17 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onNetworkDialog() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_network_error_title), getString(R.string.str_network_error_msg),
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_network_error_title), getString(R.string.str_network_error_msg),
                 getString(R.string.str_retry), view -> onRetryVersionCheck(), false);
     }
 
     private void onDisableDialog() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_disabled_app_title), getString(R.string.str_disabled_app_msg),
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_disabled_app_title), getString(R.string.str_disabled_app_msg),
                 getString(R.string.str_confirm), view -> finish(), false);
     }
 
     private void onUpdateDialog() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
                 Html.fromHtml("<font color=\"#05D2DD\">" + getString(R.string.str_go_store) + "</font>"), view -> onStartPlaystore(), false);
     }
 
