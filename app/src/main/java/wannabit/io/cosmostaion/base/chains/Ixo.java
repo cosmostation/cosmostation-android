@@ -24,7 +24,7 @@ public class Ixo extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgIxo; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_ixo; }
     public String chainName() { return "ixo"; }
-    public String chainIdPrefix() { return "ixo-"; }
+    public String chainIdPrefix() { return "impacthub-"; }
 
     public int mainDenomImg() { return R.drawable.token_ixo; }
     public String mainDenom() { return "uixo"; }
@@ -52,4 +52,5 @@ public class Ixo extends ChainConfig {
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
+
 }
