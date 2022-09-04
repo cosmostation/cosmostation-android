@@ -199,7 +199,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnToSendCoin)) {
+        if (v.equals(mBtnToSendCoin) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putString("chainName", getSActivity().mBaseChain.getChain());
             HtlcSendCoinDialog dialog = HtlcSendCoinDialog.newInstance(bundle);

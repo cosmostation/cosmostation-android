@@ -100,7 +100,7 @@ public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onNextStep();
 
         } else if (v.equals(mReceiverBtn)) {
-            if (mToAccountList.size() > 0) {
+            if (mToAccountList.size() > 0 && !getSActivity().isFinishing()) {
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", getSActivity().mRecipientChain.getChain());
                 HtlcReceivableAccountsDialog dialog = HtlcReceivableAccountsDialog.newInstance(bundle);

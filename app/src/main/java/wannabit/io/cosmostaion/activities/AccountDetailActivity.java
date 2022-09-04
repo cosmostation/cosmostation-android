@@ -279,7 +279,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                     CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(),
                     getString(R.string.str_close), null);
 
-        } else if (v.equals(mNameEditImg)) {
+        } else if (v.equals(mNameEditImg) && !this.isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putInt("title", R.string.str_change_account_nickname);
             bundle.putLong("id", mAccount.id);

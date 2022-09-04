@@ -115,7 +115,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
             setResult(Activity.RESULT_OK, result);
             finish();
 
-        } else if (v.equals(mWallet)) {
+        } else if (v.equals(mWallet) && !this.isFinishing()) {
             if (mStarNameAsset != null) {
                 if (mStarNameAsset.chainName == null) {
                     Toast.makeText(getBaseContext(), R.string.error_not_support_cosmostation, Toast.LENGTH_SHORT).show();

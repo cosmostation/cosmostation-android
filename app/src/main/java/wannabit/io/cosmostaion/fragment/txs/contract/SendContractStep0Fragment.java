@@ -197,9 +197,11 @@ public class SendContractStep0Fragment extends BaseFragment implements View.OnCl
                     Bundle bundle = new Bundle();
                     bundle.putString("starname", userInput);
                     bundle.putString("originAddress", matchAddress);
-                    StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
-                    dialog.setTargetFragment(SendContractStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                    if (!getSActivity().isFinishing()) {
+                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
+                        dialog.setTargetFragment(SendContractStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                        dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                    }
                 }, 0);
 
             }

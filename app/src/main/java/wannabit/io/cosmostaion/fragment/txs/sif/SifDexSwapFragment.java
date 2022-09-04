@@ -153,14 +153,14 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnInputCoinList)) {
+        if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mAllDenoms);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
             dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
-        } else if (v.equals(mBtnOutputCoinList)) {
+        } else if (v.equals(mBtnOutputCoinList) && !getSActivity().isFinishing()) {
             mSwapableDenoms.clear();
             if (mInputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
                 mSwapableDenoms = (ArrayList<String>) mAllDenoms.clone();

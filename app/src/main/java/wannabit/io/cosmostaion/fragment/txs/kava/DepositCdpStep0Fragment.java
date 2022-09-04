@@ -290,7 +290,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
-            if (onDisplayViewUpdate()) {
+            if (onDisplayViewUpdate() && !getSActivity().isFinishing()) {
                 if (mBeforeLiquidationPrice.compareTo(BigDecimal.ZERO) <= 0 || mBeforeRiskRate.compareTo(BigDecimal.ZERO) < 0 || mToDepositAmount.compareTo(BigDecimal.ZERO) <= 0 ||
                         mAfterLiquidationPrice == null || mAfterRiskRate == null) {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();

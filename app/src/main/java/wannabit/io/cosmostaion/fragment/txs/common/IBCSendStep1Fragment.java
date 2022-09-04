@@ -163,10 +163,11 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mCancel)) {
             getSActivity().onBeforeStep();
 
-        } else if (v.equals(mBtnWallet)) {
+        } else if (v.equals(mBtnWallet) && !getSActivity().isFinishing()) {
             if (mTochain == null || mToAccountList.size() <= 0) {
                 Toast.makeText(getSActivity(), getString(R.string.error_no_wallet_this_chain), Toast.LENGTH_SHORT).show();
                 return;
+
             } else {
                 Bundle bundle = new Bundle();
                 bundle.putString("chainName", mTochain.getChain());
@@ -245,9 +246,11 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
                     Bundle bundle = new Bundle();
                     bundle.putString("starname", userInput);
                     bundle.putString("originAddress", matchAddress);
-                    StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
-                    dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                    if (!getSActivity().isFinishing()) {
+                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
+                        dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                        dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                    }
                 }, 0);
 
             }

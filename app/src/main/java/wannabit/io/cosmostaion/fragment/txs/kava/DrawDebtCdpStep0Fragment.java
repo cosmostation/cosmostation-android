@@ -296,7 +296,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
-            if (onDisplayViewUpdate()) {
+            if (onDisplayViewUpdate() && !getSActivity().isFinishing()) {
                 if (mBeforeLiquidationPrice.compareTo(BigDecimal.ZERO) <= 0 || mBeforeRiskRate.compareTo(BigDecimal.ZERO) < 0 ||
                         mAfterLiquidationPrice == null || mAfterRiskRate == null || mToLoanAmount == null) {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
@@ -319,6 +319,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                     SafeScoreConfirmDialog dialog = SafeScoreConfirmDialog.newInstance(bundle);
                     dialog.setTargetFragment(this, CDP_DRAW_DEBT_CONFIRM_DIALOG);
                     dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+
                 }
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();

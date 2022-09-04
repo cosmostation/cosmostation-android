@@ -264,7 +264,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnSelectFeeCoin)) {
+        if (v.equals(mBtnSelectFeeCoin) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("feeDatas", mFeeInfo.get(mSelectedFeeInfo).feeDatas);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);

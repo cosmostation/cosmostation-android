@@ -84,7 +84,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
         if (v.equals(mCancel)) {
             onBackPressed();
 
-        } else if (v.equals(mNext)) {
+        } else if (v.equals(mNext) && !this.isFinishing()) {
             mUserInput = mInput.getText().toString().trim();
             ArrayList<BaseChain> chains = WDp.getChainsFromAddress(mUserInput);
             if (chains != null) {

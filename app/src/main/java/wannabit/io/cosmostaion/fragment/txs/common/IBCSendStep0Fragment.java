@@ -176,65 +176,60 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
                 getSActivity().onNextStep();
             }
 
-        } else if (v.equals(mToChainLayer)) {
+        } else if (v.equals(mToChainLayer) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("chain", mIbcSendableRelayers);
             IBCReceiveChainDialog dialog = IBCReceiveChainDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_CHAIN);
             dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
-        } else if (v.equals(mToRelayer)) {
+        } else if (v.equals(mToRelayer) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("channel", mIbcSendablePaths);
             IBCRelayerChannelDialog dialog = IBCRelayerChannelDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_RELAYER);
             dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+
         }
     }
 
     private void onSortRelayer(ArrayList<IbcPath> ibcPaths) {
-        Collections.sort(ibcPaths, new Comparator<IbcPath>() {
-            @Override
-            public int compare(IbcPath o1, IbcPath o2) {
-                if (o1.chain_id.contains("cosmoshub-")) return -1;
-                if (o2.chain_id.contains("cosmoshub-")) return 1;
-                if (o1.chain_id.contains("osmosis-")) return -1;
-                if (o2.chain_id.contains("osmosis-")) return 1;
-                return o1.chain_id.compareTo(o2.chain_id);
-            }
+        Collections.sort(ibcPaths, (o1, o2) -> {
+            if (o1.chain_id.contains("cosmoshub-")) return -1;
+            if (o2.chain_id.contains("cosmoshub-")) return 1;
+            if (o1.chain_id.contains("osmosis-")) return -1;
+            if (o2.chain_id.contains("osmosis-")) return 1;
+            return o1.chain_id.compareTo(o2.chain_id);
         });
     }
 
     private void onSortPath(ArrayList<IbcPath.Path> paths) {
-        Collections.sort(paths, new Comparator<IbcPath.Path>() {
-            @Override
-            public int compare(IbcPath.Path o1, IbcPath.Path o2) {
-                IbcToken ibcToken = getBaseDao().getIbcToken(getSActivity().mToIbcDenom);
-                if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
-                    if (o1.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return -1;
-                    if (o2.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return 1;
-                }
-                if (getSActivity().mToIbcDenom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
-                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
-                        return -1;
-                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
-                        return 1;
-                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
-                        return -1;
-                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
-                        return 1;
-                } else {
-                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
-                        return -1;
-                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
-                        return 1;
-                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
-                        return -1;
-                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
-                        return 1;
-                }
-                return 0;
+        Collections.sort(paths, (o1, o2) -> {
+            IbcToken ibcToken = getBaseDao().getIbcToken(getSActivity().mToIbcDenom);
+            if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
+                if (o1.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return -1;
+                if (o2.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return 1;
             }
+            if (getSActivity().mToIbcDenom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
+                if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                    return -1;
+                if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                    return 1;
+                if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                    return -1;
+                if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                    return 1;
+            } else {
+                if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                    return -1;
+                if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                    return 1;
+                if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                    return -1;
+                if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                    return 1;
+            }
+            return 0;
         });
     }
 

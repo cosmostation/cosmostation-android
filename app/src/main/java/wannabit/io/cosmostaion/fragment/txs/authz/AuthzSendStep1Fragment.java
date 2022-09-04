@@ -213,7 +213,7 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }
 
-        } else if (v.equals(mSelectCoinBtn)) {
+        } else if (v.equals(mSelectCoinBtn)  && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("sendCoins", mGrantAvailbale);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);

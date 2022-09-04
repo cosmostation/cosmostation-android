@@ -422,7 +422,7 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                 }
 
             } else if (mStep == STEP_PRINCIPAL) {
-                if (onValidateNext()) {
+                if (onValidateNext() && !getSActivity().isFinishing()) {
                     Bundle bundle = new Bundle();
                     bundle.putString("riskRate", getSActivity().mRiskRate.toPlainString());
                     bundle.putString("liquidationPrice", getSActivity().mLiquidationPrice.toPlainString());

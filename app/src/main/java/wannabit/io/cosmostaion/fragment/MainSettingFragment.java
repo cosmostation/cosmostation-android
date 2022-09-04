@@ -252,12 +252,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnAutoPass)) {
             onClickAutoPass();
 
-        } else if (v.equals(mBtnCurrency)) {
+        } else if (v.equals(mBtnCurrency) && !getMainActivity().isFinishing()) {
             CurrencySetDialog dialog = CurrencySetDialog.newInstance(null);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_CURRENCY);
             dialog.show(getActivity().getSupportFragmentManager(), "dialog");
-            return;
 
         } else if (v.equals(mBtnExplore)) {
             String url = getMainActivity().mChainConfig.explorerUrl();

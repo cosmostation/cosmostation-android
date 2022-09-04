@@ -128,7 +128,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnEditNick)) {
+        if (v.equals(mBtnEditNick) && !this.isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putInt("title", R.string.str_change_mnemonic_nickname);
             bundle.putLong("id", mWords.id);

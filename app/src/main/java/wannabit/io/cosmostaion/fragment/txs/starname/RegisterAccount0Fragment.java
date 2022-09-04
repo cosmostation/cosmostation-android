@@ -77,7 +77,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mDomainLayer)) {
+        if (v.equals(mDomainLayer) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
             StarnameDomainDialog dialog = StarnameDomainDialog.newInstance(bundle);

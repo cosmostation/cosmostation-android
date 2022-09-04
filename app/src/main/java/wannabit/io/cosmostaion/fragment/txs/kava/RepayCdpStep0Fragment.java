@@ -297,7 +297,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
-            if (onValidateAmount()) {
+            if (onValidateAmount() && !getSActivity().isFinishing()) {
                 Coin payment = new Coin(pDenom, mToPaymentAmount.toPlainString());
                 getSActivity().mPayment = payment;
                 getSActivity().mBeforeLiquidationPrice = mBeforeLiquidationPrice;
@@ -316,6 +316,7 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
                 SafeScoreConfirmDialog dialog = SafeScoreConfirmDialog.newInstance(bundle);
                 dialog.setTargetFragment(this, CDP_REPAY_CONFIRM_DIALOG);
                 dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }

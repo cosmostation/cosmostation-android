@@ -298,8 +298,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         Bundle bundle = new Bundle();
         bundle.putString("title", nickName);
         bundle.putString("address", address);
-        AccountShowDialog dialog = AccountShowDialog.newInstance(bundle);
-        dialog.show(getSupportFragmentManager(), "dialog");
+        if(!this.isFinishing()){
+            AccountShowDialog dialog = AccountShowDialog.newInstance(bundle);
+            dialog.show(getSupportFragmentManager(), "dialog");
+        }
     }
 
     public void onHideKeyboard() {
@@ -879,7 +881,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
                 List<BalancerPool.Pool> pools = (List<BalancerPool.Pool>) result.resultData;
-                getBaseDao().mGrpcOsmosisPool = new ArrayList<BalancerPool.Pool>(pools);
+                getBaseDao().mGrpcOsmosisPool = new ArrayList<>(pools);
             }
         }
 

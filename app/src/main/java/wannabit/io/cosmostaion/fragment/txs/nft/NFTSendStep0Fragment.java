@@ -197,9 +197,11 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
                     Bundle bundle = new Bundle();
                     bundle.putString("starname", userInput);
                     bundle.putString("originAddress", matchAddress);
-                    StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
-                    dialog.setTargetFragment(NFTSendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                    if (!getSActivity().isFinishing()) {
+                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
+                        dialog.setTargetFragment(NFTSendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                        dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                    }
                 }, 0);
 
             }

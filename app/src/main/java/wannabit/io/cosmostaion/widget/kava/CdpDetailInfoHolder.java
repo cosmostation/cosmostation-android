@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.widget.kava;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -110,9 +111,10 @@ public class CdpDetailInfoHolder extends BaseHolder {
             bundle.putString("liquidationPrice", mLiquidationPrice.toPlainString());
             bundle.putString("currentPrice", currentPrice.toPlainString());
             bundle.putString("denom", cDenom);
-            SafeScoreStatusDialog dialog = SafeScoreStatusDialog.newInstance(bundle);
-            dialog.show(context.getSupportFragmentManager(), "dialog");
-
+            if (!context.isFinishing()) {
+                SafeScoreStatusDialog dialog = SafeScoreStatusDialog.newInstance(bundle);
+                dialog.show(context.getSupportFragmentManager(), "dialog");
+            }
         });
         mInfoCollateralRateHelp.setOnClickListener(v -> onShowHelpPopup(context, context.getString(R.string.str_help_collateral_rate_t), context.getString(R.string.str_help_collateral_rate)));
         mStabilityFeeHelp.setOnClickListener(v -> onShowHelpPopup(context, context.getString(R.string.str_help_stability_fee_t), context.getString(R.string.str_help_stability_fee)));

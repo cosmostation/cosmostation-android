@@ -589,27 +589,29 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chainId);
-        Dialog_Wc_Account dialog = Dialog_Wc_Account.newInstance(bundle);
-        dialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
-            @Override
-            public void onSelect(Long id, Account account) {
-                chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
-                if (mBaseChain == null) {
-                    mBaseChain = WDp.getChainTypeByChainId(chainId);
-                    mChainConfig = ChainFactory.getChain(mBaseChain);
-                    onInitView(mWcPeerMeta);
+        if (!this.isFinishing()) {
+            Dialog_Wc_Account dialog = Dialog_Wc_Account.newInstance(bundle);
+            dialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
+                @Override
+                public void onSelect(Long id, Account account) {
+                    chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
+                    if (mBaseChain == null) {
+                        mBaseChain = WDp.getChainTypeByChainId(chainId);
+                        mChainConfig = ChainFactory.getChain(mBaseChain);
+                        onInitView(mWcPeerMeta);
+                    }
+                    wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
+                    moveToBackIfNeed();
                 }
-                wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
-                moveToBackIfNeed();
-            }
 
-            @Override
-            public void onCancel() {
-                wcClient.approveRequest(id, Lists.newArrayList());
-                moveToBackIfNeed();
-            }
-        });
-        dialog.show(getSupportFragmentManager(), "dialog");
+                @Override
+                public void onCancel() {
+                    wcClient.approveRequest(id, Lists.newArrayList());
+                    moveToBackIfNeed();
+                }
+            });
+            dialog.show(getSupportFragmentManager(), "dialog");
+        }
     }
 
     private void onShowAccountDialog(Long id, List<String> chains, List<Account> selectedAccounts, int index) {
@@ -638,26 +640,28 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chains.get(index));
-        Dialog_Wc_Account dialog = Dialog_Wc_Account.newInstance(bundle);
-        dialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
-            @Override
-            public void onSelect(Long id, Account account) {
-                chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
-                if (mBaseChain == null) {
-                    mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
-                    mChainConfig = ChainFactory.getChain(mBaseChain);
-                    onInitView(mWcPeerMeta);
+        if (!this.isFinishing()) {
+            Dialog_Wc_Account dialog = Dialog_Wc_Account.newInstance(bundle);
+            dialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
+                @Override
+                public void onSelect(Long id, Account account) {
+                    chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
+                    if (mBaseChain == null) {
+                        mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
+                        mChainConfig = ChainFactory.getChain(mBaseChain);
+                        onInitView(mWcPeerMeta);
+                    }
+                    selectedAccounts.add(account);
+                    onShowAccountDialog(id, chains, selectedAccounts, index + 1);
                 }
-                selectedAccounts.add(account);
-                onShowAccountDialog(id, chains, selectedAccounts, index + 1);
-            }
 
-            @Override
-            public void onCancel() {
-                onShowAccountDialog(id, chains, selectedAccounts, index + 1);
-            }
-        });
-        dialog.show(getSupportFragmentManager(), "dialog" + index);
+                @Override
+                public void onCancel() {
+                    onShowAccountDialog(id, chains, selectedAccounts, index + 1);
+                }
+            });
+            dialog.show(getSupportFragmentManager(), "dialog" + index);
+        }
     }
 
 
@@ -707,22 +711,24 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowSignDialog(Bundle bundle) {
-        Dialog_Wc_Raw_Data wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, new Dialog_Wc_Raw_Data.WcSignRawDataListener() {
-            @Override
-            public void sign(int type, Long id, String transaction) {
-                if (type == ConnectWalletActivity.TYPE_TRUST_WALLET) {
-                    approveTrustRequest(id, transaction);
-                } else if (type == ConnectWalletActivity.TYPE_COSMOS_WALLET) {
-                    approveCosmosRequest(id, transaction);
+        if (!this.isFinishing()) {
+            Dialog_Wc_Raw_Data wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, new Dialog_Wc_Raw_Data.WcSignRawDataListener() {
+                @Override
+                public void sign(int type, Long id, String transaction) {
+                    if (type == ConnectWalletActivity.TYPE_TRUST_WALLET) {
+                        approveTrustRequest(id, transaction);
+                    } else if (type == ConnectWalletActivity.TYPE_COSMOS_WALLET) {
+                        approveCosmosRequest(id, transaction);
+                    }
                 }
-            }
 
-            @Override
-            public void reject(Long id) {
-                rejectSignRequest(id);
-            }
-        });
-        wcRawDataDialog.show(getSupportFragmentManager(), "dialog");
+                @Override
+                public void reject(Long id) {
+                    rejectSignRequest(id);
+                }
+            });
+            wcRawDataDialog.show(getSupportFragmentManager(), "dialog");
+        }
     }
 
     private void rejectSignRequest(Long id) {
