@@ -306,7 +306,7 @@ public class WDp {
 
         } else if (chainConfig.baseChain().equals(IXO_MAIN)) {
             if (denom.equalsIgnoreCase(Ixo.IXO_ATOM_DENOM))
-                imageView.setImageResource(R.drawable.token_cosmos);
+                imageView.setImageResource(R.drawable.token_ixo_uatom_fee);
 
         } else {
             imageView.setImageResource(R.drawable.token_default);
