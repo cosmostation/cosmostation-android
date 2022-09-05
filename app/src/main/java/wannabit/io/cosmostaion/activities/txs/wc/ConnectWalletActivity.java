@@ -390,37 +390,13 @@ public class ConnectWalletActivity extends BaseActivity {
             return null;
         });
         wcClient.setOnEthSign((id, signMessage) -> {
-            runOnUiThread(() ->
-                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), signMessage.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
-                        new Thread(() -> {
-                            try {
-                                Sign.SignatureData signResult = processEthSign(signMessage);
-                                wcClient.approveRequest(id, signResult);
-                            } catch (Exception e) {
-                                wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
-                            }
-                        }).start();
-                    })
-            );
+            mSignMessage = signMessage;
+            runOnUiThread(() -> onShowEvmosSignDialog(makeEvmosSignBundle(TYPE_ETH_SIGN_MESSAGE, id, null, signMessage)));
             return null;
         });
         wcClient.setOnEthSendTransaction((id, wcEthereumTransaction) -> {
-            runOnUiThread(() ->
-                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), wcEthereumTransaction.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
-                        new Thread(() -> {
-                            try {
-                                EthSendTransaction sendResult = processEthSend(wcEthereumTransaction);
-                                if (sendResult == null) {
-                                    wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
-                                } else {
-                                    wcClient.approveRequest(id, sendResult.getTransactionHash());
-                                }
-                            } catch (InterruptedException | ExecutionException e) {
-                                wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
-                            }
-                        }).start();
-                    })
-            );
+            mWcEthereumTransaction = wcEthereumTransaction;
+            runOnUiThread(() -> onShowEvmosSignDialog(makeEvmosSignBundle(TYPE_ETH_SIGN_TRANSACTION, id, wcEthereumTransaction, null)));
             return null;
         });
         wcClient.setOnCosmostationAccounts((id, strings) -> {
@@ -773,7 +749,7 @@ public class ConnectWalletActivity extends BaseActivity {
             }
         });
         dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 
     private void rejectSignRequest(Long id) {
