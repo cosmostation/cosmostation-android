@@ -39,7 +39,7 @@ import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Derive;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.NumberPickerDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -166,9 +166,14 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 int status = -1;
                 Account checkAccount = getBaseDao().onSelectExistAccount(dpAddress, chain);
                 if (checkAccount != null) {
-                    if (checkAccount.hasPrivateKey) { status = 2; }
-                    else { status = 1; }
-                } else { status = 0; }
+                    if (checkAccount.hasPrivateKey) {
+                        status = 2;
+                    } else {
+                        status = 1;
+                    }
+                } else {
+                    status = 0;
+                }
                 Derive derive = new Derive(chain, i, mPath, chainConfig.getHdPath(i, String.valueOf(mPath)), dpAddress, status);
                 if (!mDerives.stream().filter(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress)).findAny().isPresent()) {
                     mDerives.add(derive);
@@ -201,19 +206,18 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mPathLayer)) {
+        if (v.equals(mPathLayer) && !this.isFinishing()) {
             NumberPickerDialog numberPicker = NumberPickerDialog.newInstance(null);
             numberPicker.selectListener = this::onSelectedHdPath;
             numberPicker.setCancelable(false);
             numberPicker.show(getSupportFragmentManager(), "dialog");
-
         } else if (v.equals(mBtnAdd)) {
             long selectedCnt = mDerives.stream().filter(derive -> derive.selected).count();
             if (selectedCnt == 0) {
                 Toast.makeText(this, R.string.error_not_selected_to_import, Toast.LENGTH_SHORT).show();
                 return;
             }
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_add_new), String.format(getString(R.string.str_add_wallet), String.valueOf(selectedCnt)), getString(R.string.str_cancel), null, getString(R.string.str_confirm), view -> onSaveAccount());
+            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_add_new), String.format(getString(R.string.str_add_wallet), String.valueOf(selectedCnt)), getString(R.string.str_cancel), null, getString(R.string.str_confirm), view -> onSaveAccount());
         }
     }
 
@@ -261,20 +265,17 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 holder.accountState.setText("");
             }
 
-            holder.accountCard.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (derive.status == 2) {
-                        return;
-                    }
-                    derive.selected = !derive.selected;
-                    if (derive.selected) {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
-                    } else {
-                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
-                    }
-                    onUpdateCnt();
+            holder.accountCard.setOnClickListener(view -> {
+                if (derive.status == 2) {
+                    return;
                 }
+                derive.selected = !derive.selected;
+                if (derive.selected) {
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
+                } else {
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                }
+                onUpdateCnt();
             });
 
             loadBalance(holder, derive);
@@ -290,27 +291,24 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
             if (isGRPC(derive.baseChain)) {
                 new Thread(() -> {
-                    new BalanceGrpcTask(getBaseApplication(), new TaskListener() {
-                        @Override
-                        public void onTaskResponse(TaskResult result) {
-                            ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
-                            if (balances != null && balances.size() > 0) {
-                                for (CoinOuterClass.Coin coin : balances) {
-                                    if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
-                                        derive.coin = new Coin(coin.getDenom(), coin.getAmount());
-                                        runOnUiThread(() -> {
-                                            WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
-                                        });
-                                        return;
-                                    }
+                    new BalanceGrpcTask(getBaseApplication(), result -> {
+                        ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
+                        if (balances != null && balances.size() > 0) {
+                            for (CoinOuterClass.Coin coin : balances) {
+                                if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
+                                    derive.coin = new Coin(coin.getDenom(), coin.getAmount());
+                                    runOnUiThread(() -> {
+                                        WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
+                                    });
+                                    return;
                                 }
                             }
-
-                            derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                            runOnUiThread(() -> {
-                                WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
-                            });
                         }
+
+                        derive.coin = new Coin(chainConfig.mainDenom(), "0");
+                        runOnUiThread(() -> {
+                            WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
+                        });
                     }, derive.baseChain, derive.dpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }).start();
 
@@ -337,6 +335,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                     WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
                                 });
                             }
+
                             @Override
                             public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) {
                             }
@@ -365,6 +364,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                     WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
                                 });
                             }
+
                             @Override
                             public void onFailure(Call<ResOkAccountToken> call, Throwable t) {
                             }

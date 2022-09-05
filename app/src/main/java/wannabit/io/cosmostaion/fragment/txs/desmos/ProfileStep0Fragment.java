@@ -106,21 +106,18 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
                 return;
             }
 
-            new DesmosProfileGrpcTask(getBaseApplication(), new TaskListener() {
-                @Override
-                public void onTaskResponse(TaskResult result) {
-                    if (!result.isSuccess) {
-                        getSActivity().mDtag = dtag;
-                        getSActivity().mNickname = nickname;
-                        getSActivity().mBio = bio;
-                        getSActivity().mCoverImg = mCoverHash;
-                        getSActivity().mProfileImg = mProfileHash;
-                        getSActivity().onNextStep();
+            new DesmosProfileGrpcTask(getBaseApplication(), result -> {
+                if (!result.isSuccess) {
+                    getSActivity().mDtag = dtag;
+                    getSActivity().mNickname = nickname;
+                    getSActivity().mBio = bio;
+                    getSActivity().mCoverImg = mCoverHash;
+                    getSActivity().mProfileImg = mProfileHash;
+                    getSActivity().onNextStep();
 
-                    } else {
-                        Toast.makeText(getSActivity(), getSActivity().getString(R.string.error_already_registered_dtag), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                } else {
+                    Toast.makeText(getSActivity(), getSActivity().getString(R.string.error_already_registered_dtag), Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }, getSActivity().mBaseChain, dtag).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -174,12 +171,7 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
                     if (misProfile) {
                         mCoverHash = response.hash.toBase58();
                         if (mCoverHash != null) {
-                            getSActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    onUpdateImgView(true, mCoverHash);
-                                }
-                            });
+                            getSActivity().runOnUiThread(() -> onUpdateImgView(true, mCoverHash));
                         } else {
                             Toast.makeText(getSActivity(), getSActivity().getString(R.string.error_fail_upload_img), Toast.LENGTH_SHORT).show();
                         }
@@ -187,12 +179,7 @@ public class ProfileStep0Fragment extends BaseFragment implements View.OnClickLi
                     } else if (!misProfile) {
                         mProfileHash = response.hash.toBase58();
                         if (mProfileHash != null) {
-                            getSActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    onUpdateImgView(false, mProfileHash);
-                                }
-                            });
+                            getSActivity().runOnUiThread(() -> onUpdateImgView(false, mProfileHash));
                         } else {
                             Toast.makeText(getSActivity(), getSActivity().getString(R.string.error_fail_upload_img), Toast.LENGTH_SHORT).show();
                         }

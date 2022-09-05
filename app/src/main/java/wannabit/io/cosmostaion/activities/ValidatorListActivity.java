@@ -259,20 +259,17 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         onShowWaitDialog();
         FeeInfo.FeeData feeData = calculateFee(selectFee);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ServiceOuterClass.SimulateResponse simulateCompoundingResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mBaseChain);
-                ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
-                if (simulateCompoundingResponse == null) {
-                    return;
-                }
-                ServiceOuterClass.BroadcastTxResponse executeCompoundingResponse = ValidatorListActivity.this.executeCompounding(simulateCompoundingResponse, feeData, getClaimableReward(), mBaseChain);
-                if (executeCompoundingResponse == null) {
-                    return;
-                }
-                ValidatorListActivity.this.processResponse(executeCompoundingResponse);
+        new Thread(() -> {
+            ServiceOuterClass.SimulateResponse simulateCompoundingResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mBaseChain);
+            ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
+            if (simulateCompoundingResponse == null) {
+                return;
             }
+            ServiceOuterClass.BroadcastTxResponse executeCompoundingResponse = ValidatorListActivity.this.executeCompounding(simulateCompoundingResponse, feeData, getClaimableReward(), mBaseChain);
+            if (executeCompoundingResponse == null) {
+                return;
+            }
+            ValidatorListActivity.this.processResponse(executeCompoundingResponse);
         }).start();
     }
 
@@ -436,12 +433,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    onShowFeeDialog();
-                }
-            }, 300);
+            mHandler.postDelayed(() -> onShowFeeDialog(), 300);
         }
     }
 

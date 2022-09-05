@@ -35,8 +35,8 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -256,7 +256,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 if (getBaseDao().isAutoPass()) {
                     String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
                     Intent checkintent = new Intent(this, PrivateKeyCheckActivity.class);
-                    checkintent.putExtra("checkid",  mAccount.id);
+                    checkintent.putExtra("checkid", mAccount.id);
                     checkintent.putExtra("entropy", entropy);
                     startActivity(checkintent);
 
@@ -275,18 +275,17 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (v.equals(mBtnDelete)) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_delete_title), getString(R.string.str_delete_msg),
-                    AlertDialogUtils.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(),
+            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_delete_title), getString(R.string.str_delete_msg),
+                    CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(),
                     getString(R.string.str_close), null);
 
-        } else if (v.equals(mNameEditImg)) {
+        } else if (v.equals(mNameEditImg) && !this.isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putInt("title", R.string.str_change_account_nickname);
             bundle.putLong("id", mAccount.id);
             bundle.putString("name", mAccount.nickName);
-            ChangeNickNameDialog delete = ChangeNickNameDialog.newInstance(bundle);
-            delete.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(delete, "dialog").commitNowAllowingStateLoss();
+            ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
+            dialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnQr)) {
             onClickQrCopy(mChainConfig, mAccount);
@@ -306,8 +305,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 return;
             }
 
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_reward_address_change_title),
-                    Html.fromHtml(getString(R.string.str_reward_address_change_msg) + "<br/><br/><font color=\"#ff0000\">" + AlertDialogUtils.highlightingText(getString(R.string.str_reward_address_change_market_no) + "</font>")),
+            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_reward_address_change_title),
+                    Html.fromHtml(getString(R.string.str_reward_address_change_msg) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(getString(R.string.str_reward_address_change_market_no) + "</font>")),
                     getString(R.string.str_cancel), null,
                     getString(R.string.str_continue), view -> onStartChangeRewardAddress(), true);
         }
@@ -336,12 +335,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
             tendermint.p2p.Types.NodeInfo nodeinfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (nodeinfo != null) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAccountChain.setText(nodeinfo.getNetwork());
-                    }
-                }, 100);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> mAccountChain.setText(nodeinfo.getNetwork()), 100);
 
             }
         }

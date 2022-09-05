@@ -2,8 +2,6 @@ package wannabit.io.cosmostaion.dialog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 
-import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.binance.dex.api.client.encoding.message.TransferMessage;
@@ -35,13 +33,8 @@ public class Dialog_Wc_Transfer extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_transfer, null);
         TextView to_address = view.findViewById(R.id.wc_recipient_address);
         ImageView send_coin_icon = view.findViewById(R.id.wc_send_coin_icon);
@@ -70,23 +63,13 @@ public class Dialog_Wc_Transfer extends DialogFragment {
             to_memo.setText(getArguments().getString("memo"));
         }
 
-        btn_negative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
-            }
+        btn_negative.setOnClickListener(v -> getDialog().dismiss());
+
+        btn_positive.setOnClickListener(v -> {
+            ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
+            getDialog().dismiss();
         });
 
-        btn_positive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
-                getDialog().dismiss();
-            }
-        });
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
+        return view;
     }
 }

@@ -45,12 +45,6 @@ public class Dialog_Wc_Account extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
         mDialogTitle = view.findViewById(R.id.dialog_title);
@@ -62,10 +56,11 @@ public class Dialog_Wc_Account extends DialogFragment {
         mRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
         mRecyclerView.setAdapter(mAccountListAdapter);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        builder.setOnDismissListener(dialogInterface -> mOnSelectListener.onCancel());
-        return builder.create();
+
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setOnDismissListener(dialogInterface -> mOnSelectListener.onCancel()).create();
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
+        return dialog;
+
     }
 
     public void setOnSelectListener(OnDialogSelectListener mOnSelectListener) {

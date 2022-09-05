@@ -29,7 +29,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
@@ -108,12 +108,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mAdapter = new NativeTokenGrpcAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onUpdateView();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onUpdateView());
 
         onUpdateView();
         mBtnAddressPopup.setOnClickListener(this);
@@ -176,7 +171,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
                 return;
             }
 
-            AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_ibc_warning_c),
+            CommonAlertDialog.showSingleButton(this, getString(R.string.str_ibc_warning_c),
                     Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" + getString(R.string.str_ibc_warning_msg2)),
                     Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_ibc_continue_c) + "</font>"), view -> onCheckIbcTransfer(mNativeGrpcDenom));
 

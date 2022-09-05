@@ -54,12 +54,7 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
         mRegisterAccount.setOnClickListener(this);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getSActivity().onFetch();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> getSActivity().onFetch());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mMyAccountAdapter = new MyAccountAdapter();
@@ -123,14 +118,11 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
                 holder.itemAccount.setText(account.getName().getValue() + "*" + account.getDomain());
                 holder.itemAddressCnt.setText("" + account.getResourcesCount());
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), account.getValidUntil() * 1000));
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getSActivity(), StarNameAccountDetailActivity.class);
-                        intent.putExtra("domain", account.getDomain());
-                        intent.putExtra("account", account.getName().getValue());
-                        startActivity(intent);
-                    }
+                holder.itemRoot.setOnClickListener(v -> {
+                    Intent intent = new Intent(getSActivity(), StarNameAccountDetailActivity.class);
+                    intent.putExtra("domain", account.getDomain());
+                    intent.putExtra("account", account.getName().getValue());
+                    startActivity(intent);
                 });
             }
         }

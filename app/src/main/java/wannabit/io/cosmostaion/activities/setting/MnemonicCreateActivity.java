@@ -52,20 +52,17 @@ public class MnemonicCreateActivity extends BaseActivity {
         }
         onUpdateView();
 
-        mBtnDerive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!getBaseDao().onHasPassword()) {
-                    Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
-                    startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        mBtnDerive.setOnClickListener(view -> {
+            if (!getBaseDao().onHasPassword()) {
+                Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
+                startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
-                } else {
-                    Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
-                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                    startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-                }
+            } else {
+                Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
+                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             }
         });
     }

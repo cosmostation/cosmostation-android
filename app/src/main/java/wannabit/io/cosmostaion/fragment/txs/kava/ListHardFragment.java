@@ -70,14 +70,11 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mProgress = rootView.findViewById(R.id.reward_progress);
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (mTaskCount > 0 || mHardParams == null) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                } else {
-                    onFetchHardInfo();
-                }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            if (mTaskCount > 0 || mHardParams == null) {
+                mSwipeRefreshLayout.setRefreshing(false);
+            } else {
+                onFetchHardInfo();
             }
         });
 

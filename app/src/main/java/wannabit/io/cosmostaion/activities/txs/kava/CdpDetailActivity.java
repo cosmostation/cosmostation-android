@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -80,14 +80,11 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(CdpDetailActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (mTaskCount > 0) {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                } else {
-                    onFetchCdpData();
-                }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            if (mTaskCount > 0) {
+                mSwipeRefreshLayout.setRefreshing(false);
+            } else {
+                onFetchCdpData();
             }
         });
 
@@ -308,7 +305,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
     private boolean onCommonCheck() {
         if (!mAccount.hasPrivateKey) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                     getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
                     getString(R.string.str_close), view -> {
             });

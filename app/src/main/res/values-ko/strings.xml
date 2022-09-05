@@ -26,6 +26,7 @@
     <string name="str_start">시작하기</string>
     <string name="str_check">확인</string>
     <string name="str_confirm">확인</string>
+    <string name="str_data">데이터</string>
     <string name="str_warning">경고</string>
     <string name="str_enter_again">다시 입력</string>
     <string name="str_Ignore">무시하고 진행하기</string>
@@ -122,7 +123,7 @@
     <string name="str_accounts">accounts</string>
     <string name="str_web">web</string>
     <string name="str_manage">Manage</string>
-    <string name="str_detail">Detail</string>
+    <string name="str_detail">자세히</string>
     <string name="str_wallet">지갑</string>
     <string name="str_mnemonic_manage">니모닉 관리</string>
     <string name="str_mnemonic_detail">니모닉 상세</string>
@@ -628,6 +629,7 @@
     <string name="str_collateral_value_title3">나의 %1$s 담보 가치</string>
     <string name="str_open_cdp">Mint 개설</string>
     <string name="str_total_amount">전체 수량</string>
+    <string name="str_total_fee">Total Fee</string>
     <string name="str_available_amount">사용 가능 수량</string>
     <string name="str_delegable_amount">위임 가능 수량</string>
     <string name="str_self_deposited_amount">나의 담보 수량</string>

@@ -51,13 +51,10 @@ public class CdpOtherHolder extends BaseHolder {
             Picasso.get().load(Kava.KAVA_CDP_IMG_URL + otherCdp.getType() + ".png") .fit().into(itemImgMarket);
         } catch (Exception e) { }
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, CdpDetailActivity.class);
-                intent.putExtra("collateralParamType", otherCdp.getType());
-                context.startActivity(intent);
-            }
+        itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CdpDetailActivity.class);
+            intent.putExtra("collateralParamType", otherCdp.getType());
+            context.startActivity(intent);
         });
     }
 }

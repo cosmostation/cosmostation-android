@@ -127,30 +127,19 @@ public class MainTokensFragment extends BaseFragment {
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mEmptyToken = rootView.findViewById(R.id.empty_token);
 
-        mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getMainActivity().onClickQrCopy(mChainConfig, mAccount);
-            }
-        });
+        mCardView.setOnClickListener(v -> getMainActivity().onClickQrCopy(mChainConfig, mAccount));
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onUpdateInfo();
-                getMainActivity().onFetchAllData();
-            }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            onUpdateInfo();
+            getMainActivity().onFetchAllData();
         });
 
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (mSwipeRefreshLayout.isRefreshing()) {
-                    return true;
-                } else {
-                    return false;
-                }
+        mRecyclerView.setOnTouchListener((view, motionEvent) -> {
+            if (mSwipeRefreshLayout.isRefreshing()) {
+                return true;
+            } else {
+                return false;
             }
         });
 
@@ -640,18 +629,15 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemFullName.setText(chainConfig.coinFullName(coin.denom));
         holder.itemInnerSymbol.setText("");
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                if (mNativeGrpc.get(position).denom.equalsIgnoreCase(chainConfig.mainDenom())) {
-                    intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
-                } else {
-                    intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
-                }
-                intent.putExtra("denom", coin.denom);
-                startActivity(intent);
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent;
+            if (mNativeGrpc.get(position).denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
+            } else {
+                intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
             }
+            intent.putExtra("denom", coin.denom);
+            startActivity(intent);
         });
     }
 
@@ -667,13 +653,10 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), ibcToken.decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), getBaseDao().getBaseDenom(chainConfig, coin.denom), new BigDecimal(coin.amount), ibcToken.decimal));
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
-                intent.putExtra("denom", coin.denom);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
+            intent.putExtra("denom", coin.denom);
+            startActivity(intent);
         });
     }
 
@@ -689,13 +672,10 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
-                intent.putExtra("denom", coin.denom);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
+            intent.putExtra("denom", coin.denom);
+            startActivity(intent);
         });
     }
 
@@ -712,13 +692,10 @@ public class MainTokensFragment extends BaseFragment {
         if (mBaseChain.equals(OSMOSIS_MAIN)) holder.itemFullName.setText(coin.denom);
         else holder.itemFullName.setText("Pool Asset");
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), POOLTokenDetailActivity.class);
-                intent.putExtra("denom", coin.denom);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), POOLTokenDetailActivity.class);
+            intent.putExtra("denom", coin.denom);
+            startActivity(intent);
         });
     }
 
@@ -735,13 +712,10 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), assets.decimal, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), assets.origin_symbol, new BigDecimal(coin.amount), assets.decimal));
 
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), BridgeTokenGrpcActivity.class);
-                    intent.putExtra("denom", assets.denom);
-                    startActivity(intent);
-                }
+            holder.itemRoot.setOnClickListener(v -> {
+                Intent intent = new Intent(getMainActivity(), BridgeTokenGrpcActivity.class);
+                intent.putExtra("denom", assets.denom);
+                startActivity(intent);
             });
         }
     }
@@ -758,13 +732,10 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), bep2decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.getDpSymbol(getBaseDao(), chainConfig, coin.denom), new BigDecimal(coin.amount), bep2decimal));
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
-                intent.putExtra("denom", coin.denom);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
+            intent.putExtra("denom", coin.denom);
+            startActivity(intent);
         });
     }
 
@@ -795,13 +766,10 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), cw20Asset.getAmount(), decimal, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), cw20Asset.denom, cw20Asset.getAmount(), decimal));
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), ContractTokenGrpcActivity.class);
-                intent.putExtra("cw20Asset", cw20Asset);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), ContractTokenGrpcActivity.class);
+            intent.putExtra("cw20Asset", cw20Asset);
+            startActivity(intent);
         });
     }
 
@@ -837,12 +805,9 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -870,13 +835,10 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
         holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                intent.putExtra("denom", balance.symbol);
-                startActivity(intent);
-            }
+        holder.itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+            intent.putExtra("denom", balance.symbol);
+            startActivity(intent);
         });
 
     }

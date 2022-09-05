@@ -24,7 +24,7 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -226,7 +226,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
     }
 
     private void onShowEmptyBalanceWarnDialog() {
-        AlertDialogUtils.showSingleButtonDialog(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+        CommonAlertDialog.showSingleButton(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
     }
 
     private void setDpDecimals(int decimals) {

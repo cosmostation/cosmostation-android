@@ -137,19 +137,9 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
 
         onAddAmountWatcher();
 
-        mJoinPoolInput0.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focused) {
-                mIsInput0Focused = focused;
-            }
-        });
+        mJoinPoolInput0.setOnFocusChangeListener((view, focused) -> mIsInput0Focused = focused);
 
-        mJoinPoolInput1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focused) {
-                mIsInput0Focused = !focused;
-            }
-        });
+        mJoinPoolInput1.setOnFocusChangeListener((view, focused) -> mIsInput0Focused = !focused);
     }
 
     private void onAddAmountWatcher() {

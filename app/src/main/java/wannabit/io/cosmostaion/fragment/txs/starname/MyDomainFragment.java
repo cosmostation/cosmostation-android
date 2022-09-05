@@ -54,12 +54,7 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         mRegisterDomain.setOnClickListener(this);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getSActivity().onFetch();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> getSActivity().onFetch());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mMyDomainAdapter = new MyDomainAdapter();
@@ -128,13 +123,10 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                 }
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), domain.getValidUntil() * 1000));
                 holder.itemAddressCnt.setText("" + domainAccount.getResourcesCount());
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getSActivity(), StarNameDomainDetailActivity.class);
-                        intent.putExtra("domain", domain.getName());
-                        startActivity(intent);
-                    }
+                holder.itemRoot.setOnClickListener(v -> {
+                    Intent intent = new Intent(getSActivity(), StarNameDomainDetailActivity.class);
+                    intent.putExtra("domain", domain.getName());
+                    startActivity(intent);
                 });
             }
         }

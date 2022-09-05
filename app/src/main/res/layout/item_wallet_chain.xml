@@ -41,7 +41,7 @@
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/chain_icon"
                     android:textSize="@dimen/text_size_14"
-                    tools:text="ATOM"/>
+                    tools:text="ATOM" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

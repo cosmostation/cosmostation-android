@@ -108,12 +108,7 @@ public class SwapActivity extends BaseBroadCastActivity {
         });
         mViewPager.setCurrentItem(0);
 
-        mRootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onHideKeyboard();
-            }
-        });
+        mRootView.setOnClickListener(v -> onHideKeyboard());
     }
 
     public void loadData() {

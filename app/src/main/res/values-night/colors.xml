@@ -67,6 +67,7 @@
     <color name="colorGray5DayNight">#565b60</color>
     <color name="colorBlackDayNight">#ffffff</color>
     <color name="colorBlackDayWhite">#FFFFFF</color>
+    <color name="colorBlack2DayWhite">#333438</color>
     <color name="colorPhotonDayNight">#05d2dd</color>
 
 

@@ -163,23 +163,17 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
         mStub.domain(request, new StreamObserver<QueryOuterClass.QueryDomainResponse>() {
             @Override
             public void onNext(QueryOuterClass.QueryDomainResponse value) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getSActivity().onHideWaitDialog();
-                        Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
-                    }
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    getSActivity().onHideWaitDialog();
+                    Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
                 }, 500);
             }
 
             @Override
             public void onError(Throwable t) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getSActivity().onHideWaitDialog();
-                        onNextStep();
-                    }
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    getSActivity().onHideWaitDialog();
+                    onNextStep();
                 }, 500);
             }
 

@@ -41,7 +41,7 @@ public class Passage extends ChainConfig {
     public String monikerUrl() { return MONIKER_URL + "passage/"; }
     public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "passage/relay-passage-unknown.png"; }
     public String homeInfoLink() { return  "https://passage3d.com/"; }
-    public String blogInfoLink() { return "https://passage3d.com/"; }
+    public String blogInfoLink() { return "https://medium.com/@Passage3D"; }
     public String coingeckoLink() { return  ""; }
 
     public ArrayList<String> gasRates() {

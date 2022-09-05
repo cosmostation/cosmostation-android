@@ -66,17 +66,14 @@ public class EarningOtherHolder extends RecyclerView.ViewHolder {
         itemAvailableDenom.setText("GAMM-" + pool.getId());
         itemAvailableValue.setText(WDp.getDpRawDollor(c, availableValue, 2));
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, EarningDetailActivity.class);
-                intent.putExtra("osmosisPool", pool.toByteArray());
-                OsmosisGaugeWrapper gaugesWrapper = new OsmosisGaugeWrapper(gauges);
-                intent.putExtra("osmosisGauges", gaugesWrapper);
-                OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
-                intent.putExtra("osmosislockups", lockupsWrapper);
-                activity.startActivity(intent);
-            }
+        itemRoot.setOnClickListener(view -> {
+            Intent intent = new Intent(activity, EarningDetailActivity.class);
+            intent.putExtra("osmosisPool", pool.toByteArray());
+            OsmosisGaugeWrapper gaugesWrapper = new OsmosisGaugeWrapper(gauges);
+            intent.putExtra("osmosisGauges", gaugesWrapper);
+            OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
+            intent.putExtra("osmosislockups", lockupsWrapper);
+            activity.startActivity(intent);
         });
     }
 }
