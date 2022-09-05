@@ -116,7 +116,7 @@ import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AccountShowDialog;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.dialog.WaitDialog;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -231,9 +231,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (getSupportFragmentManager().findFragmentByTag("wait") != null && getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
             return;
         }
-
         mDialogWait.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(mDialogWait, "wait").commitNowAllowingStateLoss();
+        mDialogWait.show(getSupportFragmentManager(), "wait");
     }
 
     public void onHideWaitDialog() {
@@ -243,7 +242,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onInsertKeyDialog() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
                 getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
                 getString(R.string.str_close), null);
     }
@@ -284,7 +283,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (chainConfig.etherAddressSupport()) {
             try {
                 String ethAddress = WKey.convertAddressToEth(account.address);
-                AlertDialogUtils.showDoubleButtonDialog(this, Html.fromHtml(getString(R.string.str_address_type) + "<br>"), "",
+                CommonAlertDialog.showDoubleButton(this, Html.fromHtml(getString(R.string.str_address_type) + "<br>"), "",
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_tender_type) + "</font>"), view -> onClickShowAccountDialog(account.address, nickName),
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_eth_type) + "</font>"), view -> onClickShowAccountDialog(ethAddress, nickName));
             } catch (Exception e) {
@@ -299,9 +298,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         Bundle bundle = new Bundle();
         bundle.putString("title", nickName);
         bundle.putString("address", address);
-        AccountShowDialog show = AccountShowDialog.newInstance(bundle);
-        show.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+        if(!this.isFinishing()){
+            AccountShowDialog dialog = AccountShowDialog.newInstance(bundle);
+            dialog.show(getSupportFragmentManager(), "dialog");
+        }
     }
 
     public void onHideKeyboard() {
@@ -881,7 +881,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
                 List<BalancerPool.Pool> pools = (List<BalancerPool.Pool>) result.resultData;
-                getBaseDao().mGrpcOsmosisPool = new ArrayList<BalancerPool.Pool>(pools);
+                getBaseDao().mGrpcOsmosisPool = new ArrayList<>(pools);
             }
         }
 
@@ -1036,12 +1036,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new StationPriceInfoTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             //callback with delay fix gRPC  timming issue
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mFetchCallback != null) {
-                        mFetchCallback.fetchFinished();
-                    }
+            mHandler.postDelayed(() -> {
+                if (mFetchCallback != null) {
+                    mFetchCallback.fetchFinished();
                 }
             }, 300);
         }
@@ -1068,8 +1065,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowPushEnableDialog() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_push_permission_title), getString(R.string.str_push_permission_msg),
-                AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), view -> onRedirectPushSet(),
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_push_permission_title), getString(R.string.str_push_permission_msg),
+                CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), view -> onRedirectPushSet(),
                 getString(R.string.str_continue), null, false);
     }
 
@@ -1092,8 +1089,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowBuyWarnNoKey() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
+                CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null,
                 getString(R.string.str_continue), view -> onShowBuySelectFiat());
     }
 
@@ -1118,21 +1115,18 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         query = query + "&walletAddress=" + mAccount.address + "&baseCurrencyCode=" + fiat;
         final String data = query;
 
-        new MoonPayTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess) {
-                    try {
-                        String en = URLEncoder.encode((String) result.resultData, "UTF-8");
-                        Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
-                        startActivity(guideIntent);
-                    } catch (Exception e) {
-                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
+        new MoonPayTask(getBaseApplication(), result -> {
+            if (result.isSuccess) {
+                try {
+                    String en = URLEncoder.encode((String) result.resultData, "UTF-8");
+                    Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_moon_pay) + data + "&signature=" + en));
+                    startActivity(guideIntent);
+                } catch (Exception e) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
+
+            } else {
+                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
             }
         }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }

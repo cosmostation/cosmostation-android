@@ -157,13 +157,10 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
     }
 
     private void onFetchReward() {
-        new WithdrawAddressGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess && result.resultData != null) {
-                    mWithdrawAddress = (String) result.resultData;
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
-                }
+        new WithdrawAddressGrpcTask(getBaseApplication(), result -> {
+            if (result.isSuccess && result.resultData != null) {
+                mWithdrawAddress = (String) result.resultData;
+                mPageAdapter.mCurrentFragment.onRefreshTab();
             }
         }, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

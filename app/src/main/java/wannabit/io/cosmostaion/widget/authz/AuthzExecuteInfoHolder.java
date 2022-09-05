@@ -96,12 +96,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
             setColor(chainConfig, false);
         }
 
-        mGrantLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzSend();
-            }
-        });
+        mGrantLayer.setOnClickListener(view -> ((AuthzDetailActivity) itemView.getContext()).onStartAuthzSend());
     }
 
     private void onBindDelegateItem(BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
@@ -145,12 +140,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
             setColor(chainConfig, false);
         }
 
-        mGrantLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzDelegate();
-            }
-        });
+        mGrantLayer.setOnClickListener(view -> ((AuthzDetailActivity) itemView.getContext()).onStartAuthzDelegate());
     }
 
     private void onBindUndelegateItem(BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
@@ -194,12 +184,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
             setColor(chainConfig, false);
         }
 
-        mGrantLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzUndelegate();
-            }
-        });
+        mGrantLayer.setOnClickListener(view -> ((AuthzDetailActivity) itemView.getContext()).onStartAuthzUndelegate());
     }
 
     private void onBindRedelegateItem(BaseData baseData, ChainConfig chainConfig, Authz.Grant grant) {
@@ -243,12 +228,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
             setColor(chainConfig, false);
         }
 
-        mGrantLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzRedelegate();
-            }
-        });
+        mGrantLayer.setOnClickListener(view -> ((AuthzDetailActivity) itemView.getContext()).onStartAuthzRedelegate());
     }
 
     private void onBindRewardItem(ChainConfig chainConfig, Authz.Grant grant) {
@@ -264,12 +244,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
             setColor(chainConfig, false);
         }
 
-        mGrantLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzClaimReward();
-            }
-        });
+        mGrantLayer.setOnClickListener(view -> ((AuthzDetailActivity) itemView.getContext()).onStartAuthzClaimReward());
     }
 
     private void onBindCommissionItem(ChainConfig chainConfig, Authz.Grant grant) {
@@ -285,12 +260,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
             setColor(chainConfig, false);
         }
 
-        mGrantLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzClaimCommission();
-            }
-        });
+        mGrantLayer.setOnClickListener(view -> ((AuthzDetailActivity) itemView.getContext()).onStartAuthzClaimCommission());
     }
 
     private void onBindVoteItem(ChainConfig chainConfig, Authz.Grant grant) {
@@ -306,12 +276,7 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
             setColor(chainConfig, false);
         }
 
-        mGrantLayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((AuthzDetailActivity) itemView.getContext()).onStartAuthzVote();
-            }
-        });
+        mGrantLayer.setOnClickListener(view -> ((AuthzDetailActivity) itemView.getContext()).onStartAuthzVote());
     }
 
     private void setColor(ChainConfig chainConfig, boolean isGrant) {

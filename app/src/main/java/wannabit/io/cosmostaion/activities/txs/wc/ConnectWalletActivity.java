@@ -78,7 +78,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos;
@@ -390,13 +390,37 @@ public class ConnectWalletActivity extends BaseActivity {
             return null;
         });
         wcClient.setOnEthSign((id, signMessage) -> {
-            mSignMessage = signMessage;
-            runOnUiThread(() -> onShowEvmosSignDialog(makeEvmosSignBundle(TYPE_ETH_SIGN_MESSAGE, id, null, signMessage)));
+            runOnUiThread(() ->
+                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), signMessage.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
+                        new Thread(() -> {
+                            try {
+                                Sign.SignatureData signResult = processEthSign(signMessage);
+                                wcClient.approveRequest(id, signResult);
+                            } catch (Exception e) {
+                                wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
+                            }
+                        }).start();
+                    })
+            );
             return null;
         });
         wcClient.setOnEthSendTransaction((id, wcEthereumTransaction) -> {
-            mWcEthereumTransaction = wcEthereumTransaction;
-            runOnUiThread(() -> onShowEvmosSignDialog(makeEvmosSignBundle(TYPE_ETH_SIGN_TRANSACTION, id, wcEthereumTransaction, null)));
+            runOnUiThread(() ->
+                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this, getString(R.string.str_wc_sign_title), wcEthereumTransaction.getData(), getString(R.string.str_cancel), view -> wcClient.rejectRequest(id, getString(R.string.str_cancel)), getString(R.string.str_confirm), view -> {
+                        new Thread(() -> {
+                            try {
+                                EthSendTransaction sendResult = processEthSend(wcEthereumTransaction);
+                                if (sendResult == null) {
+                                    wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
+                                } else {
+                                    wcClient.approveRequest(id, sendResult.getTransactionHash());
+                                }
+                            } catch (InterruptedException | ExecutionException e) {
+                                wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
+                            }
+                        }).start();
+                    })
+            );
             return null;
         });
         wcClient.setOnCosmostationAccounts((id, strings) -> {
@@ -571,28 +595,29 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chainId);
-        Dialog_Wc_Account mDialogWcAccount = Dialog_Wc_Account.newInstance(bundle);
-        mDialogWcAccount.setCancelable(true);
-        mDialogWcAccount.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
-            @Override
-            public void onSelect(Long id, Account account) {
-                chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
-                if (mBaseChain == null) {
-                    mBaseChain = WDp.getChainTypeByChainId(chainId);
-                    mChainConfig = ChainFactory.getChain(mBaseChain);
-                    onInitView(mWcPeerMeta);
+        if (!this.isFinishing()) {
+            Dialog_Wc_Account dialog = Dialog_Wc_Account.newInstance(bundle);
+            dialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
+                @Override
+                public void onSelect(Long id, Account account) {
+                    chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
+                    if (mBaseChain == null) {
+                        mBaseChain = WDp.getChainTypeByChainId(chainId);
+                        mChainConfig = ChainFactory.getChain(mBaseChain);
+                        onInitView(mWcPeerMeta);
+                    }
+                    wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
+                    moveToBackIfNeed();
                 }
-                wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
-                moveToBackIfNeed();
-            }
 
-            @Override
-            public void onCancel() {
-                wcClient.approveRequest(id, Lists.newArrayList());
-                moveToBackIfNeed();
-            }
-        });
-        getSupportFragmentManager().beginTransaction().add(mDialogWcAccount, "dialog").commitNowAllowingStateLoss();
+                @Override
+                public void onCancel() {
+                    wcClient.approveRequest(id, Lists.newArrayList());
+                    moveToBackIfNeed();
+                }
+            });
+            dialog.show(getSupportFragmentManager(), "dialog");
+        }
     }
 
     private void onShowAccountDialog(Long id, List<String> chains, List<Account> selectedAccounts, int index) {
@@ -621,27 +646,28 @@ public class ConnectWalletActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         bundle.putString("chainName", chains.get(index));
-        Dialog_Wc_Account mDialogWcAccount = Dialog_Wc_Account.newInstance(bundle);
-        mDialogWcAccount.setCancelable(true);
-        mDialogWcAccount.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
-            @Override
-            public void onSelect(Long id, Account account) {
-                chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
-                if (mBaseChain == null) {
-                    mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
-                    mChainConfig = ChainFactory.getChain(mBaseChain);
-                    onInitView(mWcPeerMeta);
+        if (!this.isFinishing()) {
+            Dialog_Wc_Account dialog = Dialog_Wc_Account.newInstance(bundle);
+            dialog.setOnSelectListener(new Dialog_Wc_Account.OnDialogSelectListener() {
+                @Override
+                public void onSelect(Long id, Account account) {
+                    chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
+                    if (mBaseChain == null) {
+                        mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
+                        mChainConfig = ChainFactory.getChain(mBaseChain);
+                        onInitView(mWcPeerMeta);
+                    }
+                    selectedAccounts.add(account);
+                    onShowAccountDialog(id, chains, selectedAccounts, index + 1);
                 }
-                selectedAccounts.add(account);
-                onShowAccountDialog(id, chains, selectedAccounts, index + 1);
-            }
 
-            @Override
-            public void onCancel() {
-                onShowAccountDialog(id, chains, selectedAccounts, index + 1);
-            }
-        });
-        getSupportFragmentManager().beginTransaction().add(mDialogWcAccount, "dialog" + index).commitNowAllowingStateLoss();
+                @Override
+                public void onCancel() {
+                    onShowAccountDialog(id, chains, selectedAccounts, index + 1);
+                }
+            });
+            dialog.show(getSupportFragmentManager(), "dialog" + index);
+        }
     }
 
 
@@ -691,23 +717,24 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowSignDialog(Bundle bundle) {
-        Dialog_Wc_Raw_Data dialog = Dialog_Wc_Raw_Data.newInstance(bundle, new Dialog_Wc_Raw_Data.WcSignRawDataListener() {
-            @Override
-            public void sign(int type, Long id, String transaction) {
-                if (type == ConnectWalletActivity.TYPE_TRUST_WALLET) {
-                    approveTrustRequest(id, transaction);
-                } else if (type == ConnectWalletActivity.TYPE_COSMOS_WALLET) {
-                    approveCosmosRequest(id, transaction);
+        if (!this.isFinishing()) {
+            Dialog_Wc_Raw_Data wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, new Dialog_Wc_Raw_Data.WcSignRawDataListener() {
+                @Override
+                public void sign(int type, Long id, String transaction) {
+                    if (type == ConnectWalletActivity.TYPE_TRUST_WALLET) {
+                        approveTrustRequest(id, transaction);
+                    } else if (type == ConnectWalletActivity.TYPE_COSMOS_WALLET) {
+                        approveCosmosRequest(id, transaction);
+                    }
                 }
-            }
 
-            @Override
-            public void reject(Long id) {
-                rejectSignRequest(id);
-            }
-        });
-        dialog.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                @Override
+                public void reject(Long id) {
+                    rejectSignRequest(id);
+                }
+            });
+            wcRawDataDialog.show(getSupportFragmentManager(), "dialog");
+        }
     }
 
     private void onShowEvmosSignDialog(Bundle bundle) {
@@ -756,11 +783,11 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private void onShowNoAccountsForChain() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), getString(R.string.str_error_not_support_chain_msg), getString(R.string.str_ok), null, false);
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_error_not_support_chain_title), getString(R.string.str_error_not_support_chain_msg), getString(R.string.str_ok), null, false);
     }
 
     private void onShowNotSupportChain(String chainId) {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_error_not_support_chain_title), String.format(getString(R.string.str_error_not_support_msg), chainId), getString(R.string.str_ok), null, false);
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_error_not_support_chain_title), String.format(getString(R.string.str_error_not_support_msg), chainId), getString(R.string.str_ok), null, false);
     }
 
     private Bundle makeSignBundle(int type, Long id, String transaction) {

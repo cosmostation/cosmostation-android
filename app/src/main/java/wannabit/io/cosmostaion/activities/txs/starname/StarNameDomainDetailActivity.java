@@ -77,12 +77,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(StarNameDomainDetailActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetchData();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchData());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new MyDomainAdapter();
@@ -242,12 +237,9 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                     }
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mDomain_gRPC.getValidUntil() * 1000));
                     holder.itemAddressCnt.setText("" + mDomainResolve_gRPC.getResourcesCount());
-                    holder.itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://starname.me/" + "*" + mDomain_gRPC.getName()));
-                            startActivity(guideIntent);
-                        }
+                    holder.itemBtnWebLink.setOnClickListener(v -> {
+                        Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://starname.me/" + "*" + mDomain_gRPC.getName()));
+                        startActivity(guideIntent);
                     });
                 }
 

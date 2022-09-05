@@ -59,12 +59,7 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
         mRecyclerView = rootView.findViewById(R.id.recycler);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getSActivity().onFetchPoolListInfo();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> getSActivity().onFetchPoolListInfo());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -105,12 +100,7 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
         }
 
         if (mTaskCount == 0) {
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mAdapter.notifyDataSetChanged();
-                }
-            }, 300);
+            new Handler(Looper.getMainLooper()).postDelayed(() -> mAdapter.notifyDataSetChanged(), 300);
         }
     }
 

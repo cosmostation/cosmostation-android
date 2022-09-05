@@ -54,12 +54,7 @@ public class OKValidatorTopFragment extends BaseFragment {
         mValidatorSize = rootView.findViewById(R.id.validator_cnt);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getSActivity().onFetchAllData();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> getSActivity().onFetchAllData());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

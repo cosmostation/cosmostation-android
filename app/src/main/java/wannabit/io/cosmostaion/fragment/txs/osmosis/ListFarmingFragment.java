@@ -59,12 +59,7 @@ public class ListFarmingFragment extends BaseFragment {
         mRecyclerView = rootView.findViewById(R.id.recycler);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getSActivity().onFetchPoolListInfo();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> getSActivity().onFetchPoolListInfo());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

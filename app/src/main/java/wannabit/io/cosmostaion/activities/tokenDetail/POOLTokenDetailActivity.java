@@ -87,12 +87,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         mAdapter = new POOlTokenAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onUpdateView();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onUpdateView());
 
         onUpdateView();
         mBtnAddressPopup.setOnClickListener(this);

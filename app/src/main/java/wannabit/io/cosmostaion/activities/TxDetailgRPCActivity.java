@@ -33,7 +33,7 @@ import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameDeleteAccountHolder;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameDeleteDomainHolder;
@@ -607,40 +607,24 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         mStub.getTx(request, new StreamObserver<ServiceOuterClass.GetTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.GetTxResponse value) {
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mResponse = value;
-                        onUpdateView();
-                    }
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    mResponse = value;
+                    onUpdateView();
                 }, 0);
             }
 
             @Override
             public void onError(Throwable t) {
                 if (mIsSuccess && FetchCnt < 10) {
-                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            FetchCnt++;
-                            onFetchTx(hash);
-                        }
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        FetchCnt++;
+                        onFetchTx(hash);
                     }, 6000);
                 } else if (!mIsGen) {
-                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            onBackPressed();
-                        }
-                    }, 0);
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> onBackPressed(), 0);
 
                 } else {
-                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            onShowMoreWait();
-                        }
-                    }, 0);
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> onShowMoreWait(), 0);
                 }
             }
 
@@ -651,7 +635,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void onShowMoreWait() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_title), getString(R.string.str_more_wait_msg),
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_more_wait_title), getString(R.string.str_more_wait_msg),
                 getString(R.string.str_close), view -> onBackPressed(),
                 getString(R.string.str_wait), view -> onWaitMore(), false);
     }

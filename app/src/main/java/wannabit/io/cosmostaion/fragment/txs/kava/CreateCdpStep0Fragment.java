@@ -139,13 +139,10 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         mBtnCancel.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
 
-        mCollateralInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    mStep = STEP_COLLATERAL;
-                    onUpdateStep();
-                }
+        mCollateralInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                mStep = STEP_COLLATERAL;
+                onUpdateStep();
             }
         });
 
@@ -425,16 +422,15 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
                 }
 
             } else if (mStep == STEP_PRINCIPAL) {
-                if (onValidateNext()) {
+                if (onValidateNext() && !getSActivity().isFinishing()) {
                     Bundle bundle = new Bundle();
                     bundle.putString("riskRate", getSActivity().mRiskRate.toPlainString());
                     bundle.putString("liquidationPrice", getSActivity().mLiquidationPrice.toPlainString());
                     bundle.putString("currentPrice", getPrice().getPrice());
                     bundle.putString("denom", mCollateralDenom);
                     SafeScoreCreateDialog dialog = SafeScoreCreateDialog.newInstance(bundle);
-                    dialog.setCancelable(true);
                     dialog.setTargetFragment(this, CDP_CREATE_CONFIRM_DIALOG);
-                    dialog.show(getFragmentManager().beginTransaction(), "dialog");
+                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();

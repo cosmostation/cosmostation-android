@@ -139,7 +139,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
 
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mPrincipalDenom, mPrincipalSymbol);
         WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mPrincipalDenom, mPrincipalImg);
-        
+
         mCurrentTotalDebetAmount = WUtil.getEstimatedTotalDebt(getContext(), getOwenCdp(), getCParam());
         mCurrentCollateralAmount = new BigDecimal(getOwenCdp().getCollateral().getAmount());
         mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(mPDecimal - mCDecimal).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, mCDecimal, RoundingMode.DOWN);
@@ -296,7 +296,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
-            if (onDisplayViewUpdate()) {
+            if (onDisplayViewUpdate() && !getSActivity().isFinishing()) {
                 if (mBeforeLiquidationPrice.compareTo(BigDecimal.ZERO) <= 0 || mBeforeRiskRate.compareTo(BigDecimal.ZERO) < 0 ||
                         mAfterLiquidationPrice == null || mAfterRiskRate == null || mToLoanAmount == null) {
                     Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
@@ -317,9 +317,8 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
                     bundle.putString("currentPrice", mCurrentPrice.toPlainString());
                     bundle.putString("denom", mCollateralDenom);
                     SafeScoreConfirmDialog dialog = SafeScoreConfirmDialog.newInstance(bundle);
-                    dialog.setCancelable(true);
                     dialog.setTargetFragment(this, CDP_DRAW_DEBT_CONFIRM_DIALOG);
-                    dialog.show(getFragmentManager().beginTransaction(), "dialog");
+                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
                 }
             } else {

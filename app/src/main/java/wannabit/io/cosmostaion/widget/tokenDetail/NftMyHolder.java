@@ -42,52 +42,43 @@ public class NftMyHolder extends RecyclerView.ViewHolder {
     public void onBindNFT(NFTListActivity activity, String denomId, String tokenId) {
         itemRoot.setCardBackgroundColor(ContextCompat.getColor(activity, R.color.colorTransBgIris));
         itemMyNftImg.setClipToOutline(true);
-        new NFTokenInfoGrpcTask(activity.getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess) {
-                    if (activity.mBaseChain.equals(IRIS_MAIN)) {
-                        QueryOuterClass.QueryNFTResponse irisResponse = (QueryOuterClass.QueryNFTResponse) result.resultData;
-                        if (irisResponse != null) {
-                            try {
-                                Glide.with(activity).load(irisResponse.getNft().getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
-                                        placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(itemMyNftImg);
-                            } catch (Exception e) { }
-                            itemMyNftTitle.setText(irisResponse.getNft().getName());
-                            itemMyNftContent.setText(WUtil.getNftDescription(irisResponse.getNft().getData()));
+        new NFTokenInfoGrpcTask(activity.getBaseApplication(), result -> {
+            if (result.isSuccess) {
+                if (activity.mBaseChain.equals(IRIS_MAIN)) {
+                    QueryOuterClass.QueryNFTResponse irisResponse = (QueryOuterClass.QueryNFTResponse) result.resultData;
+                    if (irisResponse != null) {
+                        try {
+                            Glide.with(activity).load(irisResponse.getNft().getUri()).diskCacheStrategy(DiskCacheStrategy.ALL).
+                                    placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).fitCenter().into(itemMyNftImg);
+                        } catch (Exception e) { }
+                        itemMyNftTitle.setText(irisResponse.getNft().getName());
+                        itemMyNftContent.setText(WUtil.getNftDescription(irisResponse.getNft().getData()));
 
-                            itemRoot.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(activity, NFTokenDetailActivity.class);
-                                    intent.putExtra("irisResponse", irisResponse);
-                                    intent.putExtra("mDenomId", denomId);
-                                    intent.putExtra("mTokenId", tokenId);
-                                    activity.startActivity(intent);
-                                }
-                            });
-                        }
-                    } else if (activity.mBaseChain.equals(CRYPTO_MAIN)) {
-                        chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo = (chainmain.nft.v1.Nft.BaseNFT) result.resultData;
-                        if (myCryptoNftInfo != null) {
-                            try {
-                                Glide.with(activity).load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).diskCacheStrategy(DiskCacheStrategy.ALL).
-                                        placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
-                            } catch (Exception e) { }
-                            itemMyNftTitle.setText(myCryptoNftInfo.getName());
-                            itemMyNftContent.setText(WUtil.getNftDescription(myCryptoNftInfo.getData()));
+                        itemRoot.setOnClickListener(v -> {
+                            Intent intent = new Intent(activity, NFTokenDetailActivity.class);
+                            intent.putExtra("irisResponse", irisResponse);
+                            intent.putExtra("mDenomId", denomId);
+                            intent.putExtra("mTokenId", tokenId);
+                            activity.startActivity(intent);
+                        });
+                    }
+                } else if (activity.mBaseChain.equals(CRYPTO_MAIN)) {
+                    chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo = (chainmain.nft.v1.Nft.BaseNFT) result.resultData;
+                    if (myCryptoNftInfo != null) {
+                        try {
+                            Glide.with(activity).load(WUtil.getNftImgUrl(myCryptoNftInfo.getData())).diskCacheStrategy(DiskCacheStrategy.ALL).
+                                    placeholder(R.drawable.icon_nft_none).error(R.drawable.icon_nft_none).into(itemMyNftImg);
+                        } catch (Exception e) { }
+                        itemMyNftTitle.setText(myCryptoNftInfo.getName());
+                        itemMyNftContent.setText(WUtil.getNftDescription(myCryptoNftInfo.getData()));
 
-                            itemRoot.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(activity, NFTokenDetailActivity.class);
-                                    intent.putExtra("myNftInfo", myCryptoNftInfo);
-                                    intent.putExtra("mDenomId", denomId);
-                                    intent.putExtra("mTokenId", tokenId);
-                                    activity.startActivity(intent);
-                                }
-                            });
-                        }
+                        itemRoot.setOnClickListener(v -> {
+                            Intent intent = new Intent(activity, NFTokenDetailActivity.class);
+                            intent.putExtra("myNftInfo", myCryptoNftInfo);
+                            intent.putExtra("mDenomId", denomId);
+                            intent.putExtra("mTokenId", tokenId);
+                            activity.startActivity(intent);
+                        });
                     }
                 }
             }

@@ -63,13 +63,10 @@ public class HistoryNewHolder extends BaseHolder {
             historySuccess.setVisibility(View.VISIBLE);
         }
 
-        historyRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = chainConfig.explorerHistoryLink(history.data.txhash);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                mainActivity.startActivity(intent);
-            }
+        historyRoot.setOnClickListener(v -> {
+            String url = chainConfig.explorerHistoryLink(history.data.txhash);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            mainActivity.startActivity(intent);
         });
     }
 }

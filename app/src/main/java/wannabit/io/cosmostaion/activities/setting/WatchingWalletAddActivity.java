@@ -84,7 +84,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
         if (v.equals(mCancel)) {
             onBackPressed();
 
-        } else if (v.equals(mNext)) {
+        } else if (v.equals(mNext) && !this.isFinishing()) {
             mUserInput = mInput.getText().toString().trim();
             ArrayList<BaseChain> chains = WDp.getChainsFromAddress(mUserInput);
             if (chains != null) {
@@ -94,7 +94,6 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
                     Bundle bundle = new Bundle();
                     bundle.putString("watchAddress", mUserInput);
                     SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
-                    dialog.setCancelable(true);
                     dialog.show(getSupportFragmentManager(), "dialog");
                     dialog.setSelectChainsDialogResult(result -> {
                         mWatchAddressChainList = new Gson().fromJson(result, new TypeToken<List<BaseChain>>() {

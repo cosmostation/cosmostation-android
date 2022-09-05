@@ -24,7 +24,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import cosmos.authz.v1beta1.Authz;
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -35,7 +34,7 @@ import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClickListener{
+public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_SEND_COIN = 8503;
 
     private Button mBefore, mNextBtn;
@@ -107,13 +106,10 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
             getSActivity().onBackPressed();
         }
 
-        mGrantAvailbale.sort(new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                if (o1.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) return -1;
-                if (o2.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) return 1;
-                else return 0;
-            }
+        mGrantAvailbale.sort((o1, o2) -> {
+            if (o1.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) return -1;
+            if (o2.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) return 1;
+            else return 0;
         });
         mSelectedCoin = mGrantAvailbale.get(0);
         onUpdateView();
@@ -217,12 +213,12 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }
 
-        } else if (v.equals(mSelectCoinBtn)) {
+        } else if (v.equals(mSelectCoinBtn)  && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("sendCoins", mGrantAvailbale);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_SEND_COIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;

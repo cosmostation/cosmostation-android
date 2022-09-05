@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -31,9 +32,11 @@ public class PaddedVerticalButtonAlertDialog extends AlertDialog {
 
     public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, CharSequence secondButtonTitle, View.OnClickListener secondButtonListener, Boolean cancelable) {
         PaddedVerticalButtonAlertDialog dialog = makeDoubleButton(context, title, message, firstButtonTitle, firstButtonListener, secondButtonTitle, secondButtonListener);
-        dialog.setCancelable(cancelable);
-        dialog.create();
-        dialog.show();
+        if (!((Activity) context).isFinishing()) {
+            dialog.setCancelable(cancelable);
+            dialog.create();
+            dialog.show();
+        }
     }
 
     public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, CharSequence secondButtonTitle, View.OnClickListener secondButtonListener) {
@@ -43,9 +46,11 @@ public class PaddedVerticalButtonAlertDialog extends AlertDialog {
     public static void showTripleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener,
                                         CharSequence secondButtonTitle, View.OnClickListener secondButtonListener, CharSequence thirdButtonTitle, View.OnClickListener thirdButtonListener, Boolean cancelable) {
         PaddedVerticalButtonAlertDialog dialog = makeTripleButton(context, title, message, firstButtonTitle, firstButtonListener, secondButtonTitle, secondButtonListener, thirdButtonTitle, thirdButtonListener);
-        dialog.setCancelable(cancelable);
-        dialog.create();
-        dialog.show();
+        if (!((Activity) context).isFinishing()) {
+            dialog.setCancelable(cancelable);
+            dialog.create();
+            dialog.show();
+        }
     }
 
     public static void showTripleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener,

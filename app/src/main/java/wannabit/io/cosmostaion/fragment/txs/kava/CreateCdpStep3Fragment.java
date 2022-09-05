@@ -19,7 +19,7 @@ import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -106,8 +106,8 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
         if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
         } else if (v.equals(mConfirmBtn)) {
-            AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_cdp_warn_title), getString(R.string.str_cdp_warn_msg),
-                    AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
+            CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_cdp_warn_title), getString(R.string.str_cdp_warn_msg),
+                    CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null,
                     getString(R.string.str_confirm), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_CDP_CONFIRM, Activity.RESULT_OK, resultIntent);
