@@ -301,8 +301,7 @@ public class MainTokensFragment extends BaseFragment {
             } else if (mBaseChain.equals(OSMOSIS_MAIN) && coin.denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM) ||
                     mBaseChain.equals(EMONEY_MAIN) && coin.denom.startsWith("e") ||
                     mBaseChain.equals(CRESCENT_MAIN) && coin.denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM) ||
-                    mBaseChain.equals(NYX_MAIN) && coin.denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM) ||
-                    mBaseChain.equals(IXO_MAIN) && coin.denom.equalsIgnoreCase(Ixo.IXO_ATOM_DENOM)) {
+                    mBaseChain.equals(NYX_MAIN) && coin.denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) {
                 mNativeGrpc.add(coin);
             } else if (mBaseChain.equals(SIF_MAIN) && coin.denom.startsWith("c") ||
                     mBaseChain.equals(GRABRIDGE_MAIN) && coin.denom.startsWith("gravity") ||

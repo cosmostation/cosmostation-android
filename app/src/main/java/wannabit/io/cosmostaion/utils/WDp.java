@@ -154,9 +154,6 @@ public class WDp {
             if (baseData.okToken(denom) != null) return baseData.okToken(denom).original_symbol.toUpperCase();
             else return denom.toUpperCase();
 
-        } else if (chainConfig.baseChain().equals(IXO_MAIN)) {
-            if (denom.equalsIgnoreCase(Ixo.IXO_ATOM_DENOM)) return "ATOM";
-            else return denom.toUpperCase();
         }
         return denom.toUpperCase();
     }
@@ -183,11 +180,6 @@ public class WDp {
 
         } else if (chainConfig.baseChain().equals(NYX_MAIN)) {
             if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_nym));
-            else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
-
-        } else if (chainConfig.baseChain().equals(IXO_MAIN)) {
-            if (denom.equalsIgnoreCase(Ixo.IXO_ATOM_DENOM))
-                textView.setTextColor(ContextCompat.getColor(c, R.color.color_cosmos));
             else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
         } else {
@@ -303,10 +295,6 @@ public class WDp {
             if (okToken != null) {
                 Picasso.get().load(Okc.OKC_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_default).error(R.drawable.token_default).fit().into(imageView);
             }
-
-        } else if (chainConfig.baseChain().equals(IXO_MAIN)) {
-            if (denom.equalsIgnoreCase(Ixo.IXO_ATOM_DENOM))
-                imageView.setImageResource(R.drawable.token_ixo_uatom_fee);
 
         } else {
             imageView.setImageResource(R.drawable.token_default);

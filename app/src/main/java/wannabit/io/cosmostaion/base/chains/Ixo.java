@@ -46,13 +46,11 @@ public class Ixo extends ChainConfig {
     public String coingeckoLink() { return  COINGECKO_URL + "ixo"; }
 
     public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.025uixo,0.025uatom");
+        return Lists.newArrayList("0.025uixo");
     }
 
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
-
-    public static String IXO_ATOM_DENOM = "uatom";
 
 }
