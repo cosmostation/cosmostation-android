@@ -62,7 +62,7 @@ public class WalletStarnameDialog extends DialogFragment {
         mAdapter = new WalletForStarNameAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         return dialog;
     }

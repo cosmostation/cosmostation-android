@@ -43,6 +43,7 @@ public class StarnameResourceDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        view.setBackgroundResource(R.color.colorWhite2DayNight);
         mtextView = view.findViewById(R.id.dialog_title);
         mtextView.setText(R.string.str_select_chain_for_address);
         mRecyclerView = view.findViewById(R.id.recycler);

@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +30,8 @@ public class CurrencySetDialog extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_choice, null);
         mRecyclerView = view.findViewById(R.id.recycler);
         mDialogTitle = view.findViewById(R.id.dialog_title);
@@ -40,10 +40,7 @@ public class CurrencySetDialog extends DialogFragment {
         mRecyclerView.setHasFixedSize(true);
         mCurrencySetAdapter = new CurrencySetAdapter();
         mRecyclerView.setAdapter(mCurrencySetAdapter);
-
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        return dialog;
+        return view;
     }
 
     private class CurrencySetAdapter extends RecyclerView.Adapter<CurrencySetAdapter.CurrencyHolder> {

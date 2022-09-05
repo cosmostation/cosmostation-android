@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,7 +49,7 @@ public class IBCRelayerChannelDialog extends DialogFragment {
         mRelayerListAdapter = new RelayerListAdapter();
         mRecyclerView.setAdapter(mRelayerListAdapter);
 
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         return dialog;
     }

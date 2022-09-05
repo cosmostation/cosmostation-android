@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -10,11 +8,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.zxing.BarcodeFormat;
@@ -39,8 +39,8 @@ public class AccountShowDialog extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        super.onCreateDialog(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_account_show, null);
         btn_nega = view.findViewById(R.id.btn_nega);
         btn_posi = view.findViewById(R.id.btn_posi);
@@ -75,9 +75,8 @@ public class AccountShowDialog extends DialogFragment {
             getDialog().dismiss();
         });
 
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
-        dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        return dialog;
+        return view;
+
     }
 
     private static Bitmap toBitmap(BitMatrix matrix) {

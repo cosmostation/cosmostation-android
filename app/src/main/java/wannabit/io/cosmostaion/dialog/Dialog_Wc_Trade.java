@@ -2,9 +2,6 @@ package wannabit.io.cosmostaion.dialog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
@@ -36,7 +34,8 @@ public class Dialog_Wc_Trade extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_trade, null);
         TextView side_tv = view.findViewById(R.id.wc_trade_side);
         TextView symbol_tv = view.findViewById(R.id.wc_trade_symbol);
@@ -106,8 +105,6 @@ public class Dialog_Wc_Trade extends DialogFragment {
             getDialog().dismiss();
         });
 
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
-        dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        return dialog;
+        return view;
     }
 }

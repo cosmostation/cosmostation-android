@@ -52,7 +52,7 @@ public class IBCReceiveChainDialog extends DialogFragment {
         mRelayerListAdapter = new RelayerListAdapter();
         mRecyclerView.setAdapter(mRelayerListAdapter);
 
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         return dialog;
     }

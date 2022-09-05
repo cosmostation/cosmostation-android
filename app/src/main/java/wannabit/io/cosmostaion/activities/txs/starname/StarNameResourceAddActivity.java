@@ -134,7 +134,6 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
                 bundle.putString("chainUri", mStarNameResource.getUri());
             }
             WalletStarnameDialog dialog = WalletStarnameDialog.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mScan)) {

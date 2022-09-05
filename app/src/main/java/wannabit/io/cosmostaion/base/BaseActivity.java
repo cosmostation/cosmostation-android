@@ -231,7 +231,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (getSupportFragmentManager().findFragmentByTag("wait") != null && getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
             return;
         }
-
+        mDialogWait.setCancelable(false);
         mDialogWait.show(getSupportFragmentManager(), "wait");
     }
 

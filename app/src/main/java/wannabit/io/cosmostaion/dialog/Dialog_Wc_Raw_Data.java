@@ -1,13 +1,13 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.gson.GsonBuilder;
@@ -26,7 +26,8 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_raw_data, null);
         TextView raw_data = view.findViewById(R.id.wc_raw_data);
         Button btn_negative = view.findViewById(R.id.btn_nega);
@@ -51,9 +52,7 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
             getDialog().dismiss();
         });
 
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
-        dialog.getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        return dialog;
+        return view;
     }
 
     public interface WcSignRawDataListener {

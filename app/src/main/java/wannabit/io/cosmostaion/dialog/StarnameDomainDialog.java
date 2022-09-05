@@ -48,7 +48,7 @@ public class StarnameDomainDialog extends DialogFragment {
         mDomainListAdapter = new DomainListAdapter();
         mRecyclerView.setAdapter(mDomainListAdapter);
 
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).setCancelable(true).create();
+        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         return dialog;
     }
@@ -94,9 +94,4 @@ public class StarnameDomainDialog extends DialogFragment {
         }
 
     }
-
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
-    }
-
 }
