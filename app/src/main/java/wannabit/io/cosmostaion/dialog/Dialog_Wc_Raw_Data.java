@@ -48,7 +48,7 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         View view = settingViews();
 
@@ -83,7 +83,6 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
         return view;
     }
 
-    @NonNull
     private View settingViews() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_raw_data, null);
         wcRawDetailLayout = view.findViewById(R.id.layout_wc_detail);
