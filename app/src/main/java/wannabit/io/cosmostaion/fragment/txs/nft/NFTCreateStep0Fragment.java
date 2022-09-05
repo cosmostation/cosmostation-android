@@ -154,12 +154,7 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
                     MerkleNode response = ipfs.add(file).get(0);
                     mHash = response.hash.toBase58();
                     if (mHash != null) {
-                        getSActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                onUpdateImgView(mHash);
-                            }
-                        });
+                        getSActivity().runOnUiThread(() -> onUpdateImgView(mHash));
                     } else {
                         Toast.makeText(getSActivity(), getSActivity().getString(R.string.error_fail_upload_img), Toast.LENGTH_SHORT).show();
                     }

@@ -111,12 +111,9 @@ public class PoolMyHolder extends BaseHolder {
         WDp.setDpCoin(context, baseData, chainConfig, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0);
         WDp.setDpCoin(context, baseData, chainConfig, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1);
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WLog.w("PoolMyHolder onClick ");
-                ((LabsListActivity)activity).onClickMyPool(myPool.getId());
-            }
+        itemRoot.setOnClickListener(v -> {
+            WLog.w("PoolMyHolder onClick ");
+            ((LabsListActivity)activity).onClickMyPool(myPool.getId());
         });
     }
 
@@ -169,12 +166,7 @@ public class PoolMyHolder extends BaseHolder {
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableCoin0, coin0Decimal, 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((DAppsList5Activity)activity).onClickMyPool(myPool, myDeposit);
-            }
-        });
+        itemRoot.setOnClickListener(v -> ((DAppsList5Activity)activity).onClickMyPool(myPool, myDeposit));
     }
 
     @Override
@@ -219,11 +211,6 @@ public class PoolMyHolder extends BaseHolder {
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableRowan, rowanDecimal, 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableExternal, externalDecimal, 6));
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((SifDexListActivity)activity).onClickMyPool(myPool, myProvider);
-            }
-        });
+        itemRoot.setOnClickListener(v -> ((SifDexListActivity)activity).onClickMyPool(myPool, myProvider));
     }
 }

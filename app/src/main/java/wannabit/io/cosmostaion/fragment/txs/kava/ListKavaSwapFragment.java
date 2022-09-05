@@ -182,14 +182,14 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnInputCoinList)) {
+        if (v.equals(mBtnInputCoinList)  && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mAllDenoms);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
-        } else if (v.equals(mBtnOutputCoinList)) {
+        } else if (v.equals(mBtnOutputCoinList) && !getSActivity().isFinishing()) {
             mSwapablePools.clear();
             mSwapableDenoms.clear();
 
@@ -211,9 +211,8 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
             SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnToggle)) {
             String temp = mInputCoinDenom;

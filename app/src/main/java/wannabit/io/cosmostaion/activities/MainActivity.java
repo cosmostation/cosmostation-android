@@ -83,12 +83,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mTabLayer = findViewById(R.id.bottom_tab);
         mFloatBtn = findViewById(R.id.btn_floating);
 
-        mFloatBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onStartSendMainDenom();
-            }
-        });
+        mFloatBtn.setOnClickListener(v -> onStartSendMainDenom());
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

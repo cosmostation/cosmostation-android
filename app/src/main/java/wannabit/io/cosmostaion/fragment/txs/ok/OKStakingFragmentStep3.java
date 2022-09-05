@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.ok.OKStakingActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClickListener {
@@ -66,7 +66,7 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_deposit_warn_title), getString(R.string.str_delegate_warn_msg),
+            CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_deposit_warn_title), getString(R.string.str_delegate_warn_msg),
                     getString(R.string.str_cancel), null,
                     getString(R.string.str_confirm), View -> {
                         Intent resultIntent = new Intent();

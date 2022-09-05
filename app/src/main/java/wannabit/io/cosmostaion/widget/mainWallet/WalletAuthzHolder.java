@@ -32,12 +32,9 @@ public class WalletAuthzHolder extends BaseHolder {
         final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
         mAuthzTitleImg.setColorFilter(ContextCompat.getColor(mainActivity, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
 
-        mBtnAuthz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, AuthzListActivity.class);
-                mainActivity.startActivity(intent);
-            }
+        mBtnAuthz.setOnClickListener(v -> {
+            Intent intent = new Intent(mainActivity, AuthzListActivity.class);
+            mainActivity.startActivity(intent);
         });
     }
 }

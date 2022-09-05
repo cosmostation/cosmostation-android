@@ -174,6 +174,7 @@
     <string name="str_start">START</string>
     <string name="str_check">Check</string>
     <string name="str_confirm">Confirm</string>
+    <string name="str_data">Data</string>
     <string name="str_warning">Warning</string>
     <string name="str_enter_again">Enter Again</string>
     <string name="str_Ignore">Ignore</string>
@@ -891,6 +892,7 @@
     <string name="str_collateral_value_title3">My %1$s Collateral Value</string>
     <string name="str_open_cdp">Open Mint</string>
     <string name="str_total_amount">Total</string>
+    <string name="str_total_fee">Total Fee</string>
     <string name="str_available_amount">Available Amount</string>
     <string name="str_delegable_amount">Delegable Amount</string>
     <string name="str_self_deposited_amount">Deposited Collateral (self)</string>

@@ -43,6 +43,7 @@ public class StarnameResourceDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        view.setBackgroundResource(R.color.colorWhite2DayNight);
         mtextView = view.findViewById(R.id.dialog_title);
         mtextView.setText(R.string.str_select_chain_for_address);
         mRecyclerView = view.findViewById(R.id.recycler);
@@ -83,15 +84,12 @@ public class StarnameResourceDialog extends BottomSheetDialogFragment {
             }
             Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.url)).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.chainImg);
             holder.chainName.setText(StarnameAssets.getStarNameChainName(resource.url));
-            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!alreadyHave(resource)) {
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra("resource", resource);
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                        getDialog().dismiss();
-                    }
+            holder.rootLayer.setOnClickListener(v -> {
+                if (!alreadyHave(resource)) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("resource", resource);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    getDialog().dismiss();
                 }
             });
         }

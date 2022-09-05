@@ -49,7 +49,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
@@ -99,13 +99,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(ValidatorActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onInitFetch();
-                onFetchValHistory();
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            onInitFetch();
+            onFetchValHistory();
 
-            }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -175,7 +172,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
-            AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_not_validator_title), getString(R.string.str_not_validator_msg),
+            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_not_validator_title), getString(R.string.str_not_validator_msg),
                     getString(R.string.str_cancel), view -> onBackPressed(),
                     getString(R.string.str_continue), view -> onStartDelegate());
         } else {
@@ -207,8 +204,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
             for (Staking.RedelegationResponse data : mGrpcRedelegates) {
                 if (data.getRedelegation().getValidatorDstAddress().equals(mValOpAddress)) {
-                    AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg),
-                            AlertDialogUtils.highlightingText(getString(R.string.str_ok)), null);
+                    CommonAlertDialog.showSingleButton(this, getString(R.string.str_redelegation_limitted_title), getString(R.string.str_redelegation_limitted_msg),
+                            CommonAlertDialog.highlightingText(getString(R.string.str_ok)), null);
                     return;
                 }
             }
@@ -284,18 +281,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        new WithdrawAddressGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                String rewardAddress = (String) result.resultData;
-                if (rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
-                    Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    Intent reinvest = new Intent(ValidatorActivity.this, ReInvestActivity.class);
-                    reinvest.putExtra("valOpAddress", mValOpAddress);
-                    startActivity(reinvest);
-                }
+        new WithdrawAddressGrpcTask(getBaseApplication(), result -> {
+            String rewardAddress = (String) result.resultData;
+            if (rewardAddress == null || !rewardAddress.equals(mAccount.address)) {
+                Toast.makeText(getBaseContext(), R.string.error_reward_address_changed_msg, Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                Intent reinvest = new Intent(ValidatorActivity.this, ReInvestActivity.class);
+                reinvest.putExtra("valOpAddress", mValOpAddress);
+                startActivity(reinvest);
             }
         }, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -440,14 +434,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.historySuccess.setVisibility(View.VISIBLE);
             }
 
-            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (history.data.txhash != null) {
-                        String url = mChainConfig.explorerUrl() + "txs/" + history.data.txhash;
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
-                    }
+            holder.historyRoot.setOnClickListener(v -> {
+                if (history.data.txhash != null) {
+                    String url = mChainConfig.explorerUrl() + "txs/" + history.data.txhash;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
                 }
             });
         }
@@ -504,12 +495,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(mChainConfig.monikerUrl() + mValOpAddress + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
-            holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckDelegate();
-                }
-            });
+            holder.itemBtnDelegate.setOnClickListener(v -> onCheckDelegate());
         }
 
         private void onBindMyValidatorV1(RecyclerView.ViewHolder viewHolder) {
@@ -587,36 +573,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             }
 
-            holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckDelegate();
-                }
-            });
-            holder.itemBtnUndelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onStartUndelegate();
-                }
-            });
-            holder.itemBtnRedelegate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckRedelegate();
-                }
-            });
-            holder.itemBtnReward.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onGetReward();
-                }
-            });
-            holder.itemBtnReinvest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCheckReInvest();
-                }
-            });
+            holder.itemBtnDelegate.setOnClickListener(v -> onCheckDelegate());
+            holder.itemBtnUndelegate.setOnClickListener(v -> onStartUndelegate());
+            holder.itemBtnRedelegate.setOnClickListener(v -> onCheckRedelegate());
+            holder.itemBtnReward.setOnClickListener(v -> onGetReward());
+            holder.itemBtnReinvest.setOnClickListener(v -> onCheckReInvest());
 
         }
 

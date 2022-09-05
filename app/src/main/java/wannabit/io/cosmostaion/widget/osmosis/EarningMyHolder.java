@@ -145,18 +145,15 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
         itemRewardAmount.setText(WDp.getDpAmount2(c, myRewards, 6, 6));
 
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, EarningDetailActivity.class);
-                intent.putExtra("osmosisPool", pool.toByteArray());
-                OsmosisGaugeWrapper gaugesWrapper = new OsmosisGaugeWrapper(gauges);
-                intent.putExtra("osmosisGauges", gaugesWrapper);
-                OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
-                intent.putExtra("osmosislockups", lockupsWrapper);
-                activity.startActivity(intent);
+        itemRoot.setOnClickListener(view -> {
+            Intent intent = new Intent(activity, EarningDetailActivity.class);
+            intent.putExtra("osmosisPool", pool.toByteArray());
+            OsmosisGaugeWrapper gaugesWrapper = new OsmosisGaugeWrapper(gauges);
+            intent.putExtra("osmosisGauges", gaugesWrapper);
+            OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
+            intent.putExtra("osmosislockups", lockupsWrapper);
+            activity.startActivity(intent);
 
-            }
         });
     }
 }

@@ -213,12 +213,9 @@ public class ScrollingPagerIndicator extends View {
         attacher.attachToPager(this, pager);
         currentAttacher = attacher;
 
-        attachRunnable = new Runnable() {
-            @Override
-            public void run() {
-                itemCount = -1;
-                attachToPager(pager, attacher);
-            }
+        attachRunnable = () -> {
+            itemCount = -1;
+            attachToPager(pager, attacher);
         };
     }
 

@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener {
@@ -74,7 +74,7 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_redelegation_warnning_title), getString(R.string.str_redelegation_warnning_msg),
+            CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_redelegation_warnning_title), getString(R.string.str_redelegation_warnning_msg),
                     getString(R.string.str_no), null,
                     getString(R.string.str_yes), view -> {
                         Intent resultIntent = new Intent();

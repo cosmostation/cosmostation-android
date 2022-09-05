@@ -90,20 +90,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mEmptyHistory = rootView.findViewById(R.id.empty_history);
         mNotYet = rootView.findViewById(R.id.text_notyet);
 
-        mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getMainActivity().onClickQrCopy(mChainConfig, mAccount);
-            }
-        });
+        mCardView.setOnClickListener(v -> getMainActivity().onClickQrCopy(mChainConfig, mAccount));
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetchHistory();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchHistory());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

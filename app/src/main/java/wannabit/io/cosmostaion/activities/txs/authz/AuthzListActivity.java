@@ -67,12 +67,7 @@ public class AuthzListActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(AuthzListActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetchAuthzGranterListInfo();
-            }
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchAuthzGranterListInfo());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -94,18 +89,10 @@ public class AuthzListActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchAuthzGranterListInfo() {
-        new AuthzGranterGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                mGranters = (ArrayList<String>) result.resultData;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        onUpdateView();
-                    }
-                });
+        new AuthzGranterGrpcTask(getBaseApplication(), result -> {
+            mGranters = (ArrayList<String>) result.resultData;
+            runOnUiThread(() -> onUpdateView());
 
-            }
         }, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -146,19 +133,16 @@ public class AuthzListActivity extends BaseActivity implements TaskListener {
             holder.granterAddress.setText(granter);
 
             new Thread(() -> {
-                new BalanceGrpcTask(getBaseApplication(), new TaskListener() {
-                    @Override
-                    public void onTaskResponse(TaskResult result) {
-                        ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
-                        if (balances != null && balances.size() > 0) {
-                            for (CoinOuterClass.Coin coin : balances) {
-                                if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
-                                    Coin tempCoin = new Coin(coin.getDenom(), coin.getAmount());
-                                    runOnUiThread(() -> {
-                                        WDp.setDpCoin(AuthzListActivity.this, getBaseDao(), chainConfig, tempCoin, holder.granterDenom, holder.granterAvailable);
-                                    });
-                                    return;
-                                }
+                new BalanceGrpcTask(getBaseApplication(), result -> {
+                    ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
+                    if (balances != null && balances.size() > 0) {
+                        for (CoinOuterClass.Coin coin : balances) {
+                            if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
+                                Coin tempCoin = new Coin(coin.getDenom(), coin.getAmount());
+                                runOnUiThread(() -> {
+                                    WDp.setDpCoin(AuthzListActivity.this, getBaseDao(), chainConfig, tempCoin, holder.granterDenom, holder.granterAvailable);
+                                });
+                                return;
                             }
                         }
                     }

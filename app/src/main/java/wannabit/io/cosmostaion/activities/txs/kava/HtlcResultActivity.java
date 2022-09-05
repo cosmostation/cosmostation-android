@@ -44,7 +44,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -355,14 +355,11 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             mStub.getTx(request, new StreamObserver<ServiceOuterClass.GetTxResponse>() {
                 @Override
                 public void onNext(ServiceOuterClass.GetTxResponse response) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (response != null && response.hasTxResponse()) {
-                                mResponse = response;
-                            }
-                            onUpdateSendView();
+                    runOnUiThread(() -> {
+                        if (response != null && response.hasTxResponse()) {
+                            mResponse = response;
                         }
+                        onUpdateSendView();
                     });
                 }
 
@@ -389,12 +386,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                         onUpdateView();
                     } else {
                         if (ClaimFetchCnt < 20) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ClaimFetchCnt++;
-                                    onFetchClaimTx(hash);
-                                }
+                            new Handler().postDelayed(() -> {
+                                ClaimFetchCnt++;
+                                onFetchClaimTx(hash);
                             }, 3000);
 
                         } else {
@@ -417,24 +411,18 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             mStub.getTx(request, new StreamObserver<ServiceOuterClass.GetTxResponse>() {
                 @Override
                 public void onNext(ServiceOuterClass.GetTxResponse response) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mResponse = response;
-                            onUpdateView();
-                        }
+                    runOnUiThread(() -> {
+                        mResponse = response;
+                        onUpdateView();
                     });
                 }
 
                 @Override
                 public void onError(Throwable t) {
                     if (ClaimFetchCnt < 15) {
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                ClaimFetchCnt++;
-                                onFetchClaimTx(hash);
-                            }
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            ClaimFetchCnt++;
+                            onFetchClaimTx(hash);
                         }, 3000);
                     }
                 }
@@ -497,12 +485,9 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     private void onHandleNotfound(String expectedSwapId) {
         if (SwapFetchCnt < 10) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    SwapFetchCnt++;
-                    onCheckSwapId(expectedSwapId);
-                }
+            new Handler().postDelayed(() -> {
+                SwapFetchCnt++;
+                onCheckSwapId(expectedSwapId);
             }, 6000);
         } else {
             onShowMoreSwapWait();
@@ -511,7 +496,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     //SWAP ID LOOP CHECK
     private void onShowMoreSwapWait() {
-        AlertDialogUtils.showDoubleButtonDialog(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
                 getString(R.string.str_close), view -> onFinishWithError(),
                 getString(R.string.str_wait), view -> onWaitSwapMore(), false);
     }
@@ -533,8 +518,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 onCheckSwapId(mExpectedSwapId);
 
             } else {
-                AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_swap_error_title),
-                        Html.fromHtml(getString(R.string.str_swap_error_msg_create) + "<br/><br/><font color=\"#ff0000\">" + AlertDialogUtils.highlightingText(result.errorMsg) + "</font>"),
+                CommonAlertDialog.showSingleButton(this, getString(R.string.str_swap_error_title),
+                        Html.fromHtml(getString(R.string.str_swap_error_msg_create) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(result.errorMsg) + "</font>"),
                         getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
 
@@ -546,8 +531,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 onFetchClaimTx(mClaimTxHash);
 
             } else {
-                AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_swap_error_title),
-                        Html.fromHtml(getString(R.string.str_swap_error_msg_claim) + "<br/><br/><font color=\"#ff0000\">" + AlertDialogUtils.highlightingText(result.errorMsg) + "</font>"),
+                CommonAlertDialog.showSingleButton(this, getString(R.string.str_swap_error_title),
+                        Html.fromHtml(getString(R.string.str_swap_error_msg_claim) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(result.errorMsg) + "</font>"),
                         getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
         }

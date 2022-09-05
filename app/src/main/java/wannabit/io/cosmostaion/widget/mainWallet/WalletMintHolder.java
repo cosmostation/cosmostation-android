@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.ChainParam;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
@@ -67,7 +67,7 @@ public class WalletMintHolder extends BaseHolder {
                         + mainActivity.getString(R.string.str_apr_help_real_msg) + "<br>"
                         +  msg3, Html.FROM_HTML_MODE_LEGACY);
             }
-            AlertDialogUtils.showSingleButtonDialog(mainActivity, msg, null, Html.fromHtml("<font color=\"#007AFF\">" + mainActivity.getString(R.string.str_ok) + "</font>"), null);
+            CommonAlertDialog.showSingleButton(mainActivity, msg, null, Html.fromHtml("<font color=\"#007AFF\">" + mainActivity.getString(R.string.str_ok) + "</font>"), null);
         });
     }
 }

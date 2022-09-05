@@ -83,12 +83,9 @@ public class AuthzGranterInfoHolder extends RecyclerView.ViewHolder {
         mGranterTotalAmount.setText(WDp.getDpAmount2(totalAmount, divideDecimal, 6));
         mGranterTotalValue.setText(WDp.dpUserCurrencyValue(baseData, stakingDenom, totalAmount, divideDecimal));
 
-        mBtnExploer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url = chainConfig.explorerAccountLink() + granter;
-                itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-            }
+        mBtnExploer.setOnClickListener(view -> {
+            String url = chainConfig.explorerAccountLink() + granter;
+            itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         });
     }
 }

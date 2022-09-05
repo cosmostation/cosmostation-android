@@ -127,51 +127,45 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
             holder.chainName.setText(chainConfig.chainTitleToUp());
             holder.chainCard.setCardBackgroundColor(ContextCompat.getColor(WalletEditActivity.this, chainConfig.chainBgColor()));
 
-            holder.chainRemoveImg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getBaseDao().onSelectAccountsByChain(BaseChain.COSMOS_MAIN).size() <= 0) {
-                        int dpAccountSum = 0;
-                        for (BaseChain baseChain: mDisplayChains) {
-                            if (!baseChain.equals(chain)) {
-                                dpAccountSum = dpAccountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
-                            }
-                        }
-                        if (dpAccountSum <= 0) {
-                            Toast.makeText(WalletEditActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
-                            return;
+            holder.chainRemoveImg.setOnClickListener(v -> {
+                if (getBaseDao().onSelectAccountsByChain(BaseChain.COSMOS_MAIN).size() <= 0) {
+                    int dpAccountSum = 0;
+                    for (BaseChain baseChain: mDisplayChains) {
+                        if (!baseChain.equals(chain)) {
+                            dpAccountSum = dpAccountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
                         }
                     }
-                    int displayChainIndex = mDisplayChains.indexOf(chain);
-                    if (displayChainIndex >= 0) {
-                        mDisplayChains.remove(displayChainIndex);
-                        mHideChains.add(chain);
-                        ArrayList<BaseChain> tempHide = new ArrayList<>();
-                        for (BaseChain baseChain : mAllChains) {
-                            if (mHideChains.contains(baseChain)) {
-                                tempHide.add(baseChain);
-                            }
+                    if (dpAccountSum <= 0) {
+                        Toast.makeText(WalletEditActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                int displayChainIndex = mDisplayChains.indexOf(chain);
+                if (displayChainIndex >= 0) {
+                    mDisplayChains.remove(displayChainIndex);
+                    mHideChains.add(chain);
+                    ArrayList<BaseChain> tempHide = new ArrayList<>();
+                    for (BaseChain baseChain : mAllChains) {
+                        if (mHideChains.contains(baseChain)) {
+                            tempHide.add(baseChain);
                         }
-                        mHideChains = tempHide;
+                    }
+                    mHideChains = tempHide;
 
-                        if (mHideChains.size() > 0) {
-                            mEmptyChains.setVisibility(View.GONE);
-                            mHideRecyclerView.setVisibility(View.VISIBLE);
-                        }
-                        mDisplayListAdapter.notifyDataSetChanged();
-                        mHideListAdapter.notifyDataSetChanged();
+                    if (mHideChains.size() > 0) {
+                        mEmptyChains.setVisibility(View.GONE);
+                        mHideRecyclerView.setVisibility(View.VISIBLE);
                     }
+                    mDisplayListAdapter.notifyDataSetChanged();
+                    mHideListAdapter.notifyDataSetChanged();
                 }
             });
-            holder.chainSort.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                        if (mItemTouchHelper != null)
-                            mItemTouchHelper.startDrag(holder);
-                    }
-                    return false;
+            holder.chainSort.setOnTouchListener((v, event) -> {
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    if (mItemTouchHelper != null)
+                        mItemTouchHelper.startDrag(holder);
                 }
+                return false;
             });
         }
 
@@ -221,21 +215,18 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
             holder.chainName.setText(chainConfig.chainTitleToUp());
             holder.chainCard.setCardBackgroundColor(ContextCompat.getColor(WalletEditActivity.this, chainConfig.chainBgColor()));
 
-            holder.chainAddImg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int hideChainIndex = mHideChains.indexOf(chain);
-                    if (hideChainIndex >= 0) {
-                        mHideChains.remove(hideChainIndex);
-                        mDisplayChains.add(chain);
+            holder.chainAddImg.setOnClickListener(v -> {
+                int hideChainIndex = mHideChains.indexOf(chain);
+                if (hideChainIndex >= 0) {
+                    mHideChains.remove(hideChainIndex);
+                    mDisplayChains.add(chain);
 
-                        if (mHideChains.size() <= 0) {
-                            mEmptyChains.setVisibility(View.VISIBLE);
-                            mHideRecyclerView.setVisibility(View.GONE);
-                        }
-                        mHideListAdapter.notifyDataSetChanged();
-                        mDisplayListAdapter.notifyDataSetChanged();
+                    if (mHideChains.size() <= 0) {
+                        mEmptyChains.setVisibility(View.VISIBLE);
+                        mHideRecyclerView.setVisibility(View.GONE);
                     }
+                    mHideListAdapter.notifyDataSetChanged();
+                    mDisplayListAdapter.notifyDataSetChanged();
                 }
             });
         }

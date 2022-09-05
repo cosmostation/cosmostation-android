@@ -83,29 +83,9 @@ public class HardDetailMyStatusHolder extends BaseHolder {
         WDp.setDpCoin(context, baseData, chainConfig, hardMoneyMarket.getDenom(), finalBorrowableAmount.toPlainString(), mBorrowableDenomTv, mBorrowableAmountTv);
         mBorrowableValueTv.setText(WDp.getDpRawDollor(context, finalBorrowableValue, 2));
 
-        mMyBtnSupply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onHardDeposit();
-            }
-        });
-        mMyBtnWithdraw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onHardWithdraw();
-            }
-        });
-        mMyBtnBorrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onHardBorrow();
-            }
-        });
-        mMyBtnRepay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.onHardRepay();
-            }
-        });
+        mMyBtnSupply.setOnClickListener(v -> context.onHardDeposit());
+        mMyBtnWithdraw.setOnClickListener(v -> context.onHardWithdraw());
+        mMyBtnBorrow.setOnClickListener(v -> context.onHardBorrow());
+        mMyBtnRepay.setOnClickListener(v -> context.onHardRepay());
     }
 }

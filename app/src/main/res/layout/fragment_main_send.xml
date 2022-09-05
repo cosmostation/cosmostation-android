@@ -104,8 +104,8 @@
                         android:autoSizeMinTextSize="11dp"
                         android:autoSizeStepGranularity="1dp"
                         android:autoSizeTextType="uniform"
-                        android:maxLines="1"
                         android:ellipsize="middle"
+                        android:maxLines="1"
                         android:text="" />
                 </RelativeLayout>
 
@@ -122,7 +122,7 @@
                     style="@style/font_rm_21_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginTop="@dimen/space_10"
                     android:gravity="center_horizontal"
                     android:paddingRight="@dimen/space_12"
                     android:singleLine="true"
