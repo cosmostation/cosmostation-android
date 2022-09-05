@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.Crescent;
+import wannabit.io.cosmostaion.base.chains.Ixo;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
@@ -311,7 +312,8 @@ public class MainTokensFragment extends BaseFragment {
             } else if (mBaseChain.equals(OSMOSIS_MAIN) && coin.denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM) ||
                     mBaseChain.equals(EMONEY_MAIN) && coin.denom.startsWith("e") ||
                     mBaseChain.equals(CRESCENT_MAIN) && coin.denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM) ||
-                    mBaseChain.equals(NYX_MAIN) && coin.denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) {
+                    mBaseChain.equals(NYX_MAIN) && coin.denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM) ||
+                    mBaseChain.equals(IXO_MAIN) && coin.denom.equalsIgnoreCase(Ixo.IXO_ATOM_DENOM)) {
                 mNativeGrpc.add(coin);
             } else if (mBaseChain.equals(SIF_MAIN) && coin.denom.startsWith("c") ||
                     mBaseChain.equals(GRABRIDGE_MAIN) && coin.denom.startsWith("gravity") ||

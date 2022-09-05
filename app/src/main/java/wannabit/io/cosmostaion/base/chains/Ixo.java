@@ -53,4 +53,6 @@ public class Ixo extends ChainConfig {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
 
+    public static String IXO_ATOM_DENOM = "uatom";
+
 }
