@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -61,7 +60,9 @@ public class SwapCoinListDialog extends DialogFragment {
         return frag;
     }
 
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
         mSwapCoinList = getArguments().getStringArrayList("denoms");
         mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable("feeDatas");
@@ -101,10 +102,7 @@ public class SwapCoinListDialog extends DialogFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mSwapChainListAdapter);
-
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        return dialog;
+        return view;
     }
 
     private class SwapChainListAdapter extends RecyclerView.Adapter<SwapChainListAdapter.SwapChainHolder> {

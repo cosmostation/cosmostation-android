@@ -1,10 +1,7 @@
 package wannabit.io.cosmostaion.dialog;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,21 +43,18 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mRecyclerView = view.findViewById(R.id.recycler);
-
         mAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(getArguments().getString("chainName")));
         mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
         mRecyclerView.setAdapter(mAccountListAdapter);
-
-        Dialog dialog = new AlertDialog.Builder(getActivity()).setView(view).create();
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        return dialog;
+        return view;
     }
 
     private class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountHolder> {
