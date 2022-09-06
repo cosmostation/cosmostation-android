@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
-import com.google.gson.JsonArray;
-import com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage;
-import com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction;
 
 import wannabit.io.cosmostaion.R;
 
@@ -35,13 +29,8 @@ public class Dialog_Wc_Raw_Data_Evmos extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         View view = settingViews();
 
         assert getArguments() != null;
@@ -74,9 +63,7 @@ public class Dialog_Wc_Raw_Data_Evmos extends DialogFragment {
             getDialog().dismiss();
         });
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
+        return view;
     }
 
     @NonNull

@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.AlertDialogActivity;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -91,19 +92,28 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 } else {
-                    if (getIntent().getExtras() != null && getIntent().getExtras().getString("address") != null) {
-                        Account account = getBaseDao().onSelectExistAccount2(getIntent().getExtras().getString("address"));
-                        if (account != null) {
-                            getBaseDao().setLastUser(account.id);
-                            onStartMainActivity(2);
+                    if (getIntent().getExtras() != null)
+                        if (getIntent().getExtras().getString("address") != null) {
+                            Account account = getBaseDao().onSelectExistAccount2(getIntent().getExtras().getString("address"));
+                            if (account != null) {
+                                getBaseDao().setLastUser(account.id);
+                                onStartMainActivity(2);
+                                return;
+                            }
+                        } else if (getIntent().getExtras().getString("url") != null) {
+                            onStartMainActivity(0);
+                            Intent intent = new Intent(IntroActivity.this, AlertDialogActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("title", getString(R.string.app_name));
+                            intent.putExtra("body", getIntent().getExtras().getString("body"));
+                            intent.putExtra("link", getIntent().getExtras().getString("url"));
+                            startActivity(intent);
                             return;
                         }
-                    }
                     onStartMainActivity(0);
                 }
             }
         }, 2500);
-
     }
 
     private void onInitView() {
@@ -215,6 +225,4 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         intent.setData(Uri.parse("market://details?id=" + this.getPackageName()));
         startActivity(intent);
     }
-
 }
-
