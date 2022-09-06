@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -272,7 +273,7 @@ public class SelectChainListDialog extends DialogFragment {
         }
 
         public class SendChainHolder extends RecyclerView.ViewHolder {
-            LinearLayout rootLayer;
+            RelativeLayout rootLayer;
             ImageView itemChainImg;
             TextView itemChainName;
 

@@ -27,7 +27,7 @@ public class Bitcanna extends ChainConfig {
     public String mainDenom() { return "ubcna"; }
     public String addressPrefix() { return "bcna"; }
 
-        public boolean pushSupport() { return false; }
+    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 

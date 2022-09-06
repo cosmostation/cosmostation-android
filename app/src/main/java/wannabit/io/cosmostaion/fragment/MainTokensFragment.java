@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -12,11 +13,11 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -403,9 +405,29 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+
+                holder.itemRoot.setOnClickListener(v -> {
+                    if (chainConfig.baseChain().equals(KAVA_MAIN)) {
+                        BottomSheetDialog dialog= new BottomSheetDialog(getMainActivity());
+                        dialog.setContentView(R.layout.item_bottom_dialog);
+                        RelativeLayout btnBep3Send = dialog.findViewById(R.id.btn_bep3_send);
+                        RelativeLayout btnSend = dialog.findViewById(R.id.btn_send);
+                        RelativeLayout btnCancel = dialog.findViewById(R.id.btn_cancel);
+
+                        btnBep3Send.setOnClickListener(view -> {
+                            getMainActivity().onStartHTLCSendActivity(asset.denom);
+                            dialog.dismiss();
+                        });
+                        btnSend.setOnClickListener(view -> {
+                            Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                            intent.putExtra("sendTokenDenom", asset.denom);
+                            startActivity(intent);
+                            dialog.dismiss();
+                        });
+                        btnCancel.setOnClickListener(view -> dialog.dismiss());
+                        dialog.show();
+
+                    } else {
                         Intent intent = new Intent(getMainActivity(), SendActivity.class);
                         intent.putExtra("sendTokenDenom", asset.denom);
                         startActivity(intent);

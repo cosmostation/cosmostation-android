@@ -265,6 +265,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         if (getSActivity().mBaseChain.equals(mToSendChainConfig.baseChain())) {
             if (mAsset != null) getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
             else if (mCw20Asset != null) getSActivity().mTxType = CONST_PW_TX_EXECUTE_CONTRACT;
+            else getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
 
         } else {
             if (mAsset != null) {
