@@ -152,6 +152,11 @@ public class WDp {
         } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
             if (baseData.okToken(denom) != null) return baseData.okToken(denom).original_symbol.toUpperCase();
             else return denom.toUpperCase();
+
+        } else if (chainConfig.baseChain().equals(LIKECOIN_MAIN)) {
+            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).origin_symbol;
+            else return denom.toUpperCase();
+
         }
         return denom.toUpperCase();
     }
@@ -227,6 +232,9 @@ public class WDp {
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
             if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) return 6;
             else if (denom.startsWith("pool")) return 12;
+
+        } else if (chainConfig.baseChain().equals(LIKECOIN_MAIN)) {
+            return 9;
 
         }
         return chainConfig.decimal();
