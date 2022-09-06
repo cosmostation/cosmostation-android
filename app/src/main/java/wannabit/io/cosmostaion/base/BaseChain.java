@@ -85,7 +85,8 @@ public enum BaseChain {
     ASSETMANTLE_MAIN("assetmantle-mainnet"),
     STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
-    PASSAGE_MAIN("passage-mainnet");
+    PASSAGE_MAIN("passage-mainnet"),
+    STRIDE_MAIN("stride-mainnet");
 
     private final String chainName;
 
@@ -254,6 +255,9 @@ public enum BaseChain {
         if (chainName.equals(PASSAGE_MAIN.chainName)) {
             return PASSAGE_MAIN;
         }
+        if (chainName.equals(STRIDE_MAIN.chainName)) {
+            return STRIDE_MAIN;
+        }
 
         return null;
     }
@@ -301,6 +305,7 @@ public enum BaseChain {
         result.add(CERTIK_MAIN);
         result.add(SIF_MAIN);
         result.add(STARGAZE_MAIN);
+        result.add(STRIDE_MAIN);
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
         result.add(STATION_TEST);
