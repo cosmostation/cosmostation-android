@@ -212,7 +212,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
 
     public void onFetchPoolListInfo() {
-        mTaskCount = 4;
+        mTaskCount = 3;
         mPoolList = new ArrayList<>();
         mPoolMyList = new ArrayList<>();
         mPoolOtherList = new ArrayList<>();
@@ -221,7 +221,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         mPeriodLockUps = new ArrayList<>();
         new OsmosisPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new OsmosisIncentivizedPoolsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new OsmosisActiveGaugesGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new OsmosisLockupStatusGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -255,11 +254,18 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED) {
             if (result.isSuccess && result.resultData != null) {
                 mIncentivizedPool = (ArrayList<QueryOuterClass.IncentivizedPool>) result.resultData;
+
+                if (mIncentivizedPool.size() > 0) {
+                    for (QueryOuterClass.IncentivizedPool incentivizedPool : mIncentivizedPool) {
+                        mTaskCount = mTaskCount + 1;
+                        new OsmosisActiveGaugesGrpcTask(getBaseApplication(), this, mBaseChain, incentivizedPool.getGaugeId()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
+                }
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES) {
             if (result.isSuccess && result.resultData != null) {
-                mActiveGauges = (ArrayList<GaugeOuterClass.Gauge>) result.resultData;
+                mActiveGauges.add((GaugeOuterClass.Gauge) result.resultData);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS) {
@@ -274,6 +280,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                 mPageAdapter.mCurrentFragment.onRefreshTab();
             }, 300);
         }
+
     }
 
     private class OsmoLabPageAdapter extends FragmentPagerAdapter {

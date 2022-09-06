@@ -20,12 +20,13 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class OsmosisActiveGaugesGrpcTask extends CommonTask {
     private BaseChain mChain;
+    private long mPoolId;
     private QueryGrpc.QueryBlockingStub mStub;
-    private ArrayList<GaugeOuterClass.Gauge> mResultData = new ArrayList<>();
 
-    public OsmosisActiveGaugesGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    public OsmosisActiveGaugesGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, long poolId) {
         super(app, listener);
         this.mChain = chain;
+        this.mPoolId = poolId;
         this.mResult.taskType = TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
@@ -33,35 +34,13 @@ public class OsmosisActiveGaugesGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.ActiveGaugesRequest request = QueryOuterClass.ActiveGaugesRequest.newBuilder().build();
-            QueryOuterClass.ActiveGaugesResponse response = mStub.activeGauges(request);
+            QueryOuterClass.GaugeByIDRequest request = QueryOuterClass.GaugeByIDRequest.newBuilder().setId(mPoolId).build();
+            QueryOuterClass.GaugeByIDResponse response = mStub.gaugeByID(request);
 
-            for (GaugeOuterClass.Gauge gauge: response.getDataList()) {
-                mResultData.add(gauge);
-            }
-            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
-                pageJob(response.getPagination().getNextKey());
-            }
-            mResult.resultData = mResultData;
+            mResult.resultData = response.getGauge();
             mResult.isSuccess = true;
 
         } catch (Exception e) { WLog.e( "OsmosisActiveGaugesGrpcTask "+ e.getMessage()); }
         return mResult;
-    }
-
-    private QueryOuterClass.ActiveGaugesResponse pageJob(com.google.protobuf.ByteString nextKey) {
-        try {
-            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setKey(nextKey).build();
-            QueryOuterClass.ActiveGaugesRequest request = QueryOuterClass.ActiveGaugesRequest.newBuilder().setPagination(pageRequest).build();
-            QueryOuterClass.ActiveGaugesResponse response = mStub.activeGauges(request);
-            for (GaugeOuterClass.Gauge gauge: response.getDataList()) {
-                mResultData.add(gauge);
-            }
-            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
-                pageJob(response.getPagination().getNextKey());
-            }
-
-        } catch (Exception e) { WLog.e( "OsmosisActiveGaugesGrpcTask pageJob "+ e.getMessage()); }
-        return  null;
     }
 }
