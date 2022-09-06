@@ -38,13 +38,10 @@ public class HistoryOldHolder extends BaseHolder {
         history_block.setText(history.blockHeight + " block");
         historySuccess.setVisibility(View.GONE);
 
-        historyRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = chainConfig.explorerHistoryLink(history.txHash);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                mainActivity.startActivity(intent);
-            }
+        historyRoot.setOnClickListener(v -> {
+            String url = chainConfig.explorerHistoryLink(history.txHash);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            mainActivity.startActivity(intent);
         });
     }
 
@@ -60,13 +57,10 @@ public class HistoryOldHolder extends BaseHolder {
         history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.blockTimeU0));
         history_block.setText(history.hash + " block");
 
-        historyRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = chainConfig.explorerHistoryLink(history.hash);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                mainActivity.startActivity(intent);
-            }
+        historyRoot.setOnClickListener(v -> {
+            String url = chainConfig.explorerHistoryLink(history.hash);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            mainActivity.startActivity(intent);
         });
     }
 }

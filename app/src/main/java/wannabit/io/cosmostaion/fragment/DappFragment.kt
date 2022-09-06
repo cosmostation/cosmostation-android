@@ -4,7 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -13,7 +15,7 @@ import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
 import wannabit.io.cosmostaion.base.BaseFragment
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog
 import wannabit.io.cosmostaion.utils.ThemeUtil
 
 class DappFragment : BaseFragment() {
@@ -58,10 +60,11 @@ class DappFragment : BaseFragment() {
                 webView.visibility = View.VISIBLE
                 super.onPageFinished(view, url)
             }
+
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 (activity as? MainActivity)?.let {
                     if (!it.mAccount.hasPrivateKey) {
-                        AlertDialogUtils.showDoubleButtonDialog(
+                        CommonAlertDialog.showDoubleButton(
                             it,
                             it.getString(R.string.str_only_observe_title),
                             it.getString(R.string.str_only_observe_msg),

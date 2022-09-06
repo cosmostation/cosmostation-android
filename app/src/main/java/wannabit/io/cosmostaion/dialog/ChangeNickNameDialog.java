@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
@@ -26,7 +24,6 @@ public class ChangeNickNameDialog extends DialogFragment {
     private Button btn_nega, btn_posi;
     private EditText mNameInput;
 
-
     public static ChangeNickNameDialog newInstance(Bundle bundle) {
         ChangeNickNameDialog frag = new ChangeNickNameDialog();
         frag.setArguments(bundle);
@@ -34,13 +31,8 @@ public class ChangeNickNameDialog extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_change_nickname, null);
         mDialogTitle = view.findViewById(R.id.dialog_title);
         btn_nega = view.findViewById(R.id.btn_nega);
@@ -52,38 +44,29 @@ public class ChangeNickNameDialog extends DialogFragment {
         if (!TextUtils.isEmpty(getArguments().getString("name")))
             mNameInput.setText(getArguments().getString("name"));
 
-        btn_nega.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm.isActive()) {
-                    imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
-                }
-                getDialog().dismiss();
+        btn_nega.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()) {
+                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
             }
+            getDialog().dismiss();
         });
 
-        btn_posi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm.isActive()) {
-                    imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
-                }
-                if (!TextUtils.isEmpty(mNameInput.getText().toString().trim())) {
-                    if (title.equalsIgnoreCase(getString(R.string.str_change_mnemonic_nickname))) {
-                        ((MnemonicDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
-                    } else {
-                        ((AccountDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
-                    }
-                }
-                getDialog().dismiss();
+        btn_posi.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()) {
+                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
             }
+            if (!TextUtils.isEmpty(mNameInput.getText().toString().trim())) {
+                if (title.equalsIgnoreCase(getString(R.string.str_change_mnemonic_nickname))) {
+                    ((MnemonicDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
+                } else {
+                    ((AccountDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
+                }
+            }
+            getDialog().dismiss();
         });
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        return builder.create();
+
+        return view;
     }
-
-
 }

@@ -17,11 +17,11 @@
         android:layout_centerVertical="true"
         android:background="@drawable/box_chain_trans_border"
         android:gravity="center_vertical"
-        android:paddingBottom="@dimen/space_2"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/space_4"
         android:paddingTop="@dimen/space_2"
         android:paddingRight="@dimen/space_4"
-        android:paddingLeft="@dimen/space_4"
-        android:orientation="vertical">
+        android:paddingBottom="@dimen/space_2">
 
         <RelativeLayout
             android:layout_width="match_parent"

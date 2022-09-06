@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dao.IbcToken;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveChainDialog;
 import wannabit.io.cosmostaion.dialog.IBCRelayerChannelDialog;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -163,7 +163,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
 
         } else if (v.equals(mBtnNext)) {
             if (mIbcSelectedPath.auth == null) {
-                AlertDialogUtils.showDoubleButtonDialog(getSActivity(), getString(R.string.str_ibc_warning_c), getString(R.string.str_ibc_unknown_relayer_msg),
+                CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_ibc_warning_c), getString(R.string.str_ibc_unknown_relayer_msg),
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_cancel) + "</font>"), null,
                         Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_continue) + "</font>"), view -> {
                             Intent resultIntent = new Intent();
@@ -176,84 +176,74 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
                 getSActivity().onNextStep();
             }
 
-        } else if (v.equals(mToChainLayer)) {
+        } else if (v.equals(mToChainLayer) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("chain", mIbcSendableRelayers);
             IBCReceiveChainDialog dialog = IBCReceiveChainDialog.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
-        } else if (v.equals(mToRelayer)) {
+        } else if (v.equals(mToRelayer) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("channel", mIbcSendablePaths);
             IBCRelayerChannelDialog dialog = IBCRelayerChannelDialog.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_POPUP_IBC_RELAYER);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+
         }
     }
 
     private void onSortRelayer(ArrayList<IbcPath> ibcPaths) {
-        Collections.sort(ibcPaths, new Comparator<IbcPath>() {
-            @Override
-            public int compare(IbcPath o1, IbcPath o2) {
-                if (o1.chain_id.contains("cosmoshub-")) return -1;
-                if (o2.chain_id.contains("cosmoshub-")) return 1;
-                if (o1.chain_id.contains("osmosis-")) return -1;
-                if (o2.chain_id.contains("osmosis-")) return 1;
-                return o1.chain_id.compareTo(o2.chain_id);
-            }
+        Collections.sort(ibcPaths, (o1, o2) -> {
+            if (o1.chain_id.contains("cosmoshub-")) return -1;
+            if (o2.chain_id.contains("cosmoshub-")) return 1;
+            if (o1.chain_id.contains("osmosis-")) return -1;
+            if (o2.chain_id.contains("osmosis-")) return 1;
+            return o1.chain_id.compareTo(o2.chain_id);
         });
     }
 
     private void onSortPath(ArrayList<IbcPath.Path> paths) {
-        Collections.sort(paths, new Comparator<IbcPath.Path>() {
-            @Override
-            public int compare(IbcPath.Path o1, IbcPath.Path o2) {
-                IbcToken ibcToken = getBaseDao().getIbcToken(getSActivity().mToIbcDenom);
-                if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
-                    if (o1.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return -1;
-                    if (o2.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return 1;
-                }
-                if (getSActivity().mToIbcDenom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
-                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
-                        return -1;
-                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
-                        return 1;
-                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
-                        return -1;
-                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
-                        return 1;
-                } else {
-                    if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
-                        return -1;
-                    if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
-                        return 1;
-                    if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
-                        return -1;
-                    if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
-                        return 1;
-                }
-                return 0;
+        Collections.sort(paths, (o1, o2) -> {
+            IbcToken ibcToken = getBaseDao().getIbcToken(getSActivity().mToIbcDenom);
+            if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
+                if (o1.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return -1;
+                if (o2.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return 1;
             }
+            if (getSActivity().mToIbcDenom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
+                if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                    return -1;
+                if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                    return 1;
+                if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                    return -1;
+                if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                    return 1;
+            } else {
+                if (o1.auth != null && !o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                    return -1;
+                if (o2.auth != null && !o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                    return 1;
+                if (o1.auth != null && o1.port_id.equalsIgnoreCase(o1.counter_party.port_id))
+                    return -1;
+                if (o2.auth != null && o2.port_id.equalsIgnoreCase(o2.counter_party.port_id))
+                    return 1;
+            }
+            return 0;
         });
     }
 
     private void onForceBack() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getSActivity(), R.string.error_no_relayer_channel, Toast.LENGTH_SHORT).show();
-                getSActivity().onBeforeStep();
-            }
+        mHandler.postDelayed(() -> {
+            Toast.makeText(getSActivity(), R.string.error_no_relayer_channel, Toast.LENGTH_SHORT).show();
+            getSActivity().onBeforeStep();
         }, 610);
     }
 
     public ArrayList<IbcPath> getIbcSendableRelayers() {
         ArrayList<IbcPath> result = new ArrayList<>();
-        for (IbcPath ibcPath: getBaseDao().mIbcPaths) {
-            for (IbcPath.Path path: ibcPath.paths) {
+        for (IbcPath ibcPath : getBaseDao().mIbcPaths) {
+            for (IbcPath.Path path : ibcPath.paths) {
                 if (path.auth != null && path.auth) {
                     result.add(ibcPath);
                 }
@@ -268,8 +258,8 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         ArrayList<IbcPath> result = new ArrayList<>();
         IbcToken ibcToken = getBaseDao().getIbcToken(denom.replaceAll("ibc/", ""));
         if (getBaseDao().mIbcPaths != null && getBaseDao().mIbcPaths.size() > 0) {
-            for (IbcPath ibcPath: getBaseDao().mIbcPaths) {
-                for (IbcPath.Path path: ibcPath.paths) {
+            for (IbcPath ibcPath : getBaseDao().mIbcPaths) {
+                for (IbcPath.Path path : ibcPath.paths) {
                     if (path.channel_id != null && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
                         result.add(ibcPath);
                     }
@@ -283,7 +273,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         ArrayList<IbcPath.Path> result = new ArrayList<>();
         IbcToken ibcToken = getBaseDao().getIbcToken(denom);
         if (paths != null && paths.size() > 0) {
-            for (IbcPath.Path path: paths) {
+            for (IbcPath.Path path : paths) {
                 if (path.auth != null && path.auth && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
                     result.add(path);
                 }

@@ -94,11 +94,6 @@ public class EarningBondedHolder extends RecyclerView.ViewHolder {
         itemRewardAmount.setText(WDp.getDpAmount2(c, myReward, 6, 6));
 
 
-        mBtnUnbonding.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((EarningDetailActivity)activity).onCheckUnbonding(lockup);
-            }
-        });
+        mBtnUnbonding.setOnClickListener(view -> ((EarningDetailActivity)activity).onCheckUnbonding(lockup));
     }
 }

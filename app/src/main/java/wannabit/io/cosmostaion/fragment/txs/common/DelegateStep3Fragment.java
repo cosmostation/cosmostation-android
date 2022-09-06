@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -81,8 +81,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
                     unBondingTimeImage = R.drawable.dialogicon_undelegate_7;
                 }
             }
-            AlertDialogUtils.showHeaderImageDoubleButtonDialog(getSActivity(), getString(R.string.str_delegate_warn_title), getString(R.string.str_delegate_warn_msg),
-                    AlertDialogUtils.highlightingText(getString(R.string.str_cancel)), null,
+            CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_delegate_warn_title), getString(R.string.str_delegate_warn_msg),
+                    CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null,
                     getString(R.string.str_confirm), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_DELEGATE_CHECK, Activity.RESULT_OK, resultIntent);

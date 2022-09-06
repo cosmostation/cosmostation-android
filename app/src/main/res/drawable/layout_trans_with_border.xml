@@ -10,6 +10,8 @@
                     <solid android:color="@color/colorTrans"/>
                     <stroke
                         android:color="@color/colorTrans"/>
+                    <corners
+                        android:radius="@dimen/space_8"/>
                     <padding
                         android:left="@dimen/space_32"
                         android:top="@dimen/space_32"

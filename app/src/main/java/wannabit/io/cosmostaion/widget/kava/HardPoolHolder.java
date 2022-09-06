@@ -126,13 +126,10 @@ public class HardPoolHolder extends BaseHolder {
         borrowValueTv.setText(WDp.getDpRawDollor(context, myBorrowValue, 2));
 
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, HardDetailActivity.class);
-                intent.putExtra("hard_money_market_denom", hardMoneyMarket.getDenom());
-                context.startActivity(intent);
-            }
+        itemRoot.setOnClickListener(v -> {
+            Intent intent = new Intent(context, HardDetailActivity.class);
+            intent.putExtra("hard_money_market_denom", hardMoneyMarket.getDenom());
+            context.startActivity(intent);
         });
     }
 }

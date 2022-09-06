@@ -90,12 +90,7 @@ public class PoolOtherHolder extends BaseHolder {
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(new BigDecimal(Coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, Coin0.denom), 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(new BigDecimal(Coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, Coin1.denom), 6));
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((LabsListActivity) activity).onCheckStartJoinPool(otherPool.getId());
-            }
-        });
+        itemRoot.setOnClickListener(v -> ((LabsListActivity) activity).onCheckStartJoinPool(otherPool.getId()));
     }
 
     @Override
@@ -132,12 +127,7 @@ public class PoolOtherHolder extends BaseHolder {
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableCoin0, coin0Decimal, 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((DAppsList5Activity) activity).onCheckStartJoinPool(otherPool);
-            }
-        });
+        itemRoot.setOnClickListener(v -> ((DAppsList5Activity) activity).onCheckStartJoinPool(otherPool));
     }
 
     @Override
@@ -175,11 +165,6 @@ public class PoolOtherHolder extends BaseHolder {
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableRowan, rowanDecimal, 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableExternal, externalDecimal, 6));
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((SifDexListActivity) activity).onCheckStartDepositPool(otherPool);
-            }
-        });
+        itemRoot.setOnClickListener(v -> ((SifDexListActivity) activity).onCheckStartDepositPool(otherPool));
     }
 }

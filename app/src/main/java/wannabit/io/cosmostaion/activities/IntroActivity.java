@@ -24,7 +24,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
+import wannabit.io.cosmostaion.dialog.AlertDialogActivity;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
@@ -82,31 +83,37 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onInitJob() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (getBaseDao().onSelectAccounts().size() == 0) {
-                    onInitView();
+        new Handler().postDelayed(() -> {
+            if (getBaseDao().onSelectAccounts().size() == 0) {
+                onInitView();
+            } else {
+                if (getBaseApplication().needShowLockScreen()) {
+                    Intent intent = new Intent(IntroActivity.this, AppLockActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 } else {
-                    if (getBaseApplication().needShowLockScreen()) {
-                        Intent intent = new Intent(IntroActivity.this, AppLockActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-                    } else {
-                        if (getIntent().getExtras() != null && getIntent().getExtras().getString("address") != null) {
+                    if (getIntent().getExtras() != null)
+                        if (getIntent().getExtras().getString("address") != null) {
                             Account account = getBaseDao().onSelectExistAccount2(getIntent().getExtras().getString("address"));
                             if (account != null) {
                                 getBaseDao().setLastUser(account.id);
                                 onStartMainActivity(2);
                                 return;
                             }
+                        } else if (getIntent().getExtras().getString("url") != null) {
+                            onStartMainActivity(0);
+                            Intent intent = new Intent(IntroActivity.this, AlertDialogActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("title", getString(R.string.app_name));
+                            intent.putExtra("body", getIntent().getExtras().getString("body"));
+                            intent.putExtra("link", getIntent().getExtras().getString("url"));
+                            startActivity(intent);
+                            return;
                         }
-                        onStartMainActivity(0);
-                    }
+                    onStartMainActivity(0);
                 }
             }
         }, 2500);
-
     }
 
     private void onInitView() {
@@ -135,10 +142,9 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mStart)) {
-            Dialog_AddAccount add = Dialog_AddAccount.newInstance(null);
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+        if (v.equals(mStart) && !this.isFinishing()) {
+            Dialog_AddAccount dialog = Dialog_AddAccount.newInstance(null);
+            dialog.show(getSupportFragmentManager(), "dialog");
         }
     }
 
@@ -154,13 +160,10 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
             public void run() {
                 getBaseDao().upgradeMnemonicDB();
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                        getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
-                        onCheckAppVersion();
-                    }
+                runOnUiThread(() -> {
+                    dialog.dismiss();
+                    getBaseDao().setDBVersion(BaseConstant.DB_VERSION);
+                    onCheckAppVersion();
                 });
             }
         };
@@ -199,17 +202,17 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onNetworkDialog() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_network_error_title), getString(R.string.str_network_error_msg),
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_network_error_title), getString(R.string.str_network_error_msg),
                 getString(R.string.str_retry), view -> onRetryVersionCheck(), false);
     }
 
     private void onDisableDialog() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_disabled_app_title), getString(R.string.str_disabled_app_msg),
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_disabled_app_title), getString(R.string.str_disabled_app_msg),
                 getString(R.string.str_confirm), view -> finish(), false);
     }
 
     private void onUpdateDialog() {
-        AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
+        CommonAlertDialog.showSingleButton(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
                 Html.fromHtml("<font color=\"#05D2DD\">" + getString(R.string.str_go_store) + "</font>"), view -> onStartPlaystore(), false);
     }
 
@@ -222,6 +225,4 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         intent.setData(Uri.parse("market://details?id=" + this.getPackageName()));
         startActivity(intent);
     }
-
 }
-

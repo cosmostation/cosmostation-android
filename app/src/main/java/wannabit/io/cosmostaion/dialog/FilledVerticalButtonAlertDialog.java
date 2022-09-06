@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -40,9 +41,11 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
     public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, Drawable firstButtonImage,
                                         CharSequence secondButtonTitle, View.OnClickListener secondButtonListener, Drawable secondButtonImage, Boolean cancelable) {
         FilledVerticalButtonAlertDialog dialog = makeDoubleButton(context, title, message, firstButtonTitle, firstButtonListener, firstButtonImage, secondButtonTitle, secondButtonListener, secondButtonImage);
-        dialog.setCancelable(cancelable);
-        dialog.create();
-        dialog.show();
+        if (!((Activity) context).isFinishing()) {
+            dialog.setCancelable(cancelable);
+            dialog.create();
+            dialog.show();
+        }
     }
 
     public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, Drawable firstButtonImage,
@@ -54,9 +57,11 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
                                         CharSequence secondButtonTitle, View.OnClickListener secondButtonListener, Drawable secondButtonImage,
                                         CharSequence thirdButtonTitle, View.OnClickListener thirdButtonListener, Drawable thirdButtonImage, Boolean cancelable) {
         FilledVerticalButtonAlertDialog dialog = makeTripleButton(context, title, message, firstButtonTitle, firstButtonListener, firstButtonImage, secondButtonTitle, secondButtonListener, secondButtonImage, thirdButtonTitle, thirdButtonListener, thirdButtonImage);
-        dialog.setCancelable(cancelable);
-        dialog.create();
-        dialog.show();
+        if (!((Activity) context).isFinishing()) {
+            dialog.setCancelable(cancelable);
+            dialog.create();
+            dialog.show();
+        }
     }
 
     public static void showTripleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, Drawable firstButtonImage,
@@ -69,9 +74,11 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
                                            CharSequence thirdButtonTitle, View.OnClickListener thirdButtonListener, Drawable thirdButtonImage,
                                            CharSequence quadrupleButtonTitle, View.OnClickListener quadrupleButtonListener, Drawable quadrupleButtonImage, Boolean cancelable) {
         FilledVerticalButtonAlertDialog dialog = makeQuadrupleButton(context, title, message, firstButtonTitle, firstButtonListener, firstButtonImage, secondButtonTitle, secondButtonListener, secondButtonImage, thirdButtonTitle, thirdButtonListener, thirdButtonImage, quadrupleButtonTitle, quadrupleButtonListener, quadrupleButtonImage);
-        dialog.setCancelable(cancelable);
-        dialog.create();
-        dialog.show();
+        if (!((Activity) context).isFinishing()) {
+            dialog.setCancelable(cancelable);
+            dialog.create();
+            dialog.show();
+        }
     }
 
     public static void showQuadrupleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, Drawable firstButtonImage,

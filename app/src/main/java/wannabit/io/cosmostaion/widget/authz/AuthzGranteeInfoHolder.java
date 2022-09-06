@@ -38,12 +38,9 @@ public class AuthzGranteeInfoHolder extends RecyclerView.ViewHolder {
         final int divideDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
         mGranteeAvailable.setText(WDp.getDpAmount2(baseData.getAvailable(chainConfig.mainDenom()), divideDecimal, 6));
 
-        mBtnExplorer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url = chainConfig.explorerAccountLink() + account.address;
-                itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-            }
+        mBtnExplorer.setOnClickListener(view -> {
+            String url = chainConfig.explorerAccountLink() + account.address;
+            itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         });
     }
 }

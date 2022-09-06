@@ -122,25 +122,22 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
                 holder.itemCheckedBorder.setVisibility(View.GONE);
             }
 
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getSActivity().mValAddesses.contains(validator.operator_address)) {
-                        if (getSActivity().mValAddesses.size() == 1) {
-                            Toast.makeText(getContext(), R.string.error_min_1_validator, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        getSActivity().mValAddesses.remove(validator.operator_address);
-                    } else {
-                        if (getSActivity().mValAddesses.size() > 29) {
-                            Toast.makeText(getContext(), R.string.error_max_30_validator, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        getSActivity().mValAddesses.add(validator.operator_address);
+            holder.itemRoot.setOnClickListener(v -> {
+                if (getSActivity().mValAddesses.contains(validator.operator_address)) {
+                    if (getSActivity().mValAddesses.size() == 1) {
+                        Toast.makeText(getContext(), R.string.error_min_1_validator, Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                    onUpdateCnt();
-                    notifyItemChanged(position);
+                    getSActivity().mValAddesses.remove(validator.operator_address);
+                } else {
+                    if (getSActivity().mValAddesses.size() > 29) {
+                        Toast.makeText(getContext(), R.string.error_max_30_validator, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    getSActivity().mValAddesses.add(validator.operator_address);
                 }
+                onUpdateCnt();
+                notifyItemChanged(position);
             });
         }
 

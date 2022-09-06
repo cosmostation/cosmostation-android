@@ -128,12 +128,9 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             } catch (Exception e) { }
 
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mCheckedGRpcValidator = mGrpcValidator;
-                    notifyDataSetChanged();
-                }
+            holder.itemRoot.setOnClickListener(v -> {
+                mCheckedGRpcValidator = mGrpcValidator;
+                notifyDataSetChanged();
             });
             if (mGrpcValidator.getJailed()) {
                 holder.itemAvatar.setBorderColor(ContextCompat.getColor(getSActivity(), R.color.colorRed));

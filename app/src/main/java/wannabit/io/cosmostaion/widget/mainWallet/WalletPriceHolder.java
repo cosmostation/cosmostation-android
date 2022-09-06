@@ -82,22 +82,16 @@ public class WalletPriceHolder extends BaseHolder {
             itemBuyLayer.setVisibility(View.GONE);
         }
 
-        itemBuyCoinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mainActivity.mAccount.hasPrivateKey) {
-                    mainActivity.onShowBuySelectFiat();
-                } else {
-                    mainActivity.onShowBuyWarnNoKey();
-                }
+        itemBuyCoinBtn.setOnClickListener(v -> {
+            if (mainActivity.mAccount.hasPrivateKey) {
+                mainActivity.onShowBuySelectFiat();
+            } else {
+                mainActivity.onShowBuyWarnNoKey();
             }
         });
 
-        itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!chainConfig.coingeckoLink().isEmpty()) mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.coingeckoLink())));
-            }
+        itemRoot.setOnClickListener(v -> {
+            if (!chainConfig.coingeckoLink().isEmpty()) mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.coingeckoLink())));
         });
 
     }
