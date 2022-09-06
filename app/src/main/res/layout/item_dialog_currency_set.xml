@@ -21,6 +21,7 @@
             android:textColor="@color/colorDialog"/>
     </LinearLayout>
     <View
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_view"
         android:background="@color/colorGray4"/>
