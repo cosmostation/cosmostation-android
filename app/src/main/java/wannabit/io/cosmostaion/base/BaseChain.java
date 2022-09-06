@@ -285,6 +285,7 @@ public enum BaseChain {
         result.add(FETCHAI_MAIN);
         result.add(GRABRIDGE_MAIN);
         result.add(INJ_MAIN);
+        result.add(IXO_MAIN);
         result.add(JUNO_MAIN);
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);
@@ -306,7 +307,6 @@ public enum BaseChain {
         result.add(SIF_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(IOV_MAIN);
-        result.add(IXO_MAIN);
         result.add(UMEE_MAIN);
         result.add(STATION_TEST);
 

@@ -88,6 +88,9 @@ public class ChainFactory {
                 case INJ_MAIN:
                     return new Injective();
 
+                case IXO_MAIN:
+                    return new Ixo();
+
                 case JUNO_MAIN:
                     return new Juno();
 
@@ -156,9 +159,6 @@ public class ChainFactory {
                 case IOV_LEGACY1:
                 case IOV_MAIN:
                     return new Starname();
-
-                case IXO_MAIN:
-                    return new Ixo();
 
                 case UMEE_MAIN:
                     return new Umee();
