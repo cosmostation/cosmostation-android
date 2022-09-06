@@ -40,7 +40,7 @@ public class Stride extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.0000"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "stride/"; }
     public String monikerUrl() { return MONIKER_URL + "stride/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "stride/relay-omniflix-unknown.png"; }
+    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "stride/relay-stride-unknown.png"; }
     public String homeInfoLink() { return  "https://stride.zone/"; }
     public String blogInfoLink() { return  "https://stride.zone/blog"; }
     public String coingeckoLink() { return  ""; }
