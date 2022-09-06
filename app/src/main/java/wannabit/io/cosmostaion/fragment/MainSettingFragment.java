@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.ManageWalletConnectActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicListActivity;
@@ -65,7 +66,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAppLock, mBtnBio, mBtnAutoPass, mBtnCurrency,
             mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
-            mBtnTerm, mBtnGithub, mBtnVersion;
+            mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
 
     private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme;
 
@@ -109,6 +110,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTerm = rootView.findViewById(R.id.card_term);
         mBtnGithub = rootView.findViewById(R.id.card_github);
         mBtnVersion = rootView.findViewById(R.id.card_version);
+        mBtnWalletConnect = rootView.findViewById(R.id.card_wallet_connect);
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mTvTheme = rootView.findViewById(R.id.theme_text);
@@ -131,6 +133,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnCurrency.setOnClickListener(this);
         mBtnExplore.setOnClickListener(this);
         mBtnNotice.setOnClickListener(this);
+        mBtnWalletConnect.setOnClickListener(this);
         mBtnHomepage.setOnClickListener(this);
         mBtnBlog.setOnClickListener(this);
         mBtnTelegram.setOnClickListener(this);
@@ -261,7 +264,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             String url = getMainActivity().mChainConfig.explorerUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
-
+        } else if (v.equals(mBtnWalletConnect)) {
+            startActivity(new Intent(getContext(), ManageWalletConnectActivity.class));
         } else if (v.equals(mBtnNotice)) {
             String url = EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(getMainActivity().mBaseChain).chainName();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

@@ -2142,6 +2142,8 @@
     <string name="str_dp_time_format3">HH:mm:ss</string>
     <string name="str_dp_time_format4">MMM d, yyyy</string>
     <string name="str_dp_date_format">MMM d, yyyy</string>
+    <string name="str_wc_connect_dialog"> allow the connection?</string>
+    <string name="str_wc_allow_title">Allowed list</string>
 
     <string-array name="currency_unit_array">
         <item>USD</item>

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.JsResult;
@@ -89,6 +90,7 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.utils.WalletConnectManager;
 
 public class ConnectWalletActivity extends BaseActivity {
     public final static int TYPE_TRUST_WALLET = 1;
@@ -358,26 +360,31 @@ public class ConnectWalletActivity extends BaseActivity {
             return null;
         });
         wcClient.setOnSessionRequest((id, wcPeerMeta) -> {
-            mWcPeerMeta = wcPeerMeta;
             runOnUiThread(() -> {
-                if (!isDeepLink && !isDapp) {
-                    onInitView(wcPeerMeta);
-                    if (BaseChain.EVMOS_MAIN.equals(mBaseChain)) {
-                        wcClient.approveSession(Lists.newArrayList(WKey.generateEthAddressFromPrivateKey(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())))), 9001);
-                    } else {
-                        wcClient.approveSession(Lists.newArrayList(chainAccountMap.get(mBaseChain.getChain()).address), 1);
-                    }
-                } else {
-                    if (BaseChain.EVMOS_MAIN.equals(mBaseChain)) {
-                        wcClient.approveSession(Lists.newArrayList(WKey.generateEthAddressFromPrivateKey(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())))), 9001);
-                    } else {
-                        wcClient.approveSession(Lists.newArrayList(), 1);
-                    }
-                    mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 2500);
-
+                String url = wcPeerMeta.getUrl();
+                if (isDapp) {
+                    url = Uri.parse(mWebView.getUrl()).getHost();
                 }
-                Toast.makeText(getBaseContext(), getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show();
-                changeDappConnectStatus(true);
+                if (WalletConnectManager.getWhiteList(this).contains(url)) {
+                    processSessionRequest(wcPeerMeta);
+                } else {
+                    String finalUrl = url;
+                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this,
+                            getString(R.string.str_wallet_connect),
+                            Html.fromHtml("<br/><b>" + url + "</b> " + getString(R.string.str_wc_connect_dialog) + "<br/><br/><font color=\"#ff2745\">" + "Cosmostation does NOT guarantee the security & safety of connected dApps." + "</font><br/>"),
+                            getString(R.string.str_ok),
+                            view -> {
+                                WalletConnectManager.addWhiteList(this, finalUrl);
+                                processSessionRequest(wcPeerMeta);
+                            },
+                            getString(R.string.str_cancel),
+                            view -> {
+                                mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 1000);
+                                wcClient.rejectSession(getString(R.string.str_cancel));
+                                if (!isFinishing() && !isDapp) finish();
+                                if (isDapp) changeDappConnectStatus(false);
+                            });
+                }
             });
             return null;
         });
@@ -423,6 +430,28 @@ public class ConnectWalletActivity extends BaseActivity {
             runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
             return null;
         });
+    }
+
+    private void processSessionRequest(WCPeerMeta wcPeerMeta) {
+        mWcPeerMeta = wcPeerMeta;
+        if (!isDeepLink && !isDapp) {
+            onInitView(wcPeerMeta);
+            if (BaseChain.EVMOS_MAIN.equals(mBaseChain)) {
+                wcClient.approveSession(Lists.newArrayList(WKey.generateEthAddressFromPrivateKey(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())))), 9001);
+            } else {
+                wcClient.approveSession(Lists.newArrayList(chainAccountMap.get(mBaseChain.getChain()).address), 1);
+            }
+        } else {
+            if (BaseChain.EVMOS_MAIN.equals(mBaseChain)) {
+                wcClient.approveSession(Lists.newArrayList(WKey.generateEthAddressFromPrivateKey(getPrivateKey(chainAccountMap.get(mBaseChain.getChain())))), 9001);
+            } else {
+                wcClient.approveSession(Lists.newArrayList(), 1);
+            }
+            mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 2500);
+
+        }
+        Toast.makeText(getBaseContext(), getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show();
+        changeDappConnectStatus(true);
     }
 
     private Sign.SignatureData processEthSign(WCEthereumSignMessage signMessage) throws Exception {
