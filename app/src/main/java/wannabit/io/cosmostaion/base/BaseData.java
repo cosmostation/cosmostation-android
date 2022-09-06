@@ -157,6 +157,17 @@ public class BaseData {
         return null;
     }
 
+    public Cw20Asset getCw20Asset(String denom) {
+        if (mCw20MyAssets != null && mCw20MyAssets.size() > 0) {
+            for (Cw20Asset asset : mCw20MyAssets) {
+                if (asset.denom.equalsIgnoreCase(denom)) {
+                    return asset;
+                }
+            }
+        }
+        return null;
+    }
+
     public void setMyTokens(String address) {
         Set<String> listingContractAddressSet = getUserFavoTokens(address);
         listingContractAddressSet.addAll(mCw20Assets.stream().filter(item -> item.default_show).map(item -> item.contract_address).collect(Collectors.toSet()));

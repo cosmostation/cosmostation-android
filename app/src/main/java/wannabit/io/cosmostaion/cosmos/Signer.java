@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.cosmos;
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
+import android.util.Base64;
+
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
@@ -18,6 +20,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Map;
@@ -40,7 +43,9 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.Sha256;
-import wannabit.io.cosmostaion.dao.Asset;
+import wannabit.io.cosmostaion.dao.AssetPath;
+import wannabit.io.cosmostaion.dao.Cw20IbcMsg;
+import wannabit.io.cosmostaion.dao.Cw20IbcTransferReq;
 import wannabit.io.cosmostaion.dao.Cw20TransferReq;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -450,19 +455,19 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcIbcTransferReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, Asset asset, Client.Height lastHeight, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, asset, lastHeight), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcIbcTransferReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, lastHeight), fee, memo, pKey, chainId);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcIbcTransferSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, Asset asset, Client.Height lastHeight, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, asset, lastHeight), fee, memo, pKey, chainId);
+    public static ServiceOuterClass.SimulateRequest getGrpcIbcTransferSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, lastHeight), fee, memo, pKey, chainId);
     }
 
-    public static ArrayList<Any> getIbcTransferMsg(String sender, String receiver, String ibcSendDenom, String ibcSendAmount, Asset asset, Client.Height lastHeight) {
+    public static ArrayList<Any> getIbcTransferMsg(String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         Client.Height height = Client.Height.newBuilder().setRevisionNumber(lastHeight.getRevisionNumber()).setRevisionHeight(lastHeight.getRevisionHeight() + 1000).build();
         CoinOuterClass.Coin token = CoinOuterClass.Coin.newBuilder().setAmount(ibcSendAmount).setDenom(ibcSendDenom).build();
-        ibc.applications.transfer.v1.Tx.MsgTransfer msgIbcTransfer = ibc.applications.transfer.v1.Tx.MsgTransfer.newBuilder().setSender(sender).setReceiver(receiver).setSourcePort(asset.port).setSourceChannel(asset.channel).setToken(token).setTimeoutHeight(height).setTimeoutTimestamp(0).build();
+        ibc.applications.transfer.v1.Tx.MsgTransfer msgIbcTransfer = ibc.applications.transfer.v1.Tx.MsgTransfer.newBuilder().setSender(sender).setReceiver(receiver).setSourcePort(assetPath.port).setSourceChannel(assetPath.channel).setToken(token).setTimeoutHeight(height).setTimeoutTimestamp(0).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer").setValue(msgIbcTransfer.toByteString()).build());
         return msgAnys;
     }
@@ -899,6 +904,29 @@ public class Signer {
         String jsonData = new Gson().toJson(req);
         ByteString msg = ByteString.copyFromUtf8(jsonData);
         cosmwasm.wasm.v1.Tx.MsgExecuteContract msgExecuteContract = cosmwasm.wasm.v1.Tx.MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcCw20IbcTransferReq(QueryOuterClass.QueryAccountResponse auth, String sender, String remote_address, String contractAddress, AssetPath assetPath, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getCw20IbcTransferMsg(sender, remote_address, contractAddress, assetPath, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcCw20IbcTransferSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String remote_address, String contractAddress, AssetPath assetPath, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getCw20IbcTransferMsg(sender, remote_address, contractAddress, assetPath, amount), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getCw20IbcTransferMsg(String sender, String remote_address, String contractAddress, AssetPath assetPath, ArrayList<Coin> amount) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+
+        Cw20IbcMsg msgReq = new Cw20IbcMsg(assetPath.channel, remote_address);
+        byte[] msgData = new Gson().toJson(msgReq).getBytes(StandardCharsets.UTF_8);
+        String encodedMsg = Base64.encodeToString(msgData, Base64.NO_WRAP);
+
+        Cw20IbcTransferReq req = new Cw20IbcTransferReq(assetPath.getIBCContract(), amount.get(0).amount, encodedMsg);
+        String jsonData = new Gson().toJson(req);
+        ByteString msg = ByteString.copyFromUtf8(jsonData);
+        cosmwasm.wasm.v1.Tx.MsgExecuteContract msgExecuteContract = cosmwasm.wasm.v1.Tx.MsgExecuteContract.newBuilder().setSender(sender).setContract(contractAddress).setMsg(msg).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build());
         return msgAnys;
     }

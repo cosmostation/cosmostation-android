@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -42,6 +43,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private ArrayList<Coin> mToSendCoins = new ArrayList<>();
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
+
+    private Cw20Asset mCw20Asset;
 
     public static SendStep1Fragment newInstance() {
         return new SendStep1Fragment();
@@ -87,17 +90,20 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         }
         final String mainDenom = getSActivity().mChainConfig.mainDenom();
         final String toSendDenom = getSActivity().mDenom;
+        mCw20Asset = getBaseDao().getCw20Asset(toSendDenom);
 
         if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
             mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom);
-            if (toSendDenom.equals(mainDenom)) {
-                mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
-                WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
-
+            if (mCw20Asset != null) {
+                mMaxAvailable = mCw20Asset.getAmount();
             } else {
-                mMaxAvailable = getBaseDao().getAvailable(toSendDenom);
-                WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
+                if (toSendDenom.equals(mainDenom)) {
+                    mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
+                } else {
+                    mMaxAvailable = getBaseDao().getAvailable(toSendDenom);
+                }
             }
+            WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
 
         } else {
             mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);

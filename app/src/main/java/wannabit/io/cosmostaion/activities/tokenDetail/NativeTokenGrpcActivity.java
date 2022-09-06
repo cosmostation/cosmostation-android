@@ -4,7 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
-import wannabit.io.cosmostaion.dialog.AlertDialogUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
@@ -53,7 +51,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private RecyclerView mRecyclerView;
     private NativeTokenGrpcAdapter mAdapter;
 
-    private RelativeLayout mBtnIbcSend;
     private RelativeLayout mBtnBep3Send;
     private RelativeLayout mBtnSend;
 
@@ -79,7 +76,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mTotalValue = findViewById(R.id.total_value);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
-        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
         mBtnBep3Send = findViewById(R.id.btn_bep3_send);
         mBtnSend = findViewById(R.id.btn_send);
 
@@ -99,7 +95,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             }
             if (WUtil.isBep3Coin(mNativeGrpcDenom)) {
                 mBtnBep3Send.setVisibility(View.VISIBLE);
-                mBtnIbcSend.setVisibility(View.GONE);
             }
         }
 
@@ -118,7 +113,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         onUpdateView();
         mBtnAddressPopup.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
-        mBtnIbcSend.setOnClickListener(this);
         mBtnBep3Send.setOnClickListener(this);
     }
 
@@ -165,20 +159,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             onClickQrCopy(mChainConfig, mAccount);
-
-        } else if (v.equals(mBtnIbcSend)) {
-            if (!mAccount.hasPrivateKey) {
-                onInsertKeyDialog();
-                return;
-            }
-            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
-                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            AlertDialogUtils.showSingleButtonDialog(this, getString(R.string.str_ibc_warning_c),
-                    Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" + getString(R.string.str_ibc_warning_msg2)),
-                    Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_ibc_continue_c) + "</font>"), view -> onCheckIbcTransfer(mNativeGrpcDenom));
 
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {

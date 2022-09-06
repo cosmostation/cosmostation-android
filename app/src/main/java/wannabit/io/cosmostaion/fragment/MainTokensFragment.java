@@ -34,11 +34,11 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
+import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -386,6 +386,15 @@ public class MainTokensFragment extends BaseFragment {
 
                 holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
+
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                        intent.putExtra("sendTokenDenom", asset.denom);
+                        startActivity(intent);
+                    }
+                });
             }
         }
 
@@ -408,8 +417,8 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getMainActivity(), BridgeTokenGrpcActivity.class);
-                        intent.putExtra("denom", asset.denom);
+                        Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                        intent.putExtra("sendTokenDenom", asset.denom);
                         startActivity(intent);
                     }
                 });
@@ -419,15 +428,27 @@ public class MainTokensFragment extends BaseFragment {
         private void onBindCw20GrpcToken(RecyclerView.ViewHolder viewHolder, int position) {
             final AssetHolder holder = (AssetHolder) viewHolder;
             final Cw20Asset asset = mErc20Grpc.get(position);
-            Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-            holder.itemSymbol.setText(asset.denom.toUpperCase());
-            holder.itemPath.setText("");
 
-            holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.denom));
-            valueChangeStatus(getActivity(), getBaseDao(), asset.denom, holder.itemUpDown);
+            if (asset != null) {
+                Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
+                holder.itemSymbol.setText(asset.denom.toUpperCase());
+                holder.itemPath.setText("");
 
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
+                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.denom));
+                valueChangeStatus(getActivity(), getBaseDao(), asset.denom, holder.itemUpDown);
+
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
+
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                        intent.putExtra("sendTokenDenom", asset.denom);
+                        startActivity(intent);
+                    }
+                });
+            }
         }
 
         private void onBindEdit(RecyclerView.ViewHolder viewHolder) {

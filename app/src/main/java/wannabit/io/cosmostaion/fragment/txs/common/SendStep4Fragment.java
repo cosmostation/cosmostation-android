@@ -1,5 +1,10 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +24,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dao.Asset;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
@@ -77,32 +84,42 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, toSendAmount.toPlainString(), mSendDenom, mSendAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
 
-        if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
-            BigDecimal currentAvai = getBaseDao().getAvailable(toSendDenom);
-            WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, currentAvai.toPlainString(), mCurrentDenom, mCurrentBalance);
+        Asset msAsset = getSActivity().mAsset;
+        Cw20Asset msCw20Asset = getSActivity().mCw20Asset;
 
-            BigDecimal remainAmount = BigDecimal.ZERO;
-            if (toSendDenom.equalsIgnoreCase(getSActivity().mTxFee.amount.get(0).denom)) {
-                remainAmount = currentAvai.subtract(toSendAmount).subtract(feeAmount);
-            } else {
-                remainAmount = currentAvai.subtract(toSendAmount);
+        if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
+            BigDecimal currentAvai = BigDecimal.ZERO;
+            BigDecimal remainAvailable = BigDecimal.ZERO;
+            if (msAsset != null) {
+                currentAvai = getBaseDao().getAvailable(toSendDenom);
+
+                if (toSendDenom.equalsIgnoreCase(getSActivity().mTxFee.amount.get(0).denom)) {
+                    remainAvailable = currentAvai.subtract(toSendAmount).subtract(feeAmount);
+                } else {
+                    remainAvailable = currentAvai.subtract(toSendAmount);
+                }
+
+            } else if (msCw20Asset != null) {
+                currentAvai = new BigDecimal(msCw20Asset.amount);
+                remainAvailable = currentAvai.subtract(toSendAmount);
             }
-            WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAmount.toPlainString(), mRemainDenom, mRemainingBalance);
+            WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, currentAvai.toPlainString(), mCurrentDenom, mCurrentBalance);
+            WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAvailable.toPlainString(), mRemainDenom, mRemainingBalance);
 
             if (toSendDenom.equals(mainDenom)) {
-                mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), toSendDenom, remainAmount, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom)));
+                mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), toSendDenom, remainAvailable, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom)));
             } else {
                 mRemainingPrice.setVisibility(View.GONE);
             }
 
-            if (getSActivity().mIsIbc) {
+            if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER || getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
                 mRecipientLayer.setVisibility(View.VISIBLE);
                 mIbcLayer.setVisibility(View.VISIBLE);
                 ChainConfig chainConfig = ChainFactory.getChain(WDp.getChainsFromAddress(getSActivity().mToAddress).get(0));
                 if (chainConfig != null) {
                     mRecipientChain.setText(chainConfig.chainTitleToUp());
                     mRecipientChain.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
-                    mRecipientChannel.setText("(" + getSActivity().mAsset.channel + ")");
+                    mRecipientChannel.setText("(" + getSActivity().mAssetPath.channel + ")");
                 }
 
             } else {
@@ -138,11 +155,14 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            if (getSActivity().mIsIbc) {
-                getSActivity().onStartIbcSend(getSActivity().mTxType);
-
+            if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
+                getSActivity().onStartSend();
+            } else if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER) {
+                getSActivity().onStartIbcSend();
+            } else if (getSActivity().mTxType == CONST_PW_TX_EXECUTE_CONTRACT) {
+                getSActivity().onStartSendContract();
             } else {
-                getSActivity().onStartSend(getSActivity().mTxType);
+                getSActivity().onStartIBCContract();
             }
         }
     }

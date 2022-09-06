@@ -57,6 +57,7 @@ import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Okc;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
 import wannabit.io.cosmostaion.dao.Asset;
+import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -98,9 +99,13 @@ public class WDp {
     public static String getDpSymbol(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) { return "UNKNOWN"; }
         final Asset asset = baseData.getAsset(denom);
+        final Cw20Asset cw20Asset = baseData.getCw20Asset(denom);
 
         if (asset != null) {
             return asset.dp_denom;
+
+        } else if (cw20Asset != null) {
+            return cw20Asset.denom;
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
@@ -212,8 +217,12 @@ public class WDp {
         int displayDecimal = 6;
 
         final Asset asset = baseData.getAsset(denom);
+        final Cw20Asset cw20Asset = baseData.getCw20Asset(denom);
         if (asset != null) {
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), asset.decimal, asset.decimal));
+            amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimal, asset.decimal));
+
+        } else if (cw20Asset != null) {
+            amountTv.setText(getDpAmount2(new BigDecimal(amount), cw20Asset.decimal, cw20Asset.decimal));
 
         } else {
             if (chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(OKEX_MAIN)) {
@@ -223,7 +232,7 @@ public class WDp {
                 divideDecimal = getDenomDecimal(baseData, chainConfig, denom);
                 displayDecimal = getDenomDecimal(baseData, chainConfig, denom);
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), divideDecimal, displayDecimal));
+            amountTv.setText(getDpAmount2(new BigDecimal(amount), divideDecimal, displayDecimal));
         }
     }
 
@@ -318,6 +327,34 @@ public class WDp {
         return BigDecimal.ZERO;
     }
 
+    public static AssetPath getAssetPath(BaseData baseData, ChainConfig fromChain, ChainConfig toChain, String denom) {
+        Asset msAsset = baseData.getAsset(denom);
+        Cw20Asset msCw20asset = baseData.getCw20Asset(denom);
+
+        for (Asset asset : baseData.mAssets) {
+            if (msAsset != null) {
+                if (asset.chain.equalsIgnoreCase(fromChain.chainName()) &&
+                        asset.beforeChain(fromChain) != null && asset.beforeChain(fromChain).equalsIgnoreCase(toChain.chainName()) &&
+                        asset.denom.equalsIgnoreCase(denom)) {
+                    return new AssetPath(asset.channel, asset.port);
+                }
+                if (asset.chain.equalsIgnoreCase(toChain.chainName()) &&
+                        asset.beforeChain(toChain) != null && asset.beforeChain(toChain).equalsIgnoreCase(fromChain.chainName()) &&
+                        asset.counter_party.denom.equalsIgnoreCase(denom)) {
+                    return new AssetPath(asset.counter_party.channel, asset.counter_party.port);
+                }
+
+            } else if (msCw20asset != null) {
+                if (asset.chain.equalsIgnoreCase(toChain.chainName()) &&
+                        asset.beforeChain(toChain) != null && asset.beforeChain(toChain).equalsIgnoreCase(fromChain.chainName()) &&
+                        asset.counter_party.denom.equalsIgnoreCase(msCw20asset.contract_address)) {
+                    return new AssetPath(asset.counter_party.channel, asset.counter_party.port);
+                }
+            }
+        }
+        return null;
+    }
+
     public static void showChainDp(Context c, ChainConfig chainConfig, CardView cardName, CardView cardBody, CardView cardRewardAddress) {
         if (chainConfig.baseChain().equals(OKEX_MAIN) || chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(FETCHAI_MAIN)) {
             cardRewardAddress.setVisibility(View.GONE);
@@ -398,7 +435,7 @@ public class WDp {
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("365"), 0, RoundingMode.DOWN);
-        return getDpAmount2(c, dayReward, getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
+        return getDpAmount2(dayReward, getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
     }
 
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
@@ -415,7 +452,7 @@ public class WDp {
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("12"), 0, RoundingMode.DOWN);
-        return getDpAmount2(c, dayReward, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
+        return getDpAmount2(dayReward, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
     }
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, ChainConfig chainConfig, String denom, BigDecimal

@@ -199,25 +199,6 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
         <RelativeLayout
-            android:id="@+id/btn_ibc_send"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginRight="@dimen/space_4"
-            android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_border"
-            android:clickable="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawablePadding="@dimen/space_8"
-                android:gravity="center"
-                style="@style/font_rr_14_black_daynight"
-                android:text="@string/str_ibc_send" />
-        </RelativeLayout>
-        <RelativeLayout
             android:id="@+id/btn_bep3_send"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -46,6 +46,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.cosmos.Signer;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
@@ -69,7 +70,8 @@ public class SendActivity extends BaseBroadCastActivity {
     private SendPageAdapter mPageAdapter;
 
     public BnbToken mBnbToken;
-    public boolean mIsIbc;
+
+    public Asset mAsset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,13 +179,13 @@ public class SendActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void onStartSend(int txType) {
+    public void onStartSend() {
         if (getBaseDao().isAutoPass()) {
             onAutoStartSend();
 
         } else {
-            Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, txType);
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
             intent.putExtra("toAddress", mToAddress);
             intent.putParcelableArrayListExtra("amount", mAmounts);
             intent.putExtra("memo", mTxMemo);
@@ -193,18 +195,18 @@ public class SendActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void onStartIbcSend(int txType) {
+    public void onStartIbcSend() {
         if (getBaseDao().isAutoPass()) {
             ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress,
-                    mAmounts.get(0).denom, mAmounts.get(0).amount, mAsset, getClientState().getLatestHeight(), mTxFee, "", getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+                    mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, getClientState().getLatestHeight(), mTxFee, "", getEcKey(mAccount), getBaseDao().getChainIdGrpc());
             onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
 
         } else {
-            Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, txType);
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
             intent.putExtra("toAddress", mToAddress);
             intent.putParcelableArrayListExtra("amount", mAmounts);
-            intent.putExtra("asset", mAsset);
+            intent.putExtra("assetPath", mAssetPath);
             intent.putExtra("memo", mTxMemo);
             intent.putExtra("fee", mTxFee);
             startActivity(intent);
@@ -212,6 +214,44 @@ public class SendActivity extends BaseBroadCastActivity {
         }
     }
 
+    public void onStartSendContract() {
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCw20SendReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mCw20Asset.contract_address,
+                    mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("toAddress", mToAddress);
+            intent.putExtra("contractAddress", mCw20Asset.contract_address);
+            intent.putParcelableArrayListExtra("amount", mAmounts);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    public void onStartIBCContract() {
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCw20IbcTransferReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mCw20Asset.contract_address, mAssetPath,
+                    mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("toAddress", mToAddress);
+            intent.putExtra("contractAddress", mCw20Asset.contract_address);
+            intent.putExtra("assetPath", mAssetPath);
+            intent.putParcelableArrayListExtra("amount", mAmounts);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
 
     private void onAutoStartSend() {
         if (isGRPC(mBaseChain)) {

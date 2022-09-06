@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
@@ -19,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,12 +50,12 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.dialog.StarnameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
@@ -73,6 +74,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     private ArrayList<ChainConfig> mToSendableChains = new ArrayList<>();
     private ChainConfig mToSendChainConfig;
     private ArrayList<Account>  mToAccountList;
+    private Asset mAsset;
+    private Cw20Asset mCw20Asset;
 
     public static SendStep0Fragment newInstance() {
         return new SendStep0Fragment();
@@ -105,18 +108,39 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mBtnPaste.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
 
+        mAsset = getBaseDao().getAsset(getSActivity().mDenom);
+        mCw20Asset = getBaseDao().getCw20Asset(getSActivity().mDenom);
         mToSendableChains.add(getSActivity().mChainConfig);
 
         ArrayList<ChainConfig> allChainConfig = ChainFactory.SUPPRT_CONFIG();
         for (Asset asset : getBaseDao().mAssets) {
-            if (!asset.chain.equalsIgnoreCase(getSActivity().mChainConfig.chainName()) && asset.base_denom.equalsIgnoreCase(getSActivity().mDenom)) {
-                for (ChainConfig chainConfig : allChainConfig) {
-                    if (chainConfig.chainName().equalsIgnoreCase(asset.chain) && !mToSendableChains.contains(chainConfig)) {
-                        mToSendableChains.add(chainConfig);
+            if (mAsset != null) {
+                if (asset.chain.equalsIgnoreCase(getSActivity().mChainConfig.chainName()) && asset.denom.equalsIgnoreCase(getSActivity().mDenom)) {
+                    for (ChainConfig chainConfig : allChainConfig) {
+                        if (chainConfig.chainName().equalsIgnoreCase(asset.beforeChain(getSActivity().mChainConfig)) && !mToSendableChains.contains(chainConfig)) {
+                            mToSendableChains.add(chainConfig);
+                        }
+                    }
+
+                } else if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(getSActivity().mDenom)) {
+                    for (ChainConfig chainConfig : allChainConfig) {
+                        if (chainConfig.chainName().equalsIgnoreCase(asset.chain) && !mToSendableChains.contains(chainConfig)) {
+                            mToSendableChains.add(chainConfig);
+                        }
+                    }
+                }
+
+            } else if (mCw20Asset != null) {
+                if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(mCw20Asset.contract_address)) {
+                    for (ChainConfig chainConfig : allChainConfig) {
+                        if (chainConfig.chainName().equalsIgnoreCase(asset.chain)) {
+                            mToSendableChains.add(chainConfig);
+                        }
                     }
                 }
             }
         }
+
         onSortToChain();
         mToSendChainConfig = mToSendableChains.get(0);
         mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
@@ -156,18 +180,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onUpdateChainView() {
-        WLog.w("test1234 실행합니다");
         mToChainImg.setImageResource(mToSendChainConfig.chainImg());
         mToChainTxt.setText(mToSendChainConfig.chainTitleToUp());
         mToChainTxt.setTextColor(ContextCompat.getColor(getActivity(), mToSendChainConfig.chainColor()));
         mAddressInput.setText("");
-        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) {
-            getSActivity().mIsIbc = false;
-            mIbcLayer.setVisibility(View.GONE);
-        } else {
-            getSActivity().mIsIbc = true;
-            mIbcLayer.setVisibility(View.VISIBLE);
-        }
+        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) mIbcLayer.setVisibility(View.GONE);
+        else mIbcLayer.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -196,11 +214,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
             if (WDp.isValidChainAddress(mToSendChainConfig, userInput)) {
-                if (getSActivity().mIsIbc) {
-                    onPathSetting(mToSendChainConfig);
-                } else {
-                    getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
-                }
+                onPathSetting();
                 getSActivity().mToAddress = userInput;
                 getSActivity().onNextStep();
 
@@ -247,13 +261,21 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         }
     }
 
-    private void onPathSetting(ChainConfig chainConfig) {
-        for (Asset asset : getBaseDao().mAssets) {
-            if (asset.chain.equalsIgnoreCase(getSActivity().mChainConfig.chainName()) && asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
-                getSActivity().mAsset = asset;
+    private void onPathSetting() {
+        if (getSActivity().mBaseChain.equals(mToSendChainConfig.baseChain())) {
+            if (mAsset != null) getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
+            else if (mCw20Asset != null) getSActivity().mTxType = CONST_PW_TX_EXECUTE_CONTRACT;
+
+        } else {
+            if (mAsset != null) {
+                getSActivity().mTxType = CONST_PW_TX_IBC_TRANSFER;
+            } else if (mCw20Asset != null) {
+                getSActivity().mTxType = CONST_PW_TX_IBC_CONTRACT;
             }
+            getSActivity().mAssetPath = WDp.getAssetPath(getBaseDao(), getSActivity().mChainConfig, mToSendChainConfig, getSActivity().mDenom);
         }
-        getSActivity().mTxType = CONST_PW_TX_IBC_TRANSFER;
+        getSActivity().mAsset = mAsset;
+        getSActivity().mCw20Asset = mCw20Asset;
     }
 
     private SendActivity getSActivity() {
@@ -276,7 +298,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if(result != null) {
+            if (result != null) {
                 if(result.getContents() != null) {
                     mAddressInput.setText(result.getContents().trim());
                     mAddressInput.setSelection(mAddressInput.getText().length());

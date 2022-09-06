@@ -193,6 +193,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_EXECUTE_CONTRACT           = 4346;
     public final static int TASK_GRPC_GEN_TX_AUTHZ_DELEGATE             = 4347;
     public final static int TASK_GRPC_GEN_TX_AUTHZ_UNDELEGATE           = 4348;
+    public final static int TASK_GRPC_GEN_TX_IBC_CONTRACT               = 4549;
 
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
@@ -236,7 +237,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_HARD          = 4544;
     public final static int TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES    = 4545;
     public final static int TASK_GRPC_SIMULATE_EXECUTE_CONTRACT         = 4546;
-
+    public final static int TASK_GRPC_SIMULATE_IBC_CONTRACT             = 4547;
 
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
@@ -309,7 +310,8 @@ public class BaseConstant {
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
     public final static int CONST_PW_TX_PROFILE                             = 5057;
-    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5059;
+    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5058;
+    public final static int CONST_PW_TX_IBC_CONTRACT                        = 5059;
 
     public final static int CONST_PW_TX_AUTHZ_DELEGATE                      = 5060;
     public final static int CONST_PW_TX_AUTHZ_UNDELEGATE                    = 5061;

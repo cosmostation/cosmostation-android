@@ -5,6 +5,11 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+
 public class Asset implements Parcelable {
     @SerializedName("chain")
     public String chain;
@@ -118,5 +123,18 @@ public class Asset implements Parcelable {
 
         @SerializedName("denom")
         public String denom;
+    }
+
+    public String beforeChain(ChainConfig chainConfig) {
+        if (path != null) {
+            String[] chainPath = path.split(">");
+            ArrayList<String> chainNames = new ArrayList<>();
+            Collections.addAll(chainNames, chainPath);
+            int matched = chainNames.indexOf(chainConfig.chainName());
+            if (matched > 0) {
+                return chainPath[matched - 1];
+            }
+        }
+        return null;
     }
 }
