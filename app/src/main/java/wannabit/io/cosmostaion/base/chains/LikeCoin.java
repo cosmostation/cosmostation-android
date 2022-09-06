@@ -24,11 +24,11 @@ public class LikeCoin extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgLikeCoin; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_likecoin; }
     public String chainName() { return "likecoin"; }
-    public String chainIdPrefix() { return "likecoin-"; }
+    public String chainIdPrefix() { return BaseChain.LIKECOIN_MAIN+"-"; }
 
     public int mainDenomImg() { return R.drawable.token_likecoin; }
     public String mainDenom() { return "nanolike"; }
-    public String mainSymbol() {return mainDenom().toUpperCase(); }
+    public String mainSymbol() {return "LIKE"; }
     public String addressPrefix() { return "like"; }
 
     public boolean pushSupport() { return false; }

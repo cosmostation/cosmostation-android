@@ -153,10 +153,6 @@ public class WDp {
             if (baseData.okToken(denom) != null) return baseData.okToken(denom).original_symbol.toUpperCase();
             else return denom.toUpperCase();
 
-        } else if (chainConfig.baseChain().equals(LIKECOIN_MAIN)) {
-            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).origin_symbol;
-            else return denom.toUpperCase();
-
         }
         return denom.toUpperCase();
     }
