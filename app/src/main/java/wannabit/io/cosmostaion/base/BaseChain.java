@@ -86,6 +86,7 @@ public enum BaseChain {
     STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
     PASSAGE_MAIN("passage-mainnet"),
+    LIKECOIN_MAIN("likecoin-mainnet"),
     IXO_MAIN("ixo-mainnet"),
     SOMMELIER_MAIN("sommelier-mainnet");
 
@@ -263,6 +264,11 @@ public enum BaseChain {
             return SOMMELIER_MAIN;
         }
 
+
+        if (chainName.equals(LIKECOIN_MAIN.chainName)) {
+            return LIKECOIN_MAIN;
+        }
+
         return null;
     }
 
@@ -294,6 +300,7 @@ public enum BaseChain {
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);
         result.add(KONSTELL_MAIN);
+        result.add(LIKECOIN_MAIN);
         result.add(LUM_MAIN);
         result.add(MEDI_MAIN);
         result.add(NYX_MAIN);

@@ -1,8 +1,24 @@
 package wannabit.io.cosmostaion.utils;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static wannabit.io.cosmostaion.base.BaseChain.*;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LIKECOIN_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
 import static wannabit.io.cosmostaion.utils.WUtil.getBnbTicSymbol;
 import static wannabit.io.cosmostaion.utils.WUtil.isBnbBaseMarketToken;
 
@@ -52,7 +68,6 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Crescent;
 import wannabit.io.cosmostaion.base.chains.Emoney;
-import wannabit.io.cosmostaion.base.chains.Ixo;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Okc;
@@ -98,7 +113,9 @@ public class WDp {
     }
 
     public static String getDpSymbol(BaseData baseData, ChainConfig chainConfig, String denom) {
-        if (chainConfig == null || denom == null || denom.isEmpty()) { return "UNKNOWN"; }
+        if (chainConfig == null || denom == null || denom.isEmpty()) {
+            return "UNKNOWN";
+        }
         final Asset asset = baseData.getAsset(denom);
         final Cw20Asset cw20Asset = baseData.getCw20Asset(denom);
 
@@ -120,11 +137,13 @@ public class WDp {
                 return denom.toUpperCase();
 
             } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
-                if (baseData.getBnbToken(denom) != null) return baseData.getBnbToken(denom).original_symbol.toUpperCase();
+                if (baseData.getBnbToken(denom) != null)
+                    return baseData.getBnbToken(denom).original_symbol.toUpperCase();
                 else return denom.toUpperCase();
 
             } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
-                if (baseData.okToken(denom) != null) return baseData.okToken(denom).original_symbol.toUpperCase();
+                if (baseData.okToken(denom) != null)
+                    return baseData.okToken(denom).original_symbol.toUpperCase();
                 else return denom.toUpperCase();
             }
         }
@@ -138,21 +157,27 @@ public class WDp {
             textView.setTextColor(ContextCompat.getColor(c, chainConfig.chainColor()));
 
         } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            if (denom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_hard));
-            else if (denom.equalsIgnoreCase(Kava.KAVA_SWP_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_swp));
-            else if (denom.equalsIgnoreCase(Kava.KAVA_USDX_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_usdx));
+            if (denom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM))
+                textView.setTextColor(ContextCompat.getColor(c, R.color.color_hard));
+            else if (denom.equalsIgnoreCase(Kava.KAVA_SWP_DENOM))
+                textView.setTextColor(ContextCompat.getColor(c, R.color.color_swp));
+            else if (denom.equalsIgnoreCase(Kava.KAVA_USDX_DENOM))
+                textView.setTextColor(ContextCompat.getColor(c, R.color.color_usdx));
             else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
-            if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_ion));
+            if (denom.equalsIgnoreCase(Osmosis.OSMOSIS_ION_DENOM))
+                textView.setTextColor(ContextCompat.getColor(c, R.color.color_ion));
             else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
         } else if (chainConfig.baseChain().equals(CRESCENT_MAIN)) {
-            if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_bcre));
+            if (denom.equalsIgnoreCase(Crescent.CRESCENT_BCRE_DENOM))
+                textView.setTextColor(ContextCompat.getColor(c, R.color.color_bcre));
             else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
         } else if (chainConfig.baseChain().equals(NYX_MAIN)) {
-            if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM)) textView.setTextColor(ContextCompat.getColor(c, R.color.color_nym));
+            if (denom.equalsIgnoreCase(Nyx.NYX_NYM_DENOM))
+                textView.setTextColor(ContextCompat.getColor(c, R.color.color_nym));
             else textView.setTextColor(ContextCompat.getColor(c, R.color.colorBlackDayNight));
 
         } else {
@@ -176,7 +201,8 @@ public class WDp {
     }
 
     public static void setDpSymbolImg(BaseData baseData, ChainConfig chainConfig, String denom, ImageView imageView) {
-        if (chainConfig == null || denom == null || denom.isEmpty()) imageView.setImageResource(R.drawable.token_default);
+        if (chainConfig == null || denom == null || denom.isEmpty())
+            imageView.setImageResource(R.drawable.token_default);
         final Asset asset = baseData.getAsset(denom);
 
         if (asset != null) {
@@ -382,24 +408,34 @@ public class WDp {
     public static boolean isValidChainAddress(ChainConfig chainConfig, String address) {
         if (chainConfig == null) return false;
         if (address.startsWith("0x")) {
-            if (WKey.isValidEthAddress(address) && chainConfig.baseChain().equals(OKEX_MAIN)) { return true; }
+            if (WKey.isValidEthAddress(address) && chainConfig.baseChain().equals(OKEX_MAIN)) {
+                return true;
+            }
             return false;
         }
 
-        if (!WKey.isValidBech32(address)) { return false; }
+        if (!WKey.isValidBech32(address)) {
+            return false;
+        }
         String addressPrefix = chainConfig.addressPrefix() + "1";
-        if (address.startsWith(addressPrefix)) { return true; }
+        if (address.startsWith(addressPrefix)) {
+            return true;
+        }
         return false;
     }
 
     public static ArrayList<BaseChain> getChainsFromAddress(String address) {
         if (address != null) {
             if (address.startsWith("0x")) {
-                if (WKey.isValidEthAddress(address)) { return Lists.newArrayList(EVMOS_MAIN, KAVA_MAIN, OKEX_MAIN); }
+                if (WKey.isValidEthAddress(address)) {
+                    return Lists.newArrayList(EVMOS_MAIN, KAVA_MAIN, OKEX_MAIN);
+                }
                 return null;
             }
 
-            if (!WKey.isValidBech32(address)) { return null; }
+            if (!WKey.isValidBech32(address)) {
+                return null;
+            }
             ArrayList<ChainConfig> allConfigs = ChainFactory.SUPPRT_CONFIG();
             for (ChainConfig chainConfig : allConfigs) {
                 String addressPrefix = chainConfig.addressPrefix() + "1";
@@ -936,10 +972,11 @@ public class WDp {
             } else if (left >= BaseConstant.CONSTANT_M) {
                 result = "(" + (left / BaseConstant.CONSTANT_M) + " minutes ago)";
             } else {
-                result =  "(" + (left / BaseConstant.CONSTANT_S) + " seconds ago)";
+                result = "(" + (left / BaseConstant.CONSTANT_S) + " seconds ago)";
             }
 
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
 
         return result;
     }
@@ -955,7 +992,8 @@ public class WDp {
             SimpleDateFormat blockDateFormat = new SimpleDateFormat(format);
             blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             result = blockDateFormat.parse(rawValue).getTime();
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
 
         return result;
     }
@@ -1087,7 +1125,7 @@ public class WDp {
         return "(" + result + " " + c.getString(R.string.str_ago) + ")";
     }
 
-    public static String  getTimeTxGap(Context c, long rawValue) {
+    public static String getTimeTxGap(Context c, long rawValue) {
         String result = "";
         try {
             Date blockTime = new Date(rawValue);
@@ -1139,7 +1177,7 @@ public class WDp {
             return 8;
         } else if (chain.equals(OKEX_MAIN) || chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
             return 18;
-        } else if (chain.equals(PROVENANCE_MAIN)) {
+        } else if (chain.equals(PROVENANCE_MAIN) || chain.equals(LIKECOIN_MAIN)) {
             return 9;
         } else {
             return 6;
