@@ -86,7 +86,7 @@ public enum BaseChain {
     STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
     PASSAGE_MAIN("passage-mainnet"),
-    IXO_MAIN("ixo-mainnet");
+    IXO_MAIN("ixo-mainnet"),
     SOMMELIER_MAIN("sommelier-mainnet");
 
     private final String chainName;
