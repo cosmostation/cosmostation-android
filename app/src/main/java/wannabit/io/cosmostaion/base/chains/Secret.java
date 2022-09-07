@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.base.chains;
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -34,7 +33,6 @@ public class Secret extends ChainConfig {
     public String mainDenom() { return "uscrt"; }
     public String addressPrefix() { return "secret"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -44,7 +42,6 @@ public class Secret extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.0408"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "secret/"; }
     public String monikerUrl() { return MONIKER_URL + "secret/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "secret/relay-secret-unknown.png"; }
     public String homeInfoLink() { return  "https://scrt.network"; }
     public String blogInfoLink() { return  "https://blog.scrt.network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "secret"; }

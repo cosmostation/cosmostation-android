@@ -166,7 +166,7 @@
             android:gravity="center"
             android:layout_marginTop="@dimen/space_2"
             android:textColor="@color/colorRed"
-            android:textSize="@dimen/space_18"
+            android:textSize="@dimen/space_14"
             android:textStyle="bold"
             android:text="@string/str_fee_msg_title"/>
         <TextView

@@ -16,6 +16,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
@@ -88,7 +89,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.StationNFTData;
-import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
+import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -103,6 +104,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzVoteGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulCreateProfileGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulCw20IbcSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulCw20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteAccountGrpcTask;
@@ -267,7 +269,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         if (v.equals(mBtnSelectFeeCoin) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("feeDatas", mFeeInfo.get(mSelectedFeeInfo).feeDatas);
-            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_FEE_DENOM);
             dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
@@ -394,7 +396,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         } else if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER) {
             new SimulIBCTransferGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress,
-                    getSActivity().mAmounts.get(0).denom, getSActivity().mAmounts.get(0).amount, getSActivity().mPath.port_id, getSActivity().mPath.channel_id, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    getSActivity().mAmounts.get(0).denom, getSActivity().mAmounts.get(0).amount, getSActivity().mAssetPath, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_SIF_SWAP) {
             new SimulSifSwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,
@@ -411,6 +413,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             String basisPoint = myShareWithdrawAmount.movePointRight(4).divide(myShareAllAmount, 0, RoundingMode.DOWN).toPlainString();
             new SimulSifWithdrawGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,
                     getSActivity().mSifWithdrawCoin.denom, basisPoint, getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         } else if (getSActivity().mTxType == CONST_PW_TX_MINT_NFT) {
             StationNFTData nftData = new StationNFTData(getSActivity().mAccount.address, getSActivity().mNftName, getSActivity().mNftDescription, getSActivity().mNftDenomId, NFT_INFURA + getSActivity().mNftHash);
             Gson gson = new Gson();
@@ -491,7 +494,11 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_EXECUTE_CONTRACT) {
-            new SimulCw20SendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mContractAddress, getSActivity().mAmounts,
+            new SimulCw20SendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mCw20Asset.contract_address, getSActivity().mAmounts,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
+            new SimulCw20IbcSendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mCw20Asset.contract_address, getSActivity().mAssetPath, getSActivity().mAmounts,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_AUTHZ_DELEGATE) {

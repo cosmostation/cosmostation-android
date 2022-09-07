@@ -1,12 +1,9 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_NETWORK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_ASSETS;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -16,18 +13,14 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class MintScanAssetsTask extends CommonTask {
 
-    private BaseChain mChain;
-
-    public MintScanAssetsTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    public MintScanAssetsTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mChain           = chain;
-        this.mResult.taskType = TASK_FETCH_MINTSCAN_ASSETS;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResAssets> response = ApiClient.getMintscan(mApp).getAssets(ChainFactory.getChain(mChain).chainName()).execute();
+            Response<ResAssets> response = ApiClient.getMintscan(mApp).getAssets().execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;

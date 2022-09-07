@@ -5,6 +5,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_CW20
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCw20Assets;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -14,16 +16,18 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class MintScanCw20AssetsTask extends CommonTask {
 
-    public MintScanCw20AssetsTask(BaseApplication app, TaskListener listener) {
+    private BaseChain mBaseChain;
+
+    public MintScanCw20AssetsTask(BaseApplication app, TaskListener listener, BaseChain baseChain) {
         super(app, listener);
         this.mResult.taskType = TASK_FETCH_MINTSCAN_CW20_ASSETS;
+        this.mBaseChain = baseChain;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("MintScanCw20AssetsTask Assets URL " +  ApiClient.getMintscan(mApp).getCw20Assets().request().url());
-            Response<ResCw20Assets> response = ApiClient.getMintscan(mApp).getCw20Assets().execute();
+            Response<ResCw20Assets> response = ApiClient.getMintscan(mApp).getCw20Assets(ChainFactory.getChain(mBaseChain).chainName()).execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;

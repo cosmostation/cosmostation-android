@@ -86,9 +86,9 @@ public enum BaseChain {
     STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
     PASSAGE_MAIN("passage-mainnet"),
-
-
-    LIKECOIN_MAIN("likecoin-mainnet");
+    LIKECOIN_MAIN("likecoin-mainnet"),
+    IXO_MAIN("ixo-mainnet"),
+    SOMMELIER_MAIN("sommelier-mainnet");
 
     private final String chainName;
 
@@ -257,9 +257,12 @@ public enum BaseChain {
         if (chainName.equals(PASSAGE_MAIN.chainName)) {
             return PASSAGE_MAIN;
         }
-
-
-
+        if (chainName.equals(IXO_MAIN.chainName)) {
+            return IXO_MAIN;
+        }
+        if (chainName.equals(SOMMELIER_MAIN.chainName)) {
+            return SOMMELIER_MAIN;
+        }
 
 
         if (chainName.equals(LIKECOIN_MAIN.chainName)) {
@@ -292,6 +295,7 @@ public enum BaseChain {
         result.add(FETCHAI_MAIN);
         result.add(GRABRIDGE_MAIN);
         result.add(INJ_MAIN);
+        result.add(IXO_MAIN);
         result.add(JUNO_MAIN);
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);
@@ -310,6 +314,7 @@ public enum BaseChain {
         result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);
         result.add(SENTINEL_MAIN);
+        result.add(SOMMELIER_MAIN);
         result.add(CERTIK_MAIN);
         result.add(SIF_MAIN);
         result.add(STARGAZE_MAIN);

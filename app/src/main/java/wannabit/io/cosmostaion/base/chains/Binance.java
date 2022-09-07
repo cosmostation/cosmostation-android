@@ -35,7 +35,6 @@ public class Binance extends ChainConfig {
     }
     public String addressPrefix() { return "bnb"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -45,7 +44,6 @@ public class Binance extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("0.4124"); }
     public String explorerUrl() { return "https://binance.mintscan.io/"; }
     public String monikerUrl() { return ""; }
-    public String relayerImgUrl() { return ""; }
     public String homeInfoLink() { return  "https://www.bnbchain.org/en"; }
     public String blogInfoLink() { return  "https://www.bnbchain.org/en/blog/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "binancecoin"; }
