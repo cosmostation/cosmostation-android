@@ -63,7 +63,7 @@ public class HardDetailInfoHolder extends BaseHolder {
         final Hard.MoneyMarket hardMoneyMarket  = WUtil.getHardMoneyMarket(hardParam, denom);
 
         String baseDenom = "";
-        if (hardMoneyMarket.getDenom().startsWith("ibc/")) baseDenom = baseData.getBaseDenom(chainConfig, hardMoneyMarket.getDenom());
+        if (hardMoneyMarket.getDenom().startsWith("ibc/")) baseDenom = baseData.getBaseDenom(hardMoneyMarket.getDenom());
         else baseDenom = hardMoneyMarket.getDenom();
         try {
             Picasso.get().load(Kava.KAVA_HARD_POOL_IMG_URL + "lp" + baseDenom + ".png").fit().into(mPoolImg);

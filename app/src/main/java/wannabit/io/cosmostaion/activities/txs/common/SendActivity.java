@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,11 +25,16 @@ import com.binance.dex.api.client.Wallet;
 import com.binance.dex.api.client.domain.TransactionMetadata;
 import com.binance.dex.api.client.domain.broadcast.TransactionOption;
 import com.binance.dex.api.client.domain.broadcast.Transfer;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
+import ibc.core.channel.v1.QueryGrpc;
+import ibc.core.channel.v1.QueryOuterClass;
+import ibc.lightclients.tendermint.v1.Tendermint;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -41,6 +46,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.cosmos.Signer;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
@@ -50,6 +56,7 @@ import wannabit.io.cosmostaion.fragment.txs.common.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 
@@ -63,6 +70,8 @@ public class SendActivity extends BaseBroadCastActivity {
     private SendPageAdapter mPageAdapter;
 
     public BnbToken mBnbToken;
+
+    public Asset mAsset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +92,6 @@ public class SendActivity extends BaseBroadCastActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mTxType = CONST_PW_TX_SIMPLE_SEND;
 
         mDenom = getIntent().getStringExtra("sendTokenDenom");
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
@@ -91,7 +99,7 @@ public class SendActivity extends BaseBroadCastActivity {
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mPageAdapter);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -107,7 +115,6 @@ public class SendActivity extends BaseBroadCastActivity {
                 } else if (i == 1) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_2_img));
                     mTvStep.setText(getString(R.string.str_send_step_1));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_send_step_2));
@@ -177,9 +184,67 @@ public class SendActivity extends BaseBroadCastActivity {
             onAutoStartSend();
 
         } else {
-            Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
             intent.putExtra("toAddress", mToAddress);
+            intent.putParcelableArrayListExtra("amount", mAmounts);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    public void onStartIbcSend() {
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress,
+                    mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, getClientState().getLatestHeight(), mTxFee, "", getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("toAddress", mToAddress);
+            intent.putParcelableArrayListExtra("amount", mAmounts);
+            intent.putExtra("assetPath", mAssetPath);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    public void onStartSendContract() {
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCw20SendReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mCw20Asset.contract_address,
+                    mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("toAddress", mToAddress);
+            intent.putExtra("contractAddress", mCw20Asset.contract_address);
+            intent.putParcelableArrayListExtra("amount", mAmounts);
+            intent.putExtra("memo", mTxMemo);
+            intent.putExtra("fee", mTxFee);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
+    public void onStartIBCContract() {
+        if (getBaseDao().isAutoPass()) {
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCw20IbcTransferReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mCw20Asset.contract_address, mAssetPath,
+                    mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
+            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+
+        } else {
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
+            intent.putExtra("toAddress", mToAddress);
+            intent.putExtra("contractAddress", mCw20Asset.contract_address);
+            intent.putExtra("assetPath", mAssetPath);
             intent.putParcelableArrayListExtra("amount", mAmounts);
             intent.putExtra("memo", mTxMemo);
             intent.putExtra("fee", mTxFee);
@@ -255,6 +320,19 @@ public class SendActivity extends BaseBroadCastActivity {
         }
     }
 
+    private Tendermint.ClientState getClientState() {
+        try {
+            QueryGrpc.QueryBlockingStub channelStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+            QueryOuterClass.QueryChannelClientStateRequest request = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mPath.channel_id).setPortId(mPath.port_id).build();
+            QueryOuterClass.QueryChannelClientStateResponse response = channelStub.channelClientState(request);
+
+            if (response != null) {
+                return Tendermint.ClientState.parseFrom(response.getIdentifiedClientState().getClientState().getValue());
+            }
+        } catch (InvalidProtocolBufferException e) { e.printStackTrace(); }
+        return null;
+    }
+
     private class SendPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
@@ -263,15 +341,15 @@ public class SendActivity extends BaseBroadCastActivity {
         public SendPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(SendStep0Fragment.newInstance(null));
-            mFragments.add(SendStep1Fragment.newInstance(null));
+            mFragments.add(SendStep0Fragment.newInstance());
+            mFragments.add(SendStep1Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
             if (isGRPC(mBaseChain)) {
                 mFragments.add(StepFeeSetFragment.newInstance());
             } else {
                 mFragments.add(StepFeeSetOldFragment.newInstance(null));
             }
-            mFragments.add(SendStep4Fragment.newInstance(null));
+            mFragments.add(SendStep4Fragment.newInstance());
         }
 
         @Override

@@ -51,8 +51,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/collateral_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/space_24"
+                    android:layout_height="@dimen/space_24"
                     android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/collateral_denom"
@@ -99,8 +99,8 @@
                 android:layout_marginTop="@dimen/space_2">
                 <ImageView
                     android:id="@+id/principal_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/space_24"
+                    android:layout_height="@dimen/space_24"
                     android:src="@drawable/token_default"/>
                 <TextView
                     android:id="@+id/principal_denom"

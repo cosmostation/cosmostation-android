@@ -33,6 +33,7 @@ public class Injective extends ChainConfig {
     public int decimal() { return 18; }
     public String addressPrefix() { return "inj"; }
 
+    public boolean bridgeCoinSupport() { return true; }
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }

@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import android.app.Activity;
@@ -19,14 +23,20 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.stub.StreamObserver;
@@ -38,23 +48,37 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Asset;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
+import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.dialog.StarnameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int SELECT_IBC_CHAIN = 8504;
+    public final static int SELECT_IBC_ACCOUNT = 9101;
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
-    private EditText mAddressInput;
-    private Button mCancel, mNextBtn;
-    private LinearLayout mStarNameLayer;
-    private LinearLayout mBtnQr, mBtnPaste, mBtnHistory;
+    private RelativeLayout  mToChainList;
+    private ImageView       mToChainImg;
+    private TextView        mToChainTxt;
+    private EditText        mAddressInput;
+    private Button          mCancel, mNextBtn;
+    private LinearLayout    mIbcLayer;
+    private LinearLayout    mBtnWallet, mBtnQr, mBtnPaste;
 
-    public static SendStep0Fragment newInstance(Bundle bundle) {
-        SendStep0Fragment fragment = new SendStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    private ArrayList<ChainConfig> mToSendableChains = new ArrayList<>();
+    private ChainConfig mToSendChainConfig;
+    private ArrayList<Account>  mToAccountList;
+    private Asset mAsset;
+    private Cw20Asset mCw20Asset;
+
+    public static SendStep0Fragment newInstance() {
+        return new SendStep0Fragment();
     }
 
     @Override
@@ -65,21 +89,62 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_send_step0, container, false);
+        mToChainList = rootView.findViewById(R.id.btn_to_chain_list);
+        mToChainImg = rootView.findViewById(R.id.img_to_chain);
+        mToChainTxt = rootView.findViewById(R.id.txt_to_chain);
         mAddressInput = rootView.findViewById(R.id.receiver_account);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mCancel = rootView.findViewById(R.id.btn_cancel);
-        mStarNameLayer = rootView.findViewById(R.id.starname_layer);
+        mIbcLayer = rootView.findViewById(R.id.ibc_layer);
 
         mBtnQr = rootView.findViewById(R.id.btn_qr);
         mBtnPaste = rootView.findViewById(R.id.btn_paste);
-        mBtnHistory = rootView.findViewById(R.id.btn_history);
-        mBtnHistory.setVisibility(View.GONE);
+        mBtnWallet = rootView.findViewById(R.id.btn_wallet);
 
+        mToChainList.setOnClickListener(this);
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mBtnQr.setOnClickListener(this);
         mBtnPaste.setOnClickListener(this);
-        mBtnHistory.setOnClickListener(this);
+        mBtnWallet.setOnClickListener(this);
+
+        mAsset = getBaseDao().getAsset(getSActivity().mDenom);
+        mCw20Asset = getBaseDao().getCw20Asset(getSActivity().mDenom);
+        mToSendableChains.add(getSActivity().mChainConfig);
+
+        ArrayList<ChainConfig> allChainConfig = ChainFactory.SUPPRT_CONFIG();
+        for (Asset asset : getBaseDao().mAssets) {
+            if (mAsset != null) {
+                if (asset.chain.equalsIgnoreCase(getSActivity().mChainConfig.chainName()) && asset.denom.equalsIgnoreCase(getSActivity().mDenom)) {
+                    for (ChainConfig chainConfig : allChainConfig) {
+                        if (chainConfig.chainName().equalsIgnoreCase(asset.beforeChain(getSActivity().mChainConfig)) && !mToSendableChains.contains(chainConfig)) {
+                            mToSendableChains.add(chainConfig);
+                        }
+                    }
+
+                } else if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(getSActivity().mDenom)) {
+                    for (ChainConfig chainConfig : allChainConfig) {
+                        if (chainConfig.chainName().equalsIgnoreCase(asset.chain) && !mToSendableChains.contains(chainConfig)) {
+                            mToSendableChains.add(chainConfig);
+                        }
+                    }
+                }
+
+            } else if (mCw20Asset != null) {
+                if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(mCw20Asset.contract_address)) {
+                    for (ChainConfig chainConfig : allChainConfig) {
+                        if (chainConfig.chainName().equalsIgnoreCase(asset.chain)) {
+                            mToSendableChains.add(chainConfig);
+                        }
+                    }
+                }
+            }
+        }
+
+        onSortToChain();
+        mToSendChainConfig = mToSendableChains.get(0);
+        mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
+        onUpdateChainView();
 
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             private boolean alreadyOpen;
@@ -98,19 +163,44 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
                 alreadyOpen = isShown;
                 if (alreadyOpen) {
-                    mStarNameLayer.setVisibility(View.GONE);
+                    mIbcLayer.setVisibility(View.GONE);
                 } else {
-                    new Handler().postDelayed(() -> mStarNameLayer.setVisibility(View.VISIBLE), 100);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) mIbcLayer.setVisibility(View.GONE);
+                            else mIbcLayer.setVisibility(View.VISIBLE);
+
+                        }
+                    },100);
                 }
             }
         });
-        mStarNameLayer.setVisibility(View.VISIBLE);
         return rootView;
+    }
+
+    private void onUpdateChainView() {
+        mToChainImg.setImageResource(mToSendChainConfig.chainImg());
+        mToChainTxt.setText(mToSendChainConfig.chainTitleToUp());
+        mToChainTxt.setTextColor(ContextCompat.getColor(getActivity(), mToSendChainConfig.chainColor()));
+        mAddressInput.setText("");
+        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) mIbcLayer.setVisibility(View.GONE);
+        else mIbcLayer.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mNextBtn)) {
+        if (v.equals(mToChainList)) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("toSendCoins", mToSendableChains);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
+            dialog.setCancelable(true);
+            dialog.setTargetFragment(this, SELECT_IBC_CHAIN);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+            getSActivity().onHideKeyboard();
+
+        } else if (v.equals(mNextBtn)) {
             String userInput = mAddressInput.getText().toString().trim();
 
             if (getSActivity().mAccount.address.equals(userInput)) {
@@ -119,19 +209,35 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
             if (WUtil.isValidStarName(userInput.toLowerCase())) {
-                onCheckNameService(userInput.toLowerCase(), ChainFactory.getChain(getSActivity().mBaseChain));
+                onCheckNameService(userInput.toLowerCase(), mToSendChainConfig);
                 return;
             }
 
-            if (WDp.isValidChainAddress(ChainFactory.getChain(getSActivity().mBaseChain), userInput)) {
+            if (WDp.isValidChainAddress(mToSendChainConfig, userInput)) {
+                onPathSetting();
                 getSActivity().mToAddress = userInput;
                 getSActivity().onNextStep();
+
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
             }
 
         } else if (v.equals(mCancel)) {
             getSActivity().onBeforeStep();
+
+        } else if (v.equals(mBtnWallet)) {
+            if (mToSendChainConfig == null || mToAccountList.size() <= 0) {
+                Toast.makeText(getSActivity(), getString(R.string.error_no_wallet_this_chain), Toast.LENGTH_SHORT).show();
+                return;
+
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("accounts", mToAccountList);
+                IBCReceiveAccountsDialog dialog = IBCReceiveAccountsDialog.newInstance(bundle);
+                dialog.setCancelable(true);
+                dialog.setTargetFragment(this, SELECT_IBC_ACCOUNT);
+                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+            }
 
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
@@ -152,34 +258,50 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             } else {
                 Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
             }
-
-
-        } else if (v.equals(mBtnHistory)) {
-            Toast.makeText(getSActivity(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
-
         }
+    }
+
+    private void onPathSetting() {
+        if (getSActivity().mBaseChain.equals(mToSendChainConfig.baseChain())) {
+            if (mAsset != null) getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
+            else if (mCw20Asset != null) getSActivity().mTxType = CONST_PW_TX_EXECUTE_CONTRACT;
+            else getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
+
+        } else {
+            if (mAsset != null) {
+                getSActivity().mTxType = CONST_PW_TX_IBC_TRANSFER;
+            } else if (mCw20Asset != null) {
+                getSActivity().mTxType = CONST_PW_TX_IBC_CONTRACT;
+            }
+            getSActivity().mAssetPath = WDp.getAssetPath(getBaseDao(), getSActivity().mChainConfig, mToSendChainConfig, getSActivity().mDenom);
+        }
+        getSActivity().mAsset = mAsset;
+        getSActivity().mCw20Asset = mCw20Asset;
     }
 
     private SendActivity getSActivity() {
         return (SendActivity) getBaseActivity();
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_STAR_NAME_ADDRESS) {
-            if (resultCode == Activity.RESULT_OK) {
-                getSActivity().mToAddress = data.getStringExtra("originAddress");
-                getSActivity().onNextStep();
-            }
+        if (requestCode == SELECT_STAR_NAME_ADDRESS && resultCode == Activity.RESULT_OK) {
+            getSActivity().mToAddress = data.getStringExtra("originAddress");
+            getSActivity().onNextStep();
+
+        } else if (requestCode == SELECT_IBC_CHAIN && resultCode == Activity.RESULT_OK) {
+            mToSendChainConfig = mToSendableChains.get(data.getIntExtra("position", -1));
+            mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
+            onUpdateChainView();
+
+        } else if (requestCode == SELECT_IBC_ACCOUNT && resultCode == Activity.RESULT_OK) {
+            mAddressInput.setText(mToAccountList.get(data.getIntExtra("position", -1)).address);
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (result != null) {
-                if (result.getContents() != null) {
-                    mAddressInput.setText(result.getContents().trim());
-                    mAddressInput.setSelection(mAddressInput.getText().length());
-                }
+            if (result != null && result.getContents() != null) {
+                mAddressInput.setText(result.getContents().trim());
+                mAddressInput.setSelection(mAddressInput.getText().length());
             } else {
                 super.onActivityResult(requestCode, resultCode, data);
             }
@@ -225,7 +347,20 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             public void onCompleted() {
             }
         });
+    }
 
-
+    private void onSortToChain() {
+        mToSendableChains.sort(new Comparator<ChainConfig>() {
+            @Override
+            public int compare(ChainConfig o1, ChainConfig o2) {
+                if (o1.baseChain().equals(getSActivity().mBaseChain)) return -1;
+                if (o2.baseChain().equals(getSActivity().mBaseChain)) return 1;
+                if (o1.baseChain().equals(BaseChain.COSMOS_MAIN)) return -1;
+                if (o2.baseChain().equals(BaseChain.COSMOS_MAIN)) return 1;
+                if (o1.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return -1;
+                if (o2.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return 1;
+                return 0;
+            }
+        });
     }
 }

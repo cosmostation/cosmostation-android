@@ -27,6 +27,7 @@ public class Iris extends ChainConfig {
     public String mainDenom() { return "uiris"; }
     public String addressPrefix() { return "iaa"; }
 
+    public boolean bridgeCoinSupport() { return true; }
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }

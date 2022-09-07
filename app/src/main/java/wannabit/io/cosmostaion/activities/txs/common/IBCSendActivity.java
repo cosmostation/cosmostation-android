@@ -162,25 +162,7 @@ public class IBCSendActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void onStartIbcSend() {
-        if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress,
-                    mAmounts.get(0).denom, mAmounts.get(0).amount, mPath.port_id, mPath.channel_id, getClientState().getLatestHeight(), mTxFee, "", getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
 
-        } else {
-            Intent intent = new Intent(IBCSendActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("toAddress", mToAddress);
-            intent.putParcelableArrayListExtra("amount", mAmounts);
-            intent.putExtra("channelId", mPath.channel_id);
-            intent.putExtra("portId", mPath.port_id);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-        }
-    }
 
     private class IbcSendPageAdapter extends FragmentPagerAdapter {
 

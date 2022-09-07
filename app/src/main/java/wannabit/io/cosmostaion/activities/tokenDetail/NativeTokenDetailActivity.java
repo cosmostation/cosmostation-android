@@ -48,7 +48,6 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     private RecyclerView mRecyclerView;
     private NativeTokenAdapter mAdapter;
 
-    private RelativeLayout mBtnIbcSend;
     private RelativeLayout mBtnBep3Send;
     private RelativeLayout mBtnSend;
 
@@ -73,7 +72,6 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         mTotalValue = findViewById(R.id.total_value);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
-        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
         mBtnBep3Send = findViewById(R.id.btn_bep3_send);
         mBtnSend = findViewById(R.id.btn_send);
 
@@ -86,7 +84,6 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         mChainConfig = ChainFactory.getChain(mBaseChain);
         mDenom = getIntent().getStringExtra("denom");
         mToolbarChannel.setVisibility(View.GONE);
-        mBtnIbcSend.setVisibility(View.GONE);
 
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (WUtil.isBep3Coin(mDenom)) {
@@ -104,7 +101,6 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         onUpdateView();
         mBtnAddressPopup.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
-        mBtnIbcSend.setOnClickListener(this);
         mBtnBep3Send.setOnClickListener(this);
     }
 
