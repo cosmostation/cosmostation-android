@@ -370,8 +370,8 @@ public class ConnectWalletActivity extends BaseActivity {
                 } else {
                     String finalUrl = url;
                     CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this,
-                            getString(R.string.str_wallet_connect),
-                            Html.fromHtml("<br/><b>" + url + "</b> " + getString(R.string.str_wc_connect_dialog) + "<br/><br/><font color=\"#ff2745\">" + "Cosmostation does NOT guarantee the security & safety of connected dApps." + "</font><br/>"),
+                            getString(R.string.str_wc_connect_alert_title),
+                            Html.fromHtml(String.format("%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>", getString(R.string.str_wc_connect_alert_message), url, getString(R.string.str_wc_connect_alert_guide))),
                             getString(R.string.str_ok),
                             view -> {
                                 WalletConnectManager.addWhiteList(this, finalUrl);

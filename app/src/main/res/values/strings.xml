@@ -673,6 +673,12 @@
     <string name="str_wallet_connect_msg">Would you like to link your wallet to Binance Dex Exchange?</string>
     <string name="str_disconnect">Disconnect</string>
     <string name="str_connect_to">Connect to</string>
+    <string name="str_wc_manage_title">Manage Connections</string>
+    <string name="str_wc_manage_guide">Manage URLs connected to your wallet</string>
+    <string name="str_wc_manage_disconnect">Disconnect wallet</string>
+    <string name="str_wc_connect_alert_title">Connect Wallet</string>
+    <string name="str_wc_connect_alert_message">Allow connection to URL?</string>
+    <string name="str_wc_connect_alert_guide">Please double-check the URL. You can always manage connections at “SETTING” → “Manage Connections”</string>
     <string name="str_wc_peer_name">Cosmostation</string>
     <string name="str_wc_peer_desc">Cosmostation Wallet Android</string>
     <string name="str_wc_peer_url">https://cosmostation.io</string>

@@ -151,13 +151,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
                         android:layout_centerVertical="true"
-                        style="@style/font_ss_12_white"
-                        android:text="@string/str_wallet_connect"/>
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_wc_manage_title" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -21,7 +21,7 @@
                 style="@style/font_ssm_17_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_wallet_connect" />
+                android:text="@string/str_wc_manage_title" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/space_16"
         android:paddingVertical="@dimen/space_8"
-        android:text="@string/str_wc_allow_title" />
+        android:text="@string/str_wc_manage_guide" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
