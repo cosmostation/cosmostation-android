@@ -1,7 +1,12 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +16,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,6 +47,8 @@ public class CurrencySetDialog extends DialogFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mCurrencySetAdapter = new CurrencySetAdapter();
+
+        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         mRecyclerView.setAdapter(mCurrencySetAdapter);
         return view;
     }
@@ -67,12 +77,6 @@ public class CurrencySetDialog extends DialogFragment {
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
             });
-
-            if ("MYR".equals(mUnitList[position])) {
-                holder.rootView.setVisibility(View.GONE);
-            } else {
-                holder.rootView.setVisibility(View.VISIBLE);
-            }
         }
 
         @Override
@@ -83,13 +87,37 @@ public class CurrencySetDialog extends DialogFragment {
         public class CurrencyHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
             TextView currencyName;
-            View rootView;
 
             public CurrencyHolder(@NonNull View itemView) {
                 super(itemView);
                 rootLayer = itemView.findViewById(R.id.rootLayer);
                 currencyName = itemView.findViewById(R.id.currencyName);
-                rootView = itemView.findViewById(R.id.rootView);
+            }
+        }
+    }
+
+    public static class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
+        private Drawable mDivider;
+
+        public SimpleDividerItemDecoration(Context context) {
+            mDivider = ContextCompat.getDrawable(context, R.drawable.box_line_divider);
+        }
+
+        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+            int left = parent.getPaddingLeft();
+            int right = parent.getWidth() - parent.getPaddingRight();
+
+            int childCount = parent.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                View child = parent.getChildAt(i);
+
+                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+
+                int top = child.getBottom() + params.bottomMargin;
+                int bottom = top + mDivider.getIntrinsicHeight();
+
+                mDivider.setBounds(left, top, right, bottom);
+                mDivider.draw(c);
             }
         }
     }
