@@ -10,8 +10,6 @@ import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResCw20Assets;
-import wannabit.io.cosmostaion.network.res.ResIbcPaths;
-import wannabit.io.cosmostaion.network.res.ResIbcTokens;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -24,12 +22,6 @@ public interface Station {
 
     @GET("v1/params/{chain_id}")
     Call<ChainParam> getParam(@Path("chain_id") String chain_id);
-
-    @GET("v1/ibc/paths/{chain_id}")
-    Call<ResIbcPaths> getIbcPaths(@Path("chain_id") String chain_id);
-
-    @GET("v1/ibc/tokens/{chain_id}")
-    Call<ResIbcTokens> getIbcTokens(@Path("chain_id") String chain_id);
 
     @GET("v1/{chain}/proposals/{proposalId}")
     Call<ResProposal> getProposal(@Path("chain") String chain, @Path("proposalId") String proposalId);

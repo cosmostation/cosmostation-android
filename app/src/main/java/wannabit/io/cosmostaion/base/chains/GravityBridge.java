@@ -30,7 +30,6 @@ public class GravityBridge extends ChainConfig {
     public String addressPrefix() { return "gravity"; }
 
     public boolean bridgeCoinSupport() { return true; }
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
@@ -41,7 +40,6 @@ public class GravityBridge extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.4500"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "gravity-bridge/"; }
     public String monikerUrl() { return MONIKER_URL + "gravity-bridge/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "gravity-bridge/relay-gravitybridge-unknown.png"; }
     public String homeInfoLink() { return  "https://www.gravitybridge.net"; }
     public String blogInfoLink() { return  "https://www.gravitybridge.net/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "graviton"; }

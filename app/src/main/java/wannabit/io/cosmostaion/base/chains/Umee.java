@@ -27,7 +27,6 @@ public class Umee extends ChainConfig {
     public String mainDenom() { return "uumee"; }
     public String addressPrefix() { return "umee"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Umee extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.658"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "umee/"; }
     public String monikerUrl() { return MONIKER_URL + "umee/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "umee/relay-umee-unknown.png"; }
     public String homeInfoLink() { return  "https://www.umee.cc"; }
     public String blogInfoLink() { return  "https://medium.com/umeeblog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "umee"; }

@@ -41,7 +41,6 @@ public class Crytoorg extends ChainConfig {
     public String addressPrefix() { return "cro"; }
     public String validatorPrefix() { return "crocncl"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -51,7 +50,6 @@ public class Crytoorg extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.1939"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "crypto-org/"; }
     public String monikerUrl() { return MONIKER_URL + "cryto/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "cryptoorg/relay-cryptoorg-unknown.png"; }
     public String homeInfoLink() { return  "https://crypto.org"; }
     public String blogInfoLink() { return  "https://blog.crypto.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cronos"; }

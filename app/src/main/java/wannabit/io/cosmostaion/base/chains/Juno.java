@@ -31,7 +31,6 @@ public class Juno extends ChainConfig{
     public String addressPrefix() { return "juno"; }
 
     public boolean erc20CoinSupport() { return true; }
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
@@ -42,7 +41,6 @@ public class Juno extends ChainConfig{
     public BigDecimal blockTime() { return new BigDecimal("6.3104"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "juno/"; }
     public String monikerUrl() { return MONIKER_URL + "juno/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "juno/relay-juno-unknown.png"; }
     public String homeInfoLink() { return  "https://junochain.com"; }
     public String blogInfoLink() { return  "https://medium.com/@JunoNetwork"; }
     public String coingeckoLink() { return  COINGECKO_URL + "juno-network"; }

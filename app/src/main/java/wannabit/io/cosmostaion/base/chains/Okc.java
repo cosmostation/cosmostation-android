@@ -37,7 +37,6 @@ public class Okc extends ChainConfig {
     }
     public String addressPrefix() { return "ex"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -47,7 +46,6 @@ public class Okc extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("0.4124"); }
     public String explorerUrl() { return "https://www.oklink.com/okexchain/"; }
     public String monikerUrl() { return MONIKER_URL + "okex/"; }
-    public String relayerImgUrl() { return ""; }
     public String homeInfoLink() { return  "https://www.okx.com"; }
     public String blogInfoLink() { return  "https://www.okx.com/academy/en/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "okc-token"; }

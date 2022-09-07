@@ -323,7 +323,7 @@ public class SendActivity extends BaseBroadCastActivity {
     private Tendermint.ClientState getClientState() {
         try {
             QueryGrpc.QueryBlockingStub channelStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
-            QueryOuterClass.QueryChannelClientStateRequest request = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mPath.channel_id).setPortId(mPath.port_id).build();
+            QueryOuterClass.QueryChannelClientStateRequest request = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mAssetPath.channel).setPortId(mAssetPath.port).build();
             QueryOuterClass.QueryChannelClientStateResponse response = channelStub.channelClientState(request);
 
             if (response != null) {

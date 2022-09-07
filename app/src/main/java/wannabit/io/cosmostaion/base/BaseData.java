@@ -63,8 +63,6 @@ import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Asset;
-import wannabit.io.cosmostaion.dao.IbcPath;
-import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Password;
@@ -117,8 +115,6 @@ public class BaseData {
 
     public ArrayList<Price> mPrices = new ArrayList<>();
     public ChainParam.Params mChainParam;
-    public ArrayList<IbcPath> mIbcPaths = new ArrayList<>();
-    public ArrayList<IbcToken> mIbcTokens = new ArrayList<>();
     public ArrayList<Asset> mAssets = new ArrayList<>();
     public ArrayList<Cw20Asset> mCw20Assets = new ArrayList<>();
     public ArrayList<Cw20Asset> mCw20MyAssets = new ArrayList<>();
@@ -128,18 +124,6 @@ public class BaseData {
             for (Price price : mPrices) {
                 if (price.denom.equals(denom.toLowerCase())) {
                     return price;
-                }
-            }
-        }
-        return null;
-    }
-
-    public IbcToken getIbcToken(String denom) {
-        String ibcHash = denom.replace("ibc/", "");
-        if (mIbcTokens != null && mIbcTokens.size() > 0) {
-            for (IbcToken ibcToken : mIbcTokens) {
-                if (ibcToken.hash.equals(ibcHash)) {
-                    return ibcToken;
                 }
             }
         }

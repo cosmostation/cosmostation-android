@@ -31,7 +31,6 @@ public class Starname extends ChainConfig {
     public String mainDenom() { return "uiov"; }
     public String addressPrefix() { return "star"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return false; }
 
@@ -41,7 +40,6 @@ public class Starname extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.0124"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "starname/"; }
     public String monikerUrl() { return MONIKER_URL + "iov/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "starname/relay-starname-unknown.png"; }
     public String homeInfoLink() { return  "https://www.starname.me"; }
     public String blogInfoLink() { return  "https://medium.com/iov-internet-of-values"; }
     public String coingeckoLink() { return  COINGECKO_URL + "starname"; }

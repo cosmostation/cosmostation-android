@@ -28,7 +28,6 @@ public class Axelar extends ChainConfig {
     public String addressPrefix() { return "axelar"; }
 
     public boolean bridgeCoinSupport() { return true; }
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -38,7 +37,6 @@ public class Axelar extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.5596"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "axelar/"; }
     public String monikerUrl() { return MONIKER_URL + "axelar/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "axelar/relay-axelar-unknown.png"; }
     public String homeInfoLink() { return  "https://axelar.network"; }
     public String blogInfoLink() { return  "https://axelar.network/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "axelar-network"; }

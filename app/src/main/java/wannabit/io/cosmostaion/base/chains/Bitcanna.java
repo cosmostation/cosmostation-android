@@ -27,7 +27,6 @@ public class Bitcanna extends ChainConfig {
     public String mainDenom() { return "ubcna"; }
     public String addressPrefix() { return "bcna"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Bitcanna extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.0256"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "bitcanna/"; }
     public String monikerUrl() { return MONIKER_URL + "bitcanna/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "bitcanna/relay-bitcanna-unknown.png"; }
     public String homeInfoLink() { return  "https://www.bitcanna.io"; }
     public String blogInfoLink() { return  "https://medium.com/@BitCannaGlobal"; }
     public String coingeckoLink() { return  COINGECKO_URL + "bitcanna"; }

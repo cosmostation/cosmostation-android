@@ -76,8 +76,6 @@ abstract public class ChainConfig {
 
     public boolean erc20CoinSupport() { return false; }
 
-    public abstract boolean pushSupport();
-
     public abstract boolean dexSupport();
 
     public abstract boolean wcSupport();
@@ -113,8 +111,6 @@ abstract public class ChainConfig {
     public abstract String explorerUrl();
 
     public abstract String monikerUrl();
-
-    public abstract String relayerImgUrl();
 
     public abstract String homeInfoLink();
 

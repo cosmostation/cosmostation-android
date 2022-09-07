@@ -27,7 +27,6 @@ public class Rizon extends ChainConfig {
     public String mainDenom() { return "uatolo"; }
     public String addressPrefix() { return "rizon"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Rizon extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.8850"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "rizon/"; }
     public String monikerUrl() { return MONIKER_URL + "rizon/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "rizon/relay-rizon-unknown.png"; }
     public String homeInfoLink() { return  "https://rizon.world"; }
     public String blogInfoLink() { return  "https://medium.com/@hdac-rizon"; }
     public String coingeckoLink() { return  COINGECKO_URL + "rizon"; }

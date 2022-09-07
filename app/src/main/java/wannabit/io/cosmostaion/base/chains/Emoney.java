@@ -32,7 +32,6 @@ public class Emoney extends ChainConfig {
     public String mainDenom() { return "ungm"; }
     public String addressPrefix() { return "emoney"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -42,7 +41,6 @@ public class Emoney extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("24.8486"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "emoney/"; }
     public String monikerUrl() { return MONIKER_URL + "emoney/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "emoney/relay-emoney-unknown.png"; }
     public String homeInfoLink() { return  "https://www.e-money.com"; }
     public String blogInfoLink() { return  "https://medium.com/e-money-com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "e-money"; }
