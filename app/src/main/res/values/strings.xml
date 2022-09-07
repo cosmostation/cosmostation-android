@@ -4,7 +4,7 @@
 
     <!--    <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>-->
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
-    <string name="url_station_old" translatable="false">https://api-wallet-dev.cosmostation.io/</string>
+    <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
     <string name="url_station_testnet" translatable="false">https://api-office.cosmostation.io/utility/</string>
     <string name="url_mintscan" translatable="false">https://api.mintscan.io/</string>
