@@ -38,7 +38,6 @@
                     android:layout_marginLeft="@dimen/space_18"
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_18"
-                    android:scaleType="fitXY"
                     android:src="@drawable/riskscore_img" />
 
                 <LinearLayout
