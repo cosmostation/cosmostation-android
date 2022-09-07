@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -34,13 +34,13 @@
 
         <LinearLayout
             android:id="@+id/layout_wc_raw_data"
-            android:background="@color/colorBlack2DayWhite"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginLeft="@dimen/space_14"
             android:layout_marginTop="@dimen/space_10"
             android:layout_marginRight="@dimen/space_14"
-            android:layout_marginBottom="@dimen/space_14">
+            android:layout_marginBottom="@dimen/space_14"
+            android:background="@color/colorBlack2DayWhite">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -132,4 +132,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
