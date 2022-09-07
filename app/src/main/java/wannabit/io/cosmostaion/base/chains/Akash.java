@@ -27,7 +27,6 @@ public class Akash extends ChainConfig {
     public String mainDenom() { return "uakt"; }
     public String addressPrefix() { return "akash"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Akash extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.4526"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "akash/"; }
     public String monikerUrl() { return MONIKER_URL + "akash/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "akash/relay-akash-unknown.png"; }
     public String homeInfoLink() { return  "https://akash.network"; }
     public String blogInfoLink() { return  "https://akash.network/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "akash-network"; }

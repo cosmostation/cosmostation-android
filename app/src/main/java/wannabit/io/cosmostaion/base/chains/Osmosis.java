@@ -30,7 +30,6 @@ public class Osmosis extends ChainConfig {
     public String mainDenom() { return "uosmo"; }
     public String addressPrefix() { return "osmo"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return true; }
 
@@ -40,7 +39,6 @@ public class Osmosis extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.5324"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "osmosis/"; }
     public String monikerUrl() { return MONIKER_URL + "osmosis/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "osmosis/relay-osmosis-unknown.png"; }
     public String homeInfoLink() { return  "https://osmosis.zone"; }
     public String blogInfoLink() { return  "https://medium.com/osmosis"; }
     public String coingeckoLink() { return  COINGECKO_URL + "osmosis"; }

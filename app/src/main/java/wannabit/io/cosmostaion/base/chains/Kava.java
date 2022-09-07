@@ -37,7 +37,6 @@ public class Kava extends ChainConfig {
 
     public boolean etherAddressSupport() { return true; }
     public boolean bridgeCoinSupport() { return true; }
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return true; }
 
@@ -48,7 +47,6 @@ public class Kava extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.7262"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "kava/"; }
     public String monikerUrl() { return MONIKER_URL + "kava/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "kava/relay-kava-unknown.png"; }
     public String homeInfoLink() { return  "https://www.kava.io"; }
     public String blogInfoLink() { return  "https://medium.com/kava-labs"; }
     public String coingeckoLink() { return  COINGECKO_URL + "kava"; }

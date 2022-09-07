@@ -29,7 +29,6 @@ public class Passage extends ChainConfig {
     public String mainDenom() { return "upasg"; }
     public String addressPrefix() { return "pasg"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -39,7 +38,6 @@ public class Passage extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.8680"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "passage/"; }
     public String monikerUrl() { return MONIKER_URL + "passage/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "passage/relay-passage-unknown.png"; }
     public String homeInfoLink() { return  "https://passage3d.com/"; }
     public String blogInfoLink() { return "https://medium.com/@Passage3D"; }
     public String coingeckoLink() { return  ""; }

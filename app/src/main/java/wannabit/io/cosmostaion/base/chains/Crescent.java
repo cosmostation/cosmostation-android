@@ -32,7 +32,6 @@ public class Crescent extends ChainConfig {
     public int sendBgColor() { return R.color.color_crescent3; }
     public String addressPrefix() { return "cre"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
 
@@ -42,7 +41,6 @@ public class Crescent extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.355"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "crescent/"; }
     public String monikerUrl() { return MONIKER_URL + "crescent/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "crescent/relay-crescent-unknown.png"; }
     public String homeInfoLink() { return  "https://crescent.network"; }
     public String blogInfoLink() { return  "https://crescentnetwork.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "crescent-network"; }

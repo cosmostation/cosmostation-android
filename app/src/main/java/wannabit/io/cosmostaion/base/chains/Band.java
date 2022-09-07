@@ -31,7 +31,6 @@ public class Band extends ChainConfig {
     public String mainDenom() { return "uband"; }
     public String addressPrefix() { return "band"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -41,7 +40,6 @@ public class Band extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("3.0236"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "band/"; }
     public String monikerUrl() { return MONIKER_URL + "bandprotocol/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "band/relay-band-unknown.png"; }
     public String homeInfoLink() { return  "https://bandprotocol.com"; }
     public String blogInfoLink() { return  "https://medium.com/bandprotocol"; }
     public String coingeckoLink() { return  COINGECKO_URL + "band-protocol"; }

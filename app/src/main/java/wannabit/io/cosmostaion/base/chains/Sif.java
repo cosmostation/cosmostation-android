@@ -32,7 +32,6 @@ public class Sif extends ChainConfig {
     public String addressPrefix() { return "sif"; }
 
     public boolean bridgeCoinSupport() { return true; }
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return false; }
 
@@ -42,7 +41,6 @@ public class Sif extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.7246"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "sifchain/"; }
     public String monikerUrl() { return MONIKER_URL + "sif/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "sifchain/relay-sifchain-unknown.png"; }
     public String homeInfoLink() { return  "https://sifchain.finance"; }
     public String blogInfoLink() { return  "https://medium.com/sifchain-finance"; }
     public String coingeckoLink() { return  COINGECKO_URL + "sifchain"; }

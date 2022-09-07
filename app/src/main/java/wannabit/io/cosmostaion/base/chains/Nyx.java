@@ -29,7 +29,6 @@ public class Nyx extends ChainConfig {
     public String mainDenom() { return "unyx"; }
     public String addressPrefix() { return "n"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -39,7 +38,6 @@ public class Nyx extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.685"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "nyx/"; }
     public String monikerUrl() { return MONIKER_URL + "nyx/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "nyx/relay-nyx-unknown.png"; }
     public String homeInfoLink() { return  "https://nymtech.net"; }
     public String blogInfoLink() { return  "https://nymtech.net/blog"; }
     public String coingeckoLink() { return  ""; }

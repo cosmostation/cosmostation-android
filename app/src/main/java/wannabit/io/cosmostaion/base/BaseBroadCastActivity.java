@@ -12,7 +12,6 @@ import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.Cw20Asset;
-import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
@@ -60,7 +59,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mSifWithdrawCoin;
     public Querier.LiquidityProviderRes mMyProvider;
 
-    public IbcPath.Path                 mPath;
     public Cw20Asset                    mCw20Asset;
     public AssetPath                    mAssetPath;
 

@@ -27,7 +27,6 @@ public class Konstellation extends ChainConfig {
     public String mainDenom() { return "udarc"; }
     public String addressPrefix() { return "darc"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Konstellation extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.376"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "konstellation/"; }
     public String monikerUrl() { return MONIKER_URL + "konstellation/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "konstellation/relay-konstellation-unknown.png"; }
     public String homeInfoLink() { return  "https://konstellation.tech"; }
     public String blogInfoLink() { return  "https://konstellation.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "konstellation"; }

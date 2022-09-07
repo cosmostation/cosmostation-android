@@ -28,7 +28,6 @@ public class Iris extends ChainConfig {
     public String addressPrefix() { return "iaa"; }
 
     public boolean bridgeCoinSupport() { return true; }
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -38,7 +37,6 @@ public class Iris extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.7884"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "iris/"; }
     public String monikerUrl() { return MONIKER_URL + "irishub/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "iris/relay-iris-unknown.png"; }
     public String homeInfoLink() { return "https://www.irisnet.org"; }
     public String blogInfoLink() { return "https://medium.com/irisnet-blog"; }
     public String coingeckoLink() { return COINGECKO_URL + "irisnet"; }

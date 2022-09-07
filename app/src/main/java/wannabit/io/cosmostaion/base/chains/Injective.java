@@ -34,7 +34,6 @@ public class Injective extends ChainConfig {
     public String addressPrefix() { return "inj"; }
 
     public boolean bridgeCoinSupport() { return true; }
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
@@ -45,7 +44,6 @@ public class Injective extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("2.4865"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "injective/"; }
     public String monikerUrl() { return MONIKER_URL + "injective/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "injective/relay-injective-unknown.png"; }
     public String homeInfoLink() { return  "https://injectiveprotocol.com"; }
     public String blogInfoLink() { return  "https://blog.injectiveprotocol.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "injective-protocol"; }

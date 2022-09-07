@@ -27,7 +27,6 @@ public class Assetmantle extends ChainConfig {
     public String mainDenom() { return "umntl"; }
     public String addressPrefix() { return "mantle"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Assetmantle extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.8040"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "asset-mantle/"; }
     public String monikerUrl() { return MONIKER_URL + "asset-mantle/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "asset-mantle/relay-assetmantle-unknown.png"; }
     public String homeInfoLink() { return  "https://assetmantle.one"; }
     public String blogInfoLink() { return  "https://blog.assetmantle.one"; }
     public String coingeckoLink() { return  COINGECKO_URL + "assetmantle"; }

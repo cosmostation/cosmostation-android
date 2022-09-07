@@ -591,12 +591,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
-            android:name=".activities.txs.common.IBCSendActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-
-        <activity
             android:name=".activities.txs.authz.AuthzListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

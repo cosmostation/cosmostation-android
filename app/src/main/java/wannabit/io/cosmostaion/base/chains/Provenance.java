@@ -32,7 +32,6 @@ public class Provenance extends ChainConfig {
     public int decimal() { return 9; }
     public String addressPrefix() { return "pb"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -42,7 +41,6 @@ public class Provenance extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.3061"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "provenance/"; }
     public String monikerUrl() { return MONIKER_URL + "provenance/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "provenance/relay-provenance-unknown.png"; }
     public String homeInfoLink() { return  "https://www.provenance.io"; }
     public String blogInfoLink() { return  "https://www.provenance.io/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "provenance-blockchain"; }
