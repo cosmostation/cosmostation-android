@@ -56,9 +56,7 @@
     <color name="colorTransBgStation">#e6f9fa</color>
     <color name="colorTransBgNyx">#fff1ef</color>
     <color name="colorTransBgPassage">#ebf4fe</color>
-
-
-
+    <color name="colorTransBgStride">#feecf5</color>
     <color name="colorTransBgLikeCoin">#eaf4f5</color>
     <color name="colorTransBgIxo">#ecf5ff</color>
     <color name="colorTransBgSommelier">#f6eaf1</color>
@@ -193,9 +191,7 @@
 
     <color name="color_passage">#5da5fb</color>
 
-
-
-
+    <color name="color_stride">#e91179</color>
 
     <color name="color_likecoin">#2d8a99</color>
 

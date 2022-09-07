@@ -86,6 +86,7 @@ public enum BaseChain {
     STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
     PASSAGE_MAIN("passage-mainnet"),
+    STRIDE_MAIN("stride-mainnet"),
     LIKECOIN_MAIN("likecoin-mainnet"),
     IXO_MAIN("ixo-mainnet"),
     SOMMELIER_MAIN("sommelier-mainnet");
@@ -257,14 +258,15 @@ public enum BaseChain {
         if (chainName.equals(PASSAGE_MAIN.chainName)) {
             return PASSAGE_MAIN;
         }
+        if (chainName.equals(STRIDE_MAIN.chainName)) {
+            return STRIDE_MAIN;
+        }
         if (chainName.equals(IXO_MAIN.chainName)) {
             return IXO_MAIN;
         }
         if (chainName.equals(SOMMELIER_MAIN.chainName)) {
             return SOMMELIER_MAIN;
         }
-
-
         if (chainName.equals(LIKECOIN_MAIN.chainName)) {
             return LIKECOIN_MAIN;
         }
@@ -318,6 +320,7 @@ public enum BaseChain {
         result.add(CERTIK_MAIN);
         result.add(SIF_MAIN);
         result.add(STARGAZE_MAIN);
+        result.add(STRIDE_MAIN);
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
         result.add(STATION_TEST);

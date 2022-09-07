@@ -33,6 +33,8 @@ public class BaseConstant {
     public final static String PRE_USER_FAVO_TOKENS         = "PRE_USER_FAVO_TOKENS";
     public final static String PRE_DB_VERSION               = "PRE_DB_VERSION";
     public final static String PRE_THEME_MOD                = "PRE_THEME_MOD";
+    public final static String PRE_AUTO_SIGN                = "PRE_AUTO_SIGN";
+    public final static String PRE_WC_WHITE_LIST            = "PRE_WC_WHITE_LIST";
 
     public final static int TASK_INIT_PW                                = 2000;
     public final static int TASK_INIT_ACCOUNT                           = 2002;
@@ -376,7 +378,6 @@ public class BaseConstant {
     public final static String EXPLORER_BASE_URL        = "https://www.mintscan.io/";
     public final static String RESOURCE_BASE_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/";
     public final static String MONIKER_URL              = RESOURCE_BASE_URL + "moniker/";
-    public final static String UNKNOWN_RELAYER_URL      = RESOURCE_BASE_URL + "relayer/";
     public final static String ASSET_IMG_URL            = RESOURCE_BASE_URL + "assets/images/";
     public final static String COINGECKO_URL            = "https://www.coingecko.com/en/coins/";
 

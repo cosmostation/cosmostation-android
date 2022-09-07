@@ -142,6 +142,35 @@
                 </RelativeLayout>
             </FrameLayout>
 
+            <FrameLayout
+                android:id="@+id/card_wallet_connect"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_8"
+                android:background="@drawable/box_trans_round"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/font_rr_12_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_wc_manage_title" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_next_gr" />
+                </RelativeLayout>
+            </FrameLayout>
+
             <TextView
                 style="@style/font_rr_11_gray1"
                 android:layout_width="wrap_content"
@@ -217,8 +246,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:theme="@style/ColorSwitchStyles"
-                        android:src="@drawable/arrow_next_gr" />
+                        android:src="@drawable/arrow_next_gr"
+                        android:theme="@style/ColorSwitchStyles" />
                 </RelativeLayout>
             </FrameLayout>
 
@@ -249,8 +278,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:scaleType="fitXY"
-                        android:theme="@style/ColorSwitchStyles"
-                        android:clickable="false"/>
+                        android:theme="@style/ColorSwitchStyles" />
 
                 </RelativeLayout>
             </FrameLayout>
@@ -282,8 +310,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:scaleType="fitXY"
-                        android:theme="@style/ColorSwitchStyles"
-                        android:clickable="false"/>
+                        android:theme="@style/ColorSwitchStyles" />
 
                 </RelativeLayout>
             </FrameLayout>
@@ -316,7 +343,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_4"
                         android:layout_toLeftOf="@+id/select_arrow"
-                        android:text="@string/str_app_auto_pass_never"/>
+                        android:text="@string/str_app_auto_pass_never" />
 
                     <ImageView
                         android:id="@+id/select_arrow"
