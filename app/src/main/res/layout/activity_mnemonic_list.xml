@@ -45,17 +45,6 @@
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
         <Button
-            android:id="@+id/btn_import_mnemonic"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginLeft="@dimen/space_4"
-            android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_rr_14_photon_daynight"
-            android:textAllCaps="false"
-            android:text="@string/str_import_mnemonic"/>
-        <Button
             android:id="@+id/btn_create_mnemonic"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
@@ -66,5 +55,16 @@
             style="@style/font_rr_14_photon_daynight"
             android:textAllCaps="false"
             android:text="@string/str_mnemonic_create"/>
+        <Button
+            android:id="@+id/btn_import_mnemonic"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_photon_border"
+            style="@style/font_rr_14_photon_daynight"
+            android:textAllCaps="false"
+            android:text="@string/str_import_mnemonic"/>
     </LinearLayout>
 </RelativeLayout>

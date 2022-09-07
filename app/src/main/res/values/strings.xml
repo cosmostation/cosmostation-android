@@ -163,7 +163,7 @@
     <string name="str_restore_key">Restore With PrivateKey</string>
     <string name="str_qr">QrCode</string>
     <string name="str_import">Restore With Mnemonic</string>
-    <string name="str_mnemonic_delete">Delete Mnemonic</string>
+    <string name="str_mnemonic_delete">DELETE MNEMONIC</string>
     <string name="str_mnemonic_delete_msg">If you do not backup your mnemonics, you can not find it again!\n\nAnd %1$s derived wallets will also be deleted</string>
     <string name="str_clear_all">Clear All</string>
     <string name="str_create">CREATE</string>
@@ -343,7 +343,7 @@
     <string name="str_import_mnemonic">Import Mnemonic</string>
     <string name="str_import_key">Import PrivateKey</string>
     <string name="str_share">Share</string>
-    <string name="str_copy">Copy</string>
+    <string name="str_copy">COPY</string>
     <string name="str_copy_to">Copy to Clipboard</string>
     <string name="str_copied">Copied to clipboard</string>
     <string name="str_safe_copied">Mnemonic copied safely</string>
@@ -873,7 +873,7 @@
     <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/0/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
-    <string name="str_add_new">Add Wallet</string>
+    <string name="str_add_new">ADD WALLET</string>
     <string name="str_add_wallet">Would you like to add %1$s wallet(s)?</string>
     <string name="str_error_not_support_chain_title">Error</string>
     <string name="str_error_not_support_chain_msg">No wallet for that chain</string>
