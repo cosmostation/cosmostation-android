@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LIKECOIN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
@@ -129,7 +130,7 @@ public class Account {
             } else if (chain.equals(CRYPTO_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 8, 6);
 
-            } else if (chain.equals(PROVENANCE_MAIN)) {
+            } else if (chain.equals(PROVENANCE_MAIN) || chain.equals(LIKECOIN_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 9, 6);
             } else {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
