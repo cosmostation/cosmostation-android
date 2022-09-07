@@ -230,7 +230,8 @@ public class WDp {
             else if (denom.startsWith("pool")) return 12;
 
         } else if (chainConfig.baseChain().equals(LIKECOIN_MAIN)) {
-            return 9;
+            if (baseData.getAsset(denom) != null) return baseData.getAsset(denom).decimal;
+            else return 9;
 
         }
         return chainConfig.decimal();

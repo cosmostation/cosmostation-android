@@ -29,6 +29,7 @@ public class LikeCoin extends ChainConfig {
     public int mainDenomImg() { return R.drawable.token_likecoin; }
     public String mainDenom() { return "nanolike"; }
     public String mainSymbol() {return "LIKE"; }
+    public int decimal() { return 9; }
     public String addressPrefix() { return "like"; }
 
     public boolean pushSupport() { return false; }

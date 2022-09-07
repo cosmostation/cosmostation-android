@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.base.chains.LikeCoin;
 
 public enum BaseChain {
     // chain_id is checked on-chain. no need update chain version  21.03.20
@@ -87,6 +86,8 @@ public enum BaseChain {
     STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
     PASSAGE_MAIN("passage-mainnet"),
+
+
     LIKECOIN_MAIN("likecoin-mainnet");
 
     private final String chainName;
@@ -256,6 +257,11 @@ public enum BaseChain {
         if (chainName.equals(PASSAGE_MAIN.chainName)) {
             return PASSAGE_MAIN;
         }
+
+
+
+
+
         if (chainName.equals(LIKECOIN_MAIN.chainName)) {
             return LIKECOIN_MAIN;
         }
