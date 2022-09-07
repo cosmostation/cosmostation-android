@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.Lists;
 
@@ -29,7 +28,6 @@ public class Omniflix extends ChainConfig {
     public String mainDenom() { return "uflix"; }
     public String addressPrefix() { return "omniflix"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -39,7 +37,6 @@ public class Omniflix extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.7970"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "omniflix/"; }
     public String monikerUrl() { return MONIKER_URL + "omniflix/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "omniflix/relay-omniflix-unknown.png"; }
     public String homeInfoLink() { return  "https://www.omniflix.network"; }
     public String blogInfoLink() { return  "https://blog.omniflix.network"; }
     public String coingeckoLink() { return  ""; }

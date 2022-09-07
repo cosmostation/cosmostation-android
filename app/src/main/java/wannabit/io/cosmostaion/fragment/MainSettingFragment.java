@@ -276,7 +276,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnBlog)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mikeyjhlee.medium.com/"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/cosmostation"));
             startActivity(intent);
 
         } else if (v.equals(mBtnTelegram)) {

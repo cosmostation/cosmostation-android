@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.base.chains;
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -27,7 +26,7 @@ public class Crytoorg extends ChainConfig {
     public int chainColor() { return R.color.color_cryto; }
     public int chainBgColor() { return R.color.colorTransBgCryto; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_cryto; }
-    public String chainName() { return "crypto-org"; }
+    public String chainName() { return "cryptoorg"; }
     public String chainTitle() { return "(Crypto.org)"; }
     public String chainTitleToUp() { return "CRYPTO.ORG"; }
     public String chainIdPrefix() { return "crypto-org-"; }
@@ -41,7 +40,6 @@ public class Crytoorg extends ChainConfig {
     public String addressPrefix() { return "cro"; }
     public String validatorPrefix() { return "crocncl"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -51,7 +49,6 @@ public class Crytoorg extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.1939"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "crypto-org/"; }
     public String monikerUrl() { return MONIKER_URL + "cryto/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "cryptoorg/relay-cryptoorg-unknown.png"; }
     public String homeInfoLink() { return  "https://crypto.org"; }
     public String blogInfoLink() { return  "https://blog.crypto.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cronos"; }
@@ -69,6 +66,4 @@ public class Crytoorg extends ChainConfig {
     public ArrayList<String> supportHdPaths() {
         return Lists.newArrayList("m/44'/394'/0'/0/X");
     }
-
-    public String coinFullName(String denom) { return "Cronos"; }
 }

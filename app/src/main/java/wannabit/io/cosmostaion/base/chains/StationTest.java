@@ -27,7 +27,6 @@ public class StationTest extends ChainConfig {
     public String mainDenom() { return "uiss"; }
     public String addressPrefix() { return "station"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
 
@@ -40,7 +39,6 @@ public class StationTest extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal(""); }
     public String explorerUrl() { return "https://testnet.mintscan.io/station/"; }
     public String monikerUrl() { return ""; }
-    public String relayerImgUrl() { return ""; }
     public String homeInfoLink() { return  ""; }
     public String blogInfoLink() { return  ""; }
     public String coingeckoLink() { return  ""; }

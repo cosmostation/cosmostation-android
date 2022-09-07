@@ -20,9 +20,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dao.Assets;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.Cw20Assets;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -91,13 +89,6 @@ public class TokenDetailSupportHolder extends BaseHolder {
         }
     }
 
-    public void onBindPoolToken(Context c, ChainConfig chainConfig, BaseData baseData, String denom) {
-        dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
-        mAvailableAmount = baseData.getAvailable(denom);
-        mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
-    }
-
     public void onBindBNBTokens(Context c, BaseData baseData, String denom) {
         BnbToken bnbToken = baseData.getBnbToken(denom);
         if (bnbToken != null) {
@@ -125,15 +116,6 @@ public class TokenDetailSupportHolder extends BaseHolder {
         mTvTotal.setText(WDp.getDpAmount2(c, totalAmount, 0, 18));
         mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, 0, 18));
         mTvLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 18));
-    }
-
-    public void onBindBridgeToken(Context c, BaseData baseData, String denom) {
-        final Assets assets = baseData.getAsset(denom);
-        if (assets != null) {
-            mAvailableAmount = baseData.getAvailable(assets.denom);
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, assets.decimal, assets.decimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, assets.decimal, assets.decimal));
-        }
     }
 
     public void onBindNftInfo(Context c, BaseChain baseChain, QueryOuterClass.QueryNFTResponse irisResponse, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo, String denomId, String tokenId) {
@@ -168,14 +150,6 @@ public class TokenDetailSupportHolder extends BaseHolder {
             } else {
                 mNftRawData.setText(new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(myCryptoNftInfo.getData())));
             }
-        }
-    }
-
-    public void onBindCw20Token(Context c, BaseChain baseChain, BaseData baseData, Cw20Assets asset) {
-        if (asset != null) {
-            mAvailableAmount = asset.getAmount();
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, asset.decimal, asset.decimal));
-            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, asset.decimal, asset.decimal));
         }
     }
 }

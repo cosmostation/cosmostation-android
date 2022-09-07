@@ -1,10 +1,9 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.Lists;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,7 +28,6 @@ public class Nyx extends ChainConfig {
     public String mainDenom() { return "unyx"; }
     public String addressPrefix() { return "n"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -39,7 +37,6 @@ public class Nyx extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.685"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "nyx/"; }
     public String monikerUrl() { return MONIKER_URL + "nyx/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "nyx/relay-nyx-unknown.png"; }
     public String homeInfoLink() { return  "https://nymtech.net"; }
     public String blogInfoLink() { return  "https://nymtech.net/blog"; }
     public String coingeckoLink() { return  ""; }
@@ -52,13 +49,6 @@ public class Nyx extends ChainConfig {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
 
-    public String coinFullName(String denom) {
-        if (denom.equalsIgnoreCase(NYX_NYM_DENOM)) {
-            return "Nym Coin";
-        } else {
-            return StringUtils.capitalize(chainName()) + " Staking Coin";
-        }
-    }
 
     public static String NYX_NYM_DENOM = "unym";
 }

@@ -27,7 +27,6 @@ public class Comdex extends ChainConfig {
     public String mainDenom() { return "ucmdx"; }
     public String addressPrefix() { return "comdex"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Comdex extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.1746"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "comdex/"; }
     public String monikerUrl() { return MONIKER_URL + "comdex/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "comdex/relay-comdex-unknown.png"; }
     public String homeInfoLink() { return  "https://comdex.one"; }
     public String blogInfoLink() { return  "https://blog.comdex.one"; }
     public String coingeckoLink() { return  COINGECKO_URL + "comdex"; }

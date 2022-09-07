@@ -27,7 +27,6 @@ public class Sentinel extends ChainConfig {
     public String mainDenom() { return "udvpn"; }
     public String addressPrefix() { return "sent"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Sentinel extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.3113"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "sentinel/"; }
     public String monikerUrl() { return MONIKER_URL + "sentinel/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "sentinel/relay-sentinel-unknown.png"; }
     public String homeInfoLink() { return  "https://sentinel.co"; }
     public String blogInfoLink() { return  "https://medium.com/sentinel"; }
     public String coingeckoLink() { return  COINGECKO_URL + "sentinel"; }

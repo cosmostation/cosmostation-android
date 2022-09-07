@@ -7,16 +7,13 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_FAVO_TOKENS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -24,12 +21,14 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.google.common.collect.Sets;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -39,6 +38,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
@@ -56,14 +57,12 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
-import wannabit.io.cosmostaion.dao.Cw20Assets;
-import wannabit.io.cosmostaion.dao.IbcPath;
-import wannabit.io.cosmostaion.dao.IbcToken;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Password;
@@ -116,10 +115,9 @@ public class BaseData {
 
     public ArrayList<Price> mPrices = new ArrayList<>();
     public ChainParam.Params mChainParam;
-    public ArrayList<IbcPath> mIbcPaths = new ArrayList<>();
-    public ArrayList<IbcToken> mIbcTokens = new ArrayList<>();
-    public ArrayList<Assets> mAssets = new ArrayList<>();
-    public ArrayList<Cw20Assets> mCw20Assets = new ArrayList<>();
+    public ArrayList<Asset> mAssets = new ArrayList<>();
+    public ArrayList<Cw20Asset> mCw20Assets = new ArrayList<>();
+    public ArrayList<Cw20Asset> mCw20MyAssets = new ArrayList<>();
 
     public Price getPrice(String denom) {
         if (mPrices != null && mPrices.size() > 0) {
@@ -132,111 +130,49 @@ public class BaseData {
         return null;
     }
 
-    public IbcToken getIbcToken(String denom) {
-        String ibcHash = denom.replace("ibc/", "");
-        if (mIbcTokens != null && mIbcTokens.size() > 0) {
-            for (IbcToken ibcToken : mIbcTokens) {
-                if (ibcToken.hash.equals(ibcHash)) {
-                    return ibcToken;
-                }
-            }
-        }
-        return null;
-    }
-
-    public IbcPath.Path getIbcPath(String channelId) {
-        if (mIbcPaths != null && mIbcPaths.size() > 0) {
-            for (IbcPath ibcPath : mIbcPaths) {
-                for (IbcPath.Path path : ibcPath.paths) {
-                    if (path.channel_id.equals(channelId)) {
-                        return path;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public Assets getAsset(String denom) {
+    public Asset getAsset(String denom) {
         if (mAssets != null && mAssets.size() > 0) {
-            for (Assets assets : mAssets) {
-                if (assets.denom.equalsIgnoreCase(denom)) {
-                    return assets;
+            for (Asset asset : mAssets) {
+                if (asset.denom.equalsIgnoreCase(denom)) {
+                    return asset;
                 }
             }
         }
         return null;
     }
 
-    public void setCw20Balance(String contAddress, String amount) {
-        if (mCw20Assets != null && mCw20Assets.size() > 0) {
-            for (Cw20Assets assets : mCw20Assets) {
-                if (assets.contract_address.equalsIgnoreCase(contAddress)) {
-                    assets.setAmount(amount);
-                }
-            }
-        }
-    }
-
-    public ArrayList<Cw20Assets> getCw20sGrpc(BaseChain baseChain) {
-        ArrayList<Cw20Assets> result = new ArrayList<>();
-        if (mCw20Assets != null && mCw20Assets.size() > 0) {
-            for (Cw20Assets assets : mCw20Assets) {
-                if (assets.chain.equalsIgnoreCase(ChainFactory.getChain(baseChain).chainName()) && assets.getAmount() != null && assets.getAmount().compareTo(BigDecimal.ZERO) > 0) {
-                    result.add(assets);
-                }
-            }
-        }
-        return result;
-    }
-
-    public Cw20Assets getCw20_gRPC(String contAddress) {
-        if (mCw20Assets != null && mCw20Assets.size() > 0) {
-            for (Cw20Assets assets : mCw20Assets) {
-                if (assets.contract_address.equalsIgnoreCase(contAddress)) {
-                    return assets;
+    public Cw20Asset getCw20Asset(String denom) {
+        if (mCw20MyAssets != null && mCw20MyAssets.size() > 0) {
+            for (Cw20Asset asset : mCw20MyAssets) {
+                if (asset.denom.equalsIgnoreCase(denom)) {
+                    return asset;
                 }
             }
         }
         return null;
     }
 
-    public String getBaseDenom(ChainConfig chainConfig, String denom) {
-        if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken != null && ibcToken.auth) {
-                if (ibcToken.base_denom.startsWith("cw20:")) {
-                    String cAddress = ibcToken.base_denom.replaceAll("cw20:", "");
-                    for (Cw20Assets assets : mCw20Assets) {
-                        if (assets.contract_address.equalsIgnoreCase(cAddress)) {
-                            return assets.denom;
-                        } else {
-                            return ibcToken.base_denom;
-                        }
-                    }
-                } else {
-                    return ibcToken.base_denom;
-                }
-            } else {
-                return "UNKNOWN";
-            }
-        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
-            if (denom.startsWith("c") || denom.startsWith("x")) return denom.substring(1);
+    public void setMyTokens(String address) {
+        Set<String> listingContractAddressSet = getUserFavoTokens(address);
+        listingContractAddressSet.addAll(mCw20Assets.stream().filter(item -> item.default_show).map(item -> item.contract_address).collect(Collectors.toSet()));
+        mCw20MyAssets.addAll(mCw20Assets.stream().filter(item -> listingContractAddressSet.contains(item.contract_address)).collect(Collectors.toList()));
+    }
 
-        } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-            if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
-                return "bnb";
-            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
-                return "xrp";
-            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
-                return "busd";
-            } else if (denom.contains("btc")) {
-                return "btc";
-            } else {
-                return denom;
+    public void setMyTokenBalance(String contractAddress, String amount) {
+        for (Cw20Asset myAsset : mCw20MyAssets) {
+            if (myAsset.contract_address.equalsIgnoreCase(contractAddress)) {
+                myAsset.setAmount(amount);
             }
         }
-        return denom;
+    }
+
+    public String getBaseDenom(String denom) {
+        Asset asset = getAsset(denom);
+        if (asset != null) {
+            return asset.base_denom;
+        } else {
+            return denom;
+        }
     }
 
     //COMMON DATA
@@ -303,10 +239,6 @@ public class BaseData {
         return result;
     }
 
-    public BigDecimal delegatableAmount(String denom) {
-        return availableAmount(denom).add(lockedAmount(denom));
-    }
-
     public BigDecimal frozenAmount(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         for (Balance balance : mBalances) {
@@ -341,18 +273,6 @@ public class BaseData {
         BigDecimal result = BigDecimal.ZERO;
         for (UnbondingInfo unbondingInfo : mMyUnbondings) {
             if (unbondingInfo.entries != null) {
-                for (UnbondingInfo.Entry entry : unbondingInfo.entries) {
-                    result = result.add(new BigDecimal(entry.balance));
-                }
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal unbondingAmountByValidator(String opAddress) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (UnbondingInfo unbondingInfo : mMyUnbondings) {
-            if (unbondingInfo.validator_address.equals(opAddress) && unbondingInfo.entries != null) {
                 for (UnbondingInfo.Entry entry : unbondingInfo.entries) {
                     result = result.add(new BigDecimal(entry.balance));
                 }
@@ -1191,6 +1111,15 @@ public class BaseData {
         return chains;
     }
 
+    public void setUserFavoTokens(String address, Set<String> contractSet) {
+        getSharedPreferences().edit().putString(address + " " + PRE_USER_FAVO_TOKENS, StringUtils.join(contractSet, ",")).commit();
+    }
+
+    public Set<String> getUserFavoTokens(String address) {
+        String contracts = getSharedPreferences().getString(address + " " + PRE_USER_FAVO_TOKENS, "");
+        return Sets.newHashSet(contracts.split(","));
+    }
+
     public Password onSelectPassword() {
         Password result = null;
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_PASSWORD, new String[]{"resource", "spec"}, null, null, null, null, null);
@@ -1224,36 +1153,10 @@ public class BaseData {
 
     public ArrayList<Account> onSelectAccounts() {
         ArrayList<Account> result = new ArrayList<>();
-        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
-                "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, null, null, null, null, null);
+        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain", "hasPrivateKey", "resource", "spec", "fromMnemonic", "path", "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                Account account = new Account(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getInt(3) > 0,
-                        cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getInt(6) > 0,
-                        cursor.getString(7),
-                        cursor.getString(8),
-                        cursor.getInt(9) > 0,
-                        cursor.getString(10),
-                        cursor.getInt(11) > 0,
-                        cursor.getInt(12),
-                        cursor.getInt(13),
-                        cursor.getLong(14),
-                        cursor.getInt(15),
-                        cursor.getLong(16),
-                        cursor.getString(17),
-                        cursor.getLong(18),
-                        cursor.getInt(19) > 0,
-                        cursor.getInt(20) > 0,
-                        cursor.getInt(21),
-                        cursor.getLong(22)
-                );
+                Account account = new Account(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3) > 0, cursor.getString(4), cursor.getString(5), cursor.getInt(6) > 0, cursor.getString(7), cursor.getString(8), cursor.getInt(9) > 0, cursor.getString(10), cursor.getInt(11) > 0, cursor.getInt(12), cursor.getInt(13), cursor.getLong(14), cursor.getInt(15), cursor.getLong(16), cursor.getString(17), cursor.getLong(18), cursor.getInt(19) > 0, cursor.getInt(20) > 0, cursor.getInt(21), cursor.getLong(22));
                 account.setBalances(onSelectBalance(account.id));
                 result.add(account);
             } while (cursor.moveToNext());
@@ -1286,6 +1189,17 @@ public class BaseData {
         ArrayList<Account> AllAccount = onSelectAccounts();
         for (Account account : AllAccount) {
             if (BaseChain.getChain(account.baseChain).equals(chain)) {
+                result.add(account);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Account> onSelectAccountsExceptSelfByChain(BaseChain chain, Account selfAccount) {
+        ArrayList<Account> result = new ArrayList<>();
+        ArrayList<Account> AllAccount = onSelectAccounts();
+        for (Account account : AllAccount) {
+            if (BaseChain.getChain(account.baseChain).equals(chain) && !account.address.equalsIgnoreCase(selfAccount.address)) {
                 result.add(account);
             }
         }
@@ -1325,35 +1239,9 @@ public class BaseData {
 
     public Account onSelectAccount(String id) {
         Account result = null;
-        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
-                "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "id == ?", new String[]{id}, null, null, null);
+        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain", "hasPrivateKey", "resource", "spec", "fromMnemonic", "path", "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "id == ?", new String[]{id}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            result = new Account(
-                    cursor.getLong(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getInt(3) > 0,
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getInt(6) > 0,
-                    cursor.getString(7),
-                    cursor.getString(8),
-                    cursor.getInt(9) > 0,
-                    cursor.getString(10),
-                    cursor.getInt(11) > 0,
-                    cursor.getInt(12),
-                    cursor.getInt(13),
-                    cursor.getLong(14),
-                    cursor.getInt(15),
-                    cursor.getLong(16),
-                    cursor.getString(17),
-                    cursor.getLong(18),
-                    cursor.getInt(19) > 0,
-                    cursor.getInt(20) > 0,
-                    cursor.getInt(21),
-                    cursor.getLong(22)
-            );
+            result = new Account(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3) > 0, cursor.getString(4), cursor.getString(5), cursor.getInt(6) > 0, cursor.getString(7), cursor.getString(8), cursor.getInt(9) > 0, cursor.getString(10), cursor.getInt(11) > 0, cursor.getInt(12), cursor.getInt(13), cursor.getLong(14), cursor.getInt(15), cursor.getLong(16), cursor.getString(17), cursor.getLong(18), cursor.getInt(19) > 0, cursor.getInt(20) > 0, cursor.getInt(21), cursor.getLong(22));
             result.setBalances(onSelectBalance(result.id));
         }
         cursor.close();
@@ -1365,36 +1253,10 @@ public class BaseData {
 
     public Account onSelectExistAccount(String address, BaseChain chain) {
         ArrayList<Account> result = new ArrayList<>();
-        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
-                "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "address == ?", new String[]{address}, null, null, null);
+        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain", "hasPrivateKey", "resource", "spec", "fromMnemonic", "path", "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "address == ?", new String[]{address}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                Account account = new Account(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getInt(3) > 0,
-                        cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getInt(6) > 0,
-                        cursor.getString(7),
-                        cursor.getString(8),
-                        cursor.getInt(9) > 0,
-                        cursor.getString(10),
-                        cursor.getInt(11) > 0,
-                        cursor.getInt(12),
-                        cursor.getInt(13),
-                        cursor.getLong(14),
-                        cursor.getInt(15),
-                        cursor.getLong(16),
-                        cursor.getString(17),
-                        cursor.getLong(18),
-                        cursor.getInt(19) > 0,
-                        cursor.getInt(20) > 0,
-                        cursor.getInt(21),
-                        cursor.getLong(22)
-                );
+                Account account = new Account(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3) > 0, cursor.getString(4), cursor.getString(5), cursor.getInt(6) > 0, cursor.getString(7), cursor.getString(8), cursor.getInt(9) > 0, cursor.getString(10), cursor.getInt(11) > 0, cursor.getInt(12), cursor.getInt(13), cursor.getLong(14), cursor.getInt(15), cursor.getLong(16), cursor.getString(17), cursor.getLong(18), cursor.getInt(19) > 0, cursor.getInt(20) > 0, cursor.getInt(21), cursor.getLong(22));
                 account.setBalances(onSelectBalance(account.id));
                 result.add(account);
             } while (cursor.moveToNext());
@@ -1411,35 +1273,9 @@ public class BaseData {
 
     public Account onSelectExistAccount2(String address) {
         Account result = null;
-        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain",
-                "hasPrivateKey", "resource", "spec", "fromMnemonic", "path",
-                "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "address == ?", new String[]{address}, null, null, null);
+        Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain", "hasPrivateKey", "resource", "spec", "fromMnemonic", "path", "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "address == ?", new String[]{address}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            result = new Account(
-                    cursor.getLong(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getInt(3) > 0,
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    cursor.getInt(6) > 0,
-                    cursor.getString(7),
-                    cursor.getString(8),
-                    cursor.getInt(9) > 0,
-                    cursor.getString(10),
-                    cursor.getInt(11) > 0,
-                    cursor.getInt(12),
-                    cursor.getInt(13),
-                    cursor.getLong(14),
-                    cursor.getInt(15),
-                    cursor.getLong(16),
-                    cursor.getString(17),
-                    cursor.getLong(18),
-                    cursor.getInt(19) > 0,
-                    cursor.getInt(20) > 0,
-                    cursor.getInt(21),
-                    cursor.getLong(22)
-            );
+            result = new Account(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3) > 0, cursor.getString(4), cursor.getString(5), cursor.getInt(6) > 0, cursor.getString(7), cursor.getString(8), cursor.getInt(9) > 0, cursor.getString(10), cursor.getInt(11) > 0, cursor.getInt(12), cursor.getInt(13), cursor.getLong(14), cursor.getInt(15), cursor.getLong(16), cursor.getString(17), cursor.getLong(18), cursor.getInt(19) > 0, cursor.getInt(20) > 0, cursor.getInt(21), cursor.getLong(22));
             result.setBalances(onSelectBalance(result.id));
         }
         cursor.close();
@@ -1477,18 +1313,12 @@ public class BaseData {
 
     public long onUpdateAccount(Account account) {
         ContentValues values = new ContentValues();
-        if (!TextUtils.isEmpty(account.nickName))
-            values.put("nickName", account.nickName);
-        if (account.isFavo != null)
-            values.put("isFavo", account.isFavo);
-        if (account.sequenceNumber != null)
-            values.put("sequenceNumber", account.sequenceNumber);
-        if (account.accountNumber != null)
-            values.put("accountNumber", account.accountNumber);
-        if (account.fetchTime != null)
-            values.put("fetchTime", account.fetchTime);
-        if (account.baseChain != null)
-            values.put("baseChain", account.baseChain);
+        if (!TextUtils.isEmpty(account.nickName)) values.put("nickName", account.nickName);
+        if (account.isFavo != null) values.put("isFavo", account.isFavo);
+        if (account.sequenceNumber != null) values.put("sequenceNumber", account.sequenceNumber);
+        if (account.accountNumber != null) values.put("accountNumber", account.accountNumber);
+        if (account.fetchTime != null) values.put("fetchTime", account.fetchTime);
+        if (account.baseChain != null) values.put("baseChain", account.baseChain);
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{"" + account.id});
     }
 
@@ -1540,16 +1370,7 @@ public class BaseData {
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_MNEMONIC, new String[]{"id", "uuid", "resource", "spec", "nickName", "wordsCnt", "isFavo", "importTime"}, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                MWords mWords = new MWords(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getInt(5),
-                        cursor.getInt(6) > 0,
-                        cursor.getLong(7)
-                );
+                MWords mWords = new MWords(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5), cursor.getInt(6) > 0, cursor.getLong(7));
                 result.add(mWords);
             } while (cursor.moveToNext());
         }
@@ -1580,10 +1401,8 @@ public class BaseData {
 
     public long onUpdateMnemonic(MWords mWords) {
         ContentValues values = new ContentValues();
-        if (!TextUtils.isEmpty(mWords.nickName))
-            values.put("nickName", mWords.nickName);
-        if (mWords.isFavo != null)
-            values.put("isFavo", mWords.isFavo);
+        if (!TextUtils.isEmpty(mWords.nickName)) values.put("nickName", mWords.nickName);
+        if (mWords.isFavo != null) values.put("isFavo", mWords.isFavo);
         return getBaseDB().update(BaseConstant.DB_TABLE_MNEMONIC, values, "id = ?", new String[]{"" + mWords.id});
     }
 
@@ -1734,13 +1553,7 @@ public class BaseData {
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_BALANCE, new String[]{"accountId", "symbol", "balance", "fetchTime", "frozen", "locked"}, "accountId == ?", new String[]{"" + accountId}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                Balance balance = new Balance(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getLong(3),
-                        cursor.getString(4),
-                        cursor.getString(5));
+                Balance balance = new Balance(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getLong(3), cursor.getString(4), cursor.getString(5));
                 result.add(balance);
             } while (cursor.moveToNext());
         }
@@ -1757,10 +1570,8 @@ public class BaseData {
             values.put("symbol", balance.symbol);
             values.put("balance", balance.balance.toPlainString());
             values.put("fetchTime", balance.fetchTime);
-            if (balance.frozen != null)
-                values.put("frozen", balance.frozen.toPlainString());
-            if (balance.locked != null)
-                values.put("locked", balance.locked.toPlainString());
+            if (balance.frozen != null) values.put("frozen", balance.frozen.toPlainString());
+            if (balance.locked != null) values.put("locked", balance.locked.toPlainString());
             return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_BALANCE, null, values);
         }
     }

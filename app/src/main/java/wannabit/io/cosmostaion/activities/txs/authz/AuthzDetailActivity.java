@@ -485,7 +485,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
     public void onStartAuthzVote() {
         if (!onCommonCheck()) return;
 
-        if (getRedelegateAuthz() != null) {
+        if (getVoteAuthz() != null) {
             Intent intent = new Intent(this, AuthzVoteActivity.class);
             intent.putExtra("granter", mGranter);
             startActivity(intent);

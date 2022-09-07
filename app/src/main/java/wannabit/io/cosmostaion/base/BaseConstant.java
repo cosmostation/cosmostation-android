@@ -30,6 +30,7 @@ public class BaseConstant {
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
     public final static String PRE_USER_EXPENDED_CHAINS     = "PRE_USER_EXPENDED_CHAINS";
+    public final static String PRE_USER_FAVO_TOKENS         = "PRE_USER_FAVO_TOKENS";
     public final static String PRE_DB_VERSION               = "PRE_DB_VERSION";
     public final static String PRE_THEME_MOD                = "PRE_THEME_MOD";
     public final static String PRE_AUTO_SIGN                = "PRE_AUTO_SIGN";
@@ -77,10 +78,7 @@ public class BaseConstant {
 
     public final static int TASK_FETCH_PRICE_INFO                       = 2800;
     public final static int TASK_FETCH_PARAM_INFO                       = 2801;
-    public final static int TASK_FETCH_IBC_PATHS                        = 2802;
-    public final static int TASK_FETCH_IBC_TOKENS                       = 2803;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
-    public final static int TASK_FETCH_MINTSCAN_ASSETS                  = 2805;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
 
@@ -195,6 +193,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_EXECUTE_CONTRACT           = 4346;
     public final static int TASK_GRPC_GEN_TX_AUTHZ_DELEGATE             = 4347;
     public final static int TASK_GRPC_GEN_TX_AUTHZ_UNDELEGATE           = 4348;
+    public final static int TASK_GRPC_GEN_TX_IBC_CONTRACT               = 4549;
 
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
@@ -238,7 +237,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_HARD          = 4544;
     public final static int TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES    = 4545;
     public final static int TASK_GRPC_SIMULATE_EXECUTE_CONTRACT         = 4546;
-
+    public final static int TASK_GRPC_SIMULATE_IBC_CONTRACT             = 4547;
 
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
@@ -311,7 +310,8 @@ public class BaseConstant {
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
     public final static int CONST_PW_TX_PROFILE                             = 5057;
-    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5059;
+    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5058;
+    public final static int CONST_PW_TX_IBC_CONTRACT                        = 5059;
 
     public final static int CONST_PW_TX_AUTHZ_DELEGATE                      = 5060;
     public final static int CONST_PW_TX_AUTHZ_UNDELEGATE                    = 5061;
@@ -378,8 +378,7 @@ public class BaseConstant {
     public final static String EXPLORER_BASE_URL        = "https://www.mintscan.io/";
     public final static String RESOURCE_BASE_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/";
     public final static String MONIKER_URL              = RESOURCE_BASE_URL + "moniker/";
-    public final static String UNKNOWN_RELAYER_URL      = RESOURCE_BASE_URL + "relayer/";
-    public final static String ASSET_IMG_URL            = RESOURCE_BASE_URL + "assets/images/ethereum/";
+    public final static String ASSET_IMG_URL            = RESOURCE_BASE_URL + "assets/images/";
     public final static String COINGECKO_URL            = "https://www.coingecko.com/en/coins/";
 
 

@@ -72,7 +72,9 @@ abstract public class ChainConfig {
 
     public boolean etherAddressSupport() { return false; }
 
-    public abstract boolean pushSupport();
+    public boolean bridgeCoinSupport() { return false; }
+
+    public boolean erc20CoinSupport() { return false; }
 
     public abstract boolean dexSupport();
 
@@ -109,8 +111,6 @@ abstract public class ChainConfig {
     public abstract String explorerUrl();
 
     public abstract String monikerUrl();
-
-    public abstract String relayerImgUrl();
 
     public abstract String homeInfoLink();
 
