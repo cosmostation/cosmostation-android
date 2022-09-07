@@ -88,6 +88,9 @@ public class ChainFactory {
                 case INJ_MAIN:
                     return new Injective();
 
+                case IXO_MAIN:
+                    return new Ixo();
+
                 case JUNO_MAIN:
                     return new Juno();
 

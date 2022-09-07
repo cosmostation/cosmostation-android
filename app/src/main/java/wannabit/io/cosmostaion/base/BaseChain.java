@@ -86,6 +86,7 @@ public enum BaseChain {
     STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
     PASSAGE_MAIN("passage-mainnet"),
+    IXO_MAIN("ixo-mainnet"),
     SOMMELIER_MAIN("sommelier-mainnet");
 
     private final String chainName;
@@ -255,6 +256,9 @@ public enum BaseChain {
         if (chainName.equals(PASSAGE_MAIN.chainName)) {
             return PASSAGE_MAIN;
         }
+        if (chainName.equals(IXO_MAIN.chainName)) {
+            return IXO_MAIN;
+        }
         if (chainName.equals(SOMMELIER_MAIN.chainName)) {
             return SOMMELIER_MAIN;
         }
@@ -285,6 +289,7 @@ public enum BaseChain {
         result.add(FETCHAI_MAIN);
         result.add(GRABRIDGE_MAIN);
         result.add(INJ_MAIN);
+        result.add(IXO_MAIN);
         result.add(JUNO_MAIN);
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);

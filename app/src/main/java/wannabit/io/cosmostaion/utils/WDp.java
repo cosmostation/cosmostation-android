@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Crescent;
 import wannabit.io.cosmostaion.base.chains.Emoney;
+import wannabit.io.cosmostaion.base.chains.Ixo;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Okc;
