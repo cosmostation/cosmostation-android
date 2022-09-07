@@ -27,7 +27,6 @@ public class Chihuahua extends ChainConfig {
     public String mainDenom() { return "uhuahua"; }
     public String addressPrefix() { return "chihuahua"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Chihuahua extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.8172"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "chihuahua/"; }
     public String monikerUrl() { return MONIKER_URL + "chihuahua/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "chihuahua/relay-chihuahua-unknown.png"; }
     public String homeInfoLink() { return  "https://chi.huahua.wtf"; }
     public String blogInfoLink() { return  "https://chi.huahua.wtf"; }
     public String coingeckoLink() { return  COINGECKO_URL + "chihuahua-chain"; }

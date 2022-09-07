@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.Lists;
 
@@ -30,7 +32,6 @@ public class Cudos extends ChainConfig {
     }
     public String addressPrefix() { return "cudos"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -40,7 +41,6 @@ public class Cudos extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.060"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "cudos/"; }
     public String monikerUrl() { return MONIKER_URL + "cudos/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "cudos/relay-cudos-unknown.png"; }
     public String homeInfoLink() { return  "https://www.cudos.org"; }
     public String blogInfoLink() { return  "https://www.cudos.org/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cudos"; }

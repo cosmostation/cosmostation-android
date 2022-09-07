@@ -30,7 +30,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
+import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -216,7 +216,7 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
         } else if (v.equals(mSelectCoinBtn)  && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("sendCoins", mGrantAvailbale);
-            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_SEND_COIN);
             dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 

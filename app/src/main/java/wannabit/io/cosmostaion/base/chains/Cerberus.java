@@ -27,7 +27,6 @@ public class Cerberus extends ChainConfig {
     public String mainDenom() { return "ucrbrus"; }
     public String addressPrefix() { return "cerberus"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Cerberus extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.9666"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "cerberus/"; }
     public String monikerUrl() { return MONIKER_URL + "cerberus/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "cerberus/relay-cerberus-unknown.png"; }
     public String homeInfoLink() { return  "https://cerberus.zone"; }
     public String blogInfoLink() { return  "https://medium.com/@cerberus_zone"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cerberus"; }

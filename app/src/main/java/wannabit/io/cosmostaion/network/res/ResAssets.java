@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import wannabit.io.cosmostaion.dao.Assets;
+import wannabit.io.cosmostaion.dao.Asset;
 
 public class ResAssets {
     @SerializedName("assets")
-    public ArrayList<Assets> assets;
+    public ArrayList<Asset> assets;
 }

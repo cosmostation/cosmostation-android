@@ -33,7 +33,6 @@ public class Persistence extends ChainConfig {
     public int sendBgColor() { return R.color.colorBlack2; }
     public String addressPrefix() { return "persistence"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -43,7 +42,6 @@ public class Persistence extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.7982"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "persistence/"; }
     public String monikerUrl() { return MONIKER_URL + "persistence/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "persistence/relay-persistence-unknown.png"; }
     public String homeInfoLink() { return  "https://persistence.one"; }
     public String blogInfoLink() { return  "https://medium.com/persistence-blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "persistence"; }

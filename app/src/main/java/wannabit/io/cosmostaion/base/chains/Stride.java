@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.Lists;
 
@@ -29,18 +28,16 @@ public class Stride extends ChainConfig {
     public String mainDenom() { return "ustrd"; }
     public String addressPrefix() { return "stride"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public boolean authzSupport() {return true;}
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-stride-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-stride.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.0000"); }
+    public BigDecimal blockTime() { return new BigDecimal("5.732"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "stride/"; }
     public String monikerUrl() { return MONIKER_URL + "stride/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "stride/relay-stride-unknown.png"; }
     public String homeInfoLink() { return  "https://stride.zone/"; }
     public String blogInfoLink() { return  "https://stride.zone/blog"; }
     public String coingeckoLink() { return  ""; }
