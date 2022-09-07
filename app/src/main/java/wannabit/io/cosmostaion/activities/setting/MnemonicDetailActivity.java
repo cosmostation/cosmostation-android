@@ -134,6 +134,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             bundle.putLong("id", mWords.id);
             bundle.putString("name", mWords.getName());
             ChangeNickNameDialog deleteDialog = ChangeNickNameDialog.newInstance(bundle);
+            deleteDialog.setCancelable(false);
             deleteDialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mCopy)) {

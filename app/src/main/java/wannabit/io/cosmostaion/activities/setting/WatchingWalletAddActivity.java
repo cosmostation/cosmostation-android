@@ -94,7 +94,6 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
                     Bundle bundle = new Bundle();
                     bundle.putString("watchAddress", mUserInput);
                     SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-                    dialog.setCancelable(true);
                     dialog.show(getSupportFragmentManager(), "dialog");
                     dialog.setSelectChainsDialogResult(result -> {
                         mWatchAddressChainList = new Gson().fromJson(result, new TypeToken<List<BaseChain>>() {
