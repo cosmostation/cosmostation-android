@@ -4,7 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.RESOURCE_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;

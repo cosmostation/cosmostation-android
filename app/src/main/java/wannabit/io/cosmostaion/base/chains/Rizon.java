@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.Lists;
 

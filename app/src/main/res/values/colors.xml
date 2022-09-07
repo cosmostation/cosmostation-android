@@ -56,6 +56,7 @@
     <color name="colorTransBgStation">#e6f9fa</color>
     <color name="colorTransBgNyx">#fff1ef</color>
     <color name="colorTransBgPassage">#ebf4fe</color>
+    <color name="colorTransBgIxo">#ecf5ff</color>
     <color name="colorTransBgSommelier">#f6eaf1</color>
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -188,6 +189,8 @@
 
     <color name="color_passage">#5da5fb</color>
 
+    <color name="color_ixo">#06b7dd</color>
+    
     <color name="color_sommelier">#a22b70</color>
 
     <color name="colorRed">#f31963</color>
