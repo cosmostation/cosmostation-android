@@ -67,6 +67,12 @@ public class CurrencySetDialog extends DialogFragment {
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
             });
+
+            if ("MYR".equals(mUnitList[position])) {
+                holder.rootView.setVisibility(View.GONE);
+            } else {
+                holder.rootView.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -77,11 +83,13 @@ public class CurrencySetDialog extends DialogFragment {
         public class CurrencyHolder extends RecyclerView.ViewHolder {
             LinearLayout rootLayer;
             TextView currencyName;
+            View rootView;
 
             public CurrencyHolder(@NonNull View itemView) {
                 super(itemView);
                 rootLayer = itemView.findViewById(R.id.rootLayer);
                 currencyName = itemView.findViewById(R.id.currencyName);
+                rootView = itemView.findViewById(R.id.rootView);
             }
         }
     }
