@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingNewHolder;
@@ -51,7 +49,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
     private RecyclerView mRecyclerView;
     private StakingTokenGrpcAdapter mAdapter;
 
-    private RelativeLayout mBtnIbcSend;
     private RelativeLayout mBtnSend;
 
     private Boolean mHasVesting = false;
@@ -76,7 +73,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mTotalValue = findViewById(R.id.total_value);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
-        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
         mBtnSend = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
@@ -102,7 +98,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
         onUpdateView();
         mBtnAddressPopup.setOnClickListener(this);
-        mBtnIbcSend.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
     }
 
@@ -146,26 +141,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             onClickQrCopy(mChainConfig, mAccount);
-
-        } else if (v.equals(mBtnIbcSend)) {
-            if (!mAccount.hasPrivateKey) {
-                onInsertKeyDialog();
-                return;
-            }
-            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
-                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal mainAvailable = getBaseDao().getAvailable(mChainConfig.mainDenom());
-            if (BigDecimal.ZERO.compareTo(mainAvailable) >= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            CommonAlertDialog.showSingleButton(this, getString(R.string.str_ibc_warning_c),
-                    Html.fromHtml(getString(R.string.str_ibc_warning_msg1) + "<br><br>" + getString(R.string.str_ibc_warning_msg2)),
-                    Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_ibc_continue_c) + "</font>"), view -> onCheckIbcTransfer(mMainDenom));
 
         } else if (v.equals(mBtnSend)) {
             if (!mAccount.hasPrivateKey) {

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import irismod.nft.QueryOuterClass;
@@ -11,11 +10,10 @@ import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
-import wannabit.io.cosmostaion.dao.IbcPath;
+import wannabit.io.cosmostaion.dao.AssetPath;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResProposal;
 
 public class BaseBroadCastActivity extends BaseActivity {
 
@@ -61,7 +59,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mSifWithdrawCoin;
     public Querier.LiquidityProviderRes mMyProvider;
 
-    public IbcPath.Path                 mPath;
+    public Cw20Asset                    mCw20Asset;
+    public AssetPath                    mAssetPath;
 
     // NFT
     public String                           mNftDenomId;
@@ -92,9 +91,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String                                               mCollateralType;
     public Coin                                                 mPayment;
     public ArrayList<Coin>                                      mHardPoolCoins = new ArrayList<>();
-
-    // contract
-    public String                                               mContractAddress;
 
     // Authz
     public String mGranter;

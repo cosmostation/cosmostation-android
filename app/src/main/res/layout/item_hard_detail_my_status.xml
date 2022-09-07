@@ -49,8 +49,8 @@
                 android:layout_marginTop="@dimen/space_16">
                 <ImageView
                     android:id="@+id/deposit_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/space_24"
+                    android:layout_height="@dimen/space_24"
                     android:layout_centerVertical="true"
                     android:src="@drawable/token_default"/>
                 <TextView

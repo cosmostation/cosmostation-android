@@ -34,7 +34,6 @@ public class Secret extends ChainConfig {
     public String mainDenom() { return "uscrt"; }
     public String addressPrefix() { return "secret"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -44,7 +43,6 @@ public class Secret extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.0408"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "secret/"; }
     public String monikerUrl() { return MONIKER_URL + "secret/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "secret/relay-secret-unknown.png"; }
     public String homeInfoLink() { return  "https://scrt.network"; }
     public String blogInfoLink() { return  "https://blog.scrt.network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "secret"; }

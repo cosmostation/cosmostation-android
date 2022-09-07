@@ -47,7 +47,7 @@ public class Cw20BalanceGrpcTask extends CommonTask {
             QueryOuterClass.QuerySmartContractStateResponse response = mStub.smartContractState(request);
 
             JSONObject json = new JSONObject(response.getData().toStringUtf8());
-            mApp.getBaseDao().setCw20Balance(mContAddress, json.get("balance").toString());
+            mApp.getBaseDao().setMyTokenBalance(mContAddress, json.get("balance").toString());
 
         } catch (Exception e) {
             WLog.e("Cw20BalanceGrpcTask " + e.getMessage());

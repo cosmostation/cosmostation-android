@@ -34,7 +34,6 @@ public class Bitsong extends ChainConfig {
     public String mainDenom() { return "ubtsg"; }
     public String addressPrefix() { return "bitsong"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
@@ -45,7 +44,6 @@ public class Bitsong extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.9040"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "bitsong/"; }
     public String monikerUrl() { return MONIKER_URL + "bitsong/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "bitsong/relay-bitsong-unknown.png"; }
     public String homeInfoLink() { return  "https://bitsong.io"; }
     public String blogInfoLink() { return  "https://bitsongofficial.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "bitsong"; }

@@ -1,10 +1,11 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.Lists;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ public class Osmosis extends ChainConfig {
     public String mainDenom() { return "uosmo"; }
     public String addressPrefix() { return "osmo"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return true; }
 
@@ -39,7 +39,6 @@ public class Osmosis extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.5324"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "osmosis/"; }
     public String monikerUrl() { return MONIKER_URL + "osmosis/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "osmosis/relay-osmosis-unknown.png"; }
     public String homeInfoLink() { return  "https://osmosis.zone"; }
     public String blogInfoLink() { return  "https://medium.com/osmosis"; }
     public String coingeckoLink() { return  COINGECKO_URL + "osmosis"; }
@@ -52,13 +51,6 @@ public class Osmosis extends ChainConfig {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
 
-    public String coinFullName(String denom) {
-        if (denom.equalsIgnoreCase(OSMOSIS_ION_DENOM)) {
-            return "Ion Coin";
-        } else {
-            return StringUtils.capitalize(chainName()) + " Staking Coin";
-        }
-    }
 
     public static String OSMOSIS_ION_DENOM = "uion";
 }

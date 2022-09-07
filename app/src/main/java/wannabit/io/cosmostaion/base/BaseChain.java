@@ -87,6 +87,7 @@ public enum BaseChain {
     NYX_MAIN("nyx-mainnet"),
     PASSAGE_MAIN("passage-mainnet"),
     IXO_MAIN("ixo-mainnet");
+    SOMMELIER_MAIN("sommelier-mainnet");
 
     private final String chainName;
 
@@ -258,6 +259,9 @@ public enum BaseChain {
         if (chainName.equals(IXO_MAIN.chainName)) {
             return IXO_MAIN;
         }
+        if (chainName.equals(SOMMELIER_MAIN.chainName)) {
+            return SOMMELIER_MAIN;
+        }
 
         return null;
     }
@@ -303,6 +307,7 @@ public enum BaseChain {
         result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);
         result.add(SENTINEL_MAIN);
+        result.add(SOMMELIER_MAIN);
         result.add(CERTIK_MAIN);
         result.add(SIF_MAIN);
         result.add(STARGAZE_MAIN);

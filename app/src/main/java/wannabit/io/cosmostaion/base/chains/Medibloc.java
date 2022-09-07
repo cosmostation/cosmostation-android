@@ -32,7 +32,6 @@ public class Medibloc extends ChainConfig {
     public String mainDenom() { return "umed"; }
     public String addressPrefix() { return "panacea"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -42,7 +41,6 @@ public class Medibloc extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.7849"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "medibloc/"; }
     public String monikerUrl() { return MONIKER_URL + "medibloc/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "medibloc/relay-medibloc-unknown.png"; }
     public String homeInfoLink() {
         if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
             return "https://medibloc.com";

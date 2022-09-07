@@ -27,7 +27,6 @@ public class Stargaze extends ChainConfig {
     public String mainDenom() { return "ustars"; }
     public String addressPrefix() { return "stars"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
@@ -38,7 +37,6 @@ public class Stargaze extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.8129"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "stargaze/"; }
     public String monikerUrl() { return MONIKER_URL + "stargaze/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "stargaze/relay-stargaze-unknown.png"; }
     public String homeInfoLink() { return  "https://stargaze.zone"; }
     public String blogInfoLink() { return  "https://mirror.xyz/stargazezone.eth"; }
     public String coingeckoLink() { return  COINGECKO_URL + "stargaze"; }

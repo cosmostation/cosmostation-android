@@ -27,7 +27,6 @@ public class Cosmos extends ChainConfig {
     public String mainDenom() { return "uatom"; }
     public String addressPrefix() { return "cosmos"; }
 
-    public boolean pushSupport() { return true; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -37,7 +36,6 @@ public class Cosmos extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("7.6597"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "cosmos/"; }
     public String monikerUrl() { return MONIKER_URL + "cosmoshub/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "cosmos/relay-cosmos-unknown.png"; }
     public String homeInfoLink() { return  "https://cosmos.network"; }
     public String blogInfoLink() { return  "https://blog.cosmos.network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cosmos"; }

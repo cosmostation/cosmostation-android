@@ -30,7 +30,6 @@ public class Shentu extends ChainConfig {
     public String mainDenom() { return "uctk"; }
     public String addressPrefix() { return "certik"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -40,7 +39,6 @@ public class Shentu extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.9740"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "shentu/"; }
     public String monikerUrl() { return MONIKER_URL + "shentu/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "shentu/relay-shentu-unknown.png"; }
     public String homeInfoLink() { return  "https://www.certik.foundation"; }
     public String blogInfoLink() { return  "https://medium.com/shentu-foundation"; }
     public String coingeckoLink() { return  COINGECKO_URL + "shentu"; }

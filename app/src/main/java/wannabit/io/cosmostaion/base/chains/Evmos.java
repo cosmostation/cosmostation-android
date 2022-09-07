@@ -35,7 +35,6 @@ public class Evmos extends ChainConfig {
     public String addressPrefix() { return "evmos"; }
 
     public boolean etherAddressSupport() { return true; }
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
@@ -46,7 +45,6 @@ public class Evmos extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.824"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "evmos/"; }
     public String monikerUrl() { return MONIKER_URL + "evmos/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "evmos/relay-evmos-unknown.png"; }
     public String homeInfoLink() { return  "https://evmos.org"; }
     public String blogInfoLink() { return  "https://evmos.blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "evmos"; }

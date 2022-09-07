@@ -48,7 +48,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
 
-    private RelativeLayout mBtnIbcSend, mBtnBep3Send, mBtnSend;
+    private RelativeLayout mBtnBep3Send, mBtnSend;
 
     private StakingTokenAdapter mAdapter;
     private Boolean mHasVesting = false;
@@ -74,7 +74,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         mTotalValue = findViewById(R.id.total_value);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
-        mBtnIbcSend = findViewById(R.id.btn_ibc_send);
         mBtnBep3Send = findViewById(R.id.btn_bep3_send);
         mBtnSend = findViewById(R.id.btn_send);
 
@@ -87,7 +86,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         mChainConfig = ChainFactory.getChain(mBaseChain);
         mMainDenom = mChainConfig.mainDenom();
         mToolbarChannel.setVisibility(View.GONE);
-        mBtnIbcSend.setVisibility(View.GONE);
 
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             mBtnBep3Send.setVisibility(View.VISIBLE);

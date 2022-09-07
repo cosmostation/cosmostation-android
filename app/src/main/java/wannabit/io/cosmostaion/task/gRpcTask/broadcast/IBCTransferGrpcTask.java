@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_IBC_TRANSFER;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -17,6 +21,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -26,10 +31,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_IBC_TRANSFER;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
-
 public class IBCTransferGrpcTask extends CommonTask {
 
     private Account                 mAccount;
@@ -37,7 +38,7 @@ public class IBCTransferGrpcTask extends CommonTask {
     private String                  mSender;
     private String                  mReceiver;
     private String                  mTokenDenom, mTokenAmount;
-    private String                  mPortId, mChannelId;
+    private AssetPath               mAssetPath;
     private Fee                     mFees;
     private String                  mChainId;
 
@@ -46,7 +47,7 @@ public class IBCTransferGrpcTask extends CommonTask {
     private ibc.core.channel.v1.QueryGrpc.QueryBlockingStub mStub;
 
     public IBCTransferGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recevier, String tokenDenom, String tokenAmount,
-                               String portId, String channelId, Fee fee, String chainId) {
+                               AssetPath assetPath, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -54,8 +55,7 @@ public class IBCTransferGrpcTask extends CommonTask {
         this.mReceiver = recevier;
         this.mTokenDenom = tokenDenom;
         this.mTokenAmount = tokenAmount;
-        this.mPortId = portId;
-        this.mChannelId = channelId;
+        this.mAssetPath = assetPath;
         this.mFees = fee;
         this.mChainId = chainId;
         this.mResult.taskType = TASK_GRPC_GEN_TX_IBC_TRANSFER;
@@ -72,7 +72,7 @@ public class IBCTransferGrpcTask extends CommonTask {
         }
 
         try {
-            ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest req = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mChannelId).setPortId(mPortId).build();
+            ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest req = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mAssetPath.channel).setPortId(mAssetPath.port).build();
             ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateResponse res = mStub.channelClientState(req);
             Tendermint.ClientState value = Tendermint.ClientState.parseFrom(res.getIdentifiedClientState().getClientState().getValue());
 
@@ -91,7 +91,7 @@ public class IBCTransferGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(mAuthResponse, mSender, mReceiver, mTokenDenom, mTokenAmount, mPortId, mChannelId, value.getLatestHeight(), mFees, "", ecKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(mAuthResponse, mSender, mReceiver, mTokenDenom, mTokenAmount, mAssetPath, value.getLatestHeight(), mFees, "", ecKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {

@@ -31,7 +31,6 @@ public class Lum extends ChainConfig {
     public String mainDenom() { return "ulum"; }
     public String addressPrefix() { return "lum"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -41,7 +40,6 @@ public class Lum extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("5.7210"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "lum/"; }
     public String monikerUrl() { return MONIKER_URL + "lum-network/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "lum-network/relay-lum-unknown.png"; }
     public String homeInfoLink() { return  "https://lum.network"; }
     public String blogInfoLink() { return  "https://medium.com/lum-network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "lum-network"; }

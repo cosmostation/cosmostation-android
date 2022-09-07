@@ -23,7 +23,7 @@ import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.SwapCoinListDialog;
+import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -140,8 +140,8 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
 
-        BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(getSActivity().mChainConfig, mInputCoinDenom));
-        BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(getSActivity().mChainConfig, mOutputCoinDenom));
+        BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
+        BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
         BigDecimal priceRate = BigDecimal.ZERO;
         if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
             mSwapOutputCoinExRate.setText("??????");
@@ -156,7 +156,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mAllDenoms);
-            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
             dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
@@ -169,7 +169,8 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
             }
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
-            SwapCoinListDialog dialog = SwapCoinListDialog.newInstance(bundle);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
+            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
             dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 
