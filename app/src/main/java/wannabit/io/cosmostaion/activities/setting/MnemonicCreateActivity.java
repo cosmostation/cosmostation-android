@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,9 +31,12 @@ public class MnemonicCreateActivity extends BaseActivity {
     private Toolbar mToolbar;
     private LinearLayout[] mWordsLayer = new LinearLayout[24];
     private TextView[] mTvWords = new TextView[24];
+    private ImageView mBtnDisplay;
     private Button mBtnDerive;
 
     private ArrayList<String> mWords = new ArrayList<>();
+
+    private boolean mIsDisplay = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class MnemonicCreateActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_create);
         mToolbar = findViewById(R.id.tool_bar);
+        mBtnDisplay = findViewById(R.id.btn_display);
         mBtnDerive = findViewById(R.id.btn_derive);
 
         setSupportActionBar(mToolbar);
@@ -50,7 +55,12 @@ public class MnemonicCreateActivity extends BaseActivity {
             mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i, "id", this.getPackageName()));
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", this.getPackageName()));
         }
-        onUpdateView();
+        onUpdateView(mIsDisplay);
+
+        mBtnDisplay.setOnClickListener(view -> {
+            mIsDisplay = !mIsDisplay;
+            onUpdateView(mIsDisplay);
+        });
 
         mBtnDerive.setOnClickListener(view -> {
             if (!getBaseDao().onHasPassword()) {
@@ -81,11 +91,17 @@ public class MnemonicCreateActivity extends BaseActivity {
         }
     }
 
-    private void onUpdateView() {
+    private void onUpdateView(boolean isDisplay) {
         byte[] mEntropy = WKey.getEntropy();
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
         for (int i = 0; i < mWords.size(); i++) {
-            mTvWords[i].setText(mWords.get(i));
+            if (isDisplay) mTvWords[i].setText(mWords.get(i));
+            else mTvWords[i].setText(mWords.get(i).replaceAll("^[A-Za-z]+$", "****"));
+        }
+        if (isDisplay) {
+            mBtnDisplay.setImageResource(R.drawable.icon_not_display);
+        } else {
+            mBtnDisplay.setImageResource(R.drawable.icon_display);
         }
     }
 

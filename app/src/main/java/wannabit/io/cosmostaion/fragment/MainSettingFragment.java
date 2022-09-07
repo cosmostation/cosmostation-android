@@ -264,8 +264,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             String url = getMainActivity().mChainConfig.explorerUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
+
         } else if (v.equals(mBtnWalletConnect)) {
             startActivity(new Intent(getContext(), ManageWalletConnectActivity.class));
+
         } else if (v.equals(mBtnNotice)) {
             String url = EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(getMainActivity().mBaseChain).chainName();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

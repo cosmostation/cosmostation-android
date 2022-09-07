@@ -125,8 +125,9 @@
     <string name="str_manage">Manage</string>
     <string name="str_detail">자세히</string>
     <string name="str_wallet">지갑</string>
-    <string name="str_mnemonic_manage">니모닉 관리</string>
+    <string name="str_mnemonic_manage">니모닉 관리 / 지갑 추가</string>
     <string name="str_mnemonic_detail">니모닉 상세</string>
+    <string name="str_mnemonic_phrase">니모닉 문구</string>
     <string name="str_mnemonic_create">니모닉 생성</string>
     <string name="str_derive_wallet">지갑 추가</string>
     <string name="str_delete_mnemonic">니모닉 삭제</string>
@@ -1444,6 +1445,7 @@
     <string name="error_select_account_link">연결할 계정을 선택해 주세요.</string>
 
     <string name="str_mnemonic_confirm_msg">복구 단어 분실은 자산 피해로 이어질 수 있습니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.</string>
+    <string name="str_mnemonic_confirm_msg2">생성된 니모닉은 [니모닉 관리]에서 확인 및 관리가 가능합니다.</string>
     <string name="str_key_confirm_msg">Private Key는 현재 선택된 지갑을 복원할 때만 사용됩니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.\n\n
                                        Private Key는 Mnemonics이 아닙니다\nMnemonics이 있는 경우 반드시 Mnemonics을 백업하세요.\nMnemonics으로 지갑을 만든 경우 파생된 지갑을 복원하려면 Mnemonics이 필요합니다.</string>
 
