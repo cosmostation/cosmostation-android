@@ -9,6 +9,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LIKECOIN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -1176,7 +1177,7 @@ public class WDp {
             return 8;
         } else if (chain.equals(OKEX_MAIN) || chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
             return 18;
-        } else if (chain.equals(PROVENANCE_MAIN)) {
+        } else if (chain.equals(PROVENANCE_MAIN) || chain.equals(LIKECOIN_MAIN)) {
             return 9;
         } else {
             return 6;

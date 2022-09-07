@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.base.chains;
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.Lists;
 
@@ -32,7 +31,6 @@ public class LikeCoin extends ChainConfig {
     public int decimal() { return 9; }
     public String addressPrefix() { return "like"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
@@ -40,10 +38,9 @@ public class LikeCoin extends ChainConfig {
     public String grpcUrl() { return "lcd-likecoin-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-likecoin.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.0000"); }
+    public BigDecimal blockTime() { return new BigDecimal("6.028"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "likecoin/"; }
     public String monikerUrl() { return MONIKER_URL + "likecoin/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "likecoin/relay-likecoin-unknown.png"; }
     public String homeInfoLink() { return  "https://about.like.co/"; }
     public String blogInfoLink() { return  "https://medium.com/likecoin"; }
     public String coingeckoLink() { return  COINGECKO_URL + "likecoin"; }
