@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.base.chains;
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.Lists;
 
@@ -30,17 +29,15 @@ public class Ixo extends ChainConfig {
     public String mainDenom() { return "uixo"; }
     public String addressPrefix() { return "ixo"; }
 
-    public boolean pushSupport() { return false; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "lcd-ixo-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-ixo.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.000"); }
+    public BigDecimal blockTime() { return new BigDecimal("5.821"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "ixo/"; }
     public String monikerUrl() { return MONIKER_URL + "ixo/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "ixo/relay-ixo-unknown.png"; }
     public String homeInfoLink() { return  "https://www.ixo.world/"; }
     public String blogInfoLink() { return "https://medium.com/ixo-blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "ixo"; }

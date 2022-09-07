@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.base.chains;
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.Lists;
 
@@ -30,7 +29,6 @@ public class Sommelier extends ChainConfig {
     public String mainDenom() { return "usomm"; }
     public String addressPrefix() { return "somm"; }
 
-    public boolean pushSupport() { return true; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
@@ -40,7 +38,6 @@ public class Sommelier extends ChainConfig {
     public BigDecimal blockTime() { return new BigDecimal("6.1000"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "sommelier/"; }
     public String monikerUrl() { return MONIKER_URL + "sommelier/"; }
-    public String relayerImgUrl() { return UNKNOWN_RELAYER_URL + "sommelier/relay-sommelier-unknown.png"; }
     public String homeInfoLink() { return  "https://sommelier.finance/"; }
     public String blogInfoLink() { return  "https://medium.com/@sommelierfinance"; }
     public String coingeckoLink() { return  COINGECKO_URL + "sommelier"; }
