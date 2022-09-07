@@ -237,6 +237,12 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
+            android:name=".activities.ManageWalletConnectActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
             android:name=".activities.AccountDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

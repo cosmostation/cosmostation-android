@@ -416,10 +416,16 @@
     <string name="str_akash_deposit">보증금</string>
     <string name="str_current_delegation">현재 위임량</string>
     <string name="str_expected_delegation">예상 위임량</string>
-    <string name="str_wallet_connect">지갑 연결</string>
+    <string name="str_wallet_connect">Wallet Connect</string>
     <string name="str_wallet_connect_msg">바이낸스 덱스 거래소에 지갑을 연결하시겠습니까?</string>
     <string name="str_disconnect">연결 해제</string>
     <string name="str_connect_to">연결 대상</string>
+    <string name="str_wc_manage_title">지갑 연결 관리</string>
+    <string name="str_wc_manage_guide">지갑과 연결된 URL들을 관리하세요.</string>
+    <string name="str_wc_manage_disconnect">연결 해제</string>
+    <string name="str_wc_connect_alert_title">지갑 연결</string>
+    <string name="str_wc_connect_alert_message">다음 주소에 지갑을 연결 하시겠습니까?</string>
+    <string name="str_wc_connect_alert_guide">연결하려는 URL을 잘 확인해주세요. “설정” → “지갑 연결 관리” 메뉴에서 언제든 재설정 할 수 있습니다.</string>
     <string name="str_wc_peer_name">Cosmostation</string>
     <string name="str_wc_peer_desc">Cosmostation Wallet Android</string>
     <string name="str_wc_peer_url">https://cosmostation.io</string>
@@ -1837,6 +1843,8 @@
     <string name="str_dp_time_format3" >HH:mm:ss</string>
     <string name="str_dp_time_format4">yyyy-MM-dd</string>
     <string name="str_dp_date_format" >yyyy-MM-dd</string>
+    <string name="str_wc_connect_dialog"> 연결을 허용하시겠습니까?</string>
+    <string name="str_wc_allow_title">연결 허용된 목록</string>
 
     <string-array name="currency_unit_array">
         <item>USD</item>
