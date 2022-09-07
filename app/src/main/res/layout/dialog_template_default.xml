@@ -36,13 +36,13 @@
             android:layout_marginLeft="@dimen/space_24"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginRight="@dimen/space_24"
-            android:layout_marginBottom="@dimen/space_12"
             android:gravity="center"
             tools:text="Description" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
+            android:layout_marginTop="@dimen/space_24"
             android:background="@color/colorGray4" />
 
         <LinearLayout
