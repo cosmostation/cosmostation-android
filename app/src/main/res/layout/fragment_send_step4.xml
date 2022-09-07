@@ -193,6 +193,38 @@
                             android:background="@color/colorGrayDayNight"
                             android:layout_marginTop="@dimen/space_16"/>
 
+                        <LinearLayout
+                            android:id="@+id/recipient_layer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="@dimen/space_16">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/str_recipient_chain"
+                                style="@style/font_rr_12_gray1"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="@dimen/space_8">
+                                <TextView
+                                    android:id="@+id/recipient_chain"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    style="@style/font_rr_12_black_daynight"/>
+
+                                <TextView
+                                    android:id="@+id/recipient_channel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_4"
+                                    style="@style/font_rr_10_gray1"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -231,7 +263,32 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <LinearLayout
+        android:id="@+id/ibc_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_control"
+        android:layout_marginBottom="@dimen/space_20"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/space_32"
+        android:layout_marginLeft="@dimen/space_32"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:gravity="center"
+            style="@style/font_rr_12_black_daynight"
+            android:textColor="@color/colorRed"
+            android:text="@string/str_ibc_transfer_msg1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/font_rr_12_black_daynight"
+            android:text="@string/str_ibc_transfer_msg2"/>
 
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottom_control"

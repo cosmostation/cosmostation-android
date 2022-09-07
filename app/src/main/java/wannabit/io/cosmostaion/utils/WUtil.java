@@ -77,6 +77,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -536,19 +537,18 @@ public class WUtil {
 
     public static void onSortingNativeCoins(ArrayList<Balance> balances, final BaseChain chain) {
         ChainConfig chainConfig = ChainFactory.getChain(chain);
-        Collections.sort(balances, (o1, o2) -> {
-            if (o1.symbol.equals(chainConfig.mainDenom())) return -1;
-            if (o2.symbol.equals(chainConfig.mainDenom())) return 1;
+        Collections.sort(balances, new Comparator<Balance>() {
+            @Override
+            public int compare(Balance o1, Balance o2) {
+                if (o1.symbol.equals(chainConfig.mainDenom())) return -1;
+                if (o2.symbol.equals(chainConfig.mainDenom())) return 1;
 
-            if (chain.equals(KAVA_MAIN)) {
-                if (o1.symbol.equals(Kava.KAVA_HARD_DENOM)) return -1;
-                if (o2.symbol.equals(Kava.KAVA_HARD_DENOM)) return 1;
-
-            } else if (chain.equals(OKEX_MAIN)) {
-                if ("okb-c4d".equals(o1.symbol)) return -1;
-                if ("okb-c4d".equals(o2.symbol)) return 1;
+                if (chain.equals(OKEX_MAIN)) {
+                    if (o1.symbol.equals("okb-c4d")) return -1;
+                    if (o2.symbol.equals("okb-c4d")) return 1;
+                }
+                return o1.symbol.compareTo(o2.symbol);
             }
-            return o1.symbol.compareTo(o2.symbol);
         });
     }
 
@@ -561,19 +561,16 @@ public class WUtil {
         });
     }
 
-    public static void onSortingPool(BaseChain chain, ArrayList<Coin> coins) {
-        Collections.sort(coins, (o1, o2) -> {
-            if (chain.equals(OSMOSIS_MAIN)) {
-                if (o1.osmosisAmmPoolId() < o2.osmosisAmmPoolId()) return -1;
-                else if (o1.osmosisAmmPoolId() > o2.osmosisAmmPoolId()) return 1;
-            } else if (chain.equals(CRESCENT_MAIN)) {
-                if (o1.crescnetPoolId() < o2.crescnetPoolId()) return -1;
-                else if (o1.crescnetPoolId() > o2.crescnetPoolId()) return 1;
-            } else if (chain.equals(INJ_MAIN)) {
-                if (o1.injectivePoolId() < o2.injectivePoolId()) return -1;
-                else if (o1.injectivePoolId() > o2.injectivePoolId()) return 1;
+    public static void onSortingContract(ArrayList<Cw20Asset> denom) {
+        Collections.sort(denom, new Comparator<Cw20Asset>() {
+            @Override
+            public int compare(Cw20Asset o1, Cw20Asset o2) {
+                if (o1.denom.equalsIgnoreCase("NETA")) return -1;
+                if (o2.denom.equalsIgnoreCase("NETA")) return 1;
+                if (o1.denom.equalsIgnoreCase("MARBLE")) return -1;
+                if (o2.denom.equalsIgnoreCase("MARBLE")) return 1;
+                return 0;
             }
-            return 0;
         });
     }
 
@@ -678,8 +675,8 @@ public class WUtil {
         ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
         Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig, coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig, coin1.denom), new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
         return coin0Value.add(coin1Value);
     }
 
@@ -730,7 +727,7 @@ public class WUtil {
         ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
         BigDecimal poolValue = getPoolValue(baseData, pool);
         BigDecimal incentiveAmount = getNextIncentiveAmount(gauges, position);
-        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig, chainConfig.mainDenom()), incentiveAmount, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()));
+        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(chainConfig.mainDenom()), incentiveAmount, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()));
         try {
             return incentiveValue.multiply(new BigDecimal("36500")).divide(poolValue, 12, RoundingMode.DOWN);
         } catch (Exception e) {
@@ -786,7 +783,7 @@ public class WUtil {
 
         int externalDecimal = WDp.getDenomDecimal(baseData, chainConfig, pool.getExternalAsset().getSymbol());
         BigDecimal externalAmount = new BigDecimal(pool.getExternalAssetBalance());
-        String exteranlBaseDenom = baseData.getBaseDenom(chainConfig, pool.getExternalAsset().getSymbol());
+        String exteranlBaseDenom = baseData.getBaseDenom(pool.getExternalAsset().getSymbol());
         BigDecimal exteranlPrice = WDp.perUsdValue(baseData, exteranlBaseDenom);
 
         BigDecimal rowanValue = rowanAmount.multiply(rowanPrice).movePointLeft(rowanDecimal);

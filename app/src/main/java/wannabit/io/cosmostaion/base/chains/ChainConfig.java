@@ -72,6 +72,10 @@ abstract public class ChainConfig {
 
     public boolean etherAddressSupport() { return false; }
 
+    public boolean bridgeCoinSupport() { return false; }
+
+    public boolean erc20CoinSupport() { return false; }
+
     public abstract boolean pushSupport();
 
     public abstract boolean dexSupport();

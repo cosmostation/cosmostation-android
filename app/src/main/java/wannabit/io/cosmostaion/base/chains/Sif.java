@@ -31,6 +31,7 @@ public class Sif extends ChainConfig {
     public int decimal() { return 18; }
     public String addressPrefix() { return "sif"; }
 
+    public boolean bridgeCoinSupport() { return true; }
     public boolean pushSupport() { return false; }
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return false; }

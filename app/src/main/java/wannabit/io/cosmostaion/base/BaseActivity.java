@@ -7,7 +7,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
@@ -30,7 +29,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_V
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_CONFIG;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED_VALIDATORS;
@@ -94,7 +92,6 @@ import cosmos.staking.v1beta1.Staking;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import kava.pricefeed.v1beta1.QueryOuterClass;
-import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
 import wannabit.io.cosmostaion.activities.IntroActivity;
@@ -112,7 +109,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.Cw20Assets;
+import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AccountShowDialog;
@@ -163,7 +160,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.Cw20BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.DelegationsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolListGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcConfigTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcFeeTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
@@ -563,6 +559,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mChainParam = null;
         getBaseDao().mAssets.clear();
         getBaseDao().mCw20Assets.clear();
+        getBaseDao().mCw20MyAssets.clear();
 
         getBaseDao().mNodeInfo = null;
         getBaseDao().mAllValidators.clear();
@@ -651,21 +648,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
             new StarNameGrpcFeeTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new StarNameGrpcConfigTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(OSMOSIS_MAIN)) {
-            mTaskCount = 10;
-            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new OsmosisPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(KAVA_MAIN)) {
             mTaskCount = 12;
@@ -804,8 +786,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 new StationParamInfoTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new StationIbcPathsTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new StationIbcTokensTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                new MintScanAssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                new MintScanCw20AssetsTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new MintScanAssetsTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new MintScanCw20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_AUTH) {
@@ -878,12 +860,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
 
         }
-        if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
-            if (result.isSuccess && result.resultData != null) {
-                List<BalancerPool.Pool> pools = (List<BalancerPool.Pool>) result.resultData;
-                getBaseDao().mGrpcOsmosisPool = new ArrayList<>(pools);
-            }
-        }
 
         //kava
         else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
@@ -910,13 +886,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         // mintscan
         else if (result.taskType == TASK_FETCH_MINTSCAN_CW20_ASSETS) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mCw20Assets = (ArrayList<Cw20Assets>) result.resultData;
+                getBaseDao().mCw20Assets = (ArrayList<Cw20Asset>) result.resultData;
                 if (getBaseDao().mCw20Assets != null && getBaseDao().mCw20Assets.size() > 0) {
-                    for (Cw20Assets assets : getBaseDao().mCw20Assets) {
-                        if (assets.chain.equalsIgnoreCase(mChainConfig.chainName())) {
-                            mTaskCount = mTaskCount + 1;
-                            new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, assets.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                        }
+                    getBaseDao().setMyTokens(mAccount.address);
+                    for (Cw20Asset asset : getBaseDao().mCw20MyAssets) {
+                        mTaskCount = mTaskCount + 1;
+                        new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, asset.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }
             }

@@ -10,11 +10,59 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_16"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_rr_12_gray1"
+            android:text="@string/str_ibc_recipient_chain"/>
+        <RelativeLayout
+            android:id="@+id/btn_to_chain_list"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_height="@dimen/space_50">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:background="@drawable/btn_trans_with_border"/>
+
+            <ImageView
+                android:id="@+id/img_to_chain"
+                android:layout_width="@dimen/space_32"
+                android:layout_height="@dimen/space_32"
+                android:layout_marginLeft="@dimen/space_4"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/txt_to_chain"
+                style="@style/font_rr_14_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_4"
+                android:layout_toRightOf="@+id/img_to_chain" />
+            <ImageView
+                android:id="@+id/img_send_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_16"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/arrow_down_gr"/>
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_20"
+            style="@style/font_rr_12_gray1"
+            android:text="@string/str_select_ibc_address"/>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_4">
             <EditText
                 android:id="@+id/receiver_account"
                 android:layout_width="match_parent"
@@ -46,31 +94,10 @@
                 android:layout_weight="1">
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/btn_qr"
+                android:id="@+id/btn_wallet"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_36"
                 android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:background="@drawable/btn_trans_with_border">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/qr_ic"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
-                    style="@style/font_rr_9_black_daynight"
-                    android:text="@string/str_qr_code"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/btn_history"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/space_36"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/space_8"
                 android:clickable="true"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -84,14 +111,35 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
                     style="@style/font_rr_9_black_daynight"
-                    android:text="@string/str_recent"/>
+                    android:text="@string/str_wallet"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btn_qr"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/space_4"
+                android:background="@drawable/btn_trans_with_border">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/qr_ic"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
+                    style="@style/font_rr_9_black_daynight"
+                    android:text="@string/str_qr_code"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/btn_paste"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_36"
                 android:layout_weight="1"
-                android:layout_marginLeft="@dimen/space_8"
+                android:layout_marginLeft="@dimen/space_4"
                 android:clickable="true"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -113,7 +161,7 @@
 
 
     <LinearLayout
-        android:id="@+id/starname_layer"
+        android:id="@+id/ibc_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_control"
@@ -125,21 +173,28 @@
         <ImageView
             android:layout_width="@dimen/space_60"
             android:layout_height="@dimen/space_60"
-            android:src="@drawable/starname_img"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
-            android:gravity="center"
-            style="@style/font_rr_14_iov"
-            android:text="@string/str_support_starname_title"/>
+            android:src="@drawable/icon_ibctransfer"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_10"
             android:gravity="center"
+            style="@style/font_rr_14_black_daynight"
+            android:text="@string/str_ibc_transfer_title"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:gravity="center"
             style="@style/font_rr_12_black_daynight"
-            android:text="@string/str_support_starname_msg"/>
+            android:textColor="@color/colorRed"
+            android:text="@string/str_ibc_transfer_msg1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/font_rr_12_black_daynight"
+            android:text="@string/str_ibc_transfer_msg2"/>
 
     </LinearLayout>
 

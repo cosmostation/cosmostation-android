@@ -1,10 +1,11 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.UNKNOWN_RELAYER_URL;
 
 import com.google.common.collect.Lists;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -56,13 +57,6 @@ public class Crescent extends ChainConfig {
         return Lists.newArrayList("m/44'/118'/0'/0/X");
     }
 
-    public String coinFullName(String denom) {
-        if (denom.equalsIgnoreCase(CRESCENT_BCRE_DENOM)) {
-            return "Liquidated CRE";
-        } else {
-            return StringUtils.capitalize(chainName()) + " Staking Coin";
-        }
-    }
 
     public static String CRESCENT_BCRE_DENOM = "ubcre";
 }

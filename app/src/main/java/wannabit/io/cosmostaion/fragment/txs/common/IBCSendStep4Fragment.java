@@ -80,7 +80,7 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onStartIbcSend();
+//            getSActivity().onStartIbcSend();
         }
     }
 
