@@ -7,16 +7,14 @@
                 android:state_pressed="false">
                 <shape
                     android:shape="rectangle">
-                    <solid android:color="@color/colorTrans"/>
-                    <stroke
-                        android:color="@color/colorTrans"/>
+                    <solid android:color="@color/colorBlack2DayWhite"/>
                     <corners
                         android:radius="@dimen/space_8"/>
                     <padding
-                        android:left="@dimen/space_14"
-                        android:top="@dimen/space_14"
-                        android:right="@dimen/space_14"
-                        android:bottom="@dimen/space_14" />
+                        android:left="@dimen/space_4"
+                        android:top="@dimen/space_4"
+                        android:right="@dimen/space_4"
+                        android:bottom="@dimen/space_4" />
                 </shape>
             </item>
         </selector>
