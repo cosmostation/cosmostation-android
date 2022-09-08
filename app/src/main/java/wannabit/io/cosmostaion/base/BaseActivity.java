@@ -276,9 +276,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (chainConfig.etherAddressSupport()) {
             try {
                 String ethAddress = WKey.convertAddressToEth(account.address);
-                CommonAlertDialog.showDoubleButton(this, Html.fromHtml(getString(R.string.str_address_type) + "<br>"), "",
-                        Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_tender_type) + "</font>"), view -> onClickShowAccountDialog(account.address, nickName),
-                        Html.fromHtml("<font color=\"#007AFF\">" + getString(R.string.str_eth_type) + "</font>"), view -> onClickShowAccountDialog(ethAddress, nickName));
+                CommonAlertDialog.showDoubleButton(this, getString(R.string.str_address_type), "",
+                        getString(R.string.str_tender_type), view -> onClickShowAccountDialog(account.address, nickName),
+                        getString(R.string.str_eth_type), view -> onClickShowAccountDialog(ethAddress, nickName));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -291,7 +291,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         Bundle bundle = new Bundle();
         bundle.putString("title", nickName);
         bundle.putString("address", address);
-        if(!this.isFinishing()){
+        if (!this.isFinishing()) {
             AccountShowDialog dialog = AccountShowDialog.newInstance(bundle);
             dialog.show(getSupportFragmentManager(), "dialog");
         }
@@ -992,9 +992,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuySelectFiat() {
         FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
-                Html.fromHtml("<font color=\"#007AFF\">" + "USD" + "</font>"), view -> onStartMoonpaySignature("usd"), null,
-                Html.fromHtml("<font color=\"#007AFF\">" + "EUR" + "</font>"), view -> onStartMoonpaySignature("eur"), null,
-                Html.fromHtml("<font color=\"#007AFF\">" + "GBP" + "</font>"), view -> onStartMoonpaySignature("gbp"), null);
+                "USD", view -> onStartMoonpaySignature("usd"), null,
+                "EUR", view -> onStartMoonpaySignature("eur"), null,
+                "GBP", view -> onStartMoonpaySignature("gbp"), null);
     }
 
     public void onStartMoonpaySignature(String fiat) {

@@ -1094,4 +1094,8 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="height_match_parent_max_300" parent="@android:style/TextAppearance">
+        <item name="android:layout_height">@dimen/space_300</item>
+    </style>
+
 </resources>

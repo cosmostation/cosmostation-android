@@ -122,6 +122,6 @@ public class CdpDetailInfoHolder extends BaseHolder {
     }
 
     private void onShowHelpPopup(CdpDetailActivity context, String title, String msg) {
-        CommonAlertDialog.showSingleButton(context, title, msg, Html.fromHtml("<font color=\"#007AFF\">" + context.getString(R.string.str_ok) + "</font>"), null);
+        CommonAlertDialog.showSingleButton(context, title, msg, context.getString(R.string.str_ok), null);
     }
 }
