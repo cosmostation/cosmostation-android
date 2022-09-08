@@ -285,6 +285,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             bundle.putLong("id", mAccount.id);
             bundle.putString("name", mAccount.nickName);
             ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
+            dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnQr)) {

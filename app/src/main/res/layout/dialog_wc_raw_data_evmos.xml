@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/space_32">
+    android:padding="@dimen/space_14">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,13 +33,13 @@
 
         <LinearLayout
             android:id="@+id/layout_wc_raw_data"
-            android:background="@color/colorBlack2DayWhite"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginLeft="@dimen/space_14"
             android:layout_marginTop="@dimen/space_10"
             android:layout_marginRight="@dimen/space_14"
-            android:layout_marginBottom="@dimen/space_14">
+            android:layout_marginBottom="@dimen/space_14"
+            android:background="@drawable/box_round_black2_daywhite">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                     style="@style/font_rr_11_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorBlack2DayWhite"
+                    android:background="@drawable/box_round_black2_daywhite"
                     android:gravity="left"
                     android:padding="@dimen/space_16" />
             </ScrollView>
@@ -84,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="@dimen/space_20"
                     android:layout_toRightOf="@+id/address"
                     android:ellipsize="middle"
                     android:gravity="end"
@@ -132,4 +131,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

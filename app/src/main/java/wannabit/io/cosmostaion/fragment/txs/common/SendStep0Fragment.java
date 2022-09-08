@@ -234,9 +234,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("accounts", mToAccountList);
                 IBCReceiveAccountsDialog dialog = IBCReceiveAccountsDialog.newInstance(bundle);
-                dialog.setCancelable(true);
                 dialog.setTargetFragment(this, SELECT_IBC_ACCOUNT);
-                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                dialog.show(getActivity().getSupportFragmentManager(), "dialog");
             }
 
         } else if (v.equals(mBtnQr)) {

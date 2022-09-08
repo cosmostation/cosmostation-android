@@ -1,7 +1,10 @@
 package wannabit.io.cosmostaion.dialog;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +14,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.SimpleDividerItemDecoration;
 
 public class CurrencySetDialog extends DialogFragment {
 
@@ -39,6 +44,8 @@ public class CurrencySetDialog extends DialogFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mCurrencySetAdapter = new CurrencySetAdapter();
+
+        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         mRecyclerView.setAdapter(mCurrencySetAdapter);
         return view;
     }

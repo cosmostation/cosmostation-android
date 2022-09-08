@@ -621,6 +621,7 @@ public class ConnectWalletActivity extends BaseActivity {
                     moveToBackIfNeed();
                 }
             });
+            dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "dialog");
         }
     }
@@ -671,6 +672,7 @@ public class ConnectWalletActivity extends BaseActivity {
                     onShowAccountDialog(id, chains, selectedAccounts, index + 1);
                 }
             });
+            dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "dialog" + index);
         }
     }
@@ -738,6 +740,7 @@ public class ConnectWalletActivity extends BaseActivity {
                     rejectSignRequest(id);
                 }
             });
+            wcRawDataDialog.setCancelable(false);
             wcRawDataDialog.show(getSupportFragmentManager(), "dialog");
         }
     }

@@ -143,7 +143,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:background="@drawable/btn_trans_with_border">
+                android:background="@drawable/btn_trans_with_border2">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

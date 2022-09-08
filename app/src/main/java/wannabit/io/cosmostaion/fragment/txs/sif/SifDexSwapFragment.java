@@ -170,7 +170,6 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("denoms", mSwapableDenoms);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
             dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
 

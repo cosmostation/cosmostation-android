@@ -129,7 +129,7 @@
                 android:layout_height="@dimen/space_36"
                 android:layout_marginLeft="@dimen/space_8"
                 android:layout_weight="1"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_with_border2"
                 android:clickable="true"
                 android:gravity="center"
                 android:orientation="horizontal">
