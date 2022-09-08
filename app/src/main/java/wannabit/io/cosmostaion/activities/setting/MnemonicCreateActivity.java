@@ -96,7 +96,7 @@ public class MnemonicCreateActivity extends BaseActivity {
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
         for (int i = 0; i < mWords.size(); i++) {
             if (mIsDisplay) mTvWords[i].setText(mWords.get(i));
-            else mTvWords[i].setText(mWords.get(i).replaceAll("^[A-Za-z]+$", "****"));
+            else mTvWords[i].setText("****");
         }
         if (mIsDisplay) {
             mBtnDisplay.setImageResource(R.drawable.icon_not_display);

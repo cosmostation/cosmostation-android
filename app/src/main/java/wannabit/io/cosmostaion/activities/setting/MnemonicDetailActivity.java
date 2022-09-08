@@ -164,7 +164,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
     private void onPhraseStatusChange() {
         for (int i = 0; i < mWordsList.size(); i++) {
             if (mIsDisplay) mTvWords[i].setText(mWordsList.get(i));
-            else mTvWords[i].setText(mWordsList.get(i).replaceAll("^[A-Za-z]+$", "****"));
+            else mTvWords[i].setText("****");
         }
         if (mIsDisplay) {
             mBtnDisplay.setImageResource(R.drawable.icon_not_display);
