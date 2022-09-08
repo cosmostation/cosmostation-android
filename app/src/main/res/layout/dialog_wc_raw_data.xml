@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="@dimen/space_14">
 
     <LinearLayout
@@ -63,13 +62,13 @@
 
         <LinearLayout
             android:id="@+id/layout_wc_detail"
-            android:background="@drawable/box_round_black2_daywhite"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_14"
             android:layout_marginTop="@dimen/space_10"
-            android:layout_marginBottom="@dimen/space_14">
+            android:layout_marginRight="@dimen/space_14"
+            android:layout_marginBottom="@dimen/space_14"
+            android:background="@drawable/box_round_black2_daywhite">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -77,10 +76,10 @@
 
                 <TextView
                     android:id="@+id/wc_detail"
-                    android:background="@drawable/box_round_black2_daywhite"
                     style="@style/font_rr_11_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/box_round_black2_daywhite"
                     android:gravity="left"
                     android:padding="@dimen/space_16" />
             </ScrollView>
@@ -88,13 +87,13 @@
 
         <LinearLayout
             android:id="@+id/layout_wc_raw_data"
-            android:background="@drawable/box_round_black2_daywhite"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginLeft="@dimen/space_14"
-            android:layout_marginRight="@dimen/space_14"
             android:layout_marginTop="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_14"
             android:layout_marginBottom="@dimen/space_14"
+            android:background="@drawable/box_round_black2_daywhite"
             android:visibility="gone">
 
             <ScrollView
@@ -103,10 +102,10 @@
 
                 <TextView
                     android:id="@+id/wc_raw_data"
-                    android:background="@drawable/box_round_black2_daywhite"
                     style="@style/font_rr_11_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/box_round_black2_daywhite"
                     android:gravity="left"
                     android:padding="@dimen/space_16" />
             </ScrollView>
