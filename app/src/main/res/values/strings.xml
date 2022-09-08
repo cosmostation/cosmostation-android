@@ -273,8 +273,9 @@
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
-    <string name="str_mnemonic_manage">Manage Mnemonic</string>
+    <string name="str_mnemonic_manage">Manage Mnemonic / Add Wallet</string>
     <string name="str_mnemonic_detail">Mnemonic Detail</string>
+    <string name="str_mnemonic_phrase">Mnemonic Phrase</string>
     <string name="str_mnemonic_create">Create Mnemonic</string>
     <string name="str_derive_wallet">Derive Wallet</string>
     <string name="str_delete_mnemonic">Delete Mnemonic</string>
@@ -1713,8 +1714,10 @@
     <string name="str_select_link_account">Select Account To Link</string>
 
     <string name="str_mnemonic_confirm_msg">Losing your mnemonics could lead to loss of your asset.\nWe highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
+    <string name="str_mnemonic_confirm_msg2">You can check/manage your mnemonics in\n[Manage Mnemonic]</string>
     <string name="str_key_confirm_msg">Private Key is only used to restore the\ncurrently selected wallet.\nWe highly recommend keeping your mnemonics\noffline in a secure location, and never share your\nmnemonics with anyone else.\n\n
                                        Private key is NOT mnemonics.\nYou MUST backup your mnemonics if you have one.\nYou need your mnemonics to restore your original wallets if you created them with mnemonics.</string>
+
 
     <string name="str_tx_step_memo">Insert memo (optional)</string>
     <string name="str_tx_step_fee">Select transaction fee</string>

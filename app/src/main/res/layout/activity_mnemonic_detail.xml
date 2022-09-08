@@ -13,7 +13,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_bar_height"
+        android:layout_height="wrap_content"
         android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -30,8 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tool_bar"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_8"
+        android:layout_marginRight="@dimen/space_8"
         android:layout_marginBottom="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
@@ -40,7 +40,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_44">
+            android:layout_height="@dimen/space_60">
 
             <ImageView
                 android:id="@+id/btn_nickname_edit"
@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/space_2"
                 android:padding="@dimen/space_8"
                 android:src="@drawable/edit_btn" />
 
@@ -79,6 +80,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/space_12">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_16">
+
+                <ImageView
+                    android:id="@+id/btn_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/space_16"
+                    android:src="@drawable/icon_display" />
+
+                <TextView
+                    style="@style/font_rr_14_black_daynight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btn_display"
+                    android:text="@string/str_mnemonic_phrase"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -733,7 +757,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_layer"
-        android:layout_marginBottom="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24"
         android:orientation="vertical"
         android:layout_marginRight="@dimen/space_32"
         android:layout_marginLeft="@dimen/space_32"
@@ -801,6 +825,6 @@
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_trans_with_photon_border"
             style="@style/font_rr_14_photon_daynight"
-            android:text="@string/str_derive_wallet"/>
+            android:text="@string/str_add_new"/>
     </LinearLayout>
 </RelativeLayout>

@@ -7,22 +7,16 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorBlack"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhiteDayNight"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_4">
-
-            <TextView
-                style="@style/font_ssm_17_white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_wc_manage_title" />
-        </RelativeLayout>
+            android:text="@string/str_wc_manage_title" />
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
