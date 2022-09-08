@@ -55,6 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/space_16"
                     android:src="@drawable/icon_display" />
 
                 <TextView

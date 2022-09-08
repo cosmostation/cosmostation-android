@@ -55,11 +55,11 @@ public class MnemonicCreateActivity extends BaseActivity {
             mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i, "id", this.getPackageName()));
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", this.getPackageName()));
         }
-        onUpdateView(mIsDisplay);
+        onUpdateView();
 
         mBtnDisplay.setOnClickListener(view -> {
             mIsDisplay = !mIsDisplay;
-            onUpdateView(mIsDisplay);
+            onUpdateView();
         });
 
         mBtnDerive.setOnClickListener(view -> {
@@ -91,14 +91,14 @@ public class MnemonicCreateActivity extends BaseActivity {
         }
     }
 
-    private void onUpdateView(boolean isDisplay) {
+    private void onUpdateView() {
         byte[] mEntropy = WKey.getEntropy();
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
         for (int i = 0; i < mWords.size(); i++) {
-            if (isDisplay) mTvWords[i].setText(mWords.get(i));
+            if (mIsDisplay) mTvWords[i].setText(mWords.get(i));
             else mTvWords[i].setText(mWords.get(i).replaceAll("^[A-Za-z]+$", "****"));
         }
-        if (isDisplay) {
+        if (mIsDisplay) {
             mBtnDisplay.setImageResource(R.drawable.icon_not_display);
         } else {
             mBtnDisplay.setImageResource(R.drawable.icon_display);

@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/space_2"
                 android:padding="@dimen/space_8"
                 android:src="@drawable/edit_btn" />
 
@@ -91,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/space_16"
                     android:src="@drawable/icon_display" />
 
                 <TextView

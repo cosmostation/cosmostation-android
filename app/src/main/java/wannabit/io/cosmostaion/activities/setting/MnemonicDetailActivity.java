@@ -66,7 +66,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
         mMnemonicNick.setText(mWords.getName());
         mWordsList = mWords.getMnemonicWords(MnemonicDetailActivity.this);
 
-        onPhraseStatusChange(mIsDisplay);
+        onPhraseStatusChange();
 
         mBtnEditNick.setOnClickListener(this);
         mBtnDisplay.setOnClickListener(this);
@@ -140,7 +140,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
 
         } else if (v.equals(mBtnDisplay)) {
             mIsDisplay = !mIsDisplay;
-            onPhraseStatusChange(mIsDisplay);
+            onPhraseStatusChange();
 
         } else if (v.equals(mCopy)) {
             CommonAlertDialog.showDoubleButton(MnemonicDetailActivity.this, getString(R.string.str_safe_copy_title), getString(R.string.str_safe_copy_msg),
@@ -161,12 +161,12 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    private void onPhraseStatusChange(boolean isDisplay) {
+    private void onPhraseStatusChange() {
         for (int i = 0; i < mWordsList.size(); i++) {
-            if (isDisplay) mTvWords[i].setText(mWordsList.get(i));
+            if (mIsDisplay) mTvWords[i].setText(mWordsList.get(i));
             else mTvWords[i].setText(mWordsList.get(i).replaceAll("^[A-Za-z]+$", "****"));
         }
-        if (isDisplay) {
+        if (mIsDisplay) {
             mBtnDisplay.setImageResource(R.drawable.icon_not_display);
         } else {
             mBtnDisplay.setImageResource(R.drawable.icon_display);
