@@ -69,8 +69,7 @@
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginTop="@dimen/space_16"
             android:layout_marginRight="@dimen/space_20"
-            android:background="@drawable/box_round_gray"
-            android:orientation="vertical">
+            android:background="@drawable/box_round_gray">
 
             <TextView
                 style="@style/font_rr_14_black_daynight"
@@ -117,8 +116,7 @@
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginTop="@dimen/space_16"
             android:layout_marginRight="@dimen/space_20"
-            android:background="@drawable/box_round_gray"
-            android:orientation="vertical">
+            android:background="@drawable/box_round_gray">
 
             <TextView
                 style="@style/font_rr_14_black_daynight"

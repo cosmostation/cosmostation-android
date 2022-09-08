@@ -148,8 +148,7 @@
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginTop="@dimen/space_16"
             android:layout_marginRight="@dimen/space_20"
-            android:background="@drawable/box_round_gray"
-            android:orientation="vertical">
+            android:background="@drawable/box_round_gray">
 
             <ImageView
                 android:id="@+id/from_coin_icon"
@@ -189,8 +188,7 @@
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginTop="@dimen/space_8"
             android:layout_marginRight="@dimen/space_20"
-            android:background="@drawable/box_round_gray"
-            android:orientation="vertical">
+            android:background="@drawable/box_round_gray">
 
             <ImageView
                 android:id="@+id/to_coin_icon"
