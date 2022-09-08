@@ -31,13 +31,15 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
 
     private Toolbar mToolbar;
     private TextView mMnemonicNick;
-    private ImageView mBtnEditNick;
+    private ImageView mBtnEditNick, mBtnDisplay;
     private LinearLayout[] mWordsLayer = new LinearLayout[24];
     private TextView[] mTvWords = new TextView[24];
     private Button mCopy, mDerive, mDelete;
 
     private MWords mWords;
     private ArrayList<String> mWordsList = new ArrayList<>();
+
+    private boolean mIsDisplay = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
         mToolbar = findViewById(R.id.tool_bar);
         mMnemonicNick = findViewById(R.id.mnemonic_nickname);
         mBtnEditNick = findViewById(R.id.btn_nickname_edit);
+        mBtnDisplay = findViewById(R.id.btn_display);
         mCopy = findViewById(R.id.btn_copy);
         mDerive = findViewById(R.id.btn_derive);
         mDelete = findViewById(R.id.btn_delete);
@@ -63,11 +66,10 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
         mMnemonicNick.setText(mWords.getName());
         mWordsList = mWords.getMnemonicWords(MnemonicDetailActivity.this);
 
-        for (int i = 0; i < mWordsList.size(); i++) {
-            mTvWords[i].setText(mWordsList.get(i));
-        }
+        onPhraseStatusChange();
 
         mBtnEditNick.setOnClickListener(this);
+        mBtnDisplay.setOnClickListener(this);
         mCopy.setOnClickListener(this);
         mDerive.setOnClickListener(this);
         mDelete.setOnClickListener(this);
@@ -136,6 +138,10 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             ChangeNickNameDialog deleteDialog = ChangeNickNameDialog.newInstance(bundle);
             deleteDialog.show(getSupportFragmentManager(), "dialog");
 
+        } else if (v.equals(mBtnDisplay)) {
+            mIsDisplay = !mIsDisplay;
+            onPhraseStatusChange();
+
         } else if (v.equals(mCopy)) {
             CommonAlertDialog.showDoubleButton(MnemonicDetailActivity.this, getString(R.string.str_safe_copy_title), getString(R.string.str_safe_copy_msg),
                     CommonAlertDialog.highlightingText(getString(R.string.str_raw_copy)), view -> onRawCopy(),
@@ -152,6 +158,18 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
                     String.format(getString(R.string.str_mnemonic_delete_msg), String.valueOf(mWords.getLinkedWalletCnt(getBaseDao()))),
                     CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteMnemonic(),
                     getString(R.string.str_close), null);
+        }
+    }
+
+    private void onPhraseStatusChange() {
+        for (int i = 0; i < mWordsList.size(); i++) {
+            if (mIsDisplay) mTvWords[i].setText(mWordsList.get(i));
+            else mTvWords[i].setText("****");
+        }
+        if (mIsDisplay) {
+            mBtnDisplay.setImageResource(R.drawable.icon_not_display);
+        } else {
+            mBtnDisplay.setImageResource(R.drawable.icon_display);
         }
     }
 }
