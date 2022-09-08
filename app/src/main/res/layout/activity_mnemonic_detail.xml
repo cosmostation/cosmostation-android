@@ -40,7 +40,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_44">
+            android:layout_height="@dimen/space_60">
 
             <ImageView
                 android:id="@+id/btn_nickname_edit"
