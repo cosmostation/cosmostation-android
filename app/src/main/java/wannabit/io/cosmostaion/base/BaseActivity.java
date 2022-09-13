@@ -979,7 +979,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyWarnNoKey() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_continue), view -> onShowBuySelectFiat(), CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null);
+                getString(R.string.str_continue), view -> onShowBuySelectFiat(), getString(R.string.str_cancel), null);
     }
 
     public void onShowBuySelectFiat() {
