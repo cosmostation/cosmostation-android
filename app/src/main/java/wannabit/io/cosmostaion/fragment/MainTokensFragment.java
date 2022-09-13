@@ -228,7 +228,7 @@ public class MainTokensFragment extends BaseFragment {
         mEtherGrpc.clear();
 
         for (Coin coin : getBaseDao().mGrpcBalance) {
-            final Asset asset = getBaseDao().getAsset(coin.denom);
+            final Asset asset = getBaseDao().getAsset(getMainActivity().mChainConfig, coin.denom);
             if (asset != null) {
                 if (asset.type.equalsIgnoreCase("staking") || asset.type.equalsIgnoreCase("native")) {
                     mNativeGrpc.add(coin);
@@ -326,7 +326,7 @@ public class MainTokensFragment extends BaseFragment {
         private void onNativeGrpcItem(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
             final AssetHolder holder = (AssetHolder) viewHolder;
             final Coin coin = mNativeGrpc.get(position);
-            final Asset asset = getBaseDao().getAsset(coin.denom);
+            final Asset asset = getBaseDao().getAsset(getMainActivity().mChainConfig, coin.denom);
 
             BigDecimal totalAmount = BigDecimal.ZERO;
             if (asset != null) {
@@ -365,7 +365,7 @@ public class MainTokensFragment extends BaseFragment {
         private void onBindIbcAuthToken(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
             final AssetHolder holder = (AssetHolder) viewHolder;
             final Coin coin = mIbcGrpc.get(position);
-            final Asset asset = getBaseDao().getAsset(mIbcGrpc.get(position).denom);
+            final Asset asset = getBaseDao().getAsset(getMainActivity().mChainConfig, mIbcGrpc.get(position).denom);
 
             if (asset != null) {
                 WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
@@ -392,7 +392,7 @@ public class MainTokensFragment extends BaseFragment {
         private void onBindEthToken(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
             final AssetHolder holder = (AssetHolder) viewHolder;
             final Coin coin = mEtherGrpc.get(position);
-            final Asset asset = getBaseDao().getAsset(coin.denom);
+            final Asset asset = getBaseDao().getAsset(getMainActivity().mChainConfig, coin.denom);
 
             if (asset != null) {
                 WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);

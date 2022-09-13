@@ -130,10 +130,10 @@ public class BaseData {
         return null;
     }
 
-    public Asset getAsset(String denom) {
+    public Asset getAsset(ChainConfig chainConfig, String denom) {
         if (mAssets != null && mAssets.size() > 0) {
             for (Asset asset : mAssets) {
-                if (asset.denom.equalsIgnoreCase(denom)) {
+                if (asset.chain.equalsIgnoreCase(chainConfig.chainName()) && asset.denom.equalsIgnoreCase(denom)) {
                     return asset;
                 }
             }
@@ -167,12 +167,15 @@ public class BaseData {
     }
 
     public String getBaseDenom(String denom) {
-        Asset asset = getAsset(denom);
-        if (asset != null) {
-            return asset.base_denom;
-        } else {
-            return denom;
+        if (mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst().isPresent()) {
+            Asset asset = mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst().get();
+            if (asset != null) {
+                return asset.base_denom;
+            } else {
+                return denom;
+            }
         }
+        return denom;
     }
 
     //COMMON DATA
