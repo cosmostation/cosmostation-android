@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 import android.app.Activity;
@@ -11,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -51,6 +55,8 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
     private Button mBeforeBtn, mNextBtn;
     private LinearLayout mBtnQr, mBtnPaste;
 
+    private View rootView;
+
     public static StepMemoFragment newInstance() {
         return new StepMemoFragment();
     }
@@ -62,7 +68,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tx_step_memo, container, false);
+        rootView = inflater.inflate(R.layout.fragment_tx_step_memo, container, false);
         mMemo = rootView.findViewById(R.id.et_memo);
         mMemoCnt = rootView.findViewById(R.id.tv_memoCnt);
         mMemoWranLayer = rootView.findViewById(R.id.memo_warn_layer);
@@ -111,8 +117,17 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                 mMemoCnt.setText("" + WUtil.getCharSize(memo) + "/" + WUtil.getMaxMemoSize(getSActivity().mBaseChain) + " byte");
             }
         });
+        return rootView;
+    }
 
-        if (isTransfer()) {
+    @Override
+    public void onRefreshTab() {
+        viewSetting(rootView);
+    }
+
+    private void viewSetting(View rootView) {
+        if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND || getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER ||
+                getSActivity().mTxType == CONST_PW_TX_EXECUTE_CONTRACT || getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
             mMemoWranLayer.setVisibility(View.VISIBLE);
             mBtnQr.setVisibility(View.VISIBLE);
             mBtnPaste.setVisibility(View.VISIBLE);
@@ -141,27 +156,26 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                 }
             });
         }
-        return rootView;
-    }
-
-    public boolean isTransfer() {
-        boolean result;
-        if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
-            result = true;
-        } else {
-            result = false;
-        }
-        return result;
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
+
         } else if (v.equals(mNextBtn)) {
             String memo = mMemo.getText().toString().trim();
-            if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
-                if (!isMemohasMenomic(memo)) {
+            if (getSActivity().mToAddress != null && memo.isEmpty()) {
+                if (!isExchangeAddressMemo()) {
+                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>"),
+                            getString(R.string.error_exchange_address_memo_msg), getString(R.string.str_confirm), null, false);
+                } else {
+                    getSActivity().mTxMemo = mMemo.getText().toString().trim();
+                    getSActivity().onNextStep();
+                }
+
+            } else if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
+                if (!isMemohasMnemonic(memo)) {
                     getSActivity().mTxMemo = mMemo.getText().toString().trim();
                     getSActivity().onNextStep();
                 } else {
@@ -178,6 +192,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                                 onActivityResult(AGAIN_MEMO, Activity.RESULT_OK, resultIntent);
                             }, R.drawable.img_mnemonic_warning);
                 }
+
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_memo, Toast.LENGTH_SHORT).show();
             }
@@ -208,7 +223,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         return (BaseBroadCastActivity) getBaseActivity();
     }
 
-    public boolean isMemohasMenomic(String memo) {
+    public boolean isMemohasMnemonic(String memo) {
         Boolean result = false;
         int matchedCnt = 0;
         ArrayList<String> mAllMnemonic = new ArrayList<String>(MnemonicCode.INSTANCE.getWordList());
@@ -224,6 +239,14 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         }
 
         return result;
+    }
+
+    private boolean isExchangeAddressMemo() {
+        if (WUtil.getExchangeAddressList().contains(getSActivity().mToAddress)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
