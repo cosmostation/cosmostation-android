@@ -368,6 +368,16 @@ public class BaseConstant {
     public final static String BINANCE_MAIN_BUSD_DEPUTY = "bnb10zq89008gmedc6rrwzdfukjk94swynd7dl97w8";
     public final static String KAVA_MAIN_BUSD_DEPUTY    = "kava1hh4x3a4suu5zyaeauvmv7ypf7w9llwlfufjmuu";
 
+    // Exchange Address
+    public final static String EXCHANGE_BINANCE_ADDRESS_01  = "cosmos1j8pp7zvcu9z8vd882m284j29fn2dszh05cqvf9";
+    public final static String EXCHANGE_BINANCE_ADDRESS_02  = "cosmos15v50ymp6n5dn73erkqtmq0u8adpl8d3ujv2e74";
+    public final static String EXCHANGE_BITHUMB_ADDRESS     = "cosmos1erzjr93gcqgvcs7azqaglrjqy5ntzn3da5p340";
+    public final static String EXCHANGE_UPBIT_ADDRESS       = "cosmos1hjyde2kfgtl78twvhs53u5j2gcsxrt649nn8j5";
+    public final static String EXCHANGE_COINONE_ADDRESS     = "cosmos1z7g5w84ynmjyg0kqpahdjqpj7yq34v3suckp0e";
+    public final static String EXCHANGE_MEXC_ADDRESS        = "cosmos144sh8vyv5nqfylmg4mlydnpe3l4w780jsrmf4k";
+    public final static String EXCHANGE_HITBTC_ADDRESS      = "cosmos1ghz39h0zkugxs3tst8mfvsy2g98xdaah83xl0t";
+    public final static String EXCHANGE_DIGFINEX_ADDRESS    = "cosmos10njsfnzz5lqch2p5362ueyyus98dje0vdsmds7";
+
     public final static String CHAIN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/chains/logo/";
     public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
 
