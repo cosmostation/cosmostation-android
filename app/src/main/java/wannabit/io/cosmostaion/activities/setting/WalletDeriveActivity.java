@@ -211,6 +211,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             numberPicker.selectListener = this::onSelectedHdPath;
             numberPicker.setCancelable(false);
             numberPicker.show(getSupportFragmentManager(), "dialog");
+
         } else if (v.equals(mBtnAdd)) {
             long selectedCnt = mDerives.stream().filter(derive -> derive.selected).count();
             if (selectedCnt == 0) {
@@ -409,6 +410,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         onShowWaitDialog();
         for (Derive derive : mDerives) {
             if (derive.selected) {
+                mTaskCount = mTaskCount + 1;
                 if (derive.status == 1) {
                     new OverrideAccountTask(getBaseApplication(), this, mWords, derive, mPKey, mPrivateKeyMode).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 } else {
@@ -421,10 +423,10 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
+        mTaskCount--;
         if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
             if (result.isSuccess) {
                 Derive initDerive = mDerives.stream().filter(derive -> derive.selected).findFirst().get();
-                PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
                 Account initAccount = getBaseDao().onSelectExistAccount(initDerive.dpAddress, initDerive.baseChain);
                 if (initAccount != null && initAccount.id != null) {
                     getBaseDao().setLastUser(initAccount.id);
@@ -435,9 +437,12 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
             if (result.isSuccess) {
-                PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
                 onStartMainActivity(0);
             }
+        }
+
+        if (mTaskCount == 0) {
+            PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
         }
     }
 }

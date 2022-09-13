@@ -9,20 +9,14 @@ import retrofit2.http.Path;
 import wannabit.io.cosmostaion.network.req.PushStatusRequest;
 import wannabit.io.cosmostaion.network.req.PushSyncRequest;
 import wannabit.io.cosmostaion.network.req.ReqMoonPayKey;
-import wannabit.io.cosmostaion.network.req.ReqPushAlarm;
 import wannabit.io.cosmostaion.network.res.PushStatusResponse;
 import wannabit.io.cosmostaion.network.res.ResMoonPaySignature;
-import wannabit.io.cosmostaion.network.res.ResPushAlarm;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 
 public interface Cosmostation {
 
     @GET("v1/app/version/android")
     Call<ResVersionCheck> getVersion();
-
-    @Deprecated
-    @POST("v1/account/update")
-    Call<ResPushAlarm> updateAlarm(@Body ReqPushAlarm data);
 
     @POST("v1/sign/moonpay")
     Call<ResMoonPaySignature> getMoonPay(@Body ReqMoonPayKey data);
