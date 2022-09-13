@@ -228,9 +228,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxCommonHolder(getLayoutInflater().inflate(R.layout.item_tx_common, viewGroup, false));
             } else if (viewType == TYPE_TX_TRANSFER) {
                 return new TxTransferHolder(getLayoutInflater().inflate(R.layout.item_tx_transfer, viewGroup, false));
-            }
-
-            else if (viewType == TYPE_TX_OK_STAKE) {
+            } else if (viewType == TYPE_TX_OK_STAKE) {
                 return new TxOkStakeHolder(getLayoutInflater().inflate(R.layout.item_tx_ok_stake, viewGroup, false));
             } else if (viewType == TYPE_TX_OK_DIRECT_VOTE) {
                 return new TxOkVoteHolder(getLayoutInflater().inflate(R.layout.item_tx_ok_vote_validator, viewGroup, false));
@@ -245,9 +243,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindCommon(viewHolder);
             } else if (getItemViewType(position) == TYPE_TX_TRANSFER) {
                 onBindTransfer(viewHolder, position);
-            }
-
-            else if (getItemViewType(position) == TYPE_TX_OK_STAKE) {
+            } else if (getItemViewType(position) == TYPE_TX_OK_STAKE) {
                 onBindOkStake(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_OK_DIRECT_VOTE) {
                 onBindOkDirectVote(viewHolder, position);
@@ -435,7 +431,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         public class TxCommonHolder extends RecyclerView.ViewHolder {
             ImageView itemStatusImg;
             TextView itemStatusTxt, itemFailTxt, itemHash, itemHeight, itemMsgCnt, itemGas, itemTime, itemTimeGap,
-                        itemMemo, itemFee, itemFeeDenom, itemFeeUsed, itemFeeUsedDenom;
+                    itemMemo, itemFee, itemFeeDenom, itemFeeUsed, itemFeeUsedDenom;
             RelativeLayout itemFeeLayer, itemFeeUsedLayer, itemblockLayer;
 
             public TxCommonHolder(@NonNull View itemView) {
@@ -524,8 +520,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
     private void onShowMoreWait() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_more_wait_title), getString(R.string.str_more_wait_msg),
-                getString(R.string.str_close), view -> onBackPressed(),
-                getString(R.string.str_wait), view -> onWaitMore(), false);
+                getString(R.string.str_wait), view -> onWaitMore(), getString(R.string.str_close), view -> onBackPressed(), false);
     }
 
     public void onWaitMore() {

@@ -37,13 +37,13 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reward_address_change_step3, container, false);
-        mFeeAmount              = rootView.findViewById(R.id.change_reward_address_fees);
-        mFeeType                = rootView.findViewById(R.id.change_reward_address_type);
-        mCurrentAddress         = rootView.findViewById(R.id.current_reward_address);
-        mNewAddress             = rootView.findViewById(R.id.new_reward_address);
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount = rootView.findViewById(R.id.change_reward_address_fees);
+        mFeeType = rootView.findViewById(R.id.change_reward_address_type);
+        mCurrentAddress = rootView.findViewById(R.id.current_reward_address);
+        mNewAddress = rootView.findViewById(R.id.new_reward_address);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -60,26 +60,25 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_reward_address_change_confirm_title), getString(R.string.str_reward_address_change_confirm_msg),
-                    getString(R.string.str_cancel), null,
                     getString(R.string.str_continue), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);
-                        }, true);
+                    }, getString(R.string.str_cancel), null, true);
         }
     }
 
     private RewardAddressChangeActivity getSActivity() {
-        return (RewardAddressChangeActivity)getBaseActivity();
+        return (RewardAddressChangeActivity) getBaseActivity();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
             getSActivity().onStartRewardAddressChange();
         }
     }

@@ -107,11 +107,10 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
             getSActivity().onBeforeStep();
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_cdp_warn_title), getString(R.string.str_cdp_warn_msg),
-                    CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null,
                     getString(R.string.str_confirm), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_CDP_CONFIRM, Activity.RESULT_OK, resultIntent);
-                    }, R.drawable.img_cdp_warning);
+                    }, getString(R.string.str_cancel), null, R.drawable.img_cdp_warning);
         }
     }
 

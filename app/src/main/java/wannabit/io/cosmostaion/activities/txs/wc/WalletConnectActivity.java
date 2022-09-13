@@ -119,28 +119,20 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
             return null;
         });
         wcClient.setOnBnbTransfer((id, order) -> {
-            runOnUiThread(() -> {
-                onShowTransferDialog(processBnb(id, order));
-            });
+            runOnUiThread(() -> onShowTransferDialog(processBnb(id, order)));
             return null;
         });
         wcClient.setOnBnbTxConfirm((id, order) -> {
-            runOnUiThread(() -> {
-                Toast.makeText(getBaseContext(), getString(R.string.str_wc_sign_result_msg), Toast.LENGTH_SHORT).show();
-            });
+            runOnUiThread(() -> Toast.makeText(getBaseContext(), getString(R.string.str_wc_sign_result_msg), Toast.LENGTH_SHORT).show());
             new Thread(new ConfirmRunnable()).start();
             return null;
         });
         wcClient.setOnBnbTrade((id, order) -> {
-            runOnUiThread(() -> {
-                onShowNewOrderDialog(processBnb(id, order));
-            });
+            runOnUiThread(() -> onShowNewOrderDialog(processBnb(id, order)));
             return null;
         });
         wcClient.setOnBnbCancel((id, order) -> {
-            runOnUiThread(() -> {
-                onShowCancelDialog(processBnb(id, order));
-            });
+            runOnUiThread(() -> onShowCancelDialog(processBnb(id, order)));
             return null;
         });
     }

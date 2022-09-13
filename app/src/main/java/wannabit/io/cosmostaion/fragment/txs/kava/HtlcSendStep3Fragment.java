@@ -138,11 +138,10 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_htlc_warn_title), getString(R.string.str_htlc_warn_msg),
-                    getString(R.string.str_cancel), null,
                     getString(R.string.str_confirm), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_HTLC_CONFIRM, Activity.RESULT_OK, resultIntent);
-                    }, R.drawable.img_bep_3_available);
+                    }, getString(R.string.str_cancel), null, R.drawable.img_bep_3_available);
         }
     }
 
