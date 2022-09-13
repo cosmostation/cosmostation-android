@@ -66,11 +66,10 @@ public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_hard_withdraw_warn_title), getString(R.string.str_hard_withdraw_warn_msg),
-                    getString(R.string.str_cancel), null,
                     getString(R.string.str_confirm), view -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_HARD_BORROW_CHECK, Activity.RESULT_OK, resultIntent);
-            });
+                    }, getString(R.string.str_cancel), null);
         }
     }
 

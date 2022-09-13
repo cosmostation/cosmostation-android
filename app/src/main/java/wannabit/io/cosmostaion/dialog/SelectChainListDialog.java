@@ -90,8 +90,8 @@ public class SelectChainListDialog extends DialogFragment {
         } else {
             mDialogTitle.setText(getSActivity().getString(R.string.str_select_chains));
             mBtnLayer.setVisibility(View.VISIBLE);
-            mBtnLeft.setOnClickListener(View -> getDialog().dismiss());
-            mBtnRight.setOnClickListener(View -> {
+            mBtnRight.setOnClickListener(View -> getDialog().dismiss());
+            mBtnLeft.setOnClickListener(View -> {
                 if (selectedSet.size() >= 1) {
                     mSelectChainsDialogResult.SelectedChains(new Gson().toJson(selectedSet));
                     getDialog().dismiss();

@@ -66,11 +66,10 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
 
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_hard_withdraw_warn_title), getString(R.string.str_hard_withdraw_warn_msg),
-                    CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null,
                     getString(R.string.str_confirm), view -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_HARD_WITHDRAW_CHECK, Activity.RESULT_OK, resultIntent);
-                    });
+                    }, CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null);
         }
     }
 
