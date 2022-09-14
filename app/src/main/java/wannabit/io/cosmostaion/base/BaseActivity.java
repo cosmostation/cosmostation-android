@@ -229,7 +229,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onInsertKeyDialog() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                getString(R.string.str_close), null, getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount());
+                getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(), getString(R.string.str_close), null);
     }
 
     public void onAddMnemonicForAccount() {
