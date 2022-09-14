@@ -135,6 +135,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private int mTaskCount;
+
     private void onInitFetch() {
         if (mTaskCount > 0) return;
         mTaskCount = 6;
@@ -173,8 +174,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
             CommonAlertDialog.showDoubleButton(this, getString(R.string.str_not_validator_title), getString(R.string.str_not_validator_msg),
-                    getString(R.string.str_cancel), view -> onBackPressed(),
-                    getString(R.string.str_continue), view -> onStartDelegate());
+                    getString(R.string.str_cancel), view -> onBackPressed(), getString(R.string.str_continue), view -> onStartDelegate());
         } else {
             onStartDelegate();
         }
@@ -493,7 +493,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
             try {
                 Picasso.get().load(mChainConfig.monikerUrl() + mValOpAddress + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
 
             holder.itemBtnDelegate.setOnClickListener(v -> onCheckDelegate());
         }
@@ -549,7 +550,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
             try {
                 Picasso.get().load(mChainConfig.monikerUrl() + mValOpAddress + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
 
         private void onBindActionV1(RecyclerView.ViewHolder viewHolder) {

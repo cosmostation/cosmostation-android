@@ -129,8 +129,7 @@ public class StarNameWalletConnectActivity extends BaseActivity implements View.
         } else {
             CommonAlertDialog.showDoubleButton(this, getString(R.string.str_starname_walletconnect_alert_title),
                     String.format(getString(R.string.str_starname_walletconnect_alert_msg2), String.valueOf(toExport.addresses.size())),
-                    getString(R.string.str_cancel), null,
-                    getString(R.string.str_continue), view -> onExportAddresses(jsonData), true);
+                    getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onExportAddresses(jsonData), true);
         }
     }
 

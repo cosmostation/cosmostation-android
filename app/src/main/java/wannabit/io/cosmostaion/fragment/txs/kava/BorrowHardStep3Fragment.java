@@ -70,7 +70,7 @@ public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClic
                     getString(R.string.str_confirm), view -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_HARD_BORROW_CHECK, Activity.RESULT_OK, resultIntent);
-            });
+                    });
         }
     }
 

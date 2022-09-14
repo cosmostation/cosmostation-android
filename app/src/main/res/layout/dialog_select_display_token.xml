@@ -60,11 +60,10 @@
                     android:layout_weight="1"
                     android:background="@color/colorTrans"
                     android:text="@string/str_cancel"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorRed" />
+                    android:textAllCaps="false" />
 
                 <View
-                    android:layout_width="1px"
+                    android:layout_width="@dimen/space_view"
                     android:layout_height="match_parent"
                     android:background="@color/colorGray4" />
 
@@ -77,6 +76,7 @@
                     android:background="@color/colorTrans"
                     android:text="@string/str_confirm"
                     android:textAllCaps="false" />
+
             </LinearLayout>
 
         </LinearLayout>

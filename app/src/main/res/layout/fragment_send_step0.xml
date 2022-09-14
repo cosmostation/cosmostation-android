@@ -63,19 +63,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4">
+
             <EditText
                 android:id="@+id/receiver_account"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:hint="@string/str_starname_recipient_address"
-                android:textCursorDrawable="@drawable/white_cursor"
-                android:maxLength="60"
-                android:textColorHint="@color/colorGray4"
                 android:background="@drawable/edittext_box"
-                android:paddingLeft="@dimen/space_16"
-                android:paddingRight="@dimen/space_16"
-                style="@style/font_rr_12_black_daynight"
-                android:imeOptions="actionNext"/>
+                android:hint="@string/str_starname_recipient_address"
+                android:imeOptions="actionNext"
+                android:maxLength="60"
+                android:paddingLeft="@dimen/space_10"
+                android:paddingRight="@dimen/space_10"
+                android:textColorHint="@color/colorGray4"
+                android:textCursorDrawable="@drawable/white_cursor" />
         </RelativeLayout>
 
         <LinearLayout

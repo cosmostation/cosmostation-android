@@ -87,22 +87,22 @@ import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener {
-    private Toolbar         mToolbar;
-    private RecyclerView    mTxRecyclerView;
-    private CardView        mErrorCardView;
-    private TextView        mErrorMsgTv;
-    private RelativeLayout  mLoadingLayer;
+    private Toolbar mToolbar;
+    private RecyclerView mTxRecyclerView;
+    private CardView mErrorCardView;
+    private TextView mErrorMsgTv;
+    private RelativeLayout mLoadingLayer;
 
-    private LinearLayout    mControlLayer;
-    private Button          mDismissBtn;
-    private Button          mShareBtn;
-    private Button          mExplorerBtn;
+    private LinearLayout mControlLayer;
+    private Button mDismissBtn;
+    private Button mShareBtn;
+    private Button mExplorerBtn;
 
-    private boolean         mIsGen = true;
-    private boolean         mIsSuccess;
-    private int             mErrorCode;
-    private String          mErrorMsg;
-    private String          mTxHash;
+    private boolean mIsGen = true;
+    private boolean mIsSuccess;
+    private int mErrorCode;
+    private String mErrorMsg;
+    private String mTxHash;
 
     private TxDetailgRPCAdapter mAdapter;
     private ServiceOuterClass.GetTxResponse mResponse;
@@ -111,11 +111,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tx_detail_grpc);
-        mToolbar        = findViewById(R.id.tool_bar);
+        mToolbar = findViewById(R.id.tool_bar);
         mTxRecyclerView = findViewById(R.id.tx_recycler);
-        mErrorCardView  = findViewById(R.id.error_Card);
-        mErrorMsgTv     = findViewById(R.id.error_details);
-        mLoadingLayer   = findViewById(R.id.loadingLayer);
+        mErrorCardView = findViewById(R.id.error_Card);
+        mErrorMsgTv = findViewById(R.id.error_details);
+        mLoadingLayer = findViewById(R.id.loadingLayer);
 
         mControlLayer = findViewById(R.id.control_layer);
         mShareBtn = findViewById(R.id.btn_share);
@@ -296,14 +296,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_COMMISSION) {
                 return new TxCommissionHolder(getLayoutInflater().inflate(R.layout.item_tx_commission, viewGroup, false));
 
-            }
-
-            else if (viewType == TYPE_TX_IBC_SEND) {
+            } else if (viewType == TYPE_TX_IBC_SEND) {
                 return new TxIBCSendHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_send, viewGroup, false));
 
-            }
-
-            else if (viewType == TYPE_STARNAME_REGISTER_DOMAIN) {
+            } else if (viewType == TYPE_STARNAME_REGISTER_DOMAIN) {
                 return new TxStarnameRegisterDomainHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_register_domain, viewGroup, false));
 
             } else if (viewType == TYPE_STARNAME_REGISTER_ACCOUNT) {
@@ -321,9 +317,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME || viewType == TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME) {
                 return new TxStarnameRenewHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
 
-            }
-
-            else if (viewType == TYPE_TX_JOIN_POOL) {
+            } else if (viewType == TYPE_TX_JOIN_POOL) {
                 return new TxJoinPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_join_pool, viewGroup, false));
 
             } else if (viewType == TYPE_TX_EXIT_POOL) {
@@ -445,11 +439,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             if (position == 0) {
-                final TxCommonHolder viewHolder = (TxCommonHolder)holder;
+                final TxCommonHolder viewHolder = (TxCommonHolder) holder;
                 viewHolder.onBindCommon(TxDetailgRPCActivity.this, getBaseDao(), mChainConfig, mResponse);
 
             } else {
-                final TxHolder viewHolder = (TxHolder)holder;
+                final TxHolder viewHolder = (TxHolder) holder;
                 viewHolder.onBindMsg(getBaseContext(), getBaseDao(), mChainConfig, mResponse, position - 1, mAccount.address);
             }
         }
@@ -485,13 +479,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_VOTE;
                 } else if (msg.getTypeUrl().contains(cosmos.distribution.v1beta1.Tx.MsgWithdrawValidatorCommission.getDescriptor().getFullName())) {
                     return TYPE_TX_COMMISSION;
-                }
-
-                else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
                     return TYPE_TX_IBC_SEND;
-                }
-
-                else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_REGISTER_DOMAIN;
                 } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_REGISTER_ACCOUNT;
@@ -505,15 +495,13 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME;
                 } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRenewDomain.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME;
-                }
-
-                else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinPool.getDescriptor().getFullName()) ||
-                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinSwapExternAmountIn.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinPool.getDescriptor().getFullName()) ||
+                        msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinSwapExternAmountIn.getDescriptor().getFullName())) {
                     return TYPE_TX_JOIN_POOL;
                 } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgExitPool.getDescriptor().getFullName())) {
                     return TYPE_TX_EXIT_POOL;
                 } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
-                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
+                        msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
                     return TYPE_TX_SWAP_COIN;
                 } else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgLockTokens.getDescriptor().getFullName())) {
                     return TYPE_TX_LOCK_TOKEN;
@@ -532,7 +520,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
                 // nft msg
                 else if (msg.getTypeUrl().contains(irismod.nft.Tx.MsgIssueDenom.getDescriptor().getFullName()) ||
-                            msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgIssueDenom.getDescriptor().getFullName())) {
+                        msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgIssueDenom.getDescriptor().getFullName())) {
                     return TYPE_TX_ISSUE_DENOM;
                 } else if (msg.getTypeUrl().contains(irismod.nft.Tx.MsgMintNFT.getDescriptor().getFullName()) ||
                         msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgMintNFT.getDescriptor().getFullName())) {
@@ -549,7 +537,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
                 //kava msg
                 else if (msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgSwapExactForTokens.getDescriptor().getFullName()) ||
-                            msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgSwapForExactTokens.getDescriptor().getFullName())) {
+                        msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgSwapForExactTokens.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_SWAP;
                 } else if (msg.getTypeUrl().contains(kava.swap.v1beta1.Tx.MsgDeposit.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_DEPOSIT_POOL;
@@ -585,13 +573,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_CDP_LIQUIDATE;
                 } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgLiquidate.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_HARD_LIQUIDATE;
-                }
-
-                else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgExecuteContract.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(cosmwasm.wasm.v1.Tx.MsgExecuteContract.getDescriptor().getFullName())) {
                     return TYPE_TX_EXECUTE_CONTRACT;
-                }
-
-                else if (msg.getTypeUrl().contains(cosmos.authz.v1beta1.Tx.MsgExec.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(cosmos.authz.v1beta1.Tx.MsgExec.getDescriptor().getFullName())) {
                     return TYPE_TX_AUTHZ_EXEC;
                 }
                 return TYPE_TX_UNKNOWN;
@@ -601,6 +585,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
 
     private int FetchCnt = 0;
+
     private void onFetchTx(String hash) {
         ServiceGrpc.ServiceStub mStub = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
         ServiceOuterClass.GetTxRequest request = ServiceOuterClass.GetTxRequest.newBuilder().setHash(hash).build();
@@ -629,15 +614,15 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             }
 
             @Override
-            public void onCompleted() { }
+            public void onCompleted() {
+            }
         });
 
     }
 
     private void onShowMoreWait() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_more_wait_title), getString(R.string.str_more_wait_msg),
-                getString(R.string.str_close), view -> onBackPressed(),
-                getString(R.string.str_wait), view -> onWaitMore(), false);
+                getString(R.string.str_close), view -> onBackPressed(), getString(R.string.str_wait), view -> onWaitMore(), false);
     }
 
     public void onWaitMore() {

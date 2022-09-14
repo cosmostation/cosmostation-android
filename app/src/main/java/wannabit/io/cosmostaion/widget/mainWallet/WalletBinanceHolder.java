@@ -63,23 +63,23 @@ public class WalletBinanceHolder extends BaseHolder {
         mBtnWalletConnect.setOnClickListener(v -> {
             if (!mainActivity.mAccount.hasPrivateKey) {
                 CommonAlertDialog.showDoubleButton(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
-                        mainActivity.getString(R.string.str_close), null);
+                        mainActivity.getString(R.string.str_close), null,
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount());
                 return;
             }
             new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {
-                @Override
-                public void onPermissionGranted() {
-                    IntentIntegrator integrator = new IntentIntegrator(mainActivity);
-                    integrator.setOrientationLocked(true);
-                    integrator.initiateScan();
-                }
+                        @Override
+                        public void onPermissionGranted() {
+                            IntentIntegrator integrator = new IntentIntegrator(mainActivity);
+                            integrator.setOrientationLocked(true);
+                            integrator.initiateScan();
+                        }
 
-                @Override
-                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                    Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
-                }
-            })
+                        @Override
+                        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                            Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
+                        }
+                    })
                     .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     .setRationaleMessage(mainActivity.getString(R.string.str_permission_qr))
                     .check();

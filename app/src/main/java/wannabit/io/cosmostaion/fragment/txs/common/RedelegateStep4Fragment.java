@@ -21,10 +21,10 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
     public final static int REDELEGATE_CONFIRM_DIALOG = 6016;
 
-    private TextView        mTvRedelegateAmount, mTvRedelegateDenom;
-    private TextView        mFeeAmount, mFeeDenom;
-    private TextView        mFromValidatorName, mToValidatorName, mMemo;
-    private Button          mBeforeBtn, mConfirmBtn;
+    private TextView mTvRedelegateAmount, mTvRedelegateDenom;
+    private TextView mFeeAmount, mFeeDenom;
+    private TextView mFromValidatorName, mToValidatorName, mMemo;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static RedelegateStep4Fragment newInstance() {
         return new RedelegateStep4Fragment();
@@ -38,15 +38,15 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_redelegate_step4, container, false);
-        mTvRedelegateAmount     = rootView.findViewById(R.id.redelegate_amount);
-        mTvRedelegateDenom      = rootView.findViewById(R.id.redelegate_denom);
-        mFeeAmount              = rootView.findViewById(R.id.redelegate_fees);
-        mFeeDenom               = rootView.findViewById(R.id.redelegate_fees_type);
-        mFromValidatorName      = rootView.findViewById(R.id.redelegate_from_moniker);
-        mToValidatorName        = rootView.findViewById(R.id.redelegate_to_moniker);
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mTvRedelegateAmount = rootView.findViewById(R.id.redelegate_amount);
+        mTvRedelegateDenom = rootView.findViewById(R.id.redelegate_denom);
+        mFeeAmount = rootView.findViewById(R.id.redelegate_fees);
+        mFeeDenom = rootView.findViewById(R.id.redelegate_fees_type);
+        mFromValidatorName = rootView.findViewById(R.id.redelegate_from_moniker);
+        mToValidatorName = rootView.findViewById(R.id.redelegate_to_moniker);
+        mMemo = rootView.findViewById(R.id.memo);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -65,12 +65,12 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
 
     private RedelegateActivity getSActivity() {
-        return (RedelegateActivity)getBaseActivity();
+        return (RedelegateActivity) getBaseActivity();
     }
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -79,13 +79,13 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
                     getString(R.string.str_yes), view -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(REDELEGATE_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);
-            });
+                    });
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REDELEGATE_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REDELEGATE_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
             getSActivity().onStartRedelegate();
         }
     }

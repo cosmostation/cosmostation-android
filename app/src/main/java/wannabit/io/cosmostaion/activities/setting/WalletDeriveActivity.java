@@ -125,9 +125,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        if (mIsDetailMode) {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
     @Override
@@ -143,15 +141,11 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
     private void loadData() {
         onShowWaitDialog();
-        new Thread(() -> {
-            onGetAllKeyTypes();
-        }).start();
+        new Thread(() -> onGetAllKeyTypes()).start();
     }
 
     private void onGetAllKeyTypes() {
-        runOnUiThread(() -> {
-            mAccountListAdapter.notifyDataSetChanged();
-        });
+        runOnUiThread(() -> mAccountListAdapter.notifyDataSetChanged());
 
         mDerives.clear();
         for (BaseChain chain : BaseChain.SUPPORT_CHAINS()) {
@@ -196,10 +190,10 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         if (selectedCnt == 0) {
             mAccountCnt.setText("" + alreadyCnt);
-            mAccountCnt.setTextColor(getResources().getColor(R.color.colorGray1));
+            mAccountCnt.setTextColor(ContextCompat.getColor(this, R.color.colorGray1));
         } else {
             mAccountCnt.setText("" + (alreadyCnt + selectedCnt));
-            mAccountCnt.setTextColor(getResources().getColor(R.color.colorPhoton));
+            mAccountCnt.setTextColor(ContextCompat.getColor(this, R.color.colorPhoton));
         }
         mChainCnt.setText("" + allKeyCnt);
     }
@@ -218,7 +212,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 Toast.makeText(this, R.string.error_not_selected_to_import, Toast.LENGTH_SHORT).show();
                 return;
             }
-            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_add_new), String.format(getString(R.string.str_add_wallet), String.valueOf(selectedCnt)), getString(R.string.str_cancel), null, getString(R.string.str_confirm), view -> onSaveAccount());
+            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_add_new), String.format(getString(R.string.str_add_wallet), String.valueOf(selectedCnt)),
+                    getString(R.string.str_cancel), null, getString(R.string.str_confirm), view -> onSaveAccount());
         }
     }
 
@@ -291,86 +286,68 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             }
 
             if (isGRPC(derive.baseChain)) {
-                new Thread(() -> {
-                    new BalanceGrpcTask(getBaseApplication(), result -> {
-                        ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
-                        if (balances != null && balances.size() > 0) {
-                            for (CoinOuterClass.Coin coin : balances) {
-                                if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
-                                    derive.coin = new Coin(coin.getDenom(), coin.getAmount());
-                                    runOnUiThread(() -> {
-                                        WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
-                                    });
-                                    return;
-                                }
+                new Thread(() -> new BalanceGrpcTask(getBaseApplication(), result -> {
+                    ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
+                    if (balances != null && balances.size() > 0) {
+                        for (CoinOuterClass.Coin coin : balances) {
+                            if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
+                                derive.coin = new Coin(coin.getDenom(), coin.getAmount());
+                                runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                                return;
                             }
                         }
+                    }
 
-                        derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                        runOnUiThread(() -> {
-                            WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
-                        });
-                    }, derive.baseChain, derive.dpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }).start();
+                    derive.coin = new Coin(chainConfig.mainDenom(), "0");
+                    runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                }, derive.baseChain, derive.dpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)).start();
 
             } else {
                 if (derive.baseChain.equals(BNB_MAIN)) {
-                    new Thread(() -> {
-                        ApiClient.getBnbChain().getAccountInfo(derive.dpAddress).enqueue(new Callback<ResBnbAccountInfo>() {
-                            @Override
-                            public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
-                                if (response.isSuccessful() && response.body() != null && response.body().balances != null) {
-                                    for (ResBnbAccountInfo.BnbBalance balance : response.body().balances) {
-                                        if (balance.symbol.equalsIgnoreCase(chainConfig.mainDenom())) {
-                                            derive.coin = new Coin(balance.symbol, balance.free);
-                                            runOnUiThread(() -> {
-                                                WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
-                                            });
-                                            return;
-                                        }
+                    new Thread(() -> ApiClient.getBnbChain().getAccountInfo(derive.dpAddress).enqueue(new Callback<ResBnbAccountInfo>() {
+                        @Override
+                        public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
+                            if (response.isSuccessful() && response.body() != null && response.body().balances != null) {
+                                for (ResBnbAccountInfo.BnbBalance balance : response.body().balances) {
+                                    if (balance.symbol.equalsIgnoreCase(chainConfig.mainDenom())) {
+                                        derive.coin = new Coin(balance.symbol, balance.free);
+                                        runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                                        return;
                                     }
                                 }
-
-                                derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                                runOnUiThread(() -> {
-                                    WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
-                                });
                             }
 
-                            @Override
-                            public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) {
-                            }
-                        });
-                    }).start();
+                            derive.coin = new Coin(chainConfig.mainDenom(), "0");
+                            runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResBnbAccountInfo> call, Throwable t) {
+                        }
+                    })).start();
 
                 } else if (derive.baseChain.equals(OKEX_MAIN)) {
-                    new Thread(() -> {
-                        ApiClient.getOkexChain().getAccountBalance(derive.dpAddress).enqueue(new Callback<ResOkAccountToken>() {
-                            @Override
-                            public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
-                                if (response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {
-                                    for (ResOkAccountToken.OkCurrency balance : response.body().data.currencies) {
-                                        if (balance.symbol.equals(chainConfig.mainDenom())) {
-                                            derive.coin = new Coin(balance.symbol, balance.available);
-                                            runOnUiThread(() -> {
-                                                WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
-                                            });
-                                            return;
-                                        }
+                    new Thread(() -> ApiClient.getOkexChain().getAccountBalance(derive.dpAddress).enqueue(new Callback<ResOkAccountToken>() {
+                        @Override
+                        public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
+                            if (response.isSuccessful() && response.body() != null && response.body().data != null && response.body().data.currencies != null) {
+                                for (ResOkAccountToken.OkCurrency balance : response.body().data.currencies) {
+                                    if (balance.symbol.equals(chainConfig.mainDenom())) {
+                                        derive.coin = new Coin(balance.symbol, balance.available);
+                                        runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                                        return;
                                     }
                                 }
-
-                                derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                                runOnUiThread(() -> {
-                                    WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable);
-                                });
                             }
 
-                            @Override
-                            public void onFailure(Call<ResOkAccountToken> call, Throwable t) {
-                            }
-                        });
-                    }).start();
+                            derive.coin = new Coin(chainConfig.mainDenom(), "0");
+                            runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResOkAccountToken> call, Throwable t) {
+                        }
+                    })).start();
                 }
             }
         }

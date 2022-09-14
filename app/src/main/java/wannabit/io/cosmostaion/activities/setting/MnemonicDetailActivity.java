@@ -157,8 +157,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
         } else if (v.equals(mDelete)) {
             CommonAlertDialog.showDoubleButton(MnemonicDetailActivity.this, getString(R.string.str_mnemonic_delete),
                     String.format(getString(R.string.str_mnemonic_delete_msg), String.valueOf(mWords.getLinkedWalletCnt(getBaseDao()))),
-                    CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteMnemonic(),
-                    getString(R.string.str_close), null);
+                    CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteMnemonic(), getString(R.string.str_close), null);
         }
     }
 

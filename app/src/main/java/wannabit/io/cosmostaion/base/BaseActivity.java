@@ -37,21 +37,16 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGA
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
-import android.provider.Settings;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -60,7 +55,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.protobuf2.Any;
@@ -80,7 +74,6 @@ import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryGrpc;
@@ -236,8 +229,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onInsertKeyDialog() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                getString(R.string.str_close), null);
+                getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(), getString(R.string.str_close), null);
     }
 
     public void onAddMnemonicForAccount() {
@@ -986,8 +978,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyWarnNoKey() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null,
-                getString(R.string.str_continue), view -> onShowBuySelectFiat());
+                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowBuySelectFiat());
     }
 
     public void onShowBuySelectFiat() {

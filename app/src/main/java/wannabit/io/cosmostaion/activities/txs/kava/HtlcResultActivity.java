@@ -254,7 +254,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 relaySenderTv.setText(msg.getSenderOtherChain());
                 recipientTv.setText(msg.getRecipientOtherChain());
                 randomHashTv.setText(msg.getRandomNumberHash());
-            } catch (InvalidProtocolBufferException e) { }
+            } catch (InvalidProtocolBufferException e) {
+            }
         }
     }
 
@@ -327,7 +328,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 randomNumberTv.setText(msg.getRandomNumber());
                 swapIdTv.setText(msg.getSwapId());
 
-            } catch (InvalidProtocolBufferException e) { }
+            } catch (InvalidProtocolBufferException e) {
+            }
         }
     }
 
@@ -369,12 +371,14 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 }
 
                 @Override
-                public void onCompleted() { }
+                public void onCompleted() {
+                }
             });
         }
     }
 
     private int ClaimFetchCnt = 0;
+
     private void onFetchClaimTx(String hash) {
         if (mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             ApiClient.getBnbChain().getSearchTx(hash, "json").enqueue(new Callback<ResBnbTxInfo>() {
@@ -428,7 +432,8 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 }
 
                 @Override
-                public void onCompleted() { }
+                public void onCompleted() {
+                }
             });
         }
     }
@@ -439,6 +444,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
     //Check HTLC SWAP ID
     private int SwapFetchCnt = 0;
+
     private void onCheckSwapId(String expectedSwapId) {
         if (mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             ApiClient.getKavaChain().getSwapById(expectedSwapId).enqueue(new Callback<ResKavaSwapInfo>() {
@@ -497,8 +503,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
     //SWAP ID LOOP CHECK
     private void onShowMoreSwapWait() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_more_wait_swap_title), getString(R.string.str_more_wait_swap_msg),
-                getString(R.string.str_close), view -> onFinishWithError(),
-                getString(R.string.str_wait), view -> onWaitSwapMore(), false);
+                getString(R.string.str_close), view -> onFinishWithError(), getString(R.string.str_wait), view -> onWaitSwapMore(), false);
     }
 
     public void onWaitSwapMore() {

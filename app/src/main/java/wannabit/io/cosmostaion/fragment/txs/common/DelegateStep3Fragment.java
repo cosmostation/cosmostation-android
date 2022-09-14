@@ -82,7 +82,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
                 }
             }
             CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_delegate_warn_title), getString(R.string.str_delegate_warn_msg),
-                    CommonAlertDialog.highlightingText(getString(R.string.str_cancel)), null,
+                    getString(R.string.str_cancel), null,
                     getString(R.string.str_confirm), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_DELEGATE_CHECK, Activity.RESULT_OK, resultIntent);

@@ -86,8 +86,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
             if (mAccount == null) return;
             if (!mAccount.hasPrivateKey) {
                 CommonAlertDialog.showDoubleButton(NFTListActivity.this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(),
-                        getString(R.string.str_close), null);
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + getString(R.string.str_add_mnemonics) + "</font>"), view -> onAddMnemonicForAccount(), getString(R.string.str_close), null);
                 return;
             }
             if (!WDp.isTxFeePayable(NFTListActivity.this, getBaseDao(), mChainConfig)) {

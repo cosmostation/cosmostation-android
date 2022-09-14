@@ -224,9 +224,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <View
+                        android:layout_width="@dimen/space_view"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorGray10" />
+
                     <Button
                         android:id="@+id/btn_nega"
-                        style="@style/font_ss_14_red"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

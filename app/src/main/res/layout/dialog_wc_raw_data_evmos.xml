@@ -115,7 +115,7 @@
                 android:textAllCaps="false" />
 
             <View
-                android:layout_width="1px"
+                android:layout_width="@dimen/space_view"
                 android:layout_height="match_parent"
                 android:background="@color/colorGray4" />
 

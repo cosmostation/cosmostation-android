@@ -372,17 +372,17 @@ public class ConnectWalletActivity extends BaseActivity {
                     CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this,
                             getString(R.string.str_wc_connect_alert_title),
                             Html.fromHtml(String.format("%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>", getString(R.string.str_wc_connect_alert_message), url, getString(R.string.str_wc_connect_alert_guide))),
-                            getString(R.string.str_ok),
-                            view -> {
-                                WalletConnectManager.addWhiteList(this, finalUrl);
-                                processSessionRequest(wcPeerMeta);
-                            },
                             getString(R.string.str_cancel),
                             view -> {
                                 mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 1000);
                                 wcClient.rejectSession(getString(R.string.str_cancel));
                                 if (!isFinishing() && !isDapp) finish();
                                 if (isDapp) changeDappConnectStatus(false);
+                            },
+                            getString(R.string.str_ok),
+                            view -> {
+                                WalletConnectManager.addWhiteList(this, finalUrl);
+                                processSessionRequest(wcPeerMeta);
                             });
                 }
             });

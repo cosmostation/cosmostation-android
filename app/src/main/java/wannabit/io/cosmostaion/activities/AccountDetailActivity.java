@@ -276,8 +276,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnDelete)) {
             CommonAlertDialog.showDoubleButton(this, getString(R.string.str_delete_title), getString(R.string.str_delete_msg),
-                    CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(),
-                    getString(R.string.str_close), null);
+                    CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(), getString(R.string.str_close), null);
 
         } else if (v.equals(mNameEditImg) && !this.isFinishing()) {
             Bundle bundle = new Bundle();
@@ -308,8 +307,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
             CommonAlertDialog.showDoubleButton(this, getString(R.string.str_reward_address_change_title),
                     Html.fromHtml(getString(R.string.str_reward_address_change_msg) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(getString(R.string.str_reward_address_change_market_no) + "</font>")),
-                    getString(R.string.str_cancel), null,
-                    getString(R.string.str_continue), view -> onStartChangeRewardAddress(), true);
+                    getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onStartChangeRewardAddress(), true);
         }
 
     }

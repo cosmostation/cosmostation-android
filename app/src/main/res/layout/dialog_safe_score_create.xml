@@ -160,7 +160,7 @@
 
                     <Button
                         android:id="@+id/btn_nega"
-                        style="@style/font_ss_14_red"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -169,7 +169,7 @@
                         android:textAllCaps="false" />
 
                     <View
-                        android:layout_width="1px"
+                        android:layout_width="@dimen/space_view"
                         android:layout_height="match_parent"
                         android:background="@color/colorGray4" />
 
@@ -182,6 +182,7 @@
                         android:background="@color/colorTrans"
                         android:text="@string/str_confirm"
                         android:textAllCaps="false" />
+
                 </LinearLayout>
             </LinearLayout>
 
