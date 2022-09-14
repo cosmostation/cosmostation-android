@@ -227,6 +227,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onPositionChanged(int position) {
                 mSelectedFeeInfo = position;
+                onCalculateFees();
                 onCheckTxType();
             }
         });
@@ -550,7 +551,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 gasused = (long) ((double) gasused * 1.3d);
             else gasused = (long) ((double) gasused * 1.1d);
             mFeeGasAmount = new BigDecimal(gasused);
-            onUpdateView();
             mSimulPassed = true;
             Toast.makeText(getContext(), getString(R.string.str_gas_checked), Toast.LENGTH_SHORT).show();
         } else {
@@ -558,6 +558,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             Toast.makeText(getContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
         }
 
+        onUpdateView();
         WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
         int denomDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mFeeData.denom);
         mGasValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mFeeData.denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
