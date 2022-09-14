@@ -401,25 +401,20 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
         mTaskCount--;
-        if (result.taskType == BaseConstant.TASK_INIT_ACCOUNT) {
-            if (result.isSuccess) {
-                Derive initDerive = mDerives.stream().filter(derive -> derive.selected).findFirst().get();
-                Account initAccount = getBaseDao().onSelectExistAccount(initDerive.dpAddress, initDerive.baseChain);
-                if (initAccount != null && initAccount.id != null) {
-                    getBaseDao().setLastUser(initAccount.id);
-                    getBaseDao().setLastChain(initDerive.baseChain.getChain());
-                    onStartMainActivity(0);
-                }
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_OVERRIDE_ACCOUNT) {
-            if (result.isSuccess) {
-                onStartMainActivity(0);
+        if (result.isSuccess) {
+            Derive initDerive = mDerives.stream().filter(derive -> derive.selected).findFirst().get();
+            Account initAccount = getBaseDao().onSelectExistAccount(initDerive.dpAddress, initDerive.baseChain);
+            if (initAccount != null && initAccount.id != null) {
+                getBaseDao().setLastUser(initAccount.id);
+                getBaseDao().setLastChain(initDerive.baseChain.getChain());
             }
         }
 
         if (mTaskCount == 0) {
-            PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
+            PushManager.syncAddresses(getApplicationContext(), getBaseDao(), getBaseDao().getFCMToken());
+            onHideWaitDialog();
+            onStartMainActivity(0);
+            finish();
         }
     }
 }
