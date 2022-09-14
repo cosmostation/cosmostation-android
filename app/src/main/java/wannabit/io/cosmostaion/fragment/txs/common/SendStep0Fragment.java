@@ -110,7 +110,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mBtnPaste.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
 
-        mAsset = getBaseDao().getAsset(getSActivity().mDenom);
+        mAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mDenom);
         mCw20Asset = getBaseDao().getCw20Asset(getSActivity().mDenom);
         mToSendableChains.add(getSActivity().mChainConfig);
 

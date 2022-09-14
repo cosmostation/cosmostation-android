@@ -49,6 +49,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -116,7 +117,7 @@ public class WDp {
         if (chainConfig == null || denom == null || denom.isEmpty()) {
             return "UNKNOWN";
         }
-        final Asset asset = baseData.getAsset(denom);
+        final Asset asset = baseData.getAsset(chainConfig, denom);
         final Cw20Asset cw20Asset = baseData.getCw20Asset(denom);
 
         if (asset != null) {
@@ -187,7 +188,7 @@ public class WDp {
 
     public static int getDenomDecimal(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
-        final Asset asset = baseData.getAsset(denom);
+        final Asset asset = baseData.getAsset(chainConfig, denom);
 
         if (asset != null) {
             return asset.decimal;
@@ -203,7 +204,7 @@ public class WDp {
     public static void setDpSymbolImg(BaseData baseData, ChainConfig chainConfig, String denom, ImageView imageView) {
         if (chainConfig == null || denom == null || denom.isEmpty())
             imageView.setImageResource(R.drawable.token_default);
-        final Asset asset = baseData.getAsset(denom);
+        final Asset asset = baseData.getAsset(chainConfig, denom);
 
         if (asset != null) {
             Picasso.get().load(BaseConstant.ASSET_IMG_URL + asset.image).error(R.drawable.token_default).into(imageView);
@@ -243,7 +244,7 @@ public class WDp {
         int divideDecimal = 6;
         int displayDecimal = 6;
 
-        final Asset asset = baseData.getAsset(denom);
+        final Asset asset = baseData.getAsset(chainConfig, denom);
         final Cw20Asset cw20Asset = baseData.getCw20Asset(denom);
         if (asset != null) {
             amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimal, asset.decimal));
@@ -355,11 +356,11 @@ public class WDp {
     }
 
     public static AssetPath getAssetPath(BaseData baseData, ChainConfig fromChain, ChainConfig toChain, String denom) {
-        Asset msAsset = baseData.getAsset(denom);
+        Optional<Asset> msAsset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
         Cw20Asset msCw20asset = baseData.getCw20Asset(denom);
 
         for (Asset asset : baseData.mAssets) {
-            if (msAsset != null) {
+            if (msAsset.isPresent()) {
                 if (asset.chain.equalsIgnoreCase(fromChain.chainName()) &&
                         asset.beforeChain(fromChain) != null && asset.beforeChain(fromChain).equalsIgnoreCase(toChain.chainName()) &&
                         asset.denom.equalsIgnoreCase(denom)) {
@@ -526,10 +527,11 @@ public class WDp {
 
     public static String getKavaPriceFeedSymbol(BaseData baseData, String denom) {
         if (denom != null) {
-            Asset asset = baseData.getAsset(denom);
-            if (asset != null) {
+            Optional<Asset> asset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+
+            if (asset.isPresent()) {
                 if (denom.startsWith("ibc/")) {
-                    return asset.base_denom + ":usd";
+                    return asset.get().base_denom + ":usd";
                 } else {
                     String priceDenom = "";
                     if (denom.equalsIgnoreCase(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
@@ -720,7 +722,7 @@ public class WDp {
         BigDecimal totalValue = BigDecimal.ZERO;
         if (isGRPC(baseChain)) {
             for (Coin coin : baseData.mGrpcBalance) {
-                final Asset asset = baseData.getAsset(coin.denom);
+                final Asset asset = baseData.getAsset(chainConfig, coin.denom);
                 if (asset != null) {
                     if (asset.type.equalsIgnoreCase("staking")) {
                         BigDecimal totalAmount = baseData.getAllMainAsset(asset.denom);
