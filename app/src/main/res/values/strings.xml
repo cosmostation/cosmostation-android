@@ -182,7 +182,8 @@
     <string name="str_create_wallet">Create Wallet</string>
     <string name="str_start_wallet">Start Wallet</string>
     <string name="str_import2">Restore with</string>
-    <string name="str_mnemonic">Mnemonic</string>
+    <string name="str_mnemonic">Mnem
+        onic</string>
     <string name="str_private_key">Private Key</string>
     <string name="str_watch">Watching only</string>
     <string name="str_address">Address</string>
@@ -661,7 +662,7 @@
     <string name="str_fee_description_msg_0">Only a handful of validators will process this Tx. Validators with a minimum Tx fee setting of 0.000001 ATOM or less must propose a block in order for this Tx to be included. Depending on which validator is proposing the block at the time of your Tx, there may be a delay in having your Tx reflected on the blockchain.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Polychain Labs, jackzampolin, Forbole, Cryptium Labs, BouBounNode</string>
     <string name="str_fee_description_msg_1">This Tx will be processed by Cosmostation and other validators with a minimum Tx fee rate setting lower than or equal to 0.0025. Depending on which validator is proposing the block at the time of your Tx, there may be a delay in having your Tx reflected on the blockchain.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Cosmostation, Polychain Labs, jackzampolin, Forbole, Cryptium Labs, BouBounNode</string>
     <string name="str_fee_description_msg_2">The majority of validators have a minimum Tx fee rate higher than or equal to 0.025. Most validators will process this Tx. Therefore, there is a higher probability of your Tx being reflected on the blockchain within one block time(~7 seconds) when you use a Tx fee rate of 0.025.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Majority(~80%) of validators.</string>
-    <string name="str_empty_warnning_title">Warning</string>
+    <string name="str_empty_warnning_title">Warning!</string>
     <string name="str_empty_warnning_msg">You will be left with no available balance after this Tx. You will not have any available coin to be used as gas to make another Tx after this.</string>
     <string name="str_fee_over_title">Unable to claim rewards</string>
     <string name="str_fee_over_msg">Tx fee is higher than your unclaimed rewards. Set your fee to a lower amount or try again when you have more rewards accumulated.</string>
@@ -1888,6 +1889,8 @@
     <string name="error_simul_error">This Tx not executable</string>
     <string name="error_no_authz_type">No auth for this type</string>
     <string name="error_no_select_chains">Please select chains</string>
+    <string name="error_exchange_address_msg">Your funds may be lost from IBC sending tokens to custodial wallets of centralized exchanges.\n\nIBC transactions are NOT supported on centralized exchanges.\nIBC send your assets back to the origin chain before sending them to custodial wallets of cetralized exchanges.</string>
+    <string name="error_exchange_address_memo_msg">Certain custodial wallets of CEX require DEPOSIT MEMO, and your assets may be lost forever if sent without MEMO.\n\nPlease check the DEPOSIT MEMO for your account.</string>
 
 
     <string name="s_atom" translatable="false">ATOM</string>

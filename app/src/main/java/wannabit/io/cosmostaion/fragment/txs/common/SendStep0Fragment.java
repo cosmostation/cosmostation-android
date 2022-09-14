@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.dialog.StarnameConfirmDialog;
@@ -214,6 +216,11 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
             if (WDp.isValidChainAddress(mToSendChainConfig, userInput)) {
+                if (!isExchangeAddress(userInput)) {
+                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>"),
+                            getString(R.string.error_exchange_address_msg), getString(R.string.str_confirm), null, false);
+                    return;
+                }
                 onPathSetting();
                 getSActivity().mToAddress = userInput;
                 getSActivity().onNextStep();
@@ -276,6 +283,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         }
         getSActivity().mAsset = mAsset;
         getSActivity().mCw20Asset = mCw20Asset;
+    }
+
+    private boolean isExchangeAddress(String userInput) {
+        if (WUtil.getExchangeAddressList().contains(userInput) && !getSActivity().mChainConfig.addressPrefix().equalsIgnoreCase("cosmos")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private SendActivity getSActivity() {

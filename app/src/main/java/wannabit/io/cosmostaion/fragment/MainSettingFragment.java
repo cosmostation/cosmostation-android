@@ -365,9 +365,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onUpdateAutoPass() {
-        if (!getBaseDao().isAutoPass()) {
-            onSetAutoPass(0);
-        }
         mTvAutoPassTime.setText(getBaseDao().getAutoPass(getActivity()));
     }
 

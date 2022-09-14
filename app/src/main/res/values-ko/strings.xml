@@ -399,7 +399,7 @@
     <string name="str_fee_description_msg_0">이 트랜잭션은 소수의 검증인들만 처리해 줄 것입니다. 해당 트랜잭션 처리되기 위해선, 최소 이 수수료를 0.000001 ATOM 또는 그 이하로 설정해 놓은 검증인 노드가 블록을 생성해야 합니다. 트랜잭션 요청시 어떤 검증인이 블록을 생성하고 있는가에 따라, 해당 트랜잭션 실제 블록에 반영되는 데 까지 시간이 지연될 수 있습니다.\n\n최소 이 수수료는 각 검증인이 임의로 설정할 수 있는 값입니다. 만약 검증인이 높은 노드 트랜잭션 수수료를 설정해 놓았다면, 해당 검증인이 생성하는 블록에 Tx 를 포함시키기 위해 더 높은 Tx 수수료가 필요하다는 의미입니다.\n\n현재 0.000001 ATOM Tx 수수료를 처리해주는 검증인: Polychain Labs, jackzampolin, Forbole, Cryptium Labs, BouBouNode.</string>
     <string name="str_fee_description_msg_1">이 트랜잭션 코스모스테이션을 포함하여 최소 트랜잭션 수수료를 0.0025 또는 그 이하로 설정해 놓은 검증인들이 처리해 줄 것입니다. 트랜잭션 요청시 어떤 검증인이 블록을 생성하고 있는가에 따라, 해당 트랜잭션 실제 블록에 반영되는 데 까지 시간이 지연될 수 있습니다.\n\n최소 트랜잭션 수수료는 각 검증인이 임의로 설정할 수 있는 값입니다. 만약 검증인이 높은 노드 트랜잭션 수수료를 설정해 놓았다면, 해당 검증인이 생성하는 블록에 트랜잭션을 포함시키기 위해 더 높은 트랜잭션 수수료가 필요하다는 의미입니다.\n\n현재 Tx 수수료 비율 0.0025 를 처리해주는 검증인: Cosmostation, Polychain Labs, jackzampolin, Forbole, Cryptium Labs, BouBouNode.</string>
     <string name="str_fee_description_msg_2">대부분의 검증인들은 최소 트랜잭션 수수료 비율을 0.025 또는 그 이상으로 설정해 놓았습니다. 이 트랜잭션 대부분의 검증인들이 처리해 줄 것입니다. 그러므로, 트랜잭션 수수료 비율을 0.025로 지불하면 해당 트랜잭션이 1 블록 타임(~7초) 안에 처리되어 블록체인에 반영될 가능성이 높습니다.\n\n최소 트랜잭션 수수료는 각 검증인이 임의로 설정할 수 있는 값입니다. 만약 검증인이 높은 노드 트랜잭션 수수료를 설정해 놓았다면, 해당 검증인이 생성하는 블록에 트랜잭션을 포함시키기 위해 더 높은 거래 수수료가 필요하다는 의미입니다.\n\n현재 거래 수수료 비율 0.025 를 처리해주는 검증인: 몇몇 검증인을 제외한 대부분의 검증인</string>
-    <string name="str_empty_warnning_title">주의</string>
+    <string name="str_empty_warnning_title">주의!</string>
     <string name="str_empty_warnning_msg">이 트랜잭션 전송 이후 사용 가능 금액이 0 이 됩니다. 다음 트랜잭션 요청시 사용할 수수료가 남아있지 않아 전송이 불가 할 수 있습니다.</string>
     <string name="str_fee_over_title">이자 지급 불가</string>
     <string name="str_fee_over_msg">받을 이자량 보다 트랜잭션 수수료가 높습니다. 트랜잭션 수수료를 더 적게 설정하시거나, 나중에 이자가 더 쌓이면 요청해 주세요.</string>
@@ -1616,6 +1616,9 @@
     <string name="error_simul_error">실행할 수 없는 Tx입니다.</string>
     <string name="error_no_authz_type">이 타입에 대한 권한이 없습니다.</string>
     <string name="error_no_select_chains">체인을 선택해주세요.</string>
+    <string name="error_exchange_address_msg">중앙 거래소 주소로 IBC 출금시 자금이 손실될 수 있습니다.\n\n중앙 거래소는 IBC 입금을 지원하지 않습니다.\n중앙 거래소로 보내기전에 자산을 원래 체인으로 전송하세요.</string>
+    <string name="error_exchange_address_memo_msg">일부 중앙화 거래소는 수탁 주소를 사용하기 때문에 입금 메모가 필요합니다. 거래소에 메모 없이 입금 시 자산이 영구 손실될 수 있습니다.\n\n입금 메모가 필요한지 다시 한번 확인해주세요!</string>
+
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

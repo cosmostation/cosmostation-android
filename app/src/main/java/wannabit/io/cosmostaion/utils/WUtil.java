@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -454,14 +455,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortByOnlyReward(ArrayList<Validator> validators, String denom, BaseData basedata) {
-        Collections.sort(validators, (o1, o2) -> {
-            BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
-            BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
-            return rewardO2.compareTo(rewardO1);
-        });
-    }
-
     public static void onSortRewardAmount(ArrayList<Distribution.DelegationDelegatorReward> rewards, String denom) {
         Collections.sort(rewards, (o1, o2) -> {
             BigDecimal rewardO1 = getGrpcRewardAmount(o1, denom);
@@ -617,6 +610,11 @@ public class WUtil {
         }
 
         return result;
+    }
+
+    public static ArrayList<String> getExchangeAddressList() {
+        return Lists.newArrayList(EXCHANGE_BINANCE_ADDRESS_01, EXCHANGE_BINANCE_ADDRESS_02, EXCHANGE_BITHUMB_ADDRESS, EXCHANGE_UPBIT_ADDRESS,
+                                    EXCHANGE_COINONE_ADDRESS, EXCHANGE_MEXC_ADDRESS, EXCHANGE_HITBTC_ADDRESS, EXCHANGE_DIGFINEX_ADDRESS);
     }
 
     /**
