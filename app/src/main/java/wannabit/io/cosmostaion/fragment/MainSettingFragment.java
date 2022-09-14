@@ -64,7 +64,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public final static int SELECT_CHECK_FOR_APP_LOCK = 1;
     public final static int SELECT_CHECK_FOR_AUTO_PASS = 2;
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAppLock, mBtnBio, mBtnAutoPass, mBtnCurrency,
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAutoPass, mBtnCurrency,
             mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
             mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
 
@@ -97,8 +97,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnImportKey = rootView.findViewById(R.id.card_key);
         mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
         mBtnTheme = rootView.findViewById(R.id.card_theme);
-        mBtnAppLock = rootView.findViewById(R.id.card_applock);
-        mBtnBio = rootView.findViewById(R.id.card_bio);
         mBtnAutoPass = rootView.findViewById(R.id.card_auto_pass);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
         mBtnExplore = rootView.findViewById(R.id.card_explore);
@@ -127,8 +125,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnImportKey.setOnClickListener(this);
         mBtnWatchAddress.setOnClickListener(this);
         mBtnTheme.setOnClickListener(this);
-        mBtnAppLock.setOnClickListener(this);
-        mBtnBio.setOnClickListener(this);
+        mSwitchUsingAppLock.setOnClickListener(this);
+        mSwitchUsingUsingBio.setOnClickListener(this);
         mBtnAutoPass.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
         mBtnExplore.setOnClickListener(this);
@@ -143,7 +141,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnVersion.setOnClickListener(this);
 
         mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
-        onUpdateView();
         return rootView;
 
     }
@@ -171,6 +168,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             mTvTheme.setText(R.string.str_theme_system);
         }
 
+        onUpdateView();
         loadPushStatus();
     }
 
@@ -245,10 +243,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                         ThemeUtil.modSave(getBaseActivity(), themeColor);
                     }, null);
 
-        } else if (v.equals(mBtnAppLock)) {
+        } else if (v.equals(mSwitchUsingAppLock)) {
             onClickAppLock();
 
-        } else if (v.equals(mBtnBio)) {
+        } else if (v.equals(mSwitchUsingUsingBio)) {
             getBaseDao().setUsingFingerPrint(!getBaseDao().getUsingFingerPrint());
             onUpdateView();
 
