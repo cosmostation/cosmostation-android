@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorTrans"
-                android:text="@string/str_cancel"
+                android:text="@string/str_import_watchaddress"
                 android:textAllCaps="false" />
 
             <View
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorTrans"
-                android:text="@string/str_import_watchaddress"
+                android:text="@string/str_cancel"
                 android:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>
