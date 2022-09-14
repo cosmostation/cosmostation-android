@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -167,15 +168,13 @@ public class BaseData {
     }
 
     public String getBaseDenom(String denom) {
-        if (mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst().isPresent()) {
-            Asset asset = mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst().get();
-            if (asset != null) {
-                return asset.base_denom;
-            } else {
-                return denom;
-            }
+        Optional<Asset> asset = mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+
+        if (asset.isPresent()) {
+            return asset.get().base_denom;
+        } else {
+            return denom;
         }
-        return denom;
     }
 
     //COMMON DATA

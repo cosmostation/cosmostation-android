@@ -49,6 +49,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -355,11 +356,11 @@ public class WDp {
     }
 
     public static AssetPath getAssetPath(BaseData baseData, ChainConfig fromChain, ChainConfig toChain, String denom) {
-        Asset msAsset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst().get();
+        Optional<Asset> msAsset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
         Cw20Asset msCw20asset = baseData.getCw20Asset(denom);
 
         for (Asset asset : baseData.mAssets) {
-            if (msAsset != null) {
+            if (msAsset.isPresent()) {
                 if (asset.chain.equalsIgnoreCase(fromChain.chainName()) &&
                         asset.beforeChain(fromChain) != null && asset.beforeChain(fromChain).equalsIgnoreCase(toChain.chainName()) &&
                         asset.denom.equalsIgnoreCase(denom)) {
@@ -526,22 +527,21 @@ public class WDp {
 
     public static String getKavaPriceFeedSymbol(BaseData baseData, String denom) {
         if (denom != null) {
-            if (baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst().isPresent()) {
-                Asset asset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst().get();
-                if (asset != null) {
-                    if (denom.startsWith("ibc/")) {
-                        return asset.base_denom + ":usd";
+            Optional<Asset> asset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+
+            if (asset.isPresent()) {
+                if (denom.startsWith("ibc/")) {
+                    return asset.get().base_denom + ":usd";
+                } else {
+                    String priceDenom = "";
+                    if (denom.equalsIgnoreCase(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
+                        priceDenom = "kava";
+                    } else if (denom.contains("btc")) {
+                        priceDenom = "btc";
                     } else {
-                        String priceDenom = "";
-                        if (denom.equalsIgnoreCase(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
-                            priceDenom = "kava";
-                        } else if (denom.contains("btc")) {
-                            priceDenom = "btc";
-                        } else {
-                            priceDenom = denom;
-                        }
-                        return priceDenom + ":usd";
+                        priceDenom = denom;
                     }
+                    return priceDenom + ":usd";
                 }
             }
         }
