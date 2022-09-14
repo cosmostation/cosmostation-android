@@ -622,7 +622,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
     private void onShowMoreWait() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_more_wait_title), getString(R.string.str_more_wait_msg),
-                getString(R.string.str_wait), view -> onWaitMore(), getString(R.string.str_close), view -> onBackPressed(), false);
+                getString(R.string.str_close), view -> onBackPressed(), getString(R.string.str_wait), view -> onWaitMore(), false);
     }
 
     public void onWaitMore() {

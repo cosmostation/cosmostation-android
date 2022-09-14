@@ -65,10 +65,11 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_reward_address_change_confirm_title), getString(R.string.str_reward_address_change_confirm_msg),
+                    getString(R.string.str_cancel), null,
                     getString(R.string.str_continue), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);
-                    }, getString(R.string.str_cancel), null, true);
+                    }, true);
         }
     }
 

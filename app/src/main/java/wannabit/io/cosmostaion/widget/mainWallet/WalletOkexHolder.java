@@ -69,8 +69,8 @@ public class WalletOkexHolder extends BaseHolder {
                 return;
             if (!mainActivity.mAccount.hasPrivateKey) {
                 CommonAlertDialog.showDoubleButton(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
-                        mainActivity.getString(R.string.str_close), null);
+                        mainActivity.getString(R.string.str_close), null,
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount());
                 return;
             }
 
@@ -92,8 +92,8 @@ public class WalletOkexHolder extends BaseHolder {
                 return;
             if (!mainActivity.mAccount.hasPrivateKey) {
                 CommonAlertDialog.showDoubleButton(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount(),
-                        mainActivity.getString(R.string.str_close), null);
+                        mainActivity.getString(R.string.str_close), null,
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount());
                 return;
             }
 

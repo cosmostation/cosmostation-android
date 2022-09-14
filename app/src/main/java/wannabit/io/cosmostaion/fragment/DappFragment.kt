@@ -68,10 +68,10 @@ class DappFragment : BaseFragment() {
                             it,
                             it.getString(R.string.str_only_observe_title),
                             it.getString(R.string.str_only_observe_msg),
-                            Html.fromHtml("<font color=\"#9C6CFF\">" + it.getString(R.string.str_add_mnemonics) + "</font>"),
-                            { view: View? -> it.onAddMnemonicForAccount() },
                             it.getString(R.string.str_close),
-                            null
+                            null,
+                            Html.fromHtml("<font color=\"#9C6CFF\">" + it.getString(R.string.str_add_mnemonics) + "</font>"),
+                            { view: View? -> it.onAddMnemonicForAccount() }
                         )
                         return true
                     }

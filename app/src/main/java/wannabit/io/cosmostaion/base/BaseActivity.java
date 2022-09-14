@@ -229,8 +229,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onInsertKeyDialog() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(),
-                getString(R.string.str_close), null);
+                getString(R.string.str_close), null, getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount());
     }
 
     public void onAddMnemonicForAccount() {
@@ -979,7 +978,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyWarnNoKey() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_continue), view -> onShowBuySelectFiat(), getString(R.string.str_cancel), null);
+                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowBuySelectFiat());
     }
 
     public void onShowBuySelectFiat() {

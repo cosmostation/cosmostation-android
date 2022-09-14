@@ -67,10 +67,11 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
 
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_deposit_warn_title), getString(R.string.str_delegate_warn_msg),
+                    getString(R.string.str_cancel), null,
                     getString(R.string.str_confirm), View -> {
                         Intent resultIntent = new Intent();
                         onActivityResult(SELECT_DEPOSIT_CHECK, Activity.RESULT_OK, resultIntent);
-                    }, getString(R.string.str_cancel), null, R.drawable.img_delegate_14_warning);
+                    }, R.drawable.img_delegate_14_warning);
         }
     }
 

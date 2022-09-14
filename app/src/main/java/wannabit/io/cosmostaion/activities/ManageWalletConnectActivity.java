@@ -61,13 +61,13 @@ public class ManageWalletConnectActivity extends BaseActivity {
         public void onBindViewHolder(@NonNull WalletConnectViewHolder viewHolder, int position) {
             final String item = items.get(position);
             viewHolder.urlText.setText(item);
-            viewHolder.deleteImage.setOnClickListener(view -> {
-                CommonAlertDialog.showDoubleButton(ManageWalletConnectActivity.this, getString(R.string.str_wc_manage_disconnect), null, getString(R.string.str_confirm), view1 -> {
-                    WalletConnectManager.removeWhiteList(ManageWalletConnectActivity.this, item);
-                    items.remove(item);
-                    adapter.notifyDataSetChanged();
-                }, getString(R.string.str_cancel), null);
-            });
+            viewHolder.deleteImage.setOnClickListener(view -> CommonAlertDialog.showDoubleButton(ManageWalletConnectActivity.this, getString(R.string.str_wc_manage_disconnect), null,
+                    getString(R.string.str_cancel), null,
+                    getString(R.string.str_confirm), view1 -> {
+                        WalletConnectManager.removeWhiteList(ManageWalletConnectActivity.this, item);
+                        items.remove(item);
+                        adapter.notifyDataSetChanged();
+                    }));
         }
 
         @Override
