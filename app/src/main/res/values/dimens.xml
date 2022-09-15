@@ -8,6 +8,7 @@
 
     <dimen name="space_view">0.4dp</dimen>
     <dimen name="space_1">1dp</dimen>
+    <dimen name="space_1.5">1.5dp</dimen>
     <dimen name="space_2">2dp</dimen>
     <dimen name="space_4">4dp</dimen>
     <dimen name="space_5">5dp</dimen>

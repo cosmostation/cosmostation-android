@@ -1,7 +1,11 @@
 package wannabit.io.cosmostaion.activities.setting;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import android.os.AsyncTask;
@@ -23,7 +27,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.common.collect.Sets;
+
 import java.util.ArrayList;
+import java.util.Set;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import retrofit2.Call;
@@ -214,6 +221,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             final Derive derive = mDerives.get(position);
             final BaseChain baseChain = derive.baseChain;
             final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            final Set<String> legacyCheck = Sets.newHashSet();
             holder.accountChainImg.setImageResource(chainConfig.chainImg());
             holder.accountAddress.setText(derive.dpAddress);
 
@@ -222,6 +230,20 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             } else {
                 holder.accountKeyPath.setVisibility(View.VISIBLE);
                 holder.accountKeyPath.setText(derive.fullPath);
+
+                if (derive.baseChain.equals(FETCHAI_MAIN) || derive.baseChain.equals(KAVA_MAIN) || derive.baseChain.equals(LUM_MAIN) || derive.baseChain.equals(SECRET_MAIN)) {
+                    if (!derive.fullPath.contains("m/44'/118'/0'/0/")) {
+                        holder.accountLegacyMark.setVisibility(View.VISIBLE);
+                        holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
+                        legacyCheck.add(String.valueOf(derive.fullPath));
+                    }
+                } else if (derive.baseChain.equals(OKEX_MAIN)) {
+                    if (!derive.fullPath.contains("m/44'/60'/0'/0/")) {
+                        holder.accountLegacyMark.setVisibility(View.VISIBLE);
+                        holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
+                        legacyCheck.add(String.valueOf(derive.baseChain));
+                    }
+                }
             }
 
             if (derive.status == 2) {
@@ -246,6 +268,11 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 derive.selected = !derive.selected;
                 if (derive.selected) {
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
+                    if (legacyCheck.contains(derive.fullPath)) {
+                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, null, getString(R.string.str_key_path_warning),
+                                getString(R.string.str_cancel), dialogView -> holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected)),
+                                getString(R.string.str_confirm), dialogView -> holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon)));
+                    }
                 } else {
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                 }
@@ -342,7 +369,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         public class AccountHolder extends RecyclerView.ViewHolder {
             FrameLayout accountCard, accountDimLayer;
             LinearLayout accountContent;
-            ImageView accountChainImg;
+            ImageView accountChainImg, accountLegacyMark;
             TextView accountAddress, accountState, accountKeyPath, accountAvailable, accountDenom;
 
             public AccountHolder(@NonNull View itemView) {
@@ -354,6 +381,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 accountAddress = itemView.findViewById(R.id.account_address);
                 accountState = itemView.findViewById(R.id.account_state);
                 accountKeyPath = itemView.findViewById(R.id.key_path);
+                accountLegacyMark = itemView.findViewById(R.id.legacy_mark);
                 accountAvailable = itemView.findViewById(R.id.accountAvailable);
                 accountDenom = itemView.findViewById(R.id.accountDenom);
             }
