@@ -1963,6 +1963,8 @@
     <string name="tx_authz_grant">Authz Grant</string>
     <string name="tx_authz_revoke">Authz Revoke</string>
     <string name="tx_authz_exe">Authz Execute</string>
+    <string name="tx_authz_grant_allow">Grant Allowance</string>
+    <string name="tx_authz_grant_revoke">Grant Revoke</string>
     <string name="tx_create_validator">Create Val</string>
     <string name="tx_edit_validator">Edit Val</string>
     <string name="tx_unjail">Unjail</string>
@@ -2117,6 +2119,8 @@
     <string name="tx_send_nft_recipient">Recipient</string>
     <string name="tx_send_nft_token_id">Token ID</string>
     <string name="tx_send_nft_denom_id">Denom ID</string>
+    <string name="tx_irismod_farm_stake">Stake</string>
+    <string name="tx_irismod_farm_Harvest">Harvest</string>
 
     <string name="tx_save_profile">Save Profile</string>
     <string name="tx_link_chain_account">Link Account</string>
@@ -2163,6 +2167,19 @@
     <string name="tx_osmosis_super_fluid_undelegate">SuperFluid\nUnstaking</string>
     <string name="tx_osmosis_super_fluid_unbondinglock">SuperFluid\nUnbonding Lock</string>
     <string name="tx_osmosis_super_fluid_lockanddelegate">SuperFluid\nLock <![CDATA[ & ]]> Staking</string>
+
+    <string name="tx_axelar_refund_msg_request">Refund Msg Request</string>
+    <string name="tx_axelar_link_request">Link Request</string>
+    <string name="tx_axelar_confirm_deposit_request">Confirm Deposit Request</string>
+    <string name="tx_axelar_route_ibc_request">Route IBC Request</string>
+
+    <string name="tx_ethermint_evm">Ethereum Tx</string>
+
+    <string name="tx_injective_batch_update_order">Update Order</string>
+    <string name="tx_injective_create_limit_order">Create Derivative Order</string>
+    <string name="tx_injective_create_spot_order">Create Spot Order</string>
+    <string name="tx_injective_cancel_limit_order">Cancel Derivative Order</string>
+    <string name="tx_injective_cancel_spot_order">Cancel Spot Order</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

@@ -522,7 +522,7 @@
     <string name="str_buy_select_fiat_msg">구매를 하기위한 통화를 선택하세요.</string>
     <string name="str_price_poster">가격 공시자</string>
     <string name="str_market_id">마켓 ID</string>
-    <string name="str_post_price">공시 가격</string>
+    <string name="str_post_price">공시 가격 세팅</string>
     <string name="str_validity_time">유효 기간</string>
     <string name="str_sender_cdp">신청인</string>
     <string name="str_owner_cdp">소유인</string>
@@ -1641,6 +1641,8 @@
     <string name="tx_authz_grant">권한 위임</string>
     <string name="tx_authz_revoke">권한 위임 취소</string>
     <string name="tx_authz_exe">권한 위임 실행</string>
+    <string name="tx_authz_grant_allow">권한 허락</string>
+    <string name="tx_authz_grant_revoke">권한 해제</string>
     <string name="tx_create_validator">검증인 생성</string>
     <string name="tx_edit_validator">검증인 편집</string>
     <string name="tx_unjail">검증인 재 활성</string>
@@ -1796,6 +1798,8 @@
     <string name="tx_send_nft_recipient">Recipient</string>
     <string name="tx_send_nft_token_id">Token ID</string>
     <string name="tx_send_nft_denom_id">Denom ID</string>
+    <string name="tx_irismod_farm_stake">파밍</string>
+    <string name="tx_irismod_farm_Harvest">파밍 해제</string>
 
     <string name="tx_save_profile">프로필 저장</string>
     <string name="tx_link_chain_account">계정 연결</string>
@@ -1842,6 +1846,19 @@
     <string name="tx_osmosis_super_fluid_undelegate">수퍼플로이드\n언스테이킹</string>
     <string name="tx_osmosis_super_fluid_unbondinglock">수퍼플로이드\n언본딩 락</string>
     <string name="tx_osmosis_super_fluid_lockanddelegate">수퍼플로이드\n락 <![CDATA[ & ]]> 스테이킹</string>
+
+    <string name="tx_axelar_refund_msg_request">메세지 반환 요청</string>
+    <string name="tx_axelar_link_request">Link 요청</string>
+    <string name="tx_axelar_confirm_deposit_request">Deposit 확인 요청</string>
+    <string name="tx_axelar_route_ibc_request">IBC 경로 요청</string>
+
+    <string name="tx_ethermint_evm">이더리움 Tx</string>
+
+    <string name="tx_injective_batch_update_order">주문 업데이트</string>
+    <string name="tx_injective_create_limit_order">주문 생성\n(Derivative Limit)</string>
+    <string name="tx_injective_create_spot_order">주문 생성\n(Spot Limit)</string>
+    <string name="tx_injective_cancel_limit_order">주문 취소\n(Derivative Limit)</string>
+    <string name="tx_injective_cancel_spot_order">주문 취소\n(Spot Limit)</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
