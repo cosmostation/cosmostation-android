@@ -1641,8 +1641,8 @@
     <string name="tx_authz_grant">권한 위임</string>
     <string name="tx_authz_revoke">권한 위임 취소</string>
     <string name="tx_authz_exe">권한 위임 실행</string>
-    <string name="tx_authz_grant_allow">권한 허락</string>
-    <string name="tx_authz_grant_revoke">권한 해제</string>
+    <string name="tx_authz_grant_allow">수수료 권한 위임</string>
+    <string name="tx_authz_grant_revoke">수수료 권한 취소</string>
     <string name="tx_create_validator">검증인 생성</string>
     <string name="tx_edit_validator">검증인 편집</string>
     <string name="tx_unjail">검증인 재 활성</string>

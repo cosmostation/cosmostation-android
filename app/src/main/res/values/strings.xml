@@ -1963,8 +1963,8 @@
     <string name="tx_authz_grant">Authz Grant</string>
     <string name="tx_authz_revoke">Authz Revoke</string>
     <string name="tx_authz_exe">Authz Execute</string>
-    <string name="tx_authz_grant_allow">Grant Allowance</string>
-    <string name="tx_authz_grant_revoke">Grant Revoke</string>
+    <string name="tx_authz_grant_allow">Fee Grant\nAllowance</string>
+    <string name="tx_authz_grant_revoke">Fee Grant\nRevoke</string>
     <string name="tx_create_validator">Create Val</string>
     <string name="tx_edit_validator">Edit Val</string>
     <string name="tx_unjail">Unjail</string>
