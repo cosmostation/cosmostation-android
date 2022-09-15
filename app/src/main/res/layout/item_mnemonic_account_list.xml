@@ -121,7 +121,7 @@
         android:layout_height="@dimen/space_54"
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/box_white2_border"
+        android:background="@drawable/box_white3_border"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_6"

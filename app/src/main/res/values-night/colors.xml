@@ -63,6 +63,7 @@
 
     <color name="colorWhiteDayNight">#000000</color>
     <color name="colorWhite2DayNight">#232428</color>
+    <color name="colorWhite3DayNight">#cc2b2d33</color>
     <color name="colorGrayDayNight">#565b60</color>
     <color name="colorGray2DayNight">#28ffffff</color>
     <color name="colorGray3DayNight">#3D3D3D</color>

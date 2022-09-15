@@ -32,7 +32,6 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -59,8 +58,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     private String mPKey;
 
     private Toolbar mToolbar;
-    private TextView mToolbarTitle, mAccountCnt, mChainCnt;
-    private LinearLayout mCntLayer;
+    private TextView mToolbarTitle;
     private RelativeLayout mPathLayer;
     private TextView mPathText;
     private RecyclerView mAccountRecyclerView;
@@ -81,9 +79,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_wallet_derive);
         mToolbar = findViewById(R.id.tool_bar);
         mToolbarTitle = findViewById(R.id.tool_title);
-        mCntLayer = findViewById(R.id.cnt_layer);
-        mAccountCnt = findViewById(R.id.account_cnt);
-        mChainCnt = findViewById(R.id.chain_cnt);
         mPathLayer = findViewById(R.id.hd_path_layer);
         mPathText = findViewById(R.id.path);
         mAccountRecyclerView = findViewById(R.id.recycler);
@@ -178,24 +173,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         runOnUiThread(() -> {
             mAccountListAdapter.notifyDataSetChanged();
             onHideWaitDialog();
-            onUpdateCnt();
         });
-    }
-
-    private void onUpdateCnt() {
-        mCntLayer.setVisibility(View.VISIBLE);
-        int allKeyCnt = mDerives.size();
-        long alreadyCnt = mDerives.stream().filter(derive -> derive.status == 2).count();
-        long selectedCnt = mDerives.stream().filter(derive -> derive.selected).count();
-
-        if (selectedCnt == 0) {
-            mAccountCnt.setText("" + alreadyCnt);
-            mAccountCnt.setTextColor(ContextCompat.getColor(this, R.color.colorGray1));
-        } else {
-            mAccountCnt.setText("" + (alreadyCnt + selectedCnt));
-            mAccountCnt.setTextColor(ContextCompat.getColor(this, R.color.colorPhoton));
-        }
-        mChainCnt.setText("" + allKeyCnt);
     }
 
     @Override
@@ -253,7 +231,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 holder.accountDimLayer.setAlpha(0.5f);
             } else {
                 if (derive.selected) {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                 } else {
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                 }
@@ -267,11 +245,10 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 }
                 derive.selected = !derive.selected;
                 if (derive.selected) {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                 } else {
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                 }
-                onUpdateCnt();
             });
 
             loadBalance(holder, derive);

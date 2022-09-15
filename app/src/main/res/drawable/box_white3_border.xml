@@ -5,14 +5,14 @@
         <selector>
             <item android:state_pressed="false">
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/colorWhite2DayNight" />
+                    <solid android:color="@color/colorWhite3DayNight" />
                     <corners android:radius="@dimen/space_8" />
                 </shape>
             </item>
 
             <item android:state_pressed="true">
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/colorWhite2DayNight" />
+                    <solid android:color="@color/colorWhite3DayNight" />
                     <corners android:radius="@dimen/space_8" />
                 </shape>
             </item>

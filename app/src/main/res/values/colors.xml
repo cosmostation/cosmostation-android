@@ -82,6 +82,7 @@
     <color name="colorBorderGray">#565b60</color>
     <color name="colorWhiteDayNight">#ffffff</color>
     <color name="colorWhite2DayNight">#f5f5f5</color>
+    <color name="colorWhite3DayNight">#ccebebeb</color>
     <color name="colorGrayDayNight">#bec6d1</color>
     <color name="colorGray2DayNight">#ffffff</color>
     <color name="colorGray3DayNight">#ffffff</color>
