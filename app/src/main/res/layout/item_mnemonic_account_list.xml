@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,8 +10,6 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_6"
-        android:background="@drawable/box_white2_border"
-        android:foreground="?android:attr/selectableItemBackground"
         android:paddingLeft="@dimen/space_4"
         android:paddingRight="@dimen/space_4">
 
@@ -119,11 +114,11 @@
         android:id="@+id/dim_layer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_54"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_6"
+        android:background="@drawable/box_white3_border"
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/box_white3_border"
-        android:layout_marginRight="@dimen/space_16"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_6"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>
