@@ -67,6 +67,17 @@
                         android:maxWidth="@dimen/space_120"
                         android:singleLine="true"
                         android:text="" />
+
+                    <ImageView
+                        android:id="@+id/check"
+                        style="@style/font_rmr_9_gray1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/check"
+                        android:visibility="gone" />
+
                 </RelativeLayout>
 
                 <LinearLayout
@@ -90,6 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/space_2"
+                        android:background="@drawable/legacy"
                         android:visibility="gone" />
 
                     <LinearLayout

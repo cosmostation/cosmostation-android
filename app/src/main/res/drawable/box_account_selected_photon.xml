@@ -8,7 +8,7 @@
                     <solid android:color="@color/colorTrans" />
                     <corners android:radius="@dimen/space_8" />
                     <stroke
-                        android:width="@dimen/space_2"
+                        android:width="@dimen/space_1.8"
                         android:color="@color/colorPhotonDayNight" />
                 </shape>
             </item>
@@ -18,7 +18,7 @@
                     <solid android:color="@color/colorTrans" />
                     <corners android:radius="@dimen/space_8" />
                     <stroke
-                        android:width="@dimen/space_2"
+                        android:width="@dimen/space_1.8"
                         android:color="@color/colorPhotonDayNight" />
                 </shape>
             </item>

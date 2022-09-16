@@ -7,8 +7,9 @@
     <dimen name="toolbar_bar_height">56dp</dimen>
 
     <dimen name="space_view">0.4dp</dimen>
+    <dimen name="space_0.8">0.8dp</dimen>
     <dimen name="space_1">1dp</dimen>
-    <dimen name="space_1.5">1.5dp</dimen>
+    <dimen name="space_1.8">1.8dp</dimen>
     <dimen name="space_2">2dp</dimen>
     <dimen name="space_4">4dp</dimen>
     <dimen name="space_5">5dp</dimen>
