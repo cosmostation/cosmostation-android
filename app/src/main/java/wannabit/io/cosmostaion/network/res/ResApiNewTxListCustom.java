@@ -246,6 +246,13 @@ public class ResApiNewTxListCustom {
                     if (msgType.contains("MsgUnjail")) {
                         result = c.getString(R.string.tx_unjail);
                     }
+
+                } else if (msgType.contains("cosmos.") && msgType.contains("feegrant")) {
+                    if (msgType.contains("MsgGrantAllowance")) {
+                        result = c.getString(R.string.tx_authz_grant_allow);
+                    } else if (msgType.contains("MsgRevokeAllowance")) {
+                        result = c.getString(R.string.tx_authz_grant_revoke);
+                    }
                 }
 
                 // ibc msg type
@@ -330,6 +337,22 @@ public class ResApiNewTxListCustom {
                         result = c.getString(R.string.tx_issue_denom);
                     } else if (msgType.contains("MsgRequestRandom")) {
                         result = "Random Request";
+                    }
+
+                } else if (msgType.contains("irismod") && msgType.contains("coinswap")) {
+                    if (msgType.contains("MsgSwapOrder")) {
+                        result = c.getString(R.string.tx_sif_swap);
+                    } else if (msgType.contains("MsgAddLiquidity")) {
+                        result = c.getString(R.string.tx_sif_join_pool);
+                    } else if (msgType.contains("MsgRemoveLiquidity")) {
+                        result = c.getString(R.string.tx_sif_exit_pool);
+                    }
+
+                } else if (msgType.contains("irismod") && msgType.contains("farm")) {
+                    if (msgType.contains("MsgStake")) {
+                        result = c.getString(R.string.tx_irismod_farm_stake);
+                    } else if (msgType.contains("MsgHarvest")) {
+                        result = c.getString(R.string.tx_irismod_farm_Harvest);
                     }
                 }
 
@@ -549,8 +572,6 @@ public class ResApiNewTxListCustom {
 
                     } else if (msgType.contains("MsgUnlinkApplication")) {
 
-                    } else if (msgType.contains("MsgUnlinkChainAccount")) {
-
                     }
                 }
 
@@ -583,6 +604,12 @@ public class ResApiNewTxListCustom {
 
                     } else if (msgType.contains("ClearAdminProposal")) {
 
+                    }
+                }
+
+                else if (msgType.contains("ethermint.evm")) {
+                    if (msgType.contains("MsgEthereumTx")) {
+                        result = c.getString(R.string.tx_ethermint_evm);
                     }
                 }
 
@@ -660,6 +687,10 @@ public class ResApiNewTxListCustom {
                         result = c.getString(R.string.tx_kava_bep3_refund);
                     }
 
+                } else if (msgType.contains("kava.") && msgType.contains("pricefeed")) {
+                    if (msgType.contains("MsgPostPrice")) {
+                        result = c.getString(R.string.str_post_price);
+                    }
                 }
 
                 // certik msg
@@ -684,6 +715,48 @@ public class ResApiNewTxListCustom {
                     }
                 }
 
+                // axelar msg type
+                else if (msgType.contains("axelar.") && msgType.contains("reward")) {
+                    if (msgType.contains("RefundMsgRequest")) {
+                        result = c.getString(R.string.tx_axelar_refund_msg_request);
+                    }
+
+                } else if (msgType.contains("axelar.") && msgType.contains("axelarnet")) {
+                    if (msgType.contains("LinkRequest")) {
+                        result = c.getString(R.string.tx_axelar_link_request);
+                    } else if (msgType.contains("ConfirmDepositRequest")) {
+                        result = c.getString(R.string.tx_axelar_confirm_deposit_request);
+                    } else if (msgType.contains("RouteIBCTransfersRequest")) {
+                        result = c.getString(R.string.tx_axelar_route_ibc_request);
+                    } else if (msgType.contains("ExecutePendingTransfersRequest")) {
+
+                    } else if (msgType.contains("RegisterIBCPathRequest")) {
+
+                    } else if (msgType.contains("AddCosmosBasedChainRequest")) {
+
+                    } else if (msgType.contains("RegisterAssetRequest")) {
+
+                    } else if (msgType.contains("RegisterFeeCollectorRequest")) {
+
+                    } else if (msgType.contains("RetryIBCTransferRequest")) {
+
+                    }
+                }
+
+                // injective msg type
+                else if (msgType.contains("injective.") && msgType.contains("exchange")) {
+                    if (msgType.contains("MsgBatchUpdateOrders")) {
+                        result = c.getString(R.string.tx_injective_batch_update_order);
+                    } else if (msgType.contains("MsgBatchCreateDerivativeLimitOrders") || msgType.contains("MsgCreateDerivativeLimitOrder")) {
+                        result = c.getString(R.string.tx_injective_create_limit_order);
+                    } else if (msgType.contains("MsgBatchCreateSpotLimitOrders") || msgType.contains("MsgCreateSpotLimitOrder")) {
+                        result = c.getString(R.string.tx_injective_create_spot_order);
+                    } else if (msgType.contains("MsgBatchCancelDerivativeOrders") || msgType.contains("MsgCancelDerivativeOrder")) {
+                        result = c.getString(R.string.tx_injective_cancel_limit_order);
+                    } else if (msgType.contains("MsgBatchCancelSpotOrder") || msgType.contains("MsgCancelSpotOrder")) {
+                        result = c.getString(R.string.tx_injective_cancel_spot_order);
+                    }
+                }
 
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
