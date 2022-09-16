@@ -45,10 +45,6 @@ public class Nyx extends ChainConfig {
         return Lists.newArrayList("0.025unym");
     }
 
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X");
-    }
-
 
     public static String NYX_NYM_DENOM = "unym";
 }

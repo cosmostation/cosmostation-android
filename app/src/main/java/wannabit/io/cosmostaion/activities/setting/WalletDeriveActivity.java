@@ -1,11 +1,7 @@
 package wannabit.io.cosmostaion.activities.setting;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import android.os.AsyncTask;
@@ -231,26 +227,11 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             } else {
                 holder.accountKeyPath.setVisibility(View.VISIBLE);
                 holder.accountKeyPath.setText(derive.fullPath);
-                if (chainConfig.supportHdPaths().size() > 1) {
-                    if (derive.baseChain.equals(KAVA_MAIN) || derive.baseChain.equals(LUM_MAIN) || derive.baseChain.equals(SECRET_MAIN)) {
-                        if (derive.fullPath.contains(chainConfig.defaultPath())) {
-                            holder.accountLegacyMark.setVisibility(View.VISIBLE);
-                            holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
-                            legacyCheck.add(String.valueOf(derive.fullPath));
-                        }
-                    } else if (derive.baseChain.equals(OKEX_MAIN)) {
-                        if (!derive.fullPath.contains(chainConfig.okexDefaultPath())) {
-                            holder.accountLegacyMark.setVisibility(View.VISIBLE);
-                            holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
-                            legacyCheck.add(String.valueOf(derive.fullPath));
-                        }
-                    } else if (derive.baseChain.equals(FETCHAI_MAIN)){
-                        if (!derive.fullPath.contains(chainConfig.defaultPath())) {
-                            holder.accountLegacyMark.setVisibility(View.VISIBLE);
-                            holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
-                            legacyCheck.add(String.valueOf(derive.fullPath));
-                        }
-                    }
+
+                if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
+                    holder.accountLegacyMark.setVisibility(View.VISIBLE);
+                } else {
+                    holder.accountLegacyMark.setVisibility(View.GONE);
                 }
             }
 

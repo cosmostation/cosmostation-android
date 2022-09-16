@@ -53,11 +53,9 @@ public class Evmos extends ChainConfig {
         return Lists.newArrayList("20000000000aevmos");
     }
 
+    public String defaultPath() { return "m/44'/60'/0'/0/X"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/60'/0'/0/X");
     }
 }

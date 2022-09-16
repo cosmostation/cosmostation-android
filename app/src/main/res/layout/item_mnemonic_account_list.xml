@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/space_2"
-                        android:visibility="gone" />
+                        android:src="@drawable/legacy" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
