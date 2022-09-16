@@ -1,11 +1,7 @@
 package wannabit.io.cosmostaion.activities.setting;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import android.os.AsyncTask;
@@ -231,23 +227,11 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             } else {
                 holder.accountKeyPath.setVisibility(View.VISIBLE);
                 holder.accountKeyPath.setText(derive.fullPath);
-                if (chainConfig.supportHdPaths().size() > 1) {
-                    if (derive.baseChain.equals(KAVA_MAIN) || derive.baseChain.equals(LUM_MAIN) || derive.baseChain.equals(SECRET_MAIN)) {
-                        if (derive.fullPath.contains(chainConfig.defaultPath())) {
-                            holder.accountLegacyMark.setVisibility(View.VISIBLE);
-                            legacyCheck.add(String.valueOf(derive.fullPath));
-                        }
-                    } else if (derive.baseChain.equals(OKEX_MAIN)) {
-                        if (!derive.fullPath.contains(chainConfig.okexDefaultPath())) {
-                            holder.accountLegacyMark.setVisibility(View.VISIBLE);
-                            legacyCheck.add(String.valueOf(derive.fullPath));
-                        }
-                    } else if (derive.baseChain.equals(FETCHAI_MAIN)) {
-                        if (!derive.fullPath.contains(chainConfig.defaultPath())) {
-                            holder.accountLegacyMark.setVisibility(View.VISIBLE);
-                            legacyCheck.add(String.valueOf(derive.fullPath));
-                        }
-                    }
+
+                if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
+                    holder.accountLegacyMark.setVisibility(View.VISIBLE);
+                } else {
+                    holder.accountLegacyMark.setVisibility(View.GONE);
                 }
             }
 
@@ -257,7 +241,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 holder.accountDimLayer.setVisibility(View.VISIBLE);
                 holder.accountDimLayer.setAlpha(0.5f);
             } else {
-                holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_dash_line));
                 holder.accountDimLayer.setVisibility(View.GONE);
                 holder.accountState.setText("");
             }
@@ -271,18 +255,13 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                     if (legacyCheck.contains(derive.fullPath)) {
                         CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<small>" + getString(R.string.str_key_path_warning) + "</small>"), null,
-                                getString(R.string.str_cancel), dialogView -> holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected)),
-                                Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>"),
-                                dialogView -> {
-                                    holder.accountCheck.setVisibility(View.VISIBLE);
-                                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
-                                });
+                                getString(R.string.str_cancel), dialogView -> holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_dash_line)),
+                                Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>"), dialogView -> holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon)));
                     } else {
-                        holder.accountCheck.setVisibility(View.VISIBLE);
                         holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                     }
                 } else {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_dash_line));
                 }
             });
 
@@ -377,7 +356,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         public class AccountHolder extends RecyclerView.ViewHolder {
             FrameLayout accountCard, accountDimLayer;
             LinearLayout accountContent;
-            ImageView accountChainImg, accountLegacyMark, accountCheck;
+            ImageView accountChainImg, accountLegacyMark;
             TextView accountAddress, accountState, accountKeyPath, accountAvailable, accountDenom;
 
             public AccountHolder(@NonNull View itemView) {
@@ -390,7 +369,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 accountState = itemView.findViewById(R.id.account_state);
                 accountKeyPath = itemView.findViewById(R.id.key_path);
                 accountLegacyMark = itemView.findViewById(R.id.legacy_mark);
-                accountCheck = itemView.findViewById(R.id.check);
                 accountAvailable = itemView.findViewById(R.id.accountAvailable);
                 accountDenom = itemView.findViewById(R.id.accountDenom);
             }
