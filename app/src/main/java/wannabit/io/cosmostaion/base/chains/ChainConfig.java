@@ -122,6 +122,10 @@ abstract public class ChainConfig {
 
     public int gasDefault() { return 0; }
 
+    public String defaultPath() { return "m/44'/118'/0'/0/"; }
+
+    public String okexDefaultPath() { return "m/44'/60'/0'/0/"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }

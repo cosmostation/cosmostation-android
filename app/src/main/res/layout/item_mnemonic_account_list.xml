@@ -88,9 +88,9 @@
                         style="@style/font_rmr_9_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
                         android:layout_gravity="center_vertical"
-                        android:visibility="gone"/>
+                        android:layout_marginLeft="@dimen/space_2"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -183,7 +183,7 @@
     <string name="str_start_wallet">Start Wallet</string>
     <string name="str_import2">Restore with</string>
     <string name="str_mnemonic">Mnemonic</string>
-    <string name="str_key_path_warning">The wallet you selected is not a default Address Type of Cosmos. Do you want to select the wallet?</string>
+    <string name="str_key_path_warning">The wallet you selected is not a default Address Type. Do you want to select the wallet?</string>
     <string name="str_private_key">Private Key</string>
     <string name="str_watch">Watching only</string>
     <string name="str_address">Address</string>

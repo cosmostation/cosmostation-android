@@ -9,7 +9,7 @@
                     <corners android:radius="@dimen/space_8" />
                     <stroke
                         android:width="@dimen/space_1"
-                        android:color="@color/colorGray5" />
+                        android:color="@color/colorGrayDayNight" />
                 </shape>
             </item>
 
@@ -19,7 +19,7 @@
                     <corners android:radius="@dimen/space_8" />
                     <stroke
                         android:width="@dimen/space_1"
-                        android:color="@color/colorGray5" />
+                        android:color="@color/colorGrayDayNight" />
                 </shape>
             </item>
 

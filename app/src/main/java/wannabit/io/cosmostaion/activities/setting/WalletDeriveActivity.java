@@ -10,6 +10,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -230,18 +231,25 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             } else {
                 holder.accountKeyPath.setVisibility(View.VISIBLE);
                 holder.accountKeyPath.setText(derive.fullPath);
-
-                if (derive.baseChain.equals(FETCHAI_MAIN) || derive.baseChain.equals(KAVA_MAIN) || derive.baseChain.equals(LUM_MAIN) || derive.baseChain.equals(SECRET_MAIN)) {
-                    if (!derive.fullPath.contains("m/44'/118'/0'/0/")) {
-                        holder.accountLegacyMark.setVisibility(View.VISIBLE);
-                        holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
-                        legacyCheck.add(String.valueOf(derive.fullPath));
-                    }
-                } else if (derive.baseChain.equals(OKEX_MAIN)) {
-                    if (!derive.fullPath.contains("m/44'/60'/0'/0/")) {
-                        holder.accountLegacyMark.setVisibility(View.VISIBLE);
-                        holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
-                        legacyCheck.add(String.valueOf(derive.baseChain));
+                if (chainConfig.supportHdPaths().size() > 1) {
+                    if (derive.baseChain.equals(KAVA_MAIN) || derive.baseChain.equals(LUM_MAIN) || derive.baseChain.equals(SECRET_MAIN)) {
+                        if (derive.fullPath.contains(chainConfig.defaultPath())) {
+                            holder.accountLegacyMark.setVisibility(View.VISIBLE);
+                            holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
+                            legacyCheck.add(String.valueOf(derive.fullPath));
+                        }
+                    } else if (derive.baseChain.equals(OKEX_MAIN)) {
+                        if (!derive.fullPath.contains(chainConfig.okexDefaultPath())) {
+                            holder.accountLegacyMark.setVisibility(View.VISIBLE);
+                            holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
+                            legacyCheck.add(String.valueOf(derive.fullPath));
+                        }
+                    } else if (derive.baseChain.equals(FETCHAI_MAIN)){
+                        if (!derive.fullPath.contains(chainConfig.defaultPath())) {
+                            holder.accountLegacyMark.setVisibility(View.VISIBLE);
+                            holder.accountLegacyMark.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.legacy));
+                            legacyCheck.add(String.valueOf(derive.fullPath));
+                        }
                     }
                 }
             }
@@ -252,11 +260,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 holder.accountDimLayer.setVisibility(View.VISIBLE);
                 holder.accountDimLayer.setAlpha(0.5f);
             } else {
-                if (derive.selected) {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
-                } else {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
-                }
+                holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_dash_line));
                 holder.accountDimLayer.setVisibility(View.GONE);
                 holder.accountState.setText("");
             }
@@ -269,12 +273,14 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 if (derive.selected) {
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                     if (legacyCheck.contains(derive.fullPath)) {
-                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, null, getString(R.string.str_key_path_warning),
-                                getString(R.string.str_cancel), dialogView -> holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected)),
-                                getString(R.string.str_confirm), dialogView -> holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon)));
+                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<small>" + getString(R.string.str_key_path_warning) + "</small>"), null,
+                                getString(R.string.str_cancel), dialogView -> holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_dash_line)),
+                                Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>"), dialogView -> holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon)));
+                    } else {
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                     }
                 } else {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_dash_line));
                 }
             });
 

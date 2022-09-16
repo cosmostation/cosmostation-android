@@ -35,7 +35,7 @@
     <string name="str_start_wallet">Start Wallet</string>
     <string name="str_import2">복원하기</string>
     <string name="str_mnemonic">니모닉</string>
-    <string name="str_key_path_warning">선택한 지갑은 코스모스의 기본 주소타입이 아닙니다. 선택하시겠습니까?</string>
+    <string name="str_key_path_warning">선택한 지갑은 기본 주소타입이 아닙니다. 그래도 선택하시겠습니까?</string>
     <string name="str_private_key">개인키</string>
     <string name="str_watch">관찰하기</string>
     <string name="str_address">주소</string>
