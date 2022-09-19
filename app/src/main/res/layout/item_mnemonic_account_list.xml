@@ -94,16 +94,6 @@
                         android:layout_gravity="center_vertical"
                         android:text="" />
 
-                    <ImageView
-                        android:id="@+id/legacy_mark"
-                        style="@style/font_rmr_9_gray1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/space_2"
-                        android:background="@drawable/legacy"
-                        android:visibility="gone" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -120,7 +110,7 @@
 
                         <TextView
                             android:id="@+id/accountDenom"
-                            style="@style/font_rr_12_black_daynight"
+                            style="@style/font_rr_10_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
