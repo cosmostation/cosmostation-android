@@ -123,11 +123,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -230,10 +225,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 holder.accountKeyPath.setText(derive.fullPath);
 
                 if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
-                    holder.accountLegacyMark.setVisibility(View.VISIBLE);
                     legacyCheck.add(derive.fullPath);
-                } else {
-                    holder.accountLegacyMark.setVisibility(View.GONE);
                 }
             }
 
@@ -262,7 +254,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     holder.accountCheck.setVisibility(View.VISIBLE);
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                     if (legacyCheck.contains(derive.fullPath)) {
-                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<small>" + getString(R.string.str_key_path_warning) + "</small>"), null,
+                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#ff0000\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>"), null,
                                 getString(R.string.str_cancel),
                                 dialogView -> {
                                     holder.accountCheck.setVisibility(View.GONE);
@@ -306,6 +298,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
                     derive.coin = new Coin(chainConfig.mainDenom(), "0");
                     runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+
                 }, derive.baseChain, derive.dpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)).start();
 
             } else {
@@ -318,6 +311,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                     if (balance.symbol.equalsIgnoreCase(chainConfig.mainDenom())) {
                                         derive.coin = new Coin(balance.symbol, balance.free);
                                         runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+
                                         return;
                                     }
                                 }
@@ -325,6 +319,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
                             derive.coin = new Coin(chainConfig.mainDenom(), "0");
                             runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+
                         }
 
                         @Override
@@ -341,6 +336,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                     if (balance.symbol.equals(chainConfig.mainDenom())) {
                                         derive.coin = new Coin(balance.symbol, balance.available);
                                         runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+
                                         return;
                                     }
                                 }
@@ -371,7 +367,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         public class AccountHolder extends RecyclerView.ViewHolder {
             FrameLayout accountCard, accountDimLayer;
             LinearLayout accountContent;
-            ImageView accountChainImg, accountLegacyMark, accountCheck;
+            ImageView accountChainImg, accountCheck;
             TextView accountAddress, accountState, accountKeyPath, accountAvailable, accountDenom;
 
             public AccountHolder(@NonNull View itemView) {
@@ -383,7 +379,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 accountAddress = itemView.findViewById(R.id.account_address);
                 accountState = itemView.findViewById(R.id.account_state);
                 accountKeyPath = itemView.findViewById(R.id.key_path);
-                accountLegacyMark = itemView.findViewById(R.id.legacy_mark);
                 accountCheck = itemView.findViewById(R.id.check);
                 accountAvailable = itemView.findViewById(R.id.accountAvailable);
                 accountDenom = itemView.findViewById(R.id.accountDenom);

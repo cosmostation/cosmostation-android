@@ -22,6 +22,9 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:textColorPrimary">@color/colorBlackDayNight</item>
         <item name="colorControlNormal">@color/colorGrayDayNight</item>
+        <item name="android:textColorHint">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/space_12</item>
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
