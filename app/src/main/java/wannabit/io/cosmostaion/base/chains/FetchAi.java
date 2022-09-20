@@ -49,7 +49,7 @@ public class FetchAi extends ChainConfig {
     public String coingeckoLink() { return  COINGECKO_URL + "fetch-ai"; }
 
     public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.0afet");
+        return Lists.newArrayList("2.0afet");
     }
 
     public String defaultPath() { return "m/44'/118'/0'/0/X"; }

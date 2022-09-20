@@ -42,6 +42,6 @@ public class Axelar extends ChainConfig {
     public String coingeckoLink() { return  COINGECKO_URL + "axelar-network"; }
 
     public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.05uaxl");
+        return Lists.newArrayList("0.007uaxl", "0.05uaxl");
     }
 }
