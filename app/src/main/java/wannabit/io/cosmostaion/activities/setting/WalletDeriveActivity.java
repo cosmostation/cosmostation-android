@@ -26,11 +26,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.common.collect.Sets;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import retrofit2.Call;
@@ -124,8 +124,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             mPathLayer.setVisibility(View.VISIBLE);
             mPathText.setText("" + mPath);
         }
+        initSearchQueryView();
         loadData();
-        searchChain();
     }
 
     @Override
@@ -183,7 +183,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-    private void searchChain() {
+    private void initSearchQueryView() {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -192,7 +192,13 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mAccountListAdapter.filter(newText);
+                mSearchList.clear();
+                if (StringUtils.isEmpty(newText)) {
+                    mSearchList.addAll(mDerives);
+                } else {
+                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(item.baseChain.getChain(), newText) || StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).mainSymbol(), newText)).collect(Collectors.toList()));
+                }
+                mAccountListAdapter.notifyDataSetChanged();
                 return false;
             }
         });
@@ -230,22 +236,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         public AccountListAdapter(Context context, List<Derive> deriveList) {
             mContext = context;
             mDerives = deriveList;
-        }
-
-        public void filter(String text) {
-            mSearchList.clear();
-            if (!text.equals("")) {
-                for (Derive item : mDerives) {
-                    if (item != null && item.coin != null && item.baseChain != null) {
-                        if (item.baseChain.getChain().toLowerCase().contains(text.toLowerCase()) || WDp.getDpSymbol(getBaseDao(), ChainFactory.getChain(item.baseChain), item.coin.denom).toLowerCase().contains(text.toLowerCase())) {
-                            mSearchList.add(item);
-                        }
-                    }
-                }
-            } else {
-                mSearchList.addAll(mDerives);
-            }
-            notifyDataSetChanged();
         }
 
         @NonNull
