@@ -48,6 +48,8 @@ public class Lum extends ChainConfig {
         return Lists.newArrayList("0.001ulum");
     }
 
+    public String defaultPath() { return "m/44'/880'/0'/0/X"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         if (customPath == 0) {
             return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
@@ -57,6 +59,6 @@ public class Lum extends ChainConfig {
     }
 
     public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X", "m/44'/880'/0'/0/X");
+        return Lists.newArrayList("m/44'/118'/0'/0/X", defaultPath());
     }
 }

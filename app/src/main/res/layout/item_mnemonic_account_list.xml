@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,8 +10,6 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_6"
-        android:background="@drawable/box_white2_border"
-        android:foreground="?android:attr/selectableItemBackground"
         android:paddingLeft="@dimen/space_4"
         android:paddingRight="@dimen/space_4">
 
@@ -72,6 +67,17 @@
                         android:maxWidth="@dimen/space_120"
                         android:singleLine="true"
                         android:text="" />
+
+                    <ImageView
+                        android:id="@+id/check"
+                        style="@style/font_rmr_9_gray1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/check"
+                        android:visibility="gone" />
+
                 </RelativeLayout>
 
                 <LinearLayout
@@ -104,7 +110,7 @@
 
                         <TextView
                             android:id="@+id/accountDenom"
-                            style="@style/font_rr_12_black_daynight"
+                            style="@style/font_rr_10_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_4"
@@ -119,11 +125,11 @@
         android:id="@+id/dim_layer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_54"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_6"
+        android:background="@drawable/box_white3_border"
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/box_white2_border"
-        android:layout_marginRight="@dimen/space_16"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_6"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

@@ -7,11 +7,11 @@
                 android:state_pressed="false">
                 <shape
                     android:shape="rectangle">
-                    <solid android:color="@color/colorWhiteDayNight"/>
+                    <solid android:color="@color/colorWhite2DayNight"/>
                     <corners
                         android:radius="@dimen/space_8"/>
                     <stroke
-                        android:color="@color/colorBlackDayWhite"
+                        android:color="@color/colorGray1"
                         android:width="@dimen/space_1"/>
                 </shape>
             </item>
@@ -20,11 +20,11 @@
                 android:state_pressed="true">
                 <shape
                     android:shape="rectangle">
-                    <solid android:color="@color/colorWhiteDayNight"/>
+                    <solid android:color="@color/colorWhite2DayNight"/>
                     <corners
                         android:radius="@dimen/space_8"/>
                     <stroke
-                        android:color="@color/colorBlack"
+                        android:color="@color/colorGray1"
                         android:width="@dimen/space_1"/>
                 </shape>
             </item>

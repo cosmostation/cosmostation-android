@@ -59,11 +59,10 @@ public class Crytoorg extends ChainConfig {
 
     public int gasDefault() { return 1; }
 
+    public String defaultPath() { return "m/44'/394'/0'/0/X"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/394'/0'/0/X");
-    }
 }

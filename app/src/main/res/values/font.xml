@@ -130,7 +130,7 @@
     </style>
 
     <style name="font_rmr_9_gray1" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">@font/roboto_mono_regular</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/colorGray1</item>
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>

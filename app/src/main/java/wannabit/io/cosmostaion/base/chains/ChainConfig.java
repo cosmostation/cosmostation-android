@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.base.chains;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.ChildNumber;
@@ -122,11 +123,13 @@ abstract public class ChainConfig {
 
     public int gasDefault() { return 0; }
 
+    public String defaultPath() { return "m/44'/118'/0'/0/X"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
-    public abstract ArrayList<String> supportHdPaths();
+    public ArrayList<String> supportHdPaths() { return Lists.newArrayList(defaultPath()); }
 
     public String getHdPath(int customPath, String path) {
         return supportHdPaths().get(customPath).replace("X", path);

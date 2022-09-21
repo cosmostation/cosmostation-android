@@ -56,6 +56,8 @@ public class Kava extends ChainConfig {
 
     public int gasDefault() { return 1; }
 
+    public String defaultPath() { return "m/44'/459'/0'/0/X"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         if (customPath == 0) {
             return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
@@ -65,7 +67,7 @@ public class Kava extends ChainConfig {
     }
 
     public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X", "m/44'/459'/0'/0/X");
+        return Lists.newArrayList("m/44'/118'/0'/0/X", defaultPath());
     }
 
 

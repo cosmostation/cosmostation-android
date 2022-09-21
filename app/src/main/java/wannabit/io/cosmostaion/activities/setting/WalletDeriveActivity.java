@@ -4,8 +4,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +20,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import retrofit2.Call;
@@ -32,7 +39,6 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -59,12 +65,12 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     private String mPKey;
 
     private Toolbar mToolbar;
-    private TextView mToolbarTitle, mAccountCnt, mChainCnt;
-    private LinearLayout mCntLayer;
+    private TextView mToolbarTitle;
     private RelativeLayout mPathLayer;
     private TextView mPathText;
     private RecyclerView mAccountRecyclerView;
     private Button mBtnAdd;
+    private SearchView mSearchView;
 
     private AccountListAdapter mAccountListAdapter;
 
@@ -73,7 +79,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     private MWords mWords;
 
     private int mPath = 0;
-    private final ArrayList<Derive> mDerives = new ArrayList<>();
+    private List<Derive> mDerives = new ArrayList<>();
+    private List<Derive> mSearchList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +88,11 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_wallet_derive);
         mToolbar = findViewById(R.id.tool_bar);
         mToolbarTitle = findViewById(R.id.tool_title);
-        mCntLayer = findViewById(R.id.cnt_layer);
-        mAccountCnt = findViewById(R.id.account_cnt);
-        mChainCnt = findViewById(R.id.chain_cnt);
         mPathLayer = findViewById(R.id.hd_path_layer);
         mPathText = findViewById(R.id.path);
         mAccountRecyclerView = findViewById(R.id.recycler);
         mBtnAdd = findViewById(R.id.btn_add);
+        mSearchView = findViewById(R.id.search_view);
 
         mPathLayer.setOnClickListener(this);
         mBtnAdd.setOnClickListener(this);
@@ -98,7 +103,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         mAccountRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAccountRecyclerView.setHasFixedSize(true);
-        mAccountListAdapter = new AccountListAdapter();
+        mAccountListAdapter = new AccountListAdapter(this, mDerives);
         mAccountRecyclerView.setAdapter(mAccountListAdapter);
 
         mIsDetailMode = getIntent().getBooleanExtra("isDetailMode", false);
@@ -119,13 +124,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             mPathLayer.setVisibility(View.VISIBLE);
             mPathText.setText("" + mPath);
         }
+        initSearchQueryView();
         loadData();
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 
     @Override
@@ -147,6 +147,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     private void onGetAllKeyTypes() {
         runOnUiThread(() -> mAccountListAdapter.notifyDataSetChanged());
 
+        mSearchList.clear();
         mDerives.clear();
         for (BaseChain chain : BaseChain.SUPPORT_CHAINS()) {
             ChainConfig chainConfig = ChainFactory.getChain(chain);
@@ -171,6 +172,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 Derive derive = new Derive(chain, i, mPath, chainConfig.getHdPath(i, String.valueOf(mPath)), dpAddress, status);
                 if (!mDerives.stream().filter(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress)).findAny().isPresent()) {
                     mDerives.add(derive);
+                    mSearchList.add(derive);
                 }
             }
         }
@@ -178,24 +180,28 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         runOnUiThread(() -> {
             mAccountListAdapter.notifyDataSetChanged();
             onHideWaitDialog();
-            onUpdateCnt();
         });
     }
 
-    private void onUpdateCnt() {
-        mCntLayer.setVisibility(View.VISIBLE);
-        int allKeyCnt = mDerives.size();
-        long alreadyCnt = mDerives.stream().filter(derive -> derive.status == 2).count();
-        long selectedCnt = mDerives.stream().filter(derive -> derive.selected).count();
+    private void initSearchQueryView() {
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-        if (selectedCnt == 0) {
-            mAccountCnt.setText("" + alreadyCnt);
-            mAccountCnt.setTextColor(ContextCompat.getColor(this, R.color.colorGray1));
-        } else {
-            mAccountCnt.setText("" + (alreadyCnt + selectedCnt));
-            mAccountCnt.setTextColor(ContextCompat.getColor(this, R.color.colorPhoton));
-        }
-        mChainCnt.setText("" + allKeyCnt);
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mSearchList.clear();
+                if (StringUtils.isEmpty(newText)) {
+                    mSearchList.addAll(mDerives);
+                } else {
+                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(item.baseChain.getChain(), newText) || StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).mainSymbol(), newText)).collect(Collectors.toList()));
+                }
+                mAccountListAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
     }
 
     @Override
@@ -207,7 +213,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             numberPicker.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnAdd)) {
-            long selectedCnt = mDerives.stream().filter(derive -> derive.selected).count();
+            long selectedCnt = mSearchList.stream().filter(derive -> derive.selected).count();
             if (selectedCnt == 0) {
                 Toast.makeText(this, R.string.error_not_selected_to_import, Toast.LENGTH_SHORT).show();
                 return;
@@ -225,6 +231,13 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
     private class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountHolder> {
 
+        Context mContext;
+
+        public AccountListAdapter(Context context, List<Derive> deriveList) {
+            mContext = context;
+            mDerives = deriveList;
+        }
+
         @NonNull
         @Override
         public AccountHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -233,9 +246,10 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
-            final Derive derive = mDerives.get(position);
+            final Derive derive = mSearchList.get(position);
             final BaseChain baseChain = derive.baseChain;
             final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+
             holder.accountChainImg.setImageResource(chainConfig.chainImg());
             holder.accountAddress.setText(derive.dpAddress);
 
@@ -253,8 +267,10 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 holder.accountDimLayer.setAlpha(0.5f);
             } else {
                 if (derive.selected) {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
+                    holder.accountCheck.setVisibility(View.VISIBLE);
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                 } else {
+                    holder.accountCheck.setVisibility(View.GONE);
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                 }
                 holder.accountDimLayer.setVisibility(View.GONE);
@@ -267,11 +283,25 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 }
                 derive.selected = !derive.selected;
                 if (derive.selected) {
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected));
+                    holder.accountCheck.setVisibility(View.VISIBLE);
+                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
+                    if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
+                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#ff0000\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>"), null,
+                                getString(R.string.str_cancel),
+                                dialogView -> {
+                                    holder.accountCheck.setVisibility(View.GONE);
+                                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                                },
+                                Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>"),
+                                dialogView -> {
+                                    holder.accountCheck.setVisibility(View.VISIBLE);
+                                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
+                                }, false);
+                    }
                 } else {
+                    holder.accountCheck.setVisibility(View.GONE);
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                 }
-                onUpdateCnt();
             });
 
             loadBalance(holder, derive);
@@ -300,6 +330,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
                     derive.coin = new Coin(chainConfig.mainDenom(), "0");
                     runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+
                 }, derive.baseChain, derive.dpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)).start();
 
             } else {
@@ -312,6 +343,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                     if (balance.symbol.equalsIgnoreCase(chainConfig.mainDenom())) {
                                         derive.coin = new Coin(balance.symbol, balance.free);
                                         runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+
                                         return;
                                     }
                                 }
@@ -319,6 +351,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
                             derive.coin = new Coin(chainConfig.mainDenom(), "0");
                             runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+
                         }
 
                         @Override
@@ -335,6 +368,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                     if (balance.symbol.equals(chainConfig.mainDenom())) {
                                         derive.coin = new Coin(balance.symbol, balance.available);
                                         runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+
                                         return;
                                     }
                                 }
@@ -352,6 +386,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             }
         }
 
+
         @Override
         public int getItemViewType(int position) {
             return position;
@@ -359,13 +394,13 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public int getItemCount() {
-            return mDerives.size();
+            return mSearchList.size();
         }
 
         public class AccountHolder extends RecyclerView.ViewHolder {
             FrameLayout accountCard, accountDimLayer;
             LinearLayout accountContent;
-            ImageView accountChainImg;
+            ImageView accountChainImg, accountCheck;
             TextView accountAddress, accountState, accountKeyPath, accountAvailable, accountDenom;
 
             public AccountHolder(@NonNull View itemView) {
@@ -377,6 +412,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 accountAddress = itemView.findViewById(R.id.account_address);
                 accountState = itemView.findViewById(R.id.account_state);
                 accountKeyPath = itemView.findViewById(R.id.key_path);
+                accountCheck = itemView.findViewById(R.id.check);
                 accountAvailable = itemView.findViewById(R.id.accountAvailable);
                 accountDenom = itemView.findViewById(R.id.accountDenom);
             }
@@ -385,7 +421,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
     public void onSaveAccount() {
         onShowWaitDialog();
-        for (Derive derive : mDerives) {
+        for (Derive derive : mSearchList) {
             if (derive.selected) {
                 mTaskCount = mTaskCount + 1;
                 if (derive.status == 1) {
@@ -402,7 +438,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         if (isFinishing()) return;
         mTaskCount--;
         if (result.isSuccess) {
-            Derive initDerive = mDerives.stream().filter(derive -> derive.selected).findFirst().get();
+            Derive initDerive = mSearchList.stream().filter(derive -> derive.selected).findFirst().get();
             Account initAccount = getBaseDao().onSelectExistAccount(initDerive.dpAddress, initDerive.baseChain);
             if (initAccount != null && initAccount.id != null) {
                 getBaseDao().setLastUser(initAccount.id);
