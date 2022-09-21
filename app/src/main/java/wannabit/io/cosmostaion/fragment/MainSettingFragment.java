@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.activities.txs.starname.StarNameWalletConnectActi
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
@@ -192,7 +193,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        mTvCurrency.setText(getBaseDao().getCurrencyString());
+        onUpdateCurrency();
         onUpdateAutoPass();
     }
 
@@ -206,6 +207,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else {
             mTvBio.setText("");
         }
+    }
+
+    private void onUpdateCurrency() {
+        mTvCurrency.setText(getBaseDao().getCurrencyString());
     }
 
     @Override
@@ -333,6 +338,29 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
+    private void onSetCurrency(int value) {
+        if (getBaseDao().getCurrency() != value) {
+            getBaseDao().setCurrency(value);
+            onUpdateCurrency();
+
+            ApiClient.getMintscan(getBaseApplication()).getPrice(getBaseDao().getCurrencyString().toLowerCase()).enqueue(new Callback<ArrayList<Price>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Price>> call, Response<ArrayList<Price>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        getBaseDao().mPrices.clear();
+                        for (Price price : response.body()) {
+                            getBaseDao().mPrices.add(price);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<Price>> call, Throwable t) {
+                }
+            });
+        }
+    }
+
     private void onClickAutoPass() {
         mCheckMode = SELECT_CHECK_FOR_AUTO_PASS;
 
@@ -374,10 +402,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
-            getBaseDao().setCurrency(data.getIntExtra("currency", 0));
-            mTvCurrency.setText(getBaseDao().getCurrencyString());
-
+            onSetCurrency(data.getIntExtra("currency", 0));
         }
+
         if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
             new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
                         @Override

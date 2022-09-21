@@ -60,7 +60,7 @@ public class WalletOkexHolder extends BaseHolder {
         mOkLocked.setText(WDp.getDpAmount2(lockedAmount, 0, 6));
         mOkDeposit.setText(WDp.getDpAmount2(depositAmount, 0, 6));
         mOkWithdrawing.setText(WDp.getDpAmount2(withdrawAmount, 0, 6));
-        mOkTotalValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
+        mOkTotalValue.setText(WDp.dpAssetValue(baseData, denom, totalAmount, 0));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 

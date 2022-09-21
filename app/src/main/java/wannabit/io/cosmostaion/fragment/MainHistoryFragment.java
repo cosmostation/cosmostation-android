@@ -117,7 +117,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
         getMainActivity().setEthAddress(mChainConfig, mEthAddress);
-        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
+        mTotalValue.setText(WDp.dpAllAssetValue(mBaseChain, getBaseDao(), mChainConfig));
     }
 
     @Override

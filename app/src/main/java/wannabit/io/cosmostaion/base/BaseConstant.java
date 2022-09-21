@@ -76,11 +76,11 @@ public class BaseConstant {
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2301;
 
-    public final static int TASK_FETCH_PRICE_INFO                       = 2800;
     public final static int TASK_FETCH_PARAM_INFO                       = 2801;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
+    public final static int TASK_FETCH_MINTSCAN_PRICES                  = 2808;
 
 
     //gRPC

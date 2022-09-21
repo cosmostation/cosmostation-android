@@ -121,14 +121,9 @@ public class BaseData {
     public ArrayList<Cw20Asset> mCw20MyAssets = new ArrayList<>();
 
     public Price getPrice(String denom) {
-        if (mPrices != null && mPrices.size() > 0) {
-            for (Price price : mPrices) {
-                if (price.denom.equals(denom.toLowerCase())) {
-                    return price;
-                }
-            }
-        }
-        return null;
+        Optional<Price> prices = mPrices.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+        if (prices.isPresent()) return prices.get();
+        else return null;
     }
 
     public Asset getAsset(ChainConfig chainConfig, String denom) {

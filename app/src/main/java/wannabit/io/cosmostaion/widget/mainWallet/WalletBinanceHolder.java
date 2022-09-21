@@ -56,7 +56,7 @@ public class WalletBinanceHolder extends BaseHolder {
         mTvBnbBalance.setText(WDp.getDpAmount2(availableAmount, 0, 6));
         mTvBnbLocked.setText(WDp.getDpAmount2(lockedAmount, 0, 6));
         mTvBnbFrozen.setText(WDp.getDpAmount2(frozenAmount, 0, 6));
-        mTvBnbValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
+        mTvBnbValue.setText(WDp.dpAssetValue(baseData, denom, totalAmount, 0));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 

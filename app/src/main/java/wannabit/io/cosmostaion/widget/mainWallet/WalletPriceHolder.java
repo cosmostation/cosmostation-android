@@ -53,9 +53,9 @@ public class WalletPriceHolder extends BaseHolder {
         final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
         final String denom = chainConfig.mainDenom();
 
-        itemPerPrice.setText(WDp.dpPerUserCurrencyValue(data, denom));
-        itemUpDownPrice.setText(WDp.dpValueChange(data, denom));
-        final BigDecimal lastUpDown = WDp.valueChange(data, denom);
+        itemPerPrice.setText(WDp.dpPrice(data, denom));
+        itemUpDownPrice.setText(WDp.dpPriceChange(data, denom));
+        final BigDecimal lastUpDown = WDp.priceChange(data, denom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             itemUpDownImg.setVisibility(View.VISIBLE);
             itemUpDownImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.ic_price_up));

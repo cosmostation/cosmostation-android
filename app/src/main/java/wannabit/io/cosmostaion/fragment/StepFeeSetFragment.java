@@ -561,7 +561,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         onUpdateView();
         WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
         int denomDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mFeeData.denom);
-        mGasValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mFeeData.denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+        mGasValue.setText(WDp.dpAssetValue(getBaseDao(), mFeeData.denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
         mSpeedTxt.setText(mFeeInfo.get(mSelectedFeeInfo).msg);
         getSActivity().onHideWaitDialog();
     }

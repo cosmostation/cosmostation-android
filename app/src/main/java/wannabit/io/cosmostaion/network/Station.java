@@ -17,8 +17,8 @@ import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 
 public interface Station {
 
-    @GET("v1/market/prices")
-    Call<ArrayList<Price>> getPrice();
+    @GET("v2/utils/market/prices")
+    Call<ArrayList<Price>> getPrice(@Query("currency") String currency);
 
     @GET("v1/params/{chain_id}")
     Call<ChainParam> getParam(@Path("chain_id") String chain_id);

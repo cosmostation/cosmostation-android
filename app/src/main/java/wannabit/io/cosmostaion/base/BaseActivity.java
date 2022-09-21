@@ -130,6 +130,7 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanCw20AssetsTask;
+import wannabit.io.cosmostaion.task.FetchTask.MintScanPriceTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkAccountBalanceTask;
@@ -138,7 +139,6 @@ import wannabit.io.cosmostaion.task.FetchTask.OkStakingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.StationPriceInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoAllTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -666,12 +666,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
+        if (result.taskType == BaseConstant.TASK_FETCH_MINTSCAN_PRICES) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mPrices.clear();
-                ArrayList<Price> tempPrice = new ArrayList<>();
-                tempPrice = (ArrayList<Price>) result.resultData;
-                for (Price price : tempPrice) {
+                for (Price price : (ArrayList<Price>)result.resultData) {
                     getBaseDao().mPrices.add(price);
                 }
             }
@@ -963,7 +961,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 }
 
             }
-            new StationPriceInfoTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new MintScanPriceTask(getBaseApplication(), this, getBaseDao().getCurrencyString()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             //callback with delay fix gRPC  timming issue
             mHandler.postDelayed(() -> {

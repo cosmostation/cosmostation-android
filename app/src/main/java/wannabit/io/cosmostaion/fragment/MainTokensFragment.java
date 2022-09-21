@@ -149,7 +149,7 @@ public class MainTokensFragment extends BaseFragment {
         getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
         getMainActivity().setEthAddress(mChainConfig, mEthAddress);
-        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
+        mTotalValue.setText(WDp.dpAllAssetValue(mBaseChain, getBaseDao(), mChainConfig));
     }
 
     private SectionCallback getSectionGrpcCall() {
@@ -340,11 +340,11 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.base_denom, holder.itemSymbol);
                 holder.itemPath.setText(asset.description);
 
-                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
                 valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
 
                 holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -372,11 +372,11 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
                 valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
 
                 holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -399,11 +399,11 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
                 valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
 
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
 
                 holder.itemRoot.setOnClickListener(v -> {
@@ -445,11 +445,11 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemSymbol.setText(asset.denom.toUpperCase());
                 holder.itemPath.setText("");
 
-                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.denom));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.denom));
                 valueChangeStatus(getActivity(), getBaseDao(), asset.denom, holder.itemUpDown);
 
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -492,7 +492,7 @@ public class MainTokensFragment extends BaseFragment {
             else totalAmount = getBaseDao().getAllExToken(balance.symbol);
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
+            holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), balance.symbol, totalAmount, 0));
 
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -526,7 +526,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemPerPrice.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGray1));
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
+            holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
 
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -628,7 +628,7 @@ public class MainTokensFragment extends BaseFragment {
     }
 
     private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
-        BigDecimal lastUpDown = WDp.valueChange(baseData, denom);
+        BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
         if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
             changeTxt.setText(lastUpDown + "%");
             changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));

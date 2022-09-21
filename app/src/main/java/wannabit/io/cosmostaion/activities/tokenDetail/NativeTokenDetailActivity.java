@@ -122,12 +122,12 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         if (mBaseChain.equals(BaseChain.OKEX_MAIN)) {
             final OkToken okToken = getBaseDao().okToken(mDenom);
             BigDecimal convertedOktAmount = WDp.convertTokenToOkt(getBaseDao(), mDenom);
-            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mChainConfig.mainDenom(), convertedOktAmount, 0));
+//            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mChainConfig.mainDenom(), convertedOktAmount, 0));
 
             if ("okb".equalsIgnoreCase(okToken.original_symbol)) {
-                mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), "okb"));
-                mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), "okb"));
-                final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), "okb");
+//                mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), "okb"));
+                mItemUpDownPrice.setText(WDp.dpPriceChange(getBaseDao(), "okb"));
+                final BigDecimal lastUpDown = WDp.priceChange(getBaseDao(), "okb");
                 if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
                     mItemUpDownImg.setVisibility(View.VISIBLE);
                     mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
@@ -146,7 +146,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(mDenom);
             BigDecimal convertedBnbAmount = WDp.getBnbConvertAmount(getBaseDao(), mDenom, amount);
-            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mChainConfig.mainDenom(), convertedBnbAmount, 0));
+//            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mChainConfig.mainDenom(), convertedBnbAmount, 0));
 
             mItemPerPrice.setText(WDp.dpBnbTokenUserCurrencyPrice(getBaseDao(), mDenom));
             mItemUpDownPrice.setText("");

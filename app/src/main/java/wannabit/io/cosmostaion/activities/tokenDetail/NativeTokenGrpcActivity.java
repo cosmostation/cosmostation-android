@@ -127,11 +127,11 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         int decimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mNativeGrpcDenom);
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbolImg);
         WDp.setDpSymbol(NativeTokenGrpcActivity.this, getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbol);
-        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, totalAmount, decimal));
+        mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mNativeGrpcDenom, totalAmount, decimal));
 
-        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mNativeGrpcDenom));
-        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mNativeGrpcDenom));
-        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mNativeGrpcDenom);
+        mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mNativeGrpcDenom));
+        mItemUpDownPrice.setText(WDp.dpPriceChange(getBaseDao(), mNativeGrpcDenom));
+        final BigDecimal lastUpDown = WDp.priceChange(getBaseDao(), mNativeGrpcDenom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
             mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
