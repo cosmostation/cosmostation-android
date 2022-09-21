@@ -917,6 +917,19 @@ public class BaseData {
         getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PASS_TIME, now).commit();
     }
 
+    public void setLastPriceTime() {
+        long now = Calendar.getInstance().getTimeInMillis();
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PRICE_TIME, now).commit();
+    }
+
+    public boolean needPriceUpdate() {
+        if (mPrices.size() <= 0) return true;
+        long now = Calendar.getInstance().getTimeInMillis();
+        long priceTime = getSharedPreferences().getLong(BaseConstant.PRE_LAST_PRICE_TIME, 0);
+        if ((priceTime + BaseConstant.CONSTANT_M * 2) > now) return false;
+        else return true;
+    }
+
     public boolean isAutoPass() {
         long now = Calendar.getInstance().getTimeInMillis();
         if (getUsingAutoPassTime() == 1) {

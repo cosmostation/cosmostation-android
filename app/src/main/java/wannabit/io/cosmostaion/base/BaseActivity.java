@@ -672,6 +672,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 for (Price price : (ArrayList<Price>)result.resultData) {
                     getBaseDao().mPrices.add(price);
                 }
+                getBaseDao().setLastPriceTime();
             }
         }
 

@@ -25,12 +25,13 @@ public class MintScanPriceTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        WLog.w("프라이스 실행");
         try {
-            Response<ArrayList<Price>> response = ApiClient.getMintscan(mApp).getPrice(mCurrency.toLowerCase()).execute();
-            if (response.isSuccessful() && response.body() != null) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
+            if (mApp.getBaseDao().needPriceUpdate()) {
+                Response<ArrayList<Price>> response = ApiClient.getMintscan(mApp).getPrice(mCurrency.toLowerCase()).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
             }
 
         } catch (Exception e) {

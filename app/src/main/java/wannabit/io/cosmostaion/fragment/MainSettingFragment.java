@@ -351,6 +351,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                         for (Price price : response.body()) {
                             getBaseDao().mPrices.add(price);
                         }
+                        getBaseDao().setLastPriceTime();
                     }
                 }
 
