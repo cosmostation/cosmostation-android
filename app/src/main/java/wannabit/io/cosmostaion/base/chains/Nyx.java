@@ -22,6 +22,7 @@ public class Nyx extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgNyx; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_nyx; }
     public String chainName() { return "nyx"; }
+    public String chainKoreanName() { return "닉스"; }
     public String chainIdPrefix() { return "nyx"; }
 
     public int mainDenomImg() { return R.drawable.token_nyx; }

@@ -196,7 +196,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 if (StringUtils.isEmpty(newText)) {
                     mSearchList.addAll(mDerives);
                 } else {
-                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(item.baseChain.getChain(), newText) || StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).mainSymbol(), newText)).collect(Collectors.toList()));
+                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(item.baseChain.getChain(), newText) || StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).mainSymbol(), newText) ||
+                            StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).chainKoreanName(), newText)).collect(Collectors.toList()));
                 }
                 mAccountListAdapter.notifyDataSetChanged();
                 return false;

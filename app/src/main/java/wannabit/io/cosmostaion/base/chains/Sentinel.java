@@ -21,6 +21,7 @@ public class Sentinel extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgSentinel; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_sentinel; }
     public String chainName() { return "sentinel"; }
+    public String chainKoreanName() { return "센티넬"; }
     public String chainIdPrefix() { return "sentinelhub-"; }
 
     public int mainDenomImg() { return R.drawable.token_sentinel; }

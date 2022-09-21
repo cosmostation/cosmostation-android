@@ -25,6 +25,7 @@ public class Desmos extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgDesmos; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_desmos; }
     public String chainName() { return "desmos"; }
+    public String chainKoreanName() { return "데스모스"; }
     public String chainIdPrefix() { return "desmos-"; }
 
     public int mainDenomImg() { return R.drawable.token_desmos; }

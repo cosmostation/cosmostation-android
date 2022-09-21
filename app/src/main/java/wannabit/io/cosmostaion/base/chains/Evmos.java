@@ -25,6 +25,7 @@ public class Evmos extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgEvmos; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_evmos; }
     public String chainName() { return "evmos"; }
+    public String chainKoreanName() { return "이비모스"; }
     public String chainIdPrefix() { return "evmos_"; }
 
     public int mainDenomImg() { return R.drawable.token_evmos; }

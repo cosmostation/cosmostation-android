@@ -25,6 +25,7 @@ public class Injective extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgInjective; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_injective; }
     public String chainName() { return "injective"; }
+    public String chainKoreanName() { return "인젝티브"; }
     public String chainIdPrefix() { return "injective-"; }
 
     public int mainDenomImg() { return R.drawable.token_injective; }

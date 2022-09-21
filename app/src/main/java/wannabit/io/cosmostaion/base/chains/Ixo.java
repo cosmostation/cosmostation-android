@@ -23,6 +23,7 @@ public class Ixo extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgIxo; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_ixo; }
     public String chainName() { return "ixo"; }
+    public String chainKoreanName() { return "아이엑스오"; }
     public String chainIdPrefix() { return "impacthub-"; }
 
     public int mainDenomImg() { return R.drawable.token_ixo; }
