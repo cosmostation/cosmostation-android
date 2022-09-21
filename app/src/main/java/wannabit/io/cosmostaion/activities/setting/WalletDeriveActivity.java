@@ -296,7 +296,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                 dialogView -> {
                                     holder.accountCheck.setVisibility(View.VISIBLE);
                                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
-                                });
+                                }, false);
                     }
                 } else {
                     holder.accountCheck.setVisibility(View.GONE);

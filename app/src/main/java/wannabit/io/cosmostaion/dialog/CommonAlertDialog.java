@@ -72,7 +72,7 @@ public class CommonAlertDialog extends AlertDialog {
     }
 
     public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener) {
-        showDoubleButton(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener, false);
+        showDoubleButton(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener, true);
     }
 
     private static CommonAlertDialog makeSingleButton(Context context, CharSequence title, CharSequence message, CharSequence buttonTitle, View.OnClickListener listener) {
