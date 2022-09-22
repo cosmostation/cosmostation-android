@@ -23,7 +23,7 @@ public class StafiHub extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgStafiHub; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_stafihub; }
     public String chainName() { return "stafihub"; }
-    public String chainKoreanName() { return "스타파이"; }
+    public String chainKoreanName() { return "스테파이허브"; }
     public String chainIdPrefix() { return "stafihub-"; }
 
     public int mainDenomImg() { return R.drawable.token_stafihub; }
