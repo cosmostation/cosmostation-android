@@ -85,7 +85,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_16">
+                android:layout_marginBottom="@dimen/space_14">
 
                 <ImageView
                     android:id="@+id/btn_display"
@@ -758,22 +758,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_layer"
-        android:layout_marginLeft="@dimen/space_32"
-        android:layout_marginRight="@dimen/space_32"
-        android:layout_marginBottom="@dimen/space_24"
+        android:layout_marginLeft="@dimen/space_50"
+        android:layout_marginRight="@dimen/space_50"
+        android:layout_marginBottom="@dimen/space_30"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/space_100"
-            android:layout_height="@dimen/space_72"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:src="@drawable/icon_mnemonicwarning" />
 
         <TextView
             style="@style/font_rr_12_gray1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_8"
             android:gravity="center"
             android:text="@string/str_mnemonic_confirm_msg" />
     </LinearLayout>
@@ -784,7 +784,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/space_36"
+        android:layout_marginBottom="@dimen/space_24"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 

@@ -280,7 +280,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     holder.accountCheck.setVisibility(View.VISIBLE);
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                     if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
-                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#ff0000\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>"), null,
+                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>"), null,
                                 getString(R.string.str_cancel),
                                 dialogView -> {
                                     holder.accountCheck.setVisibility(View.GONE);

@@ -143,7 +143,7 @@ public class CommonAlertDialog extends AlertDialog {
     }
 
     public static Spanned highlightingText(String text) {
-        return Html.fromHtml("<font color=\"#ff0000\">" + text + "</font>");
+        return Html.fromHtml("<font color=\"#f31963\">" + text + "</font>");
     }
 
 }
