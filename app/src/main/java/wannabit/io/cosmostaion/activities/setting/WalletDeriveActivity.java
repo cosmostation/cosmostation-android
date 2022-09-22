@@ -67,10 +67,11 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     private Toolbar mToolbar;
     private TextView mToolbarTitle;
     private RelativeLayout mPathLayer;
-    private TextView mPathText;
+    private TextView mPathText, mNoSearchResultText;
     private RecyclerView mAccountRecyclerView;
     private Button mBtnAdd;
     private SearchView mSearchView;
+    private ImageView mNoSearchResultImg;
 
     private AccountListAdapter mAccountListAdapter;
 
@@ -93,6 +94,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         mAccountRecyclerView = findViewById(R.id.recycler);
         mBtnAdd = findViewById(R.id.btn_add);
         mSearchView = findViewById(R.id.search_view);
+        mNoSearchResultImg = findViewById(R.id.no_search_result_img);
+        mNoSearchResultText = findViewById(R.id.no_search_result_text);
 
         mPathLayer.setOnClickListener(this);
         mBtnAdd.setOnClickListener(this);
@@ -193,11 +196,17 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             @Override
             public boolean onQueryTextChange(String newText) {
                 mSearchList.clear();
+                mNoSearchResultImg.setVisibility(View.GONE);
+                mNoSearchResultText.setVisibility(View.GONE);
                 if (StringUtils.isEmpty(newText)) {
                     mSearchList.addAll(mDerives);
                 } else {
                     mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(item.baseChain.getChain(), newText) || StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).mainSymbol(), newText) ||
                             StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).chainKoreanName(), newText)).collect(Collectors.toList()));
+                    if(mSearchList.isEmpty()) {
+                        mNoSearchResultImg.setVisibility(View.VISIBLE);
+                        mNoSearchResultText.setVisibility(View.VISIBLE);
+                    }
                 }
                 mAccountListAdapter.notifyDataSetChanged();
                 return false;
