@@ -48,8 +48,4 @@ public class Sif extends ChainConfig {
     public ArrayList<String> gasRates() {
         return Lists.newArrayList("0.0rowan");
     }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X");
-    }
 }

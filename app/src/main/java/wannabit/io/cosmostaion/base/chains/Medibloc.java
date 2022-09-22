@@ -62,11 +62,9 @@ public class Medibloc extends ChainConfig {
         return Lists.newArrayList("5umed");
     }
 
+    public String defaultPath() { return "m/44'/371'/0'/0/X"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/371'/0'/0/X");
     }
 }

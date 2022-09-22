@@ -48,8 +48,4 @@ public class LikeCoin extends ChainConfig {
     public ArrayList<String> gasRates() {
         return Lists.newArrayList("1nanolike");
     }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X");
-    }
 }

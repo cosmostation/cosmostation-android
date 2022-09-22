@@ -45,8 +45,4 @@ public class Konstellation extends ChainConfig {
     }
 
     public int gasDefault() { return 1; }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X");
-    }
 }

@@ -44,8 +44,4 @@ public class Passage extends ChainConfig {
     public ArrayList<String> gasRates() {
         return Lists.newArrayList("0.0upasg");
     }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X");
-    }
 }

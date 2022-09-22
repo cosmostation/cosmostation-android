@@ -50,11 +50,9 @@ public class Persistence extends ChainConfig {
         return Lists.newArrayList("0.0uxprt", "0.025uxprt");
     }
 
+    public String defaultPath() { return "m/44'/750'/0'/0/X"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/750'/0'/0/X");
     }
 }

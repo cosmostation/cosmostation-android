@@ -48,8 +48,4 @@ public class Cudos extends ChainConfig {
     public ArrayList<String> gasRates() {
         return Lists.newArrayList("5000000000000acudos");
     }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X");
-    }
 }

@@ -50,10 +50,6 @@ public class Emoney extends ChainConfig {
 
     public int gasDefault() { return 1; }
 
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X");
-    }
-
 
     public static String EMONEY_EUR_DENOM = "eeur";
     public static String EMONEY_CHF_DENOM = "echf";

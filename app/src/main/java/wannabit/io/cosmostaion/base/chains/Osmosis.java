@@ -46,10 +46,6 @@ public class Osmosis extends ChainConfig {
         return Lists.newArrayList("0.0025uosmo", "0.025uosmo");
     }
 
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/118'/0'/0/X");
-    }
-
 
     public static String OSMOSIS_ION_DENOM = "uion";
 }

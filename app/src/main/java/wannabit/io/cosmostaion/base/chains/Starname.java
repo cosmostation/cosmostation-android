@@ -48,11 +48,9 @@ public class Starname extends ChainConfig {
         return Lists.newArrayList("0.1uiov", "1.0uiov");
     }
 
+    public String defaultPath() { return "m/44'/234'/0'/0/X"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(234, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/234'/0'/0/X");
     }
 }

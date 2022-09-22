@@ -52,12 +52,10 @@ public class Binance extends ChainConfig {
         return Lists.newArrayList("0.0BNB");
     }
 
+    public String defaultPath() { return "m/44'/714'/0'/0/X"; }
+
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
-
-    public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/714'/0'/0/X");
     }
 
     public String coinFullName(String denom) { return "Binance Chain Native Coin"; }
