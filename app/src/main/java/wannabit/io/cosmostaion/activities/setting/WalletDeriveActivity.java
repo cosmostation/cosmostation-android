@@ -103,7 +103,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         mAccountRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAccountRecyclerView.setHasFixedSize(true);
-        mAccountListAdapter = new AccountListAdapter(this, mDerives);
+        mAccountListAdapter = new AccountListAdapter();
         mAccountRecyclerView.setAdapter(mAccountListAdapter);
 
         mIsDetailMode = getIntent().getBooleanExtra("isDetailMode", false);
@@ -231,13 +231,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     }
 
     private class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountHolder> {
-
-        Context mContext;
-
-        public AccountListAdapter(Context context, List<Derive> deriveList) {
-            mContext = context;
-            mDerives = deriveList;
-        }
 
         @NonNull
         @Override

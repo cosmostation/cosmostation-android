@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_bar_height"
             android:background="@color/colorWhiteDayNight"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:contentInsetStartWithNavigation="0dp">
 
             <TextView
                 android:id="@+id/tool_title"
@@ -113,10 +114,12 @@
                         android:layout_marginRight="@dimen/space_16"
                         android:background="@drawable/box_round_search"
                         android:focusable="false"
+                        android:includeFontPadding="false"
                         android:paddingLeft="-6dp"
                         app:iconifiedByDefault="false"
                         app:queryHint="@string/str_search"
-                        app:searchIcon="@drawable/icon_search" />
+                        app:searchIcon="@drawable/icon_search"
+                        app:closeIcon="@color/colorWhiteDayNight"/>
 
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
@@ -150,7 +153,8 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:background="@drawable/btn_trans_with_photon_border"
                 android:minHeight="@dimen/space_45"
-                android:text="@string/str_add_new" />
+                android:text="@string/str_add_new"
+                android:textAllCaps="false" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

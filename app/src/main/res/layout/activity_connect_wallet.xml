@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorWhiteDayNight"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:contentInsetStartWithNavigation="0dp">
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -95,8 +96,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_disconnect"
-        android:background="@android:color/transparent"
         android:layout_below="@+id/tool_bar"
+        android:background="@android:color/transparent"
         android:visibility="gone" />
 
     <RelativeLayout
@@ -114,9 +115,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBgKava"
             app:cardCornerRadius="@dimen/space_8"
+            app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true">
 
             <LinearLayout
@@ -200,8 +201,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
-        android:clickable="true"
         android:background="#88000000"
+        android:clickable="true"
         android:focusable="true">
 
         <ProgressBar
