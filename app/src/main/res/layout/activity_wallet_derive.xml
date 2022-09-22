@@ -137,9 +137,11 @@
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <RelativeLayout
+            android:id="@+id/no_search_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -147,21 +149,18 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/no_search_result_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/icon_no_results"
-                    android:visibility="gone"/>
+                    android:src="@drawable/icon_no_results" />
 
                 <TextView
-                    android:id="@+id/no_search_result_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8"
                     android:textColor="@color/colorBlackDayNight"
-                    android:text="@string/str_no_search_result"
-                    android:visibility="gone"/>
+                    android:text="@string/str_no_search_result" />
+
             </LinearLayout>
         </RelativeLayout>
 

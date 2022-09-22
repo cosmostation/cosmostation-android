@@ -25,7 +25,7 @@ public class Okc extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgOkc; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_okc; }
     public String chainName() { return "okex"; }
-    public String chainKoreanName() { return "오케이엑스"; }
+    public String chainKoreanName() { return "오케이씨"; }
     public String chainTitle() { return "(OKC)"; }
     public String chainTitleToUp() { return "OKC"; }
     public String chainIdPrefix() { return "exchain-"; }
