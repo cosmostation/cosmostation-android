@@ -617,7 +617,7 @@
     <string name="str_error_not_support_chain_title">오류</string>
     <string name="str_error_not_support_chain_msg">해당 체인에 대한 지갑이 없습니다.</string>
     <string name="str_error_not_support_msg">%1$s는 지원하지 않는 체인입니다.</string>
-    <string name="str_search">체인을 검색하세요</string>
+    <string name="str_search">체인이나 토큰을 검색하세요</string>
     <string name="str_no_search_result">검색 결과가 없습니다</string>
 
     <string name="str_min_collateral_rate">최소 담보 비율</string>
