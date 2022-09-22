@@ -144,6 +144,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             } else {
                 mRemainingPrice.setVisibility(View.GONE);
             }
+            mRecipientLayer.setVisibility(View.GONE);
+            mIbcLayer.setVisibility(View.GONE);
         }
         mRecipientAddress.setText(getSActivity().mToAddress);
         mMemo.setText(getSActivity().mTxMemo);

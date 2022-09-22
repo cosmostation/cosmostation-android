@@ -19,8 +19,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
-import static wannabit.io.cosmostaion.utils.WUtil.getBnbTicSymbol;
-import static wannabit.io.cosmostaion.utils.WUtil.isBnbBaseMarketToken;
 
 import android.content.Context;
 import android.text.SpannableString;
@@ -554,50 +552,40 @@ public class WDp {
         return new BigDecimal(baseData.mKavaTokenPrice.get(feedSymbol).getPrice()).movePointLeft(18);
     }
 
-    public static BigDecimal getBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        ChainConfig chainConfig = ChainFactory.getChain(BNB_MAIN);
-        for (BnbTicker ticker : baseData.mBnbTickers) {
-            if (ticker.symbol.equals(getBnbTicSymbol(denom))) {
-                if (isBnbBaseMarketToken(denom)) {
-                    BigDecimal perPrice = BigDecimal.ONE.divide(new BigDecimal(ticker.lastPrice), 8, RoundingMode.DOWN);
-                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, chainConfig.mainDenom()));
-                } else {
-                    BigDecimal perPrice = BigDecimal.ONE.multiply(new BigDecimal(ticker.lastPrice)).setScale(8, RoundingMode.DOWN);
-                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, chainConfig.mainDenom()));
-                }
+    public static BigDecimal bnbConvertAmount(BaseData baseData, String denom) {
+        BnbTicker bnbTicker = baseData.getBnbTicker(denom);
+        BigDecimal amount = baseData.getAllBnbTokenAmount(denom);
+
+        if (bnbTicker != null) {
+            if (bnbTicker.baseAssetName.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
+                return amount.divide(new BigDecimal(bnbTicker.lastPrice), 8, RoundingMode.DOWN);
+            } else {
+                return amount.multiply(new BigDecimal(bnbTicker.lastPrice)).setScale(8, RoundingMode.DOWN);
             }
         }
-        return result;
+        return BigDecimal.ZERO;
     }
 
-    public static SpannableString dpBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {
-        final String formatted = baseData.getCurrencySymbol() + " " + WDp.getDecimalFormat(3).format(getBnbTokenUserCurrencyPrice(baseData, denom));
+    public static BigDecimal bnbTokenPrice(BaseData baseData, String denom) {
+        BnbTicker bnbTicker = baseData.getBnbTicker(denom);
+        if (bnbTicker != null) {
+            if (bnbTicker.baseAssetName.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
+                BigDecimal perPrice = BigDecimal.ONE.divide(new BigDecimal(bnbTicker.lastPrice), 8, RoundingMode.DOWN);
+                return perPrice.multiply(price(baseData, Binance.BNB_MAIN_DENOM));
+            } else {
+                BigDecimal perPrice = BigDecimal.ONE.multiply(new BigDecimal(bnbTicker.lastPrice)).setScale(8, RoundingMode.DOWN);
+                return perPrice.multiply(price(baseData, Binance.BNB_MAIN_DENOM));
+            }
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public static SpannableString dpBnbTokenPrice(BaseData baseData, String denom) {
+        final String formatted = baseData.getCurrencySymbol() + " " + WDp.getDecimalFormat(3).format(bnbTokenPrice(baseData, denom));
         return WDp.getDpString(formatted, 3);
     }
 
-    public static BigDecimal getBnbConvertAmount(BaseData baseData, String denom, BigDecimal amount) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (BnbTicker ticker : baseData.mBnbTickers) {
-            if (ticker.symbol.equals(getBnbTicSymbol(denom))) {
-                if (isBnbBaseMarketToken(denom)) {
-                    return amount.divide(new BigDecimal(ticker.lastPrice), 8, RoundingMode.DOWN);
-                } else {
-                    return amount.multiply(new BigDecimal(ticker.lastPrice)).setScale(8, RoundingMode.DOWN);
-                }
-            }
-        }
-        return result;
-    }
-
-    public static BigDecimal convertTokenToKava(BaseData baseData, ChainConfig chainConfig, String denom) {
-        BigDecimal tokenAmount = baseData.getAvailable(denom).add(baseData.getVesting(denom));
-        BigDecimal totalTokenValue = kavaTokenDollorValue(baseData, chainConfig, denom, tokenAmount);
-        return totalTokenValue.movePointRight(6).divide(perUsdValue(baseData, chainConfig.mainDenom()), 6, RoundingMode.DOWN);
-    }
-
-    public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken
-            okToken, BigDecimal amount) {
+    public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken okToken, BigDecimal amount) {
         if (okToken != null && okToken.original_symbol != null) {
             if (okToken.original_symbol.equals("usdt") || okToken.original_symbol.equals("usdc") || okToken.original_symbol.equals("usdk")) {
                 return amount;
@@ -615,18 +603,16 @@ public class WDp {
     }
 
     public static BigDecimal convertTokenToOkt(BaseData baseData, String denom) {
-        ChainConfig chainConfig = ChainFactory.getChain(OKEX_MAIN);
         OkToken okToken = baseData.okToken(denom);
         if (okToken != null) {
             BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
             BigDecimal totalTokenValue = okExTokenDollorValue(baseData, okToken, tokenAmount);
-            if (!BigDecimal.ZERO.equals(perUsdValue(baseData, chainConfig.mainDenom()))) {
-                return totalTokenValue.divide(perUsdValue(baseData, chainConfig.mainDenom()), 18, RoundingMode.DOWN);
+            if (!BigDecimal.ZERO.equals(perUsdValue(baseData, Okc.OKC_MAIN_DENOM))) {
+                return totalTokenValue.divide(perUsdValue(baseData, Okc.OKC_MAIN_DENOM), 18, RoundingMode.DOWN);
             }
         }
         return BigDecimal.ZERO;
     }
-
 
     public static SpannableString getDpRawDollor(Context c, String price, int scale) {
         BigDecimal mPrice = new BigDecimal(price);
@@ -690,51 +676,12 @@ public class WDp {
     }
 
     public static BigDecimal perUsdValue(BaseData baseData, String denom) {
-//        if (denom.contains("gamm/pool/")) {
-//            BalancerPool.Pool pool = baseData.getOsmosisPoolByDenom(denom);
-//            return WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
-//        }
-//        if (denom.equals(Emoney.EMONEY_EUR_DENOM) || denom.equals(Emoney.EMONEY_CHF_DENOM) || denom.equals(Emoney.EMONEY_DKK_DENOM) ||
-//                denom.equals(Emoney.EMONEY_NOK_DENOM) || denom.equals(Emoney.EMONEY_SEK_DENOM)) {
-//            if (baseData.getPrice("usdt") != null && baseData.getPrice("usdt").prices != null) {
-//                for (Price.Prices price : baseData.getPrice("usdt").prices) {
-//                    if (price.currency.equalsIgnoreCase(denom.substring(1))) {
-//                        return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 18, RoundingMode.DOWN);
-//                    }
-//                }
-//            }
-//        }
-//        if (baseData.getPrice(denom) != null) {
-//            return baseData.getPrice(denom).currencyPrice("usd").setScale(18, RoundingMode.DOWN);
-//        }
-        return BigDecimal.ZERO.setScale(18, RoundingMode.DOWN);
-    }
-
-    public static BigDecimal usdValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
-//        return perUsdValue(baseData, denom).multiply(amount).movePointLeft(divider).setScale(3, RoundingMode.DOWN);
         return BigDecimal.ZERO;
     }
 
-    public static BigDecimal perUserCurrencyValue(BaseData baseData, String denom) {
-//        if (baseData.getCurrency() == 0) {
-//            return perUsdValue(baseData, denom);
-//        } else if (baseData.getPrice("usdt") != null) {
-//            final Price usdtInfo = baseData.getPrice("usdt");
-//            final BigDecimal usdtPrice = usdtInfo.currencyPrice(baseData.getCurrencyString().toLowerCase());
-//            return perUsdValue(baseData, denom).multiply(usdtPrice).setScale(3, RoundingMode.DOWN);
-//        }
-        return BigDecimal.ZERO.setScale(3, RoundingMode.DOWN);
+    public static BigDecimal usdValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
+        return BigDecimal.ZERO;
     }
-
-//    public static BigDecimal userCurrencyValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
-//        return perUserCurrencyValue(baseData, denom).multiply(amount).movePointLeft(divider).setScale(3, RoundingMode.DOWN);
-//    }
-
-//    public static SpannableString dpUserCurrencyValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
-//        BigDecimal totalValue = userCurrencyValue(baseData, denom, amount, divider);
-//        final String formatted = baseData.getCurrencySymbol() + " " + getDecimalFormat(3).format(totalValue);
-//        return dpCurrencyValue(formatted, 3);
-//    }
 
     public static BigDecimal allAssetValue(BaseChain baseChain, BaseData baseData, ChainConfig chainConfig) {
         BigDecimal totalValue = BigDecimal.ZERO;
@@ -774,8 +721,7 @@ public class WDp {
                     BigDecimal assetValue = assetValue(baseData, chainConfig.mainDenom(), amount, getDenomDecimal(baseData, chainConfig, balance.symbol));
                     totalValue = totalValue.add(assetValue);
                 } else {
-                    BigDecimal amount = baseData.getAllBnbTokenAmount(balance.symbol);
-                    BigDecimal convertAmount = getBnbConvertAmount(baseData, balance.symbol, amount);
+                    BigDecimal convertAmount = bnbConvertAmount(baseData, balance.symbol);
                     BigDecimal assetValue = assetValue(baseData, chainConfig.mainDenom(), convertAmount, getDenomDecimal(baseData, chainConfig, balance.symbol));
                     totalValue = totalValue.add(assetValue);
                 }

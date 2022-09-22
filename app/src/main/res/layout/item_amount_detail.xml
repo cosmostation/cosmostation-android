@@ -87,62 +87,6 @@
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/locked_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_14"
-                android:layout_marginRight="@dimen/space_14"
-                android:layout_marginTop="@dimen/space_14"
-                android:visibility="gone">
-                <TextView
-                    android:id="@+id/locked_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_locked"
-                    style="@style/font_rr_12_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/locked_title">
-                    <TextView
-                        android:id="@+id/locked_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="12313123"
-                        android:layout_alignParentRight="true"
-                        style="@style/font_rr_12_black_daynight"/>
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/frozen_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_14"
-                android:layout_marginRight="@dimen/space_14"
-                android:layout_marginTop="@dimen/space_14"
-                android:visibility="gone">
-                <TextView
-                    android:id="@+id/frozen_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_frozen"
-                    style="@style/font_rr_12_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/frozen_title">
-                    <TextView
-                        android:id="@+id/frozen_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="12313123"
-                        android:layout_alignParentRight="true"
-                        style="@style/font_rr_12_black_daynight"/>
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
                 android:id="@+id/vesting_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -53,6 +53,7 @@ import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
 import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.chains.Binance;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -356,6 +357,19 @@ public class BaseData {
         for (BnbToken token : mBnbTokens) {
             if (token.symbol.equals(denom)) {
                 return token;
+            }
+        }
+        return null;
+    }
+
+    public BnbTicker getBnbTicker(String denom) {
+        for (BnbTicker bnbTicker : mBnbTickers) {
+            if (bnbTicker.baseAssetName.equalsIgnoreCase(Binance.BNB_MAIN_DENOM) && bnbTicker.quoteAssetName.equalsIgnoreCase(denom)) {
+                return bnbTicker;
+            }
+
+            if (bnbTicker.baseAssetName.equalsIgnoreCase(denom) && bnbTicker.quoteAssetName.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
+                return bnbTicker;
             }
         }
         return null;
