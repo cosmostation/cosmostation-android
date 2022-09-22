@@ -585,6 +585,7 @@
     <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
     <string name="str_front_guide_title_passage"><![CDATA[PASSAGE]]></string>
     <string name="str_front_guide_title_stride"><![CDATA[STRIDE]]></string>
+    <string name="str_front_guide_title_stafihub"><![CDATA[STAFIHUB]]></string>
     <string name="str_front_guide_title_likecoin"><![CDATA[LIKECOIN]]></string>
     <string name="str_front_guide_title_ixo"><![CDATA[IXO]]></string>
     <string name="str_front_guide_title_sommelier"><![CDATA[SOMMELIER]]></string>
@@ -637,6 +638,7 @@
     <string name="str_front_guide_msg_likecoin"><![CDATA[A Cosmos SDK-based blockchain for decentralized publishing infrastructure and social media.]]></string>
     <string name="str_front_guide_msg_ixo"><![CDATA[ixo protocol aims to build a carbon-negative blockchain network for regenerative finance and verifying earth state change.]]></string>
     <string name="str_front_guide_msg_sommelier"><![CDATA[Sommelier Finance is a Cosmos SDK-based blockchain that provides risk-managed multichain DeFi strategies.]]></string>
+    <string name="str_front_guide_msg_stafihub"><![CDATA[StaFi Hub is a sovereign Cosmos SDK based blockchain designed for cross-chain liquid staking]]></string>
 
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
