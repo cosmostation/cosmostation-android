@@ -739,15 +739,6 @@ public class WDp {
                     totalValue = totalValue.add(assetValue);
                 }
             }
-
-        } else {
-            for (Balance balance : baseData.mBalances) {
-                if (balance.symbol.equals(chainConfig.mainDenom())) {
-                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
-                    BigDecimal assetValue = assetValue(baseData, balance.symbol, amount, getDenomDecimal(baseData, chainConfig, balance.symbol));
-                    totalValue = totalValue.add(assetValue);
-                }
-            }
         }
         return totalValue;
     }

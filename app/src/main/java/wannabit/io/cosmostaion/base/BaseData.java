@@ -247,48 +247,11 @@ public class BaseData {
         return result;
     }
 
-    public BigDecimal delegatedSumAmount() {
-        BigDecimal result = BigDecimal.ZERO;
-        for (BondingInfo bondingInfo : mMyDelegations) {
-            if (bondingInfo.balance != null) {
-                result = result.add(bondingInfo.getBalance());
-            }
-        }
-        return result;
-    }
-
     public BigDecimal delegatedAmountByValidator(String opAddress) {
         BigDecimal result = BigDecimal.ZERO;
         for (BondingInfo bondingInfo : mMyDelegations) {
             if (bondingInfo.validator_address.equals(opAddress) && bondingInfo.balance != null) {
                 result = result.add(bondingInfo.getBalance());
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal unbondingSumAmount() {
-        BigDecimal result = BigDecimal.ZERO;
-        for (UnbondingInfo unbondingInfo : mMyUnbondings) {
-            if (unbondingInfo.entries != null) {
-                for (UnbondingInfo.Entry entry : unbondingInfo.entries) {
-                    result = result.add(new BigDecimal(entry.balance));
-                }
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal rewardAmount(String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (RewardInfo rewardInfo : mMyRewards) {
-            if (rewardInfo.reward != null) {
-                for (Coin coin : rewardInfo.reward) {
-                    if (coin.denom.equals(denom)) {
-                        result = result.add(new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN));
-                    }
-                }
-
             }
         }
         return result;
@@ -343,10 +306,6 @@ public class BaseData {
             sum = new BigDecimal(mOkUnbonding.quantity);
         }
         return sum;
-    }
-
-    public BigDecimal getAllMainAssetOld(String denom) {
-        return availableAmount(denom).add(lockedAmount(denom)).add(delegatedSumAmount()).add(unbondingSumAmount()).add(rewardAmount(denom));
     }
 
     public BigDecimal getAllBnbTokenAmount(String denom) {
@@ -735,16 +694,6 @@ public class BaseData {
         }
         return 0;
     }
-
-    public BalancerPool.Pool getOsmosisPoolByDenom(String denom) {
-        for (BalancerPool.Pool pool : mGrpcOsmosisPool) {
-            if (pool.getTotalShares().getDenom().equals(denom)) {
-                return pool;
-            }
-        }
-        return null;
-    }
-
 
     public void setValSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();
