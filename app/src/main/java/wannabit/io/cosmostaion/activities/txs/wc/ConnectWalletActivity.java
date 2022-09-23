@@ -345,12 +345,15 @@ public class ConnectWalletActivity extends BaseActivity {
         OkHttpClient client = new OkHttpClient.Builder().pingInterval(100000, TimeUnit.MILLISECONDS).build();
         wcClient = new WCClient(new GsonBuilder(), client);
         WCPeerMeta meta = new WCPeerMeta(getString(R.string.str_wc_peer_name), getString(R.string.str_wc_peer_url), getString(R.string.str_wc_peer_desc), Lists.newArrayList());
-        wcSession = WCSession.Companion.from(mWcURL);
-        wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
-        wcClient.setOnGetAccounts(id -> {
-            wcClient.approveRequest(id, makeWCAccount());
-            return null;
-        });
+        if (!mWcURL.isEmpty()) {
+            wcSession = WCSession.Companion.from(mWcURL);
+            wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
+            wcClient.setOnGetAccounts(id -> {
+                wcClient.approveRequest(id, makeWCAccount());
+                return null;
+            });
+        }
+
         wcClient.setOnDisconnect((code, reason) -> {
             runOnUiThread(() -> {
                 Toast.makeText(getBaseContext(), getString(R.string.str_wc_not_connected), Toast.LENGTH_SHORT).show();
