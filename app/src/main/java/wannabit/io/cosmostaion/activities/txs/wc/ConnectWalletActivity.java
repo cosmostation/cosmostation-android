@@ -348,12 +348,11 @@ public class ConnectWalletActivity extends BaseActivity {
         if (!mWcURL.isEmpty()) {
             wcSession = WCSession.Companion.from(mWcURL);
             wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
-            wcClient.setOnGetAccounts(id -> {
-                wcClient.approveRequest(id, makeWCAccount());
-                return null;
-            });
         }
-
+        wcClient.setOnGetAccounts(id -> {
+            wcClient.approveRequest(id, makeWCAccount());
+            return null;
+        });
         wcClient.setOnDisconnect((code, reason) -> {
             runOnUiThread(() -> {
                 Toast.makeText(getBaseContext(), getString(R.string.str_wc_not_connected), Toast.LENGTH_SHORT).show();
