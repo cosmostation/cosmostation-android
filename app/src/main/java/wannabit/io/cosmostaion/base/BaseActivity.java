@@ -222,9 +222,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onHideWaitDialog() {
-        if (mDialogWait != null) {
+        if (mDialogWait != null && mDialogWait.isVisible()) {
             mDialogWait.dismissAllowingStateLoss();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        onHideWaitDialog();
+        super.onDestroy();
     }
 
     public void onInsertKeyDialog() {
