@@ -260,16 +260,19 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         FeeInfo.FeeData feeData = calculateFee(selectFee);
 
         new Thread(() -> {
-            ServiceOuterClass.SimulateResponse simulateCompoundingResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mBaseChain);
-            ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
-            if (simulateCompoundingResponse == null) {
-                return;
+            if (getClaimableReward() != null && mBaseChain != null) {
+                ServiceOuterClass.SimulateResponse simulateCompoundingResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mBaseChain);
+                ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
+                if (simulateCompoundingResponse == null) {
+                    return;
+                }
+
+                ServiceOuterClass.BroadcastTxResponse executeCompoundingResponse = ValidatorListActivity.this.executeCompounding(simulateCompoundingResponse, feeData, getClaimableReward(), mBaseChain);
+                if (executeCompoundingResponse == null) {
+                    return;
+                }
+                ValidatorListActivity.this.processResponse(executeCompoundingResponse);
             }
-            ServiceOuterClass.BroadcastTxResponse executeCompoundingResponse = ValidatorListActivity.this.executeCompounding(simulateCompoundingResponse, feeData, getClaimableReward(), mBaseChain);
-            if (executeCompoundingResponse == null) {
-                return;
-            }
-            ValidatorListActivity.this.processResponse(executeCompoundingResponse);
         }).start();
     }
 
