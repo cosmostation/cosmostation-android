@@ -345,7 +345,7 @@
     <string name="str_import_mnemonic">Import Mnemonic</string>
     <string name="str_import_key">Import PrivateKey</string>
     <string name="str_share">Share</string>
-    <string name="str_copy">COPY</string>
+    <string name="str_copy">Copy</string>
     <string name="str_copy_to">Copy to Clipboard</string>
     <string name="str_copied">Copied to clipboard</string>
     <string name="str_safe_copied">Mnemonic copied safely</string>
@@ -875,13 +875,13 @@
     <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/0/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
-    <string name="str_add_new">ADD WALLET</string>
+    <string name="str_add_new">Add Wallet</string>
     <string name="str_add_wallet">Would you like to add %1$s wallet(s)?</string>
     <string name="str_error_not_support_chain_title">Error</string>
     <string name="str_error_not_support_chain_msg">No wallet for that chain</string>
     <string name="str_error_not_support_msg">%1$s are not currently supported chain</string>
-    <string name="str_search">Search Chain</string>
-
+    <string name="str_search">Search by Chain or Token</string>
+    <string name="str_no_search_result">No Results</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -1715,7 +1715,7 @@
     <string name="str_select_link_chain">Select Chain To Link</string>
     <string name="str_select_link_account">Select Account To Link</string>
 
-    <string name="str_mnemonic_confirm_msg">Losing your mnemonics could lead to loss of your asset.\nWe highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
+    <string name="str_mnemonic_confirm_msg">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
     <string name="str_mnemonic_confirm_msg2">You can check/manage your mnemonics in\n[Manage Mnemonic]</string>
     <string name="str_key_confirm_msg">Private Key is only used to restore the\ncurrently selected wallet.\nWe highly recommend keeping your mnemonics\noffline in a secure location, and never share your\nmnemonics with anyone else.\n\n
                                        Private key is NOT mnemonics.\nYou MUST backup your mnemonics if you have one.\nYou need your mnemonics to restore your original wallets if you created them with mnemonics.</string>

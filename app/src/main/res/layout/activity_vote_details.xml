@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/chain_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@color/colorWhiteDayNight"/>
+        android:src="@color/colorWhiteDayNight" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorWhiteDayNight"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:contentInsetStartWithNavigation="0dp">
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -29,26 +29,26 @@
 
     <Button
         android:id="@+id/btn_action"
-        android:layout_alignParentBottom="true"
+        style="@style/font_rr_14_photon_daynight"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
-        android:minHeight="@dimen/space_45"
-        android:background="@drawable/btn_trans_with_photon_border"
-        style="@style/font_rr_14_photon_daynight"
-        android:textAllCaps="false"
-        android:text="@string/str_vote_to"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
         android:layout_marginTop="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24"
-        android:visibility="gone"/>
+        android:background="@drawable/btn_trans_with_photon_border"
+        android:minHeight="@dimen/space_45"
+        android:text="@string/str_vote_to"
+        android:textAllCaps="false"
+        android:visibility="gone" />
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar"
         android:layout_above="@+id/btn_action"
+        android:layout_below="@+id/tool_bar"
         android:paddingBottom="@dimen/space_8">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

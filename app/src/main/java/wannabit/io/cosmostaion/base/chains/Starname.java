@@ -25,6 +25,7 @@ public class Starname extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgStarname; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_starname; }
     public String chainName() { return "starname"; }
+    public String chainKoreanName() { return "스타네임"; }
     public String chainIdPrefix() { return "iov-"; }
 
     public int mainDenomImg() { return R.drawable.token_starname; }

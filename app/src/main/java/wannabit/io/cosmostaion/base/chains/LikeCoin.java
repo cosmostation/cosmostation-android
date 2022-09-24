@@ -23,6 +23,7 @@ public class LikeCoin extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgLikeCoin; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_likecoin; }
     public String chainName() { return "likecoin"; }
+    public String chainKoreanName() { return "라이크코인"; }
     public String chainIdPrefix() { return "likecoin-mainnet-"; }
 
     public int mainDenomImg() { return R.drawable.token_likecoin; }

@@ -37,6 +37,8 @@ abstract public class ChainConfig {
 
     public abstract String chainName();
 
+    public abstract String chainKoreanName();
+
     public String chainTitle() {
         return "(" + chainName().substring(0, 1).toUpperCase() + chainName().substring(1) + ")";
     }

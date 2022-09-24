@@ -23,6 +23,7 @@ public class Sommelier extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgSommelier; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_sommelier; }
     public String chainName() { return "sommelier"; }
+    public String chainKoreanName() { return "소믈리에"; }
     public String chainIdPrefix() { return "sommelier-"; }
 
     public int mainDenomImg() { return R.drawable.token_sommelier; }

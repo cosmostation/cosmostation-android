@@ -4,7 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -66,7 +65,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
     private Toolbar mToolbar;
     private TextView mToolbarTitle;
-    private RelativeLayout mPathLayer;
+    private RelativeLayout mPathLayer, mNoSearchResult;
     private TextView mPathText;
     private RecyclerView mAccountRecyclerView;
     private Button mBtnAdd;
@@ -86,6 +85,14 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_derive);
+
+        initView();
+        initRecyclerView();
+        initSearchQueryView();
+        loadData();
+    }
+
+    private void initView() {
         mToolbar = findViewById(R.id.tool_bar);
         mToolbarTitle = findViewById(R.id.tool_title);
         mPathLayer = findViewById(R.id.hd_path_layer);
@@ -93,19 +100,13 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         mAccountRecyclerView = findViewById(R.id.recycler);
         mBtnAdd = findViewById(R.id.btn_add);
         mSearchView = findViewById(R.id.search_view);
+        mNoSearchResult = findViewById(R.id.no_search_result);
 
         mPathLayer.setOnClickListener(this);
         mBtnAdd.setOnClickListener(this);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
-        mAccountRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mAccountRecyclerView.setHasFixedSize(true);
-        mAccountListAdapter = new AccountListAdapter(this, mDerives);
-        mAccountRecyclerView.setAdapter(mAccountListAdapter);
-
         mIsDetailMode = getIntent().getBooleanExtra("isDetailMode", false);
         if (mIsDetailMode) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -124,8 +125,13 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             mPathLayer.setVisibility(View.VISIBLE);
             mPathText.setText("" + mPath);
         }
-        initSearchQueryView();
-        loadData();
+    }
+
+    private void initRecyclerView() {
+        mAccountRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mAccountRecyclerView.setHasFixedSize(true);
+        mAccountListAdapter = new AccountListAdapter();
+        mAccountRecyclerView.setAdapter(mAccountListAdapter);
     }
 
     @Override
@@ -141,6 +147,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
     private void loadData() {
         onShowWaitDialog();
+        mNoSearchResult.setVisibility(View.GONE);
         new Thread(() -> onGetAllKeyTypes()).start();
     }
 
@@ -193,10 +200,15 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             @Override
             public boolean onQueryTextChange(String newText) {
                 mSearchList.clear();
+                mNoSearchResult.setVisibility(View.GONE);
                 if (StringUtils.isEmpty(newText)) {
                     mSearchList.addAll(mDerives);
                 } else {
-                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(item.baseChain.getChain(), newText) || StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).mainSymbol(), newText)).collect(Collectors.toList()));
+                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(item.baseChain.getChain(), newText) || StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).mainSymbol(), newText) ||
+                            StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).chainKoreanName(), newText)).collect(Collectors.toList()));
+                    if (mSearchList.isEmpty()) {
+                        mNoSearchResult.setVisibility(View.VISIBLE);
+                    }
                 }
                 mAccountListAdapter.notifyDataSetChanged();
                 return false;
@@ -230,13 +242,6 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     }
 
     private class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountHolder> {
-
-        Context mContext;
-
-        public AccountListAdapter(Context context, List<Derive> deriveList) {
-            mContext = context;
-            mDerives = deriveList;
-        }
 
         @NonNull
         @Override
@@ -286,7 +291,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     holder.accountCheck.setVisibility(View.VISIBLE);
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                     if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
-                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#ff0000\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>"), null,
+                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>"), null,
                                 getString(R.string.str_cancel),
                                 dialogView -> {
                                     holder.accountCheck.setVisibility(View.GONE);

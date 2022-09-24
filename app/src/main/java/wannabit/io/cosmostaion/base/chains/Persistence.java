@@ -25,6 +25,7 @@ public class Persistence extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgPersistence; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_persistence; }
     public String chainName() { return "persistence"; }
+    public String chainKoreanName() { return "퍼시스턴스"; }
     public String chainIdPrefix() { return "core-"; }
 
     public int mainDenomImg() { return R.drawable.token_persistence; }

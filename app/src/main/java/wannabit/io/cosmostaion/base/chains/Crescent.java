@@ -23,6 +23,7 @@ public class Crescent extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgCrescent; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_crescent; }
     public String chainName() { return "crescent"; }
+    public String chainKoreanName() { return "크레센트"; }
     public String chainIdPrefix() { return "crescent-"; }
 
     public int mainDenomImg() { return R.drawable.token_crescent; }

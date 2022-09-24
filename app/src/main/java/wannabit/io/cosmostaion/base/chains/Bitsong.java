@@ -27,6 +27,7 @@ public class Bitsong extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgBitsong; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_bitsong; }
     public String chainName() { return "bitsong"; }
+    public String chainKoreanName() { return "빗송"; }
     public String chainIdPrefix() { return "bitsong-"; }
 
     public int mainDenomImg() { return R.drawable.token_bitsong; }

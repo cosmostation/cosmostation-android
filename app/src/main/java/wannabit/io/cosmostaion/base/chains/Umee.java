@@ -21,6 +21,7 @@ public class Umee extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgUmee; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_umee; }
     public String chainName() { return "umee"; }
+    public String chainKoreanName() { return "우미"; }
     public String chainIdPrefix() { return "umee-"; }
 
     public int mainDenomImg() { return R.drawable.token_umee; }

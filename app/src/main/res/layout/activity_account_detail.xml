@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhiteDayNight"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:contentInsetStartWithNavigation="0dp">
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -42,9 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_8"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true">
 
                 <RelativeLayout
@@ -59,7 +60,7 @@
                         android:id="@+id/chain_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"/>
+                        android:layout_centerVertical="true" />
 
                     <ImageView
                         android:id="@+id/account_edit"
@@ -88,11 +89,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
-                android:layout_marginRight="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_6"
-                app:cardElevation="0dp"
+                android:layout_marginRight="@dimen/space_12"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_8"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true">
 
                 <LinearLayout
@@ -139,6 +140,7 @@
                                 android:singleLine="true"
                                 android:text="cosmos1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep4tgu9q" />
                         </RelativeLayout>
+
                         <TextView
                             android:id="@+id/eth_address"
                             style="@style/font_rmr_10_gray1"
@@ -146,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="-10dp"
                             android:layout_marginBottom="@dimen/space_4"
-                            android:singleLine="true"/>
+                            android:singleLine="true" />
                     </LinearLayout>
 
                     <View
@@ -288,12 +290,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_6"
                 android:layout_marginRight="@dimen/space_12"
                 android:layout_marginBottom="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_6"
-                app:cardElevation="0dp"
                 app:cardBackgroundColor="@color/colorTransBgCosmos"
                 app:cardCornerRadius="@dimen/space_8"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true">
 
                 <LinearLayout

@@ -21,6 +21,7 @@ public class Axelar extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgAxelar; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_axelar; }
     public String chainName() { return "axelar"; }
+    public String chainKoreanName() { return "악셀라"; }
     public String chainIdPrefix() { return "axelar-"; }
 
     public int mainDenomImg() { return R.drawable.token_axelar; }

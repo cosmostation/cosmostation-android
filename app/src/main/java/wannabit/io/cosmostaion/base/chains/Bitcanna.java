@@ -21,6 +21,7 @@ public class Bitcanna extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgBitcanna; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_bitcanna; }
     public String chainName() { return "bitcanna"; }
+    public String chainKoreanName() { return "비트카나"; }
     public String chainIdPrefix() { return "bitcanna-"; }
 
     public int mainDenomImg() { return R.drawable.token_bitcanna; }

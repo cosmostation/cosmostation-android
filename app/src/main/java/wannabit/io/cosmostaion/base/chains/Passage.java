@@ -22,6 +22,7 @@ public class Passage extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgPassage; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_passage; }
     public String chainName() { return "passage"; }
+    public String chainKoreanName() { return "파사지"; }
     public String chainIdPrefix() { return "passage-"; }
 
     public int mainDenomImg() { return R.drawable.token_passage; }

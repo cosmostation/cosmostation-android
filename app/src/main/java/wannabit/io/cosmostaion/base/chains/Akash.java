@@ -21,6 +21,7 @@ public class Akash extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgAkash; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_akash; }
     public String chainName() { return "akash"; }
+    public String chainKoreanName() { return "아카시"; }
     public String chainIdPrefix() { return "akashnet-"; }
 
     public int mainDenomImg() { return R.drawable.token_akash; }
