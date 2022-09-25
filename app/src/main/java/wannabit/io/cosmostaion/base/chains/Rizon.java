@@ -23,6 +23,7 @@ public class Rizon extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgRizon; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_rizon; }
     public String chainName() { return "rizon"; }
+    public String chainKoreanName() { return "라이즌"; }
     public String chainIdPrefix() { return "titan-"; }
 
     public int mainDenomImg() { return R.drawable.token_rizon; }

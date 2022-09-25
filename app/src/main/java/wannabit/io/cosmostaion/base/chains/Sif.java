@@ -21,6 +21,7 @@ public class Sif extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgSif; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_sif; }
     public String chainName() { return "sifchain"; }
+    public String chainKoreanName() { return "시프"; }
     public String chainTitle() { return "(SifChain)"; }
     public String chainTitleToUp() { return "SIF"; }
     public String chainIdPrefix() { return "sifchain-"; }

@@ -23,6 +23,7 @@ public class Osmosis extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgOsmosis; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_osmosis; }
     public String chainName() { return "osmosis"; }
+    public String chainKoreanName() { return "오스모시스"; }
     public String chainIdPrefix() { return "osmosis-"; }
 
     public int mainDenomImg() { return R.drawable.token_osmosis; }

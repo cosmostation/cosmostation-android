@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_bar_height"
             android:background="@color/colorWhiteDayNight"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:contentInsetStartWithNavigation="0dp">
 
             <TextView
                 android:id="@+id/tool_title"
@@ -60,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/space_30"
                         android:layout_weight="1"
-                        android:background="@drawable/box_round_unselected"
+                        android:background="@drawable/box_round_search"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="@dimen/space_4">
@@ -113,10 +115,12 @@
                         android:layout_marginRight="@dimen/space_16"
                         android:background="@drawable/box_round_search"
                         android:focusable="false"
+                        android:includeFontPadding="false"
                         android:paddingLeft="-6dp"
                         app:iconifiedByDefault="false"
                         app:queryHint="@string/str_search"
-                        app:searchIcon="@drawable/icon_search" />
+                        app:searchIcon="@drawable/icon_search"
+                        app:closeIcon="@drawable/icon_elimination"/>
 
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
@@ -131,6 +135,34 @@
                 android:overScrollMode="never"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <RelativeLayout
+            android:id="@+id/no_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_no_results" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textColor="@color/colorBlackDayNight"
+                    android:text="@string/str_no_search_result" />
+
+            </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/bottom_control"
@@ -150,7 +182,8 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:background="@drawable/btn_trans_with_photon_border"
                 android:minHeight="@dimen/space_45"
-                android:text="@string/str_add_new" />
+                android:text="@string/str_add_new"
+                android:textAllCaps="false" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

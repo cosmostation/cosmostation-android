@@ -21,6 +21,7 @@ public class Ki extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgKi; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_ki; }
     public String chainName() { return "kichain"; }
+    public String chainKoreanName() { return "키"; }
     public String chainTitle() { return "(KiChain)"; }
     public String chainTitleToUp() { return "KI"; }
     public String chainIdPrefix() { return "kichain-"; }

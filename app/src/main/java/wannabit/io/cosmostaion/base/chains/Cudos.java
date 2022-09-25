@@ -23,6 +23,7 @@ public class Cudos extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgCudos; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_cudos; }
     public String chainName() { return "cudos"; }
+    public String chainKoreanName() { return "쿠도스"; }
     public String chainIdPrefix() { return "cudos-"; }
 
     public int mainDenomImg() { return R.drawable.token_cudos; }

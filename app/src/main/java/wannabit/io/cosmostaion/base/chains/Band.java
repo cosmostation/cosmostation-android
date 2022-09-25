@@ -25,6 +25,7 @@ public class Band extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgBand; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_band; }
     public String chainName() { return "band"; }
+    public String chainKoreanName() { return "밴드"; }
     public String chainIdPrefix() { return "laozi-mainnet"; }
 
     public int mainDenomImg() { return R.drawable.token_band; }

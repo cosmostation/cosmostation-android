@@ -21,6 +21,7 @@ public class Stargaze extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgStargaze; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_stargaze; }
     public String chainName() { return "stargaze"; }
+    public String chainKoreanName() { return "스타게이즈"; }
     public String chainIdPrefix() { return "stargaze-"; }
 
     public int mainDenomImg() { return R.drawable.token_stargaze; }

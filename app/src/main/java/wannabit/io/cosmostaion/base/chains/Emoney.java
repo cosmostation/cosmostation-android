@@ -23,6 +23,7 @@ public class Emoney extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgEmoney; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_emoney; }
     public String chainName() { return "emoney"; }
+    public String chainKoreanName() { return "이머니"; }
     public String chainTitle() { return "(E-Money)"; }
     public String chainTitleToUp() { return "E-MONEY"; }
     public String chainIdPrefix() { return "emoney-"; }

@@ -23,6 +23,7 @@ public class Regen extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgRegen; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_regen; }
     public String chainName() { return "regen"; }
+    public String chainKoreanName() { return "리젠"; }
     public String chainIdPrefix() { return "regen-"; }
 
     public int mainDenomImg() { return R.drawable.token_regen; }

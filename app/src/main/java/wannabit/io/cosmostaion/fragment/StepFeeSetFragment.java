@@ -555,7 +555,11 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             Toast.makeText(getContext(), getString(R.string.str_gas_checked), Toast.LENGTH_SHORT).show();
         } else {
             mSimulPassed = false;
-            Toast.makeText(getContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
+            if (result.errorCode == 8000) {
+                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
+            }
         }
 
         onUpdateView();

@@ -21,6 +21,7 @@ public class Cerberus extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgCerberus; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_cerberus; }
     public String chainName() { return "cerberus"; }
+    public String chainKoreanName() { return "케르베로스"; }
     public String chainIdPrefix() { return "cerberus-"; }
 
     public int mainDenomImg() { return R.drawable.token_cerberus; }

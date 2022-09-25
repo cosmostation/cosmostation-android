@@ -23,6 +23,7 @@ public class Juno extends ChainConfig{
     public int chainBgColor() { return R.color.colorTransBgJuno; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_juno; }
     public String chainName() { return "juno"; }
+    public String chainKoreanName() { return "주노"; }
     public String chainIdPrefix() { return "juno-"; }
 
     public int mainDenomImg() { return R.drawable.token_juno; }

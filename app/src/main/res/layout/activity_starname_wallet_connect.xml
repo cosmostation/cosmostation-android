@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@color/colorWhiteDayNight"/>
+        android:src="@color/colorWhiteDayNight" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorWhiteDayNight"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:contentInsetStartWithNavigation="0dp">
+
         <TextView
             android:id="@+id/toolbar_title"
+            style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_rr_17_black_daynight"
-            android:text="@string/str_wallet_connect"/>
+            android:text="@string/str_wallet_connect" />
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
@@ -35,11 +37,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
             android:layout_marginTop="@dimen/space_6"
-            app:cardElevation="0dp"
+            android:layout_marginRight="@dimen/space_16"
             app:cardBackgroundColor="@color/colorTransBgStarname"
             app:cardCornerRadius="@dimen/space_8"
+            app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true">
 
             <LinearLayout
@@ -91,17 +93,17 @@
 
         <Button
             android:id="@+id/btn_disconnect"
+            style="@style/font_rr_14_photon_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_alignParentBottom="true"
-            android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_24"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_rr_14_photon_daynight"
-            android:textAllCaps="false"
-            android:text="@string/str_disconnect"/>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_disconnect"
+            android:textAllCaps="false" />
     </RelativeLayout>
 
 
@@ -110,10 +112,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar">
+
         <ProgressBar
             android:layout_width="@dimen/space_60"
             android:layout_height="@dimen/space_60"
             android:layout_centerInParent="true"
-            android:indeterminateDrawable="@drawable/loading"/>
+            android:indeterminateDrawable="@drawable/loading" />
     </RelativeLayout>
 </RelativeLayout>

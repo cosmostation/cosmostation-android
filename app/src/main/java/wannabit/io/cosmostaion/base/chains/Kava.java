@@ -28,6 +28,7 @@ public class Kava extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgKava; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_kava; }
     public String chainName() { return "kava"; }
+    public String chainKoreanName() { return "카바"; }
     public String chainIdPrefix() { return "kava_"; }
 
     public int mainDenomImg() { return R.drawable.token_kava; }

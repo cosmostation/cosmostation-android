@@ -25,6 +25,7 @@ public class Provenance extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgProvenance; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_provenance; }
     public String chainName() { return "provenance"; }
+    public String chainKoreanName() { return "프로비넌스"; }
     public String chainIdPrefix() { return "pio-mainnet-"; }
 
     public int mainDenomImg() { return R.drawable.token_provenance; }
