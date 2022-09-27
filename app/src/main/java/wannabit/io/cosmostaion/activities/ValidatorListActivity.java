@@ -243,7 +243,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         }
 
         cosmos.distribution.v1beta1.QueryGrpc.QueryBlockingStub mStub = cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ;
         cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressRequest request = cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressRequest.newBuilder().setDelegatorAddress(mAccount.address).build();
         cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressResponse response = mStub.delegatorWithdrawAddress(request);
         if (response.getWithdrawAddress() == null || !response.getWithdrawAddress().equals(mAccount.address)) {
@@ -393,10 +392,14 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     private void onPasswordCheck() {
-        Intent intent = new Intent(this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-        startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            onShowFeeDialog();
+        } else {
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private void onShowFeeDialog() {
