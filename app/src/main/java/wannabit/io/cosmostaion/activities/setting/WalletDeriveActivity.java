@@ -294,7 +294,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                         CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>"), null,
                                 getString(R.string.str_cancel),
                                 dialogView -> {
-                                    derive.selected = !derive.selected;
+                                    derive.selected = false;
                                     holder.accountCheck.setVisibility(View.GONE);
                                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                                 },
