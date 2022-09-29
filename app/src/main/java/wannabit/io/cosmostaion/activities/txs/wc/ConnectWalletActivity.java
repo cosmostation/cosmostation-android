@@ -432,6 +432,18 @@ public class ConnectWalletActivity extends BaseActivity {
             runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
             return null;
         });
+        wcClient.setOnCosmosGetAccounts((id, strings) -> {
+            runOnUiThread(() -> onShowAccountDialog(id, strings, Lists.newArrayList(), 0));
+            return null;
+        });
+        wcClient.setOnCosmosSignAmino((id, jsonArray) -> {
+            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
+            return null;
+        });
+        wcClient.setOnCosmosSignDirect((id, jsonArray) -> {
+            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
+            return null;
+        });
     }
 
     private void processSessionRequest(WCPeerMeta wcPeerMeta) {
