@@ -116,7 +116,7 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
         mRowanMaxAmount = getBaseDao().getAvailable(getSActivity().mChainConfig.mainDenom());
-        mRowanMaxAmount = mRowanMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
+        mRowanMaxAmount = mRowanMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
 
         String externalDenom = getSActivity().mSifPool.getExternalAsset().getSymbol();
         mExternalMaxAmount = getBaseDao().getAvailable(externalDenom);

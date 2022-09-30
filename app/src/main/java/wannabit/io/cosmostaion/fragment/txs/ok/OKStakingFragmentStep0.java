@@ -141,7 +141,7 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
         super.onResume();
         setDpDecimals(mDpDecimal);
 
-        mMaxAvailable = getBaseDao().availableAmount(getSActivity().mChainConfig.mainDenom()).subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
+        mMaxAvailable = getBaseDao().availableAmount(getSActivity().mChainConfig.mainDenom()).subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mMaxAvailable.toPlainString(), mAvailableDenom, mAvailableAmount);
     }
 

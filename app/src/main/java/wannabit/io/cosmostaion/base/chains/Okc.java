@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.RESOURCE_BASE_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -50,10 +52,6 @@ public class Okc extends ChainConfig {
     public String homeInfoLink() { return  "https://www.okx.com"; }
     public String blogInfoLink() { return  "https://www.okx.com/academy/en/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "okc-token"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.0000000001okt");
-    }
 
     public String defaultPath() { return "m/44'/60'/0'/0/X"; }
 

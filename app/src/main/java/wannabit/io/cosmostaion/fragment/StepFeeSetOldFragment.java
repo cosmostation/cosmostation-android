@@ -74,7 +74,7 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     }
 
     private void onUpdateView() {
-        mFee = WDp.getMainDenomFee(getActivity(), mChainConfig);
+        mFee = WDp.getMainDenomFee(getActivity(), getBaseDao(), mChainConfig);
         WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mChainConfig.mainDenom(), mFee.toPlainString(), mFeeDenom, mFeeAmount);
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), mFee, WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom()), WDp.mainDisplayDecimal(getSActivity().mBaseChain)));
         mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mChainConfig.mainDenom(), mFee, WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom())));

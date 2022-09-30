@@ -264,9 +264,9 @@ public class WDp {
         }
     }
 
-    public static ArrayList<FeeInfo> getFeeInfos(Context c, ChainConfig chainConfig) {
+    public static ArrayList<FeeInfo> getFeeInfos(Context c, BaseData baseData, ChainConfig chainConfig) {
         ArrayList<FeeInfo> result = new ArrayList<>();
-        for (String gasInfo : chainConfig.gasRates()) {
+        for (String gasInfo : baseData.getGasRate(chainConfig)) {
             result.add(new FeeInfo(gasInfo));
         }
 
@@ -317,7 +317,7 @@ public class WDp {
             return false;
         }
         boolean result = false;
-        for (Coin coin : getMinTxFeeAmounts(c, chainConfig)) {
+        for (Coin coin : getMinTxFeeAmounts(c, baseData, chainConfig)) {
             if (baseData.getAvailable(coin.denom).compareTo(new BigDecimal(coin.amount)) >= 0) {
                 result = true;
             }
@@ -325,10 +325,10 @@ public class WDp {
         return result;
     }
 
-    public static ArrayList<Coin> getMinTxFeeAmounts(Context c, ChainConfig chainConfig) {
+    public static ArrayList<Coin> getMinTxFeeAmounts(Context c, BaseData baseData, ChainConfig chainConfig) {
         ArrayList<Coin> result = new ArrayList<>();
         BigDecimal gasAmount = new BigDecimal(BASE_GAS_AMOUNT);
-        ArrayList<FeeInfo.FeeData> feeDatas = getFeeInfos(c, chainConfig).get(0).feeDatas;
+        ArrayList<FeeInfo.FeeData> feeDatas = getFeeInfos(c, baseData, chainConfig).get(0).feeDatas;
 
         for (FeeInfo.FeeData feeData : feeDatas) {
             BigDecimal amount = feeData.gasRate.multiply(gasAmount).setScale(0, RoundingMode.UP);
@@ -337,7 +337,7 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal getMainDenomFee(Context c, ChainConfig chainConfig) {
+    public static BigDecimal getMainDenomFee(Context c, BaseData baseData, ChainConfig chainConfig) {
         if (chainConfig.baseChain().equals(SIF_MAIN)) {
             return new BigDecimal("100000000000000000");
         } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
@@ -345,7 +345,7 @@ public class WDp {
         } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
             return new BigDecimal(FEE_OKC_BASE);
         }
-        for (Coin coin : getMinTxFeeAmounts(c, chainConfig)) {
+        for (Coin coin : getMinTxFeeAmounts(c, baseData, chainConfig)) {
             if (coin.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                 return new BigDecimal(coin.amount);
             } else {

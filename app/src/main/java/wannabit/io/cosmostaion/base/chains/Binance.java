@@ -1,14 +1,13 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.RESOURCE_BASE_URL;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -48,10 +47,6 @@ public class Binance extends ChainConfig {
     public String homeInfoLink() { return  "https://www.bnbchain.org/en"; }
     public String blogInfoLink() { return  "https://www.bnbchain.org/en/blog/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "binancecoin"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.0BNB");
-    }
 
     public String defaultPath() { return "m/44'/714'/0'/0/X"; }
 

@@ -4,10 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import com.google.common.collect.Lists;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -44,12 +41,6 @@ public class Emoney extends ChainConfig {
     public String homeInfoLink() { return  "https://www.e-money.com"; }
     public String blogInfoLink() { return  "https://medium.com/e-money-com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "e-money"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.1ungm", "0.3ungm", "1ungm");
-    }
-
-    public int gasDefault() { return 1; }
 
 
     public static String EMONEY_EUR_DENOM = "eeur";

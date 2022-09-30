@@ -4,10 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import com.google.common.collect.Lists;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -42,10 +39,4 @@ public class Regen extends ChainConfig {
     public String homeInfoLink() { return  "https://www.regen.network"; }
     public String blogInfoLink() { return  "https://medium.com/regen-network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "regen"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.00025uregen", "0.0025uregen", "0.025uregen");
-    }
-
-    public int gasDefault() { return 1; }
 }

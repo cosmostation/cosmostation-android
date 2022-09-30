@@ -1,14 +1,14 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -46,10 +46,6 @@ public class Persistence extends ChainConfig {
     public String homeInfoLink() { return  "https://persistence.one"; }
     public String blogInfoLink() { return  "https://medium.com/persistence-blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "persistence"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.0uxprt", "0.025uxprt");
-    }
 
     public String defaultPath() { return "m/44'/750'/0'/0/X"; }
 

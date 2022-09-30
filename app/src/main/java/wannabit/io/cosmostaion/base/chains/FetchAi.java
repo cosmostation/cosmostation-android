@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -48,10 +50,6 @@ public class FetchAi extends ChainConfig {
     public String homeInfoLink() { return  "https://fetch.ai"; }
     public String blogInfoLink() { return  "https://fetch.ai/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "fetch-ai"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("2.0afet");
-    }
 
     public String defaultPath() { return "m/44'/118'/0'/0/X"; }
 
