@@ -260,7 +260,9 @@ public class ChainParam {
                         BigDecimal budgetRate = BigDecimal.ONE.subtract(getBudgetRate(baseChain));
                         return budgetRate.multiply(calTax).multiply(inflationAmount).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
                     } else {
-                        BigDecimal ap = getAnnualProvision();
+                        BigDecimal ap;
+                        if (baseChain.equals(AXELAR_MAIN)) ap = getMainSupply(baseChain).multiply(getMintInflation(baseChain));
+                        else ap = getAnnualProvision();
                         if (ap.compareTo(BigDecimal.ZERO) > 0) {
                             return ap.multiply(calTax).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
                         } else {
