@@ -21,6 +21,7 @@ public class Chihuahua extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgChihuahua; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_chihuahua; }
     public String chainName() { return "chihuahua"; }
+    public String chainKoreanName() { return "치와와"; }
     public String chainIdPrefix() { return "chihuahua-"; }
 
     public int mainDenomImg() { return R.drawable.token_chihuahua; }

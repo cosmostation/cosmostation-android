@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorWhiteDayNight"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:contentInsetStartWithNavigation="0dp">
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -79,8 +81,8 @@
                 style="@style/font_rr_14_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_45"
-                android:layout_marginRight="@dimen/space_4"
                 android:layout_marginTop="@dimen/space_16"
+                android:layout_marginRight="@dimen/space_4"
                 android:layout_marginBottom="@dimen/space_16"
                 android:layout_weight="1"
                 android:background="@drawable/btn_trans_with_border"

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dao;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
@@ -145,6 +146,8 @@ public class ChainParam {
                     }
                 }
                 return thisInflation.divide(genesisSupply, 18, RoundingMode.UP);
+            } else if (baseChain.equals(AXELAR_MAIN)) {
+                return new BigDecimal("0.150000000000000000");
             } else {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);

@@ -21,6 +21,7 @@ public class GravityBridge extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgGraBridge; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_grabridge; }
     public String chainName() { return "gravity-bridge"; }
+    public String chainKoreanName() { return "그래비티브릿지"; }
     public String chainTitle() { return "(G-Bridge)"; }
     public String chainTitleToUp() { return "G-BRIDGE"; }
     public String chainIdPrefix() { return "gravity-bridge-"; }

@@ -21,6 +21,7 @@ public class Cosmos extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgCosmos; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_cosmos; }
     public String chainName() { return "cosmos"; }
+    public String chainKoreanName() { return "코스모스"; }
     public String chainIdPrefix() { return "cosmoshub-"; }
 
     public int mainDenomImg() { return R.drawable.token_cosmos; }

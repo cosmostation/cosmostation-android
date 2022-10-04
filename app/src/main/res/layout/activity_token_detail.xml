@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,7 +18,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorWhiteDayNight"
         android:paddingRight="@dimen/space_14"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:contentInsetStartWithNavigation="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -44,9 +44,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
-                    android:textSize="@dimen/text_size_17"
+                    android:text="-"
                     android:textColor="@color/colorBlackDayNight"
-                    android:text="-" />
+                    android:textSize="@dimen/text_size_17" />
 
                 <TextView
                     android:id="@+id/toolbar_channel"
@@ -140,8 +140,7 @@
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/img_account"
                     android:maxLines="1"
-                    android:ellipsize="middle"
-                    android:text="" />
+                    android:ellipsize="middle" />
             </RelativeLayout>
 
             <TextView
@@ -166,10 +165,11 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
-        android:layout_below="@+id/card_root"
-        android:layout_above="@+id/control_later"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/control_later"
+        android:layout_below="@+id/card_root">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -187,42 +187,45 @@
         android:id="@+id/control_later"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_24"
         android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_24"
         android:orientation="horizontal">
+
         <RelativeLayout
             android:id="@+id/btn_bep3_send"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginRight="@dimen/space_4"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true"
+            android:minHeight="@dimen/space_45"
             android:visibility="gone">
+
             <TextView
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                style="@style/font_rr_14_black_daynight"
                 android:text="@string/str_bep3_send" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btn_send"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
-            android:layout_marginRight="@dimen/space_4"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
-            android:clickable="true">
+            android:clickable="true"
+            android:minHeight="@dimen/space_45">
 
             <TextView
                 style="@style/font_rr_14_black_daynight"

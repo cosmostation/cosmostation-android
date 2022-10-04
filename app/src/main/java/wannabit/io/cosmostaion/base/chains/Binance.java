@@ -25,6 +25,7 @@ public class Binance extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgBinance; }
     public int chainTabColor() { return -1; }
     public String chainName() { return "binance"; }
+    public String chainKoreanName() { return "바이낸스"; }
     public String chainIdPrefix() { return "Binance-Chain-Tigris"; }
 
     public int mainDenomImg() { return R.drawable.token_binance; }

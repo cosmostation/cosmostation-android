@@ -21,6 +21,7 @@ public class Assetmantle extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgAssetmantle; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_assetmantle; }
     public String chainName() { return "asset-mantle"; }
+    public String chainKoreanName() { return "에셋멘틀"; }
     public String chainIdPrefix() { return "mantle-"; }
 
     public int mainDenomImg() { return R.drawable.token_assetmantle; }

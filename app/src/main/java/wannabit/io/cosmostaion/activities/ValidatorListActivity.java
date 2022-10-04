@@ -243,7 +243,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         }
 
         cosmos.distribution.v1beta1.QueryGrpc.QueryBlockingStub mStub = cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ;
         cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressRequest request = cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressRequest.newBuilder().setDelegatorAddress(mAccount.address).build();
         cosmos.distribution.v1beta1.QueryOuterClass.QueryDelegatorWithdrawAddressResponse response = mStub.delegatorWithdrawAddress(request);
         if (response.getWithdrawAddress() == null || !response.getWithdrawAddress().equals(mAccount.address)) {
@@ -260,16 +259,19 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         FeeInfo.FeeData feeData = calculateFee(selectFee);
 
         new Thread(() -> {
-            ServiceOuterClass.SimulateResponse simulateCompoundingResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mBaseChain);
-            ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
-            if (simulateCompoundingResponse == null) {
-                return;
+            if (getClaimableReward() != null && mBaseChain != null) {
+                ServiceOuterClass.SimulateResponse simulateCompoundingResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mBaseChain);
+                ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
+                if (simulateCompoundingResponse == null) {
+                    return;
+                }
+
+                ServiceOuterClass.BroadcastTxResponse executeCompoundingResponse = ValidatorListActivity.this.executeCompounding(simulateCompoundingResponse, feeData, getClaimableReward(), mBaseChain);
+                if (executeCompoundingResponse == null) {
+                    return;
+                }
+                ValidatorListActivity.this.processResponse(executeCompoundingResponse);
             }
-            ServiceOuterClass.BroadcastTxResponse executeCompoundingResponse = ValidatorListActivity.this.executeCompounding(simulateCompoundingResponse, feeData, getClaimableReward(), mBaseChain);
-            if (executeCompoundingResponse == null) {
-                return;
-            }
-            ValidatorListActivity.this.processResponse(executeCompoundingResponse);
         }).start();
     }
 
@@ -390,10 +392,14 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     private void onPasswordCheck() {
-        Intent intent = new Intent(this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-        startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        if (getBaseDao().isAutoPass()) {
+            onShowFeeDialog();
+        } else {
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
     }
 
     private void onShowFeeDialog() {

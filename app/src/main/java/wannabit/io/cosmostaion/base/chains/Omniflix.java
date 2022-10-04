@@ -22,6 +22,7 @@ public class Omniflix extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgOmniflix; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_omniflix; }
     public String chainName() { return "omniflix"; }
+    public String chainKoreanName() { return "옴니플릭스"; }
     public String chainIdPrefix() { return "omniflixhub-"; }
 
     public int mainDenomImg() { return R.drawable.token_omniflix; }

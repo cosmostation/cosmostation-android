@@ -345,8 +345,10 @@ public class ConnectWalletActivity extends BaseActivity {
         OkHttpClient client = new OkHttpClient.Builder().pingInterval(100000, TimeUnit.MILLISECONDS).build();
         wcClient = new WCClient(new GsonBuilder(), client);
         WCPeerMeta meta = new WCPeerMeta(getString(R.string.str_wc_peer_name), getString(R.string.str_wc_peer_url), getString(R.string.str_wc_peer_desc), Lists.newArrayList());
-        wcSession = WCSession.Companion.from(mWcURL);
-        wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
+        if (!mWcURL.isEmpty()) {
+            wcSession = WCSession.Companion.from(mWcURL);
+            wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
+        }
         wcClient.setOnGetAccounts(id -> {
             wcClient.approveRequest(id, makeWCAccount());
             return null;
@@ -427,6 +429,18 @@ public class ConnectWalletActivity extends BaseActivity {
             return null;
         });
         wcClient.setOnKeplrSignAmino((id, jsonArray) -> {
+            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
+            return null;
+        });
+        wcClient.setOnCosmosGetAccounts((id, strings) -> {
+            runOnUiThread(() -> onShowAccountDialog(id, strings, Lists.newArrayList(), 0));
+            return null;
+        });
+        wcClient.setOnCosmosSignAmino((id, jsonArray) -> {
+            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
+            return null;
+        });
+        wcClient.setOnCosmosSignDirect((id, jsonArray) -> {
             runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
             return null;
         });

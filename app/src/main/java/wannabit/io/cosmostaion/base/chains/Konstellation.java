@@ -21,6 +21,7 @@ public class Konstellation extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgKonstellation; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_konstellation; }
     public String chainName() { return "konstellation"; }
+    public String chainKoreanName() { return "콘스텔레이션"; }
     public String chainIdPrefix() { return "darchub"; }
 
     public int mainDenomImg() { return R.drawable.token_konstellation; }

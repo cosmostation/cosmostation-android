@@ -27,6 +27,7 @@ public class Secret extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgSecret; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_secret; }
     public String chainName() { return "secret"; }
+    public String chainKoreanName() { return "시크릿"; }
     public String chainIdPrefix() { return "secret-"; }
 
     public int mainDenomImg() { return R.drawable.token_secret; }

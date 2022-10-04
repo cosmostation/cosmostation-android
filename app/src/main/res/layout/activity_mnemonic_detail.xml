@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@color/colorWhiteDayNight"/>
+        android:src="@color/colorWhiteDayNight" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhiteDayNight"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:contentInsetStartWithNavigation="0dp">
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -84,7 +85,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_16">
+                android:layout_marginBottom="@dimen/space_14">
 
                 <ImageView
                     android:id="@+id/btn_display"
@@ -101,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/btn_display"
-                    android:text="@string/str_mnemonic_phrase"/>
+                    android:text="@string/str_mnemonic_phrase" />
             </RelativeLayout>
 
             <LinearLayout
@@ -757,74 +758,84 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_layer"
-        android:layout_marginBottom="@dimen/space_24"
-        android:orientation="vertical"
-        android:layout_marginRight="@dimen/space_32"
-        android:layout_marginLeft="@dimen/space_32"
-        android:gravity="center_horizontal">
+        android:layout_marginLeft="@dimen/space_50"
+        android:layout_marginRight="@dimen/space_50"
+        android:layout_marginBottom="@dimen/space_30"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <ImageView
-            android:layout_width="@dimen/space_100"
-            android:layout_height="@dimen/space_72"
-            android:src="@drawable/icon_mnemonicwarning"/>
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_10"
-            android:gravity="center"
+            android:src="@drawable/icon_mnemonicwarning" />
+
+        <TextView
             style="@style/font_rr_12_gray1"
-            android:text="@string/str_mnemonic_confirm_msg"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:gravity="center"
+            android:text="@string/str_mnemonic_confirm_msg" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottom_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/space_36"
-        android:gravity="center_horizontal">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/space_24"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16">
+            android:layout_marginRight="@dimen/space_16"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_delete"
+                style="@style/font_ss_14_red"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
-                android:minHeight="@dimen/space_45"
-                android:background="@drawable/btn_trans_with_red_border"
                 android:layout_weight="1"
-                style="@style/font_ss_14_red"
-                android:text="@string/str_delete_mnemonic"/>
+                android:background="@drawable/btn_trans_with_red_border"
+                android:minHeight="@dimen/space_45"
+                android:text="@string/str_delete_mnemonic"
+                android:textAllCaps="false" />
+
             <View
                 android:id="@+id/view"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="@dimen/space_8" />
+
             <Button
                 android:id="@+id/btn_copy"
+                style="@style/font_rr_14_photon_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
-                android:minHeight="@dimen/space_45"
-                android:background="@drawable/btn_trans_with_photon_border"
                 android:layout_weight="1"
-                style="@style/font_rr_14_photon_daynight"
-                android:text="@string/str_copy"/>
+                android:background="@drawable/btn_trans_with_photon_border"
+                android:minHeight="@dimen/space_45"
+                android:text="@string/str_copy"
+                android:textAllCaps="false" />
         </LinearLayout>
+
         <Button
             android:id="@+id/btn_derive"
+            style="@style/font_rr_14_photon_daynight"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
-            android:layout_marginTop="@dimen/space_12"
-            android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_12"
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_rr_14_photon_daynight"
-            android:text="@string/str_add_new"/>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_add_new"
+            android:textAllCaps="false" />
     </LinearLayout>
 </RelativeLayout>

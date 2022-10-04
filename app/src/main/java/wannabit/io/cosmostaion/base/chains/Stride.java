@@ -22,6 +22,7 @@ public class Stride extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgStride; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_stride; }
     public String chainName() { return "stride"; }
+    public String chainKoreanName() { return "스트라이드"; }
     public String chainIdPrefix() { return "stride-"; }
 
     public int mainDenomImg() { return R.drawable.token_stride; }

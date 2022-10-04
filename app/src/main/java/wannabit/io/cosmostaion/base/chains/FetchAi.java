@@ -25,6 +25,7 @@ public class FetchAi extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgFetch; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_fetch; }
     public String chainName() { return "fetchai"; }
+    public String chainKoreanName() { return "패치에이아이"; }
     public String chainIdPrefix() { return "fetchhub-"; }
 
     public int mainDenomImg() { return R.drawable.token_fetchai; }

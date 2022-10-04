@@ -23,6 +23,7 @@ public class Shentu extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgShentu; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_shentu; }
     public String chainName() { return "shentu"; }
+    public String chainKoreanName() { return "센츄"; }
     public String chainIdPrefix() { return "shentu-"; }
 
     public int mainDenomImg() { return R.drawable.token_shentu; }
