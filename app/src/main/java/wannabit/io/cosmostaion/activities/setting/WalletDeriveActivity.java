@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import axelar.nexus.exported.v1beta1.Types;
 import cosmos.base.v1beta1.CoinOuterClass;
 import retrofit2.Call;
 import retrofit2.Callback;
