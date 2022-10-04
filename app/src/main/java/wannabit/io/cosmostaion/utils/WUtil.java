@@ -1359,63 +1359,6 @@ public class WUtil {
         return "";
     }
 
-    public static boolean isBnbBaseMarketToken(String symbol) {
-        switch (symbol) {
-            case "USDT.B-B7C":
-                return true;
-            case "ETH.B-261":
-                return true;
-            case "BTC.B-918":
-                return true;
-
-
-            case "USDSB-1AC":
-                return true;
-            case "THKDB-888":
-                return true;
-            case "TUSDB-888":
-                return true;
-            case "BTCB-1DE":
-                return true;
-
-            case "ETH-1C9":
-                return true;
-            case "IDRTB-178":
-                return true;
-            case "BUSD-BD1":
-                return true;
-            case "TAUDB-888":
-                return true;
-
-
-        }
-        return false;
-    }
-
-    public static String getBnbTicSymbol(String symbol) {
-        if (isBnbBaseMarketToken(symbol)) {
-            return ChainFactory.getChain(BNB_MAIN).mainDenom() + "_" + symbol;
-
-        } else {
-            return symbol + "_" + ChainFactory.getChain(BNB_MAIN).mainDenom();
-        }
-    }
-
-    public static String getMonikerName(String opAddress, ArrayList<Validator> validators, boolean bracket) {
-        String result = "";
-        for (Validator val : validators) {
-            if (val.operator_address.equals(opAddress)) {
-                if (bracket) {
-                    return "(" + val.description.moniker + ")";
-                } else {
-                    return val.description.moniker;
-                }
-
-            }
-        }
-        return result;
-    }
-
     public static byte[] long2Bytes(long x) {
         ByteBuffer buffer = ByteBuffer.allocate(8);
         buffer.putLong(x);

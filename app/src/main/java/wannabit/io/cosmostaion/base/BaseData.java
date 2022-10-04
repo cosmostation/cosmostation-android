@@ -53,6 +53,7 @@ import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
 import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.chains.Binance;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -123,14 +124,9 @@ public class BaseData {
     public ArrayList<ResGasRateParam> mGasRateParams = new ArrayList<>();
 
     public Price getPrice(String denom) {
-        if (mPrices != null && mPrices.size() > 0) {
-            for (Price price : mPrices) {
-                if (price.denom.equals(denom.toLowerCase())) {
-                    return price;
-                }
-            }
-        }
-        return null;
+        Optional<Price> prices = mPrices.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+        if (prices.isPresent()) return prices.get();
+        else return null;
     }
 
     public Asset getAsset(ChainConfig chainConfig, String denom) {
@@ -264,48 +260,11 @@ public class BaseData {
         return result;
     }
 
-    public BigDecimal delegatedSumAmount() {
-        BigDecimal result = BigDecimal.ZERO;
-        for (BondingInfo bondingInfo : mMyDelegations) {
-            if (bondingInfo.balance != null) {
-                result = result.add(bondingInfo.getBalance());
-            }
-        }
-        return result;
-    }
-
     public BigDecimal delegatedAmountByValidator(String opAddress) {
         BigDecimal result = BigDecimal.ZERO;
         for (BondingInfo bondingInfo : mMyDelegations) {
             if (bondingInfo.validator_address.equals(opAddress) && bondingInfo.balance != null) {
                 result = result.add(bondingInfo.getBalance());
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal unbondingSumAmount() {
-        BigDecimal result = BigDecimal.ZERO;
-        for (UnbondingInfo unbondingInfo : mMyUnbondings) {
-            if (unbondingInfo.entries != null) {
-                for (UnbondingInfo.Entry entry : unbondingInfo.entries) {
-                    result = result.add(new BigDecimal(entry.balance));
-                }
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal rewardAmount(String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (RewardInfo rewardInfo : mMyRewards) {
-            if (rewardInfo.reward != null) {
-                for (Coin coin : rewardInfo.reward) {
-                    if (coin.denom.equals(denom)) {
-                        result = result.add(new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN));
-                    }
-                }
-
             }
         }
         return result;
@@ -362,10 +321,6 @@ public class BaseData {
         return sum;
     }
 
-    public BigDecimal getAllMainAssetOld(String denom) {
-        return availableAmount(denom).add(lockedAmount(denom)).add(delegatedSumAmount()).add(unbondingSumAmount()).add(rewardAmount(denom));
-    }
-
     public BigDecimal getAllBnbTokenAmount(String denom) {
         return availableAmount(denom).add(lockedAmount(denom)).add(frozenAmount(denom));
     }
@@ -374,6 +329,19 @@ public class BaseData {
         for (BnbToken token : mBnbTokens) {
             if (token.symbol.equals(denom)) {
                 return token;
+            }
+        }
+        return null;
+    }
+
+    public BnbTicker getBnbTicker(String denom) {
+        for (BnbTicker bnbTicker : mBnbTickers) {
+            if (bnbTicker.baseAssetName.equalsIgnoreCase(Binance.BNB_MAIN_DENOM) && bnbTicker.quoteAssetName.equalsIgnoreCase(denom)) {
+                return bnbTicker;
+            }
+
+            if (bnbTicker.baseAssetName.equalsIgnoreCase(denom) && bnbTicker.quoteAssetName.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
+                return bnbTicker;
             }
         }
         return null;
@@ -740,15 +708,13 @@ public class BaseData {
         return 0;
     }
 
-    public BalancerPool.Pool getOsmosisPoolByDenom(String denom) {
-        for (BalancerPool.Pool pool : mGrpcOsmosisPool) {
-            if (pool.getTotalShares().getDenom().equals(denom)) {
-                return pool;
-            }
-        }
-        return null;
+    public void setPriceColorOption(int sort) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_PRICE_COLOR, sort).apply();
     }
 
+    public int getPriceColorOption() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_PRICE_COLOR, 1);
+    }
 
     public void setValSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();
@@ -933,6 +899,19 @@ public class BaseData {
     public void setLastPassTime() {
         long now = Calendar.getInstance().getTimeInMillis();
         getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PASS_TIME, now).commit();
+    }
+
+    public void setLastPriceTime() {
+        long now = Calendar.getInstance().getTimeInMillis();
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PRICE_TIME, now).commit();
+    }
+
+    public boolean needPriceUpdate() {
+        if (mPrices.size() <= 0) return true;
+        long now = Calendar.getInstance().getTimeInMillis();
+        long priceTime = getSharedPreferences().getLong(BaseConstant.PRE_LAST_PRICE_TIME, 0);
+        if ((priceTime + BaseConstant.CONSTANT_M * 2) > now) return false;
+        else return true;
     }
 
     public boolean isAutoPass() {

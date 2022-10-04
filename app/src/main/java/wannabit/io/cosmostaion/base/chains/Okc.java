@@ -78,5 +78,6 @@ public class Okc extends ChainConfig {
     }
 
 
+    public static String OKC_MAIN_DENOM = "okt";
     public static String OKC_COIN_IMG_URL = RESOURCE_BASE_URL + "coin_image/okex/";
 }

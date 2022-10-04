@@ -287,6 +287,17 @@ public class MsgGenerator {
         return reqBroadCast;
     }
 
+    public static Signature getWcSignDiectBroadcaseReq(ECKey key, byte[] signBytes) {
+        String signatureTx = MsgGenerator.getSignature(key, signBytes);
+        Signature signature = new Signature();
+        Pub_key pubKey = new Pub_key();
+        pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+        pubKey.value = WKey.getPubKeyValue(key);
+        signature.pub_key = pubKey;
+        signature.signature = signatureTx;
+        return signature;
+    }
+
     public static Signature getWcKeplrBroadcaseReq(ECKey key, JsonObject txMsg) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
@@ -342,7 +353,6 @@ public class MsgGenerator {
             return reqBroadCast;
         }
     }
-
 
     public static String getEthermintSignature(ECKey key, byte[] toSignByte) {
         BigInteger privKey = new BigInteger(key.getPrivateKeyAsHex(), 16);

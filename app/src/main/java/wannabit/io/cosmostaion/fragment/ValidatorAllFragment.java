@@ -253,8 +253,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 mSortType.setText(getString(R.string.str_sorting_by_power));
             }
         }
-
-
     }
 
     public void onShowAllValidatorSort() {

@@ -91,7 +91,7 @@ public class WalletChainHolder extends BaseHolder {
         mTvChainDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, decimal, 6));
         mTvChainUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, decimal, 6));
         mTvChainRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, decimal, 6));
-        mTvChainValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, decimal));
+        mTvChainValue.setText(WDp.dpAssetValue(baseData, denom, totalAmount, decimal));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) {
             mChainVestingLayer.setVisibility(View.VISIBLE);

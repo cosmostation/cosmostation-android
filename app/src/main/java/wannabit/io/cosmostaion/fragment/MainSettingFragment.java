@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,9 +49,11 @@ import wannabit.io.cosmostaion.activities.txs.starname.StarNameWalletConnectActi
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
+import wannabit.io.cosmostaion.dialog.PriceColorChangeDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.PushStatusResponse;
 import wannabit.io.cosmostaion.utils.PushManager;
@@ -60,15 +63,18 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     public final static int SELECT_CURRENCY = 9034;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
+    public final static int SELECT_PRICE_COLOR = 9036;
 
     public final static int SELECT_CHECK_FOR_APP_LOCK = 1;
     public final static int SELECT_CHECK_FOR_AUTO_PASS = 2;
 
     private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAutoPass, mBtnCurrency,
-            mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
+            mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
             mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
 
     private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme;
+
+    private ImageView mPriceColorUp, mPriceColorDown;
 
     private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
 
@@ -99,6 +105,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnTheme = rootView.findViewById(R.id.card_theme);
         mBtnAutoPass = rootView.findViewById(R.id.card_auto_pass);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
+        mBtnPriceColorChange = rootView.findViewById(R.id.card_price_color_change);
+        mPriceColorUp = rootView.findViewById(R.id.icon_price_color_up);
+        mPriceColorDown = rootView.findViewById(R.id.icon_price_color_down);
         mBtnExplore = rootView.findViewById(R.id.card_explore);
         mBtnNotice = rootView.findViewById(R.id.card_notice);
         mBtnHomepage = rootView.findViewById(R.id.card_homepage);
@@ -129,6 +138,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mSwitchUsingUsingBio.setOnClickListener(this);
         mBtnAutoPass.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
+        mBtnPriceColorChange.setOnClickListener(this);
         mBtnExplore.setOnClickListener(this);
         mBtnNotice.setOnClickListener(this);
         mBtnWalletConnect.setOnClickListener(this);
@@ -168,6 +178,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             mTvTheme.setText(R.string.str_theme_system);
         }
 
+        onUpdatePriceColor(getMainActivity().getBaseDao().getPriceColorOption());
         onUpdateView();
         loadPushStatus();
     }
@@ -192,7 +203,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        mTvCurrency.setText(getBaseDao().getCurrencyString());
+        onUpdateCurrency();
         onUpdateAutoPass();
     }
 
@@ -205,6 +216,20 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             mTvBio.setText(getString(R.string.str_using_fingerprints));
         } else {
             mTvBio.setText("");
+        }
+    }
+
+    private void onUpdateCurrency() {
+        mTvCurrency.setText(getBaseDao().getCurrencyString());
+    }
+
+    private void onUpdatePriceColor(int value) {
+        if (value == 1) {
+            mPriceColorUp.setImageResource(R.drawable.icon_pricegreen);
+            mPriceColorDown.setImageResource(R.drawable.icon_pricered);
+        } else {
+            mPriceColorUp.setImageResource(R.drawable.icon_pricered);
+            mPriceColorDown.setImageResource(R.drawable.icon_pricegreen);
         }
     }
 
@@ -256,6 +281,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnCurrency) && !getMainActivity().isFinishing()) {
             CurrencySetDialog dialog = CurrencySetDialog.newInstance(null);
             dialog.setTargetFragment(this, SELECT_CURRENCY);
+            dialog.show(getActivity().getSupportFragmentManager(), "dialog");
+
+        } else if (v.equals(mBtnPriceColorChange) && !getMainActivity().isFinishing()) {
+            PriceColorChangeDialog dialog = PriceColorChangeDialog.newInstance(null);
+            dialog.setTargetFragment(this, SELECT_PRICE_COLOR);
             dialog.show(getActivity().getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnExplore)) {
@@ -333,6 +363,30 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
+    private void onSetCurrency(int value) {
+        if (getBaseDao().getCurrency() != value) {
+            getBaseDao().setCurrency(value);
+            onUpdateCurrency();
+
+            ApiClient.getMintscan(getBaseApplication()).getPrice(getBaseDao().getCurrencyString().toLowerCase()).enqueue(new Callback<ArrayList<Price>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Price>> call, Response<ArrayList<Price>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        getBaseDao().mPrices.clear();
+                        for (Price price : response.body()) {
+                            getBaseDao().mPrices.add(price);
+                        }
+                        getBaseDao().setLastPriceTime();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<Price>> call, Throwable t) {
+                }
+            });
+        }
+    }
+
     private void onClickAutoPass() {
         mCheckMode = SELECT_CHECK_FOR_AUTO_PASS;
 
@@ -374,10 +428,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
-            getBaseDao().setCurrency(data.getIntExtra("currency", 0));
-            mTvCurrency.setText(getBaseDao().getCurrencyString());
-
+            onSetCurrency(data.getIntExtra("currency", 0));
         }
+
+        if (requestCode == SELECT_PRICE_COLOR && resultCode == Activity.RESULT_OK) {
+            onUpdatePriceColor(data.getIntExtra(BaseConstant.PRE_PRICE_COLOR, 1));
+        }
+
         if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
             new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
                         @Override

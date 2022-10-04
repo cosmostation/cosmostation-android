@@ -58,4 +58,7 @@ public class Binance extends ChainConfig {
 
 
     public static String BINANCE_COIN_IMG_URL = RESOURCE_BASE_URL + "coin_image/binance/";
+
+
+    public static String BNB_MAIN_DENOM = "BNB";
 }

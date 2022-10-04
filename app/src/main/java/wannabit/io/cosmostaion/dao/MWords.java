@@ -64,7 +64,7 @@ public class MWords {
 
     public String getName() {
         if (TextUtils.isEmpty(nickName)) {
-            return "Mnemonic " + id;
+            return "Account " + id;
         }
         return nickName;
     }
