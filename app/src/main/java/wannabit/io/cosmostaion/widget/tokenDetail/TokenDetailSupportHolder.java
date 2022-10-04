@@ -20,8 +20,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -29,10 +27,6 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 public class TokenDetailSupportHolder extends BaseHolder {
     private TextView            mTvTotal;
     private TextView            mTvAvailable;
-    private RelativeLayout      mLockedLayout;
-    private TextView            mTvLocked;
-    private RelativeLayout      mFrozenLayout;
-    private TextView            mTvFrozen;
     private RelativeLayout      mVestingLayout;
     private TextView            mTvVesting;
 
@@ -54,10 +48,6 @@ public class TokenDetailSupportHolder extends BaseHolder {
         super(itemView);
         mTvTotal            = itemView.findViewById(R.id.total_amount);
         mTvAvailable        = itemView.findViewById(R.id.available_amount);
-        mLockedLayout       = itemView.findViewById(R.id.locked_layout);
-        mTvLocked           = itemView.findViewById(R.id.locked_amount);
-        mFrozenLayout       = itemView.findViewById(R.id.frozen_layout);
-        mTvFrozen           = itemView.findViewById(R.id.frozen_amount);
         mVestingLayout      = itemView.findViewById(R.id.vesting_layout);
         mTvVesting          = itemView.findViewById(R.id.vesrting_amount);
 
@@ -87,35 +77,6 @@ public class TokenDetailSupportHolder extends BaseHolder {
         } else {
             mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
         }
-    }
-
-    public void onBindBNBTokens(Context c, BaseData baseData, String denom) {
-        BnbToken bnbToken = baseData.getBnbToken(denom);
-        if (bnbToken != null) {
-            mLockedLayout.setVisibility(View.VISIBLE);
-            mFrozenLayout.setVisibility(View.VISIBLE);
-        }
-        mAvailableAmount = baseData.availableAmount(denom);
-        final BigDecimal lockedAmount = baseData.lockedAmount(denom);
-        final BigDecimal frozenAmount = baseData.frozenAmount(denom);
-        mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, 0, 8));
-        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, 0, 8));
-        mTvLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 8));
-        mTvFrozen.setText(WDp.getDpAmount2(c, frozenAmount, 0, 8));
-    }
-
-    public void onBindOKTokens(Context c, BaseData baseData, String denom) {
-        final OkToken okToken = baseData.okToken(denom);
-        if (okToken != null) {
-            mLockedLayout.setVisibility(View.VISIBLE);
-        }
-        mAvailableAmount = baseData.availableAmount(denom);
-        final BigDecimal lockedAmount = baseData.lockedAmount(denom);
-        final BigDecimal totalAmount = mAvailableAmount.add(lockedAmount);
-
-        mTvTotal.setText(WDp.getDpAmount2(c, totalAmount, 0, 18));
-        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, 0, 18));
-        mTvLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 18));
     }
 
     public void onBindNftInfo(Context c, BaseChain baseChain, QueryOuterClass.QueryNFTResponse irisResponse, chainmain.nft.v1.Nft.BaseNFT myCryptoNftInfo, String denomId, String tokenId) {

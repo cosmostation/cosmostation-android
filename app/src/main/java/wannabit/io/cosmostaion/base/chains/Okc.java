@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.RESOURCE_BASE_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -80,5 +82,6 @@ public class Okc extends ChainConfig {
     }
 
 
+    public static String OKC_MAIN_DENOM = "okt";
     public static String OKC_COIN_IMG_URL = RESOURCE_BASE_URL + "coin_image/okex/";
 }

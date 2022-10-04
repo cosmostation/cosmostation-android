@@ -26,6 +26,7 @@ public class BaseConstant {
     public final static String PRE_USING_FINGERPRINT        = "PRE_USING_FINGERPRINT";
     public final static String PRE_USING_PASS               = "PRE_USING_AUTO_PASS";
     public final static String PRE_LAST_PASS_TIME           = "PRE_LAST_PASS_TIME";
+    public final static String PRE_LAST_PRICE_TIME          = "PRE_LAST_PRICE_TiME";
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN_NEW";
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
@@ -76,11 +77,11 @@ public class BaseConstant {
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2301;
 
-    public final static int TASK_FETCH_PRICE_INFO                       = 2800;
     public final static int TASK_FETCH_PARAM_INFO                       = 2801;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
+    public final static int TASK_FETCH_MINTSCAN_PRICES                  = 2808;
 
 
     //gRPC

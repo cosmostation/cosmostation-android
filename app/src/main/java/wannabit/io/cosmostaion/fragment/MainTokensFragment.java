@@ -36,14 +36,13 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenGrpcActivity;
-import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.Binance;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
@@ -149,7 +148,7 @@ public class MainTokensFragment extends BaseFragment {
         getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
         mWalletAddress.setText(mAccount.address);
         getMainActivity().setEthAddress(mChainConfig, mEthAddress);
-        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao(), mChainConfig));
+        mTotalValue.setText(WDp.dpAllAssetValue(mBaseChain, getBaseDao(), mChainConfig));
     }
 
     private SectionCallback getSectionGrpcCall() {
@@ -340,11 +339,11 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.base_denom, holder.itemSymbol);
                 holder.itemPath.setText(asset.description);
 
-                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
                 valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
 
                 holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -372,11 +371,11 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
                 valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
 
                 holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -399,34 +398,15 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.base_denom));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
                 valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
 
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
-
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
                 holder.itemRoot.setOnClickListener(v -> {
-                    if (chainConfig.baseChain().equals(KAVA_MAIN)) {
-                        BottomSheetDialog dialog= new BottomSheetDialog(getMainActivity());
-                        dialog.setContentView(R.layout.item_bottom_dialog);
-                        RelativeLayout btnBep3Send = dialog.findViewById(R.id.btn_bep3_send);
-                        RelativeLayout btnSend = dialog.findViewById(R.id.btn_send);
-                        RelativeLayout btnCancel = dialog.findViewById(R.id.btn_cancel);
-
-                        btnBep3Send.setOnClickListener(view -> {
-                            getMainActivity().onStartHTLCSendActivity(asset.denom);
-                            dialog.dismiss();
-                        });
-                        btnSend.setOnClickListener(view -> {
-                            Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                            intent.putExtra("sendTokenDenom", asset.denom);
-                            startActivity(intent);
-                            dialog.dismiss();
-                        });
-                        btnCancel.setOnClickListener(view -> dialog.dismiss());
-                        dialog.show();
-
+                    if (chainConfig.baseChain().equals(KAVA_MAIN) && WUtil.isBep3Coin(asset.denom)) {
+                        onSendDialog(asset.denom);
                     } else {
                         Intent intent = new Intent(getMainActivity(), SendActivity.class);
                         intent.putExtra("sendTokenDenom", asset.denom);
@@ -445,11 +425,11 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemSymbol.setText(asset.denom.toUpperCase());
                 holder.itemPath.setText("");
 
-                holder.itemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), asset.denom));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.denom));
                 valueChangeStatus(getActivity(), getBaseDao(), asset.denom, holder.itemUpDown);
 
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -483,22 +463,26 @@ public class MainTokensFragment extends BaseFragment {
 
             WDp.setDpSymbolImg(getBaseDao(), chainConfig, balance.symbol, holder.itemImg);
             WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, balance.symbol, holder.itemSymbol);
-            holder.itemPerPrice.setText(chainConfig.coinFullName(balance.symbol));
-            holder.itemPath.setText("(" + balance.symbol + ")");
-            holder.itemPerPrice.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGray1));
+            holder.itemPath.setText(chainConfig.coinFullName(balance.symbol));
+            holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), chainConfig.mainDenom()));
+            valueChangeStatus(getActivity(), getBaseDao(), chainConfig.mainDenom(), holder.itemUpDown);
 
-            if (mBaseChain.equals(BNB_MAIN))
-                totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
+            if (mBaseChain.equals(BNB_MAIN)) totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
             else totalAmount = getBaseDao().getAllExToken(balance.symbol);
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
+            holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), balance.symbol, totalAmount, 0));
 
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                    startActivity(intent);
+                public void onClick(View view) {
+                    if (balance.symbol.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
+                        onSendDialog(balance.symbol);
+                    } else {
+                        Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                        intent.putExtra("sendTokenDenom", balance.symbol);
+                        startActivity(intent);
+                    }
                 }
             });
         }
@@ -511,29 +495,35 @@ public class MainTokensFragment extends BaseFragment {
 
             WDp.setDpSymbolImg(getBaseDao(), chainConfig, balance.symbol, holder.itemImg);
             WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, balance.symbol, holder.itemSymbol);
-            holder.itemPath.setText("(" + balance.symbol + ")");
 
             if (mBaseChain.equals(BNB_MAIN)) {
-                holder.itemPerPrice.setText(getBaseDao().getBnbToken(balance.symbol).name);
+                holder.itemPath.setText(getBaseDao().getBnbToken(balance.symbol).name);
                 totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
-                convertAmount = WDp.getBnbConvertAmount(getBaseDao(), balance.symbol, totalAmount);
+                convertAmount = WDp.bnbConvertAmount(getBaseDao(), balance.symbol);
+                holder.itemPerPrice.setText(WDp.dpBnbTokenPrice(getBaseDao(), balance.symbol));
 
             } else {
-                holder.itemPerPrice.setText(getBaseDao().okToken(balance.symbol).description);
+                holder.itemPath.setText(getBaseDao().okToken(balance.symbol).description);
+                holder.itemPerPrice.setText("");
                 totalAmount = getBaseDao().getAllExToken(balance.symbol);
                 convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
+                holder.itemPriceLayer.setVisibility(View.GONE);
             }
-            holder.itemPerPrice.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorGray1));
+            holder.itemUpDown.setText("");
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
+            holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
 
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
+                    if (mBaseChain.equals(BNB_MAIN) && WUtil.isBep3Coin(balance.symbol)) {
+                        onSendDialog(balance.symbol);
+                    } else {
+                        Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                        intent.putExtra("sendTokenDenom", balance.symbol);
+                        startActivity(intent);
+                    }
                 }
             });
         }
@@ -603,6 +593,7 @@ public class MainTokensFragment extends BaseFragment {
             private CardView itemRoot;
             private ImageView itemImg;
             private TextView itemSymbol, itemPath, itemPerPrice, itemUpDown, itemBalance, itemValue;
+            private LinearLayout itemPriceLayer;
 
             public AssetHolder(View v) {
                 super(v);
@@ -614,6 +605,7 @@ public class MainTokensFragment extends BaseFragment {
                 itemUpDown = itemView.findViewById(R.id.up_down);
                 itemBalance = itemView.findViewById(R.id.token_balance);
                 itemValue = itemView.findViewById(R.id.token_value);
+                itemPriceLayer = itemView.findViewById(R.id.price_layer);
             }
         }
 
@@ -628,7 +620,7 @@ public class MainTokensFragment extends BaseFragment {
     }
 
     private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
-        BigDecimal lastUpDown = WDp.valueChange(baseData, denom);
+        BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
         if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
             changeTxt.setText(lastUpDown + "%");
             changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
@@ -651,6 +643,29 @@ public class MainTokensFragment extends BaseFragment {
                 .replace("konstellation", "konstel")
                 .replace("assetmantle", "assetman")
                 .replace(">", " → ");
+    }
+
+    private void onSendDialog(String denom) {
+        BottomSheetDialog dialog= new BottomSheetDialog(getMainActivity());
+        dialog.setContentView(R.layout.item_bottom_dialog);
+        RelativeLayout btnBep3Send = dialog.findViewById(R.id.btn_bep3_send);
+        RelativeLayout btnSend = dialog.findViewById(R.id.btn_send);
+        RelativeLayout btnCancel = dialog.findViewById(R.id.btn_cancel);
+
+        btnBep3Send.setOnClickListener(view -> {
+            getMainActivity().onStartHTLCSendActivity(denom);
+            dialog.dismiss();
+        });
+
+        btnSend.setOnClickListener(view -> {
+            Intent intent = new Intent(getMainActivity(), SendActivity.class);
+            intent.putExtra("sendTokenDenom", denom);
+            startActivity(intent);
+            dialog.dismiss();
+        });
+
+        btnCancel.setOnClickListener(view -> dialog.dismiss());
+        dialog.show();
     }
 
     public MainActivity getMainActivity() { return (MainActivity) getBaseActivity(); }

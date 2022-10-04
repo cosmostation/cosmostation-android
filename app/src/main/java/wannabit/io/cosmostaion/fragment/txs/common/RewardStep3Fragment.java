@@ -85,7 +85,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 expectedAmount = availableAmount.add(rewardSum);
             }
             WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), expectedAmount.toPlainString(), mResultDenom, mExpectedAmount);
-            mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), getSActivity().mChainConfig.mainDenom(), expectedAmount, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom())));
+            mExpectedPrice.setText(WDp.dpAssetValue(getBaseDao(), getSActivity().mChainConfig.mainDenom(), expectedAmount, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom())));
 
         } else {
             mTvGoalLayer.setVisibility(View.VISIBLE);

@@ -116,9 +116,9 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mToolbarSymbolImg.setImageResource(mChainConfig.mainDenomImg());
         WDp.setDpSymbol(StakingTokenGrpcActivity.this, getBaseDao(), mChainConfig, mMainDenom, mToolbarSymbol);
 
-        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mMainDenom));
-        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mMainDenom));
-        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mMainDenom);
+        mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mMainDenom));
+        mItemUpDownPrice.setText(WDp.dpPriceChange(getBaseDao(), mMainDenom));
+        final BigDecimal lastUpDown = WDp.priceChange(getBaseDao(), mMainDenom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
             mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
@@ -133,7 +133,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mAddress.setText(mAccount.address);
         setEthAddress(mChainConfig, mEthAddress);
-        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
+        mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

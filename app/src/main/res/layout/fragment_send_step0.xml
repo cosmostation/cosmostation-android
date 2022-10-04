@@ -78,7 +78,7 @@
                 android:maxLength="60"
                 android:paddingLeft="@dimen/space_10"
                 android:paddingRight="@dimen/space_10"
-                android:textColorHint="@color/colorGray4"
+                android:textColorHint="@color/colorGray1"
                 android:textCursorDrawable="@drawable/white_cursor" />
         </RelativeLayout>
 

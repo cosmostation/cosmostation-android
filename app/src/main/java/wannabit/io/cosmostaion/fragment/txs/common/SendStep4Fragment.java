@@ -107,7 +107,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAvailable.toPlainString(), mRemainDenom, mRemainingBalance);
 
             if (toSendDenom.equals(mainDenom)) {
-                mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), toSendDenom, remainAvailable, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom)));
+                mRemainingPrice.setText(WDp.dpAssetValue(getBaseDao(), toSendDenom, remainAvailable, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom)));
             } else {
                 mRemainingPrice.setVisibility(View.GONE);
             }
@@ -140,10 +140,12 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAmount.toPlainString(), mRemainDenom, mRemainingBalance);
 
             if (toSendDenom.equals(mainDenom)) {
-                mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), toSendDenom, remainAmount, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom)));
+                mRemainingPrice.setText(WDp.dpAssetValue(getBaseDao(), toSendDenom, remainAmount, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom)));
             } else {
                 mRemainingPrice.setVisibility(View.GONE);
             }
+            mRecipientLayer.setVisibility(View.GONE);
+            mIbcLayer.setVisibility(View.GONE);
         }
         mRecipientAddress.setText(getSActivity().mToAddress);
         mMemo.setText(getSActivity().mTxMemo);
