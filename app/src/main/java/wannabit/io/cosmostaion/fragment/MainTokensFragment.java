@@ -467,7 +467,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), chainConfig.mainDenom()));
             valueChangeStatus(getActivity(), getBaseDao(), chainConfig.mainDenom(), holder.itemUpDown);
 
-            if (mBaseChain.equals(BNB_MAIN)) totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
+            if (mBaseChain.equals(BNB_MAIN))
+                totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
             else totalAmount = getBaseDao().getAllExToken(balance.symbol);
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
@@ -622,13 +623,21 @@ public class MainTokensFragment extends BaseFragment {
     private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
         BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
         if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
-            changeTxt.setText(lastUpDown + "%");
-            changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
-
+            if (getMainActivity().getBaseDao().getPriceColorOption() == 1) {
+                changeTxt.setText(" " + lastUpDown + "%");
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
+            } else {
+                changeTxt.setText(" " + lastUpDown + "%");
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
+            }
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
-            changeTxt.setText("+" + lastUpDown + "%");
-            changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
-
+            if (getMainActivity().getBaseDao().getPriceColorOption() == 1) {
+                changeTxt.setText("+" + " " + lastUpDown + "%");
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
+            } else {
+                changeTxt.setText("+" + " " + lastUpDown + "%");
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
+            }
         } else {
             changeTxt.setText("");
         }
@@ -646,7 +655,7 @@ public class MainTokensFragment extends BaseFragment {
     }
 
     private void onSendDialog(String denom) {
-        BottomSheetDialog dialog= new BottomSheetDialog(getMainActivity());
+        BottomSheetDialog dialog = new BottomSheetDialog(getMainActivity());
         dialog.setContentView(R.layout.item_bottom_dialog);
         RelativeLayout btnBep3Send = dialog.findViewById(R.id.btn_bep3_send);
         RelativeLayout btnSend = dialog.findViewById(R.id.btn_send);
@@ -668,7 +677,9 @@ public class MainTokensFragment extends BaseFragment {
         dialog.show();
     }
 
-    public MainActivity getMainActivity() { return (MainActivity) getBaseActivity(); }
+    public MainActivity getMainActivity() {
+        return (MainActivity) getBaseActivity();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -748,9 +759,7 @@ public class MainTokensFragment extends BaseFragment {
                         mRoot.setVisibility(View.VISIBLE);
                         title = sectionCallback.getSectionCw20Header(mBaseChain, mErc20Grpc, mSection);
                         mItemCnt.setText("" + mErc20Grpc.size());
-                    }
-
-                    else if (mSection == SECITON_CONTRACT_EDIT) {
+                    } else if (mSection == SECITON_CONTRACT_EDIT) {
                         mRoot.setVisibility(View.GONE);
                     }
 

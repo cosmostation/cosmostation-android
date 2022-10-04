@@ -32,7 +32,6 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 public class WalletPriceHolder extends BaseHolder {
     private CardView        itemRoot;
     private TextView        itemPerPrice, itemUpDownPrice;
-    private ImageView       itemUpDownImg;
     private LinearLayout    itemBuyLayer;
     private RelativeLayout  itemBuyCoinBtn;
     private TextView        itemBuyCoinTv;
@@ -42,7 +41,6 @@ public class WalletPriceHolder extends BaseHolder {
         itemRoot            = itemView.findViewById(R.id.card_root);
         itemPerPrice        = itemView.findViewById(R.id.per_price);
         itemUpDownPrice     = itemView.findViewById(R.id.dash_price_updown_tx);
-        itemUpDownImg       = itemView.findViewById(R.id.ic_price_updown);
         itemBuyLayer        = itemView.findViewById(R.id.buy_layer);
         itemBuyCoinBtn      = itemView.findViewById(R.id.btn_buy_coin);
         itemBuyCoinTv       = itemView.findViewById(R.id.tv_buy_coin);
@@ -57,13 +55,21 @@ public class WalletPriceHolder extends BaseHolder {
         itemUpDownPrice.setText(WDp.dpPriceChange(data, denom));
         final BigDecimal lastUpDown = WDp.priceChange(data, denom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
-            itemUpDownImg.setVisibility(View.VISIBLE);
-            itemUpDownImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.ic_price_up));
+            if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
+                itemUpDownPrice.setText("-" + " " + lastUpDown + "%");
+                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteNo));
+            } else {
+                itemUpDownPrice.setText("-" + " " + lastUpDown + "%");
+                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
+            }
         } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
-            itemUpDownImg.setVisibility(View.VISIBLE);
-            itemUpDownImg.setImageDrawable(ContextCompat.getDrawable(mainActivity,R.drawable.ic_price_down));
-        } else {
-            itemUpDownImg.setVisibility(View.INVISIBLE);
+            if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
+                itemUpDownPrice.setText("+" + " " + lastUpDown + "%");
+                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
+            } else {
+                itemUpDownPrice.setText("+" + " " + lastUpDown + "%");
+                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteNo));
+            }
         }
 
         if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(COSMOS_MAIN)) {

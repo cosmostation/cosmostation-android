@@ -36,6 +36,7 @@ public class BaseConstant {
     public final static String PRE_THEME_MOD                = "PRE_THEME_MOD";
     public final static String PRE_AUTO_SIGN                = "PRE_AUTO_SIGN";
     public final static String PRE_WC_WHITE_LIST            = "PRE_WC_WHITE_LIST";
+    public final static String PRE_PRICE_COLOR              = "PRE_PRICE_COLOR";
 
     public final static int TASK_INIT_PW                                = 2000;
     public final static int TASK_INIT_ACCOUNT                           = 2002;

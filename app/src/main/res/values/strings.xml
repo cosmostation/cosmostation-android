@@ -304,6 +304,10 @@
     <string name="str_app_auto_pass_30m">30min</string>
     <string name="str_app_auto_pass_never">Never (recommend)</string>
     <string name="str_currency">Currency</string>
+    <string name="str_price_color_change">Color of Price Change</string>
+    <string name="str_price_color_option_title">Select a color for the change in price</string>
+    <string name="str_up">Up:</string>
+    <string name="str_down">Down:</string>
     <string name="str_base_price">Base Price</string>
     <string name="str_support">Support</string>
     <string name="str_faq">FAQ</string>
