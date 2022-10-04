@@ -77,9 +77,9 @@ public class PriceColorChangeDialog extends DialogFragment {
                 holder.iconPriceColorUp.setImageResource(R.drawable.icon_pricegreen);
                 holder.iconPriceColorDown.setImageResource(R.drawable.icon_pricered);
                 holder.rootLayer.setOnClickListener(v -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra(BaseConstant.PRE_PRICE_COLOR, position + 1);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    Bundle result = new Bundle();
+                    result.putInt(BaseConstant.PRE_PRICE_COLOR, position + 1);
+                    getParentFragmentManager().setFragmentResult(BaseConstant.PRE_PRICE_COLOR, result);
                     getSActivity().getBaseDao().setPriceColorOption(position + 1);
                     getDialog().dismiss();
                 });
@@ -87,9 +87,9 @@ public class PriceColorChangeDialog extends DialogFragment {
                 holder.iconPriceColorUp.setImageResource(R.drawable.icon_pricered);
                 holder.iconPriceColorDown.setImageResource(R.drawable.icon_pricegreen);
                 holder.rootLayer.setOnClickListener(v -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra(BaseConstant.PRE_PRICE_COLOR, position + 1);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    Bundle result = new Bundle();
+                    result.putInt(BaseConstant.PRE_PRICE_COLOR, position + 1);
+                    getParentFragmentManager().setFragmentResult(BaseConstant.PRE_PRICE_COLOR, result);
                     getSActivity().getBaseDao().setPriceColorOption(position + 1);
                     getDialog().dismiss();
                 });
