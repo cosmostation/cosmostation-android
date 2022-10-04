@@ -37,7 +37,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
     private ImageView mToolbarSymbolImg;
     private TextView mToolbarSymbol, mToolbarChannel;
     private TextView mItemPerPrice;
-    private ImageView mItemUpDownImg;
     private TextView mItemUpDownPrice;
 
     private CardView mBtnAddressPopup;
@@ -63,7 +62,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
         mToolbarChannel = findViewById(R.id.toolbar_channel);
         mItemPerPrice = findViewById(R.id.per_price);
-        mItemUpDownImg = findViewById(R.id.ic_price_updown);
         mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
         mBtnAddressPopup = findViewById(R.id.card_root);

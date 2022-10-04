@@ -610,14 +610,14 @@ public class MainTokensFragment extends BaseFragment {
             } else {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
             }
-            changeTxt.setText(" " + lastUpDown + "%");
+            changeTxt.setText(lastUpDown + "%");
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             if (getMainActivity().getBaseDao().getPriceColorOption() == 1) {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
             } else {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
             }
-            changeTxt.setText("+" + " " + lastUpDown + "%");
+            changeTxt.setText("+" + lastUpDown + "%");
         } else {
             changeTxt.setText("");
         }
