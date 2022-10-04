@@ -35,7 +35,7 @@
 
                 <TextView
                     android:id="@+id/per_price"
-                    style="@style/font_rr_14_black_daynight"
+                    style="@style/font_rm_18_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -63,7 +63,7 @@
                 </LinearLayout>
 
                 <TextView
-                    style="@style/font_rr_9_gray1"
+                    style="@style/font_rr_10_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_24"
