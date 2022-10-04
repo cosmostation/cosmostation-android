@@ -61,7 +61,7 @@ public class WalletPriceHolder extends BaseHolder {
             } else {
                 itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
             }
-            itemUpDownPrice.setText("-" + " " + lastUpDown + "%");
+            itemUpDownPrice.setText(lastUpDown + "%");
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
                 itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));

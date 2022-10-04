@@ -136,7 +136,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             } else {
                 mItemUpDownPrice.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorVoteYes));
             }
-            mItemUpDownPrice.setText("-" + " " + lastUpDown + "%");
+            mItemUpDownPrice.setText(lastUpDown + "%");
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             if (getBaseDao().getPriceColorOption() == 1) {
                 mItemUpDownPrice.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorVoteYes));
