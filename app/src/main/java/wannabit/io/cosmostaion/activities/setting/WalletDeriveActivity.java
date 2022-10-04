@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import axelar.nexus.exported.v1beta1.Types;
 import cosmos.base.v1beta1.CoinOuterClass;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -204,8 +205,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 if (StringUtils.isEmpty(newText)) {
                     mSearchList.addAll(mDerives);
                 } else {
-                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(item.baseChain.getChain(), newText) || StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).mainSymbol(), newText) ||
-                            StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).chainKoreanName(), newText)).collect(Collectors.toList()));
+                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).chainNameList().toString(), newText)).collect(Collectors.toList()));
                     if (mSearchList.isEmpty()) {
                         mNoSearchResult.setVisibility(View.VISIBLE);
                     }
