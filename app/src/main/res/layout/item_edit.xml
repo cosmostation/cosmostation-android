@@ -30,7 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Edit Token List"/>
+                android:layout_marginTop="@dimen/space_4"
+                android:text="Edit Token List" />
 
             <TextView
                 style="@style/font_rr_12_black_daynight"
@@ -39,6 +40,7 @@
                 android:layout_below="@+id/token_list_title"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/space_4"
+                android:layout_marginBottom="@dimen/space_4"
                 android:gravity="center"
                 android:text="@string/str_select_contract_token"/>
         </RelativeLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_4"
+    android:layout_marginBottom="@dimen/space_4"
+    android:background="@drawable/box_vote_quorum"
+    android:clickable="true">
+
+    <FrameLayout
+        android:id="@+id/rootLayer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_50"
+        android:background="@drawable/box_vote_quorum"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/option"
+                style="@style/font_rm_14_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_14"
+                android:text="Option" />
+
+            <TextView
+                android:id="@+id/option_number"
+                style="@style/font_rm_14_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_6"
+                android:layout_toRightOf="@+id/option"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/price_color_up_text"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/space_2"
+                android:layout_toLeftOf="@+id/icon_price_color_up"
+                android:text="@string/str_up" />
+
+            <ImageView
+                android:id="@+id/icon_price_color_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/space_10"
+                android:layout_toLeftOf="@+id/price_color_down_text"
+                tools:src="@drawable/icon_pricegreen" />
+
+            <TextView
+                android:id="@+id/price_color_down_text"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/space_2"
+                android:layout_toLeftOf="@+id/icon_price_color_down"
+                android:text="@string/str_down" />
+
+            <ImageView
+                android:id="@+id/icon_price_color_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/space_14"
+                android:src="@drawable/icon_pricered" />
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>
