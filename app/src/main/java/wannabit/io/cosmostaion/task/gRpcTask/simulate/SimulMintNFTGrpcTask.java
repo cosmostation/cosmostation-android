@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -22,10 +25,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
-
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_MINT_NFT;
 
 public class SimulMintNFTGrpcTask extends CommonTask {
 
@@ -57,7 +56,6 @@ public class SimulMintNFTGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_MINT_NFT;
     }
 
     @Override

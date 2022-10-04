@@ -23,8 +23,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL;
-
 public class SimulSifWithdrawGrpcTask extends CommonTask {
 
     private Account             mAccount;
@@ -47,7 +45,6 @@ public class SimulSifWithdrawGrpcTask extends CommonTask {
         this.mFees = fee;
         this.mMemo = memo;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL;
     }
 
     @Override

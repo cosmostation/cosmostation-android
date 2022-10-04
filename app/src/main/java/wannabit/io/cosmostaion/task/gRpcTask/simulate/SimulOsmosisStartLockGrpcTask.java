@@ -24,8 +24,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_START_LOCK;
-
 public class SimulOsmosisStartLockGrpcTask extends CommonTask {
 
     private Account             mAccount;
@@ -48,7 +46,6 @@ public class SimulOsmosisStartLockGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_START_LOCK;
     }
 
     @Override

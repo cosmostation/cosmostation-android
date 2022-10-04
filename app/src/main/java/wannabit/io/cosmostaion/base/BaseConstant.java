@@ -153,50 +153,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_BIO_ACTION                  = 4300;
 
 
-    public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
-    public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
-    public final static int TASK_GRPC_SIMULATE_CLAIM_REWARDS            = 4502;
-    public final static int TASK_GRPC_SIMULATE_SEND                     = 4503;
-    public final static int TASK_GRPC_SIMULATE_REDELEGATE               = 4504;
-    public final static int TASK_GRPC_SIMULATE_REINVEST                 = 4505;
-    public final static int TASK_GRPC_SIMULATE_REWARD_ADDRESS_CHANGE    = 4506;
-    public final static int TASK_GRPC_SIMULATE_VOTE                     = 4507;
-    public final static int TASK_GRPC_SIMULATE_REGISTER_DOMAIN          = 4508;
-    public final static int TASK_GRPC_SIMULATE_REGISTER_ACCOUNT         = 4509;
-    public final static int TASK_GRPC_SIMULATE_DELETE_DOMAIN            = 4510;
-    public final static int TASK_GRPC_SIMULATE_DELETE_ACCOUNT           = 4511;
-    public final static int TASK_GRPC_SIMULATE_RENEW_DOMAIN             = 4512;
-    public final static int TASK_GRPC_SIMULATE_RENEW_ACCOUNT            = 4513;
-    public final static int TASK_GRPC_SIMULATE_REPLACE_STARNAME         = 4514;
-    public final static int TASK_GRPC_SIMULATE_SWAP_IN                  = 4515;
-    public final static int TASK_GRPC_SIMULATE_JOIN_POOL                = 4516;
-    public final static int TASK_GRPC_SIMULATE_EXIT_POOL                = 4517;
-    public final static int TASK_GRPC_SIMULATE_START_LOCK               = 4518;
-    public final static int TASK_GRPC_SIMULATE_BEGIN_UNBONDING          = 4519;
-    public final static int TASK_GRPC_SIMULATE_IBC_TRANSFER             = 4524;
-    public final static int TASK_GRPC_SIMULATE_SIF_SWAP                 = 4527;
-    public final static int TASK_GRPC_SIMULATE_SIF_JOIN_POOL            = 4528;
-    public final static int TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL        = 4529;
-    public final static int TASK_GRPC_SIMULATE_MINT_NFT                 = 4530;
-    public final static int TASK_GRPC_SIMULATE_TRANSFER_NFT             = 4531;
-    public final static int TASK_GRPC_SIMULATE_CREATE_PROFILE           = 4532;
-    public final static int TASK_GRPC_SIMULATE_KAVA_SWAP                = 4533;
-    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT             = 4534;
-    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW            = 4535;
-    public final static int TASK_GRPC_SIMULATE_KAVA_CREATE_CDP          = 4536;
-    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT_CDP         = 4537;
-    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_CDP        = 4538;
-    public final static int TASK_GRPC_SIMULATE_KAVA_DRAW_DEBT_CDP       = 4539;
-    public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_CDP           = 4540;
-    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT_HARD        = 4541;
-    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_HARD       = 4542;
-    public final static int TASK_GRPC_SIMULATE_KAVA_BORROW_HARD         = 4543;
-    public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_HARD          = 4544;
-    public final static int TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES    = 4545;
-    public final static int TASK_GRPC_SIMULATE_EXECUTE_CONTRACT         = 4546;
-    public final static int TASK_GRPC_SIMULATE_IBC_CONTRACT             = 4547;
-
-
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
     public final static String COSMOS_AUTH_TYPE_OKEX_ACCOUNT                = "okexchain/EthAccount";
 
@@ -298,11 +254,6 @@ public class BaseConstant {
     public final static String TOKEN_HTLC_BINANCE_BTCB             = "BTCB-1DE";
     public final static String TOKEN_HTLC_BINANCE_XRPB             = "XRP-BF2";
     public final static String TOKEN_HTLC_BINANCE_BUSD             = "BUSD-BD1";
-
-
-    //TODO HardCoding!!
-    public final static long COSMOS_UNBONDING_TIME = 1814400000;
-    public final static long COSMOS_UNBONDING_DAY = 3;
 
 
     public final static long CONSTANT_S = 1000l;
