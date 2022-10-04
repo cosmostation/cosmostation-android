@@ -69,9 +69,9 @@ public class CurrencySetDialog extends DialogFragment {
             holder.currencyName.setText(mUnitList[position]);
 
             holder.rootLayer.setOnClickListener(v -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                Bundle result = new Bundle();
+                result.putInt("currency", position);
+                getParentFragmentManager().setFragmentResult("currency", result);
                 getDialog().dismiss();
             });
         }

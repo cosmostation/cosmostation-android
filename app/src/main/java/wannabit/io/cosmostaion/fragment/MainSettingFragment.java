@@ -61,7 +61,6 @@ import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int SELECT_CURRENCY = 9034;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
     public final static int SELECT_PRICE_COLOR = 9036;
 
@@ -280,9 +279,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnCurrency) && !getMainActivity().isFinishing()) {
             CurrencySetDialog dialog = CurrencySetDialog.newInstance(null);
-            dialog.setTargetFragment(this, SELECT_CURRENCY);
+            getParentFragmentManager().setFragmentResultListener("currency", this, (requestKey, bundle) -> {
+                int result = bundle.getInt("currency");
+                onSetCurrency(result);
+            });
             dialog.show(getActivity().getSupportFragmentManager(), "dialog");
-
         } else if (v.equals(mBtnPriceColorChange) && !getMainActivity().isFinishing()) {
             PriceColorChangeDialog dialog = PriceColorChangeDialog.newInstance(null);
             dialog.setTargetFragment(this, SELECT_PRICE_COLOR);
@@ -427,10 +428,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
-            onSetCurrency(data.getIntExtra("currency", 0));
-        }
-
         if (requestCode == SELECT_PRICE_COLOR && resultCode == Activity.RESULT_OK) {
             onUpdatePriceColor(data.getIntExtra(BaseConstant.PRE_PRICE_COLOR, 1));
         }
