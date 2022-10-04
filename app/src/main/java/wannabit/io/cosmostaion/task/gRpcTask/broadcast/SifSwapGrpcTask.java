@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_SIF_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BIO_ACTION;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -52,16 +52,19 @@ public class SifSwapGrpcTask extends CommonTask {
         this.mFees = fee;
         this.mMemo = memo;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_GEN_TX_SIF_SWAP;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-            mResult.isSuccess = false;
-            mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
-            return mResult;
+        if (mApp.getBaseDao().getUsingFingerPrint()) {
+            mResult.taskType = TASK_GRPC_FETCH_BIO_ACTION;
+        } else {
+            if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+                mResult.isSuccess = false;
+                mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
+                return mResult;
+            }
         }
 
         try {

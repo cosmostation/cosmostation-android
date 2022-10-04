@@ -85,7 +85,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_14">
+                android:layout_marginBottom="@dimen/space_12">
 
                 <ImageView
                     android:id="@+id/btn_display"

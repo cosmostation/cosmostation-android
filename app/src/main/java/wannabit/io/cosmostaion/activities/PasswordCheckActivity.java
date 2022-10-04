@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.activities;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_APP_LOCK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
@@ -70,6 +71,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -82,6 +84,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+import androidx.core.os.CancellationSignal;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -103,6 +107,7 @@ import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
@@ -274,6 +279,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     public ArrayList<String> mValOpAddresses_V1;
 
+    private FingerprintManagerCompat mFingerprintManagerCompat;
+    private CancellationSignal mCancellationSignal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
@@ -420,6 +428,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             mIvCircle[i].setBackground(ContextCompat.getDrawable(PasswordCheckActivity.this, R.drawable.ic_pass_gr));
         }
         mViewPager.setCurrentItem(0, true);
+        if (mPurpose != CONST_PW_APP_LOCK && mPurpose != CONST_PW_DELETE_ACCOUNT) {
+            onCheckFingerPrint();
+        }
     }
 
     @Override
@@ -460,9 +471,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         onUpdateCnt();
     }
 
-
     private void onFinishInput() {
-        if (mPurpose == CONST_PW_SIMPLE_CHECK) {
+        if (mPurpose == CONST_PW_SIMPLE_CHECK || mPurpose == CONST_PW_APP_LOCK) {
             onShowWaitDialog();
             new CheckPasswordTask(getBaseApplication(), this).execute(mUserInput);
 
@@ -757,6 +767,60 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         }
     }
 
+    private void onCheckType() {
+        if (mCancellationSignal != null)
+            mCancellationSignal.cancel();
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
+
+        if (mPurpose == CONST_PW_CHECK_MNEMONIC) {
+            Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicDetailActivity.class);
+            checkintent.putExtra("mnemonicId", getIntent().getLongExtra("checkid", -1));
+            startActivity(checkintent);
+
+        } else if (mPurpose == CONST_PW_CHECK_PRIVATE_KEY) {
+            Intent checkintent = new Intent(PasswordCheckActivity.this, PrivateKeyCheckActivity.class);
+            String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+            checkintent.putExtra("checkid", mIdToCheck);
+            checkintent.putExtra("entropy", entropy);
+            startActivity(checkintent);
+
+        } else {
+            onFinishInput();
+        }
+    }
+
+    private void onCheckFingerPrint() {
+        mFingerprintManagerCompat = FingerprintManagerCompat.from(this);
+        mCancellationSignal = new CancellationSignal();
+        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) && mFingerprintManagerCompat.isHardwareDetected() &&
+                mFingerprintManagerCompat.hasEnrolledFingerprints() && getBaseDao().getUsingFingerPrint()) {
+
+            mFingerprintManagerCompat.authenticate(null, 0, mCancellationSignal, new FingerprintManagerCompat.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationError(int errMsgId, CharSequence errString) {
+                    super.onAuthenticationError(errMsgId, errString);
+                }
+
+                @Override
+                public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+                    super.onAuthenticationHelp(helpMsgId, helpString);
+                }
+
+                @Override
+                public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
+                    super.onAuthenticationSucceeded(result);
+                    onCheckType();
+                }
+
+                @Override
+                public void onAuthenticationFailed() {
+                    super.onAuthenticationFailed();
+                }
+
+            }, null);
+        }
+    }
+
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
@@ -842,9 +906,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     txIntent.putExtra("txHash", hash);
                 startActivity(txIntent);
             }
-
         }
-
     }
 
     @Override

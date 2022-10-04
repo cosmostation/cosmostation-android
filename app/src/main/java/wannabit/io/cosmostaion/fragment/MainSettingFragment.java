@@ -321,7 +321,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         if (getBaseDao().getUsingAppLock()) {
             Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_APP_LOCK);
             startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
             getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 

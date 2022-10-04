@@ -214,13 +214,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     style="@style/font_rr_12_black_daynight"/>
-
-                                <TextView
-                                    android:id="@+id/recipient_channel"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/space_4"
-                                    style="@style/font_rr_10_gray1"/>
                             </LinearLayout>
 
                         </LinearLayout>

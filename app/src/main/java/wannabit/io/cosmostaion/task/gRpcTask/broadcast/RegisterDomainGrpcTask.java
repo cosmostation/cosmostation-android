@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BIO_ACTION;
+
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -24,9 +27,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_REGISTER_DOMAIN;
-
 public class RegisterDomainGrpcTask extends CommonTask {
     private BaseChain           mBaseChain;
     private Account             mAccount;
@@ -46,16 +46,19 @@ public class RegisterDomainGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fees;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_GEN_TX_REGISTER_DOMAIN;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-            mResult.isSuccess = false;
-            mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
-            return mResult;
+        if (mApp.getBaseDao().getUsingFingerPrint()) {
+            mResult.taskType = TASK_GRPC_FETCH_BIO_ACTION;
+        } else {
+            if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
+                mResult.isSuccess = false;
+                mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
+                return mResult;
+            }
         }
 
         try {
