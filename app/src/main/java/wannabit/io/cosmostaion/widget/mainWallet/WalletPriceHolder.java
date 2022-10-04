@@ -54,22 +54,20 @@ public class WalletPriceHolder extends BaseHolder {
         itemPerPrice.setText(WDp.dpPrice(data, denom));
         itemUpDownPrice.setText(WDp.dpPriceChange(data, denom));
         final BigDecimal lastUpDown = WDp.priceChange(data, denom);
-        if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
+        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
             if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
-                itemUpDownPrice.setText("-" + " " + lastUpDown + "%");
                 itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteNo));
             } else {
-                itemUpDownPrice.setText("-" + " " + lastUpDown + "%");
                 itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
             }
-        } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
+            itemUpDownPrice.setText("-" + " " + lastUpDown + "%");
+        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
-                itemUpDownPrice.setText("+" + " " + lastUpDown + "%");
                 itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
             } else {
-                itemUpDownPrice.setText("+" + " " + lastUpDown + "%");
                 itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteNo));
             }
+            itemUpDownPrice.setText("+" + " " + lastUpDown + "%");
         }
 
         if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(COSMOS_MAIN)) {

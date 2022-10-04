@@ -345,18 +345,15 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimal, 6));
                 holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
 
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent;
-                        if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
-                            intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
-                        } else {
-                            intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
-                        }
-                        intent.putExtra("denom", asset.base_denom);
-                        startActivity(intent);
+                holder.itemRoot.setOnClickListener(v -> {
+                    Intent intent;
+                    if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                        intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
+                    } else {
+                        intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
                     }
+                    intent.putExtra("denom", asset.base_denom);
+                    startActivity(intent);
                 });
             }
         }
@@ -377,13 +374,10 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
                 holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                        intent.putExtra("sendTokenDenom", asset.denom);
-                        startActivity(intent);
-                    }
+                holder.itemRoot.setOnClickListener(v -> {
+                    Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                    intent.putExtra("sendTokenDenom", asset.denom);
+                    startActivity(intent);
                 });
             }
         }
@@ -431,28 +425,22 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
                 holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
 
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                        intent.putExtra("sendTokenDenom", asset.denom);
-                        startActivity(intent);
-                    }
+                holder.itemRoot.setOnClickListener(v -> {
+                    Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                    intent.putExtra("sendTokenDenom", asset.denom);
+                    startActivity(intent);
                 });
             }
         }
 
         private void onBindEdit(RecyclerView.ViewHolder viewHolder) {
             final EditHolder holder = (EditHolder) viewHolder;
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Bundle bundle = new Bundle();
-                    SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(bundle);
-                    dialog.setCancelable(false);
-                    dialog.setTargetFragment(MainTokensFragment.this, SECITON_CONTRACT_EDIT);
-                    getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                }
+            holder.itemRoot.setOnClickListener(view -> {
+                Bundle bundle = new Bundle();
+                SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(bundle);
+                dialog.setCancelable(false);
+                dialog.setTargetFragment(MainTokensFragment.this, SECITON_CONTRACT_EDIT);
+                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
             });
         }
 
@@ -474,16 +462,13 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
             holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), balance.symbol, totalAmount, 0));
 
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (balance.symbol.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
-                        onSendDialog(balance.symbol);
-                    } else {
-                        Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                        intent.putExtra("sendTokenDenom", balance.symbol);
-                        startActivity(intent);
-                    }
+            holder.itemRoot.setOnClickListener(view -> {
+                if (balance.symbol.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
+                    onSendDialog(balance.symbol);
+                } else {
+                    Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                    intent.putExtra("sendTokenDenom", balance.symbol);
+                    startActivity(intent);
                 }
             });
         }
@@ -515,16 +500,13 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
             holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
 
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mBaseChain.equals(BNB_MAIN) && WUtil.isBep3Coin(balance.symbol)) {
-                        onSendDialog(balance.symbol);
-                    } else {
-                        Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                        intent.putExtra("sendTokenDenom", balance.symbol);
-                        startActivity(intent);
-                    }
+            holder.itemRoot.setOnClickListener(v -> {
+                if (mBaseChain.equals(BNB_MAIN) && WUtil.isBep3Coin(balance.symbol)) {
+                    onSendDialog(balance.symbol);
+                } else {
+                    Intent intent = new Intent(getMainActivity(), SendActivity.class);
+                    intent.putExtra("sendTokenDenom", balance.symbol);
+                    startActivity(intent);
                 }
             });
         }
@@ -624,20 +606,18 @@ public class MainTokensFragment extends BaseFragment {
         BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
         if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
             if (getMainActivity().getBaseDao().getPriceColorOption() == 1) {
-                changeTxt.setText(" " + lastUpDown + "%");
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
             } else {
-                changeTxt.setText(" " + lastUpDown + "%");
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
             }
+            changeTxt.setText(" " + lastUpDown + "%");
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             if (getMainActivity().getBaseDao().getPriceColorOption() == 1) {
-                changeTxt.setText("+" + " " + lastUpDown + "%");
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
             } else {
-                changeTxt.setText("+" + " " + lastUpDown + "%");
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
             }
+            changeTxt.setText("+" + " " + lastUpDown + "%");
         } else {
             changeTxt.setText("");
         }

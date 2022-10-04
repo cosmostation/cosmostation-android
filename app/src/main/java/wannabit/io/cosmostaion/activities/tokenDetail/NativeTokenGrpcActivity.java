@@ -132,14 +132,20 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mNativeGrpcDenom));
         mItemUpDownPrice.setText(WDp.dpPriceChange(getBaseDao(), mNativeGrpcDenom));
         final BigDecimal lastUpDown = WDp.priceChange(getBaseDao(), mNativeGrpcDenom);
-        if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
-            mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
-        } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
-            mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageResource(R.drawable.ic_price_down);
-        } else {
-            mItemUpDownImg.setVisibility(View.INVISIBLE);
+        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
+            if (getBaseDao().getPriceColorOption() == 1) {
+                mItemUpDownPrice.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorVoteNo));
+            } else {
+                mItemUpDownPrice.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorVoteYes));
+            }
+            mItemUpDownPrice.setText("-" + " " + lastUpDown + "%");
+        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
+            if (getBaseDao().getPriceColorOption() == 1) {
+                mItemUpDownPrice.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorVoteYes));
+            } else {
+                mItemUpDownPrice.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorVoteNo));
+            }
+            mItemUpDownPrice.setText("+" + " " + lastUpDown + "%");
         }
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, mChainConfig.chainBgColor()));
@@ -204,7 +210,9 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         @Override
         public int getItemCount() {
-            if (mHasVesting) { return 2; }
+            if (mHasVesting) {
+                return 2;
+            }
             return 1;
         }
 

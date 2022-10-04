@@ -73,7 +73,6 @@ public class PriceColorChangeDialog extends DialogFragment {
         private void onBindSelectedOptionItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
             final priceColorChangeHolder holder = (priceColorChangeHolder) viewHolder;
             holder.optionNumber.setText(String.valueOf(position + 1));
-            getSActivity().getBaseDao().deletePriceColorOption();
             if (position == 0) {
                 holder.iconPriceColorUp.setImageResource(R.drawable.icon_pricegreen);
                 holder.iconPriceColorDown.setImageResource(R.drawable.icon_pricered);

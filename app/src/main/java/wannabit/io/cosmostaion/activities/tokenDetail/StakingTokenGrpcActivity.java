@@ -119,14 +119,20 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mMainDenom));
         mItemUpDownPrice.setText(WDp.dpPriceChange(getBaseDao(), mMainDenom));
         final BigDecimal lastUpDown = WDp.priceChange(getBaseDao(), mMainDenom);
-        if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
-            mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageResource(R.drawable.ic_price_up);
-        } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
-            mItemUpDownImg.setVisibility(View.VISIBLE);
-            mItemUpDownImg.setImageResource(R.drawable.ic_price_down);
-        } else {
-            mItemUpDownImg.setVisibility(View.INVISIBLE);
+        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
+            if (getBaseDao().getPriceColorOption() == 1) {
+                mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteNo));
+            } else {
+                mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteYes));
+            }
+            mItemUpDownPrice.setText("-" + " " + lastUpDown + "%");
+        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
+            if (getBaseDao().getPriceColorOption() == 1) {
+                mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteYes));
+            } else {
+                mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteNo));
+            }
+            mItemUpDownPrice.setText("+" + " " + lastUpDown + "%");
         }
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainBgColor()));

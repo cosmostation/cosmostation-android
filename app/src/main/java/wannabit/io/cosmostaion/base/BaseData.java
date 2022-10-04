@@ -703,10 +703,6 @@ public class BaseData {
         return getSharedPreferences().getInt(BaseConstant.PRE_PRICE_COLOR, 1);
     }
 
-    public void deletePriceColorOption() {
-        getSharedPreferences().edit().clear();
-    }
-
     public void setValSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();
     }
