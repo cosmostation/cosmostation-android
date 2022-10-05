@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.dialog;
 
+import static wannabit.io.cosmostaion.fragment.StepFeeSetFragment.SELECT_FEE_DENOM;
+import static wannabit.io.cosmostaion.fragment.txs.authz.AuthzSendStep1Fragment.SELECT_SEND_COIN;
+import static wannabit.io.cosmostaion.fragment.txs.common.SendStep0Fragment.SELECT_IBC_CHAIN;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,6 +44,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 
 public class SelectChainListDialog extends DialogFragment {
 
+    private int SELECT_INPUT_CHAIN_OSMOSIS, SELECT_OUTPUT_CHAIN_OSMOSIS, SELECT_INPUT_CHAIN_KAVA, SELECT_OUTPUT_CHAIN_KAVA, SELECT_INPUT_CHAIN_SIF, SELECT_OUTPUT_CHAIN_SIF;
     private OnSelectChainsDialogResult mSelectChainsDialogResult;
 
     private TextView mDialogTitle;
@@ -72,21 +77,28 @@ public class SelectChainListDialog extends DialogFragment {
         mWatchAddress = getArguments().getString("watchAddress");
         mToSendableChainConfig = (ArrayList<ChainConfig>) getArguments().getSerializable("toSendCoins");
 
+        SELECT_INPUT_CHAIN_OSMOSIS = getArguments().getInt("selectInputOsmosis");
+        SELECT_OUTPUT_CHAIN_OSMOSIS = getArguments().getInt("selectOutputOsmosis");
+        SELECT_INPUT_CHAIN_KAVA = getArguments().getInt("selectIutputKava");
+        SELECT_OUTPUT_CHAIN_KAVA = getArguments().getInt("selectOutputKava");
+        SELECT_INPUT_CHAIN_SIF = getArguments().getInt("selectOutputSif");
+        SELECT_OUTPUT_CHAIN_SIF = getArguments().getInt("selectOutputSif");
+
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mBtnLayer = view.findViewById(R.id.btn_layer);
         mBtnLeft = view.findViewById(R.id.btn_left);
         mBtnRight = view.findViewById(R.id.btn_right);
 
-        if (getTargetRequestCode() == 8500) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in));
-        } else if (getTargetRequestCode() == 8501) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out));
-        } else if (getTargetRequestCode() == 8502) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_fee_denom));
-        } else if (getTargetRequestCode() == 8503) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_to_send_coin));
-        } else if (getTargetRequestCode() == 8504) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_to_send_chain));
+        if (SELECT_INPUT_CHAIN_OSMOSIS == 8500 || SELECT_INPUT_CHAIN_KAVA == 8500 || SELECT_INPUT_CHAIN_SIF == 8500) {
+            mDialogTitle.setText(R.string.str_select_coin_swap_in);
+        } else if (SELECT_OUTPUT_CHAIN_OSMOSIS == 8501 || SELECT_OUTPUT_CHAIN_KAVA == 8501 || SELECT_OUTPUT_CHAIN_SIF == 8501) {
+            mDialogTitle.setText(R.string.str_select_coin_swap_out);
+        } else if (SELECT_FEE_DENOM == 8502) {
+            mDialogTitle.setText(R.string.str_select_fee_denom);
+        } else if (SELECT_SEND_COIN == 8503) {
+            mDialogTitle.setText(R.string.str_select_to_send_coin);
+        } else if (SELECT_IBC_CHAIN == 8504) {
+            mDialogTitle.setText(R.string.str_select_to_send_chain);
         } else {
             mDialogTitle.setText(getSActivity().getString(R.string.str_select_chains));
             mBtnLayer.setVisibility(View.VISIBLE);
@@ -148,10 +160,10 @@ public class SelectChainListDialog extends DialogFragment {
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.coinName);
 
             holder.rootLayer.setOnClickListener(v -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("selectedDenom", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt("position", position);
+                getParentFragmentManager().setFragmentResult("swapList", result);
+                dismiss();
             });
         }
 
@@ -237,21 +249,23 @@ public class SelectChainListDialog extends DialogFragment {
 
         @Override
         public int getItemCount() {
-            if (getTargetRequestCode() == 8500 || getTargetRequestCode() == 8501)
+            if (SELECT_INPUT_CHAIN_OSMOSIS == 8500 || SELECT_INPUT_CHAIN_KAVA == 8500 || SELECT_INPUT_CHAIN_SIF == 8500 ||
+                    SELECT_OUTPUT_CHAIN_OSMOSIS == 8501 || SELECT_OUTPUT_CHAIN_KAVA == 8501 || SELECT_OUTPUT_CHAIN_SIF == 8501)
                 return mSwapCoinList.size();
-            else if (getTargetRequestCode() == 8502) return mFeeDataList.size();
-            else if (getTargetRequestCode() == 8503) return mSendCoinList.size();
-            else if (getTargetRequestCode() == 8504) return mToSendableChainConfig.size();
+            else if (SELECT_FEE_DENOM == 8502) return mFeeDataList.size();
+            else if (SELECT_SEND_COIN == 8503) return mSendCoinList.size();
+            else if (SELECT_IBC_CHAIN == 8504) return mToSendableChainConfig.size();
             else return WDp.getChainsFromAddress(mWatchAddress).size();
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (getTargetRequestCode() == 8500 || getTargetRequestCode() == 8501)
+            if (SELECT_INPUT_CHAIN_OSMOSIS == 8500 || SELECT_INPUT_CHAIN_KAVA == 8500 || SELECT_INPUT_CHAIN_SIF == 8500 ||
+                    SELECT_OUTPUT_CHAIN_OSMOSIS == 8501 || SELECT_OUTPUT_CHAIN_KAVA == 8501 || SELECT_OUTPUT_CHAIN_SIF == 8501)
                 return TYPE_SWAP_LIST;
-            else if (getTargetRequestCode() == 8502) return TYPE_FEE_LIST;
-            else if (getTargetRequestCode() == 8503) return TYPE_SEND_COIN_LIST;
-            else if (getTargetRequestCode() == 8504) return TYPE_SEND_CHAIN_LIST;
+            else if (SELECT_FEE_DENOM == 8502) return TYPE_FEE_LIST;
+            else if (SELECT_SEND_COIN == 8503) return TYPE_SEND_COIN_LIST;
+            else if (SELECT_IBC_CHAIN == 8504) return TYPE_SEND_CHAIN_LIST;
             else return TYPE_WATCHING_ADDRESS_LIST;
         }
 

@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.sif;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +26,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SifDexSwapFragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_INPUT_CHAIN = 8500;
-    public final static int SELECT_OUTPUT_CHAIN = 8501;
-
     private RelativeLayout mBtnInputCoinList, mBtnOutputCoinList;
     private ImageView mInputImg;
     private TextView mInputCoin, mInputAmount;
@@ -154,11 +149,27 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList("denoms", mAllDenoms);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
-            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+            Bundle bundleData = new Bundle();
+            bundleData.putStringArrayList("denoms", mAllDenoms);
+            bundleData.putInt("selectInputSif", 8500);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), "dialog");
+            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
+                int result = bundle.getInt("position");
+                mInputCoinDenom = mAllDenoms.get(result);
+                if (mInputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
+                    mSelectedPool = mPoolList.get(0);
+                    mOutputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
+                } else {
+                    for (Types.Pool pool : mPoolList) {
+                        if (pool.getExternalAsset().getSymbol().equals(mInputCoinDenom)) {
+                            mSelectedPool = pool;
+                            mOutputCoinDenom = getSActivity().mChainConfig.mainDenom();
+                        }
+                    }
+                }
+                onUpdateView();
+            });
 
         } else if (v.equals(mBtnOutputCoinList) && !getSActivity().isFinishing()) {
             mSwapableDenoms.clear();
@@ -167,11 +178,26 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
             } else {
                 mSwapableDenoms.add(getSActivity().mChainConfig.mainDenom());
             }
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList("denoms", mSwapableDenoms);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
-            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+            Bundle bundleData = new Bundle();
+            bundleData.putStringArrayList("denoms", mSwapableDenoms);
+            bundleData.putInt("selectOutputSif", 8501);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), "dialog");
+            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
+                int result = bundle.getInt("position");
+                mOutputCoinDenom = mSwapableDenoms.get(result);
+                if (mOutputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
+                    mSelectedPool = mPoolList.get(0);
+                    mInputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
+                } else {
+                    for (Types.Pool pool : mPoolList) {
+                        if (pool.getExternalAsset().getSymbol().equals(mOutputCoinDenom)) {
+                            mSelectedPool = pool;
+                        }
+                    }
+                }
+                onUpdateView();
+            });
 
         } else if (v.equals(mBtnToggle)) {
             String temp = mInputCoinDenom;
@@ -181,39 +207,6 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
 
         } else if (v.equals(mBtnSwapStart)) {
             getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
-            mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            if (mInputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
-                mSelectedPool = mPoolList.get(0);
-                mOutputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
-            } else {
-                for (Types.Pool pool : mPoolList) {
-                    if (pool.getExternalAsset().getSymbol().equals(mInputCoinDenom)) {
-                        mSelectedPool = pool;
-                        mOutputCoinDenom = getSActivity().mChainConfig.mainDenom();
-                    }
-                }
-            }
-            onUpdateView();
-
-        } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
-            mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            if (mOutputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
-                mSelectedPool = mPoolList.get(0);
-                mInputCoinDenom = mSelectedPool.getExternalAsset().getSymbol();
-            } else {
-                for (Types.Pool pool : mPoolList) {
-                    if (pool.getExternalAsset().getSymbol().equals(mOutputCoinDenom)) {
-                        mSelectedPool = pool;
-                    }
-                }
-            }
-            onUpdateView();
         }
     }
 

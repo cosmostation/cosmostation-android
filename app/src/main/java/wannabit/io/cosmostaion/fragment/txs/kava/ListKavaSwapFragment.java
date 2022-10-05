@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +27,6 @@ import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class ListKavaSwapFragment extends BaseFragment implements View.OnClickListener {
-
-    public final static int SELECT_INPUT_CHAIN = 8500;
-    public final static int SELECT_OUTPUT_CHAIN = 8501;
-
     private RelativeLayout mBtnInputCoinList, mBtnOutputCoinList;
     private ImageView mInputImg;
     private TextView mInputCoin, mInputAmount;
@@ -182,12 +176,31 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnInputCoinList)  && !getSActivity().isFinishing()) {
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList("denoms", mAllDenoms);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
-            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+        if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
+            Bundle bundleData = new Bundle();
+            bundleData.putStringArrayList("denoms", mAllDenoms);
+            bundleData.putInt("selectInputKava", 8500);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), "dialog");
+            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
+                int result = bundle.getInt("position");
+                mInputCoinDenom = mAllDenoms.get(result);
+                loop:
+                for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
+                    for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
+                        if (coin.getDenom().equalsIgnoreCase(mInputCoinDenom)) {
+                            mSelectedPool = pool;
+                            break loop;
+                        }
+                    }
+                }
+                if (mSelectedPool.getCoins(0).getDenom().equalsIgnoreCase(mInputCoinDenom)) {
+                    mOutputCoinDenom = mSelectedPool.getCoins(1).getDenom();
+                } else {
+                    mOutputCoinDenom = mSelectedPool.getCoins(0).getDenom();
+                }
+                onUpdateView();
+            });
 
         } else if (v.equals(mBtnOutputCoinList) && !getSActivity().isFinishing()) {
             mSwapablePools.clear();
@@ -208,12 +221,25 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
                 }
             }
 
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList("denoms", mSwapableDenoms);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setCancelable(true);
-            dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
-            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+            Bundle bundleData = new Bundle();
+            bundleData.putStringArrayList("denoms", mSwapableDenoms);
+            bundleData.putInt("selectOutputKava", 8501);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), "dialog");
+            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
+                int result = bundle.getInt("position");
+                mOutputCoinDenom = mSwapableDenoms.get(result);
+                loop:
+                for (QueryOuterClass.PoolResponse pool : mSwapablePools) {
+                    for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
+                        if (coin.getDenom().equalsIgnoreCase(mOutputCoinDenom)) {
+                            mSelectedPool = pool;
+                            break loop;
+                        }
+                    }
+                }
+                onUpdateView();
+            });
 
         } else if (v.equals(mBtnToggle)) {
             String temp = mInputCoinDenom;
@@ -223,42 +249,6 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
         } else if (v.equals(mBtnSwapStart)) {
             getSActivity().onCheckStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
-            mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop:
-            for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
-                for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
-                    if (coin.getDenom().equalsIgnoreCase(mInputCoinDenom)) {
-                        mSelectedPool = pool;
-                        break loop;
-                    }
-                }
-            }
-            if (mSelectedPool.getCoins(0).getDenom().equalsIgnoreCase(mInputCoinDenom)) {
-                mOutputCoinDenom = mSelectedPool.getCoins(1).getDenom();
-            } else {
-                mOutputCoinDenom = mSelectedPool.getCoins(0).getDenom();
-            }
-            onUpdateView();
-
-        } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
-            mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
-            loop:
-            for (QueryOuterClass.PoolResponse pool : mSwapablePools) {
-                for (CoinOuterClass.Coin coin : pool.getCoinsList()) {
-                    if (coin.getDenom().equalsIgnoreCase(mOutputCoinDenom)) {
-                        mSelectedPool = pool;
-                        break loop;
-                    }
-                }
-            }
-            onUpdateView();
         }
     }
 
