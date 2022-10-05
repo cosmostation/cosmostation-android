@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -91,9 +89,9 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
             holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
             holder.rootLayer.setOnClickListener(v -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                Bundle result = new Bundle();
+                result.putInt("position", position);
+                getParentFragmentManager().setFragmentResult("ibcReceiveAccounts", result);
                 getDialog().dismiss();
             });
         }

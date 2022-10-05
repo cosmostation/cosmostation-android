@@ -37,7 +37,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.stub.StreamObserver;
@@ -62,20 +61,19 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_IBC_CHAIN = 8504;
-    public final static int SELECT_IBC_ACCOUNT = 9101;
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
-    private RelativeLayout  mToChainList;
-    private ImageView       mToChainImg;
-    private TextView        mToChainTxt;
-    private EditText        mAddressInput;
-    private Button          mCancel, mNextBtn;
-    private LinearLayout    mIbcLayer;
-    private LinearLayout    mBtnWallet, mBtnQr, mBtnPaste;
+    private RelativeLayout mToChainList;
+    private ImageView mToChainImg;
+    private TextView mToChainTxt;
+    private EditText mAddressInput;
+    private Button mCancel, mNextBtn;
+    private LinearLayout mIbcLayer;
+    private LinearLayout mBtnWallet, mBtnQr, mBtnPaste;
 
     private ArrayList<ChainConfig> mToSendableChains = new ArrayList<>();
     private ChainConfig mToSendChainConfig;
-    private ArrayList<Account>  mToAccountList;
+    private ArrayList<Account> mToAccountList;
     private Asset mAsset;
     private Cw20Asset mCw20Asset;
 
@@ -167,14 +165,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 if (alreadyOpen) {
                     mIbcLayer.setVisibility(View.GONE);
                 } else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) mIbcLayer.setVisibility(View.GONE);
-                            else mIbcLayer.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(() -> {
+                        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain))
+                            mIbcLayer.setVisibility(View.GONE);
+                        else mIbcLayer.setVisibility(View.VISIBLE);
 
-                        }
-                    },100);
+                    }, 100);
                 }
             }
         });
@@ -186,7 +182,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mToChainTxt.setText(mToSendChainConfig.chainTitleToUp());
         mToChainTxt.setTextColor(ContextCompat.getColor(getActivity(), mToSendChainConfig.chainColor()));
         mAddressInput.setText("");
-        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) mIbcLayer.setVisibility(View.GONE);
+        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain))
+            mIbcLayer.setVisibility(View.GONE);
         else mIbcLayer.setVisibility(View.VISIBLE);
     }
 
@@ -238,11 +235,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 return;
 
             } else {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("accounts", mToAccountList);
-                IBCReceiveAccountsDialog dialog = IBCReceiveAccountsDialog.newInstance(bundle);
-                dialog.setTargetFragment(this, SELECT_IBC_ACCOUNT);
-                dialog.show(getActivity().getSupportFragmentManager(), "dialog");
+                Bundle bundleData = new Bundle();
+                bundleData.putSerializable("accounts", mToAccountList);
+                IBCReceiveAccountsDialog dialog = IBCReceiveAccountsDialog.newInstance(bundleData);
+                dialog.show(getParentFragmentManager(), "dialog");
+                getParentFragmentManager().setFragmentResultListener("ibcReceiveAccounts", this, (requestKey, bundle) -> {
+                    int result = bundle.getInt("position");
+                    mAddressInput.setText(mToAccountList.get(result).address);
+                });
             }
 
         } else if (v.equals(mBtnQr)) {
@@ -308,9 +308,6 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
             onUpdateChainView();
 
-        } else if (requestCode == SELECT_IBC_ACCOUNT && resultCode == Activity.RESULT_OK) {
-            mAddressInput.setText(mToAccountList.get(data.getIntExtra("position", -1)).address);
-
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (result != null && result.getContents() != null) {
@@ -364,17 +361,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onSortToChain() {
-        mToSendableChains.sort(new Comparator<ChainConfig>() {
-            @Override
-            public int compare(ChainConfig o1, ChainConfig o2) {
-                if (o1.baseChain().equals(getSActivity().mBaseChain)) return -1;
-                if (o2.baseChain().equals(getSActivity().mBaseChain)) return 1;
-                if (o1.baseChain().equals(BaseChain.COSMOS_MAIN)) return -1;
-                if (o2.baseChain().equals(BaseChain.COSMOS_MAIN)) return 1;
-                if (o1.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return -1;
-                if (o2.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return 1;
-                return 0;
-            }
+        mToSendableChains.sort((o1, o2) -> {
+            if (o1.baseChain().equals(getSActivity().mBaseChain)) return -1;
+            if (o2.baseChain().equals(getSActivity().mBaseChain)) return 1;
+            if (o1.baseChain().equals(BaseChain.COSMOS_MAIN)) return -1;
+            if (o2.baseChain().equals(BaseChain.COSMOS_MAIN)) return 1;
+            if (o1.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return -1;
+            if (o2.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return 1;
+            return 0;
         });
     }
 }
