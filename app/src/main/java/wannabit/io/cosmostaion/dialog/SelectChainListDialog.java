@@ -240,10 +240,10 @@ public class SelectChainListDialog extends DialogFragment {
             holder.itemChainName.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
 
             holder.rootLayer.setOnClickListener(view -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt("position", position);
+                getParentFragmentManager().setFragmentResult("recipientChainList", result);
+                dismiss();
             });
         }
 

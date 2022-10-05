@@ -216,7 +216,7 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
             bundleData.putSerializable("sendCoins", mGrantAvailbale);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
             dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
+            getParentFragmentManager().setFragmentResultListener("sendList", this, (requestKey, bundle) -> {
                 int result = bundle.getInt("position");
                 mSelectedCoin = mGrantAvailbale.get(result);
                 mAmountInput.setText("");

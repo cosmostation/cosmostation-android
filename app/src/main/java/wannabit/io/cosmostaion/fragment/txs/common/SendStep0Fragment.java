@@ -6,7 +6,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -189,13 +188,16 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.equals(mToChainList)) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("toSendCoins", mToSendableChains);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setCancelable(true);
-            dialog.setTargetFragment(this, SELECT_IBC_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            Bundle bundleData = new Bundle();
+            bundleData.putSerializable("toSendCoins", mToSendableChains);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), "dialog");
+            getParentFragmentManager().setFragmentResultListener("recipientChainList", this, (requestKey, bundle) -> {
+                int result = bundle.getInt("position");
+                mToSendChainConfig = mToSendableChains.get(result);
+                mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
+                onUpdateChainView();
+            });
             getSActivity().onHideKeyboard();
 
         } else if (v.equals(mNextBtn)) {
@@ -298,19 +300,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_IBC_CHAIN && resultCode == Activity.RESULT_OK) {
-            mToSendChainConfig = mToSendableChains.get(data.getIntExtra("position", -1));
-            mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
-            onUpdateChainView();
-
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null && result.getContents() != null) {
+            mAddressInput.setText(result.getContents().trim());
+            mAddressInput.setSelection(mAddressInput.getText().length());
         } else {
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (result != null && result.getContents() != null) {
-                mAddressInput.setText(result.getContents().trim());
-                mAddressInput.setSelection(mAddressInput.getText().length());
-            } else {
-                super.onActivityResult(requestCode, resultCode, data);
-            }
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
