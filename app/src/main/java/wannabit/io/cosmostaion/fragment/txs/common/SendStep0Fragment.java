@@ -178,7 +178,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     private void onUpdateChainView() {
         mToChainImg.setImageResource(mToSendChainConfig.chainImg());
         mToChainTxt.setText(mToSendChainConfig.chainTitleToUp());
-        mToChainTxt.setTextColor(ContextCompat.getColor(getActivity(), mToSendChainConfig.chainColor()));
+        mToChainTxt.setTextColor(ContextCompat.getColor(getSActivity(), mToSendChainConfig.chainColor()));
         mAddressInput.setText("");
         if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain))
             mIbcLayer.setVisibility(View.GONE);
@@ -190,6 +190,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         if (v.equals(mToChainList)) {
             Bundle bundleData = new Bundle();
             bundleData.putSerializable("toSendCoins", mToSendableChains);
+            bundleData.putInt("selectIbcChain", 8504);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
             dialog.show(getParentFragmentManager(), "dialog");
             getParentFragmentManager().setFragmentResultListener("recipientChainList", this, (requestKey, bundle) -> {
@@ -215,7 +216,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             if (WDp.isValidChainAddress(mToSendChainConfig, userInput)) {
                 if (!isExchangeAddress(userInput)) {
-                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>"),
+                    CommonAlertDialog.showSingleButton(getSActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>"),
                             getString(R.string.error_exchange_address_msg), getString(R.string.str_confirm), null, false);
                     return;
                 }

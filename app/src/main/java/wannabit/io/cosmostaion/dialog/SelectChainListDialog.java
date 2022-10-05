@@ -1,11 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import static wannabit.io.cosmostaion.fragment.StepFeeSetFragment.SELECT_FEE_DENOM;
-import static wannabit.io.cosmostaion.fragment.txs.authz.AuthzSendStep1Fragment.SELECT_SEND_COIN;
-import static wannabit.io.cosmostaion.fragment.txs.common.SendStep0Fragment.SELECT_IBC_CHAIN;
-
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +38,8 @@ import wannabit.io.cosmostaion.utils.WKey;
 
 public class SelectChainListDialog extends DialogFragment {
 
-    private int SELECT_INPUT_CHAIN_OSMOSIS, SELECT_OUTPUT_CHAIN_OSMOSIS, SELECT_INPUT_CHAIN_KAVA, SELECT_OUTPUT_CHAIN_KAVA, SELECT_INPUT_CHAIN_SIF, SELECT_OUTPUT_CHAIN_SIF;
+    private int SELECT_INPUT_CHAIN_OSMOSIS, SELECT_OUTPUT_CHAIN_OSMOSIS, SELECT_INPUT_CHAIN_KAVA, SELECT_OUTPUT_CHAIN_KAVA, SELECT_INPUT_CHAIN_SIF, SELECT_OUTPUT_CHAIN_SIF,
+            SELECT_IBC_CHAIN, SELECT_FEE_DENOM, SELECT_SEND_COIN;
     private OnSelectChainsDialogResult mSelectChainsDialogResult;
 
     private TextView mDialogTitle;
@@ -83,6 +78,9 @@ public class SelectChainListDialog extends DialogFragment {
         SELECT_OUTPUT_CHAIN_KAVA = getArguments().getInt("selectOutputKava");
         SELECT_INPUT_CHAIN_SIF = getArguments().getInt("selectInputSif");
         SELECT_OUTPUT_CHAIN_SIF = getArguments().getInt("selectOutputSif");
+        SELECT_FEE_DENOM = getArguments().getInt("selectFeeDenom");
+        SELECT_SEND_COIN = getArguments().getInt("selectSendCoin");
+        SELECT_IBC_CHAIN = getArguments().getInt("selectIbcChain");
 
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mBtnLayer = view.findViewById(R.id.btn_layer);
@@ -237,7 +235,7 @@ public class SelectChainListDialog extends DialogFragment {
             final ChainConfig chainConfig = mToSendableChainConfig.get(position);
             holder.itemChainImg.setImageResource(chainConfig.chainImg());
             holder.itemChainName.setText(chainConfig.chainTitleToUp());
-            holder.itemChainName.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
+            holder.itemChainName.setTextColor(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()));
 
             holder.rootLayer.setOnClickListener(view -> {
                 Bundle result = new Bundle();

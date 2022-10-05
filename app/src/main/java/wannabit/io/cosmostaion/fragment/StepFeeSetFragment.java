@@ -272,6 +272,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         if (v.equals(mBtnSelectFeeCoin) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
             bundleData.putSerializable("feeDatas", mFeeInfo.get(mSelectedFeeInfo).feeDatas);
+            bundleData.putInt("selectFeeDenom", 8502);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
             dialog.show(getParentFragmentManager(), "dialog");
             getParentFragmentManager().setFragmentResultListener("feeList", this, (requestKey, bundle) -> {
