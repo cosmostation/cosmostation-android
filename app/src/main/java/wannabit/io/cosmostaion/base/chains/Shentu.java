@@ -4,10 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import com.google.common.collect.Lists;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -42,8 +39,4 @@ public class Shentu extends ChainConfig {
     public String homeInfoLink() { return  "https://www.certik.foundation"; }
     public String blogInfoLink() { return  "https://medium.com/shentu-foundation"; }
     public String coingeckoLink() { return  COINGECKO_URL + "shentu"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.05uctk");
-    }
 }

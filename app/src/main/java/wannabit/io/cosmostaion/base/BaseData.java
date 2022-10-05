@@ -78,6 +78,7 @@ import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
+import wannabit.io.cosmostaion.network.res.ResGasRateParam;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTickersList;
@@ -120,6 +121,7 @@ public class BaseData {
     public ArrayList<Asset> mAssets = new ArrayList<>();
     public ArrayList<Cw20Asset> mCw20Assets = new ArrayList<>();
     public ArrayList<Cw20Asset> mCw20MyAssets = new ArrayList<>();
+    public ArrayList<ResGasRateParam> mGasRateParams = new ArrayList<>();
 
     public Price getPrice(String denom) {
         Optional<Price> prices = mPrices.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
@@ -143,6 +145,17 @@ public class BaseData {
             for (Cw20Asset asset : mCw20MyAssets) {
                 if (asset.denom.equalsIgnoreCase(denom)) {
                     return asset;
+                }
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<String> getGasRate(ChainConfig chainConfig) {
+        if (mGasRateParams != null && mGasRateParams.size() > 0) {
+            for (ResGasRateParam param : mGasRateParams) {
+                if (param != null && param.chain.equalsIgnoreCase(chainConfig.chainName())) {
+                    return param.rates;
                 }
             }
         }
@@ -693,6 +706,14 @@ public class BaseData {
             return currentExpire + mGrpcStarNameConfig.getAccountRenewalPeriod().getSeconds() * 1000;
         }
         return 0;
+    }
+
+    public void setPriceColorOption(int sort) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_PRICE_COLOR, sort).apply();
+    }
+
+    public int getPriceColorOption() {
+        return getSharedPreferences().getInt(BaseConstant.PRE_PRICE_COLOR, 1);
     }
 
     public void setValSorting(int sort) {

@@ -4,10 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import com.google.common.collect.Lists;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -44,10 +41,4 @@ public class Juno extends ChainConfig{
     public String homeInfoLink() { return  "https://junochain.com"; }
     public String blogInfoLink() { return  "https://medium.com/@JunoNetwork"; }
     public String coingeckoLink() { return  COINGECKO_URL + "juno-network"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.0025ujuno", "0.005ujuno", "0.025ujuno");
-    }
-
-    public int gasDefault() { return 1; }
 }

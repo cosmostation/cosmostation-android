@@ -395,6 +395,74 @@
                 </RelativeLayout>
             </FrameLayout>
 
+            <FrameLayout
+                android:id="@+id/card_price_color_change"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:layout_marginTop="@dimen/space_6"
+                android:background="@drawable/box_trans_round"
+                android:clickable="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/font_rr_12_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:text="@string/str_price_color_change" />
+
+                    <ImageView
+                        android:id="@+id/arrow_price_color_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_next_gr" />
+
+                    <TextView
+                        android:id="@+id/price_color_up_text"
+                        style="@style/font_rr_12_gray1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:layout_toLeftOf="@+id/icon_price_color_up"
+                        android:text="@string/str_up" />
+
+                    <ImageView
+                        android:id="@+id/icon_price_color_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_10"
+                        android:layout_toLeftOf="@+id/price_color_down_text"
+                        tools:src="@drawable/icon_pricegreen" />
+
+                    <TextView
+                        android:id="@+id/price_color_down_text"
+                        style="@style/font_rr_12_gray1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:layout_toLeftOf="@+id/icon_price_color_down"
+                        android:text="@string/str_down" />
+
+                    <ImageView
+                        android:id="@+id/icon_price_color_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:layout_toLeftOf="@+id/arrow_price_color_change"
+                        tools:src="@drawable/icon_pricered" />
+                </RelativeLayout>
+            </FrameLayout>
+
             <TextView
                 style="@style/font_rr_11_gray1"
                 android:layout_width="wrap_content"

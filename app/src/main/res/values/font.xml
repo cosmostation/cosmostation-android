@@ -873,6 +873,12 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_rm_14_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
 
     <style name="font_ss_15_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
@@ -906,6 +912,12 @@
 
     <style name="font_ssm_15_black_daynight" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+    </style>
+
+    <style name="font_rm_15_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_15</item>
     </style>
@@ -1012,6 +1024,12 @@
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>
         <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
+    <style name="font_rm_18_black_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/colorBlackDayNight</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
     </style>
 
 

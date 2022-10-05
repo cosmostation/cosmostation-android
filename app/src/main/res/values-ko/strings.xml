@@ -157,6 +157,10 @@
     <string name="str_app_auto_pass_30m">30분</string>
     <string name="str_app_auto_pass_never">사용 안함 (추천)</string>
     <string name="str_currency">통화</string>
+    <string name="str_price_color_change">가격 변동 색상</string>
+    <string name="str_price_color_option_title">가격 변동 색상을 선택해주세요</string>
+    <string name="str_up">상승:</string>
+    <string name="str_down">하락:</string>
     <string name="str_base_price">가격 정보 출처</string>
     <string name="str_support">지원</string>
     <string name="str_faq">도움말</string>

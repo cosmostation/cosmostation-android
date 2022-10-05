@@ -92,6 +92,7 @@ import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.network.res.ResGasRateParam;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimCommissionGrpcTask;
@@ -204,7 +205,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mFeeInfo = WDp.getFeeInfos(getActivity(), mChainConfig);
+        mFeeInfo = WDp.getFeeInfos(getActivity(), getBaseDao(), mChainConfig);
 
         mFeeTotalCard.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mChainConfig.mainDenom(), mFeeCoinImg);
@@ -221,7 +222,13 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             btnTxt.setText(mFeeInfo.get(i).title);
         }
 
-        mSelectedFeeInfo = mChainConfig.gasDefault();
+        if (getBaseDao().mGasRateParams != null && getBaseDao().mGasRateParams.size() > 0) {
+            for (ResGasRateParam param : getBaseDao().mGasRateParams) {
+                if (param != null && param.chain.equalsIgnoreCase(mChainConfig.chainName())) {
+                    mSelectedFeeInfo = param.base;
+                }
+            }
+        }
         mButtonGroup.setPosition(mSelectedFeeInfo, false);
         mButtonGroup.setOnPositionChangedListener(new SegmentedButtonGroup.OnPositionChangedListener() {
             @Override

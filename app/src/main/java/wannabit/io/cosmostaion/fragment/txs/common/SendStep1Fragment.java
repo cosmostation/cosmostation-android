@@ -98,7 +98,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mMaxAvailable = mCw20Asset.getAmount();
             } else {
                 if (toSendDenom.equals(mainDenom)) {
-                    mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
+                    mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
                 } else {
                     mMaxAvailable = getBaseDao().getAvailable(toSendDenom);
                 }
@@ -108,7 +108,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         } else {
             mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             if (toSendDenom.equals(mainDenom)) {
-                mMaxAvailable = getBaseDao().availableAmount(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
+                mMaxAvailable = getBaseDao().availableAmount(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
             } else {
                 mMaxAvailable = getBaseDao().availableAmount(toSendDenom);
             }

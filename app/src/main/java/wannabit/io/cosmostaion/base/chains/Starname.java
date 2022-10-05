@@ -1,14 +1,14 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -44,10 +44,6 @@ public class Starname extends ChainConfig {
     public String homeInfoLink() { return  "https://www.starname.me"; }
     public String blogInfoLink() { return  "https://medium.com/iov-internet-of-values"; }
     public String coingeckoLink() { return  COINGECKO_URL + "starname"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.1uiov", "1.0uiov");
-    }
 
     public String defaultPath() { return "m/44'/234'/0'/0/X"; }
 

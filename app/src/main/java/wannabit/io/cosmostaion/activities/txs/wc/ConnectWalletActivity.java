@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.JsResult;
@@ -24,13 +25,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 
 import com.google.android.gms.common.util.CollectionUtils;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 import com.trustwallet.walletconnect.WCClient;
 import com.trustwallet.walletconnect.models.WCAccount;
@@ -68,6 +72,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import cosmos.tx.v1beta1.TxOuterClass;
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
@@ -84,6 +89,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data;
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos;
 import wannabit.io.cosmostaion.model.StdSignMsg;
+import wannabit.io.cosmostaion.model.WcSignDirectModel;
 import wannabit.io.cosmostaion.model.WcSignModel;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
@@ -97,6 +103,7 @@ public class ConnectWalletActivity extends BaseActivity {
     public final static int TYPE_COSMOS_WALLET = 2;
     public final static int TYPE_ETH_SIGN_MESSAGE = 3;
     public final static int TYPE_ETH_SIGN_TRANSACTION = 4;
+    public final static int TYPE_COSMOS_SIGN_DIRECT = 5;
 
     public static final String WC_URL_SCHEME_HOST_WC = "wc";
     public static final String WC_URL_SCHEME_HOST_DAPP = "dapp";
@@ -112,6 +119,7 @@ public class ConnectWalletActivity extends BaseActivity {
     private WebView mWebView;
     private TextView mTitleText, mConnectText, mDappUrl, mWcName, mWcUrl, mWcAccount;
     private ImageView mConnectImage, mDappClose, mWcImg;
+    private AppBarLayout appBarLayout;
 
     private String mWcURL;
     private WCClient wcClient;
@@ -122,6 +130,7 @@ public class ConnectWalletActivity extends BaseActivity {
     private WCEthereumTransaction mWcEthereumTransaction;
     private WCEthereumSignMessage mSignMessage;
     private final Map<String, Account> chainAccountMap = Maps.newHashMap();
+    private Boolean isHideToolbar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,6 +266,7 @@ public class ConnectWalletActivity extends BaseActivity {
         mWcUrl = findViewById(R.id.wc_url);
         mWcAccount = findViewById(R.id.wc_address);
         mDappUrl = findViewById(R.id.wc_peer);
+        appBarLayout = findViewById(R.id.app_bar_layout);
         mConnectImage = findViewById(R.id.wc_light);
         mDappLayout = findViewById(R.id.dapp_layout);
         mConnectText = findViewById(R.id.wc_state);
@@ -274,6 +284,18 @@ public class ConnectWalletActivity extends BaseActivity {
     private void initWebView() {
         mWebView = findViewById(R.id.wc_webview);
         WebStorage.getInstance().deleteAllData();
+        if (BuildConfig.DEBUG) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
+        mWebView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (oldScrollY > scrollY && Math.abs(scrollY - oldScrollY) > 5 && isHideToolbar) {
+                isHideToolbar = false;
+                appBarLayout.setExpanded(true, true);
+            } else if (oldScrollY < scrollY && Math.abs(scrollY - oldScrollY) > 5 && !isHideToolbar) {
+                isHideToolbar = true;
+                appBarLayout.setExpanded(false, true);
+            }
+        });
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + " Cosmostation/APP/Android/" + BuildConfig.VERSION_NAME);
         mWebView.getSettings().setDomStorageEnabled(true);
@@ -441,7 +463,11 @@ public class ConnectWalletActivity extends BaseActivity {
             return null;
         });
         wcClient.setOnCosmosSignDirect((id, jsonArray) -> {
-            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
+            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_SIGN_DIRECT, id, jsonArray.toString())));
+            return null;
+        });
+        wcClient.setOnCosmostationSignDirectTx((id, jsonArray) -> {
+            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_SIGN_DIRECT, id, jsonArray.toString())));
             return null;
         });
     }
@@ -554,6 +580,27 @@ public class ConnectWalletActivity extends BaseActivity {
         wcClient.approveRequest(id, Lists.newArrayList(signModel));
         Toast.makeText(getBaseContext(), getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT).show();
         moveToBackIfNeed();
+    }
+
+    public void approveCosmosSignDirectRequest(long id, String transaction) {
+        try {
+            JsonArray transactionJson = new Gson().fromJson(transaction, JsonArray.class);
+            JsonObject jsonObject = transactionJson.get(1).getAsJsonObject();
+            String chainId = jsonObject.get("chainId").getAsString();
+            TxOuterClass.TxBody txBody = TxOuterClass.TxBody.parseFrom(Base64.decode(jsonObject.get("bodyBytes").getAsString(), Base64.DEFAULT));
+            TxOuterClass.AuthInfo authInfo = TxOuterClass.AuthInfo.parseFrom(Base64.decode(jsonObject.get("authInfoBytes").getAsString(), Base64.DEFAULT));
+            long accountNumber = jsonObject.get("accountNumber").getAsLong();
+            TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build();
+            ECKey key = getKey(WDp.getChainTypeByChainId(chainId).getChain());
+            WcSignDirectModel signModel = new WcSignDirectModel(signDoc.toByteArray(), jsonObject, key);
+            wcClient.approveRequest(id, signModel);
+            Toast.makeText(getBaseContext(), getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT).show();
+            moveToBackIfNeed();
+        } catch (Exception e) {
+            wcClient.rejectRequest(id, "Signing error.");
+            Toast.makeText(getBaseContext(), getString(R.string.str_unknown_error), Toast.LENGTH_SHORT).show();
+            moveToBackIfNeed();
+        }
     }
 
     @Override
@@ -746,6 +793,8 @@ public class ConnectWalletActivity extends BaseActivity {
                         approveTrustRequest(id, transaction);
                     } else if (type == ConnectWalletActivity.TYPE_COSMOS_WALLET) {
                         approveCosmosRequest(id, transaction);
+                    } else if (type == ConnectWalletActivity.TYPE_COSMOS_SIGN_DIRECT) {
+                        approveCosmosSignDirectRequest(id, transaction);
                     }
                 }
 

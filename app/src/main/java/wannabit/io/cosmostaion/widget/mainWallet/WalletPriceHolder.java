@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -32,7 +33,6 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 public class WalletPriceHolder extends BaseHolder {
     private CardView        itemRoot;
     private TextView        itemPerPrice, itemUpDownPrice;
-    private ImageView       itemUpDownImg;
     private LinearLayout    itemBuyLayer;
     private RelativeLayout  itemBuyCoinBtn;
     private TextView        itemBuyCoinTv;
@@ -42,7 +42,6 @@ public class WalletPriceHolder extends BaseHolder {
         itemRoot            = itemView.findViewById(R.id.card_root);
         itemPerPrice        = itemView.findViewById(R.id.per_price);
         itemUpDownPrice     = itemView.findViewById(R.id.dash_price_updown_tx);
-        itemUpDownImg       = itemView.findViewById(R.id.ic_price_updown);
         itemBuyLayer        = itemView.findViewById(R.id.buy_layer);
         itemBuyCoinBtn      = itemView.findViewById(R.id.btn_buy_coin);
         itemBuyCoinTv       = itemView.findViewById(R.id.tv_buy_coin);
@@ -56,14 +55,20 @@ public class WalletPriceHolder extends BaseHolder {
         itemPerPrice.setText(WDp.dpPrice(data, denom));
         itemUpDownPrice.setText(WDp.dpPriceChange(data, denom));
         final BigDecimal lastUpDown = WDp.priceChange(data, denom);
-        if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
-            itemUpDownImg.setVisibility(View.VISIBLE);
-            itemUpDownImg.setImageDrawable(ContextCompat.getDrawable(mainActivity, R.drawable.ic_price_up));
-        } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
-            itemUpDownImg.setVisibility(View.VISIBLE);
-            itemUpDownImg.setImageDrawable(ContextCompat.getDrawable(mainActivity,R.drawable.ic_price_down));
-        } else {
-            itemUpDownImg.setVisibility(View.INVISIBLE);
+        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
+            if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
+                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteNo));
+            } else {
+                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
+            }
+            itemUpDownPrice.setText(lastUpDown + "%");
+        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
+            if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
+                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
+            } else {
+                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteNo));
+            }
+            itemUpDownPrice.setText("+" + " " + lastUpDown + "%");
         }
 
         if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
