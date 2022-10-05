@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +25,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 
 public class SelectCWTokenDialog extends BottomSheetDialogFragment implements View.OnClickListener {
 
@@ -55,7 +54,7 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
 
         mAccount = getSActivity().getBaseDao().onSelectAccount(getSActivity().getBaseDao().getLastUser());
 
-        if (getTargetRequestCode() == 10) {
+        if (MainTokensFragment.SECITON_CONTRACT_EDIT == 10) {
             mDialogTitle.setText(getString(R.string.str_select_contract_token));
             for (Cw20Asset asset : getSActivity().getBaseDao().mCw20Assets) {
                 if (!asset.default_show) {
@@ -82,7 +81,7 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
 
         } else if (v.equals(mBtnConfirm)) {
             getSActivity().getBaseDao().setUserFavoTokens(mAccount.address, checkedContractSet);
-            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, new Intent());
+            getParentFragmentManager().setFragmentResult("selectCWToken", new Bundle());
             dismiss();
         }
     }
