@@ -154,7 +154,7 @@ public class BaseData {
     public ArrayList<String> getGasRate(ChainConfig chainConfig) {
         if (mGasRateParams != null && mGasRateParams.size() > 0) {
             for (ResGasRateParam param : mGasRateParams) {
-                if (param.chain.equalsIgnoreCase(chainConfig.chainName())) {
+                if (param != null && param.chain.equalsIgnoreCase(chainConfig.chainName())) {
                     return param.rates;
                 }
             }
