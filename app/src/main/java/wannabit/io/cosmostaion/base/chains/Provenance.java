@@ -1,14 +1,14 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -45,10 +45,6 @@ public class Provenance extends ChainConfig {
     public String homeInfoLink() { return  "https://www.provenance.io"; }
     public String blogInfoLink() { return  "https://www.provenance.io/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "provenance-blockchain"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("2000nhash");
-    }
 
     public String defaultPath() { return "m/44'/505'/0'/0/X"; }
 

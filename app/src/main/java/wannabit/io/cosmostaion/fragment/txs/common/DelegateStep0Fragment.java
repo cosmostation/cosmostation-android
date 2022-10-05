@@ -84,7 +84,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         setDpDecimals(mDpDecimal);
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mDenomTitle);
 
-        mMaxAvailable = getSActivity().getBaseDao().getDelegatable(getSActivity().mBaseChain, getSActivity().mChainConfig.mainDenom()).subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
+        mMaxAvailable = getSActivity().getBaseDao().getDelegatable(getSActivity().mBaseChain, getSActivity().mChainConfig.mainDenom()).subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
         mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
         onAddAmountWatcher();
     }

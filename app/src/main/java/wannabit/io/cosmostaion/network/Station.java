@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResCw20Assets;
+import wannabit.io.cosmostaion.network.res.ResGasRateParam;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -40,6 +41,9 @@ public interface Station {
 
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);
+
+    @GET("v1/utils/params/gas_prices")
+    Call<ArrayList<ResGasRateParam>> getGasRate();
 
     //certik lcd
     @GET("/shentu/gov/v1alpha1/proposals/{proposal_id}/votes/{voter}")

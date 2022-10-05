@@ -5,12 +5,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -47,10 +45,6 @@ public class Bitsong extends ChainConfig {
     public String homeInfoLink() { return  "https://bitsong.io"; }
     public String blogInfoLink() { return  "https://bitsongofficial.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "bitsong"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.025ubtsg");
-    }
 
     public String defaultPath() { return "m/44'/639'/0'/0/X"; }
 

@@ -53,10 +53,6 @@ public class Okc extends ChainConfig {
     public String blogInfoLink() { return  "https://www.okx.com/academy/en/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "okc-token"; }
 
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.0000000001okt");
-    }
-
     public String defaultPath() { return "m/44'/60'/0'/0/X"; }
 
     public List<ChildNumber> setParentPath(int customPath) {

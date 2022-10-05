@@ -47,10 +47,6 @@ public class Secret extends ChainConfig {
     public String blogInfoLink() { return  "https://blog.scrt.network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "secret"; }
 
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.25uscrt");
-    }
-
     public String defaultPath() { return "m/44'/529'/0'/0/X"; }
 
     public List<ChildNumber> setParentPath(int customPath) {

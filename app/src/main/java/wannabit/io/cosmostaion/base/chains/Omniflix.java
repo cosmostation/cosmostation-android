@@ -3,10 +3,7 @@ package wannabit.io.cosmostaion.base.chains;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import com.google.common.collect.Lists;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -41,8 +38,4 @@ public class Omniflix extends ChainConfig {
     public String homeInfoLink() { return  "https://www.omniflix.network"; }
     public String blogInfoLink() { return  "https://blog.omniflix.network"; }
     public String coingeckoLink() { return  ""; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.001uflix");
-    }
 }

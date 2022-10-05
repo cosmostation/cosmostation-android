@@ -74,7 +74,7 @@ public class WalletOkexHolder extends BaseHolder {
                 return;
             }
 
-            BigDecimal feeAmount = WDp.getMainDenomFee(mainActivity, chainConfig);
+            BigDecimal feeAmount = WDp.getMainDenomFee(mainActivity, baseData, chainConfig);
             if (availableAmount.compareTo(feeAmount) <= 0) {
                 Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
@@ -102,7 +102,7 @@ public class WalletOkexHolder extends BaseHolder {
                 return;
             }
 
-            BigDecimal feeAmount = WDp.getMainDenomFee(mainActivity, chainConfig);
+            BigDecimal feeAmount = WDp.getMainDenomFee(mainActivity, baseData, chainConfig);
             if (availableAmount.compareTo(feeAmount) <= 0) {
                 Toast.makeText(mainActivity, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;

@@ -4,10 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import com.google.common.collect.Lists;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -45,8 +42,4 @@ public class Cudos extends ChainConfig {
     public String homeInfoLink() { return  "https://www.cudos.org"; }
     public String blogInfoLink() { return  "https://www.cudos.org/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cudos"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("5000000000000acudos");
-    }
 }

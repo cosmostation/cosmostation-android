@@ -123,10 +123,6 @@ abstract public class ChainConfig {
 
     public abstract String coingeckoLink();
 
-    public abstract ArrayList<String> gasRates();
-
-    public int gasDefault() { return 0; }
-
     public String defaultPath() { return "m/44'/118'/0'/0/X"; }
 
     public List<ChildNumber> setParentPath(int customPath) {

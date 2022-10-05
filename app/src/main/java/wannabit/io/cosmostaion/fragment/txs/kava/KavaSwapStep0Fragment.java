@@ -126,7 +126,7 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
         if (getSActivity().mInputDenom.equals(getSActivity().mChainConfig.mainDenom())) {
-            mAvailableMaxAmount = mAvailableMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
+            mAvailableMaxAmount = mAvailableMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapAvailAmountSymbol);

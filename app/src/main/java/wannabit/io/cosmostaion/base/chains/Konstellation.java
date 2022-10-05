@@ -1,11 +1,10 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
-
-import com.google.common.collect.Lists;
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -40,10 +39,4 @@ public class Konstellation extends ChainConfig {
     public String homeInfoLink() { return  "https://konstellation.tech"; }
     public String blogInfoLink() { return  "https://konstellation.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "konstellation"; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.0001udarc", "0.001udarc", "0.01udarc");
-    }
-
-    public int gasDefault() { return 1; }
 }
