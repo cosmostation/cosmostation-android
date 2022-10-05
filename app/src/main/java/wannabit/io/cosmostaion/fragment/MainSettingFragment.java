@@ -280,7 +280,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             CurrencySetDialog dialog = CurrencySetDialog.newInstance(null);
             dialog.show(getParentFragmentManager(), "dialog");
             getParentFragmentManager().setFragmentResultListener("currency", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("currency");
+                int result = bundle.getInt("position");
                 onSetCurrency(result);
             });
 
@@ -288,7 +288,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             PriceColorChangeDialog dialog = PriceColorChangeDialog.newInstance(null);
             dialog.show(getParentFragmentManager(), "dialog");
             getParentFragmentManager().setFragmentResultListener(BaseConstant.PRE_PRICE_COLOR, this, (requestKey, bundle) -> {
-                int result = bundle.getInt(BaseConstant.PRE_PRICE_COLOR);
+                int result = bundle.getInt("position");
                 onUpdatePriceColor(result);
             });
 
