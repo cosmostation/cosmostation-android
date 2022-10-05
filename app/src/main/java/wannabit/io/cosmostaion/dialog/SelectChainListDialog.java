@@ -188,10 +188,10 @@ public class SelectChainListDialog extends DialogFragment {
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinName);
 
             holder.rootLayer.setOnClickListener(view -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt("position", position);
+                getParentFragmentManager().setFragmentResult("sendList", result);
+                dismiss();
             });
         }
 

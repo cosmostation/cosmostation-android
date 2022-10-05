@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.authz;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -213,12 +211,17 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }
 
-        } else if (v.equals(mSelectCoinBtn)  && !getSActivity().isFinishing()) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("sendCoins", mGrantAvailbale);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setTargetFragment(this, SELECT_SEND_COIN);
-            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+        } else if (v.equals(mSelectCoinBtn) && !getSActivity().isFinishing()) {
+            Bundle bundleData = new Bundle();
+            bundleData.putSerializable("sendCoins", mGrantAvailbale);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), "dialog");
+            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
+                int result = bundle.getInt("position");
+                mSelectedCoin = mGrantAvailbale.get(result);
+                mAmountInput.setText("");
+                onUpdateView();
+            });
 
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
@@ -290,16 +293,6 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
         }
         for (int i = 0; i < decimals - 1; i++) {
             mDecimalSetter = mDecimalSetter + "0";
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_SEND_COIN && resultCode == Activity.RESULT_OK) {
-            mSelectedCoin = mGrantAvailbale.get(data.getIntExtra("position", -1));
-            mAmountInput.setText("");
-            onUpdateView();
         }
     }
 
