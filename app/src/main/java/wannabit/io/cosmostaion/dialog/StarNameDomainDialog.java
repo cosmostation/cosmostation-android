@@ -17,15 +17,15 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 
-public class StarnameDomainDialog extends DialogFragment {
+public class StarNameDomainDialog extends DialogFragment {
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private DomainListAdapter mDomainListAdapter;
     private ArrayList<String> mStarnameDomain = new ArrayList<>();
 
-    public static StarnameDomainDialog newInstance(Bundle bundle) {
-        StarnameDomainDialog frag = new StarnameDomainDialog();
+    public static StarNameDomainDialog newInstance(Bundle bundle) {
+        StarNameDomainDialog frag = new StarNameDomainDialog();
         frag.setArguments(bundle);
         return frag;
     }

@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +12,10 @@ import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 
-public class StarnameConfirmDialog extends DialogFragment {
+public class StarNameConfirmDialog extends DialogFragment {
 
-    public static StarnameConfirmDialog newInstance(Bundle bundle) {
-        StarnameConfirmDialog frag = new StarnameConfirmDialog();
+    public static StarNameConfirmDialog newInstance(Bundle bundle) {
+        StarNameConfirmDialog frag = new StarNameConfirmDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -30,14 +28,14 @@ public class StarnameConfirmDialog extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_posi = view.findViewById(R.id.btn_posi);
 
-        starname_info.setText(String.format(getString(R.string.str_starname_confirm_msg), getArguments().getString("starname"), getArguments().getString("originAddress")));
+        starname_info.setText(String.format(getString(R.string.str_starname_confirm_msg), getArguments().getString("starName"), getArguments().getString("originAddress")));
         btn_negative.setOnClickListener(v -> getDialog().dismiss());
 
         btn_posi.setOnClickListener(v -> {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("starname", getArguments().getString("starname"));
-            resultIntent.putExtra("originAddress", getArguments().getString("originAddress"));
-            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+            Bundle result = new Bundle();
+            result.putString("starName", getArguments().getString("starName"));
+            result.putString("originAddress", getArguments().getString("originAddress"));
+            getParentFragmentManager().setFragmentResult("starNameConfirm", result);
             getDialog().dismiss();
         });
 

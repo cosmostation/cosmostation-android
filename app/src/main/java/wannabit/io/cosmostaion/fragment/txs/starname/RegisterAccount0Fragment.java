@@ -25,7 +25,7 @@ import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.StarnameDomainDialog;
+import wannabit.io.cosmostaion.dialog.StarNameDomainDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -77,7 +77,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
         if (v.equals(mDomainLayer) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
             bundleData.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
-            StarnameDomainDialog dialog = StarnameDomainDialog.newInstance(bundleData);
+            StarNameDomainDialog dialog = StarNameDomainDialog.newInstance(bundleData);
             dialog.show(getParentFragmentManager(), "dialog");
             getParentFragmentManager().setFragmentResultListener("starNameDomain", this, (requestKey, bundle) -> {
                 int result = bundle.getInt("position");

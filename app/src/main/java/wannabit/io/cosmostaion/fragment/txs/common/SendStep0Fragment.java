@@ -54,14 +54,13 @@ import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
-import wannabit.io.cosmostaion.dialog.StarnameConfirmDialog;
+import wannabit.io.cosmostaion.dialog.StarNameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_IBC_CHAIN = 8504;
-    public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
     private RelativeLayout mToChainList;
     private ImageView mToChainImg;
@@ -299,11 +298,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_STAR_NAME_ADDRESS && resultCode == Activity.RESULT_OK) {
-            getSActivity().mToAddress = data.getStringExtra("originAddress");
-            getSActivity().onNextStep();
-
-        } else if (requestCode == SELECT_IBC_CHAIN && resultCode == Activity.RESULT_OK) {
+        if (requestCode == SELECT_IBC_CHAIN && resultCode == Activity.RESULT_OK) {
             mToSendChainConfig = mToSendableChains.get(data.getIntExtra("position", -1));
             mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
             onUpdateChainView();
@@ -337,13 +332,17 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                         return;
                     }
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("starname", userInput);
-                    bundle.putString("originAddress", matchAddress);
+                    Bundle bundleData = new Bundle();
+                    bundleData.putString("starName", userInput);
+                    bundleData.putString("originAddress", matchAddress);
                     if (!getSActivity().isFinishing()) {
-                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
-                        dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                        dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                        StarNameConfirmDialog dialog = StarNameConfirmDialog.newInstance(bundleData);
+                        dialog.show(getParentFragmentManager(), "dialog");
+                        getParentFragmentManager().setFragmentResultListener("starNameConfirm", SendStep0Fragment.this, (requestKey, bundle) -> {
+                            String originAddress = bundle.getString("originAddress");
+                            getSActivity().mToAddress = originAddress;
+                            getSActivity().onNextStep();
+                        });
                     }
                 }, 0);
 

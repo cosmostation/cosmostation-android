@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
-public class StarnameResourceDialog extends BottomSheetDialogFragment {
+public class StarNameResourceDialog extends BottomSheetDialogFragment {
 
     private RecyclerView mRecyclerView;
     private TextView mtextView;
@@ -34,8 +34,8 @@ public class StarnameResourceDialog extends BottomSheetDialogFragment {
     private ArrayList<Types.Resource> mAlreadyChains;
     private ArrayList<StarnameAssets> mAllChains;
 
-    public static StarnameResourceDialog newInstance(Bundle bundle) {
-        StarnameResourceDialog frag = new StarnameResourceDialog();
+    public static StarNameResourceDialog newInstance(Bundle bundle) {
+        StarNameResourceDialog frag = new StarNameResourceDialog();
         frag.setArguments(bundle);
         return frag;
     }
