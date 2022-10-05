@@ -79,9 +79,9 @@ public class SelectChainListDialog extends DialogFragment {
 
         SELECT_INPUT_CHAIN_OSMOSIS = getArguments().getInt("selectInputOsmosis");
         SELECT_OUTPUT_CHAIN_OSMOSIS = getArguments().getInt("selectOutputOsmosis");
-        SELECT_INPUT_CHAIN_KAVA = getArguments().getInt("selectIutputKava");
+        SELECT_INPUT_CHAIN_KAVA = getArguments().getInt("selectInputKava");
         SELECT_OUTPUT_CHAIN_KAVA = getArguments().getInt("selectOutputKava");
-        SELECT_INPUT_CHAIN_SIF = getArguments().getInt("selectOutputSif");
+        SELECT_INPUT_CHAIN_SIF = getArguments().getInt("selectInputSif");
         SELECT_OUTPUT_CHAIN_SIF = getArguments().getInt("selectOutputSif");
 
         mDialogTitle = view.findViewById(R.id.dialog_title);
@@ -174,10 +174,10 @@ public class SelectChainListDialog extends DialogFragment {
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinName);
 
             holder.rootLayer.setOnClickListener(view -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt("position", position);
+                getParentFragmentManager().setFragmentResult("feeList", result);
+                dismiss();
             });
         }
 
