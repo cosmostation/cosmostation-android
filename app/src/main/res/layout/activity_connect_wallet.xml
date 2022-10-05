@@ -1,119 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhiteDayNight">
 
-    <ImageView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@color/colorWhiteDayNight" />
+        android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_bar_height"
-        android:background="@color/colorWhiteDayNight"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:contentInsetStartWithNavigation="0dp">
-
-        <TextView
-            android:id="@+id/toolbar_title"
-            style="@style/font_rr_17_black_daynight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_wallet_connect"
-            android:visibility="gone" />
-
-        <RelativeLayout
-            android:id="@+id/dapp_layout"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/toolbar_bar_height"
+            android:background="@color/colorWhiteDayNight"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/font_rr_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
+                android:text="@string/str_wallet_connect"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/dapp_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/dapp_title"
-                        style="@style/font_rr_17_black_daynight"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_wc_dapp_title" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/dapp_title"
+                            style="@style/font_rr_17_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_wc_dapp_title" />
 
 
-                    <ImageView
-                        android:id="@+id/wc_light"
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="3dp"
-                        tools:src="@drawable/ic_pass_gr" />
+                        <ImageView
+                            android:id="@+id/wc_light"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="3dp"
+                            tools:src="@drawable/ic_pass_gr" />
+
+                        <TextView
+                            android:id="@+id/wc_state"
+                            style="@style/font_rr_10_gray5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="3dp"
+                            tools:text="@string/str_wc_dapp_not_connected" />
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/wc_state"
+                        android:id="@+id/wc_peer"
                         style="@style/font_rr_10_gray5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginTop="3dp"
-                        tools:text="@string/str_wc_dapp_not_connected" />
+                        tools:text="https://" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/wc_peer"
-                    style="@style/font_rr_10_gray5"
+                <ImageView
+                    android:id="@+id/dapp_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="https://" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/dapp_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:padding="5dp"
-                android:src="@drawable/close_btn" />
-        </RelativeLayout>
-
-    </androidx.appcompat.widget.Toolbar>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:src="@drawable/close_btn" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <WebView
         android:id="@+id/wc_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_disconnect"
-        android:layout_below="@+id/tool_bar"
         android:background="@android:color/transparent"
-        android:visibility="gone" />
+        android:fillViewport="true"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <RelativeLayout
         android:id="@+id/wc_layer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_disconnect"
-        android:layout_below="@+id/tool_bar"
+        android:layout_below="@+id/app_bar_layout"
         android:keepScreenOn="true"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/wc_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             app:cardBackgroundColor="@color/colorTransBgKava"
             app:cardCornerRadius="@dimen/space_8"
@@ -200,10 +204,10 @@
         android:id="@+id/loading_layer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar"
         android:background="#88000000"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:visibility="gone">
 
         <ProgressBar
             android:layout_width="@dimen/space_60"
@@ -242,7 +246,6 @@
         android:background="@drawable/btn_trans_with_photon_border"
         android:minHeight="@dimen/space_45"
         android:text="@string/str_disconnect"
-        android:textAllCaps="false" />
-
-</RelativeLayout>
-
+        android:textAllCaps="false"
+        android:visibility="gone" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

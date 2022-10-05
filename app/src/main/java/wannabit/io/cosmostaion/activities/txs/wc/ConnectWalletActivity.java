@@ -25,15 +25,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 
 import com.google.android.gms.common.util.CollectionUtils;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.protobuf.ByteString;
 import com.squareup.picasso.Picasso;
 import com.trustwallet.walletconnect.WCClient;
 import com.trustwallet.walletconnect.models.WCAccount;
@@ -81,7 +82,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
-import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
@@ -119,6 +119,7 @@ public class ConnectWalletActivity extends BaseActivity {
     private WebView mWebView;
     private TextView mTitleText, mConnectText, mDappUrl, mWcName, mWcUrl, mWcAccount;
     private ImageView mConnectImage, mDappClose, mWcImg;
+    private AppBarLayout appBarLayout;
 
     private String mWcURL;
     private WCClient wcClient;
@@ -129,6 +130,7 @@ public class ConnectWalletActivity extends BaseActivity {
     private WCEthereumTransaction mWcEthereumTransaction;
     private WCEthereumSignMessage mSignMessage;
     private final Map<String, Account> chainAccountMap = Maps.newHashMap();
+    private Boolean isHideToolbar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,6 +266,7 @@ public class ConnectWalletActivity extends BaseActivity {
         mWcUrl = findViewById(R.id.wc_url);
         mWcAccount = findViewById(R.id.wc_address);
         mDappUrl = findViewById(R.id.wc_peer);
+        appBarLayout = findViewById(R.id.app_bar_layout);
         mConnectImage = findViewById(R.id.wc_light);
         mDappLayout = findViewById(R.id.dapp_layout);
         mConnectText = findViewById(R.id.wc_state);
@@ -284,6 +287,15 @@ public class ConnectWalletActivity extends BaseActivity {
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+        mWebView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (oldScrollY > scrollY && Math.abs(scrollY - oldScrollY) > 5 && isHideToolbar) {
+                isHideToolbar = false;
+                appBarLayout.setExpanded(true, true);
+            } else if (oldScrollY < scrollY && Math.abs(scrollY - oldScrollY) > 5 && !isHideToolbar) {
+                isHideToolbar = true;
+                appBarLayout.setExpanded(false, true);
+            }
+        });
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + " Cosmostation/APP/Android/" + BuildConfig.VERSION_NAME);
         mWebView.getSettings().setDomStorageEnabled(true);
