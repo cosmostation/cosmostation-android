@@ -224,7 +224,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         if (getBaseDao().mGasRateParams != null && getBaseDao().mGasRateParams.size() > 0) {
             for (ResGasRateParam param : getBaseDao().mGasRateParams) {
-                if (param.chain.equalsIgnoreCase(mChainConfig.chainName())) {
+                if (param != null && param.chain.equalsIgnoreCase(mChainConfig.chainName())) {
                     mSelectedFeeInfo = param.base;
                 }
             }
