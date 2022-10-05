@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,9 +84,9 @@ public class StarNameResourceDialog extends BottomSheetDialogFragment {
             holder.chainName.setText(StarnameAssets.getStarNameChainName(resource.url));
             holder.rootLayer.setOnClickListener(v -> {
                 if (!alreadyHave(resource)) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("resource", resource);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    Bundle result = new Bundle();
+                    result.putParcelable("resource", resource);
+                    getParentFragmentManager().setFragmentResult("starNameResource", result);
                     dismiss();
                 }
             });
