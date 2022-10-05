@@ -36,7 +36,7 @@ public class StarNameConfirmDialog extends DialogFragment {
             result.putString("starName", getArguments().getString("starName"));
             result.putString("originAddress", getArguments().getString("originAddress"));
             getParentFragmentManager().setFragmentResult("starNameConfirm", result);
-            getDialog().dismiss();
+            dismiss();
         });
 
         return view;

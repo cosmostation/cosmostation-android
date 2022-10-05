@@ -66,7 +66,7 @@ public class CurrencySetDialog extends DialogFragment {
                 Bundle result = new Bundle();
                 result.putInt("position", position);
                 getParentFragmentManager().setFragmentResult("currency", result);
-                getDialog().dismiss();
+                dismiss();
             });
         }
 

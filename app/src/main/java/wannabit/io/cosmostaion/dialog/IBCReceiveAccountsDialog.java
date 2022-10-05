@@ -92,7 +92,7 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
                 Bundle result = new Bundle();
                 result.putInt("position", position);
                 getParentFragmentManager().setFragmentResult("ibcReceiveAccounts", result);
-                getDialog().dismiss();
+                dismiss();
             });
         }
 

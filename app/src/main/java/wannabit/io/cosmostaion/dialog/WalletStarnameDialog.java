@@ -97,7 +97,7 @@ public class WalletStarnameDialog extends DialogFragment {
             }
             holder.accountlayer.setOnClickListener(v -> {
                 ((BaseActivity) getActivity()).onChoiceStarnameResourceAddress(account.address);
-                getDialog().dismiss();
+                dismiss();
             });
 
         }

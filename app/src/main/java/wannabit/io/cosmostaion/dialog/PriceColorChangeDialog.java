@@ -70,7 +70,7 @@ public class PriceColorChangeDialog extends DialogFragment {
                     result.putInt("position", position + 1);
                     getParentFragmentManager().setFragmentResult(BaseConstant.PRE_PRICE_COLOR, result);
                     getSActivity().getBaseDao().setPriceColorOption(position + 1);
-                    getDialog().dismiss();
+                    dismiss();
                 });
             } else {
                 holder.iconPriceColorUp.setImageResource(R.drawable.icon_pricered);
@@ -80,7 +80,7 @@ public class PriceColorChangeDialog extends DialogFragment {
                     result.putInt("position", position + 1);
                     getParentFragmentManager().setFragmentResult(BaseConstant.PRE_PRICE_COLOR, result);
                     getSActivity().getBaseDao().setPriceColorOption(position + 1);
-                    getDialog().dismiss();
+                    dismiss();
                 });
             }
         }

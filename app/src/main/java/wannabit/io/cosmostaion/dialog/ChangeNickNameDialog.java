@@ -49,7 +49,7 @@ public class ChangeNickNameDialog extends DialogFragment {
             if (imm.isActive()) {
                 imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
             }
-            getDialog().dismiss();
+            dismiss();
         });
 
         btn_posi.setOnClickListener(v -> {
@@ -57,14 +57,14 @@ public class ChangeNickNameDialog extends DialogFragment {
             if (imm.isActive()) {
                 imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
             }
-            if (!TextUtils.isEmpty(mNameInput.getText().toString().trim())) {
+            if (!TextUtils.isEmpty(String.valueOf(mNameInput.getText()).trim())) {
                 if (title.equalsIgnoreCase(getString(R.string.str_change_mnemonic_nickname))) {
-                    ((MnemonicDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
+                    ((MnemonicDetailActivity) getActivity()).onChangeNickName(String.valueOf(mNameInput.getText()).trim());
                 } else {
-                    ((AccountDetailActivity) getActivity()).onChangeNickName(mNameInput.getText().toString().trim());
+                    ((AccountDetailActivity) getActivity()).onChangeNickName(String.valueOf(mNameInput.getText()).trim());
                 }
             }
-            getDialog().dismiss();
+            dismiss();
         });
 
         return view;

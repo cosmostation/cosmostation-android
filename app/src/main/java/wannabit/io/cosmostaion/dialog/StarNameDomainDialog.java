@@ -66,7 +66,7 @@ public class StarNameDomainDialog extends DialogFragment {
                 Bundle result = new Bundle();
                 result.putInt("position", position);
                 getParentFragmentManager().setFragmentResult("starNameDomain", result);
-                getDialog().dismiss();
+                dismiss();
             });
         }
 

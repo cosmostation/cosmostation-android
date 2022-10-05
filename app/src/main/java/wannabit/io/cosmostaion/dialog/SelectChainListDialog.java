@@ -100,11 +100,11 @@ public class SelectChainListDialog extends DialogFragment {
         } else {
             mDialogTitle.setText(getSActivity().getString(R.string.str_select_chains));
             mBtnLayer.setVisibility(View.VISIBLE);
-            mBtnLeft.setOnClickListener(View -> getDialog().dismiss());
+            mBtnLeft.setOnClickListener(View -> dismiss());
             mBtnRight.setOnClickListener(View -> {
                 if (selectedSet.size() >= 1) {
                     mSelectChainsDialogResult.SelectedChains(new Gson().toJson(selectedSet));
-                    getDialog().dismiss();
+                    dismiss();
                     Toast.makeText(getContext(), R.string.str_imported_chains, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), R.string.error_no_select_chains, Toast.LENGTH_SHORT).show();
