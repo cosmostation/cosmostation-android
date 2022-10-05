@@ -129,11 +129,11 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
         mAvailable0MaxAmount = getBaseDao().getAvailable(coin0Denom);
         if (coin0Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
-            mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
+            mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
         }
         mAvailable1MaxAmount = getBaseDao().getAvailable(coin1Denom);
         if (coin1Denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) {
-            mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getSActivity().mChainConfig));
+            mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
         }
 
         mCoin0Decimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, coin0Denom);

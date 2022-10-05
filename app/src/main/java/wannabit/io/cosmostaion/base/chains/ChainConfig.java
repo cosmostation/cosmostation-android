@@ -39,6 +39,8 @@ abstract public class ChainConfig {
 
     public abstract String chainKoreanName();
 
+    public List<String> chainNameList() { return Lists.newArrayList(chainName(), chainKoreanName(), mainSymbol()); }
+
     public String chainTitle() {
         return "(" + chainName().substring(0, 1).toUpperCase() + chainName().substring(1) + ")";
     }
@@ -120,10 +122,6 @@ abstract public class ChainConfig {
     public abstract String blogInfoLink();
 
     public abstract String coingeckoLink();
-
-    public abstract ArrayList<String> gasRates();
-
-    public int gasDefault() { return 0; }
 
     public String defaultPath() { return "m/44'/118'/0'/0/X"; }
 

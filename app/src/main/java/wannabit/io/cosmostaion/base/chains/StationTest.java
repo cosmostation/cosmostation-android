@@ -1,9 +1,6 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import com.google.common.collect.Lists;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -43,10 +40,4 @@ public class StationTest extends ChainConfig {
     public String homeInfoLink() { return  ""; }
     public String blogInfoLink() { return  ""; }
     public String coingeckoLink() { return  ""; }
-
-    public ArrayList<String> gasRates() {
-        return Lists.newArrayList("0.00025uiss", "0.0025uiss", "0.025uiss");
-    }
-
-    public int gasDefault() { return 1; }
 }
