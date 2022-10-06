@@ -30,6 +30,8 @@ import wannabit.io.cosmostaion.dao.Cw20Asset;
 
 public class SelectCWTokenDialog extends BottomSheetDialogFragment implements View.OnClickListener {
 
+    public final static String SELECT_CW_TOKEN_BUNDLE_KEY = "selectCWToken";
+
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private ContractListAdapter mContractListAdapter;
@@ -82,7 +84,7 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
 
         } else if (v.equals(mBtnConfirm)) {
             getSActivity().getBaseDao().setUserFavoTokens(mAccount.address, checkedContractSet);
-            getParentFragmentManager().setFragmentResult("selectCWToken", new Bundle());
+            getParentFragmentManager().setFragmentResult(SelectCWTokenDialog.SELECT_CW_TOKEN_BUNDLE_KEY, new Bundle());
             dismiss();
         }
     }

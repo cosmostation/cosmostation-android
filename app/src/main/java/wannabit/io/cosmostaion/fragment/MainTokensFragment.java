@@ -437,8 +437,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemRoot.setOnClickListener(view -> {
                 SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(null);
                 dialog.setCancelable(false);
-                dialog.show(getParentFragmentManager(), "dialog");
-                getParentFragmentManager().setFragmentResultListener("selectCWToken", MainTokensFragment.this, (requestKey, bundle) -> {
+                dialog.show(getParentFragmentManager(), SelectCWTokenDialog.class.getName());
+                getParentFragmentManager().setFragmentResultListener(SelectCWTokenDialog.SELECT_CW_TOKEN_BUNDLE_KEY, MainTokensFragment.this, (requestKey, bundle) -> {
                     onUpdateInfo();
                     getMainActivity().onFetchAllData();
                 });
