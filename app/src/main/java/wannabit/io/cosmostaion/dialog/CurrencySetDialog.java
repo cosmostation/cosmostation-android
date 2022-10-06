@@ -14,9 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.SimpleDividerItemDecoration;
 
 public class CurrencySetDialog extends DialogFragment {
+
+    public final static String CURRENCY_SET_BUNDLE_KEY = "currency";
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
@@ -64,8 +67,8 @@ public class CurrencySetDialog extends DialogFragment {
 
             holder.rootLayer.setOnClickListener(v -> {
                 Bundle result = new Bundle();
-                result.putInt("position", position);
-                getParentFragmentManager().setFragmentResult("currency", result);
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(CurrencySetDialog.CURRENCY_SET_BUNDLE_KEY, result);
                 dismiss();
             });
         }

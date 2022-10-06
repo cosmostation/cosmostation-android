@@ -278,9 +278,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnCurrency) && !getMainActivity().isFinishing()) {
             CurrencySetDialog dialog = CurrencySetDialog.newInstance(null);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("currency", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), CurrencySetDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(CurrencySetDialog.CURRENCY_SET_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 onSetCurrency(result);
             });
 
