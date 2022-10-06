@@ -26,6 +26,9 @@ import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
 public class StarNameResourceDialog extends BottomSheetDialogFragment {
 
+    public final static String STAR_NAME_RESOURCE_BUNDLE_KEY = "starNameResource";
+    public final static String STAR_NAME_RESOURCE_WRAPPER_BUNDLE_KEY = "resources";
+
     private RecyclerView mRecyclerView;
     private TextView mtextView;
     private ChainForResourceHolderAdapter mAdapter;
@@ -46,7 +49,7 @@ public class StarNameResourceDialog extends BottomSheetDialogFragment {
         mtextView.setText(R.string.str_select_chain_for_address);
         mRecyclerView = view.findViewById(R.id.recycler);
 
-        StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getArguments().getSerializable("resources");
+        StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getArguments().getSerializable(StarNameResourceDialog.STAR_NAME_RESOURCE_WRAPPER_BUNDLE_KEY);
         mAlreadyChains = wrapper.array;
         mAllChains = StarnameAssets.getStarnameAssets();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -86,7 +89,7 @@ public class StarNameResourceDialog extends BottomSheetDialogFragment {
                 if (!alreadyHave(resource)) {
                     Bundle result = new Bundle();
                     result.putParcelable("resource", resource);
-                    getParentFragmentManager().setFragmentResult("starNameResource", result);
+                    getParentFragmentManager().setFragmentResult(StarNameResourceDialog.STAR_NAME_RESOURCE_BUNDLE_KEY, result);
                     dismiss();
                 }
             });

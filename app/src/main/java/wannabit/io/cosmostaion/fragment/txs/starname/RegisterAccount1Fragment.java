@@ -191,11 +191,11 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
             holder.itemBtnAdd.setOnClickListener(v -> {
                 Bundle bundleData = new Bundle();
                 StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
-                bundleData.putSerializable("resources", wrapper);
+                bundleData.putSerializable(StarNameResourceDialog.STAR_NAME_RESOURCE_WRAPPER_BUNDLE_KEY, wrapper);
                 if (!getSActivity().isFinishing()) {
                     StarNameResourceDialog dialog = StarNameResourceDialog.newInstance(bundleData);
-                    dialog.show(getParentFragmentManager(), "dialog");
-                    getParentFragmentManager().setFragmentResultListener("starNameResource", RegisterAccount1Fragment.this, (requestKey, bundle) -> {
+                    dialog.show(getParentFragmentManager(), StarNameResourceDialog.class.getName());
+                    getParentFragmentManager().setFragmentResultListener(StarNameResourceDialog.STAR_NAME_RESOURCE_BUNDLE_KEY, RegisterAccount1Fragment.this, (requestKey, bundle) -> {
                         try {
                             StarnameAssets asset = bundle.getParcelable("resource");
                             Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);

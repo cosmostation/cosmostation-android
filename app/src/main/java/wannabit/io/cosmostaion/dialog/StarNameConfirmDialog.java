@@ -14,6 +14,10 @@ import wannabit.io.cosmostaion.R;
 
 public class StarNameConfirmDialog extends DialogFragment {
 
+    public final static String STAR_NAME_BUNDLE_KEY = "starName";
+    public final static String STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY = "originAddress";
+    public final static String STAR_NAME_CONFIRM_BUNDLE_KEY = "starNameConfirm";
+
     public static StarNameConfirmDialog newInstance(Bundle bundle) {
         StarNameConfirmDialog frag = new StarNameConfirmDialog();
         frag.setArguments(bundle);
@@ -28,14 +32,14 @@ public class StarNameConfirmDialog extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_posi = view.findViewById(R.id.btn_posi);
 
-        starname_info.setText(String.format(getString(R.string.str_starname_confirm_msg), getArguments().getString("starName"), getArguments().getString("originAddress")));
+        starname_info.setText(String.format(getString(R.string.str_starname_confirm_msg), getArguments().getString(StarNameConfirmDialog.STAR_NAME_BUNDLE_KEY), getArguments().getString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY)));
         btn_negative.setOnClickListener(v -> getDialog().dismiss());
 
         btn_posi.setOnClickListener(v -> {
             Bundle result = new Bundle();
-            result.putString("starName", getArguments().getString("starName"));
-            result.putString("originAddress", getArguments().getString("originAddress"));
-            getParentFragmentManager().setFragmentResult("starNameConfirm", result);
+            result.putString(StarNameConfirmDialog.STAR_NAME_BUNDLE_KEY, getArguments().getString(StarNameConfirmDialog.STAR_NAME_BUNDLE_KEY));
+            result.putString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY, getArguments().getString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY));
+            getParentFragmentManager().setFragmentResult(StarNameConfirmDialog.STAR_NAME_CONFIRM_BUNDLE_KEY, result);
             dismiss();
         });
 

@@ -328,13 +328,13 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     }
 
                     Bundle bundleData = new Bundle();
-                    bundleData.putString("starName", userInput);
-                    bundleData.putString("originAddress", matchAddress);
+                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_BUNDLE_KEY, userInput);
+                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY, matchAddress);
                     if (!getSActivity().isFinishing()) {
                         StarNameConfirmDialog dialog = StarNameConfirmDialog.newInstance(bundleData);
-                        dialog.show(getParentFragmentManager(), "dialog");
-                        getParentFragmentManager().setFragmentResultListener("starNameConfirm", SendStep0Fragment.this, (requestKey, bundle) -> {
-                            String originAddress = bundle.getString("originAddress");
+                        dialog.show(getParentFragmentManager(), StarNameConfirmDialog.class.getName());
+                        getParentFragmentManager().setFragmentResultListener(StarNameConfirmDialog.STAR_NAME_CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
+                            String originAddress = bundle.getString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY);
                             getSActivity().mToAddress = originAddress;
                             getSActivity().onNextStep();
                         });

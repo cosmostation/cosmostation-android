@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class StarNameDomainDialog extends DialogFragment {
+
+    public final static String STAR_NAME_DOMAIN_BUNDLE_KEY = "starNameDomain";
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
@@ -64,8 +67,8 @@ public class StarNameDomainDialog extends DialogFragment {
             holder.domainName.setText(domain);
             holder.rootLayer.setOnClickListener(v -> {
                 Bundle result = new Bundle();
-                result.putInt("position", position);
-                getParentFragmentManager().setFragmentResult("starNameDomain", result);
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(StarNameDomainDialog.STAR_NAME_DOMAIN_BUNDLE_KEY, result);
                 dismiss();
             });
         }

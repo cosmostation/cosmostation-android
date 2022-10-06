@@ -27,7 +27,10 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class WalletStarnameDialog extends DialogFragment {
+public class WalletStarNameDialog extends DialogFragment {
+
+    public final static String STAR_NAME_ASSET_BUNDLE_KEY = "asset";
+    public final static String STAR_NAME_URI_BUNDLE_KEY = "chainUri";
 
     private RecyclerView mRecyclerView;
     private WalletForStarNameAdapter mAdapter;
@@ -36,8 +39,8 @@ public class WalletStarnameDialog extends DialogFragment {
     private String mUri;
     private ArrayList<Account> mWalletList = new ArrayList<>();
 
-    public static WalletStarnameDialog newInstance(Bundle bundle) {
-        WalletStarnameDialog frag = new WalletStarnameDialog();
+    public static WalletStarNameDialog newInstance(Bundle bundle) {
+        WalletStarNameDialog frag = new WalletStarNameDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -47,10 +50,10 @@ public class WalletStarnameDialog extends DialogFragment {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
         try {
-            mStarNameAsset = getArguments().getParcelable("asset");
+            mStarNameAsset = getArguments().getParcelable(WalletStarNameDialog.STAR_NAME_ASSET_BUNDLE_KEY);
             mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(mStarNameAsset.chainName));
         } catch (Exception e) {
-            mUri = getArguments().getString("chainUri");
+            mUri = getArguments().getString(WalletStarNameDialog.STAR_NAME_URI_BUNDLE_KEY);
             mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(StarnameAssets.getStarNameGetChain(mUri)));
         }
         mDialogTitle = view.findViewById(R.id.dialog_title);

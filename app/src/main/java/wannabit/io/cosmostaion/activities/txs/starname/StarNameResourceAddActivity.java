@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.WalletStarnameDialog;
+import wannabit.io.cosmostaion.dialog.WalletStarNameDialog;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -129,12 +129,12 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
 
             Bundle bundle = new Bundle();
             if (mStarNameAsset != null) {
-                bundle.putParcelable("asset", mStarNameAsset);
+                bundle.putParcelable(WalletStarNameDialog.STAR_NAME_ASSET_BUNDLE_KEY, mStarNameAsset);
             } else if (mStarNameResource != null) {
-                bundle.putString("chainUri", mStarNameResource.getUri());
+                bundle.putString(WalletStarNameDialog.STAR_NAME_URI_BUNDLE_KEY, mStarNameResource.getUri());
             }
-            WalletStarnameDialog dialog = WalletStarnameDialog.newInstance(bundle);
-            dialog.show(getSupportFragmentManager(), "dialog");
+            WalletStarNameDialog dialog = WalletStarNameDialog.newInstance(bundle);
+            dialog.show(getSupportFragmentManager(), WalletStarNameDialog.class.getName());
 
         } else if (v.equals(mScan)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
