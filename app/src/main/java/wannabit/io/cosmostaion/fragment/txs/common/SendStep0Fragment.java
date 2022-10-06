@@ -237,11 +237,11 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else {
                 Bundle bundleData = new Bundle();
-                bundleData.putSerializable("accounts", mToAccountList);
+                bundleData.putSerializable(IBCReceiveAccountsDialog.ACCOUNTS_BUNDLE_KEY, mToAccountList);
                 IBCReceiveAccountsDialog dialog = IBCReceiveAccountsDialog.newInstance(bundleData);
-                dialog.show(getParentFragmentManager(), "dialog");
-                getParentFragmentManager().setFragmentResultListener("ibcReceiveAccounts", this, (requestKey, bundle) -> {
-                    int result = bundle.getInt("position");
+                dialog.show(getParentFragmentManager(), IBCReceiveAccountsDialog.class.getName());
+                getParentFragmentManager().setFragmentResultListener(IBCReceiveAccountsDialog.IBC_RECEIVE_ACCOUNTS_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                    int result = bundle.getInt(BaseConstant.POSITION);
                     mAddressInput.setText(mToAccountList.get(result).address);
                 });
             }
