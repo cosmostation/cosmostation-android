@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +28,7 @@ import java.util.Set;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
@@ -39,6 +38,21 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class SelectChainListDialog extends DialogFragment {
+
+    public static int SELECT_INPUT_CHAIN_VALUE = 8500;
+    public static int SELECT_OUTPUT_CHAIN_VALUE = 8501;
+    public static int SELECT_FEE_DENOM_VALUE = 8502;
+    public static int SELECT_SEND_COIN_VALUE = 8503;
+    public static int SELECT_IBC_CHAIN_VALUE = 8504;
+
+    public final static String SELECT_CHAIN_LIST_BUNDLE_KEY = "selectChainList";
+    public final static String TO_SENDABLE_CHAIN_CONFIG_BUNDLE_KEY = "toSendCoins";
+    public final static String WATCH_ADDRESS_BUNDLE_KEY = "watchAddress";
+    public final static String SEND_COIN_LIST_BUNDLE_KEY = "sendCoins";
+    public final static String FEE_DATA_LIST_BUNDLE_KEY = "feeDatas";
+    public final static String SWAP_COIN_LIST_BUNDLE_KEY = "denoms";
+
+    private int keyValue;
 
     private OnSelectChainsDialogResult mSelectChainsDialogResult;
 
@@ -66,35 +80,37 @@ public class SelectChainListDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
-        mSwapCoinList = getArguments().getStringArrayList("denoms");
-        mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable("feeDatas");
-        mSendCoinList = (ArrayList<Coin>) getArguments().getSerializable("sendCoins");
-        mWatchAddress = getArguments().getString("watchAddress");
-        mToSendableChainConfig = (ArrayList<ChainConfig>) getArguments().getSerializable("toSendCoins");
+        mSwapCoinList = getArguments().getStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY);
+        mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable(SelectChainListDialog.FEE_DATA_LIST_BUNDLE_KEY);
+        mSendCoinList = (ArrayList<Coin>) getArguments().getSerializable(SelectChainListDialog.SEND_COIN_LIST_BUNDLE_KEY);
+        mWatchAddress = getArguments().getString(WATCH_ADDRESS_BUNDLE_KEY);
+        mToSendableChainConfig = (ArrayList<ChainConfig>) getArguments().getSerializable(SelectChainListDialog.TO_SENDABLE_CHAIN_CONFIG_BUNDLE_KEY);
+
+        keyValue = getArguments().getInt(SELECT_CHAIN_LIST_BUNDLE_KEY);
 
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mBtnLayer = view.findViewById(R.id.btn_layer);
         mBtnLeft = view.findViewById(R.id.btn_left);
         mBtnRight = view.findViewById(R.id.btn_right);
 
-        if (getTargetRequestCode() == 8500) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in));
-        } else if (getTargetRequestCode() == 8501) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out));
-        } else if (getTargetRequestCode() == 8502) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_fee_denom));
-        } else if (getTargetRequestCode() == 8503) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_to_send_coin));
-        } else if (getTargetRequestCode() == 8504) {
-            mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_to_send_chain));
+        if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE) {
+            mDialogTitle.setText(R.string.str_select_coin_swap_in);
+        } else if (keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE) {
+            mDialogTitle.setText(R.string.str_select_coin_swap_out);
+        } else if (keyValue == SelectChainListDialog.SELECT_FEE_DENOM_VALUE) {
+            mDialogTitle.setText(R.string.str_select_fee_denom);
+        } else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE) {
+            mDialogTitle.setText(R.string.str_select_to_send_coin);
+        } else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) {
+            mDialogTitle.setText(R.string.str_select_to_send_chain);
         } else {
             mDialogTitle.setText(getSActivity().getString(R.string.str_select_chains));
             mBtnLayer.setVisibility(View.VISIBLE);
-            mBtnLeft.setOnClickListener(View -> getDialog().dismiss());
+            mBtnLeft.setOnClickListener(View -> dismiss());
             mBtnRight.setOnClickListener(View -> {
                 if (selectedSet.size() >= 1) {
                     mSelectChainsDialogResult.SelectedChains(new Gson().toJson(selectedSet));
-                    getDialog().dismiss();
+                    dismiss();
                     Toast.makeText(getContext(), R.string.str_imported_chains, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), R.string.error_no_select_chains, Toast.LENGTH_SHORT).show();
@@ -148,10 +164,10 @@ public class SelectChainListDialog extends DialogFragment {
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, inputCoin, holder.coinName);
 
             holder.rootLayer.setOnClickListener(v -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("selectedDenom", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(String.valueOf(SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE), result);
+                dismiss();
             });
         }
 
@@ -162,10 +178,10 @@ public class SelectChainListDialog extends DialogFragment {
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinName);
 
             holder.rootLayer.setOnClickListener(view -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, result);
+                dismiss();
             });
         }
 
@@ -176,10 +192,10 @@ public class SelectChainListDialog extends DialogFragment {
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinName);
 
             holder.rootLayer.setOnClickListener(view -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, result);
+                dismiss();
             });
         }
 
@@ -225,33 +241,31 @@ public class SelectChainListDialog extends DialogFragment {
             final ChainConfig chainConfig = mToSendableChainConfig.get(position);
             holder.itemChainImg.setImageResource(chainConfig.chainImg());
             holder.itemChainName.setText(chainConfig.chainTitleToUp());
-            holder.itemChainName.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
+            holder.itemChainName.setTextColor(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()));
 
             holder.rootLayer.setOnClickListener(view -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, result);
+                dismiss();
             });
         }
 
         @Override
         public int getItemCount() {
-            if (getTargetRequestCode() == 8500 || getTargetRequestCode() == 8501)
-                return mSwapCoinList.size();
-            else if (getTargetRequestCode() == 8502) return mFeeDataList.size();
-            else if (getTargetRequestCode() == 8503) return mSendCoinList.size();
-            else if (getTargetRequestCode() == 8504) return mToSendableChainConfig.size();
+            if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE || keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE) return mSwapCoinList.size();
+            else if (keyValue == SelectChainListDialog.SELECT_FEE_DENOM_VALUE) return mFeeDataList.size();
+            else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE) return mSendCoinList.size();
+            else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) return mToSendableChainConfig.size();
             else return WDp.getChainsFromAddress(mWatchAddress).size();
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (getTargetRequestCode() == 8500 || getTargetRequestCode() == 8501)
-                return TYPE_SWAP_LIST;
-            else if (getTargetRequestCode() == 8502) return TYPE_FEE_LIST;
-            else if (getTargetRequestCode() == 8503) return TYPE_SEND_COIN_LIST;
-            else if (getTargetRequestCode() == 8504) return TYPE_SEND_CHAIN_LIST;
+            if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE || keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE) return TYPE_SWAP_LIST;
+            else if (keyValue == SelectChainListDialog.SELECT_FEE_DENOM_VALUE) return TYPE_FEE_LIST;
+            else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE) return TYPE_SEND_COIN_LIST;
+            else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) return TYPE_SEND_CHAIN_LIST;
             else return TYPE_WATCHING_ADDRESS_LIST;
         }
 

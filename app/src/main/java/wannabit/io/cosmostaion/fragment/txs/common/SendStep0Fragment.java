@@ -6,7 +6,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -37,7 +36,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.stub.StreamObserver;
@@ -46,6 +44,7 @@ import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -55,27 +54,24 @@ import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
-import wannabit.io.cosmostaion.dialog.StarnameConfirmDialog;
+import wannabit.io.cosmostaion.dialog.StarNameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_IBC_CHAIN = 8504;
-    public final static int SELECT_IBC_ACCOUNT = 9101;
-    public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
-    private RelativeLayout  mToChainList;
-    private ImageView       mToChainImg;
-    private TextView        mToChainTxt;
-    private EditText        mAddressInput;
-    private Button          mCancel, mNextBtn;
-    private LinearLayout    mIbcLayer;
-    private LinearLayout    mBtnWallet, mBtnQr, mBtnPaste;
+    private RelativeLayout mToChainList;
+    private ImageView mToChainImg;
+    private TextView mToChainTxt;
+    private EditText mAddressInput;
+    private Button mCancel, mNextBtn;
+    private LinearLayout mIbcLayer;
+    private LinearLayout mBtnWallet, mBtnQr, mBtnPaste;
 
     private ArrayList<ChainConfig> mToSendableChains = new ArrayList<>();
     private ChainConfig mToSendChainConfig;
-    private ArrayList<Account>  mToAccountList;
+    private ArrayList<Account> mToAccountList;
     private Asset mAsset;
     private Cw20Asset mCw20Asset;
 
@@ -167,14 +163,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 if (alreadyOpen) {
                     mIbcLayer.setVisibility(View.GONE);
                 } else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) mIbcLayer.setVisibility(View.GONE);
-                            else mIbcLayer.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(() -> {
+                        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain))
+                            mIbcLayer.setVisibility(View.GONE);
+                        else mIbcLayer.setVisibility(View.VISIBLE);
 
-                        }
-                    },100);
+                    }, 100);
                 }
             }
         });
@@ -193,13 +187,17 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.equals(mToChainList)) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("toSendCoins", mToSendableChains);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setCancelable(true);
-            dialog.setTargetFragment(this, SELECT_IBC_CHAIN);
-            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
+            Bundle bundleData = new Bundle();
+            bundleData.putSerializable(SelectChainListDialog.TO_SENDABLE_CHAIN_CONFIG_BUNDLE_KEY, mToSendableChains);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_IBC_CHAIN_VALUE);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
+                mToSendChainConfig = mToSendableChains.get(result);
+                mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
+                onUpdateChainView();
+            });
             getSActivity().onHideKeyboard();
 
         } else if (v.equals(mNextBtn)) {
@@ -238,11 +236,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 return;
 
             } else {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("accounts", mToAccountList);
-                IBCReceiveAccountsDialog dialog = IBCReceiveAccountsDialog.newInstance(bundle);
-                dialog.setTargetFragment(this, SELECT_IBC_ACCOUNT);
-                dialog.show(getActivity().getSupportFragmentManager(), "dialog");
+                Bundle bundleData = new Bundle();
+                bundleData.putSerializable(IBCReceiveAccountsDialog.ACCOUNTS_BUNDLE_KEY, mToAccountList);
+                IBCReceiveAccountsDialog dialog = IBCReceiveAccountsDialog.newInstance(bundleData);
+                dialog.show(getParentFragmentManager(), IBCReceiveAccountsDialog.class.getName());
+                getParentFragmentManager().setFragmentResultListener(IBCReceiveAccountsDialog.IBC_RECEIVE_ACCOUNTS_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                    int result = bundle.getInt(BaseConstant.POSITION);
+                    mAddressInput.setText(mToAccountList.get(result).address);
+                });
             }
 
         } else if (v.equals(mBtnQr)) {
@@ -299,26 +300,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_STAR_NAME_ADDRESS && resultCode == Activity.RESULT_OK) {
-            getSActivity().mToAddress = data.getStringExtra("originAddress");
-            getSActivity().onNextStep();
-
-        } else if (requestCode == SELECT_IBC_CHAIN && resultCode == Activity.RESULT_OK) {
-            mToSendChainConfig = mToSendableChains.get(data.getIntExtra("position", -1));
-            mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
-            onUpdateChainView();
-
-        } else if (requestCode == SELECT_IBC_ACCOUNT && resultCode == Activity.RESULT_OK) {
-            mAddressInput.setText(mToAccountList.get(data.getIntExtra("position", -1)).address);
-
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null && result.getContents() != null) {
+            mAddressInput.setText(result.getContents().trim());
+            mAddressInput.setSelection(mAddressInput.getText().length());
         } else {
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (result != null && result.getContents() != null) {
-                mAddressInput.setText(result.getContents().trim());
-                mAddressInput.setSelection(mAddressInput.getText().length());
-            } else {
-                super.onActivityResult(requestCode, resultCode, data);
-            }
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -340,13 +327,17 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                         return;
                     }
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("starname", userInput);
-                    bundle.putString("originAddress", matchAddress);
+                    Bundle bundleData = new Bundle();
+                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_BUNDLE_KEY, userInput);
+                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY, matchAddress);
                     if (!getSActivity().isFinishing()) {
-                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
-                        dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                        dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                        StarNameConfirmDialog dialog = StarNameConfirmDialog.newInstance(bundleData);
+                        dialog.show(getParentFragmentManager(), StarNameConfirmDialog.class.getName());
+                        getParentFragmentManager().setFragmentResultListener(StarNameConfirmDialog.STAR_NAME_CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
+                            String originAddress = bundle.getString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY);
+                            getSActivity().mToAddress = originAddress;
+                            getSActivity().onNextStep();
+                        });
                     }
                 }, 0);
 
@@ -364,17 +355,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onSortToChain() {
-        mToSendableChains.sort(new Comparator<ChainConfig>() {
-            @Override
-            public int compare(ChainConfig o1, ChainConfig o2) {
-                if (o1.baseChain().equals(getSActivity().mBaseChain)) return -1;
-                if (o2.baseChain().equals(getSActivity().mBaseChain)) return 1;
-                if (o1.baseChain().equals(BaseChain.COSMOS_MAIN)) return -1;
-                if (o2.baseChain().equals(BaseChain.COSMOS_MAIN)) return 1;
-                if (o1.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return -1;
-                if (o2.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return 1;
-                return 0;
-            }
+        mToSendableChains.sort((o1, o2) -> {
+            if (o1.baseChain().equals(getSActivity().mBaseChain)) return -1;
+            if (o2.baseChain().equals(getSActivity().mBaseChain)) return 1;
+            if (o1.baseChain().equals(BaseChain.COSMOS_MAIN)) return -1;
+            if (o2.baseChain().equals(BaseChain.COSMOS_MAIN)) return 1;
+            if (o1.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return -1;
+            if (o2.baseChain().equals(BaseChain.OSMOSIS_MAIN)) return 1;
+            return 0;
         });
     }
 }

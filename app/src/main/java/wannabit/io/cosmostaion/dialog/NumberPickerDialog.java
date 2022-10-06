@@ -37,7 +37,7 @@ public class NumberPickerDialog extends DialogFragment {
             if (selectListener != null) {
                 selectListener.onSelectValue(numberPicker.getValue());
             }
-            getDialog().dismiss();
+            dismiss();
         });
 
         numberPicker.setMinValue(0);

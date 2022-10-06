@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.authz;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -29,13 +27,13 @@ import cosmos.authz.v1beta1.Authz;
 import cosmos.base.v1beta1.CoinOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzSendActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_SEND_COIN = 8503;
 
     private Button mBefore, mNextBtn;
     private RelativeLayout mSelectCoinBtn;
@@ -213,12 +211,18 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }
 
-        } else if (v.equals(mSelectCoinBtn)  && !getSActivity().isFinishing()) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("sendCoins", mGrantAvailbale);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setTargetFragment(this, SELECT_SEND_COIN);
-            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+        } else if (v.equals(mSelectCoinBtn) && !getSActivity().isFinishing()) {
+            Bundle bundleData = new Bundle();
+            bundleData.putSerializable(SelectChainListDialog.SEND_COIN_LIST_BUNDLE_KEY, mGrantAvailbale);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_SEND_COIN_VALUE);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
+                mSelectedCoin = mGrantAvailbale.get(result);
+                mAmountInput.setText("");
+                onUpdateView();
+            });
 
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
@@ -290,16 +294,6 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
         }
         for (int i = 0; i < decimals - 1; i++) {
             mDecimalSetter = mDecimalSetter + "0";
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_SEND_COIN && resultCode == Activity.RESULT_OK) {
-            mSelectedCoin = mGrantAvailbale.get(data.getIntExtra("position", -1));
-            mAmountInput.setText("");
-            onUpdateView();
         }
     }
 

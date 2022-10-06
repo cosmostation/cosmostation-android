@@ -5,7 +5,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -436,11 +435,13 @@ public class MainTokensFragment extends BaseFragment {
         private void onBindEdit(RecyclerView.ViewHolder viewHolder) {
             final EditHolder holder = (EditHolder) viewHolder;
             holder.itemRoot.setOnClickListener(view -> {
-                Bundle bundle = new Bundle();
-                SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(bundle);
+                SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(null);
                 dialog.setCancelable(false);
-                dialog.setTargetFragment(MainTokensFragment.this, SECITON_CONTRACT_EDIT);
-                getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                dialog.show(getParentFragmentManager(), SelectCWTokenDialog.class.getName());
+                getParentFragmentManager().setFragmentResultListener(SelectCWTokenDialog.SELECT_CW_TOKEN_BUNDLE_KEY, MainTokensFragment.this, (requestKey, bundle) -> {
+                    onUpdateInfo();
+                    getMainActivity().onFetchAllData();
+                });
             });
         }
 
@@ -659,15 +660,6 @@ public class MainTokensFragment extends BaseFragment {
 
     public MainActivity getMainActivity() {
         return (MainActivity) getBaseActivity();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SECITON_CONTRACT_EDIT && resultCode == Activity.RESULT_OK) {
-            onUpdateInfo();
-            getMainActivity().onFetchAllData();
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     // Section Header

@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,24 +10,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.common.collect.Sets;
-
-import java.util.List;
-import java.util.Set;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class PriceColorChangeDialog extends DialogFragment {
-
 
     private TextView mDialogTitle;
     private RecyclerView mRecyclerView;
@@ -77,21 +66,21 @@ public class PriceColorChangeDialog extends DialogFragment {
                 holder.iconPriceColorUp.setImageResource(R.drawable.icon_pricegreen);
                 holder.iconPriceColorDown.setImageResource(R.drawable.icon_pricered);
                 holder.rootLayer.setOnClickListener(v -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra(BaseConstant.PRE_PRICE_COLOR, position + 1);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    Bundle result = new Bundle();
+                    result.putInt(BaseConstant.POSITION, position + 1);
+                    getParentFragmentManager().setFragmentResult(BaseConstant.PRE_PRICE_COLOR, result);
                     getSActivity().getBaseDao().setPriceColorOption(position + 1);
-                    getDialog().dismiss();
+                    dismiss();
                 });
             } else {
                 holder.iconPriceColorUp.setImageResource(R.drawable.icon_pricered);
                 holder.iconPriceColorDown.setImageResource(R.drawable.icon_pricegreen);
                 holder.rootLayer.setOnClickListener(v -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra(BaseConstant.PRE_PRICE_COLOR, position + 1);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    Bundle result = new Bundle();
+                    result.putInt(BaseConstant.POSITION, position + 1);
+                    getParentFragmentManager().setFragmentResult(BaseConstant.PRE_PRICE_COLOR, result);
                     getSActivity().getBaseDao().setPriceColorOption(position + 1);
-                    getDialog().dismiss();
+                    dismiss();
                 });
             }
         }

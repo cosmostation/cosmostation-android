@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +24,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
-public class StarnameResourceDialog extends BottomSheetDialogFragment {
+public class StarNameResourceDialog extends BottomSheetDialogFragment {
+
+    public final static String STAR_NAME_RESOURCE_BUNDLE_KEY = "starNameResource";
+    public final static String STAR_NAME_RESOURCE_WRAPPER_BUNDLE_KEY = "resources";
 
     private RecyclerView mRecyclerView;
     private TextView mtextView;
@@ -34,8 +35,8 @@ public class StarnameResourceDialog extends BottomSheetDialogFragment {
     private ArrayList<Types.Resource> mAlreadyChains;
     private ArrayList<StarnameAssets> mAllChains;
 
-    public static StarnameResourceDialog newInstance(Bundle bundle) {
-        StarnameResourceDialog frag = new StarnameResourceDialog();
+    public static StarNameResourceDialog newInstance(Bundle bundle) {
+        StarNameResourceDialog frag = new StarNameResourceDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -48,7 +49,7 @@ public class StarnameResourceDialog extends BottomSheetDialogFragment {
         mtextView.setText(R.string.str_select_chain_for_address);
         mRecyclerView = view.findViewById(R.id.recycler);
 
-        StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getArguments().getSerializable("resources");
+        StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getArguments().getSerializable(StarNameResourceDialog.STAR_NAME_RESOURCE_WRAPPER_BUNDLE_KEY);
         mAlreadyChains = wrapper.array;
         mAllChains = StarnameAssets.getStarnameAssets();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -86,10 +87,10 @@ public class StarnameResourceDialog extends BottomSheetDialogFragment {
             holder.chainName.setText(StarnameAssets.getStarNameChainName(resource.url));
             holder.rootLayer.setOnClickListener(v -> {
                 if (!alreadyHave(resource)) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("resource", resource);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                    getDialog().dismiss();
+                    Bundle result = new Bundle();
+                    result.putParcelable("resource", resource);
+                    getParentFragmentManager().setFragmentResult(StarNameResourceDialog.STAR_NAME_RESOURCE_BUNDLE_KEY, result);
+                    dismiss();
                 }
             });
         }

@@ -92,7 +92,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
                     onGenNewAccount(chains.get(0), mUserInput);
                 } else {
                     Bundle bundle = new Bundle();
-                    bundle.putString("watchAddress", mUserInput);
+                    bundle.putString(SelectChainListDialog.WATCH_ADDRESS_BUNDLE_KEY, mUserInput);
                     SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
                     dialog.show(getSupportFragmentManager(), "dialog");
                     dialog.setSelectChainsDialogResult(result -> {

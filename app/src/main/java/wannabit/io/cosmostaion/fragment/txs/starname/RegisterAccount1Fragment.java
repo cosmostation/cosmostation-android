@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -27,13 +31,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.StarnameResourceDialog;
+import wannabit.io.cosmostaion.dialog.StarNameResourceDialog;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
 public class RegisterAccount1Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_ADD_CHAIN = 9700;
-    public final static int SELECT_ADD_ADDRESS = 9701;
 
     private Button mBefore, mNextBtn;
     private RecyclerView mRecyclerView;
@@ -103,43 +105,37 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_ADD_CHAIN && resultCode == Activity.RESULT_OK) {
-            try {
-                StarnameAssets asset = data.getParcelableExtra("resource");
-                Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
-                intent.putExtra("asset", asset);
-                startActivityForResult(intent, SELECT_ADD_ADDRESS);
-                getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    ActivityResultLauncher<Intent> addAddressRegisterAccount = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        try {
+                            Types.Resource temp = null;
+                            if (data != null) {
+                                temp = Types.Resource.parseFrom(data.getByteArrayExtra("resource"));
+                            }
+                            int position = -1;
+                            for (int i = 0; i < mResources.size(); i++) {
+                                if (mResources.get(i).getUri().equals(temp.getUri())) {
+                                    position = i;
+                                    break;
+                                }
+                            }
 
-            } catch (Exception e) {
-            }
+                            if (position >= 0) {
+                                mResources.set(position, temp);
+                            } else {
+                                mResources.add(temp);
+                            }
+                            mResourceAdapter.notifyDataSetChanged();
 
-        } else if (requestCode == SELECT_ADD_ADDRESS && resultCode == Activity.RESULT_OK) {
-            try {
-                Types.Resource temp = Types.Resource.parseFrom(data.getByteArrayExtra("resource"));
-                int position = -1;
-                for (int i = 0; i < mResources.size(); i++) {
-                    if (mResources.get(i).getUri().equals(temp.getUri())) {
-                        position = i;
-                        break;
+                        } catch (Exception e) {
+                        }
                     }
                 }
-
-                if (position >= 0) {
-                    mResources.set(position, temp);
-                } else {
-                    mResources.add(temp);
-                }
-                mResourceAdapter.notifyDataSetChanged();
-
-            } catch (Exception e) {
-            }
-
-        }
-    }
-
+            });
 
     private class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_RESOURCE = 1;
@@ -174,7 +170,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
             holder.itemRoot.setOnClickListener(v -> {
                 Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
                 intent.putExtra("resource", resource.toByteArray());
-                startActivityForResult(intent, SELECT_ADD_ADDRESS);
+                addAddressRegisterAccount.launch(intent);
                 getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             });
 
@@ -193,13 +189,22 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
         private void onBindAddItemViewHolder(RecyclerView.ViewHolder viewHolder) {
             final ResourceAddHolder holder = (ResourceAddHolder) viewHolder;
             holder.itemBtnAdd.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
+                Bundle bundleData = new Bundle();
                 StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
-                bundle.putSerializable("resources", wrapper);
+                bundleData.putSerializable(StarNameResourceDialog.STAR_NAME_RESOURCE_WRAPPER_BUNDLE_KEY, wrapper);
                 if (!getSActivity().isFinishing()) {
-                    StarnameResourceDialog dialog = StarnameResourceDialog.newInstance(bundle);
-                    dialog.setTargetFragment(RegisterAccount1Fragment.this, SELECT_ADD_CHAIN);
-                    dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                    StarNameResourceDialog dialog = StarNameResourceDialog.newInstance(bundleData);
+                    dialog.show(getParentFragmentManager(), StarNameResourceDialog.class.getName());
+                    getParentFragmentManager().setFragmentResultListener(StarNameResourceDialog.STAR_NAME_RESOURCE_BUNDLE_KEY, RegisterAccount1Fragment.this, (requestKey, bundle) -> {
+                        try {
+                            StarnameAssets asset = bundle.getParcelable("resource");
+                            Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
+                            intent.putExtra("asset", asset);
+                            addAddressRegisterAccount.launch(intent);
+                            getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                        } catch (Exception e) {
+                        }
+                    });
                 }
             });
         }

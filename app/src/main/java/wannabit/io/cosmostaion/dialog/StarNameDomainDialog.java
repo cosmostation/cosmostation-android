@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,16 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseConstant;
 
-public class StarnameDomainDialog extends DialogFragment {
+public class StarNameDomainDialog extends DialogFragment {
+
+    public final static String STAR_NAME_DOMAIN_BUNDLE_KEY = "starNameDomain";
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private DomainListAdapter mDomainListAdapter;
     private ArrayList<String> mStarnameDomain = new ArrayList<>();
 
-    public static StarnameDomainDialog newInstance(Bundle bundle) {
-        StarnameDomainDialog frag = new StarnameDomainDialog();
+    public static StarNameDomainDialog newInstance(Bundle bundle) {
+        StarNameDomainDialog frag = new StarNameDomainDialog();
         frag.setArguments(bundle);
         return frag;
     }
@@ -65,10 +66,10 @@ public class StarnameDomainDialog extends DialogFragment {
             final String domain = mStarnameDomain.get(position);
             holder.domainName.setText(domain);
             holder.rootLayer.setOnClickListener(v -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(StarNameDomainDialog.STAR_NAME_DOMAIN_BUNDLE_KEY, result);
+                dismiss();
             });
         }
 

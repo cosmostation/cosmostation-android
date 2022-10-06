@@ -221,7 +221,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             NumberPickerDialog numberPicker = NumberPickerDialog.newInstance(null);
             numberPicker.selectListener = this::onSelectedHdPath;
             numberPicker.setCancelable(false);
-            numberPicker.show(getSupportFragmentManager(), "dialog");
+            numberPicker.show(getSupportFragmentManager(), NumberPickerDialog.class.getName());
 
         } else if (v.equals(mBtnAdd)) {
             long selectedCnt = mSearchList.stream().filter(derive -> derive.selected).count();

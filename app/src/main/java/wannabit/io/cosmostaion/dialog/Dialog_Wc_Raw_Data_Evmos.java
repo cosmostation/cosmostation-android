@@ -53,14 +53,14 @@ public class Dialog_Wc_Raw_Data_Evmos extends DialogFragment {
             if (listener != null) {
                 listener.reject(id);
             }
-            getDialog().dismiss();
+            dismiss();
         });
 
         btnPositive.setOnClickListener(v -> {
             if (listener != null) {
                 listener.sign(type, id, transaction, message);
             }
-            getDialog().dismiss();
+            dismiss();
         });
 
         return view;

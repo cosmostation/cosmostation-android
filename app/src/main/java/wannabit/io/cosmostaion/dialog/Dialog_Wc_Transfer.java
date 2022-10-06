@@ -67,7 +67,7 @@ public class Dialog_Wc_Transfer extends DialogFragment {
 
         btn_positive.setOnClickListener(v -> {
             ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
-            getDialog().dismiss();
+            dismiss();
         });
 
         return view;

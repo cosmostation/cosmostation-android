@@ -38,11 +38,11 @@ public class Dialog_Wc_Cancel extends DialogFragment {
         CancelOrderMessage msg = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), CancelOrderMessage.class);
         symbol_tv.setText(msg.getSymbol());
 
-        btn_negative.setOnClickListener(v -> getDialog().dismiss());
+        btn_negative.setOnClickListener(v -> dismiss());
 
         btn_positive.setOnClickListener(v -> {
             ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
-            getDialog().dismiss();
+            dismiss();
         });
 
         return view;
