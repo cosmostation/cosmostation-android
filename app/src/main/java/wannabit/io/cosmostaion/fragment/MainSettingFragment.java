@@ -286,9 +286,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnPriceColorChange) && !getMainActivity().isFinishing()) {
             PriceColorChangeDialog dialog = PriceColorChangeDialog.newInstance(null);
-            dialog.show(getParentFragmentManager(), "dialog");
+            dialog.show(getParentFragmentManager(), PriceColorChangeDialog.class.getName());
             getParentFragmentManager().setFragmentResultListener(BaseConstant.PRE_PRICE_COLOR, this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+                int result = bundle.getInt(BaseConstant.POSITION);
                 onUpdatePriceColor(result);
             });
 

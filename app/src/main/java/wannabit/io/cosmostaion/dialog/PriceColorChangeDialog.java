@@ -67,7 +67,7 @@ public class PriceColorChangeDialog extends DialogFragment {
                 holder.iconPriceColorDown.setImageResource(R.drawable.icon_pricered);
                 holder.rootLayer.setOnClickListener(v -> {
                     Bundle result = new Bundle();
-                    result.putInt("position", position + 1);
+                    result.putInt(BaseConstant.POSITION, position + 1);
                     getParentFragmentManager().setFragmentResult(BaseConstant.PRE_PRICE_COLOR, result);
                     getSActivity().getBaseDao().setPriceColorOption(position + 1);
                     dismiss();
@@ -77,7 +77,7 @@ public class PriceColorChangeDialog extends DialogFragment {
                 holder.iconPriceColorDown.setImageResource(R.drawable.icon_pricegreen);
                 holder.rootLayer.setOnClickListener(v -> {
                     Bundle result = new Bundle();
-                    result.putInt("position", position + 1);
+                    result.putInt(BaseConstant.POSITION, position + 1);
                     getParentFragmentManager().setFragmentResult(BaseConstant.PRE_PRICE_COLOR, result);
                     getSActivity().getBaseDao().setPriceColorOption(position + 1);
                     dismiss();
