@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import static wannabit.io.cosmostaion.fragment.MainTokensFragment.SECITON_CONTRACT_EDIT;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,15 +55,13 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
 
         mAccount = getSActivity().getBaseDao().onSelectAccount(getSActivity().getBaseDao().getLastUser());
 
-        if (SECITON_CONTRACT_EDIT == 10) {
-            mDialogTitle.setText(getString(R.string.str_select_contract_token));
-            for (Cw20Asset asset : getSActivity().getBaseDao().mCw20Assets) {
-                if (!asset.default_show) {
-                    mContractAssets.add(asset);
-                }
+        mDialogTitle.setText(getString(R.string.str_select_contract_token));
+        for (Cw20Asset asset : getSActivity().getBaseDao().mCw20Assets) {
+            if (!asset.default_show) {
+                mContractAssets.add(asset);
             }
-            checkedContractSet = getSActivity().getBaseDao().getUserFavoTokens(mAccount.address);
         }
+        checkedContractSet = getSActivity().getBaseDao().getUserFavoTokens(mAccount.address);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
