@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.setting;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -95,8 +98,8 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
         public void onBindViewHolder(@NonNull ListHolder holder, int position) {
             MWords mWord = mMyMnemonics.get(position);
             holder.itemMnemonicName.setText(mWord.getName());
-            holder.itemDerivedCnt.setText("" + mWord.getLinkedWalletCnt(getBaseDao()));
-            holder.itemWordsCnt.setText("" + mWord.wordsCnt);
+            holder.itemDerivedCnt.setText(String.valueOf(mWord.getLinkedWalletCnt(getBaseDao())));
+            holder.itemWordsCnt.setText(String.valueOf(mWord.wordsCnt));
             holder.itemImportedDate.setText(mWord.getImportDate(MnemonicListActivity.this));
 
             holder.itemRoot.setOnClickListener(view -> {
@@ -106,10 +109,10 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
                     startActivity(checkintent);
 
                 } else {
-                    Intent intent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
-                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
-                    intent.putExtra("checkid", mWord.id);
-                    startActivity(intent);
+                    Intent checkintent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
+                    checkintent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
+                    checkintent.putExtra("mnemonicId", mWord.id);
+                    startActivityForResult.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             });
@@ -134,4 +137,14 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
             }
         }
     }
+
+    ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            if (result.getData() != null) {
+                Intent checkintent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
+                checkintent.putExtra("mnemonicId", result.getData().getLongExtra("mnemonicId", -1));
+                startActivity(checkintent);
+            }
+        }
+    });
 }

@@ -62,8 +62,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
 import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_MNEMONIC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_CHECK_PRIVATE_KEY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_DELETE_USER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
 
@@ -99,8 +97,6 @@ import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
-import wannabit.io.cosmostaion.activities.setting.PrivateKeyCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.AssetPath;
@@ -117,9 +113,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
 import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
-import wannabit.io.cosmostaion.task.UserTask.CheckPrivateKeyTask;
 import wannabit.io.cosmostaion.task.UserTask.DeleteUserTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzClaimCommissionGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzClaimRewardGrpcTask;
@@ -460,9 +454,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         onUpdateCnt();
     }
 
-
     private void onFinishInput() {
-        if (mPurpose == CONST_PW_SIMPLE_CHECK) {
+        if (mPurpose == CONST_PW_SIMPLE_CHECK || mPurpose == CONST_PW_CHECK_MNEMONIC || mPurpose == CONST_PW_CHECK_PRIVATE_KEY) {
             onShowWaitDialog();
             new CheckPasswordTask(getBaseApplication(), this).execute(mUserInput);
 
@@ -499,14 +492,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (mPurpose == CONST_PW_DELETE_ACCOUNT) {
             onShowWaitDialog();
             new DeleteUserTask(getBaseApplication(), this).execute(mUserInput);
-
-        } else if (mPurpose == CONST_PW_CHECK_MNEMONIC) {
-            onShowWaitDialog();
-            new CheckMnemonicTask(getBaseApplication(), this).execute(mUserInput);
-
-        } else if (mPurpose == CONST_PW_CHECK_PRIVATE_KEY) {
-            onShowWaitDialog();
-            new CheckPrivateKeyTask(getBaseApplication(), this, getBaseDao().onSelectAccount("" + mIdToCheck)).execute(mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REDELEGATE) {
             onShowWaitDialog();
@@ -782,32 +767,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     onDeleteMnemonic(getBaseDao().onSelectMnemonicById(mIdMWordDelete));
                     PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
                 }
-            } else {
-                onShakeView();
-                onInitView();
-                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
-
-            }
-
-        } else if (result.taskType == TASK_CHECK_MNEMONIC) {
-            if (result.isSuccess) {
-                Intent checkintent = new Intent(PasswordCheckActivity.this, MnemonicDetailActivity.class);
-                checkintent.putExtra("mnemonicId", getIntent().getLongExtra("checkid", -1));
-                startActivity(checkintent);
-
-            } else {
-                onShakeView();
-                onInitView();
-                Toast.makeText(getBaseContext(), getString(R.string.error_invalid_password), Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (result.taskType == TASK_CHECK_PRIVATE_KEY) {
-            if (result.isSuccess) {
-                Intent checkintent = new Intent(PasswordCheckActivity.this, PrivateKeyCheckActivity.class);
-                checkintent.putExtra("checkid", mIdToCheck);
-                checkintent.putExtra("entropy", String.valueOf(result.resultData));
-                startActivity(checkintent);
-
             } else {
                 onShakeView();
                 onInitView();
