@@ -22,11 +22,13 @@ import kava.swap.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class ListKavaSwapFragment extends BaseFragment implements View.OnClickListener {
+
     private RelativeLayout mBtnInputCoinList, mBtnOutputCoinList;
     private ImageView mInputImg;
     private TextView mInputCoin, mInputAmount;
@@ -178,12 +180,12 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
     public void onClick(View v) {
         if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
-            bundleData.putStringArrayList("denoms", mAllDenoms);
-            bundleData.putInt("selectInputKava", 8500);
+            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mAllDenoms);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 mInputCoinDenom = mAllDenoms.get(result);
                 loop:
                 for (QueryOuterClass.PoolResponse pool : mSwapPoolList) {
@@ -222,12 +224,12 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             }
 
             Bundle bundleData = new Bundle();
-            bundleData.putStringArrayList("denoms", mSwapableDenoms);
-            bundleData.putInt("selectOutputKava", 8501);
+            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mSwapableDenoms);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 mOutputCoinDenom = mSwapableDenoms.get(result);
                 loop:
                 for (QueryOuterClass.PoolResponse pool : mSwapablePools) {

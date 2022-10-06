@@ -27,13 +27,13 @@ import cosmos.authz.v1beta1.Authz;
 import cosmos.base.v1beta1.CoinOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzSendActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_SEND_COIN = 8503;
 
     private Button mBefore, mNextBtn;
     private RelativeLayout mSelectCoinBtn;
@@ -213,12 +213,12 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
 
         } else if (v.equals(mSelectCoinBtn) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
-            bundleData.putSerializable("sendCoins", mGrantAvailbale);
-            bundleData.putInt("selectSendCoin", 8503);
+            bundleData.putSerializable(SelectChainListDialog.SEND_COIN_LIST_BUNDLE_KEY, mGrantAvailbale);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_SEND_COIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("sendList", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 mSelectedCoin = mGrantAvailbale.get(result);
                 mAmountInput.setText("");
                 onUpdateView();

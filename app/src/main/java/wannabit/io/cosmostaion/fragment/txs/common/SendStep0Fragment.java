@@ -44,6 +44,7 @@ import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -59,7 +60,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_IBC_CHAIN = 8504;
 
     private RelativeLayout mToChainList;
     private ImageView mToChainImg;
@@ -178,10 +178,9 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     private void onUpdateChainView() {
         mToChainImg.setImageResource(mToSendChainConfig.chainImg());
         mToChainTxt.setText(mToSendChainConfig.chainTitleToUp());
-        mToChainTxt.setTextColor(ContextCompat.getColor(getSActivity(), mToSendChainConfig.chainColor()));
+        mToChainTxt.setTextColor(ContextCompat.getColor(getActivity(), mToSendChainConfig.chainColor()));
         mAddressInput.setText("");
-        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain))
-            mIbcLayer.setVisibility(View.GONE);
+        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) mIbcLayer.setVisibility(View.GONE);
         else mIbcLayer.setVisibility(View.VISIBLE);
     }
 
@@ -189,12 +188,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         if (v.equals(mToChainList)) {
             Bundle bundleData = new Bundle();
-            bundleData.putSerializable("toSendCoins", mToSendableChains);
-            bundleData.putInt("selectIbcChain", 8504);
+            bundleData.putSerializable(SelectChainListDialog.TO_SENDABLE_CHAIN_CONFIG_BUNDLE_KEY, mToSendableChains);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_IBC_CHAIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("recipientChainList", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 mToSendChainConfig = mToSendableChains.get(result);
                 mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
                 onUpdateChainView();
@@ -216,7 +215,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             if (WDp.isValidChainAddress(mToSendChainConfig, userInput)) {
                 if (!isExchangeAddress(userInput)) {
-                    CommonAlertDialog.showSingleButton(getSActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>"),
+                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>"),
                             getString(R.string.error_exchange_address_msg), getString(R.string.str_confirm), null, false);
                     return;
                 }

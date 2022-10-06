@@ -20,11 +20,13 @@ import java.util.ArrayList;
 import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class ListSwapFragment extends BaseFragment implements View.OnClickListener {
+
     private RelativeLayout mBtnInputCoinList, mBtnOutputCoinList;
     private ImageView mInputImg;
     private TextView mInputCoin, mInputAmount;
@@ -167,12 +169,12 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
-            bundleData.putStringArrayList("denoms", mAllDenoms);
-            bundleData.putInt("selectInputOsmosis", 8500);
+            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mAllDenoms);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 mInputCoinDenom = mAllDenoms.get(result);
                 loop:
                 for (BalancerPool.Pool pool : mPoolList) {
@@ -213,12 +215,12 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
             }
 
             Bundle bundleData = new Bundle();
-            bundleData.putStringArrayList("denoms", mSwapableDenoms);
-            bundleData.putInt("selectOutputOsmosis", 8501);
+            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mSwapableDenoms);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 mOutputCoinDenom = mSwapableDenoms.get(result);
                 loop:
                 for (BalancerPool.Pool pool : mSwapablePools) {

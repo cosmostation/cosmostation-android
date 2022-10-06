@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -151,12 +152,12 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
-            bundleData.putStringArrayList("denoms", mAllDenoms);
-            bundleData.putInt("selectInputSif", 8500);
+            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mAllDenoms);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 mInputCoinDenom = mAllDenoms.get(result);
                 if (mInputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
                     mSelectedPool = mPoolList.get(0);
@@ -180,12 +181,12 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
                 mSwapableDenoms.add(getSActivity().mChainConfig.mainDenom());
             }
             Bundle bundleData = new Bundle();
-            bundleData.putStringArrayList("denoms", mSwapableDenoms);
-            bundleData.putInt("selectOutputSif", 8501);
+            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mSwapableDenoms);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("swapList", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 mOutputCoinDenom = mSwapableDenoms.get(result);
                 if (mOutputCoinDenom.equals(getSActivity().mChainConfig.mainDenom())) {
                     mSelectedPool = mPoolList.get(0);

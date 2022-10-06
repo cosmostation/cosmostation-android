@@ -81,6 +81,7 @@ import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -147,7 +148,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
-    public final static int SELECT_FEE_DENOM = 8502;
 
     private CardView mFeeTotalCard;
     private RelativeLayout mBtnSelectFeeCoin;
@@ -271,12 +271,12 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         if (v.equals(mBtnSelectFeeCoin) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
-            bundleData.putSerializable("feeDatas", mFeeInfo.get(mSelectedFeeInfo).feeDatas);
-            bundleData.putInt("selectFeeDenom", 8502);
+            bundleData.putSerializable(SelectChainListDialog.FEE_DATA_LIST_BUNDLE_KEY, mFeeInfo.get(mSelectedFeeInfo).feeDatas);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_FEE_DENOM_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), "dialog");
-            getParentFragmentManager().setFragmentResultListener("feeList", this, (requestKey, bundle) -> {
-                int result = bundle.getInt("position");
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
                 mSelectedFeeData = result;
                 onCheckTxType();
                 onUpdateView();
