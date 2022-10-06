@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -233,15 +238,14 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 }
 
                 if (getBaseDao().isAutoPass()) {
-                    Intent checkintent = new Intent(this, MnemonicDetailActivity.class);
-                    checkintent.putExtra("mnemonicId", mAccount.mnemonicId);
-                    startActivity(checkintent);
+                    Intent intent = new Intent(this, MnemonicDetailActivity.class);
+                    intent.putExtra("mnemonicId", mAccount.mnemonicId);
+                    startActivity(intent);
 
                 } else {
-                    Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
-                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
-                    intent.putExtra("checkid", mAccount.mnemonicId);
-                    startActivity(intent);
+                    Intent checkintent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
+                    checkintent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
+                    startActivityForResult.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
 
@@ -255,16 +259,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             if (mAccount.hasPrivateKey) {
                 if (getBaseDao().isAutoPass()) {
                     String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                    Intent checkintent = new Intent(this, PrivateKeyCheckActivity.class);
-                    checkintent.putExtra("checkid", mAccount.id);
-                    checkintent.putExtra("entropy", entropy);
-                    startActivity(checkintent);
+                    Intent intent = new Intent(this, PrivateKeyCheckActivity.class);
+                    intent.putExtra("checkid", mAccount.id);
+                    intent.putExtra("entropy", entropy);
+                    startActivity(intent);
 
                 } else {
-                    Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
-                    intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_PRIVATE_KEY);
-                    intent.putExtra("checkid", mAccount.id);
-                    startActivity(intent);
+                    Intent checkintent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
+                    checkintent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_PRIVATE_KEY);
+                    startActivityForResult.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
 
@@ -339,4 +342,20 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
         }
     }
+
+    ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            Intent checkIntent;
+            if (result.getData().getIntExtra(CONST_PW_PURPOSE, -1) == CONST_PW_CHECK_MNEMONIC) {
+                checkIntent = new Intent(AccountDetailActivity.this, MnemonicDetailActivity.class);
+                checkIntent.putExtra("mnemonicId", mAccount.mnemonicId);
+            } else {
+                String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+                checkIntent = new Intent(this, PrivateKeyCheckActivity.class);
+                checkIntent.putExtra("checkid", mAccount.id);
+                checkIntent.putExtra("entropy", entropy);
+            }
+            startActivity(checkIntent);
+        }
+    });
 }

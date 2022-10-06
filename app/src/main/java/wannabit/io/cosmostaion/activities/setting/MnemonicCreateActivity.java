@@ -55,7 +55,7 @@ public class MnemonicCreateActivity extends BaseActivity {
             mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i, "id", this.getPackageName()));
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", this.getPackageName()));
         }
-        onUpdateView();
+        onCreateMnemonic();
 
         mBtnDisplay.setOnClickListener(view -> {
             mIsDisplay = !mIsDisplay;
@@ -91,9 +91,13 @@ public class MnemonicCreateActivity extends BaseActivity {
         }
     }
 
-    private void onUpdateView() {
+    private void onCreateMnemonic() {
         byte[] mEntropy = WKey.getEntropy();
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
+        onUpdateView();
+    }
+
+    private void onUpdateView() {
         for (int i = 0; i < mWords.size(); i++) {
             if (mIsDisplay) mTvWords[i].setText(mWords.get(i));
             else mTvWords[i].setText("****");
