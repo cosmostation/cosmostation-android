@@ -3,15 +3,19 @@ package wannabit.io.cosmostaion.activities.txs.common;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -24,9 +28,9 @@ import cosmos.staking.v1beta1.Staking;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.Signer;
@@ -38,6 +42,7 @@ import wannabit.io.cosmostaion.fragment.txs.common.RedelegateStep4Fragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RedelegateActivity extends BaseBroadCastActivity implements TaskListener {
@@ -169,16 +174,31 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
         } else {
             Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("fromValidatorAddr", mValAddress);
-            intent.putExtra("toValidatorAddr", mToValAddress);
-            intent.putExtra("rAmount", mAmount);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
-            startActivity(intent);
+            startActivityForResultReDelegate.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
+
+    ActivityResultLauncher<Intent> startActivityForResultReDelegate = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            new RedelegateGrpcTask(getBaseApplication(), new TaskListener() {
+                @Override
+                public void onTaskResponse(TaskResult result) {
+                    if (result.isSuccess) {
+                        Intent txIntent = new Intent(RedelegateActivity.this, TxDetailgRPCActivity.class);
+                        txIntent.putExtra("isGen", true);
+                        txIntent.putExtra("isSuccess", result.isSuccess);
+                        txIntent.putExtra("errorCode", result.errorCode);
+                        txIntent.putExtra("errorMsg", result.errorMsg);
+                        String hash = String.valueOf(result.resultData);
+                        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+                        startActivity(txIntent);
+                    }
+                }
+            }, mBaseChain, mAccount, mValAddress, mToValAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+    });
 
     private void onFetchValidtors() {
         if (mTaskCount > 0) return;

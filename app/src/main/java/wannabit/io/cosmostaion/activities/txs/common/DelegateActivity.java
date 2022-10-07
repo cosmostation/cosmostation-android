@@ -40,7 +40,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 
-public class DelegateActivity extends BaseBroadCastActivity implements TaskListener {
+public class DelegateActivity extends BaseBroadCastActivity {
 
     private RelativeLayout mRootView;
     private Toolbar mToolbar;
@@ -172,26 +172,23 @@ public class DelegateActivity extends BaseBroadCastActivity implements TaskListe
     ActivityResultLauncher<Intent> startActivityForResultDelegate = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             onShowWaitDialog();
-            new DelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValAddress, mAmount, mTxMemo, mTxFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new DelegateGrpcTask(getBaseApplication(), new TaskListener() {
+                @Override
+                public void onTaskResponse(TaskResult result) {
+                    if (result.isSuccess) {
+                        Intent txIntent = new Intent(DelegateActivity.this, TxDetailgRPCActivity.class);
+                        txIntent.putExtra("isGen", true);
+                        txIntent.putExtra("isSuccess", result.isSuccess);
+                        txIntent.putExtra("errorCode", result.errorCode);
+                        txIntent.putExtra("errorMsg", result.errorMsg);
+                        String hash = String.valueOf(result.resultData);
+                        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+                        startActivity(txIntent);
+                    }
+                }
+            }, mBaseChain, mAccount, mValAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     });
-
-    @Override
-    public void onTaskResponse(TaskResult result) {
-        if (isFinishing()) return;
-        onHideWaitDialog();
-        if (result.isSuccess) {
-            Intent txIntent = new Intent(DelegateActivity.this, TxDetailgRPCActivity.class);
-            txIntent.putExtra("isGen", true);
-            txIntent.putExtra("isSuccess", result.isSuccess);
-            txIntent.putExtra("errorCode", result.errorCode);
-            txIntent.putExtra("errorMsg", result.errorMsg);
-            String hash = String.valueOf(result.resultData);
-            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-            startActivity(txIntent);
-        }
-    }
 
     private class DelegatePageAdapter extends FragmentPagerAdapter {
 
