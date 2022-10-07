@@ -226,7 +226,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             numberPicker.show(getSupportFragmentManager(), NumberPickerDialog.class.getName());
 
         } else if (v.equals(mBtnAdd)) {
-            long selectedCnt = mSearchList.stream().filter(derive -> derive.selected).count();
+            long selectedCnt = mDerives.stream().filter(derive -> derive.selected).count();
             if (selectedCnt == 0) {
                 Toast.makeText(this, R.string.error_not_selected_to_import, Toast.LENGTH_SHORT).show();
                 return;
