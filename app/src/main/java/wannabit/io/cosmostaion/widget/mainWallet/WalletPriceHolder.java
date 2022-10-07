@@ -61,14 +61,12 @@ public class WalletPriceHolder extends BaseHolder {
             } else {
                 itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
             }
-            itemUpDownPrice.setText(lastUpDown + "%");
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
                 itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
             } else {
                 itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteNo));
             }
-            itemUpDownPrice.setText("+" + " " + lastUpDown + "%");
         }
 
         if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(COSMOS_MAIN)) {

@@ -123,14 +123,12 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
             } else {
                 mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteYes));
             }
-            mItemUpDownPrice.setText(lastUpDown + "%");
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             if (getBaseDao().getPriceColorOption() == 1) {
                 mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteYes));
             } else {
                 mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteNo));
             }
-            mItemUpDownPrice.setText("+" + " " + lastUpDown + "%");
         }
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainBgColor()));
