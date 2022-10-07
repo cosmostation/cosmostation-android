@@ -212,16 +212,20 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         ArrayList<String> toClaimValAddr = targetClaimValidatorAddresses();
         FeeInfo.FeeData feeData = calculateFee(selectFee);
         new Thread(() -> {
-            ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateClaim(toClaimValAddr);
-            ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
-            if (simulateClaimResponse == null) {
-                return;
+            try {
+                ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateClaim(toClaimValAddr);
+                ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
+                if (simulateClaimResponse == null) {
+                    return;
+                }
+                ServiceOuterClass.BroadcastTxResponse executeClaimResponse = ValidatorListActivity.this.executeClaim(simulateClaimResponse, feeData, toClaimValAddr);
+                if (executeClaimResponse == null) {
+                    return;
+                }
+                ValidatorListActivity.this.processResponse(executeClaimResponse);
+            } catch (Exception e) {
+
             }
-            ServiceOuterClass.BroadcastTxResponse executeClaimResponse = ValidatorListActivity.this.executeClaim(simulateClaimResponse, feeData, toClaimValAddr);
-            if (executeClaimResponse == null) {
-                return;
-            }
-            ValidatorListActivity.this.processResponse(executeClaimResponse);
         }).start();
     }
 
@@ -259,18 +263,22 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         FeeInfo.FeeData feeData = calculateFee(selectFee);
 
         new Thread(() -> {
-            if (getClaimableReward() != null && mBaseChain != null) {
-                ServiceOuterClass.SimulateResponse simulateCompoundingResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mBaseChain);
-                ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
-                if (simulateCompoundingResponse == null) {
-                    return;
-                }
+            try {
+                if (getClaimableReward() != null && mBaseChain != null) {
+                    ServiceOuterClass.SimulateResponse simulateCompoundingResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mBaseChain);
+                    ValidatorListActivity.this.runOnUiThread(ValidatorListActivity.this::onHideWaitDialog);
+                    if (simulateCompoundingResponse == null) {
+                        return;
+                    }
 
-                ServiceOuterClass.BroadcastTxResponse executeCompoundingResponse = ValidatorListActivity.this.executeCompounding(simulateCompoundingResponse, feeData, getClaimableReward(), mBaseChain);
-                if (executeCompoundingResponse == null) {
-                    return;
+                    ServiceOuterClass.BroadcastTxResponse executeCompoundingResponse = ValidatorListActivity.this.executeCompounding(simulateCompoundingResponse, feeData, getClaimableReward(), mBaseChain);
+                    if (executeCompoundingResponse == null) {
+                        return;
+                    }
+                    ValidatorListActivity.this.processResponse(executeCompoundingResponse);
                 }
-                ValidatorListActivity.this.processResponse(executeCompoundingResponse);
+            } catch (Exception e) {
+
             }
         }).start();
     }
