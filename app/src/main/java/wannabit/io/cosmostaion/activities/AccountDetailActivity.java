@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
@@ -36,7 +34,6 @@ import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
 import wannabit.io.cosmostaion.activities.txs.common.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
@@ -48,6 +45,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
+import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
@@ -132,9 +130,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     public void onStartDeleteUser() {
         if (mAccount.hasPrivateKey) {
             Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_DELETE_ACCOUNT);
-            intent.putExtra("id", mAccount.id);
-            startActivity(intent);
+            startActivityForResultDeleteAccount.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
             onDeleteAccountExternal(mAccount);
@@ -244,8 +240,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
                 } else {
                     Intent checkintent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
-                    checkintent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
-                    startActivityForResult.launch(checkintent);
+                    startActivityForResultMnemonic.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
 
@@ -266,8 +261,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
                 } else {
                     Intent checkintent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
-                    checkintent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_PRIVATE_KEY);
-                    startActivityForResult.launch(checkintent);
+                    startActivityForResultKey.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
 
@@ -343,18 +337,27 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-            Intent checkIntent;
-            if (result.getData().getIntExtra(CONST_PW_PURPOSE, -1) == CONST_PW_CHECK_MNEMONIC) {
-                checkIntent = new Intent(AccountDetailActivity.this, MnemonicDetailActivity.class);
-                checkIntent.putExtra("mnemonicId", mAccount.mnemonicId);
-            } else {
-                String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                checkIntent = new Intent(this, PrivateKeyCheckActivity.class);
-                checkIntent.putExtra("checkid", mAccount.id);
-                checkIntent.putExtra("entropy", entropy);
-            }
+    ActivityResultLauncher<Intent> startActivityForResultDeleteAccount = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onDeleteAccountExternal(getBaseDao().onSelectAccount(String.valueOf(mAccount.id)));
+            PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
+        }
+    });
+
+    ActivityResultLauncher<Intent> startActivityForResultMnemonic = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            Intent checkIntent = new Intent(AccountDetailActivity.this, MnemonicDetailActivity.class);
+            checkIntent.putExtra("mnemonicId", mAccount.mnemonicId);
+            startActivity(checkIntent);
+        }
+    });
+
+    ActivityResultLauncher<Intent> startActivityForResultKey = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
+            Intent checkIntent = new Intent(this, PrivateKeyCheckActivity.class);
+            checkIntent.putExtra("checkid", mAccount.id);
+            checkIntent.putExtra("entropy", entropy);
             startActivity(checkIntent);
         }
     });

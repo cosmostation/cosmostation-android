@@ -477,10 +477,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().onDeleteMnemonic(mWords);
 
         if (getBaseDao().onSelectAccounts().size() > 0) {
-            if (mAccount.id == null) {
-                getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
+            Account lastAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+            if (lastAccount != null) {
+                getBaseDao().setLastUser(lastAccount.id);
             } else {
-                getBaseDao().setLastUser(mAccount.id);
+                getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
             }
             onStartMainActivity(0);
 

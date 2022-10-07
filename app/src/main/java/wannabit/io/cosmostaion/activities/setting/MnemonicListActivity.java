@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.MWords;
 
 public class MnemonicListActivity extends BaseActivity implements View.OnClickListener {
@@ -110,7 +109,6 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
 
                 } else {
                     Intent checkintent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
-                    checkintent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
                     checkintent.putExtra("mnemonicId", mWord.id);
                     startActivityForResult.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
@@ -139,12 +137,10 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
     }
 
     ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK) {
-            if (result.getData() != null) {
-                Intent checkintent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
-                checkintent.putExtra("mnemonicId", result.getData().getLongExtra("mnemonicId", -1));
-                startActivity(checkintent);
-            }
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            Intent checkintent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
+            checkintent.putExtra("mnemonicId", result.getData().getLongExtra("mnemonicId", -1));
+            startActivity(checkintent);
         }
     });
 }
