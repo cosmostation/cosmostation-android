@@ -26,14 +26,12 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
-import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RewardStep0Fragment;
@@ -172,36 +170,38 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
     public void onStartReward() {
         if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcClaimRewardsReq(getAuthResponse(mBaseChain, mAccount), mValAddresses, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
-
+            onBroadCastTx();
         } else {
             Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
-            startActivityForResultClaimReward.launch(intent);
+            activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
-    ActivityResultLauncher<Intent> startActivityForResultClaimReward = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             onShowWaitDialog();
-            new ClaimRewardsGrpcTask(getBaseApplication(), new TaskListener() {
-                @Override
-                public void onTaskResponse(TaskResult result) {
-                    if (result.isSuccess) {
-                        Intent txIntent = new Intent(ClaimRewardActivity.this, TxDetailgRPCActivity.class);
-                        txIntent.putExtra("isGen", true);
-                        txIntent.putExtra("isSuccess", result.isSuccess);
-                        txIntent.putExtra("errorCode", result.errorCode);
-                        txIntent.putExtra("errorMsg", result.errorMsg);
-                        String hash = String.valueOf(result.resultData);
-                        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                        startActivity(txIntent);
-                    }
-                }
-            }, mBaseChain, mAccount, mValAddresses, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            onBroadCastTx();
         }
     });
+
+    private void onBroadCastTx() {
+        new ClaimRewardsGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) {
+                    Intent txIntent = new Intent(ClaimRewardActivity.this, TxDetailgRPCActivity.class);
+                    txIntent.putExtra("isGen", true);
+                    txIntent.putExtra("isSuccess", result.isSuccess);
+                    txIntent.putExtra("errorCode", result.errorCode);
+                    txIntent.putExtra("errorMsg", result.errorMsg);
+                    String hash = String.valueOf(result.resultData);
+                    if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+                    startActivity(txIntent);
+                }
+            }
+        }, mBaseChain, mAccount, mValAddresses, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
 
     @Override
     public void onTaskResponse(TaskResult result) {

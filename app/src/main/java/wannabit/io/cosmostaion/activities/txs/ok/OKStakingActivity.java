@@ -144,12 +144,12 @@ public class OKStakingActivity extends BaseBroadCastActivity {
             onBroadCastTx();
         } else {
             Intent intent = new Intent(OKStakingActivity.this, PasswordCheckActivity.class);
-            startActivityForResultOkDeposit.launch(intent);
+            activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
-    ActivityResultLauncher<Intent> startActivityForResultOkDeposit = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             onShowWaitDialog();
             onBroadCastTx();

@@ -2,9 +2,10 @@ package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -12,40 +13,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.binance.dex.api.client.BinanceDexApiClientFactory;
-import com.binance.dex.api.client.BinanceDexApiRestClient;
-import com.binance.dex.api.client.BinanceDexEnvironment;
-import com.binance.dex.api.client.Wallet;
-import com.binance.dex.api.client.domain.TransactionMetadata;
-import com.binance.dex.api.client.domain.broadcast.TransactionOption;
-import com.binance.dex.api.client.domain.broadcast.Transfer;
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import cosmos.tx.v1beta1.ServiceOuterClass;
-import ibc.core.channel.v1.QueryGrpc;
-import ibc.core.channel.v1.QueryOuterClass;
-import ibc.lightclients.tendermint.v1.Tendermint;
-import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.cosmos.MsgGenerator;
-import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
@@ -54,11 +39,14 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep4Fragment;
-import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.ChannelBuilder;
-import wannabit.io.cosmostaion.network.req.ReqBroadCast;
-import wannabit.io.cosmostaion.network.res.ResBroadTx;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Cw20IBCSendGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Cw20SendGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SendGrpcTask;
 
 public class SendActivity extends BaseBroadCastActivity {
 
@@ -182,156 +170,148 @@ public class SendActivity extends BaseBroadCastActivity {
 
     public void onStartSend() {
         if (getBaseDao().isAutoPass()) {
-            onAutoStartSend();
-
+            onBroadCastSendTx();
         } else {
             Intent intent = new Intent(this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("toAddress", mToAddress);
-            intent.putParcelableArrayListExtra("amount", mAmounts);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
-            startActivity(intent);
+            activityResultSendLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
     public void onStartIbcSend() {
         if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress,
-                    mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, getClientState().getLatestHeight(), mTxFee, "", getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
-
+            onBroadCastIbcSendTx();
         } else {
             Intent intent = new Intent(this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("toAddress", mToAddress);
-            intent.putParcelableArrayListExtra("amount", mAmounts);
-            intent.putExtra("assetPath", mAssetPath);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
-            startActivity(intent);
+            activityResultIbcSendLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
     public void onStartSendContract() {
         if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCw20SendReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mCw20Asset.contract_address,
-                    mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
-
+            onBroadCastSendContractTx();
         } else {
             Intent intent = new Intent(this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("toAddress", mToAddress);
-            intent.putExtra("contractAddress", mCw20Asset.contract_address);
-            intent.putParcelableArrayListExtra("amount", mAmounts);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
-            startActivity(intent);
+            activityResultSendContractLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
     public void onStartIBCContract() {
         if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCw20IbcTransferReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mCw20Asset.contract_address, mAssetPath,
-                    mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
-
+            onBroadCastIbcSendContractTx();
         } else {
             Intent intent = new Intent(this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("toAddress", mToAddress);
-            intent.putExtra("contractAddress", mCw20Asset.contract_address);
-            intent.putExtra("assetPath", mAssetPath);
-            intent.putParcelableArrayListExtra("amount", mAmounts);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
-            startActivity(intent);
+            activityResultIbcSendContractLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
-    private void onAutoStartSend() {
+    ActivityResultLauncher<Intent> activityResultSendLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastSendTx();
+        }
+    });
+
+    ActivityResultLauncher<Intent> activityResultIbcSendLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastIbcSendTx();
+        }
+    });
+
+    ActivityResultLauncher<Intent> activityResultSendContractLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastSendContractTx();
+        }
+    });
+
+    ActivityResultLauncher<Intent> activityResultIbcSendContractLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastIbcSendContractTx();
+        }
+    });
+
+    private void onBroadCastSendTx() {
         if (isGRPC(mBaseChain)) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSendReq(getAuthResponse(mBaseChain, mAccount), mToAddress, mAmounts, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
+            new SendGrpcTask(getBaseApplication(), new TaskListener() {
+                @Override
+                public void onTaskResponse(TaskResult result) {
+                    if (result.isSuccess) {
+                        onIntentTx(result);
+                    }
+                }
+            }, mBaseChain, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BNB_MAIN)) {
-            new Thread(() -> {
-                try {
-                    Wallet wallet = new Wallet(getEcKey(mAccount).getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
-                    wallet.setAccountNumber(mAccount.accountNumber);
-                    wallet.setSequence(Long.valueOf(mAccount.sequenceNumber));
-
-                    Transfer transfer = new Transfer();
-                    transfer.setCoin(mAmounts.get(0).denom);
-                    transfer.setFromAddress(mAccount.address);
-                    transfer.setToAddress(mToAddress);
-                    transfer.setAmount(mAmounts.get(0).amount);
-
-                    TransactionOption options = new TransactionOption(mTxMemo, 82, null);
-
-                    BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
-                    List<TransactionMetadata> resp = client.transfer(transfer, wallet, options, true);
-
-                    if (resp.get(0).isOk()) {
-                        Intent txIntent = new Intent(SendActivity.this, TxDetailActivity.class);
-                        txIntent.putExtra("isGen", true);
-                        txIntent.putExtra("isSuccess", true);
-                        txIntent.putExtra("errorCode",  resp.get(0).getCode());
-                        txIntent.putExtra("errorMsg", resp.get(0).getLog());
-                        String hash = resp.get(0).getHash();
-                        if (!TextUtils.isEmpty(hash))
-                            txIntent.putExtra("txHash", hash);
-                        startActivity(txIntent);
+            new SimpleBnbSendTask(getBaseApplication(), new TaskListener() {
+                @Override
+                public void onTaskResponse(TaskResult result) {
+                    if (result.isSuccess) {
+                        onIntentTx(result);
                     }
-                } catch (Exception e) { }
-            }).start();
+                }
+            }, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
-            new Thread(() -> {
-                try {
-                    Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mAmounts, mBaseChain);
-                    ArrayList<Msg> msgs= new ArrayList<>();
-                    msgs.add(singleSendMsg);
-
-                    ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainId());
-                    Response<ResBroadTx> response = ApiClient.getOkexChain().broadTx(reqBroadCast).execute();
-
-                    if (response.isSuccessful() && response.body() != null) {
-                        Intent txIntent = new Intent(SendActivity.this, TxDetailActivity.class);
-                        if (response.body().txhash != null) {
-                            String hash = response.body().txhash;
-                            if (!TextUtils.isEmpty(hash))
-                                txIntent.putExtra("txHash", hash);
-                        }
-                        if (response.body().code != null) {
-                            txIntent.putExtra("errorCode", response.body().code);
-                            txIntent.putExtra("errorMsg", response.body().raw_log);
-                        }
-                        txIntent.putExtra("isGen", true);
-                        txIntent.putExtra("isSuccess", true);
-                        startActivity(txIntent);
+            new SimpleSendTask(getBaseApplication(), new TaskListener() {
+                @Override
+                public void onTaskResponse(TaskResult result) {
+                    if (result.isSuccess) {
+                        onIntentTx(result);
                     }
-                } catch (Exception e) { }
-            }).start();
+                }
+            }, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
-    private Tendermint.ClientState getClientState() {
-        try {
-            QueryGrpc.QueryBlockingStub channelStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
-            QueryOuterClass.QueryChannelClientStateRequest request = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mAssetPath.channel).setPortId(mAssetPath.port).build();
-            QueryOuterClass.QueryChannelClientStateResponse response = channelStub.channelClientState(request);
-
-            if (response != null) {
-                return Tendermint.ClientState.parseFrom(response.getIdentifiedClientState().getClientState().getValue());
+    private void onBroadCastIbcSendTx() {
+        new IBCTransferGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) {
+                    onIntentTx(result);
+                }
             }
-        } catch (InvalidProtocolBufferException e) { e.printStackTrace(); }
-        return null;
+        }, mAccount, mBaseChain, mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void onBroadCastSendContractTx() {
+        new Cw20SendGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                onIntentTx(result);
+            }
+        }, mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void onBroadCastIbcSendContractTx() {
+        new Cw20IBCSendGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                onIntentTx(result);
+            }
+        }, mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAssetPath, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void onIntentTx(TaskResult result) {
+        Intent txIntent;
+        if (isGRPC(mBaseChain)) {
+            txIntent = new Intent(SendActivity.this, TxDetailgRPCActivity.class);
+        } else {
+            txIntent = new Intent(SendActivity.this, TxDetailActivity.class);
+        }
+        txIntent.putExtra("isGen", true);
+        txIntent.putExtra("isSuccess", result.isSuccess);
+        txIntent.putExtra("errorCode", result.errorCode);
+        txIntent.putExtra("errorMsg", result.errorMsg);
+        String hash = String.valueOf(result.resultData);
+        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+        startActivity(txIntent);
     }
 
     private class SendPageAdapter extends FragmentPagerAdapter {
