@@ -3,8 +3,6 @@ package wannabit.io.cosmostaion.fragment;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +37,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorMyFragment extends BaseFragment implements View.OnClickListener {
-
-    public final static int SELECT_MY_VALIDATOR_SORTING = 6003;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -164,7 +160,8 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 final BigDecimal rewardAmount = getBaseDao().getReward(mChainConfig.mainDenom(), validator.getOperatorAddress());
                 try {
                     Picasso.get().load(mChainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
 
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                 holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
@@ -297,28 +294,16 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     public void onShowMyValidatorSort() {
         PaddedVerticalButtonAlertDialog.showTripleButton(getMainActivity(), getString(R.string.str_sorting_s), null,
                 getString(R.string.str_sorting_by_name), View -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("sorting", 0);
-                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent);
+                    getBaseDao().setMyValSorting(0);
+                    onRefreshTab();
                 },
                 getString(R.string.str_sorting_by_my_delegated), View -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("sorting", 1);
-                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent);
+                    getBaseDao().setMyValSorting(1);
+                    onRefreshTab();
                 },
                 getString(R.string.str_sorting_by_reward), View -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("sorting", 2);
-                    onActivityResult(SELECT_MY_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent);
+                    getBaseDao().setMyValSorting(2);
+                    onRefreshTab();
                 });
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_MY_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
-            getBaseDao().setMyValSorting(data.getIntExtra("sorting", 1));
-            onRefreshTab();
-        }
-    }
-
 }

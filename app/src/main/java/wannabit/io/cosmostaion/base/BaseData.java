@@ -708,8 +708,8 @@ public class BaseData {
         return 0;
     }
 
-    public void setPriceColorOption(int sort) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_PRICE_COLOR, sort).apply();
+    public void setPriceColorOption(int option) {
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_PRICE_COLOR, option).apply();
     }
 
     public int getPriceColorOption() {

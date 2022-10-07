@@ -1,10 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +9,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.SimpleDividerItemDecoration;
 
 public class CurrencySetDialog extends DialogFragment {
+
+    public final static String CURRENCY_SET_BUNDLE_KEY = "currency";
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
@@ -69,10 +66,10 @@ public class CurrencySetDialog extends DialogFragment {
             holder.currencyName.setText(mUnitList[position]);
 
             holder.rootLayer.setOnClickListener(v -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("currency", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(CurrencySetDialog.CURRENCY_SET_BUNDLE_KEY, result);
+                dismiss();
             });
         }
 

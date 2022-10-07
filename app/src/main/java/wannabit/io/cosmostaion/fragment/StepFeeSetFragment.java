@@ -51,8 +51,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -83,6 +81,7 @@ import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -149,7 +148,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
-    public final static int SELECT_FEE_DENOM = 8502;
 
     private CardView mFeeTotalCard;
     private RelativeLayout mBtnSelectFeeCoin;
@@ -230,13 +228,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             }
         }
         mButtonGroup.setPosition(mSelectedFeeInfo, false);
-        mButtonGroup.setOnPositionChangedListener(new SegmentedButtonGroup.OnPositionChangedListener() {
-            @Override
-            public void onPositionChanged(int position) {
-                mSelectedFeeInfo = position;
-                onCalculateFees();
-                onCheckTxType();
-            }
+        mButtonGroup.setOnPositionChangedListener(position -> {
+            mSelectedFeeInfo = position;
+            onCalculateFees();
+            onCheckTxType();
         });
         onUpdateView();
 
@@ -275,11 +270,17 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnSelectFeeCoin) && !getSActivity().isFinishing()) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("feeDatas", mFeeInfo.get(mSelectedFeeInfo).feeDatas);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundle);
-            dialog.setTargetFragment(this, SELECT_FEE_DENOM);
-            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+            Bundle bundleData = new Bundle();
+            bundleData.putSerializable(SelectChainListDialog.FEE_DATA_LIST_BUNDLE_KEY, mFeeInfo.get(mSelectedFeeInfo).feeDatas);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_FEE_DENOM_VALUE);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
+                mSelectedFeeData = result;
+                onCheckTxType();
+                onUpdateView();
+            });
 
         } else if (v.equals(mBtnBefore)) {
             getSActivity().onBeforeStep();
@@ -536,16 +537,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         } else if (getSActivity().mTxType == CONST_PW_TX_AUTHZ_CLAIM_COMMISSION) {
             new SimulAuthzClaimCommissionGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, WKey.convertDpAddressToDpOpAddress(getSActivity().mGranter, getSActivity().mChainConfig),
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_FEE_DENOM && resultCode == Activity.RESULT_OK) {
-            mSelectedFeeData = data.getIntExtra("position", -1);
-            onCheckTxType();
-            onUpdateView();
         }
     }
 

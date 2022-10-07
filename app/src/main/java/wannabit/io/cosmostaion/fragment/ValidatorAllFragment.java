@@ -3,8 +3,6 @@ package wannabit.io.cosmostaion.fragment;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,7 +132,8 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
                 try {
                     Picasso.get().load(chainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
 
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                 if (validator.getJailed()) {
@@ -170,7 +169,8 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetail(validator));
                 try {
                     Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
 
                 if (validator.jailed) {
                     holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));
@@ -258,28 +258,16 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     public void onShowAllValidatorSort() {
         PaddedVerticalButtonAlertDialog.showTripleButton(getMainActivity(), getString(R.string.str_sorting_s), null,
                 getString(R.string.str_sorting_by_name), View -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("sorting", 0);
-                    onActivityResult(SELECT_All_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent);
+                    getBaseDao().setValSorting(0);
+                    onRefreshTab();
                 },
                 getString(R.string.str_sorting_by_power), View -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("sorting", 1);
-                    onActivityResult(SELECT_All_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent);
+                    getBaseDao().setValSorting(1);
+                    onRefreshTab();
                 },
                 getString(R.string.str_sorting_by_yield), View -> {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("sorting", 2);
-                    onActivityResult(SELECT_All_VALIDATOR_SORTING, Activity.RESULT_OK, resultIntent);
+                    getBaseDao().setValSorting(2);
+                    onRefreshTab();
                 });
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_All_VALIDATOR_SORTING && resultCode == Activity.RESULT_OK) {
-            getBaseDao().setValSorting(data.getIntExtra("sorting", 1));
-            onRefreshTab();
-        }
-    }
-
 }

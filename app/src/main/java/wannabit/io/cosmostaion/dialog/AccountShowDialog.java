@@ -62,8 +62,7 @@ public class AccountShowDialog extends DialogFragment {
 
         btn_nega.setOnClickListener(v -> {
             ((BaseActivity) getActivity()).onShareType(getArguments().getString("address"));
-            getDialog().dismiss();
-
+            dismiss();
         });
 
         btn_posi.setOnClickListener(v -> {
@@ -71,8 +70,7 @@ public class AccountShowDialog extends DialogFragment {
             ClipData clip = ClipData.newPlainText("address", address);
             clipboard.setPrimaryClip(clip);
             Toast.makeText(getActivity(), R.string.str_copied, Toast.LENGTH_SHORT).show();
-
-            getDialog().dismiss();
+            dismiss();
         });
 
         return view;

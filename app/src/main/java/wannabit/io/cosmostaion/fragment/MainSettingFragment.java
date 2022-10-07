@@ -61,9 +61,7 @@ import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int SELECT_CURRENCY = 9034;
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
-    public final static int SELECT_PRICE_COLOR = 9036;
 
     public final static int SELECT_CHECK_FOR_APP_LOCK = 1;
     public final static int SELECT_CHECK_FOR_AUTO_PASS = 2;
@@ -280,13 +278,19 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnCurrency) && !getMainActivity().isFinishing()) {
             CurrencySetDialog dialog = CurrencySetDialog.newInstance(null);
-            dialog.setTargetFragment(this, SELECT_CURRENCY);
-            dialog.show(getActivity().getSupportFragmentManager(), "dialog");
+            dialog.show(getParentFragmentManager(), CurrencySetDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(CurrencySetDialog.CURRENCY_SET_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
+                onSetCurrency(result);
+            });
 
         } else if (v.equals(mBtnPriceColorChange) && !getMainActivity().isFinishing()) {
             PriceColorChangeDialog dialog = PriceColorChangeDialog.newInstance(null);
-            dialog.setTargetFragment(this, SELECT_PRICE_COLOR);
-            dialog.show(getActivity().getSupportFragmentManager(), "dialog");
+            dialog.show(getParentFragmentManager(), PriceColorChangeDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(BaseConstant.PRE_PRICE_COLOR, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
+                onUpdatePriceColor(result);
+            });
 
         } else if (v.equals(mBtnExplore)) {
             String url = getMainActivity().mChainConfig.explorerUrl();
@@ -427,14 +431,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
-            onSetCurrency(data.getIntExtra("currency", 0));
-        }
-
-        if (requestCode == SELECT_PRICE_COLOR && resultCode == Activity.RESULT_OK) {
-            onUpdatePriceColor(data.getIntExtra(BaseConstant.PRE_PRICE_COLOR, 1));
-        }
-
         if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
             new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
                         @Override

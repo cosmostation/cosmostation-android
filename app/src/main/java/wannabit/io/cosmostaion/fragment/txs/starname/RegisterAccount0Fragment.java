@@ -2,8 +2,6 @@ package wannabit.io.cosmostaion.fragment.txs.starname;
 
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,14 +24,14 @@ import starnamed.x.starname.v1beta1.QueryGrpc;
 import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.starname.RegisterStarNameAccountActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.StarnameDomainDialog;
+import wannabit.io.cosmostaion.dialog.StarNameDomainDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RegisterAccount0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_POPUP_STARNAME_DOMAIN = 1000;
 
     private Button mCancelBtn, mConfirmBtn;
     private EditText mAccountInput;
@@ -78,18 +76,21 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v.equals(mDomainLayer) && !getSActivity().isFinishing()) {
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
-            StarnameDomainDialog dialog = StarnameDomainDialog.newInstance(bundle);
-            dialog.setTargetFragment(this, SELECT_POPUP_STARNAME_DOMAIN);
-            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
-
+            Bundle bundleData = new Bundle();
+            bundleData.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
+            StarNameDomainDialog dialog = StarNameDomainDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), StarNameDomainDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(StarNameDomainDialog.STAR_NAME_DOMAIN_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                int result = bundle.getInt(BaseConstant.POSITION);
+                mSelectedDomain = getBaseDao().mChainParam.mStarnameDomains.get(result);
+                mSelectDomain.setText(mSelectedDomain);
+            });
         }
         if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            String userInput = mAccountInput.getText().toString().trim();
+            String userInput = String.valueOf(mAccountInput.getText()).trim();
             if (!WUtil.isValidAccount(userInput)) {
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_account_format, Toast.LENGTH_SHORT).show();
                 return;
@@ -110,7 +111,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     }
 
     private void onNextStep() {
-        getSActivity().mStarNameAccount = mAccountInput.getText().toString().trim();
+        getSActivity().mStarNameAccount = String.valueOf(mAccountInput.getText()).trim();
         getSActivity().mStarNameDomain = mSelectedDomain;
         getSActivity().onNextStep();
     }
@@ -127,7 +128,6 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                     getSActivity().onHideWaitDialog();
                     Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
                 }, 500);
-
             }
 
             @Override
@@ -143,14 +143,5 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                 getSActivity().onHideWaitDialog();
             }
         });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == SELECT_POPUP_STARNAME_DOMAIN && resultCode == Activity.RESULT_OK) {
-            mSelectedDomain = getBaseDao().mChainParam.mStarnameDomains.get(data.getIntExtra("position", 0));
-            mSelectDomain.setText(mSelectedDomain);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

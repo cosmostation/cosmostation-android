@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.fragment.txs.nft;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -38,13 +37,12 @@ import wannabit.io.cosmostaion.activities.txs.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.StarnameConfirmDialog;
+import wannabit.io.cosmostaion.dialog.StarNameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
     private EditText mAddressInput;
     private Button mCancel, mNextBtn;
@@ -157,22 +155,14 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_STAR_NAME_ADDRESS) {
-            if (resultCode == Activity.RESULT_OK) {
-                getSActivity().mToAddress = data.getStringExtra("originAddress");
-                getSActivity().onNextStep();
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                mAddressInput.setText(result.getContents().trim());
+                mAddressInput.setSelection(mAddressInput.getText().length());
             }
-
         } else {
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (result != null) {
-                if (result.getContents() != null) {
-                    mAddressInput.setText(result.getContents().trim());
-                    mAddressInput.setSelection(mAddressInput.getText().length());
-                }
-            } else {
-                super.onActivityResult(requestCode, resultCode, data);
-            }
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -194,16 +184,19 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
                         return;
                     }
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("starname", userInput);
-                    bundle.putString("originAddress", matchAddress);
+                    Bundle bundleData = new Bundle();
+                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_BUNDLE_KEY, userInput);
+                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY, matchAddress);
                     if (!getSActivity().isFinishing()) {
-                        StarnameConfirmDialog dialog = StarnameConfirmDialog.newInstance(bundle);
-                        dialog.setTargetFragment(NFTSendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                        dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+                        StarNameConfirmDialog dialog = StarNameConfirmDialog.newInstance(bundleData);
+                        dialog.show(getParentFragmentManager(), StarNameConfirmDialog.class.getName());
+                        getParentFragmentManager().setFragmentResultListener(StarNameConfirmDialog.STAR_NAME_CONFIRM_BUNDLE_KEY, NFTSendStep0Fragment.this, (requestKey, bundle) -> {
+                            String originAddress = bundle.getString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY);
+                            getSActivity().mToAddress = originAddress;
+                            getSActivity().onNextStep();
+                        });
                     }
                 }, 0);
-
             }
 
             @Override

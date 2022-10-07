@@ -90,7 +90,7 @@ public class Dialog_Wc_Account extends DialogFragment {
                 if (mOnSelectListener != null) {
                     mOnSelectListener.onSelect(id, account);
                 }
-                getDialog().dismiss();
+                dismiss();
             });
 
         }

@@ -41,24 +41,24 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_import_key.setOnClickListener(v -> {
             Intent restoreIntent = new Intent(getActivity(), PrivateKeyRestoreActivity.class);
             startActivity(restoreIntent);
-            getDialog().dismiss();
+            dismiss();
         });
 
         btn_import_mnemonic.setOnClickListener(v -> {
             Intent restoreIntent = new Intent(getActivity(), MnemonicRestoreActivity.class);
             startActivity(restoreIntent);
-            getDialog().dismiss();
+            dismiss();
         });
 
         btn_watch_address.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), WatchingWalletAddActivity.class));
-            getDialog().dismiss();
+            dismiss();
         });
 
         btn_create.setOnClickListener(v -> {
             Intent createIntent = new Intent(getActivity(), MnemonicCreateActivity.class);
             startActivity(createIntent);
-            getDialog().dismiss();
+            dismiss();
         });
 
         return view;

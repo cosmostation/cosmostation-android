@@ -226,7 +226,7 @@
     <string name="str_send_fee">Send Tx Fee</string>
     <string name="str_total_spend_amount">Total Spend</string>
     <string name="str_current_available">Current Available</string>
-    <string name="str_remaining_available">Remaining Available Amount</string>
+    <string name="str_remaining_available">Remaining Available</string>
     <string name="str_from_c">FROM</string>
     <string name="str_to_c">TO</string>
     <string name="str_memo_c">MEMO</string>

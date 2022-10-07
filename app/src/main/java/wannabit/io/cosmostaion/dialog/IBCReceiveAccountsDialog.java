@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,12 +21,16 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class IBCReceiveAccountsDialog extends DialogFragment {
+
+    public final static String IBC_RECEIVE_ACCOUNTS_BUNDLE_KEY = "ibcReceiveAccounts";
+    public final static String ACCOUNTS_BUNDLE_KEY = "accounts";
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
@@ -49,7 +51,7 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mRecyclerView = view.findViewById(R.id.recycler);
 
-        mAccounts = (ArrayList<Account>) getArguments().getSerializable("accounts");
+        mAccounts = (ArrayList<Account>) getArguments().getSerializable(IBCReceiveAccountsDialog.ACCOUNTS_BUNDLE_KEY);
         mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -91,10 +93,10 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
             holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
             holder.rootLayer.setOnClickListener(v -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(IBCReceiveAccountsDialog.IBC_RECEIVE_ACCOUNTS_BUNDLE_KEY, result);
+                dismiss();
             });
         }
 
