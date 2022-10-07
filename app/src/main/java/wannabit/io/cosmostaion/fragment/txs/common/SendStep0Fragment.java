@@ -209,6 +209,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
             if (WUtil.isValidStarName(userInput.toLowerCase())) {
+                onPathSetting();
                 onCheckNameService(userInput.toLowerCase(), mToSendChainConfig);
                 return;
             }
