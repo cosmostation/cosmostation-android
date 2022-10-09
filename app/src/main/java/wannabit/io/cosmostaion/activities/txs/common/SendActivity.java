@@ -328,7 +328,7 @@ public class SendActivity extends BaseBroadCastActivity {
             if (isGRPC(mBaseChain)) {
                 mFragments.add(StepFeeSetFragment.newInstance());
             } else {
-                mFragments.add(StepFeeSetOldFragment.newInstance(null));
+                mFragments.add(StepFeeSetOldFragment.newInstance());
             }
             mFragments.add(SendStep4Fragment.newInstance());
         }

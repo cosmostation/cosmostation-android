@@ -183,7 +183,7 @@ public class OKUnbondingActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(OKUnbondingFragment0.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance());
             mFragments.add(OKUnbondingFragment3.newInstance());
         }
 
