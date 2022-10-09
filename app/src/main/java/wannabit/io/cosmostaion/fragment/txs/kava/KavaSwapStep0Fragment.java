@@ -60,10 +60,8 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
     private ArrayList<QueryOuterClass.PoolResponse> mSwapPool = new ArrayList<>();
 
-    public static KavaSwapStep0Fragment newInstance(Bundle bundle) {
-        KavaSwapStep0Fragment fragment = new KavaSwapStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static KavaSwapStep0Fragment newInstance() {
+        return new KavaSwapStep0Fragment();
     }
 
     @Override

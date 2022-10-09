@@ -25,7 +25,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import cosmos.tx.v1beta1.ServiceOuterClass;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -34,7 +33,6 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.ReplaceStarName0Fragment;
@@ -44,7 +42,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainInfoTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReplaceStarNameGrpcTask;
-import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
 public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
@@ -177,15 +174,7 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
     public void onStartReplaceResource() {
         if (getBaseDao().isAutoPass()) {
-            ArrayList<Types.Resource> resources = new ArrayList();
-            StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mStarNameResources);
-            if (wrapper != null) {
-                resources = wrapper.array;
-            }
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcReplaceResourceReq(getAuthResponse(mBaseChain, mAccount), mStarNameDomain, mStarNameAccount, mAccount.address,
-                    resources, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
-
+            onBroadCastTx();
         } else {
             Intent intent = new Intent(ReplaceStarNameActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);

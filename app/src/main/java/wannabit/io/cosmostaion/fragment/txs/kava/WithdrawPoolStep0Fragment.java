@@ -43,10 +43,8 @@ public class WithdrawPoolStep0Fragment extends BaseFragment implements View.OnCl
     private int mCoinDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
-    public static WithdrawPoolStep0Fragment newInstance(Bundle bundle) {
-        WithdrawPoolStep0Fragment fragment = new WithdrawPoolStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static WithdrawPoolStep0Fragment newInstance() {
+        return new WithdrawPoolStep0Fragment();
     }
 
     @Override

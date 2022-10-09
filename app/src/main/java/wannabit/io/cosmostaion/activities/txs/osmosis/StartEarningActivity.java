@@ -213,10 +213,10 @@ public class StartEarningActivity extends BaseBroadCastActivity {
         public EarningPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(StartLockStep0Fragment.newInstance(null));
+            mFragments.add(StartLockStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
             mFragments.add(StepFeeSetFragment.newInstance());
-            mFragments.add(StartLockStep3Fragment.newInstance(null));
+            mFragments.add(StartLockStep3Fragment.newInstance());
         }
 
         @Override

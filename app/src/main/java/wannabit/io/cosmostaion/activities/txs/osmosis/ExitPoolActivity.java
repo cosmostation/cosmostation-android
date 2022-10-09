@@ -198,10 +198,10 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         public ExitPoolPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ExitPoolStep0Fragment.newInstance(null));
+            mFragments.add(ExitPoolStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
             mFragments.add(StepFeeSetFragment.newInstance());
-            mFragments.add(ExitPoolStep3Fragment.newInstance(null));
+            mFragments.add(ExitPoolStep3Fragment.newInstance());
         }
 
         @Override

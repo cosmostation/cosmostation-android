@@ -199,10 +199,10 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
         public JoinPoolPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(JoinPoolStep0Fragment.newInstance(null));
+            mFragments.add(JoinPoolStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
             mFragments.add(StepFeeSetFragment.newInstance());
-            mFragments.add(JoinPoolStep3Fragment.newInstance(null));
+            mFragments.add(JoinPoolStep3Fragment.newInstance());
         }
 
         @Override

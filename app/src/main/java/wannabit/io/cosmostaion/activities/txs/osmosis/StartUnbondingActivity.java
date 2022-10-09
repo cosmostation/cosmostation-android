@@ -211,10 +211,10 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
         public UnBondingPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(StartUnbondingStep0Fragment.newInstance(null));
+            mFragments.add(StartUnbondingStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
             mFragments.add(StepFeeSetFragment.newInstance());
-            mFragments.add(StartUnbondingStep3Fragment.newInstance(null));
+            mFragments.add(StartUnbondingStep3Fragment.newInstance());
         }
 
         @Override

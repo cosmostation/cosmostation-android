@@ -41,10 +41,8 @@ public class SifDexEthPoolFragment extends BaseFragment implements TaskListener 
     public ArrayList<Types.Pool> mMyEthPools = new ArrayList<>();
     public ArrayList<Types.Pool> mOtherEthPools = new ArrayList<>();
 
-    public static SifDexEthPoolFragment newInstance(Bundle bundle) {
-        SifDexEthPoolFragment fragment = new SifDexEthPoolFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifDexEthPoolFragment newInstance() {
+        return new SifDexEthPoolFragment();
     }
 
     @Override

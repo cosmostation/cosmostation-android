@@ -283,9 +283,9 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         public OsmoLabPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ListSwapFragment.newInstance(null));
-            mFragments.add(ListPoolFragment.newInstance(null));
-            mFragments.add(ListFarmingFragment.newInstance(null));
+            mFragments.add(ListSwapFragment.newInstance());
+            mFragments.add(ListPoolFragment.newInstance());
+            mFragments.add(ListFarmingFragment.newInstance());
         }
 
         @Override

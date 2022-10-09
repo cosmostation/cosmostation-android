@@ -204,10 +204,10 @@ public class VoteActivity extends BaseBroadCastActivity {
         public VotePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(VoteStep0Fragment.newInstance(null));
+            mFragments.add(VoteStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
             mFragments.add(StepFeeSetFragment.newInstance());
-            mFragments.add(VoteStep3Fragment.newInstance(null));
+            mFragments.add(VoteStep3Fragment.newInstance());
         }
 
         @Override

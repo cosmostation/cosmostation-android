@@ -41,10 +41,8 @@ public class ListFarmingFragment extends BaseFragment {
     public ArrayList<Lock.PeriodLock> mPeriodLockUps = new ArrayList<>();
 
 
-    public static ListFarmingFragment newInstance(Bundle bundle) {
-        ListFarmingFragment fragment = new ListFarmingFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ListFarmingFragment newInstance() {
+        return new ListFarmingFragment();
     }
 
     @Override

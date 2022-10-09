@@ -41,10 +41,8 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
 
     public List<ResProposal> mProposalList;
 
-    public static VoteStep0Fragment newInstance(Bundle bundle) {
-        VoteStep0Fragment fragment = new VoteStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static VoteStep0Fragment newInstance() {
+        return new VoteStep0Fragment();
     }
 
     @Override
