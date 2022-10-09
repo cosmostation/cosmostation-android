@@ -31,7 +31,6 @@ import androidx.annotation.Nullable;
 
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.concurrent.TimeUnit;
 
@@ -164,8 +163,7 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Intent data = result.getData();
-                        mAddressInput.setText(data.getStringExtra(Intents.Scan.RESULT).trim());
+                        mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
                         mAddressInput.setSelection(mAddressInput.getText().length());
                     }
                 }

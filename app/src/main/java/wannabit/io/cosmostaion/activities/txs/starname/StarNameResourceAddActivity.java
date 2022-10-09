@@ -171,8 +171,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Intent data = result.getData();
-                        mUserInput.setText(data.getStringExtra(Intents.Scan.RESULT).trim());
+                        mUserInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
                     }
                 }
             });
