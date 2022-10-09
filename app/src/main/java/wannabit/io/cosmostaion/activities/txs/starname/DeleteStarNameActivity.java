@@ -1,19 +1,22 @@
 package wannabit.io.cosmostaion.activities.txs.starname;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -22,18 +25,20 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.DeleteStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.DeleteStarName3Fragment;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteStarnameGrpcTask;
 
 public class DeleteStarNameActivity extends BaseBroadCastActivity {
 
@@ -167,26 +172,39 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
 
     public void onDeleteStarName() {
         if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
-            if (mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
-                broadcastTxRequest = Signer.getGrpcDeleteDomainReq(getAuthResponse(mBaseChain, mAccount), mStarNameDomain, mAccount.address,
-                        mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            } else {
-                broadcastTxRequest = Signer.getGrpcDeleteAccountReq(getAuthResponse(mBaseChain, mAccount), mStarNameDomain, mStarNameAccount, mAccount.address,
-                        mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            }
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
-
+            onBroadCastTx();
         } else {
             Intent intent = new Intent(DeleteStarNameActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("domain", mStarNameDomain);
-            intent.putExtra("name", mStarNameAccount);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
-            startActivity(intent);
+            activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
+    }
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastTx();
+        }
+    });
+
+    private void onBroadCastTx() {
+        new DeleteStarnameGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) onTxIntent(result);
+            }
+        }, mAccount, mBaseChain, mStarNameDomain, mStarNameAccount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc(), mStarNameDomainType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void onTxIntent(TaskResult result) {
+        Intent txIntent = new Intent(DeleteStarNameActivity.this, TxDetailgRPCActivity.class);
+        txIntent.putExtra("isGen", true);
+        txIntent.putExtra("isSuccess", result.isSuccess);
+        txIntent.putExtra("errorCode", result.errorCode);
+        txIntent.putExtra("errorMsg", result.errorMsg);
+        String hash = String.valueOf(result.resultData);
+        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+        startActivity(txIntent);
     }
 
     private class DeleteStarNamePageAdapter extends FragmentPagerAdapter {
