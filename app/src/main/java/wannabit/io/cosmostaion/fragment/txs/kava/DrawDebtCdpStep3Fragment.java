@@ -28,10 +28,8 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
     private TextView mMemo;
     private Button   mBeforeBtn, mConfirmBtn;
 
-    public static DrawDebtCdpStep3Fragment newInstance(Bundle bundle) {
-        DrawDebtCdpStep3Fragment fragment = new DrawDebtCdpStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DrawDebtCdpStep3Fragment newInstance() {
+        return new DrawDebtCdpStep3Fragment();
     }
 
     @Override

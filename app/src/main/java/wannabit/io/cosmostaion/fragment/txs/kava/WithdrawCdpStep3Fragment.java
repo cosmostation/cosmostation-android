@@ -29,10 +29,8 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
     private TextView mMemo;
     private Button   mBeforeBtn, mConfirmBtn;
 
-    public static WithdrawCdpStep3Fragment newInstance(Bundle bundle) {
-        WithdrawCdpStep3Fragment fragment = new WithdrawCdpStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static WithdrawCdpStep3Fragment newInstance() {
+        return new WithdrawCdpStep3Fragment();
     }
 
     @Override

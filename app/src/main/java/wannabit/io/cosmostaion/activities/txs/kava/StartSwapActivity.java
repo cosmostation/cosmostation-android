@@ -29,7 +29,6 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
@@ -162,11 +161,6 @@ public class StartSwapActivity extends BaseBroadCastActivity {
             onBroadCastTx();
         } else {
             Intent intent = new Intent(StartSwapActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("kavaSwapIn", mKavaSwapIn);
-            intent.putExtra("kavaSwapOut", mKavaSwapOut);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
             activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }

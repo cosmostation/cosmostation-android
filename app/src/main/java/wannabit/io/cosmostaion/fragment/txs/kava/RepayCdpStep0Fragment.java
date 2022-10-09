@@ -66,10 +66,8 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
     private String mPrincipalChecker, mPrincipalSetter;
     private int mCDecimal, mPDecimal;
 
-    public static RepayCdpStep0Fragment newInstance(Bundle bundle) {
-        RepayCdpStep0Fragment fragment = new RepayCdpStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RepayCdpStep0Fragment newInstance() {
+        return new RepayCdpStep0Fragment();
     }
 
     @Override

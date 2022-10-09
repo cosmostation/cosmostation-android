@@ -3,17 +3,20 @@ package wannabit.io.cosmostaion.activities.txs.kava;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_MY_CDPS;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -23,16 +26,14 @@ import androidx.viewpager.widget.ViewPager;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import cosmos.tx.v1beta1.ServiceOuterClass;
 import kava.cdp.v1beta1.Genesis;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.RepayCdpStep0Fragment;
@@ -40,6 +41,7 @@ import wannabit.io.cosmostaion.fragment.txs.kava.RepayCdpStep3Fragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpsByOwnerGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaRepayCdpGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListener {
@@ -179,20 +181,37 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
 
     public void onStartRepayCdp() {
         if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaRepayCdpReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mPayment, mCollateralType,
-                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
-
+            onBroadCastTx();
         } else {
             Intent intent = new Intent(RepayCdpActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("mPayment", mPayment);
-            intent.putExtra("mCollateralType", mCollateralType);
-            intent.putExtra("fee", mTxFee);
-            intent.putExtra("memo", mTxMemo);
-            startActivity(intent);
+            activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
+    }
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastTx();
+        }
+    });
+
+    private void onBroadCastTx() {
+        new KavaRepayCdpGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) {
+                    Intent txIntent = new Intent(RepayCdpActivity.this, TxDetailgRPCActivity.class);
+                    txIntent.putExtra("isGen", true);
+                    txIntent.putExtra("isSuccess", result.isSuccess);
+                    txIntent.putExtra("errorCode", result.errorCode);
+                    txIntent.putExtra("errorMsg", result.errorMsg);
+                    String hash = String.valueOf(result.resultData);
+                    if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+                    startActivity(txIntent);
+                }
+            }
+        }, mAccount, mBaseChain, mAccount.address, mPayment, mCollateralType, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private class RepayCdpPageAdapter extends FragmentPagerAdapter {
@@ -203,10 +222,10 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
         public RepayCdpPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(RepayCdpStep0Fragment.newInstance(null));
+            mFragments.add(RepayCdpStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
             mFragments.add(StepFeeSetFragment.newInstance());
-            mFragments.add(RepayCdpStep3Fragment.newInstance(null));
+            mFragments.add(RepayCdpStep3Fragment.newInstance());
         }
 
         @Override

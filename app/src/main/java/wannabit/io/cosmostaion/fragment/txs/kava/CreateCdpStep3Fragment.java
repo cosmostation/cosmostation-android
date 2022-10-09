@@ -35,10 +35,8 @@ public class CreateCdpStep3Fragment extends BaseFragment implements View.OnClick
     private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
 
-    public static CreateCdpStep3Fragment newInstance(Bundle bundle) {
-        CreateCdpStep3Fragment fragment = new CreateCdpStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static CreateCdpStep3Fragment newInstance() {
+        return new CreateCdpStep3Fragment();
     }
 
     @Override

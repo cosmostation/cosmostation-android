@@ -32,10 +32,8 @@ public class ListKavaPoolFragment extends BaseFragment {
     public ArrayList<QueryOuterClass.PoolResponse> mMySwapPoolList = new ArrayList<>();
     public ArrayList<QueryOuterClass.PoolResponse> mOtherSwapPoolList = new ArrayList<>();
 
-    public static ListKavaPoolFragment newInstance(Bundle bundle) {
-        ListKavaPoolFragment fragment = new ListKavaPoolFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ListKavaPoolFragment newInstance() {
+        return new ListKavaPoolFragment();
     }
 
     @Override

@@ -30,10 +30,8 @@ public class DepositCdpStep3Fragment extends BaseFragment implements View.OnClic
     private Button   mBeforeBtn, mConfirmBtn;
 
 
-    public static DepositCdpStep3Fragment newInstance(Bundle bundle) {
-        DepositCdpStep3Fragment fragment = new DepositCdpStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DepositCdpStep3Fragment newInstance() {
+        return new DepositCdpStep3Fragment();
     }
 
     @Override
