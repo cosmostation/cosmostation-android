@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_AUTO_PASS;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_PASSWORD_CHECK;
@@ -611,7 +612,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         onHideWaitDialog();
         if (result.taskType == TASK_PASSWORD_CHECK) {
             if (result.isSuccess) {
-                getBaseDao().setLastPassTime();
+                if (mPurpose == CONST_PW_AUTO_PASS) {
+                    getBaseDao().setLastPassTime();
+                }
                 setResult(Activity.RESULT_OK, getIntent());
                 finish();
                 overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);

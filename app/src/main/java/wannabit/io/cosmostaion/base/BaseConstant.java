@@ -266,6 +266,8 @@ public class BaseConstant {
 
     public final static String CONST_PW_PURPOSE                             = "CONST_PW_PURPOSE";
     public final static int CONST_PW_INIT                                   = 5000;
+    public final static int CONST_PW_AUTO_PASS                              = 5001;
+    public final static int CONST_PW_APP_LOCK                               = 6000;
     public final static int CONST_PW_SIMPLE_CHECK                           = 5002;
     public final static int CONST_PW_TX_SIMPLE_SEND                         = 5003;
     public final static int CONST_PW_TX_SIMPLE_DELEGATE                     = 5004;

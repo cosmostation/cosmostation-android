@@ -60,11 +60,7 @@ import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
-
     public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
-
-    public final static int SELECT_CHECK_FOR_APP_LOCK = 1;
-    public final static int SELECT_CHECK_FOR_AUTO_PASS = 2;
 
     private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAutoPass, mBtnCurrency,
             mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
@@ -75,9 +71,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     private ImageView mPriceColorUp, mPriceColorDown;
 
     private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
-
-    private int mCheckMode = -1;
-
     private SwitchCompat alarmSwitch;
 
     public static MainSettingFragment newInstance() {
@@ -346,12 +339,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onClickAppLock() {
-        mCheckMode = SELECT_CHECK_FOR_APP_LOCK;
-
         if (getBaseDao().getUsingAppLock()) {
             Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_APP_LOCK);
+            startActivityForResult(intent, BaseConstant.CONST_PW_APP_LOCK);
             getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
         } else {
@@ -392,16 +383,14 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onClickAutoPass() {
-        mCheckMode = SELECT_CHECK_FOR_AUTO_PASS;
-
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
             startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
 
         } else {
             Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_AUTO_PASS);
+            startActivityForResult(intent, BaseConstant.CONST_PW_AUTO_PASS);
         }
         getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -449,14 +438,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                     .setRationaleMessage(getString(R.string.str_permission_qr))
                     .check();
 
-        } else if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
-            if (mCheckMode == SELECT_CHECK_FOR_APP_LOCK) {
-                getBaseDao().setUsingAppLock(false);
-                onUpdateView();
+        } else if (requestCode == BaseConstant.CONST_PW_APP_LOCK && resultCode == Activity.RESULT_OK) {
+            getBaseDao().setUsingAppLock(false);
+            onUpdateView();
 
-            } else {
-                new Handler(Looper.getMainLooper()).postDelayed(() -> onShowAutoPassDialog(), 300);
-            }
+        } else if (requestCode == BaseConstant.CONST_PW_AUTO_PASS && resultCode == Activity.RESULT_OK) {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> onShowAutoPassDialog(), 300);
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
