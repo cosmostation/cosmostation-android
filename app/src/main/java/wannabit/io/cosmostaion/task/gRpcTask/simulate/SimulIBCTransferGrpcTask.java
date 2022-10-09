@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import org.bitcoinj.core.ECKey;
@@ -20,7 +19,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -57,7 +55,6 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
         this.mAssetPath = assetPath;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_IBC_TRANSFER;
         this.mStub = ibc.core.channel.v1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 

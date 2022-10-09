@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_IBC_CONTRACT;
-
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -56,7 +54,6 @@ public class SimulCw20IbcSendGrpcTask extends CommonTask {
         this.mMemo = mMemo;
         this.mFees = mFees;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_IBC_CONTRACT;
     }
 
     @Override

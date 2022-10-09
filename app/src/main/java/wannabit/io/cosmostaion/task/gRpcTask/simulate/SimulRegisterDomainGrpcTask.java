@@ -23,8 +23,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_REGISTER_DOMAIN;
-
 public class SimulRegisterDomainGrpcTask extends CommonTask {
     private BaseChain       mBaseChain;
     private Account         mAccount;
@@ -44,7 +42,6 @@ public class SimulRegisterDomainGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fees;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_REGISTER_DOMAIN;
     }
 
     @Override

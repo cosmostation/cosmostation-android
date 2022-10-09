@@ -25,8 +25,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_EXECUTE_CONTRACT;
-
 public class SimulCw20SendGrpcTask extends CommonTask {
     private BaseChain       mBaseChain;
     private Account         mAccount;
@@ -52,7 +50,6 @@ public class SimulCw20SendGrpcTask extends CommonTask {
         this.mMemo = mMemo;
         this.mFees = mFees;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_EXECUTE_CONTRACT;
     }
 
     @Override

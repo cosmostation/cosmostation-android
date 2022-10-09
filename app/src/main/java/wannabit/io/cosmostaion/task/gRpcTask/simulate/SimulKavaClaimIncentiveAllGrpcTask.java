@@ -24,8 +24,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES;
-
 public class SimulKavaClaimIncentiveAllGrpcTask extends CommonTask {
 
     private Account                 mAccount;
@@ -51,8 +49,6 @@ public class SimulKavaClaimIncentiveAllGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES;
-
     }
 
     @Override

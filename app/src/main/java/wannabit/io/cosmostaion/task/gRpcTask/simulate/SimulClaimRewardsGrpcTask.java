@@ -24,8 +24,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_CLAIM_REWARDS;
-
 public class SimulClaimRewardsGrpcTask extends CommonTask {
     private BaseChain           mBaseChain;
     private Account             mAccount;
@@ -45,7 +43,6 @@ public class SimulClaimRewardsGrpcTask extends CommonTask {
         this.mMemo = toDelegateMemo;
         this.mFees = toFees;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_CLAIM_REWARDS;
     }
 
     @Override

@@ -25,8 +25,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_REPLACE_STARNAME;
-
 public class SimulReplaceStarNameGrpcTask  extends CommonTask {
     private Account mAccount;
     private BaseChain mBaseChain;
@@ -49,7 +47,6 @@ public class SimulReplaceStarNameGrpcTask  extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_REPLACE_STARNAME;
     }
 
     @Override

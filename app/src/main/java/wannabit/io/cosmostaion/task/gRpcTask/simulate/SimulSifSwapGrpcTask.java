@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_SIF_SWAP;
-
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -50,7 +48,6 @@ public class SimulSifSwapGrpcTask extends CommonTask {
         this.mFees = fee;
         this.mMemo = memo;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_SIMULATE_SIF_SWAP;
     }
 
     @Override

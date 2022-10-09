@@ -153,96 +153,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_AUTHZ_GRANT_LIST            = 4295;
 
 
-    public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
-    public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
-    public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;
-    public final static int TASK_GRPC_BROAD_SEND                        = 4303;
-    public final static int TASK_GRPC_BROAD_REDELEGATE                  = 4304;
-    public final static int TASK_GRPC_BROAD_REINVEST                    = 4305;
-    public final static int TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE       = 4306;
-    public final static int TASK_GRPC_BROAD_VOTE                        = 4307;
-    public final static int TASK_GRPC_GEN_TX_REGISTER_DOMAIN            = 4308;
-    public final static int TASK_GRPC_GEN_TX_REGISTER_ACCOUNT           = 4309;
-    public final static int TASK_GRPC_GEN_TX_DELETE_DOMAIN              = 4310;
-    public final static int TASK_GRPC_GEN_TX_DELETE_ACCOUNT             = 4311;
-    public final static int TASK_GRPC_GEN_TX_RENEW_DOMAIN               = 4312;
-    public final static int TASK_GRPC_GEN_TX_RENEW_ACCOUNT              = 4313;
-    public final static int TASK_GRPC_GEN_TX_REPLACE_STARNAME           = 4314;
-    public final static int TASK_GRPC_GEN_TX_SWAP_IN                    = 4315;
-    public final static int TASK_GRPC_GEN_TX_JOIN_POOL                  = 4316;
-    public final static int TASK_GRPC_GEN_TX_EXIT_POOL                  = 4317;
-    public final static int TASK_GRPC_GEN_TX_START_LOCK                 = 4318;
-    public final static int TASK_GRPC_GEN_TX_BEGIN_UNBONDING            = 4319;
-    public final static int TASK_GRPC_GEN_TX_IBC_TRANSFER               = 4324;
-    public final static int TASK_GRPC_GEN_TX_SIF_SWAP                   = 4326;
-    public final static int TASK_GRPC_GEN_TX_SIF_JOIN_POOL              = 4327;
-    public final static int TASK_GRPC_GEN_TX_SIF_EXIT_POOL              = 4328;
-    public final static int TASK_GRPC_GEN_TX_MINT_NFT                   = 4329;
-    public final static int TASK_GRPC_GEN_TX_TRANSFER_NFT               = 4330;
-    public final static int TASK_GRPC_GEN_TX_CREATE_PROFILE             = 4331;
-    public final static int TASK_GRPC_GEN_TX_KAVA_SWAP                  = 4333;
-    public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT               = 4334;
-    public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW              = 4335;
-    public final static int TASK_GRPC_GEN_TX_KAVA_CREATE_CDP            = 4336;
-    public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT_CDP           = 4337;
-    public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW_CDP          = 4338;
-    public final static int TASK_GRPC_GEN_TX_KAVA_DRAW_DEBT_CDP         = 4339;
-    public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_CDP             = 4340;
-    public final static int TASK_GRPC_GEN_TX_KAVA_DEPOSIT_HARD          = 4341;
-    public final static int TASK_GRPC_GEN_TX_KAVA_WITHDRAW_HARD         = 4342;
-    public final static int TASK_GRPC_GEN_TX_KAVA_BORROW_HARD           = 4343;
-    public final static int TASK_GRPC_GEN_TX_KAVA_REPAY_HARD            = 4344;
-    public final static int TASK_GRPC_GEN_TX_KAVA_CLAIM_INCENTIVES      = 4345;
-    public final static int TASK_GRPC_GEN_TX_EXECUTE_CONTRACT           = 4346;
-    public final static int TASK_GRPC_GEN_TX_AUTHZ_DELEGATE             = 4347;
-    public final static int TASK_GRPC_GEN_TX_AUTHZ_UNDELEGATE           = 4348;
-    public final static int TASK_GRPC_GEN_TX_IBC_CONTRACT               = 4549;
-
-
-    public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
-    public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
-    public final static int TASK_GRPC_SIMULATE_CLAIM_REWARDS            = 4502;
-    public final static int TASK_GRPC_SIMULATE_SEND                     = 4503;
-    public final static int TASK_GRPC_SIMULATE_REDELEGATE               = 4504;
-    public final static int TASK_GRPC_SIMULATE_REINVEST                 = 4505;
-    public final static int TASK_GRPC_SIMULATE_REWARD_ADDRESS_CHANGE    = 4506;
-    public final static int TASK_GRPC_SIMULATE_VOTE                     = 4507;
-    public final static int TASK_GRPC_SIMULATE_REGISTER_DOMAIN          = 4508;
-    public final static int TASK_GRPC_SIMULATE_REGISTER_ACCOUNT         = 4509;
-    public final static int TASK_GRPC_SIMULATE_DELETE_DOMAIN            = 4510;
-    public final static int TASK_GRPC_SIMULATE_DELETE_ACCOUNT           = 4511;
-    public final static int TASK_GRPC_SIMULATE_RENEW_DOMAIN             = 4512;
-    public final static int TASK_GRPC_SIMULATE_RENEW_ACCOUNT            = 4513;
-    public final static int TASK_GRPC_SIMULATE_REPLACE_STARNAME         = 4514;
-    public final static int TASK_GRPC_SIMULATE_SWAP_IN                  = 4515;
-    public final static int TASK_GRPC_SIMULATE_JOIN_POOL                = 4516;
-    public final static int TASK_GRPC_SIMULATE_EXIT_POOL                = 4517;
-    public final static int TASK_GRPC_SIMULATE_START_LOCK               = 4518;
-    public final static int TASK_GRPC_SIMULATE_BEGIN_UNBONDING          = 4519;
-    public final static int TASK_GRPC_SIMULATE_IBC_TRANSFER             = 4524;
-    public final static int TASK_GRPC_SIMULATE_SIF_SWAP                 = 4527;
-    public final static int TASK_GRPC_SIMULATE_SIF_JOIN_POOL            = 4528;
-    public final static int TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL        = 4529;
-    public final static int TASK_GRPC_SIMULATE_MINT_NFT                 = 4530;
-    public final static int TASK_GRPC_SIMULATE_TRANSFER_NFT             = 4531;
-    public final static int TASK_GRPC_SIMULATE_CREATE_PROFILE           = 4532;
-    public final static int TASK_GRPC_SIMULATE_KAVA_SWAP                = 4533;
-    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT             = 4534;
-    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW            = 4535;
-    public final static int TASK_GRPC_SIMULATE_KAVA_CREATE_CDP          = 4536;
-    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT_CDP         = 4537;
-    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_CDP        = 4538;
-    public final static int TASK_GRPC_SIMULATE_KAVA_DRAW_DEBT_CDP       = 4539;
-    public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_CDP           = 4540;
-    public final static int TASK_GRPC_SIMULATE_KAVA_DEPOSIT_HARD        = 4541;
-    public final static int TASK_GRPC_SIMULATE_KAVA_WITHDRAW_HARD       = 4542;
-    public final static int TASK_GRPC_SIMULATE_KAVA_BORROW_HARD         = 4543;
-    public final static int TASK_GRPC_SIMULATE_KAVA_REPAY_HARD          = 4544;
-    public final static int TASK_GRPC_SIMULATE_KAVA_CLAIM_INCENTIVES    = 4545;
-    public final static int TASK_GRPC_SIMULATE_EXECUTE_CONTRACT         = 4546;
-    public final static int TASK_GRPC_SIMULATE_IBC_CONTRACT             = 4547;
-
-
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
     public final static String COSMOS_AUTH_TYPE_OKEX_ACCOUNT                = "okexchain/EthAccount";
 
@@ -266,15 +176,11 @@ public class BaseConstant {
 
     public final static String CONST_PW_PURPOSE                             = "CONST_PW_PURPOSE";
     public final static int CONST_PW_INIT                                   = 5000;
-    public final static int CONST_PW_AUTO_PASS                              = 5001;
-    public final static int CONST_PW_APP_LOCK                               = 6000;
     public final static int CONST_PW_SIMPLE_CHECK                           = 5002;
     public final static int CONST_PW_TX_SIMPLE_SEND                         = 5003;
     public final static int CONST_PW_TX_SIMPLE_DELEGATE                     = 5004;
     public final static int CONST_PW_TX_SIMPLE_UNDELEGATE                   = 5005;
     public final static int CONST_PW_TX_SIMPLE_REWARD                       = 5006;
-    public final static int CONST_PW_DELETE_ACCOUNT                         = 5007;
-    public final static int CONST_PW_CHECK_MNEMONIC                         = 5008;
     public final static int CONST_PW_TX_SIMPLE_REDELEGATE                   = 5009;
     public final static int CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS        = 5010;
     public final static int CONST_PW_TX_REINVEST                            = 5011;
@@ -311,7 +217,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SIF_SWAP                            = 5051;
     public final static int CONST_PW_TX_SIF_JOIN_POOL                       = 5052;
     public final static int CONST_PW_TX_SIF_EXIT_POOL                       = 5053;
-    public final static int CONST_PW_CHECK_PRIVATE_KEY                      = 5054;
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
     public final static int CONST_PW_TX_PROFILE                             = 5057;
@@ -325,6 +230,9 @@ public class BaseConstant {
     public final static int CONST_PW_TX_AUTHZ_VOTE                          = 5064;
     public final static int CONST_PW_TX_AUTHZ_CLAIM_REWARD                  = 5065;
     public final static int CONST_PW_TX_AUTHZ_CLAIM_COMMISSION              = 5066;
+
+    public final static int CONST_PW_AUTO_PASS                              = 5070;
+    public final static int CONST_PW_APP_LOCK                               = 5071;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
@@ -344,11 +252,6 @@ public class BaseConstant {
     public final static String TOKEN_HTLC_BINANCE_BTCB             = "BTCB-1DE";
     public final static String TOKEN_HTLC_BINANCE_XRPB             = "XRP-BF2";
     public final static String TOKEN_HTLC_BINANCE_BUSD             = "BUSD-BD1";
-
-
-    //TODO HardCoding!!
-    public final static long COSMOS_UNBONDING_TIME = 1814400000;
-    public final static long COSMOS_UNBONDING_DAY = 3;
 
 
     public final static long CONSTANT_S = 1000l;
