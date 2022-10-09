@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.fragment.txs.nft;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -22,8 +23,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -129,7 +135,7 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
-            integrator.initiateScan();
+            nftSendQrCode.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -153,18 +159,17 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
         return (NFTSendActivity) getBaseActivity();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() != null) {
-                mAddressInput.setText(result.getContents().trim());
-                mAddressInput.setSelection(mAddressInput.getText().length());
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
+    private ActivityResultLauncher<Intent> nftSendQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Intent data = result.getData();
+                        mAddressInput.setText(data.getStringExtra(Intents.Scan.RESULT).trim());
+                        mAddressInput.setSelection(mAddressInput.getText().length());
+                    }
+                }
+            });
 
     private void onCheckNameService(String userInput, ChainConfig chainConfig) {
         QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);

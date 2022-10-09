@@ -142,7 +142,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         } else if (v.equals(mScan)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
-            mStartForResult.launch(integrator.createScanIntent());
+            starNameResourceAddQrcode.launch(integrator.createScanIntent());
 
         } else if (v.equals(mPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -166,7 +166,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         mUserInput.setText(address);
     }
 
-    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+    private ActivityResultLauncher<Intent> starNameResourceAddQrcode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
