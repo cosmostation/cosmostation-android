@@ -28,7 +28,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -224,7 +226,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             numberPicker.show(getSupportFragmentManager(), NumberPickerDialog.class.getName());
 
         } else if (v.equals(mBtnAdd)) {
-            long selectedCnt = mSearchList.stream().filter(derive -> derive.selected).count();
+            long selectedCnt = mDerives.stream().filter(derive -> derive.selected).count();
             if (selectedCnt == 0) {
                 Toast.makeText(this, R.string.error_not_selected_to_import, Toast.LENGTH_SHORT).show();
                 return;
@@ -426,7 +428,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
     public void onSaveAccount() {
         onShowWaitDialog();
-        for (Derive derive : mSearchList) {
+        for (Derive derive : mDerives) {
             if (derive.selected) {
                 mTaskCount = mTaskCount + 1;
                 if (derive.status == 1) {
@@ -443,7 +445,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         if (isFinishing()) return;
         mTaskCount--;
         if (result.isSuccess) {
-            Derive initDerive = mSearchList.stream().filter(derive -> derive.selected).findFirst().get();
+            Derive initDerive = mDerives.stream().filter(derive -> derive.selected).findFirst().get();
             Account initAccount = getBaseDao().onSelectExistAccount(initDerive.dpAddress, initDerive.baseChain);
             if (initAccount != null && initAccount.id != null) {
                 getBaseDao().setLastUser(initAccount.id);

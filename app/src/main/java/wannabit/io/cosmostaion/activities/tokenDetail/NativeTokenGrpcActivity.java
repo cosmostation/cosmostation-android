@@ -136,14 +136,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             } else {
                 mItemUpDownPrice.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorVoteYes));
             }
-            mItemUpDownPrice.setText(lastUpDown + "%");
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             if (getBaseDao().getPriceColorOption() == 1) {
                 mItemUpDownPrice.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorVoteYes));
             } else {
                 mItemUpDownPrice.setTextColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, R.color.colorVoteNo));
             }
-            mItemUpDownPrice.setText("+" + " " + lastUpDown + "%");
         }
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, mChainConfig.chainBgColor()));

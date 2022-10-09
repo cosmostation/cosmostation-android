@@ -648,7 +648,7 @@ public class WDp {
     }
 
     public static SpannableString dpPriceChange(BaseData baseData, String denom) {
-        return getDpString(priceChange(baseData, denom).toPlainString() + "% (24h)", 9);
+        return getDpString(priceChange(baseData, denom).toPlainString() + "%", 3);
     }
 
     public static BigDecimal price(BaseData baseData, String denom) {
