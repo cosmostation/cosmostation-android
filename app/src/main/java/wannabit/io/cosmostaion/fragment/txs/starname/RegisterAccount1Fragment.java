@@ -103,14 +103,10 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
         }
     }
 
-    ActivityResultLauncher<Intent> addAddressRegisterAccount = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK) {
-            Intent data = result.getData();
+    private final ActivityResultLauncher<Intent> addAddressRegisterAccount = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             try {
-                Types.Resource temp = null;
-                if (data != null) {
-                    temp = Types.Resource.parseFrom(data.getByteArrayExtra("resource"));
-                }
+                Types.Resource temp = Types.Resource.parseFrom(result.getData().getByteArrayExtra("resource"));
                 int position = -1;
                 for (int i = 0; i < mResources.size(); i++) {
                     if (mResources.get(i).getUri().equals(temp.getUri())) {

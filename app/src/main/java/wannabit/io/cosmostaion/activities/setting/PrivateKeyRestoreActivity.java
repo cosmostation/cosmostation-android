@@ -121,7 +121,6 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
     private void onCheckPassword() {
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(PrivateKeyRestoreActivity.this, PasswordSetActivity.class);
-            intent.putExtra(String.valueOf(BaseConstant.CONST_PW_INIT), BaseConstant.CONST_PW_INIT);
             privateKeyRestoreResult.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
@@ -141,8 +140,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
 
     private final ActivityResultLauncher<Intent> privateKeyRestoreResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-            if (result.getData().getIntExtra(String.valueOf(BaseConstant.CONST_PW_INIT), -1) == BaseConstant.CONST_PW_INIT ||
-                    result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+            if (result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
                 Intent checkIntent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("privateKey", mUserInput);
                 checkIntent.putExtra("privateKeyMode", true);

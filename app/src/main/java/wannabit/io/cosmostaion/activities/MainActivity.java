@@ -372,9 +372,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 && !TextUtils.isEmpty(result.getData().getStringExtra("wcUrl"))) {
             Intent wIntent;
             if (mBaseChain.equals(BNB_MAIN)) {
-                wIntent = new Intent(this, WalletConnectActivity.class);
+                wIntent = new Intent(MainActivity.this, WalletConnectActivity.class);
             } else {
-                wIntent = new Intent(this, ConnectWalletActivity.class);
+                wIntent = new Intent(MainActivity.this, ConnectWalletActivity.class);
             }
             wIntent.putExtra("wcUrl", result.getData().getStringExtra("wcUrl"));
             startActivity(wIntent);

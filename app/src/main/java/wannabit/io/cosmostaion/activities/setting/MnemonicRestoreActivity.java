@@ -294,7 +294,6 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     private void onConfirmedWords() {
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordSetActivity.class);
-            intent.putExtra(String.valueOf(BaseConstant.CONST_PW_INIT), BaseConstant.CONST_PW_INIT);
             mnemonicRestoreResult.launch(intent);
         } else {
             Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordCheckActivity.class);
@@ -307,8 +306,7 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     private final ActivityResultLauncher<Intent> mnemonicRestoreResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
-            if (id > 0 && result.getData().getIntExtra(String.valueOf(BaseConstant.CONST_PW_INIT), -1) == BaseConstant.CONST_PW_INIT ||
-                    result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+            if (id > 0) {
                 Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
                 startActivity(checkIntent);

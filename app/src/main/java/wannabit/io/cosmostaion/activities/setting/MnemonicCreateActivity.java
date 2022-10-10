@@ -66,7 +66,6 @@ public class MnemonicCreateActivity extends BaseActivity {
         mBtnDerive.setOnClickListener(view -> {
             if (!getBaseDao().onHasPassword()) {
                 Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
-                intent.putExtra(String.valueOf(BaseConstant.CONST_PW_INIT), BaseConstant.CONST_PW_INIT);
                 mnemonicCreateResult.launch(intent);
             } else {
                 Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
@@ -80,8 +79,7 @@ public class MnemonicCreateActivity extends BaseActivity {
     private final ActivityResultLauncher<Intent> mnemonicCreateResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
-            if (id > 0 && result.getData().getIntExtra(String.valueOf(BaseConstant.CONST_PW_INIT), -1) == BaseConstant.CONST_PW_INIT ||
-                    result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+            if (id > 0) {
                 Intent checkIntent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
                 startActivity(checkIntent);

@@ -373,7 +373,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
             } else {
                 Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
-                intent.putExtra(String.valueOf(BaseConstant.CONST_PW_INIT), BaseConstant.CONST_PW_INIT);
                 mainSettingFragmentResult.launch(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             }
@@ -409,7 +408,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
-            intent.putExtra(String.valueOf(BaseConstant.CONST_PW_INIT), BaseConstant.CONST_PW_INIT);
             mainSettingFragmentResult.launch(intent);
 
         } else {
