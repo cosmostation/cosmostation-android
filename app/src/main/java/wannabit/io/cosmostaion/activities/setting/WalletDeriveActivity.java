@@ -206,7 +206,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 if (StringUtils.isEmpty(newText)) {
                     mSearchList.addAll(mDerives);
                 } else {
-                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(ChainFactory.getChain(item.baseChain).chainNameList().toString(), newText)).collect(Collectors.toList()));
+                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(String.valueOf(ChainFactory.getChain(item.baseChain).chainNameList()), newText)).collect(Collectors.toList()));
                     if (mSearchList.isEmpty()) {
                         mNoSearchResult.setVisibility(View.VISIBLE);
                     }
@@ -292,14 +292,14 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     holder.accountCheck.setVisibility(View.VISIBLE);
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                     if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
-                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>"), null,
+                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>", Html.FROM_HTML_MODE_COMPACT), null,
                                 getString(R.string.str_cancel),
                                 dialogView -> {
                                     derive.selected = false;
                                     holder.accountCheck.setVisibility(View.GONE);
                                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
                                 },
-                                Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>"),
+                                Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>", Html.FROM_HTML_MODE_COMPACT),
                                 dialogView -> {
                                     holder.accountCheck.setVisibility(View.VISIBLE);
                                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
