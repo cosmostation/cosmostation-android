@@ -20,12 +20,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -60,8 +62,6 @@ import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
-
-    public final static int SELECT_STARNAME_WALLET_CONNECT = 9035;
 
     public final static int SELECT_CHECK_FOR_APP_LOCK = 1;
     public final static int SELECT_CHECK_FOR_AUTO_PASS = 2;
@@ -318,7 +318,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mBtnTerm)) {
-            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+            if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_kr.html"));
                 startActivity(intent);
             } else {
@@ -338,10 +338,22 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnStarnameWc)) {
             CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg),
                     getString(R.string.str_cancel), null,
-                    getString(R.string.str_continue), view -> {
-                        Intent resultIntent = new Intent();
-                        onActivityResult(SELECT_STARNAME_WALLET_CONNECT, Activity.RESULT_OK, resultIntent);
-                    });
+                    getString(R.string.str_continue), view -> new TedPermission(getMainActivity()).setPermissionListener(new PermissionListener() {
+                                @Override
+                                public void onPermissionGranted() {
+                                    IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
+                                    integrator.setOrientationLocked(true);
+                                    mainSettingFragmentQrcode.launch(integrator.createScanIntent());
+                                }
+
+                                @Override
+                                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                                    Toast.makeText(getContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            .setRationaleMessage(getString(R.string.str_permission_qr))
+                            .check());
         }
     }
 
@@ -351,7 +363,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if (getBaseDao().getUsingAppLock()) {
             Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            mainSettingFragmentResult.launch(intent);
             getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
         } else {
@@ -361,7 +373,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
             } else {
                 Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
-                startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
+                intent.putExtra(String.valueOf(BaseConstant.CONST_PW_INIT), BaseConstant.CONST_PW_INIT);
+                mainSettingFragmentResult.launch(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             }
         }
@@ -396,12 +409,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
-            startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
+            intent.putExtra(String.valueOf(BaseConstant.CONST_PW_INIT), BaseConstant.CONST_PW_INIT);
+            mainSettingFragmentResult.launch(intent);
 
         } else {
             Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            mainSettingFragmentResult.launch(intent);
         }
         getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -429,46 +443,22 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         return (MainActivity) getBaseActivity();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
-            new TedPermission(getContext()).setPermissionListener(new PermissionListener() {
-                        @Override
-                        public void onPermissionGranted() {
-                            IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
-                            integrator.setOrientationLocked(true);
-                            integrator.initiateScan();
-                        }
-
-                        @Override
-                        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                            Toast.makeText(getContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .setRationaleMessage(getString(R.string.str_permission_qr))
-                    .check();
-
-        } else if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
+    private final ActivityResultLauncher<Intent> mainSettingFragmentResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
             if (mCheckMode == SELECT_CHECK_FOR_APP_LOCK) {
                 getBaseDao().setUsingAppLock(false);
                 onUpdateView();
-
             } else {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> onShowAutoPassDialog(), 300);
             }
-
-        } else {
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (result != null && result.getContents() != null && result.getContents().trim().contains("bridge.walletconnect.org")) {
-                Intent wcIntent = new Intent(getMainActivity(), StarNameWalletConnectActivity.class);
-                wcIntent.putExtra("wcUrl", result.getContents().trim());
-                startActivity(wcIntent);
-
-            } else {
-                super.onActivityResult(requestCode, resultCode, data);
-            }
         }
+    });
 
-    }
+    private final ActivityResultLauncher<Intent> mainSettingFragmentQrcode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getStringExtra(Intents.Scan.RESULT).trim().contains("bridge.walletconnect.org")) {
+            Intent wcIntent = new Intent(getMainActivity(), StarNameWalletConnectActivity.class);
+            wcIntent.putExtra("wcUrl", result.getData().getStringExtra(Intents.Scan.RESULT).trim());
+            startActivity(wcIntent);
+        }
+    });
 }
