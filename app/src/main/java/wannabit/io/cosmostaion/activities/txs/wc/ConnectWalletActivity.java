@@ -22,10 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
 
 import com.google.android.gms.common.util.CollectionUtils;
 import com.google.android.material.appbar.AppBarLayout;
@@ -231,7 +232,7 @@ public class ConnectWalletActivity extends BaseActivity {
         } else {
             Intent intent = new Intent(this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            connectWalletActivityResult.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
@@ -924,13 +925,11 @@ public class ConnectWalletActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
+    private final ActivityResultLauncher<Intent> connectWalletActivityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
             initWalletConnect();
         } else {
             finish();
         }
-    }
+    });
 }
