@@ -1,19 +1,10 @@
 package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.crypto.DeterministicKey;
-
-import java.math.BigInteger;
-
-import cosmos.auth.v1beta1.QueryGrpc;
-import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
-import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -31,9 +22,6 @@ public class SimulChangeRewardAddressGrpcTask extends CommonTask {
     private Fee         mFees;
     private String      mChainId;
 
-    private QueryOuterClass.QueryAccountResponse mAuthResponse;
-    private ECKey ecKey;
-
     public SimulChangeRewardAddressGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mToRewardAddress, String mMemo, Fee mFees, String chainId) {
         super(app, listener);
         this.mBaseChain = basechain;
@@ -47,24 +35,10 @@ public class SimulChangeRewardAddressGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mAccount.fromMnemonic) {
-                String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mAccount, entropy);
-                ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
-            } else {
-                String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mAccount.uuid, mAccount.resource, mAccount.spec);
-                ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
-            }
-
-            QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
-            mAuthResponse = authStub.account(request);
-
-            //Simulate
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcRewardAddressChangeSimulateReq(mAuthResponse, mToRewardAddress, mFees, mMemo, ecKey, mChainId);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcRewardAddressChangeSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mToRewardAddress, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
-//            WLog.w("response " +  response);
+
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;
 
