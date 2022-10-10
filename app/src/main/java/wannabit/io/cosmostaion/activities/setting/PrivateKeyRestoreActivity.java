@@ -129,7 +129,6 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
         } else {
             Intent intent = new Intent(PrivateKeyRestoreActivity.this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            intent.putExtra(String.valueOf(BaseConstant.CONST_PW_SIMPLE_CHECK), BaseConstant.CONST_PW_SIMPLE_CHECK);
             privateKeyRestoreResult.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
@@ -151,13 +150,12 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Intent data = result.getData();
-                        if (data.getIntExtra(String.valueOf(BaseConstant.CONST_PW_INIT), -1) == BaseConstant.CONST_PW_INIT ||
-                                data.getIntExtra(String.valueOf(BaseConstant.CONST_PW_SIMPLE_CHECK), -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-                            Intent checkintent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
-                            checkintent.putExtra("privateKey", mUserInput);
-                            checkintent.putExtra("privateKeyMode", true);
-                            startActivity(checkintent);
+                        if (result.getData().getIntExtra(String.valueOf(BaseConstant.CONST_PW_INIT), -1) == BaseConstant.CONST_PW_INIT ||
+                                result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+                            Intent checkIntent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
+                            checkIntent.putExtra("privateKey", mUserInput);
+                            checkIntent.putExtra("privateKeyMode", true);
+                            startActivity(checkIntent);
                         }
                     }
                 }
