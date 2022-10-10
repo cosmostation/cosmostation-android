@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
@@ -134,30 +132,22 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
         }
     }
 
-    private final ActivityResultLauncher<Intent> privateKeyRestoreQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        mInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
-                        mInput.setSelection(mInput.getText().length());
-                    }
-                }
-            });
+    private final ActivityResultLauncher<Intent> privateKeyRestoreQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
+            mInput.setSelection(mInput.getText().length());
+        }
+    });
 
-    private final ActivityResultLauncher<Intent> privateKeyRestoreResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        if (result.getData().getIntExtra(String.valueOf(BaseConstant.CONST_PW_INIT), -1) == BaseConstant.CONST_PW_INIT ||
-                                result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-                            Intent checkIntent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
-                            checkIntent.putExtra("privateKey", mUserInput);
-                            checkIntent.putExtra("privateKeyMode", true);
-                            startActivity(checkIntent);
-                        }
-                    }
-                }
-            });
+    private final ActivityResultLauncher<Intent> privateKeyRestoreResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            if (result.getData().getIntExtra(String.valueOf(BaseConstant.CONST_PW_INIT), -1) == BaseConstant.CONST_PW_INIT ||
+                    result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+                Intent checkIntent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
+                checkIntent.putExtra("privateKey", mUserInput);
+                checkIntent.putExtra("privateKeyMode", true);
+                startActivity(checkIntent);
+            }
+        }
+    });
 }

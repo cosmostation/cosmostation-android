@@ -14,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
@@ -166,13 +164,9 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         mUserInput.setText(address);
     }
 
-    private ActivityResultLauncher<Intent> starNameResourceAddQrcode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        mUserInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
-                    }
-                }
-            });
+    private ActivityResultLauncher<Intent> starNameResourceAddQrcode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mUserInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
+        }
+    });
 }

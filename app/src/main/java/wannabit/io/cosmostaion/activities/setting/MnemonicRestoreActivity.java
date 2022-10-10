@@ -304,19 +304,18 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-    private final ActivityResultLauncher<Intent> mnemonicRestoreResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    long id = getBaseDao().onInsertMnemonics(onGenMWords());
-                    if (id > 0 && result.getData().getIntExtra(String.valueOf(BaseConstant.CONST_PW_INIT), -1) == BaseConstant.CONST_PW_INIT ||
-                            result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-                        Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
-                        checkIntent.putExtra("id", id);
-                        startActivity(checkIntent);
-                        finish();
-                    }
-                }
-            });
+    private final ActivityResultLauncher<Intent> mnemonicRestoreResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            long id = getBaseDao().onInsertMnemonics(onGenMWords());
+            if (id > 0 && result.getData().getIntExtra(String.valueOf(BaseConstant.CONST_PW_INIT), -1) == BaseConstant.CONST_PW_INIT ||
+                    result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+                Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
+                checkIntent.putExtra("id", id);
+                startActivity(checkIntent);
+                finish();
+            }
+        }
+    });
 
     private MWords onGenMWords() {
         MWords tempMWords = MWords.getNewInstance();

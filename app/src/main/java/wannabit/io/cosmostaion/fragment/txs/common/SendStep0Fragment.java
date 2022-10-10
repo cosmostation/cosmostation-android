@@ -30,8 +30,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
@@ -39,7 +37,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -186,7 +183,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mToChainTxt.setText(mToSendChainConfig.chainTitleToUp());
         mToChainTxt.setTextColor(ContextCompat.getColor(getActivity(), mToSendChainConfig.chainColor()));
         mAddressInput.setText("");
-        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) mIbcLayer.setVisibility(View.GONE);
+        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain))
+            mIbcLayer.setVisibility(View.GONE);
         else mIbcLayer.setVisibility(View.VISIBLE);
     }
 
@@ -305,16 +303,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         return (SendActivity) getBaseActivity();
     }
 
-    private ActivityResultLauncher<Intent> sendStepQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
-                        mAddressInput.setSelection(mAddressInput.getText().length());
-                    }
-                }
-            });
+    private ActivityResultLauncher<Intent> sendStepQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
+            mAddressInput.setSelection(mAddressInput.getText().length());
+        }
+    });
 
     private void onCheckNameService(String userInput, ChainConfig chainConfig) {
         QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(BaseChain.IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);

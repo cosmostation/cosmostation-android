@@ -14,8 +14,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
@@ -109,16 +107,12 @@ public class AuthzSendStep0Fragment extends BaseFragment implements View.OnClick
         }
     }
 
-    private ActivityResultLauncher<Intent> authzSendQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
-                        mAddressInput.setSelection(mAddressInput.getText().length());
-                    }
-                }
-            });
+    private ActivityResultLauncher<Intent> authzSendQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
+            mAddressInput.setSelection(mAddressInput.getText().length());
+        }
+    });
 
     private AuthzSendActivity getSActivity() {
         return (AuthzSendActivity) getBaseActivity();

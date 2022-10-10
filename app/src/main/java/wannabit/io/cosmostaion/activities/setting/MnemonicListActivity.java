@@ -141,9 +141,9 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
     ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             if (result.getData() != null) {
-                Intent checkintent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
-                checkintent.putExtra("mnemonicId", result.getData().getLongExtra("mnemonicId", -1));
-                startActivity(checkintent);
+                Intent checkIntent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
+                checkIntent.putExtra("mnemonicId", result.getData().getLongExtra("mnemonicId", -1));
+                startActivity(checkIntent);
             }
         }
     });

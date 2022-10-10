@@ -15,8 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
@@ -111,14 +109,10 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
         return (RewardAddressChangeActivity) getBaseActivity();
     }
 
-    private ActivityResultLauncher<Intent> rewardAddressChangeQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
-                        mAddressInput.setSelection(mAddressInput.getText().length());
-                    }
-                }
-            });
+    private ActivityResultLauncher<Intent> rewardAddressChangeQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
+            mAddressInput.setSelection(mAddressInput.getText().length());
+        }
+    });
 }
