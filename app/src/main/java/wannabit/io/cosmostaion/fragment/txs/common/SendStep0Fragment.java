@@ -220,7 +220,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             if (WDp.isValidChainAddress(mToSendChainConfig, userInput)) {
                 if (!isExchangeAddress(userInput)) {
-                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>"),
+                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>", Html.FROM_HTML_MODE_COMPACT),
                             getString(R.string.error_exchange_address_msg), getString(R.string.str_confirm), null, false);
                     return;
                 }

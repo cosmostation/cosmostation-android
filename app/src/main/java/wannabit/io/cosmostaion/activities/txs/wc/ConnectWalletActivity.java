@@ -396,7 +396,7 @@ public class ConnectWalletActivity extends BaseActivity {
                     String finalUrl = url;
                     CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this,
                             getString(R.string.str_wc_connect_alert_title),
-                            Html.fromHtml(String.format("%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>", getString(R.string.str_wc_connect_alert_message), url, getString(R.string.str_wc_connect_alert_guide))),
+                            Html.fromHtml(String.format("%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>", getString(R.string.str_wc_connect_alert_message), url, getString(R.string.str_wc_connect_alert_guide)), Html.FROM_HTML_MODE_COMPACT),
                             getString(R.string.str_cancel),
                             view -> {
                                 mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 1000);

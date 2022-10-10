@@ -167,7 +167,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
             String memo = mMemo.getText().toString().trim();
             if (getSActivity().mToAddress != null && memo.isEmpty()) {
                 if (!isExchangeAddressMemo()) {
-                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>"),
+                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>", Html.FROM_HTML_MODE_COMPACT),
                             getString(R.string.error_exchange_address_memo_msg), getString(R.string.str_confirm), null, false);
                 } else {
                     getSActivity().mTxMemo = mMemo.getText().toString().trim();
