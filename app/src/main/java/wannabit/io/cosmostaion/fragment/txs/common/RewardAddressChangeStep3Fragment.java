@@ -17,8 +17,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class RewardAddressChangeStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG = 6016;
-
     private TextView mFeeAmount, mFeeType;
     private TextView mCurrentAddress, mNewAddress, mMemo;
     private Button mBeforeBtn, mConfirmBtn;
