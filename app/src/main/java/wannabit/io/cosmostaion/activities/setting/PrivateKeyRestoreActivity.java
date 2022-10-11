@@ -13,11 +13,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -30,23 +31,23 @@ import wannabit.io.cosmostaion.utils.WKey;
 
 public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar         mToolbar;
-    private EditText        mInput;
-    private Button          mCancel, mNext;
-    private LinearLayout    mBtnQr, mBtnPaste;
+    private Toolbar mToolbar;
+    private EditText mInput;
+    private Button mCancel, mNext;
+    private LinearLayout mBtnQr, mBtnPaste;
 
-    private String          mUserInput;
+    private String mUserInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_key_restore);
-        mToolbar        = findViewById(R.id.tool_bar);
-        mInput          = findViewById(R.id.et_address);
-        mCancel         = findViewById(R.id.btn_cancel);
-        mNext           = findViewById(R.id.btn_next);
-        mBtnQr          = findViewById(R.id.btn_qr);
-        mBtnPaste       = findViewById(R.id.btn_paste);
+        mToolbar = findViewById(R.id.tool_bar);
+        mInput = findViewById(R.id.et_address);
+        mCancel = findViewById(R.id.btn_cancel);
+        mNext = findViewById(R.id.btn_next);
+        mBtnQr = findViewById(R.id.btn_qr);
+        mBtnPaste = findViewById(R.id.btn_paste);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -73,7 +74,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
             onBackPressed();
 
         } else if (v.equals(mNext)) {
-            mUserInput = mInput.getText().toString().trim();
+            mUserInput = String.valueOf(mInput.getText()).trim();
             if (mUserInput.toLowerCase().startsWith("0x")) {
                 mUserInput = mUserInput.substring(2);
             }
@@ -87,7 +88,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
-            integrator.initiateScan();
+            privateKeyRestoreQrCode.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             String userPaste = "";
@@ -102,7 +103,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
             } else {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                    userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
+                    userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(this)).trim();
                     if (TextUtils.isEmpty(userPaste)) {
                         Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                         return;
@@ -120,33 +121,29 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
     private void onCheckPassword() {
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(PrivateKeyRestoreActivity.this, PasswordSetActivity.class);
-            startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
+            privateKeyRestoreResult.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
             Intent intent = new Intent(PrivateKeyRestoreActivity.this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            privateKeyRestoreResult.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode != Activity.RESULT_OK) { return; }
-
-        IntentResult pasteResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (pasteResult != null && pasteResult.getContents() != null) {
-            mInput.setText(pasteResult.getContents().trim());
+    private final ActivityResultLauncher<Intent> privateKeyRestoreQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             mInput.setSelection(mInput.getText().length());
-
-        } else if (requestCode == BaseConstant.CONST_PW_INIT || requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-            Intent checkintent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
-            checkintent.putExtra("privateKey", mUserInput);
-            checkintent.putExtra("privateKeyMode", true);
-            startActivity(checkintent);
-
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
         }
-    }
+    });
+
+    private final ActivityResultLauncher<Intent> privateKeyRestoreResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+            Intent checkIntent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
+            checkIntent.putExtra("privateKey", mUserInput);
+            checkIntent.putExtra("privateKeyMode", true);
+            startActivity(checkIntent);
+        }
+    });
 }

@@ -28,11 +28,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import org.bitcoinj.crypto.MnemonicCode;
 
@@ -45,8 +47,6 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class StepMemoFragment extends BaseFragment implements View.OnClickListener {
-
-    public final static int AGAIN_MEMO = 9500;
 
     private EditText mMemo;
     private TextView mMemoCnt;
@@ -88,7 +88,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         mMemo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                String memo = mMemo.getText().toString().trim();
+                String memo = String.valueOf(mMemo.getText()).trim();
                 if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mMemoCnt.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGray1));
@@ -106,7 +106,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                String memo = mMemo.getText().toString().trim();
+                String memo = String.valueOf(mMemo.getText()).trim();
                 if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mMemoCnt.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGray1));
@@ -164,32 +164,28 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            String memo = mMemo.getText().toString().trim();
+            String memo = String.valueOf(mMemo.getText()).trim();
             if (getSActivity().mToAddress != null && memo.isEmpty()) {
                 if (!isExchangeAddressMemo()) {
                     CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>", Html.FROM_HTML_MODE_COMPACT),
                             getString(R.string.error_exchange_address_memo_msg), getString(R.string.str_confirm), null, false);
                 } else {
-                    getSActivity().mTxMemo = mMemo.getText().toString().trim();
+                    getSActivity().mTxMemo = String.valueOf(mMemo.getText()).trim();
                     getSActivity().onNextStep();
                 }
 
             } else if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                 if (!isMemohasMnemonic(memo)) {
-                    getSActivity().mTxMemo = mMemo.getText().toString().trim();
+                    getSActivity().mTxMemo = String.valueOf(mMemo.getText()).trim();
                     getSActivity().onNextStep();
                 } else {
                     CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), CommonAlertDialog.highlightingText(getString(R.string.str_mnemonics_warning_title)),
                             getString(R.string.str_mnemonics_warning_msg),
-                            CommonAlertDialog.highlightingText(getString(R.string.str_enter_again)), View -> {
-                                Intent resultIntent = new Intent();
-                                resultIntent.putExtra("memo", 0);
-                                onActivityResult(AGAIN_MEMO, Activity.RESULT_OK, resultIntent);
-                            },
+                            CommonAlertDialog.highlightingText(getString(R.string.str_enter_again)),
+                            View -> mMemo.setText(""),
                             getString(R.string.str_Ignore), View -> {
-                                Intent resultIntent = new Intent();
-                                resultIntent.putExtra("memo", 1);
-                                onActivityResult(AGAIN_MEMO, Activity.RESULT_OK, resultIntent);
+                                getSActivity().mTxMemo = String.valueOf(mMemo.getText()).trim();
+                                getSActivity().onNextStep();
                             }, R.drawable.img_mnemonic_warning);
                 }
 
@@ -200,12 +196,12 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
-            integrator.initiateScan();
+            stepMemoQrCode.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
+                String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity())).trim();
                 if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
@@ -249,25 +245,10 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() != null) {
-                mMemo.setText(result.getContents().trim());
-                mMemo.setSelection(mMemo.getText().length());
-            }
-
-        } else if (requestCode == AGAIN_MEMO && resultCode == Activity.RESULT_OK) {
-            if (data.getIntExtra("memo", -1) == 0) {
-                mMemo.setText("");
-            } else if (data.getIntExtra("memo", -1) == 1) {
-                getSActivity().mTxMemo = mMemo.getText().toString().trim();
-                getSActivity().onNextStep();
-            }
-
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+    private final ActivityResultLauncher<Intent> stepMemoQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mMemo.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
+            mMemo.setSelection(mMemo.getText().length());
         }
-    }
+    });
 }

@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
@@ -65,31 +66,27 @@ public class MnemonicCreateActivity extends BaseActivity {
         mBtnDerive.setOnClickListener(view -> {
             if (!getBaseDao().onHasPassword()) {
                 Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
-                startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-
+                mnemonicCreateResult.launch(intent);
             } else {
                 Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
                 intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+                mnemonicCreateResult.launch(intent);
             }
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
+    private final ActivityResultLauncher<Intent> mnemonicCreateResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
             if (id > 0) {
-                Intent checkintent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
-                checkintent.putExtra("id", id);
-                startActivity(checkintent);
+                Intent checkIntent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
+                checkIntent.putExtra("id", id);
+                startActivity(checkIntent);
                 finish();
             }
         }
-    }
+    });
 
     private void onCreateMnemonic() {
         byte[] mEntropy = WKey.getEntropy();

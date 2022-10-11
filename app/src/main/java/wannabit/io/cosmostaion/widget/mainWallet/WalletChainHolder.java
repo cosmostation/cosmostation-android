@@ -141,7 +141,7 @@ public class WalletChainHolder extends BaseHolder {
                     public void onPermissionGranted() {
                         IntentIntegrator integrator = new IntentIntegrator(mainActivity);
                         integrator.setOrientationLocked(true);
-                        integrator.initiateScan();
+                        mainActivity.mainActivityResult.launch(integrator.createScanIntent());
                     }
 
                     @Override

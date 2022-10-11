@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_DELEGATE_CHECK = 9106;
 
     private TextView mDelegateAmount, mDelegateDenom;
     private TextView mFeeAmount, mFeeType;
@@ -83,17 +80,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             }
             CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_delegate_warn_title), getString(R.string.str_delegate_warn_msg),
                     getString(R.string.str_cancel), null,
-                    getString(R.string.str_confirm), View -> {
-                        Intent resultIntent = new Intent();
-                        onActivityResult(SELECT_DELEGATE_CHECK, Activity.RESULT_OK, resultIntent);
-                    }, unBondingTimeImage);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_DELEGATE_CHECK && resultCode == Activity.RESULT_OK) {
-            getSActivity().onStartDelegate();
+                    getString(R.string.str_confirm), View -> getSActivity().onStartDelegate(), unBondingTimeImage);
         }
     }
 
