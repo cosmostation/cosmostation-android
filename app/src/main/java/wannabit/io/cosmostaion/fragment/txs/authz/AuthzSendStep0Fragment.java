@@ -86,7 +86,7 @@ public class AuthzSendStep0Fragment extends BaseFragment implements View.OnClick
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
-            authzSendQrCode.launch(integrator.createScanIntent());
+            qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -107,7 +107,7 @@ public class AuthzSendStep0Fragment extends BaseFragment implements View.OnClick
         }
     }
 
-    private ActivityResultLauncher<Intent> authzSendQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> qrCodeResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             mAddressInput.setSelection(mAddressInput.getText().length());

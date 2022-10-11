@@ -343,7 +343,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                                 public void onPermissionGranted() {
                                     IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
                                     integrator.setOrientationLocked(true);
-                                    mainSettingFragmentQrcode.launch(integrator.createScanIntent());
+                                    wcQrcodeResultLauncher.launch(integrator.createScanIntent());
                                 }
 
                                 @Override
@@ -363,7 +363,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if (getBaseDao().getUsingAppLock()) {
             Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            mainSettingFragmentResult.launch(intent);
+            appLockCheckResultLauncher.launch(intent);
             getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
         } else {
@@ -373,7 +373,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
             } else {
                 Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
-                mainSettingFragmentResult.launch(intent);
+                appLockCheckResultLauncher.launch(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             }
         }
@@ -408,12 +408,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
-            mainSettingFragmentResult.launch(intent);
+            appLockCheckResultLauncher.launch(intent);
 
         } else {
             Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            mainSettingFragmentResult.launch(intent);
+            appLockCheckResultLauncher.launch(intent);
         }
         getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -441,7 +441,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         return (MainActivity) getBaseActivity();
     }
 
-    private final ActivityResultLauncher<Intent> mainSettingFragmentResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> appLockCheckResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
             if (mCheckMode == SELECT_CHECK_FOR_APP_LOCK) {
                 getBaseDao().setUsingAppLock(false);
@@ -452,7 +452,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         }
     });
 
-    private final ActivityResultLauncher<Intent> mainSettingFragmentQrcode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> wcQrcodeResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getStringExtra(Intents.Scan.RESULT).trim().contains("bridge.walletconnect.org")) {
             Intent wcIntent = new Intent(getMainActivity(), StarNameWalletConnectActivity.class);
             wcIntent.putExtra("wcUrl", result.getData().getStringExtra(Intents.Scan.RESULT).trim());

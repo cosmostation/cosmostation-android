@@ -58,6 +58,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletChainHolder;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
@@ -280,7 +281,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         Intent intent = new Intent(this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_SIMPLE_CHECK);
         intent.putExtra("wcUrl", wcUrl);
-        mainActivityResult.launch(intent);
+        walletConnectResultLauncher.launch(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
@@ -367,7 +368,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
     }
 
-    public ActivityResultLauncher<Intent> mainActivityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    public final ActivityResultLauncher<Intent> walletConnectResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK
                 && !TextUtils.isEmpty(result.getData().getStringExtra("wcUrl"))) {
             Intent wIntent;

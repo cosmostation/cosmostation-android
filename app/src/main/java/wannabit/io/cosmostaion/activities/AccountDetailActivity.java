@@ -245,7 +245,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 } else {
                     Intent checkintent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
                     checkintent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
-                    startActivityForResult.launch(checkintent);
+                    accountCheckResultLauncher.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
 
@@ -267,7 +267,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 } else {
                     Intent checkintent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
                     checkintent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_PRIVATE_KEY);
-                    startActivityForResult.launch(checkintent);
+                    accountCheckResultLauncher.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
 
@@ -344,7 +344,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> accountCheckResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             Intent checkIntent;
             if (result.getData().getIntExtra(CONST_PW_PURPOSE, -1) == CONST_PW_CHECK_MNEMONIC) {

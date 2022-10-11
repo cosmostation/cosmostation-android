@@ -409,7 +409,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         } else {
             Intent intent = new Intent(ValidatorListActivity.this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            validatorListActivityResult.launch(intent);
+            passwordCheckResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
@@ -447,7 +447,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    private final ActivityResultLauncher<Intent> validatorListActivityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> passwordCheckResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             mHandler.postDelayed(() -> onShowFeeDialog(), 300);
         }

@@ -112,7 +112,7 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
                     Intent checkIntent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
                     checkIntent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
                     checkIntent.putExtra("mnemonicId", mWord.id);
-                    startActivityForResult.launch(checkIntent);
+                    mnemonicDetailResultLauncher.launch(checkIntent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             });
@@ -138,7 +138,7 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> mnemonicDetailResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             Intent checkIntent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
             checkIntent.putExtra("mnemonicId", result.getData().getLongExtra("mnemonicId", -1));
