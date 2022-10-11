@@ -205,7 +205,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onHideKeyboard();
 
         } else if (v.equals(mNextBtn)) {
-            String userInput = mAddressInput.getText().toString().trim();
+            String userInput = String.valueOf(mAddressInput.getText()).trim();
 
             if (getSActivity().mAccount.address.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
@@ -259,7 +259,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
+                String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity())).trim();
                 if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;

@@ -92,7 +92,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
             finish();
 
         } else if (v.equals(mConfirm)) {
-            final String userinput = mUserInput.getText().toString().trim();
+            final String userinput = String.valueOf(mUserInput.getText()).trim();
 
             if (TextUtils.isEmpty(userinput)) {
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
@@ -145,7 +145,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         } else if (v.equals(mPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
+                String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(this)).trim();
                 if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;

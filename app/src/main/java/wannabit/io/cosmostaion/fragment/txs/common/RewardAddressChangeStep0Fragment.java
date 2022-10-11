@@ -67,7 +67,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
     @Override
     public void onClick(View v) {
         if (v.equals(mNextBtn)) {
-            String targetAddress = mAddressInput.getText().toString().trim();
+            String targetAddress = String.valueOf(mAddressInput.getText()).trim();
             if (getSActivity().mCurrentRewardAddress.equals(targetAddress)) {
                 Toast.makeText(getContext(), R.string.error_same_reward_address, Toast.LENGTH_SHORT).show();
                 return;
@@ -91,7 +91,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
+                String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity())).trim();
                 if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;

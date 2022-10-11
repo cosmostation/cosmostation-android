@@ -88,7 +88,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         mMemo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                String memo = mMemo.getText().toString().trim();
+                String memo = String.valueOf(mMemo.getText()).trim();
                 if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mMemoCnt.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGray1));
@@ -106,7 +106,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                String memo = mMemo.getText().toString().trim();
+                String memo = String.valueOf(mMemo.getText()).trim();
                 if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                     mMemo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                     mMemoCnt.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGray1));
@@ -164,19 +164,19 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            String memo = mMemo.getText().toString().trim();
+            String memo = String.valueOf(mMemo.getText()).trim();
             if (getSActivity().mToAddress != null && memo.isEmpty()) {
                 if (!isExchangeAddressMemo()) {
                     CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>", Html.FROM_HTML_MODE_COMPACT),
                             getString(R.string.error_exchange_address_memo_msg), getString(R.string.str_confirm), null, false);
                 } else {
-                    getSActivity().mTxMemo = mMemo.getText().toString().trim();
+                    getSActivity().mTxMemo = String.valueOf(mMemo.getText()).trim();
                     getSActivity().onNextStep();
                 }
 
             } else if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                 if (!isMemohasMnemonic(memo)) {
-                    getSActivity().mTxMemo = mMemo.getText().toString().trim();
+                    getSActivity().mTxMemo = String.valueOf(mMemo.getText()).trim();
                     getSActivity().onNextStep();
                 } else {
                     CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), CommonAlertDialog.highlightingText(getString(R.string.str_mnemonics_warning_title)),
@@ -184,7 +184,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
                             CommonAlertDialog.highlightingText(getString(R.string.str_enter_again)),
                             View -> mMemo.setText(""),
                             getString(R.string.str_Ignore), View -> {
-                                getSActivity().mTxMemo = mMemo.getText().toString().trim();
+                                getSActivity().mTxMemo = String.valueOf(mMemo.getText()).trim();
                                 getSActivity().onNextStep();
                             }, R.drawable.img_mnemonic_warning);
                 }
@@ -201,7 +201,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
+                String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity())).trim();
                 if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;

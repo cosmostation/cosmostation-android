@@ -172,10 +172,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         if (mAccount == null) {
             needFetch = true;
-        } else if (!supportedAccount.id.toString().equals(getBaseDao().getLastUser())) {
+        } else if (!String.valueOf(supportedAccount.id).equals(getBaseDao().getLastUser())) {
             getBaseDao().setLastUser(supportedAccount.id);
             needFetch = true;
-        } else if (!getBaseDao().getLastUser().equals(mAccount.id.toString())) {
+        } else if (!getBaseDao().getLastUser().equals(String.valueOf(mAccount.id))) {
             needFetch = true;
         }
 

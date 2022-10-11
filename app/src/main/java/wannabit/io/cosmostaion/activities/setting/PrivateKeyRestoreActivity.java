@@ -74,7 +74,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
             onBackPressed();
 
         } else if (v.equals(mNext)) {
-            mUserInput = mInput.getText().toString().trim();
+            mUserInput = String.valueOf(mInput.getText()).trim();
             if (mUserInput.toLowerCase().startsWith("0x")) {
                 mUserInput = mUserInput.substring(2);
             }
@@ -103,7 +103,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
             } else {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                    userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
+                    userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(this)).trim();
                     if (TextUtils.isEmpty(userPaste)) {
                         Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                         return;
@@ -139,13 +139,11 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
     });
 
     private final ActivityResultLauncher<Intent> privateKeyRestoreResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-            if (result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-                Intent checkIntent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
-                checkIntent.putExtra("privateKey", mUserInput);
-                checkIntent.putExtra("privateKeyMode", true);
-                startActivity(checkIntent);
-            }
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+            Intent checkIntent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
+            checkIntent.putExtra("privateKey", mUserInput);
+            checkIntent.putExtra("privateKeyMode", true);
+            startActivity(checkIntent);
         }
     });
 }

@@ -87,7 +87,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
             onBackPressed();
 
         } else if (v.equals(mNext) && !this.isFinishing()) {
-            mUserInput = mInput.getText().toString().trim();
+            mUserInput = String.valueOf(mInput.getText()).trim();
             ArrayList<BaseChain> chains = WDp.getChainsFromAddress(mUserInput);
             if (chains != null) {
                 if (chains.size() == 1) {
@@ -126,7 +126,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
+                String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(this)).trim();
                 if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
