@@ -232,7 +232,7 @@ public class ConnectWalletActivity extends BaseActivity {
         } else {
             Intent intent = new Intent(this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            connectWalletActivityResultLauncher.launch(intent);
+            connectWalletResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
@@ -925,7 +925,7 @@ public class ConnectWalletActivity extends BaseActivity {
         }
     }
 
-    private final ActivityResultLauncher<Intent> connectWalletActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> connectWalletResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
             initWalletConnect();
         } else {

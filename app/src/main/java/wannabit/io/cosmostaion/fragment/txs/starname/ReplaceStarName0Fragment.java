@@ -106,7 +106,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
         }
     }
 
-    private final ActivityResultLauncher<Intent> addAddressReplaceStarNameLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> starNameResourceAddResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             try {
                 Types.Resource temp = Types.Resource.parseFrom(result.getData().getByteArrayExtra("resource"));
@@ -163,7 +163,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
             holder.itemRoot.setOnClickListener(v -> {
                 Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
                 intent.putExtra("resource", resource.toByteArray());
-                addAddressReplaceStarNameLauncher.launch(intent);
+                starNameResourceAddResultLauncher.launch(intent);
                 getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             });
             if (mResources.size() <= 1) {
@@ -192,7 +192,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
                             StarnameAssets asset = bundle.getParcelable("resource");
                             Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
                             intent.putExtra("asset", asset);
-                            addAddressReplaceStarNameLauncher.launch(intent);
+                            starNameResourceAddResultLauncher.launch(intent);
                             getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                         } catch (Exception e) {
                         }

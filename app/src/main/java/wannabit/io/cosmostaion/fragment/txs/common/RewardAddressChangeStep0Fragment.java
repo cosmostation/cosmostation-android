@@ -86,7 +86,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
-            rewardAddressChangeQrCodeLauncher.launch(integrator.createScanIntent());
+            qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -109,7 +109,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
         return (RewardAddressChangeActivity) getBaseActivity();
     }
 
-    private ActivityResultLauncher<Intent> rewardAddressChangeQrCodeLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> qrCodeResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             mAddressInput.setSelection(mAddressInput.getText().length());

@@ -88,7 +88,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
-            privateKeyRestoreQrCodeLauncher.launch(integrator.createScanIntent());
+            qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             String userPaste = "";
@@ -131,7 +131,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
         }
     }
 
-    private final ActivityResultLauncher<Intent> privateKeyRestoreQrCodeLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> qrCodeResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             mInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             mInput.setSelection(mInput.getText().length());

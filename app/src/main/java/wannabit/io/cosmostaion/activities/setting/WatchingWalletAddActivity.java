@@ -121,7 +121,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
-            watchingWalletAddQrCodeLauncher.launch(integrator.createScanIntent());
+            qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -165,7 +165,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
         }
     }
 
-    private final ActivityResultLauncher<Intent> watchingWalletAddQrCodeLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> qrCodeResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             mInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             mInput.setSelection(mInput.getText().length());
