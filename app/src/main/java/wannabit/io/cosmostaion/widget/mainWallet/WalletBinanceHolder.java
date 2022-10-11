@@ -72,7 +72,7 @@ public class WalletBinanceHolder extends BaseHolder {
                         public void onPermissionGranted() {
                             IntentIntegrator integrator = new IntentIntegrator(mainActivity);
                             integrator.setOrientationLocked(true);
-                            mainActivity.mainActivityResult.launch(integrator.createScanIntent());
+                            mainActivity.mainActivityResultLauncher.launch(integrator.createScanIntent());
                         }
 
                         @Override

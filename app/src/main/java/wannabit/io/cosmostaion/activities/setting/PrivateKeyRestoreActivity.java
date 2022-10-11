@@ -88,7 +88,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
-            privateKeyRestoreQrCode.launch(integrator.createScanIntent());
+            privateKeyRestoreQrCodeLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             String userPaste = "";
@@ -121,24 +121,24 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
     private void onCheckPassword() {
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(PrivateKeyRestoreActivity.this, PasswordSetActivity.class);
-            privateKeyRestoreResult.launch(intent);
+            privateKeyRestoreResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
             Intent intent = new Intent(PrivateKeyRestoreActivity.this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            privateKeyRestoreResult.launch(intent);
+            privateKeyRestoreResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
-    private final ActivityResultLauncher<Intent> privateKeyRestoreQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> privateKeyRestoreQrCodeLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             mInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             mInput.setSelection(mInput.getText().length());
         }
     });
 
-    private final ActivityResultLauncher<Intent> privateKeyRestoreResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> privateKeyRestoreResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
             Intent checkIntent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
             checkIntent.putExtra("privateKey", mUserInput);

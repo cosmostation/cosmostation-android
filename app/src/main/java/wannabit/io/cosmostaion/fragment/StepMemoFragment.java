@@ -196,7 +196,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
-            stepMemoQrCode.launch(integrator.createScanIntent());
+            stepMemoQrCodeLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -245,7 +245,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
-    private final ActivityResultLauncher<Intent> stepMemoQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private final ActivityResultLauncher<Intent> stepMemoQrCodeLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             mMemo.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             mMemo.setSelection(mMemo.getText().length());

@@ -254,7 +254,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
-            sendStepQrCode.launch(integrator.createScanIntent());
+            sendStepQrCodeLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -303,7 +303,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         return (SendActivity) getBaseActivity();
     }
 
-    private ActivityResultLauncher<Intent> sendStepQrCode = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    private ActivityResultLauncher<Intent> sendStepQrCodeLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             mAddressInput.setSelection(mAddressInput.getText().length());
