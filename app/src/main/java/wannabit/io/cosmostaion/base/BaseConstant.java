@@ -39,18 +39,12 @@ public class BaseConstant {
     public final static String PRE_WC_WHITE_LIST            = "PRE_WC_WHITE_LIST";
     public final static String PRE_PRICE_COLOR              = "PRE_PRICE_COLOR";
 
-    public final static int TASK_INIT_PW                                = 2000;
-    public final static int TASK_INIT_ACCOUNT                           = 2002;
-    public final static int TASK_INIT_EMPTY_ACCOUNT                     = 2003;
+
     public final static int TASK_FETCH_ACCOUNT                          = 2004;
-    public final static int TASK_PASSWORD_CHECK                         = 2015;
-    public final static int TASK_GEN_TX_SIMPLE_SEND                     = 2018;
-    public final static int TASK_OVERRIDE_ACCOUNT                       = 2019;
     public final static int TASK_FETCH_BNB_HISTORY                      = 2041;
     public final static int TASK_FETCH_BNB_TOKENS                       = 2042;
     public final static int TASK_FETCH_BNB_TICKER                       = 2043;
     public final static int TASK_FETCH_BNB_MINI_TICKER                  = 2044;
-    public final static int TASK_MOON_PAY_SIGNATURE                     = 2058;
     public final static int TASK_FETCH_KAVA_CDP_DEPOSIT                 = 2061;
     public final static int TASK_FETCH_KAVA_INCENTIVE_PARAM             = 2074;
     public final static int TASK_FETCH_KAVA_INCENTIVE_REWARD            = 2076;
@@ -71,9 +65,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2301;
 
-    public final static int TASK_FETCH_PARAM_INFO                       = 2801;
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
-    public final static int TASK_FETCH_MINTSCAN_PROPOSAL_LIST           = 2806;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
     public final static int TASK_FETCH_MINTSCAN_PRICES                  = 2808;
 
@@ -167,9 +159,7 @@ public class BaseConstant {
     public final static String ETHERMINT_KEY_TYPE_PUBLIC                    = "ethermint/PubKeyEthSecp256k1";
 
     public final static String CONST_PW_PURPOSE                             = "CONST_PW_PURPOSE";
-    public final static int CONST_PW_INIT                                   = 5000;
     public final static int CONST_PW_DELETE_WALLET                          = 5001;
-    public final static int CONST_PW_SIMPLE_CHECK                           = 5002;
     public final static int CONST_PW_TX_SIMPLE_SEND                         = 5003;
     public final static int CONST_PW_TX_SIMPLE_DELEGATE                     = 5004;
     public final static int CONST_PW_TX_SIMPLE_UNDELEGATE                   = 5005;

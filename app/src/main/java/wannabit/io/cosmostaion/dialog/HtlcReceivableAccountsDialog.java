@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,12 +21,15 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class HtlcReceivableAccountsDialog extends DialogFragment {
+
+    public final static String HTLC_ACCOUNT_BUNDLE_KEY = "htlcaccount";
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
@@ -85,10 +86,10 @@ public class HtlcReceivableAccountsDialog extends DialogFragment {
             WDp.setDpCoin(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), account.getTokenBalance(chainConfig.mainDenom()).toPlainString(), holder.accountDenom, holder.accountAvailable);
 
             holder.rootLayer.setOnClickListener(v -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(HTLC_ACCOUNT_BUNDLE_KEY, result);
+                dismiss();
             });
         }
 

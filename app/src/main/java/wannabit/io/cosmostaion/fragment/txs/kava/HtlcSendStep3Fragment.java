@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.kava;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,14 +26,11 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_HTLC_CONFIRM = 9104;
 
-    private CardView mSendCard;
     private ImageView mSendIcon;
     private TextView mSendAmountTv, mSendDenomTv;
     private TextView mSendFeeAmountTv, mSendFeeDenomTv;
     private TextView mReceiveChainTv, mReceiveAddressTv;
-    private CardView mClaimCard;
     private ImageView mClaimIcon;
     private TextView mReceiveAmountTv, mReceiveAmountDenomTv;
     private TextView mRelayFeeAmountTv, mRelayFeeAmountDenomTv;
@@ -59,7 +53,6 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_htlc_send_step3, container, false);
-        mSendCard = rootView.findViewById(R.id.send_swap_card);
         mSendIcon = rootView.findViewById(R.id.send_icon);
         mSendAmountTv = rootView.findViewById(R.id.send_amount);
         mSendDenomTv = rootView.findViewById(R.id.send_amount_denom);
@@ -67,7 +60,6 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         mSendFeeDenomTv = rootView.findViewById(R.id.send_fee_denom);
         mReceiveChainTv = rootView.findViewById(R.id.recipient_chain);
         mReceiveAddressTv = rootView.findViewById(R.id.recipient_address);
-        mClaimCard = rootView.findViewById(R.id.claim_swap_card);
         mClaimIcon = rootView.findViewById(R.id.claim_icon);
         mReceiveAmountTv = rootView.findViewById(R.id.receive_amount);
         mReceiveAmountDenomTv = rootView.findViewById(R.id.receive_amount_denom);
@@ -140,16 +132,8 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
             CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_htlc_warn_title), getString(R.string.str_htlc_warn_msg),
                     getString(R.string.str_cancel), null,
                     getString(R.string.str_confirm), View -> {
-                        Intent resultIntent = new Intent();
-                        onActivityResult(SELECT_HTLC_CONFIRM, Activity.RESULT_OK, resultIntent);
+                        getSActivity().onStartHtlcSend();
                     }, R.drawable.img_bep_3_available);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_HTLC_CONFIRM && resultCode == Activity.RESULT_OK) {
-            getSActivity().onStartHtlcSend();
         }
     }
 

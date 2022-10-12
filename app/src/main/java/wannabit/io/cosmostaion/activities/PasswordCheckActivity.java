@@ -1,11 +1,9 @@
 package wannabit.io.cosmostaion.activities;
 
-import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_APP_LOCK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_AUTO_PASS;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_WALLET;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 
 import android.app.Activity;
 import android.os.Build;
@@ -77,12 +75,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mAdapter = new KeyboardPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
 
-        mPurpose = getIntent().getIntExtra(CONST_PW_PURPOSE, CONST_PW_SIMPLE_CHECK);
-
-        if (mPurpose != CONST_PW_SIMPLE_CHECK) {
-            mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-            mBaseChain = getChain(mAccount.baseChain);
-        }
+        mPurpose = getIntent().getIntExtra(CONST_PW_PURPOSE, -1);
         onInitView();
     }
 

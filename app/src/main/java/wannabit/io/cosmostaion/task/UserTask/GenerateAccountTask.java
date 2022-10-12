@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
@@ -31,7 +30,6 @@ public class GenerateAccountTask extends CommonTask {
         this.mDerive = derive;
         this.mPKey = pKey;
         this.mIsPrivateKey = isPrivateKey;
-        this.mResult.taskType = BaseConstant.TASK_INIT_ACCOUNT;
     }
 
     @Override

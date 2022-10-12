@@ -7,12 +7,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -26,7 +27,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -201,11 +201,9 @@ public class HtlcSendActivity extends BaseActivity {
     public void onStartHtlcSend() {
         if (getBaseDao().isAutoPass()) {
             onIntentHtlcResult();
-
         } else {
             Intent intent = new Intent(HtlcSendActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
@@ -219,6 +217,13 @@ public class HtlcSendActivity extends BaseActivity {
         intent.putExtra("claimFee", mClaimFee);
         startActivity(intent);
     }
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onIntentHtlcResult();
+        }
+    });
 
     private class HtlcSendPageAdapter extends FragmentPagerAdapter {
 
@@ -258,14 +263,6 @@ public class HtlcSendActivity extends BaseActivity {
 
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
-            onIntentHtlcResult();
         }
     }
 

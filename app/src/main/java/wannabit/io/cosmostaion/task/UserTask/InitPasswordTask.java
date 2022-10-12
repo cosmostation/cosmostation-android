@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.task.UserTask;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -13,7 +12,6 @@ public class InitPasswordTask extends CommonTask {
 
     public InitPasswordTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType = BaseConstant.TASK_INIT_PW;
     }
 
     /**

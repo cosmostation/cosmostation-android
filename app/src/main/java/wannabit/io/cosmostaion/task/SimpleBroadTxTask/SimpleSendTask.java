@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_SIMPLE_SEND;
 
 import java.util.ArrayList;
 
@@ -41,7 +40,6 @@ public class SimpleSendTask extends CommonTask {
         this.mToSendAmount      = toSendAmount;
         this.mToSendMemo        = toSendMemo;
         this.mToFees            = toFees;
-        this.mResult.taskType   = TASK_GEN_TX_SIMPLE_SEND;
     }
 
 
