@@ -73,10 +73,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
     private int mCDecimal;
     private int mPDecimal;
 
-    public static CreateCdpStep0Fragment newInstance(Bundle bundle) {
-        CreateCdpStep0Fragment fragment = new CreateCdpStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static CreateCdpStep0Fragment newInstance() {
+        return new CreateCdpStep0Fragment();
     }
 
     @Override

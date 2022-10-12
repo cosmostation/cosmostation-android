@@ -225,8 +225,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
                 android:layout_marginTop="@dimen/space_6"
-                android:background="@drawable/box_trans_round"
-                android:clickable="true">
+                android:background="@drawable/box_trans_round">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -256,8 +255,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
                 android:layout_marginTop="@dimen/space_6"
-                android:background="@drawable/box_trans_round"
-                android:clickable="true">
+                android:background="@drawable/box_trans_round">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

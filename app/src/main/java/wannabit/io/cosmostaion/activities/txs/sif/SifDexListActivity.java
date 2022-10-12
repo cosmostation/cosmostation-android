@@ -283,9 +283,9 @@ public class SifDexListActivity extends BaseActivity {
         public SifDexPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(SifDexSwapFragment.newInstance(null));
-            mFragments.add(SifDexEthPoolFragment.newInstance(null));
-            mFragments.add(SifDexIbcPoolFragment.newInstance(null));
+            mFragments.add(SifDexSwapFragment.newInstance());
+            mFragments.add(SifDexEthPoolFragment.newInstance());
+            mFragments.add(SifDexIbcPoolFragment.newInstance());
         }
 
         @Override

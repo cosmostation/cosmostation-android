@@ -29,10 +29,8 @@ public class ExitPoolStep3Fragment extends BaseFragment implements View.OnClickL
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static ExitPoolStep3Fragment newInstance(Bundle bundle) {
-        ExitPoolStep3Fragment fragment = new ExitPoolStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ExitPoolStep3Fragment newInstance() {
+        return new ExitPoolStep3Fragment();
     }
 
     @Override

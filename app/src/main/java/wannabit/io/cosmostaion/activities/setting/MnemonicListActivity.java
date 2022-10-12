@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.MWords;
 
 public class MnemonicListActivity extends BaseActivity implements View.OnClickListener {
@@ -109,10 +108,9 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
                     startActivity(checkIntent);
 
                 } else {
-                    Intent checkIntent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
-                    checkIntent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_CHECK_MNEMONIC);
-                    checkIntent.putExtra("mnemonicId", mWord.id);
-                    mnemonicDetailResultLauncher.launch(checkIntent);
+                    Intent checkintent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
+                    checkintent.putExtra("mnemonicId", mWord.id);
+                    mnemonicDetailResultLauncher.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             });
@@ -138,11 +136,11 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private final ActivityResultLauncher<Intent> mnemonicDetailResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    ActivityResultLauncher<Intent> mnemonicDetailResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-            Intent checkIntent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
-            checkIntent.putExtra("mnemonicId", result.getData().getLongExtra("mnemonicId", -1));
-            startActivity(checkIntent);
+            Intent checkintent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
+            checkintent.putExtra("mnemonicId", result.getData().getLongExtra("mnemonicId", -1));
+            startActivity(checkintent);
         }
     });
 }

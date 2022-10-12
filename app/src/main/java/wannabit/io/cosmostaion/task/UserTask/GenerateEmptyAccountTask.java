@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -16,7 +15,6 @@ public class GenerateEmptyAccountTask extends CommonTask {
 
     public GenerateEmptyAccountTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType = BaseConstant.TASK_INIT_EMPTY_ACCOUNT;
     }
 
     /**

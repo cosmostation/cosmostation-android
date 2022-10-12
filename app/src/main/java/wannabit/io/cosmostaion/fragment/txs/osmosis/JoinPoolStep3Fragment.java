@@ -29,10 +29,8 @@ public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickL
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static JoinPoolStep3Fragment newInstance(Bundle bundle) {
-        JoinPoolStep3Fragment fragment = new JoinPoolStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static JoinPoolStep3Fragment newInstance() {
+        return new JoinPoolStep3Fragment();
     }
 
     @Override

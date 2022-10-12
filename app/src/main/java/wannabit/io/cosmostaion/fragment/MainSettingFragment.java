@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_BLOG;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_GITHUB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_HOMEPAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TELEGRAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_EN;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_KR;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 import static wannabit.io.cosmostaion.utils.ThemeUtil.themeColor;
 
@@ -63,9 +69,6 @@ import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int SELECT_CHECK_FOR_APP_LOCK = 1;
-    public final static int SELECT_CHECK_FOR_AUTO_PASS = 2;
-
     private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAutoPass, mBtnCurrency,
             mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
             mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
@@ -75,9 +78,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     private ImageView mPriceColorUp, mPriceColorDown;
 
     private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
-
-    private int mCheckMode = -1;
-
     private SwitchCompat alarmSwitch;
 
     public static MainSettingFragment newInstance() {
@@ -306,28 +306,28 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnHomepage)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_HOMEPAGE));
             startActivity(intent);
 
         } else if (v.equals(mBtnBlog)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/cosmostation"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_BLOG));
             startActivity(intent);
 
         } else if (v.equals(mBtnTelegram)) {
-            Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/cosmostation"));
+            Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TELEGRAM));
             startActivity(telegram);
 
         } else if (v.equals(mBtnTerm)) {
             if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_kr.html"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_KR));
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_en.html"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_EN));
                 startActivity(intent);
             }
 
         } else if (v.equals(mBtnGithub)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cosmostation/cosmostation-android"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_GITHUB));
             startActivity(intent);
 
         } else if (v.equals(mBtnVersion)) {
@@ -358,11 +358,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onClickAppLock() {
-        mCheckMode = SELECT_CHECK_FOR_APP_LOCK;
-
         if (getBaseDao().getUsingAppLock()) {
             Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_APP_LOCK);
             appLockCheckResultLauncher.launch(intent);
             getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -404,16 +402,14 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onClickAutoPass() {
-        mCheckMode = SELECT_CHECK_FOR_AUTO_PASS;
-
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(getActivity(), PasswordSetActivity.class);
-            appLockCheckResultLauncher.launch(intent);
+            autoPassResultLauncher.launch(intent);
 
         } else {
             Intent intent = new Intent(getActivity(), PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            appLockCheckResultLauncher.launch(intent);
+            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_AUTO_PASS);
+            autoPassResultLauncher.launch(intent);
         }
         getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -442,13 +438,15 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private final ActivityResultLauncher<Intent> appLockCheckResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
-            if (mCheckMode == SELECT_CHECK_FOR_APP_LOCK) {
-                getBaseDao().setUsingAppLock(false);
-                onUpdateView();
-            } else {
-                new Handler(Looper.getMainLooper()).postDelayed(() -> onShowAutoPassDialog(), 300);
-            }
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            getBaseDao().setUsingAppLock(false);
+            onUpdateView();
+        }
+    });
+
+    private final ActivityResultLauncher<Intent> autoPassResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> onShowAutoPassDialog(), 300);
         }
     });
 

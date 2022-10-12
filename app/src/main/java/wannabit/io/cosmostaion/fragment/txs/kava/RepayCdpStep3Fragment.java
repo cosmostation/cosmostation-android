@@ -30,10 +30,8 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
     private LinearLayout mWarnLayer;
     private Button       mBeforeBtn, mConfirmBtn;
 
-    public static RepayCdpStep3Fragment newInstance(Bundle bundle) {
-        RepayCdpStep3Fragment fragment = new RepayCdpStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RepayCdpStep3Fragment newInstance() {
+        return new RepayCdpStep3Fragment();
     }
 
     @Override

@@ -34,7 +34,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
     private TextView mFeeAmount;
     private TextView mCurrentBalance, mRemainingBalance, mRemainingPrice;
     private LinearLayout mRecipientLayer, mIbcLayer;
-    private TextView mRecipientChain, mRecipientChannel, mRecipientAddress, mMemo;
+    private TextView mRecipientChain, mRecipientAddress, mMemo;
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mSendDenom, mFeeDenom, mCurrentDenom, mRemainDenom;
 
@@ -57,7 +57,6 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mRemainingPrice = rootView.findViewById(R.id.remaining_price);
         mRecipientLayer = rootView.findViewById(R.id.recipient_layer);
         mRecipientChain = rootView.findViewById(R.id.recipient_chain);
-        mRecipientChannel = rootView.findViewById(R.id.recipient_channel);
         mRecipientAddress = rootView.findViewById(R.id.recipient_address);
         mIbcLayer = rootView.findViewById(R.id.ibc_layer);
 
@@ -119,7 +118,6 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 if (chainConfig != null) {
                     mRecipientChain.setText(chainConfig.chainTitleToUp());
                     mRecipientChain.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
-                    mRecipientChannel.setText("(" + getSActivity().mAssetPath.channel + ")");
                 }
 
             } else {

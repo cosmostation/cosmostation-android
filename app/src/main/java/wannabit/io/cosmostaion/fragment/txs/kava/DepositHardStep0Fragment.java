@@ -41,10 +41,8 @@ public class DepositHardStep0Fragment extends BaseFragment implements View.OnCli
     private String mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    public static DepositHardStep0Fragment newInstance(Bundle bundle) {
-        DepositHardStep0Fragment fragment = new DepositHardStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DepositHardStep0Fragment newInstance() {
+        return new DepositHardStep0Fragment();
     }
 
     @Override

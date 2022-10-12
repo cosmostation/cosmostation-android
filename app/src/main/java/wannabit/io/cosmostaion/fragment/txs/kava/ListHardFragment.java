@@ -52,10 +52,8 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
     private ArrayList<QueryOuterClass.MoneyMarketInterestRate> mInterestRates = new ArrayList<>();
     private IncentiveReward mIncentiveRewards;
 
-    public static ListHardFragment newInstance(Bundle bundle) {
-        ListHardFragment fragment = new ListHardFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ListHardFragment newInstance() {
+        return new ListHardFragment();
     }
 
     @Override

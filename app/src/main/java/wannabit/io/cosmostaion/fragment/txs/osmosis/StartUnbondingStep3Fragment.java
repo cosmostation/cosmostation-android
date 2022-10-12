@@ -27,10 +27,8 @@ public class StartUnbondingStep3Fragment extends BaseFragment implements View.On
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static StartUnbondingStep3Fragment newInstance(Bundle bundle) {
-        StartUnbondingStep3Fragment fragment = new StartUnbondingStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static StartUnbondingStep3Fragment newInstance() {
+        return new StartUnbondingStep3Fragment();
     }
 
     @Override

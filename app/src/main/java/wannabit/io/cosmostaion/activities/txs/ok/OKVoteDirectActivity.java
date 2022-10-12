@@ -2,16 +2,19 @@ package wannabit.io.cosmostaion.activities.txs.ok;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -20,25 +23,21 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.ok.DirectVoteFragment0;
 import wannabit.io.cosmostaion.fragment.txs.ok.DirectVoteFragment3;
-import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.req.ReqBroadCast;
-import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class OKVoteDirectActivity extends BaseBroadCastActivity {
@@ -154,45 +153,37 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
 
     public void onStartDirectVote() {
         if (getBaseDao().isAutoPass()) {
-            onAutoPassMode();
+            onBroadCastTx();
         } else {
             Intent intent = new Intent(OKVoteDirectActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putStringArrayListExtra("voteVal", mValAddesses);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
-            startActivity(intent);
+            activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
-    private void onAutoPassMode() {
-        new Thread(() -> {
-            try {
-                Msg incentiveMsg = MsgGenerator.genOkVote(mAccount.address, mValAddesses);
-                ArrayList<Msg> msgs= new ArrayList<>();
-                msgs.add(incentiveMsg);
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastTx();
+        }
+    });
 
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainId());
-                Response<ResBroadTx> response = ApiClient.getOkexChain().broadTx(reqBroadCast).execute();
-
-                if (response.isSuccessful() && response.body() != null) {
+    private void onBroadCastTx() {
+        new SimpleOkDirectVoteTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) {
                     Intent txIntent = new Intent(OKVoteDirectActivity.this, TxDetailActivity.class);
-                    if (response.body().txhash != null) {
-                        String hash = response.body().txhash;
-                        if (!TextUtils.isEmpty(hash))
-                            txIntent.putExtra("txHash", hash);
-                    }
-                    if (response.body().code != null) {
-                        txIntent.putExtra("errorCode", response.body().code);
-                        txIntent.putExtra("errorMsg", response.body().raw_log);
-                    }
                     txIntent.putExtra("isGen", true);
-                    txIntent.putExtra("isSuccess", true);
+                    txIntent.putExtra("isSuccess", result.isSuccess);
+                    txIntent.putExtra("errorCode", result.errorCode);
+                    txIntent.putExtra("errorMsg", result.errorMsg);
+                    String hash = String.valueOf(result.resultData);
+                    if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
                     startActivity(txIntent);
                 }
-            } catch (Exception e) { }
-        }).start();
+            }
+        }, mAccount, mValAddesses, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private class DirectVotePageAdapter extends FragmentPagerAdapter {
@@ -205,7 +196,7 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(DirectVoteFragment0.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance());
             mFragments.add(DirectVoteFragment3.newInstance());
         }
 

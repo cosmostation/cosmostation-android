@@ -51,10 +51,8 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
     public int mInPutDecimal = 18;
     public int mOutPutDecimal = 18;
 
-    public static SifDexSwapFragment newInstance(Bundle bundle) {
-        SifDexSwapFragment fragment = new SifDexSwapFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifDexSwapFragment newInstance() {
+        return new SifDexSwapFragment();
     }
 
     @Override

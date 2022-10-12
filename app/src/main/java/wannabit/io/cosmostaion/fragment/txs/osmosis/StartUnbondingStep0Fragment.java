@@ -25,10 +25,8 @@ public class StartUnbondingStep0Fragment extends BaseFragment implements View.On
     private TextView                mToUnbondingAmount, mToUnbondingDenom;
     private TextView                mToUnbondingDuration;
 
-    public static StartUnbondingStep0Fragment newInstance(Bundle bundle) {
-        StartUnbondingStep0Fragment fragment = new StartUnbondingStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static StartUnbondingStep0Fragment newInstance() {
+        return new StartUnbondingStep0Fragment();
     }
 
     @Override

@@ -15,10 +15,8 @@ import wannabit.io.cosmostaion.R;
 public class NumberPickerDialog extends DialogFragment {
     public SelectListener selectListener;
 
-    public static NumberPickerDialog newInstance(Bundle bundle) {
-        NumberPickerDialog frag = new NumberPickerDialog();
-        frag.setArguments(bundle);
-        return frag;
+    public static NumberPickerDialog newInstance() {
+        return new NumberPickerDialog();
     }
 
     @Override

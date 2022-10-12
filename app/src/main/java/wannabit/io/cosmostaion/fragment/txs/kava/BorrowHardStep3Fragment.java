@@ -25,10 +25,8 @@ public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClic
     private TextView mFeesAmount, mFeesDenom;
     private TextView mMemo;
 
-    public static BorrowHardStep3Fragment newInstance(Bundle bundle) {
-        BorrowHardStep3Fragment fragment = new BorrowHardStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static BorrowHardStep3Fragment newInstance() {
+        return new BorrowHardStep3Fragment();
     }
 
     @Override

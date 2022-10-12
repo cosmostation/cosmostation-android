@@ -25,10 +25,8 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
     private TextView mFeesAmount, mFeesDenom;
     private TextView mMemo;
 
-    public static WithdrawHardStep3Fragment newInstance(Bundle bundle) {
-        WithdrawHardStep3Fragment fragment = new WithdrawHardStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static WithdrawHardStep3Fragment newInstance() {
+        return new WithdrawHardStep3Fragment();
     }
 
     @Override

@@ -179,7 +179,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     status = 0;
                 }
                 Derive derive = new Derive(chain, i, mPath, chainConfig.getHdPath(i, String.valueOf(mPath)), dpAddress, status);
-                if (!mDerives.stream().filter(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress)).findAny().isPresent()) {
+                if (mDerives.stream().noneMatch(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress))) {
                     mDerives.add(derive);
                     mSearchList.add(derive);
                 }
@@ -220,7 +220,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v.equals(mPathLayer) && !this.isFinishing()) {
-            NumberPickerDialog numberPicker = NumberPickerDialog.newInstance(null);
+            NumberPickerDialog numberPicker = NumberPickerDialog.newInstance();
             numberPicker.selectListener = this::onSelectedHdPath;
             numberPicker.setCancelable(false);
             numberPicker.show(getSupportFragmentManager(), NumberPickerDialog.class.getName());
@@ -268,6 +268,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
             if (derive.status == 2) {
                 holder.accountState.setText("Imported");
+                holder.accountCheck.setVisibility(View.GONE);
                 holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_white2_border));
                 holder.accountDimLayer.setVisibility(View.VISIBLE);
                 holder.accountDimLayer.setAlpha(0.5f);

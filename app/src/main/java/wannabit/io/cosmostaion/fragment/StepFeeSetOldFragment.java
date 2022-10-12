@@ -39,10 +39,8 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
 
     private BigDecimal mFee = BigDecimal.ZERO;
 
-    public static StepFeeSetOldFragment newInstance(Bundle bundle) {
-        StepFeeSetOldFragment fragment = new StepFeeSetOldFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static StepFeeSetOldFragment newInstance() {
+        return new StepFeeSetOldFragment();
     }
 
     @Override

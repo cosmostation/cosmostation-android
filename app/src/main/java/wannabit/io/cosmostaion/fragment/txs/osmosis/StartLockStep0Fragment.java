@@ -40,10 +40,8 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
 
     private String mLpDenom;
 
-    public static StartLockStep0Fragment newInstance(Bundle bundle) {
-        StartLockStep0Fragment fragment = new StartLockStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static StartLockStep0Fragment newInstance() {
+        return new StartLockStep0Fragment();
     }
 
     @Override

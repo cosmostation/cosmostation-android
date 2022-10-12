@@ -49,10 +49,8 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private int mCoinDecimal = 18;
     private String mDecimalChecker, mDecimalSetter;
 
-    public static ExitPoolStep0Fragment newInstance(Bundle bundle) {
-        ExitPoolStep0Fragment fragment = new ExitPoolStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ExitPoolStep0Fragment newInstance() {
+        return new ExitPoolStep0Fragment();
     }
 
     @Override

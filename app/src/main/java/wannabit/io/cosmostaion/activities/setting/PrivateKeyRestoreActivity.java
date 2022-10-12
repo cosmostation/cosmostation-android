@@ -24,7 +24,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -125,7 +124,6 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
             Intent intent = new Intent(PrivateKeyRestoreActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
             privateKeyRestoreResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
@@ -139,7 +137,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
     });
 
     private final ActivityResultLauncher<Intent> privateKeyRestoreResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK) {
+        if (result.getResultCode() == Activity.RESULT_OK) {
             Intent checkIntent = new Intent(PrivateKeyRestoreActivity.this, WalletDeriveActivity.class);
             checkIntent.putExtra("privateKey", mUserInput);
             checkIntent.putExtra("privateKeyMode", true);

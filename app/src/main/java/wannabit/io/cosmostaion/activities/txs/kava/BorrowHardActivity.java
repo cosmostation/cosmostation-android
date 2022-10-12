@@ -1,15 +1,19 @@
 package wannabit.io.cosmostaion.activities.txs.kava;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_BORROW_HARD;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -18,18 +22,20 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.BorrowHardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.BorrowHardStep3Fragment;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaBorrowHardGrpcTask;
 
 public class BorrowHardActivity extends BaseBroadCastActivity {
 
@@ -147,21 +153,38 @@ public class BorrowHardActivity extends BaseBroadCastActivity {
 
     public void onStartBorrowHard() {
         if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaBorrowHardReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mHardPoolCoins,
-                    mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
-
+            onBroadCastTx();
         } else {
             Intent intent = new Intent(BorrowHardActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("hardPoolCoins", mHardPoolCoins);
-            intent.putExtra("fee", mTxFee);
-            intent.putExtra("memo", mTxMemo);
-            startActivity(intent);
+            activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastTx();
+        }
+    });
+
+    private void onBroadCastTx() {
+        new KavaBorrowHardGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) {
+                    Intent txIntent = new Intent(BorrowHardActivity.this, TxDetailgRPCActivity.class);
+                    txIntent.putExtra("isGen", true);
+                    txIntent.putExtra("isSuccess", result.isSuccess);
+                    txIntent.putExtra("errorCode", result.errorCode);
+                    txIntent.putExtra("errorMsg", result.errorMsg);
+                    String hash = String.valueOf(result.resultData);
+                    if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+                    startActivity(txIntent);
+                }
+            }
+        }, mAccount, mBaseChain, mAccount.address, mHardPoolCoins, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
 
     private class BorrowHardPageAdapter extends FragmentPagerAdapter {
 
@@ -171,10 +194,10 @@ public class BorrowHardActivity extends BaseBroadCastActivity {
         public BorrowHardPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(BorrowHardStep0Fragment.newInstance(null));
+            mFragments.add(BorrowHardStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
             mFragments.add(StepFeeSetFragment.newInstance());
-            mFragments.add(BorrowHardStep3Fragment.newInstance(null));
+            mFragments.add(BorrowHardStep3Fragment.newInstance());
         }
 
         @Override

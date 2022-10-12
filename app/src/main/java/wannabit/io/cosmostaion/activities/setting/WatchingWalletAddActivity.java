@@ -28,7 +28,6 @@ import java.util.List;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -151,17 +150,15 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
         onHideWaitDialog();
-        if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
-            if (result.isSuccess) {
-                onStartMainActivity(0);
+        if (result.isSuccess) {
+            onStartMainActivity(0);
+        } else {
+            if (result.errorCode == 7001) {
+                Toast.makeText(getBaseContext(), getString(R.string.error_already_imported_address), Toast.LENGTH_SHORT).show();
             } else {
-                if (result.errorCode == 7001) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_already_imported_address), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_import_errer), Toast.LENGTH_SHORT).show();
-                }
-
+                Toast.makeText(getBaseContext(), getString(R.string.error_import_errer), Toast.LENGTH_SHORT).show();
             }
+
         }
     }
 

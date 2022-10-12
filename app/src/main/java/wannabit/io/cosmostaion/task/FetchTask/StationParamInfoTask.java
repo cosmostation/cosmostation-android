@@ -11,8 +11,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PARAM_INFO;
-
 public class StationParamInfoTask extends CommonTask {
 
     private BaseChain   mBaseChain;
@@ -22,7 +20,6 @@ public class StationParamInfoTask extends CommonTask {
         super(app, listener);
         this.mBaseChain         = baseChain;
         this.mChainId           = chainId;
-        this.mResult.taskType   = TASK_FETCH_PARAM_INFO;
     }
 
     @Override

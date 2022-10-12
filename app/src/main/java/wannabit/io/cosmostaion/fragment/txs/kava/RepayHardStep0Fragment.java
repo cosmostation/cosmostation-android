@@ -43,10 +43,8 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
     private BigDecimal mBorrowedAmount = BigDecimal.ZERO;
 
-    public static RepayHardStep0Fragment newInstance(Bundle bundle) {
-        RepayHardStep0Fragment fragment = new RepayHardStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RepayHardStep0Fragment newInstance() {
+        return new RepayHardStep0Fragment();
     }
 
     @Override

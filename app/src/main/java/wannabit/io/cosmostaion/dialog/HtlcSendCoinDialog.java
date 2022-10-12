@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +23,8 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class HtlcSendCoinDialog extends DialogFragment {
+
+    public final static String HTLC_LIST_BUNDLE_KEY = "htlclist";
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
@@ -92,10 +92,10 @@ public class HtlcSendCoinDialog extends DialogFragment {
             }
 
             holder.rootLayer.setOnClickListener(v -> {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("position", position);
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-                getDialog().dismiss();
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(HTLC_LIST_BUNDLE_KEY, result);
+                dismiss();
             });
         }
 

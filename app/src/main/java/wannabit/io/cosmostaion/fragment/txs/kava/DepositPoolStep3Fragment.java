@@ -31,10 +31,8 @@ public class DepositPoolStep3Fragment extends BaseFragment implements View.OnCli
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static DepositPoolStep3Fragment newInstance(Bundle bundle) {
-        DepositPoolStep3Fragment fragment = new DepositPoolStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DepositPoolStep3Fragment newInstance() {
+        return new DepositPoolStep3Fragment();
     }
 
     @Override

@@ -21,10 +21,8 @@ public class RepayHardStep3Fragment extends BaseFragment implements View.OnClick
     private TextView    mFeesAmount, mFeesDenom;
     private TextView    mMemo;
 
-    public static RepayHardStep3Fragment newInstance(Bundle bundle) {
-        RepayHardStep3Fragment fragment = new RepayHardStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static RepayHardStep3Fragment newInstance() {
+        return new RepayHardStep3Fragment();
     }
 
     @Override

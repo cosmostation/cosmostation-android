@@ -29,10 +29,8 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     private IncentiveParam  mIncentiveParam;
 
 
-    public static ClaimIncentiveStep3Fragment newInstance(Bundle bundle) {
-        ClaimIncentiveStep3Fragment fragment = new ClaimIncentiveStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ClaimIncentiveStep3Fragment newInstance() {
+        return new ClaimIncentiveStep3Fragment();
     }
 
     @Override

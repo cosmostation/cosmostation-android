@@ -45,10 +45,8 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     private ArrayList<QueryOuterClass.CDPResponse> mMyCdps = new ArrayList<>();
     private ArrayList<Genesis.CollateralParam> mOtherCdps = new ArrayList<>();
 
-    public static ListCdpFragment newInstance(Bundle bundle) {
-        ListCdpFragment fragment = new ListCdpFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ListCdpFragment newInstance() {
+        return new ListCdpFragment();
     }
 
     @Override

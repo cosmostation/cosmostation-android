@@ -9,8 +9,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +31,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -43,7 +42,6 @@ import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_TO_SEND_COIN = 9101;
 
     private Button mBtnCancel, mBtnNext;
 
@@ -200,11 +198,14 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnToSendCoin) && !getSActivity().isFinishing()) {
-            Bundle bundle = new Bundle();
-            bundle.putString("chainName", getSActivity().mBaseChain.getChain());
-            HtlcSendCoinDialog dialog = HtlcSendCoinDialog.newInstance(bundle);
-            dialog.setTargetFragment(this, SELECT_TO_SEND_COIN);
-            dialog.show(getSActivity().getSupportFragmentManager(), "dialog");
+            Bundle bundleData = new Bundle();
+            bundleData.putString("chainName", getSActivity().mBaseChain.getChain());
+            HtlcSendCoinDialog dialog = HtlcSendCoinDialog.newInstance(bundleData);
+            dialog.show(getSActivity().getSupportFragmentManager(), HtlcSendCoinDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(HtlcSendCoinDialog.HTLC_LIST_BUNDLE_KEY, this, ((requestKey, bundle) -> {
+                mToSwapDenom = mSwappableCoinList.get(bundle.getInt(BaseConstant.POSITION));
+                onUpdateView();
+            }));
 
         } else if (v.equals(mBtnCancel)) {
             getSActivity().onBeforeStep();
@@ -224,14 +225,6 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                 getSActivity().mMaxOnce = onetime_max;
                 getSActivity().onNextStep();
             }
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_TO_SEND_COIN && resultCode == Activity.RESULT_OK) {
-            mToSwapDenom = mSwappableCoinList.get(data.getIntExtra("position", 0));
-            onUpdateView();
         }
     }
 
