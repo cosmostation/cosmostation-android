@@ -46,14 +46,10 @@ public class BaseConstant {
     public final static int TASK_PASSWORD_CHECK                         = 2015;
     public final static int TASK_GEN_TX_SIMPLE_SEND                     = 2018;
     public final static int TASK_OVERRIDE_ACCOUNT                       = 2019;
-    public final static int TASK_DELETE_USER                            = 2024;
-    public final static int TASK_CHECK_MNEMONIC                         = 2025;
     public final static int TASK_FETCH_BNB_HISTORY                      = 2041;
     public final static int TASK_FETCH_BNB_TOKENS                       = 2042;
     public final static int TASK_FETCH_BNB_TICKER                       = 2043;
     public final static int TASK_FETCH_BNB_MINI_TICKER                  = 2044;
-    public final static int TASK_GEN_TX_BNB_SIMPLE_SEND                 = 2045;
-    public final static int TASK_PUSH_STATUS_UPDATE                     = 2057;
     public final static int TASK_MOON_PAY_SIGNATURE                     = 2058;
     public final static int TASK_FETCH_KAVA_CDP_DEPOSIT                 = 2061;
     public final static int TASK_FETCH_KAVA_INCENTIVE_PARAM             = 2074;
@@ -66,15 +62,11 @@ public class BaseConstant {
     public final static int TASK_FETCH_OK_UNBONDING_INFO                = 2083;
     public final static int TASK_FETCH_OK_ACCOUNT_BALANCE               = 2084;
     public final static int TASK_FETCH_OK_TOKEN_LIST                    = 2085;
-    public final static int TASK_GEN_TX_OK_DEPOSIT                      = 2086;
-    public final static int TASK_GEN_TX_OK_WITHDRAW                     = 2087;
-    public final static int TASK_GEN_TX_OK_DIRECT_VOTE                  = 2088;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
     public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
     public final static int TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT         = 2123;
     public final static int TASK_FETCH_NODE_INFO                        = 2126;
     public final static int TASK_FETCH_OKEX_ALL_VALIDATORS              = 2127;
-    public final static int TASK_CHECK_PRIVATE_KEY                      = 2135;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2301;
@@ -176,6 +168,7 @@ public class BaseConstant {
 
     public final static String CONST_PW_PURPOSE                             = "CONST_PW_PURPOSE";
     public final static int CONST_PW_INIT                                   = 5000;
+    public final static int CONST_PW_DELETE_WALLET                          = 5001;
     public final static int CONST_PW_SIMPLE_CHECK                           = 5002;
     public final static int CONST_PW_TX_SIMPLE_SEND                         = 5003;
     public final static int CONST_PW_TX_SIMPLE_DELEGATE                     = 5004;

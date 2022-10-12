@@ -1,11 +1,14 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_APP_LOCK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_AUTO_PASS;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_WALLET;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+import androidx.core.os.CancellationSignal;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -47,6 +52,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String mUserInput = "";
     private int mPurpose;
     private boolean mAskQuite;
+
+    private FingerprintManagerCompat mFingerprintManagerCompat;
+    private CancellationSignal mCancellationSignal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +110,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             mIvCircle[i].setBackground(ContextCompat.getDrawable(PasswordCheckActivity.this, R.drawable.ic_pass_gr));
         }
         mViewPager.setCurrentItem(0, true);
+        if (getBaseDao().getUsingFingerPrint()) {
+            if (mPurpose != CONST_PW_DELETE_WALLET && mPurpose != CONST_PW_APP_LOCK && mPurpose != CONST_PW_AUTO_PASS) {
+                onCheckFingerPrint();
+            }
+        }
     }
 
     @Override
@@ -164,6 +177,41 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mLayerContents.startAnimation(animation);
     }
 
+    private void onCheckFingerPrint() {
+        mFingerprintManagerCompat = FingerprintManagerCompat.from(this);
+        mCancellationSignal = new CancellationSignal();
+        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) && mFingerprintManagerCompat.isHardwareDetected() &&
+                mFingerprintManagerCompat.hasEnrolledFingerprints() && getBaseDao().getUsingFingerPrint()) {
+
+            mFingerprintManagerCompat.authenticate(null, 0, mCancellationSignal, new FingerprintManagerCompat.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationError(int errMsgId, CharSequence errString) {
+                    super.onAuthenticationError(errMsgId, errString);
+                }
+
+                @Override
+                public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+                    super.onAuthenticationHelp(helpMsgId, helpString);
+                }
+
+                @Override
+                public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
+                    super.onAuthenticationSucceeded(result);
+                    if (mCancellationSignal != null)
+                        mCancellationSignal.cancel();
+                    setResult(Activity.RESULT_OK, getIntent());
+                    finish();
+                    overridePendingTransition(R.anim.fade_in, R.anim.slide_out_bottom);
+                }
+
+                @Override
+                public void onAuthenticationFailed() {
+                    super.onAuthenticationFailed();
+                }
+
+            }, null);
+        }
+    }
 
     private void onUpdateCnt() {
         if (mUserInput == null)

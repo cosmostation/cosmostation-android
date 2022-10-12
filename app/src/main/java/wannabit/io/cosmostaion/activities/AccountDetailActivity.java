@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_WALLET;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
@@ -130,6 +132,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     public void onStartDeleteUser() {
         if (mAccount.hasPrivateKey) {
             Intent intent = new Intent(AccountDetailActivity.this, PasswordCheckActivity.class);
+            intent.putExtra(CONST_PW_PURPOSE, CONST_PW_DELETE_WALLET);
             startActivityForResultDeleteAccount.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         } else {
@@ -292,11 +295,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 onInsertKeyDialog();
                 return;
             }
-            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
-                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
             if (TextUtils.isEmpty(mRewardAddress.getText().toString())) {
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 return;
