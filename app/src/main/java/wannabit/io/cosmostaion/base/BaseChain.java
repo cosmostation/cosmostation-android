@@ -272,7 +272,7 @@ public enum BaseChain {
             return LIKECOIN_MAIN;
         }
         if (chainName.equals(KUJIRA_MAIN.chainName)) {
-            return KONSTELL_MAIN;
+            return KUJIRA_MAIN;
         }
 
         return null;
