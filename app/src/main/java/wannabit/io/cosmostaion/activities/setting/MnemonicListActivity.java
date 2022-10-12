@@ -103,14 +103,14 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
 
             holder.itemRoot.setOnClickListener(view -> {
                 if (getBaseDao().isAutoPass()) {
-                    Intent checkintent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
-                    checkintent.putExtra("mnemonicId", mWord.id);
-                    startActivity(checkintent);
+                    Intent checkIntent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
+                    checkIntent.putExtra("mnemonicId", mWord.id);
+                    startActivity(checkIntent);
 
                 } else {
                     Intent checkintent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
                     checkintent.putExtra("mnemonicId", mWord.id);
-                    startActivityForResult.launch(checkintent);
+                    mnemonicDetailResultLauncher.launch(checkintent);
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                 }
             });
@@ -136,7 +136,7 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+    ActivityResultLauncher<Intent> mnemonicDetailResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             Intent checkintent = new Intent(MnemonicListActivity.this, MnemonicDetailActivity.class);
             checkintent.putExtra("mnemonicId", result.getData().getLongExtra("mnemonicId", -1));

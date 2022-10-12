@@ -524,7 +524,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
             } else {
                 CommonAlertDialog.showSingleButton(this, getString(R.string.str_swap_error_title),
-                        Html.fromHtml(getString(R.string.str_swap_error_msg_create) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(result.errorMsg) + "</font>"),
+                        Html.fromHtml(getString(R.string.str_swap_error_msg_create) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(result.errorMsg) + "</font>", Html.FROM_HTML_MODE_COMPACT),
                         getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
 
@@ -537,7 +537,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
             } else {
                 CommonAlertDialog.showSingleButton(this, getString(R.string.str_swap_error_title),
-                        Html.fromHtml(getString(R.string.str_swap_error_msg_claim) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(result.errorMsg) + "</font>"),
+                        Html.fromHtml(getString(R.string.str_swap_error_msg_claim) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(result.errorMsg) + "</font>", Html.FROM_HTML_MODE_COMPACT),
                         getString(R.string.str_confirm), view -> onFinishWithError(), false);
             }
         }

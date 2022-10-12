@@ -14,10 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
 
 import starnamed.x.starname.v1beta1.Types;
@@ -91,7 +92,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
             finish();
 
         } else if (v.equals(mConfirm)) {
-            final String userinput = mUserInput.getText().toString().trim();
+            final String userinput = String.valueOf(mUserInput.getText()).trim();
 
             if (TextUtils.isEmpty(userinput)) {
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
@@ -139,12 +140,12 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         } else if (v.equals(mScan)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
-            integrator.initiateScan();
+            qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(this).toString().trim();
+                String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(this)).trim();
                 if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(this, R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
@@ -163,15 +164,9 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         mUserInput.setText(address);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() != null) {
-                mUserInput.setText(result.getContents().trim());
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+    private final ActivityResultLauncher<Intent> qrCodeResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mUserInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
         }
-    }
+    });
 }

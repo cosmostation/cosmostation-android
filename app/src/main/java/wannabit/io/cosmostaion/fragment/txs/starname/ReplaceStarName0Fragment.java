@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -108,37 +106,29 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
         }
     }
 
-    ActivityResultLauncher<Intent> addAddressReplaceStarName = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = result.getData();
-                        try {
-                            Types.Resource temp = null;
-                            if (data != null) {
-                                temp = Types.Resource.parseFrom(data.getByteArrayExtra("resource"));
-                            }
-                            int position = -1;
-                            for (int i = 0; i < mResources.size(); i++) {
-                                if (mResources.get(i).getUri().equals(temp.getUri())) {
-                                    position = i;
-                                    break;
-                                }
-                            }
-
-                            if (position >= 0) {
-                                mResources.set(position, temp);
-                            } else {
-                                mResources.add(temp);
-                            }
-                            mResourceAdapter.notifyDataSetChanged();
-
-                        } catch (Exception e) {
-                        }
+    private final ActivityResultLauncher<Intent> starNameResourceAddResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            try {
+                Types.Resource temp = Types.Resource.parseFrom(result.getData().getByteArrayExtra("resource"));
+                int position = -1;
+                for (int i = 0; i < mResources.size(); i++) {
+                    if (mResources.get(i).getUri().equals(temp.getUri())) {
+                        position = i;
+                        break;
                     }
                 }
-            });
+
+                if (position >= 0) {
+                    mResources.set(position, temp);
+                } else {
+                    mResources.add(temp);
+                }
+                mResourceAdapter.notifyDataSetChanged();
+
+            } catch (Exception e) {
+            }
+        }
+    });
 
     private class ResourceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_RESOURCE = 1;
@@ -173,7 +163,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
             holder.itemRoot.setOnClickListener(v -> {
                 Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
                 intent.putExtra("resource", resource.toByteArray());
-                addAddressReplaceStarName.launch(intent);
+                starNameResourceAddResultLauncher.launch(intent);
                 getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
             });
             if (mResources.size() <= 1) {
@@ -202,7 +192,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
                             StarnameAssets asset = bundle.getParcelable("resource");
                             Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
                             intent.putExtra("asset", asset);
-                            addAddressReplaceStarName.launch(intent);
+                            starNameResourceAddResultLauncher.launch(intent);
                             getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                         } catch (Exception e) {
                         }

@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -292,32 +294,26 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     private void onConfirmedWords() {
         if (!getBaseDao().onHasPassword()) {
             Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordSetActivity.class);
-            startActivityForResult(intent, BaseConstant.CONST_PW_INIT);
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-
+            mnemonicRestoreResultLauncher.launch(intent);
         } else {
             Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordCheckActivity.class);
             intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            mnemonicRestoreResultLauncher.launch(intent);
         }
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (resultCode == Activity.RESULT_OK) {
-                long id = getBaseDao().onInsertMnemonics(onGenMWords());
-                if (id > 0) {
-                    Intent checkintent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
-                    checkintent.putExtra("id", id);
-                    startActivity(checkintent);
-                    finish();
-                }
+    private final ActivityResultLauncher<Intent> mnemonicRestoreResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            long id = getBaseDao().onInsertMnemonics(onGenMWords());
+            if (id > 0) {
+                Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
+                checkIntent.putExtra("id", id);
+                startActivity(checkIntent);
+                finish();
             }
         }
-    }
+    });
 
     private MWords onGenMWords() {
         MWords tempMWords = MWords.getNewInstance();

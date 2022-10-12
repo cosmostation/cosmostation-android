@@ -213,7 +213,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     private void onUpdateDialog() {
         CommonAlertDialog.showSingleButton(this, getString(R.string.str_update_title), getString(R.string.str_update_msg),
-                Html.fromHtml("<font color=\"#05D2DD\">" + getString(R.string.str_go_store) + "</font>"), view -> onStartPlaystore(), false);
+                Html.fromHtml("<font color=\"#05D2DD\">" + getString(R.string.str_go_store) + "</font>", Html.FROM_HTML_MODE_COMPACT), view -> onStartPlaystore(), false);
     }
 
     public void onRetryVersionCheck() {

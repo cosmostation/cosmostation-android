@@ -301,7 +301,8 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
             CommonAlertDialog.showDoubleButton(this, getString(R.string.str_reward_address_change_title),
-                    Html.fromHtml(getString(R.string.str_reward_address_change_msg) + "<br/><br/><font color=\"#ff0000\">" + CommonAlertDialog.highlightingText(getString(R.string.str_reward_address_change_market_no) + "</font>")),
+                    Html.fromHtml(getString(R.string.str_reward_address_change_msg) + "<br/><br/><font color=\"#ff0000\">" +
+                            CommonAlertDialog.highlightingText(getString(R.string.str_reward_address_change_market_no) + "</font>"), Html.FROM_HTML_MODE_COMPACT),
                     getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onStartChangeRewardAddress(), true);
         }
 

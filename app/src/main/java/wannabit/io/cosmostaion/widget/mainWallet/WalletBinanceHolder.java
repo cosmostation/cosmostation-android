@@ -64,7 +64,7 @@ public class WalletBinanceHolder extends BaseHolder {
             if (!mainActivity.mAccount.hasPrivateKey) {
                 CommonAlertDialog.showDoubleButton(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
                         mainActivity.getString(R.string.str_close), null,
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>"), view -> mainActivity.onAddMnemonicForAccount());
+                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>", Html.FROM_HTML_MODE_COMPACT), view -> mainActivity.onAddMnemonicForAccount());
                 return;
             }
             new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {
@@ -72,7 +72,7 @@ public class WalletBinanceHolder extends BaseHolder {
                         public void onPermissionGranted() {
                             IntentIntegrator integrator = new IntentIntegrator(mainActivity);
                             integrator.setOrientationLocked(true);
-                            integrator.initiateScan();
+                            mainActivity.walletConnectResultLauncher.launch(integrator.createScanIntent());
                         }
 
                         @Override

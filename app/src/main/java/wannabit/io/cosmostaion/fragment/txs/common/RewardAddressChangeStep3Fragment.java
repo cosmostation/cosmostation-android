@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +16,6 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RewardAddressChangeStep3Fragment extends BaseFragment implements View.OnClickListener {
-
-    public final static int CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG = 6016;
 
     private TextView mFeeAmount, mFeeType;
     private TextView mCurrentAddress, mNewAddress, mMemo;
@@ -66,21 +62,11 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_reward_address_change_confirm_title), getString(R.string.str_reward_address_change_confirm_msg),
                     getString(R.string.str_cancel), null,
-                    getString(R.string.str_continue), View -> {
-                        Intent resultIntent = new Intent();
-                        onActivityResult(CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);
-                    }, true);
+                    getString(R.string.str_continue), View -> getSActivity().onStartRewardAddressChange(), true);
         }
     }
 
     private RewardAddressChangeActivity getSActivity() {
         return (RewardAddressChangeActivity) getBaseActivity();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CHANGE_REWARD_ADDRESS_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
-            getSActivity().onStartRewardAddressChange();
-        }
     }
 }

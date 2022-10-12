@@ -1,8 +1,11 @@
 package wannabit.io.cosmostaion.dialog;
 
+import static androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -143,7 +146,6 @@ public class CommonAlertDialog extends AlertDialog {
     }
 
     public static Spanned highlightingText(String text) {
-        return Html.fromHtml("<font color=\"#f31963\">" + text + "</font>");
+        return Html.fromHtml("<font color=\"#f31963\">" + text + "</font>", FROM_HTML_MODE_COMPACT);
     }
-
 }

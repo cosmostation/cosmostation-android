@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.ok;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_DEPOSIT_CHECK = 9106;
 
     private TextView mDepositAmount;
     private TextView mFeeAmount;
@@ -68,17 +65,7 @@ public class OKStakingFragmentStep3 extends BaseFragment implements View.OnClick
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_deposit_warn_title), getString(R.string.str_delegate_warn_msg),
                     getString(R.string.str_cancel), null,
-                    getString(R.string.str_confirm), View -> {
-                        Intent resultIntent = new Intent();
-                        onActivityResult(SELECT_DEPOSIT_CHECK, Activity.RESULT_OK, resultIntent);
-                    }, R.drawable.img_delegate_14_warning);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_DEPOSIT_CHECK && resultCode == Activity.RESULT_OK) {
-            getSActivity().onStartDeposit();
+                    getString(R.string.str_confirm), View -> getSActivity().onStartDeposit(), R.drawable.img_delegate_14_warning);
         }
     }
 

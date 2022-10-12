@@ -77,7 +77,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable s) {
-                String userInput = s.toString().trim();
+                String userInput = String.valueOf(s).trim();
                 if (TextUtils.isEmpty(userInput) || WUtil.isValidDomain(userInput)) {
                     mDomainValid.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGray1));
                 } else {
@@ -89,24 +89,21 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
             }
         });
 
-        mTypeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isPressed()) {
-                    if (isChecked) {
-                        mDomainType.setText("Open".toUpperCase());
-                        mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_starname));
-                        mTypeDescription.setText(getString(R.string.str_description_open_domain));
-                    } else {
-                        mDomainType.setText("Closed".toUpperCase());
-                        mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
-                        mTypeDescription.setText(getString(R.string.str_description_closed_domain));
-                    }
-
-                    String userInput = mDomainInput.getText().toString().trim();
-                    BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
-                    mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
+        mTypeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (buttonView.isPressed()) {
+                if (isChecked) {
+                    mDomainType.setText("Open".toUpperCase());
+                    mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.color_starname));
+                    mTypeDescription.setText(getString(R.string.str_description_open_domain));
+                } else {
+                    mDomainType.setText("Closed".toUpperCase());
+                    mDomainType.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorBlackDayNight));
+                    mTypeDescription.setText(getString(R.string.str_description_closed_domain));
                 }
+
+                String userInput = String.valueOf(mDomainInput.getText()).trim();
+                BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
+                mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
             }
         });
         return rootView;
@@ -128,7 +125,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            String userInput = mDomainInput.getText().toString().trim();
+            String userInput = String.valueOf(mDomainInput.getText()).trim();
             if (!WUtil.isValidDomain(userInput)) {
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_domain_format, Toast.LENGTH_SHORT).show();
                 return;
@@ -149,7 +146,7 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
     }
 
     private void onNextStep() {
-        getSActivity().mStarNameDomain = mDomainInput.getText().toString().trim();
+        getSActivity().mStarNameDomain = String.valueOf(mDomainInput.getText()).trim();
         getSActivity().mStarNameDomainType = mTypeSwitch.isChecked() ? "open" : "closed";
         getSActivity().onNextStep();
     }

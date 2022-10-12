@@ -6,6 +6,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -29,11 +30,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -180,7 +183,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mToChainTxt.setText(mToSendChainConfig.chainTitleToUp());
         mToChainTxt.setTextColor(ContextCompat.getColor(getActivity(), mToSendChainConfig.chainColor()));
         mAddressInput.setText("");
-        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain)) mIbcLayer.setVisibility(View.GONE);
+        if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain))
+            mIbcLayer.setVisibility(View.GONE);
         else mIbcLayer.setVisibility(View.VISIBLE);
     }
 
@@ -201,7 +205,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onHideKeyboard();
 
         } else if (v.equals(mNextBtn)) {
-            String userInput = mAddressInput.getText().toString().trim();
+            String userInput = String.valueOf(mAddressInput.getText()).trim();
 
             if (getSActivity().mAccount.address.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
@@ -216,7 +220,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             if (WDp.isValidChainAddress(mToSendChainConfig, userInput)) {
                 if (!isExchangeAddress(userInput)) {
-                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>"),
+                    CommonAlertDialog.showSingleButton(getActivity(), Html.fromHtml("<font color=\"#f31963\">" + getString(R.string.str_empty_warnning_title) + "</font>", Html.FROM_HTML_MODE_COMPACT),
                             getString(R.string.error_exchange_address_msg), getString(R.string.str_confirm), null, false);
                     return;
                 }
@@ -250,12 +254,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
-            integrator.initiateScan();
+            qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
+                String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity())).trim();
                 if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
@@ -299,16 +303,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         return (SendActivity) getBaseActivity();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null && result.getContents() != null) {
-            mAddressInput.setText(result.getContents().trim());
+    private final ActivityResultLauncher<Intent> qrCodeResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             mAddressInput.setSelection(mAddressInput.getText().length());
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
         }
-    }
+    });
 
     private void onCheckNameService(String userInput, ChainConfig chainConfig) {
         QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(BaseChain.IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);

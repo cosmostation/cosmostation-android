@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +16,6 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener {
-
-    public final static int REDELEGATE_CONFIRM_DIALOG = 6016;
 
     private TextView mTvRedelegateAmount, mTvRedelegateDenom;
     private TextView mFeeAmount, mFeeDenom;
@@ -76,17 +72,7 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_redelegation_warnning_title), getString(R.string.str_redelegation_warnning_msg),
                     getString(R.string.str_no), null,
-                    getString(R.string.str_yes), view -> {
-                        Intent resultIntent = new Intent();
-                        onActivityResult(REDELEGATE_CONFIRM_DIALOG, Activity.RESULT_OK, resultIntent);
-                    });
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REDELEGATE_CONFIRM_DIALOG && resultCode == Activity.RESULT_OK) {
-            getSActivity().onStartRedelegate();
+                    getString(R.string.str_yes), view -> getSActivity().onStartRedelegate());
         }
     }
 }

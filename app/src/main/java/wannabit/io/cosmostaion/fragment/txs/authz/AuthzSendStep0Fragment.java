@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.authz;
 
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +14,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 
+import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzSendActivity;
@@ -24,7 +27,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class AuthzSendStep0Fragment extends BaseFragment implements View.OnClickListener{
+public class AuthzSendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private EditText mAddressInput;
     private Button mCancel, mNextBtn;
@@ -63,7 +66,7 @@ public class AuthzSendStep0Fragment extends BaseFragment implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v.equals(mNextBtn)) {
-            String userInput = mAddressInput.getText().toString().trim();
+            String userInput = String.valueOf(mAddressInput.getText()).trim();
 
             if (getSActivity().mGranter.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
@@ -83,12 +86,12 @@ public class AuthzSendStep0Fragment extends BaseFragment implements View.OnClick
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
-            integrator.initiateScan();
+            qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
-            ClipboardManager clipboard = (ClipboardManager)getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
+                String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity())).trim();
                 if (TextUtils.isEmpty(userPaste)) {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
@@ -104,18 +107,12 @@ public class AuthzSendStep0Fragment extends BaseFragment implements View.OnClick
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() != null) {
-                mAddressInput.setText(result.getContents().trim());
-                mAddressInput.setSelection(mAddressInput.getText().length());
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+    private final ActivityResultLauncher<Intent> qrCodeResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
+            mAddressInput.setSelection(mAddressInput.getText().length());
         }
-    }
+    });
 
     private AuthzSendActivity getSActivity() {
         return (AuthzSendActivity) getBaseActivity();
