@@ -19,6 +19,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
 
 import android.content.Context;
 import android.text.SpannableString;
@@ -142,6 +146,15 @@ public class WDp {
                 if (baseData.okToken(denom) != null)
                     return baseData.okToken(denom).original_symbol.toUpperCase();
                 else return denom.toUpperCase();
+
+            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_BINANCE_BNB)) {
+                return "BNB";
+            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_BINANCE_BTCB)) {
+                return "BTC";
+            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_BINANCE_XRPB)) {
+                return "XRP";
+            } else if (denom.equalsIgnoreCase(TOKEN_HTLC_BINANCE_BUSD)) {
+                return "BUSD";
             }
         }
         return "UNKNOWN";

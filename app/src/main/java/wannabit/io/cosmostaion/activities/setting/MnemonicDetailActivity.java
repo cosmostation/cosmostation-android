@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.setting;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -14,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
@@ -21,11 +24,11 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
+import wannabit.io.cosmostaion.utils.PushManager;
 
 public class MnemonicDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -122,9 +125,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
 
     public void onStartDeleteMnemonic() {
         Intent intent = new Intent(MnemonicDetailActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_DELETE_ACCOUNT);
-        intent.putExtra("mWordId", mWords.id);
-        startActivity(intent);
+        startActivityForResult.launch(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
@@ -172,4 +173,11 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             mBtnDisplay.setImageResource(R.drawable.icon_display);
         }
     }
+
+    ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onDeleteMnemonic(getBaseDao().onSelectMnemonicById(mWords.id));
+            PushManager.syncAddresses(this, getBaseDao(), getBaseDao().getFCMToken());
+        }
+    });
 }

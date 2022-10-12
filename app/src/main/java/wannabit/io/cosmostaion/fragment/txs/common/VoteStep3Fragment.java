@@ -27,10 +27,8 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
     private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
 
-    public static VoteStep3Fragment newInstance(Bundle bundle) {
-        VoteStep3Fragment fragment = new VoteStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static VoteStep3Fragment newInstance() {
+        return new VoteStep3Fragment();
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.Bech32;
+import org.bitcoinj.core.Context;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicHierarchy;
@@ -37,13 +38,18 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.BuildConfig;
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 
 public class WKey {
 
@@ -629,5 +635,22 @@ public class WKey {
 
         byte[] expectedSwapIdSha = Sha256.getSha256Digest().digest(expectedSwapId);
         return WUtil.ByteArrayToHexString(expectedSwapIdSha);
+    }
+
+    public static ECKey getECKey(BaseApplication app, Account account) {
+        if (account.fromMnemonic) {
+            String entropy = CryptoHelper.doDecryptData(app.getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
+            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(account, entropy);
+            return ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
+        } else {
+            String privateKey = CryptoHelper.doDecryptData(app.getString(R.string.key_private) + account.uuid, account.resource, account.spec);
+            return ECKey.fromPrivate(new BigInteger(privateKey, 16));
+        }
+    }
+
+    public static QueryOuterClass.QueryAccountResponse onAuthResponse(BaseChain baseChain, Account account) {
+        QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain));
+        QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(account.address).build();
+        return authStub.account(request);
     }
 }

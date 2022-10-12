@@ -29,10 +29,8 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static CoinSwapStep3Fragment newInstance(Bundle bundle) {
-        CoinSwapStep3Fragment fragment = new CoinSwapStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static CoinSwapStep3Fragment newInstance() {
+        return new CoinSwapStep3Fragment();
     }
 
     @Override

@@ -30,10 +30,8 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static KavaSwapStep3Fragment newInstance(Bundle bundle) {
-        KavaSwapStep3Fragment fragment = new KavaSwapStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static KavaSwapStep3Fragment newInstance() {
+        return new KavaSwapStep3Fragment();
     }
 
     @Override

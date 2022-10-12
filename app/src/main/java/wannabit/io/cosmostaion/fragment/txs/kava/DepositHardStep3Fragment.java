@@ -21,10 +21,8 @@ public class DepositHardStep3Fragment extends BaseFragment implements View.OnCli
     private TextView mFeesAmount, mFeesDenom;
     private TextView mMemo;
 
-    public static DepositHardStep3Fragment newInstance(Bundle bundle) {
-        DepositHardStep3Fragment fragment = new DepositHardStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DepositHardStep3Fragment newInstance() {
+        return new DepositHardStep3Fragment();
     }
 
     @Override

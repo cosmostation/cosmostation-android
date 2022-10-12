@@ -53,10 +53,8 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
     public String mInputCoinDenom;
     public String mOutputCoinDenom;
 
-    public static ListKavaSwapFragment newInstance(Bundle bundle) {
-        ListKavaSwapFragment fragment = new ListKavaSwapFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ListKavaSwapFragment newInstance() {
+        return new ListKavaSwapFragment();
     }
 
     @Override

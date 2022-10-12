@@ -58,10 +58,8 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
     private String mInDecimalChecker, mInDecimalSetter;
 
-    public static CoinSwapStep0Fragment newInstance(Bundle bundle) {
-        CoinSwapStep0Fragment fragment = new CoinSwapStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static CoinSwapStep0Fragment newInstance() {
+        return new CoinSwapStep0Fragment();
     }
 
     @Override

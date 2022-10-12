@@ -41,10 +41,8 @@ public class SifDexIbcPoolFragment extends BaseFragment implements TaskListener 
     public ArrayList<Types.Pool> mMyIbcPools = new ArrayList<>();
     public ArrayList<Types.Pool> mOtherIbcPools = new ArrayList<>();
 
-    public static SifDexIbcPoolFragment newInstance(Bundle bundle) {
-        SifDexIbcPoolFragment fragment = new SifDexIbcPoolFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static SifDexIbcPoolFragment newInstance() {
+        return new SifDexIbcPoolFragment();
     }
 
     @Override

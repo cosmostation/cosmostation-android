@@ -42,10 +42,8 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
     private String mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    public static WithdrawHardStep0Fragment newInstance(Bundle bundle) {
-        WithdrawHardStep0Fragment fragment = new WithdrawHardStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static WithdrawHardStep0Fragment newInstance() {
+        return new WithdrawHardStep0Fragment();
     }
 
     @Override

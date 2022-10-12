@@ -56,10 +56,8 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
     private String mCollateralDecimalChecker, mCollateralDecimalSetter;
     private int mCDecimal, mPDecimal;
 
-    public static WithdrawCdpStep0Fragment newInstance(Bundle bundle) {
-        WithdrawCdpStep0Fragment fragment = new WithdrawCdpStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static WithdrawCdpStep0Fragment newInstance() {
+        return new WithdrawCdpStep0Fragment();
     }
 
     @Override

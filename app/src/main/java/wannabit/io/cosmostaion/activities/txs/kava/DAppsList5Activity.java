@@ -285,10 +285,10 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         public KavaDApp5PageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ListKavaSwapFragment.newInstance(null));
-            mFragments.add(ListKavaPoolFragment.newInstance(null));
-            mFragments.add(ListCdpFragment.newInstance(null));
-            mFragments.add(ListHardFragment.newInstance(null));
+            mFragments.add(ListKavaSwapFragment.newInstance());
+            mFragments.add(ListKavaPoolFragment.newInstance());
+            mFragments.add(ListCdpFragment.newInstance());
+            mFragments.add(ListHardFragment.newInstance());
         }
 
         @Override

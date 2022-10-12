@@ -47,10 +47,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     public String mInputCoinDenom;
     public String mOutputCoinDenom;
 
-    public static ListSwapFragment newInstance(Bundle bundle) {
-        ListSwapFragment fragment = new ListSwapFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ListSwapFragment newInstance() {
+        return new ListSwapFragment();
     }
 
     @Override

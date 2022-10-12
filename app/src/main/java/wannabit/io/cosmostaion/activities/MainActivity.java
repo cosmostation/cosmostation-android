@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -42,7 +40,6 @@ import wannabit.io.cosmostaion.activities.txs.wc.ConnectWalletActivity;
 import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
@@ -58,7 +55,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
-import wannabit.io.cosmostaion.widget.mainWallet.WalletChainHolder;
 
 public class MainActivity extends BaseActivity implements FetchCallBack {
 
@@ -279,7 +275,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onStartWalletConnect(String wcUrl) {
         Intent intent = new Intent(this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_SIMPLE_CHECK);
         intent.putExtra("wcUrl", wcUrl);
         walletConnectResultLauncher.launch(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
@@ -369,8 +364,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public final ActivityResultLauncher<Intent> walletConnectResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && result.getData().getIntExtra(BaseConstant.CONST_PW_PURPOSE, -1) == BaseConstant.CONST_PW_SIMPLE_CHECK
-                && !TextUtils.isEmpty(result.getData().getStringExtra("wcUrl"))) {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && !TextUtils.isEmpty(result.getData().getStringExtra("wcUrl"))) {
             Intent wIntent;
             if (mBaseChain.equals(BNB_MAIN)) {
                 wIntent = new Intent(MainActivity.this, WalletConnectActivity.class);
@@ -379,6 +373,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
             wIntent.putExtra("wcUrl", result.getData().getStringExtra("wcUrl"));
             startActivity(wIntent);
+
         } else if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             onStartWalletConnect(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
         }

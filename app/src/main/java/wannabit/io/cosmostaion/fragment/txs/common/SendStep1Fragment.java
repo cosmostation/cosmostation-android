@@ -40,6 +40,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
+    private String mainDenom;
+    private String toSendDenom;
     private ArrayList<Coin> mToSendCoins = new ArrayList<>();
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
@@ -88,8 +90,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null) {
             getSActivity().onBackPressed();
         }
-        final String mainDenom = getSActivity().mChainConfig.mainDenom();
-        final String toSendDenom = getSActivity().mDenom;
+        mainDenom = getSActivity().mChainConfig.mainDenom();
+        toSendDenom = getSActivity().mDenom;
         mCw20Asset = getBaseDao().getCw20Asset(toSendDenom);
 
         if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
@@ -311,7 +313,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onShowEmptyBalanceWarnDialog() {
-        CommonAlertDialog.showSingleButton(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+        if (mainDenom.equalsIgnoreCase(toSendDenom)) {
+            CommonAlertDialog.showSingleButton(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_ok), null);
+        }
     }
 
     private void setDisplayDecimals(int decimals) {

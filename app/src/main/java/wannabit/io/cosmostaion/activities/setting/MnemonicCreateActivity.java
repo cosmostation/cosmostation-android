@@ -20,7 +20,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
@@ -69,7 +68,6 @@ public class MnemonicCreateActivity extends BaseActivity {
                 mnemonicCreateResultLauncher.launch(intent);
             } else {
                 Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
-                intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
                 mnemonicCreateResultLauncher.launch(intent);
             }
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);

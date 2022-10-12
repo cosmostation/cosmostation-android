@@ -62,10 +62,8 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
     private boolean mIsInput0Focused;
 
-    public static JoinPoolStep0Fragment newInstance(Bundle bundle) {
-        JoinPoolStep0Fragment fragment = new JoinPoolStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static JoinPoolStep0Fragment newInstance() {
+        return new JoinPoolStep0Fragment();
     }
 
     @Override

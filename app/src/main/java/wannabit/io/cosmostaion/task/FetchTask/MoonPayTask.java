@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.task.FetchTask;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqMoonPayKey;
 import wannabit.io.cosmostaion.network.res.ResMoonPaySignature;
@@ -18,7 +17,6 @@ public class MoonPayTask extends CommonTask {
     public MoonPayTask(BaseApplication app, TaskListener listener, String query) {
         super(app, listener);
         this.mQuery = query;
-        this.mResult.taskType = BaseConstant.TASK_MOON_PAY_SIGNATURE;
     }
 
     @Override

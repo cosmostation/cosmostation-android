@@ -25,10 +25,8 @@ public class StartLockStep3Fragment extends BaseFragment implements View.OnClick
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static StartLockStep3Fragment newInstance(Bundle bundle) {
-        StartLockStep3Fragment fragment = new StartLockStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static StartLockStep3Fragment newInstance() {
+        return new StartLockStep3Fragment();
     }
 
     @Override

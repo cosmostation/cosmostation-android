@@ -32,10 +32,8 @@ public class ListPoolFragment extends BaseFragment {
     public ArrayList<BalancerPool.Pool> mPoolMyList = new ArrayList<>();
     public ArrayList<BalancerPool.Pool> mPoolOtherList = new ArrayList<>();
 
-    public static ListPoolFragment newInstance(Bundle bundle) {
-        ListPoolFragment fragment = new ListPoolFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static ListPoolFragment newInstance() {
+        return new ListPoolFragment();
     }
 
     @Override

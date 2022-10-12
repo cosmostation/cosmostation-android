@@ -42,10 +42,8 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
     private String mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    public static BorrowHardStep0Fragment newInstance(Bundle bundle) {
-        BorrowHardStep0Fragment fragment = new BorrowHardStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static BorrowHardStep0Fragment newInstance() {
+        return new BorrowHardStep0Fragment();
     }
 
     @Override

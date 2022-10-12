@@ -29,10 +29,8 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static WithdrawPoolStep3Fragment newInstance(Bundle bundle) {
-        WithdrawPoolStep3Fragment fragment = new WithdrawPoolStep3Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static WithdrawPoolStep3Fragment newInstance() {
+        return new WithdrawPoolStep3Fragment();
     }
 
     @Override

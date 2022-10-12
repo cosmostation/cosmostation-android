@@ -13,7 +13,6 @@ public class CheckPasswordTask extends CommonTask {
 
     public CheckPasswordTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType = BaseConstant.TASK_PASSWORD_CHECK;
     }
 
     /**

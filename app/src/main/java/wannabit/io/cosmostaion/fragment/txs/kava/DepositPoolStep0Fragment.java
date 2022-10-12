@@ -66,10 +66,8 @@ public class DepositPoolStep0Fragment extends BaseFragment implements View.OnCli
 
     private boolean mIsInput0Focused;
 
-    public static DepositPoolStep0Fragment newInstance(Bundle bundle) {
-        DepositPoolStep0Fragment fragment = new DepositPoolStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DepositPoolStep0Fragment newInstance() {
+        return new DepositPoolStep0Fragment();
     }
 
     @Override

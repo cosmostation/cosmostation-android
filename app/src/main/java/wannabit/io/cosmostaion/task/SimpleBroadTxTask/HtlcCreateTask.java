@@ -1,49 +1,5 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
-import com.binance.dex.api.client.BinanceDexApiClientFactory;
-import com.binance.dex.api.client.BinanceDexApiRestClient;
-import com.binance.dex.api.client.BinanceDexEnvironment;
-import com.binance.dex.api.client.Wallet;
-import com.binance.dex.api.client.domain.TransactionMetadata;
-import com.binance.dex.api.client.domain.broadcast.HtltReq;
-import com.binance.dex.api.client.domain.broadcast.TransactionOption;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.RandomUtils;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.crypto.DeterministicKey;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import cosmos.auth.v1beta1.QueryGrpc;
-import cosmos.auth.v1beta1.QueryOuterClass;
-import cosmos.tx.v1beta1.ServiceGrpc;
-import cosmos.tx.v1beta1.ServiceOuterClass;
-import retrofit2.Response;
-import wannabit.io.cosmostaion.BuildConfig;
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.cosmos.MsgGenerator;
-import wannabit.io.cosmostaion.cosmos.Signer;
-import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.crypto.Sha256;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.ChannelBuilder;
-import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
-import wannabit.io.cosmostaion.task.CommonTask;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
-
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
@@ -63,6 +19,44 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
+import com.binance.dex.api.client.BinanceDexApiClientFactory;
+import com.binance.dex.api.client.BinanceDexApiRestClient;
+import com.binance.dex.api.client.BinanceDexEnvironment;
+import com.binance.dex.api.client.Wallet;
+import com.binance.dex.api.client.domain.TransactionMetadata;
+import com.binance.dex.api.client.domain.broadcast.HtltReq;
+import com.binance.dex.api.client.domain.broadcast.TransactionOption;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.RandomUtils;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import cosmos.tx.v1beta1.ServiceGrpc;
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.cosmos.Signer;
+import wannabit.io.cosmostaion.crypto.Sha256;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
+import wannabit.io.cosmostaion.task.CommonTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
+
 public class HtlcCreateTask extends CommonTask {
 
     private Account         mSendAccount;
@@ -75,8 +69,6 @@ public class HtlcCreateTask extends CommonTask {
     private byte[]          mRandomNumberHash;
     private String          mRandomNumber;
     private String          mExpectedSwapId;
-
-    private ECKey           ecKey;
 
     public HtlcCreateTask(BaseApplication app, TaskListener listener, Account sender, Account recipient, BaseChain sendChain, BaseChain receiveChain, ArrayList<Coin> toSendCoins, Fee sendFee) {
         super(app, listener);
@@ -102,16 +94,7 @@ public class HtlcCreateTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mSendAccount.id, WUtil.getBalancesFromBnbLcd(mSendAccount.id, response.body()));
                 mSendAccount = mApp.getBaseDao().onSelectAccount(""+mSendAccount.id);
 
-                if (mSendAccount.fromMnemonic) {
-                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
-                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mSendAccount, entropy);
-                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
-                } else {
-                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
-                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
-                }
-
-                Wallet wallet = new Wallet(ecKey.getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
+                Wallet wallet = new Wallet(WKey.getECKey(mApp, mSendAccount).getPrivateKeyAsHex(), BinanceDexEnvironment.PROD);
                 wallet.setAccountNumber(mSendAccount.accountNumber);
                 wallet.setSequence(Long.valueOf(mSendAccount.sequenceNumber));
 
@@ -136,10 +119,6 @@ public class HtlcCreateTask extends CommonTask {
 
                 }
 
-                WLog.w("BNB_MAIN mRandomNumberHash " + mRandomNumberHash);
-                WLog.w("BNB_MAIN mRandomNumber " + mRandomNumber);
-                WLog.w("BNB_MAIN Send mExpectedSwapId " + mExpectedSwapId);
-
                 TransactionOption options = new TransactionOption(mApp.getString(R.string.str_create_swap_memo_c)  , 82, null);
                 BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
                 List<TransactionMetadata> resp = client.htlt(htltReq, wallet, options, true);
@@ -159,19 +138,6 @@ public class HtlcCreateTask extends CommonTask {
 
 
             } else if (mSendChain.equals(BaseChain.KAVA_MAIN)) {
-                if (mSendAccount.fromMnemonic) {
-                    String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
-                    DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(mSendAccount, entropy);
-                    ecKey = ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
-                } else {
-                    String privateKey = CryptoHelper.doDecryptData(mApp.getString(R.string.key_private) + mSendAccount.uuid, mSendAccount.resource, mSendAccount.spec);
-                    ecKey = ECKey.fromPrivate(new BigInteger(privateKey, 16));
-                }
-
-                QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mSendChain));
-                QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mSendAccount.address).build();
-                QueryOuterClass.QueryAccountResponse mAuthResponse = authStub.account(request);
-
                 long timestamp = Calendar.getInstance().getTimeInMillis() / 1000;
                 byte[] randomNumber  = RandomUtils.nextBytes(32);
                 byte[] originData = ArrayUtils.addAll(randomNumber, WUtil.long2Bytes(timestamp));
@@ -192,9 +158,8 @@ public class HtlcCreateTask extends CommonTask {
 
                 }
 
-                //broadCast
                 ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mSendChain));
-                ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaCreateHTLCSwapReq(mAuthResponse, mSendAccount.address, mReceiveAccount.address, mToSendCoins, timestamp, WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase(), mSendFee, mApp.getString(R.string.str_create_swap_memo_c), ecKey, mApp.getBaseDao().getChainIdGrpc());
+                ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaCreateHTLCSwapReq(WKey.onAuthResponse(mSendChain, mSendAccount), mSendAccount.address, mReceiveAccount.address, mToSendCoins, timestamp, WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase(), mSendFee, mApp.getString(R.string.str_create_swap_memo_c), WKey.getECKey(mApp, mSendAccount), mApp.getBaseDao().getChainIdGrpc());
                 ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
                 mResult.resultData = response.getTxResponse().getTxhash();
                 if (response.getTxResponse().getCode() > 0) {

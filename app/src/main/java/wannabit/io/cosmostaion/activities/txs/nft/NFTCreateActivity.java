@@ -3,13 +3,18 @@ package wannabit.io.cosmostaion.activities.txs.nft;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
 import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -20,20 +25,21 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.nft.NFTCreateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.nft.NFTCreateStep3Fragment;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.MintNFTGrpcTask;
 
 public class NFTCreateActivity extends BaseBroadCastActivity {
 
@@ -141,36 +147,41 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
 
     public void onCreateNFT() {
         if (getBaseDao().isAutoPass()) {
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
-            if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                broadcastTxRequest = Signer.getGrpcCreateNftIrisReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mNftDenomId, mNftDenomName,
-                        mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, getJsonData(), mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-
-            } else if (mBaseChain.equals(BaseChain.CRYPTO_MAIN)) {
-                broadcastTxRequest = Signer.getGrpcCreateNftCroReq(getAuthResponse(mBaseChain, mAccount), mAccount.address, mNftDenomId, mNftDenomName,
-                        mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, getJsonData(), mTxFee, mTxMemo, getEcKey(mAccount), getBaseDao().getChainIdGrpc());
-            }
-            onBroadcastGrpcTx(mBaseChain, broadcastTxRequest);
-
+            onBroadCastTx();
         } else {
             Intent intent = new Intent(NFTCreateActivity.this, PasswordCheckActivity.class);
-            intent.putExtra(BaseConstant.CONST_PW_PURPOSE, mTxType);
-            intent.putExtra("nftDenomId", mNftDenomId);
-            intent.putExtra("nftDenomName", mNftDenomName);
-            intent.putExtra("nftName", mNftName);
-            intent.putExtra("nftDescription", mNftDescription);
-            intent.putExtra("nftHash", mNftHash);
-            intent.putExtra("memo", mTxMemo);
-            intent.putExtra("fee", mTxFee);
-            startActivity(intent);
+            activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
 
-    private String getJsonData() {
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastTx();
+        }
+    });
+
+    private void onBroadCastTx() {
         StationNFTData nftData = new StationNFTData(mAccount.address, mNftName, mNftDescription, mNftDenomId, NFT_INFURA + mNftHash);
         Gson gson = new Gson();
-        return gson.toJson(nftData);
+        String jsonData = gson.toJson(nftData);
+        new MintNFTGrpcTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) {
+                    Intent txIntent = new Intent(NFTCreateActivity.this, TxDetailgRPCActivity.class);
+                    txIntent.putExtra("isGen", true);
+                    txIntent.putExtra("isSuccess", result.isSuccess);
+                    txIntent.putExtra("errorCode", result.errorCode);
+                    txIntent.putExtra("errorMsg", result.errorMsg);
+                    String hash = String.valueOf(result.resultData);
+                    if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+                    startActivity(txIntent);
+                }
+            }
+        }, mAccount, mBaseChain, mAccount.address, mNftDenomId, mNftDenomName, mNftHash.toLowerCase(), mNftName, NFT_INFURA + mNftHash, jsonData,
+                    mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private class NFTCreateAdapter extends FragmentPagerAdapter {

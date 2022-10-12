@@ -59,10 +59,8 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
     private int mCDecimal, mPDecimal;
 
 
-    public static DrawDebtCdpStep0Fragment newInstance(Bundle bundle) {
-        DrawDebtCdpStep0Fragment fragment = new DrawDebtCdpStep0Fragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static DrawDebtCdpStep0Fragment newInstance() {
+        return new DrawDebtCdpStep0Fragment();
     }
 
     @Override
