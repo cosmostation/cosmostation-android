@@ -592,6 +592,7 @@
     <string name="str_front_guide_title_likecoin"><![CDATA[LIKECOIN]]></string>
     <string name="str_front_guide_title_ixo"><![CDATA[IXO]]></string>
     <string name="str_front_guide_title_sommelier"><![CDATA[SOMMELIER]]></string>
+    <string name="str_front_guide_title_kujira"><![CDATA[KUJIRA]]></string>
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_binance">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -641,6 +642,7 @@
     <string name="str_front_guide_msg_likecoin"><![CDATA[A Cosmos SDK-based blockchain for decentralized publishing infrastructure and social media.]]></string>
     <string name="str_front_guide_msg_ixo"><![CDATA[ixo protocol aims to build a carbon-negative blockchain network for regenerative finance and verifying earth state change.]]></string>
     <string name="str_front_guide_msg_sommelier"><![CDATA[Sommelier Finance is a Cosmos SDK-based blockchain that provides risk-managed multichain DeFi strategies.]]></string>
+    <string name="str_front_guide_msg_kujira"><![CDATA[A Cosmos SDK and Cosm Wasm based layer-1 DeFi platform with various DeFi tools.]]></string>
 
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
