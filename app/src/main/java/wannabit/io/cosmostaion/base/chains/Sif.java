@@ -34,6 +34,7 @@ public class Sif extends ChainConfig {
     public boolean bridgeCoinSupport() { return true; }
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return false; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-sifchain-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-sifchain.cosmostation.io/"; }

@@ -29,6 +29,7 @@ public class Umee extends ChainConfig {
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-umee-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-umee.cosmostation.io/"; }
