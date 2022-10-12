@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_BLOG;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_GITHUB;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_HOMEPAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TELEGRAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_EN;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_KR;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 import static wannabit.io.cosmostaion.utils.ThemeUtil.themeColor;
 
@@ -306,28 +312,28 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnHomepage)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_HOMEPAGE));
             startActivity(intent);
 
         } else if (v.equals(mBtnBlog)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://medium.com/cosmostation"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_BLOG));
             startActivity(intent);
 
         } else if (v.equals(mBtnTelegram)) {
-            Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/cosmostation"));
+            Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TELEGRAM));
             startActivity(telegram);
 
         } else if (v.equals(mBtnTerm)) {
             if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_kr.html"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_KR));
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/service_en.html"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_EN));
                 startActivity(intent);
             }
 
         } else if (v.equals(mBtnGithub)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cosmostation/cosmostation-android"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_GITHUB));
             startActivity(intent);
 
         } else if (v.equals(mBtnVersion)) {
