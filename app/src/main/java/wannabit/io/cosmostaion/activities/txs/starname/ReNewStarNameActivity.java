@@ -188,7 +188,7 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
         new RenewStarnameGrpcTask(getBaseApplication(), new TaskListener() {
             @Override
             public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess) onTxIntent(result);
+                onTxIntent(result);
             }
         }, mAccount, mBaseChain, mStarNameDomain, mStarNameAccount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc(), mStarNameDomainType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

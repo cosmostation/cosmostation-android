@@ -172,16 +172,14 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
         new SimpleOkDirectVoteTask(getBaseApplication(), new TaskListener() {
             @Override
             public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess) {
-                    Intent txIntent = new Intent(OKVoteDirectActivity.this, TxDetailActivity.class);
-                    txIntent.putExtra("isGen", true);
-                    txIntent.putExtra("isSuccess", result.isSuccess);
-                    txIntent.putExtra("errorCode", result.errorCode);
-                    txIntent.putExtra("errorMsg", result.errorMsg);
-                    String hash = String.valueOf(result.resultData);
-                    if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                    startActivity(txIntent);
-                }
+                Intent txIntent = new Intent(OKVoteDirectActivity.this, TxDetailActivity.class);
+                txIntent.putExtra("isGen", true);
+                txIntent.putExtra("isSuccess", result.isSuccess);
+                txIntent.putExtra("errorCode", result.errorCode);
+                txIntent.putExtra("errorMsg", result.errorMsg);
+                String hash = String.valueOf(result.resultData);
+                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+                startActivity(txIntent);
             }
         }, mAccount, mValAddesses, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
