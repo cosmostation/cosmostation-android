@@ -180,16 +180,14 @@ public class SifDepositPoolActivity extends BaseBroadCastActivity {
         new SifDepositGrpcTask(getBaseApplication(), new TaskListener() {
             @Override
             public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess) {
-                    Intent txIntent = new Intent(SifDepositPoolActivity.this, TxDetailgRPCActivity.class);
-                    txIntent.putExtra("isGen", true);
-                    txIntent.putExtra("isSuccess", result.isSuccess);
-                    txIntent.putExtra("errorCode", result.errorCode);
-                    txIntent.putExtra("errorMsg", result.errorMsg);
-                    String hash = String.valueOf(result.resultData);
-                    if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                    startActivity(txIntent);
-                }
+                Intent txIntent = new Intent(SifDepositPoolActivity.this, TxDetailgRPCActivity.class);
+                txIntent.putExtra("isGen", true);
+                txIntent.putExtra("isSuccess", result.isSuccess);
+                txIntent.putExtra("errorCode", result.errorCode);
+                txIntent.putExtra("errorMsg", result.errorMsg);
+                String hash = String.valueOf(result.resultData);
+                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+                startActivity(txIntent);
             }
         }, mAccount, mBaseChain, mAccount.address, mSifDepositCoin1.denom, mSifDepositCoin0.amount, mSifDepositCoin1.amount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
