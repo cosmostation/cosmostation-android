@@ -92,7 +92,6 @@ public class SendActivity extends BaseBroadCastActivity {
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setUserInputEnabled(false);
-
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
@@ -106,15 +105,15 @@ public class SendActivity extends BaseBroadCastActivity {
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_send_step_2));
-                    mPageAdapter.mFragments.get(i).onRefreshTab();
+                    mPageAdapter.mFragments.get(2).onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_send_step_3));
-                    mPageAdapter.mFragments.get(i).onRefreshTab();
+                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 } else if (i == 4) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_send_step_4));
-                    mPageAdapter.mFragments.get(i).onRefreshTab();
+                    mPageAdapter.mFragments.get(4).onRefreshTab();
                 }
             }
         });
@@ -234,26 +233,26 @@ public class SendActivity extends BaseBroadCastActivity {
 
     private void onBroadCastSendTx() {
         if (isGRPC(mBaseChain)) {
-            new SendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mBaseChain, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SendGrpcTask(getBaseApplication(), this::onIntentTx, mBaseChain, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BNB_MAIN)) {
-            new SimpleBnbSendTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SimpleBnbSendTask(getBaseApplication(), this::onIntentTx, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
-            new SimpleSendTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SimpleSendTask(getBaseApplication(), this::onIntentTx, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
     private void onBroadCastIbcSendTx() {
-        new IBCTransferGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new IBCTransferGrpcTask(getBaseApplication(), this::onIntentTx, mAccount, mBaseChain, mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onBroadCastSendContractTx() {
-        new Cw20SendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Cw20SendGrpcTask(getBaseApplication(), this::onIntentTx, mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onBroadCastIbcSendContractTx() {
-        new Cw20IBCSendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAssetPath, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Cw20IBCSendGrpcTask(getBaseApplication(), this::onIntentTx, mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAssetPath, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onIntentTx(TaskResult result) {

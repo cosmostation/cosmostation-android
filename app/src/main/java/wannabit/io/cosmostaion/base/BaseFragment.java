@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 public class BaseFragment extends Fragment {
 
     protected BaseApplication mApplication;
+    protected BaseData mData;
 
     protected BaseApplication getBaseApplication() {
         if (mApplication == null)
@@ -32,7 +33,6 @@ public class BaseFragment extends Fragment {
     }
 
     public void onBusyFetch() {
-
     }
 
 }

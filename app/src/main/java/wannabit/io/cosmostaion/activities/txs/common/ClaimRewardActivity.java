@@ -11,17 +11,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 
@@ -48,7 +50,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     private TextView mTitle;
     private ImageView mIvStep;
     private TextView mTvStep;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private RewardPageAdapter mPageAdapter;
 
     public String mWithdrawAddress;
@@ -79,15 +81,12 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
         mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
 
-        mPageAdapter = new RewardPageAdapter(getSupportFragmentManager());
+        mPageAdapter = new RewardPageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
+        mViewPager.setUserInputEnabled(false);
 
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
+        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
@@ -101,17 +100,13 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_reward_step_3));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(2).onRefreshTab();
 
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_reward_step_4));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
             }
         });
         mViewPager.setCurrentItem(0);
@@ -146,7 +141,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getItemCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -186,18 +181,15 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     });
 
     private void onBroadCastTx() {
-        new ClaimRewardsGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(ClaimRewardActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new ClaimRewardsGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(ClaimRewardActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mBaseChain, mAccount, mValAddresses, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -216,17 +208,15 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         }
 
         if (mTaskCount == 0) {
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            mPageAdapter.mFragments.get(0).onRefreshTab();
         }
     }
 
-    private class RewardPageAdapter extends FragmentPagerAdapter {
+    private static class RewardPageAdapter extends FragmentStateAdapter {
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
-        private BaseFragment mCurrentFragment;
-
-        public RewardPageAdapter(FragmentManager fm) {
-            super(fm);
+        public RewardPageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
             mFragments.clear();
             mFragments.add(RewardStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
@@ -234,31 +224,15 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
             mFragments.add(RewardStep3Fragment.newInstance());
         }
 
+        @NonNull
         @Override
-        public BaseFragment getItem(int position) {
+        public Fragment createFragment(int position) {
             return mFragments.get(position);
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return mFragments.size();
         }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            if (getCurrentFragment() != object) {
-                mCurrentFragment = ((BaseFragment) object);
-            }
-            super.setPrimaryItem(container, position, object);
-        }
-
-        public BaseFragment getCurrentFragment() {
-            return mCurrentFragment;
-        }
-
-        public ArrayList<BaseFragment> getFragments() {
-            return mFragments;
-        }
-
     }
 }
