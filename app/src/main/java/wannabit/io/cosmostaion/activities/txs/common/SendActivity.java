@@ -9,17 +9,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 
@@ -54,7 +56,7 @@ public class SendActivity extends BaseBroadCastActivity {
     private TextView mTitle;
     private ImageView mIvStep;
     private TextView mTvStep;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private SendPageAdapter mPageAdapter;
 
     public BnbToken mBnbToken;
@@ -86,17 +88,15 @@ public class SendActivity extends BaseBroadCastActivity {
             mBnbToken = getBaseDao().getBnbToken(mDenom);
         }
 
-        mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
+        mPageAdapter = new SendPageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mPageAdapter);
+        mViewPager.setUserInputEnabled(false);
 
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
+        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
+                super.onPageSelected(i);
                 if (i == 0) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_1_img));
                     mTvStep.setText(getString(R.string.str_send_step_0));
@@ -106,20 +106,16 @@ public class SendActivity extends BaseBroadCastActivity {
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_send_step_2));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(i).onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_send_step_3));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(i).onRefreshTab();
                 } else if (i == 4) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_send_step_4));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(i).onRefreshTab();
                 }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
             }
         });
         mViewPager.setCurrentItem(0);
@@ -238,56 +234,26 @@ public class SendActivity extends BaseBroadCastActivity {
 
     private void onBroadCastSendTx() {
         if (isGRPC(mBaseChain)) {
-            new SendGrpcTask(getBaseApplication(), new TaskListener() {
-                @Override
-                public void onTaskResponse(TaskResult result) {
-                    onIntentTx(result);
-                }
-            }, mBaseChain, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mBaseChain, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BNB_MAIN)) {
-            new SimpleBnbSendTask(getBaseApplication(), new TaskListener() {
-                @Override
-                public void onTaskResponse(TaskResult result) {
-                    onIntentTx(result);
-                }
-            }, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SimpleBnbSendTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
-            new SimpleSendTask(getBaseApplication(), new TaskListener() {
-                @Override
-                public void onTaskResponse(TaskResult result) {
-                    onIntentTx(result);
-                }
-            }, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SimpleSendTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
     private void onBroadCastIbcSendTx() {
-        new IBCTransferGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                onIntentTx(result);
-            }
-        }, mAccount, mBaseChain, mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new IBCTransferGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onBroadCastSendContractTx() {
-        new Cw20SendGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                onIntentTx(result);
-            }
-        }, mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Cw20SendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onBroadCastIbcSendContractTx() {
-        new Cw20IBCSendGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                onIntentTx(result);
-            }
-        }, mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAssetPath, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Cw20IBCSendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAssetPath, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onIntentTx(TaskResult result) {
@@ -306,13 +272,11 @@ public class SendActivity extends BaseBroadCastActivity {
         startActivity(txIntent);
     }
 
-    private class SendPageAdapter extends FragmentPagerAdapter {
+    private class SendPageAdapter extends FragmentStateAdapter {
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
-        private BaseFragment mCurrentFragment;
-
-        public SendPageAdapter(FragmentManager fm) {
-            super(fm);
+        public SendPageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
             mFragments.clear();
             mFragments.add(SendStep0Fragment.newInstance());
             mFragments.add(SendStep1Fragment.newInstance());
@@ -325,30 +289,15 @@ public class SendActivity extends BaseBroadCastActivity {
             mFragments.add(SendStep4Fragment.newInstance());
         }
 
+        @NonNull
         @Override
-        public BaseFragment getItem(int position) {
+        public Fragment createFragment(int position) {
             return mFragments.get(position);
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return mFragments.size();
-        }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            if (getCurrentFragment() != object) {
-                mCurrentFragment = ((BaseFragment) object);
-            }
-            super.setPrimaryItem(container, position, object);
-        }
-
-        public BaseFragment getCurrentFragment() {
-            return mCurrentFragment;
-        }
-
-        public ArrayList<BaseFragment> getFragments() {
-            return mFragments;
         }
     }
 }
