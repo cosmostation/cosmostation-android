@@ -31,8 +31,7 @@ import java.util.List;
 import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
-import wannabit.io.cosmostaion.activities.txs.common.VoteListActivity;
+import wannabit.io.cosmostaion.activities.txs.common.ReDelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -181,7 +180,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         }
     }
 
-    private RedelegateActivity getSActivity() {
-        return (RedelegateActivity) getBaseActivity();
+    private ReDelegateActivity getSActivity() {
+        return (ReDelegateActivity) getBaseActivity();
     }
 }

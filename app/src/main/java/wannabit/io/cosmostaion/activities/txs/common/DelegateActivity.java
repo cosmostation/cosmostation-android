@@ -77,7 +77,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
-
+        mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {

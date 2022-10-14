@@ -9,18 +9,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 
@@ -43,14 +45,14 @@ import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class RedelegateActivity extends BaseBroadCastActivity implements TaskListener {
+public class ReDelegateActivity extends BaseBroadCastActivity implements TaskListener {
 
     private ImageView mChainBg;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
     private TextView mTvStep;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private RedelegatePageAdapter mPageAdapter;
 
     private int mTaskCount;
@@ -72,7 +74,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_1_img));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_1_img));
         mTvStep.setText(getString(R.string.str_redelegate_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -82,40 +84,32 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
-        mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager());
+        mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
+        mViewPager.setUserInputEnabled(false);
+        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_1_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_1_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_0));
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_2_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_2_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_1));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(1).onRefreshTab();
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_3_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_2));
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_4_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_3));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 } else if (i == 4) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_5_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_4));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(4).onRefreshTab();
                 }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
             }
         });
         mViewPager.setCurrentItem(0);
@@ -150,7 +144,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getItemCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -169,7 +163,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         if (getBaseDao().isAutoPass()) {
             onBroadCastTx();
         } else {
-            Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
+            Intent intent = new Intent(ReDelegateActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
@@ -186,7 +180,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         new RedelegateGrpcTask(getBaseApplication(), new TaskListener() {
             @Override
             public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(RedelegateActivity.this, TxDetailgRPCActivity.class);
+                Intent txIntent = new Intent(ReDelegateActivity.this, TxDetailgRPCActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);
                 txIntent.putExtra("errorCode", result.errorCode);
@@ -224,17 +218,16 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         }
 
         if (mTaskCount == 0) {
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            mPageAdapter.mFragments.get(0).onRefreshTab();
         }
     }
 
-    private class RedelegatePageAdapter extends FragmentPagerAdapter {
+    private static class RedelegatePageAdapter extends FragmentStateAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
-        private BaseFragment mCurrentFragment;
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
-        public RedelegatePageAdapter(FragmentManager fm) {
-            super(fm);
+        public RedelegatePageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
             mFragments.clear();
             mFragments.add(RedelegateStep0Fragment.newInstance());
             mFragments.add(RedelegateStep1Fragment.newInstance());
@@ -243,31 +236,15 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
             mFragments.add(RedelegateStep4Fragment.newInstance());
         }
 
+        @NonNull
         @Override
-        public BaseFragment getItem(int position) {
+        public Fragment createFragment(int position) {
             return mFragments.get(position);
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return mFragments.size();
         }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            if (getCurrentFragment() != object) {
-                mCurrentFragment = ((BaseFragment) object);
-            }
-            super.setPrimaryItem(container, position, object);
-        }
-
-        public BaseFragment getCurrentFragment() {
-            return mCurrentFragment;
-        }
-
-        public ArrayList<BaseFragment> getFragments() {
-            return mFragments;
-        }
-
     }
 }
