@@ -193,6 +193,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initSearchQueryView() {
+        mSearchView.setQuery("", false);
+        mSearchView.clearFocus();
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -239,6 +241,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
     public void onSelectedHdPath(int path) {
         mPath = path;
         mPathText.setText("" + path);
+        initSearchQueryView();
         loadData();
     }
 

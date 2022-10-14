@@ -241,9 +241,7 @@ public class SendActivity extends BaseBroadCastActivity {
             new SendGrpcTask(getBaseApplication(), new TaskListener() {
                 @Override
                 public void onTaskResponse(TaskResult result) {
-                    if (result.isSuccess) {
-                        onIntentTx(result);
-                    }
+                    onIntentTx(result);
                 }
             }, mBaseChain, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -251,9 +249,7 @@ public class SendActivity extends BaseBroadCastActivity {
             new SimpleBnbSendTask(getBaseApplication(), new TaskListener() {
                 @Override
                 public void onTaskResponse(TaskResult result) {
-                    if (result.isSuccess) {
-                        onIntentTx(result);
-                    }
+                    onIntentTx(result);
                 }
             }, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -261,9 +257,7 @@ public class SendActivity extends BaseBroadCastActivity {
             new SimpleSendTask(getBaseApplication(), new TaskListener() {
                 @Override
                 public void onTaskResponse(TaskResult result) {
-                    if (result.isSuccess) {
-                        onIntentTx(result);
-                    }
+                    onIntentTx(result);
                 }
             }, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
@@ -273,9 +267,7 @@ public class SendActivity extends BaseBroadCastActivity {
         new IBCTransferGrpcTask(getBaseApplication(), new TaskListener() {
             @Override
             public void onTaskResponse(TaskResult result) {
-                if (result.isSuccess) {
-                    onIntentTx(result);
-                }
+                onIntentTx(result);
             }
         }, mAccount, mBaseChain, mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

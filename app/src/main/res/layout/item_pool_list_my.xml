@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -12,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_6"
+        android:layout_marginBottom="@dimen/space_6"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@color/colorTransBgOsmosis"
@@ -117,14 +115,14 @@
                 <TextView
                     android:id="@+id/mypool_total_liquidity_value"
                     style="@style/font_rr_15_black_daynight"
-                    android:layout_toRightOf="@+id/total_deposit_value_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/total_deposit_value_title"
+                    android:ellipsize="end"
                     android:gravity="right"
-                    android:text="-"
                     android:maxLines="1"
-                    android:ellipsize="end"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <LinearLayout
@@ -154,9 +152,9 @@
                             style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:maxLines="1"
                             android:ellipsize="end"
-                            android:text=""/>
+                            android:maxLines="1"
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/mypool_total_liquidity_symbol1"
@@ -181,8 +179,8 @@
                             style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:maxLines="1"
                             android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="" />
 
                         <TextView
@@ -222,8 +220,8 @@
                     style="@style/font_rr_15_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/my_deposit_value_title"
                     android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/my_deposit_value_title"
                     android:gravity="right"
                     android:text="-" />
             </RelativeLayout>
@@ -255,8 +253,8 @@
                             style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:maxLines="1"
                             android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="" />
 
                         <TextView
@@ -335,8 +333,8 @@
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:maxLines="1"
                                     android:ellipsize="end"
+                                    android:maxLines="1"
                                     android:text="-" />
 
                                 <TextView
@@ -362,8 +360,8 @@
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:maxLines="1"
                                     android:ellipsize="end"
+                                    android:maxLines="1"
                                     android:text="-" />
 
                                 <TextView

@@ -276,8 +276,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
             dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
             getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
-                int result = bundle.getInt(BaseConstant.POSITION);
-                mSelectedFeeData = result;
+                mSelectedFeeData = bundle.getInt(BaseConstant.POSITION);
+                onCalculateFees();
                 onCheckTxType();
                 onUpdateView();
             });

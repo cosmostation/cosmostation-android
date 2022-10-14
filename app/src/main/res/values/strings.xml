@@ -254,7 +254,7 @@
     <string name="str_deprecated">Deprecated...</string>
     <string name="str_select_wallet_path_c">SELECT WALLET TO RESTORE</string>
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
-    <string name="str_address_pubkey">Insert address.</string>
+    <string name="str_address_pubkey">Insert address</string>
     <string name="str_watch_msg">With watch mode, you can check the status of an account. \nYou need to add the correct mnemonics for the wallet to enable transactions.</string>
     <string name="str_insert_private_key">Insert Private Key</string>
     <string name="str_key_msg">Please enter your private key.\nThe private key is a 66-digit string starting with 0x.</string>
