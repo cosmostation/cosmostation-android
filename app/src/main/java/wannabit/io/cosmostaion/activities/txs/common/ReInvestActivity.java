@@ -9,18 +9,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -50,7 +52,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     private TextView mTitle;
     private ImageView mIvStep;
     private TextView mTvStep;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private ReInvestPageAdapter mPageAdapter;
 
     @Override
@@ -79,15 +81,11 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
-        mPageAdapter = new ReInvestPageAdapter(getSupportFragmentManager());
+        mPageAdapter = new ReInvestPageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
+        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
@@ -99,16 +97,12 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ReInvestActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_reinvest_step_2));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(2).onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ReInvestActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_reinvest_step_3));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
             }
         });
         mViewPager.setCurrentItem(0);
@@ -145,7 +139,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getItemCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -179,18 +173,15 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     });
 
     private void onBroadCastTx() {
-        new ReInvestGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(ReInvestActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new ReInvestGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(ReInvestActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mBaseChain, mAccount, mValAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -202,20 +193,19 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             if (rewards != null) {
                 getBaseDao().mGrpcRewards = rewards;
                 mAmount = new Coin(mChainConfig.mainDenom(), getBaseDao().getReward(mChainConfig.mainDenom(), mValAddress).toPlainString());
-                mPageAdapter.mCurrentFragment.onRefreshTab();
+                mPageAdapter.mFragments.get(0).onRefreshTab();
             } else {
                 onBackPressed();
             }
         }
     }
 
-    private class ReInvestPageAdapter extends FragmentPagerAdapter {
+    private static class ReInvestPageAdapter extends FragmentStateAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
-        private BaseFragment mCurrentFragment;
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
-        public ReInvestPageAdapter(FragmentManager fm) {
-            super(fm);
+        public ReInvestPageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
             mFragments.clear();
             mFragments.add(ReInvestStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
@@ -223,30 +213,15 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             mFragments.add(ReInvestStep3Fragment.newInstance());
         }
 
+        @NonNull
         @Override
-        public BaseFragment getItem(int position) {
+        public Fragment createFragment(int position) {
             return mFragments.get(position);
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return mFragments.size();
-        }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            if (getCurrentFragment() != object) {
-                mCurrentFragment = ((BaseFragment) object);
-            }
-            super.setPrimaryItem(container, position, object);
-        }
-
-        public BaseFragment getCurrentFragment() {
-            return mCurrentFragment;
-        }
-
-        public ArrayList<BaseFragment> getFragments() {
-            return mFragments;
         }
     }
 }
