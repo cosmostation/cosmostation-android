@@ -2,12 +2,10 @@ package wannabit.io.cosmostaion.base;
 
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 public class BaseFragment extends Fragment {
 
-    protected BaseApplication               mApplication;
-    protected BaseData                      mData;
+    protected BaseApplication mApplication;
 
     protected BaseApplication getBaseApplication() {
         if (mApplication == null)
@@ -17,24 +15,21 @@ public class BaseFragment extends Fragment {
     }
 
     protected BaseActivity getBaseActivity() {
-        return (BaseActivity)getActivity();
+        return (BaseActivity) getActivity();
     }
 
     protected BaseData getBaseDao() {
         if (getBaseActivity() != null && getBaseActivity().getBaseDao() != null) {
             return getBaseActivity().getBaseDao();
 
-        }  else {
+        } else {
             return getBaseApplication().getBaseDao();
 
         }
     }
 
-    protected FragmentTransaction getTransaction() {
-        return getFragmentManager().beginTransaction();
+    public void onRefreshTab() {
     }
-
-    public void onRefreshTab() { }
 
     public void onBusyFetch() {
 

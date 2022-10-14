@@ -58,7 +58,7 @@ public class MainTokensFragment extends BaseFragment {
     public final static int SECTION_ETHER_GRPC = 2;
     public final static int SECTION_ERC20_GRPC = 3;
 
-    public final static int SECITON_CONTRACT_EDIT = 10;
+    public final static int SECTION_CONTRACT_EDIT = 10;
 
     public final static int SECTION_NATIVE = 20;
     public final static int SECTION_ETC = 21;
@@ -285,7 +285,7 @@ public class MainTokensFragment extends BaseFragment {
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == SECITON_CONTRACT_EDIT) {
+            if (viewType == SECTION_CONTRACT_EDIT) {
                 return new EditHolder(getLayoutInflater().inflate(R.layout.item_edit, viewGroup, false));
             } else {
                 return new AssetHolder(getLayoutInflater().inflate(R.layout.item_token, viewGroup, false));
@@ -306,7 +306,7 @@ public class MainTokensFragment extends BaseFragment {
                     } else if (mChainConfig.erc20CoinSupport()) {
                         if (getItemViewType(position) == SECTION_ERC20_GRPC) {
                             onBindCw20GrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcGrpc.size());
-                        } else if (getItemViewType(position) == SECITON_CONTRACT_EDIT) {
+                        } else if (getItemViewType(position) == SECTION_CONTRACT_EDIT) {
                             onBindEdit(viewHolder);
                         }
                     }
@@ -547,7 +547,7 @@ public class MainTokensFragment extends BaseFragment {
                 } else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mErc20Grpc.size()) {
                     return SECTION_ERC20_GRPC;
                 } else {
-                    return SECITON_CONTRACT_EDIT;
+                    return SECTION_CONTRACT_EDIT;
                 }
 
             } else if (isGRPC(mBaseChain)) {
@@ -731,7 +731,7 @@ public class MainTokensFragment extends BaseFragment {
                         mRoot.setVisibility(View.VISIBLE);
                         title = sectionCallback.getSectionCw20Header(mBaseChain, mErc20Grpc, mSection);
                         mItemCnt.setText("" + mErc20Grpc.size());
-                    } else if (mSection == SECITON_CONTRACT_EDIT) {
+                    } else if (mSection == SECTION_CONTRACT_EDIT) {
                         mRoot.setVisibility(View.GONE);
                     }
 
