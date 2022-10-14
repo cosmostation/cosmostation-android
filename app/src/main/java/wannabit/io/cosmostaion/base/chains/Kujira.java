@@ -29,11 +29,12 @@ public class Kujira extends ChainConfig {
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-kujira-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-kujira.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.000"); }
+    public BigDecimal blockTime() { return new BigDecimal("2.338"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "kujira/"; }
     public String monikerUrl() { return MONIKER_URL + "kujira/"; }
     public String homeInfoLink() { return  "https://kujira.app/"; }
