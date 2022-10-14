@@ -212,6 +212,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     }
 
     private static class RewardPageAdapter extends FragmentStateAdapter {
+
         private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
         public RewardPageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {

@@ -183,6 +183,7 @@ public class VoteActivity extends BaseBroadCastActivity {
     }
 
     private static class VotePageAdapter extends FragmentStateAdapter {
+
         private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
         public VotePageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.common.UndelegateActivity;
+import wannabit.io.cosmostaion.activities.txs.common.UnDelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -69,8 +69,8 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         }
     }
 
-    private UndelegateActivity getSActivity() {
-        return (UndelegateActivity)getBaseActivity();
+    private UnDelegateActivity getSActivity() {
+        return (UnDelegateActivity)getBaseActivity();
     }
 
 }

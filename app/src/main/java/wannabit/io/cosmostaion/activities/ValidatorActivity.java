@@ -44,7 +44,7 @@ import wannabit.io.cosmostaion.activities.txs.common.ClaimRewardActivity;
 import wannabit.io.cosmostaion.activities.txs.common.DelegateActivity;
 import wannabit.io.cosmostaion.activities.txs.common.ReInvestActivity;
 import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
-import wannabit.io.cosmostaion.activities.txs.common.UndelegateActivity;
+import wannabit.io.cosmostaion.activities.txs.common.UnDelegateActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -239,7 +239,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        Intent toDelegate = new Intent(ValidatorActivity.this, UndelegateActivity.class);
+        Intent toDelegate = new Intent(ValidatorActivity.this, UnDelegateActivity.class);
         toDelegate.putExtra("valOpAddress", mValOpAddress);
         startActivity(toDelegate);
     }

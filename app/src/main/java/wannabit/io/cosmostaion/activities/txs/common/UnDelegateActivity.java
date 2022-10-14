@@ -8,17 +8,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 
@@ -33,18 +35,16 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.UndelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.UndelegateStep3Fragment;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 
-public class UndelegateActivity extends BaseBroadCastActivity {
+public class UnDelegateActivity extends BaseBroadCastActivity {
 
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
     private TextView mTvStep;
-    private ViewPager mViewPager;
-    private UndelegatePageAdapter mPageAdapter;
+    private ViewPager2 mViewPager;
+    private UnDelegatePageAdapter mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_1));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_undelegate_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -71,38 +71,28 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
-        mPageAdapter = new UndelegatePageAdapter(getSupportFragmentManager());
+        mPageAdapter = new UnDelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
+        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_1));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_undelegate_step_1));
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_2));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_delegate_step_2));
-
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_3));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_undelegate_step_3));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
-
+                    mPageAdapter.mFragments.get(2).onRefreshTab();
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_4));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_undelegate_step_4));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
             }
         });
         mViewPager.setCurrentItem(0);
@@ -136,7 +126,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getItemCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -155,7 +145,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
         if (getBaseDao().isAutoPass()) {
             onBroadCastTx();
         } else {
-            Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
+            Intent intent = new Intent(UnDelegateActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
@@ -169,28 +159,24 @@ public class UndelegateActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new UndelegateGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(UndelegateActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new UndelegateGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(UnDelegateActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mBaseChain, mAccount, mValAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    private class UndelegatePageAdapter extends FragmentPagerAdapter {
+    private static class UnDelegatePageAdapter extends FragmentStateAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
-        private BaseFragment mCurrentFragment;
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
-        public UndelegatePageAdapter(FragmentManager fm) {
-            super(fm);
+        public UnDelegatePageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
             mFragments.clear();
             mFragments.add(UndelegateStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
@@ -198,31 +184,15 @@ public class UndelegateActivity extends BaseBroadCastActivity {
             mFragments.add(UndelegateStep3Fragment.newInstance());
         }
 
+        @NonNull
         @Override
-        public BaseFragment getItem(int position) {
+        public Fragment createFragment(int position) {
             return mFragments.get(position);
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return mFragments.size();
         }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            if (getCurrentFragment() != object) {
-                mCurrentFragment = ((BaseFragment) object);
-            }
-            super.setPrimaryItem(container, position, object);
-        }
-
-        public BaseFragment getCurrentFragment() {
-            return mCurrentFragment;
-        }
-
-        public ArrayList<BaseFragment> getFragments() {
-            return mFragments;
-        }
-
     }
 }
