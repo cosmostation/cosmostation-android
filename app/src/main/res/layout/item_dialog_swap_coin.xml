@@ -32,6 +32,21 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_8"
             android:singleLine="true" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/check"
+            style="@style/font_rmr_9_gray1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/space_8"
+            android:background="@drawable/check"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <FrameLayout
@@ -41,5 +56,5 @@
         android:background="@drawable/box_round_gray"
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
-        android:visibility="gone"></FrameLayout>
+        android:visibility="gone"/>
 </RelativeLayout>

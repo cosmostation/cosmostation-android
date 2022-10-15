@@ -223,12 +223,14 @@ public class SelectChainListDialog extends DialogFragment {
 
         private void bindChainSelect(SwapChainHolder holder, int position, BaseChain item) {
             if (selectedSet.contains(item)) {
+                holder.itemCheck.setVisibility(View.VISIBLE);
                 holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_account_selected_photon));
                 holder.rootLayer.setOnClickListener(v -> {
                     selectedSet.remove(item);
                     mSwapChainListAdapter.notifyItemChanged(position);
                 });
             } else {
+                holder.itemCheck.setVisibility(View.GONE);
                 holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
                 holder.rootLayer.setOnClickListener(v -> {
                     selectedSet.add(item);
@@ -280,7 +282,7 @@ public class SelectChainListDialog extends DialogFragment {
         public class SwapChainHolder extends RecyclerView.ViewHolder {
             FrameLayout rootDimLayer;
             LinearLayout rootLayer;
-            ImageView coinImg;
+            ImageView coinImg, itemCheck;
             TextView coinName;
 
             public SwapChainHolder(@NonNull View itemView) {
@@ -289,6 +291,7 @@ public class SelectChainListDialog extends DialogFragment {
                 rootLayer = itemView.findViewById(R.id.rootLayer);
                 coinImg = itemView.findViewById(R.id.coinImg);
                 coinName = itemView.findViewById(R.id.coinName);
+                itemCheck = itemView.findViewById(R.id.check);
             }
         }
 
