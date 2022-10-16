@@ -145,7 +145,7 @@ public class SendActivity extends BaseBroadCastActivity {
 
     public void onNextStep() {
         onHideKeyboard();
-        if (mViewPager.getCurrentItem() < 4) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getItemCount() - 1) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }

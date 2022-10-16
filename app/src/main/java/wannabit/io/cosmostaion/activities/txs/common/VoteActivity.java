@@ -135,7 +135,7 @@ public class VoteActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mPageAdapter.getItemCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getItemCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
