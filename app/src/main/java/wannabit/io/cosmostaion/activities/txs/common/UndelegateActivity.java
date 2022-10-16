@@ -37,7 +37,7 @@ import wannabit.io.cosmostaion.fragment.txs.common.UndelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.UndelegateStep3Fragment;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 
-public class UnDelegateActivity extends BaseBroadCastActivity {
+public class UndelegateActivity extends BaseBroadCastActivity {
 
     private Toolbar mToolbar;
     private TextView mTitle;
@@ -61,7 +61,7 @@ public class UnDelegateActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_1));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_undelegate_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -79,16 +79,16 @@ public class UnDelegateActivity extends BaseBroadCastActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_1));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_undelegate_step_1));
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_2));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_delegate_step_2));
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_3));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_undelegate_step_3));
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_4));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(UndelegateActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_undelegate_step_4));
                 }
             }
@@ -143,7 +143,7 @@ public class UnDelegateActivity extends BaseBroadCastActivity {
         if (getBaseDao().isAutoPass()) {
             onBroadCastTx();
         } else {
-            Intent intent = new Intent(UnDelegateActivity.this, PasswordCheckActivity.class);
+            Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
@@ -158,7 +158,7 @@ public class UnDelegateActivity extends BaseBroadCastActivity {
 
     private void onBroadCastTx() {
         new UndelegateGrpcTask(getBaseApplication(), result -> {
-            Intent txIntent = new Intent(UnDelegateActivity.this, TxDetailgRPCActivity.class);
+            Intent txIntent = new Intent(UndelegateActivity.this, TxDetailgRPCActivity.class);
             txIntent.putExtra("isGen", true);
             txIntent.putExtra("isSuccess", result.isSuccess);
             txIntent.putExtra("errorCode", result.errorCode);

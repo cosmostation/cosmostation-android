@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.common.UnDelegateActivity;
+import wannabit.io.cosmostaion.activities.txs.common.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -230,7 +230,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         }
     }
 
-    private UnDelegateActivity getSActivity() {
-        return (UnDelegateActivity) getBaseActivity();
+    private UndelegateActivity getSActivity() {
+        return (UndelegateActivity) getBaseActivity();
     }
 }
