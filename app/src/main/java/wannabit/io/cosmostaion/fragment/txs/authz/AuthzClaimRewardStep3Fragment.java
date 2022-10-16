@@ -58,13 +58,14 @@ public class AuthzClaimRewardStep3Fragment extends BaseFragment implements View.
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         Coin mainReward = getSActivity().mGranterRewardSum;
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mainReward, mRewardDenom, mTvRewardAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
 
         String monikers = "";
-        for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
+        for (Staking.Validator validator : getBaseDao().mGRpcAllValidators) {
             for (Distribution.DelegationDelegatorReward myValidator : getSActivity().mGranterRewards) {
                 if (validator.getOperatorAddress().equalsIgnoreCase(myValidator.getValidatorAddress())) {
                     if (!TextUtils.isEmpty(monikers)) {
