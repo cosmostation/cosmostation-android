@@ -263,7 +263,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         onCheckTxType();
     }
 

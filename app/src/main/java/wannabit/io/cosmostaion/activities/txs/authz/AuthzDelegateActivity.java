@@ -8,18 +8,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 
@@ -39,22 +40,19 @@ import wannabit.io.cosmostaion.fragment.txs.authz.AuthzDelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzDelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzDelegateStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzDelegateGrpcTask;
 
 public class AuthzDelegateActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout mRootView;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
     private TextView mTvStep;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private AuthzDelegatePageAdapter mPageAdapter;
 
     public Authz.Grant mGrant;
-    public ArrayList<Coin> mGrantAvailbale = new ArrayList<>();
+    public ArrayList<Coin> mGrantAvailable = new ArrayList<>();
     public ArrayList<Coin> mGrantVesting = new ArrayList<>();
     public ArrayList<Staking.DelegationResponse> mGranterDelegations = new ArrayList<>();
     public ArrayList<Staking.UnbondingDelegation> mGranterUndelegations = new ArrayList<>();
@@ -64,7 +62,6 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -86,23 +83,18 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
 
         mGrant = (Authz.Grant) getIntent().getSerializableExtra("grant");
         mGranter = getIntent().getStringExtra("granter");
-        mGrantAvailbale = (ArrayList<Coin>) getIntent().getSerializableExtra("grantAvailable");
+        mGrantAvailable = (ArrayList<Coin>) getIntent().getSerializableExtra("grantAvailable");
         mGrantVesting = (ArrayList<Coin>) getIntent().getSerializableExtra("grantVesting");
         mGranterDelegations = (ArrayList<Staking.DelegationResponse>) getIntent().getSerializableExtra("granterDelegations");
         mGranterUndelegations = (ArrayList<Staking.UnbondingDelegation>) getIntent().getSerializableExtra("granterUndelegations");
         mGranterRewards = (ArrayList<Distribution.DelegationDelegatorReward>) getIntent().getSerializableExtra("granterRewards");
 
-        mPageAdapter = new AuthzDelegatePageAdapter(getSupportFragmentManager());
-        mViewPager.setOffscreenPageLimit(4);
+        mPageAdapter = new AuthzDelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setAdapter(mPageAdapter);
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
+        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
+                super.onPageSelected(i);
                 if (i == 0) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzDelegateActivity.this, R.drawable.step_1_img));
                     mTvStep.setText(getString(R.string.str_authz_delegate_step_0));
@@ -112,25 +104,16 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzDelegateActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_tx_step_memo));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzDelegateActivity.this, R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_tx_step_fee));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 4) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzDelegateActivity.this, R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_tx_step_confirm));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
             }
         });
         mViewPager.setCurrentItem(0);
-
-        mRootView.setOnClickListener(v -> onHideKeyboard());
     }
 
     @Override
@@ -162,7 +145,7 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getItemCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -195,28 +178,24 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new AuthzDelegateGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(AuthzDelegateActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new AuthzDelegateGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(AuthzDelegateActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mBaseChain, mAccount, mGranter, mValAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    private class AuthzDelegatePageAdapter extends FragmentPagerAdapter {
+    private static class AuthzDelegatePageAdapter extends FragmentStateAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
-        private BaseFragment mCurrentFragment;
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
-        public AuthzDelegatePageAdapter(FragmentManager fm) {
-            super(fm);
+        public AuthzDelegatePageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
             mFragments.clear();
             mFragments.add(AuthzDelegateStep0Fragment.newInstance());
             mFragments.add(AuthzDelegateStep1Fragment.newInstance());
@@ -225,30 +204,15 @@ public class AuthzDelegateActivity extends BaseBroadCastActivity {
             mFragments.add(AuthzDelegateStep4Fragment.newInstance());
         }
 
+        @NonNull
         @Override
-        public BaseFragment getItem(int position) {
+        public Fragment createFragment(int position) {
             return mFragments.get(position);
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return mFragments.size();
-        }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            if (getCurrentFragment() != object) {
-                mCurrentFragment = ((BaseFragment) object);
-            }
-            super.setPrimaryItem(container, position, object);
-        }
-
-        public BaseFragment getCurrentFragment() {
-            return mCurrentFragment;
-        }
-
-        public ArrayList<BaseFragment> getFragments() {
-            return mFragments;
         }
     }
 }

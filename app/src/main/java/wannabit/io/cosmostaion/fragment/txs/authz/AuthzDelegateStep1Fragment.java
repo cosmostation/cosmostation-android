@@ -82,8 +82,8 @@ public class AuthzDelegateStep1Fragment extends BaseFragment implements View.OnC
         mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom());
         setDpDecimals(mDpDecimal);
 
-        if (getSActivity().mGrantAvailbale != null && getSActivity().mGrantAvailbale.size() > 0) {
-            Coin availableCoin = getSActivity().mGrantAvailbale.stream().filter(item -> item.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())).findFirst().get();
+        if (getSActivity().mGrantAvailable != null && getSActivity().mGrantAvailable.size() > 0) {
+            Coin availableCoin = getSActivity().mGrantAvailable.stream().filter(item -> item.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())).findFirst().get();
             mAvailable = new BigDecimal(availableCoin.amount);
         }
         if (getSActivity().mGrantVesting != null && getSActivity().mGrantVesting.size() > 0) {
