@@ -88,6 +88,7 @@ public class AuthzRedelegateActivity extends BaseBroadCastActivity {
 
         mPageAdapter = new AuthzRedelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setAdapter(mPageAdapter);
+        mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {

@@ -81,6 +81,7 @@ public class AuthzSendActivity extends BaseBroadCastActivity {
 
         mPageAdapter = new AuthzSendPageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setAdapter(mPageAdapter);
+        mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {

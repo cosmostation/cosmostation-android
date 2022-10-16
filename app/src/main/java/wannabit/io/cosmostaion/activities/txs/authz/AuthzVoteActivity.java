@@ -178,9 +178,9 @@ public class AuthzVoteActivity extends BaseBroadCastActivity {
         }, mBaseChain, mAccount, mGranter, mSelectedOpinion, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    private class AuthzVotePageAdapter extends FragmentStateAdapter {
+    private static class AuthzVotePageAdapter extends FragmentStateAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
         public AuthzVotePageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
             super(fragmentManager, lifecycle);

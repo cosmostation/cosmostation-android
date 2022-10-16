@@ -85,9 +85,8 @@ public class AuthzUndelegateActivity extends BaseBroadCastActivity {
         mGranterRewards = (ArrayList<Distribution.DelegationDelegatorReward>) getIntent().getSerializableExtra("granterRewards");
 
         mPageAdapter = new AuthzUndelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
-        mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mPageAdapter);
-
+        mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
