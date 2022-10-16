@@ -74,7 +74,8 @@ public class AuthzUndelegateStep1Fragment extends BaseFragment implements View.O
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null)
             getSActivity().onBackPressed();
         mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom());
