@@ -67,7 +67,8 @@ public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClick
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         mSelectedProposalsList = getSActivity().mProposalsList;
         mProposalSelectionAdapter.notifyDataSetChanged();
     }

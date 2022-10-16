@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.activities.txs.authz.AuthzVoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class AuthzVoteStep4Fragment extends BaseFragment implements View.OnClickListener{
+public class AuthzVoteStep4Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView mOpinion;
     private TextView mFeeAmount, mDenomFeeType;
@@ -52,7 +52,8 @@ public class AuthzVoteStep4Fragment extends BaseFragment implements View.OnClick
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mDenomFeeType, mFeeAmount);
 
         List<String> texts = Lists.newArrayList();
