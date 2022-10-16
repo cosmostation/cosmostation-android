@@ -121,7 +121,8 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         viewSetting(rootView);
     }
 
