@@ -18,11 +18,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView    mRewardAmount, mFeeAmount;
-    private TextView    mRewardDenom, mFeeDenom;
-    private TextView    mValidator, mMemo, mCurrentAmount, mExpectedAmount;
-    private TextView    mCurrentDenom, mExpectedDenom;
-    private Button      mBeforeBtn, mConfirmBtn;
+    private TextView mRewardAmount, mFeeAmount;
+    private TextView mRewardDenom, mFeeDenom;
+    private TextView mValidator, mMemo, mCurrentAmount, mExpectedAmount;
+    private TextView mCurrentDenom, mExpectedDenom;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static ReInvestStep3Fragment newInstance() {
         return new ReInvestStep3Fragment();
@@ -36,27 +36,27 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reinvest_step3, container, false);
-        mRewardAmount       = rootView.findViewById(R.id.reward_amount);
-        mRewardDenom        = rootView.findViewById(R.id.reward_denom);
-        mFeeAmount          = rootView.findViewById(R.id.reward_fees);
-        mFeeDenom           = rootView.findViewById(R.id.reward_fees_type);
-        mValidator          = rootView.findViewById(R.id.reward_moniker);
-        mMemo               = rootView.findViewById(R.id.memo);
-        mCurrentAmount      = rootView.findViewById(R.id.current_delegation);
-        mCurrentDenom       = rootView.findViewById(R.id.current_delegation_denom);
-        mExpectedAmount     = rootView.findViewById(R.id.expected_delegation);
-        mExpectedDenom      = rootView.findViewById(R.id.expected_delegation_denom);
-        mBeforeBtn          = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn         = rootView.findViewById(R.id.btn_confirm);
+        mRewardAmount = rootView.findViewById(R.id.reward_amount);
+        mRewardDenom = rootView.findViewById(R.id.reward_denom);
+        mFeeAmount = rootView.findViewById(R.id.reward_fees);
+        mFeeDenom = rootView.findViewById(R.id.reward_fees_type);
+        mValidator = rootView.findViewById(R.id.reward_moniker);
+        mMemo = rootView.findViewById(R.id.memo);
+        mCurrentAmount = rootView.findViewById(R.id.current_delegation);
+        mCurrentDenom = rootView.findViewById(R.id.current_delegation_denom);
+        mExpectedAmount = rootView.findViewById(R.id.expected_delegation);
+        mExpectedDenom = rootView.findViewById(R.id.expected_delegation_denom);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
     }
 
-
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         BigDecimal currentAmount = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), currentAmount.toPlainString(), mRewardDenom, mRewardAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
@@ -71,7 +71,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -80,6 +80,6 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     private ReInvestActivity getSActivity() {
-        return (ReInvestActivity)getBaseActivity();
+        return (ReInvestActivity) getBaseActivity();
     }
 }

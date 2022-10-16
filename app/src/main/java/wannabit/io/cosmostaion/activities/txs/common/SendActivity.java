@@ -104,15 +104,12 @@ public class SendActivity extends BaseBroadCastActivity {
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_send_step_2));
-                    mPageAdapter.mFragments.get(2).onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_send_step_3));
-                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 } else if (i == 4) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_send_step_4));
-                    mPageAdapter.mFragments.get(4).onRefreshTab();
                 }
             }
         });

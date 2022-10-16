@@ -40,7 +40,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 
 public class DelegateActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout mRootView;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -52,7 +51,6 @@ public class DelegateActivity extends BaseBroadCastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -75,7 +73,6 @@ public class DelegateActivity extends BaseBroadCastActivity {
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
-        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -90,17 +87,13 @@ public class DelegateActivity extends BaseBroadCastActivity {
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(DelegateActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_delegate_step_3));
-                    mPageAdapter.mFragments.get(2).onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(DelegateActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_delegate_step_4));
-                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 }
             }
         });
         mViewPager.setCurrentItem(0);
-
-        mRootView.setOnClickListener(v -> onHideKeyboard());
     }
 
     @Override

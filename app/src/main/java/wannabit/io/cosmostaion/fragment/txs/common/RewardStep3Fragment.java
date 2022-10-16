@@ -63,9 +63,9 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         return rootView;
     }
 
-
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         BigDecimal rewardSum = BigDecimal.ZERO;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         for (String opAddress : getSActivity().mValAddresses) {

@@ -82,7 +82,6 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
 
         mPageAdapter = new RewardPageAdapter(getSupportFragmentManager(), getLifecycle());
-        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -91,20 +90,15 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
                 if (i == 0) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_reward_step_1));
-
                 } else if (i == 1) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_reward_step_2));
-
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_reward_step_3));
-                    mPageAdapter.mFragments.get(2).onRefreshTab();
-
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ClaimRewardActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_reward_step_4));
-                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 }
             }
         });

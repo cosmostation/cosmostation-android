@@ -74,7 +74,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         final BigDecimal toSendAmount = new BigDecimal(getSActivity().mAmounts.get(0).amount);
         final BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         final String mainDenom = getSActivity().mChainConfig.mainDenom();

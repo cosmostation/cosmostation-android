@@ -87,11 +87,9 @@ public class UnDelegateActivity extends BaseBroadCastActivity {
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_undelegate_step_3));
-                    mPageAdapter.mFragments.get(2).onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(UnDelegateActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_undelegate_step_4));
-                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 }
             }
         });

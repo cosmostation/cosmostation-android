@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -47,7 +46,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReInvestGrpcTask;
 
 public class ReInvestActivity extends BaseBroadCastActivity implements TaskListener {
 
-    private RelativeLayout mRootView;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -59,7 +57,6 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -82,7 +79,6 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new ReInvestPageAdapter(getSupportFragmentManager(), getLifecycle());
-        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -106,8 +102,6 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             }
         });
         mViewPager.setCurrentItem(0);
-
-        mRootView.setOnClickListener(v -> onHideKeyboard());
         new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

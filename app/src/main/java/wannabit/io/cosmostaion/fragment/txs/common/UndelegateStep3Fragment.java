@@ -16,10 +16,10 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 public class UndelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView        mTvUndelegateAmount, mTvUndelegateDenom;
-    private TextView        mFeeAmount, mFeeType;
-    private TextView        mValidatorName, mMemo, mTime;
-    private Button          mBeforeBtn, mConfirmBtn;
+    private TextView mTvUndelegateAmount, mTvUndelegateDenom;
+    private TextView mFeeAmount, mFeeType;
+    private TextView mValidatorName, mMemo, mTime;
+    private Button mBeforeBtn, mConfirmBtn;
 
     public static UndelegateStep3Fragment newInstance() {
         return new UndelegateStep3Fragment();
@@ -33,15 +33,15 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_undelegate_step3, container, false);
-        mTvUndelegateAmount     = rootView.findViewById(R.id.undelegate_amount);
-        mTvUndelegateDenom      = rootView.findViewById(R.id.undelegate_denom);
-        mFeeAmount              = rootView.findViewById(R.id.undelegate_fees);
-        mFeeType                = rootView.findViewById(R.id.undelegate_fees_type);
-        mValidatorName          = rootView.findViewById(R.id.undelegate_moniker);
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mTime                   = rootView.findViewById(R.id.undelegate_time);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mTvUndelegateAmount = rootView.findViewById(R.id.undelegate_amount);
+        mTvUndelegateDenom = rootView.findViewById(R.id.undelegate_denom);
+        mFeeAmount = rootView.findViewById(R.id.undelegate_fees);
+        mFeeType = rootView.findViewById(R.id.undelegate_fees_type);
+        mValidatorName = rootView.findViewById(R.id.undelegate_moniker);
+        mMemo = rootView.findViewById(R.id.memo);
+        mTime = rootView.findViewById(R.id.undelegate_time);
+        mBeforeBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -49,7 +49,8 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), getSActivity().mAmount.amount, mTvUndelegateDenom, mTvUndelegateAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeType, mFeeAmount);
 
@@ -60,7 +61,7 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if(v.equals(mBeforeBtn)) {
+        if (v.equals(mBeforeBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
@@ -70,7 +71,7 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
     }
 
     private UnDelegateActivity getSActivity() {
-        return (UnDelegateActivity)getBaseActivity();
+        return (UnDelegateActivity) getBaseActivity();
     }
 
 }

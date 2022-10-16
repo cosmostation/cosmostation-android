@@ -52,7 +52,8 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mDenomFeeType, mFeeAmount);
 
         List<String> texts = Lists.newArrayList();
