@@ -84,7 +84,6 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
-                super.onPageSelected(i);
                 if (i == 0) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzClaimCommissionActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_authz_commission_step_0));

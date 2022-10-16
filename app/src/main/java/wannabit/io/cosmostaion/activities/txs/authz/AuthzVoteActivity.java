@@ -83,7 +83,6 @@ public class AuthzVoteActivity extends BaseBroadCastActivity {
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
-                super.onPageSelected(i);
                 if (i == 0) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzVoteActivity.this, R.drawable.step_1_img));
                     mTvStep.setText(getString(R.string.str_authz_vote_step_0));
