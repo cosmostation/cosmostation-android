@@ -80,13 +80,11 @@ public class VoteActivity extends BaseBroadCastActivity {
         }.getType());
 
         mPageAdapter = new VotePageAdapter(getSupportFragmentManager(), getLifecycle());
-        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
-                super.onPageSelected(i);
                 if (i == 0) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(VoteActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_vote_step_0));

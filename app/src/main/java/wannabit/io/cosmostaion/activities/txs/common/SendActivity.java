@@ -88,13 +88,11 @@ public class SendActivity extends BaseBroadCastActivity {
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager(), getLifecycle());
-        mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
-                super.onPageSelected(i);
                 if (i == 0) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(SendActivity.this, R.drawable.step_1_img));
                     mTvStep.setText(getString(R.string.str_send_step_0));

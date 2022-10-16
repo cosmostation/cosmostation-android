@@ -72,7 +72,6 @@ public class UndelegateActivity extends BaseBroadCastActivity {
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new UnDelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
-        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
