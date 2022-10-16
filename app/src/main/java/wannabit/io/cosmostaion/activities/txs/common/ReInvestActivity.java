@@ -93,11 +93,9 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ReInvestActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_reinvest_step_2));
-                    mPageAdapter.mFragments.get(2).onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(ReInvestActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_reinvest_step_3));
-                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 }
             }
         });
