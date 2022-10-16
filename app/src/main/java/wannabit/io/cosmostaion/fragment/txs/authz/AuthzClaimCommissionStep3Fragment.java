@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.authz;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzClaimCommissionActivity;
-import wannabit.io.cosmostaion.activities.txs.authz.AuthzClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -60,7 +57,8 @@ public class AuthzClaimCommissionStep3Fragment extends BaseFragment implements V
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         Coin mainCommission = getSActivity().mGranterCommission;
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mainCommission, mRewardDenom, mTvRewardAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);

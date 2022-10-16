@@ -55,7 +55,8 @@ public class AuthzClaimCommissionStep0Fragment extends BaseFragment implements V
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         Coin mainCommission = getSActivity().mGranterCommission;
         WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, mainCommission, mTvDenomTitle, mTvCommissionAmount);
 

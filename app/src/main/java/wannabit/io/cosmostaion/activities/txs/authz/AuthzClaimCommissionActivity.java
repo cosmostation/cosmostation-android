@@ -8,17 +8,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 
@@ -34,8 +36,6 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzClaimCommissionStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzClaimCommissionStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzClaimCommissionGrpcTask;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -46,7 +46,7 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
     private TextView mTitle;
     private ImageView mIvStep;
     private TextView mTvStep;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private AuthzCommissionPageAdapter mPageAdapter;
 
     public Coin mGranterCommission;
@@ -78,38 +78,26 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
         mGranterCommission = getIntent().getParcelableExtra("granterCommission");
         mGranter = getIntent().getStringExtra("granter");
 
-        mPageAdapter = new AuthzCommissionPageAdapter(getSupportFragmentManager());
-        mViewPager.setOffscreenPageLimit(3);
+        mPageAdapter = new AuthzCommissionPageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setAdapter(mPageAdapter);
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
+        mViewPager.setUserInputEnabled(false);
+        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
+                super.onPageSelected(i);
                 if (i == 0) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzClaimCommissionActivity.this, R.drawable.step_4_img_1));
                     mTvStep.setText(getString(R.string.str_authz_commission_step_0));
-
                 } else if (i == 1) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzClaimCommissionActivity.this, R.drawable.step_4_img_2));
                     mTvStep.setText(getString(R.string.str_tx_step_memo));
-
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzClaimCommissionActivity.this, R.drawable.step_4_img_3));
                     mTvStep.setText(getString(R.string.str_tx_step_fee));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(AuthzClaimCommissionActivity.this, R.drawable.step_4_img_4));
                     mTvStep.setText(getString(R.string.str_tx_step_confirm));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
             }
         });
         mViewPager.setCurrentItem(0);
@@ -144,7 +132,7 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getItemCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -163,7 +151,7 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
         new WithdrawAddressGrpcTask(getBaseApplication(), result -> {
             if (result.isSuccess && result.resultData != null) {
                 mWithdrawAddress = (String) result.resultData;
-                mPageAdapter.mCurrentFragment.onRefreshTab();
+                mPageAdapter.mFragments.get(0).onRefreshTab();
             }
         }, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -186,29 +174,25 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new AuthzClaimCommissionGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(AuthzClaimCommissionActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new AuthzClaimCommissionGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(AuthzClaimCommissionActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mBaseChain, mAccount, WKey.convertDpAddressToDpOpAddress(mGranter, ChainFactory.getChain(mBaseChain)), mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
 
-    private class AuthzCommissionPageAdapter extends FragmentPagerAdapter {
+    private static class AuthzCommissionPageAdapter extends FragmentStateAdapter {
 
-        private ArrayList<BaseFragment> mFragments = new ArrayList<>();
-        private BaseFragment mCurrentFragment;
+        private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
-        public AuthzCommissionPageAdapter(FragmentManager fm) {
-            super(fm);
+        public AuthzCommissionPageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+            super(fragmentManager, lifecycle);
             mFragments.clear();
             mFragments.add(AuthzClaimCommissionStep0Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
@@ -216,30 +200,15 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
             mFragments.add(AuthzClaimCommissionStep3Fragment.newInstance());
         }
 
+        @NonNull
         @Override
-        public BaseFragment getItem(int position) {
+        public Fragment createFragment(int position) {
             return mFragments.get(position);
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return mFragments.size();
-        }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            if (getCurrentFragment() != object) {
-                mCurrentFragment = ((BaseFragment) object);
-            }
-            super.setPrimaryItem(container, position, object);
-        }
-
-        public BaseFragment getCurrentFragment() {
-            return mCurrentFragment;
-        }
-
-        public ArrayList<BaseFragment> getFragments() {
-            return mFragments;
         }
     }
 }
