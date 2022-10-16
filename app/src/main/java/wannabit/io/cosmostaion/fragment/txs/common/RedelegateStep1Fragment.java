@@ -31,7 +31,7 @@ import java.util.List;
 import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.common.ReDelegateActivity;
+import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -95,8 +95,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
     public void onTaskResponse(TaskResult result) {
         if (!isAdded()) return;
         if (result.taskType == TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO) {
-            List<Staking.RedelegationResponse> redelegates = (List<Staking.RedelegationResponse>) result.resultData;
-            if (redelegates != null && redelegates.size() > 0 && redelegates.get(0).getEntriesCount() >= 7) {
+            List<Staking.RedelegationResponse> reDelegates = (List<Staking.RedelegationResponse>) result.resultData;
+            if (reDelegates != null && reDelegates.size() > 0 && reDelegates.get(0).getEntriesCount() >= 7) {
                 Toast.makeText(getContext(), R.string.error_redelegate_cnt_over, Toast.LENGTH_SHORT).show();
                 return;
 
@@ -124,7 +124,8 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             try {
                 Picasso.get().load(chainConfig.monikerUrl() + mGrpcValidator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
 
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
             holder.itemRoot.setOnClickListener(v -> {
@@ -180,7 +181,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         }
     }
 
-    private ReDelegateActivity getSActivity() {
-        return (ReDelegateActivity) getBaseActivity();
+    private RedelegateActivity getSActivity() {
+        return (RedelegateActivity) getBaseActivity();
     }
 }

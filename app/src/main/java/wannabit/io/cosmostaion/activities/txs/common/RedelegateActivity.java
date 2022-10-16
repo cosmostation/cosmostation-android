@@ -45,7 +45,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class ReDelegateActivity extends BaseBroadCastActivity implements TaskListener {
+public class RedelegateActivity extends BaseBroadCastActivity implements TaskListener {
 
     private ImageView mChainBg;
     private Toolbar mToolbar;
@@ -53,7 +53,7 @@ public class ReDelegateActivity extends BaseBroadCastActivity implements TaskLis
     private ImageView mIvStep;
     private TextView mTvStep;
     private ViewPager2 mViewPager;
-    private RedelegatePageAdapter mPageAdapter;
+    private ReDelegatePageAdapter mPageAdapter;
 
     private int mTaskCount;
     public ArrayList<Staking.Validator> mGRpcTopValidators = new ArrayList<>();
@@ -74,7 +74,7 @@ public class ReDelegateActivity extends BaseBroadCastActivity implements TaskLis
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_1_img));
+        mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_1_img));
         mTvStep.setText(getString(R.string.str_redelegate_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -84,36 +84,32 @@ public class ReDelegateActivity extends BaseBroadCastActivity implements TaskLis
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
 
-        mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
-        mViewPager.setOffscreenPageLimit(3);
+        mPageAdapter = new ReDelegatePageAdapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setUserInputEnabled(false);
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_1_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_1_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_0));
                 } else if (i == 1) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_2_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_2_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_1));
-                    mPageAdapter.mFragments.get(1).onRefreshTab();
                 } else if (i == 2) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_3_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_2));
                 } else if (i == 3) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_4_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_3));
-                    mPageAdapter.mFragments.get(3).onRefreshTab();
                 } else if (i == 4) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(ReDelegateActivity.this, R.drawable.step_5_img));
+                    mIvStep.setImageDrawable(ContextCompat.getDrawable(RedelegateActivity.this, R.drawable.step_5_img));
                     mTvStep.setText(getString(R.string.str_redelegate_step_4));
-                    mPageAdapter.mFragments.get(4).onRefreshTab();
                 }
             }
         });
         mViewPager.setCurrentItem(0);
-        onFetchValidtors();
+        onFetchValidators();
     }
 
     @Override
@@ -163,7 +159,7 @@ public class ReDelegateActivity extends BaseBroadCastActivity implements TaskLis
         if (getBaseDao().isAutoPass()) {
             onBroadCastTx();
         } else {
-            Intent intent = new Intent(ReDelegateActivity.this, PasswordCheckActivity.class);
+            Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
@@ -177,22 +173,19 @@ public class ReDelegateActivity extends BaseBroadCastActivity implements TaskLis
     });
 
     private void onBroadCastTx() {
-        new RedelegateGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(ReDelegateActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new RedelegateGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(RedelegateActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mBaseChain, mAccount, mValAddress, mToValAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    private void onFetchValidtors() {
+    private void onFetchValidators() {
         if (mTaskCount > 0) return;
         mTaskCount = 1;
         new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -222,11 +215,11 @@ public class ReDelegateActivity extends BaseBroadCastActivity implements TaskLis
         }
     }
 
-    private static class RedelegatePageAdapter extends FragmentStateAdapter {
+    private static class ReDelegatePageAdapter extends FragmentStateAdapter {
 
         private final ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
-        public RedelegatePageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+        public ReDelegatePageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
             super(fragmentManager, lifecycle);
             mFragments.clear();
             mFragments.add(RedelegateStep0Fragment.newInstance());

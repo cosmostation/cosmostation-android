@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.common.ReDelegateActivity;
+import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -50,7 +50,8 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), getSActivity().mAmount.amount, mTvRedelegateDenom, mTvRedelegateAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
 
@@ -59,9 +60,8 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
         mMemo.setText(getSActivity().mTxMemo);
     }
 
-
-    private ReDelegateActivity getSActivity() {
-        return (ReDelegateActivity) getBaseActivity();
+    private RedelegateActivity getSActivity() {
+        return (RedelegateActivity) getBaseActivity();
     }
 
     @Override

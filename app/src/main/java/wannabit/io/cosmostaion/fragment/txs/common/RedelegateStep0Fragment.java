@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +19,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.common.ReDelegateActivity;
+import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -36,7 +35,6 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
-    private RelativeLayout mProgress;
 
     public static RedelegateStep0Fragment newInstance() {
         return new RedelegateStep0Fragment();
@@ -62,7 +60,6 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
         mAdd100 = rootView.findViewById(R.id.btn_add_100);
         mAddHalf = rootView.findViewById(R.id.btn_add_half);
         mAddMax = rootView.findViewById(R.id.btn_add_all);
-        mProgress = rootView.findViewById(R.id.reward_progress);
         mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         mClearAll.setOnClickListener(this);
@@ -83,7 +80,6 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mDenomTitle);
         mMaxAvailable = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
         mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
-        mProgress.setVisibility(View.GONE);
         onAddAmountWatcher();
     }
 
@@ -144,11 +140,6 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 }
             }
         });
-    }
-
-    @Override
-    public void onRefreshTab() {
-        mProgress.setVisibility(View.GONE);
     }
 
     @Override
@@ -233,8 +224,8 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
         }
     }
 
-    private ReDelegateActivity getSActivity() {
-        return (ReDelegateActivity) getBaseActivity();
+    private RedelegateActivity getSActivity() {
+        return (RedelegateActivity) getBaseActivity();
     }
 
 }
