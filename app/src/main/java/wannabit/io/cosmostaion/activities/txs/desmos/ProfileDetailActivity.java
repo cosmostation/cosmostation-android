@@ -116,7 +116,7 @@ public class ProfileDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnEdit)) {
-            Toast.makeText(this, R.string.str_preparing, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Preparing...", Toast.LENGTH_SHORT).show();
             return;
         }
     }
