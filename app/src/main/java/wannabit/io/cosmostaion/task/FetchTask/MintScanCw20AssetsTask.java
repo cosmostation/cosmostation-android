@@ -6,6 +6,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_CW20
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCw20Assets;
@@ -27,8 +28,14 @@ public class MintScanCw20AssetsTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
+            ChainConfig chainConfig = ChainFactory.getChain(mBaseChain);
+            if (!chainConfig.wasmSupport()) {
+                mResult.isSuccess = false;
+                return mResult;
+            }
+
             Response<ResCw20Assets> response = ApiClient.getMintscan(mApp).getCw20Assets(ChainFactory.getChain(mBaseChain).chainName()).execute();
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;
                 return mResult;

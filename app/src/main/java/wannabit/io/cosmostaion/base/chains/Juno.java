@@ -29,6 +29,7 @@ public class Juno extends ChainConfig{
 
     public boolean erc20CoinSupport() { return true; }
     public boolean dexSupport() { return false; }
+    public boolean wasmSupport() { return true; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
