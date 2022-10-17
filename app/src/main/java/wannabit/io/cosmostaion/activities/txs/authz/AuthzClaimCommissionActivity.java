@@ -34,8 +34,6 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzClaimCommissionStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzClaimCommissionStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzClaimCommissionGrpcTask;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -144,7 +142,7 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -186,18 +184,15 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new AuthzClaimCommissionGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(AuthzClaimCommissionActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new AuthzClaimCommissionGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(AuthzClaimCommissionActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mBaseChain, mAccount, WKey.convertDpAddressToDpOpAddress(mGranter, ChainFactory.getChain(mBaseChain)), mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

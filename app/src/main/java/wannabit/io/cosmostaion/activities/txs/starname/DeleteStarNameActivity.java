@@ -36,7 +36,6 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.DeleteStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.starname.DeleteStarName3Fragment;
-import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteStarnameGrpcTask;
 
@@ -155,7 +154,7 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -188,12 +187,7 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new DeleteStarnameGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                onTxIntent(result);
-            }
-        }, mAccount, mBaseChain, mStarNameDomain, mStarNameAccount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc(), mStarNameDomainType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new DeleteStarnameGrpcTask(getBaseApplication(), result -> onTxIntent(result), mAccount, mBaseChain, mStarNameDomain, mStarNameAccount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc(), mStarNameDomainType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onTxIntent(TaskResult result) {

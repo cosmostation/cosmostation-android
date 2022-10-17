@@ -34,8 +34,6 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.desmos.ProfileStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.desmos.ProfileStep3Fragment;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.CreateProfileGrpcTask;
 
 public class ProfileActivity extends BaseBroadCastActivity {
@@ -133,7 +131,7 @@ public class ProfileActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -167,25 +165,22 @@ public class ProfileActivity extends BaseBroadCastActivity {
 
     private void onBroadCastTx() {
         String profileUri = "";
-            String coverUri = "";
-            if (mProfileImg != null) {
-                profileUri = "https://ipfs.infura.io/ipfs/" + mProfileImg;
-            }
-            if (mCoverImg != null) {
-                coverUri = "https://ipfs.infura.io/ipfs/" + mCoverImg;
-            }
-        new CreateProfileGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(ProfileActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        String coverUri = "";
+        if (mProfileImg != null) {
+            profileUri = "https://ipfs.infura.io/ipfs/" + mProfileImg;
+        }
+        if (mCoverImg != null) {
+            coverUri = "https://ipfs.infura.io/ipfs/" + mCoverImg;
+        }
+        new CreateProfileGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(ProfileActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mAccount, mBaseChain, mDtag, mNickname, mBio, profileUri, coverUri, mAccount.address, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

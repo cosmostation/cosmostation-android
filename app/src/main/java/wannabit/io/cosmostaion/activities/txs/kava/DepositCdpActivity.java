@@ -38,7 +38,6 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.DepositCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.DepositCdpStep3Fragment;
-import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpsByOwnerGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.KavaDepositCdpGrpcTask;
@@ -84,7 +83,6 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(DepositCdpActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_deposit_cdp_step_1));
-
 
 
         mPageAdapter = new DepositCdpPageAdapter(getSupportFragmentManager());
@@ -165,7 +163,7 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -198,18 +196,15 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new KavaDepositCdpGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(DepositCdpActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new KavaDepositCdpGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(DepositCdpActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mAccount, mBaseChain, mAccount.address, mAccount.address, mCollateral, mCollateralType, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

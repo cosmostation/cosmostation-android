@@ -35,8 +35,6 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.StartUnbondingStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.osmosis.StartUnbondingStep3Fragment;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisBeginUnbondingGrpcTask;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
 
@@ -148,7 +146,7 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -182,22 +180,19 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
 
     private void onBroadCastTx() {
         ArrayList<Long> tempList = new ArrayList<>();
-            for (Lock.PeriodLock lockup : mOsmosisLockups) {
-                tempList.add(lockup.getID());
-            }
+        for (Lock.PeriodLock lockup : mOsmosisLockups) {
+            tempList.add(lockup.getID());
+        }
 
-        new OsmosisBeginUnbondingGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(StartUnbondingActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new OsmosisBeginUnbondingGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(StartUnbondingActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mAccount, mBaseChain, tempList, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
