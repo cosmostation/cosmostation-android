@@ -86,6 +86,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
@@ -563,7 +564,12 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         onUpdateView();
         WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
         int denomDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mFeeData.denom);
-        mGasValue.setText(WDp.dpAssetValue(getBaseDao(), mFeeData.denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+        Asset asset = getBaseDao().getAsset(mChainConfig, mFeeData.denom);
+        if (asset.price_denom != null) {
+            mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+        } else {
+            mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+        }
         mSpeedTxt.setText(mFeeInfo.get(mSelectedFeeInfo).msg);
         getSActivity().onHideWaitDialog();
     }
