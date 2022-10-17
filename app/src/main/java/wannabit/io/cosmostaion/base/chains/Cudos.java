@@ -31,6 +31,7 @@ public class Cudos extends ChainConfig {
     public String addressPrefix() { return "cudos"; }
 
     public boolean dexSupport() { return false; }
+    public boolean wasmSupport() { return true; }
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "lcd-cudos-app.cosmostation.io"; }
