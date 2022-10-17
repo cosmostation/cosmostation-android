@@ -109,6 +109,9 @@ public class ChainFactory {
                 case KONSTELL_MAIN:
                     return new Konstellation();
 
+                case KUJIRA_MAIN:
+                    return new Kujira();
+
                 case LIKECOIN_MAIN:
                     return new LikeCoin();
 

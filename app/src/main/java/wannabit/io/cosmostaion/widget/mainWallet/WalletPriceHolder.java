@@ -5,10 +5,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,7 +20,6 @@ import androidx.core.content.ContextCompat;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -53,21 +52,7 @@ public class WalletPriceHolder extends BaseHolder {
         final String denom = chainConfig.mainDenom();
 
         itemPerPrice.setText(WDp.dpPrice(data, denom));
-        itemUpDownPrice.setText(WDp.dpPriceChange(data, denom));
-        final BigDecimal lastUpDown = WDp.priceChange(data, denom);
-        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
-            if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
-                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteNo));
-            } else {
-                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
-            }
-        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
-            if (mainActivity.getBaseDao().getPriceColorOption() == 1) {
-                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteYes));
-            } else {
-                itemUpDownPrice.setTextColor(ContextCompat.getColor(mainActivity, R.color.colorVoteNo));
-            }
-        }
+        valueChangeStatus(mainActivity, data, denom, itemUpDownPrice);
 
         if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
             itemBuyLayer.setVisibility(View.VISIBLE);
@@ -96,6 +81,26 @@ public class WalletPriceHolder extends BaseHolder {
         itemRoot.setOnClickListener(v -> {
             if (!chainConfig.coingeckoLink().isEmpty()) mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.coingeckoLink())));
         });
+    }
 
+    private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
+        BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
+        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
+            if (baseData.getPriceColorOption() == 1) {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
+            } else {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
+            }
+            changeTxt.setText(lastUpDown + "%");
+        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
+            if (baseData.getPriceColorOption() == 1) {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
+            } else {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
+            }
+            changeTxt.setText("+" + lastUpDown + "%");
+        } else {
+            changeTxt.setText("");
+        }
     }
 }
