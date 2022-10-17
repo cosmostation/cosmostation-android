@@ -47,7 +47,7 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
     private Authz.Grant mGrant;
-    private ArrayList<Coin> mGrantAvailbale = new ArrayList<>();
+    private ArrayList<Coin> mGrantAvailable = new ArrayList<>();
     private Coin mSelectedCoin;
 
     private int mDpDecimal = 6;
@@ -82,7 +82,7 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
         mAddMax = rootView.findViewById(R.id.btn_add_all);
 
         mGrant = getSActivity().mGrant;
-        mGrantAvailbale = getSActivity().mGrantAvailbale;
+        mGrantAvailable = getSActivity().mGrantAvailable;
 
         mBefore.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
@@ -104,12 +104,12 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
             getSActivity().onBackPressed();
         }
 
-        mGrantAvailbale.sort((o1, o2) -> {
+        mGrantAvailable.sort((o1, o2) -> {
             if (o1.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) return -1;
             if (o2.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) return 1;
             else return 0;
         });
-        mSelectedCoin = mGrantAvailbale.get(0);
+        mSelectedCoin = mGrantAvailable.get(0);
         onUpdateView();
     }
 
@@ -213,13 +213,13 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
 
         } else if (v.equals(mSelectCoinBtn) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
-            bundleData.putSerializable(SelectChainListDialog.SEND_COIN_LIST_BUNDLE_KEY, mGrantAvailbale);
+            bundleData.putSerializable(SelectChainListDialog.SEND_COIN_LIST_BUNDLE_KEY, mGrantAvailable);
             bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_SEND_COIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
             dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
             getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
                 int result = bundle.getInt(BaseConstant.POSITION);
-                mSelectedCoin = mGrantAvailbale.get(result);
+                mSelectedCoin = mGrantAvailable.get(result);
                 mAmountInput.setText("");
                 onUpdateView();
             });

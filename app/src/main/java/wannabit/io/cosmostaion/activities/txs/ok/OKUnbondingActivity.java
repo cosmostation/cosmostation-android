@@ -36,8 +36,6 @@ import wannabit.io.cosmostaion.fragment.txs.ok.OKUnbondingFragment0;
 import wannabit.io.cosmostaion.fragment.txs.ok.OKUnbondingFragment3;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 
 public class OKUnbondingActivity extends BaseBroadCastActivity {
     private RelativeLayout mRootView;
@@ -123,7 +121,7 @@ public class OKUnbondingActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -156,18 +154,15 @@ public class OKUnbondingActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new SimpleOkWithdrawTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(OKUnbondingActivity.this, TxDetailActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new SimpleOkWithdrawTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(OKUnbondingActivity.this, TxDetailActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mAccount, mToWithdrawCoin, mTxMemo, mTxFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

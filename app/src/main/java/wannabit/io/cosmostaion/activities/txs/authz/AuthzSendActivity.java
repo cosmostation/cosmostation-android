@@ -37,8 +37,6 @@ import wannabit.io.cosmostaion.fragment.txs.authz.AuthzSendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzSendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzSendStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzSendGrpcTask;
 
 public class AuthzSendActivity extends BaseBroadCastActivity {
@@ -52,7 +50,7 @@ public class AuthzSendActivity extends BaseBroadCastActivity {
     private AuthzSendPageAdapter mPageAdapter;
 
     public Authz.Grant mGrant;
-    public ArrayList<Coin> mGrantAvailbale = new ArrayList<>();
+    public ArrayList<Coin> mGrantAvailable = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +78,7 @@ public class AuthzSendActivity extends BaseBroadCastActivity {
 
         mGrant = (Authz.Grant) getIntent().getSerializableExtra("grant");
         mGranter = getIntent().getStringExtra("granter");
-        mGrantAvailbale = (ArrayList<Coin>) getIntent().getSerializableExtra("grantAvailable");
+        mGrantAvailable = (ArrayList<Coin>) getIntent().getSerializableExtra("grantAvailable");
 
         mPageAdapter = new AuthzSendPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(4);
@@ -152,7 +150,7 @@ public class AuthzSendActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -169,7 +167,7 @@ public class AuthzSendActivity extends BaseBroadCastActivity {
 
     public void onAuthzSend() {
         if (getBaseDao().isAutoPass()) {
-           onBroadCastTx();
+            onBroadCastTx();
         } else {
             Intent intent = new Intent(AuthzSendActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);
@@ -185,18 +183,15 @@ public class AuthzSendActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new AuthzSendGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(AuthzSendActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new AuthzSendGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(AuthzSendActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mBaseChain, mAccount, mGranter, mToAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

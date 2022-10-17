@@ -38,8 +38,6 @@ import wannabit.io.cosmostaion.fragment.txs.authz.AuthzVoteStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzVoteStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzVoteStep4Fragment;
 import wannabit.io.cosmostaion.network.res.ResProposal;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzVoteGrpcTask;
 
 public class AuthzVoteActivity extends BaseBroadCastActivity {
@@ -150,7 +148,7 @@ public class AuthzVoteActivity extends BaseBroadCastActivity {
     }
 
     public void onNextStep() {
-        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mPageAdapter.getCount() - 1) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -183,18 +181,15 @@ public class AuthzVoteActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new AuthzVoteGrpcTask(getBaseApplication(), new TaskListener() {
-            @Override
-            public void onTaskResponse(TaskResult result) {
-                Intent txIntent = new Intent(AuthzVoteActivity.this, TxDetailgRPCActivity.class);
-                txIntent.putExtra("isGen", true);
-                txIntent.putExtra("isSuccess", result.isSuccess);
-                txIntent.putExtra("errorCode", result.errorCode);
-                txIntent.putExtra("errorMsg", result.errorMsg);
-                String hash = String.valueOf(result.resultData);
-                if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-                startActivity(txIntent);
-            }
+        new AuthzVoteGrpcTask(getBaseApplication(), result -> {
+            Intent txIntent = new Intent(AuthzVoteActivity.this, TxDetailgRPCActivity.class);
+            txIntent.putExtra("isGen", true);
+            txIntent.putExtra("isSuccess", result.isSuccess);
+            txIntent.putExtra("errorCode", result.errorCode);
+            txIntent.putExtra("errorMsg", result.errorMsg);
+            String hash = String.valueOf(result.resultData);
+            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+            startActivity(txIntent);
         }, mBaseChain, mAccount, mGranter, mSelectedOpinion, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
