@@ -160,6 +160,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                         checkEmptyView();
                     });
                 }
+                onHideWaitDialog();
             }
 
             @Override
