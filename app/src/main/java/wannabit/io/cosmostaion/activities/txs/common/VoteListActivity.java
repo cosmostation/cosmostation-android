@@ -141,7 +141,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
     private void loadProposals() {
         if (mAccount == null) return;
-        onShowWaitDialog();
         checkEmptyView();
         ApiClient.getMintscan(VoteListActivity.this).getProposalList(mChain).enqueue(new Callback<ArrayList<ResProposal>>() {
             @Override
@@ -160,7 +159,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                         checkEmptyView();
                     });
                 }
-                onHideWaitDialog();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -183,7 +182,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             mEmptyProposalText.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
         }
-        onHideWaitDialog();
     }
 
     private void loadStatus() {
