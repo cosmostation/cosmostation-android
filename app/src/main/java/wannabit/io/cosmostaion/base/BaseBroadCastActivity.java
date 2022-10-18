@@ -26,7 +26,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mAmount;                            //Delegate, Undelegate, Redelegate, ReInvest
     public String                       mValAddress;                        //Delegate, Undelegate, ReInvest
     public String                       mToValAddress;                      //Redelegate
-    public ArrayList<Coin>              mRewards = new ArrayList<>();       //Reward
     public ArrayList<String>            mValAddresses = new ArrayList<>();  //ClaimReward
     public String                       mNewRewardAddress;                  //SetRewardAddress
     public Map<Integer, String>         mSelectedOpinion;                   //Vote
@@ -36,7 +35,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String                       mStarNameAccount;                           //starname
     public ArrayList<Types.Resource>    mStarNameResources = new ArrayList();       //starname
     public boolean                      mIsDomain;
-
 
     public Tx.SwapAmountInRoute         mOsmosisSwapAmountInRoute;                          // osmosis
     public long                         mOsmosisPoolId;
@@ -70,13 +68,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String                           mNftDescription;
     public String                           mNftHash;
     public QueryOuterClass.QueryNFTResponse mIrisResponse;
-
-    // AirDrop
-    public String                       mDtag;
-    public String                       mNickname;
-    public String                       mBio;
-    public String                       mCoverImg;
-    public String                       mProfileImg;
 
     // Kava
     public kava.swap.v1beta1.QueryOuterClass.PoolResponse       mKavaSwapPool;

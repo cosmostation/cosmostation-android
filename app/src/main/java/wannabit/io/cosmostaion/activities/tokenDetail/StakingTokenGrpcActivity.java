@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -24,7 +25,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingNewHolder;
@@ -114,29 +117,43 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mToolbarSymbolImg.setImageResource(mChainConfig.mainDenomImg());
         WDp.setDpSymbol(StakingTokenGrpcActivity.this, getBaseDao(), mChainConfig, mMainDenom, mToolbarSymbol);
 
-        mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mMainDenom));
-        mItemUpDownPrice.setText(WDp.dpPriceChange(getBaseDao(), mMainDenom));
-        final BigDecimal lastUpDown = WDp.priceChange(getBaseDao(), mMainDenom);
-        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
-            if (getBaseDao().getPriceColorOption() == 1) {
-                mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteNo));
-            } else {
-                mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteYes));
-            }
-        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
-            if (getBaseDao().getPriceColorOption() == 1) {
-                mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteYes));
-            } else {
-                mItemUpDownPrice.setTextColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, R.color.colorVoteNo));
-            }
+        final Asset asset = getBaseDao().getAsset(mChainConfig, mMainDenom);
+        if (asset.price_denom != null) {
+            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
+            valueChangeStatus(this, getBaseDao(), asset.price_denom, mItemUpDownPrice);
+            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
+        } else {
+            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mMainDenom));
+            valueChangeStatus(this, getBaseDao(), mMainDenom, mItemUpDownPrice);
+            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
         }
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mAddress.setText(mAccount.address);
         setEthAddress(mChainConfig, mEthAddress);
-        mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
+        BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
+        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
+            if (baseData.getPriceColorOption() == 1) {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
+            } else {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
+            }
+            changeTxt.setText(lastUpDown + "%");
+        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
+            if (baseData.getPriceColorOption() == 1) {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
+            } else {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
+            }
+            changeTxt.setText("+" + lastUpDown + "%");
+        } else {
+            changeTxt.setText("");
+        }
     }
 
     @Override

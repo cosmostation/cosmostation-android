@@ -89,7 +89,8 @@ public enum BaseChain {
     STRIDE_MAIN("stride-mainnet"),
     LIKECOIN_MAIN("likecoin-mainnet"),
     IXO_MAIN("ixo-mainnet"),
-    SOMMELIER_MAIN("sommelier-mainnet");
+    SOMMELIER_MAIN("sommelier-mainnet"),
+    KUJIRA_MAIN("kujira-mainnet");
 
     private final String chainName;
 
@@ -270,6 +271,9 @@ public enum BaseChain {
         if (chainName.equals(LIKECOIN_MAIN.chainName)) {
             return LIKECOIN_MAIN;
         }
+        if (chainName.equals(KUJIRA_MAIN.chainName)) {
+            return KUJIRA_MAIN;
+        }
 
         return null;
     }
@@ -302,6 +306,7 @@ public enum BaseChain {
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);
         result.add(KONSTELL_MAIN);
+        result.add(KUJIRA_MAIN);
         result.add(LIKECOIN_MAIN);
         result.add(LUM_MAIN);
         result.add(MEDI_MAIN);

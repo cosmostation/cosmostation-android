@@ -163,12 +163,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
 
         private boolean checkIsMyValidator(ArrayList<Validator> userList, final String targetName) {
-            return FluentIterable.from(userList).anyMatch(new Predicate<Validator>() {
-                @Override
-                public boolean apply(@Nullable Validator input) {
-                    return input.description.moniker.equals(targetName);
-                }
-            });
+            return FluentIterable.from(userList).anyMatch(input -> input.description.moniker.equals(targetName));
         }
 
         @Override

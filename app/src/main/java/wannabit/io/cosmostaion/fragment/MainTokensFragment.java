@@ -338,11 +338,16 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.base_denom, holder.itemSymbol);
                 holder.itemPath.setText(asset.description);
 
-                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
-                valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-
+                if (asset.price_denom != null) {
+                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
+                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
+                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, totalAmount, asset.decimal));
+                } else {
+                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
+                    valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
+                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
+                }
                 holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     Intent intent;
@@ -367,11 +372,16 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
-                valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-
+                if (asset.price_denom != null) {
+                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
+                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
+                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(coin.amount), asset.decimal));
+                } else {
+                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
+                    valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
+                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
+                }
                 holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     Intent intent = new Intent(getMainActivity(), SendActivity.class);
@@ -391,11 +401,16 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
-                valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-
+                if (asset.price_denom != null) {
+                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
+                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
+                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(coin.amount), asset.decimal));
+                } else {
+                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
+                    valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
+                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
+                }
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     if (chainConfig.baseChain().equals(KAVA_MAIN) && WUtil.isBep3Coin(asset.denom)) {
@@ -606,14 +621,14 @@ public class MainTokensFragment extends BaseFragment {
     private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
         BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
         if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
-            if (getMainActivity().getBaseDao().getPriceColorOption() == 1) {
+            if (baseData.getPriceColorOption() == 1) {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
             } else {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
             }
             changeTxt.setText(lastUpDown + "%");
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
-            if (getMainActivity().getBaseDao().getPriceColorOption() == 1) {
+            if (baseData.getPriceColorOption() == 1) {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
             } else {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));

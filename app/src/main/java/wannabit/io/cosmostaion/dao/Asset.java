@@ -56,6 +56,9 @@ public class Asset implements Parcelable {
     @SerializedName("coinGeckoId")
     public String coinGeckoId;
 
+    @SerializedName("price_denom")
+    public String price_denom;
+
     @SerializedName("contract")
     public String contract;
 
@@ -74,6 +77,7 @@ public class Asset implements Parcelable {
         port = in.readString();
         image = in.readString();
         coinGeckoId = in.readString();
+        price_denom = in.readString();
         contract = in.readString();
     }
 
@@ -110,6 +114,7 @@ public class Asset implements Parcelable {
         parcel.writeString(port);
         parcel.writeString(image);
         parcel.writeString(coinGeckoId);
+        parcel.writeString(price_denom);
         parcel.writeString(contract);
     }
 

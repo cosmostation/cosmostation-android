@@ -81,7 +81,6 @@ import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResGasRateParam;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
-import wannabit.io.cosmostaion.network.res.ResOkTickersList;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -208,7 +207,6 @@ public class BaseData {
     public ResOkStaking mOkStaking;
     public ResOkUnbonding mOkUnbonding;
     public ResOkTokenList mOkTokenList;
-    public ResOkTickersList mOkTickersList;
     public BigDecimal mOKBPrice = BigDecimal.ZERO;
 
     //GRPC for KAVA

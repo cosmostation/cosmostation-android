@@ -39,8 +39,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ValidatorAllFragment extends BaseFragment implements View.OnClickListener {
 
-    public final static int SELECT_All_VALIDATOR_SORTING = 6002;
-
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private AllValidatorAdapter mAllValidatorAdapter;
