@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.txs.common.VoteListActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -117,11 +116,7 @@ public class WalletChainHolder extends BaseHolder {
         }
         WUtil.setDexTitle(mainActivity, mainActivity.mBaseChain, mBtnDexTitle);
         mBtnDex.setOnClickListener(v -> {
-            if (mainActivity.mBaseChain.equals(BaseChain.DESMOS_MAIN)) {
-                mainActivity.onClickProfile();
-            } else {
-                mainActivity.startActivity(WUtil.getDexIntent(mainActivity, mainActivity.mBaseChain));
-            }
+            mainActivity.startActivity(WUtil.getDexIntent(mainActivity, mainActivity.mBaseChain));
         });
 
         if (chainConfig.wcSupport()) {

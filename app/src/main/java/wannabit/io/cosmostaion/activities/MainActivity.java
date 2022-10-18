@@ -31,10 +31,7 @@ import com.google.zxing.client.android.Intents;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import desmos.profiles.v1beta1.ModelsProfile;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.desmos.ProfileActivity;
-import wannabit.io.cosmostaion.activities.txs.desmos.ProfileDetailActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.activities.txs.wc.ConnectWalletActivity;
 import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
@@ -237,40 +234,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onFetchAllData() {
         onFetchAccountInfo(this);
-    }
-
-    public void onClickProfile() {
-        if (getBaseDao().mGRpcNodeInfo != null && getBaseDao().mGRpcAccount != null) {
-            if (getBaseDao().mGRpcAccount.getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-                Intent airdrop = new Intent(this, ProfileDetailActivity.class);
-                startActivity(airdrop);
-
-            } else {
-                if (!mAccount.hasPrivateKey) {
-                    onInsertKeyDialog();
-                    return;
-                }
-                if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
-                    Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Intent profile = new Intent(this, ProfileActivity.class);
-                startActivity(profile);
-            }
-        } else {
-            if (!mAccount.hasPrivateKey) {
-                onInsertKeyDialog();
-                return;
-            }
-            if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
-                Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Intent profile = new Intent(this, ProfileActivity.class);
-            startActivity(profile);
-        }
     }
 
     public void onStartWalletConnect(String wcUrl) {

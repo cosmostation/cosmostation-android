@@ -156,7 +156,7 @@ public class StarnameAssets implements Parcelable {
     public static StarnameAssets bnb    = new StarnameAssets("BNB coin", "asset:bnb", "BNB", "binance.png", BaseChain.BNB_MAIN.getChain());
     public static StarnameAssets btc    = new StarnameAssets("Bitcoin", "asset:btc", "BTC", "bitcoin.png", null);
     public static StarnameAssets comp   = new StarnameAssets("Compound", "asset:comp", "COMP", "comp.png", null);
-    public static StarnameAssets cro    = new StarnameAssets("Crypto.org", "asset:cro", "CRO", "crypto-org.png", BaseChain.CRYPTO_MAIN.getChain());
+    public static StarnameAssets cro    = new StarnameAssets("Crypto.org", "asset:cro", "CRO", "cryptoorg.png", BaseChain.CRYPTO_MAIN.getChain());
     public static StarnameAssets ctk    = new StarnameAssets("Shentu", "asset:ctk", "CTK", "shentu.png", BaseChain.CERTIK_MAIN.getChain());
     public static StarnameAssets dai    = new StarnameAssets("Dai Stablecoin", "asset:dai", "DAI", "dai.png", null);
     public static StarnameAssets dash   = new StarnameAssets("Dash", "asset:dash", "DASH", "dash.png", null);
