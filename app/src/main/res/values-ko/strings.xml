@@ -218,6 +218,10 @@
     <string name="str_available_send_amount"><![CDATA[전송 가능량 : ]]></string>
     <string name="str_tx_error_description">죄송합니다. 요청하신 전송이 실패하였습니다.\n아래에 보여지는 에러 코드와 메시지를 확인해 주세요.</string>
     <string name="str_success_loading">트랜잭션 전송에 성공하였습니다.\n블록 체인에 완전히 기록된 후 결과가 표시됩니다.\n(대기 시간은 Tx 수수료에 따라 달라집니다.)</string>
+    <string name="str_mnemonic_confirm_msg">복구 단어 분실은 자산 피해로 이어질 수 있습니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.</string>
+    <string name="str_mnemonic_confirm_msg2">생성된 니모닉은 [니모닉 관리]에서 확인 및 관리가 가능합니다.</string>
+    <string name="str_key_confirm_msg">Private Key는 현재 선택된 지갑을 복원할 때만 사용됩니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.\n\n
+                                       Private Key는 Mnemonics이 아닙니다\nMnemonics이 있는 경우 반드시 Mnemonics을 백업하세요.\nMnemonics으로 지갑을 만든 경우 파생된 지갑을 복원하려면 Mnemonics이 필요합니다.</string>
 
     <string name="str_front_guide_title_cosmos"><![CDATA[COSMOS HUB]]></string>
     <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
@@ -524,16 +528,12 @@
     <string name="str_help_stability_fee">CDP에서 생성한 USDX 대출에 대한 연간 수수료입니다.\n\n대출 상환시, 연간 수수료와 대출금을 모두 포함한 금액을 하게되면 CDP 계좌가 닫힙니다.</string>
     <string name="str_help_liquidation_penalty_t">청산시 추가 수수료</string>
     <string name="str_help_liquidation_penalty">담보로 설정한 코인 가격 변동에 의하여 CDP 계좌가 청산될 경우 유저가 추가적으로 납부해야할 수수료입니다.\n\n만약 담보 비율이 최소 담보 비율보다 낮아진다면, 유저의 CDP 계좌는 청산됩니다.</string>
-
-
     <string name="str_help_available_collateral">The amount of available %1$s in your wallet that can be deposited into the CDP as collateral.</string>
     <string name="str_help_self_deposited_collateral_t">나의 담보 수량</string>
     <string name="str_help_self_deposited_collateral_">본 계정에서 유저가 해당 CDP 계좌에 담보물로 입금한 %1$s 수량입니다.</string>
     <string name="str_help_total_deposited_collateral_t">전체 담보 수량</string>
     <string name="str_help_total_deposited_collateral">해당 CDP 계좌에 담보물로 입금된 모든 %1$s 수량입니다.</string>
     <string name="str_help_withdrawable">해당 CDP 계좌에 입금된 담보물 중 출금 가능한 최대 담보물 수량입니다.\n\n담보물 출금 수량이 많을수록 대출금 대비 담보 비율이 낮아지며, 청산 가능성이 높아집니다.</string>
-
-
     <string name="str_help_loaned_amount_t">대출 금액</string>
     <string name="str_help_loaned_amount">해당 CDP 계좌를 통해 대출받은 총 USDX 수량입니다.</string>
     <string name="str_help_remaining_loan_capacity_t">추가 대출 가능 금액</string>
@@ -1085,32 +1085,14 @@
     <string name="str_osmosis_join_receive_lp_coin">Receiving LP Coin</string>
     <string name="str_exit_insert_lp_coin">Insert LP Coin</string>
     <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
-    <string name="str_rizon_event_horizon_msg_title">이벤트 호라이즌</string>
-    <string name="str_rizon_event_horizon_msg">에이치닥 체인의 자산을 라이즌 체인으로 스왑을 진행합니다.\n스왑 특성상 되돌릴 수 없으며, 두 체인간의 비동기적 작동으로 인해 실제 스왑 완료시까지 시간이 걸릴 수 있습니다.</string>
-    <string name="str_rizon_event_horizon_status">스왑 상태 확인</string>
-    <string name="str_rizon_event_horizon_status_title">전체 결과</string>
-    <string name="str_rizon_event_horizon_request_time">요청 시간</string>
-    <string name="str_rizon_event_horizon_request_id">요청 ID</string>
-    <string name="str_rizon_swap_result">트랜잭션 결과</string>
-    <string name="str_rizon_swap_block_hash">블록 해쉬</string>
-    <string name="str_rizon_swap_mint_recipient_Address">수령 주소</string>
     <string name="str_native_token_title">Native Coins</string>
     <string name="str_ibc_token_title">IBC Coins</string>
-    <string name="str_unknown_ibc_token_title">Unknown IBC Coins</string>
-    <string name="str_pool_coin_title">POOL Coins</string>
-    <string name="str_gravity_dex_token_title">Gravity Dex Coins</string>
     <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
-    <string name="str_kava_bep2_token_title">BEP2 Coins</string>
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_cw20_token_title">Contract Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
-    <string name="str_ibc_info_title">IBC information</string>
-    <string name="str_ibc_opposite_chain_id_title">Opposite Chain ID</string>
-    <string name="str_ibc_channel_title">Channel</string>
-    <string name="str_ibc_opposite_channel_title">Opposite Channel</string>
-    <string name="str_ibc_denom_title">Denom</string>
-    <string name="str_ibc_opposite_denom_title">Opposite Denom</string>
+
     <string name="str_title_start_lock_osmosis">코인 잠그기</string>
     <string name="str_osmosis_start_lock_step_0">락업 수량을 입력해주세요</string>
     <string name="str_osmosis_start_lock_step_1">메모를 입력하세요 (선택사항)</string>
@@ -1254,19 +1236,6 @@
     <string name="str_create_profile_bio">Bio</string>
     <string name="str_create_profile_profile_uri">Profile Uri</string>
     <string name="str_create_profile_cover_uri">Cover Uri</string>
-    <string name="str_link_account_step_0">링크하실 체인과 계정을 입력하세요</string>
-    <string name="str_link_account_step_1">메모를 입력하세요 (선택사항)</string>
-    <string name="str_link_account_step_2">Tx 수수료를 선택하세요</string>
-    <string name="str_link_account_step_3">입력하신 정보를 확인하세요</string>
-    <string name="str_select_link_chain">링크하실 체인을 고르세요</string>
-    <string name="error_no_account_this_chain">선택하신 체인의 연결가능한 계정이 없습니다.</string>
-    <string name="str_select_link_account">링크하실 계정을 고르세요.</string>
-    <string name="error_select_account_link">연결할 계정을 선택해 주세요.</string>
-
-    <string name="str_mnemonic_confirm_msg">복구 단어 분실은 자산 피해로 이어질 수 있습니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.</string>
-    <string name="str_mnemonic_confirm_msg2">생성된 니모닉은 [니모닉 관리]에서 확인 및 관리가 가능합니다.</string>
-    <string name="str_key_confirm_msg">Private Key는 현재 선택된 지갑을 복원할 때만 사용됩니다.\n오프라인으로 별도 보관하는 것을 강력히 권장하며, 본인 외 접근이 불가능하도록 유의해주세요.\n\n
-                                       Private Key는 Mnemonics이 아닙니다\nMnemonics이 있는 경우 반드시 Mnemonics을 백업하세요.\nMnemonics으로 지갑을 만든 경우 파생된 지갑을 복원하려면 Mnemonics이 필요합니다.</string>
 
     <string name="str_tx_step_memo">메모를 입력하세요 (선택사항)</string>
     <string name="str_tx_step_fee">Tx 수수료를 선택하세요</string>
@@ -1305,6 +1274,7 @@
     <string name="str_ibc_transfer_msg1">중앙화 거래소에서는 가상자산의 IBC 기능을 지원하지 않습니다.</string>
     <string name="str_ibc_transfer_msg2">반드시 IBC를 통해 해당 자산을 원래 체인으로 전송한 후, 거래소로의 출금을 진행하세요.</string>
 
+
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
     <string name="error_invalid_address_pubkey">부정확한 주소 입니다. 정확한 문자를 입력해 주세요.</string>
@@ -1332,37 +1302,22 @@
     <string name="error_not_enough_balance_to_vote">사용 가능 수량이 충분하지 않습니다.</string>
     <string name="error_small_reward">현재 이자가 너무 적습니다.</string>
     <string name="error_tx_time_out">블록 체인이 너무 바빠서 시간이 초과되었습니다. \ n요청한 트랜잭션이 수행되었을 것입니다. \ n히스토리를 참조하십시오.</string>
-    <string name="error_vesting_time">아직 전송이 활성화 되지 않았습니다.</string>
-    <string name="error_send_disable">아직 전송이 활성화 되지 않았습니다.</string>
-    <string name="error_real_testing">이 기능은 테스트 중입니다.</string>
     <string name="error_invalid_amounts">불가능한 수량</string>
     <string name="error_prepare">준비중...</string>
     <string name="error_not_enough_fee">Tx 수수료를 지불 할 사용가능 금액이 부족합니다.</string>
     <string name="error_network_error">네크워크 연결이 원활하지 않습니다.</string>
-    <string name="error_only_atom_for_fee">현재 아톰으로만 Tx 수수료가 가능합니다.</string>
     <string name="error_disabled_jailed">수감중인 노드에 위임하는 기능은 지원하지 않습니다.</string>
     <string name="error_unbond_cnt_over">위임 철회 가능 횟수를 초과하였습니다.</string>
-    <string name="error_unbond_cnt_over_iris">이전 요청한 위임철회가 완료되지 않았습니다.</string>
-    <string name="error_redelegate_cnt_over">재위임 가능 횟수를 초과하였습니다. 다른 검증인을 선택해주세요.</string>
     <string name="error_no_to_validator">재위임 받을 검증인을 선택해 주세요.</string>
     <string name="error_same_reward_address">이미 등록된 이자 주소와 동일합니다.</string>
-    <string name="error_max_account_over">최대 5개의 지갑이 등록 가능합니다.</string>
     <string name="error_reward_address_changed_msg">이자 지급 주소가 변경된 계정입니다. 컴파운딩 기능을 사용하실 수 없습니다.</string>
-    <string name="error_no_password">PIN 번호가 설정되지 않았습니다.</string>
     <string name="error_invalid_address_target">유효한 주소가 아닙니다.</string>
-    <string name="error_invalid_star_name">유효한 스타 네임이 아닙니다.</string>
-    <string name="error_iris_token_not_yet">아이리스 토큰 전송은 조만간 지원하겠습니다.</string>
-    <string name="error_iris_vote_only_validator">이 제안은 벨리데이터만 투표가 가능합니다.</string>
     <string name="error_no_bonding_no_vote">위임량이 없음으로 투표를 하실 수 없습니다.</string>
-    <string name="error_iris_already_voted">이미 투표를 하였습니다.</string>
     <string name="error_not_voting_period">투표 기간이 아닙니다.</string>
     <string name="error_not_selected_vote">투표하실 프로포절을 선택하세요.</string>
     <string name="error_no_option">의견을 선택해 주세요.</string>
-    <string name="error_no_tx">존재하지 않는 Tx입니다.</string>
-    <string name="error_not_yet">준비중 입니다!</string>
     <string name="error_less_than_min_deposit">최소 입금 수량보다 적습니다.</string>
     <string name="error_less_than_min_principal">최소 대출 금액보다 적습니다.</string>
-    <string name="error_dust_principal_remain">Remain Debt is less than 10$.</string>
     <string name="error_circuit_breaker">서킷 브래이크 발동중</string>
     <string name="error_not_enought_deposit_asset">입금 할 충분한 담보금이 없습니다.</string>
     <string name="error_not_enought_withdraw_asset">지금은 담보물을 출금할 수 없습니다.</string>
@@ -1394,7 +1349,6 @@
     <string name="error_no_available_to_deposit">공급할 자산이 없습니다.</string>
     <string name="error_no_deposited_asset">공급한 자산이 없습니다.</string>
     <string name="error_no_borrowable_asset">대출이 불가능 합니다.</string>
-    <string name="error_no_repay_asset">상환이 불가능합니다.</string>
     <string name="error_noting_repay_asset">상환할 내역이 없습니다.</string>
     <string name="error_no_incentive_to_claim">받을 인센티브가 없습니다.</string>
     <string name="error_no_incentive_claim_option">이자 받기 옵션을 선택해 주세요.</string>
@@ -1412,8 +1366,6 @@
     <string name="error_no_nft_image">NFT 이미지를 추가해주세요.</string>
     <string name="error_no_nft_title">NFT 이름을 입력하세요.</string>
     <string name="error_no_nft_description">NFT 설명을 입력하세요.</string>
-    <string name="error_nft_denom_count">Denom ID를 숫자, 소문자로 4~20자 입력해주세요.</string>
-    <string name="error_nft_denom_exist">Denom ID가 이미 존재합니다. 다른 아이디를 입력해주세요.</string>
     <string name="error_no_profile_dtag">Dtag값을 입력하세요.</string>
     <string name="error_already_registered_dtag">이미 등록된 Dtag입니다. 다른값을 입력하세요.</string>
     <string name="error_profile_dtag_count">Dtag를 공백과 특수문자를 제외한 6~30자를 입력해주세요.</string>
@@ -1435,7 +1387,6 @@
     <string name="tx_cancel_undelegate">위임 취소</string>
     <string name="tx_redelegate">재위임</string>
     <string name="tx_get_reward">이자 청구</string>
-    <string name="tx_get_reward_all">이자 모두 청구</string>
     <string name="tx_get_commission">수수료 청구</string>
     <string name="tx_fund_pool">커뮤니티 풀 펀딩</string>
     <string name="tx_change_reward_address">이자 주소 변경</string>
@@ -1455,24 +1406,15 @@
     <string name="tx_unjail">검증인 재 활성</string>
 
     <string name="tx_ibc_update_client">IBC 클라이언트\n업데이트</string>
-    <string name="tx_ibc_update_client2">IBC 클라이언트 업데이트</string>
     <string name="tx_ibc_send">IBC 보내기</string>
     <string name="tx_ibc_receive">IBC 받기</string>
     <string name="tx_ibc_acknowledgement">IBC 승인</string>
     <string name="tx_reinvest">컴파운딩</string>
     <string name="tx_new_order">새 주문</string>
     <string name="tx_Cancel_order">주문 취소</string>
-    <string name="tx_issue_token">코인 발행</string>
     <string name="tx_known">알수없음</string>
-    <string name="tx_medi_add_record">Add Record</string>
-    <string name="tx_medi_create_did">Create DID</string>
     <string name="tx_rizon_create_Token_swap">스왑 토큰 받기</string>
-    <string name="str_rizon_create_token_swap_hash">Legacy Chain Tx Hash</string>
-    <string name="str_rizon_create_token_swap_recipient">Recipient</string>
-    <string name="str_rizon_create_token_swap_amount">Amount</string>
 
-
-    <string name="tx_kava_post_price">가격 정보 갱신</string>
     <string name="tx_kava_create_cdp">CDP\n개설</string>
     <string name="tx_kava_deposit_cdp">CDP\n예치</string>
     <string name="tx_kava_withdraw_cdp">CDP\n출금</string>
@@ -1487,13 +1429,13 @@
     <string name="tx_kava_bep3_create">BEP3\n보내기</string>
     <string name="tx_kava_bep3_claim">BEP3\n청구하기</string>
     <string name="tx_kava_bep3_refund">BEP3\n환불하기</string>
-    <string name="tx_kava_incentive_reward">USDX 발행\n인센티브</string>
+
     <string name="tx_kava_hard_deposit">하드 풀\n예치</string>
     <string name="tx_kava_hard_withdraw">하드 풀\n출금</string>
     <string name="tx_kava_hard_borrow">하드 풀\n대출</string>
     <string name="tx_kava_hard_repay">하드 풀\n상환</string>
     <string name="tx_kava_hard_liquidate">하드 풀\n청산</string>
-    <string name="tx_kava_incentive_hard">하드 풀\n인센티브</string>
+
     <string name="tx_kava_swap_token">코인 스왑</string>
     <string name="tx_kava_swap_deposit">스왑풀\n예치</string>
     <string name="tx_kava_swap_withdraw">스왑풀\n출금</string>
@@ -1506,14 +1448,6 @@
     <string name="tx_kava_drawdebt_cdp2">CDP 대출</string>
     <string name="tx_kava_repaydebt_cdp2">CDP 상환</string>
     <string name="tx_kava_liquidate_cdp2">CDP 청산</string>
-    <string name="tx_send_htlc2">BEP3 보내기</string>
-    <string name="tx_receive_htlc2">BEP3 받기</string>
-    <string name="tx_create_htlc2">BEP3 생성</string>
-    <string name="tx_claim_htlc2">BEP3 청구하기</string>
-    <string name="tx_refund_htlc2">v 환불하기</string>
-    <string name="tx_kava_bep3_create2">BEP3 보내기</string>
-    <string name="tx_kava_bep3_claim2">BEP3 청구하기</string>
-    <string name="tx_kava_bep3_refund2">BEP3 환불하기</string>
     <string name="tx_kava_incentive_reward2">USDX 발행 인센티브</string>
     <string name="tx_kava_incentive_hard2">하드 풀 인센티브</string>
     <string name="tx_kava_hard_deposit2">하드 풀 예치</string>
@@ -1521,7 +1455,6 @@
     <string name="tx_kava_hard_borrow2">하드 풀 대출</string>
     <string name="tx_kava_hard_repay2">하드 풀 상환</string>
     <string name="tx_kava_hard_liquidate2">하드 풀 청산</string>
-    <string name="tx_kava_harvest_claim2">하드 풀 인센티브</string>
     <string name="tx_kava_swap_incentive2">스왑풀 인센티브</string>
     <string name="tx_kava_delegator_incentive2">위임자 인센티브</string>
     <string name="tx_kava_swap_deposit2">스왑풀 예치</string>
@@ -1531,10 +1464,7 @@
     <string name="tx_kava_save_withdraw">저축 출금</string>
     <string name="tx_kava_hard_mint_incentive">인센티브\nUSDX 빌헹</string>
     <string name="tx_kava_hard_hard_incentive">인센티브\n하드 대출</string>
-    <string name="tx_kava_hard_delegator_incentive">인센티브\n위임</string>
-    <string name="tx_kava_hard_swap_incentive">인센티브\스왑</string>
     <string name="tx_kava_hard_save_incentive">인센티브\nSaving</string>
-
 
     <string name="tx_starname_registe_domain">Domain 등록</string>
     <string name="tx_starname_registe_account">Account 등록</string>
@@ -1615,8 +1545,7 @@
     <string name="tx_save_profile_bio">Bio</string>
     <string name="tx_save_profile_url">Profile Url</string>
     <string name="tx_save_profile_cover_url">Cover Url</string>
-    <string name="tx_link_account_address">Linked Address</string>
-    <string name="tx_link_account_signer">Signer</string>
+
     <string name="tx_delete_profile">프로필 삭제</string>
     <string name="tx_create_relation">친구 추가</string>
     <string name="tx_delete_relation">친구 삭제</string>
@@ -1674,25 +1603,5 @@
     <string name="str_dp_date_format" >yyyy-MM-dd</string>
     <string name="str_wc_connect_dialog"> 연결을 허용하시겠습니까?</string>
     <string name="str_wc_allow_title">연결 허용된 목록</string>
-
-    <string-array name="currency_unit_array">
-        <item>USD</item>
-        <item>EUR</item>
-        <item>KRW</item>
-        <item>JPY</item>
-        <item>CNY</item>
-        <item>RUB</item>
-        <item>GBP</item>
-        <item>INR</item>
-        <item>BRL</item>
-        <item>IDR</item>
-        <item>DKK</item>
-        <item>NOK</item>
-        <item>SEK</item>
-        <item>CHF</item>
-        <item>AUD</item>
-        <item>CAD</item>
-        <item>MYR</item>
-    </string-array>
 
 </resources>
