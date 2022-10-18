@@ -32,7 +32,7 @@ public class Desmos extends ChainConfig {
     public String mainDenom() { return "udsm"; }
     public String addressPrefix() { return "desmos"; }
 
-    public boolean dexSupport() { return true; }
+    public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "lcd-desmos-app.cosmostation.io"; }

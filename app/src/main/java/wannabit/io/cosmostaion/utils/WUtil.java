@@ -1551,9 +1551,6 @@ public class WUtil {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_osmosislab), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
-        } else if (chain.equals(DESMOS_MAIN)) {
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_profile), null, null, null);
-            dexTitle.setText(R.string.str_desmos_airdrop);
         }
     }
 
