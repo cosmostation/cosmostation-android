@@ -57,7 +57,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_OK_ACCOUNT_BALANCE               = 2084;
     public final static int TASK_FETCH_OK_TOKEN_LIST                    = 2085;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
-    public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
     public final static int TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT         = 2123;
     public final static int TASK_FETCH_NODE_INFO                        = 2126;
     public final static int TASK_FETCH_OKEX_ALL_VALIDATORS              = 2127;

@@ -7,17 +7,13 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
-import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
-import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
-import wannabit.io.cosmostaion.network.res.ResOkTickersList;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -35,9 +31,6 @@ public interface OkChain {
 
     @GET("tokens")
     Call<ResOkTokenList> getTokenList();
-
-    @GET("tickers")
-    Call<ResOkTickersList> getDexTickers();
 
     @GET("staking/validators?status=all")
     Call<ArrayList<Validator>> getAllValidatorDetailList();
