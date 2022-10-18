@@ -83,7 +83,7 @@ public class HtlcSendCoinDialog extends DialogFragment {
 
             } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 if (tosendCoin.equals(BaseConstant.TOKEN_HTLC_KAVA_BNB)) {
-                    holder.coinImg.setImageResource(R.drawable.bnb_on_kava);
+                    holder.coinImg.setImageResource(R.drawable.token_binance);
                     holder.coinName.setText("BNB");
                 } else {
                     WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, tosendCoin, holder.coinImg);

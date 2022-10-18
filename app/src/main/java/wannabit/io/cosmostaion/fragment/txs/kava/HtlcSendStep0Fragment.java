@@ -163,7 +163,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) && (mKavaBep3Param2 != null && mKavaSuppies2 != null)) {
             mCapLayer.setVisibility(View.GONE);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB)) {
-                mToSendCoinImg.setImageResource(R.drawable.bnb_on_kava);
+                mToSendCoinImg.setImageResource(toChainConfig.mainDenomImg());
                 onSetDpDenom(getString(R.string.str_bnb_c));
             } else {
                 if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB)) {
