@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -57,7 +58,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private RecyclerView mRecyclerView;
     private LinearLayout mEmptyHistory;
     private HistoryAdapter mHistoryAdapter;
-    private TextView mNotYet;
 
     private ArrayList<BnbHistory> mBnbHistory = new ArrayList<>();
     private ArrayList<ResOkHistory.Data.Hit> mOkHistory = new ArrayList<>();
@@ -66,6 +66,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private Account mAccount;
     private BaseChain mBaseChain;
     private ChainConfig mChainConfig;
+    private View rootView;
+    private int mId = 0;
 
     public static MainHistoryFragment newInstance() {
         return new MainHistoryFragment();
@@ -79,7 +81,14 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
+        rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
+        initView();
+        onUpdateView();
+        onFetchHistory();
+        return rootView;
+    }
+
+    private void initView() {
         mCardView = rootView.findViewById(R.id.card_root);
         itemKeyStatus = rootView.findViewById(R.id.img_account);
         mWalletAddress = rootView.findViewById(R.id.wallet_address);
@@ -88,23 +97,37 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mEmptyHistory = rootView.findViewById(R.id.empty_history);
-        mNotYet = rootView.findViewById(R.id.text_notyet);
 
         mCardView.setOnClickListener(v -> getMainActivity().onClickQrCopy(mChainConfig, mAccount));
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchHistory());
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            mHistoryAdapter.notifyDataSetChanged();
+            mSwipeRefreshLayout.setRefreshing(false);
+        });
 
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mHistoryAdapter = new HistoryAdapter();
         mRecyclerView.setAdapter(mHistoryAdapter);
-
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    mId = mApiNewTxCustomHistory.get(mApiNewTxCustomHistory.size() - 1).header.id;
+                    onFetchHistory();
+                }
+            }
+        });
         RecyclerViewHeader recyclerViewHeader = new RecyclerViewHeader(getMainActivity());
         mRecyclerView.addItemDecoration(recyclerViewHeader);
-
-        onUpdateView();
-        return rootView;
     }
 
     private void onUpdateView() {
@@ -124,18 +147,16 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     public void onRefreshTab() {
         if (!isAdded()) return;
         onUpdateView();
-        onFetchHistory();
     }
 
     private void onFetchHistory() {
-        mNotYet.setVisibility(View.GONE);
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
         if (mBaseChain.equals(BNB_MAIN)) {
             new BnbHistoryTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
         } else if (mBaseChain.equals(OKEX_MAIN)) {
             new OkHistoryTask(getBaseApplication(), this, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
-            new ApiAccountTxsHistoryTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ApiAccountTxsHistoryTask(getBaseApplication(), this, mBaseChain, mAccount.address, mId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -165,7 +186,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
-            mApiNewTxCustomHistory = (ArrayList<ResApiNewTxListCustom>) result.resultData;
+            mApiNewTxCustomHistory.addAll((Collection<? extends ResApiNewTxListCustom>) result.resultData);
             if (mApiNewTxCustomHistory != null && mApiNewTxCustomHistory.size() > 0) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -236,7 +257,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         }
     }
 
-    public class RecyclerViewHeader extends RecyclerView.ItemDecoration {
+    public static class RecyclerViewHeader extends RecyclerView.ItemDecoration {
         private final int topPadding;
 
         private View headerView;
@@ -246,7 +267,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             topPadding = dpToPx(context, 26);
         }
 
-        // dp -> pixel 단위로 변경
         private int dpToPx(Context context, int dp) {
             return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
         }

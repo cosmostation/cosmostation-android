@@ -17,18 +17,20 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
     private BaseChain mBaseChain;
     private String mAddress;
+    private int mId;
 
-    public ApiAccountTxsHistoryTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String address) {
+    public ApiAccountTxsHistoryTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String address, int id) {
         super(app, listener);
         this.mBaseChain = baseChain;
         this.mAddress = address;
+        this.mId = id;
         this.mResult.taskType = BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getChainApi(mBaseChain).getNewAccountTxCustom(mAddress, "50").execute();
+            Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getChainApi(mBaseChain).getNewAccountTxCustom(mAddress, "50", mId).execute();
             if (response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body();
                 mResult.isSuccess = true;
