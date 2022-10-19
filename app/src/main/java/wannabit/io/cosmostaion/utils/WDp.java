@@ -81,7 +81,6 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dao.FeeInfo;
-import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
@@ -606,10 +605,6 @@ public class WDp {
             } else if (okToken.original_symbol.equals("okb") && baseData.mOKBPrice != null) {
                 return amount.multiply(baseData.mOKBPrice);
 
-            } else if (baseData.mOkTickersList != null) {
-                //TODO display with ticker update!
-                ArrayList<OkTicker> tickers = baseData.mOkTickersList.data;
-                return BigDecimal.ZERO;
             }
         }
         return BigDecimal.ZERO;

@@ -54,7 +54,6 @@ import wannabit.io.cosmostaion.widget.txDetail.TxTransferHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxVoterHolder;
-import wannabit.io.cosmostaion.widget.txDetail.airdrop.TxSaveProfileHolder;
 import wannabit.io.cosmostaion.widget.txDetail.contract.TxExecuteContractHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxBorrowHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxCdpLiquidateHolder;
@@ -239,8 +238,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_MINT_NFT = 91;
         private static final int TYPE_TX_TRANSFER_NFT = 92;
 
-        private static final int TYPE_TX_SAVE_PROFILE = 100;
-
         private static final int TYPE_TX_KAVA_SWAP = 110;
         private static final int TYPE_TX_KAVA_DEPOSIT_POOL = 111;
         private static final int TYPE_TX_KAVA_WITHDRAW_POOL = 112;
@@ -355,12 +352,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_TRANSFER_NFT) {
                 return new TxTransferNFTHolder(getLayoutInflater().inflate(R.layout.item_tx_send_nft, viewGroup, false));
-
-            }
-
-            // desmos
-            else if (viewType == TYPE_TX_SAVE_PROFILE) {
-                return new TxSaveProfileHolder(getLayoutInflater().inflate(R.layout.item_tx_save_profile, viewGroup, false));
 
             }
 
@@ -528,11 +519,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 } else if (msg.getTypeUrl().contains(irismod.nft.Tx.MsgTransferNFT.getDescriptor().getFullName()) ||
                         msg.getTypeUrl().contains(chainmain.nft.v1.Tx.MsgTransferNFT.getDescriptor().getFullName())) {
                     return TYPE_TX_TRANSFER_NFT;
-                }
-
-                // desmos msg
-                else if (msg.getTypeUrl().contains(MsgsProfile.MsgSaveProfile.getDescriptor().getFullName())) {
-                    return TYPE_TX_SAVE_PROFILE;
                 }
 
                 //kava msg

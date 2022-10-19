@@ -35,7 +35,6 @@ import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
 import desmos.profiles.v1beta1.ModelsProfile;
-import desmos.profiles.v1beta1.MsgsProfile;
 import ibc.core.client.v1.Client;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -588,21 +587,6 @@ public class Signer {
         ArrayList<Any> msgAnys = new ArrayList<>();
         chainmain.nft.v1.Tx.MsgTransferNFT msgTransferNFT = chainmain.nft.v1.Tx.MsgTransferNFT.newBuilder().setId(id).setDenomId(denomId).setSender(sender).setRecipient(recipient).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/chainmain.nft.v1.MsgTransferNFT").setValue(msgTransferNFT.toByteString()).build());
-        return msgAnys;
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcCreateProfileReq(QueryOuterClass.QueryAccountResponse auth, String dtag, String nickname, String bio, String profilePicture, String coverPicture, String creator, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignTx(auth, getCreateProfileMsg(dtag, nickname, bio, profilePicture, coverPicture, creator), fee, memo, pKey, chainId);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcCreateProfileSimulateReq(QueryOuterClass.QueryAccountResponse auth, String dtag, String nickname, String bio, String profilePicture, String coverPicture, String creator, Fee fee, String memo, ECKey pKey, String chainId) {
-        return getSignSimulTx(auth, getCreateProfileMsg(dtag, nickname, bio, profilePicture, coverPicture, creator), fee, memo, pKey, chainId);
-    }
-
-    public static ArrayList<Any> getCreateProfileMsg(String dtag, String nickname, String bio, String profilePicture, String coverPicture, String creator) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        MsgsProfile.MsgSaveProfile msgSaveProfile = MsgsProfile.MsgSaveProfile.newBuilder().setDtag(dtag).setNickname(nickname).setBio(bio).setProfilePicture(profilePicture).setCoverPicture(coverPicture).setCreator(creator).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/desmos.profiles.v1beta1.MsgSaveProfile").setValue(msgSaveProfile.toByteString()).build());
         return msgAnys;
     }
 
