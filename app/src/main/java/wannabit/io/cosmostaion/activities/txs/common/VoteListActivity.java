@@ -127,7 +127,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(VoteListActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(this::loadProposals);
-
+        checkEmptyView();
     }
 
     @Override
@@ -141,7 +141,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
     private void loadProposals() {
         if (mAccount == null) return;
-        checkEmptyView();
+        onShowWaitDialog();
         ApiClient.getMintscan(VoteListActivity.this).getProposalList(mChain).enqueue(new Callback<ArrayList<ResProposal>>() {
             @Override
             public void onResponse(Call<ArrayList<ResProposal>> call, Response<ArrayList<ResProposal>> response) {
@@ -154,16 +154,23 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     mExtraProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
 
                     runOnUiThread(() -> {
-                        mSwipeRefreshLayout.setRefreshing(false);
                         mVoteListAdapter.notifyDataSetChanged();
                         checkEmptyView();
                     });
                 }
-                mSwipeRefreshLayout.setRefreshing(false);
+
+                runOnUiThread(() -> {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    onHideWaitDialog();
+                });
             }
 
             @Override
             public void onFailure(Call<ArrayList<ResProposal>> call, Throwable t) {
+                runOnUiThread(() -> {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    onHideWaitDialog();
+                });
             }
         });
     }
