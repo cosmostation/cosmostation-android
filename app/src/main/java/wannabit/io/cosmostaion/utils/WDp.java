@@ -279,28 +279,28 @@ public class WDp {
         }
 
         if (result.size() == 1) {
-            result.get(0).title = "Fixed";
+            result.get(0).title = c.getString(R.string.str_fixed);
             result.get(0).msg = c.getString(R.string.str_fee_speed_title_fixed);
         } else if (result.size() == 2) {
-            result.get(1).title = "Average";
+            result.get(1).title = c.getString(R.string.str_average);
             result.get(1).msg = c.getString(R.string.str_fee_speed_title_average);
             if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
-                result.get(0).title = "Zero";
+                result.get(0).title = c.getString(R.string.str_free);
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
             } else {
-                result.get(0).title = "Tiny";
+                result.get(0).title = c.getString(R.string.str_tiny);
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
             }
         } else if (result.size() == 3) {
-            result.get(2).title = "Average";
+            result.get(2).title = c.getString(R.string.str_average);
             result.get(2).msg = c.getString(R.string.str_fee_speed_title_average);
-            result.get(1).title = "Low";
+            result.get(1).title = c.getString(R.string.str_low);
             result.get(1).msg = c.getString(R.string.str_fee_speed_title_low);
             if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
-                result.get(0).title = "Zero";
+                result.get(0).title = c.getString(R.string.str_free);
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
             } else {
-                result.get(0).title = "Tiny";
+                result.get(0).title = c.getString(R.string.str_tiny);
                 result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
             }
         }

@@ -2,7 +2,6 @@
     <string name="app_name">Cosmostation</string>
     <string name="db_password" translatable="false">wannabit</string>
 
-    <!--    <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>-->
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
     <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
@@ -18,151 +17,27 @@
     <string name="url_lcd_ok" translatable="false">https://exchainrpc.okex.org/okexchain/v1/</string>
 
 
-
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_private" translatable="false">PRIVATE_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
-    <string name="str_atom_c" translatable="false">ATOM</string>
-    <string name="str_iris_c" translatable="false">IRIS</string>
-    <string name="str_photon_c" translatable="false">PHOTINO</string>
-    <string name="str_kava_c" translatable="false">KAVA</string>
-    <string name="str_iov_c" translatable="false">IOV</string>
-    <string name="str_band_c" translatable="false">BAND</string>
-    <string name="str_ok_c" translatable="false">OKT</string>
-    <string name="str_bnb_c" translatable="false">BNB</string>
-    <string name="str_btc_c" translatable="false">BTC</string>
-    <string name="str_ctk_c" translatable="false">CTK</string>
-    <string name="str_scrt_c" translatable="false">SCRT</string>
-    <string name="str_akt_c" translatable="false">AKT</string>
-    <string name="str_xprt_c" translatable="false">XPRT</string>
-    <string name="str_dvpn_c" translatable="false">DVPN</string>
-    <string name="str_fet_c" translatable="false">FET</string>
-    <string name="str_cro_c" translatable="false">CRO</string>
-    <string name="str_sif_c" translatable="false">ROWAN</string>
-    <string name="str_ki_c" translatable="false">XKI</string>
-    <string name="str_rizon_c" translatable="false">ATOLO</string>
-    <string name="str_medi_c" translatable="false">MED</string>
-    <string name="str_althea_c" translatable="false">ALTG</string>
-    <string name="str_osmosis_c" translatable="false">OSMO</string>
-    <string name="str_uion_c" translatable="false">ION</string>
-    <string name="str_umee_c" translatable="false">UMEE</string>
-    <string name="str_ngm_c" translatable="false">NGM</string>
-    <string name="str_axl_c" translatable="false">AXL</string>
-    <string name="str_juno_c" translatable="false">JUNO</string>
-    <string name="str_regen_c" translatable="false">REGEN</string>
-    <string name="str_bitcanna_c" translatable="false">BCNA</string>
-    <string name="str_stargaze_c" translatable="false">STARS</string>
-    <string name="str_grabridge_c" translatable="false">GRAVITON</string>
-    <string name="str_comdex_c" translatable="false">CMDX</string>
-    <string name="str_inj_c" translatable="false">INJ</string>
-    <string name="str_bitsong_c" translatable="false">BTSG</string>
-    <string name="str_desmos_c" translatable="false">DSM</string>
-    <string name="str_lum_c" translatable="false">LUM</string>
-    <string name="str_chihuahua_c" translatable="false">HUAHUA</string>
-    <string name="str_konstellation_c" translatable="false">DARC</string>
-    <string name="str_evmos_c" translatable="false">EVMOS</string>
-    <string name="str_cudos_c" translatable="false">CUDOS</string>
-    <string name="str_provenance_c" translatable="false">HASH</string>
-    <string name="str_cerberus_c" translatable="false">CRBRUS</string>
-    <string name="str_omniflix_c" translatable="false">FLIX</string>
-    <string name="str_crescent_c" translatable="false">CRE</string>
-    <string name="str_muon_c" translatable="false">MUON</string>
-    <string name="str_bif_c" translatable="false">BIF</string>
-    <string name="str_cre_c" translatable="false">CRE</string>
-    <string name="str_bcre_c" translatable="false">BCRE</string>
-    <string name="str_mantle_c" translatable="false">MNTL</string>
-    <string name="str_station_c" translatable="false">ISS</string>
-    <string name="str_nym_c" translatable="false">NYM</string>
-    <string name="str_nyx_c" translatable="false">NYX</string>
 
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
-    <string name="str_refund_swap_memo_c" translatable="false">Refund Atomic Swap via Cosmostation Wallet</string>
 
-    <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
     <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss\'Z\']]></string>
     <string name="str_vote_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\']]></string>
 
-    <string name="str_cosmos_main_net" translatable="false">Cosmos</string>
-    <string name="str_cosmos_test_net_12k" translatable="false">COSMOS Testnet (GAIA 12k)</string>
-    <string name="str_cosmos_test_net_13k" translatable="false">COSMOS Testnet (GAIA 13k)</string>
-    <string name="str_iris_main_net" translatable="false">Iris</string>
-    <string name="str_bnb_main_net" translatable="false">Binance</string>
-    <string name="str_iov_main_net" translatable="false">Starname</string>
-    <string name="str_kava_main_net" translatable="false">Kava</string>
-    <string name="str_band_main_net" translatable="false">Band</string>
-    <string name="str_persis_main_net" translatable="false">Persistence</string>
-    <string name="str_secret_main_net" translatable="false">Secret</string>
-    <string name="str_certik_main_net" translatable="false">Certik</string>
-    <string name="str_akash_main_net" translatable="false">Akash</string>
-    <string name="str_okex_main_net" translatable="false">OKC</string>
-    <string name="str_sentinel_main_net" translatable="false">Sentinel</string>
-    <string name="str_fetch_main_net" translatable="false">Fetch.ai</string>
-    <string name="str_crypto_main_net" translatable="false">Crypto.org</string>
-    <string name="str_sif_main_net" translatable="false">SifChain</string>
-    <string name="str_ki_main_net" translatable="false">Ki Foundation</string>
-    <string name="str_osmosis_main_net" translatable="false">Osmosis</string>
-    <string name="str_medi_main_net" translatable="false">Medibloc</string>
-    <string name="str_emoney_main_net" translatable="false">Emoney</string>
-    <string name="str_rizon_main_net" translatable="false">Rizon</string>
-    <string name="str_juno_main_net" translatable="false">Juno</string>
-    <string name="str_regen_main_net" translatable="false">Regen</string>
-    <string name="str_bitcanna_main_net" translatable="false">Bitcanna</string>
-    <string name="str_althea_main_net" translatable="false">Althea</string>
-    <string name="str_stargaze_main_net" translatable="false">Stargaze</string>
-    <string name="str_grabridge_main_net" translatable="false">Gravity Bridge</string>
-    <string name="str_comdex_main_net" translatable="false">Comdex</string>
-    <string name="str_inj_main_net" translatable="false">Injective</string>
-    <string name="str_bitsong_main_net" translatable="false">Bitsong</string>
-    <string name="str_desmos_main_net" translatable="false">Desmos</string>
-    <string name="str_lum_main_net" translatable="false">Lum</string>
-    <string name="str_chihuahua_main_net" translatable="false">Chihuahua</string>
-    <string name="str_axelar_main_net" translatable="false">Axelar</string>
-    <string name="str_konstellation_main_net" translatable="false">Konstellation</string>
-    <string name="str_umee_main_net" translatable="false">Umee</string>
-    <string name="str_evmos_main_net" translatable="false">Evmos</string>
-    <string name="str_cudos_main_net" translatable="false">Cudos</string>
-    <string name="str_provenance_main_net" translatable="false">Provenance</string>
-    <string name="str_cerberus_main_net" translatable="false">Cerberus</string>
-    <string name="str_omniflix_main_net" translatable="false">Omniflix</string>
-    <string name="str_crescent_main_net" translatable="false">Crescent</string>
-    <string name="str_mantle_main_net" translatable="false">AssetMantle</string>
-    <string name="str_station_test_net" translatable="false">Station</string>
-    <string name="str_nyx_main_net" translatable="false">Nyx</string>
-    <string name="str_cosmos_test_net" translatable="false">StarGate Testnet</string>
-    <string name="str_iris_test_net" translatable="false">Bifrost Testnet</string>
-    <string name="str_bnb_test_net" translatable="false">Binance Testnet</string>
-    <string name="str_kava_test_net" translatable="false">Kava Testnet</string>
-    <string name="str_iov_test_net" translatable="false">Starname Testnet</string>
-    <string name="str_ok_test_net" translatable="false">Okex Testnet</string>
-    <string name="str_certik_test_net" translatable="false">Certik Testnet</string>
-    <string name="str_rizon_test_net" translatable="false">Rizon Testnet</string>
-    <string name="str_medi_test_net" translatable="false">Medibloc Testnet</string>
-    <string name="str_althea_test_net" translatable="false">Althea Testnet</string>
-    <string name="str_umee_test_net" translatable="false">Umee Testnet</string>
-    <string name="str_axelar_test_net" translatable="false">Axelar Testnet</string>
-    <string name="str_crescent_test_net" translatable="false">Crescent Testnet</string>
-
-    <string name="str_coingecko" translatable="false">CoinGecko</string>
-    <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
-
     <string name="moon_pay_public_key" translatable="false">pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn</string>
 
+
+    <string name="str_start">START</string>
     <string name="str_ok">OK</string>
-    <string name="str_no">No</string>
-    <string name="str_yes">Yes</string>
     <string name="str_next">Next</string>
-    <string name="str_import_watchaddress">Import</string>
-    <string name="str_refresh">Refresh</string>
-    <string name="str_settings">Settings</string>
+    <string name="str_import">Import</string>
     <string name="str_sorting">Sorting</string>
-    <string name="str_edit">Edit</string>
-    <string name="str_display_chains">Displayed Chains</string>
-    <string name="str_hide_chains">Hidden Chains</string>
     <string name="str_restore_key">Restore With PrivateKey</string>
-    <string name="str_qr">QrCode</string>
-    <string name="str_import">Restore With Mnemonic</string>
+    <string name="str_restore_mnemonic">Restore With Mnemonic</string>
     <string name="str_mnemonic_delete">DELETE MNEMONIC</string>
     <string name="str_mnemonic_delete_msg">If you do not backup your mnemonics, you can not find it again!\n\nAnd %1$s derived wallets will also be deleted</string>
     <string name="str_clear_all">Clear All</string>
@@ -171,17 +46,11 @@
     <string name="str_check_private_key_c">CHECK PRIVATE KEY</string>
     <string name="str_manage_mnemonic">Manage Mnemonic</string>
     <string name="str_import_watch_address">Import Watching Address</string>
-    <string name="str_start">START</string>
-    <string name="str_check">Check</string>
     <string name="str_confirm">Confirm</string>
     <string name="str_data">Data</string>
-    <string name="str_warning">Warning</string>
     <string name="str_enter_again">Enter Again</string>
     <string name="str_Ignore">Ignore</string>
-    <string name="str_show_mnemonic">Show Mnemonic</string>
-    <string name="str_create_wallet">Create Wallet</string>
-    <string name="str_start_wallet">Start Wallet</string>
-    <string name="str_import2">Restore with</string>
+    <string name="str_restore">Restore with</string>
     <string name="str_mnemonic">Mnemonic</string>
     <string name="str_key_path_warning">The wallet you selected is not a default Address Type. Do you want to select the wallet?</string>
     <string name="str_private_key">Private Key</string>
@@ -190,21 +59,17 @@
     <string name="str_paste">Paste</string>
     <string name="str_send_c">SEND</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 Send & Claim]]></string>
-    <string name="str_htlc_refund_c">BEP3 Refund</string>
+
     <string name="str_participate_incentive">Incentive Claim</string>
-    <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
-    <string name="str_receive">Receive</string>
     <string name="str_change_reward_address_c">CHANGE REWARD ADDRESS</string>
     <string name="str_vote_c">VOTE</string>
     <string name="str_delegate_c">DELEGATE</string>
     <string name="str_undelegate_c">UNDELEGATE</string>
     <string name="str_redelegate_c">REDELEGATE</string>
-    <string name="str_reinvest_c">Compounding</string>
-    <string name="str_before">Before</string>
+    <string name="str_reinvest_c">COMPOUNDING</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_unknown_error">Unknown error</string>
-    <string name="str_no_more_3day">Hide 3 days</string>
     <string name="str_continue">Continue</string>
     <string name="str_connect">Connect</string>
     <string name="str_wait">Wait</string>
@@ -218,29 +83,21 @@
     <string name="str_memo">Memo</string>
     <string name="str_my_opinion">My Opinion</string>
     <string name="str_fees">Fee</string>
-    <string name="str_fees_c">FEE</string>
     <string name="str_to_send_amount">Send Amount</string>
     <string name="str_expected_receive_amount">Final Receive Amount</string>
     <string name="str_relay_fee">Relay Fee</string>
     <string name="str_claim_fee">Claim Tx Fee</string>
     <string name="str_send_fee">Send Tx Fee</string>
-    <string name="str_total_spend_amount">Total Spend</string>
     <string name="str_current_available">Current Available</string>
     <string name="str_remaining_available">Remaining Available</string>
-    <string name="str_from_c">FROM</string>
-    <string name="str_to_c">TO</string>
-    <string name="str_memo_c">MEMO</string>
-    <string name="str_remind_balance">Remaining balance</string>
     <string name="str_to_undelegate_amount">Undelegate Amount</string>
     <string name="str_to_redelegate_amount">Redelegate Amount</string>
     <string name="str_to_delegate_amount">Delegate Amount</string>
-    <string name="str_reinvest_amount">Compounding Amount</string>
     <string name="str_to_delegate_validator">Delegate To</string>
     <string name="str_from_undelegate_validator">Undelegate From</string>
     <string name="str_from_redelegate_validator">Redelegate From</string>
     <string name="str_to_redelegate_validator">Redelegate To</string>
     <string name="str_undelegate_complete_time">Expected Delivery</string>
-    <string name="str_remind_delegate">Remind Delegate</string>
     <string name="str_reward_c">CLAIM REWARD</string>
     <string name="str_reward_amount">Reward Amount</string>
     <string name="str_reward_from">Reward From</string>
@@ -248,10 +105,7 @@
     <string name="str_expected_balance">Expected Available</string>
     <string name="str_commission_amount">Commission Amount</string>
     <string name="str_commission_from">Commission From</string>
-    <string name="str_success">success</string>
     <string name="str_failed">(failed)</string>
-    <string name="str_preparing">Preparing...</string>
-    <string name="str_deprecated">Deprecated...</string>
     <string name="str_select_wallet_path_c">SELECT WALLET TO RESTORE</string>
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
     <string name="str_address_pubkey">Insert address</string>
@@ -259,7 +113,6 @@
     <string name="str_insert_private_key">Insert Private Key</string>
     <string name="str_key_msg">Please enter your private key.\nThe private key is a 66-digit string starting with 0x.</string>
     <string name="str_proposal_type">Proposal Type</string>
-    <string name="str_submit_time">Submit Time</string>
     <string name="str_voting_start_time">Voting Start Time</string>
     <string name="str_voting_end_time">Voting End Time</string>
     <string name="str_request_amount">Request Amount</string>
@@ -271,21 +124,18 @@
     <string name="str_no_proposal">No Proposals</string>
     <string name="str_accounts">accounts</string>
     <string name="str_web">web</string>
-    <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
+
     <string name="str_mnemonic_manage">Manage Mnemonic / Add Wallet</string>
     <string name="str_mnemonic_detail">Mnemonic Detail</string>
     <string name="str_mnemonic_phrase">Mnemonic Phrase</string>
     <string name="str_mnemonic_create">Create Mnemonic</string>
-    <string name="str_derive_wallet">Derive Wallet</string>
     <string name="str_delete_mnemonic">Delete Mnemonic</string>
-    <string name="str_derive_wallets">Derive Wallets</string>
     <string name="str_wallet_manage">Manage Wallet</string>
     <string name="str_edit_chains">Manage Chain</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
     <string name="str_validator_detail">Validator Details</string>
-    <string name="str_token_detail">Token Detail</string>
     <string name="str_proposal_list">Proposal List</string>
     <string name="str_proposal_detail">Proposal Detail</string>
     <string name="str_proposer">Proposer</string>
@@ -308,19 +158,9 @@
     <string name="str_price_color_option_title">Select a color for the change in price</string>
     <string name="str_up">Up:</string>
     <string name="str_down">Down:</string>
-    <string name="str_base_price">Base Price</string>
     <string name="str_support">Support</string>
-    <string name="str_faq">FAQ</string>
-    <string name="str_guide">Guide</string>
-    <string name="str_home">HOME</string>
-    <string name="str_blog">Blog</string>
-    <string name="str_faq_bnb">Market</string>
-    <string name="str_guide_bnb">Blog</string>
-    <string name="str_faq_ok">Market</string>
-    <string name="str_guide_ok">Communities</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
-    <string name="str_explore_bnb">Explorer Binance</string>
     <string name="str_homepage">Cosmostation</string>
     <string name="str_cosmostation_blog">Cosmostation Blog</string>
     <string name="str_starname_wallet_connect">Starname Wallet Connect</string>
@@ -328,20 +168,16 @@
     <string name="str_term">Terms of Service</string>
     <string name="str_github">Open Source (GitHub)</string>
     <string name="str_version">Version</string>
-    <string name="str_will_support_with_mainnet">Will support with Main Net.</string>
-    <string name="str_will_support_after_mainnet">Will support after Main Net.</string>
     <string name="str_with_mnemonic">With Mnemonics</string>
     <string name="str_with_privatekey">With Private Key</string>
     <string name="str_only_address">Only Address</string>
     <string name="str_check_mnemonic">Check Mnemonic</string>
     <string name="str_check_private_key">Check PrivateKey</string>
     <string name="str_delete_wallet">Delete Wallet</string>
-    <string name="str_wallet_address">Wallet address</string>
-    <string name="str_wallet_info">Wallet Information</string>
-    <string name="str_chain_info">Chain Info</string>
+    <string name="str_chain_info">Chain Id</string>
     <string name="str_import_time">Imported Date</string>
     <string name="str_import_state">Imported State</string>
-    <string name="str_import_path">Key Path</string>
+    <string name="str_hd_key_path">HD Key Path</string>
     <string name="str_address_type">Address Type</string>
     <string name="str_tender_type">Tendermint Style</string>
     <string name="str_eth_type">Ethereum Style</string>
@@ -359,158 +195,16 @@
     <string name="str_with_text">Share Text</string>
     <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image or wallet connect</string>
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
-    <string name="str_gaia_12k">(testnet gaia - 12k)</string>
-    <string name="str_gaia_13k">(testnet gaia - 13k)</string>
-    <string name="str_cosmos_hub" translatable="false">(Cosmos)</string>
-    <string name="str_cosmos_hub_2" translatable="false">Cosmos</string>
-    <string name="str_cosmos_testnet" translatable="false">(Stargate Testnet)</string>
-    <string name="str_cosmos_testnet_2" translatable="false">Stargate Testnet</string>
-    <string name="str_iris_net" translatable="false">(Iris)</string>
-    <string name="str_iris_net_2" translatable="false">Iris</string>
-    <string name="str_iris_testnet" translatable="false">(Bifrost Testnet)</string>
-    <string name="str_iris_testnet_2" translatable="false">Bifrost Testnet</string>
-    <string name="str_binance_net" translatable="false">(Binance)</string>
-    <string name="str_binance_net_2" translatable="false">Binance</string>
-    <string name="str_binance_test_net" translatable="false">(Binance Testnet)</string>
-    <string name="str_binance_test_net_2" translatable="false">Binance Testnet</string>
-    <string name="str_iov_net" translatable="false">(Starname)</string>
-    <string name="str_iov_net_2" translatable="false">Starname</string>
-    <string name="str_band_chain" translatable="false">(Band)</string>
-    <string name="str_band_chain_2" translatable="false">Band</string>
-    <string name="str_kava_net" translatable="false">(Kava)</string>
-    <string name="str_kava_net_2" translatable="false">Kava</string>
-    <string name="str_ok_net" translatable="false">(OKC)</string>
-    <string name="str_ok_net2" translatable="false">OKC</string>
-    <string name="str_certik_chain" translatable="false">(Certik)</string>
-    <string name="str_certik_chain_2" translatable="false">Certik</string>
-    <string name="str_secret_chain" translatable="false">(Secret)</string>
-    <string name="str_akash_chain" translatable="false">(Akash)</string>
-    <string name="str_persis_net" translatable="false">(Persistence)</string>
-    <string name="str_sentinel_net" translatable="false">(Sentinel)</string>
-    <string name="str_fetch_net" translatable="false">(Fetch.ai)</string>
-    <string name="str_crypto_net" translatable="false">(Crypto.org)</string>
-    <string name="str_sif_net" translatable="false">(SifChain)</string>
-    <string name="str_ki_net" translatable="false">(Ki Foundation)</string>
-    <string name="str_osmosis_net" translatable="false">(Osmosis)</string>
-    <string name="str_medi_net" translatable="false">(Medibloc)</string>
-    <string name="str_rizon_net" translatable="false">(Rizon)</string>
-    <string name="str_regen_net" translatable="false">(Regen)</string>
-    <string name="str_juno_net" translatable="false">(Juno)</string>
-    <string name="str_bitcanna_net" translatable="false">(Bitcanna)</string>
-    <string name="str_althea_net" translatable="false">(Althea)</string>
-    <string name="str_stargaze_net" translatable="false">(Stargaze)</string>
-    <string name="str_grabridge_net" translatable="false">(G-Bridge)</string>
-    <string name="str_comdex_net" translatable="false">(Comdex)</string>
-    <string name="str_inj_net" translatable="false">(Injective)</string>
-    <string name="str_bitsong_net" translatable="false">(Bitsong)</string>
-    <string name="str_desmos_net" translatable="false">(Desmos)</string>
-    <string name="str_lum_net" translatable="false">(Lum)</string>
-    <string name="str_chihuahua_net" translatable="false">(Chihuahua)</string>
-    <string name="str_axelar_net" translatable="false">(Axelar)</string>
-    <string name="str_konstellation_net" translatable="false">(Konstellation)</string>
-    <string name="str_umee_net" translatable="false">(Umee)</string>
-    <string name="str_evmos_net" translatable="false">(Evmos)</string>
-    <string name="str_cudos_net" translatable="false">(Cudos)</string>
-    <string name="str_provenance_net" translatable="false">(Provenance)</string>
-    <string name="str_cerberus_net" translatable="false">(Cerberus)</string>
-    <string name="str_omniflix_net" translatable="false">(Omniflix)</string>
-    <string name="str_crescent_net" translatable="false">(Crescent)</string>
-    <string name="str_mantle_net" translatable="false">(AssetMantle)</string>
-    <string name="str_station_net" translatable="false">(Station Testnet)</string>
-    <string name="str_nyx_net" translatable="false">(Nyx)</string>
-    <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
-    <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
-    <string name="str_crescent_chain_test" translatable="false">(Crescent Testnet)</string>
-    <string name="str_crescent_chain_test_2" translatable="false">Crescent Testnet</string>
-    <string name="str_emoney_net" translatable="false">(E-Money)</string>
-    <string name="str_emoney_net2" translatable="false">E-Money</string>
-    <string name="str_cosmos" translatable="false">COSMOS</string>
-    <string name="str_cosmos_test" translatable="false">STARGATE</string>
-    <string name="str_iris_test" translatable="false">BIFORST</string>
-    <string name="str_iris" translatable="false">IRIS</string>
-    <string name="str_binance" translatable="false">BINANCE</string>
-    <string name="str_binance_test" translatable="false">BINANCE\nTEST</string>
-    <string name="str_iov" translatable="false">STARNAME</string>
-    <string name="str_kava" translatable="false">KAVA</string>
-    <string name="str_band" translatable="false">BAND</string>
-    <string name="str_kava_test" translatable="false">KAVA TEST</string>
-    <string name="str_iov_test" translatable="false">STARNAME TEST</string>
-    <string name="str_ok_test" translatable="false">EX TEST</string>
-    <string name="str_certik_main" translatable="false">CERTIK</string>
-    <string name="str_certik_test" translatable="false">CERTIK TEST</string>
-    <string name="str_secret_main" translatable="false">SECRET</string>
-    <string name="str_akash_main" translatable="false">AKASH</string>
-    <string name="str_okex_main" translatable="false">OKC</string>
-    <string name="str_persis_main" translatable="false">PERSISTENCE</string>
-    <string name="str_sentinel_main" translatable="false">SENTINEL</string>
-    <string name="str_fetch_main" translatable="false">FETCH.AI</string>
-    <string name="str_crypto_main" translatable="false">CRYPTO.ORG</string>
-    <string name="str_sif_main" translatable="false">SIF</string>
-    <string name="str_ki_main" translatable="false">KI</string>
-    <string name="str_osmosis_main" translatable="false">OSMOSIS</string>
-    <string name="str_medi_main" translatable="false">MEDIBLOC</string>
-    <string name="str_emoney_main" translatable="false">EMONEY</string>
-    <string name="str_rizon_main" translatable="false">RIZON</string>
-    <string name="str_regen_main" translatable="false">REGEN</string>
-    <string name="str_juno_main" translatable="false">JUNO</string>
-    <string name="str_bitcanna_main" translatable="false">BITCANNA</string>
-    <string name="str_althea_main" translatable="false">ALTHEA</string>
-    <string name="str_stargaze_main" translatable="false">STARGAZE</string>
-    <string name="str_grabridge_main" translatable="false">G-BRIDGE</string>
-    <string name="str_comdex_main" translatable="false">COMDEX</string>
-    <string name="str_inj_main" translatable="false">INJECTIVE</string>
-    <string name="str_bitsong_main" translatable="false">BITSONG</string>
-    <string name="str_desmos_main" translatable="false">DESMOS</string>
-    <string name="str_lum_main" translatable="false">LUM</string>
-    <string name="str_chihuahua_main" translatable="false">CHIHUAHUA</string>
-    <string name="str_axelar_main" translatable="false">AXELAR</string>
-    <string name="str_konstellation_main" translatable="false">KONSTELLATION</string>
-    <string name="str_umee_main" translatable="false">UMEE</string>
-    <string name="str_evmos_main" translatable="false">EVMOS</string>
-    <string name="str_cudos_main" translatable="false">CUDOS</string>
-    <string name="str_provenance_main" translatable="false">PROVENANCE</string>
-    <string name="str_cerberus_main" translatable="false">CERBERUS</string>
-    <string name="str_omniflix_main" translatable="false">OMNIFLIX</string>
-    <string name="str_crescent_main" translatable="false">CRESCENT</string>
-    <string name="str_mantle_main" translatable="false">ASSETMANTLE</string>
-    <string name="str_station_test" translatable="false">STATION TEST</string>
-    <string name="str_nyx_main" translatable="false">NYX</string>
-    <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
-    <string name="str_crescent_test" translatable="false">CRESCENT TEST</string>
-    <string name="str_mintscan">Check Explorer</string>
-    <string name="str_tx_success">Transaction Success</string>
-    <string name="str_tx_failed">Transaction Failed</string>
-    <string name="str_tx_type">Transaction Type</string>
     <string name="str_tx_hash">Transaction Hash</string>
     <string name="str_random_hash">Random Hash</string>
-    <string name="str_tx_after_balance">Remaining balance</string>
-    <string name="str_tx_from">From</string>
-    <string name="str_tx_to">To</string>
-    <string name="str_tx_send_amount">Sent Amount</string>
-    <string name="str_tx_send_fees">Fees</string>
-    <string name="str_tx_memo">Memo</string>
-    <string name="str_tx_block_height">Block Height</string>
-    <string name="str_tx_block_time">Time</string>
     <string name="str_tx_block_error">Error</string>
-    <string name="str_tx_delegate_to">Delegate To</string>
-    <string name="str_tx_delegate_amount">Delegate Amount</string>
-    <string name="str_tx_reward_from">Reward From</string>
-    <string name="str_tx_undelegate_from">Undelegate From</string>
-    <string name="str_tx_undelegate_amount">Undelegate Amount</string>
-    <string name="str_tx_chain_upgrade_title">Test Net Upgrade</string>
-    <string name="str_tx_chain_upgrade_msg">Gaia 12k is deprecated and Gaia 13K is available\n If you select Yes, your wallet can use in 13k with same address.\n But your test coins are be zero. and delegate information are reset.</string>
-    <string name="str_notice_c">NOTICE</string>
     <string name="str_next_word">Next Word</string>
     <string name="str_mnemonic_title">Please enter the recovery word.</string>
     <string name="str_mnemonic_msg">(12 / 16 / 24 words)</string>
-    <string name="str_test_net_deprecated">Testnet deprecated..</string>
     <string name="str_tx_delegated_amount">Delegated Amount</string>
     <string name="str_tx_undelegated_amount">Unbonding Amount</string>
     <string name="str_my_address">My Address</string>
     <string name="str_my_wallet">Wallet&#160;</string>
-    <string name="str_ready">ready</string>
-    <string name="str_imported">imported</string>
-    <string name="str_override">override</string>
     <string name="str_total_bonded">Total Bonded</string>
     <string name="str_self_bonded_rate">Self Bonded Rate</string>
     <string name="str_delegate">Delegate</string>
@@ -519,7 +213,6 @@
     <string name="str_claim_reward">Claim Reward</string>
     <string name="str_reinvest">Compounding</string>
     <string name="str_history_validator">History with this validator</string>
-    <string name="str_history_token">Transfer history</string>
     <string name="str_current_price">Current Price</string>
     <string name="str_ago">ago</string>
     <string name="str_day">days</string>
@@ -533,7 +226,6 @@
     <string name="str_add100">+ 100</string>
     <string name="str_add_half">Half</string>
     <string name="str_add_max">Max</string>
-    <string name="str_approximately"><![CDATA[≈]]></string>
     <string name="str_max_available_delegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_redelegate_amount"><![CDATA[Max Available : ]]></string>
@@ -543,56 +235,62 @@
     <string name="str_available_send_amount"><![CDATA[Available : ]]></string>
     <string name="str_tx_error_description">Transaction request failed. \nPlease check the error code and message.</string>
     <string name="str_success_loading">Transaction request submitted successfully. \nAfter a few moments, the full results will be displayed.\n(Pending times depends on Tx fee.)</string>
-    <string name="str_front_guide_title_cosmos"><![CDATA[COSMOS HUB]]></string>
-    <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
-    <string name="str_front_guide_title_binance"><![CDATA[BINANCE]]></string>
-    <string name="str_front_guide_title_kava"><![CDATA[KAVA]]></string>
-    <string name="str_front_guide_title_starname"><![CDATA[STARNAME SERVICE]]></string>
-    <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
-    <string name="str_front_guide_title_okx"><![CDATA[OKC]]></string>
-    <string name="str_front_guide_title_shentu"><![CDATA[SHENTU]]></string>
-    <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
-    <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
-    <string name="str_front_guide_title_persistence"><![CDATA[PERSISTENCE NETWORK]]></string>
-    <string name="str_front_guide_title_sentinel"><![CDATA[SENTINEL HUB]]></string>
-    <string name="str_front_guide_title_fetch"><![CDATA[FETCH AI NETWORK]]></string>
-    <string name="str_front_guide_title_crypto"><![CDATA[CRYPTO.ORG]]></string>
-    <string name="str_front_guide_title_sif"><![CDATA[SIF]]></string>
-    <string name="str_front_guide_title_ki"><![CDATA[KI FOUNDATATION]]></string>
-    <string name="str_front_guide_title_rizon"><![CDATA[RIZON]]></string>
-    <string name="str_front_guide_title_medi"><![CDATA[MEDIBLOC]]></string>
-    <string name="str_front_guide_title_althea"><![CDATA[ALTHEA NETWORK]]></string>
-    <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS]]></string>
-    <string name="str_front_guide_title_umee"><![CDATA[UMEE (The Ocean)]]></string>
-    <string name="str_front_guide_title_axelar"><![CDATA[AXELAR NETWORK]]></string>
-    <string name="str_front_guide_title_emoney"><![CDATA[E-Money]]></string>
-    <string name="str_front_guide_title_juno"><![CDATA[JUNO]]></string>
-    <string name="str_front_guide_title_regen"><![CDATA[REGEN NETWORK]]></string>
-    <string name="str_front_guide_title_bitcanna"><![CDATA[BITCANNA NETWORK]]></string>
-    <string name="str_front_guide_title_stargaze"><![CDATA[STARGAZE]]></string>
-    <string name="str_front_guide_title_grabridge"><![CDATA[GRAVITY BRIDGE]]></string>
-    <string name="str_front_guide_title_comdex"><![CDATA[COMDEX]]></string>
-    <string name="str_front_guide_title_injective"><![CDATA[INJECTIVE PROTOCOL]]></string>
-    <string name="str_front_guide_title_bitsong"><![CDATA[BITSONG NETWORK]]></string>
-    <string name="str_front_guide_title_desmos"><![CDATA[DESMOS NETWORK]]></string>
-    <string name="str_front_guide_title_lum"><![CDATA[LUM NETWORK]]></string>
-    <string name="str_front_guide_title_chihuahua"><![CDATA[CHIHUAHUA]]></string>
-    <string name="str_front_guide_title_konstellation"><![CDATA[KONSTELLATION]]></string>
-    <string name="str_front_guide_title_evmos"><![CDATA[EVMOS]]></string>
-    <string name="str_front_guide_title_cudos"><![CDATA[CUDOS]]></string>
-    <string name="str_front_guide_title_provenance"><![CDATA[PROVENANCE]]></string>
-    <string name="str_front_guide_title_cerberus"><![CDATA[CERBERUS]]></string>
-    <string name="str_front_guide_title_omniflix"><![CDATA[OMNIFLIX]]></string>
-    <string name="str_front_guide_title_crescent"><![CDATA[CRESCENT]]></string>
-    <string name="str_front_guide_title_assetmantle"><![CDATA[ASSETMANTLE]]></string>
-    <string name="str_front_guide_title_station"><![CDATA[STATION]]></string>
-    <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
-    <string name="str_front_guide_title_passage"><![CDATA[PASSAGE]]></string>
-    <string name="str_front_guide_title_stride"><![CDATA[STRIDE]]></string>
-    <string name="str_front_guide_title_likecoin"><![CDATA[LIKECOIN]]></string>
-    <string name="str_front_guide_title_ixo"><![CDATA[IXO]]></string>
-    <string name="str_front_guide_title_sommelier"><![CDATA[SOMMELIER]]></string>
-    <string name="str_front_guide_title_kujira"><![CDATA[KUJIRA]]></string>
+    <string name="str_mnemonic_confirm_msg">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
+    <string name="str_mnemonic_confirm_msg2">You can check/manage your mnemonics in\n[Manage Mnemonic]</string>
+    <string name="str_key_confirm_msg">Private Key is only used to restore the\ncurrently selected wallet.\nWe highly recommend keeping your mnemonics\noffline in a secure location, and never share your\nmnemonics with anyone else.\n\n
+                                       Private key is NOT mnemonics.\nYou MUST backup your mnemonics if you have one.\nYou need your mnemonics to restore your original wallets if you created them with mnemonics.</string>
+
+
+    <string name="str_front_guide_title_cosmos" translatable="false"><![CDATA[COSMOS HUB]]></string>
+    <string name="str_front_guide_title_iris" translatable="false"><![CDATA[IRIS HUB]]></string>
+    <string name="str_front_guide_title_binance" translatable="false"><![CDATA[BINANCE]]></string>
+    <string name="str_front_guide_title_kava" translatable="false"><![CDATA[KAVA]]></string>
+    <string name="str_front_guide_title_starname" translatable="false"><![CDATA[STARNAME SERVICE]]></string>
+    <string name="str_front_guide_title_band" translatable="false"><![CDATA[BAND PROTOCOL]]></string>
+    <string name="str_front_guide_title_okx" translatable="false"><![CDATA[OKC]]></string>
+    <string name="str_front_guide_title_shentu" translatable="false"><![CDATA[SHENTU]]></string>
+    <string name="str_front_guide_title_akash" translatable="false"><![CDATA[AKASH NETWORK]]></string>
+    <string name="str_front_guide_title_secret" translatable="false"><![CDATA[SECRET NETWORK]]></string>
+    <string name="str_front_guide_title_persistence" translatable="false"><![CDATA[PERSISTENCE NETWORK]]></string>
+    <string name="str_front_guide_title_sentinel" translatable="false"><![CDATA[SENTINEL HUB]]></string>
+    <string name="str_front_guide_title_fetch" translatable="false"><![CDATA[FETCH AI NETWORK]]></string>
+    <string name="str_front_guide_title_crypto" translatable="false"><![CDATA[CRYPTO.ORG]]></string>
+    <string name="str_front_guide_title_sif" translatable="false"><![CDATA[SIF]]></string>
+    <string name="str_front_guide_title_ki" translatable="false"><![CDATA[KI FOUNDATATION]]></string>
+    <string name="str_front_guide_title_rizon" translatable="false"><![CDATA[RIZON]]></string>
+    <string name="str_front_guide_title_medi" translatable="false"><![CDATA[MEDIBLOC]]></string>
+    <string name="str_front_guide_title_althea" translatable="false"><![CDATA[ALTHEA NETWORK]]></string>
+    <string name="str_front_guide_title_osmosis" translatable="false"><![CDATA[OSMOSIS]]></string>
+    <string name="str_front_guide_title_umee" translatable="false"><![CDATA[UMEE (The Ocean)]]></string>
+    <string name="str_front_guide_title_axelar" translatable="false"><![CDATA[AXELAR NETWORK]]></string>
+    <string name="str_front_guide_title_emoney" translatable="false"><![CDATA[E-Money]]></string>
+    <string name="str_front_guide_title_juno" translatable="false"><![CDATA[JUNO]]></string>
+    <string name="str_front_guide_title_regen" translatable="false"><![CDATA[REGEN NETWORK]]></string>
+    <string name="str_front_guide_title_bitcanna" translatable="false"><![CDATA[BITCANNA NETWORK]]></string>
+    <string name="str_front_guide_title_stargaze" translatable="false"><![CDATA[STARGAZE]]></string>
+    <string name="str_front_guide_title_grabridge" translatable="false"><![CDATA[GRAVITY BRIDGE]]></string>
+    <string name="str_front_guide_title_comdex" translatable="false"><![CDATA[COMDEX]]></string>
+    <string name="str_front_guide_title_injective" translatable="false"><![CDATA[INJECTIVE PROTOCOL]]></string>
+    <string name="str_front_guide_title_bitsong" translatable="false"><![CDATA[BITSONG NETWORK]]></string>
+    <string name="str_front_guide_title_desmos" translatable="false"><![CDATA[DESMOS NETWORK]]></string>
+    <string name="str_front_guide_title_lum" translatable="false"><![CDATA[LUM NETWORK]]></string>
+    <string name="str_front_guide_title_chihuahua" translatable="false"><![CDATA[CHIHUAHUA]]></string>
+    <string name="str_front_guide_title_konstellation" translatable="false"><![CDATA[KONSTELLATION]]></string>
+    <string name="str_front_guide_title_evmos" translatable="false"><![CDATA[EVMOS]]></string>
+    <string name="str_front_guide_title_cudos" translatable="false"><![CDATA[CUDOS]]></string>
+    <string name="str_front_guide_title_provenance" translatable="false"><![CDATA[PROVENANCE]]></string>
+    <string name="str_front_guide_title_cerberus" translatable="false"><![CDATA[CERBERUS]]></string>
+    <string name="str_front_guide_title_omniflix" translatable="false"><![CDATA[OMNIFLIX]]></string>
+    <string name="str_front_guide_title_crescent" translatable="false"><![CDATA[CRESCENT]]></string>
+    <string name="str_front_guide_title_assetmantle" translatable="false"><![CDATA[ASSET MANTLE]]></string>
+    <string name="str_front_guide_title_station" translatable="false"><![CDATA[STATION]]></string>
+    <string name="str_front_guide_title_nyx" translatable="false"><![CDATA[NYX]]></string>
+    <string name="str_front_guide_title_passage" translatable="false"><![CDATA[PASSAGE]]></string>
+    <string name="str_front_guide_title_stride" translatable="false"><![CDATA[STRIDE]]></string>
+    <string name="str_front_guide_title_likecoin" translatable="false"><![CDATA[LIKECOIN]]></string>
+    <string name="str_front_guide_title_ixo" translatable="false"><![CDATA[IXO]]></string>
+    <string name="str_front_guide_title_sommelier" translatable="false"><![CDATA[SOMMELIER]]></string>
+    <string name="str_front_guide_title_kujira" translatable="false"><![CDATA[KUJIRA]]></string>
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_binance">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -651,9 +349,6 @@
     <string name="str_est_apr">Est. APY</string>
     <string name="str_daily_return">Est. Daily Reward</string>
     <string name="str_monthly_return">Est. Monthly Reward</string>
-    <string name="str_gas_amount">Gas Amount</string>
-    <string name="str_gas_rate">Gas Rate</string>
-    <string name="str_fee_amount">Tx Fee Amount</string>
     <string name="str_fee_msg_title">Tx Fee is a cost charged by the network.</string>
     <string name="str_fee_msg_content">Cosmostation Wallet service is free to use, and the Tx fee you pay is distributed to all validators and community pool.</string>
     <string name="str_fee_speed_title_tiny">Only a handful of validators will process this Tx.</string>
@@ -661,33 +356,13 @@
     <string name="str_fee_speed_title_average">Most validators will process this Tx.</string>
     <string name="str_fee_speed_title_zero">This chain support zero Tx fee</string>
     <string name="str_fee_speed_title_fixed">This chain support fixed Tx fee</string>
-    <string name="str_fee_speed_fixed">Tx fees are for transactions on the network, distributed to the community pool, delegators, and validators. It safeguards the network and prevents congestion due to excessive spamming.</string>
-    <string name="str_fee_description_title_0">Tx fee 0.000001 ATOM</string>
-    <string name="str_fee_description_title_1">Tx fee rate 0.0025</string>
-    <string name="str_fee_description_title_2">Tx fee rate 0.025</string>
-    <string name="str_fee_description_msg_0">Only a handful of validators will process this Tx. Validators with a minimum Tx fee setting of 0.000001 ATOM or less must propose a block in order for this Tx to be included. Depending on which validator is proposing the block at the time of your Tx, there may be a delay in having your Tx reflected on the blockchain.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Polychain Labs, jackzampolin, Forbole, Cryptium Labs, BouBounNode</string>
-    <string name="str_fee_description_msg_1">This Tx will be processed by Cosmostation and other validators with a minimum Tx fee rate setting lower than or equal to 0.0025. Depending on which validator is proposing the block at the time of your Tx, there may be a delay in having your Tx reflected on the blockchain.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Cosmostation, Polychain Labs, jackzampolin, Forbole, Cryptium Labs, BouBounNode</string>
-    <string name="str_fee_description_msg_2">The majority of validators have a minimum Tx fee rate higher than or equal to 0.025. Most validators will process this Tx. Therefore, there is a higher probability of your Tx being reflected on the blockchain within one block time(~7 seconds) when you use a Tx fee rate of 0.025.\n\nMinimum Tx fee is a value set by each validator. If a validator has a higher node Tx fee setting, it means that a higher Tx fee is required from the user in order to include the Tx in the block proposed by the validator.\n\nValidators that currently accept this Tx fee: Majority(~80%) of validators.</string>
     <string name="str_empty_warnning_title">Warning!</string>
     <string name="str_empty_warnning_msg">You will be left with no available balance after this Tx. You will not have any available coin to be used as gas to make another Tx after this.</string>
-    <string name="str_fee_over_title">Unable to claim rewards</string>
-    <string name="str_fee_over_msg">Tx fee is higher than your unclaimed rewards. Set your fee to a lower amount or try again when you have more rewards accumulated.</string>
     <string name="str_validator">Validator</string>
-    <string name="str_provider">Provider</string>
-    <string name="str_order">Order</string>
     <string name="str_price">Price</string>
-    <string name="str_dseq">dseq</string>
-    <string name="str_gseq">gseq</string>
-    <string name="str_oseq">oseq</string>
-    <string name="str_deployment_id">Deployment ID</string>
-    <string name="str_certificate_owner">Owner</string>
-    <string name="str_version_hash">Version Hash</string>
-    <string name="str_deployment_deposit">Deposit</string>
-    <string name="str_akash_deposit">Deposit</string>
     <string name="str_current_delegation">Current Delegation</string>
     <string name="str_expected_delegation">Expected Delegation</string>
     <string name="str_wallet_connect">Wallet Connect</string>
-    <string name="str_wallet_connect_msg">Would you like to link your wallet to Binance Dex Exchange?</string>
     <string name="str_disconnect">Disconnect</string>
     <string name="str_connect_to">Connect to</string>
     <string name="str_wc_manage_title">Manage Connections</string>
@@ -704,14 +379,9 @@
     <string name="str_wc_dapp_title">Browser</string>
     <string name="str_wc_connected">Wallet is connected.</string>
     <string name="str_wc_not_connected">Wallet is disconnected.</string>
-    <string name="str_wc_approved">Wallet is approved.</string>
-    <string name="str_wc_closed">Wallet is closed.</string>
     <string name="str_wc_request_responsed">Responsed for Request</string>
     <string name="str_wc_sign_title">Request Transaction Sign</string>
-    <string name="str_wc_sign_msg">Please check the contents and decide.\nIt affects your assets.</string>
     <string name="str_wc_sign_result_msg">Tx is broadcasted. \nPlese check your Dex screen!</string>
-    <string name="str_wc_new_order">New Order</string>
-    <string name="str_wc_cancel_order">Order Cancel</string>
     <string name="str_switch_wallet">Switch Wallet</string>
     <string name="str_wc_trade_title">Place Order Request</string>
     <string name="str_wc_cancel_title">Cancel Order Request</string>
@@ -723,7 +393,6 @@
     <string name="str_wc_transfer_symbol">Symbol</string>
     <string name="str_wc_transfer_price">Price</string>
     <string name="str_quorum">Quorum</string>
-    <string name="str_turnout">Turnout</string>
     <string name="str_voting_period">Voting Period Proposals</string>
     <string name="str_vote_proposals">Proposals</string>
     <string name="str_vote_yes">YES</string>
@@ -731,13 +400,6 @@
     <string name="str_vote_veto">NoWithVeto</string>
     <string name="str_vote_abstain">Abstain</string>
     <string name="str_vote_wait_deposit">Waiting Deposit</string>
-    <string name="str_iris_proposal_type_BasicProposal">Basic Proposal</string>
-    <string name="str_iris_proposal_type_ParameterProposal">Parameter Proposal</string>
-    <string name="str_iris_proposal_type_PlainTextProposal">PlainText Proposal</string>
-    <string name="str_iris_proposal_type_TokenAdditionProposal">TokenAddition Proposal</string>
-    <string name="str_iris_proposal_type_SoftwareUpgradeProposal">SoftwareUpgrade Proposal</string>
-    <string name="str_iris_proposal_type_SystemHaltProposal">SystemHalt Proposal</string>
-    <string name="str_iris_proposal_type_CommunityTaxUsageProposal">CommunityTaxUsage Proposal</string>
     <string name="str_opinion">My Vote</string>
     <string name="str_proposal_id">Proposal Id</string>
     <string name="str_notification">Notification</string>
@@ -749,11 +411,6 @@
     <string name="str_update_title">Update</string>
     <string name="str_update_msg">New version available. \nPlease update to the latest version from the PlayStore.</string>
     <string name="str_go_store">Go PlayStore</string>
-    <string name="str_alarm_enabled">Push alarm is enabled for detecting each sent <![CDATA[&]]> received tx with this address.</string>
-    <string name="str_alarm_disabled">Push alarm is turned off. You can turn on.</string>
-    <string name="str_push_alarm">Push Alarm</string>
-    <string name="str_push_permission_title">Permission</string>
-    <string name="str_push_permission_msg">Need permission to send a push. Redirect to the setting screen?</string>
     <string name="str_tx_detail">Transaction Detail</string>
     <string name="str_tx_msg_cnt">Message Size</string>
     <string name="str_tx_gas_info">Gas (used/wanted)</string>
@@ -763,7 +420,6 @@
     <string name="str_tx_fee">Fee</string>
     <string name="str_tx_fee_info">Fee (used/limit)</string>
     <string name="str_tx_fee_used">Fee Used</string>
-    <string name="str_tx_fee_limit">Fee Limit</string>
     <string name="str_from">From</string>
     <string name="str_to">To</string>
     <string name="str_delegator">Delegator</string>
@@ -773,8 +429,6 @@
     <string name="str_from_validator">From Validator</string>
     <string name="str_to_validator">To Validator</string>
     <string name="str_validators">Validators</string>
-    <string name="str_amount_sum">Amount Sum</string>
-    <string name="str_reward_sum">Reward Sum</string>
     <string name="str_withdraw_address">Reward Withdraw Address</string>
     <string name="str_voter">Voter</string>
     <string name="str_success_c">Success</string>
@@ -784,16 +438,11 @@
     <string name="str_buy_atom">Buy ATOM</string>
     <string name="str_buy_bnb">Buy BNB</string>
     <string name="str_buy_kava">Buy KAVA</string>
-    <string name="str_buy_band">Buy BAND</string>
-    <string name="str_kava_testnet_msg"><![CDATA[This wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
     <string name="str_kava_dapp"><![CDATA[KAVA DeFi]]> </string>
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
     <string name="str_buy_select_fiat_title">Select Fiat</string>
     <string name="str_buy_select_fiat_msg">Please select a currency to make a purchase.</string>
-    <string name="str_price_poster">Price Poster</string>
-    <string name="str_market_id">Market ID</string>
     <string name="str_post_price">Post Price</string>
-    <string name="str_validity_time">Validity Time</string>
     <string name="str_sender_cdp">Sender</string>
     <string name="str_owner_cdp">Owner</string>
     <string name="str_depositor_cdp">Depositor</string>
@@ -802,42 +451,17 @@
     <string name="str_denom_cdp">Coin Type</string>
     <string name="str_payment_cdp">Payment</string>
     <string name="str_undelegate_status">UnBonding Details</string>
-    <string name="str_kava_newpath_title">Select Key Path</string>
-    <string name="str_kava_newpath_msg">BIP44 for KAVA key generation will be implemented starting March, 2020.\n\nIf you created an address before March, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original KAVA wallet. Simply press [Import Mnemonics] to re-select your path.</string>
-    <string name="str_kava_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
-    <string name="str_kava_new_path"><![CDATA[NEW PATH (44\'/459\'/0\'/0)]]></string>
-    <string name="str_secret_newpath_title">Select Key Path</string>
-    <string name="str_secret_newpath_msg">BIP44 for Secret key generation will be implemented starting Sep, 2020.\n\nIf you created an address before Sep, 2020, please select [Original Path]. If you created an address after March, 2020, please select [New Path].\n\nIf you mistakenly selected the wrong path, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your path.</string>
-    <string name="str_secret_old_path"><![CDATA[OLD PATH (44\'/118\'/0\'/0)]]></string>
-    <string name="str_secret_new_path"><![CDATA[NEW PATH (44\'/529\'/0\'/0)]]></string>
-    <string name="str_okex_newpath_title">Select Key Type</string>
-    <string name="str_okex_newpath_msg">OKC Chain support 3 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\nIf you want the latest path select [Ethereum Type] \n\nIf you mistakenly selected the wrong type, it will not affect your original OKC wallet. Simply press [Import Mnemonics] to re-select your type.</string>
-    <string name="str_okex_old_type"><![CDATA[Legacy Tendermint Type (44\'/996\'/0\'/0)]]></string>
-    <string name="str_okex_new_type"><![CDATA[Legacy Ethermint Type (44\'/996\'/0\'/0)]]></string>
-    <string name="str_okex_eth_type"><![CDATA[Ethereum Type (44\'/60\'/0\'/0)]]></string>
-    <string name="str_okex_address_title">Select Address Type</string>
-    <string name="str_okex_old_address">Legacy Tendermint Type</string>
-    <string name="str_okex_new_address">New Ether Type</string>
-    <string name="str_lum_newpath_title">Select Key Path</string>
-    <string name="str_lum_newpath_msg">Select [Air-Drop Path] to import the address that received the Lum airdrop. If you wish to import a general Lum address, select [Default Path].\n\nYou can go back to [Import Mnemonics] at any time and select your desired path again.</string>
-    <string name="str_lum_basic_type"><![CDATA[Default PATH (44\'/880\'/0\'/0)]]></string>
-    <string name="str_lum_airdrop_type"><![CDATA[Air-Drop PATH (44\'/118\'/0\'/0)]]></string>
     <string name="str_kava_cdp_list">Mint</string>
     <string name="str_kava_cdp_details">Mint Status</string>
-    <string name="str_kava_auction_list">Auction</string>
-    <string name="str_kava_auction_details">Auction Status</string>
     <string name="str_kava_harvest_list">Lend</string>
     <string name="str_kava_harvest_details">Lend Status</string>
     <string name="str_kava_swap_list">Swap</string>
     <string name="str_kava_pool_list">Pool</string>
-    <string name="str_my_cdps">My CDP</string>
-    <string name="str_all_cdps">All Products</string>
     <string name="str_press_select_recipient_account">Select Recipient Account</string>
     <string name="str_check_sent_wallet">Origin Wallet</string>
     <string name="str_check_received_wallet">Destination Wallet</string>
     <string name="str_wait_htlc_loading">Do NOT close!\nTransactions are being submitted to each chain in order.\nPlease note that it may take longer than regular transactions.</string>
     <string name="str_sender">Sender</string>
-    <string name="str_receiver">Receiver</string>
     <string name="str_relay_recipient">Relay recipient</string>
     <string name="str_relay_sender">Relay Sender</string>
     <string name="str_recipient">Recipient</string>
@@ -845,9 +469,6 @@
     <string name="str_claimer">Claimer</string>
     <string name="str_random_number">Random Number</string>
     <string name="str_swap_id">Swap ID</string>
-    <string name="str_expected_income">Expected Income</string>
-    <string name="str_warn_testnet_title">Testnet Warning</string>
-    <string name="str_warn_testnet_msg"><![CDATA[This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
     <string name="str_ibc_send">IBC Send</string>
     <string name="str_bep3_send">BEP3 Send</string>
     <string name="str_default_send">Send</string>
@@ -857,30 +478,12 @@
     <string name="str_create_interchain_send">Create BEP3 Send</string>
     <string name="str_claim_interchain_swap">Claim BEP3 Swap</string>
     <string name="str_bep3_status">Status</string>
-    <string name="str_bep3_status_completed">Receive Completed (Claimed)</string>
-    <string name="str_bep3_status_expired">Refundable</string>
-    <string name="str_bep3_status_open">Wait Claim</string>
-    <string name="str_bep3_status_refunded">Refunded</string>
-    <string name="str_bep3_status_null">UnKnown</string>
-    <string name="str_bep3_refund">BEP3 Refund</string>
-    <string name="str_swapId">SwapId</string>
-    <string name="str_refund_amount">Refund Amount</string>
-    <string name="str_refund_to">Refund To</string>
     <string name="str_incentive_amount">Incentive Reward</string>
-    <string name="str_participator">Participator</string>
-    <string name="str_this_total_reward">This Round Total Reward</string>
-    <string name="str_lock_time">Lock Time</string>
     <string name="str_vesting_schedule">Vesting Unlock Schedule</string>
     <string name="str_relayer_status">Relayer Status</string>
     <string name="str_apr_help_title">Staking APY</string>
     <string name="str_apr_help_onchain_msg">With on chain params</string>
     <string name="str_apr_help_real_msg">With real block time</string>
-    <string name="str_apr_help_msg">This figure is an estimated percentage calculated by taking into account the current average network block time.</string>
-    <string name="str_fetch_eth_path_msg">For Convenience of interoperability\nwith Ethereum, 4 types key path\nsupport for Fetch-Ai.</string>
-    <string name="str_fetch_cosmos_path"><![CDATA[Cosmos PATH (44\'/118\'/0\'/0/X)]]></string>
-    <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/0/X)]]></string>
-    <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
-    <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_add_new">Add Wallet</string>
     <string name="str_add_wallet">Would you like to add %1$s wallet(s)?</string>
     <string name="str_error_not_support_chain_title">Error</string>
@@ -894,42 +497,24 @@
     <string name="str_liquidation_penalty">Liquidation Penalty</string>
     <string name="str_liquidation_title1">Liquidation</string>
     <string name="str_liquidation_title3">Liquidation %1$s Price</string>
-    <string name="str_before_liquidation_title1">Initial Liquidation</string>
     <string name="str_before_liquidation_title2">Initial Liquidation %1$s Price</string>
-    <string name="str_after_liquidation_title1">Expected Liquidation</string>
     <string name="str_after_liquidation_title2">Expected Liquidation %1$s Price</string>
-    <string name="str_liquidation_title2">Price</string>
     <string name="str_current_title1">Current</string>
-    <string name="str_current_title2">Price</string>
     <string name="str_current_title3">Current %1$s Price</string>
-    <string name="str_collateral_title1">Collateralized</string>
-    <string name="str_collateral_title2">Amount</string>
-    <string name="str_loaned_title1">Loaned</string>
-    <string name="str_loaned_title2">Amount</string>
-    <string name="str_payment_title1">To Payment</string>
-    <string name="str_payment_title2">Amount</string>
-    <string name="str_remain_debt_title1">Estimated Remain Debt</string>
-    <string name="str_remain_debt_title2">Amount</string>
-    <string name="str_collateral_value_title1">Collateral</string>
-    <string name="str_collateral_value_title2">Value</string>
     <string name="str_collateral_value_title3">My %1$s Collateral Value</string>
     <string name="str_open_cdp">Open Mint</string>
     <string name="str_total_amount">Total</string>
     <string name="str_total_fee">Total Fee</string>
-    <string name="str_available_amount">Available Amount</string>
-    <string name="str_delegable_amount">Delegable Amount</string>
     <string name="str_self_deposited_amount">Deposited Collateral (self)</string>
     <string name="str_total_deposited_amount">Deposited Collateral (total)</string>
     <string name="str_expected_withdrawable_amount">Withdrawable</string>
     <string name="str_loaned_amount">Loan Principal</string>
     <string name="str_expected_loanable_amount">Remaining Loan Capacity</string>
-    <string name="str_outstanding_debt">Outstanding Debt</string>
     <string name="str_cdp_total_fee">Loan Interest</string>
     <string name="str_collateral_deposit">Deposit</string>
     <string name="str_collateral_withdraw">Withdraw</string>
     <string name="str_principal_drawdebt">Borrow more USDX</string>
     <string name="str_principal_repay">Repay USDX</string>
-    <string name="str_star_name_service">StarName Service</string>
     <string name="str_star_name">Starname</string>
     <string name="str_max_global_debt">System Max Mintable USDX</string>
     <string name="str_remain_debt">Remain Mintable USDX</string>
@@ -952,8 +537,6 @@
     <string name="str_kava_incentive_msg">KAVA incentive for users who deposit assets to create CDPs and mint USDX, distributed weekly!\nThe more USDX you mint, the more KAVA rewards you get.</string>
     <string name="str_kava_hard_incentive_title">Hard Incentive</string>
     <string name="str_kava_hard_incentive_msg">Hard pool incentive for users who provide liquidity to the hard pool or use loan.\nDepending on the type of coins you provide, you will receive either Hard or KAVA rewards.</string>
-    <string name="str_kava_participate">Participate</string>
-    <string name="str_kava_participate_done">Participation Complete!!</string>
 
     <string name="str_help_collateral_rate_t">Min. Collateral Rate</string>
     <string name="str_help_collateral_rate">The minimum rate at which the total USD value of the collateralized asset must be kept at against the total amount of USDX loaned from the CDP.\n\nFor example, if the minimum collateral rate is 200%, this means that in order to borrow 100 USDX from the CDP, you must deposit at least 200 USD worth of assets as collateral. If the total USD value of your collateralized asset falls below 200 USD due to price fluctuations, your position will be liquidated.</string>
@@ -961,28 +544,19 @@
     <string name="str_help_stability_fee">The amount of fee you must pay for taking out USDX loans from the CDP, calculated as APR.\n\nWhen you repay your USDX debt, you must also pay this stability fee in order to close your collateralized debt position.</string>
     <string name="str_help_liquidation_penalty_t">Liquidation Penalty</string>
     <string name="str_help_liquidation_penalty">The amount of penalty you must pay in the event that your collateralized assets are liquidated due to price fluctuations.\n\nIf your collateral rate falls below minimum collateral rate, your assets will be liquidated.</string>
-
-    <string name="str_help_available_collateral_t">Available</string>
     <string name="str_help_available_collateral">The amount of available %1$s in your wallet that can be deposited into the CDP as collateral.</string>
     <string name="str_help_self_deposited_collateral_t">Self Deposited Collateral</string>
     <string name="str_help_self_deposited_collateral_">The amount of %1$s deposited into the CDP as collateral from this wallet.</string>
     <string name="str_help_total_deposited_collateral_t">Total Deposited Collateral</string>
     <string name="str_help_total_deposited_collateral">The total amount of %1$s deposited into the CDP as collateral.</string>
-    <string name="str_help_withdrawable_t">Withdrawable</string>
     <string name="str_help_withdrawable">The amount of maximum collateral capable of being withdrawn from the CDP without reaching a risk score of 95.\n\nNote that withdrawing the collateral excessively close to the maximum amount can put the CDP into risk of going below the minimum collateral rate and being liquidated.</string>
-
-    <string name="str_help_available_amount_t">Available Amount</string>
-    <string name="str_help_available_amount">The amount of USDX available for transactions.</string>
     <string name="str_help_loaned_amount_t">Loan Principal</string>
     <string name="str_help_loaned_amount">The total amount of USDX loaned from the CDP.</string>
     <string name="str_help_remaining_loan_capacity_t">Remaining Loan Capacity</string>
     <string name="str_help_remaining_loan_capacity">The amount of USDX that can be additionally loaned from the CDP. This capacity changes in accordance to changes in the collateral rate due to price fluctuations.</string>
-    <string name="str_help_outstanding_debt_t">Outstanding Debt</string>
-    <string name="str_help_outstanding_debt">The total principal as well as interest amount of debt that has yet to be paid.</string>
     <string name="str_help_total_fee_t">Loan Interest</string>
     <string name="str_help_total_fee">Accrued CDP stability fee. The fee increases every second.</string>
     <string name="str_help_risk">A risk score of 100 will cause your CDP to be liquidated. Risk Score is calculated through comparing the current token price of your collateralized asset against the token price at which the CDP will be liquidated.\n\nFor example, a risk score of 60 and the current token price of your collateralized asset at $10 means that your CDP will be liquidated if the token price reaches $6.</string>
-
 
     <string name="str_create_cdp_c">OPEN Mint</string>
     <string name="str_repay_cdp_c">REPAY USDX</string>
@@ -991,18 +565,12 @@
     <string name="str_withdraw_cdp_c">WITHDRAW COLLATERAL</string>
     <string name="str_depositable_amount"><![CDATA[Depositable : ]]></string>
     <string name="str_deposit_value"><![CDATA[Deposit Value : ]]></string>
-    <!--    <string name="str_loanable_amount"><![CDATA[Loanable : ]]></string>-->
     <string name="str_loanable_amount"><![CDATA[Max : ]]></string>
     <string name="str_approximate_value"><![CDATA[Approximate Value : ]]></string>
-    <string name="str_max_paymentable_amount"><![CDATA[Max : ]]></string>
     <string name="str_repay_particaly"><![CDATA[Repay Partially : ]]></string>
     <string name="str_cannot_particaly">Cannot repay partially</string>
     <string name="str_repay_all"><![CDATA[Repay All : ]]></string>
     <string name="str_cannot_repay_all">Insufficient USDX to repay all</string>
-    <!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable : ]]></string>-->
-    <string name="str_max_depositable_amount"><![CDATA[Max : ]]></string>
-    <!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable : ]]></string>-->
-    <string name="str_max_withdrawable_amount"><![CDATA[Max : ]]></string>
     <string name="str_add_min">Min</string>
     <string name="str_add_20"><![CDATA[≈ 20]]></string>
     <string name="str_add_50"><![CDATA[≈ 50]]></string>
@@ -1016,137 +584,21 @@
     <string name="str_cdp_promotion_title">Create a Collateralized Debt Position</string>
     <string name="str_cdp_promotion_msg">Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance.</string>
     <string name="str_repay_all_notice">This CDP will be closed. \nAll deposits will be returned to each depositor.</string>
-    <string name="str_select_receive_chain">Select Destination Chain</string>
     <string name="str_select_account">Select Account</string>
-    <string name="str_bep3_cap_status">Swap Cap Information</string>
-    <string name="str_bep3_available_title">BNB-BEP3 swap available</string>
-    <string name="str_bep3_unavailable_title">BNB-BEP3 swap unavailable</string>
     <string name="str_bep3_max_once">Swap Limit Per Transaction</string>
     <string name="str_bep3_system_max">System Max Cap</string>
-    <string name="str_bep3_current_cap">Current Cap</string>
     <string name="str_bep3_remain_cap">Remaining Cap</string>
-    <string name="str_bep3_bnb_cap_over">The total amount of BNB available for swap has reached its network capacity.\n\nThe maximum swap capacity is determined through Kava policies <![CDATA[&]]> governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\n\nhttps://t.me/kavalabs</string>
-    <string name="str_bep3_bnb_cap">Current remaining swap capacity is %1$s\n\nThe maximum swap capacity is determined through Kava policies <![CDATA[&]]> governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\nhttps://t.me/kavalabs</string>
     <string name="str_select_to_send_coin">Select To Send Coin Type</string>
     <string name="str_select_to_send_chain">Select Recipient Chain</string>
-
-
-    <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
-    <string name="str_create_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_create_cdp_step_3">Select transaction fee</string>
-    <string name="str_create_cdp_step_4">Check transaction detail</string>
-    <string name="str_repay_cdp_step_1">Enter repayment amount</string>
-    <string name="str_repay_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_repay_cdp_step_3">Select transaction fee</string>
-    <string name="str_repay_cdp_step_4">Check transaction detail</string>
-    <string name="str_draw_debt_cdp_step_1">Enter loan amount</string>
-    <string name="str_draw_debt_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_draw_debt_cdp_step_3">Select transaction fee</string>
-    <string name="str_draw_debt_cdp_step_4">Check transaction detail</string>
-    <string name="str_deposit_cdp_step_1">Enter deposit amount</string>
-    <string name="str_deposit_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_deposit_cdp_step_3">Select transaction fee</string>
-    <string name="str_deposit_cdp_step_4">Check transaction detail</string>
-    <string name="str_withdraw_cdp_step_1">Enter withdrawal amount</string>
-    <string name="str_withdraw_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_withdraw_cdp_step_3">Select transaction fee</string>
-    <string name="str_withdraw_cdp_step_4">Check transaction detail</string>
-    <string name="str_htlc_send_step_1">Select Destination Chain</string>
-    <string name="str_htlc_send_step_2">Select Recipient Account</string>
-    <string name="str_htlc_send_step_3">Insert Amount to Send</string>
-    <string name="str_htlc_send_step_4">Check Transactions Detail</string>
-    <string name="str_htlc_loading_progress_0">1/4 Broadcasting interchain send Tx from sending chain.</string>
-    <string name="str_htlc_loading_progress_1">2/4 Confirming swapid.</string>
-    <string name="str_htlc_loading_progress_2">3/4 Broadcasting interchain claim Tx on receiving chain.</string>
-    <string name="str_htlc_loading_progress_3">4/4 Confirming all Tx on each chain.</string>
-    <string name="str_htlc_refund_step_0">Refunding Expired BEP3 Transfer</string>
-    <string name="str_htlc_refund_step_1">Insert memo (optional)</string>
-    <string name="str_htlc_refund_step_2">Select transaction fee</string>
-    <string name="str_htlc_refund_step_3">Check transaction detail</string>
-    <string name="str_incentive_participate_step_0">Check your Incentive</string>
-    <string name="str_incentive_participate_step_1">Insert memo (optional)</string>
-    <string name="str_incentive_participate_step_2">Select transaction fee</string>
-    <string name="str_incentive_participate_step_3">Check transaction detail</string>
-    <string name="str_claim_harvest_reward">Claim Hard Incentive</string>
-    <string name="str_harvest_reward_step_0">Select hard pool incentive option</string>
-    <string name="str_harvest_reward_step_1">Insert memo (optional)</string>
-    <string name="str_harvest_reward_step_2">Select transaction fee</string>
-    <string name="str_harvest_reward_step_3">Check transaction detail</string>
-    <string name="str_borrower">Borrower</string>
-
-
-    <string name="str_main_wallet">WALLET</string>
-    <string name="str_main_send">SEND</string>
-    <string name="str_main_tokens">ASSETS</string>
-    <string name="str_main_dapp">DAPP</string>
-    <string name="str_main_reward">REWARD</string>
-    <string name="str_main_history">HISTORY</string>
-    <string name="str_main_vote">VOTE</string>
-    <string name="str_main_set">SETTING</string>
-    <string name="str_password">Password</string>
-    <string name="str_set_password">Set Password</string>
-    <string name="str_init_password">Please insert your PIN number.</string>
-    <string name="str_init_again">Please insert again for confirm.</string>
-    <string name="str_using_fingerprint">Using Fingerprint</string>
-    <string name="str_ask_using_fingerprint">Do you want to enable fingerprint authentication?</string>
-    <string name="str_mnemonic_copied">Mnemonic copied to clipboard.</string>
-    <string name="str_enter_address">Enter Address or Public-Key</string>
-    <string name="str_copy_right">COSMOS Wallet by Cosmostation</string>
-    <string name="str_password_init">Init your PIN number.</string>
-    <string name="str_password_msg1">Insert again for confirm.</string>
-    <string name="str_password_msg2">No way to recover this. please remember!</string>
-    <string name="str_send_step_0">Insert recipient address</string>
-    <string name="str_send_step_1">Insert send amount and select token type</string>
-    <string name="str_send_step_2">Insert memo (optional)</string>
-    <string name="str_send_step_3">Select transaction fee</string>
-    <string name="str_send_step_4">Check transaction detail</string>
-    <string name="str_delegate_step_1">Enter delegation amount</string>
-    <string name="str_delegate_step_2">Insert memo (optional)</string>
-    <string name="str_delegate_step_3">Select transaction fee</string>
-    <string name="str_delegate_step_4">Check delegation detail</string>
-    <string name="str_undelegate_step_1">Enter undelegation amount</string>
-    <string name="str_undelegate_step_2">Insert memo (optional)</string>
-    <string name="str_undelegate_step_3">Select transaction fee</string>
-    <string name="str_undelegate_step_4">Check undelegation detail</string>
-    <string name="str_unbonding_days_after"><![CDATA[days after)]]></string>
-    <string name="str_reward_step_1">Check reward detail</string>
-    <string name="str_reward_step_2">Insert memo (optional)</string>
-    <string name="str_reward_step_3">Select transaction fee</string>
-    <string name="str_reward_step_4">Check claim reward detail</string>
-    <string name="str_redelegate_step_0">Enter redelegation amount</string>
-    <string name="str_redelegate_step_1">Select validator redelegate.</string>
-    <string name="str_redelegate_step_2">Insert memo (optional)</string>
-    <string name="str_redelegate_step_3">Select transaction fee</string>
-    <string name="str_redelegate_step_4">Check transaction detail</string>
-    <string name="str_change_reward_address_step_0">Insert address to receive reward</string>
-    <string name="str_change_reward_address_step_1">Insert memo (optional)</string>
-    <string name="str_change_reward_address_step_2">Select transaction fee</string>
-    <string name="str_change_reward_address_step_3">Check transaction detail</string>
-    <string name="str_reinvest_step_0">Check reward amount for compounding</string>
-    <string name="str_reinvest_step_1">Insert memo (optional)</string>
-    <string name="str_reinvest_step_2">Select transaction fee</string>
-    <string name="str_reinvest_step_3">Check transaction detail</string>
-    <string name="str_vote_step_0">Select your Opinion</string>
-    <string name="str_vote_step_1">Insert memo (optional)</string>
-    <string name="str_vote_step_2">Select transaction fee</string>
-    <string name="str_vote_step_3">Check transaction detail</string>
-    <string name="str_already_imported_key">Already imported key.</string>
-    <string name="str_delete_title">Delete Wallet</string>
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
     <string name="str_delete">Delete</string>
     <string name="str_close">Close</string>
     <string name="str_no_history_with_this_validator">No history.</string>
-    <string name="str_let_start_cosmos">Explore the Cosmos Hub</string>
-    <string name="str_let_start_cosmos2">Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
     <string name="str_change_account_nickname">Change Wallet Name</string>
     <string name="str_change_mnemonic_nickname">Change Mnemonic Name</string>
     <string name="str_start_delegate">Delegate your tokens with Cosmostation.\nStart earning staking rewards and contribute\nto the network ecosystem.</string>
-    <string name="str_create_warn0">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
-    <string name="str_create_warn1">Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.</string>
-    <string name="str_gaia">Gaia testnet is not fixed coin type, so skip coin amount check logic.\nPlease insert valid amount coin without under point.</string>
     <string name="str_only_observe_title">No Private Key.</string>
     <string name="str_only_observe_msg">This account has only address with watch mode.\nYou need add mnemonics for generate transaction.\n</string>
-    <string name="str_all_validators">All Validators</string>
     <string name="str_top_100_validators">Top</string>
     <string name="str_other_validators">Others</string>
     <string name="str_my_validators">My</string>
@@ -1155,7 +607,6 @@
     <string name="str_unbonding">Unbonding</string>
     <string name="str_reward">Staking Reward</string>
     <string name="str_stake_reward">Staking Reward</string>
-    <string name="str_harvest_deposited">Harvest Deposited</string>
     <string name="str_harvest_reward">Harvest Reward</string>
     <string name="str_my_harvest_reward">My Harvest Reward</string>
     <string name="str_unclaimed_incentive">Unclaimed Incentive</string>
@@ -1165,6 +616,7 @@
     <string name="str_governance">Governance</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>
+    <string name="str_fixed">Fixed</string>
     <string name="str_free">Free</string>
     <string name="str_tiny">Tiny</string>
     <string name="str_low">Low</string>
@@ -1172,47 +624,28 @@
     <string name="str_high">High</string>
     <string name="str_available">Available</string>
     <string name="str_denom">Denom</string>
-    <string name="str_across_chain">Across Chain</string>
-    <string name="str_across_denom">Across Denom</string>
     <string name="str_vesting">Vesting</string>
     <string name="str_locked">Locked</string>
     <string name="str_frozen">Frozen</string>
-    <string name="str_deposited">Deposit</string>
     <string name="str_staking">Staking</string>
     <string name="str_to_staking">Staking</string>
     <string name="str_to_unbonding">Unbonding</string>
     <string name="str_deposit">Deposit</string>
     <string name="str_withdraw">Withdraw</string>
-    <string name="str_withdrawing">Withdrawing</string>
     <string name="str_vote_for_validator">Vote for Validator</string>
     <string name="str_name_service">Starname Service</string>
-    <string name="str_starname_service">Starname Service</string>
     <string name="str_promotion_title">START DELEGATING FOR REWARDS</string>
     <string name="str_sorting_s">Sorting</string>
     <string name="str_sorting_by_name">By Name</string>
     <string name="str_sorting_by_power">By Voting Power</string>
-    <string name="str_sorting_by_commission">By Commission</string>
     <string name="str_sorting_by_yield">By APR</string>
     <string name="str_sorting_by_my_delegated">By My Delegations</string>
     <string name="str_sorting_by_reward">By Reward</string>
-    <string name="str_sorting_by_amount">By Amount</string>
-    <string name="str_sorting_by_value">By Value</string>
     <string name="str_qr_code">Scan</string>
     <string name="str_recent">Recent</string>
-    <string name="str_in_wallet">Wallet</string>
-    <string name="str_fee_free_title">Fee Free Event</string>
-    <string name="str_sif_incentive_title">Incentive Event</string>
-    <string name="str_sif_incentive_staking">Staking Subsidy Incentive</string>
-    <string name="str_sif_incentive_liquidity">Liquidity Mining Incentive</string>
-    <string name="str_sif_incentive_max_staking">Max Staking Subsidy</string>
-    <string name="str_sif_incentive_max_liquidity">Max Liquidity Mining</string>
-    <string name="str_sif_incentive_max_date">Max Date</string>
-    <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>
     <string name="str_delegate_notice">When you delegate, your accumulated rewards will be automatically claimed to your available balance.</string>
     <string name="str_undelegate_notice">If you undelegate to the validator, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
     <string name="str_reward_notice">Rewards are accumulated each block.\nThe actual amount of rewards you receive may be equal to or greater than what is displayed now.</string>
-    <string name="str_multi_reward_notice">Claiming rewards from multiple validators in one transaction requires more fees than a regular transaction. However, using this function is less expensive than claiming your rewards individually from each validator.</string>
-    <string name="str_multi_reward_max_16">We claim rewards from up to 16 validators in order of reward amount.</string>
     <string name="str_not_validator_title">Not Validator</string>
     <string name="str_not_validator_msg">This node is not a valid Cosmos validator.\nThis node does not participate in consensus, and therefore does not yield any rewards.\nWould you like to continue?</string>
     <string name="str_redelegation_limitted_title">Unable to redelegate.</string>
@@ -1240,18 +673,10 @@
     <string name="str_app_unlock_msg2">Please insert PIN number or using fingerprint for unlock</string>
     <string name="str_using_applock">Using App Lock</string>
     <string name="str_using_fingerprints">Unlock with Fingerprint</string>
-    <string name="str_applock_time">App Lock Time</string>
-    <string name="str_applock_time_immediately">Lock Immediately</string>
     <string name="str_applock_time_10sec">Lock 10 Second After</string>
     <string name="str_applock_time_30sec">Lock 30 Second After</string>
     <string name="str_applock_time_60sec">Lock 60 Second After</string>
-    <string name="str_from_all_my_val">From all my validators</string>
-    <string name="str_name">Name</string>
     <string name="str_amount">Amount</string>
-    <string name="str_value">Value</string>
-    <string name="str_full_name">Detail</string>
-    <string name="str_vesting_title">Vesting Account</string>
-    <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli command delegate and undelegate tx for correct amount.</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_vesting_amount">Vesting (Only Delegable)</string>
     <string name="str_htlc_warn_title">BEP3 Swap Notice</string>
@@ -1261,23 +686,51 @@
     <string name="str_delegate_warn_title">Delegate Notice</string>
     <string name="str_delegate_warn_msg">You can receive staking rewards by delegating to a validator. You may lose a portion of your delegated stake if a problem occurs with the selected node. Please perform careful due diligence before delegating.\n\nWhen you undelegate, there is an unbonding period. You will not receive staking rewards during this time.\n\n</string>
     <string name="str_memo_warn">Please check your memo.\nSome exchanges or wallets may require a specific memo for deposits.</string>
+
+
+    <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
+    <string name="str_repay_cdp_step_1">Enter repayment amount</string>
+    <string name="str_draw_debt_cdp_step_1">Enter loan amount</string>
+    <string name="str_deposit_cdp_step_1">Enter deposit amount</string>
+    <string name="str_withdraw_cdp_step_1">Enter withdrawal amount</string>
+    <string name="str_htlc_send_step_1">Select Destination Chain</string>
+    <string name="str_htlc_send_step_2">Select Recipient Account</string>
+    <string name="str_htlc_send_step_3">Insert Amount to Send</string>
+    <string name="str_htlc_loading_progress_0">1/4 Broadcasting interchain send Tx from sending chain.</string>
+    <string name="str_htlc_loading_progress_1">2/4 Confirming swapid.</string>
+    <string name="str_htlc_loading_progress_2">3/4 Broadcasting interchain claim Tx on receiving chain.</string>
+    <string name="str_htlc_loading_progress_3">4/4 Confirming all Tx on each chain.</string>
+    <string name="str_incentive_participate_step_0">Check your Incentive</string>
+    <string name="str_borrower">Borrower</string>
+    <string name="str_main_wallet">WALLET</string>
+    <string name="str_main_tokens">ASSETS</string>
+    <string name="str_main_dapp">DAPP</string>
+    <string name="str_main_reward">REWARD</string>
+    <string name="str_main_history">HISTORY</string>
+    <string name="str_main_set">SETTING</string>
+    <string name="str_password">Password</string>
+    <string name="str_init_password">Please insert your PIN number.</string>
+    <string name="str_init_again">Please insert again for confirm.</string>
+    <string name="str_password_init">Init your PIN number.</string>
+    <string name="str_password_msg1">Insert again for confirm.</string>
+    <string name="str_password_msg2">No way to recover this. please remember!</string>
+    <string name="str_send_step_0">Insert recipient address</string>
+    <string name="str_send_step_1">Insert send amount and select token type</string>
+    <string name="str_delegate_step_1">Enter delegation amount</string>
+    <string name="str_undelegate_step_1">Enter undelegation amount</string>
+    <string name="str_unbonding_days_after"><![CDATA[days after)]]></string>
+    <string name="str_reward_step_1">Check reward detail</string>
+    <string name="str_redelegate_step_0">Enter redelegation amount</string>
+    <string name="str_redelegate_step_1">Select validator redelegate.</string>
+    <string name="str_change_reward_address_step_0">Insert address to receive reward</string>
+    <string name="str_reinvest_step_0">Check reward amount for compounding</string>
+    <string name="str_vote_step_0">Select your Opinion</string>
     <string name="str_ok_stake_deposit_step_0">Insert amount to stake</string>
-    <string name="str_ok_stake_deposit_step_1">Insert memo (optional)</string>
-    <string name="str_ok_stake_deposit_step_2">Select transaction fee</string>
-    <string name="str_ok_stake_deposit_step_3">Check transaction detail</string>
     <string name="str_ok_stake_withdraw_step_0">Insert amount to unbonding</string>
-    <string name="str_ok_stake_withdraw_step_1">Insert memo (optional)</string>
-    <string name="str_ok_stake_withdraw_step_2">Select transaction fee</string>
-    <string name="str_ok_stake_withdraw_step_3">Check transaction detail</string>
     <string name="str_ok_direct_vote_0">Select validator to vote</string>
-    <string name="str_ok_direct_vote_1">Insert memo (optional)</string>
-    <string name="str_ok_direct_vote_2">Select transaction fee</string>
-    <string name="str_ok_direct_vote_3">Check transaction detail</string>
     <string name="str_ok_deposit_amount">Deposit Amount</string>
     <string name="str_ok_withdraw_amount">Withdraw Amount</string>
     <string name="str_deposit_warn_title">Deposit Notice</string>
-    <string name="str_vote_direct">Direct vote to Validator</string>
-    <string name="str_vote_agent">Indirect vote with Agent</string>
     <string name="str_validator_vote"><![CDATA[Validators & Vote]]></string>
     <string name="str_ok_staking_c">Deposit</string>
     <string name="str_ok_unbonding_c">Withdraw</string>
@@ -1310,18 +763,12 @@
     <string name="str_register">Register</string>
     <string name="str_register_domain">Register Premium Starname</string>
     <string name="str_register_domain_step_0">Insert starname and type</string>
-    <string name="str_register_domain_step_1">Insert memo (optional)</string>
-    <string name="str_register_domain_step_2">Select transaction fee</string>
-    <string name="str_register_domain_step_3">Check transaction detail</string>
     <string name="str_domain_to_register">Domain To Premium Starname</string>
     <string name="str_description_open_domain">Open type in which an account owner is the only entity that can perform actions on the account.</string>
     <string name="str_description_closed_domain">Closed type in which the domain owner has control over accounts too.</string>
     <string name="str_register_account">Register Basic Starname</string>
     <string name="str_register_account_step_0">Insert starname you want</string>
     <string name="str_register_account_step_1">Insert your address to connect</string>
-    <string name="str_register_account_step_2">Insert memo (optional)</string>
-    <string name="str_register_account_step_3">Select transaction fee</string>
-    <string name="str_register_account_step_4">Check transaction detail</string>
     <string name="str_account_to_register">Account To Register</string>
     <string name="str_select_chain_for_address">Select chain for register address</string>
     <string name="str_select_chains">Select Chains</string>
@@ -1336,48 +783,28 @@
     <string name="str_delete_domain">Delete Premium Starname</string>
     <string name="str_delete_account">Delete Basic Starname</string>
     <string name="str_delete_starname_step_0">Confirm your starname to delete</string>
-    <string name="str_delete_starname_step_1">Insert memo (optional)</string>
-    <string name="str_delete_starname_step_2">Select transaction fee</string>
-    <string name="str_delete_starname_step_3">Check transaction detail</string>
     <string name="str_to_delete_starname">Delete Starname</string>
     <string name="str_renew_domain">Premium Starname Renew</string>
     <string name="str_renew_account">Basic Starname Renew</string>
     <string name="str_renew_starname_step_0">Confirm your starname to renew</string>
-    <string name="str_renew_starname_step_1">Insert memo (optional)</string>
-    <string name="str_renew_starname_step_2">Select transaction fee</string>
-    <string name="str_renew_starname_step_3">Check transaction detail</string>
     <string name="str_to_renew_starname">Renew Starname</string>
     <string name="str_current_expire_time">Current Expire Date</string>
     <string name="str_expected_expire_time">Renew Expire Date</string>
     <string name="str_replace_starname">Replace Addresses</string>
     <string name="str_replace_starname_step_0">Insert your address to connect</string>
-    <string name="str_replace_starname_step_1">Insert memo (optional)</string>
-    <string name="str_replace_starname_step_2">Select transaction fee</string>
-    <string name="str_replace_starname_step_3">Check transaction detail</string>
+
+
     <string name="str_signer">Signer</string>
     <string name="str_deposit_type">Deposit Type</string>
     <string name="str_deposit_amount2">Deposit Amount</string>
     <string name="str_withdraw_amount2">Withdraw Amount</string>
     <string name="str_borrow_amount">Borrow Amount</string>
     <string name="str_repay_amount">Repay Amount</string>
-    <string name="str_coin_type">Coin Type</string>
     <string name="str_multiplier_name">Multiplier Name</string>
     <string name="str_total_incentive">Total Incentive</string>
-    <string name="str_start_time">Start Time</string>
-    <string name="str_end_time">End Time</string>
-    <string name="str_total_delegated_amount">My Staking Amount</string>
-    <string name="str_kava_delegator_reward">My Staking Reward</string>
-    <string name="str_hard_for_delegator_title">HARD reward for KAVA delegator</string>
-    <string name="str_harvest_markets">Harvest Markets</string>
-    <string name="str_deposited_amount">Deposited Amount</string>
     <string name="str_my_deposited_amount">My Supplied Amount</string>
     <string name="str_my_borrowed_amount">My Borrowed Amount</string>
     <string name="str_my_borrowable_amount">My Borrowable Amount</string>
-    <string name="str_lp_reward_title">Harvest LP Reward</string>
-    <string name="str_lp_reward_msg">HARD reward for Harvest Liquidity Providers, accumulated every block! The more assets you supply to Harvest Money Market, the more HARD rewards you get.</string>
-    <string name="str_total_lp_reward">Total LP Reward</string>
-    <string name="str_my_total_lp_reward">My Total LP Reward</string>
-    <string name="str_start_deposit">Start Deposit</string>
     <string name="str_total_deposited_supplies">System Total Supplied</string>
     <string name="str_total_borrowed_supplies">System Total Borrowed</string>
     <string name="str_total_remain_supplies">System Remaining Borrowable</string>
@@ -1387,28 +814,13 @@
     <string name="str_borrow_hard">Borrow from Lend</string>
     <string name="str_repay_hard">Repay to Lend</string>
     <string name="str_deposit_harvest_step_1">Enter deposit amount to supply</string>
-    <string name="str_deposit_harvest_step_2">Insert memo (optional)</string>
-    <string name="str_deposit_harvest_step_3">Select transaction fee</string>
-    <string name="str_deposit_harvest_step_4">Check transaction detail</string>
     <string name="str_withdraw_harvest_step_1">Enter Lend withdrawal amount</string>
-    <string name="str_withdraw_harvest_step_2">Insert memo (optional)</string>
-    <string name="str_withdraw_harvest_step_3">Select transaction fee</string>
-    <string name="str_withdraw_harvest_step_4">Check transaction detail</string>
     <string name="str_borrow_hard_step_1">Enter borrow amount</string>
-    <string name="str_borrow_hard_step_2">Insert memo (optional)</string>
-    <string name="str_borrow_hard_step_3">Select transaction fee</string>
-    <string name="str_borrow_hard_step_4">Check transaction detail</string>
     <string name="str_reapy_hard_step_1">Enter repay amount</string>
-    <string name="str_reapy_hard_step_2">Insert memo (optional)</string>
-    <string name="str_reapy_hard_step_3">Select transaction fee</string>
-    <string name="str_reapy_hard_step_4">Check transaction detail</string>
     <string name="str_claim_incentive">Claim Incentive</string>
     <string name="str_lock_up">Lock up</string>
     <string name="str_receivable">Receivable</string>
     <string name="str_claim_type">Claim Type</string>
-    <string name="str_event_period">Event Period</string>
-    <string name="str_est_daily_reward">Est. Daily Reward</string>
-    <string name="str_event_notice">Please enter your personal ETH address.\nYou may be excluded from the StakeDrop campaign if you enter an exchange address or an invalid address.</string>
     <string name="str_delete_starname">Delete Starname</string>
     <string name="str_renew_starname">Renew Starname</string>
     <string name="str_connected_address_replace">Connected Addresses Replace</string>
@@ -1445,61 +857,22 @@
     <string name="str_mnemonics_warning_title">Do NOT enter your mnemonics.</string>
     <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\nthe memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are soley responsible for the exposure or loss of your keys.</string>
     <string name="str_ibc_sender">Sender</string>
-    <string name="str_ibc_receiver">Receiver</string>
     <string name="str_ibc_recipent">Recipient</string>
-    <string name="str_ibc_siner">Siner</string>
-    <string name="str_ibc_client_id">Client ID</string>
     <string name="str_ibc_send_amount">Send Amount</string>
-    <string name="str_ibc_receive_amount">Receive Amount</string>
-    <string name="str_ibc_acknowledgement">Acknowledgement</string>
-    <string name="str_pool_parms">Pool Params</string>
     <string name="str_pool_id">Pool ID</string>
-    <string name="str_pool_assets">Pool Assets</string>
-    <string name="str_share_in_amount">Share In Amount</string>
-    <string name="str_share_out_amount">Share Out Amount</string>
     <string name="str_token_in">Coin In</string>
     <string name="str_token_out">Coin Out</string>
     <string name="str_lock_token_duration">Duration</string>
     <string name="str_unlock_token_id">ID</string>
     <string name="str_unlock_token_complete_time">Unlock Complete Time</string>
-    <string name="str_unlock_all_token_cnt">Unlock Count</string>
     <string name="str_unlock_period_unlocked_amount">Unlocked Amount</string>
     <string name="str_swap_in">Swap In</string>
     <string name="str_swap_out">Swap Out</string>
-    <string name="str_future_pool_governor">Future Pool Governor</string>
     <string name="str_swap_coin_type">Type</string>
-    <string name="str_osmosis_token_lockup">Lockup Coin</string>
-    <string name="str_osmosis_begin_unlucking">Begin Unlocking</string>
-    <string name="str_osmosis_begin_unlucking_all">Begin Unlocking All</string>
-    <string name="str_osmosis_token_unlock">Unlock Coins</string>
-    <string name="str_osmosis_preriodlock_unlock">Period Unlock Coin</string>
-    <string name="str_gravity_create_pool_address">Pool Create Address</string>
-    <string name="str_gravity_create_pool_id">Pool Type ID</string>
-    <string name="str_gravity_deposit_batch_address">Depositor Address</string>
-    <string name="str_gravity_deposit_batch_id">Pool ID</string>
-    <string name="str_gravity_create_pool_deposit">Deposit Coins</string>
-    <string name="str_gravity_withdraw_pool">Withdraw Coin</string>
-    <string name="str_gravity_swap_request_address">Swap Requester</string>
-    <string name="str_gravity_swap_pool_id">Pool ID</string>
-    <string name="str_gravity_swap_type_id">Swap Type ID</string>
-    <string name="str_gravity_swap_offer">Offer</string>
-    <string name="str_gravity_swap_offer_coin">Offer In Coin</string>
-    <string name="str_gravity_swap_offer_coin_fee">Coin Fee</string>
-    <string name="str_gravity_swap_demand_coin_denom">Demand Coin</string>
-    <string name="str_gravity_swap_order_price">Order Price</string>
-    <string name="str_gravity_withdraw_address">Withdraw Address</string>
-    <string name="str_gravity_withdraw_pool_id">Pool ID</string>
     <string name="str_osmosis_defi_lab"><![CDATA[Osmosis DeFi]]> </string>
-    <string name="str_crescent_app"><![CDATA[Crescent App]]> </string>
     <string name="str_swap">Swap</string>
     <string name="str_pool">Pool</string>
     <string name="str_osmosis_earning">Earning</string>
-    <string name="str_event_horizon_c">Event Horizon</string>
-    <string name="str_event_horizon_step_0">Insert mnemonic for Hdac</string>
-    <string name="str_event_horizon_step_1">Check Transaction Detail</string>
-    <string name="str_token_swap">Coin Swap</string>
-    <string name="str_token_id">ID</string>
-    <string name="str_token_swap_time">Time</string>
     <string name="str_token_swap_input_coin">Inputs</string>
     <string name="str_token_swap_output_coin">Outputs</string>
     <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
@@ -1513,27 +886,11 @@
     <string name="str_pool_my_liquidity_available_amount">My Availables</string>
     <string name="str_title_pool_join">Deposit to Pool</string>
     <string name="str_join_pool_step_0">Insert amount to deposit</string>
-    <string name="str_join_pool_step_1">Insert memo (optional)</string>
-    <string name="str_join_pool_step_2">Select transaction fee</string>
-    <string name="str_join_pool_step_3">Check transaction detail</string>
     <string name="str_title_pool_exit">Withdraw from Pool</string>
     <string name="str_exit_pool_step_0">Insert amount to withdraw</string>
-    <string name="str_exit_pool_step_1">Insert memo (optional)</string>
-    <string name="str_exit_pool_step_2">Select transaction fee</string>
-    <string name="str_exit_pool_step_3">Check transaction detail</string>
     <string name="str_select_lockup_duration">Select Lockup Type</string>
-    <string name="str_add_record_topic_name">Topic Name</string>
-    <string name="str_add_record_writer_address">Writer Address</string>
-    <string name="str_add_record_owner_address">Owner Address</string>
-    <string name="str_add_record_fee_payer_address">Fee Payer Address</string>
-    <string name="str_create_did">DID</string>
-    <string name="str_create_did_verification_method_id">Verification Method ID</string>
-    <string name="str_create_did_from_address">From Address</string>
     <string name="str_title_swap">Coin Swap</string>
     <string name="str_swap_step_0">Insert amount to swap</string>
-    <string name="str_swap_step_1">Insert memo (optional)</string>
-    <string name="str_swap_step_2">Select transaction fee</string>
-    <string name="str_swap_step_3">Check transaction detail</string>
     <string name="str_osmosis_swap_tx_fee">Tx Fee</string>
     <string name="str_osmosis_swap_fee">Swap Fee</string>
     <string name="str_osmosis_swap_in">Swap In</string>
@@ -1542,149 +899,59 @@
     <string name="str_osmosis_join_receive_lp_coin">Receiving LP Coin</string>
     <string name="str_exit_insert_lp_coin">Insert LP Coin</string>
     <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
-    <string name="str_rizon_event_horizon_msg_title">Event Horizon</string>
-    <string name="str_rizon_event_horizon_msg">Swap Hdac chain assets to Rizon chain.\nDue to the nature of the swap, it is irreversible, and it may take some time until the actual swap is completed due to the asynchronous operation between the two chains.</string>
-    <string name="str_rizon_event_horizon_status">Event Horizon Status</string>
-    <string name="str_rizon_event_horizon_status_title">Total Result</string>
-    <string name="str_rizon_event_horizon_request_time">Request Time</string>
-    <string name="str_rizon_event_horizon_request_id">Request ID</string>
-    <string name="str_rizon_create_token_swap_hash">Legacy Chain Tx Hash</string>
-    <string name="str_rizon_create_token_swap_recipient">Recipient</string>
-    <string name="str_rizon_create_token_swap_amount">Amount</string>
-    <string name="str_rizon_swap_result">Tx Result</string>
-    <string name="str_rizon_swap_block_hash">Block Hash</string>
-    <string name="str_rizon_swap_mint_recipient_Address">Mint Recipient Address</string>
     <string name="str_native_token_title">Native Coins</string>
     <string name="str_ibc_token_title">IBC Coins</string>
-    <string name="str_unknown_ibc_token_title">Unknown IBC Coins</string>
-    <string name="str_pool_coin_title">POOL Coins</string>
-    <string name="str_gravity_dex_token_title">Gravity Dex Coins</string>
     <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
-    <string name="str_kava_bep2_token_title">BEP2 Coins</string>
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_cw20_token_title">Contract Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
-    <string name="str_ibc_info_title">IBC information</string>
-    <string name="str_ibc_opposite_chain_id_title">Opposite Chain ID</string>
-    <string name="str_ibc_channel_title">Channel</string>
-    <string name="str_ibc_opposite_channel_title">Opposite Channel</string>
-    <string name="str_ibc_denom_title">Denom</string>
-    <string name="str_ibc_opposite_denom_title">Opposite Denom</string>
     <string name="str_title_start_lock_osmosis">Lock Coin</string>
     <string name="str_osmosis_start_lock_step_0">Insert amount to lock</string>
-    <string name="str_osmosis_start_lock_step_1">Insert memo (optional)</string>
-    <string name="str_osmosis_start_lock_step_2">Select transaction fee</string>
-    <string name="str_osmosis_start_lock_step_3">Check transaction detail</string>
     <string name="str_osmosis_to_lock_coin">To Lock Coin</string>
     <string name="str_osmosis_unbonding_duraion">Unbonding Duration</string>
     <string name="str_title_start_unbonding_osmosis">Begin Unbonding</string>
     <string name="str_osmosis_start_unbonding_step_0">Insert amount to lock</string>
-    <string name="str_osmosis_start_unbonding_step_1">Insert memo (optional)</string>
-    <string name="str_osmosis_start_unbonding_step_2">Select transaction fee</string>
-    <string name="str_osmosis_start_unbonding_step_3">Check transaction detail</string>
     <string name="str_osmosis_to_unbonding_id">To Unbonding ID</string>
     <string name="str_osmosis_to_unbonding_amount">To Unbonding Amount</string>
     <string name="str_osmosis_unbonding_duration">Unbonding Duration</string>
-    <string name="str_title_start_unlock_osmosis">Unlock Coin</string>
     <string name="str_osmosis_start_unlock_step_0">Insert amount to unlock</string>
-    <string name="str_osmosis_start_unlock_step_1">Insert memo (optional)</string>
-    <string name="str_osmosis_start_unlock_step_2">Select transaction fee</string>
-    <string name="str_osmosis_start_unlock_step_3">Check transaction detail</string>
     <string name="str_osmosis_to_unlock_id">To UnLock ID</string>
     <string name="str_osmosis_to_unlock_amount">To UnLock Amount</string>
     <string name="str_earing_bonded_header">Bonded</string>
     <string name="str_earing_unbonding_header">Unbonding</string>
     <string name="str_kava_incentive_info_title">Incentive Info</string>
-    <string name="str_to_deposit_coin_title">To Deposit Coin (Max)</string>
     <string name="str_kava_slippage_title">Slippage</string>
-    <string name="str_kava_total_share_title">Total Share</string>
     <string name="str_kava_deposit_my_share_title">My Share</string>
     <string name="str_deposit_my_value">My Deposited Value</string>
     <string name="str_deposit_my_coins">My Deposited Coins</string>
     <string name="str_to_withdraw_coin_title">To Withdraw Coins (MG)</string>
     <string name="str_incentive_amount_title">Incentive Amounts</string>
-    <string name="str_gravity_dex">Gravity Dex</string>
-    <string name="str_add_liquidity_external_symbol">External Symbol</string>
     <string name="str_liquidity_deposit_coins">Deposit Coins</string>
     <string name="str_liquidity_withdraw_coins">Withdraw Coins</string>
-    <string name="str_bridge_claim_type">Claim Type</string>
-    <string name="str_bridge_contract_address">Bridge Contract Address</string>
-    <string name="str_token_contract_address">Token Contract Address</string>
-    <string name="str_ethereum_sender">Ethereum Sender</string>
-    <string name="str_cosmos_receiver">Cosmos Receiver</string>
-    <string name="str_asset">Asset</string>
     <string name="str_swap_gravity">Gravity Dex Swap Rate</string>
     <string name="str_swap_kava">Kava Swap Rate</string>
     <string name="str_swap_osmosis">Osmosis Swap Rate</string>
-    <string name="str_create_task_creator">Creator</string>
-    <string name="str_task_contract">Contract</string>
-    <string name="str_create_task_bountry">Bountry</string>
-    <string name="str_task_response_operator">Operator</string>
-    <string name="str_task_response_score">Score</string>
-    <string name="str_gravity_deposit_batch">Join Pool(Batch Deposit)</string>
-    <string name="str_gravity_withdraw_batch">Exit Pool(Batch Withdraw)</string>
-    <string name="str_create_user_claim_address">User Claim Address</string>
-    <string name="str_create_user_claim_type">User Claim Type</string>
     <string name="str_select_starname_domain">Select domain for starname</string>
     <string name="str_picker_dialog_title">Select Custom Path</string>
-
     <string name="str_ibc_send_c">IBC SEND</string>
-    <string name="str_ibc_warning_c">Notice</string>
-    <string name="str_ibc_warning_msg1">IBC transactions are not supported on centralized exchanges. \nIf you wish to transfer to an exchange, you must send back the asset to its original chain before depositing it via a regular send transaction.</string>
-    <string name="str_ibc_warning_msg2">This wallet only supports the broadcasting of txs through active IBC relayers and therefore is not responsible for intrinsic issues that may exist in IBC txs. \nUser must perform due diligence on the stability and security of the selected relayer before executing IBC txs.\n\n</string>
-    <string name="str_ibc_continue_c">Continue</string>
-    <string name="str_ibc_send_channel">Relayer Channel</string>
-    <string name="str_ibc_transfer_step_0">Select destination chain <![CDATA[&]]> relayer</string>
-    <string name="str_ibc_transfer_step_1">Enter recipient address</string>
-    <string name="str_ibc_transfer_step_2">Enter to send amount</string>
-    <string name="str_ibc_transfer_step_3">Select transaction fee</string>
-    <string name="str_ibc_transfer_step_4">Check transaction detail</string>
-    <string name="str_select_ibc_destination">Select Destination Chain</string>
-    <string name="str_select_ibc_relayer">Select Relayer for IBC Transfer</string>
-    <string name="str_ibc_unknown_relayer_msg">This is an unconfirmed relayer. \nIBC transfers through an inoperable relayer may result in loss of assets. \nDo you wish to continue?</string>
     <string name="str_select_ibc_address">Recipient Address</string>
     <string name="str_ibc_recipient_chain">Recipient Chain</string>
-
-    <string name="str_sif_claim_incentive">Claim Incentive</string>
-    <string name="str_sif_incentive_claim">Incentive Claim</string>
-    <string name="str_sif_incentive_step_0">Check your incentive</string>
-    <string name="str_sif_incentive_step_1">Insert memo (optional)</string>
-    <string name="str_sif_incentive_step_2">Select transaction fee</string>
-    <string name="str_sif_incentive_step_3">Check transaction detail</string>
-    <string name="str_sif_incentive_amount">Incentive Amounts</string>
-    <string name="str_sif_incentive_type">Type</string>
-    <string name="str_sif_reward_program">Check Reward Program</string>
-    <string name="str_sif_claim_address">Claim Address</string>
     <string name="str_sif_dex_title">SifChain DeFi</string>
     <string name="str_sif_dex_swap">Swap</string>
     <string name="str_sif_dex_ibc_pool">IBC Pool</string>
     <string name="str_sif_dex_eth_pol">Eth Pool</string>
     <string name="str_sif_swap_rate">Sif Dex Swap Rate</string>
     <string name="str_sif_swap_step_0">Insert amount to swap</string>
-    <string name="str_sif_swap_step_1">Insert memo (optional)</string>
-    <string name="str_sif_swap_step_2">Select transaction fee</string>
-    <string name="str_sif_swap_step_3">Check transaction detail</string>
     <string name="str_sif_deposit_pool_step_0">Insert amount to deposit</string>
-    <string name="str_sif_deposit_pool_step_1">Insert memo (optional)</string>
-    <string name="str_sif_deposit_pool_step_2">Select transaction fee</string>
-    <string name="str_sif_deposit_pool_step_3">Check transaction detail</string>
     <string name="str_sif_withdraw_pool_step_0">Insert amount to withdraw</string>
-    <string name="str_sif_withdraw_pool_step_1">Insert memo (optional)</string>
-    <string name="str_sif_withdraw_pool_step_2">Select transaction fee</string>
-    <string name="str_sif_withdraw_pool_step_3">Check transaction detail</string>
-    <string name="str_sif_withdraw_insert_lp_unit">Insert Lp Unit</string>
+
 
     <string name="str_nft_c">NFT</string>
-    <string name="str_my_nfts">My NFTs</string>
-    <string name="str_top_nfts">Top NFTs</string>
     <string name="str_no_nfts">No NFT</string>
     <string name="str_nft_detail">NFT Detail</string>
     <string name="str_create_nfts">Issue NFT</string>
     <string name="str_issue_nft_step_0">Insert NFT Information</string>
-    <string name="str_issue_nft_step_1">Insert memo (optional)</string>
-    <string name="str_issue_nft_step_2">Select transaction fee</string>
-    <string name="str_issue_nft_step_3">Check transaction detail</string>
     <string name="str_permission_photo_title">Need Permission for Photo Library. Please enable with Settings</string>
     <string name="str_tx_fee_c">Tx Fee</string>
     <string name="str_nft_name">NFT Name</string>
@@ -1693,39 +960,9 @@
     <string name="str_nft_id">NFT ID</string>
     <string name="str_send_nfts">Send NFT</string>
     <string name="str_send_nft_step_0">Insert recipient address</string>
-    <string name="str_send_nft_step_1">Insert memo (optional)</string>
-    <string name="str_send_nft_step_2">Select transaction fee</string>
-    <string name="str_send_nft_step_3">Check transaction detail</string>
     <string name="str_send_nft_recipient_address">Recipient Address</string>
     <string name="str_send_nft_denom_id">Denom ID</string>
     <string name="str_send_nft_token_id">Token ID</string>
-
-    <string name="str_desmos_airdrop"><![CDATA[Profile]]> </string>
-    <string name="str_profile_detail_title">Profile Detail</string>
-    <string name="str_edit_profile">Edit Profile</string>
-    <string name="str_air_drop"><![CDATA[Link & AirDrop]]></string>
-    <string name="str_create_profile_title">Create Profile</string>
-    <string name="str_create_profile_step_0">Insert Profile Information</string>
-    <string name="str_create_profile_step_1">Insert memo (optional)</string>
-    <string name="str_create_profile_step_2">Select transaction fee</string>
-    <string name="str_create_profile_step_3">Check transaction detail</string>
-    <string name="str_create_profile_dtag">Dtag</string>
-    <string name="str_create_profile_nickname">Nickname</string>
-    <string name="str_create_profile_bio">Bio</string>
-    <string name="str_create_profile_profile_uri">Profile Uri</string>
-    <string name="str_create_profile_cover_uri">Cover Uri</string>
-    <string name="str_link_account_step_0">Select Chain and Account to Link</string>
-    <string name="str_link_account_step_1">Insert memo (optional)</string>
-    <string name="str_link_account_step_2">Select transaction fee</string>
-    <string name="str_link_account_step_3">Check transaction detail</string>
-    <string name="str_select_link_chain">Select Chain To Link</string>
-    <string name="str_select_link_account">Select Account To Link</string>
-
-    <string name="str_mnemonic_confirm_msg">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
-    <string name="str_mnemonic_confirm_msg2">You can check/manage your mnemonics in\n[Manage Mnemonic]</string>
-    <string name="str_key_confirm_msg">Private Key is only used to restore the\ncurrently selected wallet.\nWe highly recommend keeping your mnemonics\noffline in a secure location, and never share your\nmnemonics with anyone else.\n\n
-                                       Private key is NOT mnemonics.\nYou MUST backup your mnemonics if you have one.\nYou need your mnemonics to restore your original wallets if you created them with mnemonics.</string>
-
 
     <string name="str_tx_step_memo">Insert memo (optional)</string>
     <string name="str_tx_step_fee">Select transaction fee</string>
@@ -1765,6 +1002,7 @@
     <string name="str_ibc_transfer_msg1">IBC transactions are NOT supported on centralized exchanges.</string>
     <string name="str_ibc_transfer_msg2">Transfer your asset back to its origin chain by IBC before sending it to a centralized exchange.</string>
 
+
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
     <string name="error_invalid_address_pubkey">Invalid Address, please check again.</string>
@@ -1792,37 +1030,23 @@
     <string name="error_not_enough_balance_to_vote">Insufficient available balance.</string>
     <string name="error_small_reward">Rewards are too small.</string>
     <string name="error_tx_time_out">The block chain was too busy to time out.\nThe requested transaction would have been performed. \nPlease refer to the history.</string>
-    <string name="error_vesting_time">Token transfer is locked for three weeks following mainnet launch.</string>
-    <string name="error_send_disable">Token transfer is locked.</string>
-    <string name="error_real_testing">Open soon after real testing.</string>
     <string name="error_invalid_amounts">Invalid Amount</string>
     <string name="error_prepare">Preparing...</string>
     <string name="error_not_enough_fee">Not enough available balance for fee.</string>
     <string name="error_network_error">Network connection problem.</string>
-    <string name="error_only_atom_for_fee">Currently only supports ATOM as Tx fee.</string>
     <string name="error_disabled_jailed">Delegation to jailed validator is not supported.</string>
     <string name="error_unbond_cnt_over">Exceeded maximum undelegation count.</string>
-    <string name="error_unbond_cnt_over_iris">Please wait 21 days until your unbonding is processed. You will be able to undelegate again once unbonding is completed.</string>
-    <string name="error_redelegate_cnt_over">Exceeded maximum redelegation count.\nSelect another validator.</string>
     <string name="error_no_to_validator">Please select validator to redelegate.</string>
+    <string name="error_redelegate_cnt_over">Exceeded maximum redelegation count.\nSelect another validator.</string>
     <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>
-    <string name="error_max_account_over">Max account is 5.</string>
     <string name="error_reward_address_changed_msg">This account has changed its Reward Recipient Address. \n To use the Compounding feature, please reset your Reward Recipient Address.</string>
-    <string name="error_no_password">PIN number not set</string>
     <string name="error_invalid_address_target">Invalid Address.</string>
-    <string name="error_invalid_star_name">Invalid Start Name.</string>
-    <string name="error_iris_token_not_yet">Iris-Token transfer will support soon!!</string>
-    <string name="error_iris_vote_only_validator">This proposal can only vote on validators.</string>
     <string name="error_no_bonding_no_vote">This proposal can only vote on delegators.</string>
-    <string name="error_iris_already_voted">Already voted.</string>
     <string name="error_not_voting_period">Not voting period.</string>
     <string name="error_not_selected_vote">Please select proposals to vote.</string>
     <string name="error_no_option">Please select your opinion.</string>
-    <string name="error_no_tx">Tx does not exist.</string>
-    <string name="error_not_yet">Coming soon!</string>
     <string name="error_less_than_min_deposit">Less than the minimum deposit amount.</string>
     <string name="error_less_than_min_principal">Less than the minimum loan amount.</string>
-    <string name="error_dust_principal_remain">Remain Debt is less than 10$.</string>
     <string name="error_circuit_breaker">Now circuit break</string>
     <string name="error_not_enought_deposit_asset">Not enough Asset to deposit.</string>
     <string name="error_not_enought_withdraw_asset">Cannot withdraw collateral now.</string>
@@ -1833,7 +1057,6 @@
     <string name="error_can_not_bep3_account_msg">In order to receive BEP3 transfer,\nyou must create a valid(with private key) %1$s account and deposit at least 0.000075BNB for claim transaction fee.</string>
     <string name="error_can_not_bep3_account_msg2">In order to receive BEP3 transfer,\nyou must create a valid(with private key) %1$s account wallet.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
-    <string name="error_no_more_faucet">Already have enough test coin.</string>
     <string name="error_no_more_debt_kava">Cannot issue USDX. Maximum network USDX capacity has been reached.</string>
     <string name="error_bnb_mini_amount">Minimum amount required for BEP8 transactions is 1 token. If your balance is less than 1, you must send the entire amount.</string>
     <string name="error_max_30_validator">You can select Max 30 Validators.</string>
@@ -1847,9 +1070,7 @@
     <string name="error_invalid_domain_format">Invalid domain format, please insert another text for domain</string>
     <string name="error_already_registered_domain">This domain already registered. please use another text for domain</string>
     <string name="error_not_enough_starname_fee">Not enough available balance for starname fee.</string>
-    <string name="error_only_fixed_domain">now only support fixed iov domain, Well support soon all domain</string>
     <string name="error_invalid_account_format">Invalid account format, please insert another text for account</string>
-    <string name="error_already_registered_account">This account already registered. please use another text for account</string>
     <string name="error_not_support_cosmostation">Not supported chain Cosmostation wallet.</string>
     <string name="error_no_wallet_this_chain">Not wallet for this chain.</string>
     <string name="error_no_address_added">Please enter at least 1 address.</string>
@@ -1857,39 +1078,22 @@
     <string name="error_no_available_to_deposit">No assets to supply.</string>
     <string name="error_no_deposited_asset">No supplied asset.</string>
     <string name="error_no_borrowable_asset">Can not borrowable now.</string>
-    <string name="error_no_repay_asset">Can not repay now.</string>
     <string name="error_noting_repay_asset">Noting to be repaid</string>
     <string name="error_no_incentive_to_claim">No incentive to claim.</string>
-    <string name="error_no_harvest_reward_to_claim">No harvest reward to claim.</string>
     <string name="error_no_incentive_claim_option">Select incentive claim option.</string>
     <string name="error_not_enough_to_balance">Not enough balance.</string>
     <string name="error_bep3_swap_temporary_disable">Bep3 swap relayer is temporary disabled</string>
-    <string name="error_invalid_address_eth_target">Invalid ETH Address.</string>
-    <string name="error_no_delegated_amount">No Delegated Amount.</string>
-    <string name="error_no_more_today">No More Today.</string>
     <string name="error_no_address_export">No Address for Export.</string>
     <string name="error_remain_borrow_small">Remain borrow amount less than $10</string>
-    <string name="error_waste_fee">Fee is bigger than reward.</string>
     <string name="error_not_enough_to_deposit_pool">Not enough balance to deposit.</string>
     <string name="error_not_enough_to_withdraw_pool">Not enough balance to withdraw.</string>
-    <string name="error_already_rizon_swap">There is already a swap request in progress.</string>
-    <string name="error_no_relayer_channel">No Connected Relayer Channel</string>
-    <string name="error_max_account_number">No more accounts can be added to this chain.</string>
     <string name="error_reserve_1_account">Please reserve at least 1 account to displayed.</string>
     <string name="error_hided_chain">Hidden Chain.</string>
-    <string name="error_rizon_swap_finished">Rizon Swap Disabled.</string>
     <string name="error_invalid_private_Key">Invalid private key.</string>
     <string name="error_fail_upload_img">Image uploading failed.</string>
     <string name="error_no_nft_image">Add NFT Image.</string>
     <string name="error_no_nft_title">Add NFT Name.</string>
     <string name="error_no_nft_description">Add NFT Description.</string>
-    <string name="error_nft_denom_count">Please Insert 4~20 low char Denom ID.</string>
-    <string name="error_nft_denom_exist">Denom ID is already exist. please using unique ID.</string>
-    <string name="error_no_profile_dtag">Please add Dtag for profile.</string>
-    <string name="error_already_registered_dtag">This Dtag already registered. please use another text for Dtag.</string>
-    <string name="error_profile_dtag_count">Please insert 6 to 30 characters without a blank and special characters</string>
-    <string name="error_no_account_this_chain">No linkable account with this chain</string>
-    <string name="error_select_account_link">Please select account to link</string>
     <string name="error_alreay_imported_mnemonic">Already imported mnemonic</string>
     <string name="error_not_selected_to_import">Select address to import</string>
     <string name="error_no_mnemonic">Only private key imported</string>
@@ -1899,56 +1103,6 @@
     <string name="error_exchange_address_msg">Your funds may be lost from IBC sending tokens to custodial wallets of centralized exchanges.\n\nIBC transactions are NOT supported on centralized exchanges.\nIBC send your assets back to the origin chain before sending them to custodial wallets of cetralized exchanges.</string>
     <string name="error_exchange_address_memo_msg">Certain custodial wallets of CEX require DEPOSIT MEMO, and your assets may be lost forever if sent without MEMO.\n\nPlease check the DEPOSIT MEMO for your account.</string>
 
-
-    <string name="s_atom" translatable="false">ATOM</string>
-    <string name="s_photon" translatable="false">PHOTON</string>
-    <string name="s_muon" translatable="false">MUON</string>
-    <string name="s_photino" translatable="false">PHOTINO</string>
-    <string name="s_iris" translatable="false">IRIS</string>
-    <string name="s_bnb" translatable="false">BNB</string>
-    <string name="s_iov" translatable="false">IOV</string>
-    <string name="s_kava" translatable="false">KAVA</string>
-    <string name="s_band" translatable="false">BAND</string>
-    <string name="s_okt" translatable="false">OKT</string>
-    <string name="s_ctk" translatable="false">CTK</string>
-    <string name="s_akt" translatable="false">AKT</string>
-    <string name="s_scrt" translatable="false">SCRT</string>
-    <string name="s_bif" translatable="false">BIF</string>
-    <string name="s_xprt" translatable="false">XPRT</string>
-    <string name="s_dvpn" translatable="false">DVPN</string>
-    <string name="s_fet" translatable="false">FET</string>
-    <string name="s_cro" translatable="false">CRO</string>
-    <string name="s_sif" translatable="false">ROWAN</string>
-    <string name="s_ki" translatable="false">XKI</string>
-    <string name="s_rizon" translatable="false">ATOLO</string>
-    <string name="s_medi" translatable="false">MED</string>
-    <string name="s_althea" translatable="false">ALTG</string>
-    <string name="s_osmosis" translatable="false">OSMO</string>
-    <string name="s_umee" translatable="false">UMEE</string>
-    <string name="s_emoney" translatable="false">NGM</string>
-    <string name="s_axelar" translatable="false">AXL</string>
-    <string name="s_juno" translatable="false">JUNO</string>
-    <string name="s_regen" translatable="false">REGEN</string>
-    <string name="s_bitcanna" translatable="false">BCNA</string>
-    <string name="s_stargaze" translatable="false">STARS</string>
-    <string name="s_grabridge" translatable="false">GRAVITON</string>
-    <string name="s_comdex" translatable="false">CMDX</string>
-    <string name="s_inj" translatable="false">INJ</string>
-    <string name="s_bitsong" translatable="false">BTSG</string>
-    <string name="s_desmos" translatable="false">DSM</string>
-    <string name="s_lum" translatable="false">LUM</string>
-    <string name="s_chihuahua" translatable="false">HUAHUA</string>
-    <string name="s_konstellation" translatable="false">DARC</string>
-    <string name="s_evmos" translatable="false">EVMOS</string>
-    <string name="s_cudos" translatable="false">CUDOS</string>
-    <string name="s_provenance" translatable="false">HASH</string>
-    <string name="s_cerberus" translatable="false">CRBRUS</string>
-    <string name="s_omniflix" translatable="false">FLIX</string>
-    <string name="s_cre" translatable="false">CRE</string>
-    <string name="s_mantle" translatable="false">MNTL</string>
-    <string name="s_station" translatable="false">ISS</string>
-    <string name="s_nyx" translatable="false">NYX</string>
-
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
     <string name="tx_transfer">Transfer</string>
@@ -1957,7 +1111,6 @@
     <string name="tx_undelegate">Undelegate</string>
     <string name="tx_redelegate">Redelegate</string>
     <string name="tx_get_reward">Get Reward</string>
-    <string name="tx_get_reward_all">Get All Rewards</string>
     <string name="tx_get_commission">Get Commission</string>
     <string name="tx_fund_pool">Funding\nCommunity Pool</string>
     <string name="tx_change_reward_address">Edit Address</string>
@@ -1977,20 +1130,14 @@
     <string name="tx_unjail">Unjail</string>
 
     <string name="tx_ibc_update_client">IBC Update Client</string>
-    <string name="tx_ibc_update_client2">IBC Update Client</string>
     <string name="tx_ibc_send">IBC Send</string>
     <string name="tx_ibc_receive">IBC Received</string>
     <string name="tx_ibc_acknowledgement">IBC Acknowledgement</string>
     <string name="tx_reinvest">Compounding</string>
     <string name="tx_new_order">New Order</string>
     <string name="tx_Cancel_order">Cancel Order</string>
-    <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Unknown</string>
-    <string name="tx_kava_post_price">Update Price</string>
-    <string name="tx_medi_add_record">Add Record</string>
-    <string name="tx_medi_create_did">Create DID</string>
     <string name="tx_rizon_create_Token_swap">Receive Swap Token</string>
-
 
     <string name="tx_kava_create_cdp">CDP\nOpen</string>
     <string name="tx_kava_deposit_cdp">CDP\nDeposit</string>
@@ -2006,13 +1153,11 @@
     <string name="tx_kava_bep3_create">BEP3\nSend</string>
     <string name="tx_kava_bep3_claim">BEP3\nClaim</string>
     <string name="tx_kava_bep3_refund">BEP3\nRefund</string>
-    <string name="tx_kava_incentive_reward">USDX Minting\nIncentive</string>
     <string name="tx_kava_hard_deposit">Hard Lend\nDeposit</string>
     <string name="tx_kava_hard_withdraw">Hard Lend\nWithdraw</string>
     <string name="tx_kava_hard_borrow">Hard Lend\nBorrow</string>
     <string name="tx_kava_hard_repay">Hard Lend\nRepay</string>
     <string name="tx_kava_hard_liquidate">Hard Lend\nLiquidate</string>
-    <string name="tx_kava_incentive_hard">Hard Lend\nIncentive</string>
     <string name="tx_kava_swap_token">Swap Coin</string>
     <string name="tx_kava_swap_deposit">Swap Pool\nDeposit</string>
     <string name="tx_kava_swap_withdraw">Swap Pool\nWithdraw</string>
@@ -2023,10 +1168,7 @@
     <string name="tx_kava_save_withdraw">Saving\nWithdraw</string>
     <string name="tx_kava_hard_mint_incentive">USDX Minting\nIncentive</string>
     <string name="tx_kava_hard_hard_incentive">Hard Lend\nIncentive</string>
-    <string name="tx_kava_hard_delegator_incentive">Delegator\nIncentive</string>
-    <string name="tx_kava_hard_swap_incentive">Swap\nIncentive</string>
     <string name="tx_kava_hard_save_incentive">Incentive\nSaving</string>
-
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
@@ -2034,14 +1176,6 @@
     <string name="tx_kava_drawdebt_cdp2">CDP Borrow</string>
     <string name="tx_kava_repaydebt_cdp2">CDP Repay</string>
     <string name="tx_kava_liquidate_cdp2">CDP Liquidate</string>
-    <string name="tx_send_htlc2">BEP3 Send</string>
-    <string name="tx_receive_htlc2">BEP3 Receive</string>
-    <string name="tx_create_htlc2">BEP3 Create</string>
-    <string name="tx_claim_htlc2">BEP3 Claim</string>
-    <string name="tx_refund_htlc2">BEP3 Refund</string>
-    <string name="tx_kava_bep3_create2">BEP3 Send</string>
-    <string name="tx_kava_bep3_claim2">BEP3 Claim</string>
-    <string name="tx_kava_bep3_refund2">BEP3 Refund</string>
     <string name="tx_kava_incentive_reward2">Incentive Minting</string>
     <string name="tx_kava_incentive_hard2">Hard Lend Incentive</string>
     <string name="tx_kava_hard_deposit2">Hard Lend Deposit</string>
@@ -2049,12 +1183,10 @@
     <string name="tx_kava_hard_borrow2">Hard Lend Borrow</string>
     <string name="tx_kava_hard_repay2">Hard Lend Repay</string>
     <string name="tx_kava_hard_liquidate2">Hard Lend Liquidate</string>
-    <string name="tx_kava_harvest_claim2">Hard Lend Incentive</string>
     <string name="tx_kava_swap_incentive2">Swap Pool Incentive</string>
     <string name="tx_kava_delegator_incentive2">Delegator Incentive</string>
     <string name="tx_kava_swap_deposit2">Swap Pool Deposit</string>
     <string name="tx_kava_swap_withdraw2">Swap Pool Withdraw</string>
-
 
     <string name="tx_starname_registe_domain">Register Domain</string>
     <string name="tx_starname_registe_account">Register Account</string>
@@ -2087,7 +1219,6 @@
     <string name="tx_osmosis_begin_token_unlock">Begin Unlocking</string>
     <string name="tx_osmosis_begin_token_unlock_all">Begin Unlocking All</string>
     <string name="tx_osmosis_periodlock_unlock">Unlock Period Coin(End Earning)</string>
-
 
     <string name="tx_gravity_create_pool">Create Pool</string>
     <string name="tx_gravity_swap_batch">Swap Coin</string>
@@ -2136,8 +1267,6 @@
     <string name="tx_save_profile_bio">Bio</string>
     <string name="tx_save_profile_url">Profile Uri</string>
     <string name="tx_save_profile_cover_url">Cover Uri</string>
-    <string name="tx_link_account_address">Linked Address</string>
-    <string name="tx_link_account_signer">Signer</string>
     <string name="tx_delete_profile">Delete Profile</string>
     <string name="tx_create_relation">Create Relationship</string>
     <string name="tx_delete_relation">Delete Relationship</string>
@@ -2196,7 +1325,7 @@
     <string name="str_wc_connect_dialog"> allow the connection?</string>
     <string name="str_wc_allow_title">Allowed list</string>
 
-    <string-array name="currency_unit_array">
+    <string-array name="currency_unit_array" translatable="false">
         <item>USD</item>
         <item>EUR</item>
         <item>KRW</item>
@@ -2257,43 +1386,4 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-
-    <string-array name="gas_multi_reward" translatable="false">
-        <item>150000</item>
-        <item>220000</item>
-        <item>280000</item>
-        <item>320000</item>
-        <item>380000</item>
-        <item>440000</item>
-        <item>500000</item>
-        <item>560000</item>
-        <item>620000</item>
-        <item>680000</item>
-        <item>740000</item>
-        <item>820000</item>
-        <item>900000</item>
-        <item>980000</item>
-        <item>1020000</item>
-        <item>1080000</item>
-    </string-array>
-
-    <string-array name="gas_multi_reward_kava" translatable="false">
-        <item>300000</item>
-        <item>380000</item>
-        <item>460000</item>
-        <item>540000</item>
-        <item>620000</item>
-        <item>700000</item>
-        <item>800000</item>
-        <item>880000</item>
-        <item>960000</item>
-        <item>1040000</item>
-        <item>1120000</item>
-        <item>1200000</item>
-        <item>1300000</item>
-        <item>1380000</item>
-        <item>1460000</item>
-        <item>1540000</item>
-    </string-array>
-
 </resources>

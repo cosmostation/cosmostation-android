@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_8"
-            android:text="@string/str_display_chains" />
+            android:text="Displayed Chains" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/display_recycler"
@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_8"
-            android:text="@string/str_hide_chains" />
+            android:text="Hidden Chains" />
 
         <RelativeLayout
             android:layout_width="match_parent"
