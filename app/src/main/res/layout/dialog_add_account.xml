@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-3dp"
-                        android:text="@string/str_import2" />
+                        android:text="@string/str_restore" />
 
                     <TextView
                         style="@style/font_rr_14_white"
@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-3dp"
-                        android:text="@string/str_import2" />
+                        android:text="@string/str_restore" />
 
                     <TextView
                         style="@style/font_rr_14_white"
