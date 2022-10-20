@@ -510,6 +510,7 @@
     <string name="str_bep3_remain_cap">남은 전송 가능량</string>
     <string name="str_select_to_send_coin">보낼 코인 종류를 선택하세요</string>
     <string name="str_select_to_send_chain">전송할 체인을 골라주세요</string>
+
     <string name="str_delete_msg">지갑의 모든 정보가 삭제됩니다.\n복구 단어를 백업하지 않았을 경우 해당 지갑을 영구히 다시 복원할 수 없습니다.</string>
     <string name="str_delete">삭제</string>
     <string name="str_close">닫기</string>
@@ -605,7 +606,6 @@
     <string name="str_delegate_warn_msg">검증인에게 위임하여 스테이킹 보상을 받을 수 있습니다. 선택한 노드에 문제가 발생하면 위임 지분의 일부를 잃을 수 있습니다. 신중히 선택해주세요.\n\n위임을 해하면 해지 기간이 있습니다. 이 시간 동안에는 스테이킹 보상을 받을 수 없습니다.\n\n</string>
     <string name="str_memo_warn">메모 기입을 확인 바랍니다.\n특정 거래소 또는 지갑은 메모 입력을 요구합니다.</string>
 
-
     <string name="str_create_cdp_step_1">USDX 발행을 위해 담보물을 설정하세요</string>
     <string name="str_repay_cdp_step_1">상환 금액을 설정하세요</string>
     <string name="str_draw_debt_cdp_step_1">대출 금액을 설정하세요</string>
@@ -643,7 +643,6 @@
     <string name="str_change_reward_address_step_0">이자 받을 주소를 설정하세요</string>
     <string name="str_reinvest_step_0">컴파운딩 수량을 확인하세요</string>
     <string name="str_vote_step_0">의견을 선택하세요</string>
-
 
     <string name="str_ok_stake_deposit_step_0">위임 수량을 설정하세요</string>
     <string name="str_ok_stake_withdraw_step_0">위임 해지 수량을 설정하세요</string>
@@ -738,7 +737,6 @@
     <string name="str_claim_incentive">인센티브 받기</string>
     <string name="str_lock_up">락업 기간</string>
     <string name="str_receivable">실제 수령 수량</string>
-
 
     <string name="str_delete_starname">Starname 삭제</string>
     <string name="str_renew_starname">Starname 갱신</string>
