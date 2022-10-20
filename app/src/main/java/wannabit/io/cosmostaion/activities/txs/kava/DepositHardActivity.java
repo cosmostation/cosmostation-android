@@ -88,14 +88,14 @@ public class DepositHardActivity extends BaseBroadCastActivity {
                     mTvStep.setText(getString(R.string.str_deposit_harvest_step_1));
                 } else if (i == 1) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(DepositHardActivity.this, R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_deposit_harvest_step_2));
+                    mTvStep.setText(getString(R.string.str_tx_step_memo));
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(DepositHardActivity.this, R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_deposit_harvest_step_3));
+                    mTvStep.setText(getString(R.string.str_tx_step_fee));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(DepositHardActivity.this, R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_deposit_harvest_step_4));
+                    mTvStep.setText(getString(R.string.str_tx_step_confirm));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
