@@ -27,7 +27,7 @@
                 style="@style/font_rr_17_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_import" />
+                android:text="@string/str_restore_mnemonic" />
 
             <TextView
                 android:id="@+id/toolbar_clear"

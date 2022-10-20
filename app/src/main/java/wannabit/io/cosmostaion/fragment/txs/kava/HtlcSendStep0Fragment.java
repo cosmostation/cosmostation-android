@@ -164,7 +164,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             mCapLayer.setVisibility(View.GONE);
             if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BNB)) {
                 mToSendCoinImg.setImageResource(toChainConfig.mainDenomImg());
-                onSetDpDenom(getString(R.string.str_bnb_c));
+                onSetDpDenom("BNB");
             } else {
                 if (mToSwapDenom.equals(TOKEN_HTLC_KAVA_BTCB)) {
                     onSetDpDenom("BTC");

@@ -114,7 +114,7 @@ public class HtlcSendActivity extends BaseActivity {
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcSendActivity.this, R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_htlc_send_step_4));
+                    mTvStep.setText(getString(R.string.str_tx_step_confirm));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
