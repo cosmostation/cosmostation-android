@@ -415,7 +415,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             new AlertDialog.Builder(this, R.style.DialogTheme).setItems(feeInfo.stream().map(item -> item.title).toArray(String[]::new), (DialogInterface dialogInterface, int i) -> {
                 if (mEasyMode == EASY_MODE_CLAIM_REWARDS) onStartEasyClaim(i);
                 else onStartEasyCompounding(i);
-            }).setTitle(R.string.str_send_step_3).setNegativeButton(R.string.str_cancel, null).create().show();
+            }).setTitle(R.string.str_tx_step_fee).setNegativeButton(R.string.str_cancel, null).create().show();
 
         } else {
             if (mEasyMode == EASY_MODE_CLAIM_REWARDS) onStartEasyClaim(0);

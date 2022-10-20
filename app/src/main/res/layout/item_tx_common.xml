@@ -285,7 +285,7 @@
                     android:text="@string/str_memo" />
 
                 <TextView
-                    android:id="@+id/str_tx_memo"
+                    android:id="@+id/str_memo"
                     style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

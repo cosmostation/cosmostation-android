@@ -446,7 +446,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemTime = itemView.findViewById(R.id.tx_block_time);
                 itemTimeGap = itemView.findViewById(R.id.tx_block_time_gap);
                 itemHash = itemView.findViewById(R.id.tx_hash);
-                itemMemo = itemView.findViewById(R.id.str_tx_memo);
+                itemMemo = itemView.findViewById(R.id.str_memo);
 
                 itemFeeLayer = itemView.findViewById(R.id.tx_fee_layer);
                 itemFee = itemView.findViewById(R.id.tx_fee);

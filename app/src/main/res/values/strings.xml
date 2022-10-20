@@ -21,8 +21,6 @@
     <string name="key_private" translatable="false">PRIVATE_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
 
-    <string name="str_bnb_c" translatable="false">BNB</string>
-
     <string name="str_create_swap_memo_c" translatable="false">Create Atomic Swap via Cosmostation Wallet</string>
     <string name="str_claim_swap_memo_c" translatable="false">Claim Atomic Swap via Cosmostation Wallet</string>
 
@@ -30,16 +28,11 @@
     <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss\'Z\']]></string>
     <string name="str_vote_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\']]></string>
 
-    <string name="str_coingecko" translatable="false">CoinGecko</string>
-    <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
-
     <string name="moon_pay_public_key" translatable="false">pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn</string>
 
 
     <string name="str_start">START</string>
     <string name="str_ok">OK</string>
-    <string name="str_no">No</string>
-    <string name="str_yes">Yes</string>
     <string name="str_next">Next</string>
     <string name="str_import">Import</string>
     <string name="str_sorting">Sorting</string>
@@ -57,7 +50,6 @@
     <string name="str_data">Data</string>
     <string name="str_enter_again">Enter Again</string>
     <string name="str_Ignore">Ignore</string>
-    <string name="str_show_mnemonic">Show Mnemonic</string>
     <string name="str_restore">Restore with</string>
     <string name="str_mnemonic">Mnemonic</string>
     <string name="str_key_path_warning">The wallet you selected is not a default Address Type. Do you want to select the wallet?</string>
@@ -75,7 +67,7 @@
     <string name="str_delegate_c">DELEGATE</string>
     <string name="str_undelegate_c">UNDELEGATE</string>
     <string name="str_redelegate_c">REDELEGATE</string>
-    <string name="str_reinvest_c">Compounding</string>
+    <string name="str_reinvest_c">COMPOUNDING</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_unknown_error">Unknown error</string>
     <string name="str_continue">Continue</string>
@@ -113,7 +105,6 @@
     <string name="str_expected_balance">Expected Available</string>
     <string name="str_commission_amount">Commission Amount</string>
     <string name="str_commission_from">Commission From</string>
-    <string name="str_success">success</string>
     <string name="str_failed">(failed)</string>
     <string name="str_select_wallet_path_c">SELECT WALLET TO RESTORE</string>
     <string name="str_watch_address_path_c">WATCH ADDRESS</string>
@@ -140,9 +131,7 @@
     <string name="str_mnemonic_detail">Mnemonic Detail</string>
     <string name="str_mnemonic_phrase">Mnemonic Phrase</string>
     <string name="str_mnemonic_create">Create Mnemonic</string>
-    <string name="str_derive_wallet">Derive Wallet</string>
     <string name="str_delete_mnemonic">Delete Mnemonic</string>
-    <string name="str_derive_wallets">Derive Wallets</string>
     <string name="str_wallet_manage">Manage Wallet</string>
     <string name="str_edit_chains">Manage Chain</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
@@ -185,12 +174,10 @@
     <string name="str_check_mnemonic">Check Mnemonic</string>
     <string name="str_check_private_key">Check PrivateKey</string>
     <string name="str_delete_wallet">Delete Wallet</string>
-    <string name="str_wallet_address">Wallet address</string>
-    <string name="str_wallet_info">Wallet Information</string>
-    <string name="str_chain_info">Chain Info</string>
+    <string name="str_chain_info">Chain Id</string>
     <string name="str_import_time">Imported Date</string>
     <string name="str_import_state">Imported State</string>
-    <string name="str_import_path">Key Path</string>
+    <string name="str_hd_key_path">HD Key Path</string>
     <string name="str_address_type">Address Type</string>
     <string name="str_tender_type">Tendermint Style</string>
     <string name="str_eth_type">Ethereum Style</string>
@@ -210,7 +197,6 @@
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_tx_hash">Transaction Hash</string>
     <string name="str_random_hash">Random Hash</string>
-    <string name="str_tx_memo">Memo</string>
     <string name="str_tx_block_error">Error</string>
     <string name="str_next_word">Next Word</string>
     <string name="str_mnemonic_title">Please enter the recovery word.</string>
@@ -219,8 +205,6 @@
     <string name="str_tx_undelegated_amount">Unbonding Amount</string>
     <string name="str_my_address">My Address</string>
     <string name="str_my_wallet">Wallet&#160;</string>
-    <string name="str_ready">ready</string>
-    <string name="str_imported">imported</string>
     <string name="str_total_bonded">Total Bonded</string>
     <string name="str_self_bonded_rate">Self Bonded Rate</string>
     <string name="str_delegate">Delegate</string>
@@ -229,7 +213,6 @@
     <string name="str_claim_reward">Claim Reward</string>
     <string name="str_reinvest">Compounding</string>
     <string name="str_history_validator">History with this validator</string>
-    <string name="str_history_token">Transfer history</string>
     <string name="str_current_price">Current Price</string>
     <string name="str_ago">ago</string>
     <string name="str_day">days</string>
@@ -243,7 +226,6 @@
     <string name="str_add100">+ 100</string>
     <string name="str_add_half">Half</string>
     <string name="str_add_max">Max</string>
-    <string name="str_approximately"><![CDATA[≈]]></string>
     <string name="str_max_available_delegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[Max Available : ]]></string>
     <string name="str_max_available_redelegate_amount"><![CDATA[Max Available : ]]></string>
@@ -258,56 +240,57 @@
     <string name="str_key_confirm_msg">Private Key is only used to restore the\ncurrently selected wallet.\nWe highly recommend keeping your mnemonics\noffline in a secure location, and never share your\nmnemonics with anyone else.\n\n
                                        Private key is NOT mnemonics.\nYou MUST backup your mnemonics if you have one.\nYou need your mnemonics to restore your original wallets if you created them with mnemonics.</string>
 
-    <string name="str_front_guide_title_cosmos"><![CDATA[COSMOS HUB]]></string>
-    <string name="str_front_guide_title_iris"><![CDATA[IRIS HUB]]></string>
-    <string name="str_front_guide_title_binance"><![CDATA[BINANCE]]></string>
-    <string name="str_front_guide_title_kava"><![CDATA[KAVA]]></string>
-    <string name="str_front_guide_title_starname"><![CDATA[STARNAME SERVICE]]></string>
-    <string name="str_front_guide_title_band"><![CDATA[BAND PROTOCOL]]></string>
-    <string name="str_front_guide_title_okx"><![CDATA[OKC]]></string>
-    <string name="str_front_guide_title_shentu"><![CDATA[SHENTU]]></string>
-    <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
-    <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
-    <string name="str_front_guide_title_persistence"><![CDATA[PERSISTENCE NETWORK]]></string>
-    <string name="str_front_guide_title_sentinel"><![CDATA[SENTINEL HUB]]></string>
-    <string name="str_front_guide_title_fetch"><![CDATA[FETCH AI NETWORK]]></string>
-    <string name="str_front_guide_title_crypto"><![CDATA[CRYPTO.ORG]]></string>
-    <string name="str_front_guide_title_sif"><![CDATA[SIF]]></string>
-    <string name="str_front_guide_title_ki"><![CDATA[KI FOUNDATATION]]></string>
-    <string name="str_front_guide_title_rizon"><![CDATA[RIZON]]></string>
-    <string name="str_front_guide_title_medi"><![CDATA[MEDIBLOC]]></string>
-    <string name="str_front_guide_title_althea"><![CDATA[ALTHEA NETWORK]]></string>
-    <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS]]></string>
-    <string name="str_front_guide_title_umee"><![CDATA[UMEE (The Ocean)]]></string>
-    <string name="str_front_guide_title_axelar"><![CDATA[AXELAR NETWORK]]></string>
-    <string name="str_front_guide_title_emoney"><![CDATA[E-Money]]></string>
-    <string name="str_front_guide_title_juno"><![CDATA[JUNO]]></string>
-    <string name="str_front_guide_title_regen"><![CDATA[REGEN NETWORK]]></string>
-    <string name="str_front_guide_title_bitcanna"><![CDATA[BITCANNA NETWORK]]></string>
-    <string name="str_front_guide_title_stargaze"><![CDATA[STARGAZE]]></string>
-    <string name="str_front_guide_title_grabridge"><![CDATA[GRAVITY BRIDGE]]></string>
-    <string name="str_front_guide_title_comdex"><![CDATA[COMDEX]]></string>
-    <string name="str_front_guide_title_injective"><![CDATA[INJECTIVE PROTOCOL]]></string>
-    <string name="str_front_guide_title_bitsong"><![CDATA[BITSONG NETWORK]]></string>
-    <string name="str_front_guide_title_desmos"><![CDATA[DESMOS NETWORK]]></string>
-    <string name="str_front_guide_title_lum"><![CDATA[LUM NETWORK]]></string>
-    <string name="str_front_guide_title_chihuahua"><![CDATA[CHIHUAHUA]]></string>
-    <string name="str_front_guide_title_konstellation"><![CDATA[KONSTELLATION]]></string>
-    <string name="str_front_guide_title_evmos"><![CDATA[EVMOS]]></string>
-    <string name="str_front_guide_title_cudos"><![CDATA[CUDOS]]></string>
-    <string name="str_front_guide_title_provenance"><![CDATA[PROVENANCE]]></string>
-    <string name="str_front_guide_title_cerberus"><![CDATA[CERBERUS]]></string>
-    <string name="str_front_guide_title_omniflix"><![CDATA[OMNIFLIX]]></string>
-    <string name="str_front_guide_title_crescent"><![CDATA[CRESCENT]]></string>
-    <string name="str_front_guide_title_assetmantle"><![CDATA[ASSETMANTLE]]></string>
-    <string name="str_front_guide_title_station"><![CDATA[STATION]]></string>
-    <string name="str_front_guide_title_nyx"><![CDATA[NYX]]></string>
-    <string name="str_front_guide_title_passage"><![CDATA[PASSAGE]]></string>
-    <string name="str_front_guide_title_stride"><![CDATA[STRIDE]]></string>
-    <string name="str_front_guide_title_likecoin"><![CDATA[LIKECOIN]]></string>
-    <string name="str_front_guide_title_ixo"><![CDATA[IXO]]></string>
-    <string name="str_front_guide_title_sommelier"><![CDATA[SOMMELIER]]></string>
-    <string name="str_front_guide_title_kujira"><![CDATA[KUJIRA]]></string>
+
+    <string name="str_front_guide_title_cosmos" translatable="false"><![CDATA[COSMOS HUB]]></string>
+    <string name="str_front_guide_title_iris" translatable="false"><![CDATA[IRIS HUB]]></string>
+    <string name="str_front_guide_title_binance" translatable="false"><![CDATA[BINANCE]]></string>
+    <string name="str_front_guide_title_kava" translatable="false"><![CDATA[KAVA]]></string>
+    <string name="str_front_guide_title_starname" translatable="false"><![CDATA[STARNAME SERVICE]]></string>
+    <string name="str_front_guide_title_band" translatable="false"><![CDATA[BAND PROTOCOL]]></string>
+    <string name="str_front_guide_title_okx" translatable="false"><![CDATA[OKC]]></string>
+    <string name="str_front_guide_title_shentu" translatable="false"><![CDATA[SHENTU]]></string>
+    <string name="str_front_guide_title_akash" translatable="false"><![CDATA[AKASH NETWORK]]></string>
+    <string name="str_front_guide_title_secret" translatable="false"><![CDATA[SECRET NETWORK]]></string>
+    <string name="str_front_guide_title_persistence" translatable="false"><![CDATA[PERSISTENCE NETWORK]]></string>
+    <string name="str_front_guide_title_sentinel" translatable="false"><![CDATA[SENTINEL HUB]]></string>
+    <string name="str_front_guide_title_fetch" translatable="false"><![CDATA[FETCH AI NETWORK]]></string>
+    <string name="str_front_guide_title_crypto" translatable="false"><![CDATA[CRYPTO.ORG]]></string>
+    <string name="str_front_guide_title_sif" translatable="false"><![CDATA[SIF]]></string>
+    <string name="str_front_guide_title_ki" translatable="false"><![CDATA[KI FOUNDATATION]]></string>
+    <string name="str_front_guide_title_rizon" translatable="false"><![CDATA[RIZON]]></string>
+    <string name="str_front_guide_title_medi" translatable="false"><![CDATA[MEDIBLOC]]></string>
+    <string name="str_front_guide_title_althea" translatable="false"><![CDATA[ALTHEA NETWORK]]></string>
+    <string name="str_front_guide_title_osmosis" translatable="false"><![CDATA[OSMOSIS]]></string>
+    <string name="str_front_guide_title_umee" translatable="false"><![CDATA[UMEE (The Ocean)]]></string>
+    <string name="str_front_guide_title_axelar" translatable="false"><![CDATA[AXELAR NETWORK]]></string>
+    <string name="str_front_guide_title_emoney" translatable="false"><![CDATA[E-Money]]></string>
+    <string name="str_front_guide_title_juno" translatable="false"><![CDATA[JUNO]]></string>
+    <string name="str_front_guide_title_regen" translatable="false"><![CDATA[REGEN NETWORK]]></string>
+    <string name="str_front_guide_title_bitcanna" translatable="false"><![CDATA[BITCANNA NETWORK]]></string>
+    <string name="str_front_guide_title_stargaze" translatable="false"><![CDATA[STARGAZE]]></string>
+    <string name="str_front_guide_title_grabridge" translatable="false"><![CDATA[GRAVITY BRIDGE]]></string>
+    <string name="str_front_guide_title_comdex" translatable="false"><![CDATA[COMDEX]]></string>
+    <string name="str_front_guide_title_injective" translatable="false"><![CDATA[INJECTIVE PROTOCOL]]></string>
+    <string name="str_front_guide_title_bitsong" translatable="false"><![CDATA[BITSONG NETWORK]]></string>
+    <string name="str_front_guide_title_desmos" translatable="false"><![CDATA[DESMOS NETWORK]]></string>
+    <string name="str_front_guide_title_lum" translatable="false"><![CDATA[LUM NETWORK]]></string>
+    <string name="str_front_guide_title_chihuahua" translatable="false"><![CDATA[CHIHUAHUA]]></string>
+    <string name="str_front_guide_title_konstellation" translatable="false"><![CDATA[KONSTELLATION]]></string>
+    <string name="str_front_guide_title_evmos" translatable="false"><![CDATA[EVMOS]]></string>
+    <string name="str_front_guide_title_cudos" translatable="false"><![CDATA[CUDOS]]></string>
+    <string name="str_front_guide_title_provenance" translatable="false"><![CDATA[PROVENANCE]]></string>
+    <string name="str_front_guide_title_cerberus" translatable="false"><![CDATA[CERBERUS]]></string>
+    <string name="str_front_guide_title_omniflix" translatable="false"><![CDATA[OMNIFLIX]]></string>
+    <string name="str_front_guide_title_crescent" translatable="false"><![CDATA[CRESCENT]]></string>
+    <string name="str_front_guide_title_assetmantle" translatable="false"><![CDATA[ASSET MANTLE]]></string>
+    <string name="str_front_guide_title_station" translatable="false"><![CDATA[STATION]]></string>
+    <string name="str_front_guide_title_nyx" translatable="false"><![CDATA[NYX]]></string>
+    <string name="str_front_guide_title_passage" translatable="false"><![CDATA[PASSAGE]]></string>
+    <string name="str_front_guide_title_stride" translatable="false"><![CDATA[STRIDE]]></string>
+    <string name="str_front_guide_title_likecoin" translatable="false"><![CDATA[LIKECOIN]]></string>
+    <string name="str_front_guide_title_ixo" translatable="false"><![CDATA[IXO]]></string>
+    <string name="str_front_guide_title_sommelier" translatable="false"><![CDATA[SOMMELIER]]></string>
+    <string name="str_front_guide_title_kujira" translatable="false"><![CDATA[KUJIRA]]></string>
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_binance">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -455,7 +438,6 @@
     <string name="str_buy_atom">Buy ATOM</string>
     <string name="str_buy_bnb">Buy BNB</string>
     <string name="str_buy_kava">Buy KAVA</string>
-    <string name="str_buy_band">Buy BAND</string>
     <string name="str_kava_dapp"><![CDATA[KAVA DeFi]]> </string>
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
     <string name="str_buy_select_fiat_title">Select Fiat</string>
@@ -469,7 +451,6 @@
     <string name="str_denom_cdp">Coin Type</string>
     <string name="str_payment_cdp">Payment</string>
     <string name="str_undelegate_status">UnBonding Details</string>
-
     <string name="str_kava_cdp_list">Mint</string>
     <string name="str_kava_cdp_details">Mint Status</string>
     <string name="str_kava_harvest_list">Lend</string>
@@ -563,14 +544,12 @@
     <string name="str_help_stability_fee">The amount of fee you must pay for taking out USDX loans from the CDP, calculated as APR.\n\nWhen you repay your USDX debt, you must also pay this stability fee in order to close your collateralized debt position.</string>
     <string name="str_help_liquidation_penalty_t">Liquidation Penalty</string>
     <string name="str_help_liquidation_penalty">The amount of penalty you must pay in the event that your collateralized assets are liquidated due to price fluctuations.\n\nIf your collateral rate falls below minimum collateral rate, your assets will be liquidated.</string>
-
     <string name="str_help_available_collateral">The amount of available %1$s in your wallet that can be deposited into the CDP as collateral.</string>
     <string name="str_help_self_deposited_collateral_t">Self Deposited Collateral</string>
     <string name="str_help_self_deposited_collateral_">The amount of %1$s deposited into the CDP as collateral from this wallet.</string>
     <string name="str_help_total_deposited_collateral_t">Total Deposited Collateral</string>
     <string name="str_help_total_deposited_collateral">The total amount of %1$s deposited into the CDP as collateral.</string>
     <string name="str_help_withdrawable">The amount of maximum collateral capable of being withdrawn from the CDP without reaching a risk score of 95.\n\nNote that withdrawing the collateral excessively close to the maximum amount can put the CDP into risk of going below the minimum collateral rate and being liquidated.</string>
-
     <string name="str_help_loaned_amount_t">Loan Principal</string>
     <string name="str_help_loaned_amount">The total amount of USDX loaned from the CDP.</string>
     <string name="str_help_remaining_loan_capacity_t">Remaining Loan Capacity</string>
@@ -608,129 +587,18 @@
     <string name="str_select_account">Select Account</string>
     <string name="str_bep3_max_once">Swap Limit Per Transaction</string>
     <string name="str_bep3_system_max">System Max Cap</string>
-    <string name="str_bep3_current_cap">Current Cap</string>
     <string name="str_bep3_remain_cap">Remaining Cap</string>
-    <string name="str_bep3_bnb_cap">Current remaining swap capacity is %1$s\n\nThe maximum swap capacity is determined through Kava policies <![CDATA[&]]> governance.\n\nFor inquiries regarding maximum swap capacity, please visit the official Kava community channel below.\n\nhttps://t.me/kavalabs</string>
     <string name="str_select_to_send_coin">Select To Send Coin Type</string>
     <string name="str_select_to_send_chain">Select Recipient Chain</string>
-
-
-    <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
-    <string name="str_create_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_create_cdp_step_3">Select transaction fee</string>
-    <string name="str_create_cdp_step_4">Check transaction detail</string>
-    <string name="str_repay_cdp_step_1">Enter repayment amount</string>
-    <string name="str_repay_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_repay_cdp_step_3">Select transaction fee</string>
-    <string name="str_repay_cdp_step_4">Check transaction detail</string>
-    <string name="str_draw_debt_cdp_step_1">Enter loan amount</string>
-    <string name="str_draw_debt_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_draw_debt_cdp_step_3">Select transaction fee</string>
-    <string name="str_draw_debt_cdp_step_4">Check transaction detail</string>
-    <string name="str_deposit_cdp_step_1">Enter deposit amount</string>
-    <string name="str_deposit_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_deposit_cdp_step_3">Select transaction fee</string>
-    <string name="str_deposit_cdp_step_4">Check transaction detail</string>
-    <string name="str_withdraw_cdp_step_1">Enter withdrawal amount</string>
-    <string name="str_withdraw_cdp_step_2">Insert memo (optional)</string>
-    <string name="str_withdraw_cdp_step_3">Select transaction fee</string>
-    <string name="str_withdraw_cdp_step_4">Check transaction detail</string>
-    <string name="str_htlc_send_step_1">Select Destination Chain</string>
-    <string name="str_htlc_send_step_2">Select Recipient Account</string>
-    <string name="str_htlc_send_step_3">Insert Amount to Send</string>
-    <string name="str_htlc_send_step_4">Check Transactions Detail</string>
-    <string name="str_htlc_loading_progress_0">1/4 Broadcasting interchain send Tx from sending chain.</string>
-    <string name="str_htlc_loading_progress_1">2/4 Confirming swapid.</string>
-    <string name="str_htlc_loading_progress_2">3/4 Broadcasting interchain claim Tx on receiving chain.</string>
-    <string name="str_htlc_loading_progress_3">4/4 Confirming all Tx on each chain.</string>
-    <string name="str_htlc_refund_step_0">Refunding Expired BEP3 Transfer</string>
-    <string name="str_htlc_refund_step_1">Insert memo (optional)</string>
-    <string name="str_htlc_refund_step_2">Select transaction fee</string>
-    <string name="str_htlc_refund_step_3">Check transaction detail</string>
-    <string name="str_incentive_participate_step_0">Check your Incentive</string>
-    <string name="str_incentive_participate_step_1">Insert memo (optional)</string>
-    <string name="str_incentive_participate_step_2">Select transaction fee</string>
-    <string name="str_incentive_participate_step_3">Check transaction detail</string>
-    <string name="str_claim_harvest_reward">Claim Hard Incentive</string>
-    <string name="str_harvest_reward_step_0">Select hard pool incentive option</string>
-    <string name="str_harvest_reward_step_1">Insert memo (optional)</string>
-    <string name="str_harvest_reward_step_2">Select transaction fee</string>
-    <string name="str_harvest_reward_step_3">Check transaction detail</string>
-    <string name="str_borrower">Borrower</string>
-
-
-    <string name="str_main_wallet">WALLET</string>
-    <string name="str_main_send">SEND</string>
-    <string name="str_main_tokens">ASSETS</string>
-    <string name="str_main_dapp">DAPP</string>
-    <string name="str_main_reward">REWARD</string>
-    <string name="str_main_history">HISTORY</string>
-    <string name="str_main_vote">VOTE</string>
-    <string name="str_main_set">SETTING</string>
-    <string name="str_password">Password</string>
-    <string name="str_set_password">Set Password</string>
-    <string name="str_init_password">Please insert your PIN number.</string>
-    <string name="str_init_again">Please insert again for confirm.</string>
-    <string name="str_using_fingerprint">Using Fingerprint</string>
-    <string name="str_ask_using_fingerprint">Do you want to enable fingerprint authentication?</string>
-    <string name="str_mnemonic_copied">Mnemonic copied to clipboard.</string>
-    <string name="str_enter_address">Enter Address or Public-Key</string>
-    <string name="str_copy_right">COSMOS Wallet by Cosmostation</string>
-    <string name="str_password_init">Init your PIN number.</string>
-    <string name="str_password_msg1">Insert again for confirm.</string>
-    <string name="str_password_msg2">No way to recover this. please remember!</string>
-    <string name="str_send_step_0">Insert recipient address</string>
-    <string name="str_send_step_1">Insert send amount and select token type</string>
-    <string name="str_send_step_2">Insert memo (optional)</string>
-    <string name="str_send_step_3">Select transaction fee</string>
-    <string name="str_send_step_4">Check transaction detail</string>
-    <string name="str_delegate_step_1">Enter delegation amount</string>
-    <string name="str_delegate_step_2">Insert memo (optional)</string>
-    <string name="str_delegate_step_3">Select transaction fee</string>
-    <string name="str_delegate_step_4">Check delegation detail</string>
-    <string name="str_undelegate_step_1">Enter undelegation amount</string>
-    <string name="str_undelegate_step_2">Insert memo (optional)</string>
-    <string name="str_undelegate_step_3">Select transaction fee</string>
-    <string name="str_undelegate_step_4">Check undelegation detail</string>
-    <string name="str_unbonding_days_after"><![CDATA[days after)]]></string>
-    <string name="str_reward_step_1">Check reward detail</string>
-    <string name="str_reward_step_2">Insert memo (optional)</string>
-    <string name="str_reward_step_3">Select transaction fee</string>
-    <string name="str_reward_step_4">Check claim reward detail</string>
-    <string name="str_redelegate_step_0">Enter redelegation amount</string>
-    <string name="str_redelegate_step_1">Select validator redelegate.</string>
-    <string name="str_redelegate_step_2">Insert memo (optional)</string>
-    <string name="str_redelegate_step_3">Select transaction fee</string>
-    <string name="str_redelegate_step_4">Check transaction detail</string>
-    <string name="str_change_reward_address_step_0">Insert address to receive reward</string>
-    <string name="str_change_reward_address_step_1">Insert memo (optional)</string>
-    <string name="str_change_reward_address_step_2">Select transaction fee</string>
-    <string name="str_change_reward_address_step_3">Check transaction detail</string>
-    <string name="str_reinvest_step_0">Check reward amount for compounding</string>
-    <string name="str_reinvest_step_1">Insert memo (optional)</string>
-    <string name="str_reinvest_step_2">Select transaction fee</string>
-    <string name="str_reinvest_step_3">Check transaction detail</string>
-    <string name="str_vote_step_0">Select your Opinion</string>
-    <string name="str_vote_step_1">Insert memo (optional)</string>
-    <string name="str_vote_step_2">Select transaction fee</string>
-    <string name="str_vote_step_3">Check transaction detail</string>
-    <string name="str_already_imported_key">Already imported key.</string>
-    <string name="str_delete_title">Delete Wallet</string>
     <string name="str_delete_msg">All information about this wallet will delete.\n If you do not backup your mnemonics, you can not find it again!</string>
     <string name="str_delete">Delete</string>
     <string name="str_close">Close</string>
     <string name="str_no_history_with_this_validator">No history.</string>
-    <string name="str_let_start_cosmos">Explore the Cosmos Hub</string>
-    <string name="str_let_start_cosmos2">Delegate your ATOM and claim rewards with Cosmostation.\nFast and easy transactions with local signing!</string>
     <string name="str_change_account_nickname">Change Wallet Name</string>
     <string name="str_change_mnemonic_nickname">Change Mnemonic Name</string>
     <string name="str_start_delegate">Delegate your tokens with Cosmostation.\nStart earning staking rewards and contribute\nto the network ecosystem.</string>
-    <string name="str_create_warn0">Losing your mnemonics could lead to loss of your asset. We highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.</string>
-    <string name="str_create_warn1">Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.</string>
-    <string name="str_gaia">Gaia testnet is not fixed coin type, so skip coin amount check logic.\nPlease insert valid amount coin without under point.</string>
     <string name="str_only_observe_title">No Private Key.</string>
     <string name="str_only_observe_msg">This account has only address with watch mode.\nYou need add mnemonics for generate transaction.\n</string>
-    <string name="str_all_validators">All Validators</string>
     <string name="str_top_100_validators">Top</string>
     <string name="str_other_validators">Others</string>
     <string name="str_my_validators">My</string>
@@ -739,7 +607,6 @@
     <string name="str_unbonding">Unbonding</string>
     <string name="str_reward">Staking Reward</string>
     <string name="str_stake_reward">Staking Reward</string>
-    <string name="str_harvest_deposited">Harvest Deposited</string>
     <string name="str_harvest_reward">Harvest Reward</string>
     <string name="str_my_harvest_reward">My Harvest Reward</string>
     <string name="str_unclaimed_incentive">Unclaimed Incentive</string>
@@ -749,6 +616,7 @@
     <string name="str_governance">Governance</string>
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>
+    <string name="str_fixed">Fixed</string>
     <string name="str_free">Free</string>
     <string name="str_tiny">Tiny</string>
     <string name="str_low">Low</string>
@@ -756,47 +624,28 @@
     <string name="str_high">High</string>
     <string name="str_available">Available</string>
     <string name="str_denom">Denom</string>
-    <string name="str_across_chain">Across Chain</string>
-    <string name="str_across_denom">Across Denom</string>
     <string name="str_vesting">Vesting</string>
     <string name="str_locked">Locked</string>
     <string name="str_frozen">Frozen</string>
-    <string name="str_deposited">Deposit</string>
     <string name="str_staking">Staking</string>
     <string name="str_to_staking">Staking</string>
     <string name="str_to_unbonding">Unbonding</string>
     <string name="str_deposit">Deposit</string>
     <string name="str_withdraw">Withdraw</string>
-    <string name="str_withdrawing">Withdrawing</string>
     <string name="str_vote_for_validator">Vote for Validator</string>
     <string name="str_name_service">Starname Service</string>
-    <string name="str_starname_service">Starname Service</string>
     <string name="str_promotion_title">START DELEGATING FOR REWARDS</string>
     <string name="str_sorting_s">Sorting</string>
     <string name="str_sorting_by_name">By Name</string>
     <string name="str_sorting_by_power">By Voting Power</string>
-    <string name="str_sorting_by_commission">By Commission</string>
     <string name="str_sorting_by_yield">By APR</string>
     <string name="str_sorting_by_my_delegated">By My Delegations</string>
     <string name="str_sorting_by_reward">By Reward</string>
-    <string name="str_sorting_by_amount">By Amount</string>
-    <string name="str_sorting_by_value">By Value</string>
     <string name="str_qr_code">Scan</string>
     <string name="str_recent">Recent</string>
-    <string name="str_in_wallet">Wallet</string>
-    <string name="str_fee_free_title">Fee Free Event</string>
-    <string name="str_sif_incentive_title">Incentive Event</string>
-    <string name="str_sif_incentive_staking">Staking Subsidy Incentive</string>
-    <string name="str_sif_incentive_liquidity">Liquidity Mining Incentive</string>
-    <string name="str_sif_incentive_max_staking">Max Staking Subsidy</string>
-    <string name="str_sif_incentive_max_liquidity">Max Liquidity Mining</string>
-    <string name="str_sif_incentive_max_date">Max Date</string>
-    <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>
     <string name="str_delegate_notice">When you delegate, your accumulated rewards will be automatically claimed to your available balance.</string>
     <string name="str_undelegate_notice">If you undelegate to the validator, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>
     <string name="str_reward_notice">Rewards are accumulated each block.\nThe actual amount of rewards you receive may be equal to or greater than what is displayed now.</string>
-    <string name="str_multi_reward_notice">Claiming rewards from multiple validators in one transaction requires more fees than a regular transaction. However, using this function is less expensive than claiming your rewards individually from each validator.</string>
-    <string name="str_multi_reward_max_16">We claim rewards from up to 16 validators in order of reward amount.</string>
     <string name="str_not_validator_title">Not Validator</string>
     <string name="str_not_validator_msg">This node is not a valid Cosmos validator.\nThis node does not participate in consensus, and therefore does not yield any rewards.\nWould you like to continue?</string>
     <string name="str_redelegation_limitted_title">Unable to redelegate.</string>
@@ -824,18 +673,10 @@
     <string name="str_app_unlock_msg2">Please insert PIN number or using fingerprint for unlock</string>
     <string name="str_using_applock">Using App Lock</string>
     <string name="str_using_fingerprints">Unlock with Fingerprint</string>
-    <string name="str_applock_time">App Lock Time</string>
-    <string name="str_applock_time_immediately">Lock Immediately</string>
     <string name="str_applock_time_10sec">Lock 10 Second After</string>
     <string name="str_applock_time_30sec">Lock 30 Second After</string>
     <string name="str_applock_time_60sec">Lock 60 Second After</string>
-    <string name="str_from_all_my_val">From all my validators</string>
-    <string name="str_name">Name</string>
     <string name="str_amount">Amount</string>
-    <string name="str_value">Value</string>
-    <string name="str_full_name">Detail</string>
-    <string name="str_vesting_title">Vesting Account</string>
-    <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli command delegate and undelegate tx for correct amount.</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_vesting_amount">Vesting (Only Delegable)</string>
     <string name="str_htlc_warn_title">BEP3 Swap Notice</string>
@@ -845,6 +686,47 @@
     <string name="str_delegate_warn_title">Delegate Notice</string>
     <string name="str_delegate_warn_msg">You can receive staking rewards by delegating to a validator. You may lose a portion of your delegated stake if a problem occurs with the selected node. Please perform careful due diligence before delegating.\n\nWhen you undelegate, there is an unbonding period. You will not receive staking rewards during this time.\n\n</string>
     <string name="str_memo_warn">Please check your memo.\nSome exchanges or wallets may require a specific memo for deposits.</string>
+
+
+    <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
+    <string name="str_repay_cdp_step_1">Enter repayment amount</string>
+    <string name="str_draw_debt_cdp_step_1">Enter loan amount</string>
+    <string name="str_deposit_cdp_step_1">Enter deposit amount</string>
+    <string name="str_withdraw_cdp_step_1">Enter withdrawal amount</string>
+    <string name="str_htlc_send_step_1">Select Destination Chain</string>
+    <string name="str_htlc_send_step_2">Select Recipient Account</string>
+    <string name="str_htlc_send_step_3">Insert Amount to Send</string>
+    <string name="str_htlc_loading_progress_0">1/4 Broadcasting interchain send Tx from sending chain.</string>
+    <string name="str_htlc_loading_progress_1">2/4 Confirming swapid.</string>
+    <string name="str_htlc_loading_progress_2">3/4 Broadcasting interchain claim Tx on receiving chain.</string>
+    <string name="str_htlc_loading_progress_3">4/4 Confirming all Tx on each chain.</string>
+    <string name="str_incentive_participate_step_0">Check your Incentive</string>
+    <string name="str_borrower">Borrower</string>
+    <string name="str_main_wallet">WALLET</string>
+    <string name="str_main_tokens">ASSETS</string>
+    <string name="str_main_dapp">DAPP</string>
+    <string name="str_main_reward">REWARD</string>
+    <string name="str_main_history">HISTORY</string>
+    <string name="str_main_set">SETTING</string>
+    <string name="str_password">Password</string>
+    <string name="str_init_password">Please insert your PIN number.</string>
+    <string name="str_init_again">Please insert again for confirm.</string>
+    <string name="str_password_init">Init your PIN number.</string>
+    <string name="str_password_msg1">Insert again for confirm.</string>
+    <string name="str_password_msg2">No way to recover this. please remember!</string>
+    <string name="str_send_step_0">Insert recipient address</string>
+    <string name="str_send_step_1">Insert send amount and select token type</string>
+    <string name="str_delegate_step_1">Enter delegation amount</string>
+    <string name="str_undelegate_step_1">Enter undelegation amount</string>
+    <string name="str_unbonding_days_after"><![CDATA[days after)]]></string>
+    <string name="str_reward_step_1">Check reward detail</string>
+    <string name="str_redelegate_step_0">Enter redelegation amount</string>
+    <string name="str_redelegate_step_1">Select validator redelegate.</string>
+    <string name="str_change_reward_address_step_0">Insert address to receive reward</string>
+    <string name="str_reinvest_step_0">Check reward amount for compounding</string>
+    <string name="str_vote_step_0">Select your Opinion</string>
+
+
     <string name="str_ok_stake_deposit_step_0">Insert amount to stake</string>
     <string name="str_ok_stake_deposit_step_1">Insert memo (optional)</string>
     <string name="str_ok_stake_deposit_step_2">Select transaction fee</string>
@@ -1351,6 +1233,7 @@
     <string name="error_disabled_jailed">Delegation to jailed validator is not supported.</string>
     <string name="error_unbond_cnt_over">Exceeded maximum undelegation count.</string>
     <string name="error_no_to_validator">Please select validator to redelegate.</string>
+    <string name="error_redelegate_cnt_over">Exceeded maximum redelegation count.\nSelect another validator.</string>
     <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>
     <string name="error_reward_address_changed_msg">This account has changed its Reward Recipient Address. \n To use the Compounding feature, please reset your Reward Recipient Address.</string>
     <string name="error_invalid_address_target">Invalid Address.</string>

@@ -71,8 +71,8 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
         } else if (v.equals(mConfirmBtn)) {
             CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_redelegation_warnning_title), getString(R.string.str_redelegation_warnning_msg),
-                    getString(R.string.str_no), null,
-                    getString(R.string.str_yes), view -> getSActivity().onStartRedelegate());
+                    getString(R.string.str_cancel), null,
+                    getString(R.string.str_confirm), view -> getSActivity().onStartRedelegate());
         }
     }
 }

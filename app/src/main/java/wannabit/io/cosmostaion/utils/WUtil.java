@@ -1541,7 +1541,7 @@ public class WUtil {
             dexTitle.setText(R.string.str_nft_c);
         } else if (chain.equals(IOV_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.name_ic), null, null, null);
-            dexTitle.setText(R.string.str_starname_service);
+            dexTitle.setText(R.string.str_name_service);
         } else if (chain.equals(KAVA_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.cdp_s_ic), null, null, null);
             dexTitle.setText(R.string.str_kava_dapp);

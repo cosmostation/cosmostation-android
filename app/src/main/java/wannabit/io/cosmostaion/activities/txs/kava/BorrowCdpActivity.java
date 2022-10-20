@@ -101,14 +101,14 @@ public class BorrowCdpActivity extends BaseBroadCastActivity implements TaskList
                     mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_1));
                 } else if (i == 1) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(BorrowCdpActivity.this, R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_2));
+                    mTvStep.setText(getString(R.string.str_tx_step_memo));
                 } else if (i == 2) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(BorrowCdpActivity.this, R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_3));
+                    mTvStep.setText(getString(R.string.str_tx_step_fee));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3) {
                     mIvStep.setImageDrawable(ContextCompat.getDrawable(BorrowCdpActivity.this, R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_draw_debt_cdp_step_4));
+                    mTvStep.setText(getString(R.string.str_tx_step_confirm));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
