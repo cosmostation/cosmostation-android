@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -84,7 +83,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         rootView = inflater.inflate(R.layout.fragment_main_history, container, false);
         initView();
         onUpdateView();
-        onFetchHistory();
         return rootView;
     }
 
@@ -114,20 +112,20 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mRecyclerView.setHasFixedSize(true);
         mHistoryAdapter = new HistoryAdapter();
         mRecyclerView.setAdapter(mHistoryAdapter);
+        RecyclerViewHeader recyclerViewHeader = new RecyclerViewHeader(getMainActivity());
+        mRecyclerView.addItemDecoration(recyclerViewHeader);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
-                if (lastVisibleItemPosition == itemTotalCount) {
+                if (lastVisibleItemPosition == itemTotalCount && !mBaseChain.equals(BNB_MAIN) && !mBaseChain.equals(OKEX_MAIN)) {
                     mId = mApiNewTxCustomHistory.get(mApiNewTxCustomHistory.size() - 1).header.id;
                     onFetchHistory();
                 }
             }
         });
-        RecyclerViewHeader recyclerViewHeader = new RecyclerViewHeader(getMainActivity());
-        mRecyclerView.addItemDecoration(recyclerViewHeader);
     }
 
     private void onUpdateView() {
@@ -146,7 +144,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
+        mId = 0;
+        mApiNewTxCustomHistory.clear();
         onUpdateView();
+        onFetchHistory();
     }
 
     private void onFetchHistory() {
@@ -186,7 +187,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
-            mApiNewTxCustomHistory.addAll((Collection<? extends ResApiNewTxListCustom>) result.resultData);
+            mApiNewTxCustomHistory.addAll((ArrayList<ResApiNewTxListCustom>) result.resultData);
             if (mApiNewTxCustomHistory != null && mApiNewTxCustomHistory.size() > 0) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -223,7 +224,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindNewHistory(getMainActivity(), getBaseDao(), mChainConfig, history);
-
             } else {
                 HistoryOldHolder holder = (HistoryOldHolder) viewHolder;
                 if (mBaseChain.equals(BNB_MAIN)) {
@@ -281,10 +281,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
 
                 mTitle.setText(R.string.str_history_title);
-                mItemCnt.setText("" + state.getItemCount());
+                mItemCnt.setText(String.valueOf(state.getItemCount()));
                 fixLayoutSize(headerView, parent);
             }
-            mItemCnt.setText("" + state.getItemCount());
+            mItemCnt.setText(String.valueOf(state.getItemCount()));
 
             for (int i = 0; i < parent.getChildCount(); i++) {
                 View child = parent.getChildAt(i);
