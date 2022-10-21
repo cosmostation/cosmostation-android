@@ -192,7 +192,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             holder.accountCard.setOnClickListener(v -> {
                 Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
                 intent.putExtra("id", String.valueOf(account.id));
-                intent.putExtra("nickname", getString(R.string.str_my_wallet) + account.id);
                 startActivity(intent);
             });
         }

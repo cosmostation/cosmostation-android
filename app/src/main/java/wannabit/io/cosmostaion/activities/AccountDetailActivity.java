@@ -70,7 +70,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private TextView mRewardAddress;
 
     private Button mBtnDelete, mBtnCheckKey, mBtnCheck;
-    private String nickName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +111,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnCheckKey.setOnClickListener(this);
         mBtnCheck.setOnClickListener(this);
 
-        nickName = getIntent().getStringExtra("nickname");
     }
 
     @Override
@@ -285,7 +283,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             Bundle bundle = new Bundle();
             bundle.putInt("title", R.string.str_change_account_nickname);
             bundle.putLong("id", mAccount.id);
-            bundle.putString("name", nickName);
+            bundle.putString("name", mAccount.nickName);
             ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
             dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "dialog");
