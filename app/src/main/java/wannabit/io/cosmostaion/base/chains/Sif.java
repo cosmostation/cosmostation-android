@@ -32,7 +32,7 @@ public class Sif extends ChainConfig {
     public String addressPrefix() { return "sif"; }
 
     public boolean bridgeCoinSupport() { return true; }
-    public boolean dexSupport() { return true; }
+    public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
