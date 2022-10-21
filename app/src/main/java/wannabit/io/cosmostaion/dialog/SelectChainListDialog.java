@@ -132,6 +132,7 @@ public class SelectChainListDialog extends DialogFragment {
         private static final int TYPE_WATCHING_ADDRESS_LIST = 3;
         private static final int TYPE_SEND_CHAIN_LIST = 4;
 
+
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -166,7 +167,7 @@ public class SelectChainListDialog extends DialogFragment {
             holder.rootLayer.setOnClickListener(v -> {
                 Bundle result = new Bundle();
                 result.putInt(BaseConstant.POSITION, position);
-                getParentFragmentManager().setFragmentResult(String.valueOf(SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE), result);
+                getParentFragmentManager().setFragmentResult(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, result);
                 dismiss();
             });
         }
@@ -256,26 +257,19 @@ public class SelectChainListDialog extends DialogFragment {
 
         @Override
         public int getItemCount() {
-            if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE || keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE)
-                return mSwapCoinList.size();
-            else if (keyValue == SelectChainListDialog.SELECT_FEE_DENOM_VALUE)
-                return mFeeDataList.size();
-            else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE)
-                return mSendCoinList.size();
-            else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE)
-                return mToSendableChainConfig.size();
+            if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE || keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE) return mSwapCoinList.size();
+            else if (keyValue == SelectChainListDialog.SELECT_FEE_DENOM_VALUE) return mFeeDataList.size();
+            else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE) return mSendCoinList.size();
+            else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) return mToSendableChainConfig.size();
             else return WDp.getChainsFromAddress(mWatchAddress).size();
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE || keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE)
-                return TYPE_SWAP_LIST;
+            if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE || keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE) return TYPE_SWAP_LIST;
             else if (keyValue == SelectChainListDialog.SELECT_FEE_DENOM_VALUE) return TYPE_FEE_LIST;
-            else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE)
-                return TYPE_SEND_COIN_LIST;
-            else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE)
-                return TYPE_SEND_CHAIN_LIST;
+            else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE) return TYPE_SEND_COIN_LIST;
+            else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) return TYPE_SEND_CHAIN_LIST;
             else return TYPE_WATCHING_ADDRESS_LIST;
         }
 

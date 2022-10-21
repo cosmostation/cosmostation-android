@@ -142,14 +142,12 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
     }
 
     public void onGenNewAccount(BaseChain chain, String address) {
-        onShowWaitDialog();
         new GenerateEmptyAccountTask(getBaseApplication(), this).execute(chain.getChain(), address);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
-        onHideWaitDialog();
         if (result.isSuccess) {
             onStartMainActivity(0);
         } else {

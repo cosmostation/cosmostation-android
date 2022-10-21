@@ -6,5 +6,5 @@
     <corners android:radius="@dimen/space_8"/>
     <stroke
         android:color="@color/colorBlackDayNight"
-        android:width="@dimen/space_1"/>
+        android:width="@dimen/space_1.8"/>
 </shape>

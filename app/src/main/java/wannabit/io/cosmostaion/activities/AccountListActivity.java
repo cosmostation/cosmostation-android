@@ -185,12 +185,13 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), baseChain));
             setAccountKeyStatus(AccountListActivity.this, account, chainConfig, holder.accountKeyState);
 
-            if (TextUtils.isEmpty(account.nickName)) holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
+            if (TextUtils.isEmpty(account.nickName))
+                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             else holder.accountName.setText(account.nickName);
 
             holder.accountCard.setOnClickListener(v -> {
                 Intent intent = new Intent(AccountListActivity.this, AccountDetailActivity.class);
-                intent.putExtra("id", account.id.toString());
+                intent.putExtra("id", String.valueOf(account.id));
                 startActivity(intent);
             });
         }
