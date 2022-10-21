@@ -40,7 +40,7 @@
                 android:layout_marginRight="@dimen/space_16"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="Edit" />
+                android:text="@string/str_edit" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
