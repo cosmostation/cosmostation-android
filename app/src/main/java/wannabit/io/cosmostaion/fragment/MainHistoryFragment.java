@@ -122,6 +122,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
                 if (lastVisibleItemPosition == itemTotalCount && !mBaseChain.equals(BNB_MAIN) && !mBaseChain.equals(OKEX_MAIN)) {
                     mId = mApiNewTxCustomHistory.get(mApiNewTxCustomHistory.size() - 1).header.id;
+                    getMainActivity().onShowWaitDialog();
                     onFetchHistory();
                 }
             }
@@ -197,6 +198,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 mRecyclerView.setVisibility(View.GONE);
             }
         }
+        getMainActivity().onHideWaitDialog();
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
