@@ -10,12 +10,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import wannabit.io.cosmostaion.base.chains.ChainConfig;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 
 public enum BaseChain {
     // chain_id is checked on-chain. no need update chain version  21.03.20
@@ -90,7 +84,8 @@ public enum BaseChain {
     LIKECOIN_MAIN("likecoin-mainnet"),
     IXO_MAIN("ixo-mainnet"),
     SOMMELIER_MAIN("sommelier-mainnet"),
-    KUJIRA_MAIN("kujira-mainnet");
+    KUJIRA_MAIN("kujira-mainnet"),
+    TERITORI_MAIN("teritori-mainnet");
 
     private final String chainName;
 
@@ -274,7 +269,9 @@ public enum BaseChain {
         if (chainName.equals(KUJIRA_MAIN.chainName)) {
             return KUJIRA_MAIN;
         }
-
+        if (chainName.equals(TERITORI_MAIN.chainName)) {
+            return TERITORI_MAIN;
+        }
         return null;
     }
 
@@ -326,15 +323,12 @@ public enum BaseChain {
         result.add(SIF_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(STRIDE_MAIN);
+        result.add(TERITORI_MAIN);
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
         result.add(STATION_TEST);
 
         return result;
-    }
-
-    public static List<ChainConfig> SUPPORT_CHAIN_CONFIG() {
-        return SUPPORT_CHAINS().stream().map(ChainFactory::getChain).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     public static boolean IS_SUPPORT_CHAIN(String chain) {

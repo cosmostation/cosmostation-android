@@ -61,6 +61,8 @@
     <color name="colorTransBgSommelier">#2b091d</color>
     <color name="colorTransBgLikeCoin">#0b2226</color>
     <color name="colorTransBgKujira">#360c14</color>
+    <color name="colorTransBgTeritori">#052736</color>
+
 
     <color name="colorWhiteDayNight">#000000</color>
     <color name="colorWhite2DayNight">#232428</color>

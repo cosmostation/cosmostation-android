@@ -480,6 +480,8 @@ public class WDp {
         }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
+        WLog.w("test1234 : " + calCommission);
+        WLog.w("test12345 : " + aprCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("365"), 0, RoundingMode.DOWN);
         return getDpAmount2(dayReward, getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
     }

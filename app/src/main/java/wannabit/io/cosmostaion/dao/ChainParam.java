@@ -6,6 +6,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.TERITORI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 
@@ -20,7 +21,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -107,6 +107,9 @@ public class ChainParam {
         @SerializedName("crescent_budgets")
         public CrescentBudgets mCrescentBudgets;
 
+        @SerializedName("teritori_minting_params")
+        public TeritoriMintingParams mTeritoriMintingParams;
+
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
             if (baseChain.equals(BaseChain.IRIS_MAIN)) {
@@ -148,6 +151,9 @@ public class ChainParam {
                 return thisInflation.divide(genesisSupply, 18, RoundingMode.UP);
             } else if (baseChain.equals(AXELAR_MAIN)) {
                 return new BigDecimal("0.150000000000000000");
+            } else if (baseChain.equals(TERITORI_MAIN)) {
+                BigDecimal inflationNum = new BigDecimal(mTeritoriMintingParams.params.reduction_period_in_blocks).subtract(new BigDecimal(mTeritoriMintingParams.params.minting_rewards_distribution_start_block));
+                return inflationNum.multiply(new BigDecimal(mTeritoriMintingParams.params.genesis_block_provisions)).divide(getMainSupply(baseChain), 18, RoundingMode.DOWN);
             } else {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);
@@ -259,6 +265,9 @@ public class ChainParam {
                         BigDecimal inflationAmount = getCurrentInflationAmount(baseChain);
                         BigDecimal budgetRate = BigDecimal.ONE.subtract(getBudgetRate(baseChain));
                         return budgetRate.multiply(calTax).multiply(inflationAmount).divide(getBondedAmount(baseChain), 6, RoundingMode.DOWN);
+                    } else if (baseChain.equals(TERITORI_MAIN)) {
+                        BigDecimal stakingDistribution = new BigDecimal(mTeritoriMintingParams.params.mTeritoriDistributionProportions.staking);
+                        return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
                     } else {
                         BigDecimal ap;
                         if (baseChain.equals(AXELAR_MAIN)) ap = getMainSupply(baseChain).multiply(getMintInflation(baseChain));
@@ -307,6 +316,8 @@ public class ChainParam {
             if (isGRPC(baseChain)) {
                 if (baseChain.equals(STARGAZE_MAIN)) {
                     return new BigDecimal(mStargazeMintingParams.params.blocks_per_year);
+                } else if (baseChain.equals(TERITORI_MAIN)) {
+                    return new BigDecimal(mTeritoriMintingParams.params.reduction_period_in_blocks);
                 } else if (mMintParams != null && mMintParams.params!= null && mMintParams.params.blocks_per_year!= null) {
                     return new BigDecimal(mMintParams.params.blocks_per_year);
                 } else {
@@ -861,6 +872,48 @@ public class ChainParam {
 
         @SerializedName("destination_address")
         public String destination_address;
+    }
+
+    public class TeritoriMintingParams {
+        @SerializedName("params")
+        public TeritoriMintingParam params;
+
+        public class TeritoriMintingParam {
+            @SerializedName("mint_denom")
+            public String mint_denom;
+
+            @SerializedName("reduction_factor")
+            public String reduction_factor;
+
+            @SerializedName("distribution_proportions")
+            public TeritoriDistributionProportions mTeritoriDistributionProportions;
+
+            @SerializedName("genesis_block_provisions")
+            public String genesis_block_provisions;
+
+            @SerializedName("reduction_period_in_blocks")
+            public String reduction_period_in_blocks;
+
+            @SerializedName("minting_rewards_distribution_start_block")
+            public String minting_rewards_distribution_start_block;
+
+            public class TeritoriDistributionProportions {
+                @SerializedName("staking")
+                public String staking;
+
+                @SerializedName("community_pool")
+                public String community_pool;
+
+                @SerializedName("grants_program")
+                public String grants_program;
+
+                @SerializedName("usage_incentive")
+                public String usage_incentive;
+
+                @SerializedName("developer_rewards")
+                public String developer_rewards;
+            }
+        }
     }
 }
 
