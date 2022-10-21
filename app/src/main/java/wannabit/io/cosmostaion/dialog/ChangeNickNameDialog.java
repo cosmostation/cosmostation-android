@@ -41,7 +41,7 @@ public class ChangeNickNameDialog extends DialogFragment {
 
         String title = getString(getArguments().getInt("title"));
         mDialogTitle.setText(title);
-        if (TextUtils.isEmpty(getArguments().getString("name"))){
+        if (TextUtils.isEmpty(getArguments().getString("name"))) {
             mNameInput.setText(getString(R.string.str_my_wallet) + getArguments().getLong("id"));
         } else {
             mNameInput.setText(getArguments().getString("name"));
