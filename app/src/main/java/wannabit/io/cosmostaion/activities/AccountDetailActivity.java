@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -69,6 +70,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
     private TextView mRewardAddress;
 
     private Button mBtnDelete, mBtnCheckKey, mBtnCheck;
+    private String nickName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         mBtnCheckKey.setOnClickListener(this);
         mBtnCheck.setOnClickListener(this);
 
+        nickName = getIntent().getStringExtra("nickname");
     }
 
     @Override
@@ -282,7 +285,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             Bundle bundle = new Bundle();
             bundle.putInt("title", R.string.str_change_account_nickname);
             bundle.putLong("id", mAccount.id);
-            bundle.putString("name", mAccount.nickName);
+            bundle.putString("name", nickName);
             ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
             dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "dialog");
