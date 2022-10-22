@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +68,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private ChainConfig mChainConfig;
     private View rootView;
     private int mId = 0;
+    private boolean isLoading = false;
 
     public static MainHistoryFragment newInstance() {
         return new MainHistoryFragment();
@@ -118,12 +120,17 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                if (recyclerView.getAdapter() != null && recyclerView.getAdapter().getItemCount() == 0) {
+                    return;
+                }
+
                 int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
                 if (lastVisibleItemPosition == itemTotalCount && !mBaseChain.equals(BNB_MAIN) && !mBaseChain.equals(OKEX_MAIN)) {
-                    mId = mApiNewTxCustomHistory.get(mApiNewTxCustomHistory.size() - 1).header.id;
-                    getMainActivity().onShowWaitDialog();
-                    onFetchHistory();
+                    if (!mApiNewTxCustomHistory.isEmpty()) {
+                        mId = mApiNewTxCustomHistory.get(mApiNewTxCustomHistory.size() - 1).header.id;
+                        onFetchHistory();
+                    }
                 }
             }
         });
@@ -147,12 +154,17 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if (!isAdded()) return;
         mId = 0;
         mApiNewTxCustomHistory.clear();
+        mHistoryAdapter.notifyDataSetChanged();
         onUpdateView();
         onFetchHistory();
     }
 
     private void onFetchHistory() {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
+        if (isLoading) {
+            return;
+        }
+        isLoading = true;
         if (mBaseChain.equals(BNB_MAIN)) {
             new BnbHistoryTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
         } else if (mBaseChain.equals(OKEX_MAIN)) {
@@ -165,6 +177,14 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     @Override
     public void onTaskResponse(TaskResult result) {
         if (!isAdded()) return;
+        if (isLoading) {
+            isLoading = false;
+        }
+        mSwipeRefreshLayout.setRefreshing(false);
+        if (result == null || result.resultData == null) {
+            return;
+        }
+
         if (result.taskType == BaseConstant.TASK_FETCH_BNB_HISTORY) {
             mBnbHistory = (ArrayList<BnbHistory>) result.resultData;
             if (mBnbHistory != null && mBnbHistory.size() > 0) {
@@ -198,8 +218,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 mRecyclerView.setVisibility(View.GONE);
             }
         }
-        getMainActivity().onHideWaitDialog();
-        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     public MainActivity getMainActivity() {
