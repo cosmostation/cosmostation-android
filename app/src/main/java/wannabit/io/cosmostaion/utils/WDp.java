@@ -274,34 +274,36 @@ public class WDp {
 
     public static ArrayList<FeeInfo> getFeeInfos(Context c, BaseData baseData, ChainConfig chainConfig) {
         ArrayList<FeeInfo> result = new ArrayList<>();
-        for (String gasInfo : baseData.getGasRate(chainConfig)) {
-            result.add(new FeeInfo(gasInfo));
-        }
-
-        if (result.size() == 1) {
-            result.get(0).title = c.getString(R.string.str_fixed);
-            result.get(0).msg = c.getString(R.string.str_fee_speed_title_fixed);
-        } else if (result.size() == 2) {
-            result.get(1).title = c.getString(R.string.str_average);
-            result.get(1).msg = c.getString(R.string.str_fee_speed_title_average);
-            if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
-                result.get(0).title = c.getString(R.string.str_free);
-                result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
-            } else {
-                result.get(0).title = c.getString(R.string.str_tiny);
-                result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
+        if (baseData.getGasRate(chainConfig) != null && baseData.getGasRate(chainConfig).size() > 0) {
+            for (String gasInfo : baseData.getGasRate(chainConfig)) {
+                result.add(new FeeInfo(gasInfo));
             }
-        } else if (result.size() == 3) {
-            result.get(2).title = c.getString(R.string.str_average);
-            result.get(2).msg = c.getString(R.string.str_fee_speed_title_average);
-            result.get(1).title = c.getString(R.string.str_low);
-            result.get(1).msg = c.getString(R.string.str_fee_speed_title_low);
-            if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
-                result.get(0).title = c.getString(R.string.str_free);
-                result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
-            } else {
-                result.get(0).title = c.getString(R.string.str_tiny);
-                result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
+
+            if (result.size() == 1) {
+                result.get(0).title = c.getString(R.string.str_fixed);
+                result.get(0).msg = c.getString(R.string.str_fee_speed_title_fixed);
+            } else if (result.size() == 2) {
+                result.get(1).title = c.getString(R.string.str_average);
+                result.get(1).msg = c.getString(R.string.str_fee_speed_title_average);
+                if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
+                    result.get(0).title = c.getString(R.string.str_free);
+                    result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
+                } else {
+                    result.get(0).title = c.getString(R.string.str_tiny);
+                    result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
+                }
+            } else if (result.size() == 3) {
+                result.get(2).title = c.getString(R.string.str_average);
+                result.get(2).msg = c.getString(R.string.str_fee_speed_title_average);
+                result.get(1).title = c.getString(R.string.str_low);
+                result.get(1).msg = c.getString(R.string.str_fee_speed_title_low);
+                if (result.get(0).feeDatas.get(0).gasRate.compareTo(BigDecimal.ZERO) == 0) {
+                    result.get(0).title = c.getString(R.string.str_free);
+                    result.get(0).msg = c.getString(R.string.str_fee_speed_title_zero);
+                } else {
+                    result.get(0).title = c.getString(R.string.str_tiny);
+                    result.get(0).msg = c.getString(R.string.str_fee_speed_title_tiny);
+                }
             }
         }
         return result;
@@ -480,8 +482,6 @@ public class WDp {
         }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
-        WLog.w("test1234 : " + calCommission);
-        WLog.w("test12345 : " + aprCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("365"), 0, RoundingMode.DOWN);
         return getDpAmount2(dayReward, getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
     }
