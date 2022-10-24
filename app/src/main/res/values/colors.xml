@@ -61,6 +61,7 @@
     <color name="colorTransBgIxo">#ecf5ff</color>
     <color name="colorTransBgSommelier">#f6eaf1</color>
     <color name="colorTransBgKujira">#fbeaee</color>
+    <color name="colorTransBgTeritori">#edfaff</color>
 
     <color name="colorTransBgGray">#E63D3D3D</color>
     <color name="colorBlack">#000000</color>
@@ -202,6 +203,8 @@
     <color name="color_sommelier">#a22b70</color>
 
     <color name="color_kujira">#e53935</color>
+
+    <color name="color_teritori">#16bbff</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

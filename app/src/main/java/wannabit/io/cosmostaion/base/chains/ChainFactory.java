@@ -172,6 +172,9 @@ public class ChainFactory {
                 case IOV_MAIN:
                     return new Starname();
 
+                case TERITORI_MAIN:
+                    return new Teritori();
+
                 case UMEE_MAIN:
                     return new Umee();
 
