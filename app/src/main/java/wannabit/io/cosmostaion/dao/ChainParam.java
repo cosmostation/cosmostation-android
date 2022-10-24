@@ -316,8 +316,6 @@ public class ChainParam {
             if (isGRPC(baseChain)) {
                 if (baseChain.equals(STARGAZE_MAIN)) {
                     return new BigDecimal(mStargazeMintingParams.params.blocks_per_year);
-                } else if (baseChain.equals(TERITORI_MAIN)) {
-                    return new BigDecimal(mTeritoriMintingParams.params.reduction_period_in_blocks);
                 } else if (mMintParams != null && mMintParams.params!= null && mMintParams.params.blocks_per_year!= null) {
                     return new BigDecimal(mMintParams.params.blocks_per_year);
                 } else {
