@@ -147,6 +147,7 @@
     <string name="str_theme_system">System</string>
     <string name="str_theme_light">Light Mode</string>
     <string name="str_theme_dark">Dark Mode</string>
+    <string name="str_notification">Notification</string>
     <string name="str_app_applock">App Lock</string>
     <string name="str_app_auto_pass">PIN Auto Pass</string>
     <string name="str_app_auto_pass_msg">After passing the first pin code, it automatically passes through the pin code for a set time.\nTx transfer, personal data verification.\n(App lock always works.)</string>
@@ -195,7 +196,7 @@
     <string name="str_with_qr">Share QR Image</string>
     <string name="str_with_text">Share Text</string>
     <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image or wallet connect</string>
-    <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
+    <string name="str_permission_push">Need permission for Phone State for push alarm service</string>
     <string name="str_tx_hash">Transaction Hash</string>
     <string name="str_random_hash">Random Hash</string>
     <string name="str_tx_block_error">Error</string>
@@ -408,7 +409,6 @@
     <string name="str_vote_wait_deposit">Waiting Deposit</string>
     <string name="str_opinion">My Vote</string>
     <string name="str_proposal_id">Proposal Id</string>
-    <string name="str_notification">Notification</string>
     <string name="str_network_error_title">Network Error</string>
     <string name="str_network_error_msg">Can not connect to the network. \nPlease try again in a few minutes.</string>
     <string name="str_retry">Retry</string>

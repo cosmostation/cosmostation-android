@@ -179,6 +179,7 @@
     <string name="str_my_wallet">지갑&#160;</string>
     <string name="str_total_bonded">전체 위임량</string>
     <string name="str_self_bonded_rate">자체 위임 비율</string>
+    <string name="str_delegate">위임 하기</string>
     <string name="str_undelegate">위임 철회 하기</string>
     <string name="str_redelegate">재위임 하기</string>
     <string name="str_claim_reward">이자 받기</string>
@@ -255,7 +256,7 @@
     <string name="str_front_guide_msg_crescent"><![CDATA[$CRE 토큰과 인터-블록체인 통신기술을 활용한 텐더민트 기반 디파이 허브.]]></string>
     <string name="str_front_guide_msg_assetmantle"><![CDATA[Asset Mantle은 Persistence 생태계 내 NFT 창작자와 수집가 모두를 위해 구축된 NFT 마켓플레이스 및 플랫폼입니다.]]></string>
     <string name="str_front_guide_msg_sommelier"><![CDATA[Somelier Finance는 위험이 최소화된 멀티체인 디파이 전략을 제공하는 Cosmos SDK 기반 블록체인 네트워크입니다.]]></string>
-    <string name="str_front_guide_msg_station"><![CDATA[Station]]></string>
+    <string name="str_front_guide_msg_station"><![CDATA[Station Test]]></string>
     <string name="str_front_guide_msg_nyx"><![CDATA[NYX는 차세대 개인 정보 보호 인프라를 제공하는 분산형 및 인센티브 인프라 네트워크.]]></string>
     <string name="str_front_guide_msg_passage"><![CDATA[언리얼엔진5, Akash 그리고 IBC 기술을 활용하여 가상현실 및 메타버스를 구현하는 Cosmos SDK 기반 블록체인 프로토콜]]></string>
     <string name="str_front_guide_msg_stride"><![CDATA[Stride는 stToken의 발행을 통해 스테이킹된 자산을 유동화시키는 유동성 스테이킹 프로토콜입니다.]]></string>
@@ -536,7 +537,6 @@
     <string name="str_harvest_reward">하베스트 이자량</string>
     <string name="str_my_harvest_reward">나의 하베스트 이자량</string>
     <string name="str_unclaimed_incentive">인센티브 이자량</string>
-    <string name="str_delegate">위임 하기</string>
     <string name="str_get_reward">위임 하기</string>
     <string name="str_vote_to">투표 하기</string>
     <string name="str_vote_multi">멀티 투표</string>
