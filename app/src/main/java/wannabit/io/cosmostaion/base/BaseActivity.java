@@ -243,7 +243,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void setEthAddress(ChainConfig chainConfig, TextView ethTxt) {
-        if (chainConfig.etherAddressSupport()) {
+        if (chainConfig.evmSupport()) {
             ethTxt.setVisibility(View.VISIBLE);
             try {
                 ethTxt.setText("(" + WKey.convertAddressToEth(mAccount.address) + ")");
@@ -261,7 +261,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             nickName = getString(R.string.str_my_wallet) + account.id;
         else nickName = account.nickName;
 
-        if (chainConfig.etherAddressSupport()) {
+        if (chainConfig.evmSupport()) {
             try {
                 String ethAddress = WKey.convertAddressToEth(account.address);
                 CommonAlertDialog.showDoubleButton(this, getString(R.string.str_address_type), "",

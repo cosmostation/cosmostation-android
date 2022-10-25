@@ -293,6 +293,7 @@
     <string name="str_front_guide_title_sommelier" translatable="false"><![CDATA[SOMMELIER]]></string>
     <string name="str_front_guide_title_kujira" translatable="false"><![CDATA[KUJIRA]]></string>
     <string name="str_front_guide_title_teritori" translatable="false"><![CDATA[TERITORI]]></string>
+    <string name="str_front_guide_title_xpla" translatable="false"><![CDATA[XPLA]]></string>
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_binance">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -344,6 +345,7 @@
     <string name="str_front_guide_msg_sommelier"><![CDATA[Sommelier Finance is a Cosmos SDK-based blockchain that provides risk-managed multichain DeFi strategies.]]></string>
     <string name="str_front_guide_msg_kujira"><![CDATA[A Cosmos SDK and Cosm Wasm based layer-1 DeFi platform with various DeFi tools.]]></string>
     <string name="str_front_guide_msg_teritori"><![CDATA[Teritori is a decentralized multichain hub designed to provide an all-in-one experience for Web3 communities.]]></string>
+    <string name="str_front_guide_msg_xpla"><![CDATA[XPLA is a gaming media content-focused Cosmos SDK network built by Com2uS Corporation.]]></string>
 
     
     <string name="str_current_reward_address">Current Reward Address</string>

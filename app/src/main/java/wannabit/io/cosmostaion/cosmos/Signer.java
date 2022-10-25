@@ -9,6 +9,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.Duration;
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.ECKey;
@@ -1115,12 +1116,23 @@ public class Signer {
             Sign.SignatureData sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey));
             System.arraycopy(sig.getR(), 0, sigData, 0, 32);
             System.arraycopy(sig.getS(), 0, sigData, 32, 32);
+
         } else {
-            MessageDigest digest = Sha256.getSha256Digest();
-            byte[] toSignHash = digest.digest(toSignByte);
-            ECKey.ECDSASignature Signature = key.sign(Sha256Hash.wrap(toSignHash));
-            System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
-            System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);
+            try {
+                Auth.BaseAccount baseAccount = Auth.BaseAccount.parseFrom(auth.getAccount().getValue());
+                if (baseAccount.getPubKey().getTypeUrl().contains("/ethermint.crypto.v1.ethsecp256k1.PubKey")) {
+                    BigInteger privateKey = new BigInteger(key.getPrivateKeyAsHex(), 16);
+                    Sign.SignatureData sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey));
+                    System.arraycopy(sig.getR(), 0, sigData, 0, 32);
+                    System.arraycopy(sig.getS(), 0, sigData, 32, 32);
+                } else {
+                    MessageDigest digest = Sha256.getSha256Digest();
+                    byte[] toSignHash = digest.digest(toSignByte);
+                    ECKey.ECDSASignature Signature = key.sign(Sha256Hash.wrap(toSignHash));
+                    System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
+                    System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);
+                }
+            } catch (InvalidProtocolBufferException e) { e.printStackTrace(); }
         }
         return sigData;
     }
