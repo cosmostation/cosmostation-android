@@ -183,6 +183,7 @@ public class ConnectWalletActivity extends BaseActivity {
         }
         mWebView.setVisibility(View.GONE);
         mDappLayout.setVisibility(View.GONE);
+        mBtnDisconnect.setVisibility(View.VISIBLE);
     }
 
     private void settingForWcDefaultScheme(String url) {
@@ -287,12 +288,12 @@ public class ConnectWalletActivity extends BaseActivity {
             WebView.setWebContentsDebuggingEnabled(true);
         }
         mWebView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            if (oldScrollY > scrollY && Math.abs(scrollY - oldScrollY) > 5 && isHideToolbar) {
+            if (oldScrollY > scrollY && Math.abs(scrollY - oldScrollY) > 20 && isHideToolbar) {
                 isHideToolbar = false;
-                appBarLayout.setExpanded(true, true);
-            } else if (oldScrollY < scrollY && Math.abs(scrollY - oldScrollY) > 5 && !isHideToolbar) {
+                getSupportActionBar().show();
+            } else if (oldScrollY < scrollY && Math.abs(scrollY - oldScrollY) > 20 && !isHideToolbar) {
                 isHideToolbar = true;
-                appBarLayout.setExpanded(false, true);
+                getSupportActionBar().hide();
             }
         });
         mWebView.getSettings().setJavaScriptEnabled(true);
