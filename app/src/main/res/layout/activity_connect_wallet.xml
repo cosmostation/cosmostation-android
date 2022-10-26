@@ -1,113 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhiteDayNight">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/toolbar_bar_height"
+        android:background="@color/colorWhiteDayNight"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:contentInsetStartWithNavigation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tool_bar"
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/font_rr_17_black_daynight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_wallet_connect"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/dapp_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_bar_height"
-            android:background="@color/colorWhiteDayNight"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:contentInsetStartWithNavigation="0dp"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
-            <TextView
-                android:id="@+id/toolbar_title"
-                style="@style/font_rr_17_black_daynight"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_wallet_connect"
-                android:visibility="gone" />
-
-            <RelativeLayout
-                android:id="@+id/dapp_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/dapp_title"
-                            style="@style/font_rr_17_black_daynight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/str_wc_dapp_title" />
-
-
-                        <ImageView
-                            android:id="@+id/wc_light"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="3dp"
-                            tools:src="@drawable/ic_pass_gr" />
-
-                        <TextView
-                            android:id="@+id/wc_state"
-                            style="@style/font_rr_10_gray5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginTop="3dp"
-                            tools:text="@string/str_wc_dapp_not_connected" />
-                    </LinearLayout>
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/wc_peer"
+                        android:id="@+id/dapp_title"
+                        style="@style/font_rr_17_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_wc_dapp_title" />
+
+
+                    <ImageView
+                        android:id="@+id/wc_light"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        tools:src="@drawable/ic_pass_gr" />
+
+                    <TextView
+                        android:id="@+id/wc_state"
                         style="@style/font_rr_10_gray5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="https://" />
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="3dp"
+                        tools:text="@string/str_wc_dapp_not_connected" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/dapp_close"
+                <TextView
+                    android:id="@+id/wc_peer"
+                    style="@style/font_rr_10_gray5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:padding="5dp"
-                    android:src="@drawable/close_btn" />
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+                    tools:text="https://" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/dapp_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:padding="5dp"
+                android:src="@drawable/close_btn" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <WebView
         android:id="@+id/wc_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tool_bar"
         android:background="@android:color/transparent"
         android:fillViewport="true"
-        android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/wc_layer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_disconnect"
-        android:layout_below="@+id/app_bar_layout"
+        android:layout_below="@+id/tool_bar"
         android:keepScreenOn="true"
         android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -204,6 +197,7 @@
         android:id="@+id/loading_layer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tool_bar"
         android:background="#88000000"
         android:clickable="true"
         android:focusable="true"
@@ -248,4 +242,4 @@
         android:text="@string/str_disconnect"
         android:textAllCaps="false"
         android:visibility="gone" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>
