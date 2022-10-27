@@ -5,10 +5,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -37,11 +39,12 @@ public class Xpla extends ChainConfig {
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
+    public boolean evmSupport() { return true; }
 
     public String grpcUrl() { return "lcd-xpla-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-xpla.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("5.658"); }
+    public BigDecimal blockTime() { return new BigDecimal("6.384"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "xpla/"; }
     public String monikerUrl() { return MONIKER_URL + "xpla/"; }
     public String homeInfoLink() { return  "https://xpla.io"; }
@@ -52,5 +55,9 @@ public class Xpla extends ChainConfig {
 
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+    }
+
+    public ArrayList<String> supportHdPaths() {
+        return Lists.newArrayList(defaultPath(), defaultPath());
     }
 }

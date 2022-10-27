@@ -1119,7 +1119,21 @@ public class Signer {
 
         } else {
             try {
-                Auth.BaseAccount baseAccount = Auth.BaseAccount.parseFrom(auth.getAccount().getValue());
+                Any authAccount = auth.getAccount();
+                Auth.BaseAccount baseAccount = null;
+                if (authAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
+                    baseAccount = Auth.BaseAccount.parseFrom(authAccount.getValue());
+
+                } else if (authAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+                    baseAccount = Vesting.PeriodicVestingAccount.parseFrom(authAccount.getValue()).getBaseVestingAccount().getBaseAccount();
+
+                } else if (authAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+                    baseAccount = Vesting.ContinuousVestingAccount.parseFrom(authAccount.getValue()).getBaseVestingAccount().getBaseAccount();
+
+                } else if (authAccount.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                    baseAccount = Vesting.DelayedVestingAccount.parseFrom(authAccount.getValue()).getBaseVestingAccount().getBaseAccount();
+                }
+
                 if (baseAccount.getPubKey().getTypeUrl().contains("/ethermint.crypto.v1.ethsecp256k1.PubKey")) {
                     BigInteger privateKey = new BigInteger(key.getPrivateKeyAsHex(), 16);
                     Sign.SignatureData sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey));
