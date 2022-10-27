@@ -1,12 +1,5 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KUJIRA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -56,19 +49,7 @@ public class WalletPriceHolder extends BaseHolder {
 
         if (chainConfig.moonPaySupport() || chainConfig.kadoMoneySupport()) {
             itemBuyLayer.setVisibility(View.VISIBLE);
-            if (mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
-                itemBuyCoinTv.setText(R.string.str_buy_atom);
-            } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
-                itemBuyCoinTv.setText(R.string.str_buy_bnb);
-            } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
-                itemBuyCoinTv.setText(R.string.str_buy_kava);
-            } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
-                itemBuyCoinTv.setText(R.string.str_buy_osmosis);
-            } else if (mainActivity.mBaseChain.equals(JUNO_MAIN)) {
-                itemBuyCoinTv.setText(R.string.str_buy_juno);
-            } else if (mainActivity.mBaseChain.equals(KUJIRA_MAIN)) {
-                itemBuyCoinTv.setText(R.string.str_buy_kujira);
-            }
+            itemBuyCoinTv.setText(mainActivity.getString(R.string.str_buy_coin, chainConfig.mainSymbol()));
         } else {
             itemBuyLayer.setVisibility(View.GONE);
         }

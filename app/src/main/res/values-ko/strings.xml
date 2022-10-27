@@ -360,12 +360,7 @@
     <string name="str_failed_c">실패</string>
     <string name="str_unknown_msg">알 수 없는 타입</string>
     <string name="str_unknown_tx">이 메시지는 모바일에서 지원하지 않습니다.\n민트스캔 익스플로러에서 자세한 내용을 확인해 주세요.</string>
-    <string name="str_buy_atom">ATOM 구입</string>
-    <string name="str_buy_bnb">BNB 구입</string>
-    <string name="str_buy_kava">KAVA 구입</string>
-    <string name="str_buy_osmosis">OSMO 구입</string>
-    <string name="str_buy_juno">JUNO 구입</string>
-    <string name="str_buy_kujira">KUJI 구입</string>
+    <string name="str_buy_coin">%1$s 구입</string>
     <string name="str_kava_dapp"><![CDATA[Kava DeFi]]> </string>
     <string name="str_buy_without_key_msg">구매 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구매하시겠습니까?</string>
     <string name="str_buy_select_fiat_title">통화 선택</string>
