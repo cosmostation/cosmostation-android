@@ -6,8 +6,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KUJIRA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_KADO;
-import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
+import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_PAY;
 
 import android.content.Context;
 import android.content.Intent;
@@ -58,30 +57,21 @@ public class WalletPriceHolder extends BaseHolder {
         itemPerPrice.setText(WDp.dpPrice(data, denom));
         valueChangeStatus(mainActivity, data, denom, itemUpDownPrice);
 
-        if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
+        if (SUPPORT_PAY) {
             itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(R.string.str_buy_atom);
-
-        } else if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(BNB_MAIN)) {
-            itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(R.string.str_buy_bnb);
-
-        } else if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(KAVA_MAIN)) {
-            itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(R.string.str_buy_kava);
-
-        } else if (SUPPORT_KADO && mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
-            itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(R.string.str_buy_osmosis);
-
-        } else if (SUPPORT_KADO && mainActivity.mBaseChain.equals(JUNO_MAIN)) {
-            itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(R.string.str_buy_juno);
-
-        } else if (SUPPORT_KADO && mainActivity.mBaseChain.equals(KUJIRA_MAIN)) {
-            itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(R.string.str_buy_kujira);
-
+            if (mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
+                itemBuyCoinTv.setText(R.string.str_buy_atom);
+            } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
+                itemBuyCoinTv.setText(R.string.str_buy_bnb);
+            } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
+                itemBuyCoinTv.setText(R.string.str_buy_kava);
+            } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
+                itemBuyCoinTv.setText(R.string.str_buy_osmosis);
+            } else if (mainActivity.mBaseChain.equals(JUNO_MAIN)) {
+                itemBuyCoinTv.setText(R.string.str_buy_juno);
+            } else if (mainActivity.mBaseChain.equals(KUJIRA_MAIN)) {
+                itemBuyCoinTv.setText(R.string.str_buy_kujira);
+            }
         } else {
             itemBuyLayer.setVisibility(View.GONE);
         }
