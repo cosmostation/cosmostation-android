@@ -147,6 +147,7 @@
     <string name="str_theme_system">System</string>
     <string name="str_theme_light">Light Mode</string>
     <string name="str_theme_dark">Dark Mode</string>
+    <string name="str_notification">Notification</string>
     <string name="str_app_applock">App Lock</string>
     <string name="str_app_auto_pass">PIN Auto Pass</string>
     <string name="str_app_auto_pass_msg">After passing the first pin code, it automatically passes through the pin code for a set time.\nTx transfer, personal data verification.\n(App lock always works.)</string>
@@ -195,7 +196,7 @@
     <string name="str_with_qr">Share QR Image</string>
     <string name="str_with_text">Share Text</string>
     <string name="str_permission_qr">Need permission for SD Card for save your address QR code Image or wallet connect</string>
-    <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
+    <string name="str_permission_push">Need permission for Phone State for push alarm service</string>
     <string name="str_tx_hash">Transaction Hash</string>
     <string name="str_random_hash">Random Hash</string>
     <string name="str_tx_block_error">Error</string>
@@ -408,7 +409,6 @@
     <string name="str_vote_wait_deposit">Waiting Deposit</string>
     <string name="str_opinion">My Vote</string>
     <string name="str_proposal_id">Proposal Id</string>
-    <string name="str_notification">Notification</string>
     <string name="str_network_error_title">Network Error</string>
     <string name="str_network_error_msg">Can not connect to the network. \nPlease try again in a few minutes.</string>
     <string name="str_retry">Retry</string>
@@ -693,7 +693,6 @@
     <string name="str_delegate_warn_msg">You can receive staking rewards by delegating to a validator. You may lose a portion of your delegated stake if a problem occurs with the selected node. Please perform careful due diligence before delegating.\n\nWhen you undelegate, there is an unbonding period. You will not receive staking rewards during this time.\n\n</string>
     <string name="str_memo_warn">Please check your memo.\nSome exchanges or wallets may require a specific memo for deposits.</string>
 
-
     <string name="str_create_cdp_step_1">Deposit collateral to borrow USDX</string>
     <string name="str_repay_cdp_step_1">Enter repayment amount</string>
     <string name="str_draw_debt_cdp_step_1">Enter loan amount</string>
@@ -798,7 +797,6 @@
     <string name="str_expected_expire_time">Renew Expire Date</string>
     <string name="str_replace_starname">Replace Addresses</string>
     <string name="str_replace_starname_step_0">Insert your address to connect</string>
-
 
     <string name="str_signer">Signer</string>
     <string name="str_deposit_type">Deposit Type</string>
@@ -939,10 +937,10 @@
     <string name="str_swap_kava">Kava Swap Rate</string>
     <string name="str_swap_osmosis">Osmosis Swap Rate</string>
     <string name="str_select_starname_domain">Select domain for starname</string>
-    <string name="str_picker_dialog_title">Select Custom Path</string>
     <string name="str_ibc_send_c">IBC SEND</string>
     <string name="str_select_ibc_address">Recipient Address</string>
     <string name="str_ibc_recipient_chain">Recipient Chain</string>
+    <string name="str_picker_dialog_title">Select Custom Path</string>
     <string name="str_sif_dex_title">SifChain DeFi</string>
     <string name="str_sif_dex_swap">Swap</string>
     <string name="str_sif_dex_ibc_pool">IBC Pool</string>
@@ -951,7 +949,6 @@
     <string name="str_sif_swap_step_0">Insert amount to swap</string>
     <string name="str_sif_deposit_pool_step_0">Insert amount to deposit</string>
     <string name="str_sif_withdraw_pool_step_0">Insert amount to withdraw</string>
-
 
     <string name="str_nft_c">NFT</string>
     <string name="str_no_nfts">No NFT</string>
@@ -978,7 +975,6 @@
     <string name="str_authz_detail_title">Authz Detail</string>
     <string name="str_authz_empty_title">RECEIVE GRANT TO START AUTHZ</string>
     <string name="str_authz_empty_msg">You do not have any grants at the moment\nPlease manage your grants from a web wallet</string>
-
     <string name="str_authz_delegate_title">Authz Delegate</string>
     <string name="str_authz_myvalidator_title">My Validator</string>
     <string name="str_authz_othervalidator_title">Other Validator</string>
@@ -992,7 +988,7 @@
     <string name="str_authz_redelegate_step_0">Select validator</string>
     <string name="str_authz_redelegate_step_1">Insert amount to redelegate</string>
     <string name="str_authz_select_valiator">Select To Validator</string>
-    <string name="str_authz_send_title">Authz Trnsfer</string>
+    <string name="str_authz_send_title">Authz Transfer</string>
     <string name="str_authz_send_step_0">Enter recipient address</string>
     <string name="str_authz_send_step_1">Enter to send amount</string>
     <string name="str_authz_vote_title">Authz Vote</string>
