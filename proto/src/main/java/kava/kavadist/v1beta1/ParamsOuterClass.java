@@ -47,6 +47,21 @@ public final class ParamsOuterClass {
      */
     kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder getPeriodsOrBuilder(
         int index);
+
+    /**
+     * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the infrastructureParams field is set.
+     */
+    boolean hasInfrastructureParams();
+    /**
+     * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+     * @return The infrastructureParams.
+     */
+    kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams getInfrastructureParams();
+    /**
+     * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+     */
+    kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParamsOrBuilder getInfrastructureParamsOrBuilder();
   }
   /**
    * <pre>
@@ -111,6 +126,19 @@ public final class ParamsOuterClass {
               }
               periods_.add(
                   input.readMessage(kava.kavadist.v1beta1.ParamsOuterClass.Period.parser(), extensionRegistry));
+              break;
+            }
+            case 34: {
+              kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.Builder subBuilder = null;
+              if (infrastructureParams_ != null) {
+                subBuilder = infrastructureParams_.toBuilder();
+              }
+              infrastructureParams_ = input.readMessage(kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(infrastructureParams_);
+                infrastructureParams_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -199,6 +227,32 @@ public final class ParamsOuterClass {
       return periods_.get(index);
     }
 
+    public static final int INFRASTRUCTURE_PARAMS_FIELD_NUMBER = 4;
+    private kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams infrastructureParams_;
+    /**
+     * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the infrastructureParams field is set.
+     */
+    @java.lang.Override
+    public boolean hasInfrastructureParams() {
+      return infrastructureParams_ != null;
+    }
+    /**
+     * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+     * @return The infrastructureParams.
+     */
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams getInfrastructureParams() {
+      return infrastructureParams_ == null ? kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.getDefaultInstance() : infrastructureParams_;
+    }
+    /**
+     * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParamsOrBuilder getInfrastructureParamsOrBuilder() {
+      return getInfrastructureParams();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -219,6 +273,9 @@ public final class ParamsOuterClass {
       for (int i = 0; i < periods_.size(); i++) {
         output.writeMessage(3, periods_.get(i));
       }
+      if (infrastructureParams_ != null) {
+        output.writeMessage(4, getInfrastructureParams());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -235,6 +292,10 @@ public final class ParamsOuterClass {
       for (int i = 0; i < periods_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, periods_.get(i));
+      }
+      if (infrastructureParams_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getInfrastructureParams());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -255,6 +316,11 @@ public final class ParamsOuterClass {
           != other.getActive()) return false;
       if (!getPeriodsList()
           .equals(other.getPeriodsList())) return false;
+      if (hasInfrastructureParams() != other.hasInfrastructureParams()) return false;
+      if (hasInfrastructureParams()) {
+        if (!getInfrastructureParams()
+            .equals(other.getInfrastructureParams())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -272,6 +338,10 @@ public final class ParamsOuterClass {
       if (getPeriodsCount() > 0) {
         hash = (37 * hash) + PERIODS_FIELD_NUMBER;
         hash = (53 * hash) + getPeriodsList().hashCode();
+      }
+      if (hasInfrastructureParams()) {
+        hash = (37 * hash) + INFRASTRUCTURE_PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getInfrastructureParams().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -419,6 +489,12 @@ public final class ParamsOuterClass {
         } else {
           periodsBuilder_.clear();
         }
+        if (infrastructureParamsBuilder_ == null) {
+          infrastructureParams_ = null;
+        } else {
+          infrastructureParams_ = null;
+          infrastructureParamsBuilder_ = null;
+        }
         return this;
       }
 
@@ -455,6 +531,11 @@ public final class ParamsOuterClass {
           result.periods_ = periods_;
         } else {
           result.periods_ = periodsBuilder_.build();
+        }
+        if (infrastructureParamsBuilder_ == null) {
+          result.infrastructureParams_ = infrastructureParams_;
+        } else {
+          result.infrastructureParams_ = infrastructureParamsBuilder_.build();
         }
         onBuilt();
         return result;
@@ -532,6 +613,9 @@ public final class ParamsOuterClass {
               periodsBuilder_.addAllMessages(other.periods_);
             }
           }
+        }
+        if (other.hasInfrastructureParams()) {
+          mergeInfrastructureParams(other.getInfrastructureParams());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -833,6 +917,125 @@ public final class ParamsOuterClass {
         }
         return periodsBuilder_;
       }
+
+      private kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams infrastructureParams_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams, kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.Builder, kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParamsOrBuilder> infrastructureParamsBuilder_;
+      /**
+       * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+       * @return Whether the infrastructureParams field is set.
+       */
+      public boolean hasInfrastructureParams() {
+        return infrastructureParamsBuilder_ != null || infrastructureParams_ != null;
+      }
+      /**
+       * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+       * @return The infrastructureParams.
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams getInfrastructureParams() {
+        if (infrastructureParamsBuilder_ == null) {
+          return infrastructureParams_ == null ? kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.getDefaultInstance() : infrastructureParams_;
+        } else {
+          return infrastructureParamsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setInfrastructureParams(kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams value) {
+        if (infrastructureParamsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          infrastructureParams_ = value;
+          onChanged();
+        } else {
+          infrastructureParamsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setInfrastructureParams(
+          kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.Builder builderForValue) {
+        if (infrastructureParamsBuilder_ == null) {
+          infrastructureParams_ = builderForValue.build();
+          onChanged();
+        } else {
+          infrastructureParamsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeInfrastructureParams(kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams value) {
+        if (infrastructureParamsBuilder_ == null) {
+          if (infrastructureParams_ != null) {
+            infrastructureParams_ =
+              kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.newBuilder(infrastructureParams_).mergeFrom(value).buildPartial();
+          } else {
+            infrastructureParams_ = value;
+          }
+          onChanged();
+        } else {
+          infrastructureParamsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearInfrastructureParams() {
+        if (infrastructureParamsBuilder_ == null) {
+          infrastructureParams_ = null;
+          onChanged();
+        } else {
+          infrastructureParams_ = null;
+          infrastructureParamsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.Builder getInfrastructureParamsBuilder() {
+        
+        onChanged();
+        return getInfrastructureParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParamsOrBuilder getInfrastructureParamsOrBuilder() {
+        if (infrastructureParamsBuilder_ != null) {
+          return infrastructureParamsBuilder_.getMessageOrBuilder();
+        } else {
+          return infrastructureParams_ == null ?
+              kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.getDefaultInstance() : infrastructureParams_;
+        }
+      }
+      /**
+       * <code>.kava.kavadist.v1beta1.InfrastructureParams infrastructure_params = 4 [(.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams, kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.Builder, kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParamsOrBuilder> 
+          getInfrastructureParamsFieldBuilder() {
+        if (infrastructureParamsBuilder_ == null) {
+          infrastructureParamsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams, kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.Builder, kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParamsOrBuilder>(
+                  getInfrastructureParams(),
+                  getParentForChildren(),
+                  isClean());
+          infrastructureParams_ = null;
+        }
+        return infrastructureParamsBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -881,6 +1084,2904 @@ public final class ParamsOuterClass {
 
     @java.lang.Override
     public kava.kavadist.v1beta1.ParamsOuterClass.Params getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface InfrastructureParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:kava.kavadist.v1beta1.InfrastructureParams)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.Period> 
+        getInfrastructurePeriodsList();
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    kava.kavadist.v1beta1.ParamsOuterClass.Period getInfrastructurePeriods(int index);
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    int getInfrastructurePeriodsCount();
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    java.util.List<? extends kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder> 
+        getInfrastructurePeriodsOrBuilderList();
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder getInfrastructurePeriodsOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.CoreReward> 
+        getCoreRewardsList();
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    kava.kavadist.v1beta1.ParamsOuterClass.CoreReward getCoreRewards(int index);
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    int getCoreRewardsCount();
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    java.util.List<? extends kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder> 
+        getCoreRewardsOrBuilderList();
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder getCoreRewardsOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward> 
+        getPartnerRewardsList();
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward getPartnerRewards(int index);
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    int getPartnerRewardsCount();
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    java.util.List<? extends kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder> 
+        getPartnerRewardsOrBuilderList();
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder getPartnerRewardsOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * InfrastructureParams define the parameters for infrastructure rewards.
+   * </pre>
+   *
+   * Protobuf type {@code kava.kavadist.v1beta1.InfrastructureParams}
+   */
+  public static final class InfrastructureParams extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:kava.kavadist.v1beta1.InfrastructureParams)
+      InfrastructureParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use InfrastructureParams.newBuilder() to construct.
+    private InfrastructureParams(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private InfrastructureParams() {
+      infrastructurePeriods_ = java.util.Collections.emptyList();
+      coreRewards_ = java.util.Collections.emptyList();
+      partnerRewards_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new InfrastructureParams();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private InfrastructureParams(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                infrastructurePeriods_ = new java.util.ArrayList<kava.kavadist.v1beta1.ParamsOuterClass.Period>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              infrastructurePeriods_.add(
+                  input.readMessage(kava.kavadist.v1beta1.ParamsOuterClass.Period.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                coreRewards_ = new java.util.ArrayList<kava.kavadist.v1beta1.ParamsOuterClass.CoreReward>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              coreRewards_.add(
+                  input.readMessage(kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.parser(), extensionRegistry));
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                partnerRewards_ = new java.util.ArrayList<kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              partnerRewards_.add(
+                  input.readMessage(kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          infrastructurePeriods_ = java.util.Collections.unmodifiableList(infrastructurePeriods_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          coreRewards_ = java.util.Collections.unmodifiableList(coreRewards_);
+        }
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
+          partnerRewards_ = java.util.Collections.unmodifiableList(partnerRewards_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_InfrastructureParams_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_InfrastructureParams_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.class, kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.Builder.class);
+    }
+
+    public static final int INFRASTRUCTURE_PERIODS_FIELD_NUMBER = 1;
+    private java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.Period> infrastructurePeriods_;
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.Period> getInfrastructurePeriodsList() {
+      return infrastructurePeriods_;
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder> 
+        getInfrastructurePeriodsOrBuilderList() {
+      return infrastructurePeriods_;
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    @java.lang.Override
+    public int getInfrastructurePeriodsCount() {
+      return infrastructurePeriods_.size();
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.Period getInfrastructurePeriods(int index) {
+      return infrastructurePeriods_.get(index);
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+     */
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder getInfrastructurePeriodsOrBuilder(
+        int index) {
+      return infrastructurePeriods_.get(index);
+    }
+
+    public static final int CORE_REWARDS_FIELD_NUMBER = 2;
+    private java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.CoreReward> coreRewards_;
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.CoreReward> getCoreRewardsList() {
+      return coreRewards_;
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder> 
+        getCoreRewardsOrBuilderList() {
+      return coreRewards_;
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    @java.lang.Override
+    public int getCoreRewardsCount() {
+      return coreRewards_.size();
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.CoreReward getCoreRewards(int index) {
+      return coreRewards_.get(index);
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+     */
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder getCoreRewardsOrBuilder(
+        int index) {
+      return coreRewards_.get(index);
+    }
+
+    public static final int PARTNER_REWARDS_FIELD_NUMBER = 3;
+    private java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward> partnerRewards_;
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward> getPartnerRewardsList() {
+      return partnerRewards_;
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder> 
+        getPartnerRewardsOrBuilderList() {
+      return partnerRewards_;
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    @java.lang.Override
+    public int getPartnerRewardsCount() {
+      return partnerRewards_.size();
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward getPartnerRewards(int index) {
+      return partnerRewards_.get(index);
+    }
+    /**
+     * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+     */
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder getPartnerRewardsOrBuilder(
+        int index) {
+      return partnerRewards_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < infrastructurePeriods_.size(); i++) {
+        output.writeMessage(1, infrastructurePeriods_.get(i));
+      }
+      for (int i = 0; i < coreRewards_.size(); i++) {
+        output.writeMessage(2, coreRewards_.get(i));
+      }
+      for (int i = 0; i < partnerRewards_.size(); i++) {
+        output.writeMessage(3, partnerRewards_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < infrastructurePeriods_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, infrastructurePeriods_.get(i));
+      }
+      for (int i = 0; i < coreRewards_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, coreRewards_.get(i));
+      }
+      for (int i = 0; i < partnerRewards_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, partnerRewards_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams)) {
+        return super.equals(obj);
+      }
+      kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams other = (kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams) obj;
+
+      if (!getInfrastructurePeriodsList()
+          .equals(other.getInfrastructurePeriodsList())) return false;
+      if (!getCoreRewardsList()
+          .equals(other.getCoreRewardsList())) return false;
+      if (!getPartnerRewardsList()
+          .equals(other.getPartnerRewardsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getInfrastructurePeriodsCount() > 0) {
+        hash = (37 * hash) + INFRASTRUCTURE_PERIODS_FIELD_NUMBER;
+        hash = (53 * hash) + getInfrastructurePeriodsList().hashCode();
+      }
+      if (getCoreRewardsCount() > 0) {
+        hash = (37 * hash) + CORE_REWARDS_FIELD_NUMBER;
+        hash = (53 * hash) + getCoreRewardsList().hashCode();
+      }
+      if (getPartnerRewardsCount() > 0) {
+        hash = (37 * hash) + PARTNER_REWARDS_FIELD_NUMBER;
+        hash = (53 * hash) + getPartnerRewardsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * InfrastructureParams define the parameters for infrastructure rewards.
+     * </pre>
+     *
+     * Protobuf type {@code kava.kavadist.v1beta1.InfrastructureParams}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:kava.kavadist.v1beta1.InfrastructureParams)
+        kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_InfrastructureParams_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_InfrastructureParams_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.class, kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.Builder.class);
+      }
+
+      // Construct using kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getInfrastructurePeriodsFieldBuilder();
+          getCoreRewardsFieldBuilder();
+          getPartnerRewardsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (infrastructurePeriodsBuilder_ == null) {
+          infrastructurePeriods_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          infrastructurePeriodsBuilder_.clear();
+        }
+        if (coreRewardsBuilder_ == null) {
+          coreRewards_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          coreRewardsBuilder_.clear();
+        }
+        if (partnerRewardsBuilder_ == null) {
+          partnerRewards_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          partnerRewardsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_InfrastructureParams_descriptor;
+      }
+
+      @java.lang.Override
+      public kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams getDefaultInstanceForType() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams build() {
+        kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams buildPartial() {
+        kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams result = new kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams(this);
+        int from_bitField0_ = bitField0_;
+        if (infrastructurePeriodsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            infrastructurePeriods_ = java.util.Collections.unmodifiableList(infrastructurePeriods_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.infrastructurePeriods_ = infrastructurePeriods_;
+        } else {
+          result.infrastructurePeriods_ = infrastructurePeriodsBuilder_.build();
+        }
+        if (coreRewardsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            coreRewards_ = java.util.Collections.unmodifiableList(coreRewards_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.coreRewards_ = coreRewards_;
+        } else {
+          result.coreRewards_ = coreRewardsBuilder_.build();
+        }
+        if (partnerRewardsBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0)) {
+            partnerRewards_ = java.util.Collections.unmodifiableList(partnerRewards_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.partnerRewards_ = partnerRewards_;
+        } else {
+          result.partnerRewards_ = partnerRewardsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams) {
+          return mergeFrom((kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams other) {
+        if (other == kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams.getDefaultInstance()) return this;
+        if (infrastructurePeriodsBuilder_ == null) {
+          if (!other.infrastructurePeriods_.isEmpty()) {
+            if (infrastructurePeriods_.isEmpty()) {
+              infrastructurePeriods_ = other.infrastructurePeriods_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureInfrastructurePeriodsIsMutable();
+              infrastructurePeriods_.addAll(other.infrastructurePeriods_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.infrastructurePeriods_.isEmpty()) {
+            if (infrastructurePeriodsBuilder_.isEmpty()) {
+              infrastructurePeriodsBuilder_.dispose();
+              infrastructurePeriodsBuilder_ = null;
+              infrastructurePeriods_ = other.infrastructurePeriods_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              infrastructurePeriodsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getInfrastructurePeriodsFieldBuilder() : null;
+            } else {
+              infrastructurePeriodsBuilder_.addAllMessages(other.infrastructurePeriods_);
+            }
+          }
+        }
+        if (coreRewardsBuilder_ == null) {
+          if (!other.coreRewards_.isEmpty()) {
+            if (coreRewards_.isEmpty()) {
+              coreRewards_ = other.coreRewards_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureCoreRewardsIsMutable();
+              coreRewards_.addAll(other.coreRewards_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.coreRewards_.isEmpty()) {
+            if (coreRewardsBuilder_.isEmpty()) {
+              coreRewardsBuilder_.dispose();
+              coreRewardsBuilder_ = null;
+              coreRewards_ = other.coreRewards_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              coreRewardsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCoreRewardsFieldBuilder() : null;
+            } else {
+              coreRewardsBuilder_.addAllMessages(other.coreRewards_);
+            }
+          }
+        }
+        if (partnerRewardsBuilder_ == null) {
+          if (!other.partnerRewards_.isEmpty()) {
+            if (partnerRewards_.isEmpty()) {
+              partnerRewards_ = other.partnerRewards_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensurePartnerRewardsIsMutable();
+              partnerRewards_.addAll(other.partnerRewards_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.partnerRewards_.isEmpty()) {
+            if (partnerRewardsBuilder_.isEmpty()) {
+              partnerRewardsBuilder_.dispose();
+              partnerRewardsBuilder_ = null;
+              partnerRewards_ = other.partnerRewards_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              partnerRewardsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPartnerRewardsFieldBuilder() : null;
+            } else {
+              partnerRewardsBuilder_.addAllMessages(other.partnerRewards_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.Period> infrastructurePeriods_ =
+        java.util.Collections.emptyList();
+      private void ensureInfrastructurePeriodsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          infrastructurePeriods_ = new java.util.ArrayList<kava.kavadist.v1beta1.ParamsOuterClass.Period>(infrastructurePeriods_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.kavadist.v1beta1.ParamsOuterClass.Period, kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder, kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder> infrastructurePeriodsBuilder_;
+
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.Period> getInfrastructurePeriodsList() {
+        if (infrastructurePeriodsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(infrastructurePeriods_);
+        } else {
+          return infrastructurePeriodsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public int getInfrastructurePeriodsCount() {
+        if (infrastructurePeriodsBuilder_ == null) {
+          return infrastructurePeriods_.size();
+        } else {
+          return infrastructurePeriodsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.Period getInfrastructurePeriods(int index) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          return infrastructurePeriods_.get(index);
+        } else {
+          return infrastructurePeriodsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public Builder setInfrastructurePeriods(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.Period value) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureInfrastructurePeriodsIsMutable();
+          infrastructurePeriods_.set(index, value);
+          onChanged();
+        } else {
+          infrastructurePeriodsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public Builder setInfrastructurePeriods(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder builderForValue) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          ensureInfrastructurePeriodsIsMutable();
+          infrastructurePeriods_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          infrastructurePeriodsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public Builder addInfrastructurePeriods(kava.kavadist.v1beta1.ParamsOuterClass.Period value) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureInfrastructurePeriodsIsMutable();
+          infrastructurePeriods_.add(value);
+          onChanged();
+        } else {
+          infrastructurePeriodsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public Builder addInfrastructurePeriods(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.Period value) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureInfrastructurePeriodsIsMutable();
+          infrastructurePeriods_.add(index, value);
+          onChanged();
+        } else {
+          infrastructurePeriodsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public Builder addInfrastructurePeriods(
+          kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder builderForValue) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          ensureInfrastructurePeriodsIsMutable();
+          infrastructurePeriods_.add(builderForValue.build());
+          onChanged();
+        } else {
+          infrastructurePeriodsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public Builder addInfrastructurePeriods(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder builderForValue) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          ensureInfrastructurePeriodsIsMutable();
+          infrastructurePeriods_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          infrastructurePeriodsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public Builder addAllInfrastructurePeriods(
+          java.lang.Iterable<? extends kava.kavadist.v1beta1.ParamsOuterClass.Period> values) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          ensureInfrastructurePeriodsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, infrastructurePeriods_);
+          onChanged();
+        } else {
+          infrastructurePeriodsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public Builder clearInfrastructurePeriods() {
+        if (infrastructurePeriodsBuilder_ == null) {
+          infrastructurePeriods_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          infrastructurePeriodsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public Builder removeInfrastructurePeriods(int index) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          ensureInfrastructurePeriodsIsMutable();
+          infrastructurePeriods_.remove(index);
+          onChanged();
+        } else {
+          infrastructurePeriodsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder getInfrastructurePeriodsBuilder(
+          int index) {
+        return getInfrastructurePeriodsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder getInfrastructurePeriodsOrBuilder(
+          int index) {
+        if (infrastructurePeriodsBuilder_ == null) {
+          return infrastructurePeriods_.get(index);  } else {
+          return infrastructurePeriodsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public java.util.List<? extends kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder> 
+           getInfrastructurePeriodsOrBuilderList() {
+        if (infrastructurePeriodsBuilder_ != null) {
+          return infrastructurePeriodsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(infrastructurePeriods_);
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder addInfrastructurePeriodsBuilder() {
+        return getInfrastructurePeriodsFieldBuilder().addBuilder(
+            kava.kavadist.v1beta1.ParamsOuterClass.Period.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder addInfrastructurePeriodsBuilder(
+          int index) {
+        return getInfrastructurePeriodsFieldBuilder().addBuilder(
+            index, kava.kavadist.v1beta1.ParamsOuterClass.Period.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.Period infrastructure_periods = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Periods"];</code>
+       */
+      public java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder> 
+           getInfrastructurePeriodsBuilderList() {
+        return getInfrastructurePeriodsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.kavadist.v1beta1.ParamsOuterClass.Period, kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder, kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder> 
+          getInfrastructurePeriodsFieldBuilder() {
+        if (infrastructurePeriodsBuilder_ == null) {
+          infrastructurePeriodsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              kava.kavadist.v1beta1.ParamsOuterClass.Period, kava.kavadist.v1beta1.ParamsOuterClass.Period.Builder, kava.kavadist.v1beta1.ParamsOuterClass.PeriodOrBuilder>(
+                  infrastructurePeriods_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          infrastructurePeriods_ = null;
+        }
+        return infrastructurePeriodsBuilder_;
+      }
+
+      private java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.CoreReward> coreRewards_ =
+        java.util.Collections.emptyList();
+      private void ensureCoreRewardsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          coreRewards_ = new java.util.ArrayList<kava.kavadist.v1beta1.ParamsOuterClass.CoreReward>(coreRewards_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.kavadist.v1beta1.ParamsOuterClass.CoreReward, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder, kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder> coreRewardsBuilder_;
+
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.CoreReward> getCoreRewardsList() {
+        if (coreRewardsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(coreRewards_);
+        } else {
+          return coreRewardsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public int getCoreRewardsCount() {
+        if (coreRewardsBuilder_ == null) {
+          return coreRewards_.size();
+        } else {
+          return coreRewardsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.CoreReward getCoreRewards(int index) {
+        if (coreRewardsBuilder_ == null) {
+          return coreRewards_.get(index);
+        } else {
+          return coreRewardsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public Builder setCoreRewards(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward value) {
+        if (coreRewardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCoreRewardsIsMutable();
+          coreRewards_.set(index, value);
+          onChanged();
+        } else {
+          coreRewardsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public Builder setCoreRewards(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder builderForValue) {
+        if (coreRewardsBuilder_ == null) {
+          ensureCoreRewardsIsMutable();
+          coreRewards_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          coreRewardsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public Builder addCoreRewards(kava.kavadist.v1beta1.ParamsOuterClass.CoreReward value) {
+        if (coreRewardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCoreRewardsIsMutable();
+          coreRewards_.add(value);
+          onChanged();
+        } else {
+          coreRewardsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public Builder addCoreRewards(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward value) {
+        if (coreRewardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCoreRewardsIsMutable();
+          coreRewards_.add(index, value);
+          onChanged();
+        } else {
+          coreRewardsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public Builder addCoreRewards(
+          kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder builderForValue) {
+        if (coreRewardsBuilder_ == null) {
+          ensureCoreRewardsIsMutable();
+          coreRewards_.add(builderForValue.build());
+          onChanged();
+        } else {
+          coreRewardsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public Builder addCoreRewards(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder builderForValue) {
+        if (coreRewardsBuilder_ == null) {
+          ensureCoreRewardsIsMutable();
+          coreRewards_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          coreRewardsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public Builder addAllCoreRewards(
+          java.lang.Iterable<? extends kava.kavadist.v1beta1.ParamsOuterClass.CoreReward> values) {
+        if (coreRewardsBuilder_ == null) {
+          ensureCoreRewardsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, coreRewards_);
+          onChanged();
+        } else {
+          coreRewardsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public Builder clearCoreRewards() {
+        if (coreRewardsBuilder_ == null) {
+          coreRewards_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          coreRewardsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public Builder removeCoreRewards(int index) {
+        if (coreRewardsBuilder_ == null) {
+          ensureCoreRewardsIsMutable();
+          coreRewards_.remove(index);
+          onChanged();
+        } else {
+          coreRewardsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder getCoreRewardsBuilder(
+          int index) {
+        return getCoreRewardsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder getCoreRewardsOrBuilder(
+          int index) {
+        if (coreRewardsBuilder_ == null) {
+          return coreRewards_.get(index);  } else {
+          return coreRewardsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public java.util.List<? extends kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder> 
+           getCoreRewardsOrBuilderList() {
+        if (coreRewardsBuilder_ != null) {
+          return coreRewardsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(coreRewards_);
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder addCoreRewardsBuilder() {
+        return getCoreRewardsFieldBuilder().addBuilder(
+            kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder addCoreRewardsBuilder(
+          int index) {
+        return getCoreRewardsFieldBuilder().addBuilder(
+            index, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.CoreReward core_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CoreRewards"];</code>
+       */
+      public java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder> 
+           getCoreRewardsBuilderList() {
+        return getCoreRewardsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.kavadist.v1beta1.ParamsOuterClass.CoreReward, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder, kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder> 
+          getCoreRewardsFieldBuilder() {
+        if (coreRewardsBuilder_ == null) {
+          coreRewardsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              kava.kavadist.v1beta1.ParamsOuterClass.CoreReward, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder, kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder>(
+                  coreRewards_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          coreRewards_ = null;
+        }
+        return coreRewardsBuilder_;
+      }
+
+      private java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward> partnerRewards_ =
+        java.util.Collections.emptyList();
+      private void ensurePartnerRewardsIsMutable() {
+        if (!((bitField0_ & 0x00000004) != 0)) {
+          partnerRewards_ = new java.util.ArrayList<kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward>(partnerRewards_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder, kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder> partnerRewardsBuilder_;
+
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward> getPartnerRewardsList() {
+        if (partnerRewardsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(partnerRewards_);
+        } else {
+          return partnerRewardsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public int getPartnerRewardsCount() {
+        if (partnerRewardsBuilder_ == null) {
+          return partnerRewards_.size();
+        } else {
+          return partnerRewardsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward getPartnerRewards(int index) {
+        if (partnerRewardsBuilder_ == null) {
+          return partnerRewards_.get(index);
+        } else {
+          return partnerRewardsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public Builder setPartnerRewards(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward value) {
+        if (partnerRewardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePartnerRewardsIsMutable();
+          partnerRewards_.set(index, value);
+          onChanged();
+        } else {
+          partnerRewardsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public Builder setPartnerRewards(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder builderForValue) {
+        if (partnerRewardsBuilder_ == null) {
+          ensurePartnerRewardsIsMutable();
+          partnerRewards_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          partnerRewardsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public Builder addPartnerRewards(kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward value) {
+        if (partnerRewardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePartnerRewardsIsMutable();
+          partnerRewards_.add(value);
+          onChanged();
+        } else {
+          partnerRewardsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public Builder addPartnerRewards(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward value) {
+        if (partnerRewardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePartnerRewardsIsMutable();
+          partnerRewards_.add(index, value);
+          onChanged();
+        } else {
+          partnerRewardsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public Builder addPartnerRewards(
+          kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder builderForValue) {
+        if (partnerRewardsBuilder_ == null) {
+          ensurePartnerRewardsIsMutable();
+          partnerRewards_.add(builderForValue.build());
+          onChanged();
+        } else {
+          partnerRewardsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public Builder addPartnerRewards(
+          int index, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder builderForValue) {
+        if (partnerRewardsBuilder_ == null) {
+          ensurePartnerRewardsIsMutable();
+          partnerRewards_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          partnerRewardsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public Builder addAllPartnerRewards(
+          java.lang.Iterable<? extends kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward> values) {
+        if (partnerRewardsBuilder_ == null) {
+          ensurePartnerRewardsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, partnerRewards_);
+          onChanged();
+        } else {
+          partnerRewardsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public Builder clearPartnerRewards() {
+        if (partnerRewardsBuilder_ == null) {
+          partnerRewards_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          partnerRewardsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public Builder removePartnerRewards(int index) {
+        if (partnerRewardsBuilder_ == null) {
+          ensurePartnerRewardsIsMutable();
+          partnerRewards_.remove(index);
+          onChanged();
+        } else {
+          partnerRewardsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder getPartnerRewardsBuilder(
+          int index) {
+        return getPartnerRewardsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder getPartnerRewardsOrBuilder(
+          int index) {
+        if (partnerRewardsBuilder_ == null) {
+          return partnerRewards_.get(index);  } else {
+          return partnerRewardsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public java.util.List<? extends kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder> 
+           getPartnerRewardsOrBuilderList() {
+        if (partnerRewardsBuilder_ != null) {
+          return partnerRewardsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(partnerRewards_);
+        }
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder addPartnerRewardsBuilder() {
+        return getPartnerRewardsFieldBuilder().addBuilder(
+            kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder addPartnerRewardsBuilder(
+          int index) {
+        return getPartnerRewardsFieldBuilder().addBuilder(
+            index, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .kava.kavadist.v1beta1.PartnerReward partner_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "PartnerRewards"];</code>
+       */
+      public java.util.List<kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder> 
+           getPartnerRewardsBuilderList() {
+        return getPartnerRewardsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder, kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder> 
+          getPartnerRewardsFieldBuilder() {
+        if (partnerRewardsBuilder_ == null) {
+          partnerRewardsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder, kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder>(
+                  partnerRewards_,
+                  ((bitField0_ & 0x00000004) != 0),
+                  getParentForChildren(),
+                  isClean());
+          partnerRewards_ = null;
+        }
+        return partnerRewardsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:kava.kavadist.v1beta1.InfrastructureParams)
+    }
+
+    // @@protoc_insertion_point(class_scope:kava.kavadist.v1beta1.InfrastructureParams)
+    private static final kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams();
+    }
+
+    public static kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<InfrastructureParams>
+        PARSER = new com.google.protobuf.AbstractParser<InfrastructureParams>() {
+      @java.lang.Override
+      public InfrastructureParams parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new InfrastructureParams(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<InfrastructureParams> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<InfrastructureParams> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.InfrastructureParams getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface CoreRewardOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:kava.kavadist.v1beta1.CoreReward)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+     * @return The address.
+     */
+    com.google.protobuf.ByteString getAddress();
+
+    /**
+     * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * @return The weight.
+     */
+    java.lang.String getWeight();
+    /**
+     * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * @return The bytes for weight.
+     */
+    com.google.protobuf.ByteString
+        getWeightBytes();
+  }
+  /**
+   * <pre>
+   * CoreReward defines the reward weights for core infrastructure providers.
+   * </pre>
+   *
+   * Protobuf type {@code kava.kavadist.v1beta1.CoreReward}
+   */
+  public static final class CoreReward extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:kava.kavadist.v1beta1.CoreReward)
+      CoreRewardOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CoreReward.newBuilder() to construct.
+    private CoreReward(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CoreReward() {
+      address_ = com.google.protobuf.ByteString.EMPTY;
+      weight_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CoreReward();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CoreReward(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+
+              address_ = input.readBytes();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              weight_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_CoreReward_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_CoreReward_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.class, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder.class);
+    }
+
+    public static final int ADDRESS_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString address_;
+    /**
+     * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+     * @return The address.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getAddress() {
+      return address_;
+    }
+
+    public static final int WEIGHT_FIELD_NUMBER = 2;
+    private volatile java.lang.Object weight_;
+    /**
+     * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * @return The weight.
+     */
+    @java.lang.Override
+    public java.lang.String getWeight() {
+      java.lang.Object ref = weight_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        weight_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * @return The bytes for weight.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getWeightBytes() {
+      java.lang.Object ref = weight_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        weight_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!address_.isEmpty()) {
+        output.writeBytes(1, address_);
+      }
+      if (!getWeightBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, weight_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!address_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, address_);
+      }
+      if (!getWeightBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, weight_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof kava.kavadist.v1beta1.ParamsOuterClass.CoreReward)) {
+        return super.equals(obj);
+      }
+      kava.kavadist.v1beta1.ParamsOuterClass.CoreReward other = (kava.kavadist.v1beta1.ParamsOuterClass.CoreReward) obj;
+
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (!getWeight()
+          .equals(other.getWeight())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getAddress().hashCode();
+      hash = (37 * hash) + WEIGHT_FIELD_NUMBER;
+      hash = (53 * hash) + getWeight().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(kava.kavadist.v1beta1.ParamsOuterClass.CoreReward prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * CoreReward defines the reward weights for core infrastructure providers.
+     * </pre>
+     *
+     * Protobuf type {@code kava.kavadist.v1beta1.CoreReward}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:kava.kavadist.v1beta1.CoreReward)
+        kava.kavadist.v1beta1.ParamsOuterClass.CoreRewardOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_CoreReward_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_CoreReward_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.class, kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.Builder.class);
+      }
+
+      // Construct using kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        address_ = com.google.protobuf.ByteString.EMPTY;
+
+        weight_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_CoreReward_descriptor;
+      }
+
+      @java.lang.Override
+      public kava.kavadist.v1beta1.ParamsOuterClass.CoreReward getDefaultInstanceForType() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public kava.kavadist.v1beta1.ParamsOuterClass.CoreReward build() {
+        kava.kavadist.v1beta1.ParamsOuterClass.CoreReward result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public kava.kavadist.v1beta1.ParamsOuterClass.CoreReward buildPartial() {
+        kava.kavadist.v1beta1.ParamsOuterClass.CoreReward result = new kava.kavadist.v1beta1.ParamsOuterClass.CoreReward(this);
+        result.address_ = address_;
+        result.weight_ = weight_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof kava.kavadist.v1beta1.ParamsOuterClass.CoreReward) {
+          return mergeFrom((kava.kavadist.v1beta1.ParamsOuterClass.CoreReward)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(kava.kavadist.v1beta1.ParamsOuterClass.CoreReward other) {
+        if (other == kava.kavadist.v1beta1.ParamsOuterClass.CoreReward.getDefaultInstance()) return this;
+        if (other.getAddress() != com.google.protobuf.ByteString.EMPTY) {
+          setAddress(other.getAddress());
+        }
+        if (!other.getWeight().isEmpty()) {
+          weight_ = other.weight_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        kava.kavadist.v1beta1.ParamsOuterClass.CoreReward parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (kava.kavadist.v1beta1.ParamsOuterClass.CoreReward) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString address_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+       * @return The address.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getAddress() {
+        return address_;
+      }
+      /**
+       * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddress(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        address_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddress() {
+        
+        address_ = getDefaultInstance().getAddress();
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object weight_ = "";
+      /**
+       * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @return The weight.
+       */
+      public java.lang.String getWeight() {
+        java.lang.Object ref = weight_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          weight_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @return The bytes for weight.
+       */
+      public com.google.protobuf.ByteString
+          getWeightBytes() {
+        java.lang.Object ref = weight_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          weight_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @param value The weight to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWeight(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        weight_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearWeight() {
+        
+        weight_ = getDefaultInstance().getWeight();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @param value The bytes for weight to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWeightBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        weight_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:kava.kavadist.v1beta1.CoreReward)
+    }
+
+    // @@protoc_insertion_point(class_scope:kava.kavadist.v1beta1.CoreReward)
+    private static final kava.kavadist.v1beta1.ParamsOuterClass.CoreReward DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new kava.kavadist.v1beta1.ParamsOuterClass.CoreReward();
+    }
+
+    public static kava.kavadist.v1beta1.ParamsOuterClass.CoreReward getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CoreReward>
+        PARSER = new com.google.protobuf.AbstractParser<CoreReward>() {
+      @java.lang.Override
+      public CoreReward parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CoreReward(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CoreReward> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CoreReward> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.CoreReward getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PartnerRewardOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:kava.kavadist.v1beta1.PartnerReward)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+     * @return The address.
+     */
+    com.google.protobuf.ByteString getAddress();
+
+    /**
+     * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the rewardsPerSecond field is set.
+     */
+    boolean hasRewardsPerSecond();
+    /**
+     * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+     * @return The rewardsPerSecond.
+     */
+    cosmos.base.v1beta1.CoinOuterClass.Coin getRewardsPerSecond();
+    /**
+     * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getRewardsPerSecondOrBuilder();
+  }
+  /**
+   * <pre>
+   * PartnerRewards defines the reward schedule for partner infrastructure providers.
+   * </pre>
+   *
+   * Protobuf type {@code kava.kavadist.v1beta1.PartnerReward}
+   */
+  public static final class PartnerReward extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:kava.kavadist.v1beta1.PartnerReward)
+      PartnerRewardOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PartnerReward.newBuilder() to construct.
+    private PartnerReward(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PartnerReward() {
+      address_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new PartnerReward();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PartnerReward(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+
+              address_ = input.readBytes();
+              break;
+            }
+            case 18: {
+              cosmos.base.v1beta1.CoinOuterClass.Coin.Builder subBuilder = null;
+              if (rewardsPerSecond_ != null) {
+                subBuilder = rewardsPerSecond_.toBuilder();
+              }
+              rewardsPerSecond_ = input.readMessage(cosmos.base.v1beta1.CoinOuterClass.Coin.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(rewardsPerSecond_);
+                rewardsPerSecond_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_PartnerReward_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_PartnerReward_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.class, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder.class);
+    }
+
+    public static final int ADDRESS_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString address_;
+    /**
+     * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+     * @return The address.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getAddress() {
+      return address_;
+    }
+
+    public static final int REWARDS_PER_SECOND_FIELD_NUMBER = 2;
+    private cosmos.base.v1beta1.CoinOuterClass.Coin rewardsPerSecond_;
+    /**
+     * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the rewardsPerSecond field is set.
+     */
+    @java.lang.Override
+    public boolean hasRewardsPerSecond() {
+      return rewardsPerSecond_ != null;
+    }
+    /**
+     * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+     * @return The rewardsPerSecond.
+     */
+    @java.lang.Override
+    public cosmos.base.v1beta1.CoinOuterClass.Coin getRewardsPerSecond() {
+      return rewardsPerSecond_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : rewardsPerSecond_;
+    }
+    /**
+     * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getRewardsPerSecondOrBuilder() {
+      return getRewardsPerSecond();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!address_.isEmpty()) {
+        output.writeBytes(1, address_);
+      }
+      if (rewardsPerSecond_ != null) {
+        output.writeMessage(2, getRewardsPerSecond());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!address_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, address_);
+      }
+      if (rewardsPerSecond_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getRewardsPerSecond());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward)) {
+        return super.equals(obj);
+      }
+      kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward other = (kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward) obj;
+
+      if (!getAddress()
+          .equals(other.getAddress())) return false;
+      if (hasRewardsPerSecond() != other.hasRewardsPerSecond()) return false;
+      if (hasRewardsPerSecond()) {
+        if (!getRewardsPerSecond()
+            .equals(other.getRewardsPerSecond())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getAddress().hashCode();
+      if (hasRewardsPerSecond()) {
+        hash = (37 * hash) + REWARDS_PER_SECOND_FIELD_NUMBER;
+        hash = (53 * hash) + getRewardsPerSecond().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * PartnerRewards defines the reward schedule for partner infrastructure providers.
+     * </pre>
+     *
+     * Protobuf type {@code kava.kavadist.v1beta1.PartnerReward}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:kava.kavadist.v1beta1.PartnerReward)
+        kava.kavadist.v1beta1.ParamsOuterClass.PartnerRewardOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_PartnerReward_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_PartnerReward_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.class, kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.Builder.class);
+      }
+
+      // Construct using kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        address_ = com.google.protobuf.ByteString.EMPTY;
+
+        if (rewardsPerSecondBuilder_ == null) {
+          rewardsPerSecond_ = null;
+        } else {
+          rewardsPerSecond_ = null;
+          rewardsPerSecondBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.internal_static_kava_kavadist_v1beta1_PartnerReward_descriptor;
+      }
+
+      @java.lang.Override
+      public kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward getDefaultInstanceForType() {
+        return kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward build() {
+        kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward buildPartial() {
+        kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward result = new kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward(this);
+        result.address_ = address_;
+        if (rewardsPerSecondBuilder_ == null) {
+          result.rewardsPerSecond_ = rewardsPerSecond_;
+        } else {
+          result.rewardsPerSecond_ = rewardsPerSecondBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward) {
+          return mergeFrom((kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward other) {
+        if (other == kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward.getDefaultInstance()) return this;
+        if (other.getAddress() != com.google.protobuf.ByteString.EMPTY) {
+          setAddress(other.getAddress());
+        }
+        if (other.hasRewardsPerSecond()) {
+          mergeRewardsPerSecond(other.getRewardsPerSecond());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString address_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+       * @return The address.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getAddress() {
+        return address_;
+      }
+      /**
+       * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+       * @param value The address to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAddress(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        address_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes address = 1 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress", (.cosmos_proto.scalar) = "cosmos.AddressBytes"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAddress() {
+        
+        address_ = getDefaultInstance().getAddress();
+        onChanged();
+        return this;
+      }
+
+      private cosmos.base.v1beta1.CoinOuterClass.Coin rewardsPerSecond_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> rewardsPerSecondBuilder_;
+      /**
+       * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+       * @return Whether the rewardsPerSecond field is set.
+       */
+      public boolean hasRewardsPerSecond() {
+        return rewardsPerSecondBuilder_ != null || rewardsPerSecond_ != null;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+       * @return The rewardsPerSecond.
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin getRewardsPerSecond() {
+        if (rewardsPerSecondBuilder_ == null) {
+          return rewardsPerSecond_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : rewardsPerSecond_;
+        } else {
+          return rewardsPerSecondBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setRewardsPerSecond(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (rewardsPerSecondBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          rewardsPerSecond_ = value;
+          onChanged();
+        } else {
+          rewardsPerSecondBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setRewardsPerSecond(
+          cosmos.base.v1beta1.CoinOuterClass.Coin.Builder builderForValue) {
+        if (rewardsPerSecondBuilder_ == null) {
+          rewardsPerSecond_ = builderForValue.build();
+          onChanged();
+        } else {
+          rewardsPerSecondBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeRewardsPerSecond(cosmos.base.v1beta1.CoinOuterClass.Coin value) {
+        if (rewardsPerSecondBuilder_ == null) {
+          if (rewardsPerSecond_ != null) {
+            rewardsPerSecond_ =
+              cosmos.base.v1beta1.CoinOuterClass.Coin.newBuilder(rewardsPerSecond_).mergeFrom(value).buildPartial();
+          } else {
+            rewardsPerSecond_ = value;
+          }
+          onChanged();
+        } else {
+          rewardsPerSecondBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearRewardsPerSecond() {
+        if (rewardsPerSecondBuilder_ == null) {
+          rewardsPerSecond_ = null;
+          onChanged();
+        } else {
+          rewardsPerSecond_ = null;
+          rewardsPerSecondBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.Coin.Builder getRewardsPerSecondBuilder() {
+        
+        onChanged();
+        return getRewardsPerSecondFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getRewardsPerSecondOrBuilder() {
+        if (rewardsPerSecondBuilder_ != null) {
+          return rewardsPerSecondBuilder_.getMessageOrBuilder();
+        } else {
+          return rewardsPerSecond_ == null ?
+              cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : rewardsPerSecond_;
+        }
+      }
+      /**
+       * <code>.cosmos.base.v1beta1.Coin rewards_per_second = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
+          getRewardsPerSecondFieldBuilder() {
+        if (rewardsPerSecondBuilder_ == null) {
+          rewardsPerSecondBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.v1beta1.CoinOuterClass.Coin, cosmos.base.v1beta1.CoinOuterClass.Coin.Builder, cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder>(
+                  getRewardsPerSecond(),
+                  getParentForChildren(),
+                  isClean());
+          rewardsPerSecond_ = null;
+        }
+        return rewardsPerSecondBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:kava.kavadist.v1beta1.PartnerReward)
+    }
+
+    // @@protoc_insertion_point(class_scope:kava.kavadist.v1beta1.PartnerReward)
+    private static final kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward();
+    }
+
+    public static kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PartnerReward>
+        PARSER = new com.google.protobuf.AbstractParser<PartnerReward>() {
+      @java.lang.Override
+      public PartnerReward parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PartnerReward(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PartnerReward> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PartnerReward> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public kava.kavadist.v1beta1.ParamsOuterClass.PartnerReward getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1940,6 +5041,21 @@ public final class ParamsOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_kava_kavadist_v1beta1_Params_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_kava_kavadist_v1beta1_InfrastructureParams_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_kava_kavadist_v1beta1_InfrastructureParams_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_kava_kavadist_v1beta1_CoreReward_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_kava_kavadist_v1beta1_CoreReward_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_kava_kavadist_v1beta1_PartnerReward_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_kava_kavadist_v1beta1_PartnerReward_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_kava_kavadist_v1beta1_Period_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -1955,23 +5071,44 @@ public final class ParamsOuterClass {
     java.lang.String[] descriptorData = {
       "\n\"kava/kavadist/v1beta1/params.proto\022\025ka" +
       "va.kavadist.v1beta1\032\024gogoproto/gogo.prot" +
-      "o\032\037google/protobuf/timestamp.proto\"s\n\006Pa" +
-      "rams\022!\n\006active\030\001 \001(\010B\021\362\336\037\ryaml:\"active\"\022" +
-      "F\n\007periods\030\003 \003(\0132\035.kava.kavadist.v1beta1" +
-      ".PeriodB\026\310\336\037\000\362\336\037\016yaml:\"periods\"\"\353\001\n\006Peri" +
-      "od\022C\n\005start\030\001 \001(\0132\032.google.protobuf.Time" +
-      "stampB\030\220\337\037\001\310\336\037\000\362\336\037\014yaml:\"start\"\022?\n\003end\030\002" +
-      " \001(\0132\032.google.protobuf.TimestampB\026\220\337\037\001\310\336" +
-      "\037\000\362\336\037\nyaml:\"end\"\022U\n\tinflation\030\003 \001(\014BB\310\336\037" +
-      "\000\332\336\037&github.com/cosmos/cosmos-sdk/types." +
-      "Dec\362\336\037\020yaml:\"inflation\":\004\350\240\037\001B4Z*github." +
-      "com/kava-labs/kava/x/kavadist/types\330\341\036\000\310" +
-      "\341\036\000b\006proto3"
+      "o\032\036cosmos/base/v1beta1/coin.proto\032\031cosmo" +
+      "s_proto/cosmos.proto\032\037google/protobuf/ti" +
+      "mestamp.proto\"\305\001\n\006Params\022!\n\006active\030\001 \001(\010" +
+      "B\021\362\336\037\ryaml:\"active\"\022F\n\007periods\030\003 \003(\0132\035.k" +
+      "ava.kavadist.v1beta1.PeriodB\026\310\336\037\000\362\336\037\016yam" +
+      "l:\"periods\"\022P\n\025infrastructure_params\030\004 \001" +
+      "(\0132+.kava.kavadist.v1beta1.Infrastructur" +
+      "eParamsB\004\310\336\037\000\"\221\002\n\024InfrastructureParams\022N" +
+      "\n\026infrastructure_periods\030\001 \003(\0132\035.kava.ka" +
+      "vadist.v1beta1.PeriodB\017\252\337\037\007Periods\310\336\037\000\022L" +
+      "\n\014core_rewards\030\002 \003(\0132!.kava.kavadist.v1b" +
+      "eta1.CoreRewardB\023\252\337\037\013CoreRewards\310\336\037\000\022U\n\017" +
+      "partner_rewards\030\003 \003(\0132$.kava.kavadist.v1" +
+      "beta1.PartnerRewardB\026\252\337\037\016PartnerRewards\310" +
+      "\336\037\000:\004\230\240\037\001\"\273\001\n\nCoreReward\022Y\n\007address\030\001 \001(" +
+      "\014BH\322\264-\023cosmos.AddressBytes\372\336\037-github.com" +
+      "/cosmos/cosmos-sdk/types.AccAddress\022L\n\006w" +
+      "eight\030\002 \001(\tB<\322\264-\ncosmos.Dec\332\336\037&github.co" +
+      "m/cosmos/cosmos-sdk/types.Dec\310\336\037\000:\004\230\240\037\001\"" +
+      "\255\001\n\rPartnerReward\022Y\n\007address\030\001 \001(\014BH\322\264-\023" +
+      "cosmos.AddressBytes\372\336\037-github.com/cosmos" +
+      "/cosmos-sdk/types.AccAddress\022;\n\022rewards_" +
+      "per_second\030\002 \001(\0132\031.cosmos.base.v1beta1.C" +
+      "oinB\004\310\336\037\000:\004\230\240\037\001\"\353\001\n\006Period\022C\n\005start\030\001 \001(" +
+      "\0132\032.google.protobuf.TimestampB\030\220\337\037\001\310\336\037\000\362" +
+      "\336\037\014yaml:\"start\"\022?\n\003end\030\002 \001(\0132\032.google.pr" +
+      "otobuf.TimestampB\026\220\337\037\001\310\336\037\000\362\336\037\nyaml:\"end\"" +
+      "\022U\n\tinflation\030\003 \001(\014BB\310\336\037\000\332\336\037&github.com/" +
+      "cosmos/cosmos-sdk/types.Dec\362\336\037\020yaml:\"inf" +
+      "lation\":\004\350\240\037\001B4Z*github.com/kava-labs/ka" +
+      "va/x/kavadist/types\330\341\036\000\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
+          cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
+          cosmos_proto.Cosmos.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_kava_kavadist_v1beta1_Params_descriptor =
@@ -1979,18 +5116,40 @@ public final class ParamsOuterClass {
     internal_static_kava_kavadist_v1beta1_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_kava_kavadist_v1beta1_Params_descriptor,
-        new java.lang.String[] { "Active", "Periods", });
-    internal_static_kava_kavadist_v1beta1_Period_descriptor =
+        new java.lang.String[] { "Active", "Periods", "InfrastructureParams", });
+    internal_static_kava_kavadist_v1beta1_InfrastructureParams_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_kava_kavadist_v1beta1_InfrastructureParams_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_kava_kavadist_v1beta1_InfrastructureParams_descriptor,
+        new java.lang.String[] { "InfrastructurePeriods", "CoreRewards", "PartnerRewards", });
+    internal_static_kava_kavadist_v1beta1_CoreReward_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_kava_kavadist_v1beta1_CoreReward_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_kava_kavadist_v1beta1_CoreReward_descriptor,
+        new java.lang.String[] { "Address", "Weight", });
+    internal_static_kava_kavadist_v1beta1_PartnerReward_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_kava_kavadist_v1beta1_PartnerReward_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_kava_kavadist_v1beta1_PartnerReward_descriptor,
+        new java.lang.String[] { "Address", "RewardsPerSecond", });
+    internal_static_kava_kavadist_v1beta1_Period_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_kava_kavadist_v1beta1_Period_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_kava_kavadist_v1beta1_Period_descriptor,
         new java.lang.String[] { "Start", "End", "Inflation", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.casttype);
     registry.add(com.google.protobuf2.GoGoProtos.customtype);
     registry.add(com.google.protobuf2.GoGoProtos.equal);
     registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
     registry.add(com.google.protobuf2.GoGoProtos.goprotoStringerAll);
     registry.add(com.google.protobuf2.GoGoProtos.moretags);
     registry.add(com.google.protobuf2.GoGoProtos.nullable);
@@ -1998,6 +5157,8 @@ public final class ParamsOuterClass {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
+    cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
+    cosmos_proto.Cosmos.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 
