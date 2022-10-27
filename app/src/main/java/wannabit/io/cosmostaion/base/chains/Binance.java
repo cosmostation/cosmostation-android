@@ -37,6 +37,8 @@ public class Binance extends ChainConfig {
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
+    public boolean moonPaySupport() { return true; }
+
 
     public String lcdUrl() { return "https://dex.binance.org/"; }
     public String apiUrl() { return "https://dex.binance.org/"; }

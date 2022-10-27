@@ -3,7 +3,7 @@
     <string name="db_password" translatable="false">wannabit</string>
 
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
-    <string name="url_kado_money" translatable="false">https://app.kado.money/</string>
+    <string name="url_kado_money" translatable="false">https://app.kado.money</string>
     <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
     <string name="url_station_testnet" translatable="false">https://api-office.cosmostation.io/utility/</string>

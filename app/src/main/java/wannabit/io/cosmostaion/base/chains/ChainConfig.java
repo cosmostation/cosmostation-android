@@ -89,6 +89,10 @@ abstract public class ChainConfig {
 
     public boolean authzSupport() { return false; }
 
+    public boolean moonPaySupport() { return false; }
+
+    public boolean kadoMoneySupport() { return false; }
+
     public String grpcUrl() { return ""; }
 
     public int grpcPort() {

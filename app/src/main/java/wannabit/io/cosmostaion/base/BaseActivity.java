@@ -934,25 +934,38 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    public void onShowBuyWarnNoKeyMoonPay() {
+    public void onShowBuyWarnNoKey() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
                 getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowBuySelectFiat());
     }
 
-    public void onShowBuyWarnNoKeyKado() {
-        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowBuyKado());
-    }
-
     public void onShowBuySelectFiat() {
         FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
-                "USD", view -> onStartMoonPaySignature("usd"), null,
-                "EUR", view -> onStartMoonPaySignature("eur"), null,
-                "GBP", view -> onStartMoonPaySignature("gbp"), null);
+                "USD", view -> {
+                    if (mChainConfig.moonPaySupport()) {
+                        onStartMoonPaySignature("usd");
+                    } else if (mChainConfig.kadoMoneySupport()) {
+                        onShowBuyKado("usd");
+                    }
+                }, null,
+                "EUR", view -> {
+                    if (mChainConfig.moonPaySupport()) {
+                        onStartMoonPaySignature("eur");
+                    } else if (mChainConfig.kadoMoneySupport()) {
+                        onShowBuyKado("eur");
+                    }
+                }, null,
+                "GBP", view -> {
+                    if (mChainConfig.moonPaySupport()) {
+                        onStartMoonPaySignature("gbp");
+                    } else if (mChainConfig.kadoMoneySupport()) {
+                        onShowBuyKado("gbp");
+                    }
+                }, null);
     }
 
-    public void onShowBuyKado() {
-        String query = "?apiKey=" + getString(R.string.moon_pay_public_key);
+    public void onShowBuyKado(String fiat) {
+        String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&onPayCurrency=" + fiat + "&onRevCurrency=USDC";
         if (mBaseChain.equals(OSMOSIS_MAIN)) {
             query = query + "&network=osmosis";
         } else if (mBaseChain.equals(JUNO_MAIN)) {

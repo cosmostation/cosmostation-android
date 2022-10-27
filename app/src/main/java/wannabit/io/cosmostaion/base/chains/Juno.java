@@ -32,6 +32,8 @@ public class Juno extends ChainConfig{
     public boolean wasmSupport() { return true; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
+    public boolean kadoMoneySupport() { return true; }
+
 
     public String grpcUrl() { return "lcd-juno-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-juno.cosmostation.io/"; }

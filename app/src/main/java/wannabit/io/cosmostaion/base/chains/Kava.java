@@ -39,6 +39,7 @@ public class Kava extends ChainConfig {
     public boolean bridgeCoinSupport() { return true; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
+    public boolean moonPaySupport() { return true; }
 
     public String grpcUrl() { return "lcd-kava-app.cosmostation.io"; }
     public String lcdUrl() { return "https://lcd-kava-app.cosmostation.io/"; }
