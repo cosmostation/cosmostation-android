@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class BaseConstant {
     public final static boolean SUPPORT_MOONPAY         = true;
+    public final static boolean SUPPORT_KADO            = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
     public final static String POSITION                 = "position";

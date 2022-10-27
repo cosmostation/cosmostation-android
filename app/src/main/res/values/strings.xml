@@ -3,6 +3,7 @@
     <string name="db_password" translatable="false">wannabit</string>
 
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
+    <string name="url_kado_money" translatable="false">https://app.kado.money/</string>
     <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
     <string name="url_station_testnet" translatable="false">https://api-office.cosmostation.io/utility/</string>
@@ -29,6 +30,7 @@
     <string name="str_vote_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\']]></string>
 
     <string name="moon_pay_public_key" translatable="false">pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn</string>
+    <string name="kado_money_public_key" translatable="false">18e55363-1d76-456c-8d4d-ecee7b9517ea</string>
 
 
     <string name="str_start">START</string>
@@ -444,6 +446,9 @@
     <string name="str_buy_atom">Buy ATOM</string>
     <string name="str_buy_bnb">Buy BNB</string>
     <string name="str_buy_kava">Buy KAVA</string>
+    <string name="str_buy_osmosis">Buy OSMOSIS</string>
+    <string name="str_buy_juno">Buy JUNO</string>
+    <string name="str_buy_kujira">Buy KUJIRA</string>
     <string name="str_kava_dapp"><![CDATA[KAVA DeFi]]> </string>
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
     <string name="str_buy_select_fiat_title">Select Fiat</string>

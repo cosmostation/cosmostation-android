@@ -5,8 +5,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KUJIRA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
@@ -629,7 +632,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_MINTSCAN_PRICES) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mPrices.clear();
-                for (Price price : (ArrayList<Price>)result.resultData) {
+                for (Price price : (ArrayList<Price>) result.resultData) {
                     getBaseDao().mPrices.add(price);
                 }
                 getBaseDao().setLastPriceTime();
@@ -931,19 +934,42 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    public void onShowBuyWarnNoKey() {
+    public void onShowBuyWarnNoKeyMoonPay() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
                 getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowBuySelectFiat());
     }
 
-    public void onShowBuySelectFiat() {
-        FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
-                "USD", view -> onStartMoonpaySignature("usd"), null,
-                "EUR", view -> onStartMoonpaySignature("eur"), null,
-                "GBP", view -> onStartMoonpaySignature("gbp"), null);
+    public void onShowBuyWarnNoKeyKado() {
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
+                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowBuyKado());
     }
 
-    public void onStartMoonpaySignature(String fiat) {
+    public void onShowBuySelectFiat() {
+        FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
+                "USD", view -> onStartMoonPaySignature("usd"), null,
+                "EUR", view -> onStartMoonPaySignature("eur"), null,
+                "GBP", view -> onStartMoonPaySignature("gbp"), null);
+    }
+
+    public void onShowBuyKado() {
+        String query = "?apiKey=" + getString(R.string.moon_pay_public_key);
+        if (mBaseChain.equals(OSMOSIS_MAIN)) {
+            query = query + "&network=osmosis";
+        } else if (mBaseChain.equals(JUNO_MAIN)) {
+            query = query + "&network=juno";
+        } else if (mBaseChain.equals(KUJIRA_MAIN)) {
+            query = query + "&network=kujira";
+        }
+        final String SendQuery = query + "&onToAddress=" + mAccount.address;
+        try {
+            Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + SendQuery));
+            startActivity(guideIntent);
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onStartMoonPaySignature(String fiat) {
         String query = "?apiKey=" + getString(R.string.moon_pay_public_key);
         if (mBaseChain.equals(COSMOS_MAIN)) {
             query = query + "&currencyCode=atom";
