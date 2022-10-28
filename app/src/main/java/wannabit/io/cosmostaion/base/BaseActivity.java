@@ -972,7 +972,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         final String SendQuery = query + "&onToAddress=" + mAccount.address;
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + SendQuery));
         startActivity(intent);
-        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
     }
 
     public void onStartMoonPaySignature(String fiat) {
