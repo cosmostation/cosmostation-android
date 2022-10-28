@@ -664,7 +664,7 @@ public class WDp {
     public static BigDecimal price(BaseData baseData, String denom) {
         Price coinPrice = baseData.getPrice(denom);
         if (coinPrice != null) {
-            return new BigDecimal(coinPrice.current_price).setScale(3, RoundingMode.DOWN);
+            return new BigDecimal(coinPrice.current_price);
         } else {
             return BigDecimal.ZERO.setScale(3, RoundingMode.DOWN);
         }

@@ -48,6 +48,7 @@ public class SimulSifDepositGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulSifDepositGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

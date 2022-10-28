@@ -50,6 +50,7 @@ public class SimulOsmosisExitPoolGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulOsmosisExitPoolGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

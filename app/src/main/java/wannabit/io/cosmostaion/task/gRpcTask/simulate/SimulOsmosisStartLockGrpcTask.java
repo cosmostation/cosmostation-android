@@ -48,6 +48,7 @@ public class SimulOsmosisStartLockGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulOsmosisStartLockGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

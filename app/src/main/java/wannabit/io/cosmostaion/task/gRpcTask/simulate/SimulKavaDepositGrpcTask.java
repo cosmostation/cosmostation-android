@@ -55,6 +55,7 @@ public class SimulKavaDepositGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulKavaDepositGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

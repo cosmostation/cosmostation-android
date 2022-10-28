@@ -63,6 +63,7 @@ public class SimulTransferNFTGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulTransferNFTGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

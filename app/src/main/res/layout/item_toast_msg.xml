@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toast_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_6"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="@dimen/space_8"
+        app:cardBackgroundColor="@color/colorGray4">
+        <TextView
+            android:id="@+id/toast_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_8"
+            style="@style/font_ss_15_white"
+            android:text=""/>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
+
+

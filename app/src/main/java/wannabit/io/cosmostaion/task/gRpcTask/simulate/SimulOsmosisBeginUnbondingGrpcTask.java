@@ -47,6 +47,7 @@ public class SimulOsmosisBeginUnbondingGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulOsmosisBeginUnbondingGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

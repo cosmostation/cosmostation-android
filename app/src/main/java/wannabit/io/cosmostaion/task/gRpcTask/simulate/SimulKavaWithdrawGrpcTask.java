@@ -54,6 +54,7 @@ public class SimulKavaWithdrawGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulKavaWithdrawGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

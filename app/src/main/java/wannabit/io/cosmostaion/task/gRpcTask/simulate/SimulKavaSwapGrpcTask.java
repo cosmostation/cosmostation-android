@@ -55,6 +55,7 @@ public class SimulKavaSwapGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulKavaSwapGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

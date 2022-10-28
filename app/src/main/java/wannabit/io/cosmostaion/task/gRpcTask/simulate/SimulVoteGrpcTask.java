@@ -48,6 +48,7 @@ public class SimulVoteGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulVoteGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }
