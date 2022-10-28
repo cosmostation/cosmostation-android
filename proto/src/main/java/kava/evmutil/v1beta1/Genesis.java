@@ -41,6 +41,33 @@ public final class Genesis {
      */
     kava.evmutil.v1beta1.Genesis.AccountOrBuilder getAccountsOrBuilder(
         int index);
+
+    /**
+     * <pre>
+     * params defines all the parameters of the module.
+     * </pre>
+     *
+     * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
+     */
+    boolean hasParams();
+    /**
+     * <pre>
+     * params defines all the parameters of the module.
+     * </pre>
+     *
+     * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+     * @return The params.
+     */
+    kava.evmutil.v1beta1.Genesis.Params getParams();
+    /**
+     * <pre>
+     * params defines all the parameters of the module.
+     * </pre>
+     *
+     * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    kava.evmutil.v1beta1.Genesis.ParamsOrBuilder getParamsOrBuilder();
   }
   /**
    * <pre>
@@ -100,6 +127,19 @@ public final class Genesis {
               }
               accounts_.add(
                   input.readMessage(kava.evmutil.v1beta1.Genesis.Account.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              kava.evmutil.v1beta1.Genesis.Params.Builder subBuilder = null;
+              if (params_ != null) {
+                subBuilder = params_.toBuilder();
+              }
+              params_ = input.readMessage(kava.evmutil.v1beta1.Genesis.Params.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(params_);
+                params_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -177,6 +217,44 @@ public final class Genesis {
       return accounts_.get(index);
     }
 
+    public static final int PARAMS_FIELD_NUMBER = 2;
+    private kava.evmutil.v1beta1.Genesis.Params params_;
+    /**
+     * <pre>
+     * params defines all the parameters of the module.
+     * </pre>
+     *
+     * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
+     */
+    @java.lang.Override
+    public boolean hasParams() {
+      return params_ != null;
+    }
+    /**
+     * <pre>
+     * params defines all the parameters of the module.
+     * </pre>
+     *
+     * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+     * @return The params.
+     */
+    @java.lang.Override
+    public kava.evmutil.v1beta1.Genesis.Params getParams() {
+      return params_ == null ? kava.evmutil.v1beta1.Genesis.Params.getDefaultInstance() : params_;
+    }
+    /**
+     * <pre>
+     * params defines all the parameters of the module.
+     * </pre>
+     *
+     * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public kava.evmutil.v1beta1.Genesis.ParamsOrBuilder getParamsOrBuilder() {
+      return getParams();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -194,6 +272,9 @@ public final class Genesis {
       for (int i = 0; i < accounts_.size(); i++) {
         output.writeMessage(1, accounts_.get(i));
       }
+      if (params_ != null) {
+        output.writeMessage(2, getParams());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -206,6 +287,10 @@ public final class Genesis {
       for (int i = 0; i < accounts_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, accounts_.get(i));
+      }
+      if (params_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getParams());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -224,6 +309,11 @@ public final class Genesis {
 
       if (!getAccountsList()
           .equals(other.getAccountsList())) return false;
+      if (hasParams() != other.hasParams()) return false;
+      if (hasParams()) {
+        if (!getParams()
+            .equals(other.getParams())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -238,6 +328,10 @@ public final class Genesis {
       if (getAccountsCount() > 0) {
         hash = (37 * hash) + ACCOUNTS_FIELD_NUMBER;
         hash = (53 * hash) + getAccountsList().hashCode();
+      }
+      if (hasParams()) {
+        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getParams().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -383,6 +477,12 @@ public final class Genesis {
         } else {
           accountsBuilder_.clear();
         }
+        if (paramsBuilder_ == null) {
+          params_ = null;
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
         return this;
       }
 
@@ -418,6 +518,11 @@ public final class Genesis {
           result.accounts_ = accounts_;
         } else {
           result.accounts_ = accountsBuilder_.build();
+        }
+        if (paramsBuilder_ == null) {
+          result.params_ = params_;
+        } else {
+          result.params_ = paramsBuilder_.build();
         }
         onBuilt();
         return result;
@@ -492,6 +597,9 @@ public final class Genesis {
               accountsBuilder_.addAllMessages(other.accounts_);
             }
           }
+        }
+        if (other.hasParams()) {
+          mergeParams(other.getParams());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -761,6 +869,161 @@ public final class Genesis {
           accounts_ = null;
         }
         return accountsBuilder_;
+      }
+
+      private kava.evmutil.v1beta1.Genesis.Params params_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          kava.evmutil.v1beta1.Genesis.Params, kava.evmutil.v1beta1.Genesis.Params.Builder, kava.evmutil.v1beta1.Genesis.ParamsOrBuilder> paramsBuilder_;
+      /**
+       * <pre>
+       * params defines all the parameters of the module.
+       * </pre>
+       *
+       * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+       * @return Whether the params field is set.
+       */
+      public boolean hasParams() {
+        return paramsBuilder_ != null || params_ != null;
+      }
+      /**
+       * <pre>
+       * params defines all the parameters of the module.
+       * </pre>
+       *
+       * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+       * @return The params.
+       */
+      public kava.evmutil.v1beta1.Genesis.Params getParams() {
+        if (paramsBuilder_ == null) {
+          return params_ == null ? kava.evmutil.v1beta1.Genesis.Params.getDefaultInstance() : params_;
+        } else {
+          return paramsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * params defines all the parameters of the module.
+       * </pre>
+       *
+       * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setParams(kava.evmutil.v1beta1.Genesis.Params value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          params_ = value;
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines all the parameters of the module.
+       * </pre>
+       *
+       * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder setParams(
+          kava.evmutil.v1beta1.Genesis.Params.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          params_ = builderForValue.build();
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines all the parameters of the module.
+       * </pre>
+       *
+       * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeParams(kava.evmutil.v1beta1.Genesis.Params value) {
+        if (paramsBuilder_ == null) {
+          if (params_ != null) {
+            params_ =
+              kava.evmutil.v1beta1.Genesis.Params.newBuilder(params_).mergeFrom(value).buildPartial();
+          } else {
+            params_ = value;
+          }
+          onChanged();
+        } else {
+          paramsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines all the parameters of the module.
+       * </pre>
+       *
+       * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearParams() {
+        if (paramsBuilder_ == null) {
+          params_ = null;
+          onChanged();
+        } else {
+          params_ = null;
+          paramsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines all the parameters of the module.
+       * </pre>
+       *
+       * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public kava.evmutil.v1beta1.Genesis.Params.Builder getParamsBuilder() {
+        
+        onChanged();
+        return getParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * params defines all the parameters of the module.
+       * </pre>
+       *
+       * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      public kava.evmutil.v1beta1.Genesis.ParamsOrBuilder getParamsOrBuilder() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilder();
+        } else {
+          return params_ == null ?
+              kava.evmutil.v1beta1.Genesis.Params.getDefaultInstance() : params_;
+        }
+      }
+      /**
+       * <pre>
+       * params defines all the parameters of the module.
+       * </pre>
+       *
+       * <code>.kava.evmutil.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          kava.evmutil.v1beta1.Genesis.Params, kava.evmutil.v1beta1.Genesis.Params.Builder, kava.evmutil.v1beta1.Genesis.ParamsOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              kava.evmutil.v1beta1.Genesis.Params, kava.evmutil.v1beta1.Genesis.Params.Builder, kava.evmutil.v1beta1.Genesis.ParamsOrBuilder>(
+                  getParams(),
+                  getParentForChildren(),
+                  isClean());
+          params_ = null;
+        }
+        return paramsBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -1501,6 +1764,947 @@ public final class Genesis {
 
   }
 
+  public interface ParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:kava.evmutil.v1beta1.Params)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    java.util.List<kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair> 
+        getEnabledConversionPairsList();
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair getEnabledConversionPairs(int index);
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    int getEnabledConversionPairsCount();
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    java.util.List<? extends kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPairOrBuilder> 
+        getEnabledConversionPairsOrBuilderList();
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPairOrBuilder getEnabledConversionPairsOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * Params defines the evmutil module params
+   * </pre>
+   *
+   * Protobuf type {@code kava.evmutil.v1beta1.Params}
+   */
+  public static final class Params extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:kava.evmutil.v1beta1.Params)
+      ParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Params.newBuilder() to construct.
+    private Params(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Params() {
+      enabledConversionPairs_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Params();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Params(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                enabledConversionPairs_ = new java.util.ArrayList<kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              enabledConversionPairs_.add(
+                  input.readMessage(kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          enabledConversionPairs_ = java.util.Collections.unmodifiableList(enabledConversionPairs_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return kava.evmutil.v1beta1.Genesis.internal_static_kava_evmutil_v1beta1_Params_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return kava.evmutil.v1beta1.Genesis.internal_static_kava_evmutil_v1beta1_Params_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              kava.evmutil.v1beta1.Genesis.Params.class, kava.evmutil.v1beta1.Genesis.Params.Builder.class);
+    }
+
+    public static final int ENABLED_CONVERSION_PAIRS_FIELD_NUMBER = 4;
+    private java.util.List<kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair> enabledConversionPairs_;
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair> getEnabledConversionPairsList() {
+      return enabledConversionPairs_;
+    }
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPairOrBuilder> 
+        getEnabledConversionPairsOrBuilderList() {
+      return enabledConversionPairs_;
+    }
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    @java.lang.Override
+    public int getEnabledConversionPairsCount() {
+      return enabledConversionPairs_.size();
+    }
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    @java.lang.Override
+    public kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair getEnabledConversionPairs(int index) {
+      return enabledConversionPairs_.get(index);
+    }
+    /**
+     * <pre>
+     * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+     * converted between Kava ERC20 and sdk.Coin
+     * </pre>
+     *
+     * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+     */
+    @java.lang.Override
+    public kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPairOrBuilder getEnabledConversionPairsOrBuilder(
+        int index) {
+      return enabledConversionPairs_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < enabledConversionPairs_.size(); i++) {
+        output.writeMessage(4, enabledConversionPairs_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < enabledConversionPairs_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, enabledConversionPairs_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof kava.evmutil.v1beta1.Genesis.Params)) {
+        return super.equals(obj);
+      }
+      kava.evmutil.v1beta1.Genesis.Params other = (kava.evmutil.v1beta1.Genesis.Params) obj;
+
+      if (!getEnabledConversionPairsList()
+          .equals(other.getEnabledConversionPairsList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getEnabledConversionPairsCount() > 0) {
+        hash = (37 * hash) + ENABLED_CONVERSION_PAIRS_FIELD_NUMBER;
+        hash = (53 * hash) + getEnabledConversionPairsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static kava.evmutil.v1beta1.Genesis.Params parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(kava.evmutil.v1beta1.Genesis.Params prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Params defines the evmutil module params
+     * </pre>
+     *
+     * Protobuf type {@code kava.evmutil.v1beta1.Params}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:kava.evmutil.v1beta1.Params)
+        kava.evmutil.v1beta1.Genesis.ParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return kava.evmutil.v1beta1.Genesis.internal_static_kava_evmutil_v1beta1_Params_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return kava.evmutil.v1beta1.Genesis.internal_static_kava_evmutil_v1beta1_Params_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                kava.evmutil.v1beta1.Genesis.Params.class, kava.evmutil.v1beta1.Genesis.Params.Builder.class);
+      }
+
+      // Construct using kava.evmutil.v1beta1.Genesis.Params.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getEnabledConversionPairsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (enabledConversionPairsBuilder_ == null) {
+          enabledConversionPairs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          enabledConversionPairsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return kava.evmutil.v1beta1.Genesis.internal_static_kava_evmutil_v1beta1_Params_descriptor;
+      }
+
+      @java.lang.Override
+      public kava.evmutil.v1beta1.Genesis.Params getDefaultInstanceForType() {
+        return kava.evmutil.v1beta1.Genesis.Params.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public kava.evmutil.v1beta1.Genesis.Params build() {
+        kava.evmutil.v1beta1.Genesis.Params result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public kava.evmutil.v1beta1.Genesis.Params buildPartial() {
+        kava.evmutil.v1beta1.Genesis.Params result = new kava.evmutil.v1beta1.Genesis.Params(this);
+        int from_bitField0_ = bitField0_;
+        if (enabledConversionPairsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            enabledConversionPairs_ = java.util.Collections.unmodifiableList(enabledConversionPairs_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.enabledConversionPairs_ = enabledConversionPairs_;
+        } else {
+          result.enabledConversionPairs_ = enabledConversionPairsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof kava.evmutil.v1beta1.Genesis.Params) {
+          return mergeFrom((kava.evmutil.v1beta1.Genesis.Params)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(kava.evmutil.v1beta1.Genesis.Params other) {
+        if (other == kava.evmutil.v1beta1.Genesis.Params.getDefaultInstance()) return this;
+        if (enabledConversionPairsBuilder_ == null) {
+          if (!other.enabledConversionPairs_.isEmpty()) {
+            if (enabledConversionPairs_.isEmpty()) {
+              enabledConversionPairs_ = other.enabledConversionPairs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureEnabledConversionPairsIsMutable();
+              enabledConversionPairs_.addAll(other.enabledConversionPairs_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.enabledConversionPairs_.isEmpty()) {
+            if (enabledConversionPairsBuilder_.isEmpty()) {
+              enabledConversionPairsBuilder_.dispose();
+              enabledConversionPairsBuilder_ = null;
+              enabledConversionPairs_ = other.enabledConversionPairs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              enabledConversionPairsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getEnabledConversionPairsFieldBuilder() : null;
+            } else {
+              enabledConversionPairsBuilder_.addAllMessages(other.enabledConversionPairs_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        kava.evmutil.v1beta1.Genesis.Params parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (kava.evmutil.v1beta1.Genesis.Params) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair> enabledConversionPairs_ =
+        java.util.Collections.emptyList();
+      private void ensureEnabledConversionPairsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          enabledConversionPairs_ = new java.util.ArrayList<kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair>(enabledConversionPairs_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPairOrBuilder> enabledConversionPairsBuilder_;
+
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public java.util.List<kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair> getEnabledConversionPairsList() {
+        if (enabledConversionPairsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(enabledConversionPairs_);
+        } else {
+          return enabledConversionPairsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public int getEnabledConversionPairsCount() {
+        if (enabledConversionPairsBuilder_ == null) {
+          return enabledConversionPairs_.size();
+        } else {
+          return enabledConversionPairsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair getEnabledConversionPairs(int index) {
+        if (enabledConversionPairsBuilder_ == null) {
+          return enabledConversionPairs_.get(index);
+        } else {
+          return enabledConversionPairsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public Builder setEnabledConversionPairs(
+          int index, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair value) {
+        if (enabledConversionPairsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEnabledConversionPairsIsMutable();
+          enabledConversionPairs_.set(index, value);
+          onChanged();
+        } else {
+          enabledConversionPairsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public Builder setEnabledConversionPairs(
+          int index, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder builderForValue) {
+        if (enabledConversionPairsBuilder_ == null) {
+          ensureEnabledConversionPairsIsMutable();
+          enabledConversionPairs_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          enabledConversionPairsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public Builder addEnabledConversionPairs(kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair value) {
+        if (enabledConversionPairsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEnabledConversionPairsIsMutable();
+          enabledConversionPairs_.add(value);
+          onChanged();
+        } else {
+          enabledConversionPairsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public Builder addEnabledConversionPairs(
+          int index, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair value) {
+        if (enabledConversionPairsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureEnabledConversionPairsIsMutable();
+          enabledConversionPairs_.add(index, value);
+          onChanged();
+        } else {
+          enabledConversionPairsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public Builder addEnabledConversionPairs(
+          kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder builderForValue) {
+        if (enabledConversionPairsBuilder_ == null) {
+          ensureEnabledConversionPairsIsMutable();
+          enabledConversionPairs_.add(builderForValue.build());
+          onChanged();
+        } else {
+          enabledConversionPairsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public Builder addEnabledConversionPairs(
+          int index, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder builderForValue) {
+        if (enabledConversionPairsBuilder_ == null) {
+          ensureEnabledConversionPairsIsMutable();
+          enabledConversionPairs_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          enabledConversionPairsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public Builder addAllEnabledConversionPairs(
+          java.lang.Iterable<? extends kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair> values) {
+        if (enabledConversionPairsBuilder_ == null) {
+          ensureEnabledConversionPairsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, enabledConversionPairs_);
+          onChanged();
+        } else {
+          enabledConversionPairsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public Builder clearEnabledConversionPairs() {
+        if (enabledConversionPairsBuilder_ == null) {
+          enabledConversionPairs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          enabledConversionPairsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public Builder removeEnabledConversionPairs(int index) {
+        if (enabledConversionPairsBuilder_ == null) {
+          ensureEnabledConversionPairsIsMutable();
+          enabledConversionPairs_.remove(index);
+          onChanged();
+        } else {
+          enabledConversionPairsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder getEnabledConversionPairsBuilder(
+          int index) {
+        return getEnabledConversionPairsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPairOrBuilder getEnabledConversionPairsOrBuilder(
+          int index) {
+        if (enabledConversionPairsBuilder_ == null) {
+          return enabledConversionPairs_.get(index);  } else {
+          return enabledConversionPairsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public java.util.List<? extends kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPairOrBuilder> 
+           getEnabledConversionPairsOrBuilderList() {
+        if (enabledConversionPairsBuilder_ != null) {
+          return enabledConversionPairsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(enabledConversionPairs_);
+        }
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder addEnabledConversionPairsBuilder() {
+        return getEnabledConversionPairsFieldBuilder().addBuilder(
+            kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder addEnabledConversionPairsBuilder(
+          int index) {
+        return getEnabledConversionPairsFieldBuilder().addBuilder(
+            index, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * enabled_conversion_pairs defines the list of conversion pairs allowed to be
+       * converted between Kava ERC20 and sdk.Coin
+       * </pre>
+       *
+       * <code>repeated .kava.evmutil.v1beta1.ConversionPair enabled_conversion_pairs = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ConversionPairs"];</code>
+       */
+      public java.util.List<kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder> 
+           getEnabledConversionPairsBuilderList() {
+        return getEnabledConversionPairsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPairOrBuilder> 
+          getEnabledConversionPairsFieldBuilder() {
+        if (enabledConversionPairsBuilder_ == null) {
+          enabledConversionPairsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPair.Builder, kava.evmutil.v1beta1.ConversionPairOuterClass.ConversionPairOrBuilder>(
+                  enabledConversionPairs_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          enabledConversionPairs_ = null;
+        }
+        return enabledConversionPairsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:kava.evmutil.v1beta1.Params)
+    }
+
+    // @@protoc_insertion_point(class_scope:kava.evmutil.v1beta1.Params)
+    private static final kava.evmutil.v1beta1.Genesis.Params DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new kava.evmutil.v1beta1.Genesis.Params();
+    }
+
+    public static kava.evmutil.v1beta1.Genesis.Params getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Params>
+        PARSER = new com.google.protobuf.AbstractParser<Params>() {
+      @java.lang.Override
+      public Params parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Params(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Params> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Params> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public kava.evmutil.v1beta1.Genesis.Params getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_kava_evmutil_v1beta1_GenesisState_descriptor;
   private static final 
@@ -1511,6 +2715,11 @@ public final class Genesis {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_kava_evmutil_v1beta1_Account_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_kava_evmutil_v1beta1_Params_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_kava_evmutil_v1beta1_Params_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1522,46 +2731,61 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n\"kava/evmutil/v1beta1/genesis.proto\022\024ka" +
       "va.evmutil.v1beta1\032\024gogoproto/gogo.proto" +
-      "\032\031cosmos_proto/cosmos.proto\"K\n\014GenesisSt" +
-      "ate\0225\n\010accounts\030\001 \003(\0132\035.kava.evmutil.v1b" +
-      "eta1.AccountB\004\310\336\037\000:\004\210\240\037\000\"\275\001\n\007Account\022Y\n\007" +
-      "address\030\001 \001(\014BH\322\264-\023cosmos.AddressBytes\372\336" +
-      "\037-github.com/cosmos/cosmos-sdk/types.Acc" +
-      "Address\022M\n\007balance\030\002 \001(\tB<\322\264-\ncosmos.Int" +
-      "\332\336\037&github.com/cosmos/cosmos-sdk/types.I" +
-      "nt\310\336\037\000:\010\350\240\037\000\210\240\037\000B+Z)github.com/kava-labs" +
-      "/kava/x/evmutil/typesb\006proto3"
+      "\032\031cosmos_proto/cosmos.proto\032*kava/evmuti" +
+      "l/v1beta1/conversion_pair.proto\"\177\n\014Genes" +
+      "isState\0225\n\010accounts\030\001 \003(\0132\035.kava.evmutil" +
+      ".v1beta1.AccountB\004\310\336\037\000\0222\n\006params\030\002 \001(\0132\034" +
+      ".kava.evmutil.v1beta1.ParamsB\004\310\336\037\000:\004\210\240\037\000" +
+      "\"\271\001\n\007Account\022Y\n\007address\030\001 \001(\014BH\322\264-\023cosmo" +
+      "s.AddressBytes\372\336\037-github.com/cosmos/cosm" +
+      "os-sdk/types.AccAddress\022M\n\007balance\030\002 \001(\t" +
+      "B<\322\264-\ncosmos.Int\332\336\037&github.com/cosmos/co" +
+      "smos-sdk/types.Int\310\336\037\000:\004\210\240\037\000\"i\n\006Params\022_" +
+      "\n\030enabled_conversion_pairs\030\004 \003(\0132$.kava." +
+      "evmutil.v1beta1.ConversionPairB\027\310\336\037\000\252\337\037\017" +
+      "ConversionPairsB3Z)github.com/kava-labs/" +
+      "kava/x/evmutil/types\250\342\036\001\340\341\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
+          kava.evmutil.v1beta1.ConversionPairOuterClass.getDescriptor(),
         });
     internal_static_kava_evmutil_v1beta1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_kava_evmutil_v1beta1_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_kava_evmutil_v1beta1_GenesisState_descriptor,
-        new java.lang.String[] { "Accounts", });
+        new java.lang.String[] { "Accounts", "Params", });
     internal_static_kava_evmutil_v1beta1_Account_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_kava_evmutil_v1beta1_Account_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_kava_evmutil_v1beta1_Account_descriptor,
         new java.lang.String[] { "Address", "Balance", });
+    internal_static_kava_evmutil_v1beta1_Params_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_kava_evmutil_v1beta1_Params_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_kava_evmutil_v1beta1_Params_descriptor,
+        new java.lang.String[] { "EnabledConversionPairs", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
     registry.add(com.google.protobuf2.GoGoProtos.casttype);
     registry.add(com.google.protobuf2.GoGoProtos.customtype);
-    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.equalAll);
     registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
     registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.verboseEqualAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
+    kava.evmutil.v1beta1.ConversionPairOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

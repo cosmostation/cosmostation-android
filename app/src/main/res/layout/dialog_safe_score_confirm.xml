@@ -26,16 +26,15 @@
                     style="@style/font_rm_17_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_24"
+                    android:layout_marginTop="@dimen/space_18"
                     android:gravity="center"
-                    android:text="Risk Score"
-                    android:visibility="gone" />
+                    android:text="@string/str_risk_rate" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:layout_marginLeft="@dimen/space_18"
-                    android:layout_marginTop="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_6"
                     android:layout_marginRight="@dimen/space_18"
                     android:src="@drawable/riskscore_img" />
 
@@ -223,11 +222,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="@dimen/space_view"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray10" />
 
                     <Button
                         android:id="@+id/btn_nega"

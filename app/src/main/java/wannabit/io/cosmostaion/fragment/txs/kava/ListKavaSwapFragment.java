@@ -161,8 +161,8 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
             WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
 
-            BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
-            BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
+            BigDecimal priceInput = WDp.price(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
+            BigDecimal priceOutput = WDp.price(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
             BigDecimal priceRate = BigDecimal.ZERO;
             if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
                 mSwapOutputCoinExRate.setText("?.??????");
