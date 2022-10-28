@@ -1,21 +1,21 @@
 package wannabit.io.cosmostaion.utils;
 
 import static org.bitcoinj.core.ECKey.CURVE;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.XPLA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 import android.util.Base64;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.Bech32;
-import org.bitcoinj.core.Context;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicHierarchy;
@@ -38,8 +38,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
+import cosmos.vesting.v1beta1.Vesting;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -217,9 +219,33 @@ public class WKey {
             return Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
 
         } else {
-            cosmos.crypto.secp256k1.Keys.PubKey pubKey = cosmos.crypto.secp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
-            return Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build();
+            try {
+                Any authAccount = auth.getAccount();
+                Auth.BaseAccount baseAccount = null;
+                if (authAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
+                    baseAccount = Auth.BaseAccount.parseFrom(authAccount.getValue());
+
+                } else if (authAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+                    baseAccount = Vesting.PeriodicVestingAccount.parseFrom(authAccount.getValue()).getBaseVestingAccount().getBaseAccount();
+
+                } else if (authAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+                    baseAccount = Vesting.ContinuousVestingAccount.parseFrom(authAccount.getValue()).getBaseVestingAccount().getBaseAccount();
+
+                } else if (authAccount.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+                    baseAccount = Vesting.DelayedVestingAccount.parseFrom(authAccount.getValue()).getBaseVestingAccount().getBaseAccount();
+                }
+
+                if (baseAccount.getPubKey().getTypeUrl().contains("/ethermint.crypto.v1.ethsecp256k1.PubKey")) {
+                    ethermint.crypto.v1.ethsecp256k1.Keys.PubKey pubKey = ethermint.crypto.v1.ethsecp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
+                    return Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
+                } else {
+                    cosmos.crypto.secp256k1.Keys.PubKey pubKey = cosmos.crypto.secp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
+                    return Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build();
+                }
+
+            } catch (InvalidProtocolBufferException e) { e.printStackTrace(); }
         }
+        return null;
     }
 
     // Ethermint Style Key gen (OKex)
@@ -379,33 +405,49 @@ public class WKey {
 
     public static String getCreateDpAddressFromEntropy(BaseChain chain, String entropy, int path, int customPath) {
         DeterministicKey childKey = getCreateKeyWithPathfromEntropy(chain, entropy, path, customPath);
+        ChainConfig chainConfig = ChainFactory.getChain(chain);
         if (chain.equals(OKEX_MAIN)) {
             if (customPath == 0) {
                 return generateTenderAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
             } else {
                 return generateEthAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
             }
-        } else if (chain.equals(INJ_MAIN)) {
-            return generateAddressFromPriv("inj", childKey.getPrivateKeyAsHex());
-        } else if (chain.equals(EVMOS_MAIN)) {
-            return generateAddressFromPriv("evmos", childKey.getPrivateKeyAsHex());
+        } else if (chainConfig.ethAccountType()) {
+            if (chain.equals(XPLA_MAIN)) {
+                if (customPath == 0) {
+                    return getDpAddress(chain, generatePubKeyHexFromPriv(childKey.getPrivateKeyAsHex()));
+                } else {
+                    return generateAddressFromPriv(chainConfig.addressPrefix(), childKey.getPrivateKeyAsHex());
+                }
+            } else {
+                return generateAddressFromPriv(chainConfig.addressPrefix(), childKey.getPrivateKeyAsHex());
+            }
+        } else {
+            return getDpAddress(chain, childKey.getPublicKeyAsHex());
         }
-        return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }
 
     public static String getCreateDpAddressFromPkey(BaseChain chain, String pKey, int customPath) {
+        ChainConfig chainConfig = ChainFactory.getChain(chain);
         if (chain.equals(OKEX_MAIN)) {
             if (customPath == 0) {
                 return generateTenderAddressFromPrivateKey(pKey);
             } else {
                 return generateEthAddressFromPrivateKey(pKey);
             }
-        } else if (chain.equals(INJ_MAIN)) {
-            return generateAddressFromPriv("inj", pKey);
-        } else if (chain.equals(EVMOS_MAIN)) {
-            return generateAddressFromPriv("evmos", pKey);
+        } else if (chainConfig.ethAccountType()) {
+            if (chain.equals(XPLA_MAIN)) {
+                if (customPath == 0) {
+                    return getDpAddress(chain, generatePubKeyHexFromPriv(pKey));
+                } else {
+                    return generateAddressFromPriv(chainConfig.addressPrefix(), pKey);
+                }
+            } else {
+                return generateAddressFromPriv(chainConfig.addressPrefix(), pKey);
+            }
+        } else {
+            return getDpAddress(chain, generatePubKeyHexFromPriv(pKey));
         }
-        return getDpAddress(chain, generatePubKeyHexFromPriv(pKey));
     }
 
     public static byte[] convertBits(byte[] data, int frombits, int tobits, boolean pad) throws Exception {

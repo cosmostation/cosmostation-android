@@ -75,7 +75,9 @@ abstract public class ChainConfig {
 
     public String validatorPrefix() { return addressPrefix() + "valoper"; }
 
-    public boolean etherAddressSupport() { return false; }
+    public boolean ethAccountType() { return false; }
+
+    public boolean evmSupport() { return false; }
 
     public boolean bridgeCoinSupport() { return false; }
 

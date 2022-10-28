@@ -35,7 +35,7 @@ public class Kava extends ChainConfig {
     public String mainDenom() { return "ukava"; }
     public String addressPrefix() { return "kava"; }
 
-    public boolean etherAddressSupport() { return true; }
+    public boolean evmSupport() { return true; }
     public boolean bridgeCoinSupport() { return true; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
