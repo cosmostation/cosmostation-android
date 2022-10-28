@@ -118,7 +118,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         WDp.setDpSymbol(StakingTokenGrpcActivity.this, getBaseDao(), mChainConfig, mMainDenom, mToolbarSymbol);
 
         final Asset asset = getBaseDao().getAsset(mChainConfig, mMainDenom);
-        if (asset.price_denom != null) {
+        if (asset != null && asset.price_denom != null) {
             mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
             valueChangeStatus(this, getBaseDao(), asset.price_denom, mItemUpDownPrice);
             mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
