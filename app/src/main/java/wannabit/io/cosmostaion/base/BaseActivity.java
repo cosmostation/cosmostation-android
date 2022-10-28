@@ -939,29 +939,25 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowBuySelectFiat());
     }
 
+    public void onShowPayDialog(String currency) {
+        if (mChainConfig.moonPaySupport() && mChainConfig.kadoMoneySupport()) {
+            FilledVerticalButtonAlertDialog.showDoubleButton(this, "", "",
+                    getString(R.string.str_moonPay), view -> onStartMoonPaySignature(currency), null,
+                    getString(R.string.str_kadoMoney), view -> onShowBuyKado(currency), null);
+        } else {
+            if (mChainConfig.moonPaySupport()) {
+                onStartMoonPaySignature(currency);
+            } else if (mChainConfig.kadoMoneySupport()) {
+                onShowBuyKado(currency);
+            }
+        }
+    }
+
     public void onShowBuySelectFiat() {
         FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
-                "USD", view -> {
-                    if (mChainConfig.moonPaySupport()) {
-                        onStartMoonPaySignature("usd");
-                    } else if (mChainConfig.kadoMoneySupport()) {
-                        onShowBuyKado("usd");
-                    }
-                }, null,
-                "EUR", view -> {
-                    if (mChainConfig.moonPaySupport()) {
-                        onStartMoonPaySignature("eur");
-                    } else if (mChainConfig.kadoMoneySupport()) {
-                        onShowBuyKado("eur");
-                    }
-                }, null,
-                "GBP", view -> {
-                    if (mChainConfig.moonPaySupport()) {
-                        onStartMoonPaySignature("gbp");
-                    } else if (mChainConfig.kadoMoneySupport()) {
-                        onShowBuyKado("gbp");
-                    }
-                }, null);
+                "USD", view -> onShowPayDialog("usd"), null,
+                "EUR", view -> onShowPayDialog("eur"), null,
+                "GBP", view -> onShowPayDialog("gbp"), null);
     }
 
     public void onShowBuyKado(String fiat) {
@@ -974,12 +970,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             query = query + "&network=kujira";
         }
         final String SendQuery = query + "&onToAddress=" + mAccount.address;
-        try {
-            Intent guideIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + SendQuery));
-            startActivity(guideIntent);
-        } catch (Exception e) {
-            Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + SendQuery));
+        startActivity(intent);
+        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
     }
 
     public void onStartMoonPaySignature(String fiat) {

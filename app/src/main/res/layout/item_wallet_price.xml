@@ -100,7 +100,7 @@
                         android:drawableLeft="@drawable/card_ic"
                         android:drawablePadding="@dimen/space_8"
                         android:gravity="center"
-                        android:text="@string/str_buy_atom" />
+                        android:text="@string/str_buy_coin" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
