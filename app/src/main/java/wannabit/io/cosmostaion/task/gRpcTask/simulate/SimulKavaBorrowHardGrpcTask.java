@@ -51,6 +51,7 @@ public class SimulKavaBorrowHardGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulKavaBorrowHardGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

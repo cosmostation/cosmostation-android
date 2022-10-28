@@ -47,6 +47,7 @@ public class SimulClaimRewardsGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e( "SimulClaimRewardsGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

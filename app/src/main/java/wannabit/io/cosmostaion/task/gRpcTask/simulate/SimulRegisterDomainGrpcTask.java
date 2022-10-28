@@ -44,6 +44,7 @@ public class SimulRegisterDomainGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e( "SimulRegisterDomainGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }
