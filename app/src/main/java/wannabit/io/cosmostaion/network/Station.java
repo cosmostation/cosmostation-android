@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResCw20Assets;
@@ -20,6 +21,9 @@ public interface Station {
 
     @GET("v2/utils/market/prices")
     Call<ArrayList<Price>> getPrice(@Query("currency") String currency);
+
+    @GET("v1/utils/params/chain/{chain}")
+    Call<Param> getParams(@Path("chain") String chainName);
 
     @GET("v1/params/{chain_id}")
     Call<ChainParam> getParam(@Path("chain_id") String chain_id);

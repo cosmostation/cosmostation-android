@@ -67,6 +67,7 @@ import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.OkToken;
+import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -116,6 +117,7 @@ public class BaseData {
 
 
     public ArrayList<Price> mPrices = new ArrayList<>();
+    public Param mParam;
     public ChainParam.Params mChainParam;
     public ArrayList<Asset> mAssets = new ArrayList<>();
     public ArrayList<Cw20Asset> mCw20Assets = new ArrayList<>();
