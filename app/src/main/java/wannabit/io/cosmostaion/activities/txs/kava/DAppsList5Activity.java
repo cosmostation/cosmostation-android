@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListHardFragment;
+import wannabit.io.cosmostaion.fragment.txs.kava.ListKavaEarnFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListKavaPoolFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListKavaSwapFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -96,8 +97,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         createTab(mChainConfig, R.string.str_kava_pool_list, 1);
         createTab(mChainConfig, R.string.str_kava_cdp_list, 2);
         createTab(mChainConfig, R.string.str_kava_harvest_list, 3);
+        createTab(mChainConfig, R.string.str_kava_earn_list, 4);
 
-        mDappPager.setOffscreenPageLimit(3);
+        mDappPager.setOffscreenPageLimit(4);
         mDappPager.setCurrentItem(0, false);
 
         mDappPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -294,6 +296,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             mFragments.add(ListKavaPoolFragment.newInstance());
             mFragments.add(ListCdpFragment.newInstance());
             mFragments.add(ListHardFragment.newInstance());
+            mFragments.add(ListKavaEarnFragment.newInstance());
         }
 
         @Override

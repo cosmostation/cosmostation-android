@@ -4,15 +4,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -66,7 +63,7 @@ public class Param {
         public DistributionParams mDistributionParams;
 
         @SerializedName("bank_supply")
-        public Object supply;
+        public BankSupply mBankSupply;
 
         @SerializedName("gov_tally_params")
         public GovTallyParams mGovTallyParams;
@@ -207,21 +204,9 @@ public class Param {
         return BigDecimal.ZERO;
     }
 
-    public ArrayList<Coin> getSupplys() {
-        ArrayList<Coin> result = new ArrayList<>();
-        try {
-            Supply temp = new Gson().fromJson(new Gson().toJson(mParams.supply), Supply.class);
-            result.addAll(temp.supply);
-        } catch (Exception e) { }
-        try {
-            result = new Gson().fromJson(new Gson().toJson(mParams.supply), new TypeToken<List<Coin>>(){}.getType());
-        } catch (Exception e) { }
-        return result;
-    }
-
     public BigDecimal getMainSupply() {
         String denom = getMainDenom();
-        for (Coin coin : getSupplys()) {
+        for (Coin coin : mParams.mBankSupply.supply) {
             if (coin.denom.equals(denom)) {
                 return new BigDecimal(coin.amount);
             }
@@ -473,7 +458,7 @@ public class Param {
         }
     }
 
-    public class Supply {
+    public class BankSupply {
         @SerializedName("supply")
         public ArrayList<Coin> supply;
     }
