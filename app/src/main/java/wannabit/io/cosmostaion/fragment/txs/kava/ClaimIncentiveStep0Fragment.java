@@ -23,9 +23,9 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
     private Button mCancelBtn, mNextBtn;
     private TextView mIncentiveKavaAmount, mIncentiveHardAmount, mIncentiveSwpAmount;
 
-    private BigDecimal mKavaIncetiveAmount = BigDecimal.ZERO;
-    private BigDecimal mHardIncetiveAmount = BigDecimal.ZERO;
-    private BigDecimal mSwpIncetiveAmount = BigDecimal.ZERO;
+    private BigDecimal mKavaIncentiveAmount = BigDecimal.ZERO;
+    private BigDecimal mHardIncentiveAmount = BigDecimal.ZERO;
+    private BigDecimal mSwpIncentiveAmount = BigDecimal.ZERO;
 
     private IncentiveReward mIncentiveReward;
 
@@ -59,14 +59,14 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         mIncentiveReward = getBaseDao().mIncentiveRewards;
 
         if (mIncentiveReward != null) {
-            mKavaIncetiveAmount = mIncentiveReward.getRewardSum(getSActivity().mChainConfig.mainDenom());
-            mHardIncetiveAmount = mIncentiveReward.getRewardSum(Kava.KAVA_HARD_DENOM);
-            mSwpIncetiveAmount = mIncentiveReward.getRewardSum(Kava.KAVA_SWP_DENOM);
+            mKavaIncentiveAmount = mIncentiveReward.getRewardSum(getSActivity().mChainConfig.mainDenom());
+            mHardIncentiveAmount = mIncentiveReward.getRewardSum(Kava.KAVA_HARD_DENOM);
+            mSwpIncentiveAmount = mIncentiveReward.getRewardSum(Kava.KAVA_SWP_DENOM);
         }
 
-        mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), mKavaIncetiveAmount, 6, 6));
-        mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), mHardIncetiveAmount, 6, 6));
-        mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), mSwpIncetiveAmount, 6, 6));
+        mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), mKavaIncentiveAmount, 6, 6));
+        mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), mHardIncentiveAmount, 6, 6));
+        mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), mSwpIncentiveAmount, 6, 6));
 
         getSActivity().mIncentiveMultiplier = "large";
     }
