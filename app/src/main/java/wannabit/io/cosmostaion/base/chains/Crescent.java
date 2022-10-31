@@ -4,8 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -35,7 +33,6 @@ public class Crescent extends ChainConfig {
     public String grpcUrl() { return "lcd-crescent-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-crescent.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.355"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "crescent/"; }
     public String monikerUrl() { return MONIKER_URL + "crescent/"; }
     public String homeInfoLink() { return  "https://crescent.network"; }

@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -39,7 +38,6 @@ public class Provenance extends ChainConfig {
     public String grpcUrl() { return "lcd-provenance-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-provenance.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.3061"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "provenance/"; }
     public String monikerUrl() { return MONIKER_URL + "provenance/"; }
     public String homeInfoLink() { return  "https://www.provenance.io"; }

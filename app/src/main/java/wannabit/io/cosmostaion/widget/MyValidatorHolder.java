@@ -92,7 +92,7 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
         itemTvReward.setText(WDp.getDpAmount2(itemView.getContext(), rewardAmount.movePointLeft(18), dpDecimal, 6));
 
         if (chainConfig.baseChain().equals(BaseChain.BAND_MAIN)) {
-            if (!baseData.mChainParam.isOracleEnable(myValidator.getOperatorAddress())) {
+            if (!baseData.mParam.isOracleEnable(myValidator.getOperatorAddress())) {
                 itemBandOracleOff.setVisibility(View.VISIBLE);
             }
         }

@@ -4,8 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -33,7 +31,6 @@ public class Sommelier extends ChainConfig {
     public String grpcUrl() { return "lcd-sommelier-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-sommelier.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.1000"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "sommelier/"; }
     public String monikerUrl() { return MONIKER_URL + "sommelier/"; }
     public String homeInfoLink() { return  "https://sommelier.finance/"; }

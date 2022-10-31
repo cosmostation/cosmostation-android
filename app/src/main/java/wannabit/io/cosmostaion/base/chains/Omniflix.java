@@ -3,8 +3,6 @@ package wannabit.io.cosmostaion.base.chains;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -32,7 +30,6 @@ public class Omniflix extends ChainConfig {
     public String grpcUrl() { return "lcd-omniflix-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-omniflix.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("5.7970"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "omniflix/"; }
     public String monikerUrl() { return MONIKER_URL + "omniflix/"; }
     public String homeInfoLink() { return  "https://www.omniflix.network"; }

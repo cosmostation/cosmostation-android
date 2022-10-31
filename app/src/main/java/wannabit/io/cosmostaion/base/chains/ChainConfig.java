@@ -115,8 +115,6 @@ abstract public class ChainConfig {
         return new Retrofit.Builder().baseUrl(apiUrl()).addConverterFactory(GsonConverterFactory.create()).build();
     }
 
-    public abstract BigDecimal blockTime();
-
     public abstract String explorerUrl();
 
     public abstract String monikerUrl();

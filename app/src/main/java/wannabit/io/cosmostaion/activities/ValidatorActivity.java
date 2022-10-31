@@ -474,7 +474,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
-                if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                if (getBaseDao().mParam != null && !getBaseDao().mParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
                     holder.itemBandOracleOff.setImageResource(R.drawable.band_oracleoff_l);
                     holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
                 } else {
@@ -493,8 +493,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
             try {
                 Picasso.get().load(mChainConfig.monikerUrl() + mValOpAddress + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-            } catch (Exception e) {
-            }
+            } catch (Exception e) { }
 
             holder.itemBtnDelegate.setOnClickListener(v -> onCheckDelegate());
         }
@@ -531,7 +530,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
-                if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                if (getBaseDao().mParam != null && !getBaseDao().mParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
                     holder.itemBandOracleOff.setImageResource(R.drawable.band_oracleoff_l);
                     holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
                 } else {
@@ -563,15 +562,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseContext(), getBaseDao().getReward(mChainConfig.mainDenom(), mValOpAddress), dpDecimal, dpDecimal));
 
             if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED) || mGrpcMyDelegation == null) {
-                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));
-                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));
+                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));
+                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));
                 if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
                     holder.itemDailyReturn.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
                     holder.itemMonthlyReturn.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
                 }
             } else {
-                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), mBaseChain));
-                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), mBaseChain));
+                holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), mBaseChain));
+                holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), mBaseChain));
 
             }
 
