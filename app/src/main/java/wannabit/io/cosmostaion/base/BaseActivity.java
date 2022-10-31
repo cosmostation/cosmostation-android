@@ -961,16 +961,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShowBuyKado(String fiat) {
-        String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&onPayCurrency=" + fiat + "&onRevCurrency=USDC";
-        if (mBaseChain.equals(OSMOSIS_MAIN)) {
-            query = query + "&network=osmosis";
-        } else if (mBaseChain.equals(JUNO_MAIN)) {
-            query = query + "&network=juno";
-        } else if (mBaseChain.equals(KUJIRA_MAIN)) {
-            query = query + "&network=kujira";
+        String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&onPayCurrency=" + fiat + "&fiatList=" + fiat + "&cryptoList=" + "USDC";
+        if (mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(JUNO_MAIN) || mBaseChain.equals(KUJIRA_MAIN)) {
+            query = query + "&network=" + mChainConfig.chainName() + "&networkList=" + mChainConfig.chainName();
         }
-        final String SendQuery = query + "&onToAddress=" + mAccount.address;
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + SendQuery));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query + "&onToAddress=" + mAccount.address));
         startActivity(intent);
     }
 
