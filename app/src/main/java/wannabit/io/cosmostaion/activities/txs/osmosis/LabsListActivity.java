@@ -233,7 +233,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mGrpcOsmosisPool = (ArrayList<BalancerPool.Pool>) result.resultData;
                 for (BalancerPool.Pool pool : getBaseDao().mGrpcOsmosisPool) {
-                    if (getBaseDao().mChainParam != null && getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
+                    if (getBaseDao().mParam != null) {
                         mPoolList.add(pool);
                         for (BalancerPool.Pool swap : mPoolList) {
                             for (BalancerPool.PoolAsset poolAsset : swap.getPoolAssetsList()) {

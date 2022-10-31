@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -38,7 +37,6 @@ public class Band extends ChainConfig {
     public String grpcUrl() { return "lcd-band-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-band.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("3.0236"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "band/"; }
     public String monikerUrl() { return MONIKER_URL + "bandprotocol/"; }
     public String homeInfoLink() { return  "https://bandprotocol.com"; }

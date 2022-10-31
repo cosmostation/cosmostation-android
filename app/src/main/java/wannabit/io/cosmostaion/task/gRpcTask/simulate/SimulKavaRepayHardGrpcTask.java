@@ -52,6 +52,7 @@ public class SimulKavaRepayHardGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulKavaRepayHardGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

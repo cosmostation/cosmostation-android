@@ -49,6 +49,7 @@ public class SimulAuthzClaimRewardGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulAuthzClaimRewardGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

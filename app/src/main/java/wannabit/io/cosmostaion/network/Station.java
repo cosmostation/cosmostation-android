@@ -6,11 +6,10 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResCw20Assets;
-import wannabit.io.cosmostaion.network.res.ResGasRateParam;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -21,8 +20,8 @@ public interface Station {
     @GET("v2/utils/market/prices")
     Call<ArrayList<Price>> getPrice(@Query("currency") String currency);
 
-    @GET("v1/params/{chain_id}")
-    Call<ChainParam> getParam(@Path("chain_id") String chain_id);
+    @GET("v1/utils/params/chain/{chain}")
+    Call<Param> getParam(@Path("chain") String chainName);
 
     @GET("v1/{chain}/proposals/{proposalId}")
     Call<ResProposal> getProposal(@Path("chain") String chain, @Path("proposalId") String proposalId);
@@ -41,9 +40,6 @@ public interface Station {
 
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);
-
-    @GET("v1/utils/params/gas_prices")
-    Call<ArrayList<ResGasRateParam>> getGasRate();
 
     //certik lcd
     @GET("/shentu/gov/v1alpha1/proposals/{proposal_id}/votes/{voter}")

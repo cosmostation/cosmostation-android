@@ -228,7 +228,12 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_SWAP_POOLS) {
             if (result.isSuccess && result.resultData != null) {
-                mSwapPoolList = (ArrayList<QueryOuterClass.PoolResponse>) result.resultData;
+                for (QueryOuterClass.PoolResponse pool : (ArrayList<QueryOuterClass.PoolResponse>) result.resultData) {
+                    if (!pool.getName().contains("B448C0CA358B958301D328CCDC5D5AD642FC30A6D3AE106FF721DB315F3DDE5C") &&
+                        !pool.getName().contains("B8AF5D92165F35AB31F3FC7C7B444B9D240760FA5D406C49D24862BD0284E395")) {
+                        mSwapPoolList.add(pool);
+                    }
+                }
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS) {

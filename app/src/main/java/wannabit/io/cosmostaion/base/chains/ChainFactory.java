@@ -178,6 +178,9 @@ public class ChainFactory {
                 case UMEE_MAIN:
                     return new Umee();
 
+                case XPLA_MAIN:
+                    return new Xpla();
+
                 case STATION_TEST:
                     return new StationTest();
             }

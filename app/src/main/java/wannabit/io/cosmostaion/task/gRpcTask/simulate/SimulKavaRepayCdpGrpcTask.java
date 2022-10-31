@@ -51,6 +51,7 @@ public class SimulKavaRepayCdpGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulKavaRepayCdpGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

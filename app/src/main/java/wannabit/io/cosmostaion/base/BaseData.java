@@ -63,10 +63,10 @@ import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.OkToken;
+import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -78,7 +78,6 @@ import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
-import wannabit.io.cosmostaion.network.res.ResGasRateParam;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
@@ -116,11 +115,10 @@ public class BaseData {
 
 
     public ArrayList<Price> mPrices = new ArrayList<>();
-    public ChainParam.Params mChainParam;
+    public Param mParam;
     public ArrayList<Asset> mAssets = new ArrayList<>();
     public ArrayList<Cw20Asset> mCw20Assets = new ArrayList<>();
     public ArrayList<Cw20Asset> mCw20MyAssets = new ArrayList<>();
-    public ArrayList<ResGasRateParam> mGasRateParams = new ArrayList<>();
 
     public Price getPrice(String denom) {
         Optional<Price> prices = mPrices.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
@@ -144,17 +142,6 @@ public class BaseData {
             for (Cw20Asset asset : mCw20MyAssets) {
                 if (asset.denom.equalsIgnoreCase(denom)) {
                     return asset;
-                }
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<String> getGasRate(ChainConfig chainConfig) {
-        if (mGasRateParams != null && mGasRateParams.size() > 0) {
-            for (ResGasRateParam param : mGasRateParams) {
-                if (param != null && param.chain.equalsIgnoreCase(chainConfig.chainName())) {
-                    return param.rates;
                 }
             }
         }

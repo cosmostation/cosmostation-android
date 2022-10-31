@@ -91,7 +91,6 @@ import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResGasRateParam;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimCommissionGrpcTask;
@@ -219,13 +218,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             btnTxt.setText(mFeeInfo.get(i).title);
         }
 
-        if (getBaseDao().mGasRateParams != null && getBaseDao().mGasRateParams.size() > 0) {
-            for (ResGasRateParam param : getBaseDao().mGasRateParams) {
-                if (param != null && param.chain.equalsIgnoreCase(mChainConfig.chainName())) {
-                    mSelectedFeeInfo = param.base;
-                }
-            }
+        if (getBaseDao().mParam != null && getBaseDao().mParam.mGasPrice != null) {
+            mSelectedFeeInfo = Integer.parseInt(getBaseDao().mParam.mGasPrice.base);
         }
+
         mButtonGroup.setPosition(mSelectedFeeInfo, false);
         mButtonGroup.setOnPositionChangedListener(position -> {
             mSelectedFeeInfo = position;
@@ -540,18 +536,20 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             Toast.makeText(getContext(), getString(R.string.str_gas_checked), Toast.LENGTH_SHORT).show();
         } else {
             mSimulPassed = false;
-            if (result.errorCode == 8000) {
-                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
-            }
+            View layout = getLayoutInflater().inflate(R.layout.item_toast_msg, getView().findViewById(R.id.toast_layout));
+            TextView textView = layout.findViewById(R.id.toast_msg);
+            textView.setText(result.errorMsg);
+
+            Toast toast = new Toast(getContext());
+            toast.setView(layout);
+            toast.show();
         }
 
         onUpdateView();
         WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
         int denomDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mFeeData.denom);
         Asset asset = getBaseDao().getAsset(mChainConfig, mFeeData.denom);
-        if (asset.price_denom != null) {
+        if (asset != null && asset.price_denom != null) {
             mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
         } else {
             mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));

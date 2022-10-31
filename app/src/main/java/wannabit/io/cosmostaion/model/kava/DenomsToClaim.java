@@ -14,3 +14,4 @@ public class DenomsToClaim {
         this.multiplier_name = multiplier_name;
     }
 }
+

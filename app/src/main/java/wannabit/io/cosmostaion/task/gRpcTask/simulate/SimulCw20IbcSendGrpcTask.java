@@ -58,6 +58,7 @@ public class SimulCw20IbcSendGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e( "SimulCw20IbcSendGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

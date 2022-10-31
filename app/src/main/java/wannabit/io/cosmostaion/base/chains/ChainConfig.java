@@ -75,7 +75,9 @@ abstract public class ChainConfig {
 
     public String validatorPrefix() { return addressPrefix() + "valoper"; }
 
-    public boolean etherAddressSupport() { return false; }
+    public boolean ethAccountType() { return false; }
+
+    public boolean evmSupport() { return false; }
 
     public boolean bridgeCoinSupport() { return false; }
 
@@ -116,8 +118,6 @@ abstract public class ChainConfig {
     public Retrofit apiMain() {
         return new Retrofit.Builder().baseUrl(apiUrl()).addConverterFactory(GsonConverterFactory.create()).build();
     }
-
-    public abstract BigDecimal blockTime();
 
     public abstract String explorerUrl();
 

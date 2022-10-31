@@ -65,6 +65,7 @@ public class SimulMintNFTGrpcTask extends CommonTask {
         } catch (Exception e) {
             WLog.e("SimulMintNFTGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
+            mResult.errorMsg = e.getMessage();
         }
         return mResult;
     }

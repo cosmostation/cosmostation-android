@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -38,7 +37,6 @@ public class Desmos extends ChainConfig {
     public String grpcUrl() { return "lcd-desmos-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-desmos.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.1605"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "desmos/"; }
     public String monikerUrl() { return MONIKER_URL + "desmos/"; }
     public String homeInfoLink() { return  "https://www.desmos.network"; }

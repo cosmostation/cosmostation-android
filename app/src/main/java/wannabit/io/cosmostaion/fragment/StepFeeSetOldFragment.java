@@ -97,7 +97,7 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
 
             Fee fee = new Fee();
             fee.amount = amount;
-            fee.gas = BaseConstant.BASE_GAS_AMOUNT;
+            fee.gas = "5000000";
             getSActivity().mTxFee = fee;
 
         } else {

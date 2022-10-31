@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -34,8 +33,9 @@ public class Evmos extends ChainConfig {
         return 18;
     }
     public String addressPrefix() { return "evmos"; }
+    public boolean ethAccountType() { return true; }
 
-    public boolean etherAddressSupport() { return true; }
+    public boolean evmSupport() { return true; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
@@ -43,7 +43,6 @@ public class Evmos extends ChainConfig {
     public String grpcUrl() { return "lcd-evmos-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-evmos.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("5.824"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "evmos/"; }
     public String monikerUrl() { return MONIKER_URL + "evmos/"; }
     public String homeInfoLink() { return  "https://evmos.org"; }

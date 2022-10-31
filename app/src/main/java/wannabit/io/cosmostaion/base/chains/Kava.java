@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +34,9 @@ public class Kava extends ChainConfig {
     public String mainDenom() { return "ukava"; }
     public String addressPrefix() { return "kava"; }
 
-    public boolean etherAddressSupport() { return true; }
+    public boolean evmSupport() { return true; }
     public boolean bridgeCoinSupport() { return true; }
-    public boolean dexSupport() { return false; }
+    public boolean dexSupport() { return true; }
     public boolean wcSupport() { return true; }
     public boolean moonPaySupport() { return true; }
 
@@ -45,7 +44,6 @@ public class Kava extends ChainConfig {
     public String lcdUrl() { return "https://lcd-kava-app.cosmostation.io/"; }
     public String apiUrl() { return "https://api-kava.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.7262"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "kava/"; }
     public String monikerUrl() { return MONIKER_URL + "kava/"; }
     public String homeInfoLink() { return  "https://www.kava.io"; }

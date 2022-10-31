@@ -36,6 +36,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.trustwallet.walletconnect.WCClient;
 import com.trustwallet.walletconnect.models.WCAccount;
@@ -91,6 +92,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.WcSignDirectModel;
 import wannabit.io.cosmostaion.model.WcSignModel;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -556,7 +558,7 @@ public class ConnectWalletActivity extends BaseActivity {
                 Msg msgModel = new Msg();
                 msgModel.type = rawMessage.getString("type");
                 msgModel.value = new Gson().fromJson(rawMessage.getString("value"), Msg.Value.class);
-                msgModel.value.amount = msgModel.value.getCoins();
+                msgModel.value.amount = parseAmount(msgModel.value.amount);
                 msgList.add(msgModel);
             }
             wcStdSignMsg.msgs = msgList;
@@ -572,6 +574,19 @@ public class ConnectWalletActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private Object parseAmount(Object amount) {
+        try {
+            return new Gson().fromJson(new Gson().toJson(amount), Coin.class);
+        } catch (Exception ignored) {
+        }
+        try {
+            return new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>() {
+            }.getType());
+        } catch (Exception ignored) {
+        }
+        return amount;
     }
 
     public void approveCosmosRequest(long id, String transaction) {

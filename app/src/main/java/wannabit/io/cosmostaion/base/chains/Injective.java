@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -33,6 +32,7 @@ public class Injective extends ChainConfig {
     public String mainSymbol() { return "INJ"; }
     public int decimal() { return 18; }
     public String addressPrefix() { return "inj"; }
+    public boolean ethAccountType() { return true; }
 
     public boolean bridgeCoinSupport() { return true; }
     public boolean dexSupport() { return false; }
@@ -42,7 +42,6 @@ public class Injective extends ChainConfig {
     public String grpcUrl() { return "lcd-inj-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-inj.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("2.4865"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "injective/"; }
     public String monikerUrl() { return MONIKER_URL + "injective/"; }
     public String homeInfoLink() { return  "https://injectiveprotocol.com"; }

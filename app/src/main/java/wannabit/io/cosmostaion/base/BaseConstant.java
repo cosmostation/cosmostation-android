@@ -238,9 +238,9 @@ public class BaseConstant {
     public final static long CONSTANT_H = CONSTANT_M * 60;
     public final static long CONSTANT_D = CONSTANT_H * 24;
 
-    public final static String BASE_GAS_AMOUNT                          = "1000000";
+    public final static String BASE_GAS_AMOUNT                          = "500000";
     public final static String FEE_BNB_SEND                             = "0.000075";
-    public final static String FEE_OKC_BASE                             = "0.0001";
+    public final static String FEE_OKC_BASE                             = "0.0005";
 
     public final static String KAVA_SLIPPAGE                            = "30000000000000000";
 

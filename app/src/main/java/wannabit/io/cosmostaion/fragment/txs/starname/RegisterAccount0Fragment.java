@@ -77,12 +77,12 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     public void onClick(View v) {
         if (v.equals(mDomainLayer) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
-            bundleData.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
+            bundleData.putStringArrayList("domain", getBaseDao().mParam.mParams.mStarnameDomains);
             StarNameDomainDialog dialog = StarNameDomainDialog.newInstance(bundleData);
             dialog.show(getParentFragmentManager(), StarNameDomainDialog.class.getName());
             getParentFragmentManager().setFragmentResultListener(StarNameDomainDialog.STAR_NAME_DOMAIN_BUNDLE_KEY, this, (requestKey, bundle) -> {
                 int result = bundle.getInt(BaseConstant.POSITION);
-                mSelectedDomain = getBaseDao().mChainParam.mStarnameDomains.get(result);
+                mSelectedDomain = getBaseDao().mParam.mParams.mStarnameDomains.get(result);
                 mSelectDomain.setText(mSelectedDomain);
             });
         }

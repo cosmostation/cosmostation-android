@@ -4,8 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -34,7 +32,6 @@ public class Osmosis extends ChainConfig {
     public String grpcUrl() { return "lcd-osmosis-app-and.cosmostation.io"; }
     public String apiUrl() { return "https://api-osmosis.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.5324"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "osmosis/"; }
     public String monikerUrl() { return MONIKER_URL + "osmosis/"; }
     public String homeInfoLink() { return  "https://osmosis.zone"; }
