@@ -742,6 +742,7 @@
     <string name="str_reapy_hard_step_1">상환하실 수량을 입력하세요</string>
     <string name="str_claim_incentive">인센티브 받기</string>
     <string name="str_lock_up">락업 기간</string>
+    <string name="str_multiplier">MultiPlier</string>
     <string name="str_receivable">실제 수령 수량</string>
     <string name="str_claim_type">이자받기 타입</string>
     <string name="str_delete_starname">Starname 삭제</string>

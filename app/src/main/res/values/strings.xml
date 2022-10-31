@@ -825,6 +825,7 @@
     <string name="str_reapy_hard_step_1">Enter repay amount</string>
     <string name="str_claim_incentive">Claim Incentive</string>
     <string name="str_lock_up">Lock up</string>
+    <string name="str_multiplier">Multiplier</string>
     <string name="str_receivable">Receivable</string>
     <string name="str_claim_type">Claim Type</string>
     <string name="str_delete_starname">Delete Starname</string>

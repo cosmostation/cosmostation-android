@@ -24,10 +24,10 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     private Button mBackBtn, mConfirmBtn;
     private TextView mFee, mFeeDenom;
     private TextView mKavaAmount, mHardAmount, mSwpAmount;
-    private TextView mLockTime, mMemo;
+    private TextView mMemo;
+    private View rootView;
 
-    private IncentiveParam  mIncentiveParam;
-
+    private IncentiveParam mIncentiveParam;
 
     public static ClaimIncentiveStep3Fragment newInstance() {
         return new ClaimIncentiveStep3Fragment();
@@ -40,20 +40,23 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_claim_incentive_3, container, false);
-        mBackBtn                = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
-        mFee                    = rootView.findViewById(R.id.fee_amount);
-        mFeeDenom               = rootView.findViewById(R.id.fee_denom);
-        mKavaAmount             = rootView.findViewById(R.id.tx_incentive_kava_amount);
-        mHardAmount             = rootView.findViewById(R.id.tx_incentive_hard_amount);
-        mSwpAmount              = rootView.findViewById(R.id.tx_incentive_swp_amount);
-        mLockTime               = rootView.findViewById(R.id.lockup_time);
-        mMemo                   = rootView.findViewById(R.id.memo);
+        rootView = inflater.inflate(R.layout.fragment_claim_incentive_3, container, false);
+        initView();
+        return rootView;
+    }
+
+    private void initView() {
+        mBackBtn = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
+        mFee = rootView.findViewById(R.id.fee_amount);
+        mFeeDenom = rootView.findViewById(R.id.fee_denom);
+        mKavaAmount = rootView.findViewById(R.id.tx_incentive_kava_amount);
+        mHardAmount = rootView.findViewById(R.id.tx_incentive_hard_amount);
+        mSwpAmount = rootView.findViewById(R.id.tx_incentive_swp_amount);
+        mMemo = rootView.findViewById(R.id.memo);
 
         mBackBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
-        return rootView;
     }
 
     @Override
@@ -63,20 +66,11 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
 
         BigDecimal kavaIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(getSActivity().mChainConfig.mainDenom());
         BigDecimal hardIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_HARD_DENOM);
-        BigDecimal swpIncentiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_SWP_DENOM);
+        BigDecimal swpIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_SWP_DENOM);
 
-        if ("small".equalsIgnoreCase(getSActivity().mIncentiveMultiplier)) {
-            mLockTime.setText("1 Month");
-            kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 0)).setScale(0, RoundingMode.DOWN);
-            hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_HARD_DENOM, 0)).setScale(0, RoundingMode.DOWN);
-            swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_SWP_DENOM, 0)).setScale(0, RoundingMode.DOWN);
-
-        } else {
-            mLockTime.setText("12 Month");
-            kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 1)).setScale(0, RoundingMode.DOWN);
-            hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_HARD_DENOM, 1)).setScale(0, RoundingMode.DOWN);
-            swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_SWP_DENOM, 1)).setScale(0, RoundingMode.DOWN);
-        }
+        kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 0)).setScale(0, RoundingMode.DOWN);
+        hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_HARD_DENOM, 0)).setScale(0, RoundingMode.DOWN);
+        swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_SWP_DENOM, 0)).setScale(0, RoundingMode.DOWN);
 
         mKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveAmount, 6, 6));
         mHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveAmount, 6, 6));
@@ -96,6 +90,6 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     }
 
     private ClaimIncentiveActivity getSActivity() {
-        return (ClaimIncentiveActivity)getBaseActivity();
+        return (ClaimIncentiveActivity) getBaseActivity();
     }
 }
