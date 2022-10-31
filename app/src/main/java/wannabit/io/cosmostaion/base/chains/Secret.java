@@ -9,7 +9,6 @@ import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,6 @@ public class Secret extends ChainConfig {
     public String grpcUrl() { return "lcd-secret.cosmostation.io"; }
     public String apiUrl() { return "https://api-secret.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.0408"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "secret/"; }
     public String monikerUrl() { return MONIKER_URL + "secret/"; }
     public String homeInfoLink() { return  "https://scrt.network"; }

@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -34,7 +32,6 @@ public class StationTest extends ChainConfig {
     }
     public String apiUrl() { return "https://api-office.cosmostation.io/station-testnet/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal(""); }
     public String explorerUrl() { return "https://testnet.mintscan.io/station/"; }
     public String monikerUrl() { return ""; }
     public String homeInfoLink() { return  ""; }

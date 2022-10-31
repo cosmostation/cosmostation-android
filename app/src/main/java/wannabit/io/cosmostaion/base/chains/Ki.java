@@ -4,8 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -36,7 +34,6 @@ public class Ki extends ChainConfig {
     public String grpcUrl() { return "lcd-kichain-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-kichain.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("5.7571"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "ki-chain/"; }
     public String monikerUrl() { return MONIKER_URL + "ki/"; }
     public String homeInfoLink() { return  "https://foundation.ki"; }

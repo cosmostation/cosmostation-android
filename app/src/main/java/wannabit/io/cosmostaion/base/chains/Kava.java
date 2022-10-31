@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +43,6 @@ public class Kava extends ChainConfig {
     public String lcdUrl() { return "https://lcd-kava-app.cosmostation.io/"; }
     public String apiUrl() { return "https://api-kava.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.7262"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "kava/"; }
     public String monikerUrl() { return MONIKER_URL + "kava/"; }
     public String homeInfoLink() { return  "https://www.kava.io"; }

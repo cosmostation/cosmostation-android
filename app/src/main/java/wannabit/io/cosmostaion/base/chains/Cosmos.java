@@ -4,8 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -33,7 +31,6 @@ public class Cosmos extends ChainConfig {
     public String grpcUrl() { return "lcd-cosmos-app-and.cosmostation.io"; }
     public String apiUrl() { return "https://api.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("7.6597"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "cosmos/"; }
     public String monikerUrl() { return MONIKER_URL + "cosmoshub/"; }
     public String homeInfoLink() { return  "https://cosmos.network"; }

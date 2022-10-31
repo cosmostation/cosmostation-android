@@ -9,7 +9,6 @@ import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,6 @@ public class Lum extends ChainConfig {
     public String grpcUrl() { return "lcd-lum-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-lum.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("5.7210"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "lum/"; }
     public String monikerUrl() { return MONIKER_URL + "lum-network/"; }
     public String homeInfoLink() { return  "https://lum.network"; }

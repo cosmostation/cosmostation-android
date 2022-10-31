@@ -9,7 +9,6 @@ import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +43,6 @@ public class FetchAi extends ChainConfig {
     public String grpcUrl() { return "lcd-fetchai-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-fetchai.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.0678"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "fetchai/"; }
     public String monikerUrl() { return MONIKER_URL + "fetchai/"; }
     public String homeInfoLink() { return  "https://fetch.ai"; }

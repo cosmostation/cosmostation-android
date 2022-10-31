@@ -9,7 +9,6 @@ import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +45,6 @@ public class Okc extends ChainConfig {
     public String lcdUrl() { return "https://exchainrpc.okex.org/okexchain/v1/"; }
     public String apiUrl() { return "https://www.oklink.com/api/explorer/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("0.4124"); }
     public String explorerUrl() { return "https://www.oklink.com/okexchain/"; }
     public String monikerUrl() { return MONIKER_URL + "okex/"; }
     public String homeInfoLink() { return  "https://www.okx.com"; }
