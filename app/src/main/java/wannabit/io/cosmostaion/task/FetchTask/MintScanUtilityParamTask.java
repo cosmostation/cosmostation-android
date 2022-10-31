@@ -23,7 +23,7 @@ public class MintScanUtilityParamTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<Param> response = ApiClient.getMintscan(mApp).getParams(ChainFactory.getChain(mBaseChain).chainName()).execute();
+            Response<Param> response = ApiClient.getMintscan(mApp).getParam(ChainFactory.getChain(mBaseChain).chainName()).execute();
             if (response.isSuccessful() && response.body() != null) {
                 mApp.getBaseDao().mParam = response.body();
             }

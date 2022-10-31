@@ -393,6 +393,13 @@ public class Param {
         return result;
     }
 
+    public ArrayList<String> getGasRate() {
+        if (mGasPrice != null && mGasPrice.rate.size() > 0) {
+            return mGasPrice.rate;
+        }
+        return null;
+    }
+
     public class IrisMintingParams {
         @SerializedName("result")
         public Result mResult;

@@ -274,8 +274,8 @@ public class WDp {
 
     public static ArrayList<FeeInfo> getFeeInfos(Context c, BaseData baseData, ChainConfig chainConfig) {
         ArrayList<FeeInfo> result = new ArrayList<>();
-        if (baseData.getGasRate(chainConfig) != null && baseData.getGasRate(chainConfig).size() > 0) {
-            for (String gasInfo : baseData.getGasRate(chainConfig)) {
+        if (baseData.mParam.getGasRate() != null && baseData.mParam.getGasRate().size() > 0) {
+            for (String gasInfo : baseData.mParam.getGasRate()) {
                 result.add(new FeeInfo(gasInfo));
             }
 

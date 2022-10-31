@@ -91,7 +91,6 @@ import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResGasRateParam;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimCommissionGrpcTask;
@@ -219,13 +218,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             btnTxt.setText(mFeeInfo.get(i).title);
         }
 
-        if (getBaseDao().mGasRateParams != null && getBaseDao().mGasRateParams.size() > 0) {
-            for (ResGasRateParam param : getBaseDao().mGasRateParams) {
-                if (param != null && param.chain.equalsIgnoreCase(mChainConfig.chainName())) {
-                    mSelectedFeeInfo = param.base;
-                }
-            }
+        if (getBaseDao().mParam != null && getBaseDao().mParam.mGasPrice != null) {
+            mSelectedFeeInfo = Integer.parseInt(getBaseDao().mParam.mGasPrice.base);
         }
+
         mButtonGroup.setPosition(mSelectedFeeInfo, false);
         mButtonGroup.setOnPositionChangedListener(position -> {
             mSelectedFeeInfo = position;
