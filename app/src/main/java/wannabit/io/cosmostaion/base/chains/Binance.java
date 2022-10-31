@@ -7,7 +7,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -41,7 +40,6 @@ public class Binance extends ChainConfig {
     public String lcdUrl() { return "https://dex.binance.org/"; }
     public String apiUrl() { return "https://dex.binance.org/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("0.4124"); }
     public String explorerUrl() { return "https://binance.mintscan.io/"; }
     public String monikerUrl() { return ""; }
     public String homeInfoLink() { return  "https://www.bnbchain.org/en"; }

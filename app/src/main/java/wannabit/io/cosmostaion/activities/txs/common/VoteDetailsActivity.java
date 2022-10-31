@@ -299,10 +299,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         mApiProposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
                     onDisplayVote(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
-                    holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(mBaseChain, getBaseDao(), mApiProposal).setScale(2).toPlainString() + "%", 3));
-                    if (getBaseDao().mChainParam != null && getBaseDao().mChainParam.getQuorum(mBaseChain) != null) {
-                        holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mChainParam.getQuorum(mBaseChain)));
-                    }
+                    holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(getBaseDao(), mApiProposal).setScale(2).toPlainString() + "%", 3));
+                    if (getBaseDao().mParam != null) holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mParam.getQuorum(mChainConfig)));
                 }
 
                 if (mBaseChain.equals(CERTIK_MAIN) && mResMyProposal != null) {

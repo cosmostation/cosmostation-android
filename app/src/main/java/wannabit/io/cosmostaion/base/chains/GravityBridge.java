@@ -4,8 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -37,7 +35,6 @@ public class GravityBridge extends ChainConfig {
     public String grpcUrl() { return "lcd-gravity-bridge-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-gravity-bridge.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.4500"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "gravity-bridge/"; }
     public String monikerUrl() { return MONIKER_URL + "gravity-bridge/"; }
     public String homeInfoLink() { return  "https://www.gravitybridge.net"; }

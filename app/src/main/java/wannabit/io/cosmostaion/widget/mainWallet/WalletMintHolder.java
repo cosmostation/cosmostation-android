@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
@@ -15,8 +14,9 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -33,38 +33,35 @@ public class WalletMintHolder extends BaseHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
-        final ChainParam.Params param = mainActivity.getBaseDao().mChainParam;
-        final BaseChain baseChain = mainActivity.mBaseChain;
+        final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
+        final Param param = mainActivity.getBaseDao().mParam;
+
         if (param != null) {
-            mInflation.setText(WDp.getPercentDp(param.getDpInflation(baseChain)));
-            if (param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
-                mAPR.setText("0.00%");
-            } else {
-                mAPR.setText(WDp.getPercentDp(param.getDpApr(baseChain)));
-            }
+            mInflation.setText(WDp.getPercentDp(param.getDpInflation(chainConfig)));
+            if (param.getDpApr(chainConfig).equals(BigDecimal.ZERO)) mAPR.setText("0.00%");
+            else mAPR.setText(WDp.getPercentDp(param.getDpApr(chainConfig)));
         } else {
             mInflation.setText("-");
             mAPR.setText("-");
         }
-        mAprCard.setOnClickListener(v -> {
-            Spanned msg = null;
-            String msg2;
-            String msg3;
 
-            if (param == null || param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
-                msg2 = "0%";
+        mAprCard.setOnClickListener(v -> {
+            String apr;
+            String realApr;
+            if (param == null) {
+                apr = "N/A";
+                realApr = "N/A";
             } else {
-                msg2 = "" + WDp.getPercentDp(param.getDpApr(baseChain));
+                if (BigDecimal.ZERO.equals(param.getDpApr(chainConfig))) apr = "0%";
+                else apr = String.valueOf(WDp.getPercentDp(param.getDpApr(chainConfig)));
+
+                if (BigDecimal.ZERO.equals(param.getRealApr(chainConfig))) realApr = "N/A";
+                else realApr = String.valueOf(WDp.getPercentDp(param.getDpRealApr(chainConfig)));
             }
-            if (param == null || param.getDpRealApr(baseChain).equals(BigDecimal.ZERO)) {
-                msg3 = "N/A";
-            } else {
-                msg3 = "" + WDp.getPercentDp(param.getDpRealApr(baseChain));
-            }
-            msg = Html.fromHtml("<small>" + mainActivity.getString(R.string.str_apr_help_onchain_msg) + "<br/>"
-                    + msg2 + "<br/><br/>"
+            Spanned msg = Html.fromHtml("<small>" + mainActivity.getString(R.string.str_apr_help_onchain_msg) + "<br/>"
+                    + apr + "<br/><br/>"
                     + mainActivity.getString(R.string.str_apr_help_real_msg) + "<br/>"
-                    + msg3 + "</small>", Html.FROM_HTML_MODE_COMPACT);
+                    + realApr + "</small>", Html.FROM_HTML_MODE_COMPACT);
             CommonAlertDialog.showSingleButton(mainActivity, msg, null, mainActivity.getString(R.string.str_ok), null);
         });
     }

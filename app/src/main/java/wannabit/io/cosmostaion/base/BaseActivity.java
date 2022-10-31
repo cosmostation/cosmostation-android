@@ -120,15 +120,14 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanCw20AssetsTask;
-import wannabit.io.cosmostaion.task.FetchTask.MintScanGasRateParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanPriceTask;
+import wannabit.io.cosmostaion.task.FetchTask.MintScanUtilityParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkAccountBalanceTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkStakingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoAllTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -499,7 +498,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
         mFetchCallback = callback;
 
-        getBaseDao().mChainParam = null;
+        getBaseDao().mParam = null;
         getBaseDao().mAssets.clear();
         getBaseDao().mCw20Assets.clear();
         getBaseDao().mCw20MyAssets.clear();
@@ -643,8 +642,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_NODE_INFO) {
             getBaseDao().mNodeInfo = (NodeInfo) result.resultData;
-            mTaskCount = mTaskCount + 1;
-            new StationParamInfoTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainId()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (result.taskType == TASK_FETCH_OKEX_ALL_VALIDATORS) {
             ArrayList<Validator> allValis = (ArrayList<Validator>) result.resultData;
@@ -716,11 +713,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             tendermint.p2p.Types.NodeInfo tempNodeInfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (tempNodeInfo != null) {
                 getBaseDao().mGRpcNodeInfo = tempNodeInfo;
-                mTaskCount = mTaskCount + 4;
-                new StationParamInfoTask(getBaseApplication(), this, mBaseChain, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                mTaskCount = mTaskCount + 3;
                 new MintScanAssetsTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanCw20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                new MintScanGasRateParamTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new MintScanUtilityParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_AUTH) {

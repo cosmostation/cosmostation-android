@@ -180,7 +180,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress()));
 
                 if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                    if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(validator.getOperatorAddress())) {
+                    if (getBaseDao().mParam != null && !getBaseDao().mParam.isOracleEnable(validator.getOperatorAddress())) {
                         holder.itemBandOracleOff.setVisibility(View.VISIBLE);
                     } else {
                         holder.itemBandOracleOff.setVisibility(View.INVISIBLE);

@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -38,7 +37,6 @@ public class Starname extends ChainConfig {
     public String grpcUrl() { return "lcd-iov-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-iov.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.0124"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "starname/"; }
     public String monikerUrl() { return MONIKER_URL + "iov/"; }
     public String homeInfoLink() { return  "https://www.starname.me"; }

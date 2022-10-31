@@ -4,8 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -35,17 +33,9 @@ public class Emoney extends ChainConfig {
     public String grpcUrl() { return "lcd-emoney-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-emoney.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("24.8486"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "emoney/"; }
     public String monikerUrl() { return MONIKER_URL + "emoney/"; }
     public String homeInfoLink() { return  "https://www.e-money.com"; }
     public String blogInfoLink() { return  "https://medium.com/e-money-com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "e-money"; }
-
-
-    public static String EMONEY_EUR_DENOM = "eeur";
-    public static String EMONEY_CHF_DENOM = "echf";
-    public static String EMONEY_DKK_DENOM = "edkk";
-    public static String EMONEY_NOK_DENOM = "enok";
-    public static String EMONEY_SEK_DENOM = "esek";
 }

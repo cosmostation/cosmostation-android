@@ -3,8 +3,6 @@ package wannabit.io.cosmostaion.base.chains;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
@@ -32,7 +30,6 @@ public class Passage extends ChainConfig {
     public String grpcUrl() { return "lcd-passage-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-passage.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("5.8680"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "passage/"; }
     public String monikerUrl() { return MONIKER_URL + "passage/"; }
     public String homeInfoLink() { return  "https://passage3d.com/"; }

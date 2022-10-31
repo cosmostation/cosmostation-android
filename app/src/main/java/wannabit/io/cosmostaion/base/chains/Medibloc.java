@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,7 +38,6 @@ public class Medibloc extends ChainConfig {
     public String grpcUrl() { return "lcd-medibloc-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-medibloc.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("5.7849"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "medibloc/"; }
     public String monikerUrl() { return MONIKER_URL + "medibloc/"; }
     public String homeInfoLink() {

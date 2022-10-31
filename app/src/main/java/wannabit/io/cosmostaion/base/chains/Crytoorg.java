@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableList;
 
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -45,7 +44,6 @@ public class Crytoorg extends ChainConfig {
     public String grpcUrl() { return "lcd-cryptocom-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-cryptocom.cosmostation.io/"; }
 
-    public BigDecimal blockTime() { return new BigDecimal("6.1939"); }
     public String explorerUrl() { return EXPLORER_BASE_URL + "crypto-org/"; }
     public String monikerUrl() { return MONIKER_URL + "cryto/"; }
     public String homeInfoLink() { return  "https://crypto.org"; }
