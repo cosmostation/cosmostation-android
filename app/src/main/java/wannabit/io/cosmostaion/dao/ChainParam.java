@@ -168,7 +168,7 @@ public class ChainParam {
             return BigDecimal.ZERO;
         }
 
-        public BigDecimal getDpInflation(BaseChain baseChain) {
+        public BigDecimal getDpInflation(BaseChain baseChain) {co
             return getMintInflation(baseChain).movePointRight(2);
         }
 

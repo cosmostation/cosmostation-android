@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dao;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 
@@ -71,6 +72,9 @@ public class Param {
         public GovTallyParams mGovTallyParams;
 
         //custom
+        @SerializedName("shentu_gov_tally_params")
+        public ShentuGovTallyParams mShentuGovTallyParams;
+
         @SerializedName("osmosis_minting_params")
         public OsmosisMintingParams mOsmosisMintingParams;
 
@@ -100,6 +104,12 @@ public class Param {
 
         @SerializedName("teritori_minting_params")
         public TeritoriMintingParams mTeritoriMintingParams;
+
+        @SerializedName("band_oracle_active_validators")
+        public OracleActiveValidators mOracleActiveValidators;
+
+        @SerializedName("starname_domains")
+        public ArrayList<String> mStarnameDomains;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -109,23 +119,29 @@ public class Param {
             }
 
         } else if (chainConfig.baseChain().equals(BaseChain.OSMOSIS_MAIN)) {
-            BigDecimal epochProvisions = new BigDecimal(mParams.mOsmosisMintingEpochProvisions.epoch_provisions);
-            BigDecimal epochPeriods = new BigDecimal(mParams.mOsmosisMintingParams.params.reduction_period_in_epochs);
-            return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
+            if (mParams.mOsmosisMintingEpochProvisions != null && mParams.mOsmosisMintingParams != null && mParams.mOsmosisMintingParams.params != null) {
+                BigDecimal epochProvisions = new BigDecimal(mParams.mOsmosisMintingEpochProvisions.epoch_provisions);
+                BigDecimal epochPeriods = new BigDecimal(mParams.mOsmosisMintingParams.params.reduction_period_in_epochs);
+                return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
+            }
 
         } else if (chainConfig.baseChain().equals(BaseChain.EMONEY_MAIN)) {
-            for (EmoneyMintingInflation.Asset asset : mParams.mEmoneyMintingInflation.assets) {
-                if (asset.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
-                    return new BigDecimal(asset.inflation);
+            if (mParams.mEmoneyMintingInflation != null && mParams.mEmoneyMintingInflation.assets != null) {
+                for (EmoneyMintingInflation.Asset asset : mParams.mEmoneyMintingInflation.assets) {
+                    if (asset.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                        return new BigDecimal(asset.inflation);
+                    }
                 }
             }
 
         } else if (chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
-            BigDecimal initialProvision = new BigDecimal(mParams.mStargazeMintingParams.params.initial_annual_provisions);
-            return initialProvision.divide(getMainSupply(), 18, RoundingMode.DOWN);
+            if (mParams.mStargazeMintingParams != null && mParams.mStargazeMintingParams.params != null) {
+                BigDecimal initialProvision = new BigDecimal(mParams.mStargazeMintingParams.params.initial_annual_provisions);
+                return initialProvision.divide(getMainSupply(), 18, RoundingMode.DOWN);
+            }
 
         } else if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
-            if (mParams.mEvmosInflationParams != null && mParams.mEvmosInflationParams.params != null) {
+            if (mParams.mEvmosInflationParams != null && mParams.mEvmosInflationParams.params != null && mParams.mEvmosEpochMintProvision.mEpochMintProvision != null) {
                 if (!mParams.mEvmosInflationParams.params.enable_inflation) return BigDecimal.ZERO;
                 BigDecimal annualProvisions = new BigDecimal(mParams.mEvmosEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
                 BigDecimal evmosSupply = getMainSupply().subtract(new BigDecimal("200000000000000000000000000"));
@@ -134,7 +150,7 @@ public class Param {
 
         } else if (chainConfig.baseChain().equals(BaseChain.CRESCENT_MAIN)) {
             long now = Calendar.getInstance().getTime().getTime();
-            if (mParams.mCrescentMintingParams != null && mParams.mCrescentMintingParams.params != null) {
+            if (mParams.mCrescentMintingParams != null && mParams.mCrescentMintingParams.params != null && mParams.mCrescentMintingParams.params.inflation_schedules != null) {
                 BigDecimal genesisSupply = new BigDecimal("200000000000000");
                 BigDecimal thisInflation = getCurrentInflationAmount();
                 for (CrescentMintingParams.CrescentMintingParam.InflationSchedule schedules: mParams.mCrescentMintingParams.params.inflation_schedules) {
@@ -231,21 +247,27 @@ public class Param {
 
             if (BigDecimal.ZERO.compareTo(bondingRate) != 0) {
                 if (chainConfig.baseChain().equals(BaseChain.OSMOSIS_MAIN)) {
-                    BigDecimal stakingDistribution = new BigDecimal(mParams.mOsmosisMintingParams.params.mDistributionProportion.staking);
-                    return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                    if (mParams.mOsmosisMintingParams != null && mParams.mOsmosisMintingParams.params != null && mParams.mOsmosisMintingParams.params.mDistributionProportion != null) {
+                        BigDecimal stakingDistribution = new BigDecimal(mParams.mOsmosisMintingParams.params.mDistributionProportion.staking);
+                        return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                    }
 
                 } else if (chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
-                    BigDecimal reductionFactor = new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.nft_incentives).add(new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.developer_rewards));
-                    return inflation.multiply(calTax).multiply(BigDecimal.ONE.subtract(reductionFactor)).divide(bondingRate, 6, RoundingMode.DOWN);
+                    if (mParams.mStargazeAllocParams != null && mParams.mStargazeAllocParams.params != null && mParams.mStargazeAllocParams.params.mDistributionProportions != null) {
+                        BigDecimal reductionFactor = new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.nft_incentives).add(new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.developer_rewards));
+                        return inflation.multiply(calTax).multiply(BigDecimal.ONE.subtract(reductionFactor)).divide(bondingRate, 6, RoundingMode.DOWN);
+                    }
 
                 } else if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
-                    if (!mParams.mEvmosInflationParams.params.enable_inflation) return BigDecimal.ZERO;
-                    BigDecimal ap = new BigDecimal(mParams.mEvmosEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
-                    BigDecimal stakingRewardsFactor = BigDecimal.ZERO;
-                    if (mParams.mEvmosInflationParams.params.mInflationDistribution.staking_rewards != null) {
-                        stakingRewardsFactor = new BigDecimal(mParams.mEvmosInflationParams.params.mInflationDistribution.staking_rewards);
+                    if (mParams.mEvmosInflationParams != null && mParams.mEvmosInflationParams.params != null && mParams.mEvmosEpochMintProvision != null) {
+                        if (!mParams.mEvmosInflationParams.params.enable_inflation) return BigDecimal.ZERO;
+                        BigDecimal stakingRewardsFactor = BigDecimal.ZERO;
+                        BigDecimal ap = new BigDecimal(mParams.mEvmosEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
+                        if (mParams.mEvmosInflationParams.params.mInflationDistribution != null) {
+                            stakingRewardsFactor = new BigDecimal(mParams.mEvmosInflationParams.params.mInflationDistribution.staking_rewards);
+                        }
+                        return ap.multiply(stakingRewardsFactor).divide(getBondedAmount(), 6, RoundingMode.DOWN);
                     }
-                    return ap.multiply(stakingRewardsFactor).divide(getBondedAmount(), 6, RoundingMode.DOWN);
 
                 } else if (chainConfig.baseChain().equals(BaseChain.CRESCENT_MAIN)) {
                     BigDecimal inflationAmount = getCurrentInflationAmount();
@@ -253,8 +275,11 @@ public class Param {
                     return budgetRate.multiply(calTax).multiply(inflationAmount).divide(getBondedAmount(), 6, RoundingMode.DOWN);
 
                 } else if (chainConfig.baseChain().equals(BaseChain.TERITORI_MAIN)) {
-                    BigDecimal stakingDistribution = new BigDecimal(mParams.mTeritoriMintingParams.params.mTeritoriDistributionProportions.staking);
-                    return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                    if (mParams.mTeritoriMintingParams != null && mParams.mTeritoriMintingParams.params != null && mParams.mTeritoriMintingParams.params.mTeritoriDistributionProportions != null) {
+                        BigDecimal stakingDistribution = new BigDecimal(mParams.mTeritoriMintingParams.params.mTeritoriDistributionProportions.staking);
+                        return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                    }
+
                 } else {
                     BigDecimal ap;
                     if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN)) ap = getMainSupply().multiply(getMintInflation(chainConfig));
@@ -311,9 +336,11 @@ public class Param {
     public BigDecimal getCurrentInflationAmount() {
         BigDecimal inflationAmount = BigDecimal.ZERO;
         long now = Calendar.getInstance().getTime().getTime();
-        for (CrescentMintingParams.CrescentMintingParam.InflationSchedule schedules: mParams.mCrescentMintingParams.params.inflation_schedules) {
-            if (schedules.getStart_time() < now && schedules.getEnd_time() > now) {
-                inflationAmount = schedules.getAmount();
+        if (mParams.mCrescentMintingParams != null && mParams.mCrescentMintingParams.params != null) {
+            for (CrescentMintingParams.CrescentMintingParam.InflationSchedule schedules: mParams.mCrescentMintingParams.params.inflation_schedules) {
+                if (schedules.getStart_time() < now && schedules.getEnd_time() > now) {
+                    inflationAmount = schedules.getAmount();
+                }
             }
         }
         return inflationAmount;
@@ -321,15 +348,50 @@ public class Param {
 
     public BigDecimal getBudgetRate() {
         BigDecimal budgetRate = BigDecimal.ZERO;
-        for (CrescentBudgets.Budgets budgets: mParams.mCrescentBudgets.mBudgets) {
-            if (budgets.mBudget.name.equalsIgnoreCase("budget-ecosystem-incentive") || budgets.mBudget.name.equalsIgnoreCase("budget-dev-team")) {
-                budgetRate = budgetRate.add(new BigDecimal(budgets.mBudget.rate));
+        if (mParams.mCrescentBudgets != null) {
+            for (CrescentBudgets.Budgets budgets: mParams.mCrescentBudgets.mBudgets) {
+                if (budgets.mBudget.name.equalsIgnoreCase("budget-ecosystem-incentive") || budgets.mBudget.name.equalsIgnoreCase("budget-dev-team")) {
+                    budgetRate = budgetRate.add(new BigDecimal(budgets.mBudget.rate));
+                }
             }
         }
         return budgetRate;
     }
 
+    public BigDecimal getQuorum(ChainConfig chainConfig) {
+        if (chainConfig.baseChain().equals(CERTIK_MAIN) && mParams.mShentuGovTallyParams != null) {
+            return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.quorum).movePointRight(2);
+        } else if (isGRPC(chainConfig.baseChain()) && mParams.mGovTallyParams.mTallyParams != null) {
+            return new BigDecimal(mParams.mGovTallyParams.mTallyParams.quorum).movePointRight(2);
+        } else {
+            return new BigDecimal(mParams.mGovTallyParams.quorum).movePointRight(2);
+        }
+    }
 
+    public boolean isOracleEnable(String valOpAddress) {
+        if (mParams.mOracleActiveValidators == null) return true;
+        for (Param.OracleActiveValidators.Result.Oracle oracle : mParams.mOracleActiveValidators.result.oracles) {
+            if (oracle.address.equalsIgnoreCase(valOpAddress)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getUnbonding(BaseChain baseChain) {
+        int result = 0;
+        String unbondingTime = null;
+        if (mParams.mStakingParams != null && mParams.mStakingParams.params != null) {
+            if (isGRPC(baseChain)) {
+                unbondingTime = mParams.mStakingParams.params.unbonding_time;
+                result = Integer.parseInt(unbondingTime.split("s")[0]) / 60 / 60 / 24;
+            } else {
+                unbondingTime = mParams.mStakingParams.unbonding_time;
+                result = Integer.parseInt(String.valueOf(Long.parseLong(unbondingTime) / 1000000000 / 60 / 60 / 24));
+            }
+        }
+        return result;
+    }
 
     public class IrisMintingParams {
         @SerializedName("result")
@@ -375,6 +437,9 @@ public class Param {
         @SerializedName("params")
         public StakingParam params;
 
+        @SerializedName("unbonding_time")
+        public String unbonding_time;
+
         public class StakingParam {
             @SerializedName("unbonding_time")
             public String unbonding_time;
@@ -410,9 +475,27 @@ public class Param {
         @SerializedName("tally_params")
         public TallyParams mTallyParams;
 
+        @SerializedName("quorum")
+        public String quorum;
+
         public class TallyParams {
             @SerializedName("quorum")
             public String quorum;
+        }
+    }
+
+    public class ShentuGovTallyParams {
+        @SerializedName("tally_params")
+        public TallyParams mTallyParams;
+
+        public class TallyParams {
+            @SerializedName("default_tally")
+            public DefaultTally mDefaultTally;
+
+            public class DefaultTally {
+                @SerializedName("quorum")
+                public String quorum;
+            }
         }
     }
 
@@ -580,6 +663,21 @@ public class Param {
             public class TeritoriDistributionProportions {
                 @SerializedName("staking")
                 public String staking;
+            }
+        }
+    }
+
+    public class OracleActiveValidators {
+        @SerializedName("result")
+        public Result result;
+
+        public class Result {
+            @SerializedName("result")
+            public ArrayList<Oracle> oracles;
+
+            public class Oracle {
+                @SerializedName("address")
+                public String address;
             }
         }
     }

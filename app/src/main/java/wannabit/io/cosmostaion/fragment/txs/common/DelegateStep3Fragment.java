@@ -64,8 +64,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mConfirmBtn)) {
             int unBondingTimeImage = 0;
-            if (getBaseDao().mChainParam != null) {
-                int dpDay = getBaseDao().mChainParam.getUnbonding(getSActivity().mBaseChain);
+            if (getBaseDao().mParam != null) {
+                int dpDay = getBaseDao().mParam.getUnbonding(getSActivity().mBaseChain);
                 if (dpDay == 21) {
                     unBondingTimeImage = R.drawable.img_delegate_warning;
                 } else if (dpDay == 3) {

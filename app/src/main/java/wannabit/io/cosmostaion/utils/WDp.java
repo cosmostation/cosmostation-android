@@ -78,10 +78,10 @@ import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Cw20Asset;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.OkToken;
+import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -459,25 +459,26 @@ public class WDp {
     }
 
     public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain chain, BigDecimal commission) {
-        final ChainParam.Params param = baseData.mChainParam;
+        final Param param = baseData.mParam;
+        final ChainConfig chainConfig = ChainFactory.getChain(chain);
         BigDecimal apr = BigDecimal.ZERO;
         if (param != null) {
-            apr = param.getApr(chain);
+            apr = param.getApr(chainConfig);
         }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
         return getPercentDp(aprCommission);
     }
 
-    public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
-        final ChainParam.Params param = baseData.mChainParam;
+    public static SpannableString getDailyReward(BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
+        final Param param = baseData.mParam;
         final ChainConfig chainConfig = ChainFactory.getChain(chain);
         BigDecimal apr = BigDecimal.ZERO;
         if (param != null) {
-            if (BigDecimal.ZERO.compareTo(param.getRealApr(chain)) == 0) {
-                apr = param.getApr(chain);
+            if (BigDecimal.ZERO.compareTo(param.getRealApr(chainConfig)) == 0) {
+                apr = param.getApr(chainConfig);
             } else {
-                apr = param.getRealApr(chain);
+                apr = param.getRealApr(chainConfig);
             }
         }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
@@ -486,15 +487,15 @@ public class WDp {
         return getDpAmount2(dayReward, getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
     }
 
-    public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
-        final ChainParam.Params param = baseData.mChainParam;
+    public static SpannableString getMonthlyReward(BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
+        final Param param = baseData.mParam;
         final ChainConfig chainConfig = ChainFactory.getChain(chain);
         BigDecimal apr = BigDecimal.ZERO;
         if (param != null) {
-            if (BigDecimal.ZERO.compareTo(param.getRealApr(chain)) == 0) {
-                apr = param.getApr(chain);
+            if (BigDecimal.ZERO.compareTo(param.getRealApr(chainConfig)) == 0) {
+                apr = param.getApr(chainConfig);
             } else {
-                apr = param.getRealApr(chain);
+                apr = param.getRealApr(chainConfig);
             }
         }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
@@ -911,13 +912,13 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseData baseData, BaseChain baseChain) {
         String result = "??";
         try {
-            if (baseData != null && baseData.mChainParam != null) {
+            if (baseData != null && baseData.mParam != null) {
                 Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, baseData.mChainParam.getUnbonding(baseChain));
+                calendar.add(Calendar.DATE, baseData.mParam.getUnbonding(baseChain));
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
                 result = unbondFormat.format(calendar.getTimeInMillis());
             }
-            return result + "   " + "(" + baseData.mChainParam.getUnbonding(baseChain) + c.getString(R.string.str_unbonding_days_after);
+            return result + "   " + "(" + baseData.mParam.getUnbonding(baseChain) + c.getString(R.string.str_unbonding_days_after);
         } catch (Exception e) {
             return result;
         }
@@ -1221,15 +1222,14 @@ public class WDp {
         return new BigDecimal(proposal.voteMeta.no_with_veto_amount).movePointRight(2).divide(geTallySum(proposal), 2, RoundingMode.HALF_UP);
     }
 
-    public static BigDecimal getTurnout(BaseChain baseCahin, BaseData baseData, ResProposal
-            proposal) {
+    public static BigDecimal getTurnout(BaseData baseData, ResProposal proposal) {
         BigDecimal result = BigDecimal.ZERO;
-        if (baseData != null && baseData.mChainParam != null) {
+        if (baseData != null && baseData.mParam != null) {
             if (geTallySum(proposal).equals(BigDecimal.ZERO)) {
                 return BigDecimal.ZERO.setScale(2);
 
             } else {
-                BigDecimal bonded = baseData.mChainParam.getBondedAmount(baseCahin);
+                BigDecimal bonded = baseData.mParam.getBondedAmount();
                 return geTallySum(proposal).movePointRight(2).divide(bonded, 2, RoundingMode.HALF_UP);
             }
         }

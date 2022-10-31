@@ -64,7 +64,7 @@ public class AllValidatorHolder extends RecyclerView.ViewHolder {
         }
 
         if (chainConfig.baseChain().equals(BaseChain.BAND_MAIN)) {
-            if (!baseData.mChainParam.isOracleEnable(otherValidator.getOperatorAddress())) {
+            if (!baseData.mParam.isOracleEnable(otherValidator.getOperatorAddress())) {
                 itemBandOracleOff.setVisibility(View.VISIBLE);
             }
         }
