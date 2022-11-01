@@ -110,6 +110,12 @@ public class Param {
 
         @SerializedName("starname_domains")
         public ArrayList<String> mStarnameDomains;
+
+        @SerializedName("stride_minting_params")
+        public StrideMintingParams mStrideMintingParams;
+
+        @SerializedName("stride_minting_epoch_provisions")
+        public StrideMintingEpochProvisions mStrideMintingEpochProvisions;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -168,6 +174,13 @@ public class Param {
             if (mParams.mTeritoriMintingParams != null && mParams.mTeritoriMintingParams.params != null) {
                 BigDecimal inflationNum = new BigDecimal(mParams.mTeritoriMintingParams.params.reduction_period_in_blocks).subtract(new BigDecimal(mParams.mTeritoriMintingParams.params.minting_rewards_distribution_start_block));
                 return inflationNum.multiply(new BigDecimal(mParams.mTeritoriMintingParams.params.genesis_block_provisions)).divide(getMainSupply(), 18, RoundingMode.DOWN);
+            }
+
+        } else if (chainConfig.baseChain().equals(BaseChain.STRIDE_MAIN)) {
+            if (mParams.mStrideMintingParams != null && mParams.mStrideMintingParams.params != null) {
+                BigDecimal epochProvisions = new BigDecimal(mParams.mStrideMintingEpochProvisions.epoch_provisions);
+                BigDecimal epochPeriods = new BigDecimal(mParams.mStrideMintingParams.params.reduction_period_in_epochs);
+                return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
             }
 
         } else {
@@ -277,6 +290,12 @@ public class Param {
                 } else if (chainConfig.baseChain().equals(BaseChain.TERITORI_MAIN)) {
                     if (mParams.mTeritoriMintingParams != null && mParams.mTeritoriMintingParams.params != null && mParams.mTeritoriMintingParams.params.mTeritoriDistributionProportions != null) {
                         BigDecimal stakingDistribution = new BigDecimal(mParams.mTeritoriMintingParams.params.mTeritoriDistributionProportions.staking);
+                        return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                    }
+
+                } else if (chainConfig.baseChain().equals(BaseChain.STRIDE_MAIN)) {
+                    if (mParams.mStrideMintingParams != null && mParams.mStrideMintingParams.params != null && mParams.mStrideMintingParams.params.mStrideDistributionProportions != null) {
+                        BigDecimal stakingDistribution = new BigDecimal(mParams.mStrideMintingParams.params.mStrideDistributionProportions.staking);
                         return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
                     }
 
@@ -687,5 +706,28 @@ public class Param {
                 public String address;
             }
         }
+    }
+
+    public class StrideMintingParams {
+        @SerializedName("params")
+        public StrideMintingParam params;
+
+        public class StrideMintingParam {
+            @SerializedName("reduction_period_in_epochs")
+            public String reduction_period_in_epochs;
+
+            @SerializedName("distribution_proportions")
+            public StrideDistributionProportions mStrideDistributionProportions;
+
+            public class StrideDistributionProportions {
+                @SerializedName("staking")
+                public String staking;
+            }
+        }
+    }
+
+    public class StrideMintingEpochProvisions {
+        @SerializedName("epoch_provisions")
+        public String epoch_provisions;
     }
 }
