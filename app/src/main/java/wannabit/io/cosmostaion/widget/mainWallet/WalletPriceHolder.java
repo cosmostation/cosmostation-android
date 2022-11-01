@@ -49,7 +49,11 @@ public class WalletPriceHolder extends BaseHolder {
 
         if (chainConfig.moonPaySupport() || chainConfig.kadoMoneySupport()) {
             itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(mainActivity.getString(R.string.str_buy_crypto));
+            if (chainConfig.moonPaySupport()) {
+                itemBuyCoinTv.setText(mainActivity.getString(R.string.str_buy_coin, chainConfig.mainSymbol()));
+            } else {
+                itemBuyCoinTv.setText(mainActivity.getString(R.string.str_buy_crypto));
+            }
         } else {
             itemBuyLayer.setVisibility(View.GONE);
         }
