@@ -3,19 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/layer_refresher"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:layout_above="@+id/control_later"
-        android:layout_marginTop="6dp">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:overScrollMode="never" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        android:overScrollMode="never" />
     <LinearLayout
         android:id="@+id/control_later"
         android:layout_width="match_parent"
@@ -28,7 +22,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/btn_remove_liquidity"
+            android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_4"
@@ -45,11 +39,11 @@
                 android:layout_centerInParent="true"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                android:text="@string/str_remove_liquidity" />
+                android:text="@string/str_cancel" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/btn_add_liquidity"
+            android:id="@+id/btn_next"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_4"
@@ -66,7 +60,7 @@
                 android:layout_centerInParent="true"
                 android:drawablePadding="@dimen/space_8"
                 android:gravity="center"
-                android:text="@string/str_add_liquidity" />
+                android:text="@string/str_next" />
         </RelativeLayout>
 
     </LinearLayout>

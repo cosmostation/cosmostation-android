@@ -815,7 +815,7 @@
     <string name="str_total_deposited_supplies">System Total Supplied</string>
     <string name="str_total_borrowed_supplies">System Total Borrowed</string>
     <string name="str_total_remain_supplies">System Remaining Borrowable</string>
-    <string name="str_my_harvest_information">My Lend Status</string>
+    <string name="str_my_harvest_information">HardPool Dashboard</string>
     <string name="str_deposit_harvest">Deposit Lend Supply</string>
     <string name="str_withdraw_harvest">Withdraw Lend</string>
     <string name="str_borrow_hard">Borrow from Lend</string>
@@ -833,6 +833,11 @@
     <string name="str_liquidity_available">My Available</string>
     <string name="str_liquidity_deposited">Liquidity Deposited</string>
     <string name="str_liquidity_my_deposited">My Deposited</string>
+    <string name="str_add_liquidity">Add Liquidity</string>
+    <string name="str_remove_liquidity">Remove Liquidity</string>
+    <string name="str_liquidity_amount">Liquidity Amount</string>
+    <string name="str_max_depositable">Max Depositable :</string>
+    <string name="str_max_withdrawable">Max Depositable :</string>
     <string name="str_delete_starname">Delete Starname</string>
     <string name="str_renew_starname">Renew Starname</string>
     <string name="str_connected_address_replace">Connected Addresses Replace</string>
@@ -1326,6 +1331,11 @@
     <string name="tx_injective_create_spot_order">Create Spot Order</string>
     <string name="tx_injective_cancel_limit_order">Cancel Derivative Order</string>
     <string name="tx_injective_cancel_spot_order">Cancel Spot Order</string>
+
+    <string name="str_tx_kava_earn_delegateDeposit">Earn Liquidate\nDelegate Deposit</string>
+    <string name="tx_kava_earn_delegateDeposit">Earn Liquidate Delegate Deposit</string>
+    <string name="str_tx_kava_earn_withdraw">Earn Liquidate\nWithdraw</string>
+    <string name="tx_kava_earn_withdraw">Earn Liquidate Withdraw</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

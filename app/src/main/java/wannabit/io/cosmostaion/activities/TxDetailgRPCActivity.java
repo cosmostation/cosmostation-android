@@ -67,6 +67,7 @@ import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxMintingIncentiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxRepayCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxRepayHardHolder;
@@ -261,6 +262,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         private static final int TYPE_TX_AUTHZ_EXEC = 150;
 
+        private static final int TYPE_TX_LIQUIDITY = 160;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -423,6 +426,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 return new TxAuthzExecHolder(getLayoutInflater().inflate(R.layout.item_tx_authz_exec, viewGroup, false));
 
             }
+
+            else if (viewType == TYPE_TX_LIQUIDITY) {
+                return new TxLiquidityHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidity, viewGroup, false));
+
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -563,6 +571,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_EXECUTE_CONTRACT;
                 } else if (msg.getTypeUrl().contains(cosmos.authz.v1beta1.Tx.MsgExec.getDescriptor().getFullName())) {
                     return TYPE_TX_AUTHZ_EXEC;
+                } else if (msg.getTypeUrl().contains(kava.router.v1beta1.Tx.MsgDelegateMintDeposit.getDescriptor().getFullName()) ||
+                            msg.getTypeUrl().contains(kava.router.v1beta1.Tx.MsgWithdrawBurn.getDescriptor().getFullName())) {
+                    return TYPE_TX_LIQUIDITY;
                 }
                 return TYPE_TX_UNKNOWN;
             }

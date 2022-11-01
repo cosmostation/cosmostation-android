@@ -5,109 +5,106 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_6"
-        android:layout_marginBottom="@dimen/space_6"
-        app:cardBackgroundColor="@color/colorTransBgKava"
-        app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true">
-
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="@dimen/space_8"
+        app:cardBackgroundColor="@color/colorTransBg">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/space_16">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/msgicon_earn" />
-
+                    app:tint="@color/color_kava"
+                    android:src="@drawable/msgicon_earn"/>
                 <TextView
-                    style="@style/font_rr_14_black_daynight"
+                    android:id="@+id/earn_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/str_liquidity_staking_dashboard" />
+                    android:text="-"
+                    style="@style/font_rr_15_black_daynight"/>
             </LinearLayout>
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_10">
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
-                    android:id="@+id/liquidity_total_title"
+                    android:id="@+id/earn_account_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_liquidity_total"
+                    android:text="@string/str_from"
+                    style="@style/font_rr_12_gray1"/>
+                <TextView
+                    android:id="@+id/tx_earn_delegator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_rr_12_black_daynight"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_validator"
+                    style="@style/font_rr_12_gray1"/>
+                <TextView
+                    android:id="@+id/tx_earn_validator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="-"
+                    style="@style/font_rr_11_black_daynight"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/tx_earn_amount_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_amount"
                     style="@style/font_rr_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/liquidity_total_title">
+                    android:layout_toRightOf="@+id/tx_earn_amount_title">
                     <TextView
-                        android:id="@+id/liquidity_total_denom"
+                        android:id="@+id/tx_earn_amount_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="KAVA"
-                        android:textColor="@color/color_kava"
-                        style="@style/font_rr_12_black_daynight"/>
-                    <TextView
-                        android:id="@+id/liquidity_total"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/liquidity_total_denom"
-                        android:layout_toLeftOf="@+id/liquidity_total_denom"
-                        android:layout_marginRight="@dimen/space_2"
                         android:text="-"
                         style="@style/font_rr_12_black_daynight"/>
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_10">
-                <TextView
-                    android:id="@+id/liquidity_available_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_liquidity_available"
-                    style="@style/font_rr_12_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/liquidity_available_title">
                     <TextView
-                        android:id="@+id/liquidity_available_denom"
+                        android:id="@+id/tx_earn_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="KAVA"
-                        android:textColor="@color/color_kava"
-                        style="@style/font_rr_12_black_daynight"/>
-                    <TextView
-                        android:id="@+id/liquidity_available"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/liquidity_available_denom"
-                        android:layout_toLeftOf="@+id/liquidity_available_denom"
+                        android:layout_alignBaseline="@+id/tx_earn_amount_symbol"
+                        android:layout_toLeftOf="@+id/tx_earn_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
                         style="@style/font_rr_12_black_daynight"/>

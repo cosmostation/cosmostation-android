@@ -28,7 +28,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/cdp_s_ic"/>
+                    android:src="@drawable/msgicon_harvest"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

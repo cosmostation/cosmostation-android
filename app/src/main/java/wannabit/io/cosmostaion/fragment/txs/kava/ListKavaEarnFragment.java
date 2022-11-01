@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -39,11 +41,12 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaEarnMyDepositGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class ListKavaEarnFragment extends BaseFragment implements TaskListener {
+public class ListKavaEarnFragment extends BaseFragment implements TaskListener, View.OnClickListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private KavaEarnListAdapter mAdapter;
+    private RelativeLayout mBtnRemoveLiquidity, mBtnAddLiquidity;
 
     private Account mAccount;
     private BaseChain mBaseChain;
@@ -64,6 +67,8 @@ public class ListKavaEarnFragment extends BaseFragment implements TaskListener {
         View rootView = inflater.inflate(R.layout.fragment_earn_list, container, false);
         mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView = rootView.findViewById(R.id.recycler);
+        mBtnRemoveLiquidity = rootView.findViewById(R.id.btn_remove_liquidity);
+        mBtnAddLiquidity = rootView.findViewById(R.id.btn_add_liquidity);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getSActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(this::onFetchEarnInfo);
@@ -76,22 +81,32 @@ public class ListKavaEarnFragment extends BaseFragment implements TaskListener {
         mBaseChain = getSActivity().mBaseChain;
         onFetchEarnInfo();
 
+        mBtnRemoveLiquidity.setOnClickListener(this);
+        mBtnAddLiquidity.setOnClickListener(this);
         return rootView;
     }
 
     @Override
-    public void onRefreshTab() {
-        mAdapter.notifyDataSetChanged();
-        mSwipeRefreshLayout.setRefreshing(false);
+    public void onClick(View v) {
+        if (v.equals(mBtnRemoveLiquidity)) {
+            getSActivity().onCheckStartRemoveLiquidity(mEarnDeposits);
+
+        } else if (v.equals(mBtnAddLiquidity)) {
+            getSActivity().onCheckStartAddLiquidity(mEarnDeposits);
+        }
     }
 
+    private int mTaskCount = 0;
     public void onFetchEarnInfo() {
+        mTaskCount = 1;
+        mEarnDeposits.clear();
         new KavaEarnMyDepositGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if (!isAdded()) return;
+        mTaskCount--;
         if (result.isSuccess && result.resultData != null) {
             for (DepositResponse deposit : (List<DepositResponse>) result.resultData) {
                 for (CoinOuterClass.Coin rawCoin : deposit.getValueList()) {
@@ -100,6 +115,18 @@ public class ListKavaEarnFragment extends BaseFragment implements TaskListener {
                     }
                 }
             }
+        }
+        if (mTaskCount == 0) {
+            mAdapter.notifyDataSetChanged();
+            mSwipeRefreshLayout.setRefreshing(false);
+            mEarnDeposits.sort(new Comparator<Coin>() {
+                @Override
+                public int compare(Coin o1, Coin o2) {
+                    if (o1.denom.equalsIgnoreCase("bkava-kavavaloper140g8fnnl46mlvfhygj3zvjqlku6x0fwu6lgey7")) return -1;
+                    if (o2.denom.equalsIgnoreCase("bkava-kavavaloper140g8fnnl46mlvfhygj3zvjqlku6x0fwu6lgey7")) return 1;
+                    else return 0;
+                }
+            });
         }
     }
 
