@@ -26,7 +26,7 @@ public class Chihuahua extends ChainConfig {
     public String addressPrefix() { return "chihuahua"; }
 
     public boolean dexSupport() { return false; }
-    public boolean wcSupport() { return false; }
+    public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-chihuahua-app.cosmostation.io"; }
