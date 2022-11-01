@@ -5,11 +5,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KUJIRA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
@@ -932,38 +929,30 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyWarnNoKey() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowBuySelectFiat());
+                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowCryptoPay());
     }
 
-    public void onShowPayDialog(String currency) {
+    public void onShowCryptoPay() {
         if (mChainConfig.moonPaySupport() && mChainConfig.kadoMoneySupport()) {
             FilledVerticalButtonAlertDialog.showDoubleButton(this, "", "",
-                    getString(R.string.str_moonPay), view -> onStartMoonPaySignature(currency), null,
-                    getString(R.string.str_kadoMoney), view -> onShowBuyKado(currency), null);
+                    getString(R.string.str_moonPay), view -> onStartMoonPaySignature(), null,
+                    getString(R.string.str_kadoMoney), view -> onShowBuyKado(), null);
         } else {
             if (mChainConfig.moonPaySupport()) {
-                onStartMoonPaySignature(currency);
+                onStartMoonPaySignature();
             } else if (mChainConfig.kadoMoneySupport()) {
-                onShowBuyKado(currency);
+                onShowBuyKado();
             }
         }
     }
 
-    public void onShowBuySelectFiat() {
-        FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
-                "USD", view -> onShowPayDialog("usd"), null,
-                "EUR", view -> onShowPayDialog("eur"), null,
-                "GBP", view -> onShowPayDialog("gbp"), null);
-    }
-
-    public void onShowBuyKado(String fiat) {
-        String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&onPayCurrency=" + fiat + "&onRevCurrency=" + "USDC"
-                + "&network=" + mChainConfig.chainName() + "&networkList=" + mChainConfig.chainName();
+    public void onShowBuyKado() {
+        String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + mChainConfig.chainName() + "&networkList=" + mChainConfig.chainName();
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query + "&onToAddress=" + mAccount.address));
         startActivity(intent);
     }
 
-    public void onStartMoonPaySignature(String fiat) {
+    public void onStartMoonPaySignature() {
         String query = "?apiKey=" + getString(R.string.moon_pay_public_key);
         if (mBaseChain.equals(COSMOS_MAIN)) {
             query = query + "&currencyCode=atom";
@@ -974,7 +963,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (mBaseChain.equals(BAND_MAIN)) {
             query = query + "&currencyCode=band";
         }
-        query = query + "&walletAddress=" + mAccount.address + "&baseCurrencyCode=" + fiat;
+        query = query + "&walletAddress=" + mAccount.address;
         final String data = query;
 
         new MoonPayTask(getBaseApplication(), result -> {
