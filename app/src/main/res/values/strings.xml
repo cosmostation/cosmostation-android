@@ -448,6 +448,7 @@
     <string name="str_unknown_msg">UnKnown Type Message</string>
     <string name="str_unknown_tx">This message type is not supported by mobile.\nPlease check the MintScan Explorer for details.</string>
     <string name="str_buy_coin">Buy %1$s</string>
+    <string name="str_buy_token">Buy Token</string>
     <string name="str_kava_dapp"><![CDATA[KAVA DeFi]]> </string>
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
     <string name="str_buy_select_fiat_title">Select Fiat</string>
