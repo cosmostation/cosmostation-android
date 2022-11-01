@@ -50,9 +50,9 @@ public class TransferNFTGrpcTask extends CommonTask {
             ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             if (mBaseChain.equals(IRIS_MAIN)) {
-                broadcastTxRequest = Signer.getGrpcSendNftIrisReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mRecipient, mDenomId, mId, mIrisResponse, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                broadcastTxRequest = Signer.getGrpcSendNftIrisReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mRecipient, mDenomId, mId, mIrisResponse, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             } else if (mBaseChain.equals(CRYPTO_MAIN)) {
-                broadcastTxRequest = Signer.getGrpcSendNftCroReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mRecipient, mDenomId, mId, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                broadcastTxRequest = Signer.getGrpcSendNftCroReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mRecipient, mDenomId, mId, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             }
             if (broadcastTxRequest != null) {
                 ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
