@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_ADD_LIQUIDITY;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_CLAIM_COMMISSION;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_CLAIM_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_DELEGATE;
@@ -30,6 +31,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REMOVE_LIQUIDITY;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
@@ -108,6 +110,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteDomainGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulIBCTransferGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaLiquidityGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaBorrowHardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaClaimIncentiveAllGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaCreateCdpGrpcTask;
@@ -433,6 +436,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         } else if (getSActivity().mTxType == CONST_PW_TX_SEND_NFT) {
             new SimulTransferNFTGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,
                     getSActivity().mToAddress, getSActivity().mNftDenomId, getSActivity().mNftTokenId, getSActivity().mIrisResponse, getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         } else if (getSActivity().mTxType == CONST_PW_TX_KAVA_SWAP) {
             new SimulKavaSwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mKavaSwapIn, getSActivity().mKavaSwapOut,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -520,6 +524,11 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         } else if (getSActivity().mTxType == CONST_PW_TX_AUTHZ_CLAIM_COMMISSION) {
             new SimulAuthzClaimCommissionGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, WKey.convertDpAddressToDpOpAddress(getSActivity().mGranter, getSActivity().mChainConfig),
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (getSActivity().mTxType == CONST_PW_TX_ADD_LIQUIDITY || getSActivity().mTxType == CONST_PW_TX_REMOVE_LIQUIDITY) {
+            new SimulKavaLiquidityGrpcTask(getBaseApplication(), this, getSActivity().mTxType, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mToValAddress, getSActivity().mAmount,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
     }
 

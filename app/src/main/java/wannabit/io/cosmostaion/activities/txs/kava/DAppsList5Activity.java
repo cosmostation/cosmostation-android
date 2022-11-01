@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.kava;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_ADD_LIQUIDITY;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REMOVE_LIQUIDITY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_CDP_PARAMS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_PARAMS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_SWAP_DEPOSITS;
@@ -43,8 +45,10 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.PaddedVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListHardFragment;
+import wannabit.io.cosmostaion.fragment.txs.kava.ListKavaEarnFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListKavaPoolFragment;
 import wannabit.io.cosmostaion.fragment.txs.kava.ListKavaSwapFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaCdpParamGrpcTask;
@@ -96,8 +100,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         createTab(mChainConfig, R.string.str_kava_pool_list, 1);
         createTab(mChainConfig, R.string.str_kava_cdp_list, 2);
         createTab(mChainConfig, R.string.str_kava_harvest_list, 3);
+        createTab(mChainConfig, R.string.str_kava_earn_list, 4);
 
-        mDappPager.setOffscreenPageLimit(3);
+        mDappPager.setOffscreenPageLimit(4);
         mDappPager.setCurrentItem(0, false);
 
         mDappPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -203,6 +208,38 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         startActivity(intent);
     }
 
+    public void onCheckStartAddLiquidity(ArrayList<Coin> earnDeposits) {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog();
+            return;
+        }
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getBaseContext(), LiquidityActivity.class);
+        intent.putExtra("mKavaEarnDeposits", earnDeposits);
+        intent.putExtra("mTxType", CONST_PW_TX_ADD_LIQUIDITY);
+        startActivity(intent);
+    }
+
+    public void onCheckStartRemoveLiquidity(ArrayList<Coin> earnDeposits) {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog();
+            return;
+        }
+        if (!WDp.isTxFeePayable(this, getBaseDao(), mChainConfig)) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getBaseContext(), LiquidityActivity.class);
+        intent.putExtra("mKavaEarnDeposits", earnDeposits);
+        intent.putExtra("mTxType", CONST_PW_TX_REMOVE_LIQUIDITY);
+        startActivity(intent);
+    }
+
     private int mTaskCount = 0;
     public void onFetchData() {
         mTaskCount = 5;
@@ -294,6 +331,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             mFragments.add(ListKavaPoolFragment.newInstance());
             mFragments.add(ListCdpFragment.newInstance());
             mFragments.add(ListHardFragment.newInstance());
+            mFragments.add(ListKavaEarnFragment.newInstance());
         }
 
         @Override

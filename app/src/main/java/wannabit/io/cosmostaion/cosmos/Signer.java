@@ -875,6 +875,38 @@ public class Signer {
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaAddLiquidityReq(QueryOuterClass.QueryAccountResponse auth, String depositor, String valOpAddress, Coin depositCoin, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getKavaAddLiquidityMsg(depositor, valOpAddress, depositCoin), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcKavaAddLiquiditySimulateReq(QueryOuterClass.QueryAccountResponse auth, String depositor, String valOpAddress, Coin depositCoin, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaAddLiquidityMsg(depositor, valOpAddress, depositCoin), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaAddLiquidityMsg(String depositor, String valOpAddress, Coin depositCoin) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        CoinOuterClass.Coin liquidityCoin = CoinOuterClass.Coin.newBuilder().setAmount(depositCoin.amount).setDenom(depositCoin.denom).build();
+        kava.router.v1beta1.Tx.MsgDelegateMintDeposit msgDelegateMintDeposit = kava.router.v1beta1.Tx.MsgDelegateMintDeposit.newBuilder().setDepositor(depositor).setValidator(valOpAddress).setAmount(liquidityCoin).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.router.v1beta1.MsgDelegateMintDeposit").setValue(msgDelegateMintDeposit.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaRemoveLiquidityReq(QueryOuterClass.QueryAccountResponse auth, String depositor, String valOpAddress, Coin withdrawCoin, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignTx(auth, getKavaRemoveLiquidityMsg(depositor, valOpAddress, withdrawCoin), fee, memo, pKey, chainId);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcKavaRemoveLiquiditySimulateReq(QueryOuterClass.QueryAccountResponse auth, String depositor, String valOpAddress, Coin withdrawCoin, Fee fee, String memo, ECKey pKey, String chainId) {
+        return getSignSimulTx(auth, getKavaRemoveLiquidityMsg(depositor, valOpAddress, withdrawCoin), fee, memo, pKey, chainId);
+    }
+
+    public static ArrayList<Any> getKavaRemoveLiquidityMsg(String from, String valOpAddress, Coin withdrawCoin) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        CoinOuterClass.Coin liquidityCoin = CoinOuterClass.Coin.newBuilder().setAmount(withdrawCoin.amount).setDenom(withdrawCoin.denom).build();
+        kava.router.v1beta1.Tx.MsgWithdrawBurn msgWithdrawBurn = kava.router.v1beta1.Tx.MsgWithdrawBurn.newBuilder().setFrom(from).setValidator(valOpAddress).setAmount(liquidityCoin).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/kava.router.v1beta1.MsgWithdrawBurn").setValue(msgWithdrawBurn.toByteString()).build());
+        return msgAnys;
+    }
+
     public static ServiceOuterClass.BroadcastTxRequest getGrpcCw20SendReq(QueryOuterClass.QueryAccountResponse auth, String fromAddress, String toAddress, String contractAddress, ArrayList<Coin> amount, Fee fee, String memo, ECKey pKey, String chainId) {
         return getSignTx(auth, getCw20SendMsg(fromAddress, toAddress, contractAddress, amount), fee, memo, pKey, chainId);
     }
