@@ -46,9 +46,9 @@ public class SimulKavaLiquidityGrpcTask extends CommonTask {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.SimulateRequest simulateTxRequest = null;
             if (mTxType == CONST_PW_TX_ADD_LIQUIDITY) {
-                simulateTxRequest = Signer.getGrpcKavaAddLiquiditySimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mValidatorAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                simulateTxRequest = Signer.getGrpcKavaAddLiquiditySimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mValidatorAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             } else {
-                simulateTxRequest = Signer.getGrpcKavaRemoveLiquiditySimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mValidatorAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                simulateTxRequest = Signer.getGrpcKavaRemoveLiquiditySimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mValidatorAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             }
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 

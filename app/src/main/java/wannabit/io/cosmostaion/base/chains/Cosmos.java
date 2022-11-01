@@ -29,7 +29,7 @@ public class Cosmos extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "lcd-cosmos-app-and.cosmostation.io"; }
-    public String apiUrl() { return "https://api.cosmostation.io/"; }
+    public String apiUrl() { return "https://api-cosmos.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "cosmos/"; }
     public String monikerUrl() { return MONIKER_URL + "cosmoshub/"; }

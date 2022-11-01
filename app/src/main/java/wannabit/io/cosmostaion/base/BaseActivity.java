@@ -245,7 +245,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (chainConfig.evmSupport()) {
             ethTxt.setVisibility(View.VISIBLE);
             try {
-                ethTxt.setText("(" + WKey.convertAddressToEth(mAccount.address) + ")");
+                ethTxt.setText("(" + WKey.convertBech32ToEvm(mAccount.address) + ")");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -262,7 +262,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         if (chainConfig.evmSupport()) {
             try {
-                String ethAddress = WKey.convertAddressToEth(account.address);
+                String ethAddress = WKey.convertBech32ToEvm(account.address);
                 CommonAlertDialog.showDoubleButton(this, getString(R.string.str_address_type), "",
                         getString(R.string.str_tender_type), view -> onClickShowAccountDialog(account.address, nickName),
                         getString(R.string.str_eth_type), view -> onClickShowAccountDialog(ethAddress, nickName));

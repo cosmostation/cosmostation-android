@@ -45,7 +45,7 @@ public class SimulCw20SendGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCw20SendSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mFromAddress, mToAddress, mContractAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCw20SendSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mFromAddress, mToAddress, mContractAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();

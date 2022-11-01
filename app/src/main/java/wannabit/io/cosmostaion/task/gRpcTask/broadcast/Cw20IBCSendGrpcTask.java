@@ -48,7 +48,7 @@ public class Cw20IBCSendGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCw20IbcTransferReq(WKey.onAuthResponse(mBaseChain, mAccount), mSender, mRemoteAddress, mContractAddress, mAssetPath, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCw20IbcTransferReq(WKey.onAuthResponse(mBaseChain, mAccount), mSender, mRemoteAddress, mContractAddress, mAssetPath, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {

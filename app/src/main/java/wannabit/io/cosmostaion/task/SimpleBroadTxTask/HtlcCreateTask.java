@@ -159,7 +159,7 @@ public class HtlcCreateTask extends CommonTask {
                 }
 
                 ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mSendChain));
-                ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaCreateHTLCSwapReq(WKey.onAuthResponse(mSendChain, mSendAccount), mSendAccount.address, mReceiveAccount.address, mToSendCoins, timestamp, WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase(), mSendFee, mApp.getString(R.string.str_create_swap_memo_c), WKey.getECKey(mApp, mSendAccount), mApp.getBaseDao().getChainIdGrpc());
+                ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaCreateHTLCSwapReq(WKey.onAuthResponse(mSendChain, mSendAccount), mSendAccount.address, mReceiveAccount.address, mToSendCoins, timestamp, WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase(), mSendFee, mApp.getString(R.string.str_create_swap_memo_c), WKey.getECKey(mApp, mSendAccount), mApp.getBaseDao().getChainIdGrpc(), mSendAccount.customPath, mSendChain);
                 ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
                 mResult.resultData = response.getTxResponse().getTxhash();
                 if (response.getTxResponse().getCode() > 0) {

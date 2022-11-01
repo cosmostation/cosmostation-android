@@ -42,7 +42,7 @@ public class SimulOsmosisExitPoolGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcExitPoolSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mPoolId, mWithdraw0Coin, mWithdraw1Coin, mShareAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcExitPoolSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mPoolId, mWithdraw0Coin, mWithdraw1Coin, mShareAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;

@@ -39,8 +39,8 @@ public class Injective extends ChainConfig {
     public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-inj-app.cosmostation.io"; }
-    public String apiUrl() { return "https://api-inj.cosmostation.io/"; }
+    public String grpcUrl() { return "lcd-injective-app.cosmostation.io"; }
+    public String apiUrl() { return "https://api-injective.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "injective/"; }
     public String monikerUrl() { return MONIKER_URL + "injective/"; }
