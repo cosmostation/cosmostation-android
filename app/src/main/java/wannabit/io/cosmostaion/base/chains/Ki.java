@@ -28,7 +28,7 @@ public class Ki extends ChainConfig {
     public String addressPrefix() { return "ki"; }
 
     public boolean dexSupport() { return false; }
-    public boolean wcSupport() { return false; }
+    public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-kichain-app.cosmostation.io"; }

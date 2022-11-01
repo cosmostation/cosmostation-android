@@ -25,7 +25,7 @@ public class Stride extends ChainConfig {
     public String addressPrefix() { return "stride"; }
 
     public boolean dexSupport() { return false; }
-    public boolean wcSupport() { return false; }
+    public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-stride-app.cosmostation.io"; }

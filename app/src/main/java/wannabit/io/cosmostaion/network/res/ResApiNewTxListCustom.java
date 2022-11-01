@@ -691,6 +691,13 @@ public class ResApiNewTxListCustom {
                     if (msgType.contains("MsgPostPrice")) {
                         result = c.getString(R.string.str_post_price);
                     }
+
+                } else if (msgType.contains("kava.") && msgType.contains("router")) {
+                    if (msgType.contains("MsgDelegateMintDeposit")) {
+                        result = c.getString(R.string.str_tx_kava_earn_delegateDeposit);
+                    } else if (msgType.contains("MsgWithdrawBurn")) {
+                        result = c.getString(R.string.str_tx_kava_earn_withdraw);
+                    }
                 }
 
                 // certik msg

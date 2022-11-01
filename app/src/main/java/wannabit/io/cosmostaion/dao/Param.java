@@ -4,15 +4,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -66,7 +63,7 @@ public class Param {
         public DistributionParams mDistributionParams;
 
         @SerializedName("bank_supply")
-        public Object supply;
+        public BankSupply mBankSupply;
 
         @SerializedName("gov_tally_params")
         public GovTallyParams mGovTallyParams;
@@ -110,6 +107,12 @@ public class Param {
 
         @SerializedName("starname_domains")
         public ArrayList<String> mStarnameDomains;
+
+        @SerializedName("stride_minting_params")
+        public StrideMintingParams mStrideMintingParams;
+
+        @SerializedName("stride_minting_epoch_provisions")
+        public StrideMintingEpochProvisions mStrideMintingEpochProvisions;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -170,6 +173,13 @@ public class Param {
                 return inflationNum.multiply(new BigDecimal(mParams.mTeritoriMintingParams.params.genesis_block_provisions)).divide(getMainSupply(), 18, RoundingMode.DOWN);
             }
 
+        } else if (chainConfig.baseChain().equals(BaseChain.STRIDE_MAIN)) {
+            if (mParams.mStrideMintingParams != null && mParams.mStrideMintingParams.params != null) {
+                BigDecimal epochProvisions = new BigDecimal(mParams.mStrideMintingEpochProvisions.epoch_provisions);
+                BigDecimal epochPeriods = new BigDecimal(mParams.mStrideMintingParams.params.reduction_period_in_epochs);
+                return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
+            }
+
         } else {
             if (mParams != null && mParams.mMintingInflation != null) {
                 return new BigDecimal(mParams.mMintingInflation.inflation);
@@ -207,21 +217,9 @@ public class Param {
         return BigDecimal.ZERO;
     }
 
-    public ArrayList<Coin> getSupplys() {
-        ArrayList<Coin> result = new ArrayList<>();
-        try {
-            Supply temp = new Gson().fromJson(new Gson().toJson(mParams.supply), Supply.class);
-            result.addAll(temp.supply);
-        } catch (Exception e) { }
-        try {
-            result = new Gson().fromJson(new Gson().toJson(mParams.supply), new TypeToken<List<Coin>>(){}.getType());
-        } catch (Exception e) { }
-        return result;
-    }
-
     public BigDecimal getMainSupply() {
         String denom = getMainDenom();
-        for (Coin coin : getSupplys()) {
+        for (Coin coin : mParams.mBankSupply.supply) {
             if (coin.denom.equals(denom)) {
                 return new BigDecimal(coin.amount);
             }
@@ -277,6 +275,12 @@ public class Param {
                 } else if (chainConfig.baseChain().equals(BaseChain.TERITORI_MAIN)) {
                     if (mParams.mTeritoriMintingParams != null && mParams.mTeritoriMintingParams.params != null && mParams.mTeritoriMintingParams.params.mTeritoriDistributionProportions != null) {
                         BigDecimal stakingDistribution = new BigDecimal(mParams.mTeritoriMintingParams.params.mTeritoriDistributionProportions.staking);
+                        return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                    }
+
+                } else if (chainConfig.baseChain().equals(BaseChain.STRIDE_MAIN)) {
+                    if (mParams.mStrideMintingParams != null && mParams.mStrideMintingParams.params != null && mParams.mStrideMintingParams.params.mStrideDistributionProportions != null) {
+                        BigDecimal stakingDistribution = new BigDecimal(mParams.mStrideMintingParams.params.mStrideDistributionProportions.staking);
                         return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
                     }
 
@@ -473,7 +477,7 @@ public class Param {
         }
     }
 
-    public class Supply {
+    public class BankSupply {
         @SerializedName("supply")
         public ArrayList<Coin> supply;
     }
@@ -687,5 +691,28 @@ public class Param {
                 public String address;
             }
         }
+    }
+
+    public class StrideMintingParams {
+        @SerializedName("params")
+        public StrideMintingParam params;
+
+        public class StrideMintingParam {
+            @SerializedName("reduction_period_in_epochs")
+            public String reduction_period_in_epochs;
+
+            @SerializedName("distribution_proportions")
+            public StrideDistributionProportions mStrideDistributionProportions;
+
+            public class StrideDistributionProportions {
+                @SerializedName("staking")
+                public String staking;
+            }
+        }
+    }
+
+    public class StrideMintingEpochProvisions {
+        @SerializedName("epoch_provisions")
+        public String epoch_provisions;
     }
 }

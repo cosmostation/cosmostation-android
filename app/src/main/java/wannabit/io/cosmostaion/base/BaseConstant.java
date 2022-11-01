@@ -211,6 +211,9 @@ public class BaseConstant {
     public final static int CONST_PW_AUTO_PASS                              = 5070;
     public final static int CONST_PW_APP_LOCK                               = 5071;
 
+    public final static int CONST_PW_TX_ADD_LIQUIDITY                       = 5080;
+    public final static int CONST_PW_TX_REMOVE_LIQUIDITY                    = 5081;
+
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
     public final static int ERROR_CODE_NETWORK              = 8001;
