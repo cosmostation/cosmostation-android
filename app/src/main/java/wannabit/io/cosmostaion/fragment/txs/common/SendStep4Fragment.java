@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Asset;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
@@ -84,7 +84,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
 
         Asset msAsset = getSActivity().mAsset;
-        Cw20Asset msCw20Asset = getSActivity().mCw20Asset;
+        MintscanToken msMintscanToken = getSActivity().mMintscanToken;
 
         if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
             BigDecimal currentAvai = BigDecimal.ZERO;
@@ -98,8 +98,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                     remainAvailable = currentAvai.subtract(toSendAmount);
                 }
 
-            } else if (msCw20Asset != null) {
-                currentAvai = new BigDecimal(msCw20Asset.amount);
+            } else if (msMintscanToken != null) {
+                currentAvai = new BigDecimal(msMintscanToken.amount);
                 remainAvailable = currentAvai.subtract(toSendAmount);
             }
             WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, currentAvai.toPlainString(), mCurrentDenom, mCurrentBalance);

@@ -63,7 +63,7 @@ import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Param;
@@ -73,7 +73,6 @@ import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
-import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -117,8 +116,8 @@ public class BaseData {
     public ArrayList<Price> mPrices = new ArrayList<>();
     public Param mParam;
     public ArrayList<Asset> mAssets = new ArrayList<>();
-    public ArrayList<Cw20Asset> mCw20Assets = new ArrayList<>();
-    public ArrayList<Cw20Asset> mCw20MyAssets = new ArrayList<>();
+    public ArrayList<MintscanToken> mMintscanTokens = new ArrayList<>();
+    public ArrayList<MintscanToken> mMintscanMyTokens = new ArrayList<>();
 
     public Price getPrice(String denom) {
         Optional<Price> prices = mPrices.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
@@ -137,9 +136,9 @@ public class BaseData {
         return null;
     }
 
-    public Cw20Asset getCw20Asset(String denom) {
-        if (mCw20MyAssets != null && mCw20MyAssets.size() > 0) {
-            for (Cw20Asset asset : mCw20MyAssets) {
+    public MintscanToken getCw20Asset(String denom) {
+        if (mMintscanMyTokens != null && mMintscanMyTokens.size() > 0) {
+            for (MintscanToken asset : mMintscanMyTokens) {
                 if (asset.denom.equalsIgnoreCase(denom)) {
                     return asset;
                 }
@@ -150,12 +149,12 @@ public class BaseData {
 
     public void setMyTokens(String address) {
         Set<String> listingContractAddressSet = getUserFavoTokens(address);
-        listingContractAddressSet.addAll(mCw20Assets.stream().filter(item -> item.default_show).map(item -> item.contract_address).collect(Collectors.toSet()));
-        mCw20MyAssets.addAll(mCw20Assets.stream().filter(item -> listingContractAddressSet.contains(item.contract_address)).collect(Collectors.toList()));
+        listingContractAddressSet.addAll(mMintscanTokens.stream().filter(item -> item.default_show).map(item -> item.contract_address).collect(Collectors.toSet()));
+        mMintscanMyTokens.addAll(mMintscanTokens.stream().filter(item -> listingContractAddressSet.contains(item.contract_address)).collect(Collectors.toList()));
     }
 
     public void setMyTokenBalance(String contractAddress, String amount) {
-        for (Cw20Asset myAsset : mCw20MyAssets) {
+        for (MintscanToken myAsset : mMintscanMyTokens) {
             if (myAsset.contract_address.equalsIgnoreCase(contractAddress)) {
                 myAsset.setAmount(amount);
             }

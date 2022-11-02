@@ -66,6 +66,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
     public final static int TASK_FETCH_MINTSCAN_PRICES                  = 2808;
+    public final static int TASK_FETCH_MINTSCAN_ERC20_ASSETS            = 2809;
 
 
     //gRPC
