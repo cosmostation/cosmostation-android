@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -56,29 +55,6 @@ public class ResProposal {
     @SerializedName("voteMeta")
     public VoteMeta voteMeta;
 
-    @SerializedName("voter")
-    public String voter;
-
-    @SerializedName("option")
-    public String option;
-
-    @SerializedName("timestamp")
-    public String timestamp;
-
-    @SerializedName("answer")
-    public String answer;
-
-    @SerializedName("votes")
-    public ArrayList<VotesData> votes;
-
-    public class VotesData {
-        @SerializedName("proposal_id")
-        public int id;
-
-        @SerializedName("votes")
-        public ArrayList<VoteDetail> voteDetails;
-    }
-
     public class Content {
         @SerializedName("type")
         public String type;
@@ -90,7 +66,7 @@ public class ResProposal {
         public ArrayList<Recipient> recipients;
 
         @SerializedName("amount")
-        public ArrayList<Coin> amount;
+        public Coin amount;
 
         public class Recipient {
             @SerializedName("amount")
@@ -122,19 +98,5 @@ public class ResProposal {
 
         @SerializedName("abstain_amount")
         public String abstain_amount;
-    }
-
-    public class VoteDetail {
-        @SerializedName("voter")
-        public String voter;
-
-        @SerializedName("option")
-        public String option;
-
-        @SerializedName("tx_hash")
-        public String tx_hash;
-
-        @SerializedName("timestamp")
-        public String timestamp;
     }
 }
