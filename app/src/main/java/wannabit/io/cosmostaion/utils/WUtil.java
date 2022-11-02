@@ -1,7 +1,48 @@
 package wannabit.io.cosmostaion.utils;
 
-import static wannabit.io.cosmostaion.base.BaseChain.*;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_BINANCE_ADDRESS_01;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_BINANCE_ADDRESS_02;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_BINANCE_ADDRESS_03;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_BITHUMB_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_COINONE_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_DIGFINEX_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_HITBTC_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_MEXC_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_UPBIT_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_XRPB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import android.content.Context;
 import android.content.Intent;
@@ -613,8 +654,8 @@ public class WUtil {
     }
 
     public static ArrayList<String> getExchangeAddressList() {
-        return Lists.newArrayList(EXCHANGE_BINANCE_ADDRESS_01, EXCHANGE_BINANCE_ADDRESS_02, EXCHANGE_BITHUMB_ADDRESS, EXCHANGE_UPBIT_ADDRESS,
-                                    EXCHANGE_COINONE_ADDRESS, EXCHANGE_MEXC_ADDRESS, EXCHANGE_HITBTC_ADDRESS, EXCHANGE_DIGFINEX_ADDRESS);
+        return Lists.newArrayList(EXCHANGE_BINANCE_ADDRESS_01, EXCHANGE_BINANCE_ADDRESS_02, EXCHANGE_BINANCE_ADDRESS_03, EXCHANGE_BITHUMB_ADDRESS, EXCHANGE_UPBIT_ADDRESS,
+                EXCHANGE_COINONE_ADDRESS, EXCHANGE_MEXC_ADDRESS, EXCHANGE_HITBTC_ADDRESS, EXCHANGE_DIGFINEX_ADDRESS);
     }
 
     /**
