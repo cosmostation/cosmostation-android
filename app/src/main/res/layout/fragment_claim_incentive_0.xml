@@ -7,8 +7,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/multipliersLayer">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,143 +39,117 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
                             <LinearLayout
+                                android:id="@+id/incen0Layer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:layout_gravity="right">
+                                android:layout_gravity="right"
+                                android:visibility="gone">
                                 <TextView
-                                    android:id="@+id/tx_incentive_kava_amount"
+                                    android:id="@+id/incen0_amount"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
                                 <TextView
+                                    android:id="@+id/incen0_denom"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="@dimen/space_40"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    android:gravity="end"
-                                    android:text="KAVA" />
+                                    android:gravity="end" />
                             </LinearLayout>
                             <LinearLayout
+                                android:id="@+id/incen1Layer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:layout_gravity="right">
+                                android:layout_gravity="right"
+                                android:visibility="gone">
                                 <TextView
-                                    android:id="@+id/tx_incentive_hard_amount"
+                                    android:id="@+id/incen1_amount"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
                                 <TextView
+                                    android:id="@+id/incen1_denom"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="@dimen/space_40"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    android:gravity="end"
-                                    android:text="HARD" />
+                                    android:gravity="end" />
                             </LinearLayout>
                             <LinearLayout
+                                android:id="@+id/incen2Layer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:layout_gravity="right">
+                                android:layout_gravity="right"
+                                android:visibility="gone">
                                 <TextView
-                                    android:id="@+id/tx_incentive_swp_amount"
+                                    android:id="@+id/incen2_amount"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
                                 <TextView
+                                    android:id="@+id/incen2_denom"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="@dimen/space_40"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    android:gravity="end"
-                                    android:text="SWP" />
+                                    android:gravity="end" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/incen3Layer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="right"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/incen3_amount"
+                                    style="@style/font_rr_12_black_daynight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-" />
+                                <TextView
+                                    android:id="@+id/incen3_denom"
+                                    style="@style/font_rr_12_black_daynight"
+                                    android:layout_width="@dimen/space_40"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_2"
+                                    android:gravity="end" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/incen4Layer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="right"
+                                android:visibility="gone">
+                                <TextView
+                                    android:id="@+id/incen4_amount"
+                                    style="@style/font_rr_12_black_daynight"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-" />
+                                <TextView
+                                    android:id="@+id/incen4_denom"
+                                    style="@style/font_rr_12_black_daynight"
+                                    android:layout_width="@dimen/space_40"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_2"
+                                    android:gravity="end" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/space_view"
-                        android:layout_marginTop="@dimen/space_16"
-                        android:background="@color/colorGrayDayNight"/>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_20">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/str_lock_up"
-                            style="@style/font_rr_12_gray1"/>
-                        <TextView
-                            android:id="@+id/lockup_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:text=""
-                            style="@style/font_rr_12_black_daynight"/>
-                    </RelativeLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-
-    <LinearLayout
-        android:id="@+id/multipliersLayer"
-        android:layout_above="@+id/bottom_control"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_24"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/btn_option1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_16"
-            android:background="@drawable/box_round_unselected"
-            android:clickable="true"
-            android:visibility="visible">
-
-            <TextView
-                android:id="@+id/btn_option1_text"
-                style="@style/font_rr_14_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="SMALL" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/btn_option2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8"
-            android:background="@drawable/box_round_unselected"
-            android:clickable="true"
-            android:visibility="visible">
-
-            <TextView
-                android:id="@+id/btn_option2_text"
-                style="@style/font_rr_14_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="LARGE" />
-        </RelativeLayout>
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottom_control"

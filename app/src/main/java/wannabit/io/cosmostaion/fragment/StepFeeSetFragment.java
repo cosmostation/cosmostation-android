@@ -486,7 +486,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_CLAIM_INCENTIVE) {
-            new SimulKavaClaimIncentiveAllGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mIncentiveMultiplier, getSActivity().getBaseDao(),
+            new SimulKavaClaimIncentiveAllGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().getBaseDao(),
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_EXECUTE_CONTRACT) {

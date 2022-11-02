@@ -810,6 +810,12 @@ public class Signer {
         return msgKavaClaimSwapAny;
     }
 
+    public static Any getKavaIncentiveEarn(String sender, ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims) {
+        kava.incentive.v1beta1.Tx.MsgClaimEarnReward msgClaimEarnReward = kava.incentive.v1beta1.Tx.MsgClaimEarnReward.newBuilder().setSender(sender).addAllDenomsToClaim(denoms_to_claims).build();
+        Any msgKavaClaimSwapAny = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimEarnReward").setValue(msgClaimEarnReward.toByteString()).build();
+        return msgKavaClaimSwapAny;
+    }
+
     public static ServiceOuterClass.BroadcastTxRequest getGrpcKavaIncentiveAllReq(QueryOuterClass.QueryAccountResponse auth, String sender, String multiplier_name, BaseData baseData, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
         return getSignTx(auth, getKavaIncentiveAllMsg(sender, multiplier_name, baseData), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
@@ -844,6 +850,13 @@ public class Signer {
                 denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
             }
             msgAnys.add(getKavaIncentiveSwap(sender, denoms_to_claims));
+        }
+        if (incentiveRewards.getEarnRewardDenoms().size() > 0) {
+            ArrayList<kava.incentive.v1beta1.Tx.Selection> denoms_to_claims = new ArrayList<>();
+            for (String denom: incentiveRewards.getEarnRewardDenoms()) {
+                denoms_to_claims.add(kava.incentive.v1beta1.Tx.Selection.newBuilder().setDenom(denom).setMultiplierName(multiplier_name).build());
+            }
+            msgAnys.add(getKavaIncentiveEarn(sender, denoms_to_claims));
         }
         return msgAnys;
     }

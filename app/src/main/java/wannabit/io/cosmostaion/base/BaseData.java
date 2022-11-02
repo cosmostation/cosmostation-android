@@ -198,7 +198,7 @@ public class BaseData {
 
     //GRPC for KAVA
     public HashMap<String, QueryOuterClass.CurrentPriceResponse> mKavaTokenPrice = new HashMap<>();
-    public IncentiveParam mIncentiveParam;
+//    public IncentiveParam mIncentiveParam;
     public IncentiveReward mIncentiveRewards;
     public Swap.Params mSwapParams;
     public Genesis.Params mCdpParams;

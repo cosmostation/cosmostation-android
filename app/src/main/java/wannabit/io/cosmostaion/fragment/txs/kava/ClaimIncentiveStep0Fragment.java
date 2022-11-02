@@ -5,37 +5,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.base.chains.Kava;
-import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mCancelBtn, mNextBtn;
-    private TextView mIncentiveKavaAmount, mIncentiveHardAmount, mIncentiveSwpAmount;
-    private TextView mLockTime;
+    private LinearLayout mIncen0Layer, mIncen1Layer, mIncen2Layer, mIncen3Layer, mIncen4Layer;
+    private TextView mIncen0Amount, mIncen1Amount, mIncen2Amount, mIncen3Amount, mIncen4Amount;
+    private TextView mIncen0Denom, mIncen1Denom, mIncen2Denom, mIncen3Denom, mIncen4Denom;
 
-    private RelativeLayout BtnOption1, BtnOption2;
-
-    private BigDecimal mKavaIncetiveAmount = BigDecimal.ZERO;
-    private BigDecimal mHardIncetiveAmount = BigDecimal.ZERO;
-    private BigDecimal mSwpIncetiveAmount = BigDecimal.ZERO;
-
-    private IncentiveParam mIncentiveParam;
     private IncentiveReward mIncentiveReward;
 
     public static ClaimIncentiveStep0Fragment newInstance() {
@@ -52,36 +42,53 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         View rootView = inflater.inflate(R.layout.fragment_claim_incentive_0, container, false);
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
-
-        mIncentiveKavaAmount = rootView.findViewById(R.id.tx_incentive_kava_amount);
-        mIncentiveHardAmount = rootView.findViewById(R.id.tx_incentive_hard_amount);
-        mIncentiveSwpAmount = rootView.findViewById(R.id.tx_incentive_swp_amount);
-        mLockTime = rootView.findViewById(R.id.lockup_time);
-        BtnOption1 = rootView.findViewById(R.id.btn_option1);
-        BtnOption2 = rootView.findViewById(R.id.btn_option2);
+        mIncen0Layer = rootView.findViewById(R.id.incen0Layer);
+        mIncen0Amount = rootView.findViewById(R.id.incen0_amount);
+        mIncen0Denom = rootView.findViewById(R.id.incen0_denom);
+        mIncen1Layer = rootView.findViewById(R.id.incen1Layer);
+        mIncen1Amount = rootView.findViewById(R.id.incen1_amount);
+        mIncen1Denom = rootView.findViewById(R.id.incen1_denom);
+        mIncen2Layer = rootView.findViewById(R.id.incen2Layer);
+        mIncen2Amount = rootView.findViewById(R.id.incen2_amount);
+        mIncen2Denom = rootView.findViewById(R.id.incen2_denom);
+        mIncen3Layer = rootView.findViewById(R.id.incen3Layer);
+        mIncen3Amount = rootView.findViewById(R.id.incen3_amount);
+        mIncen3Denom = rootView.findViewById(R.id.incen3_denom);
+        mIncen4Layer = rootView.findViewById(R.id.incen4Layer);
+        mIncen4Amount = rootView.findViewById(R.id.incen4_amount);
+        mIncen4Denom = rootView.findViewById(R.id.incen4_denom);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
-        BtnOption1.setOnClickListener(this);
-        BtnOption2.setOnClickListener(this);
 
         onUpdateView();
         return rootView;
     }
 
     private void onUpdateView() {
-        mIncentiveParam = getBaseDao().mIncentiveParam;
         mIncentiveReward = getBaseDao().mIncentiveRewards;
 
-        if (mIncentiveReward != null) {
-            mKavaIncetiveAmount = mIncentiveReward.getRewardSum(getSActivity().mChainConfig.mainDenom());
-            mHardIncetiveAmount = mIncentiveReward.getRewardSum(Kava.KAVA_HARD_DENOM);
-            mSwpIncetiveAmount = mIncentiveReward.getRewardSum(Kava.KAVA_SWP_DENOM);
+        ArrayList<Coin> IncentiveCoins = mIncentiveReward.getAllIncentives();
+        if (IncentiveCoins.size() > 0) {
+            mIncen0Layer.setVisibility(View.VISIBLE);
+            WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, IncentiveCoins.get(0), mIncen0Denom, mIncen0Amount);
         }
-
-        mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), mKavaIncetiveAmount, 6, 6));
-        mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), mHardIncetiveAmount, 6, 6));
-        mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), mSwpIncetiveAmount, 6, 6));
+        if (IncentiveCoins.size() > 1) {
+            mIncen1Layer.setVisibility(View.VISIBLE);
+            WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, IncentiveCoins.get(1), mIncen1Denom, mIncen1Amount);
+        }
+        if (IncentiveCoins.size() > 2) {
+            mIncen2Layer.setVisibility(View.VISIBLE);
+            WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, IncentiveCoins.get(2), mIncen2Denom, mIncen2Amount);
+        }
+        if (IncentiveCoins.size() > 3) {
+            mIncen3Layer.setVisibility(View.VISIBLE);
+            WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, IncentiveCoins.get(3), mIncen3Denom, mIncen3Amount);
+        }
+        if (IncentiveCoins.size() > 4) {
+            mIncen4Layer.setVisibility(View.VISIBLE);
+            WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, IncentiveCoins.get(4), mIncen4Denom, mIncen4Amount);
+        }
     }
 
     @Override
@@ -90,44 +97,8 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mIncentiveMultiplier != null) {
-                getSActivity().onNextStep();
-            } else {
-                Toast.makeText(getContext(), R.string.error_no_incentive_claim_option, Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (v.equals(BtnOption1)) {
-            onInitBtnBg();
-            BtnOption1.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
-            BigDecimal kavaIncentiveCal = mKavaIncetiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 0)).setScale(0, RoundingMode.DOWN);
-            BigDecimal hardIncentiveCal = mHardIncetiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_HARD_DENOM, 0)).setScale(0, RoundingMode.DOWN);
-            BigDecimal swpIncentiveCal = mSwpIncetiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_SWP_DENOM, 0)).setScale(0, RoundingMode.DOWN);
-            mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveCal, 6, 6));
-            mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveCal, 6, 6));
-            mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));
-
-            mLockTime.setText("1 Month");
-            getSActivity().mIncentiveMultiplier = "small";
-
-        } else if (v.equals(BtnOption2)) {
-            onInitBtnBg();
-            BtnOption2.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_selected));
-            BigDecimal kavaIncentiveCal = mKavaIncetiveAmount.multiply(mIncentiveParam.getFactor(getSActivity().mChainConfig.mainDenom(), 1)).setScale(0, RoundingMode.DOWN);
-            BigDecimal hardIncentiveCal = mHardIncetiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_HARD_DENOM, 1)).setScale(0, RoundingMode.DOWN);
-            BigDecimal swpIncentiveCal = mSwpIncetiveAmount.multiply(mIncentiveParam.getFactor(Kava.KAVA_SWP_DENOM, 1)).setScale(0, RoundingMode.DOWN);
-            mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveCal, 6, 6));
-            mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveCal, 6, 6));
-            mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));
-
-            mLockTime.setText("12 Month");
-            getSActivity().mIncentiveMultiplier = "large";
-
+            getSActivity().onNextStep();
         }
-    }
-
-    private void onInitBtnBg() {
-        BtnOption1.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_unselected));
-        BtnOption2.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_unselected));
     }
 
     private ClaimIncentiveActivity getSActivity() {
