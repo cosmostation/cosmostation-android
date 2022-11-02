@@ -20,19 +20,17 @@ public class KavaClaimIncentiveAllGrpcTask extends CommonTask {
     private Account                 mAccount;
     private BaseChain               mBaseChain;
     private String                  mSender;
-    private String                  mMultiplierName;
     private BaseData                mBaseData;
     private String                  mMemo;
     private Fee                     mFees;
     private String                  mChainId;
 
     public KavaClaimIncentiveAllGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender,
-                                              String multiplierName, BaseData baseData, String memo, Fee fee, String chainId) {
+                                              BaseData baseData, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
         this.mSender = sender;
-        this.mMultiplierName = multiplierName;
         this.mBaseData = baseData;
         this.mMemo = memo;
         this.mFees = fee;
@@ -43,9 +41,10 @@ public class KavaClaimIncentiveAllGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaIncentiveAllReq(WKey.onAuthResponse(mBaseChain, mAccount), mSender, mMultiplierName, mBaseData, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaIncentiveAllReq(WKey.onAuthResponse(mBaseChain, mAccount), mSender, "large", mBaseData, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
+
             if (response.getTxResponse().getCode() > 0) {
                 mResult.errorCode = response.getTxResponse().getCode();
                 mResult.errorMsg = response.getTxResponse().getRawLog();

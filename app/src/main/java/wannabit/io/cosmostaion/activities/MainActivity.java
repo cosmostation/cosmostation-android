@@ -275,8 +275,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
 
-        if (getBaseDao().mIncentiveRewards.getRewardSum(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO &&
-                getBaseDao().mIncentiveRewards.getRewardSum(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
+        if (getBaseDao().mIncentiveRewards.getIncentiveAmount(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO &&
+                getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
             Toast.makeText(this, R.string.error_no_incentive_to_claim, Toast.LENGTH_SHORT).show();
             return;
         }

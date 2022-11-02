@@ -1,12 +1,16 @@
 package wannabit.io.cosmostaion.model.kava;
 
+import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.model.type.Coin;
 
 public class IncentiveReward {
@@ -22,10 +26,13 @@ public class IncentiveReward {
     @SerializedName("swap_claims")
     public ArrayList<SwapClaim> swap_claims;
 
+    @SerializedName("earn_claims")
+    public ArrayList<EarnClaim> earn_claims;
+
     public BigDecimal getSupplyRewardFactor(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         if (hard_claims != null && hard_claims.size() > 0 && hard_claims.get(0).supply_reward_indexes != null) {
-            for (SupplyRewardIndex index: hard_claims.get(0).supply_reward_indexes) {
+            for (SupplyRewardIndex index : hard_claims.get(0).supply_reward_indexes) {
                 if (index.collateral_type.equals(denom)) {
                     if (index.reward_indexes != null && index.reward_indexes.size() > 0) {
                         result = new BigDecimal(index.reward_indexes.get(0).reward_factor);
@@ -39,11 +46,55 @@ public class IncentiveReward {
     public BigDecimal getBorrowRewardFactor(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         if (hard_claims != null && hard_claims.size() > 0 && hard_claims.get(0).borrow_reward_indexes != null) {
-            for (BorrowRewardIndex index: hard_claims.get(0).borrow_reward_indexes) {
+            for (BorrowRewardIndex index : hard_claims.get(0).borrow_reward_indexes) {
                 if (index.collateral_type.equals(denom)) {
                     if (index.reward_indexes != null && index.reward_indexes.size() > 0) {
                         result = new BigDecimal(index.reward_indexes.get(0).reward_factor);
                     }
+                }
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Coin> getAllIncentives() {
+        ArrayList<Coin> total = Lists.newArrayList();
+        addRewards(total, getRewardListFromArray(hard_claims.stream().map(item -> item.base_claim.reward)));
+        addRewards(total, getRewardListFromArray(swap_claims.stream().map(item -> item.base_claim.reward)));
+        addRewards(total, getRewardListFromArray(earn_claims.stream().map(item -> item.base_claim.reward)));
+        addRewards(total, getRewardList(usdx_minting_claims.stream().map(item -> item.base_claim.reward)));
+        addRewards(total, getRewardListFromArray(delegator_claims.stream().map(item -> item.base_claim.reward)));
+        return total;
+    }
+
+    private List<Coin> getRewardListFromArray(Stream<ArrayList<Coin>> arrayStream) {
+        return getRewardList(arrayStream.flatMap(Collection::stream));
+    }
+
+    private List<Coin> getRewardList(Stream<Coin> stream) {
+        return stream.collect(Collectors.toList());
+    }
+
+    private void addRewards(List<Coin> result, List<Coin> coins) {
+        for (Coin coin : coins) {
+            BigDecimal amount = new BigDecimal(coin.amount);
+            if (amount.compareTo(BigDecimal.ZERO) > 0) {
+                Optional<Coin> matchedCoin = result.stream().filter(item -> item.denom.equalsIgnoreCase(coin.denom)).findFirst();
+                if (matchedCoin.isPresent()) {
+                    matchedCoin.get().amount = new BigDecimal(matchedCoin.get().amount).add(amount).toString();
+                } else {
+                    result.add(coin);
+                }
+            }
+        }
+    }
+
+    public BigDecimal getMintingRewardAmount() {
+        BigDecimal result = BigDecimal.ZERO;
+        if (usdx_minting_claims != null) {
+            for (UsdxMintingClaim reward : usdx_minting_claims) {
+                if (reward.base_claim.reward != null) {
+                    result = result.add(new BigDecimal(reward.base_claim.reward.amount));
                 }
             }
         }
@@ -66,25 +117,13 @@ public class IncentiveReward {
         return result;
     }
 
-    public BigDecimal getMintingRewardAmount() {
-        BigDecimal result = BigDecimal.ZERO;
-        if (usdx_minting_claims != null) {
-            for (UsdxMintingClaim reward : usdx_minting_claims) {
-                if (reward.base_claim.reward != null) {
-                    if (reward.base_claim.reward.denom.equals(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
-                        result = result.add(new BigDecimal(reward.base_claim.reward.amount));
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
-    public ArrayList<String> getHardRewardDenoms(){
+    public ArrayList<String> getHardRewardDenoms() {
         ArrayList<String> result = new ArrayList<>();
-        if (hard_claims == null ) { return result; }
-        for (HardClaim hardClaim: hard_claims) {
-            for (Coin coin: hardClaim.base_claim.reward) {
+        if (hard_claims == null) {
+            return result;
+        }
+        for (HardClaim hardClaim : hard_claims) {
+            for (Coin coin : hardClaim.base_claim.reward) {
                 if (!result.contains(coin.denom)) {
                     result.add(coin.denom);
                 }
@@ -109,11 +148,13 @@ public class IncentiveReward {
         return result;
     }
 
-    public ArrayList<String> getDelegatorRewardDenoms(){
+    public ArrayList<String> getDelegatorRewardDenoms() {
         ArrayList<String> result = new ArrayList<>();
-        if (delegator_claims == null ) { return result; }
-        for (DelegatorClaim delegatorClaim: delegator_claims) {
-            for (Coin coin: delegatorClaim.base_claim.reward) {
+        if (delegator_claims == null) {
+            return result;
+        }
+        for (DelegatorClaim delegatorClaim : delegator_claims) {
+            for (Coin coin : delegatorClaim.base_claim.reward) {
                 if (!result.contains(coin.denom)) {
                     result.add(coin.denom);
                 }
@@ -138,11 +179,13 @@ public class IncentiveReward {
         return result;
     }
 
-    public ArrayList<String> getSwapRewardDenoms(){
+    public ArrayList<String> getSwapRewardDenoms() {
         ArrayList<String> result = new ArrayList<>();
-        if (swap_claims == null) { return result; }
-        for (SwapClaim swapClaim: swap_claims) {
-            for (Coin coin: swapClaim.base_claim.reward) {
+        if (swap_claims == null) {
+            return result;
+        }
+        for (SwapClaim swapClaim : swap_claims) {
+            for (Coin coin : swapClaim.base_claim.reward) {
                 if (!result.contains(coin.denom)) {
                     result.add(coin.denom);
                 }
@@ -151,14 +194,29 @@ public class IncentiveReward {
         return result;
     }
 
-    public BigDecimal getRewardSum(String denom) {
-        if (denom.equals(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
-            return getHardPoolRewardAmount(denom).add(getMintingRewardAmount()).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));
-        } else {
-            return getHardPoolRewardAmount(denom).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));
+    public ArrayList<String> getEarnRewardDenoms() {
+        ArrayList<String> result = new ArrayList<>();
+        if (earn_claims == null) {
+            return result;
         }
+        for (EarnClaim earnClaim : earn_claims) {
+            for (Coin coin : earnClaim.base_claim.reward) {
+                if (!result.contains(coin.denom)) {
+                    result.add(coin.denom);
+                }
+            }
+        }
+        return result;
     }
 
+    public BigDecimal getIncentiveAmount(String denom) {
+        Optional<Coin> coin = getAllIncentives().stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+        if (coin.isPresent()){
+            return new BigDecimal(coin.get().amount);
+        } else {
+            return BigDecimal.ZERO;
+        }
+    }
 
     public class HardClaim {
         @SerializedName("base_claim")
@@ -209,10 +267,6 @@ public class IncentiveReward {
     }
 
 
-
-
-
-
     public class UsdxMintingClaim {
         @SerializedName("base_claim")
         public UsdxBaseClaim base_claim;
@@ -248,6 +302,19 @@ public class IncentiveReward {
     }
 
     public class SwapBaseClaim {
+        @SerializedName("owner")
+        public String owner;
+
+        @SerializedName("reward")
+        public ArrayList<Coin> reward;
+    }
+
+    public class EarnClaim {
+        @SerializedName("base_claim")
+        public EarnBaseClaim base_claim;
+    }
+
+    public class EarnBaseClaim {
         @SerializedName("owner")
         public String owner;
 
