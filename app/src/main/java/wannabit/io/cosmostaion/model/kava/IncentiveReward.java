@@ -59,11 +59,21 @@ public class IncentiveReward {
 
     public ArrayList<Coin> getAllIncentives() {
         ArrayList<Coin> total = Lists.newArrayList();
-        addRewards(total, getRewardListFromArray(hard_claims.stream().map(item -> item.base_claim.reward)));
-        addRewards(total, getRewardListFromArray(swap_claims.stream().map(item -> item.base_claim.reward)));
-        addRewards(total, getRewardListFromArray(earn_claims.stream().map(item -> item.base_claim.reward)));
-        addRewards(total, getRewardList(usdx_minting_claims.stream().map(item -> item.base_claim.reward)));
-        addRewards(total, getRewardListFromArray(delegator_claims.stream().map(item -> item.base_claim.reward)));
+        if (hard_claims != null && hard_claims.size() > 0) {
+            addRewards(total, getRewardListFromArray(hard_claims.stream().map(item -> item.base_claim.reward)));
+        }
+        if (swap_claims != null && swap_claims.size() > 0) {
+            addRewards(total, getRewardListFromArray(swap_claims.stream().map(item -> item.base_claim.reward)));
+        }
+        if (earn_claims != null && earn_claims.size() > 0) {
+            addRewards(total, getRewardListFromArray(earn_claims.stream().map(item -> item.base_claim.reward)));
+        }
+        if (usdx_minting_claims != null && usdx_minting_claims.size() > 0) {
+            addRewards(total, getRewardList(usdx_minting_claims.stream().map(item -> item.base_claim.reward)));
+        }
+        if (delegator_claims != null && delegator_claims.size() > 0) {
+            addRewards(total, getRewardListFromArray(delegator_claims.stream().map(item -> item.base_claim.reward)));
+        }
         return total;
     }
 
@@ -101,22 +111,6 @@ public class IncentiveReward {
         return result;
     }
 
-    public BigDecimal getHardPoolRewardAmount(String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        if (hard_claims != null) {
-            for (HardClaim reward : hard_claims) {
-                if (reward.base_claim.reward != null) {
-                    for (Coin coin : reward.base_claim.reward) {
-                        if (coin.denom.equalsIgnoreCase(denom)) {
-                            result = result.add(new BigDecimal(coin.amount));
-                        }
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
     public ArrayList<String> getHardRewardDenoms() {
         ArrayList<String> result = new ArrayList<>();
         if (hard_claims == null) {
@@ -132,22 +126,6 @@ public class IncentiveReward {
         return result;
     }
 
-    public BigDecimal getDelegatorKavaRewardAmount(String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        if (delegator_claims != null) {
-            for (DelegatorClaim reward : delegator_claims) {
-                if (reward.base_claim.reward != null) {
-                    for (Coin coin : reward.base_claim.reward) {
-                        if (coin.denom.equalsIgnoreCase(denom)) {
-                            result = result.add(new BigDecimal(coin.amount));
-                        }
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
     public ArrayList<String> getDelegatorRewardDenoms() {
         ArrayList<String> result = new ArrayList<>();
         if (delegator_claims == null) {
@@ -157,22 +135,6 @@ public class IncentiveReward {
             for (Coin coin : delegatorClaim.base_claim.reward) {
                 if (!result.contains(coin.denom)) {
                     result.add(coin.denom);
-                }
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal getSwapKavaRewardAmount(String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        if (swap_claims != null) {
-            for (SwapClaim reward : swap_claims) {
-                if (reward.base_claim.reward != null) {
-                    for (Coin coin : reward.base_claim.reward) {
-                        if (coin.denom.equalsIgnoreCase(denom)) {
-                            result = result.add(new BigDecimal(coin.amount));
-                        }
-                    }
                 }
             }
         }
