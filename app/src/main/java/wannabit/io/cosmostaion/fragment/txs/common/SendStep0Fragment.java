@@ -292,7 +292,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private boolean isExchangeAddress(String userInput) {
-        if (WUtil.getExchangeAddressList().contains(userInput) && !getSActivity().mChainConfig.addressPrefix().equalsIgnoreCase("cosmos")) {
+        if (WUtil.getExchangeAddressList().contains(userInput) && !userInput.startsWith(getSActivity().mChainConfig.addressPrefix())) {
             return false;
         } else {
             return true;
