@@ -41,9 +41,9 @@ public class WalletKavaIncentiveHolder extends BaseHolder {
         BigDecimal mSwpIncetiveAmount   = BigDecimal.ZERO;
 
         if (baseData.mIncentiveRewards != null) {
-            mKavaIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom());
-            mHardIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(Kava.KAVA_HARD_DENOM);
-            mSwpIncetiveAmount  = baseData.mIncentiveRewards.getRewardSum(Kava.KAVA_SWP_DENOM);
+            mKavaIncetiveAmount = baseData.mIncentiveRewards.getIncentiveAmount(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom());
+            mHardIncetiveAmount = baseData.mIncentiveRewards.getIncentiveAmount(Kava.KAVA_HARD_DENOM);
+            mSwpIncetiveAmount  = baseData.mIncentiveRewards.getIncentiveAmount(Kava.KAVA_SWP_DENOM);
         }
 
         mKavaIncetive.setText(WDp.getDpAmount2(mainActivity, mKavaIncetiveAmount, 6, 6));

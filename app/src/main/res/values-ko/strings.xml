@@ -1102,6 +1102,7 @@
     <string name="tx_kava_hard_mint_incentive">인센티브\nUSDX 빌헹</string>
     <string name="tx_kava_hard_hard_incentive">인센티브\n하드 대출</string>
     <string name="tx_kava_hard_save_incentive">인센티브\nSaving</string>
+    <string name="tx_kava_hard_earn_incentive">어닝\인센티브</string>
 
     <string name="tx_kava_create_cdp2">CDP 개설</string>
     <string name="tx_kava_deposit_cdp2">CDP 예치</string>
@@ -1118,6 +1119,7 @@
     <string name="tx_kava_hard_liquidate2">하드 풀 청산</string>
     <string name="tx_kava_swap_incentive2">스왑풀 인센티브</string>
     <string name="tx_kava_delegator_incentive2">위임자 인센티브</string>
+    <string name="tx_kava_earn_incentive2">어닝 인센티브</string>
     <string name="tx_kava_swap_deposit2">스왑풀 예치</string>
     <string name="tx_kava_swap_withdraw2">스왑풀 출금</string>
 

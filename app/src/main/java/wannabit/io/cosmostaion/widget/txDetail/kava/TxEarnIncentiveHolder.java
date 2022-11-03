@@ -18,15 +18,14 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
-public class TxDelegatorIncentiveHolder extends TxHolder {
-    TextView        itemDeleIncentiveSender, itemDeleIncentiveName;
-    RelativeLayout  incen0Layer, incen1Layer, incen2Layer, incen3Layer;
-    TextView        incen0Denom, incen0Amount, incen1Denom, incen1Amount, incen2Denom, incen2Amount, incen3Denom, incen3Amount;
+public class TxEarnIncentiveHolder extends TxHolder {
+    RelativeLayout incen0Layer, incen1Layer, incen2Layer, incen3Layer;
+    TextView itemSender, itemMultiplier, incen0Denom, incen0Amount, incen1Denom, incen1Amount, incen2Denom, incen2Amount, incen3Denom, incen3Amount;
 
-    public TxDelegatorIncentiveHolder(@NonNull View itemView) {
+    public TxEarnIncentiveHolder(@NonNull View itemView) {
         super(itemView);
-        itemDeleIncentiveSender = itemView.findViewById(R.id.tx_incentive_sender);
-        itemDeleIncentiveName = itemView.findViewById(R.id.tx_multiplier_name);
+        itemSender = itemView.findViewById(R.id.tx_incentive_sender);
+        itemMultiplier = itemView.findViewById(R.id.tx_multiplier_name);
         incen0Layer = itemView.findViewById(R.id.incen0Layer);
         incen0Denom = itemView.findViewById(R.id.incen0_symbol);
         incen0Amount = itemView.findViewById(R.id.incen0_amount);
@@ -43,12 +42,11 @@ public class TxDelegatorIncentiveHolder extends TxHolder {
 
     public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
         try {
-            Tx.MsgClaimDelegatorReward msg = Tx.MsgClaimDelegatorReward.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-            itemDeleIncentiveSender.setText(msg.getSender());
+            Tx.MsgClaimEarnReward msg = Tx.MsgClaimEarnReward.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+            itemSender.setText(msg.getSender());
             if (msg.getDenomsToClaimList() != null) {
-                itemDeleIncentiveName.setText(msg.getDenomsToClaim(0).getMultiplierName());
+                itemMultiplier.setText(msg.getDenomsToClaim(0).getMultiplierName());
             }
-
             ArrayList<Coin> incentiveCoins = WDp.onParseKavaIncentiveGrpc(response, position);
             if (incentiveCoins.size() > 0) {
                 incen0Layer.setVisibility(View.VISIBLE);

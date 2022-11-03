@@ -27,7 +27,6 @@ import com.google.protobuf2.Any;
 
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import desmos.profiles.v1beta1.MsgsProfile;
 import ibc.applications.transfer.v1.Tx;
 import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
@@ -64,6 +63,7 @@ import wannabit.io.cosmostaion.widget.txDetail.kava.TxDepositHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxDrawDebtCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardIncentiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidateHolder;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxEarnIncentiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaDepositPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxKavaWithdrawPoolHolder;
@@ -257,6 +257,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_KAVA_INCENTIVE_SWAP = 126;
         private static final int TYPE_TX_KAVA_CDP_LIQUIDATE = 127;
         private static final int TYPE_TX_KAVA_HARD_LIQUIDATE = 128;
+        private static final int TYPE_TX_KAVA_INCENTIVE_EARN = 129;
 
         private static final int TYPE_TX_EXECUTE_CONTRACT = 140;
 
@@ -406,6 +407,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_KAVA_INCENTIVE_SWAP) {
                 return new TxSwapIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_incentive, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_KAVA_INCENTIVE_EARN) {
+                return new TxEarnIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_kava_earn_incentive, viewGroup, false));
 
             } else if (viewType == TYPE_TX_KAVA_CDP_LIQUIDATE) {
                 return new TxCdpLiquidateHolder(getLayoutInflater().inflate(R.layout.item_tx_liquidate_cdp, viewGroup, false));
@@ -563,6 +567,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_KAVA_INCENTIVE_DELEGATOR;
                 } else if (msg.getTypeUrl().contains(kava.incentive.v1beta1.Tx.MsgClaimSwapReward.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_INCENTIVE_SWAP;
+                } else if (msg.getTypeUrl().contains(kava.incentive.v1beta1.Tx.MsgClaimEarnReward.getDescriptor().getFullName())) {
+                    return TYPE_TX_KAVA_INCENTIVE_EARN;
                 } else if (msg.getTypeUrl().contains(kava.cdp.v1beta1.Tx.MsgLiquidate.getDescriptor().getFullName())) {
                     return TYPE_TX_KAVA_CDP_LIQUIDATE;
                 } else if (msg.getTypeUrl().contains(kava.hard.v1beta1.Tx.MsgLiquidate.getDescriptor().getFullName())) {

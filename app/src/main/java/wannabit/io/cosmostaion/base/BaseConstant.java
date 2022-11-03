@@ -46,7 +46,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_BNB_TICKER                       = 2043;
     public final static int TASK_FETCH_BNB_MINI_TICKER                  = 2044;
     public final static int TASK_FETCH_KAVA_CDP_DEPOSIT                 = 2061;
-    public final static int TASK_FETCH_KAVA_INCENTIVE_PARAM             = 2074;
     public final static int TASK_FETCH_KAVA_INCENTIVE_REWARD            = 2076;
     public final static int TASK_FETCH_BNB_MINI_TOKENS                  = 2078;
     public final static int TASK_GEN_TX_HTLC_CREATE                     = 2079;

@@ -47,6 +47,7 @@ public class TxLiquidityHolder extends TxHolder {
             }
             Coin coin = new Coin(msg.getAmount().getDenom(), msg.getAmount().getAmount());
             WDp.setDpCoin(c, baseData, chainConfig, coin, mEarnDenom, mEarnAmount);
+            return;
 
         } catch (Exception e) { }
 
