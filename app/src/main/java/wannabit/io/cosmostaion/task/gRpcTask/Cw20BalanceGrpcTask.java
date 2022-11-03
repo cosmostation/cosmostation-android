@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE_OF_CW20;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import com.google.gson.Gson;
@@ -33,7 +32,6 @@ public class Cw20BalanceGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAccount = account;
         this.mContAddress = contAddress;
-        this.mResult.taskType = TASK_GRPC_FETCH_BALANCE_OF_CW20;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 

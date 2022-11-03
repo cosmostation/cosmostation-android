@@ -14,6 +14,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_MINI_TICK
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_TICKER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_CW20_ASSETS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_ERC20_ASSETS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OKEX_ALL_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_ACCOUNT_BALANCE;
@@ -64,6 +65,8 @@ import com.gun0912.tedpermission.TedPermission;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.crypto.DeterministicKey;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -76,6 +79,7 @@ import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
+import ethermint.types.v1.Web3;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
@@ -135,6 +139,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.Cw20BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.DelegationsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.Erc20BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcConfigTask;
@@ -145,6 +150,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -812,6 +818,22 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     for (MintscanToken asset : getBaseDao().mMintscanMyTokens) {
                         mTaskCount = mTaskCount + 1;
                         new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, asset.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }
+                }
+            }
+
+        } else if (result.taskType == TASK_FETCH_MINTSCAN_ERC20_ASSETS) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mMintscanTokens = (ArrayList<MintscanToken>) result.resultData;
+                if (getBaseDao().mMintscanTokens != null && getBaseDao().mMintscanTokens.size() > 0) {
+                    getBaseDao().setMyTokens(mAccount.address);
+                    String url = mChainConfig.rpcUrl();
+                    if (!url.isEmpty()) {
+                        Web3j web3 = Web3j.build(new HttpService(url));
+                        for (MintscanToken asset : getBaseDao().mMintscanMyTokens) {
+                            mTaskCount = mTaskCount + 1;
+                            new Erc20BalanceGrpcTask(getBaseApplication(), this, mAccount, web3, asset.contract_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        }
                     }
                 }
             }

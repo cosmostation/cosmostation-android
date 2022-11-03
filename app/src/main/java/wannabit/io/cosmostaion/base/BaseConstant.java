@@ -88,7 +88,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_NODE_INFO                   = 4024;
     public final static int TASK_GRPC_FETCH_AUTH                        = 4025;
     public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
-    public final static int TASK_GRPC_FETCH_BALANCE_OF_CW20             = 4033;
 
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
     public final static int TASK_GRPC_FETCH_STARNAME_CONFIG             = 4102;

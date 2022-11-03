@@ -562,6 +562,9 @@ public class WUtil {
                 if (o2.denom.equalsIgnoreCase("NETA")) return 1;
                 if (o1.denom.equalsIgnoreCase("MARBLE")) return -1;
                 if (o2.denom.equalsIgnoreCase("MARBLE")) return 1;
+
+                if (o1.denom.equalsIgnoreCase("WEVMOS")) return -1;
+                if (o2.denom.equalsIgnoreCase("WEVMOS")) return 1;
                 return 0;
             }
         });
