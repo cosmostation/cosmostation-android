@@ -204,7 +204,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mFeeInfo = WDp.getFeeInfos(getActivity(), getBaseDao(), mChainConfig);
+        mFeeInfo = WDp.getFeeInfos(getActivity(), getBaseDao());
 
         mFeeTotalCard.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mChainConfig.mainDenom(), mFeeCoinImg);
