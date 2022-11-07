@@ -932,7 +932,7 @@
     <string name="str_select_contract_token">표시할 토큰을 선택하세요</string>
     <string name="str_ibc_transfer_title">IBC 전송하기</string>
     <string name="str_ibc_transfer_msg1">중앙화 거래소에서는 가상자산의 IBC 기능을 지원하지 않습니다.</string>
-    <string name="str_ibc_transfer_msg2">반드시 IBC를 통해 해당 자산을 원래 체인으로 전송한 후, 거래소로의 출금을 진행하세요.</string>
+    <string name="str_ibc_transfer_msg2">반드시 IBC를 통해 해당 자산을 원래 체인으로 전송한 후, \n거래소로의 출금을 진행하세요.</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
