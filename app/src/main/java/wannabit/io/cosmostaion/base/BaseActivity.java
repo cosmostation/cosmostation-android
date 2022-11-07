@@ -12,7 +12,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_MINI_TICKER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_TICKER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_CW20_ASSETS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
@@ -103,7 +102,6 @@ import wannabit.io.cosmostaion.dialog.WaitDialog;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
-import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -116,7 +114,6 @@ import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanCw20AssetsTask;
@@ -245,7 +242,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (chainConfig.evmSupport()) {
             ethTxt.setVisibility(View.VISIBLE);
             try {
-                ethTxt.setText("(" + WKey.convertAddressToEth(mAccount.address) + ")");
+                ethTxt.setText("(" + WKey.convertBech32ToEvm(mAccount.address) + ")");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -262,7 +259,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         if (chainConfig.evmSupport()) {
             try {
-                String ethAddress = WKey.convertAddressToEth(account.address);
+                String ethAddress = WKey.convertBech32ToEvm(account.address);
                 CommonAlertDialog.showDoubleButton(this, getString(R.string.str_address_type), "",
                         getString(R.string.str_tender_type), view -> onClickShowAccountDialog(account.address, nickName),
                         getString(R.string.str_eth_type), view -> onClickShowAccountDialog(ethAddress, nickName));
@@ -515,7 +512,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mMyRewards.clear();
 
         //kava GRPC
-        getBaseDao().mIncentiveParam = null;
         getBaseDao().mIncentiveRewards = null;
         getBaseDao().mMyHardDeposits.clear();
         getBaseDao().mMyHardBorrows.clear();
@@ -590,7 +586,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new StarNameGrpcConfigTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(KAVA_MAIN)) {
-            mTaskCount = 12;
+            mTaskCount = 11;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -603,7 +599,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new KavaMarketPriceGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaIncentiveParamTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new KavaIncentiveRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (isGRPC(mBaseChain)) {
@@ -790,13 +785,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         }
 
-        //kava
-        else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mIncentiveParam = (IncentiveParam) result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
+        else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mIncentiveRewards = (IncentiveReward) result.resultData;
             }

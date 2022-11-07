@@ -46,9 +46,9 @@ public class KavaLiquidityGrpcTask extends CommonTask {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = null;
             if (mTxType == CONST_PW_TX_ADD_LIQUIDITY) {
-                broadcastTxRequest = Signer.getGrpcKavaAddLiquidityReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mValidatorAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                broadcastTxRequest = Signer.getGrpcKavaAddLiquidityReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mValidatorAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             } else {
-                broadcastTxRequest = Signer.getGrpcKavaRemoveLiquidityReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mValidatorAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                broadcastTxRequest = Signer.getGrpcKavaRemoveLiquidityReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mValidatorAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             }
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();

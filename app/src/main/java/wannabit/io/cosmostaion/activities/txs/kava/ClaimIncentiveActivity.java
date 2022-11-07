@@ -175,7 +175,7 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
             String hash = String.valueOf(result.resultData);
             if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
             startActivity(txIntent);
-        }, mAccount, mBaseChain, mAccount.address, mIncentiveMultiplier, getBaseDao(), mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }, mAccount, mBaseChain, mAccount.address, getBaseDao(), mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private class ClaimIncentivePageAdapter extends FragmentPagerAdapter {

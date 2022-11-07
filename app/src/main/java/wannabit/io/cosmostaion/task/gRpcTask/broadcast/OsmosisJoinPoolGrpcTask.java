@@ -42,7 +42,7 @@ public class OsmosisJoinPoolGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcJoinPoolReq(WKey.onAuthResponse(mBaseChain, mAccount), mPoolId, mDeposit0Coin, mDeposit1Coin, mShareAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcJoinPoolReq(WKey.onAuthResponse(mBaseChain, mAccount), mPoolId, mDeposit0Coin, mDeposit1Coin, mShareAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {

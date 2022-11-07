@@ -246,10 +246,15 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
                 holder.itemMsg.setText(mApiProposal.description);
                 if (isGRPC(mBaseChain)) {
-                    if (mApiProposal.content != null && mApiProposal.content.amount != null && mApiProposal.content.amount.size() != 0) {
+                    if (mApiProposal.content != null && mApiProposal.content.amount != null) {
                         holder.itemRequestLayer.setVisibility(View.VISIBLE);
-                        ArrayList<Coin> requestCoin = mApiProposal.content.amount;
-                        WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount);
+                        Coin requestCoin = mApiProposal.getAmounts();
+                        if (requestCoin != null) {
+                            WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin, holder.itemRequestAmountDenom, holder.itemRequestAmount);
+                        } else {
+                            holder.itemRequestAmountDenom.setText("N/A");
+                            holder.itemRequestAmount.setVisibility(View.GONE);
+                        }
                     } else {
                         holder.itemRequestLayer.setVisibility(View.GONE);
                     }

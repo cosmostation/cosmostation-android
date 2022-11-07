@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.network.res;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import wannabit.io.cosmostaion.model.type.Coin;
 
@@ -51,33 +54,10 @@ public class ResProposal {
     public Coin initialDeposit;
 
     @SerializedName("total_deposit")
-    public ArrayList<Coin> totalDeposit;
+    public Object totalDeposit;
 
     @SerializedName("voteMeta")
     public VoteMeta voteMeta;
-
-    @SerializedName("voter")
-    public String voter;
-
-    @SerializedName("option")
-    public String option;
-
-    @SerializedName("timestamp")
-    public String timestamp;
-
-    @SerializedName("answer")
-    public String answer;
-
-    @SerializedName("votes")
-    public ArrayList<VotesData> votes;
-
-    public class VotesData {
-        @SerializedName("proposal_id")
-        public int id;
-
-        @SerializedName("votes")
-        public ArrayList<VoteDetail> voteDetails;
-    }
 
     public class Content {
         @SerializedName("type")
@@ -90,7 +70,7 @@ public class ResProposal {
         public ArrayList<Recipient> recipients;
 
         @SerializedName("amount")
-        public ArrayList<Coin> amount;
+        public Object amount;
 
         public class Recipient {
             @SerializedName("amount")
@@ -124,17 +104,13 @@ public class ResProposal {
         public String abstain_amount;
     }
 
-    public class VoteDetail {
-        @SerializedName("voter")
-        public String voter;
-
-        @SerializedName("option")
-        public String option;
-
-        @SerializedName("tx_hash")
-        public String tx_hash;
-
-        @SerializedName("timestamp")
-        public String timestamp;
+    public Coin getAmounts() {
+        try {
+            ArrayList<Coin> temp = new Gson().fromJson(new Gson().toJson(content.amount), new TypeToken<List<Coin>>(){}.getType());
+            if (temp != null && temp.size() > 0) {
+                return temp.get(0);
+            }
+        } catch (Exception e) { }
+        return null;
     }
 }

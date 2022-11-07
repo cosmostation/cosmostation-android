@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 

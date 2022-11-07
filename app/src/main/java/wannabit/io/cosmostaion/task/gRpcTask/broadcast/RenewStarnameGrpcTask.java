@@ -42,9 +42,9 @@ public class RenewStarnameGrpcTask extends CommonTask {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             ServiceOuterClass.BroadcastTxRequest broadcastTxRequest;
             if (mStarnameType.equalsIgnoreCase(IOV_MSG_TYPE_RENEW_DOMAIN)) {
-                broadcastTxRequest = Signer.getGrpcRenewDomainReq(WKey.onAuthResponse(mBaseChain, mAccount), mDomain, mAccount.address, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                broadcastTxRequest = Signer.getGrpcRenewDomainReq(WKey.onAuthResponse(mBaseChain, mAccount), mDomain, mAccount.address, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             } else {
-                broadcastTxRequest = Signer.getGrpcRenewAccountReq(WKey.onAuthResponse(mBaseChain, mAccount), mDomain, mName, mAccount.address, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                broadcastTxRequest = Signer.getGrpcRenewAccountReq(WKey.onAuthResponse(mBaseChain, mAccount), mDomain, mName, mAccount.address, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             }
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();

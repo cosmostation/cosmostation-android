@@ -676,6 +676,8 @@ public class ResApiNewTxListCustom {
                         result = c.getString(R.string.tx_kava_save_withdraw);
                     } else if (msgType.contains("MsgClaimSavingsReward")) {
                         result = c.getString(R.string.tx_kava_hard_save_incentive);
+                    } else if (msgType.contains("MsgClaimEarnReward")) {
+                        result = c.getString(R.string.tx_kava_hard_earn_incentive);
                     }
 
                 } else if (msgType.contains("kava.") && msgType.contains("bep3")) {
