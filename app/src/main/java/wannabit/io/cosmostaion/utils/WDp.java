@@ -15,6 +15,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STATION_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -322,6 +323,11 @@ public class WDp {
             return false;
         } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
             if (new BigDecimal(FEE_OKC_BASE).compareTo(baseData.availableAmount(chainConfig.mainDenom())) < 0) {
+                return true;
+            }
+            return false;
+        } else if (chainConfig.baseChain().equals(STATION_TEST)) {
+            if (new BigDecimal(BASE_GAS_AMOUNT).compareTo(baseData.availableAmount(chainConfig.mainDenom())) < 0) {
                 return true;
             }
             return false;
