@@ -304,7 +304,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     private ServiceOuterClass.SimulateResponse simulateClaim(ArrayList<String> toClaimValaddr) {
         ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcClaimRewardsSimulateReq(getAuthResponse(), toClaimValaddr, fee, "", getEcKey(), getBaseDao().getChainIdGrpc());
+        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcClaimRewardsSimulateReq(getAuthResponse(), toClaimValaddr, fee, "", getEcKey(), getBaseDao().getChainIdGrpc(), mAccount.customPath, mBaseChain);
         return txService.simulate(simulateTxRequest);
     }
 
@@ -318,13 +318,13 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
         fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
         ServiceGrpc.ServiceBlockingStub broadcastTx = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcClaimRewardsReq(getAuthResponse(), toClaimValaddr, fee, "", getEcKey(), getBaseDao().getChainIdGrpc());
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcClaimRewardsReq(getAuthResponse(), toClaimValaddr, fee, "", getEcKey(), getBaseDao().getChainIdGrpc(), mAccount.customPath, mBaseChain);
         return broadcastTx.broadcastTx(broadcastTxRequest);
     }
 
     private ServiceOuterClass.SimulateResponse simulateCompounding(ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
         ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCompoundingSimulateReq(getAuthResponse(), rewards, baseChain, fee, "", getEcKey(), getBaseDao().getChainIdGrpc());
+        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCompoundingSimulateReq(getAuthResponse(), rewards, baseChain, fee, "", getEcKey(), getBaseDao().getChainIdGrpc(), mAccount.customPath);
         return txService.simulate(simulateTxRequest);
     }
 
@@ -338,7 +338,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
         fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
         ServiceGrpc.ServiceBlockingStub broadcastTx = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCompoundingReq(getAuthResponse(), rewards, baseChain, fee, "", getEcKey(), getBaseDao().getChainIdGrpc());
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcCompoundingReq(getAuthResponse(), rewards, baseChain, fee, "", getEcKey(), getBaseDao().getChainIdGrpc(), mAccount.customPath);
         return broadcastTx.broadcastTx(broadcastTxRequest);
     }
 

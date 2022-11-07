@@ -73,7 +73,6 @@ import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
-import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -198,7 +197,7 @@ public class BaseData {
 
     //GRPC for KAVA
     public HashMap<String, QueryOuterClass.CurrentPriceResponse> mKavaTokenPrice = new HashMap<>();
-    public IncentiveParam mIncentiveParam;
+//    public IncentiveParam mIncentiveParam;
     public IncentiveReward mIncentiveRewards;
     public Swap.Params mSwapParams;
     public Genesis.Params mCdpParams;
@@ -1411,7 +1410,7 @@ public class BaseData {
         for (Account account : allOKAccounts) {
             if (account.address.startsWith("ex")) {
                 try {
-                    account.address = WKey.convertAddressToEth(account.address);
+                    account.address = WKey.convertBech32ToEvm(account.address);
                     updateAccountAddress(account);
                 } catch (Exception e) {
                     e.printStackTrace();

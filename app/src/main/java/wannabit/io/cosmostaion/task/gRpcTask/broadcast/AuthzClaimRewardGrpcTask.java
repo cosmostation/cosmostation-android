@@ -40,7 +40,7 @@ public class AuthzClaimRewardGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcAuthzClaimRewardReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mGranter, mValAddressList, mFee, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcAuthzClaimRewardReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mGranter, mValAddressList, mFee, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
 

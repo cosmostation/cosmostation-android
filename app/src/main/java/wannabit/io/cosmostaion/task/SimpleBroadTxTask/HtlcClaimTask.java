@@ -91,7 +91,7 @@ public class HtlcClaimTask extends CommonTask {
                 Query.GetNodeInfoResponse receiveInfo = nodeInfoStub.getNodeInfo(receiveNodeInfo);
 
                 cosmos.tx.v1beta1.ServiceGrpc.ServiceBlockingStub txService = cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mReceiveChain));
-                ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaClaimHTLCSwapReq(WKey.onAuthResponse(mReceiveChain, mReceiveAccount), mReceiveAccount.address, mExpectedSwapId, mRandomNumber, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), WKey.getECKey(mApp, mReceiveAccount), receiveInfo.getNodeInfo().getNetwork());
+                ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcKavaClaimHTLCSwapReq(WKey.onAuthResponse(mReceiveChain, mReceiveAccount), mReceiveAccount.address, mExpectedSwapId, mRandomNumber, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), WKey.getECKey(mApp, mReceiveAccount), receiveInfo.getNodeInfo().getNetwork(), mReceiveAccount.customPath, mReceiveChain);
                 ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
                 mResult.resultData = response.getTxResponse().getTxhash();
                 if (response.getTxResponse().getCode() > 0) {

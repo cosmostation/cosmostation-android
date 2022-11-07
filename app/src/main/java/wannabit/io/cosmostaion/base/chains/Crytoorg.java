@@ -41,8 +41,8 @@ public class Crytoorg extends ChainConfig {
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
-    public String grpcUrl() { return "lcd-cryptocom-app.cosmostation.io"; }
-    public String apiUrl() { return "https://api-cryptocom.cosmostation.io/"; }
+    public String grpcUrl() { return "lcd-crypto-org-app.cosmostation.io"; }
+    public String apiUrl() { return "https://api-crypto-org.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "crypto-org/"; }
     public String monikerUrl() { return MONIKER_URL + "cryto/"; }

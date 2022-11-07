@@ -1187,6 +1187,7 @@
     <string name="tx_kava_hard_mint_incentive">USDX Minting\nIncentive</string>
     <string name="tx_kava_hard_hard_incentive">Hard Lend\nIncentive</string>
     <string name="tx_kava_hard_save_incentive">Incentive\nSaving</string>
+    <string name="tx_kava_hard_earn_incentive">Earn\nIncentive</string>
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
@@ -1203,6 +1204,7 @@
     <string name="tx_kava_hard_liquidate2">Hard Lend Liquidate</string>
     <string name="tx_kava_swap_incentive2">Swap Pool Incentive</string>
     <string name="tx_kava_delegator_incentive2">Delegator Incentive</string>
+    <string name="tx_kava_earn_incentive2">Earn Incentive</string>
     <string name="tx_kava_swap_deposit2">Swap Pool Deposit</string>
     <string name="tx_kava_swap_withdraw2">Swap Pool Withdraw</string>
 

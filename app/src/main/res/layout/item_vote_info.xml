@@ -197,8 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="ATOM"
-                        style="@style/font_rr_12_atom"/>
+                        style="@style/font_rr_12_black_daynight"/>
                     <TextView
                         android:id="@+id/request_amount"
                         android:layout_width="wrap_content"

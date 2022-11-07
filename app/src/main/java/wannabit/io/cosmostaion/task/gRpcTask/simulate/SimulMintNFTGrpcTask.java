@@ -52,9 +52,9 @@ public class SimulMintNFTGrpcTask extends CommonTask {
             ServiceOuterClass.SimulateRequest simulateTxRequest = null;
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             if (mBaseChain.equals(IRIS_MAIN)) {
-                simulateTxRequest = Signer.getGrpcCreateNftIrisSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSigner, mDenomId, mDenomName, mId, mName, mUri, mData, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                simulateTxRequest = Signer.getGrpcCreateNftIrisSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSigner, mDenomId, mDenomName, mId, mName, mUri, mData, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             } else if (mBaseChain.equals(CRYPTO_MAIN)) {
-                simulateTxRequest = Signer.getGrpcCreateNftCroSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSigner, mDenomId, mDenomName, mId, mName, mUri, mData, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+                simulateTxRequest = Signer.getGrpcCreateNftCroSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSigner, mDenomId, mDenomName, mId, mName, mUri, mData, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             }
             if (simulateTxRequest != null) {
                 ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);

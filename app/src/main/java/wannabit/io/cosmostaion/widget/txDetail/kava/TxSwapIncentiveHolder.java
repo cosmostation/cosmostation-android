@@ -21,24 +21,24 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 public class TxSwapIncentiveHolder extends TxHolder {
     TextView        itemSwapIncentiveSender, itemSwapIncentiveName;
     RelativeLayout  incen0Layer, incen1Layer, incen2Layer, incen3Layer;
-    TextView        itemKavaDenom, itemKavaAmount, itemSwpDenom, itemSwpAmount, itemHardDenom, itemHardAmount, itemUsdxDenom, itemUsdxAmount;
+    TextView        incen0Denom, incen0Amount, incen1Denom, incen1Amount, incen2Denom, incen2Amount, incen3Denom, incen3Amount;
 
     public TxSwapIncentiveHolder(@NonNull View itemView) {
         super(itemView);
-        itemSwapIncentiveSender         = itemView.findViewById(R.id.tx_incentive_sender);
-        itemSwapIncentiveName           = itemView.findViewById(R.id.tx_multiplier_name);
-        incen0Layer                     = itemView.findViewById(R.id.incen0Layer);
-        itemKavaDenom                   = itemView.findViewById(R.id.kava_symbol);
-        itemKavaAmount                  = itemView.findViewById(R.id.kava_amount);
-        incen1Layer                     = itemView.findViewById(R.id.incen1Layer);
-        itemSwpDenom                    = itemView.findViewById(R.id.swp_symbol);
-        itemSwpAmount                   = itemView.findViewById(R.id.swp_amount);
-        incen2Layer                     = itemView.findViewById(R.id.incen2Layer);
-        itemHardDenom                   = itemView.findViewById(R.id.hard_symbol);
-        itemHardAmount                  = itemView.findViewById(R.id.hard_amount);
-        incen3Layer                     = itemView.findViewById(R.id.incen3Layer);
-        itemUsdxDenom                   = itemView.findViewById(R.id.usdx_symbol);
-        itemUsdxAmount                  = itemView.findViewById(R.id.usdx_amount);
+        itemSwapIncentiveSender = itemView.findViewById(R.id.tx_incentive_sender);
+        itemSwapIncentiveName = itemView.findViewById(R.id.tx_multiplier_name);
+        incen0Layer = itemView.findViewById(R.id.incen0Layer);
+        incen0Denom = itemView.findViewById(R.id.incen0_symbol);
+        incen0Amount = itemView.findViewById(R.id.incen0_amount);
+        incen1Layer = itemView.findViewById(R.id.incen1Layer);
+        incen1Denom = itemView.findViewById(R.id.incen1_symbol);
+        incen1Amount = itemView.findViewById(R.id.incen1_amount);
+        incen2Layer = itemView.findViewById(R.id.incen2Layer);
+        incen2Denom = itemView.findViewById(R.id.incen2_symbol);
+        incen2Amount = itemView.findViewById(R.id.incen2_amount);
+        incen3Layer = itemView.findViewById(R.id.incen3Layer);
+        incen3Denom = itemView.findViewById(R.id.incen3_symbol);
+        incen3Amount = itemView.findViewById(R.id.incen3_amount);
     }
 
     public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
@@ -52,19 +52,19 @@ public class TxSwapIncentiveHolder extends TxHolder {
             ArrayList<Coin> incentiveCoins = WDp.onParseKavaIncentiveGrpc(response, position);
             if (incentiveCoins.size() > 0) {
                 incen0Layer.setVisibility(View.VISIBLE);
-                WDp.setDpCoin(c, baseData, chainConfig, incentiveCoins.get(0), itemKavaDenom, itemKavaAmount);
+                WDp.setDpCoin(c, baseData, chainConfig, incentiveCoins.get(0), incen0Denom, incen0Amount);
             }
             if (incentiveCoins.size() > 1) {
                 incen1Layer.setVisibility(View.VISIBLE);
-                WDp.setDpCoin(c, baseData, chainConfig, incentiveCoins.get(1), itemSwpDenom, itemSwpAmount);
+                WDp.setDpCoin(c, baseData, chainConfig, incentiveCoins.get(1), incen1Denom, incen1Amount);
             }
             if (incentiveCoins.size() > 2) {
                 incen2Layer.setVisibility(View.VISIBLE);
-                WDp.setDpCoin(c, baseData, chainConfig, incentiveCoins.get(2), itemHardDenom, itemHardAmount);
+                WDp.setDpCoin(c, baseData, chainConfig, incentiveCoins.get(2), incen2Denom, incen2Amount);
             }
             if (incentiveCoins.size() > 3) {
                 incen3Layer.setVisibility(View.VISIBLE);
-                WDp.setDpCoin(c, baseData, chainConfig, incentiveCoins.get(3), itemUsdxDenom, itemUsdxAmount);
+                WDp.setDpCoin(c, baseData, chainConfig, incentiveCoins.get(3), incen3Denom, incen3Amount);
             }
 
         } catch (Exception e) { }

@@ -40,7 +40,7 @@ public class SimulAuthzVoteGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcAuthzVoteSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mGranter, mOpinionMap, mFee, mMemo, WKey.getECKey(mApp, mAccount), mChainId);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcAuthzVoteSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mGranter, mOpinionMap, mFee, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();
