@@ -891,6 +891,12 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_rr_14_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
 
     <style name="font_ss_15_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
