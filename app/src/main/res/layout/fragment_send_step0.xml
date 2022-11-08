@@ -178,8 +178,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_control"
-        android:layout_marginLeft="@dimen/space_32"
-        android:layout_marginRight="@dimen/space_32"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,24 +8,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_control">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_margin="@dimen/space_12"
-                app:cardElevation="0dp"
-                app:cardPreventCornerOverlap="true"
+                app:cardBackgroundColor="@color/colorTransBg"
                 app:cardCornerRadius="@dimen/space_8"
-                app:cardBackgroundColor="@color/colorTransBg">
+                app:cardElevation="0dp"
+                app:cardPreventCornerOverlap="true">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/space_16"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_16">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -36,33 +39,37 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/send_amount_title"
+                                style="@style/font_rr_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_to_send_amount"
-                                style="@style/font_rr_12_gray1"/>
+                                android:text="@string/str_to_send_amount" />
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:layout_toRightOf="@+id/send_amount_title"
-                                android:orientation="horizontal"
-                                android:gravity="end">
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/send_amount"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="-"
-                                    style="@style/font_rr_12_black_daynight"/>
+                                    android:text="-" />
+
                                 <TextView
                                     android:id="@+id/send_denom"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    android:text="-"
-                                    style="@style/font_rr_12_black_daynight"/>
+                                    android:text="-" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -70,73 +77,81 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16">
+
                             <TextView
                                 android:id="@+id/fee_title"
+                                style="@style/font_rr_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_fees"
-                                style="@style/font_rr_12_gray1"/>
+                                android:text="@string/str_fees" />
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_toRightOf="@+id/fee_title"
-                                android:orientation="horizontal"
-                                android:gravity="end">
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/send_fees"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
-                                    android:text="-"
-                                    style="@style/font_rr_12_black_daynight"/>
+                                    android:text="-" />
+
                                 <TextView
                                     android:id="@+id/send_fees_type"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    android:text="-"
-                                    style="@style/font_rr_12_black_daynight"/>
+                                    android:text="-" />
                             </LinearLayout>
                         </RelativeLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/space_view"
-                            android:background="@color/colorGrayDayNight"
-                            android:layout_marginTop="@dimen/space_16"/>
+                            android:layout_marginTop="@dimen/space_16"
+                            android:background="@color/colorGrayDayNight" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16">
+
                             <TextView
                                 android:id="@+id/current_available_title"
+                                style="@style/font_rr_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_current_available"
-                                style="@style/font_rr_12_gray1"/>
+                                android:text="@string/str_current_available" />
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:layout_toRightOf="@+id/current_available_title"
-                                android:orientation="horizontal"
-                                android:gravity="end">
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/current_available"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="-"
-                                    style="@style/font_rr_12_black_daynight"/>
+                                    android:text="-" />
+
                                 <TextView
                                     android:id="@+id/current_denom"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    android:text="-"
-                                    style="@style/font_rr_12_black_daynight"/>
+                                    android:text="-" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -151,104 +166,114 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/str_remaining_available" />
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:layout_toRightOf="@+id/remaining_available_title"
-                                android:orientation="horizontal"
-                                android:gravity="end">
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/remaining_available"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="-"
-                                    style="@style/font_rr_12_black_daynight"/>
+                                    android:text="-" />
+
                                 <TextView
                                     android:id="@+id/remaining_denom"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_2"
-                                    android:text="-"
-                                    style="@style/font_rr_12_black_daynight"/>
+                                    android:text="-" />
                             </LinearLayout>
                         </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/remaining_price"
+                                style="@style/font_rr_10_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                style="@style/font_rr_10_gray1"
-                                android:text="-"/>
+                                android:text="-" />
                         </RelativeLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/space_view"
-                            android:background="@color/colorGrayDayNight"
-                            android:layout_marginTop="@dimen/space_16"/>
+                            android:layout_marginTop="@dimen/space_16"
+                            android:background="@color/colorGrayDayNight" />
 
                         <LinearLayout
                             android:id="@+id/recipient_layer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="@dimen/space_16">
+                            android:layout_marginTop="@dimen/space_16"
+                            android:orientation="vertical">
+
                             <TextView
+                                style="@style/font_rr_12_gray1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/str_recipient_chain"
-                                style="@style/font_rr_12_gray1"/>
+                                android:text="@string/str_recipient_chain" />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="@dimen/space_8">
+                                android:layout_marginTop="@dimen/space_8"
+                                android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/recipient_chain"
+                                    style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    style="@style/font_rr_12_black_daynight"/>
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
 
                         </LinearLayout>
 
                         <TextView
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16"
-                            android:text="@string/str_recipient_address"
-                            style="@style/font_rr_12_gray1"/>
+                            android:text="@string/str_recipient_address" />
+
                         <TextView
                             android:id="@+id/recipient_address"
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_8"
-                            android:text="Cosmostation"
-                            android:singleLine="true"
                             android:ellipsize="middle"
-                            style="@style/font_rr_12_black_daynight"/>
+                            android:singleLine="true"
+                            android:text="Cosmostation" />
+
                         <TextView
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_16"
-                            android:text="@string/str_memo"
-                            style="@style/font_rr_12_gray1"/>
+                            android:text="@string/str_memo" />
+
                         <TextView
                             android:id="@+id/memo"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/space_8"
-                            android:lines="2"
                             android:ellipsize="end"
-                            android:text="java.util.concurrent.ExecutionException: com.android.builder.internal.aapt.v2.Aapt2Exception: Android resource compilation failed"
-                            style="@style/font_rr_11_black_daynight"/>
+                            android:lines="2"
+                            android:text="java.util.concurrent.ExecutionException: com.android.builder.internal.aapt.v2.Aapt2Exception: Android resource compilation failed" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -262,25 +287,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_control"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_20"
-        android:orientation="vertical"
-        android:layout_marginRight="@dimen/space_32"
-        android:layout_marginLeft="@dimen/space_32"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <TextView
+            style="@style/font_rr_12_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_8"
             android:gravity="center"
-            style="@style/font_rr_12_black_daynight"
-            android:textColor="@color/colorRed"
-            android:text="@string/str_ibc_transfer_msg1"/>
+            android:text="@string/str_ibc_transfer_msg1"
+            android:textColor="@color/colorRed" />
+
         <TextView
+            style="@style/font_rr_12_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@style/font_rr_12_black_daynight"
-            android:text="@string/str_ibc_transfer_msg2"/>
+            android:text="@string/str_ibc_transfer_msg2" />
 
     </LinearLayout>
 
@@ -288,32 +315,34 @@
         android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_24">
+        android:layout_marginBottom="@dimen/space_24"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/btn_before"
+            style="@style/font_rr_14_black_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_rr_14_black_daynight"
-            android:textAllCaps="false"
-            android:text="@string/str_back"/>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_back"
+            android:textAllCaps="false" />
+
         <Button
             android:id="@+id/btn_confirm"
+            style="@style/font_rr_14_photon_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_rr_14_photon_daynight"
-            android:textAllCaps="false"
-            android:text="@string/str_confirm"/>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_confirm"
+            android:textAllCaps="false" />
     </LinearLayout>
 </RelativeLayout>
