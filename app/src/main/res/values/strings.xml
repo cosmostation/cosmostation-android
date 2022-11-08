@@ -1015,7 +1015,7 @@
     <string name="str_select_contract_token">Select token to Display</string>
     <string name="str_ibc_transfer_title">IBC Transfer</string>
     <string name="str_ibc_transfer_msg1">IBC transactions are NOT supported on centralized exchanges.</string>
-    <string name="str_ibc_transfer_msg2">Transfer your asset back to its origin chain by IBC before sending it to a centralized exchange.</string>
+    <string name="str_ibc_transfer_msg2">Transfer your asset back to its origin chain by IBC before \nsending it to a centralized exchange.</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>

@@ -272,7 +272,7 @@ public class WDp {
         }
     }
 
-    public static ArrayList<FeeInfo> getFeeInfos(Context c, BaseData baseData, ChainConfig chainConfig) {
+    public static ArrayList<FeeInfo> getFeeInfos(Context c, BaseData baseData) {
         ArrayList<FeeInfo> result = new ArrayList<>();
         if (baseData.mParam != null && baseData.mParam.getGasRate() != null && baseData.mParam.getGasRate().size() > 0) {
             for (String gasInfo : baseData.mParam.getGasRate()) {
@@ -306,6 +306,7 @@ public class WDp {
                 }
             }
         }
+
         return result;
     }
 
@@ -325,9 +326,11 @@ public class WDp {
                 return true;
             }
             return false;
+        } else if (baseData.mParam.mGasPrice == null) {
+            return false;
         }
         boolean result = false;
-        for (Coin coin : getMinTxFeeAmounts(c, baseData, chainConfig)) {
+        for (Coin coin : getMinTxFeeAmounts(c, baseData)) {
             if (baseData.getAvailable(coin.denom).compareTo(new BigDecimal(coin.amount)) >= 0) {
                 result = true;
             }
@@ -335,10 +338,10 @@ public class WDp {
         return result;
     }
 
-    public static ArrayList<Coin> getMinTxFeeAmounts(Context c, BaseData baseData, ChainConfig chainConfig) {
+    public static ArrayList<Coin> getMinTxFeeAmounts(Context c, BaseData baseData) {
         ArrayList<Coin> result = new ArrayList<>();
         BigDecimal gasAmount = new BigDecimal(BASE_GAS_AMOUNT);
-        ArrayList<FeeInfo.FeeData> feeDatas = getFeeInfos(c, baseData, chainConfig).get(0).feeDatas;
+        ArrayList<FeeInfo.FeeData> feeDatas = getFeeInfos(c, baseData).get(0).feeDatas;
 
         for (FeeInfo.FeeData feeData : feeDatas) {
             BigDecimal amount = feeData.gasRate.multiply(gasAmount).setScale(0, RoundingMode.UP);
@@ -355,7 +358,7 @@ public class WDp {
         } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {
             return new BigDecimal(FEE_OKC_BASE);
         }
-        for (Coin coin : getMinTxFeeAmounts(c, baseData, chainConfig)) {
+        for (Coin coin : getMinTxFeeAmounts(c, baseData)) {
             if (coin.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                 return new BigDecimal(coin.amount);
             } else {
