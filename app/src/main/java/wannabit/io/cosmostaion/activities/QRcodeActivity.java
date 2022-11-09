@@ -26,6 +26,6 @@ public class QRcodeActivity extends CaptureActivity {
     @Override
     protected DecoratedBarcodeView initializeContent() {
         setContentView(R.layout.activity_qrcode);
-        return findViewById(R.id.viewBarcode);
+        return findViewById(R.id.zxing_barcode_scanner);
     }
 }
