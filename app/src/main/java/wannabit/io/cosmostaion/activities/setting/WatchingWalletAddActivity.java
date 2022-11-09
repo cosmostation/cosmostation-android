@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
@@ -120,6 +121,7 @@ public class WatchingWalletAddActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
+            integrator.setCaptureActivity(QRcodeActivity.class);
             qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {

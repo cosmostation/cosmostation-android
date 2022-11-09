@@ -45,6 +45,7 @@ import io.grpc.stub.StreamObserver;
 import starnamed.x.starname.v1beta1.QueryGrpc;
 import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -254,6 +255,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
+            integrator.setCaptureActivity(QRcodeActivity.class);
             qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {
