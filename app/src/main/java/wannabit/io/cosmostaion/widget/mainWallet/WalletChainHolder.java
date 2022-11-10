@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.txs.common.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -134,6 +135,7 @@ public class WalletChainHolder extends BaseHolder {
                     public void onPermissionGranted() {
                         IntentIntegrator integrator = new IntentIntegrator(mainActivity);
                         integrator.setOrientationLocked(true);
+                        integrator.setCaptureActivity(QRcodeActivity.class);
                         mainActivity.walletConnectResultLauncher.launch(integrator.createScanIntent());
                     }
 

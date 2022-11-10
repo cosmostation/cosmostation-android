@@ -22,6 +22,7 @@ import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -86,6 +87,7 @@ public class AuthzSendStep0Fragment extends BaseFragment implements View.OnClick
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
+            integrator.setCaptureActivity(QRcodeActivity.class);
             qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {

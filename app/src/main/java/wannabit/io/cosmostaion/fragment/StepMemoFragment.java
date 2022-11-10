@@ -41,6 +41,7 @@ import org.bitcoinj.crypto.MnemonicCode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
@@ -196,6 +197,7 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
+            integrator.setCaptureActivity(QRcodeActivity.class);
             qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {

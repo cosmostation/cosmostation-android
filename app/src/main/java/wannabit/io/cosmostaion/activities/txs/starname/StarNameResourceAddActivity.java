@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -140,6 +141,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         } else if (v.equals(mScan)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
+            integrator.setCaptureActivity(QRcodeActivity.class);
             qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mPaste)) {
