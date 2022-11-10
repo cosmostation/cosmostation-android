@@ -686,6 +686,13 @@ public class ConnectWalletActivity extends BaseActivity {
                         mBaseChain = WDp.getChainTypeByChainId(chainId);
                         mChainConfig = ChainFactory.getChain(mBaseChain);
                         onInitView(mWcPeerMeta);
+                    } else {
+                        mBaseChain = BaseChain.getChain(account.baseChain);
+                        mChainConfig = ChainFactory.getChain(mBaseChain);
+                        if (mChainConfig != null) {
+                            mWcCardView.setCardBackgroundColor(ContextCompat.getColor(ConnectWalletActivity.this, mChainConfig.chainBgColor()));
+                        }
+                        mWcAccount.setText(account.address);
                     }
                     wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
                     moveToBackIfNeed();
@@ -738,6 +745,13 @@ public class ConnectWalletActivity extends BaseActivity {
                         mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
                         mChainConfig = ChainFactory.getChain(mBaseChain);
                         onInitView(mWcPeerMeta);
+                    } else {
+                        mBaseChain = BaseChain.getChain(account.baseChain);
+                        mChainConfig = ChainFactory.getChain(mBaseChain);
+                        if (mChainConfig != null) {
+                            mWcCardView.setCardBackgroundColor(ContextCompat.getColor(ConnectWalletActivity.this, mChainConfig.chainBgColor()));
+                        }
+                        mWcAccount.setText(account.address);
                     }
                     selectedAccounts.add(account);
                     onShowAccountDialog(id, chains, selectedAccounts, index + 1);
