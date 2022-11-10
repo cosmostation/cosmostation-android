@@ -1,10 +1,5 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,7 +9,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,20 +24,19 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletPriceHolder extends BaseHolder {
-    private CardView        itemRoot;
-    private TextView        itemPerPrice, itemUpDownPrice;
-    private LinearLayout    itemBuyLayer;
-    private RelativeLayout  itemBuyCoinBtn;
-    private TextView        itemBuyCoinTv;
+    private RelativeLayout itemRoot, itemBuyCoinBtn;
+    private TextView itemPerPrice, itemUpDownPrice;
+    private LinearLayout itemBuyLayer;
+    private TextView itemBuyCoinTv;
 
     public WalletPriceHolder(@NonNull View itemView) {
         super(itemView);
-        itemRoot            = itemView.findViewById(R.id.card_root);
-        itemPerPrice        = itemView.findViewById(R.id.per_price);
-        itemUpDownPrice     = itemView.findViewById(R.id.dash_price_updown_tx);
-        itemBuyLayer        = itemView.findViewById(R.id.buy_layer);
-        itemBuyCoinBtn      = itemView.findViewById(R.id.btn_buy_coin);
-        itemBuyCoinTv       = itemView.findViewById(R.id.tv_buy_coin);
+        itemRoot = itemView.findViewById(R.id.price_layer);
+        itemPerPrice = itemView.findViewById(R.id.per_price);
+        itemUpDownPrice = itemView.findViewById(R.id.dash_price_updown_tx);
+        itemBuyLayer = itemView.findViewById(R.id.buy_layer);
+        itemBuyCoinBtn = itemView.findViewById(R.id.btn_buy_coin);
+        itemBuyCoinTv = itemView.findViewById(R.id.tv_buy_coin);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -54,32 +47,28 @@ public class WalletPriceHolder extends BaseHolder {
         itemPerPrice.setText(WDp.dpPrice(data, denom));
         valueChangeStatus(mainActivity, data, denom, itemUpDownPrice);
 
-        if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
+        if (chainConfig.moonPaySupport() || chainConfig.kadoMoneySupport()) {
             itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(R.string.str_buy_atom);
-
-        } else if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(BNB_MAIN)) {
-            itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(R.string.str_buy_bnb);
-
-        } else if (SUPPORT_MOONPAY && mainActivity.mBaseChain.equals(KAVA_MAIN)) {
-            itemBuyLayer.setVisibility(View.VISIBLE);
-            itemBuyCoinTv.setText(R.string.str_buy_kava);
-
+            if (chainConfig.moonPaySupport()) {
+                itemBuyCoinTv.setText(mainActivity.getString(R.string.str_buy_coin, chainConfig.mainSymbol()));
+            } else {
+                itemBuyCoinTv.setText(mainActivity.getString(R.string.str_buy_crypto));
+            }
         } else {
             itemBuyLayer.setVisibility(View.GONE);
         }
 
         itemBuyCoinBtn.setOnClickListener(v -> {
             if (mainActivity.mAccount.hasPrivateKey) {
-                mainActivity.onShowBuySelectFiat();
+                mainActivity.onShowCryptoPay();
             } else {
                 mainActivity.onShowBuyWarnNoKey();
             }
         });
 
         itemRoot.setOnClickListener(v -> {
-            if (!chainConfig.coingeckoLink().isEmpty()) mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.coingeckoLink())));
+            if (!chainConfig.coingeckoLink().isEmpty())
+                mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.coingeckoLink())));
         });
     }
 

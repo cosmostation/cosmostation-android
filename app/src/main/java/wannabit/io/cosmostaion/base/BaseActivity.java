@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.base;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
@@ -623,7 +622,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_MINTSCAN_PRICES) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mPrices.clear();
-                for (Price price : (ArrayList<Price>)result.resultData) {
+                for (Price price : (ArrayList<Price>) result.resultData) {
                     getBaseDao().mPrices.add(price);
                 }
                 getBaseDao().setLastPriceTime();
@@ -918,28 +917,35 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyWarnNoKey() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowBuySelectFiat());
+                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowCryptoPay());
     }
 
-    public void onShowBuySelectFiat() {
-        FilledVerticalButtonAlertDialog.showTripleButton(this, getString(R.string.str_buy_select_fiat_title), getString(R.string.str_buy_select_fiat_msg),
-                "USD", view -> onStartMoonpaySignature("usd"), null,
-                "EUR", view -> onStartMoonpaySignature("eur"), null,
-                "GBP", view -> onStartMoonpaySignature("gbp"), null);
-    }
-
-    public void onStartMoonpaySignature(String fiat) {
-        String query = "?apiKey=" + getString(R.string.moon_pay_public_key);
-        if (mBaseChain.equals(COSMOS_MAIN)) {
-            query = query + "&currencyCode=atom";
-        } else if (mBaseChain.equals(BNB_MAIN)) {
-            query = query + "&currencyCode=bnb";
-        } else if (mBaseChain.equals(KAVA_MAIN)) {
-            query = query + "&currencyCode=kava";
-        } else if (mBaseChain.equals(BAND_MAIN)) {
-            query = query + "&currencyCode=band";
+    public void onShowCryptoPay() {
+        if (mChainConfig.moonPaySupport() && mChainConfig.kadoMoneySupport()) {
+            FilledVerticalButtonAlertDialog.showDoubleButton(this, "", "",
+                    getString(R.string.str_moonPay), view -> onStartMoonPaySignature(), null,
+                    getString(R.string.str_kadoMoney), view -> onShowBuyKado(), null);
+        } else {
+            if (mChainConfig.moonPaySupport()) {
+                onStartMoonPaySignature();
+            } else if (mChainConfig.kadoMoneySupport()) {
+                onShowBuyKado();
+            }
         }
-        query = query + "&walletAddress=" + mAccount.address + "&baseCurrencyCode=" + fiat;
+    }
+
+    public void onShowBuyKado() {
+        String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + mChainConfig.chainName() + "&networkList=" + mChainConfig.chainName();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query + "&onToAddress=" + mAccount.address));
+        startActivity(intent);
+    }
+
+    public void onStartMoonPaySignature() {
+        String query = "?apiKey=" + getString(R.string.moon_pay_public_key);
+        if (mChainConfig.moonPaySupport()) {
+            query = query + "&currencyCode=" + mChainConfig.mainSymbol().toLowerCase();
+        }
+        query = query + "&walletAddress=" + mAccount.address;
         final String data = query;
 
         new MoonPayTask(getBaseApplication(), result -> {
