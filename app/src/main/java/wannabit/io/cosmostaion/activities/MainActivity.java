@@ -329,7 +329,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public final ActivityResultLauncher<Intent> walletConnectResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && !TextUtils.isEmpty(result.getData().getStringExtra("wcUrl"))) {
             Intent wIntent;
-            if (mBaseChain.equals(BNB_MAIN)) {
+            if (mBaseChain.equals(BNB_MAIN) && result.getData().getStringExtra("wcUrl").contains("binance")) {
                 wIntent = new Intent(MainActivity.this, WalletConnectActivity.class);
             } else {
                 wIntent = new Intent(MainActivity.this, ConnectWalletActivity.class);
