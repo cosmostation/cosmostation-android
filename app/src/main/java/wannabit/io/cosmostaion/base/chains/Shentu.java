@@ -33,7 +33,7 @@ public class Shentu extends ChainConfig {
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "shentu/"; }
     public String monikerUrl() { return MONIKER_URL + "shentu/"; }
-    public String homeInfoLink() { return  "https://www.certik.foundation"; }
+    public String homeInfoLink() { return  "https://www.certik.com"; }
     public String blogInfoLink() { return  "https://medium.com/shentu-foundation"; }
     public String coingeckoLink() { return  COINGECKO_URL + "shentu"; }
 }
