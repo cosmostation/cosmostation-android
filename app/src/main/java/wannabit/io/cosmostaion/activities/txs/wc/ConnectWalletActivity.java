@@ -299,7 +299,11 @@ public class ConnectWalletActivity extends BaseActivity {
             }
             return false;
         });
+
         mWebView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            int height = (int) Math.floor(mWebView.getContentHeight() * mWebView.getScale());
+            int webViewHeight = mWebView.getMeasuredHeight();
+
             if (lastClickPositionY == -1) {
                 lastClickPositionY = oldScrollY;
             }
@@ -310,8 +314,12 @@ public class ConnectWalletActivity extends BaseActivity {
             } else if (lastClickPositionY < scrollY && Math.abs(scrollY - oldScrollY) > 45 && !isHideToolbar) {
                 isHideToolbar = true;
                 getSupportActionBar().hide();
+            } else if (mWebView.getScrollY() + webViewHeight >= height){
+                isHideToolbar = false;
+                getSupportActionBar().show();
             }
         });
+
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + " Cosmostation/APP/Android/" + BuildConfig.VERSION_NAME);
         mWebView.getSettings().setDomStorageEnabled(true);
