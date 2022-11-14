@@ -131,7 +131,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             holder.chainName.setText(chainConfig.chainTitleToUp());
 
             if (chain.equals(mSelectedChain)) {
-                holder.chainCard.setBackground(ContextCompat.getDrawable(AccountListActivity.this, R.drawable.box_chain_trans_border));
+                holder.chainCard.setBackground(ContextCompat.getDrawable(AccountListActivity.this, R.drawable.box_chain_selected));
                 holder.chainImg.setAlpha(1f);
                 holder.chainName.setTextColor(getColor(R.color.colorBlackDayNight));
             } else {
