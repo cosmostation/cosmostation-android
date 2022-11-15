@@ -27,6 +27,7 @@ public class Akash extends ChainConfig {
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-akash-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-akash.cosmostation.io/"; }
