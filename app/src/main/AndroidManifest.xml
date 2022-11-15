@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
-        tools:replace="android:allowBackup">
+        tools:replace="android:fullBackupContent">
         <activity
             android:name=".activities.IntroActivity"
             android:exported="true"

@@ -39,6 +39,12 @@ android {
         }
     }
     packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/*'
+        exclude 'META-INF/NOTICE.md'
+
         jniLibs {
             excludes += ['lib/x86_64/freebsd/libscrypt.so', 'lib/x86_64/linux/libscrypt.so']
         }
@@ -68,7 +74,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     //bitcoin
-    implementation ('org.bitcoinj:bitcoinj-core:0.16.1') {
+    implementation('org.bitcoinj:bitcoinj-core:0.16.1') {
         exclude group: "org.bouncycastle"
         exclude group: "com.google.guava"
         exclude group: "com.google.protobuf"
@@ -86,7 +92,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.7.3'
     //sqliteChiper
-    implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.0'
     //picasso for images
     implementation 'com.squareup.picasso:picasso:2.71828'
     //glide for images
@@ -109,9 +115,11 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.6'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
     implementation 'com.squareup.moshi:moshi:1.8.0'
-    implementation files('libs/httpclient-4.5.3.jar')
-    implementation files('libs/apache-httpcomponents-httpcore.jar')
     implementation "com.github.cosmostation:wallet-connect-kotlin:1.6.4"
+    implementation("com.walletconnect:sign:2.0.0") {
+        exclude group: "org.jboss.spec.javax.annotation"
+        exclude group: "com.github.stephenc.jcip"
+    }
     implementation 'net.i2p.crypto:eddsa:0.3.0'
 
     implementation 'com.google.guava:guava:24.1-jre'
