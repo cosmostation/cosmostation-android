@@ -291,6 +291,7 @@ public class ConnectWalletActivity extends BaseActivity {
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+        
         mWebView.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 lastClickPositionY = -1;
@@ -301,22 +302,16 @@ public class ConnectWalletActivity extends BaseActivity {
         });
 
         mWebView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            int height = (int) Math.floor(mWebView.getContentHeight() * mWebView.getScale());
-            int webViewHeight = mWebView.getMeasuredHeight();
-
             if (lastClickPositionY == -1) {
                 lastClickPositionY = oldScrollY;
             }
 
-            if (lastClickPositionY > scrollY && Math.abs(scrollY - oldScrollY) > 45 && isHideToolbar) {
+            if (lastClickPositionY > scrollY && Math.abs(scrollY - oldScrollY) > 50 && isHideToolbar) {
                 isHideToolbar = false;
                 getSupportActionBar().show();
-            } else if (lastClickPositionY < scrollY && Math.abs(scrollY - oldScrollY) > 45 && !isHideToolbar) {
+            } else if (lastClickPositionY < scrollY && Math.abs(scrollY - oldScrollY) > 50 && !isHideToolbar) {
                 isHideToolbar = true;
                 getSupportActionBar().hide();
-            } else if (mWebView.getScrollY() + webViewHeight >= height){
-                isHideToolbar = false;
-                getSupportActionBar().show();
             }
         });
 
