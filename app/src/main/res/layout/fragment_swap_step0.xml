@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_10"
-        android:layout_marginTop="@dimen/space_10"
+        android:orientation="vertical"
         android:layout_marginRight="@dimen/space_10"
-        android:orientation="vertical">
-
+        android:layout_marginLeft="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_10">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_6"
-            android:layout_marginRight="@dimen/space_6"
-            android:background="@drawable/box_round_transbg"
             android:orientation="vertical"
             android:paddingLeft="@dimen/space_16"
-            android:paddingTop="@dimen/space_8"
             android:paddingRight="@dimen/space_10"
-            android:paddingBottom="@dimen/space_8">
-
+            android:paddingTop="@dimen/space_8"
+            android:paddingBottom="@dimen/space_8"
+            android:layout_marginRight="@dimen/space_6"
+            android:layout_marginLeft="@dimen/space_6"
+            android:background="@drawable/box_round_transbg">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -33,61 +32,54 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Input Coin" />
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/swap_input_coin_title">
-
                     <TextView
                         android:id="@+id/swap_available_amount_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="-"
-                        android:textSize="@dimen/text_size_12" />
-
+                        android:textSize="@dimen/text_size_12"/>
                     <TextView
                         android:id="@+id/swap_available_amount"
-                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/swap_available_amount_symbol"
-                        android:layout_marginRight="@dimen/space_2"
                         android:layout_toLeftOf="@+id/swap_available_amount_symbol"
-                        android:text="-" />
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="-"
+                        style="@style/font_rr_12_black_daynight"/>
                 </RelativeLayout>
             </RelativeLayout>
-
             <RelativeLayout
                 android:id="@+id/swap_input_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
-
                 <LinearLayout
                     android:id="@+id/swap_available_symbol_layer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:gravity="center">
                     <ImageView
                         android:id="@+id/swap_input_icon"
                         android:layout_width="@dimen/space_28"
                         android:layout_height="@dimen/space_28"
-                        android:src="@drawable/token_default" />
-
+                        android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/swap_input_symbol"
-                        style="@style/font_rr_10_black_daynight"
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:gravity="center"
+                        android:text="COIN"
                         android:maxLines="1"
-                        android:text="COIN" />
+                        android:ellipsize="end"
+                        style="@style/font_rr_10_black_daynight"
+                        android:gravity="center"/>
                 </LinearLayout>
 
                 <EditText
@@ -102,94 +94,85 @@
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
                     android:maxLength="46"
-                    android:paddingLeft="@dimen/space_14"
                     android:paddingRight="@dimen/space_60"
+                    android:paddingLeft="@dimen/space_14"
                     android:textColorHint="@color/colorGray4"
                     android:textCursorDrawable="@drawable/white_cursor" />
-
                 <ImageView
                     android:id="@+id/swap_input_clear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/space_8"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:padding="@dimen/space_8"
-                    android:src="@drawable/close_btn" />
+                    android:src="@drawable/close_btn"/>
             </RelativeLayout>
-
             <LinearLayout
                 android:id="@+id/swap_input_action_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_50"
                     android:layout_marginTop="@dimen/space_4"
                     android:orientation="horizontal">
-
                     <Button
                         android:id="@+id/swap_input_1_4"
-                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/space_32"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        android:text="@string/str_add_one_fourths"
-                        android:textAllCaps="false" />
-
+                        style="@style/font_rr_12_black_daynight"
+                        android:textAllCaps="false"
+                        android:text="@string/str_add_one_fourths"/>
                     <Button
                         android:id="@+id/swap_input_half"
-                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/space_32"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        android:text="@string/str_add_half"
-                        android:textAllCaps="false" />
-
+                        style="@style/font_rr_12_black_daynight"
+                        android:textAllCaps="false"
+                        android:text="@string/str_add_half"/>
                     <Button
                         android:id="@+id/swap_input_3_4"
-                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/space_32"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        android:text="@string/str_add_three_fourths"
-                        android:textAllCaps="false" />
-
+                        style="@style/font_rr_12_black_daynight"
+                        android:textAllCaps="false"
+                        android:text="@string/str_add_three_fourths"/>
                     <Button
                         android:id="@+id/swap_input_max"
-                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/space_32"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
-                        android:text="@string/str_add_max"
-                        android:textAllCaps="false" />
+                        style="@style/font_rr_12_black_daynight"
+                        android:textAllCaps="false"
+                        android:text="@string/str_add_max"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_6"
-            android:layout_marginTop="@dimen/space_10"
-            android:layout_marginRight="@dimen/space_6"
-            android:background="@drawable/box_round_transbg"
             android:orientation="vertical"
             android:paddingLeft="@dimen/space_16"
-            android:paddingTop="@dimen/space_8"
             android:paddingRight="@dimen/space_10"
-            android:paddingBottom="@dimen/space_8">
-
+            android:paddingTop="@dimen/space_8"
+            android:paddingBottom="@dimen/space_8"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginLeft="@dimen/space_6"
+            android:layout_marginRight="@dimen/space_6"
+            android:background="@drawable/box_round_transbg">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -201,50 +184,45 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_swap_output_coin_minimum" />
             </RelativeLayout>
-
             <RelativeLayout
                 android:id="@+id/swap_output_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
-
                 <LinearLayout
                     android:id="@+id/swap_output_symbol_layer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:gravity="center">
                     <ImageView
                         android:id="@+id/swap_output_icon"
                         android:layout_width="@dimen/space_28"
                         android:layout_height="@dimen/space_28"
-                        android:src="@drawable/token_default" />
-
+                        android:src="@drawable/token_default"/>
                     <TextView
                         android:id="@+id/swap_output_symbol"
-                        style="@style/font_rr_10_black_daynight"
                         android:layout_width="@dimen/space_40"
                         android:layout_height="wrap_content"
+                        android:text="COIN"
+                        android:maxLines="1"
                         android:ellipsize="end"
                         android:gravity="center"
-                        android:maxLines="1"
-                        android:text="COIN" />
+                        style="@style/font_rr_10_black_daynight"/>
                 </LinearLayout>
-
                 <TextView
                     android:id="@+id/swap_pool_output"
-                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
                     android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/swap_output_symbol_layer"
-                    android:background="@drawable/edittext_box"
-                    android:gravity="center_vertical|left"
                     android:maxLength="46"
+                    android:textColorHint="@color/colorGray4"
+                    android:background="@drawable/edittext_box"
                     android:paddingRight="@dimen/space_60"
-                    android:textColorHint="@color/colorGray4" />
+                    style="@style/font_rr_12_black_daynight"
+                    android:gravity="center_vertical|left"/>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
@@ -253,36 +231,35 @@
         android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24"
-        android:background="@color/colorWhiteDayNight"
-        android:orientation="horizontal">
-
+        android:layout_marginTop="@dimen/space_10"
+        android:background="@color/colorWhiteDayNight">
         <Button
             android:id="@+id/btn_cancel"
-            style="@style/font_rr_14_black_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_marginRight="@dimen/space_4"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
             android:minHeight="@dimen/space_45"
-            android:text="@string/str_cancel"
-            android:textAllCaps="false" />
-
+            android:layout_marginRight="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_rr_14_black_daynight"
+            android:textAllCaps="false"
+            android:text="@string/str_cancel"/>
         <Button
             android:id="@+id/btn_next"
-            style="@style/font_rr_14_photon_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_marginLeft="@dimen/space_4"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_photon_border"
             android:minHeight="@dimen/space_45"
-            android:text="@string/str_next"
-            android:textAllCaps="false" />
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_photon_border"
+            style="@style/font_rr_14_photon_daynight"
+            android:textAllCaps="false"
+            android:text="@string/str_next"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -290,10 +267,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true">
-
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 </RelativeLayout>
