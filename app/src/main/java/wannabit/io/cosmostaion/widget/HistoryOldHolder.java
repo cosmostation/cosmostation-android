@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
@@ -45,20 +46,15 @@ public class HistoryOldHolder extends BaseHolder {
         });
     }
 
-    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ChainConfig chainConfig, ResOkHistory.Data.Hit history) {
-        String type = history.transactionDatas.get(0).type;
-        if (type.contains("/")) {
-            historyType.setText(type.split("/")[type.split("/").length - 1].replace("Msg", ""));
-        } else {
-            historyType.setText(type);
-        }
+    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ChainConfig chainConfig, ResOkHistory.Data.transactionData history) {
+        historyType.setText(history.txId);
         historySuccess.setVisibility(View.GONE);
-        history_time.setText(WDp.getDpTime(mainActivity, history.blockTimeU0));
-        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.blockTimeU0));
-        history_block.setText(history.hash + " block");
+        history_time.setText(WDp.getDpTime(mainActivity, Long.parseLong(history.transactionTime)));
+        history_time_gap.setText(WDp.getOkcTimeTxGap(mainActivity, Long.parseLong(history.transactionTime)));
+        history_block.setText(history.height + " block");
 
         historyRoot.setOnClickListener(v -> {
-            String url = chainConfig.explorerHistoryLink(history.hash);
+            String url = chainConfig.explorerHistoryLink(history.txId);
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             mainActivity.startActivity(intent);
         });

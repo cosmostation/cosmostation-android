@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
@@ -26,6 +27,7 @@ public interface HistoryApi {
     Call<ResBnbHistories> getHistoryAsset(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("txAsset") String txAsset);
 
     //Okc
-    @GET("v1/okexchain/addresses/{addresses}/transactions/condition")
-    Call<ResOkHistory> getNewOecTxs(@Path("addresses") String addresses, @Query("limit") String limit);
+    @Headers("Ok-Access-key: e829eb97-3fdb-4679-8937-4f6ea901817a")
+    @GET("address/transaction-list")
+    Call<ResOkHistory> getNewOkecTxs(@Query("chainShortName") String chainShortName, @Query("address") String address);
 }

@@ -22,10 +22,9 @@ public class OkHistoryTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        try {
-            Response<ResOkHistory> response = ApiClient.getChainApi(BaseChain.OKEX_MAIN).getNewOecTxs(mAddress, "20").execute();
+        try {Response<ResOkHistory> response = ApiClient.getChainApi(BaseChain.OKEX_MAIN).getNewOkecTxs("okc", mAddress).execute();
             if (response.isSuccessful() && response.body() != null) {
-                mResult.resultData = response.body().data.hits;
+                mResult.resultData = response.body().data.get(0).transactionLists;
                 mResult.isSuccess = true;
             } else {
                 WLog.w("OkHistoryTask : NOk");

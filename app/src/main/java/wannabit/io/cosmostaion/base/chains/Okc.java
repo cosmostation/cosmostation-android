@@ -43,7 +43,7 @@ public class Okc extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String lcdUrl() { return "https://exchainrpc.okex.org/okexchain/v1/"; }
-    public String apiUrl() { return "https://www.oklink.com/api/explorer/"; }
+    public String apiUrl() { return "https://www.oklink.com/api/v5/explorer/"; }
 
     public String explorerUrl() { return "https://www.oklink.com/okexchain/"; }
     public String monikerUrl() { return MONIKER_URL + "okex/"; }

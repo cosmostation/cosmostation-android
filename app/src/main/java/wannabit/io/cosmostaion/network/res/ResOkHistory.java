@@ -7,44 +7,50 @@ import java.util.ArrayList;
 public class ResOkHistory {
 
     @SerializedName("code")
-    public int code;
+    public String code;
 
     @SerializedName("msg")
     public String msg;
 
-    @SerializedName("detail_msg")
-    public String detail_msg;
-
     @SerializedName("data")
-    public Data data;
+    public ArrayList<Data> data;
 
     public class Data {
-        @SerializedName("hits")
-        public ArrayList<Hit> hits;
+        @SerializedName("transactionLists")
+        public ArrayList<transactionData> transactionLists;
 
-        public class Hit {
-            @SerializedName("hash")
-            public String hash;
-
-            @SerializedName("blocktime")
-            public long blocktime;
+        public class transactionData {
+            @SerializedName("txId")
+            public String txId;
 
             @SerializedName("blockHash")
             public String blockHash;
 
-            @SerializedName("blockHeight")
-            public long blockHeight;
+            @SerializedName("height")
+            public String height;
 
-            @SerializedName("transactionData")
-            public ArrayList<TransactionData> transactionDatas;
+            @SerializedName("transactionTime")
+            public String transactionTime;
 
-            @SerializedName("blockTimeU0")
-            public long blockTimeU0;
+            @SerializedName("from")
+            public String from;
 
-            public class TransactionData {
-                @SerializedName("type")
-                public String type;
-            }
+            @SerializedName("to")
+            public String to;
+
+            @SerializedName("amount")
+            public String amount;
+
+            @SerializedName("transactionSymbol")
+            public String transactionSymbol;
+
+            @SerializedName("txFee")
+            public String txFee;
+
+            @SerializedName("state")
+            public String state;
+
+
         }
     }
 }

@@ -233,7 +233,7 @@ public class BaseConstant {
     public final static String TOKEN_HTLC_BINANCE_BUSD             = "BUSD-BD1";
 
 
-    public final static long CONSTANT_S = 1000l;
+    public final static long CONSTANT_S = 1000L;
     public final static long CONSTANT_10S = CONSTANT_S * 10;
     public final static long CONSTANT_30S = CONSTANT_S * 30;
     public final static long CONSTANT_M = CONSTANT_S * 60;
