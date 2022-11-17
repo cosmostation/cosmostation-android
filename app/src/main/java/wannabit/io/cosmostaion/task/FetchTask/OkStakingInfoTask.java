@@ -17,8 +17,8 @@ public class OkStakingInfoTask extends CommonTask {
 
     public OkStakingInfoTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
-        this.mAccount           = account;
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_OK_STAKING_INFO;
+        this.mAccount = account;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_OK_STAKING_INFO;
 
     }
 
@@ -26,15 +26,15 @@ public class OkStakingInfoTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ResOkStaking> response = ApiClient.getOkexChain().getDepositInfo(mAccount.address).execute();
-            if (!response.isSuccessful()) {
+            if (response.isSuccessful() && response.body() != null) {
+                mResult.resultData = response.body();
+                mResult.isSuccess = true;
+            }
+
+            else {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                 return mResult;
-            }
-
-            if (response.body() != null) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
             }
 
         } catch (Exception e) {

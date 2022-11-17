@@ -40,17 +40,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -918,21 +912,6 @@ public class WDp {
         return result;
     }
 
-//    public static String getOkcDpTime(Context c, long time) {
-//        String result = "??";
-//        String blockDate;
-//        try {
-//            Date date = new Date(time*1000L);
-//            DateTime dateTime = new DateTime(time*1000L, DateTimeZone.UTC);
-//            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
-//            myFormat.setTimeZone(TimeZone);
-//            result = myFormat.format(date);
-//        } catch (Exception e) {
-//        }
-//
-//        return result;
-//    }
-
     public static String getUnbondTime(Context c, BaseData baseData, BaseChain baseChain) {
         String result = "??";
         try {
@@ -1117,8 +1096,6 @@ public class WDp {
     public static String getOkcTimeTxGap(Context c, long rawValue) {
         String result = "";
         try {
-
-            DateTime dateTime = new DateTime(rawValue * 1000L, DateTimeZone.UTC);
 
             long now = Calendar.getInstance().getTimeInMillis();
             long difference = now - rawValue;
