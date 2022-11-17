@@ -232,12 +232,12 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         ApiClient.getKavaChain().getSwapParams2().enqueue(new Callback<ResKavaBep3Param>() {
             @Override
             public void onResponse(Call<ResKavaBep3Param> call, Response<ResKavaBep3Param> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                } else {
+                if (response.isSuccessful() && response.body() != null) {
                     mKavaBep3Param2 = response.body();
                     getSActivity().mKavaBep3Param2 = mKavaBep3Param2;
                     onCheckSwapSupply();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -252,12 +252,12 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
         ApiClient.getKavaChain().getSupplies2().enqueue(new Callback<ResKavaSwapSupply>() {
             @Override
             public void onResponse(Call<ResKavaSwapSupply> call, Response<ResKavaSwapSupply> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                } else {
+                if (response.isSuccessful() && response.body() != null) {
                     mKavaSuppies2 = response.body();
                     getSActivity().mKavaSuppies2 = mKavaSuppies2;
                     onUpdateView();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             }
 
