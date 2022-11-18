@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +61,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private ArrayList<BnbHistory> mBnbHistory = new ArrayList<>();
     private ArrayList<ResOkHistory.Data.Hit> mOkHistory = new ArrayList<>();
     private ArrayList<ResApiNewTxListCustom> mApiNewTxCustomHistory = new ArrayList<>();
+    private ArrayList<ResApiNewTxListCustom> mApiNewTxBackUpHistory = new ArrayList<>();
 
     private Account mAccount;
     private BaseChain mBaseChain;
@@ -104,7 +104,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             mId = 0;
             mApiNewTxCustomHistory.clear();
-            onFetchHistory();
+            mApiNewTxCustomHistory.addAll(mApiNewTxBackUpHistory);
             mSwipeRefreshLayout.setRefreshing(false);
         });
 
@@ -152,7 +152,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     }
 
     @Override
-    public void onRefreshTab() {
+    public void onResume() {
+        super.onResume();
         if (!isAdded()) return;
         mId = 0;
         mApiNewTxCustomHistory.clear();
@@ -211,7 +212,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
             mApiNewTxCustomHistory.addAll((ArrayList<ResApiNewTxListCustom>) result.resultData);
-            if (mApiNewTxCustomHistory != null && mApiNewTxCustomHistory.size() > 0) {
+            mApiNewTxBackUpHistory.addAll((ArrayList<ResApiNewTxListCustom>) result.resultData);
+            if (mApiNewTxCustomHistory.size() > 0 && mApiNewTxBackUpHistory.size() > 0) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
