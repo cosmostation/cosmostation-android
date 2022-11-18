@@ -817,8 +817,8 @@ public final class Account {
       "ccountB\033\320\336\037\001\362\336\037\023yaml:\"base_account\"\022\'\n\tc" +
       "ode_hash\030\002 \001(\tB\024\362\336\037\020yaml:\"code_hash\":B\210\240" +
       "\037\000\230\240\037\000\350\240\037\000\312\264-2github.com/cosmos/cosmos-s" +
-      "dk/x/auth/types.AccountIB$Z\"github.com/t" +
-      "harsis/ethermint/typesb\006proto3"
+      "dk/x/auth/types.AccountIB\"Z github.com/e" +
+      "vmos/ethermint/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

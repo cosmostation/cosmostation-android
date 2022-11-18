@@ -115,6 +115,17 @@ public final class Evm {
      * <code>.ethermint.evm.v1.ChainConfig chain_config = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"chain_config&#92;""];</code>
      */
     ethermint.evm.v1.Evm.ChainConfigOrBuilder getChainConfigOrBuilder();
+
+    /**
+     * <pre>
+     * Allow unprotected transactions defines if replay-protected (i.e non EIP155
+     * signed) transactions can be executed on the state machine.
+     * </pre>
+     *
+     * <code>bool allow_unprotected_txs = 6;</code>
+     * @return The allowUnprotectedTxs.
+     */
+    boolean getAllowUnprotectedTxs();
   }
   /**
    * <pre>
@@ -216,6 +227,11 @@ public final class Evm {
                 chainConfig_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 48: {
+
+              allowUnprotectedTxs_ = input.readBool();
               break;
             }
             default: {
@@ -409,6 +425,22 @@ public final class Evm {
       return getChainConfig();
     }
 
+    public static final int ALLOW_UNPROTECTED_TXS_FIELD_NUMBER = 6;
+    private boolean allowUnprotectedTxs_;
+    /**
+     * <pre>
+     * Allow unprotected transactions defines if replay-protected (i.e non EIP155
+     * signed) transactions can be executed on the state machine.
+     * </pre>
+     *
+     * <code>bool allow_unprotected_txs = 6;</code>
+     * @return The allowUnprotectedTxs.
+     */
+    @java.lang.Override
+    public boolean getAllowUnprotectedTxs() {
+      return allowUnprotectedTxs_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -442,6 +474,9 @@ public final class Evm {
       }
       if (chainConfig_ != null) {
         output.writeMessage(5, getChainConfig());
+      }
+      if (allowUnprotectedTxs_ != false) {
+        output.writeBool(6, allowUnprotectedTxs_);
       }
       unknownFields.writeTo(output);
     }
@@ -481,6 +516,10 @@ public final class Evm {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, getChainConfig());
       }
+      if (allowUnprotectedTxs_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(6, allowUnprotectedTxs_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -509,6 +548,8 @@ public final class Evm {
         if (!getChainConfig()
             .equals(other.getChainConfig())) return false;
       }
+      if (getAllowUnprotectedTxs()
+          != other.getAllowUnprotectedTxs()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -536,6 +577,9 @@ public final class Evm {
         hash = (37 * hash) + CHAIN_CONFIG_FIELD_NUMBER;
         hash = (53 * hash) + getChainConfig().hashCode();
       }
+      hash = (37 * hash) + ALLOW_UNPROTECTED_TXS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAllowUnprotectedTxs());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -687,6 +731,8 @@ public final class Evm {
           chainConfig_ = null;
           chainConfigBuilder_ = null;
         }
+        allowUnprotectedTxs_ = false;
+
         return this;
       }
 
@@ -727,6 +773,7 @@ public final class Evm {
         } else {
           result.chainConfig_ = chainConfigBuilder_.build();
         }
+        result.allowUnprotectedTxs_ = allowUnprotectedTxs_;
         onBuilt();
         return result;
       }
@@ -797,6 +844,9 @@ public final class Evm {
         }
         if (other.hasChainConfig()) {
           mergeChainConfig(other.getChainConfig());
+        }
+        if (other.getAllowUnprotectedTxs() != false) {
+          setAllowUnprotectedTxs(other.getAllowUnprotectedTxs());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1276,6 +1326,52 @@ public final class Evm {
         }
         return chainConfigBuilder_;
       }
+
+      private boolean allowUnprotectedTxs_ ;
+      /**
+       * <pre>
+       * Allow unprotected transactions defines if replay-protected (i.e non EIP155
+       * signed) transactions can be executed on the state machine.
+       * </pre>
+       *
+       * <code>bool allow_unprotected_txs = 6;</code>
+       * @return The allowUnprotectedTxs.
+       */
+      @java.lang.Override
+      public boolean getAllowUnprotectedTxs() {
+        return allowUnprotectedTxs_;
+      }
+      /**
+       * <pre>
+       * Allow unprotected transactions defines if replay-protected (i.e non EIP155
+       * signed) transactions can be executed on the state machine.
+       * </pre>
+       *
+       * <code>bool allow_unprotected_txs = 6;</code>
+       * @param value The allowUnprotectedTxs to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAllowUnprotectedTxs(boolean value) {
+        
+        allowUnprotectedTxs_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Allow unprotected transactions defines if replay-protected (i.e non EIP155
+       * signed) transactions can be executed on the state machine.
+       * </pre>
+       *
+       * <code>bool allow_unprotected_txs = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAllowUnprotectedTxs() {
+        
+        allowUnprotectedTxs_ = false;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1587,26 +1683,6 @@ public final class Evm {
 
     /**
      * <pre>
-     * Catalyst switch block (nil = no fork, 0 = already on catalyst)
-     * </pre>
-     *
-     * <code>string catalyst_block = 16 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"catalyst_block&#92;""];</code>
-     * @return The catalystBlock.
-     */
-    java.lang.String getCatalystBlock();
-    /**
-     * <pre>
-     * Catalyst switch block (nil = no fork, 0 = already on catalyst)
-     * </pre>
-     *
-     * <code>string catalyst_block = 16 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"catalyst_block&#92;""];</code>
-     * @return The bytes for catalystBlock.
-     */
-    com.google.protobuf.ByteString
-        getCatalystBlockBytes();
-
-    /**
-     * <pre>
      * London switch block (nil = no fork, 0 = already on london)
      * </pre>
      *
@@ -1624,6 +1700,66 @@ public final class Evm {
      */
     com.google.protobuf.ByteString
         getLondonBlockBytes();
+
+    /**
+     * <pre>
+     * Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
+     * </pre>
+     *
+     * <code>string arrow_glacier_block = 18 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"arrow_glacier_block&#92;""];</code>
+     * @return The arrowGlacierBlock.
+     */
+    java.lang.String getArrowGlacierBlock();
+    /**
+     * <pre>
+     * Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
+     * </pre>
+     *
+     * <code>string arrow_glacier_block = 18 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"arrow_glacier_block&#92;""];</code>
+     * @return The bytes for arrowGlacierBlock.
+     */
+    com.google.protobuf.ByteString
+        getArrowGlacierBlockBytes();
+
+    /**
+     * <pre>
+     *  EIP-5133 (bomb delay) switch block (nil = no fork, 0 = already activated)
+     * </pre>
+     *
+     * <code>string gray_glacier_block = 20 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"gray_glacier_block&#92;""];</code>
+     * @return The grayGlacierBlock.
+     */
+    java.lang.String getGrayGlacierBlock();
+    /**
+     * <pre>
+     *  EIP-5133 (bomb delay) switch block (nil = no fork, 0 = already activated)
+     * </pre>
+     *
+     * <code>string gray_glacier_block = 20 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"gray_glacier_block&#92;""];</code>
+     * @return The bytes for grayGlacierBlock.
+     */
+    com.google.protobuf.ByteString
+        getGrayGlacierBlockBytes();
+
+    /**
+     * <pre>
+     * Virtual fork after The Merge to use as a network splitter
+     * </pre>
+     *
+     * <code>string merge_netsplit_block = 21 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"merge_netsplit_block&#92;""];</code>
+     * @return The mergeNetsplitBlock.
+     */
+    java.lang.String getMergeNetsplitBlock();
+    /**
+     * <pre>
+     * Virtual fork after The Merge to use as a network splitter
+     * </pre>
+     *
+     * <code>string merge_netsplit_block = 21 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"merge_netsplit_block&#92;""];</code>
+     * @return The bytes for mergeNetsplitBlock.
+     */
+    com.google.protobuf.ByteString
+        getMergeNetsplitBlockBytes();
   }
   /**
    * <pre>
@@ -1655,8 +1791,10 @@ public final class Evm {
       istanbulBlock_ = "";
       muirGlacierBlock_ = "";
       berlinBlock_ = "";
-      catalystBlock_ = "";
       londonBlock_ = "";
+      arrowGlacierBlock_ = "";
+      grayGlacierBlock_ = "";
+      mergeNetsplitBlock_ = "";
     }
 
     @java.lang.Override
@@ -1766,16 +1904,28 @@ public final class Evm {
               berlinBlock_ = s;
               break;
             }
-            case 130: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              catalystBlock_ = s;
-              break;
-            }
             case 138: {
               java.lang.String s = input.readStringRequireUtf8();
 
               londonBlock_ = s;
+              break;
+            }
+            case 146: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              arrowGlacierBlock_ = s;
+              break;
+            }
+            case 162: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              grayGlacierBlock_ = s;
+              break;
+            }
+            case 170: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              mergeNetsplitBlock_ = s;
               break;
             }
             default: {
@@ -2379,52 +2529,6 @@ public final class Evm {
       }
     }
 
-    public static final int CATALYST_BLOCK_FIELD_NUMBER = 16;
-    private volatile java.lang.Object catalystBlock_;
-    /**
-     * <pre>
-     * Catalyst switch block (nil = no fork, 0 = already on catalyst)
-     * </pre>
-     *
-     * <code>string catalyst_block = 16 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"catalyst_block&#92;""];</code>
-     * @return The catalystBlock.
-     */
-    @java.lang.Override
-    public java.lang.String getCatalystBlock() {
-      java.lang.Object ref = catalystBlock_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        catalystBlock_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * Catalyst switch block (nil = no fork, 0 = already on catalyst)
-     * </pre>
-     *
-     * <code>string catalyst_block = 16 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"catalyst_block&#92;""];</code>
-     * @return The bytes for catalystBlock.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getCatalystBlockBytes() {
-      java.lang.Object ref = catalystBlock_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        catalystBlock_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     public static final int LONDON_BLOCK_FIELD_NUMBER = 17;
     private volatile java.lang.Object londonBlock_;
     /**
@@ -2465,6 +2569,144 @@ public final class Evm {
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         londonBlock_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ARROW_GLACIER_BLOCK_FIELD_NUMBER = 18;
+    private volatile java.lang.Object arrowGlacierBlock_;
+    /**
+     * <pre>
+     * Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
+     * </pre>
+     *
+     * <code>string arrow_glacier_block = 18 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"arrow_glacier_block&#92;""];</code>
+     * @return The arrowGlacierBlock.
+     */
+    @java.lang.Override
+    public java.lang.String getArrowGlacierBlock() {
+      java.lang.Object ref = arrowGlacierBlock_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        arrowGlacierBlock_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
+     * </pre>
+     *
+     * <code>string arrow_glacier_block = 18 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"arrow_glacier_block&#92;""];</code>
+     * @return The bytes for arrowGlacierBlock.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getArrowGlacierBlockBytes() {
+      java.lang.Object ref = arrowGlacierBlock_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        arrowGlacierBlock_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int GRAY_GLACIER_BLOCK_FIELD_NUMBER = 20;
+    private volatile java.lang.Object grayGlacierBlock_;
+    /**
+     * <pre>
+     *  EIP-5133 (bomb delay) switch block (nil = no fork, 0 = already activated)
+     * </pre>
+     *
+     * <code>string gray_glacier_block = 20 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"gray_glacier_block&#92;""];</code>
+     * @return The grayGlacierBlock.
+     */
+    @java.lang.Override
+    public java.lang.String getGrayGlacierBlock() {
+      java.lang.Object ref = grayGlacierBlock_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        grayGlacierBlock_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *  EIP-5133 (bomb delay) switch block (nil = no fork, 0 = already activated)
+     * </pre>
+     *
+     * <code>string gray_glacier_block = 20 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"gray_glacier_block&#92;""];</code>
+     * @return The bytes for grayGlacierBlock.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getGrayGlacierBlockBytes() {
+      java.lang.Object ref = grayGlacierBlock_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        grayGlacierBlock_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MERGE_NETSPLIT_BLOCK_FIELD_NUMBER = 21;
+    private volatile java.lang.Object mergeNetsplitBlock_;
+    /**
+     * <pre>
+     * Virtual fork after The Merge to use as a network splitter
+     * </pre>
+     *
+     * <code>string merge_netsplit_block = 21 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"merge_netsplit_block&#92;""];</code>
+     * @return The mergeNetsplitBlock.
+     */
+    @java.lang.Override
+    public java.lang.String getMergeNetsplitBlock() {
+      java.lang.Object ref = mergeNetsplitBlock_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        mergeNetsplitBlock_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * Virtual fork after The Merge to use as a network splitter
+     * </pre>
+     *
+     * <code>string merge_netsplit_block = 21 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"merge_netsplit_block&#92;""];</code>
+     * @return The bytes for mergeNetsplitBlock.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMergeNetsplitBlockBytes() {
+      java.lang.Object ref = mergeNetsplitBlock_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        mergeNetsplitBlock_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -2524,11 +2766,17 @@ public final class Evm {
       if (!getBerlinBlockBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 13, berlinBlock_);
       }
-      if (!getCatalystBlockBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 16, catalystBlock_);
-      }
       if (!getLondonBlockBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 17, londonBlock_);
+      }
+      if (!getArrowGlacierBlockBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 18, arrowGlacierBlock_);
+      }
+      if (!getGrayGlacierBlockBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 20, grayGlacierBlock_);
+      }
+      if (!getMergeNetsplitBlockBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 21, mergeNetsplitBlock_);
       }
       unknownFields.writeTo(output);
     }
@@ -2579,11 +2827,17 @@ public final class Evm {
       if (!getBerlinBlockBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, berlinBlock_);
       }
-      if (!getCatalystBlockBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, catalystBlock_);
-      }
       if (!getLondonBlockBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, londonBlock_);
+      }
+      if (!getArrowGlacierBlockBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(18, arrowGlacierBlock_);
+      }
+      if (!getGrayGlacierBlockBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, grayGlacierBlock_);
+      }
+      if (!getMergeNetsplitBlockBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(21, mergeNetsplitBlock_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2626,10 +2880,14 @@ public final class Evm {
           .equals(other.getMuirGlacierBlock())) return false;
       if (!getBerlinBlock()
           .equals(other.getBerlinBlock())) return false;
-      if (!getCatalystBlock()
-          .equals(other.getCatalystBlock())) return false;
       if (!getLondonBlock()
           .equals(other.getLondonBlock())) return false;
+      if (!getArrowGlacierBlock()
+          .equals(other.getArrowGlacierBlock())) return false;
+      if (!getGrayGlacierBlock()
+          .equals(other.getGrayGlacierBlock())) return false;
+      if (!getMergeNetsplitBlock()
+          .equals(other.getMergeNetsplitBlock())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2668,10 +2926,14 @@ public final class Evm {
       hash = (53 * hash) + getMuirGlacierBlock().hashCode();
       hash = (37 * hash) + BERLIN_BLOCK_FIELD_NUMBER;
       hash = (53 * hash) + getBerlinBlock().hashCode();
-      hash = (37 * hash) + CATALYST_BLOCK_FIELD_NUMBER;
-      hash = (53 * hash) + getCatalystBlock().hashCode();
       hash = (37 * hash) + LONDON_BLOCK_FIELD_NUMBER;
       hash = (53 * hash) + getLondonBlock().hashCode();
+      hash = (37 * hash) + ARROW_GLACIER_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + getArrowGlacierBlock().hashCode();
+      hash = (37 * hash) + GRAY_GLACIER_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + getGrayGlacierBlock().hashCode();
+      hash = (37 * hash) + MERGE_NETSPLIT_BLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + getMergeNetsplitBlock().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2836,9 +3098,13 @@ public final class Evm {
 
         berlinBlock_ = "";
 
-        catalystBlock_ = "";
-
         londonBlock_ = "";
+
+        arrowGlacierBlock_ = "";
+
+        grayGlacierBlock_ = "";
+
+        mergeNetsplitBlock_ = "";
 
         return this;
       }
@@ -2879,8 +3145,10 @@ public final class Evm {
         result.istanbulBlock_ = istanbulBlock_;
         result.muirGlacierBlock_ = muirGlacierBlock_;
         result.berlinBlock_ = berlinBlock_;
-        result.catalystBlock_ = catalystBlock_;
         result.londonBlock_ = londonBlock_;
+        result.arrowGlacierBlock_ = arrowGlacierBlock_;
+        result.grayGlacierBlock_ = grayGlacierBlock_;
+        result.mergeNetsplitBlock_ = mergeNetsplitBlock_;
         onBuilt();
         return result;
       }
@@ -2980,12 +3248,20 @@ public final class Evm {
           berlinBlock_ = other.berlinBlock_;
           onChanged();
         }
-        if (!other.getCatalystBlock().isEmpty()) {
-          catalystBlock_ = other.catalystBlock_;
-          onChanged();
-        }
         if (!other.getLondonBlock().isEmpty()) {
           londonBlock_ = other.londonBlock_;
+          onChanged();
+        }
+        if (!other.getArrowGlacierBlock().isEmpty()) {
+          arrowGlacierBlock_ = other.arrowGlacierBlock_;
+          onChanged();
+        }
+        if (!other.getGrayGlacierBlock().isEmpty()) {
+          grayGlacierBlock_ = other.grayGlacierBlock_;
+          onChanged();
+        }
+        if (!other.getMergeNetsplitBlock().isEmpty()) {
+          mergeNetsplitBlock_ = other.mergeNetsplitBlock_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -4217,102 +4493,6 @@ public final class Evm {
         return this;
       }
 
-      private java.lang.Object catalystBlock_ = "";
-      /**
-       * <pre>
-       * Catalyst switch block (nil = no fork, 0 = already on catalyst)
-       * </pre>
-       *
-       * <code>string catalyst_block = 16 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"catalyst_block&#92;""];</code>
-       * @return The catalystBlock.
-       */
-      public java.lang.String getCatalystBlock() {
-        java.lang.Object ref = catalystBlock_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          catalystBlock_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * Catalyst switch block (nil = no fork, 0 = already on catalyst)
-       * </pre>
-       *
-       * <code>string catalyst_block = 16 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"catalyst_block&#92;""];</code>
-       * @return The bytes for catalystBlock.
-       */
-      public com.google.protobuf.ByteString
-          getCatalystBlockBytes() {
-        java.lang.Object ref = catalystBlock_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          catalystBlock_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * Catalyst switch block (nil = no fork, 0 = already on catalyst)
-       * </pre>
-       *
-       * <code>string catalyst_block = 16 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"catalyst_block&#92;""];</code>
-       * @param value The catalystBlock to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCatalystBlock(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        catalystBlock_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Catalyst switch block (nil = no fork, 0 = already on catalyst)
-       * </pre>
-       *
-       * <code>string catalyst_block = 16 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"catalyst_block&#92;""];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCatalystBlock() {
-        
-        catalystBlock_ = getDefaultInstance().getCatalystBlock();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Catalyst switch block (nil = no fork, 0 = already on catalyst)
-       * </pre>
-       *
-       * <code>string catalyst_block = 16 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"catalyst_block&#92;""];</code>
-       * @param value The bytes for catalystBlock to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCatalystBlockBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        catalystBlock_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object londonBlock_ = "";
       /**
        * <pre>
@@ -4405,6 +4585,294 @@ public final class Evm {
   checkByteStringIsUtf8(value);
         
         londonBlock_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object arrowGlacierBlock_ = "";
+      /**
+       * <pre>
+       * Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string arrow_glacier_block = 18 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"arrow_glacier_block&#92;""];</code>
+       * @return The arrowGlacierBlock.
+       */
+      public java.lang.String getArrowGlacierBlock() {
+        java.lang.Object ref = arrowGlacierBlock_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          arrowGlacierBlock_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string arrow_glacier_block = 18 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"arrow_glacier_block&#92;""];</code>
+       * @return The bytes for arrowGlacierBlock.
+       */
+      public com.google.protobuf.ByteString
+          getArrowGlacierBlockBytes() {
+        java.lang.Object ref = arrowGlacierBlock_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          arrowGlacierBlock_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string arrow_glacier_block = 18 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"arrow_glacier_block&#92;""];</code>
+       * @param value The arrowGlacierBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setArrowGlacierBlock(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        arrowGlacierBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string arrow_glacier_block = 18 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"arrow_glacier_block&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearArrowGlacierBlock() {
+        
+        arrowGlacierBlock_ = getDefaultInstance().getArrowGlacierBlock();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Eip-4345 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string arrow_glacier_block = 18 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"arrow_glacier_block&#92;""];</code>
+       * @param value The bytes for arrowGlacierBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setArrowGlacierBlockBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        arrowGlacierBlock_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object grayGlacierBlock_ = "";
+      /**
+       * <pre>
+       *  EIP-5133 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string gray_glacier_block = 20 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"gray_glacier_block&#92;""];</code>
+       * @return The grayGlacierBlock.
+       */
+      public java.lang.String getGrayGlacierBlock() {
+        java.lang.Object ref = grayGlacierBlock_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          grayGlacierBlock_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *  EIP-5133 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string gray_glacier_block = 20 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"gray_glacier_block&#92;""];</code>
+       * @return The bytes for grayGlacierBlock.
+       */
+      public com.google.protobuf.ByteString
+          getGrayGlacierBlockBytes() {
+        java.lang.Object ref = grayGlacierBlock_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          grayGlacierBlock_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *  EIP-5133 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string gray_glacier_block = 20 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"gray_glacier_block&#92;""];</code>
+       * @param value The grayGlacierBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGrayGlacierBlock(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        grayGlacierBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *  EIP-5133 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string gray_glacier_block = 20 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"gray_glacier_block&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearGrayGlacierBlock() {
+        
+        grayGlacierBlock_ = getDefaultInstance().getGrayGlacierBlock();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *  EIP-5133 (bomb delay) switch block (nil = no fork, 0 = already activated)
+       * </pre>
+       *
+       * <code>string gray_glacier_block = 20 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"gray_glacier_block&#92;""];</code>
+       * @param value The bytes for grayGlacierBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGrayGlacierBlockBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        grayGlacierBlock_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object mergeNetsplitBlock_ = "";
+      /**
+       * <pre>
+       * Virtual fork after The Merge to use as a network splitter
+       * </pre>
+       *
+       * <code>string merge_netsplit_block = 21 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"merge_netsplit_block&#92;""];</code>
+       * @return The mergeNetsplitBlock.
+       */
+      public java.lang.String getMergeNetsplitBlock() {
+        java.lang.Object ref = mergeNetsplitBlock_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          mergeNetsplitBlock_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Virtual fork after The Merge to use as a network splitter
+       * </pre>
+       *
+       * <code>string merge_netsplit_block = 21 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"merge_netsplit_block&#92;""];</code>
+       * @return The bytes for mergeNetsplitBlock.
+       */
+      public com.google.protobuf.ByteString
+          getMergeNetsplitBlockBytes() {
+        java.lang.Object ref = mergeNetsplitBlock_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          mergeNetsplitBlock_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * Virtual fork after The Merge to use as a network splitter
+       * </pre>
+       *
+       * <code>string merge_netsplit_block = 21 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"merge_netsplit_block&#92;""];</code>
+       * @param value The mergeNetsplitBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMergeNetsplitBlock(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        mergeNetsplitBlock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Virtual fork after The Merge to use as a network splitter
+       * </pre>
+       *
+       * <code>string merge_netsplit_block = 21 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"merge_netsplit_block&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMergeNetsplitBlock() {
+        
+        mergeNetsplitBlock_ = getDefaultInstance().getMergeNetsplitBlock();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Virtual fork after The Merge to use as a network splitter
+       * </pre>
+       *
+       * <code>string merge_netsplit_block = 21 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"merge_netsplit_block&#92;""];</code>
+       * @param value The bytes for mergeNetsplitBlock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMergeNetsplitBlockBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        mergeNetsplitBlock_ = value;
         onChanged();
         return this;
       }
@@ -10064,6 +10532,1898 @@ public final class Evm {
 
   }
 
+  public interface TraceConfigOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.TraceConfig)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * custom javascript tracer
+     * </pre>
+     *
+     * <code>string tracer = 1;</code>
+     * @return The tracer.
+     */
+    java.lang.String getTracer();
+    /**
+     * <pre>
+     * custom javascript tracer
+     * </pre>
+     *
+     * <code>string tracer = 1;</code>
+     * @return The bytes for tracer.
+     */
+    com.google.protobuf.ByteString
+        getTracerBytes();
+
+    /**
+     * <pre>
+     * overrides the default timeout of 5 seconds for JavaScript-based tracing
+     * calls
+     * </pre>
+     *
+     * <code>string timeout = 2;</code>
+     * @return The timeout.
+     */
+    java.lang.String getTimeout();
+    /**
+     * <pre>
+     * overrides the default timeout of 5 seconds for JavaScript-based tracing
+     * calls
+     * </pre>
+     *
+     * <code>string timeout = 2;</code>
+     * @return The bytes for timeout.
+     */
+    com.google.protobuf.ByteString
+        getTimeoutBytes();
+
+    /**
+     * <pre>
+     * number of blocks the tracer is willing to go back
+     * </pre>
+     *
+     * <code>uint64 reexec = 3;</code>
+     * @return The reexec.
+     */
+    long getReexec();
+
+    /**
+     * <pre>
+     * disable stack capture
+     * </pre>
+     *
+     * <code>bool disable_stack = 5 [(.gogoproto.jsontag) = "disableStack"];</code>
+     * @return The disableStack.
+     */
+    boolean getDisableStack();
+
+    /**
+     * <pre>
+     * disable storage capture
+     * </pre>
+     *
+     * <code>bool disable_storage = 6 [(.gogoproto.jsontag) = "disableStorage"];</code>
+     * @return The disableStorage.
+     */
+    boolean getDisableStorage();
+
+    /**
+     * <pre>
+     * print output during capture end
+     * </pre>
+     *
+     * <code>bool debug = 8;</code>
+     * @return The debug.
+     */
+    boolean getDebug();
+
+    /**
+     * <pre>
+     * maximum length of output, but zero means unlimited
+     * </pre>
+     *
+     * <code>int32 limit = 9;</code>
+     * @return The limit.
+     */
+    int getLimit();
+
+    /**
+     * <pre>
+     * Chain overrides, can be used to execute a trace using future fork rules
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+     * @return Whether the overrides field is set.
+     */
+    boolean hasOverrides();
+    /**
+     * <pre>
+     * Chain overrides, can be used to execute a trace using future fork rules
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+     * @return The overrides.
+     */
+    ethermint.evm.v1.Evm.ChainConfig getOverrides();
+    /**
+     * <pre>
+     * Chain overrides, can be used to execute a trace using future fork rules
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+     */
+    ethermint.evm.v1.Evm.ChainConfigOrBuilder getOverridesOrBuilder();
+
+    /**
+     * <pre>
+     * enable memory capture
+     * </pre>
+     *
+     * <code>bool enable_memory = 11 [(.gogoproto.jsontag) = "enableMemory"];</code>
+     * @return The enableMemory.
+     */
+    boolean getEnableMemory();
+
+    /**
+     * <pre>
+     * enable return data capture
+     * </pre>
+     *
+     * <code>bool enable_return_data = 12 [(.gogoproto.jsontag) = "enableReturnData"];</code>
+     * @return The enableReturnData.
+     */
+    boolean getEnableReturnData();
+
+    /**
+     * <pre>
+     * tracer config
+     * </pre>
+     *
+     * <code>string tracer_json_config = 13 [(.gogoproto.jsontag) = "tracerConfig"];</code>
+     * @return The tracerJsonConfig.
+     */
+    java.lang.String getTracerJsonConfig();
+    /**
+     * <pre>
+     * tracer config
+     * </pre>
+     *
+     * <code>string tracer_json_config = 13 [(.gogoproto.jsontag) = "tracerConfig"];</code>
+     * @return The bytes for tracerJsonConfig.
+     */
+    com.google.protobuf.ByteString
+        getTracerJsonConfigBytes();
+  }
+  /**
+   * <pre>
+   * TraceConfig holds extra parameters to trace functions.
+   * </pre>
+   *
+   * Protobuf type {@code ethermint.evm.v1.TraceConfig}
+   */
+  public static final class TraceConfig extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.TraceConfig)
+      TraceConfigOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use TraceConfig.newBuilder() to construct.
+    private TraceConfig(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private TraceConfig() {
+      tracer_ = "";
+      timeout_ = "";
+      tracerJsonConfig_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new TraceConfig();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TraceConfig(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              tracer_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              timeout_ = s;
+              break;
+            }
+            case 24: {
+
+              reexec_ = input.readUInt64();
+              break;
+            }
+            case 40: {
+
+              disableStack_ = input.readBool();
+              break;
+            }
+            case 48: {
+
+              disableStorage_ = input.readBool();
+              break;
+            }
+            case 64: {
+
+              debug_ = input.readBool();
+              break;
+            }
+            case 72: {
+
+              limit_ = input.readInt32();
+              break;
+            }
+            case 82: {
+              ethermint.evm.v1.Evm.ChainConfig.Builder subBuilder = null;
+              if (overrides_ != null) {
+                subBuilder = overrides_.toBuilder();
+              }
+              overrides_ = input.readMessage(ethermint.evm.v1.Evm.ChainConfig.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(overrides_);
+                overrides_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 88: {
+
+              enableMemory_ = input.readBool();
+              break;
+            }
+            case 96: {
+
+              enableReturnData_ = input.readBool();
+              break;
+            }
+            case 106: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              tracerJsonConfig_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethermint.evm.v1.Evm.internal_static_ethermint_evm_v1_TraceConfig_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethermint.evm.v1.Evm.internal_static_ethermint_evm_v1_TraceConfig_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethermint.evm.v1.Evm.TraceConfig.class, ethermint.evm.v1.Evm.TraceConfig.Builder.class);
+    }
+
+    public static final int TRACER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object tracer_;
+    /**
+     * <pre>
+     * custom javascript tracer
+     * </pre>
+     *
+     * <code>string tracer = 1;</code>
+     * @return The tracer.
+     */
+    @java.lang.Override
+    public java.lang.String getTracer() {
+      java.lang.Object ref = tracer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        tracer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * custom javascript tracer
+     * </pre>
+     *
+     * <code>string tracer = 1;</code>
+     * @return The bytes for tracer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTracerBytes() {
+      java.lang.Object ref = tracer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tracer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TIMEOUT_FIELD_NUMBER = 2;
+    private volatile java.lang.Object timeout_;
+    /**
+     * <pre>
+     * overrides the default timeout of 5 seconds for JavaScript-based tracing
+     * calls
+     * </pre>
+     *
+     * <code>string timeout = 2;</code>
+     * @return The timeout.
+     */
+    @java.lang.Override
+    public java.lang.String getTimeout() {
+      java.lang.Object ref = timeout_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        timeout_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * overrides the default timeout of 5 seconds for JavaScript-based tracing
+     * calls
+     * </pre>
+     *
+     * <code>string timeout = 2;</code>
+     * @return The bytes for timeout.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTimeoutBytes() {
+      java.lang.Object ref = timeout_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        timeout_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REEXEC_FIELD_NUMBER = 3;
+    private long reexec_;
+    /**
+     * <pre>
+     * number of blocks the tracer is willing to go back
+     * </pre>
+     *
+     * <code>uint64 reexec = 3;</code>
+     * @return The reexec.
+     */
+    @java.lang.Override
+    public long getReexec() {
+      return reexec_;
+    }
+
+    public static final int DISABLE_STACK_FIELD_NUMBER = 5;
+    private boolean disableStack_;
+    /**
+     * <pre>
+     * disable stack capture
+     * </pre>
+     *
+     * <code>bool disable_stack = 5 [(.gogoproto.jsontag) = "disableStack"];</code>
+     * @return The disableStack.
+     */
+    @java.lang.Override
+    public boolean getDisableStack() {
+      return disableStack_;
+    }
+
+    public static final int DISABLE_STORAGE_FIELD_NUMBER = 6;
+    private boolean disableStorage_;
+    /**
+     * <pre>
+     * disable storage capture
+     * </pre>
+     *
+     * <code>bool disable_storage = 6 [(.gogoproto.jsontag) = "disableStorage"];</code>
+     * @return The disableStorage.
+     */
+    @java.lang.Override
+    public boolean getDisableStorage() {
+      return disableStorage_;
+    }
+
+    public static final int DEBUG_FIELD_NUMBER = 8;
+    private boolean debug_;
+    /**
+     * <pre>
+     * print output during capture end
+     * </pre>
+     *
+     * <code>bool debug = 8;</code>
+     * @return The debug.
+     */
+    @java.lang.Override
+    public boolean getDebug() {
+      return debug_;
+    }
+
+    public static final int LIMIT_FIELD_NUMBER = 9;
+    private int limit_;
+    /**
+     * <pre>
+     * maximum length of output, but zero means unlimited
+     * </pre>
+     *
+     * <code>int32 limit = 9;</code>
+     * @return The limit.
+     */
+    @java.lang.Override
+    public int getLimit() {
+      return limit_;
+    }
+
+    public static final int OVERRIDES_FIELD_NUMBER = 10;
+    private ethermint.evm.v1.Evm.ChainConfig overrides_;
+    /**
+     * <pre>
+     * Chain overrides, can be used to execute a trace using future fork rules
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+     * @return Whether the overrides field is set.
+     */
+    @java.lang.Override
+    public boolean hasOverrides() {
+      return overrides_ != null;
+    }
+    /**
+     * <pre>
+     * Chain overrides, can be used to execute a trace using future fork rules
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+     * @return The overrides.
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Evm.ChainConfig getOverrides() {
+      return overrides_ == null ? ethermint.evm.v1.Evm.ChainConfig.getDefaultInstance() : overrides_;
+    }
+    /**
+     * <pre>
+     * Chain overrides, can be used to execute a trace using future fork rules
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Evm.ChainConfigOrBuilder getOverridesOrBuilder() {
+      return getOverrides();
+    }
+
+    public static final int ENABLE_MEMORY_FIELD_NUMBER = 11;
+    private boolean enableMemory_;
+    /**
+     * <pre>
+     * enable memory capture
+     * </pre>
+     *
+     * <code>bool enable_memory = 11 [(.gogoproto.jsontag) = "enableMemory"];</code>
+     * @return The enableMemory.
+     */
+    @java.lang.Override
+    public boolean getEnableMemory() {
+      return enableMemory_;
+    }
+
+    public static final int ENABLE_RETURN_DATA_FIELD_NUMBER = 12;
+    private boolean enableReturnData_;
+    /**
+     * <pre>
+     * enable return data capture
+     * </pre>
+     *
+     * <code>bool enable_return_data = 12 [(.gogoproto.jsontag) = "enableReturnData"];</code>
+     * @return The enableReturnData.
+     */
+    @java.lang.Override
+    public boolean getEnableReturnData() {
+      return enableReturnData_;
+    }
+
+    public static final int TRACER_JSON_CONFIG_FIELD_NUMBER = 13;
+    private volatile java.lang.Object tracerJsonConfig_;
+    /**
+     * <pre>
+     * tracer config
+     * </pre>
+     *
+     * <code>string tracer_json_config = 13 [(.gogoproto.jsontag) = "tracerConfig"];</code>
+     * @return The tracerJsonConfig.
+     */
+    @java.lang.Override
+    public java.lang.String getTracerJsonConfig() {
+      java.lang.Object ref = tracerJsonConfig_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        tracerJsonConfig_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * tracer config
+     * </pre>
+     *
+     * <code>string tracer_json_config = 13 [(.gogoproto.jsontag) = "tracerConfig"];</code>
+     * @return The bytes for tracerJsonConfig.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTracerJsonConfigBytes() {
+      java.lang.Object ref = tracerJsonConfig_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tracerJsonConfig_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getTracerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, tracer_);
+      }
+      if (!getTimeoutBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, timeout_);
+      }
+      if (reexec_ != 0L) {
+        output.writeUInt64(3, reexec_);
+      }
+      if (disableStack_ != false) {
+        output.writeBool(5, disableStack_);
+      }
+      if (disableStorage_ != false) {
+        output.writeBool(6, disableStorage_);
+      }
+      if (debug_ != false) {
+        output.writeBool(8, debug_);
+      }
+      if (limit_ != 0) {
+        output.writeInt32(9, limit_);
+      }
+      if (overrides_ != null) {
+        output.writeMessage(10, getOverrides());
+      }
+      if (enableMemory_ != false) {
+        output.writeBool(11, enableMemory_);
+      }
+      if (enableReturnData_ != false) {
+        output.writeBool(12, enableReturnData_);
+      }
+      if (!getTracerJsonConfigBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, tracerJsonConfig_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getTracerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, tracer_);
+      }
+      if (!getTimeoutBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, timeout_);
+      }
+      if (reexec_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(3, reexec_);
+      }
+      if (disableStack_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, disableStack_);
+      }
+      if (disableStorage_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(6, disableStorage_);
+      }
+      if (debug_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(8, debug_);
+      }
+      if (limit_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, limit_);
+      }
+      if (overrides_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, getOverrides());
+      }
+      if (enableMemory_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(11, enableMemory_);
+      }
+      if (enableReturnData_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(12, enableReturnData_);
+      }
+      if (!getTracerJsonConfigBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, tracerJsonConfig_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethermint.evm.v1.Evm.TraceConfig)) {
+        return super.equals(obj);
+      }
+      ethermint.evm.v1.Evm.TraceConfig other = (ethermint.evm.v1.Evm.TraceConfig) obj;
+
+      if (!getTracer()
+          .equals(other.getTracer())) return false;
+      if (!getTimeout()
+          .equals(other.getTimeout())) return false;
+      if (getReexec()
+          != other.getReexec()) return false;
+      if (getDisableStack()
+          != other.getDisableStack()) return false;
+      if (getDisableStorage()
+          != other.getDisableStorage()) return false;
+      if (getDebug()
+          != other.getDebug()) return false;
+      if (getLimit()
+          != other.getLimit()) return false;
+      if (hasOverrides() != other.hasOverrides()) return false;
+      if (hasOverrides()) {
+        if (!getOverrides()
+            .equals(other.getOverrides())) return false;
+      }
+      if (getEnableMemory()
+          != other.getEnableMemory()) return false;
+      if (getEnableReturnData()
+          != other.getEnableReturnData()) return false;
+      if (!getTracerJsonConfig()
+          .equals(other.getTracerJsonConfig())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TRACER_FIELD_NUMBER;
+      hash = (53 * hash) + getTracer().hashCode();
+      hash = (37 * hash) + TIMEOUT_FIELD_NUMBER;
+      hash = (53 * hash) + getTimeout().hashCode();
+      hash = (37 * hash) + REEXEC_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getReexec());
+      hash = (37 * hash) + DISABLE_STACK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getDisableStack());
+      hash = (37 * hash) + DISABLE_STORAGE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getDisableStorage());
+      hash = (37 * hash) + DEBUG_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getDebug());
+      hash = (37 * hash) + LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + getLimit();
+      if (hasOverrides()) {
+        hash = (37 * hash) + OVERRIDES_FIELD_NUMBER;
+        hash = (53 * hash) + getOverrides().hashCode();
+      }
+      hash = (37 * hash) + ENABLE_MEMORY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getEnableMemory());
+      hash = (37 * hash) + ENABLE_RETURN_DATA_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getEnableReturnData());
+      hash = (37 * hash) + TRACER_JSON_CONFIG_FIELD_NUMBER;
+      hash = (53 * hash) + getTracerJsonConfig().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.Evm.TraceConfig parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethermint.evm.v1.Evm.TraceConfig prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * Protobuf type {@code ethermint.evm.v1.TraceConfig}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.TraceConfig)
+        ethermint.evm.v1.Evm.TraceConfigOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethermint.evm.v1.Evm.internal_static_ethermint_evm_v1_TraceConfig_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethermint.evm.v1.Evm.internal_static_ethermint_evm_v1_TraceConfig_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethermint.evm.v1.Evm.TraceConfig.class, ethermint.evm.v1.Evm.TraceConfig.Builder.class);
+      }
+
+      // Construct using ethermint.evm.v1.Evm.TraceConfig.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        tracer_ = "";
+
+        timeout_ = "";
+
+        reexec_ = 0L;
+
+        disableStack_ = false;
+
+        disableStorage_ = false;
+
+        debug_ = false;
+
+        limit_ = 0;
+
+        if (overridesBuilder_ == null) {
+          overrides_ = null;
+        } else {
+          overrides_ = null;
+          overridesBuilder_ = null;
+        }
+        enableMemory_ = false;
+
+        enableReturnData_ = false;
+
+        tracerJsonConfig_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethermint.evm.v1.Evm.internal_static_ethermint_evm_v1_TraceConfig_descriptor;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.Evm.TraceConfig getDefaultInstanceForType() {
+        return ethermint.evm.v1.Evm.TraceConfig.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.Evm.TraceConfig build() {
+        ethermint.evm.v1.Evm.TraceConfig result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.Evm.TraceConfig buildPartial() {
+        ethermint.evm.v1.Evm.TraceConfig result = new ethermint.evm.v1.Evm.TraceConfig(this);
+        result.tracer_ = tracer_;
+        result.timeout_ = timeout_;
+        result.reexec_ = reexec_;
+        result.disableStack_ = disableStack_;
+        result.disableStorage_ = disableStorage_;
+        result.debug_ = debug_;
+        result.limit_ = limit_;
+        if (overridesBuilder_ == null) {
+          result.overrides_ = overrides_;
+        } else {
+          result.overrides_ = overridesBuilder_.build();
+        }
+        result.enableMemory_ = enableMemory_;
+        result.enableReturnData_ = enableReturnData_;
+        result.tracerJsonConfig_ = tracerJsonConfig_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethermint.evm.v1.Evm.TraceConfig) {
+          return mergeFrom((ethermint.evm.v1.Evm.TraceConfig)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethermint.evm.v1.Evm.TraceConfig other) {
+        if (other == ethermint.evm.v1.Evm.TraceConfig.getDefaultInstance()) return this;
+        if (!other.getTracer().isEmpty()) {
+          tracer_ = other.tracer_;
+          onChanged();
+        }
+        if (!other.getTimeout().isEmpty()) {
+          timeout_ = other.timeout_;
+          onChanged();
+        }
+        if (other.getReexec() != 0L) {
+          setReexec(other.getReexec());
+        }
+        if (other.getDisableStack() != false) {
+          setDisableStack(other.getDisableStack());
+        }
+        if (other.getDisableStorage() != false) {
+          setDisableStorage(other.getDisableStorage());
+        }
+        if (other.getDebug() != false) {
+          setDebug(other.getDebug());
+        }
+        if (other.getLimit() != 0) {
+          setLimit(other.getLimit());
+        }
+        if (other.hasOverrides()) {
+          mergeOverrides(other.getOverrides());
+        }
+        if (other.getEnableMemory() != false) {
+          setEnableMemory(other.getEnableMemory());
+        }
+        if (other.getEnableReturnData() != false) {
+          setEnableReturnData(other.getEnableReturnData());
+        }
+        if (!other.getTracerJsonConfig().isEmpty()) {
+          tracerJsonConfig_ = other.tracerJsonConfig_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethermint.evm.v1.Evm.TraceConfig parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethermint.evm.v1.Evm.TraceConfig) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object tracer_ = "";
+      /**
+       * <pre>
+       * custom javascript tracer
+       * </pre>
+       *
+       * <code>string tracer = 1;</code>
+       * @return The tracer.
+       */
+      public java.lang.String getTracer() {
+        java.lang.Object ref = tracer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          tracer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * custom javascript tracer
+       * </pre>
+       *
+       * <code>string tracer = 1;</code>
+       * @return The bytes for tracer.
+       */
+      public com.google.protobuf.ByteString
+          getTracerBytes() {
+        java.lang.Object ref = tracer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tracer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * custom javascript tracer
+       * </pre>
+       *
+       * <code>string tracer = 1;</code>
+       * @param value The tracer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTracer(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        tracer_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * custom javascript tracer
+       * </pre>
+       *
+       * <code>string tracer = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTracer() {
+        
+        tracer_ = getDefaultInstance().getTracer();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * custom javascript tracer
+       * </pre>
+       *
+       * <code>string tracer = 1;</code>
+       * @param value The bytes for tracer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTracerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        tracer_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object timeout_ = "";
+      /**
+       * <pre>
+       * overrides the default timeout of 5 seconds for JavaScript-based tracing
+       * calls
+       * </pre>
+       *
+       * <code>string timeout = 2;</code>
+       * @return The timeout.
+       */
+      public java.lang.String getTimeout() {
+        java.lang.Object ref = timeout_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          timeout_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * overrides the default timeout of 5 seconds for JavaScript-based tracing
+       * calls
+       * </pre>
+       *
+       * <code>string timeout = 2;</code>
+       * @return The bytes for timeout.
+       */
+      public com.google.protobuf.ByteString
+          getTimeoutBytes() {
+        java.lang.Object ref = timeout_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          timeout_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * overrides the default timeout of 5 seconds for JavaScript-based tracing
+       * calls
+       * </pre>
+       *
+       * <code>string timeout = 2;</code>
+       * @param value The timeout to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTimeout(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        timeout_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * overrides the default timeout of 5 seconds for JavaScript-based tracing
+       * calls
+       * </pre>
+       *
+       * <code>string timeout = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTimeout() {
+        
+        timeout_ = getDefaultInstance().getTimeout();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * overrides the default timeout of 5 seconds for JavaScript-based tracing
+       * calls
+       * </pre>
+       *
+       * <code>string timeout = 2;</code>
+       * @param value The bytes for timeout to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTimeoutBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        timeout_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long reexec_ ;
+      /**
+       * <pre>
+       * number of blocks the tracer is willing to go back
+       * </pre>
+       *
+       * <code>uint64 reexec = 3;</code>
+       * @return The reexec.
+       */
+      @java.lang.Override
+      public long getReexec() {
+        return reexec_;
+      }
+      /**
+       * <pre>
+       * number of blocks the tracer is willing to go back
+       * </pre>
+       *
+       * <code>uint64 reexec = 3;</code>
+       * @param value The reexec to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReexec(long value) {
+        
+        reexec_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * number of blocks the tracer is willing to go back
+       * </pre>
+       *
+       * <code>uint64 reexec = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReexec() {
+        
+        reexec_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean disableStack_ ;
+      /**
+       * <pre>
+       * disable stack capture
+       * </pre>
+       *
+       * <code>bool disable_stack = 5 [(.gogoproto.jsontag) = "disableStack"];</code>
+       * @return The disableStack.
+       */
+      @java.lang.Override
+      public boolean getDisableStack() {
+        return disableStack_;
+      }
+      /**
+       * <pre>
+       * disable stack capture
+       * </pre>
+       *
+       * <code>bool disable_stack = 5 [(.gogoproto.jsontag) = "disableStack"];</code>
+       * @param value The disableStack to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDisableStack(boolean value) {
+        
+        disableStack_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * disable stack capture
+       * </pre>
+       *
+       * <code>bool disable_stack = 5 [(.gogoproto.jsontag) = "disableStack"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDisableStack() {
+        
+        disableStack_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean disableStorage_ ;
+      /**
+       * <pre>
+       * disable storage capture
+       * </pre>
+       *
+       * <code>bool disable_storage = 6 [(.gogoproto.jsontag) = "disableStorage"];</code>
+       * @return The disableStorage.
+       */
+      @java.lang.Override
+      public boolean getDisableStorage() {
+        return disableStorage_;
+      }
+      /**
+       * <pre>
+       * disable storage capture
+       * </pre>
+       *
+       * <code>bool disable_storage = 6 [(.gogoproto.jsontag) = "disableStorage"];</code>
+       * @param value The disableStorage to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDisableStorage(boolean value) {
+        
+        disableStorage_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * disable storage capture
+       * </pre>
+       *
+       * <code>bool disable_storage = 6 [(.gogoproto.jsontag) = "disableStorage"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDisableStorage() {
+        
+        disableStorage_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean debug_ ;
+      /**
+       * <pre>
+       * print output during capture end
+       * </pre>
+       *
+       * <code>bool debug = 8;</code>
+       * @return The debug.
+       */
+      @java.lang.Override
+      public boolean getDebug() {
+        return debug_;
+      }
+      /**
+       * <pre>
+       * print output during capture end
+       * </pre>
+       *
+       * <code>bool debug = 8;</code>
+       * @param value The debug to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDebug(boolean value) {
+        
+        debug_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * print output during capture end
+       * </pre>
+       *
+       * <code>bool debug = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDebug() {
+        
+        debug_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int limit_ ;
+      /**
+       * <pre>
+       * maximum length of output, but zero means unlimited
+       * </pre>
+       *
+       * <code>int32 limit = 9;</code>
+       * @return The limit.
+       */
+      @java.lang.Override
+      public int getLimit() {
+        return limit_;
+      }
+      /**
+       * <pre>
+       * maximum length of output, but zero means unlimited
+       * </pre>
+       *
+       * <code>int32 limit = 9;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLimit(int value) {
+        
+        limit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * maximum length of output, but zero means unlimited
+       * </pre>
+       *
+       * <code>int32 limit = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLimit() {
+        
+        limit_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private ethermint.evm.v1.Evm.ChainConfig overrides_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ethermint.evm.v1.Evm.ChainConfig, ethermint.evm.v1.Evm.ChainConfig.Builder, ethermint.evm.v1.Evm.ChainConfigOrBuilder> overridesBuilder_;
+      /**
+       * <pre>
+       * Chain overrides, can be used to execute a trace using future fork rules
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+       * @return Whether the overrides field is set.
+       */
+      public boolean hasOverrides() {
+        return overridesBuilder_ != null || overrides_ != null;
+      }
+      /**
+       * <pre>
+       * Chain overrides, can be used to execute a trace using future fork rules
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+       * @return The overrides.
+       */
+      public ethermint.evm.v1.Evm.ChainConfig getOverrides() {
+        if (overridesBuilder_ == null) {
+          return overrides_ == null ? ethermint.evm.v1.Evm.ChainConfig.getDefaultInstance() : overrides_;
+        } else {
+          return overridesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * Chain overrides, can be used to execute a trace using future fork rules
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+       */
+      public Builder setOverrides(ethermint.evm.v1.Evm.ChainConfig value) {
+        if (overridesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          overrides_ = value;
+          onChanged();
+        } else {
+          overridesBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Chain overrides, can be used to execute a trace using future fork rules
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+       */
+      public Builder setOverrides(
+          ethermint.evm.v1.Evm.ChainConfig.Builder builderForValue) {
+        if (overridesBuilder_ == null) {
+          overrides_ = builderForValue.build();
+          onChanged();
+        } else {
+          overridesBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Chain overrides, can be used to execute a trace using future fork rules
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+       */
+      public Builder mergeOverrides(ethermint.evm.v1.Evm.ChainConfig value) {
+        if (overridesBuilder_ == null) {
+          if (overrides_ != null) {
+            overrides_ =
+              ethermint.evm.v1.Evm.ChainConfig.newBuilder(overrides_).mergeFrom(value).buildPartial();
+          } else {
+            overrides_ = value;
+          }
+          onChanged();
+        } else {
+          overridesBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Chain overrides, can be used to execute a trace using future fork rules
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+       */
+      public Builder clearOverrides() {
+        if (overridesBuilder_ == null) {
+          overrides_ = null;
+          onChanged();
+        } else {
+          overrides_ = null;
+          overridesBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * Chain overrides, can be used to execute a trace using future fork rules
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+       */
+      public ethermint.evm.v1.Evm.ChainConfig.Builder getOverridesBuilder() {
+        
+        onChanged();
+        return getOverridesFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * Chain overrides, can be used to execute a trace using future fork rules
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+       */
+      public ethermint.evm.v1.Evm.ChainConfigOrBuilder getOverridesOrBuilder() {
+        if (overridesBuilder_ != null) {
+          return overridesBuilder_.getMessageOrBuilder();
+        } else {
+          return overrides_ == null ?
+              ethermint.evm.v1.Evm.ChainConfig.getDefaultInstance() : overrides_;
+        }
+      }
+      /**
+       * <pre>
+       * Chain overrides, can be used to execute a trace using future fork rules
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.ChainConfig overrides = 10;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ethermint.evm.v1.Evm.ChainConfig, ethermint.evm.v1.Evm.ChainConfig.Builder, ethermint.evm.v1.Evm.ChainConfigOrBuilder> 
+          getOverridesFieldBuilder() {
+        if (overridesBuilder_ == null) {
+          overridesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              ethermint.evm.v1.Evm.ChainConfig, ethermint.evm.v1.Evm.ChainConfig.Builder, ethermint.evm.v1.Evm.ChainConfigOrBuilder>(
+                  getOverrides(),
+                  getParentForChildren(),
+                  isClean());
+          overrides_ = null;
+        }
+        return overridesBuilder_;
+      }
+
+      private boolean enableMemory_ ;
+      /**
+       * <pre>
+       * enable memory capture
+       * </pre>
+       *
+       * <code>bool enable_memory = 11 [(.gogoproto.jsontag) = "enableMemory"];</code>
+       * @return The enableMemory.
+       */
+      @java.lang.Override
+      public boolean getEnableMemory() {
+        return enableMemory_;
+      }
+      /**
+       * <pre>
+       * enable memory capture
+       * </pre>
+       *
+       * <code>bool enable_memory = 11 [(.gogoproto.jsontag) = "enableMemory"];</code>
+       * @param value The enableMemory to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEnableMemory(boolean value) {
+        
+        enableMemory_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * enable memory capture
+       * </pre>
+       *
+       * <code>bool enable_memory = 11 [(.gogoproto.jsontag) = "enableMemory"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEnableMemory() {
+        
+        enableMemory_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean enableReturnData_ ;
+      /**
+       * <pre>
+       * enable return data capture
+       * </pre>
+       *
+       * <code>bool enable_return_data = 12 [(.gogoproto.jsontag) = "enableReturnData"];</code>
+       * @return The enableReturnData.
+       */
+      @java.lang.Override
+      public boolean getEnableReturnData() {
+        return enableReturnData_;
+      }
+      /**
+       * <pre>
+       * enable return data capture
+       * </pre>
+       *
+       * <code>bool enable_return_data = 12 [(.gogoproto.jsontag) = "enableReturnData"];</code>
+       * @param value The enableReturnData to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEnableReturnData(boolean value) {
+        
+        enableReturnData_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * enable return data capture
+       * </pre>
+       *
+       * <code>bool enable_return_data = 12 [(.gogoproto.jsontag) = "enableReturnData"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEnableReturnData() {
+        
+        enableReturnData_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object tracerJsonConfig_ = "";
+      /**
+       * <pre>
+       * tracer config
+       * </pre>
+       *
+       * <code>string tracer_json_config = 13 [(.gogoproto.jsontag) = "tracerConfig"];</code>
+       * @return The tracerJsonConfig.
+       */
+      public java.lang.String getTracerJsonConfig() {
+        java.lang.Object ref = tracerJsonConfig_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          tracerJsonConfig_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * tracer config
+       * </pre>
+       *
+       * <code>string tracer_json_config = 13 [(.gogoproto.jsontag) = "tracerConfig"];</code>
+       * @return The bytes for tracerJsonConfig.
+       */
+      public com.google.protobuf.ByteString
+          getTracerJsonConfigBytes() {
+        java.lang.Object ref = tracerJsonConfig_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tracerJsonConfig_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * tracer config
+       * </pre>
+       *
+       * <code>string tracer_json_config = 13 [(.gogoproto.jsontag) = "tracerConfig"];</code>
+       * @param value The tracerJsonConfig to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTracerJsonConfig(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        tracerJsonConfig_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * tracer config
+       * </pre>
+       *
+       * <code>string tracer_json_config = 13 [(.gogoproto.jsontag) = "tracerConfig"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTracerJsonConfig() {
+        
+        tracerJsonConfig_ = getDefaultInstance().getTracerJsonConfig();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * tracer config
+       * </pre>
+       *
+       * <code>string tracer_json_config = 13 [(.gogoproto.jsontag) = "tracerConfig"];</code>
+       * @param value The bytes for tracerJsonConfig to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTracerJsonConfigBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        tracerJsonConfig_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.TraceConfig)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.TraceConfig)
+    private static final ethermint.evm.v1.Evm.TraceConfig DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethermint.evm.v1.Evm.TraceConfig();
+    }
+
+    public static ethermint.evm.v1.Evm.TraceConfig getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TraceConfig>
+        PARSER = new com.google.protobuf.AbstractParser<TraceConfig>() {
+      @java.lang.Override
+      public TraceConfig parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TraceConfig(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TraceConfig> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TraceConfig> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ethermint.evm.v1.Evm.TraceConfig getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ethermint_evm_v1_Params_descriptor;
   private static final 
@@ -10099,6 +12459,11 @@ public final class Evm {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ethermint_evm_v1_AccessTuple_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethermint_evm_v1_TraceConfig_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethermint_evm_v1_TraceConfig_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -10109,69 +12474,86 @@ public final class Evm {
   static {
     java.lang.String[] descriptorData = {
       "\n\032ethermint/evm/v1/evm.proto\022\020ethermint." +
-      "evm.v1\032\024gogoproto/gogo.proto\"\237\002\n\006Params\022" +
+      "evm.v1\032\024gogoproto/gogo.proto\"\270\002\n\006Params\022" +
       "\'\n\tevm_denom\030\001 \001(\tB\024\362\336\037\020yaml:\"evm_denom\"" +
       "\022/\n\renable_create\030\002 \001(\010B\030\362\336\037\024yaml:\"enabl" +
       "e_create\"\022+\n\013enable_call\030\003 \001(\010B\026\362\336\037\022yaml" +
       ":\"enable_call\"\0226\n\nextra_eips\030\004 \003(\003B\"\342\336\037\t" +
       "ExtraEIPs\362\336\037\021yaml:\"extra_eips\"\022P\n\014chain_" +
       "config\030\005 \001(\0132\035.ethermint.evm.v1.ChainCon" +
-      "figB\033\362\336\037\023yaml:\"chain_config\"\310\336\037\000:\004\230\240\037\000\"\273" +
-      "\013\n\013ChainConfig\022]\n\017homestead_block\030\001 \001(\tB" +
-      "D\332\336\037&github.com/cosmos/cosmos-sdk/types." +
-      "Int\362\336\037\026yaml:\"homestead_block\"\022k\n\016dao_for" +
-      "k_block\030\002 \001(\tBS\342\336\037\014DAOForkBlock\332\336\037&githu" +
-      "b.com/cosmos/cosmos-sdk/types.Int\362\336\037\025yam" +
-      "l:\"dao_fork_block\"\022G\n\020dao_fork_support\030\003" +
-      " \001(\010B-\342\336\037\016DAOForkSupport\362\336\037\027yaml:\"dao_fo" +
-      "rk_support\"\022f\n\014eip150_block\030\004 \001(\tBP\342\336\037\013E" +
-      "IP150Block\332\336\037&github.com/cosmos/cosmos-s" +
-      "dk/types.Int\362\336\037\023yaml:\"eip150_block\"\022=\n\013e" +
-      "ip150_hash\030\005 \001(\tB(\342\336\037\nEIP150Hash\362\336\037\026yaml" +
-      ":\"byzantium_block\"\022f\n\014eip155_block\030\006 \001(\t" +
-      "BP\342\336\037\013EIP155Block\332\336\037&github.com/cosmos/c" +
-      "osmos-sdk/types.Int\362\336\037\023yaml:\"eip155_bloc" +
-      "k\"\022f\n\014eip158_block\030\007 \001(\tBP\342\336\037\013EIP158Bloc" +
-      "k\332\336\037&github.com/cosmos/cosmos-sdk/types." +
-      "Int\362\336\037\023yaml:\"eip158_block\"\022]\n\017byzantium_" +
-      "block\030\010 \001(\tBD\332\336\037&github.com/cosmos/cosmo" +
-      "s-sdk/types.Int\362\336\037\026yaml:\"byzantium_block" +
-      "\"\022g\n\024constantinople_block\030\t \001(\tBI\332\336\037&git" +
-      "hub.com/cosmos/cosmos-sdk/types.Int\362\336\037\033y" +
-      "aml:\"constantinople_block\"\022_\n\020petersburg" +
-      "_block\030\n \001(\tBE\332\336\037&github.com/cosmos/cosm" +
-      "os-sdk/types.Int\362\336\037\027yaml:\"petersburg_blo" +
-      "ck\"\022[\n\016istanbul_block\030\013 \001(\tBC\332\336\037&github." +
-      "com/cosmos/cosmos-sdk/types.Int\362\336\037\025yaml:" +
-      "\"istanbul_block\"\022c\n\022muir_glacier_block\030\014" +
-      " \001(\tBG\332\336\037&github.com/cosmos/cosmos-sdk/t" +
-      "ypes.Int\362\336\037\031yaml:\"muir_glacier_block\"\022W\n" +
-      "\014berlin_block\030\r \001(\tBA\332\336\037&github.com/cosm" +
-      "os/cosmos-sdk/types.Int\362\336\037\023yaml:\"berlin_" +
-      "block\"\022[\n\016catalyst_block\030\020 \001(\tBC\332\336\037&gith" +
-      "ub.com/cosmos/cosmos-sdk/types.Int\362\336\037\025ya" +
-      "ml:\"catalyst_block\"\022W\n\014london_block\030\021 \001(" +
-      "\tBA\332\336\037&github.com/cosmos/cosmos-sdk/type" +
-      "s.Int\362\336\037\023yaml:\"london_block\"J\004\010\016\020\017J\004\010\017\020\020" +
-      "R\ryolo_v3_blockR\013ewasm_block\"#\n\005State\022\013\n" +
-      "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"D\n\017Transaction" +
-      "Logs\022\014\n\004hash\030\001 \001(\t\022#\n\004logs\030\002 \003(\0132\025.ether" +
-      "mint.evm.v1.Log\"\372\001\n\003Log\022\017\n\007address\030\001 \001(\t" +
-      "\022\016\n\006topics\030\002 \003(\t\022\014\n\004data\030\003 \001(\014\022%\n\014block_" +
-      "number\030\004 \001(\004B\017\352\336\037\013blockNumber\022$\n\007tx_hash" +
-      "\030\005 \001(\tB\023\352\336\037\017transactionHash\022&\n\010tx_index\030" +
-      "\006 \001(\004B\024\352\336\037\020transactionIndex\022!\n\nblock_has" +
-      "h\030\007 \001(\tB\r\352\336\037\tblockHash\022\033\n\005index\030\010 \001(\004B\014\352" +
-      "\336\037\010logIndex\022\017\n\007removed\030\t \001(\010\"\323\001\n\010TxResul" +
-      "t\0225\n\020contract_address\030\001 \001(\tB\033\362\336\037\027yaml:\"c" +
-      "ontract_address\"\022\r\n\005bloom\030\002 \001(\014\022J\n\007tx_lo" +
-      "gs\030\003 \001(\0132!.ethermint.evm.v1.TransactionL" +
-      "ogsB\026\362\336\037\016yaml:\"tx_logs\"\310\336\037\000\022\013\n\003ret\030\004 \001(\014" +
-      "\022\020\n\010reverted\030\005 \001(\010\022\020\n\010gas_used\030\006 \001(\004:\004\210\240" +
-      "\037\000\"K\n\013AccessTuple\022\017\n\007address\030\001 \001(\t\022%\n\014st" +
-      "orage_keys\030\002 \003(\tB\017\352\336\037\013storageKeys:\004\210\240\037\000B" +
-      "*Z(github.com/tharsis/ethermint/x/evm/ty" +
-      "pesb\006proto3"
+      "figB\033\362\336\037\023yaml:\"chain_config\"\310\336\037\000\022\035\n\025allo" +
+      "w_unprotected_txs\030\006 \001(\010\"\301\r\n\013ChainConfig\022" +
+      "]\n\017homestead_block\030\001 \001(\tBD\332\336\037&github.com" +
+      "/cosmos/cosmos-sdk/types.Int\362\336\037\026yaml:\"ho" +
+      "mestead_block\"\022k\n\016dao_fork_block\030\002 \001(\tBS" +
+      "\342\336\037\014DAOForkBlock\332\336\037&github.com/cosmos/co" +
+      "smos-sdk/types.Int\362\336\037\025yaml:\"dao_fork_blo" +
+      "ck\"\022G\n\020dao_fork_support\030\003 \001(\010B-\342\336\037\016DAOFo" +
+      "rkSupport\362\336\037\027yaml:\"dao_fork_support\"\022f\n\014" +
+      "eip150_block\030\004 \001(\tBP\342\336\037\013EIP150Block\332\336\037&g" +
+      "ithub.com/cosmos/cosmos-sdk/types.Int\362\336\037" +
+      "\023yaml:\"eip150_block\"\022=\n\013eip150_hash\030\005 \001(" +
+      "\tB(\342\336\037\nEIP150Hash\362\336\037\026yaml:\"byzantium_blo" +
+      "ck\"\022f\n\014eip155_block\030\006 \001(\tBP\342\336\037\013EIP155Blo" +
+      "ck\332\336\037&github.com/cosmos/cosmos-sdk/types" +
+      ".Int\362\336\037\023yaml:\"eip155_block\"\022f\n\014eip158_bl" +
+      "ock\030\007 \001(\tBP\342\336\037\013EIP158Block\332\336\037&github.com" +
+      "/cosmos/cosmos-sdk/types.Int\362\336\037\023yaml:\"ei" +
+      "p158_block\"\022]\n\017byzantium_block\030\010 \001(\tBD\332\336" +
+      "\037&github.com/cosmos/cosmos-sdk/types.Int" +
+      "\362\336\037\026yaml:\"byzantium_block\"\022g\n\024constantin" +
+      "ople_block\030\t \001(\tBI\332\336\037&github.com/cosmos/" +
+      "cosmos-sdk/types.Int\362\336\037\033yaml:\"constantin" +
+      "ople_block\"\022_\n\020petersburg_block\030\n \001(\tBE\332" +
+      "\336\037&github.com/cosmos/cosmos-sdk/types.In" +
+      "t\362\336\037\027yaml:\"petersburg_block\"\022[\n\016istanbul" +
+      "_block\030\013 \001(\tBC\332\336\037&github.com/cosmos/cosm" +
+      "os-sdk/types.Int\362\336\037\025yaml:\"istanbul_block" +
+      "\"\022c\n\022muir_glacier_block\030\014 \001(\tBG\332\336\037&githu" +
+      "b.com/cosmos/cosmos-sdk/types.Int\362\336\037\031yam" +
+      "l:\"muir_glacier_block\"\022W\n\014berlin_block\030\r" +
+      " \001(\tBA\332\336\037&github.com/cosmos/cosmos-sdk/t" +
+      "ypes.Int\362\336\037\023yaml:\"berlin_block\"\022W\n\014londo" +
+      "n_block\030\021 \001(\tBA\332\336\037&github.com/cosmos/cos" +
+      "mos-sdk/types.Int\362\336\037\023yaml:\"london_block\"" +
+      "\022e\n\023arrow_glacier_block\030\022 \001(\tBH\332\336\037&githu" +
+      "b.com/cosmos/cosmos-sdk/types.Int\362\336\037\032yam" +
+      "l:\"arrow_glacier_block\"\022c\n\022gray_glacier_" +
+      "block\030\024 \001(\tBG\332\336\037&github.com/cosmos/cosmo" +
+      "s-sdk/types.Int\362\336\037\031yaml:\"gray_glacier_bl" +
+      "ock\"\022g\n\024merge_netsplit_block\030\025 \001(\tBI\332\336\037&" +
+      "github.com/cosmos/cosmos-sdk/types.Int\362\336" +
+      "\037\033yaml:\"merge_netsplit_block\"J\004\010\016\020\017J\004\010\017\020" +
+      "\020J\004\010\020\020\021J\004\010\023\020\024R\ryolo_v3_blockR\013ewasm_bloc" +
+      "kR\016catalyst_blockR\020merge_fork_block\"#\n\005S" +
+      "tate\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"D\n\017Tran" +
+      "sactionLogs\022\014\n\004hash\030\001 \001(\t\022#\n\004logs\030\002 \003(\0132" +
+      "\025.ethermint.evm.v1.Log\"\372\001\n\003Log\022\017\n\007addres" +
+      "s\030\001 \001(\t\022\016\n\006topics\030\002 \003(\t\022\014\n\004data\030\003 \001(\014\022%\n" +
+      "\014block_number\030\004 \001(\004B\017\352\336\037\013blockNumber\022$\n\007" +
+      "tx_hash\030\005 \001(\tB\023\352\336\037\017transactionHash\022&\n\010tx" +
+      "_index\030\006 \001(\004B\024\352\336\037\020transactionIndex\022!\n\nbl" +
+      "ock_hash\030\007 \001(\tB\r\352\336\037\tblockHash\022\033\n\005index\030\010" +
+      " \001(\004B\014\352\336\037\010logIndex\022\017\n\007removed\030\t \001(\010\"\323\001\n\010" +
+      "TxResult\0225\n\020contract_address\030\001 \001(\tB\033\362\336\037\027" +
+      "yaml:\"contract_address\"\022\r\n\005bloom\030\002 \001(\014\022J" +
+      "\n\007tx_logs\030\003 \001(\0132!.ethermint.evm.v1.Trans" +
+      "actionLogsB\026\362\336\037\016yaml:\"tx_logs\"\310\336\037\000\022\013\n\003re" +
+      "t\030\004 \001(\014\022\020\n\010reverted\030\005 \001(\010\022\020\n\010gas_used\030\006 " +
+      "\001(\004:\004\210\240\037\000\"K\n\013AccessTuple\022\017\n\007address\030\001 \001(" +
+      "\t\022%\n\014storage_keys\030\002 \003(\tB\017\352\336\037\013storageKeys" +
+      ":\004\210\240\037\000\"\236\003\n\013TraceConfig\022\016\n\006tracer\030\001 \001(\t\022\017" +
+      "\n\007timeout\030\002 \001(\t\022\016\n\006reexec\030\003 \001(\004\022\'\n\rdisab" +
+      "le_stack\030\005 \001(\010B\020\352\336\037\014disableStack\022+\n\017disa" +
+      "ble_storage\030\006 \001(\010B\022\352\336\037\016disableStorage\022\r\n" +
+      "\005debug\030\010 \001(\010\022\r\n\005limit\030\t \001(\005\0220\n\toverrides" +
+      "\030\n \001(\0132\035.ethermint.evm.v1.ChainConfig\022\'\n" +
+      "\renable_memory\030\013 \001(\010B\020\352\336\037\014enableMemory\0220" +
+      "\n\022enable_return_data\030\014 \001(\010B\024\352\336\037\020enableRe" +
+      "turnData\022,\n\022tracer_json_config\030\r \001(\tB\020\352\336" +
+      "\037\014tracerConfigJ\004\010\004\020\005J\004\010\007\020\010R\016disable_memo" +
+      "ryR\023disable_return_dataB(Z&github.com/ev" +
+      "mos/ethermint/x/evm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -10183,13 +12565,13 @@ public final class Evm {
     internal_static_ethermint_evm_v1_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_evm_v1_Params_descriptor,
-        new java.lang.String[] { "EvmDenom", "EnableCreate", "EnableCall", "ExtraEips", "ChainConfig", });
+        new java.lang.String[] { "EvmDenom", "EnableCreate", "EnableCall", "ExtraEips", "ChainConfig", "AllowUnprotectedTxs", });
     internal_static_ethermint_evm_v1_ChainConfig_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ethermint_evm_v1_ChainConfig_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_evm_v1_ChainConfig_descriptor,
-        new java.lang.String[] { "HomesteadBlock", "DaoForkBlock", "DaoForkSupport", "Eip150Block", "Eip150Hash", "Eip155Block", "Eip158Block", "ByzantiumBlock", "ConstantinopleBlock", "PetersburgBlock", "IstanbulBlock", "MuirGlacierBlock", "BerlinBlock", "CatalystBlock", "LondonBlock", });
+        new java.lang.String[] { "HomesteadBlock", "DaoForkBlock", "DaoForkSupport", "Eip150Block", "Eip150Hash", "Eip155Block", "Eip158Block", "ByzantiumBlock", "ConstantinopleBlock", "PetersburgBlock", "IstanbulBlock", "MuirGlacierBlock", "BerlinBlock", "LondonBlock", "ArrowGlacierBlock", "GrayGlacierBlock", "MergeNetsplitBlock", });
     internal_static_ethermint_evm_v1_State_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_ethermint_evm_v1_State_fieldAccessorTable = new
@@ -10220,12 +12602,17 @@ public final class Evm {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_evm_v1_AccessTuple_descriptor,
         new java.lang.String[] { "Address", "StorageKeys", });
+    internal_static_ethermint_evm_v1_TraceConfig_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_ethermint_evm_v1_TraceConfig_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethermint_evm_v1_TraceConfig_descriptor,
+        new java.lang.String[] { "Tracer", "Timeout", "Reexec", "DisableStack", "DisableStorage", "Debug", "Limit", "Overrides", "EnableMemory", "EnableReturnData", "TracerJsonConfig", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.customname);
     registry.add(com.google.protobuf2.GoGoProtos.customtype);
     registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
     registry.add(com.google.protobuf2.GoGoProtos.jsontag);
     registry.add(com.google.protobuf2.GoGoProtos.moretags);
     registry.add(com.google.protobuf2.GoGoProtos.nullable);

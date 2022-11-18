@@ -843,8 +843,8 @@ public final class Web3 {
       "y\342\336\037\020TypedDataChainID\022)\n\tfee_payer\030\002 \001(\t" +
       "B\026\352\336\037\022feePayer,omitempty\0220\n\rfee_payer_si" +
       "g\030\003 \001(\014B\031\352\336\037\025feePayerSig,omitempty:\004\210\240\037\000" +
-      "B$Z\"github.com/tharsis/ethermint/typesb\006" +
-      "proto3"
+      "B\"Z github.com/evmos/ethermint/typesb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
