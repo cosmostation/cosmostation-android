@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
@@ -37,7 +36,6 @@ public class HistoryOldHolder extends BaseHolder {
         history_time.setText(WDp.getTimeformat(mainActivity, history.timeStamp));
         history_time_gap.setText(WDp.getTimeGap(mainActivity, history.timeStamp));
         history_block.setText(history.blockHeight + " block");
-        historySuccess.setVisibility(View.GONE);
 
         historyRoot.setOnClickListener(v -> {
             String url = chainConfig.explorerHistoryLink(history.txHash);
@@ -48,10 +46,12 @@ public class HistoryOldHolder extends BaseHolder {
 
     public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ChainConfig chainConfig, ResOkHistory.Data.transactionData history) {
         historyType.setText(history.txId);
-        historySuccess.setVisibility(View.GONE);
         history_time.setText(WDp.getDpTime(mainActivity, Long.parseLong(history.transactionTime)));
         history_time_gap.setText(WDp.getOkcTimeTxGap(mainActivity, Long.parseLong(history.transactionTime)));
         history_block.setText(history.height + " block");
+        if (history.state.equals("fail")) {
+            historySuccess.setVisibility(View.VISIBLE);
+        }
 
         historyRoot.setOnClickListener(v -> {
             String url = chainConfig.explorerHistoryLink(history.txId);

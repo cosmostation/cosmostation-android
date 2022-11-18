@@ -29,5 +29,5 @@ public interface HistoryApi {
     //Okc
     @Headers("Ok-Access-key: e829eb97-3fdb-4679-8937-4f6ea901817a")
     @GET("address/transaction-list")
-    Call<ResOkHistory> getNewOkecTxs(@Query("chainShortName") String chainShortName, @Query("address") String address);
+    Call<ResOkHistory> getNewOkecTxs(@Query("chainShortName") String chainShortName, @Query("address") String address, @Query("limit") String limit);
 }
