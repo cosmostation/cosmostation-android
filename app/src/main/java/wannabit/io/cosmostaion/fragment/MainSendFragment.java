@@ -4,7 +4,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import android.content.Intent;
@@ -247,77 +246,55 @@ public class MainSendFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain == null) {
-                return 0;
-            }
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN) ||
-                getMainActivity().mChainConfig.authzSupport()) {
-                return 5;
-            } else if (isGRPC(getMainActivity().mBaseChain)) {
-                return 4;
-            } else {
-                return 3;
-            }
+            if (getMainActivity().mBaseChain == null) return 0;
+
+            if (mChainConfig.baseChain().equals(KAVA_MAIN) || mChainConfig.baseChain().equals(MEDI_MAIN)) return 6;
+            else if (mChainConfig.authzSupport() || mChainConfig.baseChain().equals(DESMOS_MAIN)) return 5;
+            else if (isGRPC(mChainConfig.baseChain())) return 4;
+            else return 3;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                if (position == 0) {
-                    return TYPE_WALLET;
-                } else if (position == 1) {
-                    return TYPE_KAVA_INCENTIVE;
-                } else if (position == 2) {
-                    return TYPE_PRICE;
-                } else if (position == 3) {
-                    return TYPE_MINT;
-                } else if (position == 4) {
-                    return TYPE_GIUDE;
+            if (getItemCount() == 6) {
+                if (position == 0) return TYPE_WALLET;
+                if (mChainConfig.baseChain().equals(KAVA_MAIN)) {
+                    if (position == 1) return TYPE_KAVA_INCENTIVE;
+                    else if (position == 2) return TYPE_PRICE;
+                    else if (position == 3) return TYPE_MINT;
+                    else if (position == 4) return TYPE_AUTHZ;
+                    else if (position == 5) return TYPE_GIUDE;
+
+                } else if (mChainConfig.baseChain().equals(MEDI_MAIN)) {
+                    if (position == 1) return TYPE_PRICE;
+                    else if (position == 2) return TYPE_MINT;
+                    else if (position == 3) return TYPE_AUTHZ;
+                    else if (position == 4) return TYPE_MEDIPASS;
+                    else if (position == 5) return TYPE_GIUDE;
                 }
 
-            } else if (getMainActivity().mBaseChain.equals(DESMOS_MAIN) || getMainActivity().mBaseChain.equals(MEDI_MAIN) || getMainActivity().mChainConfig.authzSupport()) {
-                if (position == 0) {
-                    return TYPE_WALLET;
-                } else if (position == 1) {
-                    return TYPE_PRICE;
-                } else if (position == 2) {
-                    return TYPE_MINT;
-                } else if (position == 3) {
-                    if (getMainActivity().mBaseChain.equals(DESMOS_MAIN)) {
-                        return TYPE_DESMOS_APP;
-                    } else if (getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
-                        return TYPE_MEDIPASS;
-                    } else if (getMainActivity().mChainConfig.authzSupport()) {
-                        return TYPE_AUTHZ;
-                    }
-                } else if (position == 4) {
-                    return TYPE_GIUDE;
+            } else if (getItemCount() == 5) {
+                if (position == 0) return TYPE_WALLET;
+                else if (position == 1) return TYPE_PRICE;
+                else if (position == 2) return TYPE_MINT;
+                else if (position == 3) {
+                    if (mChainConfig.baseChain().equals(DESMOS_MAIN)) return TYPE_DESMOS_APP;
+                    else return TYPE_AUTHZ;
                 }
+                else if (position == 4) return TYPE_GIUDE;
 
-            } else if (isGRPC(getMainActivity().mBaseChain)) {
+            } else if (getItemCount() == 4) {
+                if (position == 0) return TYPE_WALLET;
+                else if (position == 1) return TYPE_PRICE;
+                else if (position == 2) return TYPE_MINT;
+                else if (position == 3) return TYPE_GIUDE;
+
+            } else {
                 if (position == 0) {
-                    return TYPE_WALLET;
-                } else if (position == 1) {
-                    return TYPE_PRICE;
-                } else if (position == 2) {
-                    return TYPE_MINT;
-                } else if (position == 3) {
-                    return TYPE_GIUDE;
-                }
-
-            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
-                if (position == 0) {
-                    if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
-                        return TYPE_BINANCE;
-                    } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
-                        return TYPE_OKEX;
-                    }
-                } else if (position == 1) {
-                    return TYPE_PRICE;
-                } else if (position == 2) {
-                    return TYPE_GIUDE;
-                }
-
+                    if (mChainConfig.baseChain().equals(BNB_MAIN)) return TYPE_BINANCE;
+                    else return TYPE_OKEX;
+                } else if (position == 1) return TYPE_PRICE;
+                else if (position == 2) return TYPE_GIUDE;
             }
             return 0;
         }

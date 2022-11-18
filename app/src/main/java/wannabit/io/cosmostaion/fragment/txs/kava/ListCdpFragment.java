@@ -102,7 +102,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
             }
         }
 
-        if (mTaskCount == 0) {
+        if (mTaskCount == 0 && mCdpParams != null && mCdpParams.getCollateralParamsList().size() > 0) {
             mOtherCdps.clear();
             for (Genesis.CollateralParam cdpParam : mCdpParams.getCollateralParamsList()) {
                 boolean has = false;
