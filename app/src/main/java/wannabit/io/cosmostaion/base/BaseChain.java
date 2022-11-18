@@ -322,9 +322,9 @@ public enum BaseChain {
         result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);
         result.add(SENTINEL_MAIN);
-        result.add(SOMMELIER_MAIN);
         result.add(CERTIK_MAIN);
         result.add(SIF_MAIN);
+        result.add(SOMMELIER_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(STRIDE_MAIN);
         result.add(TERITORI_MAIN);
