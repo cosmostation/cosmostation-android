@@ -27,13 +27,14 @@ public class Shentu extends ChainConfig {
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-shentu-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-shentu.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "shentu/"; }
     public String monikerUrl() { return MONIKER_URL + "shentu/"; }
-    public String homeInfoLink() { return  "https://www.certik.foundation"; }
+    public String homeInfoLink() { return  "https://www.certik.com"; }
     public String blogInfoLink() { return  "https://medium.com/shentu-foundation"; }
     public String coingeckoLink() { return  COINGECKO_URL + "shentu"; }
 }

@@ -285,7 +285,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     @NonNull
     private FeeInfo.FeeData calculateFee(int selectFee) {
-        ArrayList<FeeInfo> feeInfo = WDp.getFeeInfos(this, getBaseDao(), mChainConfig);
+        ArrayList<FeeInfo> feeInfo = WDp.getFeeInfos(this, getBaseDao());
         FeeInfo.FeeData feeData = feeInfo.get(selectFee).feeDatas.get(0);
 
         if (mBaseChain.equals(BaseChain.SIF_MAIN)) {
@@ -414,7 +414,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     private void onShowFeeDialog() {
-        ArrayList<FeeInfo> feeInfo = WDp.getFeeInfos(this, getBaseDao(), mChainConfig);
+        ArrayList<FeeInfo> feeInfo = WDp.getFeeInfos(this, getBaseDao());
         if (feeInfo.size() > 1) {
             new AlertDialog.Builder(this, R.style.DialogTheme).setItems(feeInfo.stream().map(item -> item.title).toArray(String[]::new), (DialogInterface dialogInterface, int i) -> {
                 if (mEasyMode == EASY_MODE_CLAIM_REWARDS) onStartEasyClaim(i);

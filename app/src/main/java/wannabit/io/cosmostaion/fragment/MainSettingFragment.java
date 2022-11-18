@@ -50,6 +50,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ManageWalletConnectActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
+import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicListActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
 import wannabit.io.cosmostaion.activities.setting.WatchingWalletAddActivity;
@@ -343,6 +344,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                                 public void onPermissionGranted() {
                                     IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
                                     integrator.setOrientationLocked(true);
+                                    integrator.setCaptureActivity(QRcodeActivity.class);
                                     wcQrcodeResultLauncher.launch(integrator.createScanIntent());
                                 }
 

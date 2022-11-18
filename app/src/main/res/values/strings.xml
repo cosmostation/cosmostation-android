@@ -3,6 +3,7 @@
     <string name="db_password" translatable="false">wannabit</string>
 
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
+    <string name="url_kado_money" translatable="false">https://app.kado.money</string>
     <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
     <string name="url_station_testnet" translatable="false">https://api-office.cosmostation.io/utility/</string>
@@ -29,7 +30,10 @@
     <string name="str_vote_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\']]></string>
 
     <string name="moon_pay_public_key" translatable="false">pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn</string>
+    <string name="kado_money_public_key" translatable="false">18e55363-1d76-456c-8d4d-ecee7b9517ea</string>
 
+    <string name="str_moonPay" translatable="false">MOONPAY</string>
+    <string name="str_kadoMoney" translatable="false">KADO</string>
 
     <string name="str_start">START</string>
     <string name="str_ok">OK</string>
@@ -348,7 +352,7 @@
     <string name="str_front_guide_msg_teritori"><![CDATA[Teritori is a decentralized multichain hub designed to provide an all-in-one experience for Web3 communities.]]></string>
     <string name="str_front_guide_msg_xpla"><![CDATA[XPLA is a gaming media content-focused Cosmos SDK network built by Com2uS Corporation.]]></string>
 
-    
+
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -443,9 +447,8 @@
     <string name="str_failed_c">failed</string>
     <string name="str_unknown_msg">UnKnown Type Message</string>
     <string name="str_unknown_tx">This message type is not supported by mobile.\nPlease check the MintScan Explorer for details.</string>
-    <string name="str_buy_atom">Buy ATOM</string>
-    <string name="str_buy_bnb">Buy BNB</string>
-    <string name="str_buy_kava">Buy KAVA</string>
+    <string name="str_buy_coin">Buy %1$s</string>
+    <string name="str_buy_crypto">Buy Crypto</string>
     <string name="str_kava_dapp"><![CDATA[KAVA DeFi]]> </string>
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
     <string name="str_buy_select_fiat_title">Select Fiat</string>
@@ -1016,7 +1019,7 @@
     <string name="str_select_contract_token">Select token to Display</string>
     <string name="str_ibc_transfer_title">IBC Transfer</string>
     <string name="str_ibc_transfer_msg1">IBC transactions are NOT supported on centralized exchanges.</string>
-    <string name="str_ibc_transfer_msg2">Transfer your asset back to its origin chain by IBC before sending it to a centralized exchange.</string>
+    <string name="str_ibc_transfer_msg2">Transfer your asset back to its origin chain by IBC before \nsending it to a centralized exchange.</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>

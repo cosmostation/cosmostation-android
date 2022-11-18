@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Base64;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
@@ -133,6 +134,7 @@ public class ConnectWalletActivity extends BaseActivity {
     private WCEthereumSignMessage mSignMessage;
     private final Map<String, Account> chainAccountMap = Maps.newHashMap();
     private Boolean isHideToolbar = false;
+    private int lastClickPositionY = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -289,15 +291,30 @@ public class ConnectWalletActivity extends BaseActivity {
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+        
+        mWebView.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                lastClickPositionY = -1;
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                lastClickPositionY = -1;
+            }
+            return false;
+        });
+
         mWebView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            if (oldScrollY > scrollY && Math.abs(scrollY - oldScrollY) > 20 && isHideToolbar) {
+            if (lastClickPositionY == -1) {
+                lastClickPositionY = oldScrollY;
+            }
+
+            if (lastClickPositionY > scrollY && Math.abs(scrollY - oldScrollY) > 50 && isHideToolbar) {
                 isHideToolbar = false;
                 getSupportActionBar().show();
-            } else if (oldScrollY < scrollY && Math.abs(scrollY - oldScrollY) > 20 && !isHideToolbar) {
+            } else if (lastClickPositionY < scrollY && Math.abs(scrollY - oldScrollY) > 50 && !isHideToolbar) {
                 isHideToolbar = true;
                 getSupportActionBar().hide();
             }
         });
+
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setUserAgentString(mWebView.getSettings().getUserAgentString() + " Cosmostation/APP/Android/" + BuildConfig.VERSION_NAME);
         mWebView.getSettings().setDomStorageEnabled(true);

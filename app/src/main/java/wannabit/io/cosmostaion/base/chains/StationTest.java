@@ -28,7 +28,7 @@ public class StationTest extends ChainConfig {
 
     public String grpcUrl() { return "lcd-office.cosmostation.io"; }
     public int grpcPort() {
-        return 10400;
+        return 20400;
     }
     public String apiUrl() { return "https://api-office.cosmostation.io/station-testnet/"; }
 

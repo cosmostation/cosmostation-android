@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
     public final static String POSITION                 = "position";
@@ -259,6 +258,7 @@ public class BaseConstant {
     // Exchange Address
     public final static String EXCHANGE_BINANCE_ADDRESS_01  = "cosmos1j8pp7zvcu9z8vd882m284j29fn2dszh05cqvf9";
     public final static String EXCHANGE_BINANCE_ADDRESS_02  = "cosmos15v50ymp6n5dn73erkqtmq0u8adpl8d3ujv2e74";
+    public final static String EXCHANGE_BINANCE_ADDRESS_03  = "osmo129uhlqcsvmehxgzcsdxksnsyz94dvea907e575";
     public final static String EXCHANGE_BITHUMB_ADDRESS     = "cosmos1erzjr93gcqgvcs7azqaglrjqy5ntzn3da5p340";
     public final static String EXCHANGE_UPBIT_ADDRESS       = "cosmos1hjyde2kfgtl78twvhs53u5j2gcsxrt649nn8j5";
     public final static String EXCHANGE_COINONE_ADDRESS     = "cosmos1z7g5w84ynmjyg0kqpahdjqpj7yq34v3suckp0e";

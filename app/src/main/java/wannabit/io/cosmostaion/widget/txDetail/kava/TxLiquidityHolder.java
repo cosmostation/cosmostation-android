@@ -35,35 +35,38 @@ public class TxLiquidityHolder extends TxHolder {
     }
 
     public void onBindMsg(Context c, BaseData baseData, ChainConfig chainConfig, ServiceOuterClass.GetTxResponse response, int position, String address) {
-        try {
-            MsgDelegateMintDeposit msg = MsgDelegateMintDeposit.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-            mEarnTitle.setText(c.getString(R.string.tx_kava_earn_delegateDeposit));
-            mEarnAccountTitle.setText("Depositor");
-            mEarnDelegator.setText(msg.getDepositor());
+        if (response.getTx().getBody().getMessages(position).getTypeUrl().contains("MsgDelegateMintDeposit")) {
+            try {
+                MsgDelegateMintDeposit msg = MsgDelegateMintDeposit.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+                mEarnTitle.setText(c.getString(R.string.tx_kava_earn_delegateDeposit));
+                mEarnAccountTitle.setText("Depositor");
+                mEarnDelegator.setText(msg.getDepositor());
 
-            Optional<Staking.Validator> validator = baseData.mGRpcAllValidators.stream().filter(item -> item.getOperatorAddress().equalsIgnoreCase(msg.getValidator())).findFirst();
-            if (validator.isPresent()) {
-                mEarnValidator.setText("(" + validator.get().getDescription().getMoniker() + ")");
-            }
-            Coin coin = new Coin(msg.getAmount().getDenom(), msg.getAmount().getAmount());
-            WDp.setDpCoin(c, baseData, chainConfig, coin, mEarnDenom, mEarnAmount);
-            return;
+                Optional<Staking.Validator> validator = baseData.mGRpcAllValidators.stream().filter(item -> item.getOperatorAddress().equalsIgnoreCase(msg.getValidator())).findFirst();
+                if (validator.isPresent()) {
+                    mEarnValidator.setText("(" + validator.get().getDescription().getMoniker() + ")");
+                }
+                Coin coin = new Coin(msg.getAmount().getDenom(), msg.getAmount().getAmount());
+                WDp.setDpCoin(c, baseData, chainConfig, coin, mEarnDenom, mEarnAmount);
+                return;
 
-        } catch (Exception e) { }
+            } catch (Exception e) { }
 
-        try {
-            Tx.MsgWithdrawBurn msg = Tx.MsgWithdrawBurn.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-            mEarnTitle.setText(c.getString(R.string.tx_kava_earn_withdraw));
-            mEarnAccountTitle.setText("From");
-            mEarnDelegator.setText(msg.getFrom());
+        } else {
+            try {
+                Tx.MsgWithdrawBurn msg = Tx.MsgWithdrawBurn.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+                mEarnTitle.setText(c.getString(R.string.tx_kava_earn_withdraw));
+                mEarnAccountTitle.setText("From");
+                mEarnDelegator.setText(msg.getFrom());
 
-            Optional<Staking.Validator> validator = baseData.mGRpcAllValidators.stream().filter(item -> item.getOperatorAddress().equalsIgnoreCase(msg.getValidator())).findFirst();
-            if (validator.isPresent()) {
-                mEarnValidator.setText("(" + validator.get().getDescription().getMoniker() + ")");
-            }
-            Coin coin = new Coin(msg.getAmount().getDenom(), msg.getAmount().getAmount());
-            WDp.setDpCoin(c, baseData, chainConfig, coin, mEarnDenom, mEarnAmount);
+                Optional<Staking.Validator> validator = baseData.mGRpcAllValidators.stream().filter(item -> item.getOperatorAddress().equalsIgnoreCase(msg.getValidator())).findFirst();
+                if (validator.isPresent()) {
+                    mEarnValidator.setText("(" + validator.get().getDescription().getMoniker() + ")");
+                }
+                Coin coin = new Coin(msg.getAmount().getDenom(), msg.getAmount().getAmount());
+                WDp.setDpCoin(c, baseData, chainConfig, coin, mEarnDenom, mEarnAmount);
 
-        } catch (Exception e) { }
+            } catch (Exception e) { }
+        }
     }
 }

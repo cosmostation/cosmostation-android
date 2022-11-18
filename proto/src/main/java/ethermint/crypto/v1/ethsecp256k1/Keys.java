@@ -1042,9 +1042,9 @@ public final class Keys {
       "\n+ethermint/crypto/v1/ethsecp256k1/keys." +
       "proto\022 ethermint.crypto.v1.ethsecp256k1\032" +
       "\024gogoproto/gogo.proto\"\033\n\006PubKey\022\013\n\003key\030\001" +
-      " \001(\014:\004\230\240\037\000\"\026\n\007PrivKey\022\013\n\003key\030\001 \001(\014B2Z0gi" +
-      "thub.com/tharsis/ethermint/crypto/ethsec" +
-      "p256k1b\006proto3"
+      " \001(\014:\004\230\240\037\000\"\026\n\007PrivKey\022\013\n\003key\030\001 \001(\014B0Z.gi" +
+      "thub.com/evmos/ethermint/crypto/ethsecp2" +
+      "56k1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

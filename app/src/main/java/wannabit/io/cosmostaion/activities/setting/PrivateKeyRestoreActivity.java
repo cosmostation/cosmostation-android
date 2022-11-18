@@ -23,6 +23,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
+import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -87,6 +88,7 @@ public class PrivateKeyRestoreActivity extends BaseActivity implements View.OnCl
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.setOrientationLocked(true);
+            integrator.setCaptureActivity(QRcodeActivity.class);
             qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {

@@ -47,7 +47,7 @@ public final class Tx {
 
     /**
      * <pre>
-     * encoded storage size of the transaction
+     * DEPRECATED: encoded storage size of the transaction
      * </pre>
      *
      * <code>double size = 2 [(.gogoproto.jsontag) = "-"];</code>
@@ -254,7 +254,7 @@ public final class Tx {
     private double size_;
     /**
      * <pre>
-     * encoded storage size of the transaction
+     * DEPRECATED: encoded storage size of the transaction
      * </pre>
      *
      * <code>double size = 2 [(.gogoproto.jsontag) = "-"];</code>
@@ -891,7 +891,7 @@ public final class Tx {
       private double size_ ;
       /**
        * <pre>
-       * encoded storage size of the transaction
+       * DEPRECATED: encoded storage size of the transaction
        * </pre>
        *
        * <code>double size = 2 [(.gogoproto.jsontag) = "-"];</code>
@@ -903,7 +903,7 @@ public final class Tx {
       }
       /**
        * <pre>
-       * encoded storage size of the transaction
+       * DEPRECATED: encoded storage size of the transaction
        * </pre>
        *
        * <code>double size = 2 [(.gogoproto.jsontag) = "-"];</code>
@@ -918,7 +918,7 @@ public final class Tx {
       }
       /**
        * <pre>
-       * encoded storage size of the transaction
+       * DEPRECATED: encoded storage size of the transaction
        * </pre>
        *
        * <code>double size = 2 [(.gogoproto.jsontag) = "-"];</code>
@@ -1312,6 +1312,8 @@ public final class Tx {
   /**
    * <pre>
    * LegacyTx is the transaction data of regular Ethereum transactions.
+   * NOTE: All non-protected transactions (i.e non EIP155 signed) will fail if the
+   * AllowUnprotectedTxs parameter is disabled.
    * </pre>
    *
    * Protobuf type {@code ethermint.evm.v1.LegacyTx}
@@ -1918,6 +1920,8 @@ public final class Tx {
     /**
      * <pre>
      * LegacyTx is the transaction data of regular Ethereum transactions.
+     * NOTE: All non-protected transactions (i.e non EIP155 signed) will fail if the
+     * AllowUnprotectedTxs parameter is disabled.
      * </pre>
      *
      * Protobuf type {@code ethermint.evm.v1.LegacyTx}
@@ -9098,55 +9102,58 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\031ethermint/evm/v1/tx.proto\022\020ethermint.e" +
-      "vm.v1\032\024gogoproto/gogo.proto\032\032google/prot" +
-      "obuf2/any.proto\032\031cosmos_proto/cosmos.pro" +
-      "to\032\032ethermint/evm/v1/evm.proto\"x\n\rMsgEth" +
-      "ereumTx\022#\n\004data\030\001 \001(\0132\025.google.protobuf2" +
-      ".Any\022\023\n\004size\030\002 \001(\001B\005\352\336\037\001-\022\031\n\004hash\030\003 \001(\tB" +
-      "\013\362\336\037\007rlp:\"-\"\022\014\n\004from\030\004 \001(\t:\004\210\240\037\000\"\203\002\n\010Leg" +
-      "acyTx\022\r\n\005nonce\030\001 \001(\004\022=\n\tgas_price\030\002 \001(\tB" +
-      "*\332\336\037&github.com/cosmos/cosmos-sdk/types." +
-      "Int\022\031\n\003gas\030\003 \001(\004B\014\342\336\037\010GasLimit\022\n\n\002to\030\004 \001" +
-      "(\t\022C\n\005value\030\005 \001(\tB4\332\336\037&github.com/cosmos" +
-      "/cosmos-sdk/types.Int\342\336\037\006Amount\022\014\n\004data\030" +
-      "\006 \001(\014\022\t\n\001v\030\007 \001(\014\022\t\n\001r\030\010 \001(\014\022\t\n\001s\030\t \001(\014:\016" +
-      "\210\240\037\000\312\264-\006TxData\"\256\003\n\014AccessListTx\022R\n\010chain" +
-      "_id\030\001 \001(\tB@\332\336\037&github.com/cosmos/cosmos-" +
-      "sdk/types.Int\342\336\037\007ChainID\352\336\037\007chainID\022\r\n\005n" +
-      "once\030\002 \001(\004\022=\n\tgas_price\030\003 \001(\tB*\332\336\037&githu" +
+      "vm.v1\032\024gogoproto/gogo.proto\032\034google/api/" +
+      "annotations.proto\032\032google/protobuf2/any." +
+      "proto\032\031cosmos_proto/cosmos.proto\032\032etherm" +
+      "int/evm/v1/evm.proto\"x\n\rMsgEthereumTx\022#\n" +
+      "\004data\030\001 \001(\0132\025.google.protobuf2.Any\022\023\n\004si" +
+      "ze\030\002 \001(\001B\005\352\336\037\001-\022\031\n\004hash\030\003 \001(\tB\013\362\336\037\007rlp:\"" +
+      "-\"\022\014\n\004from\030\004 \001(\t:\004\210\240\037\000\"\203\002\n\010LegacyTx\022\r\n\005n" +
+      "once\030\001 \001(\004\022=\n\tgas_price\030\002 \001(\tB*\332\336\037&githu" +
       "b.com/cosmos/cosmos-sdk/types.Int\022\031\n\003gas" +
-      "\030\004 \001(\004B\014\342\336\037\010GasLimit\022\n\n\002to\030\005 \001(\t\022C\n\005valu" +
-      "e\030\006 \001(\tB4\332\336\037&github.com/cosmos/cosmos-sd" +
-      "k/types.Int\342\336\037\006Amount\022\014\n\004data\030\007 \001(\014\022Q\n\010a" +
-      "ccesses\030\010 \003(\0132\035.ethermint.evm.v1.AccessT" +
-      "upleB \252\337\037\nAccessList\352\336\037\naccessList\310\336\037\000\022\t" +
-      "\n\001v\030\t \001(\014\022\t\n\001r\030\n \001(\014\022\t\n\001s\030\013 \001(\014:\016\210\240\037\000\312\264-" +
-      "\006TxData\"\361\003\n\014DynamicFeeTx\022R\n\010chain_id\030\001 \001" +
-      "(\tB@\332\336\037&github.com/cosmos/cosmos-sdk/typ" +
-      "es.Int\342\336\037\007ChainID\352\336\037\007chainID\022\r\n\005nonce\030\002 " +
-      "\001(\004\022?\n\013gas_tip_cap\030\003 \001(\tB*\332\336\037&github.com" +
-      "/cosmos/cosmos-sdk/types.Int\022?\n\013gas_fee_" +
-      "cap\030\004 \001(\tB*\332\336\037&github.com/cosmos/cosmos-" +
-      "sdk/types.Int\022\031\n\003gas\030\005 \001(\004B\014\342\336\037\010GasLimit" +
-      "\022\n\n\002to\030\006 \001(\t\022C\n\005value\030\007 \001(\tB4\332\336\037&github." +
-      "com/cosmos/cosmos-sdk/types.Int\342\336\037\006Amoun" +
-      "t\022\014\n\004data\030\010 \001(\014\022Q\n\010accesses\030\t \003(\0132\035.ethe" +
-      "rmint.evm.v1.AccessTupleB \252\337\037\nAccessList" +
-      "\352\336\037\naccessList\310\336\037\000\022\t\n\001v\030\n \001(\014\022\t\n\001r\030\013 \001(\014" +
-      "\022\t\n\001s\030\014 \001(\014:\016\210\240\037\000\312\264-\006TxData\"\"\n\032Extension" +
-      "OptionsEthereumTx:\004\210\240\037\000\"\201\001\n\025MsgEthereumT" +
-      "xResponse\022\014\n\004hash\030\001 \001(\t\022#\n\004logs\030\002 \003(\0132\025." +
-      "ethermint.evm.v1.Log\022\013\n\003ret\030\003 \001(\014\022\020\n\010vm_" +
-      "error\030\004 \001(\t\022\020\n\010gas_used\030\005 \001(\004:\004\210\240\037\0002]\n\003M" +
-      "sg\022V\n\nEthereumTx\022\037.ethermint.evm.v1.MsgE" +
-      "thereumTx\032\'.ethermint.evm.v1.MsgEthereum" +
-      "TxResponseB*Z(github.com/tharsis/ethermi" +
-      "nt/x/evm/typesb\006proto3"
+      "\030\003 \001(\004B\014\342\336\037\010GasLimit\022\n\n\002to\030\004 \001(\t\022C\n\005valu" +
+      "e\030\005 \001(\tB4\332\336\037&github.com/cosmos/cosmos-sd" +
+      "k/types.Int\342\336\037\006Amount\022\014\n\004data\030\006 \001(\014\022\t\n\001v" +
+      "\030\007 \001(\014\022\t\n\001r\030\010 \001(\014\022\t\n\001s\030\t \001(\014:\016\210\240\037\000\312\264-\006Tx" +
+      "Data\"\256\003\n\014AccessListTx\022R\n\010chain_id\030\001 \001(\tB" +
+      "@\332\336\037&github.com/cosmos/cosmos-sdk/types." +
+      "Int\342\336\037\007ChainID\352\336\037\007chainID\022\r\n\005nonce\030\002 \001(\004" +
+      "\022=\n\tgas_price\030\003 \001(\tB*\332\336\037&github.com/cosm" +
+      "os/cosmos-sdk/types.Int\022\031\n\003gas\030\004 \001(\004B\014\342\336" +
+      "\037\010GasLimit\022\n\n\002to\030\005 \001(\t\022C\n\005value\030\006 \001(\tB4\332" +
+      "\336\037&github.com/cosmos/cosmos-sdk/types.In" +
+      "t\342\336\037\006Amount\022\014\n\004data\030\007 \001(\014\022Q\n\010accesses\030\010 " +
+      "\003(\0132\035.ethermint.evm.v1.AccessTupleB \252\337\037\n" +
+      "AccessList\352\336\037\naccessList\310\336\037\000\022\t\n\001v\030\t \001(\014\022" +
+      "\t\n\001r\030\n \001(\014\022\t\n\001s\030\013 \001(\014:\016\210\240\037\000\312\264-\006TxData\"\361\003" +
+      "\n\014DynamicFeeTx\022R\n\010chain_id\030\001 \001(\tB@\332\336\037&gi" +
+      "thub.com/cosmos/cosmos-sdk/types.Int\342\336\037\007" +
+      "ChainID\352\336\037\007chainID\022\r\n\005nonce\030\002 \001(\004\022?\n\013gas" +
+      "_tip_cap\030\003 \001(\tB*\332\336\037&github.com/cosmos/co" +
+      "smos-sdk/types.Int\022?\n\013gas_fee_cap\030\004 \001(\tB" +
+      "*\332\336\037&github.com/cosmos/cosmos-sdk/types." +
+      "Int\022\031\n\003gas\030\005 \001(\004B\014\342\336\037\010GasLimit\022\n\n\002to\030\006 \001" +
+      "(\t\022C\n\005value\030\007 \001(\tB4\332\336\037&github.com/cosmos" +
+      "/cosmos-sdk/types.Int\342\336\037\006Amount\022\014\n\004data\030" +
+      "\010 \001(\014\022Q\n\010accesses\030\t \003(\0132\035.ethermint.evm." +
+      "v1.AccessTupleB \252\337\037\nAccessList\352\336\037\naccess" +
+      "List\310\336\037\000\022\t\n\001v\030\n \001(\014\022\t\n\001r\030\013 \001(\014\022\t\n\001s\030\014 \001(" +
+      "\014:\016\210\240\037\000\312\264-\006TxData\"\"\n\032ExtensionOptionsEth" +
+      "ereumTx:\004\210\240\037\000\"\201\001\n\025MsgEthereumTxResponse\022" +
+      "\014\n\004hash\030\001 \001(\t\022#\n\004logs\030\002 \003(\0132\025.ethermint." +
+      "evm.v1.Log\022\013\n\003ret\030\003 \001(\014\022\020\n\010vm_error\030\004 \001(" +
+      "\t\022\020\n\010gas_used\030\005 \001(\004:\004\210\240\037\0002\204\001\n\003Msg\022}\n\nEth" +
+      "ereumTx\022\037.ethermint.evm.v1.MsgEthereumTx" +
+      "\032\'.ethermint.evm.v1.MsgEthereumTxRespons" +
+      "e\"%\202\323\344\223\002\037\"\035/ethermint/evm/v1/ethereum_tx" +
+      "B(Z&github.com/evmos/ethermint/x/evm/typ" +
+      "esb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.api.AnnotationsProto.getDescriptor(),
           com.google.protobuf2.AnyProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
           ethermint.evm.v1.Evm.getDescriptor(),
@@ -9197,9 +9204,11 @@ public final class Tx {
     registry.add(com.google.protobuf2.GoGoProtos.jsontag);
     registry.add(com.google.protobuf2.GoGoProtos.moretags);
     registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.api.AnnotationsProto.getDescriptor();
     com.google.protobuf2.AnyProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
     ethermint.evm.v1.Evm.getDescriptor();

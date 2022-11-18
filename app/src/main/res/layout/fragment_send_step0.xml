@@ -76,8 +76,8 @@
                 android:hint="@string/str_starname_recipient_address"
                 android:imeOptions="actionNext"
                 android:maxLength="60"
-                android:paddingLeft="@dimen/space_10"
-                android:paddingRight="@dimen/space_10"
+                android:paddingLeft="@dimen/space_8"
+                android:paddingRight="@dimen/space_8"
                 android:textColorHint="@color/colorGray1"
                 android:textCursorDrawable="@drawable/white_cursor" />
         </RelativeLayout>
@@ -178,8 +178,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_control"
-        android:layout_marginLeft="@dimen/space_32"
-        android:layout_marginRight="@dimen/space_32"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 

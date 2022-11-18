@@ -36,6 +36,7 @@ import io.grpc.stub.StreamObserver;
 import starnamed.x.starname.v1beta1.QueryGrpc;
 import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -132,6 +133,7 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
         } else if (v.equals(mBtnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
+            integrator.setCaptureActivity(QRcodeActivity.class);
             qrCodeResultLauncher.launch(integrator.createScanIntent());
 
         } else if (v.equals(mBtnPaste)) {

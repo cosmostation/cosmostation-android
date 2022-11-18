@@ -102,7 +102,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            mHistoryAdapter.notifyDataSetChanged();
+            mId = 0;
+            mApiNewTxCustomHistory.clear();
+            onFetchHistory();
             mSwipeRefreshLayout.setRefreshing(false);
         });
 

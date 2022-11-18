@@ -361,9 +361,8 @@
     <string name="str_failed_c">실패</string>
     <string name="str_unknown_msg">알 수 없는 타입</string>
     <string name="str_unknown_tx">이 메시지는 모바일에서 지원하지 않습니다.\n민트스캔 익스플로러에서 자세한 내용을 확인해 주세요.</string>
-    <string name="str_buy_atom">ATOM 구입</string>
-    <string name="str_buy_bnb">BNB 구입</string>
-    <string name="str_buy_kava">KAVA 구입</string>
+    <string name="str_buy_coin">%1$s 구입</string>
+    <string name="str_buy_crypto">크립토 구입</string>
     <string name="str_kava_dapp"><![CDATA[Kava DeFi]]> </string>
     <string name="str_buy_without_key_msg">구매 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구매하시겠습니까?</string>
     <string name="str_buy_select_fiat_title">통화 선택</string>
@@ -610,7 +609,7 @@
     <string name="str_cdp_warn_title">CDP에 관해서</string>
     <string name="str_cdp_warn_msg">CDP는 담보물의 가치변동에 따라 청산의 위험이 있습니다. CDP 개설, 상환, 청산을 포함한 모든 결정 권한과 책임은 사용자에게 있습니다. Cosmostation 지갑은 청산과 청산 위험에 대한 알람은 별도로 제공되지 않습니다.</string>
     <string name="str_delegate_warn_title">위임에 관해서</string>
-    <string name="str_delegate_warn_msg">검증인에게 위임하여 스테이킹 보상을 받을 수 있습니다. 선택한 노드에 문제가 발생하면 위임 지분의 일부를 잃을 수 있습니다. 신중히 선택해주세요.\n\n위임을 해하면 해지 기간이 있습니다. 이 시간 동안에는 스테이킹 보상을 받을 수 없습니다.\n\n</string>
+    <string name="str_delegate_warn_msg">검증인에게 위임하여 스테이킹 보상을 받을 수 있습니다. 선택한 노드에 문제가 발생하면 위임 지분의 일부를 잃을 수 있습니다. 신중히 선택해주세요.\n\n위임을 철회하면 철회 기간이 있습니다. 이 기간 동안에는 스테이킹 보상을 받을 수 없습니다.\n\n</string>
     <string name="str_memo_warn">메모 기입을 확인 바랍니다.\n특정 거래소 또는 지갑은 메모 입력을 요구합니다.</string>
 
     <string name="str_create_cdp_step_1">USDX 발행을 위해 담보물을 설정하세요</string>
@@ -933,7 +932,7 @@
     <string name="str_select_contract_token">표시할 토큰을 선택하세요</string>
     <string name="str_ibc_transfer_title">IBC 전송하기</string>
     <string name="str_ibc_transfer_msg1">중앙화 거래소에서는 가상자산의 IBC 기능을 지원하지 않습니다.</string>
-    <string name="str_ibc_transfer_msg2">반드시 IBC를 통해 해당 자산을 원래 체인으로 전송한 후, 거래소로의 출금을 진행하세요.</string>
+    <string name="str_ibc_transfer_msg2">반드시 IBC를 통해 해당 자산을 원래 체인으로 전송한 후, \n거래소로의 출금을 진행하세요.</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

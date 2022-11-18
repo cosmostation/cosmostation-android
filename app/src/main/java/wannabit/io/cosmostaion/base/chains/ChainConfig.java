@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.ChildNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +89,10 @@ abstract public class ChainConfig {
     public abstract boolean wcSupport();
 
     public boolean authzSupport() { return false; }
+
+    public boolean moonPaySupport() { return false; }
+
+    public boolean kadoMoneySupport() { return false; }
 
     public String grpcUrl() { return ""; }
 

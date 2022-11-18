@@ -110,7 +110,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteDomainGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulIBCTransferGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaLiquidityGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaBorrowHardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaClaimIncentiveAllGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaCreateCdpGrpcTask;
@@ -118,6 +117,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaDepositCdpGrpcTas
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaDepositHardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaDrawDebtCdpGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaLiquidityGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaRepayCdpGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaRepayHardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaSwapGrpcTask;
@@ -204,7 +204,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
-        mFeeInfo = WDp.getFeeInfos(getActivity(), getBaseDao(), mChainConfig);
+        mFeeInfo = WDp.getFeeInfos(getActivity(), getBaseDao());
 
         mFeeTotalCard.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mChainConfig.mainDenom(), mFeeCoinImg);
@@ -558,10 +558,12 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
         int denomDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mFeeData.denom);
         Asset asset = getBaseDao().getAsset(mChainConfig, mFeeData.denom);
-        if (asset != null && asset.price_denom != null) {
-            mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
-        } else {
-            mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+        if (asset != null) {
+            if (asset.price_denom != null) {
+                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+            } else {
+                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+            }
         }
         mSpeedTxt.setText(mFeeInfo.get(mSelectedFeeInfo).msg);
         getSActivity().onHideWaitDialog();

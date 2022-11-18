@@ -27,47 +27,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    style="@style/font_rr_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_current_price" />
-
-                <TextView
-                    android:id="@+id/per_price"
-                    style="@style/font_rm_18_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:text="-" />
-
                 <LinearLayout
-                    android:id="@+id/per_change"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/current_price"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/per_price"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/space_2"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:gravity="center">
 
                     <TextView
-                        android:id="@+id/dash_price_updown_tx"
-                        style="@style/font_rm_12_black_daynight"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="right"
+                        android:text="@string/str_current_price" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/per_price"
+                        style="@style/font_rm_18_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="-" />
                 </LinearLayout>
 
-                <TextView
-                    style="@style/font_rr_10_gray1"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_24"
-                    android:text="(CoinGecko 24h)" />
+                    android:layout_below="@+id/current_price"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:gravity="center">
+
+                    <TextView
+                        style="@style/font_rr_10_gray1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(CoinGecko 24h)" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/dash_price_updown_tx"
+                        style="@style/font_rm_10_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="-" />
+                </LinearLayout>
             </RelativeLayout>
 
             <LinearLayout
@@ -101,7 +111,7 @@
                         android:drawableLeft="@drawable/card_ic"
                         android:drawablePadding="@dimen/space_8"
                         android:gravity="center"
-                        android:text="@string/str_buy_atom" />
+                        android:text="@string/str_buy_coin" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
