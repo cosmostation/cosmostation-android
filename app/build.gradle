@@ -60,6 +60,9 @@ android {
     }
     namespace 'wannabit.io.cosmostaion'
 
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -112,7 +115,11 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
     implementation 'com.squareup.moshi:moshi:1.8.0'
     implementation "com.github.cosmostation:wallet-connect-kotlin:1.6.4"
-    implementation("com.walletconnect:sign:2.0.0") {
+    implementation("com.walletconnect:sign:2.1.0") {
+        exclude group: "org.jboss.spec.javax.annotation"
+        exclude group: "com.github.stephenc.jcip"
+    }
+    implementation('com.walletconnect:android-core:1.3.0') {
         exclude group: "org.jboss.spec.javax.annotation"
         exclude group: "com.github.stephenc.jcip"
     }
@@ -122,6 +129,7 @@ dependencies {
 
     //web3 for ethermint
     implementation 'org.web3j:core:4.8.7-android'
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     implementation 'com.github.addisonelliott:SegmentedButton:3.1.9'
 

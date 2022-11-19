@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -47,6 +48,10 @@ import com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage;
 import com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction;
 import com.trustwallet.walletconnect.models.keplr.WCKeplrWallet;
 import com.trustwallet.walletconnect.models.session.WCSession;
+import com.walletconnect.android.Core;
+import com.walletconnect.android.CoreClient;
+import com.walletconnect.sign.client.SignClient;
+import com.walletconnect.sign.client.SignInterface;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.core.ECKey;
@@ -101,7 +106,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.utils.WalletConnectManager;
 
-public class ConnectWalletActivity extends BaseActivity {
+public class WalletConnectV2Activity extends BaseActivity {
     public final static int TYPE_TRUST_WALLET = 1;
     public final static int TYPE_COSMOS_WALLET = 2;
     public final static int TYPE_ETH_SIGN_MESSAGE = 3;
@@ -291,7 +296,7 @@ public class ConnectWalletActivity extends BaseActivity {
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
-        
+
         mWebView.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 lastClickPositionY = -1;
@@ -322,24 +327,13 @@ public class ConnectWalletActivity extends BaseActivity {
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme)
-                        .setMessage(message)
-                        .setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm())
-                        .setOnDismissListener((DialogInterface dialog) -> result.confirm())
-                        .create()
-                        .show();
+                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme).setMessage(message).setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm()).setOnDismissListener((DialogInterface dialog) -> result.confirm()).create().show();
                 return true;
             }
 
             @Override
             public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
-                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme)
-                        .setMessage(message)
-                        .setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm())
-                        .setNegativeButton("Cancel", (DialogInterface dialog, int which) -> result.cancel())
-                        .setOnDismissListener((DialogInterface dialog) -> result.cancel())
-                        .create()
-                        .show();
+                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme).setMessage(message).setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm()).setNegativeButton("Cancel", (DialogInterface dialog, int which) -> result.cancel()).setOnDismissListener((DialogInterface dialog) -> result.cancel()).create().show();
                 return true;
             }
         });
@@ -381,114 +375,163 @@ public class ConnectWalletActivity extends BaseActivity {
             }
         });
     }
-
     private void initWalletConnect() {
-        OkHttpClient client = new OkHttpClient.Builder().pingInterval(100000, TimeUnit.MILLISECONDS).build();
-        wcClient = new WCClient(new GsonBuilder(), client);
-        WCPeerMeta meta = new WCPeerMeta(getString(R.string.str_wc_peer_name), getString(R.string.str_wc_peer_url), getString(R.string.str_wc_peer_desc), Lists.newArrayList());
-        if (!mWcURL.isEmpty()) {
-            wcSession = WCSession.Companion.from(mWcURL);
-            wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
-        }
-        wcClient.setOnGetAccounts(id -> {
-            wcClient.approveRequest(id, makeWCAccount());
-            return null;
+        List<Core.Model.Pairing> pairingList = CoreClient.INSTANCE.getPairing().getPairings();
+        pairingList.forEach(pair -> CoreClient.INSTANCE.getPairing().disconnect(pair.getTopic(), error -> null));
+        Core.Model.Pairing pairing = CoreClient.INSTANCE.getPairing().create(error -> null);
+        Core.Params.Pair params = new Core.Params.Pair(mWcURL);
+        CoreClient.INSTANCE.getPairing().pair(params, error -> null);
+        SignClient.INSTANCE.setWalletDelegate(new SignInterface.WalletDelegate() {
+            @Override
+            public void onSessionProposal(@NonNull com.walletconnect.sign.client.Sign.Model.SessionProposal sessionProposal) {
+                //val proposerPublicKey: String = /*Proposer publicKey from SessionProposal object*/
+                //val namespace: String = /*Namespace identifier, see for reference: https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md#syntax*/
+                //val accounts: List<String> = /*List of accounts on chains*/
+                //val methods: List<String> = /*List of methods that wallet approves*/
+                //val events: List<String> = /*List of events that wallet approves*/
+                //val namespaces: Map<String, Sign.Model.Namespaces.Session> = mapOf(namespace, Sign.Model.Namespaces.Session(accounts, methods, events))
+                //
+                //val approveParams: Sign.Params.Approve = Sign.Params.Approve(proposerPublicKey, namespaces)
+                //SignClient.approveSession(approveParams) { error -> /*callback f
+                Map<String, com.walletconnect.sign.client.Sign.Model.Namespace.Session> namespaces = Maps.newHashMap();
+                com.walletconnect.sign.client.Sign.Params.Approve approveParams = new com.walletconnect.sign.client.Sign.Params.Approve(sessionProposal.getProposerPublicKey(), namespaces, null);
+                SignClient.INSTANCE.approveSession(approveParams, error -> null);
+            }
+
+            @Override
+            public void onSessionRequest(@NonNull com.walletconnect.sign.client.Sign.Model.SessionRequest sessionRequest) {
+
+            }
+
+            @Override
+            public void onSessionDelete(@NonNull com.walletconnect.sign.client.Sign.Model.DeletedSession deletedSession) {
+
+            }
+
+            @Override
+            public void onSessionSettleResponse(@NonNull com.walletconnect.sign.client.Sign.Model.SettledSessionResponse settledSessionResponse) {
+
+            }
+
+            @Override
+            public void onSessionUpdateResponse(@NonNull com.walletconnect.sign.client.Sign.Model.SessionUpdateResponse sessionUpdateResponse) {
+
+            }
+
+            @Override
+            public void onConnectionStateChange(@NonNull com.walletconnect.sign.client.Sign.Model.ConnectionState connectionState) {
+
+            }
+
+            @Override
+            public void onError(@NonNull com.walletconnect.sign.client.Sign.Model.Error error) {
+
+            }
         });
-        wcClient.setOnDisconnect((code, reason) -> {
-            runOnUiThread(() -> {
-                Toast.makeText(getBaseContext(), getString(R.string.str_wc_not_connected), Toast.LENGTH_SHORT).show();
-                if (!isFinishing() && !isDapp) finish();
-                if (isDapp) changeDappConnectStatus(false);
-            });
-            return null;
-        });
-        wcClient.setOnSessionRequest((id, wcPeerMeta) -> {
-            runOnUiThread(() -> {
-                String url = wcPeerMeta.getUrl();
-                if (isDapp) {
-                    url = Uri.parse(mWebView.getUrl()).getHost();
-                }
-                if (WalletConnectManager.getWhiteList(this).contains(url)) {
-                    processSessionRequest(wcPeerMeta);
-                } else {
-                    String finalUrl = url;
-                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this,
-                            getString(R.string.str_wc_connect_alert_title),
-                            Html.fromHtml(String.format("%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>", getString(R.string.str_wc_connect_alert_message), url, getString(R.string.str_wc_connect_alert_guide)), Html.FROM_HTML_MODE_COMPACT),
-                            getString(R.string.str_cancel),
-                            view -> {
-                                mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 1000);
-                                wcClient.rejectSession(getString(R.string.str_cancel));
-                                if (!isFinishing() && !isDapp) finish();
-                                if (isDapp) changeDappConnectStatus(false);
-                            },
-                            getString(R.string.str_ok),
-                            view -> {
-                                WalletConnectManager.addWhiteList(this, finalUrl);
-                                processSessionRequest(wcPeerMeta);
-                            });
-                }
-            });
-            return null;
-        });
-        wcClient.setOnSignTransaction((id, wcSignTransaction) -> {
-            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_TRUST_WALLET, id, wcSignTransaction.getTransaction())));
-            return null;
-        });
-        wcClient.setOnKeplrEnable((id, strings) -> {
-            runOnUiThread(() -> onKeplrEnable(id, strings));
-            return null;
-        });
-        wcClient.setOnEthSign((id, signMessage) -> {
-            mSignMessage = signMessage;
-            runOnUiThread(() -> onShowEvmosSignDialog(makeEvmosSignBundle(TYPE_ETH_SIGN_MESSAGE, id, null, signMessage)));
-            return null;
-        });
-        wcClient.setOnEthSendTransaction((id, wcEthereumTransaction) -> {
-            mWcEthereumTransaction = wcEthereumTransaction;
-            runOnUiThread(() -> onShowEvmosSignDialog(makeEvmosSignBundle(TYPE_ETH_SIGN_TRANSACTION, id, wcEthereumTransaction, null)));
-            return null;
-        });
-        wcClient.setOnCosmostationAccounts((id, strings) -> {
-            runOnUiThread(() -> onShowAccountDialog(id, strings, Lists.newArrayList(), 0));
-            return null;
-        });
-        wcClient.setOnCosmostationSignTx((id, jsonArray) -> {
-            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
-            return null;
-        });
-        wcClient.setOnKeplrGetKeys((id, strings) -> {
-            runOnUiThread(() -> {
-                String chainId = strings.get(0);
-                if (!chainAccountMap.containsKey(WDp.getChainTypeByChainId(chainId).getChain())) {
-                    onShowKeplrAccountDialog(id, chainId);
-                } else {
-                    wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(chainAccountMap.get(WDp.getChainTypeByChainId(chainId).getChain()))));
-                    moveToBackIfNeed();
-                }
-            });
-            return null;
-        });
-        wcClient.setOnKeplrSignAmino((id, jsonArray) -> {
-            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
-            return null;
-        });
-        wcClient.setOnCosmosGetAccounts((id, strings) -> {
-            runOnUiThread(() -> onShowAccountDialog(id, strings, Lists.newArrayList(), 0));
-            return null;
-        });
-        wcClient.setOnCosmosSignAmino((id, jsonArray) -> {
-            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
-            return null;
-        });
-        wcClient.setOnCosmosSignDirect((id, jsonArray) -> {
-            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_SIGN_DIRECT, id, jsonArray.toString())));
-            return null;
-        });
-        wcClient.setOnCosmostationSignDirectTx((id, jsonArray) -> {
-            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_SIGN_DIRECT, id, jsonArray.toString())));
-            return null;
-        });
+
+        return;
+
+
+//        OkHttpClient client = new OkHttpClient.Builder().pingInterval(100000, TimeUnit.MILLISECONDS).build();
+//        wcClient = new WCClient(new GsonBuilder(), client);
+//        WCPeerMeta meta = new WCPeerMeta(getString(R.string.str_wc_peer_name), getString(R.string.str_wc_peer_url), getString(R.string.str_wc_peer_desc), Lists.newArrayList());
+//        if (!mWcURL.isEmpty()) {
+//            wcSession = WCSession.Companion.from(mWcURL);
+//            wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
+//        }
+//        wcClient.setOnGetAccounts(id -> {
+//            wcClient.approveRequest(id, makeWCAccount());
+//            return null;
+//        });
+//        wcClient.setOnDisconnect((code, reason) -> {
+//            runOnUiThread(() -> {
+//                Toast.makeText(getBaseContext(), getString(R.string.str_wc_not_connected), Toast.LENGTH_SHORT).show();
+//                if (!isFinishing() && !isDapp) finish();
+//                if (isDapp) changeDappConnectStatus(false);
+//            });
+//            return null;
+//        });
+//        wcClient.setOnSessionRequest((id, wcPeerMeta) -> {
+//            runOnUiThread(() -> {
+//                String url = wcPeerMeta.getUrl();
+//                if (isDapp) {
+//                    url = Uri.parse(mWebView.getUrl()).getHost();
+//                }
+//                if (WalletConnectManager.getWhiteList(this).contains(url)) {
+//                    processSessionRequest(wcPeerMeta);
+//                } else {
+//                    String finalUrl = url;
+//                    CommonAlertDialog.showDoubleButton(WalletConnectV2Activity.this, getString(R.string.str_wc_connect_alert_title), Html.fromHtml(String.format("%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>", getString(R.string.str_wc_connect_alert_message), url, getString(R.string.str_wc_connect_alert_guide)), Html.FROM_HTML_MODE_COMPACT), getString(R.string.str_cancel), view -> {
+//                        mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 1000);
+//                        wcClient.rejectSession(getString(R.string.str_cancel));
+//                        if (!isFinishing() && !isDapp) finish();
+//                        if (isDapp) changeDappConnectStatus(false);
+//                    }, getString(R.string.str_ok), view -> {
+//                        WalletConnectManager.addWhiteList(this, finalUrl);
+//                        processSessionRequest(wcPeerMeta);
+//                    });
+//                }
+//            });
+//            return null;
+//        });
+//        wcClient.setOnSignTransaction((id, wcSignTransaction) -> {
+//            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_TRUST_WALLET, id, wcSignTransaction.getTransaction())));
+//            return null;
+//        });
+//        wcClient.setOnKeplrEnable((id, strings) -> {
+//            runOnUiThread(() -> onKeplrEnable(id, strings));
+//            return null;
+//        });
+//        wcClient.setOnEthSign((id, signMessage) -> {
+//            mSignMessage = signMessage;
+//            runOnUiThread(() -> onShowEvmosSignDialog(makeEvmosSignBundle(TYPE_ETH_SIGN_MESSAGE, id, null, signMessage)));
+//            return null;
+//        });
+//        wcClient.setOnEthSendTransaction((id, wcEthereumTransaction) -> {
+//            mWcEthereumTransaction = wcEthereumTransaction;
+//            runOnUiThread(() -> onShowEvmosSignDialog(makeEvmosSignBundle(TYPE_ETH_SIGN_TRANSACTION, id, wcEthereumTransaction, null)));
+//            return null;
+//        });
+//        wcClient.setOnCosmostationAccounts((id, strings) -> {
+//            runOnUiThread(() -> onShowAccountDialog(id, strings, Lists.newArrayList(), 0));
+//            return null;
+//        });
+//        wcClient.setOnCosmostationSignTx((id, jsonArray) -> {
+//            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
+//            return null;
+//        });
+//        wcClient.setOnKeplrGetKeys((id, strings) -> {
+//            runOnUiThread(() -> {
+//                String chainId = strings.get(0);
+//                if (!chainAccountMap.containsKey(WDp.getChainTypeByChainId(chainId).getChain())) {
+//                    onShowKeplrAccountDialog(id, chainId);
+//                } else {
+//                    wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(chainAccountMap.get(WDp.getChainTypeByChainId(chainId).getChain()))));
+//                    moveToBackIfNeed();
+//                }
+//            });
+//            return null;
+//        });
+//        wcClient.setOnKeplrSignAmino((id, jsonArray) -> {
+//            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
+//            return null;
+//        });
+//        wcClient.setOnCosmosGetAccounts((id, strings) -> {
+//            runOnUiThread(() -> onShowAccountDialog(id, strings, Lists.newArrayList(), 0));
+//            return null;
+//        });
+//        wcClient.setOnCosmosSignAmino((id, jsonArray) -> {
+//            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_WALLET, id, jsonArray.toString())));
+//            return null;
+//        });
+//        wcClient.setOnCosmosSignDirect((id, jsonArray) -> {
+//            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_SIGN_DIRECT, id, jsonArray.toString())));
+//            return null;
+//        });
+//        wcClient.setOnCosmostationSignDirectTx((id, jsonArray) -> {
+//            runOnUiThread(() -> onShowSignDialog(makeSignBundle(TYPE_COSMOS_SIGN_DIRECT, id, jsonArray.toString())));
+//            return null;
+//        });
     }
 
     private void processSessionRequest(WCPeerMeta wcPeerMeta) {
@@ -536,16 +579,7 @@ public class ConnectWalletActivity extends BaseActivity {
 
         Transaction transaction = new Transaction(wcEthereumTransaction.getFrom(), nonce, BigInteger.ZERO, BigInteger.ZERO, wcEthereumTransaction.getTo(), value, wcEthereumTransaction.getData());
         EthEstimateGas limit = web3.ethEstimateGas(transaction).sendAsync().get();
-        RawTransaction rawTransaction = RawTransaction.createTransaction(
-                9001,
-                nonce,
-                limit.getAmountUsed(),
-                wcEthereumTransaction.getTo(),
-                value,
-                wcEthereumTransaction.getData(),
-                BigInteger.valueOf(500000000L),
-                BigInteger.valueOf(27500000000L)
-        );
+        RawTransaction rawTransaction = RawTransaction.createTransaction(9001, nonce, limit.getAmountUsed(), wcEthereumTransaction.getTo(), value, wcEthereumTransaction.getData(), BigInteger.valueOf(500000000L), BigInteger.valueOf(27500000000L));
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
         String hexValue = Numeric.toHexString(signedMessage);
         return web3.ethSendRawTransaction(hexValue).sendAsync().get();
@@ -651,11 +685,7 @@ public class ConnectWalletActivity extends BaseActivity {
 
         if (meta != null) {
             if (!CollectionUtils.isEmpty(meta.getIcons())) {
-                Picasso.get()
-                        .load(meta.getIcons().get(0))
-                        .fit()
-                        .placeholder(R.drawable.validator_none_img)
-                        .into(mWcImg);
+                Picasso.get().load(meta.getIcons().get(0)).fit().placeholder(R.drawable.validator_none_img).into(mWcImg);
             }
             mWcName.setText(meta.getName());
             mWcUrl.setText(meta.getUrl());
@@ -797,23 +827,12 @@ public class ConnectWalletActivity extends BaseActivity {
 
     private WCKeplrWallet toKeplrWallet(Account account) {
         ECKey key = getKey(account.baseChain);
-        return new WCKeplrWallet(
-                WUtil.getWalletName(this, account),
-                "secp256k1",
-                key.getPubKey(),
-                WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()),
-                account.address,
-                false);
+        return new WCKeplrWallet(WUtil.getWalletName(this, account), "secp256k1", key.getPubKey(), WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()), account.address, false);
     }
 
     private WCCosmostationAccount toCosmosatationAccount(Account account) {
         ECKey key = getKey(account.baseChain);
-        return new WCCosmostationAccount(
-                WUtil.getWalletName(this, account),
-                "secp256k1",
-                key.getPubKey(),
-                WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()),
-                account.address);
+        return new WCCosmostationAccount(WUtil.getWalletName(this, account), "secp256k1", key.getPubKey(), WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()), account.address);
     }
 
     private void onShowSignDialog(Bundle bundle) {
@@ -821,11 +840,11 @@ public class ConnectWalletActivity extends BaseActivity {
             Dialog_Wc_Raw_Data wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, new Dialog_Wc_Raw_Data.WcSignRawDataListener() {
                 @Override
                 public void sign(int type, Long id, String transaction) {
-                    if (type == ConnectWalletActivity.TYPE_TRUST_WALLET) {
+                    if (type == WalletConnectV2Activity.TYPE_TRUST_WALLET) {
                         approveTrustRequest(id, transaction);
-                    } else if (type == ConnectWalletActivity.TYPE_COSMOS_WALLET) {
+                    } else if (type == WalletConnectV2Activity.TYPE_COSMOS_WALLET) {
                         approveCosmosRequest(id, transaction);
-                    } else if (type == ConnectWalletActivity.TYPE_COSMOS_SIGN_DIRECT) {
+                    } else if (type == WalletConnectV2Activity.TYPE_COSMOS_SIGN_DIRECT) {
                         approveCosmosSignDirectRequest(id, transaction);
                     }
                 }
@@ -845,7 +864,7 @@ public class ConnectWalletActivity extends BaseActivity {
 
             @Override
             public void sign(int type, Long id, String wcEthereumTransaction, String signMessage) {
-                if (type == ConnectWalletActivity.TYPE_ETH_SIGN_MESSAGE) {
+                if (type == WalletConnectV2Activity.TYPE_ETH_SIGN_MESSAGE) {
                     new Thread(() -> {
                         try {
                             Sign.SignatureData signResult = processEthSign(mSignMessage);
@@ -854,7 +873,7 @@ public class ConnectWalletActivity extends BaseActivity {
                             wcClient.rejectRequest(id, getString(R.string.str_unknown_error));
                         }
                     }).start();
-                } else if (type == ConnectWalletActivity.TYPE_ETH_SIGN_TRANSACTION) {
+                } else if (type == WalletConnectV2Activity.TYPE_ETH_SIGN_TRANSACTION) {
                     new Thread(() -> {
                         try {
                             EthSendTransaction sendResult = processEthSend(mWcEthereumTransaction);
@@ -938,7 +957,7 @@ public class ConnectWalletActivity extends BaseActivity {
             initWalletConnect();
         } else if (fromScheme(intent) && (WC_URL_SCHEME_HOST_DAPP.equals(intent.getData().getHost()) || WC_URL_SCHEME_HOST_DAPP_INTERNAL.equals(intent.getData().getHost()))) {
             if (mWebView.getVisibility() != View.VISIBLE) {
-                Toast.makeText(ConnectWalletActivity.this, R.string.str_unknown_error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(WalletConnectV2Activity.this, R.string.str_unknown_error, Toast.LENGTH_SHORT).show();
                 return;
             }
 

@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.activities.txs.wc.ConnectWalletActivity;
 import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectV2Activity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -275,8 +276,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
 
-        if (getBaseDao().mIncentiveRewards.getIncentiveAmount(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO &&
-                getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
+        if (getBaseDao().mIncentiveRewards.getIncentiveAmount(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
             Toast.makeText(this, R.string.error_no_incentive_to_claim, Toast.LENGTH_SHORT).show();
             return;
         }
