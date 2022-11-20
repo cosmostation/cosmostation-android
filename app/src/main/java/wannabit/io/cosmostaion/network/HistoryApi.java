@@ -27,7 +27,7 @@ public interface HistoryApi {
     Call<ResBnbHistories> getHistoryAsset(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("txAsset") String txAsset);
 
     //Okc
-    @Headers("Ok-Access-key: e829eb97-3fdb-4679-8937-4f6ea901817a")
+    @Headers("Ok-Access-key: ebdd857d-4412-4e4b-9b35-5ae51df382b9")
     @GET("address/transaction-list")
     Call<ResOkHistory> getNewOkecTxs(@Query("chainShortName") String chainShortName, @Query("address") String address, @Query("limit") String limit);
 }
