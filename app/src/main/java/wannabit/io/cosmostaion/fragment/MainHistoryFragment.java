@@ -61,7 +61,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private ArrayList<BnbHistory> mBnbHistory = new ArrayList<>();
     private ArrayList<ResOkHistory.Data.Hit> mOkHistory = new ArrayList<>();
     private ArrayList<ResApiNewTxListCustom> mApiNewTxCustomHistory = new ArrayList<>();
-    private ArrayList<ResApiNewTxListCustom> mApiNewTxBackUpHistory = new ArrayList<>();
 
     private Account mAccount;
     private BaseChain mBaseChain;
@@ -102,9 +101,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            mId = 0;
-            mApiNewTxCustomHistory.clear();
-            mApiNewTxCustomHistory.addAll(mApiNewTxBackUpHistory);
+            onRefreshTab();
             mSwipeRefreshLayout.setRefreshing(false);
         });
 
@@ -152,11 +149,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onRefreshTab() {
         if (!isAdded()) return;
         mId = 0;
-        mApiNewTxCustomHistory.clear();
+        mApiNewTxCustomHistory = new ArrayList<>();
         mHistoryAdapter.notifyDataSetChanged();
         onUpdateView();
         onFetchHistory();
@@ -212,8 +208,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
             mApiNewTxCustomHistory.addAll((ArrayList<ResApiNewTxListCustom>) result.resultData);
-            mApiNewTxBackUpHistory.addAll((ArrayList<ResApiNewTxListCustom>) result.resultData);
-            if (mApiNewTxCustomHistory.size() > 0 && mApiNewTxBackUpHistory.size() > 0) {
+            if (mApiNewTxCustomHistory.size() > 0) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
