@@ -46,7 +46,7 @@ public class HistoryOldHolder extends BaseHolder {
 
     public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ChainConfig chainConfig, ResOkHistory.Data.transactionData history) {
         historyType.setText(history.txId);
-        history_time.setText(WDp.getDpTime(mainActivity, Long.parseLong(history.transactionTime)));
+        history_time.setText(WDp.getOkcDpTime(mainActivity, Long.parseLong(history.transactionTime)));
         history_time_gap.setText(WDp.getOkcTimeTxGap(mainActivity, Long.parseLong(history.transactionTime)));
         history_block.setText(history.height + " block");
         if (history.state.equals("fail")) {
