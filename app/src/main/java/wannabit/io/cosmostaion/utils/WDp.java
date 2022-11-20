@@ -912,13 +912,12 @@ public class WDp {
         return result;
     }
 
-    public static String getOkcDpTime(Context c, long timestamp) {
+    public static String getOkcDpTime(Context c, long txTime) {
         String result = "??";
         try {
             Calendar calendar = Calendar.getInstance();
-            long timeZone = Long.parseLong(String.valueOf(TimeZone.getDefault().getOffset(new Date().getTime())));
-            long txTime = timestamp + timeZone;
-            calendar.setTimeInMillis(txTime);
+            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime());
+            calendar.setTimeInMillis(txTime + timeZone);
             SimpleDateFormat simpleFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
             result = simpleFormat.format(calendar.getTimeInMillis());
         } catch (Exception e) {
@@ -1111,7 +1110,7 @@ public class WDp {
     public static String getOkcTimeTxGap(Context c, long rawValue) {
         String result = "";
         try {
-            long timeZone = Long.parseLong(String.valueOf(TimeZone.getDefault().getOffset(new Date().getTime())));
+            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime());
             long txTime = rawValue + timeZone;
             long now = Calendar.getInstance().getTimeInMillis();
             long difference = now - txTime;
