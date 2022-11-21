@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.BnbWalletConnectActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Dialog_Wc_Trade extends DialogFragment {
@@ -101,7 +101,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
         btn_negative.setOnClickListener(v -> getDialog().dismiss());
 
         btn_positive.setOnClickListener(v -> {
-            ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
+            ((BnbWalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
             dismiss();
         });
 

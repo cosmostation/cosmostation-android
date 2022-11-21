@@ -54,7 +54,7 @@ import wannabit.io.cosmostaion.model.type.BnbParam;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class WalletConnectActivity extends BaseActivity implements View.OnClickListener {
+public class BnbWalletConnectActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout mWcLayer, mLoadingLayer;
     private ImageView mWcImg;
     private TextView mWcName, mWcUrl, mWcAccount;
@@ -173,11 +173,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
 
     private void onInitView(WCPeerMeta meta) {
         Toast.makeText(getBaseContext(), getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show();
-        Picasso.get()
-                .load(meta.getIcons().get(0))
-                .fit()
-                .placeholder(R.drawable.validator_none_img)
-                .into(mWcImg);
+        Picasso.get().load(meta.getIcons().get(0)).fit().placeholder(R.drawable.validator_none_img).into(mWcImg);
         mWcName.setText(meta.getName());
         mWcUrl.setText(meta.getUrl());
         mWcLayer.setVisibility(View.VISIBLE);
@@ -244,15 +240,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                 BinanceDexTransactionMessage bdtm[] = new BinanceDexTransactionMessage[1];
 
                 if (bnbParam.getMsgType() == TYPE_NEW_ORDER) {
-                    NewOrderMessage bean = NewOrderMessage.newBuilder()
-                            .setSender(bnbParam.msgs.get(0).sender)
-                            .setId(bnbParam.msgs.get(0).id)
-                            .setSymbol(bnbParam.msgs.get(0).symbol)
-                            .setOrderType(OrderType.fromValue(bnbParam.msgs.get(0).orderType))
-                            .setSide(OrderSide.fromValue(bnbParam.msgs.get(0).side))
-                            .setPrice(TransactionRequestAssembler.longToDouble(bnbParam.msgs.get(0).price))
-                            .setQuantity(TransactionRequestAssembler.longToDouble(bnbParam.msgs.get(0).quantity))
-                            .setTimeInForce(TimeInForce.fromValue(bnbParam.msgs.get(0).timeInforce)).build();
+                    NewOrderMessage bean = NewOrderMessage.newBuilder().setSender(bnbParam.msgs.get(0).sender).setId(bnbParam.msgs.get(0).id).setSymbol(bnbParam.msgs.get(0).symbol).setOrderType(OrderType.fromValue(bnbParam.msgs.get(0).orderType)).setSide(OrderSide.fromValue(bnbParam.msgs.get(0).side)).setPrice(TransactionRequestAssembler.longToDouble(bnbParam.msgs.get(0).price)).setQuantity(TransactionRequestAssembler.longToDouble(bnbParam.msgs.get(0).quantity)).setTimeInForce(TimeInForce.fromValue(bnbParam.msgs.get(0).timeInforce)).build();
                     bdtm[0] = bean;
 
                 } else if (bnbParam.getMsgType() == TYPE_CANCEL_ORDER) {
@@ -283,7 +271,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
                 byte[] signatureBytes = Crypto.sign(EncodeUtils.toJsonEncodeBytes(sd), mEcKey.getPrivateKeyAsHex());
                 byte[] publicKeyBytes = mEcKey.decompress().getPubKey();
 
-                WcCallBack callBack = new WcCallBack();
+                BnbWalletConnectCallback callBack = new BnbWalletConnectCallback();
                 callBack.signature = EncodeUtils.bytesToHex(signatureBytes);
                 callBack.publicKey = EncodeUtils.bytesToHex(publicKeyBytes);
 
@@ -304,9 +292,4 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
             wcClient.approveRequest(mOrderId, StringUtils.EMPTY);
         }
     }
-}
-
-class WcCallBack {
-    public String signature;
-    public String publicKey;
 }

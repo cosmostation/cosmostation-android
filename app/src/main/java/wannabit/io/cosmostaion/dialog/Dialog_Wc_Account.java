@@ -37,9 +37,10 @@ public class Dialog_Wc_Account extends DialogFragment {
     private Long id;
 
     public static Dialog_Wc_Account newInstance(Bundle bundle) {
-        Dialog_Wc_Account frag = new Dialog_Wc_Account();
-        frag.setArguments(bundle);
-        return frag;
+        Dialog_Wc_Account dialog = new Dialog_Wc_Account();
+        dialog.setArguments(bundle);
+        dialog.setCancelable(true);
+        return dialog;
     }
 
     @Override

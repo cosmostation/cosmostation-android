@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Build;
 import android.os.Bundle;
+import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -18,6 +19,7 @@ import com.walletconnect.sign.client.SignClient;
 
 import java.util.UUID;
 
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
@@ -60,6 +62,10 @@ public class BaseApplication extends Application {
         }
 
         initWalletConnectV2();
+
+        if (BuildConfig.DEBUG) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
     }
 
     private void initWalletConnectV2() {
