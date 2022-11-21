@@ -107,7 +107,9 @@ class WalletConnectActivity : BaseActivity() {
         loadConnectType()
         if (connectType.hasBaseAccount()) {
             loadBaseAccount()
-        } else if (baseDao.onHasPassword()) {
+        }
+
+        if (!connectType.hasBaseAccount() && baseDao.onHasPassword()) {
             val intent = Intent(this, PasswordCheckActivity::class.java)
             connectWalletResultLauncher.launch(intent)
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out)
@@ -159,6 +161,7 @@ class WalletConnectActivity : BaseActivity() {
         binding.btnDisconnect.visibility = View.GONE
         changeDappConnectStatus(false)
         binding.dappWebView.loadUrl(url)
+        WebStorage.getInstance().deleteAllData()
     }
 
     private fun setupWalletConnectTypeView(url: String) {
