@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.gms.common.util.CollectionUtils;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -100,10 +102,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mCardView.setOnClickListener(v -> getMainActivity().onClickQrCopy(mChainConfig, mAccount));
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            onRefreshTab();
-            mSwipeRefreshLayout.setRefreshing(false);
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(this::onRefreshTab);
 
         initRecyclerView();
     }
@@ -186,7 +185,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         if (result.taskType == BaseConstant.TASK_FETCH_BNB_HISTORY) {
             mBnbHistory = (ArrayList<BnbHistory>) result.resultData;
-            if (mBnbHistory.size() > 0) {
+            if (!CollectionUtils.isEmpty(mBnbHistory)) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
@@ -197,7 +196,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_OK_HISTORY) {
             mOkHistory = (ArrayList<ResOkHistory.Data.Hit>) result.resultData;
-            if (result.isSuccess && mOkHistory.size() > 0) {
+            if (!CollectionUtils.isEmpty(mOkHistory)) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
@@ -208,7 +207,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
             mApiNewTxCustomHistory.addAll((ArrayList<ResApiNewTxListCustom>) result.resultData);
-            if (mApiNewTxCustomHistory.size() > 0) {
+            if (!CollectionUtils.isEmpty(mApiNewTxCustomHistory)) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
