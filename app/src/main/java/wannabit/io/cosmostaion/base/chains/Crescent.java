@@ -29,6 +29,7 @@ public class Crescent extends ChainConfig {
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "lcd-crescent-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-crescent.cosmostation.io/"; }

@@ -27,6 +27,7 @@ public class Cosmos extends ChainConfig {
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
+    public boolean authzSupport() { return true; }
     public boolean moonPaySupport() { return true; }
 
     public String grpcUrl() { return "lcd-cosmos-app-and.cosmostation.io"; }

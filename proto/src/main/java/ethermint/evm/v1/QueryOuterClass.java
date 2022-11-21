@@ -8128,6 +8128,33 @@ public final class QueryOuterClass {
      */
     com.google.protobuf.ByteString
         getHashBytes();
+
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
   }
   /**
    * <pre>
@@ -8183,6 +8210,19 @@ public final class QueryOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               hash_ = s;
+              break;
+            }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -8263,6 +8303,44 @@ public final class QueryOuterClass {
       }
     }
 
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -8280,6 +8358,9 @@ public final class QueryOuterClass {
       if (!getHashBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, hash_);
       }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -8291,6 +8372,10 @@ public final class QueryOuterClass {
       size = 0;
       if (!getHashBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, hash_);
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8309,6 +8394,11 @@ public final class QueryOuterClass {
 
       if (!getHash()
           .equals(other.getHash())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -8322,6 +8412,10 @@ public final class QueryOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + HASH_FIELD_NUMBER;
       hash = (53 * hash) + getHash().hashCode();
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8461,6 +8555,12 @@ public final class QueryOuterClass {
         super.clear();
         hash_ = "";
 
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
         return this;
       }
 
@@ -8488,6 +8588,11 @@ public final class QueryOuterClass {
       public ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest buildPartial() {
         ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest result = new ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest(this);
         result.hash_ = hash_;
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -8539,6 +8644,9 @@ public final class QueryOuterClass {
         if (!other.getHash().isEmpty()) {
           hash_ = other.hash_;
           onChanged();
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -8664,6 +8772,161 @@ public final class QueryOuterClass {
         onChanged();
         return this;
       }
+
+      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return paginationBuilder_ != null || pagination_ != null;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       * @return The pagination.
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder setPagination(
+          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+          onChanged();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (pagination_ != null) {
+            pagination_ =
+              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
+          } else {
+            pagination_ = value;
+          }
+          onChanged();
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public Builder clearPagination() {
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+          onChanged();
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
+        
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -8764,6 +9027,33 @@ public final class QueryOuterClass {
      */
     ethermint.evm.v1.Evm.LogOrBuilder getLogsOrBuilder(
         int index);
+
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return The pagination.
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponse getPagination();
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     */
+    cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder();
   }
   /**
    * <pre>
@@ -8823,6 +9113,19 @@ public final class QueryOuterClass {
               }
               logs_.add(
                   input.readMessage(ethermint.evm.v1.Evm.Log.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              cosmos.base.query.v1beta1.Pagination.PageResponse.Builder subBuilder = null;
+              if (pagination_ != null) {
+                subBuilder = pagination_.toBuilder();
+              }
+              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(pagination_);
+                pagination_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -8920,6 +9223,44 @@ public final class QueryOuterClass {
       return logs_.get(index);
     }
 
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
+      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
+     */
+    @java.lang.Override
+    public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
+      return getPagination();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -8937,6 +9278,9 @@ public final class QueryOuterClass {
       for (int i = 0; i < logs_.size(); i++) {
         output.writeMessage(1, logs_.get(i));
       }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -8949,6 +9293,10 @@ public final class QueryOuterClass {
       for (int i = 0; i < logs_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, logs_.get(i));
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8967,6 +9315,11 @@ public final class QueryOuterClass {
 
       if (!getLogsList()
           .equals(other.getLogsList())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -8981,6 +9334,10 @@ public final class QueryOuterClass {
       if (getLogsCount() > 0) {
         hash = (37 * hash) + LOGS_FIELD_NUMBER;
         hash = (53 * hash) + getLogsList().hashCode();
+      }
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -9126,6 +9483,12 @@ public final class QueryOuterClass {
         } else {
           logsBuilder_.clear();
         }
+        if (paginationBuilder_ == null) {
+          pagination_ = null;
+        } else {
+          pagination_ = null;
+          paginationBuilder_ = null;
+        }
         return this;
       }
 
@@ -9161,6 +9524,11 @@ public final class QueryOuterClass {
           result.logs_ = logs_;
         } else {
           result.logs_ = logsBuilder_.build();
+        }
+        if (paginationBuilder_ == null) {
+          result.pagination_ = pagination_;
+        } else {
+          result.pagination_ = paginationBuilder_.build();
         }
         onBuilt();
         return result;
@@ -9235,6 +9603,9 @@ public final class QueryOuterClass {
               logsBuilder_.addAllMessages(other.logs_);
             }
           }
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -9577,1902 +9948,6 @@ public final class QueryOuterClass {
         }
         return logsBuilder_;
       }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryTxLogsResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTxLogsResponse)
-    private static final ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse();
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryTxLogsResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryTxLogsResponse>() {
-      @java.lang.Override
-      public QueryTxLogsResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryTxLogsResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryTxLogsResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryTxLogsResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryBlockLogsRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryBlockLogsRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * hash is the block hash to query the logs for.
-     * </pre>
-     *
-     * <code>string hash = 1;</code>
-     * @return The hash.
-     */
-    java.lang.String getHash();
-    /**
-     * <pre>
-     * hash is the block hash to query the logs for.
-     * </pre>
-     *
-     * <code>string hash = 1;</code>
-     * @return The bytes for hash.
-     */
-    com.google.protobuf.ByteString
-        getHashBytes();
-
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-     * @return Whether the pagination field is set.
-     */
-    boolean hasPagination();
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-     * @return The pagination.
-     */
-    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-     */
-    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
-  }
-  /**
-   * <pre>
-   * QueryBlockLogsRequest is the request type for the Query/BlockLogs RPC method.
-   * </pre>
-   *
-   * Protobuf type {@code ethermint.evm.v1.QueryBlockLogsRequest}
-   */
-  public static final class QueryBlockLogsRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryBlockLogsRequest)
-      QueryBlockLogsRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryBlockLogsRequest.newBuilder() to construct.
-    private QueryBlockLogsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryBlockLogsRequest() {
-      hash_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryBlockLogsRequest();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueryBlockLogsRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              hash_ = s;
-              break;
-            }
-            case 18: {
-              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
-              if (pagination_ != null) {
-                subBuilder = pagination_.toBuilder();
-              }
-              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(pagination_);
-                pagination_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest.class, ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest.Builder.class);
-    }
-
-    public static final int HASH_FIELD_NUMBER = 1;
-    private volatile java.lang.Object hash_;
-    /**
-     * <pre>
-     * hash is the block hash to query the logs for.
-     * </pre>
-     *
-     * <code>string hash = 1;</code>
-     * @return The hash.
-     */
-    @java.lang.Override
-    public java.lang.String getHash() {
-      java.lang.Object ref = hash_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        hash_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * hash is the block hash to query the logs for.
-     * </pre>
-     *
-     * <code>string hash = 1;</code>
-     * @return The bytes for hash.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getHashBytes() {
-      java.lang.Object ref = hash_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        hash_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PAGINATION_FIELD_NUMBER = 2;
-    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-     * @return Whether the pagination field is set.
-     */
-    @java.lang.Override
-    public boolean hasPagination() {
-      return pagination_ != null;
-    }
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-     * @return The pagination.
-     */
-    @java.lang.Override
-    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
-      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
-    }
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-     */
-    @java.lang.Override
-    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
-      return getPagination();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getHashBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, hash_);
-      }
-      if (pagination_ != null) {
-        output.writeMessage(2, getPagination());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getHashBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, hash_);
-      }
-      if (pagination_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getPagination());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest)) {
-        return super.equals(obj);
-      }
-      ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest other = (ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest) obj;
-
-      if (!getHash()
-          .equals(other.getHash())) return false;
-      if (hasPagination() != other.hasPagination()) return false;
-      if (hasPagination()) {
-        if (!getPagination()
-            .equals(other.getPagination())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + HASH_FIELD_NUMBER;
-      hash = (53 * hash) + getHash().hashCode();
-      if (hasPagination()) {
-        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
-        hash = (53 * hash) + getPagination().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryBlockLogsRequest is the request type for the Query/BlockLogs RPC method.
-     * </pre>
-     *
-     * Protobuf type {@code ethermint.evm.v1.QueryBlockLogsRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryBlockLogsRequest)
-        ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest.class, ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest.Builder.class);
-      }
-
-      // Construct using ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        hash_ = "";
-
-        if (paginationBuilder_ == null) {
-          pagination_ = null;
-        } else {
-          pagination_ = null;
-          paginationBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest getDefaultInstanceForType() {
-        return ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest build() {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest buildPartial() {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest result = new ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest(this);
-        result.hash_ = hash_;
-        if (paginationBuilder_ == null) {
-          result.pagination_ = pagination_;
-        } else {
-          result.pagination_ = paginationBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest) {
-          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest other) {
-        if (other == ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest.getDefaultInstance()) return this;
-        if (!other.getHash().isEmpty()) {
-          hash_ = other.hash_;
-          onChanged();
-        }
-        if (other.hasPagination()) {
-          mergePagination(other.getPagination());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object hash_ = "";
-      /**
-       * <pre>
-       * hash is the block hash to query the logs for.
-       * </pre>
-       *
-       * <code>string hash = 1;</code>
-       * @return The hash.
-       */
-      public java.lang.String getHash() {
-        java.lang.Object ref = hash_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          hash_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * hash is the block hash to query the logs for.
-       * </pre>
-       *
-       * <code>string hash = 1;</code>
-       * @return The bytes for hash.
-       */
-      public com.google.protobuf.ByteString
-          getHashBytes() {
-        java.lang.Object ref = hash_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          hash_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * hash is the block hash to query the logs for.
-       * </pre>
-       *
-       * <code>string hash = 1;</code>
-       * @param value The hash to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHash(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        hash_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * hash is the block hash to query the logs for.
-       * </pre>
-       *
-       * <code>string hash = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHash() {
-        
-        hash_ = getDefaultInstance().getHash();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * hash is the block hash to query the logs for.
-       * </pre>
-       *
-       * <code>string hash = 1;</code>
-       * @param value The bytes for hash to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHashBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        hash_ = value;
-        onChanged();
-        return this;
-      }
-
-      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-       * @return Whether the pagination field is set.
-       */
-      public boolean hasPagination() {
-        return paginationBuilder_ != null || pagination_ != null;
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-       * @return The pagination.
-       */
-      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
-        if (paginationBuilder_ == null) {
-          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
-        } else {
-          return paginationBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-       */
-      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
-        if (paginationBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          pagination_ = value;
-          onChanged();
-        } else {
-          paginationBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-       */
-      public Builder setPagination(
-          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
-        if (paginationBuilder_ == null) {
-          pagination_ = builderForValue.build();
-          onChanged();
-        } else {
-          paginationBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-       */
-      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
-        if (paginationBuilder_ == null) {
-          if (pagination_ != null) {
-            pagination_ =
-              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
-          } else {
-            pagination_ = value;
-          }
-          onChanged();
-        } else {
-          paginationBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-       */
-      public Builder clearPagination() {
-        if (paginationBuilder_ == null) {
-          pagination_ = null;
-          onChanged();
-        } else {
-          pagination_ = null;
-          paginationBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-       */
-      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
-        
-        onChanged();
-        return getPaginationFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-       */
-      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
-        if (paginationBuilder_ != null) {
-          return paginationBuilder_.getMessageOrBuilder();
-        } else {
-          return pagination_ == null ?
-              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
-        }
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
-          getPaginationFieldBuilder() {
-        if (paginationBuilder_ == null) {
-          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
-                  getPagination(),
-                  getParentForChildren(),
-                  isClean());
-          pagination_ = null;
-        }
-        return paginationBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryBlockLogsRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBlockLogsRequest)
-    private static final ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest();
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryBlockLogsRequest>
-        PARSER = new com.google.protobuf.AbstractParser<QueryBlockLogsRequest>() {
-      @java.lang.Override
-      public QueryBlockLogsRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryBlockLogsRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryBlockLogsRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryBlockLogsRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryBlockLogsResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryBlockLogsResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    java.util.List<ethermint.evm.v1.Evm.TransactionLogs> 
-        getTxLogsList();
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    ethermint.evm.v1.Evm.TransactionLogs getTxLogs(int index);
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    int getTxLogsCount();
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    java.util.List<? extends ethermint.evm.v1.Evm.TransactionLogsOrBuilder> 
-        getTxLogsOrBuilderList();
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    ethermint.evm.v1.Evm.TransactionLogsOrBuilder getTxLogsOrBuilder(
-        int index);
-
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     * @return Whether the pagination field is set.
-     */
-    boolean hasPagination();
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     * @return The pagination.
-     */
-    cosmos.base.query.v1beta1.Pagination.PageResponse getPagination();
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     */
-    cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder();
-  }
-  /**
-   * <pre>
-   * QueryTxLogs is the response type for the Query/BlockLogs RPC method.
-   * </pre>
-   *
-   * Protobuf type {@code ethermint.evm.v1.QueryBlockLogsResponse}
-   */
-  public static final class QueryBlockLogsResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryBlockLogsResponse)
-      QueryBlockLogsResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryBlockLogsResponse.newBuilder() to construct.
-    private QueryBlockLogsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryBlockLogsResponse() {
-      txLogs_ = java.util.Collections.emptyList();
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryBlockLogsResponse();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueryBlockLogsResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                txLogs_ = new java.util.ArrayList<ethermint.evm.v1.Evm.TransactionLogs>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              txLogs_.add(
-                  input.readMessage(ethermint.evm.v1.Evm.TransactionLogs.parser(), extensionRegistry));
-              break;
-            }
-            case 18: {
-              cosmos.base.query.v1beta1.Pagination.PageResponse.Builder subBuilder = null;
-              if (pagination_ != null) {
-                subBuilder = pagination_.toBuilder();
-              }
-              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageResponse.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(pagination_);
-                pagination_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          txLogs_ = java.util.Collections.unmodifiableList(txLogs_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse.class, ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse.Builder.class);
-    }
-
-    public static final int TX_LOGS_FIELD_NUMBER = 1;
-    private java.util.List<ethermint.evm.v1.Evm.TransactionLogs> txLogs_;
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    @java.lang.Override
-    public java.util.List<ethermint.evm.v1.Evm.TransactionLogs> getTxLogsList() {
-      return txLogs_;
-    }
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    @java.lang.Override
-    public java.util.List<? extends ethermint.evm.v1.Evm.TransactionLogsOrBuilder> 
-        getTxLogsOrBuilderList() {
-      return txLogs_;
-    }
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    @java.lang.Override
-    public int getTxLogsCount() {
-      return txLogs_.size();
-    }
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    @java.lang.Override
-    public ethermint.evm.v1.Evm.TransactionLogs getTxLogs(int index) {
-      return txLogs_.get(index);
-    }
-    /**
-     * <pre>
-     * logs represents the ethereum logs generated at the given block hash.
-     * </pre>
-     *
-     * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    @java.lang.Override
-    public ethermint.evm.v1.Evm.TransactionLogsOrBuilder getTxLogsOrBuilder(
-        int index) {
-      return txLogs_.get(index);
-    }
-
-    public static final int PAGINATION_FIELD_NUMBER = 2;
-    private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     * @return Whether the pagination field is set.
-     */
-    @java.lang.Override
-    public boolean hasPagination() {
-      return pagination_ != null;
-    }
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     * @return The pagination.
-     */
-    @java.lang.Override
-    public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
-      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
-    }
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     */
-    @java.lang.Override
-    public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
-      return getPagination();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      for (int i = 0; i < txLogs_.size(); i++) {
-        output.writeMessage(1, txLogs_.get(i));
-      }
-      if (pagination_ != null) {
-        output.writeMessage(2, getPagination());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < txLogs_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, txLogs_.get(i));
-      }
-      if (pagination_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getPagination());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse)) {
-        return super.equals(obj);
-      }
-      ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse other = (ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse) obj;
-
-      if (!getTxLogsList()
-          .equals(other.getTxLogsList())) return false;
-      if (hasPagination() != other.hasPagination()) return false;
-      if (hasPagination()) {
-        if (!getPagination()
-            .equals(other.getPagination())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (getTxLogsCount() > 0) {
-        hash = (37 * hash) + TX_LOGS_FIELD_NUMBER;
-        hash = (53 * hash) + getTxLogsList().hashCode();
-      }
-      if (hasPagination()) {
-        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
-        hash = (53 * hash) + getPagination().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryTxLogs is the response type for the Query/BlockLogs RPC method.
-     * </pre>
-     *
-     * Protobuf type {@code ethermint.evm.v1.QueryBlockLogsResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryBlockLogsResponse)
-        ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse.class, ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse.Builder.class);
-      }
-
-      // Construct using ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getTxLogsFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (txLogsBuilder_ == null) {
-          txLogs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          txLogsBuilder_.clear();
-        }
-        if (paginationBuilder_ == null) {
-          pagination_ = null;
-        } else {
-          pagination_ = null;
-          paginationBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockLogsResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse getDefaultInstanceForType() {
-        return ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse build() {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse buildPartial() {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse result = new ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse(this);
-        int from_bitField0_ = bitField0_;
-        if (txLogsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            txLogs_ = java.util.Collections.unmodifiableList(txLogs_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.txLogs_ = txLogs_;
-        } else {
-          result.txLogs_ = txLogsBuilder_.build();
-        }
-        if (paginationBuilder_ == null) {
-          result.pagination_ = pagination_;
-        } else {
-          result.pagination_ = paginationBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse) {
-          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse other) {
-        if (other == ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse.getDefaultInstance()) return this;
-        if (txLogsBuilder_ == null) {
-          if (!other.txLogs_.isEmpty()) {
-            if (txLogs_.isEmpty()) {
-              txLogs_ = other.txLogs_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureTxLogsIsMutable();
-              txLogs_.addAll(other.txLogs_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.txLogs_.isEmpty()) {
-            if (txLogsBuilder_.isEmpty()) {
-              txLogsBuilder_.dispose();
-              txLogsBuilder_ = null;
-              txLogs_ = other.txLogs_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              txLogsBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getTxLogsFieldBuilder() : null;
-            } else {
-              txLogsBuilder_.addAllMessages(other.txLogs_);
-            }
-          }
-        }
-        if (other.hasPagination()) {
-          mergePagination(other.getPagination());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.util.List<ethermint.evm.v1.Evm.TransactionLogs> txLogs_ =
-        java.util.Collections.emptyList();
-      private void ensureTxLogsIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          txLogs_ = new java.util.ArrayList<ethermint.evm.v1.Evm.TransactionLogs>(txLogs_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          ethermint.evm.v1.Evm.TransactionLogs, ethermint.evm.v1.Evm.TransactionLogs.Builder, ethermint.evm.v1.Evm.TransactionLogsOrBuilder> txLogsBuilder_;
-
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public java.util.List<ethermint.evm.v1.Evm.TransactionLogs> getTxLogsList() {
-        if (txLogsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(txLogs_);
-        } else {
-          return txLogsBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public int getTxLogsCount() {
-        if (txLogsBuilder_ == null) {
-          return txLogs_.size();
-        } else {
-          return txLogsBuilder_.getCount();
-        }
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public ethermint.evm.v1.Evm.TransactionLogs getTxLogs(int index) {
-        if (txLogsBuilder_ == null) {
-          return txLogs_.get(index);
-        } else {
-          return txLogsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder setTxLogs(
-          int index, ethermint.evm.v1.Evm.TransactionLogs value) {
-        if (txLogsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureTxLogsIsMutable();
-          txLogs_.set(index, value);
-          onChanged();
-        } else {
-          txLogsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder setTxLogs(
-          int index, ethermint.evm.v1.Evm.TransactionLogs.Builder builderForValue) {
-        if (txLogsBuilder_ == null) {
-          ensureTxLogsIsMutable();
-          txLogs_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          txLogsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder addTxLogs(ethermint.evm.v1.Evm.TransactionLogs value) {
-        if (txLogsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureTxLogsIsMutable();
-          txLogs_.add(value);
-          onChanged();
-        } else {
-          txLogsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder addTxLogs(
-          int index, ethermint.evm.v1.Evm.TransactionLogs value) {
-        if (txLogsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureTxLogsIsMutable();
-          txLogs_.add(index, value);
-          onChanged();
-        } else {
-          txLogsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder addTxLogs(
-          ethermint.evm.v1.Evm.TransactionLogs.Builder builderForValue) {
-        if (txLogsBuilder_ == null) {
-          ensureTxLogsIsMutable();
-          txLogs_.add(builderForValue.build());
-          onChanged();
-        } else {
-          txLogsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder addTxLogs(
-          int index, ethermint.evm.v1.Evm.TransactionLogs.Builder builderForValue) {
-        if (txLogsBuilder_ == null) {
-          ensureTxLogsIsMutable();
-          txLogs_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          txLogsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder addAllTxLogs(
-          java.lang.Iterable<? extends ethermint.evm.v1.Evm.TransactionLogs> values) {
-        if (txLogsBuilder_ == null) {
-          ensureTxLogsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, txLogs_);
-          onChanged();
-        } else {
-          txLogsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder clearTxLogs() {
-        if (txLogsBuilder_ == null) {
-          txLogs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          txLogsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder removeTxLogs(int index) {
-        if (txLogsBuilder_ == null) {
-          ensureTxLogsIsMutable();
-          txLogs_.remove(index);
-          onChanged();
-        } else {
-          txLogsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public ethermint.evm.v1.Evm.TransactionLogs.Builder getTxLogsBuilder(
-          int index) {
-        return getTxLogsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public ethermint.evm.v1.Evm.TransactionLogsOrBuilder getTxLogsOrBuilder(
-          int index) {
-        if (txLogsBuilder_ == null) {
-          return txLogs_.get(index);  } else {
-          return txLogsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public java.util.List<? extends ethermint.evm.v1.Evm.TransactionLogsOrBuilder> 
-           getTxLogsOrBuilderList() {
-        if (txLogsBuilder_ != null) {
-          return txLogsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(txLogs_);
-        }
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public ethermint.evm.v1.Evm.TransactionLogs.Builder addTxLogsBuilder() {
-        return getTxLogsFieldBuilder().addBuilder(
-            ethermint.evm.v1.Evm.TransactionLogs.getDefaultInstance());
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public ethermint.evm.v1.Evm.TransactionLogs.Builder addTxLogsBuilder(
-          int index) {
-        return getTxLogsFieldBuilder().addBuilder(
-            index, ethermint.evm.v1.Evm.TransactionLogs.getDefaultInstance());
-      }
-      /**
-       * <pre>
-       * logs represents the ethereum logs generated at the given block hash.
-       * </pre>
-       *
-       * <code>repeated .ethermint.evm.v1.TransactionLogs tx_logs = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public java.util.List<ethermint.evm.v1.Evm.TransactionLogs.Builder> 
-           getTxLogsBuilderList() {
-        return getTxLogsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          ethermint.evm.v1.Evm.TransactionLogs, ethermint.evm.v1.Evm.TransactionLogs.Builder, ethermint.evm.v1.Evm.TransactionLogsOrBuilder> 
-          getTxLogsFieldBuilder() {
-        if (txLogsBuilder_ == null) {
-          txLogsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              ethermint.evm.v1.Evm.TransactionLogs, ethermint.evm.v1.Evm.TransactionLogs.Builder, ethermint.evm.v1.Evm.TransactionLogsOrBuilder>(
-                  txLogs_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          txLogs_ = null;
-        }
-        return txLogsBuilder_;
-      }
 
       private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -11641,1097 +10116,41 @@ public final class QueryOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryBlockLogsResponse)
+      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryTxLogsResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBlockLogsResponse)
-    private static final ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTxLogsResponse)
+    private static final ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse();
+      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse();
     }
 
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse getDefaultInstance() {
+    public static ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<QueryBlockLogsResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryBlockLogsResponse>() {
+    private static final com.google.protobuf.Parser<QueryTxLogsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryTxLogsResponse>() {
       @java.lang.Override
-      public QueryBlockLogsResponse parsePartialFrom(
+      public QueryTxLogsResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryBlockLogsResponse(input, extensionRegistry);
+        return new QueryTxLogsResponse(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<QueryBlockLogsResponse> parser() {
+    public static com.google.protobuf.Parser<QueryTxLogsResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<QueryBlockLogsResponse> getParserForType() {
+    public com.google.protobuf.Parser<QueryTxLogsResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryBlockBloomRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryBlockBloomRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * height of the block which we want to query the bloom filter.
-     * Tendermint always replace the query request header by the current context
-     * header, height cannot be extracted from there, so we need to explicitly
-     * pass it in parameter.
-     * </pre>
-     *
-     * <code>int64 height = 1;</code>
-     * @return The height.
-     */
-    long getHeight();
-  }
-  /**
-   * <pre>
-   * QueryBlockBloomRequest is the request type for the Query/BlockBloom RPC
-   * method.
-   * </pre>
-   *
-   * Protobuf type {@code ethermint.evm.v1.QueryBlockBloomRequest}
-   */
-  public static final class QueryBlockBloomRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryBlockBloomRequest)
-      QueryBlockBloomRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryBlockBloomRequest.newBuilder() to construct.
-    private QueryBlockBloomRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryBlockBloomRequest() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryBlockBloomRequest();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueryBlockBloomRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 8: {
-
-              height_ = input.readInt64();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest.class, ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest.Builder.class);
-    }
-
-    public static final int HEIGHT_FIELD_NUMBER = 1;
-    private long height_;
-    /**
-     * <pre>
-     * height of the block which we want to query the bloom filter.
-     * Tendermint always replace the query request header by the current context
-     * header, height cannot be extracted from there, so we need to explicitly
-     * pass it in parameter.
-     * </pre>
-     *
-     * <code>int64 height = 1;</code>
-     * @return The height.
-     */
-    @java.lang.Override
-    public long getHeight() {
-      return height_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (height_ != 0L) {
-        output.writeInt64(1, height_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (height_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, height_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest)) {
-        return super.equals(obj);
-      }
-      ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest other = (ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest) obj;
-
-      if (getHeight()
-          != other.getHeight()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getHeight());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryBlockBloomRequest is the request type for the Query/BlockBloom RPC
-     * method.
-     * </pre>
-     *
-     * Protobuf type {@code ethermint.evm.v1.QueryBlockBloomRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryBlockBloomRequest)
-        ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest.class, ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest.Builder.class);
-      }
-
-      // Construct using ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        height_ = 0L;
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest getDefaultInstanceForType() {
-        return ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest build() {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest buildPartial() {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest result = new ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest(this);
-        result.height_ = height_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest) {
-          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest other) {
-        if (other == ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest.getDefaultInstance()) return this;
-        if (other.getHeight() != 0L) {
-          setHeight(other.getHeight());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private long height_ ;
-      /**
-       * <pre>
-       * height of the block which we want to query the bloom filter.
-       * Tendermint always replace the query request header by the current context
-       * header, height cannot be extracted from there, so we need to explicitly
-       * pass it in parameter.
-       * </pre>
-       *
-       * <code>int64 height = 1;</code>
-       * @return The height.
-       */
-      @java.lang.Override
-      public long getHeight() {
-        return height_;
-      }
-      /**
-       * <pre>
-       * height of the block which we want to query the bloom filter.
-       * Tendermint always replace the query request header by the current context
-       * header, height cannot be extracted from there, so we need to explicitly
-       * pass it in parameter.
-       * </pre>
-       *
-       * <code>int64 height = 1;</code>
-       * @param value The height to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHeight(long value) {
-        
-        height_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * height of the block which we want to query the bloom filter.
-       * Tendermint always replace the query request header by the current context
-       * header, height cannot be extracted from there, so we need to explicitly
-       * pass it in parameter.
-       * </pre>
-       *
-       * <code>int64 height = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHeight() {
-        
-        height_ = 0L;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryBlockBloomRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBlockBloomRequest)
-    private static final ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest();
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryBlockBloomRequest>
-        PARSER = new com.google.protobuf.AbstractParser<QueryBlockBloomRequest>() {
-      @java.lang.Override
-      public QueryBlockBloomRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryBlockBloomRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryBlockBloomRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryBlockBloomRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryBlockBloomResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryBlockBloomResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * bloom represents bloom filter for the given block hash.
-     * </pre>
-     *
-     * <code>bytes bloom = 1;</code>
-     * @return The bloom.
-     */
-    com.google.protobuf.ByteString getBloom();
-  }
-  /**
-   * <pre>
-   * QueryBlockBloomResponse is the response type for the Query/BlockBloom RPC
-   * method.
-   * </pre>
-   *
-   * Protobuf type {@code ethermint.evm.v1.QueryBlockBloomResponse}
-   */
-  public static final class QueryBlockBloomResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryBlockBloomResponse)
-      QueryBlockBloomResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryBlockBloomResponse.newBuilder() to construct.
-    private QueryBlockBloomResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryBlockBloomResponse() {
-      bloom_ = com.google.protobuf.ByteString.EMPTY;
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryBlockBloomResponse();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueryBlockBloomResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-
-              bloom_ = input.readBytes();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse.class, ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse.Builder.class);
-    }
-
-    public static final int BLOOM_FIELD_NUMBER = 1;
-    private com.google.protobuf.ByteString bloom_;
-    /**
-     * <pre>
-     * bloom represents bloom filter for the given block hash.
-     * </pre>
-     *
-     * <code>bytes bloom = 1;</code>
-     * @return The bloom.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString getBloom() {
-      return bloom_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!bloom_.isEmpty()) {
-        output.writeBytes(1, bloom_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!bloom_.isEmpty()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, bloom_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse)) {
-        return super.equals(obj);
-      }
-      ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse other = (ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse) obj;
-
-      if (!getBloom()
-          .equals(other.getBloom())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + BLOOM_FIELD_NUMBER;
-      hash = (53 * hash) + getBloom().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryBlockBloomResponse is the response type for the Query/BlockBloom RPC
-     * method.
-     * </pre>
-     *
-     * Protobuf type {@code ethermint.evm.v1.QueryBlockBloomResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryBlockBloomResponse)
-        ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse.class, ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse.Builder.class);
-      }
-
-      // Construct using ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bloom_ = com.google.protobuf.ByteString.EMPTY;
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBlockBloomResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse getDefaultInstanceForType() {
-        return ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse build() {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse buildPartial() {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse result = new ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse(this);
-        result.bloom_ = bloom_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse) {
-          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse other) {
-        if (other == ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse.getDefaultInstance()) return this;
-        if (other.getBloom() != com.google.protobuf.ByteString.EMPTY) {
-          setBloom(other.getBloom());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private com.google.protobuf.ByteString bloom_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <pre>
-       * bloom represents bloom filter for the given block hash.
-       * </pre>
-       *
-       * <code>bytes bloom = 1;</code>
-       * @return The bloom.
-       */
-      @java.lang.Override
-      public com.google.protobuf.ByteString getBloom() {
-        return bloom_;
-      }
-      /**
-       * <pre>
-       * bloom represents bloom filter for the given block hash.
-       * </pre>
-       *
-       * <code>bytes bloom = 1;</code>
-       * @param value The bloom to set.
-       * @return This builder for chaining.
-       */
-      public Builder setBloom(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        bloom_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * bloom represents bloom filter for the given block hash.
-       * </pre>
-       *
-       * <code>bytes bloom = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearBloom() {
-        
-        bloom_ = getDefaultInstance().getBloom();
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryBlockBloomResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBlockBloomResponse)
-    private static final ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse();
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryBlockBloomResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryBlockBloomResponse>() {
-      @java.lang.Override
-      public QueryBlockBloomResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryBlockBloomResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryBlockBloomResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryBlockBloomResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse getDefaultInstanceForType() {
+    public ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -13852,1510 +11271,6 @@ public final class QueryOuterClass {
 
   }
 
-  public interface QueryBaseFeeRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryBaseFeeRequest)
-      com.google.protobuf.MessageOrBuilder {
-  }
-  /**
-   * <pre>
-   * QueryBaseFeeRequest defines the request type for querying the EIP1559 base
-   * fee.
-   * </pre>
-   *
-   * Protobuf type {@code ethermint.evm.v1.QueryBaseFeeRequest}
-   */
-  public static final class QueryBaseFeeRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryBaseFeeRequest)
-      QueryBaseFeeRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryBaseFeeRequest.newBuilder() to construct.
-    private QueryBaseFeeRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryBaseFeeRequest() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryBaseFeeRequest();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueryBaseFeeRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.class, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.Builder.class);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest)) {
-        return super.equals(obj);
-      }
-      ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest other = (ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest) obj;
-
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryBaseFeeRequest defines the request type for querying the EIP1559 base
-     * fee.
-     * </pre>
-     *
-     * Protobuf type {@code ethermint.evm.v1.QueryBaseFeeRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryBaseFeeRequest)
-        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.class, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.Builder.class);
-      }
-
-      // Construct using ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest getDefaultInstanceForType() {
-        return ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest build() {
-        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest buildPartial() {
-        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest result = new ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest(this);
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest) {
-          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest other) {
-        if (other == ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryBaseFeeRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBaseFeeRequest)
-    private static final ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest();
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryBaseFeeRequest>
-        PARSER = new com.google.protobuf.AbstractParser<QueryBaseFeeRequest>() {
-      @java.lang.Override
-      public QueryBaseFeeRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryBaseFeeRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryBaseFeeRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryBaseFeeRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryBaseFeeResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryBaseFeeResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
-     * @return The baseFee.
-     */
-    java.lang.String getBaseFee();
-    /**
-     * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
-     * @return The bytes for baseFee.
-     */
-    com.google.protobuf.ByteString
-        getBaseFeeBytes();
-  }
-  /**
-   * <pre>
-   * BaseFeeResponse returns the EIP1559 base fee.
-   * </pre>
-   *
-   * Protobuf type {@code ethermint.evm.v1.QueryBaseFeeResponse}
-   */
-  public static final class QueryBaseFeeResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryBaseFeeResponse)
-      QueryBaseFeeResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryBaseFeeResponse.newBuilder() to construct.
-    private QueryBaseFeeResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryBaseFeeResponse() {
-      baseFee_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryBaseFeeResponse();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueryBaseFeeResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              baseFee_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.class, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.Builder.class);
-    }
-
-    public static final int BASE_FEE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object baseFee_;
-    /**
-     * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
-     * @return The baseFee.
-     */
-    @java.lang.Override
-    public java.lang.String getBaseFee() {
-      java.lang.Object ref = baseFee_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        baseFee_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
-     * @return The bytes for baseFee.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getBaseFeeBytes() {
-      java.lang.Object ref = baseFee_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        baseFee_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getBaseFeeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, baseFee_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getBaseFeeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, baseFee_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse)) {
-        return super.equals(obj);
-      }
-      ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse other = (ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse) obj;
-
-      if (!getBaseFee()
-          .equals(other.getBaseFee())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + BASE_FEE_FIELD_NUMBER;
-      hash = (53 * hash) + getBaseFee().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * BaseFeeResponse returns the EIP1559 base fee.
-     * </pre>
-     *
-     * Protobuf type {@code ethermint.evm.v1.QueryBaseFeeResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryBaseFeeResponse)
-        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.class, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.Builder.class);
-      }
-
-      // Construct using ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        baseFee_ = "";
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse getDefaultInstanceForType() {
-        return ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse build() {
-        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse buildPartial() {
-        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse result = new ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse(this);
-        result.baseFee_ = baseFee_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse) {
-          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse other) {
-        if (other == ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.getDefaultInstance()) return this;
-        if (!other.getBaseFee().isEmpty()) {
-          baseFee_ = other.baseFee_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object baseFee_ = "";
-      /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
-       * @return The baseFee.
-       */
-      public java.lang.String getBaseFee() {
-        java.lang.Object ref = baseFee_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          baseFee_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
-       * @return The bytes for baseFee.
-       */
-      public com.google.protobuf.ByteString
-          getBaseFeeBytes() {
-        java.lang.Object ref = baseFee_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          baseFee_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
-       * @param value The baseFee to set.
-       * @return This builder for chaining.
-       */
-      public Builder setBaseFee(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        baseFee_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearBaseFee() {
-        
-        baseFee_ = getDefaultInstance().getBaseFee();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
-       * @param value The bytes for baseFee to set.
-       * @return This builder for chaining.
-       */
-      public Builder setBaseFeeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        baseFee_ = value;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryBaseFeeResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBaseFeeResponse)
-    private static final ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse();
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryBaseFeeResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryBaseFeeResponse>() {
-      @java.lang.Override
-      public QueryBaseFeeResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryBaseFeeResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryBaseFeeResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryBaseFeeResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryStaticCallResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryStaticCallResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>bytes data = 1;</code>
-     * @return The data.
-     */
-    com.google.protobuf.ByteString getData();
-  }
-  /**
-   * <pre>
-   * QueryStaticCallRequest defines static call response
-   * </pre>
-   *
-   * Protobuf type {@code ethermint.evm.v1.QueryStaticCallResponse}
-   */
-  public static final class QueryStaticCallResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryStaticCallResponse)
-      QueryStaticCallResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryStaticCallResponse.newBuilder() to construct.
-    private QueryStaticCallResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryStaticCallResponse() {
-      data_ = com.google.protobuf.ByteString.EMPTY;
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryStaticCallResponse();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueryStaticCallResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-
-              data_ = input.readBytes();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryStaticCallResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryStaticCallResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse.class, ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse.Builder.class);
-    }
-
-    public static final int DATA_FIELD_NUMBER = 1;
-    private com.google.protobuf.ByteString data_;
-    /**
-     * <code>bytes data = 1;</code>
-     * @return The data.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString getData() {
-      return data_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!data_.isEmpty()) {
-        output.writeBytes(1, data_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!data_.isEmpty()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, data_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse)) {
-        return super.equals(obj);
-      }
-      ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse other = (ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse) obj;
-
-      if (!getData()
-          .equals(other.getData())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + DATA_FIELD_NUMBER;
-      hash = (53 * hash) + getData().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryStaticCallRequest defines static call response
-     * </pre>
-     *
-     * Protobuf type {@code ethermint.evm.v1.QueryStaticCallResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryStaticCallResponse)
-        ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryStaticCallResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryStaticCallResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse.class, ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse.Builder.class);
-      }
-
-      // Construct using ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        data_ = com.google.protobuf.ByteString.EMPTY;
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryStaticCallResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse getDefaultInstanceForType() {
-        return ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse build() {
-        ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse buildPartial() {
-        ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse result = new ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse(this);
-        result.data_ = data_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse) {
-          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse other) {
-        if (other == ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse.getDefaultInstance()) return this;
-        if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
-          setData(other.getData());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>bytes data = 1;</code>
-       * @return The data.
-       */
-      @java.lang.Override
-      public com.google.protobuf.ByteString getData() {
-        return data_;
-      }
-      /**
-       * <code>bytes data = 1;</code>
-       * @param value The data to set.
-       * @return This builder for chaining.
-       */
-      public Builder setData(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        data_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bytes data = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearData() {
-        
-        data_ = getDefaultInstance().getData();
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryStaticCallResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryStaticCallResponse)
-    private static final ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse();
-    }
-
-    public static ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryStaticCallResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryStaticCallResponse>() {
-      @java.lang.Override
-      public QueryStaticCallResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryStaticCallResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryStaticCallResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryStaticCallResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public ethermint.evm.v1.QueryOuterClass.QueryStaticCallResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface EthCallRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.EthCallRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -15379,6 +11294,16 @@ public final class QueryOuterClass {
      * @return The gasCap.
      */
     long getGasCap();
+
+    /**
+     * <pre>
+     * the proposer of the requested block
+     * </pre>
+     *
+     * <code>bytes proposer_address = 3 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+     * @return The proposerAddress.
+     */
+    com.google.protobuf.ByteString getProposerAddress();
   }
   /**
    * <pre>
@@ -15398,6 +11323,7 @@ public final class QueryOuterClass {
     }
     private EthCallRequest() {
       args_ = com.google.protobuf.ByteString.EMPTY;
+      proposerAddress_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -15438,6 +11364,11 @@ public final class QueryOuterClass {
             case 16: {
 
               gasCap_ = input.readUInt64();
+              break;
+            }
+            case 26: {
+
+              proposerAddress_ = input.readBytes();
               break;
             }
             default: {
@@ -15502,6 +11433,21 @@ public final class QueryOuterClass {
       return gasCap_;
     }
 
+    public static final int PROPOSER_ADDRESS_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString proposerAddress_;
+    /**
+     * <pre>
+     * the proposer of the requested block
+     * </pre>
+     *
+     * <code>bytes proposer_address = 3 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+     * @return The proposerAddress.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getProposerAddress() {
+      return proposerAddress_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -15522,6 +11468,9 @@ public final class QueryOuterClass {
       if (gasCap_ != 0L) {
         output.writeUInt64(2, gasCap_);
       }
+      if (!proposerAddress_.isEmpty()) {
+        output.writeBytes(3, proposerAddress_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -15538,6 +11487,10 @@ public final class QueryOuterClass {
       if (gasCap_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, gasCap_);
+      }
+      if (!proposerAddress_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, proposerAddress_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -15558,6 +11511,8 @@ public final class QueryOuterClass {
           .equals(other.getArgs())) return false;
       if (getGasCap()
           != other.getGasCap()) return false;
+      if (!getProposerAddress()
+          .equals(other.getProposerAddress())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -15574,6 +11529,8 @@ public final class QueryOuterClass {
       hash = (37 * hash) + GAS_CAP_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getGasCap());
+      hash = (37 * hash) + PROPOSER_ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getProposerAddress().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -15715,6 +11672,8 @@ public final class QueryOuterClass {
 
         gasCap_ = 0L;
 
+        proposerAddress_ = com.google.protobuf.ByteString.EMPTY;
+
         return this;
       }
 
@@ -15743,6 +11702,7 @@ public final class QueryOuterClass {
         ethermint.evm.v1.QueryOuterClass.EthCallRequest result = new ethermint.evm.v1.QueryOuterClass.EthCallRequest(this);
         result.args_ = args_;
         result.gasCap_ = gasCap_;
+        result.proposerAddress_ = proposerAddress_;
         onBuilt();
         return result;
       }
@@ -15796,6 +11756,9 @@ public final class QueryOuterClass {
         }
         if (other.getGasCap() != 0L) {
           setGasCap(other.getGasCap());
+        }
+        if (other.getProposerAddress() != com.google.protobuf.ByteString.EMPTY) {
+          setProposerAddress(other.getProposerAddress());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -15911,6 +11874,52 @@ public final class QueryOuterClass {
       public Builder clearGasCap() {
         
         gasCap_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString proposerAddress_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * the proposer of the requested block
+       * </pre>
+       *
+       * <code>bytes proposer_address = 3 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+       * @return The proposerAddress.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getProposerAddress() {
+        return proposerAddress_;
+      }
+      /**
+       * <pre>
+       * the proposer of the requested block
+       * </pre>
+       *
+       * <code>bytes proposer_address = 3 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+       * @param value The proposerAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProposerAddress(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        proposerAddress_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the proposer of the requested block
+       * </pre>
+       *
+       * <code>bytes proposer_address = 3 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProposerAddress() {
+        
+        proposerAddress_ = getDefaultInstance().getProposerAddress();
         onChanged();
         return this;
       }
@@ -16484,6 +12493,5941 @@ public final class QueryOuterClass {
 
   }
 
+  public interface QueryTraceTxRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryTraceTxRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * msgEthereumTx for the requested transaction
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+     * @return Whether the msg field is set.
+     */
+    boolean hasMsg();
+    /**
+     * <pre>
+     * msgEthereumTx for the requested transaction
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+     * @return The msg.
+     */
+    ethermint.evm.v1.Tx.MsgEthereumTx getMsg();
+    /**
+     * <pre>
+     * msgEthereumTx for the requested transaction
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+     */
+    ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder getMsgOrBuilder();
+
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     * @return Whether the traceConfig field is set.
+     */
+    boolean hasTraceConfig();
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     * @return The traceConfig.
+     */
+    ethermint.evm.v1.Evm.TraceConfig getTraceConfig();
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     */
+    ethermint.evm.v1.Evm.TraceConfigOrBuilder getTraceConfigOrBuilder();
+
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> 
+        getPredecessorsList();
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    ethermint.evm.v1.Tx.MsgEthereumTx getPredecessors(int index);
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    int getPredecessorsCount();
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    java.util.List<? extends ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> 
+        getPredecessorsOrBuilderList();
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder getPredecessorsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * block number of requested transaction
+     * </pre>
+     *
+     * <code>int64 block_number = 5;</code>
+     * @return The blockNumber.
+     */
+    long getBlockNumber();
+
+    /**
+     * <pre>
+     * block hex hash of requested transaction
+     * </pre>
+     *
+     * <code>string block_hash = 6;</code>
+     * @return The blockHash.
+     */
+    java.lang.String getBlockHash();
+    /**
+     * <pre>
+     * block hex hash of requested transaction
+     * </pre>
+     *
+     * <code>string block_hash = 6;</code>
+     * @return The bytes for blockHash.
+     */
+    com.google.protobuf.ByteString
+        getBlockHashBytes();
+
+    /**
+     * <pre>
+     * block time of requested transaction
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     * @return Whether the blockTime field is set.
+     */
+    boolean hasBlockTime();
+    /**
+     * <pre>
+     * block time of requested transaction
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     * @return The blockTime.
+     */
+    com.google.protobuf.Timestamp getBlockTime();
+    /**
+     * <pre>
+     * block time of requested transaction
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getBlockTimeOrBuilder();
+
+    /**
+     * <pre>
+     * the proposer of the requested block
+     * </pre>
+     *
+     * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+     * @return The proposerAddress.
+     */
+    com.google.protobuf.ByteString getProposerAddress();
+  }
+  /**
+   * <pre>
+   * QueryTraceTxRequest defines TraceTx request
+   * </pre>
+   *
+   * Protobuf type {@code ethermint.evm.v1.QueryTraceTxRequest}
+   */
+  public static final class QueryTraceTxRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryTraceTxRequest)
+      QueryTraceTxRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryTraceTxRequest.newBuilder() to construct.
+    private QueryTraceTxRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryTraceTxRequest() {
+      predecessors_ = java.util.Collections.emptyList();
+      blockHash_ = "";
+      proposerAddress_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryTraceTxRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryTraceTxRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              ethermint.evm.v1.Tx.MsgEthereumTx.Builder subBuilder = null;
+              if (msg_ != null) {
+                subBuilder = msg_.toBuilder();
+              }
+              msg_ = input.readMessage(ethermint.evm.v1.Tx.MsgEthereumTx.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(msg_);
+                msg_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              ethermint.evm.v1.Evm.TraceConfig.Builder subBuilder = null;
+              if (traceConfig_ != null) {
+                subBuilder = traceConfig_.toBuilder();
+              }
+              traceConfig_ = input.readMessage(ethermint.evm.v1.Evm.TraceConfig.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(traceConfig_);
+                traceConfig_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                predecessors_ = new java.util.ArrayList<ethermint.evm.v1.Tx.MsgEthereumTx>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              predecessors_.add(
+                  input.readMessage(ethermint.evm.v1.Tx.MsgEthereumTx.parser(), extensionRegistry));
+              break;
+            }
+            case 40: {
+
+              blockNumber_ = input.readInt64();
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              blockHash_ = s;
+              break;
+            }
+            case 58: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (blockTime_ != null) {
+                subBuilder = blockTime_.toBuilder();
+              }
+              blockTime_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(blockTime_);
+                blockTime_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 66: {
+
+              proposerAddress_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          predecessors_ = java.util.Collections.unmodifiableList(predecessors_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest.class, ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest.Builder.class);
+    }
+
+    public static final int MSG_FIELD_NUMBER = 1;
+    private ethermint.evm.v1.Tx.MsgEthereumTx msg_;
+    /**
+     * <pre>
+     * msgEthereumTx for the requested transaction
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+     * @return Whether the msg field is set.
+     */
+    @java.lang.Override
+    public boolean hasMsg() {
+      return msg_ != null;
+    }
+    /**
+     * <pre>
+     * msgEthereumTx for the requested transaction
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+     * @return The msg.
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Tx.MsgEthereumTx getMsg() {
+      return msg_ == null ? ethermint.evm.v1.Tx.MsgEthereumTx.getDefaultInstance() : msg_;
+    }
+    /**
+     * <pre>
+     * msgEthereumTx for the requested transaction
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder getMsgOrBuilder() {
+      return getMsg();
+    }
+
+    public static final int TRACE_CONFIG_FIELD_NUMBER = 3;
+    private ethermint.evm.v1.Evm.TraceConfig traceConfig_;
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     * @return Whether the traceConfig field is set.
+     */
+    @java.lang.Override
+    public boolean hasTraceConfig() {
+      return traceConfig_ != null;
+    }
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     * @return The traceConfig.
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Evm.TraceConfig getTraceConfig() {
+      return traceConfig_ == null ? ethermint.evm.v1.Evm.TraceConfig.getDefaultInstance() : traceConfig_;
+    }
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Evm.TraceConfigOrBuilder getTraceConfigOrBuilder() {
+      return getTraceConfig();
+    }
+
+    public static final int PREDECESSORS_FIELD_NUMBER = 4;
+    private java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> predecessors_;
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> getPredecessorsList() {
+      return predecessors_;
+    }
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> 
+        getPredecessorsOrBuilderList() {
+      return predecessors_;
+    }
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    @java.lang.Override
+    public int getPredecessorsCount() {
+      return predecessors_.size();
+    }
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Tx.MsgEthereumTx getPredecessors(int index) {
+      return predecessors_.get(index);
+    }
+    /**
+     * <pre>
+     * the predecessor transactions included in the same block
+     * need to be replayed first to get correct context for tracing.
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder getPredecessorsOrBuilder(
+        int index) {
+      return predecessors_.get(index);
+    }
+
+    public static final int BLOCK_NUMBER_FIELD_NUMBER = 5;
+    private long blockNumber_;
+    /**
+     * <pre>
+     * block number of requested transaction
+     * </pre>
+     *
+     * <code>int64 block_number = 5;</code>
+     * @return The blockNumber.
+     */
+    @java.lang.Override
+    public long getBlockNumber() {
+      return blockNumber_;
+    }
+
+    public static final int BLOCK_HASH_FIELD_NUMBER = 6;
+    private volatile java.lang.Object blockHash_;
+    /**
+     * <pre>
+     * block hex hash of requested transaction
+     * </pre>
+     *
+     * <code>string block_hash = 6;</code>
+     * @return The blockHash.
+     */
+    @java.lang.Override
+    public java.lang.String getBlockHash() {
+      java.lang.Object ref = blockHash_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        blockHash_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * block hex hash of requested transaction
+     * </pre>
+     *
+     * <code>string block_hash = 6;</code>
+     * @return The bytes for blockHash.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getBlockHashBytes() {
+      java.lang.Object ref = blockHash_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        blockHash_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int BLOCK_TIME_FIELD_NUMBER = 7;
+    private com.google.protobuf.Timestamp blockTime_;
+    /**
+     * <pre>
+     * block time of requested transaction
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     * @return Whether the blockTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasBlockTime() {
+      return blockTime_ != null;
+    }
+    /**
+     * <pre>
+     * block time of requested transaction
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     * @return The blockTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getBlockTime() {
+      return blockTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : blockTime_;
+    }
+    /**
+     * <pre>
+     * block time of requested transaction
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getBlockTimeOrBuilder() {
+      return getBlockTime();
+    }
+
+    public static final int PROPOSER_ADDRESS_FIELD_NUMBER = 8;
+    private com.google.protobuf.ByteString proposerAddress_;
+    /**
+     * <pre>
+     * the proposer of the requested block
+     * </pre>
+     *
+     * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+     * @return The proposerAddress.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getProposerAddress() {
+      return proposerAddress_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (msg_ != null) {
+        output.writeMessage(1, getMsg());
+      }
+      if (traceConfig_ != null) {
+        output.writeMessage(3, getTraceConfig());
+      }
+      for (int i = 0; i < predecessors_.size(); i++) {
+        output.writeMessage(4, predecessors_.get(i));
+      }
+      if (blockNumber_ != 0L) {
+        output.writeInt64(5, blockNumber_);
+      }
+      if (!getBlockHashBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, blockHash_);
+      }
+      if (blockTime_ != null) {
+        output.writeMessage(7, getBlockTime());
+      }
+      if (!proposerAddress_.isEmpty()) {
+        output.writeBytes(8, proposerAddress_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (msg_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getMsg());
+      }
+      if (traceConfig_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getTraceConfig());
+      }
+      for (int i = 0; i < predecessors_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, predecessors_.get(i));
+      }
+      if (blockNumber_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(5, blockNumber_);
+      }
+      if (!getBlockHashBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, blockHash_);
+      }
+      if (blockTime_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, getBlockTime());
+      }
+      if (!proposerAddress_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(8, proposerAddress_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest)) {
+        return super.equals(obj);
+      }
+      ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest other = (ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest) obj;
+
+      if (hasMsg() != other.hasMsg()) return false;
+      if (hasMsg()) {
+        if (!getMsg()
+            .equals(other.getMsg())) return false;
+      }
+      if (hasTraceConfig() != other.hasTraceConfig()) return false;
+      if (hasTraceConfig()) {
+        if (!getTraceConfig()
+            .equals(other.getTraceConfig())) return false;
+      }
+      if (!getPredecessorsList()
+          .equals(other.getPredecessorsList())) return false;
+      if (getBlockNumber()
+          != other.getBlockNumber()) return false;
+      if (!getBlockHash()
+          .equals(other.getBlockHash())) return false;
+      if (hasBlockTime() != other.hasBlockTime()) return false;
+      if (hasBlockTime()) {
+        if (!getBlockTime()
+            .equals(other.getBlockTime())) return false;
+      }
+      if (!getProposerAddress()
+          .equals(other.getProposerAddress())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasMsg()) {
+        hash = (37 * hash) + MSG_FIELD_NUMBER;
+        hash = (53 * hash) + getMsg().hashCode();
+      }
+      if (hasTraceConfig()) {
+        hash = (37 * hash) + TRACE_CONFIG_FIELD_NUMBER;
+        hash = (53 * hash) + getTraceConfig().hashCode();
+      }
+      if (getPredecessorsCount() > 0) {
+        hash = (37 * hash) + PREDECESSORS_FIELD_NUMBER;
+        hash = (53 * hash) + getPredecessorsList().hashCode();
+      }
+      hash = (37 * hash) + BLOCK_NUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getBlockNumber());
+      hash = (37 * hash) + BLOCK_HASH_FIELD_NUMBER;
+      hash = (53 * hash) + getBlockHash().hashCode();
+      if (hasBlockTime()) {
+        hash = (37 * hash) + BLOCK_TIME_FIELD_NUMBER;
+        hash = (53 * hash) + getBlockTime().hashCode();
+      }
+      hash = (37 * hash) + PROPOSER_ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getProposerAddress().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryTraceTxRequest defines TraceTx request
+     * </pre>
+     *
+     * Protobuf type {@code ethermint.evm.v1.QueryTraceTxRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryTraceTxRequest)
+        ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest.class, ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest.Builder.class);
+      }
+
+      // Construct using ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPredecessorsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (msgBuilder_ == null) {
+          msg_ = null;
+        } else {
+          msg_ = null;
+          msgBuilder_ = null;
+        }
+        if (traceConfigBuilder_ == null) {
+          traceConfig_ = null;
+        } else {
+          traceConfig_ = null;
+          traceConfigBuilder_ = null;
+        }
+        if (predecessorsBuilder_ == null) {
+          predecessors_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          predecessorsBuilder_.clear();
+        }
+        blockNumber_ = 0L;
+
+        blockHash_ = "";
+
+        if (blockTimeBuilder_ == null) {
+          blockTime_ = null;
+        } else {
+          blockTime_ = null;
+          blockTimeBuilder_ = null;
+        }
+        proposerAddress_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest getDefaultInstanceForType() {
+        return ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest build() {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest buildPartial() {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest result = new ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (msgBuilder_ == null) {
+          result.msg_ = msg_;
+        } else {
+          result.msg_ = msgBuilder_.build();
+        }
+        if (traceConfigBuilder_ == null) {
+          result.traceConfig_ = traceConfig_;
+        } else {
+          result.traceConfig_ = traceConfigBuilder_.build();
+        }
+        if (predecessorsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            predecessors_ = java.util.Collections.unmodifiableList(predecessors_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.predecessors_ = predecessors_;
+        } else {
+          result.predecessors_ = predecessorsBuilder_.build();
+        }
+        result.blockNumber_ = blockNumber_;
+        result.blockHash_ = blockHash_;
+        if (blockTimeBuilder_ == null) {
+          result.blockTime_ = blockTime_;
+        } else {
+          result.blockTime_ = blockTimeBuilder_.build();
+        }
+        result.proposerAddress_ = proposerAddress_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest) {
+          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest other) {
+        if (other == ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest.getDefaultInstance()) return this;
+        if (other.hasMsg()) {
+          mergeMsg(other.getMsg());
+        }
+        if (other.hasTraceConfig()) {
+          mergeTraceConfig(other.getTraceConfig());
+        }
+        if (predecessorsBuilder_ == null) {
+          if (!other.predecessors_.isEmpty()) {
+            if (predecessors_.isEmpty()) {
+              predecessors_ = other.predecessors_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePredecessorsIsMutable();
+              predecessors_.addAll(other.predecessors_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.predecessors_.isEmpty()) {
+            if (predecessorsBuilder_.isEmpty()) {
+              predecessorsBuilder_.dispose();
+              predecessorsBuilder_ = null;
+              predecessors_ = other.predecessors_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              predecessorsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPredecessorsFieldBuilder() : null;
+            } else {
+              predecessorsBuilder_.addAllMessages(other.predecessors_);
+            }
+          }
+        }
+        if (other.getBlockNumber() != 0L) {
+          setBlockNumber(other.getBlockNumber());
+        }
+        if (!other.getBlockHash().isEmpty()) {
+          blockHash_ = other.blockHash_;
+          onChanged();
+        }
+        if (other.hasBlockTime()) {
+          mergeBlockTime(other.getBlockTime());
+        }
+        if (other.getProposerAddress() != com.google.protobuf.ByteString.EMPTY) {
+          setProposerAddress(other.getProposerAddress());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private ethermint.evm.v1.Tx.MsgEthereumTx msg_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ethermint.evm.v1.Tx.MsgEthereumTx, ethermint.evm.v1.Tx.MsgEthereumTx.Builder, ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> msgBuilder_;
+      /**
+       * <pre>
+       * msgEthereumTx for the requested transaction
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+       * @return Whether the msg field is set.
+       */
+      public boolean hasMsg() {
+        return msgBuilder_ != null || msg_ != null;
+      }
+      /**
+       * <pre>
+       * msgEthereumTx for the requested transaction
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+       * @return The msg.
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx getMsg() {
+        if (msgBuilder_ == null) {
+          return msg_ == null ? ethermint.evm.v1.Tx.MsgEthereumTx.getDefaultInstance() : msg_;
+        } else {
+          return msgBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * msgEthereumTx for the requested transaction
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+       */
+      public Builder setMsg(ethermint.evm.v1.Tx.MsgEthereumTx value) {
+        if (msgBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          msg_ = value;
+          onChanged();
+        } else {
+          msgBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * msgEthereumTx for the requested transaction
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+       */
+      public Builder setMsg(
+          ethermint.evm.v1.Tx.MsgEthereumTx.Builder builderForValue) {
+        if (msgBuilder_ == null) {
+          msg_ = builderForValue.build();
+          onChanged();
+        } else {
+          msgBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * msgEthereumTx for the requested transaction
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+       */
+      public Builder mergeMsg(ethermint.evm.v1.Tx.MsgEthereumTx value) {
+        if (msgBuilder_ == null) {
+          if (msg_ != null) {
+            msg_ =
+              ethermint.evm.v1.Tx.MsgEthereumTx.newBuilder(msg_).mergeFrom(value).buildPartial();
+          } else {
+            msg_ = value;
+          }
+          onChanged();
+        } else {
+          msgBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * msgEthereumTx for the requested transaction
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+       */
+      public Builder clearMsg() {
+        if (msgBuilder_ == null) {
+          msg_ = null;
+          onChanged();
+        } else {
+          msg_ = null;
+          msgBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * msgEthereumTx for the requested transaction
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx.Builder getMsgBuilder() {
+        
+        onChanged();
+        return getMsgFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * msgEthereumTx for the requested transaction
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder getMsgOrBuilder() {
+        if (msgBuilder_ != null) {
+          return msgBuilder_.getMessageOrBuilder();
+        } else {
+          return msg_ == null ?
+              ethermint.evm.v1.Tx.MsgEthereumTx.getDefaultInstance() : msg_;
+        }
+      }
+      /**
+       * <pre>
+       * msgEthereumTx for the requested transaction
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.MsgEthereumTx msg = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ethermint.evm.v1.Tx.MsgEthereumTx, ethermint.evm.v1.Tx.MsgEthereumTx.Builder, ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> 
+          getMsgFieldBuilder() {
+        if (msgBuilder_ == null) {
+          msgBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              ethermint.evm.v1.Tx.MsgEthereumTx, ethermint.evm.v1.Tx.MsgEthereumTx.Builder, ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder>(
+                  getMsg(),
+                  getParentForChildren(),
+                  isClean());
+          msg_ = null;
+        }
+        return msgBuilder_;
+      }
+
+      private ethermint.evm.v1.Evm.TraceConfig traceConfig_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ethermint.evm.v1.Evm.TraceConfig, ethermint.evm.v1.Evm.TraceConfig.Builder, ethermint.evm.v1.Evm.TraceConfigOrBuilder> traceConfigBuilder_;
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       * @return Whether the traceConfig field is set.
+       */
+      public boolean hasTraceConfig() {
+        return traceConfigBuilder_ != null || traceConfig_ != null;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       * @return The traceConfig.
+       */
+      public ethermint.evm.v1.Evm.TraceConfig getTraceConfig() {
+        if (traceConfigBuilder_ == null) {
+          return traceConfig_ == null ? ethermint.evm.v1.Evm.TraceConfig.getDefaultInstance() : traceConfig_;
+        } else {
+          return traceConfigBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public Builder setTraceConfig(ethermint.evm.v1.Evm.TraceConfig value) {
+        if (traceConfigBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          traceConfig_ = value;
+          onChanged();
+        } else {
+          traceConfigBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public Builder setTraceConfig(
+          ethermint.evm.v1.Evm.TraceConfig.Builder builderForValue) {
+        if (traceConfigBuilder_ == null) {
+          traceConfig_ = builderForValue.build();
+          onChanged();
+        } else {
+          traceConfigBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public Builder mergeTraceConfig(ethermint.evm.v1.Evm.TraceConfig value) {
+        if (traceConfigBuilder_ == null) {
+          if (traceConfig_ != null) {
+            traceConfig_ =
+              ethermint.evm.v1.Evm.TraceConfig.newBuilder(traceConfig_).mergeFrom(value).buildPartial();
+          } else {
+            traceConfig_ = value;
+          }
+          onChanged();
+        } else {
+          traceConfigBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public Builder clearTraceConfig() {
+        if (traceConfigBuilder_ == null) {
+          traceConfig_ = null;
+          onChanged();
+        } else {
+          traceConfig_ = null;
+          traceConfigBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public ethermint.evm.v1.Evm.TraceConfig.Builder getTraceConfigBuilder() {
+        
+        onChanged();
+        return getTraceConfigFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public ethermint.evm.v1.Evm.TraceConfigOrBuilder getTraceConfigOrBuilder() {
+        if (traceConfigBuilder_ != null) {
+          return traceConfigBuilder_.getMessageOrBuilder();
+        } else {
+          return traceConfig_ == null ?
+              ethermint.evm.v1.Evm.TraceConfig.getDefaultInstance() : traceConfig_;
+        }
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ethermint.evm.v1.Evm.TraceConfig, ethermint.evm.v1.Evm.TraceConfig.Builder, ethermint.evm.v1.Evm.TraceConfigOrBuilder> 
+          getTraceConfigFieldBuilder() {
+        if (traceConfigBuilder_ == null) {
+          traceConfigBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              ethermint.evm.v1.Evm.TraceConfig, ethermint.evm.v1.Evm.TraceConfig.Builder, ethermint.evm.v1.Evm.TraceConfigOrBuilder>(
+                  getTraceConfig(),
+                  getParentForChildren(),
+                  isClean());
+          traceConfig_ = null;
+        }
+        return traceConfigBuilder_;
+      }
+
+      private java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> predecessors_ =
+        java.util.Collections.emptyList();
+      private void ensurePredecessorsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          predecessors_ = new java.util.ArrayList<ethermint.evm.v1.Tx.MsgEthereumTx>(predecessors_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          ethermint.evm.v1.Tx.MsgEthereumTx, ethermint.evm.v1.Tx.MsgEthereumTx.Builder, ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> predecessorsBuilder_;
+
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> getPredecessorsList() {
+        if (predecessorsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(predecessors_);
+        } else {
+          return predecessorsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public int getPredecessorsCount() {
+        if (predecessorsBuilder_ == null) {
+          return predecessors_.size();
+        } else {
+          return predecessorsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx getPredecessors(int index) {
+        if (predecessorsBuilder_ == null) {
+          return predecessors_.get(index);
+        } else {
+          return predecessorsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public Builder setPredecessors(
+          int index, ethermint.evm.v1.Tx.MsgEthereumTx value) {
+        if (predecessorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePredecessorsIsMutable();
+          predecessors_.set(index, value);
+          onChanged();
+        } else {
+          predecessorsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public Builder setPredecessors(
+          int index, ethermint.evm.v1.Tx.MsgEthereumTx.Builder builderForValue) {
+        if (predecessorsBuilder_ == null) {
+          ensurePredecessorsIsMutable();
+          predecessors_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          predecessorsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public Builder addPredecessors(ethermint.evm.v1.Tx.MsgEthereumTx value) {
+        if (predecessorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePredecessorsIsMutable();
+          predecessors_.add(value);
+          onChanged();
+        } else {
+          predecessorsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public Builder addPredecessors(
+          int index, ethermint.evm.v1.Tx.MsgEthereumTx value) {
+        if (predecessorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePredecessorsIsMutable();
+          predecessors_.add(index, value);
+          onChanged();
+        } else {
+          predecessorsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public Builder addPredecessors(
+          ethermint.evm.v1.Tx.MsgEthereumTx.Builder builderForValue) {
+        if (predecessorsBuilder_ == null) {
+          ensurePredecessorsIsMutable();
+          predecessors_.add(builderForValue.build());
+          onChanged();
+        } else {
+          predecessorsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public Builder addPredecessors(
+          int index, ethermint.evm.v1.Tx.MsgEthereumTx.Builder builderForValue) {
+        if (predecessorsBuilder_ == null) {
+          ensurePredecessorsIsMutable();
+          predecessors_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          predecessorsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public Builder addAllPredecessors(
+          java.lang.Iterable<? extends ethermint.evm.v1.Tx.MsgEthereumTx> values) {
+        if (predecessorsBuilder_ == null) {
+          ensurePredecessorsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, predecessors_);
+          onChanged();
+        } else {
+          predecessorsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public Builder clearPredecessors() {
+        if (predecessorsBuilder_ == null) {
+          predecessors_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          predecessorsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public Builder removePredecessors(int index) {
+        if (predecessorsBuilder_ == null) {
+          ensurePredecessorsIsMutable();
+          predecessors_.remove(index);
+          onChanged();
+        } else {
+          predecessorsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx.Builder getPredecessorsBuilder(
+          int index) {
+        return getPredecessorsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder getPredecessorsOrBuilder(
+          int index) {
+        if (predecessorsBuilder_ == null) {
+          return predecessors_.get(index);  } else {
+          return predecessorsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public java.util.List<? extends ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> 
+           getPredecessorsOrBuilderList() {
+        if (predecessorsBuilder_ != null) {
+          return predecessorsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(predecessors_);
+        }
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx.Builder addPredecessorsBuilder() {
+        return getPredecessorsFieldBuilder().addBuilder(
+            ethermint.evm.v1.Tx.MsgEthereumTx.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx.Builder addPredecessorsBuilder(
+          int index) {
+        return getPredecessorsFieldBuilder().addBuilder(
+            index, ethermint.evm.v1.Tx.MsgEthereumTx.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * the predecessor transactions included in the same block
+       * need to be replayed first to get correct context for tracing.
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx predecessors = 4;</code>
+       */
+      public java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx.Builder> 
+           getPredecessorsBuilderList() {
+        return getPredecessorsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          ethermint.evm.v1.Tx.MsgEthereumTx, ethermint.evm.v1.Tx.MsgEthereumTx.Builder, ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> 
+          getPredecessorsFieldBuilder() {
+        if (predecessorsBuilder_ == null) {
+          predecessorsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              ethermint.evm.v1.Tx.MsgEthereumTx, ethermint.evm.v1.Tx.MsgEthereumTx.Builder, ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder>(
+                  predecessors_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          predecessors_ = null;
+        }
+        return predecessorsBuilder_;
+      }
+
+      private long blockNumber_ ;
+      /**
+       * <pre>
+       * block number of requested transaction
+       * </pre>
+       *
+       * <code>int64 block_number = 5;</code>
+       * @return The blockNumber.
+       */
+      @java.lang.Override
+      public long getBlockNumber() {
+        return blockNumber_;
+      }
+      /**
+       * <pre>
+       * block number of requested transaction
+       * </pre>
+       *
+       * <code>int64 block_number = 5;</code>
+       * @param value The blockNumber to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockNumber(long value) {
+        
+        blockNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * block number of requested transaction
+       * </pre>
+       *
+       * <code>int64 block_number = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBlockNumber() {
+        
+        blockNumber_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object blockHash_ = "";
+      /**
+       * <pre>
+       * block hex hash of requested transaction
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @return The blockHash.
+       */
+      public java.lang.String getBlockHash() {
+        java.lang.Object ref = blockHash_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          blockHash_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * block hex hash of requested transaction
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @return The bytes for blockHash.
+       */
+      public com.google.protobuf.ByteString
+          getBlockHashBytes() {
+        java.lang.Object ref = blockHash_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          blockHash_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * block hex hash of requested transaction
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @param value The blockHash to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockHash(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        blockHash_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * block hex hash of requested transaction
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBlockHash() {
+        
+        blockHash_ = getDefaultInstance().getBlockHash();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * block hex hash of requested transaction
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @param value The bytes for blockHash to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockHashBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        blockHash_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp blockTime_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> blockTimeBuilder_;
+      /**
+       * <pre>
+       * block time of requested transaction
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       * @return Whether the blockTime field is set.
+       */
+      public boolean hasBlockTime() {
+        return blockTimeBuilder_ != null || blockTime_ != null;
+      }
+      /**
+       * <pre>
+       * block time of requested transaction
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       * @return The blockTime.
+       */
+      public com.google.protobuf.Timestamp getBlockTime() {
+        if (blockTimeBuilder_ == null) {
+          return blockTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : blockTime_;
+        } else {
+          return blockTimeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * block time of requested transaction
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setBlockTime(com.google.protobuf.Timestamp value) {
+        if (blockTimeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          blockTime_ = value;
+          onChanged();
+        } else {
+          blockTimeBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * block time of requested transaction
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setBlockTime(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (blockTimeBuilder_ == null) {
+          blockTime_ = builderForValue.build();
+          onChanged();
+        } else {
+          blockTimeBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * block time of requested transaction
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder mergeBlockTime(com.google.protobuf.Timestamp value) {
+        if (blockTimeBuilder_ == null) {
+          if (blockTime_ != null) {
+            blockTime_ =
+              com.google.protobuf.Timestamp.newBuilder(blockTime_).mergeFrom(value).buildPartial();
+          } else {
+            blockTime_ = value;
+          }
+          onChanged();
+        } else {
+          blockTimeBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * block time of requested transaction
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder clearBlockTime() {
+        if (blockTimeBuilder_ == null) {
+          blockTime_ = null;
+          onChanged();
+        } else {
+          blockTime_ = null;
+          blockTimeBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * block time of requested transaction
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getBlockTimeBuilder() {
+        
+        onChanged();
+        return getBlockTimeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * block time of requested transaction
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getBlockTimeOrBuilder() {
+        if (blockTimeBuilder_ != null) {
+          return blockTimeBuilder_.getMessageOrBuilder();
+        } else {
+          return blockTime_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : blockTime_;
+        }
+      }
+      /**
+       * <pre>
+       * block time of requested transaction
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getBlockTimeFieldBuilder() {
+        if (blockTimeBuilder_ == null) {
+          blockTimeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getBlockTime(),
+                  getParentForChildren(),
+                  isClean());
+          blockTime_ = null;
+        }
+        return blockTimeBuilder_;
+      }
+
+      private com.google.protobuf.ByteString proposerAddress_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * the proposer of the requested block
+       * </pre>
+       *
+       * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+       * @return The proposerAddress.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getProposerAddress() {
+        return proposerAddress_;
+      }
+      /**
+       * <pre>
+       * the proposer of the requested block
+       * </pre>
+       *
+       * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+       * @param value The proposerAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProposerAddress(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        proposerAddress_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the proposer of the requested block
+       * </pre>
+       *
+       * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProposerAddress() {
+        
+        proposerAddress_ = getDefaultInstance().getProposerAddress();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryTraceTxRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTraceTxRequest)
+    private static final ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest();
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryTraceTxRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryTraceTxRequest>() {
+      @java.lang.Override
+      public QueryTraceTxRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryTraceTxRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryTraceTxRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryTraceTxRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryTraceTxResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryTraceTxResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * response serialized in bytes
+     * </pre>
+     *
+     * <code>bytes data = 1;</code>
+     * @return The data.
+     */
+    com.google.protobuf.ByteString getData();
+  }
+  /**
+   * <pre>
+   * QueryTraceTxResponse defines TraceTx response
+   * </pre>
+   *
+   * Protobuf type {@code ethermint.evm.v1.QueryTraceTxResponse}
+   */
+  public static final class QueryTraceTxResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryTraceTxResponse)
+      QueryTraceTxResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryTraceTxResponse.newBuilder() to construct.
+    private QueryTraceTxResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryTraceTxResponse() {
+      data_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryTraceTxResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryTraceTxResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+
+              data_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse.class, ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse.Builder.class);
+    }
+
+    public static final int DATA_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString data_;
+    /**
+     * <pre>
+     * response serialized in bytes
+     * </pre>
+     *
+     * <code>bytes data = 1;</code>
+     * @return The data.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getData() {
+      return data_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!data_.isEmpty()) {
+        output.writeBytes(1, data_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!data_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, data_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse)) {
+        return super.equals(obj);
+      }
+      ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse other = (ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse) obj;
+
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getData().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryTraceTxResponse defines TraceTx response
+     * </pre>
+     *
+     * Protobuf type {@code ethermint.evm.v1.QueryTraceTxResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryTraceTxResponse)
+        ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse.class, ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse.Builder.class);
+      }
+
+      // Construct using ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        data_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceTxResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse getDefaultInstanceForType() {
+        return ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse build() {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse buildPartial() {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse result = new ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse(this);
+        result.data_ = data_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse) {
+          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse other) {
+        if (other == ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse.getDefaultInstance()) return this;
+        if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
+          setData(other.getData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * response serialized in bytes
+       * </pre>
+       *
+       * <code>bytes data = 1;</code>
+       * @return The data.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getData() {
+        return data_;
+      }
+      /**
+       * <pre>
+       * response serialized in bytes
+       * </pre>
+       *
+       * <code>bytes data = 1;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
+       */
+      public Builder setData(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        data_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * response serialized in bytes
+       * </pre>
+       *
+       * <code>bytes data = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearData() {
+        
+        data_ = getDefaultInstance().getData();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryTraceTxResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTraceTxResponse)
+    private static final ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse();
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryTraceTxResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryTraceTxResponse>() {
+      @java.lang.Override
+      public QueryTraceTxResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryTraceTxResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryTraceTxResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryTraceTxResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryTraceBlockRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryTraceBlockRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> 
+        getTxsList();
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    ethermint.evm.v1.Tx.MsgEthereumTx getTxs(int index);
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    int getTxsCount();
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    java.util.List<? extends ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> 
+        getTxsOrBuilderList();
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder getTxsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     * @return Whether the traceConfig field is set.
+     */
+    boolean hasTraceConfig();
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     * @return The traceConfig.
+     */
+    ethermint.evm.v1.Evm.TraceConfig getTraceConfig();
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     */
+    ethermint.evm.v1.Evm.TraceConfigOrBuilder getTraceConfigOrBuilder();
+
+    /**
+     * <pre>
+     * block number
+     * </pre>
+     *
+     * <code>int64 block_number = 5;</code>
+     * @return The blockNumber.
+     */
+    long getBlockNumber();
+
+    /**
+     * <pre>
+     * block hex hash
+     * </pre>
+     *
+     * <code>string block_hash = 6;</code>
+     * @return The blockHash.
+     */
+    java.lang.String getBlockHash();
+    /**
+     * <pre>
+     * block hex hash
+     * </pre>
+     *
+     * <code>string block_hash = 6;</code>
+     * @return The bytes for blockHash.
+     */
+    com.google.protobuf.ByteString
+        getBlockHashBytes();
+
+    /**
+     * <pre>
+     * block time
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     * @return Whether the blockTime field is set.
+     */
+    boolean hasBlockTime();
+    /**
+     * <pre>
+     * block time
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     * @return The blockTime.
+     */
+    com.google.protobuf.Timestamp getBlockTime();
+    /**
+     * <pre>
+     * block time
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getBlockTimeOrBuilder();
+
+    /**
+     * <pre>
+     * the proposer of the requested block
+     * </pre>
+     *
+     * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+     * @return The proposerAddress.
+     */
+    com.google.protobuf.ByteString getProposerAddress();
+  }
+  /**
+   * <pre>
+   * QueryTraceBlockRequest defines TraceTx request
+   * </pre>
+   *
+   * Protobuf type {@code ethermint.evm.v1.QueryTraceBlockRequest}
+   */
+  public static final class QueryTraceBlockRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryTraceBlockRequest)
+      QueryTraceBlockRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryTraceBlockRequest.newBuilder() to construct.
+    private QueryTraceBlockRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryTraceBlockRequest() {
+      txs_ = java.util.Collections.emptyList();
+      blockHash_ = "";
+      proposerAddress_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryTraceBlockRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryTraceBlockRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                txs_ = new java.util.ArrayList<ethermint.evm.v1.Tx.MsgEthereumTx>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              txs_.add(
+                  input.readMessage(ethermint.evm.v1.Tx.MsgEthereumTx.parser(), extensionRegistry));
+              break;
+            }
+            case 26: {
+              ethermint.evm.v1.Evm.TraceConfig.Builder subBuilder = null;
+              if (traceConfig_ != null) {
+                subBuilder = traceConfig_.toBuilder();
+              }
+              traceConfig_ = input.readMessage(ethermint.evm.v1.Evm.TraceConfig.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(traceConfig_);
+                traceConfig_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 40: {
+
+              blockNumber_ = input.readInt64();
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              blockHash_ = s;
+              break;
+            }
+            case 58: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (blockTime_ != null) {
+                subBuilder = blockTime_.toBuilder();
+              }
+              blockTime_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(blockTime_);
+                blockTime_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 66: {
+
+              proposerAddress_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          txs_ = java.util.Collections.unmodifiableList(txs_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest.class, ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest.Builder.class);
+    }
+
+    public static final int TXS_FIELD_NUMBER = 1;
+    private java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> txs_;
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> getTxsList() {
+      return txs_;
+    }
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> 
+        getTxsOrBuilderList() {
+      return txs_;
+    }
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    @java.lang.Override
+    public int getTxsCount() {
+      return txs_.size();
+    }
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Tx.MsgEthereumTx getTxs(int index) {
+      return txs_.get(index);
+    }
+    /**
+     * <pre>
+     * txs messages in the block
+     * </pre>
+     *
+     * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder getTxsOrBuilder(
+        int index) {
+      return txs_.get(index);
+    }
+
+    public static final int TRACE_CONFIG_FIELD_NUMBER = 3;
+    private ethermint.evm.v1.Evm.TraceConfig traceConfig_;
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     * @return Whether the traceConfig field is set.
+     */
+    @java.lang.Override
+    public boolean hasTraceConfig() {
+      return traceConfig_ != null;
+    }
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     * @return The traceConfig.
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Evm.TraceConfig getTraceConfig() {
+      return traceConfig_ == null ? ethermint.evm.v1.Evm.TraceConfig.getDefaultInstance() : traceConfig_;
+    }
+    /**
+     * <pre>
+     * TraceConfig holds extra parameters to trace functions.
+     * </pre>
+     *
+     * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+     */
+    @java.lang.Override
+    public ethermint.evm.v1.Evm.TraceConfigOrBuilder getTraceConfigOrBuilder() {
+      return getTraceConfig();
+    }
+
+    public static final int BLOCK_NUMBER_FIELD_NUMBER = 5;
+    private long blockNumber_;
+    /**
+     * <pre>
+     * block number
+     * </pre>
+     *
+     * <code>int64 block_number = 5;</code>
+     * @return The blockNumber.
+     */
+    @java.lang.Override
+    public long getBlockNumber() {
+      return blockNumber_;
+    }
+
+    public static final int BLOCK_HASH_FIELD_NUMBER = 6;
+    private volatile java.lang.Object blockHash_;
+    /**
+     * <pre>
+     * block hex hash
+     * </pre>
+     *
+     * <code>string block_hash = 6;</code>
+     * @return The blockHash.
+     */
+    @java.lang.Override
+    public java.lang.String getBlockHash() {
+      java.lang.Object ref = blockHash_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        blockHash_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * block hex hash
+     * </pre>
+     *
+     * <code>string block_hash = 6;</code>
+     * @return The bytes for blockHash.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getBlockHashBytes() {
+      java.lang.Object ref = blockHash_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        blockHash_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int BLOCK_TIME_FIELD_NUMBER = 7;
+    private com.google.protobuf.Timestamp blockTime_;
+    /**
+     * <pre>
+     * block time
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     * @return Whether the blockTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasBlockTime() {
+      return blockTime_ != null;
+    }
+    /**
+     * <pre>
+     * block time
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     * @return The blockTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getBlockTime() {
+      return blockTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : blockTime_;
+    }
+    /**
+     * <pre>
+     * block time
+     * </pre>
+     *
+     * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getBlockTimeOrBuilder() {
+      return getBlockTime();
+    }
+
+    public static final int PROPOSER_ADDRESS_FIELD_NUMBER = 8;
+    private com.google.protobuf.ByteString proposerAddress_;
+    /**
+     * <pre>
+     * the proposer of the requested block
+     * </pre>
+     *
+     * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+     * @return The proposerAddress.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getProposerAddress() {
+      return proposerAddress_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < txs_.size(); i++) {
+        output.writeMessage(1, txs_.get(i));
+      }
+      if (traceConfig_ != null) {
+        output.writeMessage(3, getTraceConfig());
+      }
+      if (blockNumber_ != 0L) {
+        output.writeInt64(5, blockNumber_);
+      }
+      if (!getBlockHashBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, blockHash_);
+      }
+      if (blockTime_ != null) {
+        output.writeMessage(7, getBlockTime());
+      }
+      if (!proposerAddress_.isEmpty()) {
+        output.writeBytes(8, proposerAddress_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < txs_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, txs_.get(i));
+      }
+      if (traceConfig_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getTraceConfig());
+      }
+      if (blockNumber_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(5, blockNumber_);
+      }
+      if (!getBlockHashBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, blockHash_);
+      }
+      if (blockTime_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, getBlockTime());
+      }
+      if (!proposerAddress_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(8, proposerAddress_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest)) {
+        return super.equals(obj);
+      }
+      ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest other = (ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest) obj;
+
+      if (!getTxsList()
+          .equals(other.getTxsList())) return false;
+      if (hasTraceConfig() != other.hasTraceConfig()) return false;
+      if (hasTraceConfig()) {
+        if (!getTraceConfig()
+            .equals(other.getTraceConfig())) return false;
+      }
+      if (getBlockNumber()
+          != other.getBlockNumber()) return false;
+      if (!getBlockHash()
+          .equals(other.getBlockHash())) return false;
+      if (hasBlockTime() != other.hasBlockTime()) return false;
+      if (hasBlockTime()) {
+        if (!getBlockTime()
+            .equals(other.getBlockTime())) return false;
+      }
+      if (!getProposerAddress()
+          .equals(other.getProposerAddress())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getTxsCount() > 0) {
+        hash = (37 * hash) + TXS_FIELD_NUMBER;
+        hash = (53 * hash) + getTxsList().hashCode();
+      }
+      if (hasTraceConfig()) {
+        hash = (37 * hash) + TRACE_CONFIG_FIELD_NUMBER;
+        hash = (53 * hash) + getTraceConfig().hashCode();
+      }
+      hash = (37 * hash) + BLOCK_NUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getBlockNumber());
+      hash = (37 * hash) + BLOCK_HASH_FIELD_NUMBER;
+      hash = (53 * hash) + getBlockHash().hashCode();
+      if (hasBlockTime()) {
+        hash = (37 * hash) + BLOCK_TIME_FIELD_NUMBER;
+        hash = (53 * hash) + getBlockTime().hashCode();
+      }
+      hash = (37 * hash) + PROPOSER_ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getProposerAddress().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryTraceBlockRequest defines TraceTx request
+     * </pre>
+     *
+     * Protobuf type {@code ethermint.evm.v1.QueryTraceBlockRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryTraceBlockRequest)
+        ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest.class, ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest.Builder.class);
+      }
+
+      // Construct using ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getTxsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (txsBuilder_ == null) {
+          txs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          txsBuilder_.clear();
+        }
+        if (traceConfigBuilder_ == null) {
+          traceConfig_ = null;
+        } else {
+          traceConfig_ = null;
+          traceConfigBuilder_ = null;
+        }
+        blockNumber_ = 0L;
+
+        blockHash_ = "";
+
+        if (blockTimeBuilder_ == null) {
+          blockTime_ = null;
+        } else {
+          blockTime_ = null;
+          blockTimeBuilder_ = null;
+        }
+        proposerAddress_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest getDefaultInstanceForType() {
+        return ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest build() {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest buildPartial() {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest result = new ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest(this);
+        int from_bitField0_ = bitField0_;
+        if (txsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            txs_ = java.util.Collections.unmodifiableList(txs_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.txs_ = txs_;
+        } else {
+          result.txs_ = txsBuilder_.build();
+        }
+        if (traceConfigBuilder_ == null) {
+          result.traceConfig_ = traceConfig_;
+        } else {
+          result.traceConfig_ = traceConfigBuilder_.build();
+        }
+        result.blockNumber_ = blockNumber_;
+        result.blockHash_ = blockHash_;
+        if (blockTimeBuilder_ == null) {
+          result.blockTime_ = blockTime_;
+        } else {
+          result.blockTime_ = blockTimeBuilder_.build();
+        }
+        result.proposerAddress_ = proposerAddress_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest) {
+          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest other) {
+        if (other == ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest.getDefaultInstance()) return this;
+        if (txsBuilder_ == null) {
+          if (!other.txs_.isEmpty()) {
+            if (txs_.isEmpty()) {
+              txs_ = other.txs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureTxsIsMutable();
+              txs_.addAll(other.txs_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.txs_.isEmpty()) {
+            if (txsBuilder_.isEmpty()) {
+              txsBuilder_.dispose();
+              txsBuilder_ = null;
+              txs_ = other.txs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              txsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getTxsFieldBuilder() : null;
+            } else {
+              txsBuilder_.addAllMessages(other.txs_);
+            }
+          }
+        }
+        if (other.hasTraceConfig()) {
+          mergeTraceConfig(other.getTraceConfig());
+        }
+        if (other.getBlockNumber() != 0L) {
+          setBlockNumber(other.getBlockNumber());
+        }
+        if (!other.getBlockHash().isEmpty()) {
+          blockHash_ = other.blockHash_;
+          onChanged();
+        }
+        if (other.hasBlockTime()) {
+          mergeBlockTime(other.getBlockTime());
+        }
+        if (other.getProposerAddress() != com.google.protobuf.ByteString.EMPTY) {
+          setProposerAddress(other.getProposerAddress());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> txs_ =
+        java.util.Collections.emptyList();
+      private void ensureTxsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          txs_ = new java.util.ArrayList<ethermint.evm.v1.Tx.MsgEthereumTx>(txs_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          ethermint.evm.v1.Tx.MsgEthereumTx, ethermint.evm.v1.Tx.MsgEthereumTx.Builder, ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> txsBuilder_;
+
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx> getTxsList() {
+        if (txsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(txs_);
+        } else {
+          return txsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public int getTxsCount() {
+        if (txsBuilder_ == null) {
+          return txs_.size();
+        } else {
+          return txsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx getTxs(int index) {
+        if (txsBuilder_ == null) {
+          return txs_.get(index);
+        } else {
+          return txsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public Builder setTxs(
+          int index, ethermint.evm.v1.Tx.MsgEthereumTx value) {
+        if (txsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTxsIsMutable();
+          txs_.set(index, value);
+          onChanged();
+        } else {
+          txsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public Builder setTxs(
+          int index, ethermint.evm.v1.Tx.MsgEthereumTx.Builder builderForValue) {
+        if (txsBuilder_ == null) {
+          ensureTxsIsMutable();
+          txs_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          txsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public Builder addTxs(ethermint.evm.v1.Tx.MsgEthereumTx value) {
+        if (txsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTxsIsMutable();
+          txs_.add(value);
+          onChanged();
+        } else {
+          txsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public Builder addTxs(
+          int index, ethermint.evm.v1.Tx.MsgEthereumTx value) {
+        if (txsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTxsIsMutable();
+          txs_.add(index, value);
+          onChanged();
+        } else {
+          txsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public Builder addTxs(
+          ethermint.evm.v1.Tx.MsgEthereumTx.Builder builderForValue) {
+        if (txsBuilder_ == null) {
+          ensureTxsIsMutable();
+          txs_.add(builderForValue.build());
+          onChanged();
+        } else {
+          txsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public Builder addTxs(
+          int index, ethermint.evm.v1.Tx.MsgEthereumTx.Builder builderForValue) {
+        if (txsBuilder_ == null) {
+          ensureTxsIsMutable();
+          txs_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          txsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public Builder addAllTxs(
+          java.lang.Iterable<? extends ethermint.evm.v1.Tx.MsgEthereumTx> values) {
+        if (txsBuilder_ == null) {
+          ensureTxsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, txs_);
+          onChanged();
+        } else {
+          txsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public Builder clearTxs() {
+        if (txsBuilder_ == null) {
+          txs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          txsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public Builder removeTxs(int index) {
+        if (txsBuilder_ == null) {
+          ensureTxsIsMutable();
+          txs_.remove(index);
+          onChanged();
+        } else {
+          txsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx.Builder getTxsBuilder(
+          int index) {
+        return getTxsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder getTxsOrBuilder(
+          int index) {
+        if (txsBuilder_ == null) {
+          return txs_.get(index);  } else {
+          return txsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public java.util.List<? extends ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> 
+           getTxsOrBuilderList() {
+        if (txsBuilder_ != null) {
+          return txsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(txs_);
+        }
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx.Builder addTxsBuilder() {
+        return getTxsFieldBuilder().addBuilder(
+            ethermint.evm.v1.Tx.MsgEthereumTx.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public ethermint.evm.v1.Tx.MsgEthereumTx.Builder addTxsBuilder(
+          int index) {
+        return getTxsFieldBuilder().addBuilder(
+            index, ethermint.evm.v1.Tx.MsgEthereumTx.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * txs messages in the block
+       * </pre>
+       *
+       * <code>repeated .ethermint.evm.v1.MsgEthereumTx txs = 1;</code>
+       */
+      public java.util.List<ethermint.evm.v1.Tx.MsgEthereumTx.Builder> 
+           getTxsBuilderList() {
+        return getTxsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          ethermint.evm.v1.Tx.MsgEthereumTx, ethermint.evm.v1.Tx.MsgEthereumTx.Builder, ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder> 
+          getTxsFieldBuilder() {
+        if (txsBuilder_ == null) {
+          txsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              ethermint.evm.v1.Tx.MsgEthereumTx, ethermint.evm.v1.Tx.MsgEthereumTx.Builder, ethermint.evm.v1.Tx.MsgEthereumTxOrBuilder>(
+                  txs_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          txs_ = null;
+        }
+        return txsBuilder_;
+      }
+
+      private ethermint.evm.v1.Evm.TraceConfig traceConfig_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ethermint.evm.v1.Evm.TraceConfig, ethermint.evm.v1.Evm.TraceConfig.Builder, ethermint.evm.v1.Evm.TraceConfigOrBuilder> traceConfigBuilder_;
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       * @return Whether the traceConfig field is set.
+       */
+      public boolean hasTraceConfig() {
+        return traceConfigBuilder_ != null || traceConfig_ != null;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       * @return The traceConfig.
+       */
+      public ethermint.evm.v1.Evm.TraceConfig getTraceConfig() {
+        if (traceConfigBuilder_ == null) {
+          return traceConfig_ == null ? ethermint.evm.v1.Evm.TraceConfig.getDefaultInstance() : traceConfig_;
+        } else {
+          return traceConfigBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public Builder setTraceConfig(ethermint.evm.v1.Evm.TraceConfig value) {
+        if (traceConfigBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          traceConfig_ = value;
+          onChanged();
+        } else {
+          traceConfigBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public Builder setTraceConfig(
+          ethermint.evm.v1.Evm.TraceConfig.Builder builderForValue) {
+        if (traceConfigBuilder_ == null) {
+          traceConfig_ = builderForValue.build();
+          onChanged();
+        } else {
+          traceConfigBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public Builder mergeTraceConfig(ethermint.evm.v1.Evm.TraceConfig value) {
+        if (traceConfigBuilder_ == null) {
+          if (traceConfig_ != null) {
+            traceConfig_ =
+              ethermint.evm.v1.Evm.TraceConfig.newBuilder(traceConfig_).mergeFrom(value).buildPartial();
+          } else {
+            traceConfig_ = value;
+          }
+          onChanged();
+        } else {
+          traceConfigBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public Builder clearTraceConfig() {
+        if (traceConfigBuilder_ == null) {
+          traceConfig_ = null;
+          onChanged();
+        } else {
+          traceConfig_ = null;
+          traceConfigBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public ethermint.evm.v1.Evm.TraceConfig.Builder getTraceConfigBuilder() {
+        
+        onChanged();
+        return getTraceConfigFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      public ethermint.evm.v1.Evm.TraceConfigOrBuilder getTraceConfigOrBuilder() {
+        if (traceConfigBuilder_ != null) {
+          return traceConfigBuilder_.getMessageOrBuilder();
+        } else {
+          return traceConfig_ == null ?
+              ethermint.evm.v1.Evm.TraceConfig.getDefaultInstance() : traceConfig_;
+        }
+      }
+      /**
+       * <pre>
+       * TraceConfig holds extra parameters to trace functions.
+       * </pre>
+       *
+       * <code>.ethermint.evm.v1.TraceConfig trace_config = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ethermint.evm.v1.Evm.TraceConfig, ethermint.evm.v1.Evm.TraceConfig.Builder, ethermint.evm.v1.Evm.TraceConfigOrBuilder> 
+          getTraceConfigFieldBuilder() {
+        if (traceConfigBuilder_ == null) {
+          traceConfigBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              ethermint.evm.v1.Evm.TraceConfig, ethermint.evm.v1.Evm.TraceConfig.Builder, ethermint.evm.v1.Evm.TraceConfigOrBuilder>(
+                  getTraceConfig(),
+                  getParentForChildren(),
+                  isClean());
+          traceConfig_ = null;
+        }
+        return traceConfigBuilder_;
+      }
+
+      private long blockNumber_ ;
+      /**
+       * <pre>
+       * block number
+       * </pre>
+       *
+       * <code>int64 block_number = 5;</code>
+       * @return The blockNumber.
+       */
+      @java.lang.Override
+      public long getBlockNumber() {
+        return blockNumber_;
+      }
+      /**
+       * <pre>
+       * block number
+       * </pre>
+       *
+       * <code>int64 block_number = 5;</code>
+       * @param value The blockNumber to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockNumber(long value) {
+        
+        blockNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * block number
+       * </pre>
+       *
+       * <code>int64 block_number = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBlockNumber() {
+        
+        blockNumber_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object blockHash_ = "";
+      /**
+       * <pre>
+       * block hex hash
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @return The blockHash.
+       */
+      public java.lang.String getBlockHash() {
+        java.lang.Object ref = blockHash_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          blockHash_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * block hex hash
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @return The bytes for blockHash.
+       */
+      public com.google.protobuf.ByteString
+          getBlockHashBytes() {
+        java.lang.Object ref = blockHash_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          blockHash_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * block hex hash
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @param value The blockHash to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockHash(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        blockHash_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * block hex hash
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBlockHash() {
+        
+        blockHash_ = getDefaultInstance().getBlockHash();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * block hex hash
+       * </pre>
+       *
+       * <code>string block_hash = 6;</code>
+       * @param value The bytes for blockHash to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockHashBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        blockHash_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp blockTime_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> blockTimeBuilder_;
+      /**
+       * <pre>
+       * block time
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       * @return Whether the blockTime field is set.
+       */
+      public boolean hasBlockTime() {
+        return blockTimeBuilder_ != null || blockTime_ != null;
+      }
+      /**
+       * <pre>
+       * block time
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       * @return The blockTime.
+       */
+      public com.google.protobuf.Timestamp getBlockTime() {
+        if (blockTimeBuilder_ == null) {
+          return blockTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : blockTime_;
+        } else {
+          return blockTimeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * block time
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setBlockTime(com.google.protobuf.Timestamp value) {
+        if (blockTimeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          blockTime_ = value;
+          onChanged();
+        } else {
+          blockTimeBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * block time
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder setBlockTime(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (blockTimeBuilder_ == null) {
+          blockTime_ = builderForValue.build();
+          onChanged();
+        } else {
+          blockTimeBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * block time
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder mergeBlockTime(com.google.protobuf.Timestamp value) {
+        if (blockTimeBuilder_ == null) {
+          if (blockTime_ != null) {
+            blockTime_ =
+              com.google.protobuf.Timestamp.newBuilder(blockTime_).mergeFrom(value).buildPartial();
+          } else {
+            blockTime_ = value;
+          }
+          onChanged();
+        } else {
+          blockTimeBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * block time
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public Builder clearBlockTime() {
+        if (blockTimeBuilder_ == null) {
+          blockTime_ = null;
+          onChanged();
+        } else {
+          blockTime_ = null;
+          blockTimeBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * block time
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getBlockTimeBuilder() {
+        
+        onChanged();
+        return getBlockTimeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * block time
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getBlockTimeOrBuilder() {
+        if (blockTimeBuilder_ != null) {
+          return blockTimeBuilder_.getMessageOrBuilder();
+        } else {
+          return blockTime_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : blockTime_;
+        }
+      }
+      /**
+       * <pre>
+       * block time
+       * </pre>
+       *
+       * <code>.google.protobuf.Timestamp block_time = 7 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getBlockTimeFieldBuilder() {
+        if (blockTimeBuilder_ == null) {
+          blockTimeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getBlockTime(),
+                  getParentForChildren(),
+                  isClean());
+          blockTime_ = null;
+        }
+        return blockTimeBuilder_;
+      }
+
+      private com.google.protobuf.ByteString proposerAddress_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * the proposer of the requested block
+       * </pre>
+       *
+       * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+       * @return The proposerAddress.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getProposerAddress() {
+        return proposerAddress_;
+      }
+      /**
+       * <pre>
+       * the proposer of the requested block
+       * </pre>
+       *
+       * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+       * @param value The proposerAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProposerAddress(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        proposerAddress_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the proposer of the requested block
+       * </pre>
+       *
+       * <code>bytes proposer_address = 8 [(.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ConsAddress"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProposerAddress() {
+        
+        proposerAddress_ = getDefaultInstance().getProposerAddress();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryTraceBlockRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTraceBlockRequest)
+    private static final ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest();
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryTraceBlockRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryTraceBlockRequest>() {
+      @java.lang.Override
+      public QueryTraceBlockRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryTraceBlockRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryTraceBlockRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryTraceBlockRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryTraceBlockResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryTraceBlockResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bytes data = 1;</code>
+     * @return The data.
+     */
+    com.google.protobuf.ByteString getData();
+  }
+  /**
+   * <pre>
+   * QueryTraceBlockResponse defines TraceBlock response
+   * </pre>
+   *
+   * Protobuf type {@code ethermint.evm.v1.QueryTraceBlockResponse}
+   */
+  public static final class QueryTraceBlockResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryTraceBlockResponse)
+      QueryTraceBlockResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryTraceBlockResponse.newBuilder() to construct.
+    private QueryTraceBlockResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryTraceBlockResponse() {
+      data_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryTraceBlockResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryTraceBlockResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+
+              data_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse.class, ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse.Builder.class);
+    }
+
+    public static final int DATA_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString data_;
+    /**
+     * <code>bytes data = 1;</code>
+     * @return The data.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getData() {
+      return data_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!data_.isEmpty()) {
+        output.writeBytes(1, data_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!data_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, data_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse)) {
+        return super.equals(obj);
+      }
+      ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse other = (ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse) obj;
+
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getData().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryTraceBlockResponse defines TraceBlock response
+     * </pre>
+     *
+     * Protobuf type {@code ethermint.evm.v1.QueryTraceBlockResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryTraceBlockResponse)
+        ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse.class, ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse.Builder.class);
+      }
+
+      // Construct using ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        data_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryTraceBlockResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse getDefaultInstanceForType() {
+        return ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse build() {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse buildPartial() {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse result = new ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse(this);
+        result.data_ = data_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse) {
+          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse other) {
+        if (other == ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse.getDefaultInstance()) return this;
+        if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
+          setData(other.getData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes data = 1;</code>
+       * @return The data.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getData() {
+        return data_;
+      }
+      /**
+       * <code>bytes data = 1;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
+       */
+      public Builder setData(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        data_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes data = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearData() {
+        
+        data_ = getDefaultInstance().getData();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryTraceBlockResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTraceBlockResponse)
+    private static final ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse();
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryTraceBlockResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryTraceBlockResponse>() {
+      @java.lang.Override
+      public QueryTraceBlockResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryTraceBlockResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryTraceBlockResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryTraceBlockResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryBaseFeeRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryBaseFeeRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * QueryBaseFeeRequest defines the request type for querying the EIP1559 base
+   * fee.
+   * </pre>
+   *
+   * Protobuf type {@code ethermint.evm.v1.QueryBaseFeeRequest}
+   */
+  public static final class QueryBaseFeeRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryBaseFeeRequest)
+      QueryBaseFeeRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryBaseFeeRequest.newBuilder() to construct.
+    private QueryBaseFeeRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryBaseFeeRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryBaseFeeRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryBaseFeeRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.class, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest)) {
+        return super.equals(obj);
+      }
+      ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest other = (ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryBaseFeeRequest defines the request type for querying the EIP1559 base
+     * fee.
+     * </pre>
+     *
+     * Protobuf type {@code ethermint.evm.v1.QueryBaseFeeRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryBaseFeeRequest)
+        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.class, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.Builder.class);
+      }
+
+      // Construct using ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest getDefaultInstanceForType() {
+        return ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest build() {
+        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest buildPartial() {
+        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest result = new ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest) {
+          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest other) {
+        if (other == ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryBaseFeeRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBaseFeeRequest)
+    private static final ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest();
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryBaseFeeRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryBaseFeeRequest>() {
+      @java.lang.Override
+      public QueryBaseFeeRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryBaseFeeRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryBaseFeeRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryBaseFeeRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryBaseFeeResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethermint.evm.v1.QueryBaseFeeResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The baseFee.
+     */
+    java.lang.String getBaseFee();
+    /**
+     * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for baseFee.
+     */
+    com.google.protobuf.ByteString
+        getBaseFeeBytes();
+  }
+  /**
+   * <pre>
+   * BaseFeeResponse returns the EIP1559 base fee.
+   * </pre>
+   *
+   * Protobuf type {@code ethermint.evm.v1.QueryBaseFeeResponse}
+   */
+  public static final class QueryBaseFeeResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethermint.evm.v1.QueryBaseFeeResponse)
+      QueryBaseFeeResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryBaseFeeResponse.newBuilder() to construct.
+    private QueryBaseFeeResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryBaseFeeResponse() {
+      baseFee_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryBaseFeeResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryBaseFeeResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              baseFee_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.class, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.Builder.class);
+    }
+
+    public static final int BASE_FEE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object baseFee_;
+    /**
+     * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The baseFee.
+     */
+    @java.lang.Override
+    public java.lang.String getBaseFee() {
+      java.lang.Object ref = baseFee_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        baseFee_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for baseFee.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getBaseFeeBytes() {
+      java.lang.Object ref = baseFee_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        baseFee_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getBaseFeeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, baseFee_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getBaseFeeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, baseFee_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse)) {
+        return super.equals(obj);
+      }
+      ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse other = (ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse) obj;
+
+      if (!getBaseFee()
+          .equals(other.getBaseFee())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + BASE_FEE_FIELD_NUMBER;
+      hash = (53 * hash) + getBaseFee().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * BaseFeeResponse returns the EIP1559 base fee.
+     * </pre>
+     *
+     * Protobuf type {@code ethermint.evm.v1.QueryBaseFeeResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethermint.evm.v1.QueryBaseFeeResponse)
+        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.class, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.Builder.class);
+      }
+
+      // Construct using ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        baseFee_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethermint.evm.v1.QueryOuterClass.internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse getDefaultInstanceForType() {
+        return ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse build() {
+        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse buildPartial() {
+        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse result = new ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse(this);
+        result.baseFee_ = baseFee_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse) {
+          return mergeFrom((ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse other) {
+        if (other == ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.getDefaultInstance()) return this;
+        if (!other.getBaseFee().isEmpty()) {
+          baseFee_ = other.baseFee_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object baseFee_ = "";
+      /**
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The baseFee.
+       */
+      public java.lang.String getBaseFee() {
+        java.lang.Object ref = baseFee_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          baseFee_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for baseFee.
+       */
+      public com.google.protobuf.ByteString
+          getBaseFeeBytes() {
+        java.lang.Object ref = baseFee_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          baseFee_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The baseFee to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBaseFee(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        baseFee_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBaseFee() {
+        
+        baseFee_ = getDefaultInstance().getBaseFee();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for baseFee to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBaseFeeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        baseFee_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethermint.evm.v1.QueryBaseFeeResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBaseFeeResponse)
+    private static final ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse();
+    }
+
+    public static ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryBaseFeeResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryBaseFeeResponse>() {
+      @java.lang.Override
+      public QueryBaseFeeResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryBaseFeeResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryBaseFeeResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryBaseFeeResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ethermint_evm_v1_QueryAccountRequest_descriptor;
   private static final 
@@ -16555,26 +18499,6 @@ public final class QueryOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ethermint_evm_v1_QueryTxLogsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ethermint_evm_v1_QueryBlockLogsRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ethermint_evm_v1_QueryBlockLogsRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ethermint_evm_v1_QueryBlockLogsResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ethermint_evm_v1_QueryBlockLogsResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ethermint_evm_v1_QueryBlockBloomRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ethermint_evm_v1_QueryBlockBloomRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ethermint_evm_v1_QueryBlockBloomResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ethermint_evm_v1_QueryBlockBloomResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ethermint_evm_v1_QueryParamsRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -16585,21 +18509,6 @@ public final class QueryOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ethermint_evm_v1_QueryParamsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ethermint_evm_v1_QueryBaseFeeRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ethermint_evm_v1_QueryBaseFeeResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ethermint_evm_v1_QueryStaticCallResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ethermint_evm_v1_QueryStaticCallResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ethermint_evm_v1_EthCallRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -16609,6 +18518,36 @@ public final class QueryOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ethermint_evm_v1_EstimateGasResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethermint_evm_v1_QueryTraceTxRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethermint_evm_v1_QueryTraceTxRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethermint_evm_v1_QueryTraceTxResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethermint_evm_v1_QueryTraceTxResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethermint_evm_v1_QueryTraceBlockRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethermint_evm_v1_QueryTraceBlockRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethermint_evm_v1_QueryTraceBlockResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethermint_evm_v1_QueryTraceBlockResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethermint_evm_v1_QueryBaseFeeRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethermint_evm_v1_QueryBaseFeeResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -16622,88 +18561,102 @@ public final class QueryOuterClass {
       "t.evm.v1\032\024gogoproto/gogo.proto\032*cosmos/b" +
       "ase/query/v1beta1/pagination.proto\032\034goog" +
       "le/api/annotations.proto\032\032ethermint/evm/" +
-      "v1/evm.proto\032\031ethermint/evm/v1/tx.proto\"" +
-      "0\n\023QueryAccountRequest\022\017\n\007address\030\001 \001(\t:" +
-      "\010\350\240\037\000\210\240\037\000\"I\n\024QueryAccountResponse\022\017\n\007bal" +
-      "ance\030\001 \001(\t\022\021\n\tcode_hash\030\002 \001(\t\022\r\n\005nonce\030\003" +
-      " \001(\004\"6\n\031QueryCosmosAccountRequest\022\017\n\007add" +
-      "ress\030\001 \001(\t:\010\350\240\037\000\210\240\037\000\"^\n\032QueryCosmosAccou" +
-      "ntResponse\022\026\n\016cosmos_address\030\001 \001(\t\022\020\n\010se" +
-      "quence\030\002 \001(\004\022\026\n\016account_number\030\003 \001(\004\">\n\034" +
-      "QueryValidatorAccountRequest\022\024\n\014cons_add" +
-      "ress\030\001 \001(\t:\010\350\240\037\000\210\240\037\000\"b\n\035QueryValidatorAc" +
-      "countResponse\022\027\n\017account_address\030\001 \001(\t\022\020" +
-      "\n\010sequence\030\002 \001(\004\022\026\n\016account_number\030\003 \001(\004" +
-      "\"0\n\023QueryBalanceRequest\022\017\n\007address\030\001 \001(\t" +
-      ":\010\350\240\037\000\210\240\037\000\"\'\n\024QueryBalanceResponse\022\017\n\007ba" +
-      "lance\030\001 \001(\t\"=\n\023QueryStorageRequest\022\017\n\007ad" +
-      "dress\030\001 \001(\t\022\013\n\003key\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"%\n\024Qu" +
-      "eryStorageResponse\022\r\n\005value\030\001 \001(\t\"-\n\020Que" +
-      "ryCodeRequest\022\017\n\007address\030\001 \001(\t:\010\350\240\037\000\210\240\037\000" +
-      "\"!\n\021QueryCodeResponse\022\014\n\004code\030\001 \001(\014\",\n\022Q" +
-      "ueryTxLogsRequest\022\014\n\004hash\030\001 \001(\t:\010\350\240\037\000\210\240\037" +
-      "\000\":\n\023QueryTxLogsResponse\022#\n\004logs\030\001 \003(\0132\025" +
-      ".ethermint.evm.v1.Log\"k\n\025QueryBlockLogsR" +
-      "equest\022\014\n\004hash\030\001 \001(\t\022:\n\npagination\030\002 \001(\013" +
-      "2&.cosmos.base.query.v1beta1.PageRequest" +
-      ":\010\350\240\037\000\210\240\037\000\"\217\001\n\026QueryBlockLogsResponse\0228\n" +
-      "\007tx_logs\030\001 \003(\0132!.ethermint.evm.v1.Transa" +
-      "ctionLogsB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.co" +
-      "smos.base.query.v1beta1.PageResponse\"(\n\026" +
-      "QueryBlockBloomRequest\022\016\n\006height\030\001 \001(\003\"(" +
-      "\n\027QueryBlockBloomResponse\022\r\n\005bloom\030\001 \001(\014" +
-      "\"\024\n\022QueryParamsRequest\"E\n\023QueryParamsRes" +
-      "ponse\022.\n\006params\030\001 \001(\0132\030.ethermint.evm.v1" +
-      ".ParamsB\004\310\336\037\000\"\025\n\023QueryBaseFeeRequest\"X\n\024" +
-      "QueryBaseFeeResponse\022@\n\010base_fee\030\001 \001(\tB." +
-      "\332\336\037&github.com/cosmos/cosmos-sdk/types.I" +
-      "nt\310\336\037\000\"\'\n\027QueryStaticCallResponse\022\014\n\004dat" +
-      "a\030\001 \001(\014\"/\n\016EthCallRequest\022\014\n\004args\030\001 \001(\014\022" +
-      "\017\n\007gas_cap\030\002 \001(\004\"\"\n\023EstimateGasResponse\022" +
-      "\013\n\003gas\030\001 \001(\0042\202\r\n\005Query\022\205\001\n\007Account\022%.eth" +
-      "ermint.evm.v1.QueryAccountRequest\032&.ethe" +
-      "rmint.evm.v1.QueryAccountResponse\"+\202\323\344\223\002" +
-      "%\022#/ethermint/evm/v1/account/{address}\022\236" +
-      "\001\n\rCosmosAccount\022+.ethermint.evm.v1.Quer" +
-      "yCosmosAccountRequest\032,.ethermint.evm.v1" +
-      ".QueryCosmosAccountResponse\"2\202\323\344\223\002,\022*/et" +
-      "hermint/evm/v1/cosmos_account/{address}\022" +
-      "\257\001\n\020ValidatorAccount\022..ethermint.evm.v1." +
-      "QueryValidatorAccountRequest\032/.ethermint" +
-      ".evm.v1.QueryValidatorAccountResponse\":\202" +
-      "\323\344\223\0024\0222/ethermint/evm/v1/validator_accou" +
-      "nt/{cons_address}\022\206\001\n\007Balance\022%.ethermin" +
-      "t.evm.v1.QueryBalanceRequest\032&.ethermint" +
-      ".evm.v1.QueryBalanceResponse\",\202\323\344\223\002&\022$/e" +
-      "thermint/evm/v1/balances/{address}\022\213\001\n\007S" +
-      "torage\022%.ethermint.evm.v1.QueryStorageRe" +
-      "quest\032&.ethermint.evm.v1.QueryStorageRes" +
-      "ponse\"1\202\323\344\223\002+\022)/ethermint/evm/v1/storage" +
-      "/{address}/{key}\022z\n\004Code\022\".ethermint.evm" +
-      ".v1.QueryCodeRequest\032#.ethermint.evm.v1." +
-      "QueryCodeResponse\")\202\323\344\223\002#\022!/ethermint/ev" +
-      "m/v1/codes/{address}\022\177\n\006TxLogs\022$.ethermi" +
-      "nt.evm.v1.QueryTxLogsRequest\032%.ethermint" +
-      ".evm.v1.QueryTxLogsResponse\"(\202\323\344\223\002\"\022 /et" +
-      "hermint/evm/v1/tx_logs/{hash}\022\213\001\n\tBlockL" +
-      "ogs\022\'.ethermint.evm.v1.QueryBlockLogsReq" +
-      "uest\032(.ethermint.evm.v1.QueryBlockLogsRe" +
-      "sponse\"+\202\323\344\223\002%\022#/ethermint/evm/v1/block_" +
-      "logs/{hash}\022\210\001\n\nBlockBloom\022(.ethermint.e" +
-      "vm.v1.QueryBlockBloomRequest\032).ethermint" +
-      ".evm.v1.QueryBlockBloomResponse\"%\202\323\344\223\002\037\022" +
-      "\035/ethermint/evm/v1/block_bloom\022w\n\006Params" +
-      "\022$.ethermint.evm.v1.QueryParamsRequest\032%" +
-      ".ethermint.evm.v1.QueryParamsResponse\" \202" +
-      "\323\344\223\002\032\022\030/ethermint/evm/v1/params\022x\n\007EthCa" +
-      "ll\022 .ethermint.evm.v1.EthCallRequest\032\'.e" +
-      "thermint.evm.v1.MsgEthereumTxResponse\"\"\202" +
-      "\323\344\223\002\034\022\032/ethermint/evm/v1/eth_call\022~\n\013Est" +
-      "imateGas\022 .ethermint.evm.v1.EthCallReque" +
-      "st\032%.ethermint.evm.v1.EstimateGasRespons" +
-      "e\"&\202\323\344\223\002 \022\036/ethermint/evm/v1/estimate_ga" +
-      "sB*Z(github.com/tharsis/ethermint/x/evm/" +
-      "typesb\006proto3"
+      "v1/evm.proto\032\031ethermint/evm/v1/tx.proto\032" +
+      "\037google/protobuf/timestamp.proto\"0\n\023Quer" +
+      "yAccountRequest\022\017\n\007address\030\001 \001(\t:\010\350\240\037\000\210\240" +
+      "\037\000\"I\n\024QueryAccountResponse\022\017\n\007balance\030\001 " +
+      "\001(\t\022\021\n\tcode_hash\030\002 \001(\t\022\r\n\005nonce\030\003 \001(\004\"6\n" +
+      "\031QueryCosmosAccountRequest\022\017\n\007address\030\001 " +
+      "\001(\t:\010\350\240\037\000\210\240\037\000\"^\n\032QueryCosmosAccountRespo" +
+      "nse\022\026\n\016cosmos_address\030\001 \001(\t\022\020\n\010sequence\030" +
+      "\002 \001(\004\022\026\n\016account_number\030\003 \001(\004\">\n\034QueryVa" +
+      "lidatorAccountRequest\022\024\n\014cons_address\030\001 " +
+      "\001(\t:\010\350\240\037\000\210\240\037\000\"b\n\035QueryValidatorAccountRe" +
+      "sponse\022\027\n\017account_address\030\001 \001(\t\022\020\n\010seque" +
+      "nce\030\002 \001(\004\022\026\n\016account_number\030\003 \001(\004\"0\n\023Que" +
+      "ryBalanceRequest\022\017\n\007address\030\001 \001(\t:\010\350\240\037\000\210" +
+      "\240\037\000\"\'\n\024QueryBalanceResponse\022\017\n\007balance\030\001" +
+      " \001(\t\"=\n\023QueryStorageRequest\022\017\n\007address\030\001" +
+      " \001(\t\022\013\n\003key\030\002 \001(\t:\010\350\240\037\000\210\240\037\000\"%\n\024QueryStor" +
+      "ageResponse\022\r\n\005value\030\001 \001(\t\"-\n\020QueryCodeR" +
+      "equest\022\017\n\007address\030\001 \001(\t:\010\350\240\037\000\210\240\037\000\"!\n\021Que" +
+      "ryCodeResponse\022\014\n\004code\030\001 \001(\014\"h\n\022QueryTxL" +
+      "ogsRequest\022\014\n\004hash\030\001 \001(\t\022:\n\npagination\030\002" +
+      " \001(\0132&.cosmos.base.query.v1beta1.PageReq" +
+      "uest:\010\350\240\037\000\210\240\037\000\"w\n\023QueryTxLogsResponse\022#\n" +
+      "\004logs\030\001 \003(\0132\025.ethermint.evm.v1.Log\022;\n\npa" +
+      "gination\030\002 \001(\0132\'.cosmos.base.query.v1bet" +
+      "a1.PageResponse\"\024\n\022QueryParamsRequest\"E\n" +
+      "\023QueryParamsResponse\022.\n\006params\030\001 \001(\0132\030.e" +
+      "thermint.evm.v1.ParamsB\004\310\336\037\000\"}\n\016EthCallR" +
+      "equest\022\014\n\004args\030\001 \001(\014\022\017\n\007gas_cap\030\002 \001(\004\022L\n" +
+      "\020proposer_address\030\003 \001(\014B2\372\336\037.github.com/" +
+      "cosmos/cosmos-sdk/types.ConsAddress\"\"\n\023E" +
+      "stimateGasResponse\022\013\n\003gas\030\001 \001(\004\"\361\002\n\023Quer" +
+      "yTraceTxRequest\022,\n\003msg\030\001 \001(\0132\037.ethermint" +
+      ".evm.v1.MsgEthereumTx\0223\n\014trace_config\030\003 " +
+      "\001(\0132\035.ethermint.evm.v1.TraceConfig\0225\n\014pr" +
+      "edecessors\030\004 \003(\0132\037.ethermint.evm.v1.MsgE" +
+      "thereumTx\022\024\n\014block_number\030\005 \001(\003\022\022\n\nblock" +
+      "_hash\030\006 \001(\t\0228\n\nblock_time\030\007 \001(\0132\032.google" +
+      ".protobuf.TimestampB\010\310\336\037\000\220\337\037\001\022L\n\020propose" +
+      "r_address\030\010 \001(\014B2\372\336\037.github.com/cosmos/c" +
+      "osmos-sdk/types.ConsAddressJ\004\010\002\020\003R\010tx_in" +
+      "dex\"$\n\024QueryTraceTxResponse\022\014\n\004data\030\001 \001(" +
+      "\014\"\255\002\n\026QueryTraceBlockRequest\022,\n\003txs\030\001 \003(" +
+      "\0132\037.ethermint.evm.v1.MsgEthereumTx\0223\n\014tr" +
+      "ace_config\030\003 \001(\0132\035.ethermint.evm.v1.Trac" +
+      "eConfig\022\024\n\014block_number\030\005 \001(\003\022\022\n\nblock_h" +
+      "ash\030\006 \001(\t\0228\n\nblock_time\030\007 \001(\0132\032.google.p" +
+      "rotobuf.TimestampB\010\310\336\037\000\220\337\037\001\022L\n\020proposer_" +
+      "address\030\010 \001(\014B2\372\336\037.github.com/cosmos/cos" +
+      "mos-sdk/types.ConsAddress\"\'\n\027QueryTraceB" +
+      "lockResponse\022\014\n\004data\030\001 \001(\014\"\025\n\023QueryBaseF" +
+      "eeRequest\"T\n\024QueryBaseFeeResponse\022<\n\010bas" +
+      "e_fee\030\001 \001(\tB*\332\336\037&github.com/cosmos/cosmo" +
+      "s-sdk/types.Int2\357\014\n\005Query\022\205\001\n\007Account\022%." +
+      "ethermint.evm.v1.QueryAccountRequest\032&.e" +
+      "thermint.evm.v1.QueryAccountResponse\"+\202\323" +
+      "\344\223\002%\022#/ethermint/evm/v1/account/{address" +
+      "}\022\236\001\n\rCosmosAccount\022+.ethermint.evm.v1.Q" +
+      "ueryCosmosAccountRequest\032,.ethermint.evm" +
+      ".v1.QueryCosmosAccountResponse\"2\202\323\344\223\002,\022*" +
+      "/ethermint/evm/v1/cosmos_account/{addres" +
+      "s}\022\257\001\n\020ValidatorAccount\022..ethermint.evm." +
+      "v1.QueryValidatorAccountRequest\032/.etherm" +
+      "int.evm.v1.QueryValidatorAccountResponse" +
+      "\":\202\323\344\223\0024\0222/ethermint/evm/v1/validator_ac" +
+      "count/{cons_address}\022\206\001\n\007Balance\022%.ether" +
+      "mint.evm.v1.QueryBalanceRequest\032&.etherm" +
+      "int.evm.v1.QueryBalanceResponse\",\202\323\344\223\002&\022" +
+      "$/ethermint/evm/v1/balances/{address}\022\213\001" +
+      "\n\007Storage\022%.ethermint.evm.v1.QueryStorag" +
+      "eRequest\032&.ethermint.evm.v1.QueryStorage" +
+      "Response\"1\202\323\344\223\002+\022)/ethermint/evm/v1/stor" +
+      "age/{address}/{key}\022z\n\004Code\022\".ethermint." +
+      "evm.v1.QueryCodeRequest\032#.ethermint.evm." +
+      "v1.QueryCodeResponse\")\202\323\344\223\002#\022!/ethermint" +
+      "/evm/v1/codes/{address}\022w\n\006Params\022$.ethe" +
+      "rmint.evm.v1.QueryParamsRequest\032%.etherm" +
+      "int.evm.v1.QueryParamsResponse\" \202\323\344\223\002\032\022\030" +
+      "/ethermint/evm/v1/params\022x\n\007EthCall\022 .et" +
+      "hermint.evm.v1.EthCallRequest\032\'.ethermin" +
+      "t.evm.v1.MsgEthereumTxResponse\"\"\202\323\344\223\002\034\022\032" +
+      "/ethermint/evm/v1/eth_call\022~\n\013EstimateGa" +
+      "s\022 .ethermint.evm.v1.EthCallRequest\032%.et" +
+      "hermint.evm.v1.EstimateGasResponse\"&\202\323\344\223" +
+      "\002 \022\036/ethermint/evm/v1/estimate_gas\022|\n\007Tr" +
+      "aceTx\022%.ethermint.evm.v1.QueryTraceTxReq" +
+      "uest\032&.ethermint.evm.v1.QueryTraceTxResp" +
+      "onse\"\"\202\323\344\223\002\034\022\032/ethermint/evm/v1/trace_tx" +
+      "\022\210\001\n\nTraceBlock\022(.ethermint.evm.v1.Query" +
+      "TraceBlockRequest\032).ethermint.evm.v1.Que" +
+      "ryTraceBlockResponse\"%\202\323\344\223\002\037\022\035/ethermint" +
+      "/evm/v1/trace_block\022|\n\007BaseFee\022%.ethermi" +
+      "nt.evm.v1.QueryBaseFeeRequest\032&.ethermin" +
+      "t.evm.v1.QueryBaseFeeResponse\"\"\202\323\344\223\002\034\022\032/" +
+      "ethermint/evm/v1/base_feeB(Z&github.com/" +
+      "evmos/ethermint/x/evm/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -16713,6 +18666,7 @@ public final class QueryOuterClass {
           com.google.api.AnnotationsProto.getDescriptor(),
           ethermint.evm.v1.Evm.getDescriptor(),
           ethermint.evm.v1.Tx.getDescriptor(),
+          com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_ethermint_evm_v1_QueryAccountRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -16791,85 +18745,81 @@ public final class QueryOuterClass {
     internal_static_ethermint_evm_v1_QueryTxLogsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_evm_v1_QueryTxLogsRequest_descriptor,
-        new java.lang.String[] { "Hash", });
+        new java.lang.String[] { "Hash", "Pagination", });
     internal_static_ethermint_evm_v1_QueryTxLogsResponse_descriptor =
       getDescriptor().getMessageTypes().get(13);
     internal_static_ethermint_evm_v1_QueryTxLogsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_evm_v1_QueryTxLogsResponse_descriptor,
-        new java.lang.String[] { "Logs", });
-    internal_static_ethermint_evm_v1_QueryBlockLogsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(14);
-    internal_static_ethermint_evm_v1_QueryBlockLogsRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ethermint_evm_v1_QueryBlockLogsRequest_descriptor,
-        new java.lang.String[] { "Hash", "Pagination", });
-    internal_static_ethermint_evm_v1_QueryBlockLogsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
-    internal_static_ethermint_evm_v1_QueryBlockLogsResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ethermint_evm_v1_QueryBlockLogsResponse_descriptor,
-        new java.lang.String[] { "TxLogs", "Pagination", });
-    internal_static_ethermint_evm_v1_QueryBlockBloomRequest_descriptor =
-      getDescriptor().getMessageTypes().get(16);
-    internal_static_ethermint_evm_v1_QueryBlockBloomRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ethermint_evm_v1_QueryBlockBloomRequest_descriptor,
-        new java.lang.String[] { "Height", });
-    internal_static_ethermint_evm_v1_QueryBlockBloomResponse_descriptor =
-      getDescriptor().getMessageTypes().get(17);
-    internal_static_ethermint_evm_v1_QueryBlockBloomResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ethermint_evm_v1_QueryBlockBloomResponse_descriptor,
-        new java.lang.String[] { "Bloom", });
+        new java.lang.String[] { "Logs", "Pagination", });
     internal_static_ethermint_evm_v1_QueryParamsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_ethermint_evm_v1_QueryParamsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_evm_v1_QueryParamsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_ethermint_evm_v1_QueryParamsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_ethermint_evm_v1_QueryParamsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_evm_v1_QueryParamsResponse_descriptor,
         new java.lang.String[] { "Params", });
-    internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor =
+    internal_static_ethermint_evm_v1_EthCallRequest_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_ethermint_evm_v1_EthCallRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethermint_evm_v1_EthCallRequest_descriptor,
+        new java.lang.String[] { "Args", "GasCap", "ProposerAddress", });
+    internal_static_ethermint_evm_v1_EstimateGasResponse_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_ethermint_evm_v1_EstimateGasResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethermint_evm_v1_EstimateGasResponse_descriptor,
+        new java.lang.String[] { "Gas", });
+    internal_static_ethermint_evm_v1_QueryTraceTxRequest_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_ethermint_evm_v1_QueryTraceTxRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethermint_evm_v1_QueryTraceTxRequest_descriptor,
+        new java.lang.String[] { "Msg", "TraceConfig", "Predecessors", "BlockNumber", "BlockHash", "BlockTime", "ProposerAddress", });
+    internal_static_ethermint_evm_v1_QueryTraceTxResponse_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_ethermint_evm_v1_QueryTraceTxResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethermint_evm_v1_QueryTraceTxResponse_descriptor,
+        new java.lang.String[] { "Data", });
+    internal_static_ethermint_evm_v1_QueryTraceBlockRequest_descriptor =
       getDescriptor().getMessageTypes().get(20);
+    internal_static_ethermint_evm_v1_QueryTraceBlockRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethermint_evm_v1_QueryTraceBlockRequest_descriptor,
+        new java.lang.String[] { "Txs", "TraceConfig", "BlockNumber", "BlockHash", "BlockTime", "ProposerAddress", });
+    internal_static_ethermint_evm_v1_QueryTraceBlockResponse_descriptor =
+      getDescriptor().getMessageTypes().get(21);
+    internal_static_ethermint_evm_v1_QueryTraceBlockResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethermint_evm_v1_QueryTraceBlockResponse_descriptor,
+        new java.lang.String[] { "Data", });
+    internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(22);
     internal_static_ethermint_evm_v1_QueryBaseFeeRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_evm_v1_QueryBaseFeeRequest_descriptor,
         new java.lang.String[] { });
     internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_ethermint_evm_v1_QueryBaseFeeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_evm_v1_QueryBaseFeeResponse_descriptor,
         new java.lang.String[] { "BaseFee", });
-    internal_static_ethermint_evm_v1_QueryStaticCallResponse_descriptor =
-      getDescriptor().getMessageTypes().get(22);
-    internal_static_ethermint_evm_v1_QueryStaticCallResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ethermint_evm_v1_QueryStaticCallResponse_descriptor,
-        new java.lang.String[] { "Data", });
-    internal_static_ethermint_evm_v1_EthCallRequest_descriptor =
-      getDescriptor().getMessageTypes().get(23);
-    internal_static_ethermint_evm_v1_EthCallRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ethermint_evm_v1_EthCallRequest_descriptor,
-        new java.lang.String[] { "Args", "GasCap", });
-    internal_static_ethermint_evm_v1_EstimateGasResponse_descriptor =
-      getDescriptor().getMessageTypes().get(24);
-    internal_static_ethermint_evm_v1_EstimateGasResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ethermint_evm_v1_EstimateGasResponse_descriptor,
-        new java.lang.String[] { "Gas", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.protobuf2.GoGoProtos.casttype);
     registry.add(com.google.protobuf2.GoGoProtos.customtype);
     registry.add(com.google.protobuf2.GoGoProtos.equal);
     registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
     registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
@@ -16878,6 +18828,7 @@ public final class QueryOuterClass {
     com.google.api.AnnotationsProto.getDescriptor();
     ethermint.evm.v1.Evm.getDescriptor();
     ethermint.evm.v1.Tx.getDescriptor();
+    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -216,99 +216,6 @@ public final class QueryGrpc {
     return getCodeMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest,
-      ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse> getTxLogsMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "TxLogs",
-      requestType = ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest.class,
-      responseType = ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest,
-      ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse> getTxLogsMethod() {
-    io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest, ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse> getTxLogsMethod;
-    if ((getTxLogsMethod = QueryGrpc.getTxLogsMethod) == null) {
-      synchronized (QueryGrpc.class) {
-        if ((getTxLogsMethod = QueryGrpc.getTxLogsMethod) == null) {
-          QueryGrpc.getTxLogsMethod = getTxLogsMethod =
-              io.grpc.MethodDescriptor.<ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest, ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "TxLogs"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("TxLogs"))
-              .build();
-        }
-      }
-    }
-    return getTxLogsMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest,
-      ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse> getBlockLogsMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "BlockLogs",
-      requestType = ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest.class,
-      responseType = ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest,
-      ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse> getBlockLogsMethod() {
-    io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest, ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse> getBlockLogsMethod;
-    if ((getBlockLogsMethod = QueryGrpc.getBlockLogsMethod) == null) {
-      synchronized (QueryGrpc.class) {
-        if ((getBlockLogsMethod = QueryGrpc.getBlockLogsMethod) == null) {
-          QueryGrpc.getBlockLogsMethod = getBlockLogsMethod =
-              io.grpc.MethodDescriptor.<ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest, ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "BlockLogs"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("BlockLogs"))
-              .build();
-        }
-      }
-    }
-    return getBlockLogsMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest,
-      ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse> getBlockBloomMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "BlockBloom",
-      requestType = ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest.class,
-      responseType = ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest,
-      ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse> getBlockBloomMethod() {
-    io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest, ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse> getBlockBloomMethod;
-    if ((getBlockBloomMethod = QueryGrpc.getBlockBloomMethod) == null) {
-      synchronized (QueryGrpc.class) {
-        if ((getBlockBloomMethod = QueryGrpc.getBlockBloomMethod) == null) {
-          QueryGrpc.getBlockBloomMethod = getBlockBloomMethod =
-              io.grpc.MethodDescriptor.<ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest, ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "BlockBloom"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("BlockBloom"))
-              .build();
-        }
-      }
-    }
-    return getBlockBloomMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryParamsRequest,
       ethermint.evm.v1.QueryOuterClass.QueryParamsResponse> getParamsMethod;
 
@@ -400,6 +307,99 @@ public final class QueryGrpc {
       }
     }
     return getEstimateGasMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest,
+      ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse> getTraceTxMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "TraceTx",
+      requestType = ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest.class,
+      responseType = ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest,
+      ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse> getTraceTxMethod() {
+    io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest, ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse> getTraceTxMethod;
+    if ((getTraceTxMethod = QueryGrpc.getTraceTxMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getTraceTxMethod = QueryGrpc.getTraceTxMethod) == null) {
+          QueryGrpc.getTraceTxMethod = getTraceTxMethod =
+              io.grpc.MethodDescriptor.<ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest, ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "TraceTx"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("TraceTx"))
+              .build();
+        }
+      }
+    }
+    return getTraceTxMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest,
+      ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse> getTraceBlockMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "TraceBlock",
+      requestType = ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest.class,
+      responseType = ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest,
+      ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse> getTraceBlockMethod() {
+    io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest, ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse> getTraceBlockMethod;
+    if ((getTraceBlockMethod = QueryGrpc.getTraceBlockMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getTraceBlockMethod = QueryGrpc.getTraceBlockMethod) == null) {
+          QueryGrpc.getTraceBlockMethod = getTraceBlockMethod =
+              io.grpc.MethodDescriptor.<ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest, ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "TraceBlock"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("TraceBlock"))
+              .build();
+        }
+      }
+    }
+    return getTraceBlockMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest,
+      ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse> getBaseFeeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "BaseFee",
+      requestType = ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.class,
+      responseType = ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest,
+      ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse> getBaseFeeMethod() {
+    io.grpc.MethodDescriptor<ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse> getBaseFeeMethod;
+    if ((getBaseFeeMethod = QueryGrpc.getBaseFeeMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getBaseFeeMethod = QueryGrpc.getBaseFeeMethod) == null) {
+          QueryGrpc.getBaseFeeMethod = getBaseFeeMethod =
+              io.grpc.MethodDescriptor.<ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest, ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "BaseFee"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("BaseFee"))
+              .build();
+        }
+      }
+    }
+    return getBaseFeeMethod;
   }
 
   /**
@@ -517,36 +517,6 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * TxLogs queries ethereum logs from a transaction.
-     * </pre>
-     */
-    public void txLogs(ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest request,
-        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getTxLogsMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * BlockLogs queries all the ethereum logs for a given block hash.
-     * </pre>
-     */
-    public void blockLogs(ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest request,
-        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getBlockLogsMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
-     * BlockBloom queries the block bloom filter bytes at a given height.
-     * </pre>
-     */
-    public void blockBloom(ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest request,
-        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getBlockBloomMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
      * Params queries the parameters of x/evm module.
      * </pre>
      */
@@ -573,6 +543,37 @@ public final class QueryGrpc {
     public void estimateGas(ethermint.evm.v1.QueryOuterClass.EthCallRequest request,
         io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.EstimateGasResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getEstimateGasMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * TraceTx implements the `debug_traceTransaction` rpc api
+     * </pre>
+     */
+    public void traceTx(ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest request,
+        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getTraceTxMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * TraceBlock implements the `debug_traceBlockByNumber` and `debug_traceBlockByHash` rpc api
+     * </pre>
+     */
+    public void traceBlock(ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest request,
+        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getTraceBlockMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * BaseFee queries the base fee of the parent block of the current block,
+     * it's similar to feemarket module's method, but also checks london hardfork status.
+     * </pre>
+     */
+    public void baseFee(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest request,
+        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getBaseFeeMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -620,27 +621,6 @@ public final class QueryGrpc {
                 ethermint.evm.v1.QueryOuterClass.QueryCodeResponse>(
                   this, METHODID_CODE)))
           .addMethod(
-            getTxLogsMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest,
-                ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse>(
-                  this, METHODID_TX_LOGS)))
-          .addMethod(
-            getBlockLogsMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest,
-                ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse>(
-                  this, METHODID_BLOCK_LOGS)))
-          .addMethod(
-            getBlockBloomMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest,
-                ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse>(
-                  this, METHODID_BLOCK_BLOOM)))
-          .addMethod(
             getParamsMethod(),
             asyncUnaryCall(
               new MethodHandlers<
@@ -661,6 +641,27 @@ public final class QueryGrpc {
                 ethermint.evm.v1.QueryOuterClass.EthCallRequest,
                 ethermint.evm.v1.QueryOuterClass.EstimateGasResponse>(
                   this, METHODID_ESTIMATE_GAS)))
+          .addMethod(
+            getTraceTxMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest,
+                ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse>(
+                  this, METHODID_TRACE_TX)))
+          .addMethod(
+            getTraceBlockMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest,
+                ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse>(
+                  this, METHODID_TRACE_BLOCK)))
+          .addMethod(
+            getBaseFeeMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest,
+                ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse>(
+                  this, METHODID_BASE_FEE)))
           .build();
     }
   }
@@ -752,39 +753,6 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * TxLogs queries ethereum logs from a transaction.
-     * </pre>
-     */
-    public void txLogs(ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest request,
-        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getTxLogsMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * BlockLogs queries all the ethereum logs for a given block hash.
-     * </pre>
-     */
-    public void blockLogs(ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest request,
-        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getBlockLogsMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * BlockBloom queries the block bloom filter bytes at a given height.
-     * </pre>
-     */
-    public void blockBloom(ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest request,
-        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getBlockBloomMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
      * Params queries the parameters of x/evm module.
      * </pre>
      */
@@ -814,6 +782,40 @@ public final class QueryGrpc {
         io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.EstimateGasResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getEstimateGasMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * TraceTx implements the `debug_traceTransaction` rpc api
+     * </pre>
+     */
+    public void traceTx(ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest request,
+        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getTraceTxMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * TraceBlock implements the `debug_traceBlockByNumber` and `debug_traceBlockByHash` rpc api
+     * </pre>
+     */
+    public void traceBlock(ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest request,
+        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getTraceBlockMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * BaseFee queries the base fee of the parent block of the current block,
+     * it's similar to feemarket module's method, but also checks london hardfork status.
+     * </pre>
+     */
+    public void baseFee(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest request,
+        io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getBaseFeeMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -898,36 +900,6 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * TxLogs queries ethereum logs from a transaction.
-     * </pre>
-     */
-    public ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse txLogs(ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getTxLogsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * BlockLogs queries all the ethereum logs for a given block hash.
-     * </pre>
-     */
-    public ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse blockLogs(ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getBlockLogsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * BlockBloom queries the block bloom filter bytes at a given height.
-     * </pre>
-     */
-    public ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse blockBloom(ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getBlockBloomMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
      * Params queries the parameters of x/evm module.
      * </pre>
      */
@@ -954,6 +926,37 @@ public final class QueryGrpc {
     public ethermint.evm.v1.QueryOuterClass.EstimateGasResponse estimateGas(ethermint.evm.v1.QueryOuterClass.EthCallRequest request) {
       return blockingUnaryCall(
           getChannel(), getEstimateGasMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * TraceTx implements the `debug_traceTransaction` rpc api
+     * </pre>
+     */
+    public ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse traceTx(ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getTraceTxMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * TraceBlock implements the `debug_traceBlockByNumber` and `debug_traceBlockByHash` rpc api
+     * </pre>
+     */
+    public ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse traceBlock(ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getTraceBlockMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * BaseFee queries the base fee of the parent block of the current block,
+     * it's similar to feemarket module's method, but also checks london hardfork status.
+     * </pre>
+     */
+    public ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse baseFee(ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getBaseFeeMethod(), getCallOptions(), request);
     }
   }
 
@@ -1044,39 +1047,6 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * TxLogs queries ethereum logs from a transaction.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse> txLogs(
-        ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getTxLogsMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * BlockLogs queries all the ethereum logs for a given block hash.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse> blockLogs(
-        ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getBlockLogsMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * BlockBloom queries the block bloom filter bytes at a given height.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse> blockBloom(
-        ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getBlockBloomMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
      * Params queries the parameters of x/evm module.
      * </pre>
      */
@@ -1107,6 +1077,40 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getEstimateGasMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * TraceTx implements the `debug_traceTransaction` rpc api
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse> traceTx(
+        ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getTraceTxMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * TraceBlock implements the `debug_traceBlockByNumber` and `debug_traceBlockByHash` rpc api
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse> traceBlock(
+        ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getTraceBlockMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * BaseFee queries the base fee of the parent block of the current block,
+     * it's similar to feemarket module's method, but also checks london hardfork status.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse> baseFee(
+        ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getBaseFeeMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_ACCOUNT = 0;
@@ -1115,12 +1119,12 @@ public final class QueryGrpc {
   private static final int METHODID_BALANCE = 3;
   private static final int METHODID_STORAGE = 4;
   private static final int METHODID_CODE = 5;
-  private static final int METHODID_TX_LOGS = 6;
-  private static final int METHODID_BLOCK_LOGS = 7;
-  private static final int METHODID_BLOCK_BLOOM = 8;
-  private static final int METHODID_PARAMS = 9;
-  private static final int METHODID_ETH_CALL = 10;
-  private static final int METHODID_ESTIMATE_GAS = 11;
+  private static final int METHODID_PARAMS = 6;
+  private static final int METHODID_ETH_CALL = 7;
+  private static final int METHODID_ESTIMATE_GAS = 8;
+  private static final int METHODID_TRACE_TX = 9;
+  private static final int METHODID_TRACE_BLOCK = 10;
+  private static final int METHODID_BASE_FEE = 11;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1163,18 +1167,6 @@ public final class QueryGrpc {
           serviceImpl.code((ethermint.evm.v1.QueryOuterClass.QueryCodeRequest) request,
               (io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryCodeResponse>) responseObserver);
           break;
-        case METHODID_TX_LOGS:
-          serviceImpl.txLogs((ethermint.evm.v1.QueryOuterClass.QueryTxLogsRequest) request,
-              (io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryTxLogsResponse>) responseObserver);
-          break;
-        case METHODID_BLOCK_LOGS:
-          serviceImpl.blockLogs((ethermint.evm.v1.QueryOuterClass.QueryBlockLogsRequest) request,
-              (io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryBlockLogsResponse>) responseObserver);
-          break;
-        case METHODID_BLOCK_BLOOM:
-          serviceImpl.blockBloom((ethermint.evm.v1.QueryOuterClass.QueryBlockBloomRequest) request,
-              (io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryBlockBloomResponse>) responseObserver);
-          break;
         case METHODID_PARAMS:
           serviceImpl.params((ethermint.evm.v1.QueryOuterClass.QueryParamsRequest) request,
               (io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryParamsResponse>) responseObserver);
@@ -1186,6 +1178,18 @@ public final class QueryGrpc {
         case METHODID_ESTIMATE_GAS:
           serviceImpl.estimateGas((ethermint.evm.v1.QueryOuterClass.EthCallRequest) request,
               (io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.EstimateGasResponse>) responseObserver);
+          break;
+        case METHODID_TRACE_TX:
+          serviceImpl.traceTx((ethermint.evm.v1.QueryOuterClass.QueryTraceTxRequest) request,
+              (io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryTraceTxResponse>) responseObserver);
+          break;
+        case METHODID_TRACE_BLOCK:
+          serviceImpl.traceBlock((ethermint.evm.v1.QueryOuterClass.QueryTraceBlockRequest) request,
+              (io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryTraceBlockResponse>) responseObserver);
+          break;
+        case METHODID_BASE_FEE:
+          serviceImpl.baseFee((ethermint.evm.v1.QueryOuterClass.QueryBaseFeeRequest) request,
+              (io.grpc.stub.StreamObserver<ethermint.evm.v1.QueryOuterClass.QueryBaseFeeResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1254,12 +1258,12 @@ public final class QueryGrpc {
               .addMethod(getBalanceMethod())
               .addMethod(getStorageMethod())
               .addMethod(getCodeMethod())
-              .addMethod(getTxLogsMethod())
-              .addMethod(getBlockLogsMethod())
-              .addMethod(getBlockBloomMethod())
               .addMethod(getParamsMethod())
               .addMethod(getEthCallMethod())
               .addMethod(getEstimateGasMethod())
+              .addMethod(getTraceTxMethod())
+              .addMethod(getTraceBlockMethod())
+              .addMethod(getBaseFeeMethod())
               .build();
         }
       }

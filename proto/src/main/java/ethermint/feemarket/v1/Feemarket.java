@@ -52,16 +52,6 @@ public final class Feemarket {
 
     /**
      * <pre>
-     * initial base fee for EIP-1559 blocks.
-     * </pre>
-     *
-     * <code>int64 initial_base_fee = 4;</code>
-     * @return The initialBaseFee.
-     */
-    long getInitialBaseFee();
-
-    /**
-     * <pre>
      * height at which the base fee calculation is enabled.
      * </pre>
      *
@@ -69,6 +59,68 @@ public final class Feemarket {
      * @return The enableHeight.
      */
     long getEnableHeight();
+
+    /**
+     * <pre>
+     * base fee for EIP-1559 blocks.
+     * </pre>
+     *
+     * <code>string base_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The baseFee.
+     */
+    java.lang.String getBaseFee();
+    /**
+     * <pre>
+     * base fee for EIP-1559 blocks.
+     * </pre>
+     *
+     * <code>string base_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for baseFee.
+     */
+    com.google.protobuf.ByteString
+        getBaseFeeBytes();
+
+    /**
+     * <pre>
+     * min_gas_price defines the minimum gas price value for cosmos and eth transactions
+     * </pre>
+     *
+     * <code>string min_gas_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The minGasPrice.
+     */
+    java.lang.String getMinGasPrice();
+    /**
+     * <pre>
+     * min_gas_price defines the minimum gas price value for cosmos and eth transactions
+     * </pre>
+     *
+     * <code>string min_gas_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for minGasPrice.
+     */
+    com.google.protobuf.ByteString
+        getMinGasPriceBytes();
+
+    /**
+     * <pre>
+     * min gas denominator bounds the minimum gasUsed to be charged
+     * to senders based on GasLimit
+     * </pre>
+     *
+     * <code>string min_gas_multiplier = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The minGasMultiplier.
+     */
+    java.lang.String getMinGasMultiplier();
+    /**
+     * <pre>
+     * min gas denominator bounds the minimum gasUsed to be charged
+     * to senders based on GasLimit
+     * </pre>
+     *
+     * <code>string min_gas_multiplier = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for minGasMultiplier.
+     */
+    com.google.protobuf.ByteString
+        getMinGasMultiplierBytes();
   }
   /**
    * <pre>
@@ -87,6 +139,9 @@ public final class Feemarket {
       super(builder);
     }
     private Params() {
+      baseFee_ = "";
+      minGasPrice_ = "";
+      minGasMultiplier_ = "";
     }
 
     @java.lang.Override
@@ -134,14 +189,27 @@ public final class Feemarket {
               elasticityMultiplier_ = input.readUInt32();
               break;
             }
-            case 32: {
-
-              initialBaseFee_ = input.readInt64();
-              break;
-            }
             case 40: {
 
               enableHeight_ = input.readInt64();
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              baseFee_ = s;
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              minGasPrice_ = s;
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              minGasMultiplier_ = s;
               break;
             }
             default: {
@@ -223,21 +291,6 @@ public final class Feemarket {
       return elasticityMultiplier_;
     }
 
-    public static final int INITIAL_BASE_FEE_FIELD_NUMBER = 4;
-    private long initialBaseFee_;
-    /**
-     * <pre>
-     * initial base fee for EIP-1559 blocks.
-     * </pre>
-     *
-     * <code>int64 initial_base_fee = 4;</code>
-     * @return The initialBaseFee.
-     */
-    @java.lang.Override
-    public long getInitialBaseFee() {
-      return initialBaseFee_;
-    }
-
     public static final int ENABLE_HEIGHT_FIELD_NUMBER = 5;
     private long enableHeight_;
     /**
@@ -251,6 +304,146 @@ public final class Feemarket {
     @java.lang.Override
     public long getEnableHeight() {
       return enableHeight_;
+    }
+
+    public static final int BASE_FEE_FIELD_NUMBER = 6;
+    private volatile java.lang.Object baseFee_;
+    /**
+     * <pre>
+     * base fee for EIP-1559 blocks.
+     * </pre>
+     *
+     * <code>string base_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The baseFee.
+     */
+    @java.lang.Override
+    public java.lang.String getBaseFee() {
+      java.lang.Object ref = baseFee_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        baseFee_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * base fee for EIP-1559 blocks.
+     * </pre>
+     *
+     * <code>string base_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for baseFee.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getBaseFeeBytes() {
+      java.lang.Object ref = baseFee_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        baseFee_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MIN_GAS_PRICE_FIELD_NUMBER = 7;
+    private volatile java.lang.Object minGasPrice_;
+    /**
+     * <pre>
+     * min_gas_price defines the minimum gas price value for cosmos and eth transactions
+     * </pre>
+     *
+     * <code>string min_gas_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The minGasPrice.
+     */
+    @java.lang.Override
+    public java.lang.String getMinGasPrice() {
+      java.lang.Object ref = minGasPrice_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        minGasPrice_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * min_gas_price defines the minimum gas price value for cosmos and eth transactions
+     * </pre>
+     *
+     * <code>string min_gas_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for minGasPrice.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMinGasPriceBytes() {
+      java.lang.Object ref = minGasPrice_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        minGasPrice_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MIN_GAS_MULTIPLIER_FIELD_NUMBER = 8;
+    private volatile java.lang.Object minGasMultiplier_;
+    /**
+     * <pre>
+     * min gas denominator bounds the minimum gasUsed to be charged
+     * to senders based on GasLimit
+     * </pre>
+     *
+     * <code>string min_gas_multiplier = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The minGasMultiplier.
+     */
+    @java.lang.Override
+    public java.lang.String getMinGasMultiplier() {
+      java.lang.Object ref = minGasMultiplier_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        minGasMultiplier_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * min gas denominator bounds the minimum gasUsed to be charged
+     * to senders based on GasLimit
+     * </pre>
+     *
+     * <code>string min_gas_multiplier = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+     * @return The bytes for minGasMultiplier.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMinGasMultiplierBytes() {
+      java.lang.Object ref = minGasMultiplier_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        minGasMultiplier_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -276,11 +469,17 @@ public final class Feemarket {
       if (elasticityMultiplier_ != 0) {
         output.writeUInt32(3, elasticityMultiplier_);
       }
-      if (initialBaseFee_ != 0L) {
-        output.writeInt64(4, initialBaseFee_);
-      }
       if (enableHeight_ != 0L) {
         output.writeInt64(5, enableHeight_);
+      }
+      if (!getBaseFeeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, baseFee_);
+      }
+      if (!getMinGasPriceBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, minGasPrice_);
+      }
+      if (!getMinGasMultiplierBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, minGasMultiplier_);
       }
       unknownFields.writeTo(output);
     }
@@ -303,13 +502,18 @@ public final class Feemarket {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(3, elasticityMultiplier_);
       }
-      if (initialBaseFee_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, initialBaseFee_);
-      }
       if (enableHeight_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(5, enableHeight_);
+      }
+      if (!getBaseFeeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, baseFee_);
+      }
+      if (!getMinGasPriceBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, minGasPrice_);
+      }
+      if (!getMinGasMultiplierBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, minGasMultiplier_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -332,10 +536,14 @@ public final class Feemarket {
           != other.getBaseFeeChangeDenominator()) return false;
       if (getElasticityMultiplier()
           != other.getElasticityMultiplier()) return false;
-      if (getInitialBaseFee()
-          != other.getInitialBaseFee()) return false;
       if (getEnableHeight()
           != other.getEnableHeight()) return false;
+      if (!getBaseFee()
+          .equals(other.getBaseFee())) return false;
+      if (!getMinGasPrice()
+          .equals(other.getMinGasPrice())) return false;
+      if (!getMinGasMultiplier()
+          .equals(other.getMinGasMultiplier())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -354,12 +562,15 @@ public final class Feemarket {
       hash = (53 * hash) + getBaseFeeChangeDenominator();
       hash = (37 * hash) + ELASTICITY_MULTIPLIER_FIELD_NUMBER;
       hash = (53 * hash) + getElasticityMultiplier();
-      hash = (37 * hash) + INITIAL_BASE_FEE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getInitialBaseFee());
       hash = (37 * hash) + ENABLE_HEIGHT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getEnableHeight());
+      hash = (37 * hash) + BASE_FEE_FIELD_NUMBER;
+      hash = (53 * hash) + getBaseFee().hashCode();
+      hash = (37 * hash) + MIN_GAS_PRICE_FIELD_NUMBER;
+      hash = (53 * hash) + getMinGasPrice().hashCode();
+      hash = (37 * hash) + MIN_GAS_MULTIPLIER_FIELD_NUMBER;
+      hash = (53 * hash) + getMinGasMultiplier().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -503,9 +714,13 @@ public final class Feemarket {
 
         elasticityMultiplier_ = 0;
 
-        initialBaseFee_ = 0L;
-
         enableHeight_ = 0L;
+
+        baseFee_ = "";
+
+        minGasPrice_ = "";
+
+        minGasMultiplier_ = "";
 
         return this;
       }
@@ -536,8 +751,10 @@ public final class Feemarket {
         result.noBaseFee_ = noBaseFee_;
         result.baseFeeChangeDenominator_ = baseFeeChangeDenominator_;
         result.elasticityMultiplier_ = elasticityMultiplier_;
-        result.initialBaseFee_ = initialBaseFee_;
         result.enableHeight_ = enableHeight_;
+        result.baseFee_ = baseFee_;
+        result.minGasPrice_ = minGasPrice_;
+        result.minGasMultiplier_ = minGasMultiplier_;
         onBuilt();
         return result;
       }
@@ -595,11 +812,20 @@ public final class Feemarket {
         if (other.getElasticityMultiplier() != 0) {
           setElasticityMultiplier(other.getElasticityMultiplier());
         }
-        if (other.getInitialBaseFee() != 0L) {
-          setInitialBaseFee(other.getInitialBaseFee());
-        }
         if (other.getEnableHeight() != 0L) {
           setEnableHeight(other.getEnableHeight());
+        }
+        if (!other.getBaseFee().isEmpty()) {
+          baseFee_ = other.baseFee_;
+          onChanged();
+        }
+        if (!other.getMinGasPrice().isEmpty()) {
+          minGasPrice_ = other.minGasPrice_;
+          onChanged();
+        }
+        if (!other.getMinGasMultiplier().isEmpty()) {
+          minGasMultiplier_ = other.minGasMultiplier_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -765,49 +991,6 @@ public final class Feemarket {
         return this;
       }
 
-      private long initialBaseFee_ ;
-      /**
-       * <pre>
-       * initial base fee for EIP-1559 blocks.
-       * </pre>
-       *
-       * <code>int64 initial_base_fee = 4;</code>
-       * @return The initialBaseFee.
-       */
-      @java.lang.Override
-      public long getInitialBaseFee() {
-        return initialBaseFee_;
-      }
-      /**
-       * <pre>
-       * initial base fee for EIP-1559 blocks.
-       * </pre>
-       *
-       * <code>int64 initial_base_fee = 4;</code>
-       * @param value The initialBaseFee to set.
-       * @return This builder for chaining.
-       */
-      public Builder setInitialBaseFee(long value) {
-        
-        initialBaseFee_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * initial base fee for EIP-1559 blocks.
-       * </pre>
-       *
-       * <code>int64 initial_base_fee = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearInitialBaseFee() {
-        
-        initialBaseFee_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private long enableHeight_ ;
       /**
        * <pre>
@@ -847,6 +1030,299 @@ public final class Feemarket {
       public Builder clearEnableHeight() {
         
         enableHeight_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object baseFee_ = "";
+      /**
+       * <pre>
+       * base fee for EIP-1559 blocks.
+       * </pre>
+       *
+       * <code>string base_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The baseFee.
+       */
+      public java.lang.String getBaseFee() {
+        java.lang.Object ref = baseFee_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          baseFee_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * base fee for EIP-1559 blocks.
+       * </pre>
+       *
+       * <code>string base_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for baseFee.
+       */
+      public com.google.protobuf.ByteString
+          getBaseFeeBytes() {
+        java.lang.Object ref = baseFee_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          baseFee_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * base fee for EIP-1559 blocks.
+       * </pre>
+       *
+       * <code>string base_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The baseFee to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBaseFee(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        baseFee_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * base fee for EIP-1559 blocks.
+       * </pre>
+       *
+       * <code>string base_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBaseFee() {
+        
+        baseFee_ = getDefaultInstance().getBaseFee();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * base fee for EIP-1559 blocks.
+       * </pre>
+       *
+       * <code>string base_fee = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for baseFee to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBaseFeeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        baseFee_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object minGasPrice_ = "";
+      /**
+       * <pre>
+       * min_gas_price defines the minimum gas price value for cosmos and eth transactions
+       * </pre>
+       *
+       * <code>string min_gas_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The minGasPrice.
+       */
+      public java.lang.String getMinGasPrice() {
+        java.lang.Object ref = minGasPrice_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          minGasPrice_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * min_gas_price defines the minimum gas price value for cosmos and eth transactions
+       * </pre>
+       *
+       * <code>string min_gas_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The bytes for minGasPrice.
+       */
+      public com.google.protobuf.ByteString
+          getMinGasPriceBytes() {
+        java.lang.Object ref = minGasPrice_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          minGasPrice_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * min_gas_price defines the minimum gas price value for cosmos and eth transactions
+       * </pre>
+       *
+       * <code>string min_gas_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The minGasPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinGasPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        minGasPrice_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * min_gas_price defines the minimum gas price value for cosmos and eth transactions
+       * </pre>
+       *
+       * <code>string min_gas_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMinGasPrice() {
+        
+        minGasPrice_ = getDefaultInstance().getMinGasPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * min_gas_price defines the minimum gas price value for cosmos and eth transactions
+       * </pre>
+       *
+       * <code>string min_gas_price = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The bytes for minGasPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinGasPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        minGasPrice_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object minGasMultiplier_ = "";
+      /**
+       * <pre>
+       * min gas denominator bounds the minimum gasUsed to be charged
+       * to senders based on GasLimit
+       * </pre>
+       *
+       * <code>string min_gas_multiplier = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The minGasMultiplier.
+       */
+      public java.lang.String getMinGasMultiplier() {
+        java.lang.Object ref = minGasMultiplier_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          minGasMultiplier_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * min gas denominator bounds the minimum gasUsed to be charged
+       * to senders based on GasLimit
+       * </pre>
+       *
+       * <code>string min_gas_multiplier = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return The bytes for minGasMultiplier.
+       */
+      public com.google.protobuf.ByteString
+          getMinGasMultiplierBytes() {
+        java.lang.Object ref = minGasMultiplier_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          minGasMultiplier_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * min gas denominator bounds the minimum gasUsed to be charged
+       * to senders based on GasLimit
+       * </pre>
+       *
+       * <code>string min_gas_multiplier = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The minGasMultiplier to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinGasMultiplier(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        minGasMultiplier_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * min gas denominator bounds the minimum gasUsed to be charged
+       * to senders based on GasLimit
+       * </pre>
+       *
+       * <code>string min_gas_multiplier = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMinGasMultiplier() {
+        
+        minGasMultiplier_ = getDefaultInstance().getMinGasMultiplier();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * min gas denominator bounds the minimum gasUsed to be charged
+       * to senders based on GasLimit
+       * </pre>
+       *
+       * <code>string min_gas_multiplier = 8 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
+       * @param value The bytes for minGasMultiplier to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinGasMultiplierBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        minGasMultiplier_ = value;
         onChanged();
         return this;
       }
@@ -918,23 +1394,37 @@ public final class Feemarket {
   static {
     java.lang.String[] descriptorData = {
       "\n&ethermint/feemarket/v1/feemarket.proto" +
-      "\022\026ethermint.feemarket.v1\"\222\001\n\006Params\022\023\n\013n" +
-      "o_base_fee\030\001 \001(\010\022#\n\033base_fee_change_deno" +
-      "minator\030\002 \001(\r\022\035\n\025elasticity_multiplier\030\003" +
-      " \001(\r\022\030\n\020initial_base_fee\030\004 \001(\003\022\025\n\renable" +
-      "_height\030\005 \001(\003B0Z.github.com/tharsis/ethe" +
-      "rmint/x/feemarket/typesb\006proto3"
+      "\022\026ethermint.feemarket.v1\032\024gogoproto/gogo" +
+      ".proto\"\345\002\n\006Params\022\023\n\013no_base_fee\030\001 \001(\010\022#" +
+      "\n\033base_fee_change_denominator\030\002 \001(\r\022\035\n\025e" +
+      "lasticity_multiplier\030\003 \001(\r\022\025\n\renable_hei" +
+      "ght\030\005 \001(\003\022@\n\010base_fee\030\006 \001(\tB.\332\336\037&github." +
+      "com/cosmos/cosmos-sdk/types.Int\310\336\037\000\022E\n\rm" +
+      "in_gas_price\030\007 \001(\tB.\332\336\037&github.com/cosmo" +
+      "s/cosmos-sdk/types.Dec\310\336\037\000\022J\n\022min_gas_mu" +
+      "ltiplier\030\010 \001(\tB.\332\336\037&github.com/cosmos/co" +
+      "smos-sdk/types.Dec\310\336\037\000J\004\010\004\020\005R\020initial_ba" +
+      "se_feeB.Z,github.com/evmos/ethermint/x/f" +
+      "eemarket/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_ethermint_feemarket_v1_Params_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_ethermint_feemarket_v1_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethermint_feemarket_v1_Params_descriptor,
-        new java.lang.String[] { "NoBaseFee", "BaseFeeChangeDenominator", "ElasticityMultiplier", "InitialBaseFee", "EnableHeight", });
+        new java.lang.String[] { "NoBaseFee", "BaseFeeChangeDenominator", "ElasticityMultiplier", "EnableHeight", "BaseFee", "MinGasPrice", "MinGasMultiplier", });
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

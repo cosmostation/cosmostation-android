@@ -1562,12 +1562,12 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The baseFee.
      */
     java.lang.String getBaseFee();
     /**
-     * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The bytes for baseFee.
      */
     com.google.protobuf.ByteString
@@ -1664,7 +1664,7 @@ public final class QueryOuterClass {
     public static final int BASE_FEE_FIELD_NUMBER = 1;
     private volatile java.lang.Object baseFee_;
     /**
-     * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The baseFee.
      */
     @java.lang.Override
@@ -1681,7 +1681,7 @@ public final class QueryOuterClass {
       }
     }
     /**
-     * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The bytes for baseFee.
      */
     @java.lang.Override
@@ -2007,7 +2007,7 @@ public final class QueryOuterClass {
 
       private java.lang.Object baseFee_ = "";
       /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The baseFee.
        */
       public java.lang.String getBaseFee() {
@@ -2023,7 +2023,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The bytes for baseFee.
        */
       public com.google.protobuf.ByteString
@@ -2040,7 +2040,7 @@ public final class QueryOuterClass {
         }
       }
       /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The baseFee to set.
        * @return This builder for chaining.
        */
@@ -2055,7 +2055,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearBaseFee() {
@@ -2065,7 +2065,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>string base_fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * <code>string base_fee = 1 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The bytes for baseFee to set.
        * @return This builder for chaining.
        */
@@ -3103,23 +3103,24 @@ public final class QueryOuterClass {
       "int/feemarket/v1/feemarket.proto\"\024\n\022Quer" +
       "yParamsRequest\"K\n\023QueryParamsResponse\0224\n" +
       "\006params\030\001 \001(\0132\036.ethermint.feemarket.v1.P" +
-      "aramsB\004\310\336\037\000\"\025\n\023QueryBaseFeeRequest\"X\n\024Qu" +
-      "eryBaseFeeResponse\022@\n\010base_fee\030\001 \001(\tB.\332\336" +
+      "aramsB\004\310\336\037\000\"\025\n\023QueryBaseFeeRequest\"T\n\024Qu" +
+      "eryBaseFeeResponse\022<\n\010base_fee\030\001 \001(\tB*\332\336" +
       "\037&github.com/cosmos/cosmos-sdk/types.Int" +
-      "\310\336\037\000\"\026\n\024QueryBlockGasRequest\"$\n\025QueryBlo" +
-      "ckGasResponse\022\013\n\003gas\030\001 \001(\0032\247\003\n\005Query\022\203\001\n" +
-      "\006Params\022*.ethermint.feemarket.v1.QueryPa" +
-      "ramsRequest\032+.ethermint.feemarket.v1.Que" +
-      "ryParamsResponse\" \202\323\344\223\002\032\022\030/feemarket/evm" +
-      "/v1/params\022\210\001\n\007BaseFee\022+.ethermint.feema" +
-      "rket.v1.QueryBaseFeeRequest\032,.ethermint." +
-      "feemarket.v1.QueryBaseFeeResponse\"\"\202\323\344\223\002" +
-      "\034\022\032/feemarket/evm/v1/base_fee\022\214\001\n\010BlockG" +
-      "as\022,.ethermint.feemarket.v1.QueryBlockGa" +
-      "sRequest\032-.ethermint.feemarket.v1.QueryB" +
-      "lockGasResponse\"#\202\323\344\223\002\035\022\033/feemarket/evm/" +
-      "v1/block_gasB0Z.github.com/tharsis/ether" +
-      "mint/x/feemarket/typesb\006proto3"
+      "\"\026\n\024QueryBlockGasRequest\"$\n\025QueryBlockGa" +
+      "sResponse\022\013\n\003gas\030\001 \001(\0032\271\003\n\005Query\022\211\001\n\006Par" +
+      "ams\022*.ethermint.feemarket.v1.QueryParams" +
+      "Request\032+.ethermint.feemarket.v1.QueryPa" +
+      "ramsResponse\"&\202\323\344\223\002 \022\036/ethermint/feemark" +
+      "et/v1/params\022\216\001\n\007BaseFee\022+.ethermint.fee" +
+      "market.v1.QueryBaseFeeRequest\032,.ethermin" +
+      "t.feemarket.v1.QueryBaseFeeResponse\"(\202\323\344" +
+      "\223\002\"\022 /ethermint/feemarket/v1/base_fee\022\222\001" +
+      "\n\010BlockGas\022,.ethermint.feemarket.v1.Quer" +
+      "yBlockGasRequest\032-.ethermint.feemarket.v" +
+      "1.QueryBlockGasResponse\")\202\323\344\223\002#\022!/etherm" +
+      "int/feemarket/v1/block_gasB.Z,github.com" +
+      "/evmos/ethermint/x/feemarket/typesb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
