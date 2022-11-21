@@ -6,20 +6,21 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.util.Base64
+import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.webkit.*
-import android.widget.*
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.common.util.CollectionUtils
-import com.google.common.collect.Lists
 import com.google.common.collect.Maps
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
 import com.trustwallet.walletconnect.WCClient
@@ -31,6 +32,9 @@ import com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage
 import com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction
 import com.trustwallet.walletconnect.models.keplr.WCKeplrWallet
 import com.trustwallet.walletconnect.models.session.WCSession
+import com.walletconnect.android.Core
+import com.walletconnect.android.CoreClient
+import com.walletconnect.sign.client.Sign
 import cosmos.tx.v1beta1.TxOuterClass
 import cosmos.tx.v1beta1.TxOuterClass.SignDoc
 import cosmos.tx.v1beta1.TxOuterClass.TxBody
@@ -40,13 +44,10 @@ import org.bitcoinj.core.ECKey
 import org.json.JSONObject
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
-import org.web3j.crypto.Sign
-import org.web3j.crypto.Sign.SignatureData
 import org.web3j.crypto.TransactionEncoder
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
-import org.web3j.protocol.core.methods.response.EthSendTransaction
 import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.BuildConfig
@@ -76,14 +77,19 @@ import wannabit.io.cosmostaion.utils.WUtil
 import wannabit.io.cosmostaion.utils.WalletConnectManager.addWhiteList
 import wannabit.io.cosmostaion.utils.WalletConnectManager.getWhiteList
 import java.math.BigInteger
-import java.util.*
 import java.util.concurrent.TimeUnit
+import com.walletconnect.sign.client.SignClient
+import com.walletconnect.sign.client.SignInterface
+import net.i2p.crypto.eddsa.Utils
+
 
 class WalletConnectActivity : BaseActivity() {
 
     private lateinit var binding: ActivityConnectWalletBinding
 
     private var mWalletConnectURI: String? = null
+
+    private var wcVersion = 1
     private var wcV1Client: WCClient? = null
     private var wcV1Session: WCSession? = null
     private var wcV1PeerMeta: WCPeerMeta? = null
@@ -127,6 +133,9 @@ class WalletConnectActivity : BaseActivity() {
                     setupWalletConnectTypeView(query)
                 }
             }
+        }
+        intent.extras?.getString("wcUrl")?.let {
+            setupWalletConnectTypeView(it)
         }
     }
 
@@ -226,35 +235,117 @@ class WalletConnectActivity : BaseActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
-    private fun connectWalletConnect() {
-        val client: OkHttpClient = OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build()
-        wcV1Client = WCClient(GsonBuilder(), client)
+    private fun connectWalletConnectV2(uri: String) {
+        wcVersion = 2
+        val pairingList = CoreClient.Pairing.getPairings()
+        pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
+
+        val pairingParams = Core.Params.Pair(uri)
+        CoreClient.Pairing.pair(pairingParams) { error ->
+            Log.e("WCV2", error.throwable.stackTraceToString())
+        }
+
+        SignClient.setWalletDelegate(object : SignInterface.WalletDelegate {
+            override fun onConnectionStateChange(state: Sign.Model.ConnectionState) {
+            }
+
+            override fun onError(error: Sign.Model.Error) {
+            }
+
+            override fun onSessionDelete(deletedSession: Sign.Model.DeletedSession) {
+            }
+
+            override fun onSessionProposal(sessionProposal: Sign.Model.SessionProposal) {
+                sessionProposal.requiredNamespaces.values.flatMap { it.chains }
+                val sessionNamespaces: MutableMap<String, Sign.Model.Namespace.Session> =
+                    mutableMapOf()
+                val methods = sessionProposal.requiredNamespaces.values.flatMap { it.methods }
+                val events = sessionProposal.requiredNamespaces.values.flatMap { it.events }
+                val accounts = mutableListOf<String>()
+                WDp.getChainTypeByChainId("cosmoshub-4").let {
+                    accounts.addAll(baseDao.onSelectAllAccountsByChainWithKey(it)
+                        .map { "cosmos:cosmoshub-4:${it.address}" })
+                }
+                sessionNamespaces["cosmos"] = Sign.Model.Namespace.Session(
+                    accounts = accounts, methods = methods, events = events, extensions = null
+                )
+                val approveProposal = Sign.Params.Approve(
+                    proposerPublicKey = sessionProposal.proposerPublicKey,
+                    namespaces = sessionNamespaces
+                )
+                SignClient.approveSession(approveProposal) { error ->
+                    Log.e("WCV2", error.throwable.stackTraceToString())
+                }
+            }
+
+            override fun onSessionRequest(sessionRequest: Sign.Model.SessionRequest) {
+                sessionRequest.request.apply {
+                    if (method == "cosmos_signDirect") {
+                        runOnUiThread {
+                            val signBundle = generateSignBundle(id, params)
+                            showSignDialog(signBundle, object : WcSignRawDataListener {
+                                override fun sign(id: Long, transaction: String) {
+                                    approveCosmosSignDirectV2Request(
+                                        id, transaction, sessionRequest
+                                    )
+                                }
+
+                                override fun cancel(id: Long) {
+                                    cancelSignRequest(id)
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+
+            override fun onSessionSettleResponse(settleSessionResponse: Sign.Model.SettledSessionResponse) {
+            }
+
+            override fun onSessionUpdateResponse(sessionUpdateResponse: Sign.Model.SessionUpdateResponse) {
+            }
+        })
+
+        return
+    }
+
+    private fun connectWalletConnectV1(uri: String) {
         val meta = WCPeerMeta(
             getString(R.string.str_wc_peer_name),
             getString(R.string.str_wc_peer_url),
             getString(R.string.str_wc_peer_desc),
             listOf()
         )
-        mWalletConnectURI?.let {
-            wcV1Session = WCSession.from(it)
-            wcV1Session?.let { session -> wcV1Client?.connect(session, meta) }
+        wcV1Session = WCSession.from(uri)
+        wcV1Session?.let { session -> wcV1Client?.connect(session, meta) }
+        val client: OkHttpClient = OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build()
+        wcV1Client = WCClient(GsonBuilder(), client).apply {
+            onSessionRequest = processSessionRequest
+            onDisconnect = processDisconnect
+            onGetAccounts = processGetAccounts
+            onKeplrEnable = processKeplrEnable
+            onKeplrGetKeys = processGetKeplrAccounts
+            onCosmostationAccounts = processGetCosmosAccounts
+            onCosmosGetAccounts = processGetCosmosAccounts
+            onEthSign = processSignEvm
+            onEthSendTransaction = processSendEvm
+            onSignTransaction = processSignTrust
+            onKeplrSignAmino = processSignAmino
+            onCosmostationSignTx = processSignAmino
+            onCosmosSignAmino = processSignAmino
+            onCosmosSignDirect = processSignDirect
+            onCosmostationSignDirectTx = processSignDirect
         }
+    }
 
-        wcV1Client?.onSessionRequest = processSessionRequest
-        wcV1Client?.onDisconnect = processDisconnect
-        wcV1Client?.onGetAccounts = processGetAccounts
-        wcV1Client?.onKeplrEnable = processKeplrEnable
-        wcV1Client?.onKeplrGetKeys = processGetKeplrAccounts
-        wcV1Client?.onCosmostationAccounts = processGetCosmosAccounts
-        wcV1Client?.onCosmosGetAccounts = processGetCosmosAccounts
-        wcV1Client?.onEthSign = processSignEvm
-        wcV1Client?.onEthSendTransaction = processSendEvm
-        wcV1Client?.onSignTransaction = processSignTrust
-        wcV1Client?.onKeplrSignAmino = processSignAmino
-        wcV1Client?.onCosmostationSignTx = processSignAmino
-        wcV1Client?.onCosmosSignAmino = processSignAmino
-        wcV1Client?.onCosmosSignDirect = processSignDirect
-        wcV1Client?.onCosmostationSignDirectTx = processSignDirect
+    private fun connectWalletConnect() {
+        mWalletConnectURI?.let {
+            if (it.contains("@2")) {
+                connectWalletConnectV2(it)
+            } else {
+                connectWalletConnectV1(it)
+            }
+        }
     }
 
     private val processGetAccounts: (Long) -> Unit = { id: Long ->
@@ -462,8 +553,9 @@ class WalletConnectActivity : BaseActivity() {
         try {
             loadedAccountMap[mBaseChain.chain]?.let { account ->
                 val credentials = Credentials.create(getPrivateKey(account))
-                val signed =
-                    Sign.signPrefixedMessage(signMessage.data.toByteArray(), credentials.ecKeyPair)
+                val signed = org.web3j.crypto.Sign.signPrefixedMessage(
+                    signMessage.data.toByteArray(), credentials.ecKeyPair
+                )
                 wcV1Client?.approveRequest(id, signed)
             } ?: run {
                 wcV1Client?.rejectRequest(id, getString(R.string.str_unknown_error))
@@ -631,6 +723,44 @@ class WalletConnectActivity : BaseActivity() {
             val key = getKey(WDp.getChainTypeByChainId(chainId).chain)
             val signModel = WcSignDirectModel(signDoc.toByteArray(), jsonObject, key)
             wcV1Client?.approveRequest(id, signModel)
+            Toast.makeText(
+                baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT
+            ).show()
+        } catch (e: Exception) {
+            wcV1Client?.rejectRequest(id, "Signing error.")
+            Toast.makeText(
+                baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT
+            ).show()
+        }
+        moveToBackIfNeed()
+    }
+
+    fun approveCosmosSignDirectV2Request(
+        id: Long, transaction: String, sessionRequest: Sign.Model.SessionRequest
+    ) {
+        try {
+            val jsonObject = Gson().fromJson(transaction, JsonObject::class.java)
+            val signDocJson = jsonObject["signDoc"].asJsonObject
+            val chainId = signDocJson["chainId"].asString
+            val txBody = TxBody.parseFrom(Utils.hexToBytes(signDocJson["bodyBytes"].asString))
+            val authInfo =
+                TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(signDocJson["authInfoBytes"].asString))
+            val accountNumber = signDocJson["accountNumber"].asLong
+            val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString())
+                .setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId)
+                .setAccountNumber(accountNumber).build()
+            val key = getKey(WDp.getChainTypeByChainId(chainId).chain)
+            val signModel = WcSignDirectModel(signDoc.toByteArray(), jsonObject, key)
+            val response = Sign.Params.Response(
+                sessionTopic = sessionRequest.topic,
+                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
+                    id, Gson().toJson(signModel)
+                )
+            )
+
+            SignClient.respond(response) { error ->
+                Log.e("WCV2", error.throwable.stackTraceToString())
+            }
             Toast.makeText(
                 baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT
             ).show()
