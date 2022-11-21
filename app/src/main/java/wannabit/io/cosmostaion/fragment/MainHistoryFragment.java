@@ -151,7 +151,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     public void onRefreshTab() {
         if (!isAdded()) return;
         mId = 0;
-        mApiNewTxCustomHistory = new ArrayList<>();
+        mApiNewTxCustomHistory.clear();
         mHistoryAdapter.notifyDataSetChanged();
         onUpdateView();
         onFetchHistory();
