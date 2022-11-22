@@ -237,8 +237,6 @@ class WalletConnectActivity : BaseActivity() {
 
     private fun connectWalletConnectV2(uri: String) {
         wcVersion = 2
-        val pairingList = CoreClient.Pairing.getPairings()
-        pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
 
         val pairingParams = Core.Params.Pair(uri)
         CoreClient.Pairing.pair(pairingParams) { error ->
@@ -279,24 +277,7 @@ class WalletConnectActivity : BaseActivity() {
             }
 
             override fun onSessionRequest(sessionRequest: Sign.Model.SessionRequest) {
-                sessionRequest.request.apply {
-                    if (method == "cosmos_signDirect") {
-                        runOnUiThread {
-                            val signBundle = generateSignBundle(id, params)
-                            showSignDialog(signBundle, object : WcSignRawDataListener {
-                                override fun sign(id: Long, transaction: String) {
-                                    approveCosmosSignDirectV2Request(
-                                        id, transaction, sessionRequest
-                                    )
-                                }
-
-                                override fun cancel(id: Long) {
-                                    cancelSignRequest(id)
-                                }
-                            })
-                        }
-                    }
-                }
+                processV2SessionRequest(sessionRequest)
             }
 
             override fun onSessionSettleResponse(settleSessionResponse: Sign.Model.SettledSessionResponse) {
@@ -309,6 +290,43 @@ class WalletConnectActivity : BaseActivity() {
         return
     }
 
+    private fun processV2SessionRequest(sessionRequest: Sign.Model.SessionRequest) {
+        runOnUiThread {
+            sessionRequest.request.apply {
+                when (method) {
+                    "cosmos_signDirect" -> {
+                        val signBundle = generateSignBundle(id, params)
+                        showSignDialog(signBundle, object : WcSignRawDataListener {
+                            override fun sign(id: Long, transaction: String) {
+                                approveCosmosSignDirectV2Request(
+                                    id, transaction, sessionRequest
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                cancelV2SignRequest(id, sessionRequest)
+                            }
+                        })
+                    }
+                    "cosmos_signAmino" -> {
+                        val signBundle = generateSignBundle(id, params)
+                        showSignDialog(signBundle, object : WcSignRawDataListener {
+                            override fun sign(id: Long, transaction: String) {
+                                approveCosmosSignAminoV2Request(
+                                    id, transaction, sessionRequest
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                cancelV2SignRequest(id, sessionRequest)
+                            }
+                        })
+                    }
+                }
+            }
+        }
+    }
+
     private fun connectWalletConnectV1(uri: String) {
         val meta = WCPeerMeta(
             getString(R.string.str_wc_peer_name),
@@ -317,7 +335,6 @@ class WalletConnectActivity : BaseActivity() {
             listOf()
         )
         wcV1Session = WCSession.from(uri)
-        wcV1Session?.let { session -> wcV1Client?.connect(session, meta) }
         val client: OkHttpClient = OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build()
         wcV1Client = WCClient(GsonBuilder(), client).apply {
             onSessionRequest = processSessionRequest
@@ -335,6 +352,7 @@ class WalletConnectActivity : BaseActivity() {
             onCosmosSignAmino = processSignAmino
             onCosmosSignDirect = processSignDirect
             onCosmostationSignDirectTx = processSignDirect
+            wcV1Session?.let { session -> connect(session, meta) }
         }
     }
 
@@ -750,14 +768,13 @@ class WalletConnectActivity : BaseActivity() {
                 .setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId)
                 .setAccountNumber(accountNumber).build()
             val key = getKey(WDp.getChainTypeByChainId(chainId).chain)
-            val signModel = WcSignDirectModel(signDoc.toByteArray(), jsonObject, key)
+            val signModel = WcSignDirectModel(signDoc.toByteArray(), signDocJson, key)
             val response = Sign.Params.Response(
                 sessionTopic = sessionRequest.topic,
                 jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
-                    id, Gson().toJson(signModel)
+                    id, Gson().toJson(signModel.signature)
                 )
             )
-
             SignClient.respond(response) { error ->
                 Log.e("WCV2", error.throwable.stackTraceToString())
             }
@@ -765,7 +782,53 @@ class WalletConnectActivity : BaseActivity() {
                 baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT
             ).show()
         } catch (e: Exception) {
-            wcV1Client?.rejectRequest(id, "Signing error.")
+            val response = Sign.Params.Response(
+                sessionTopic = sessionRequest.topic,
+                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
+                    id, 500, "Signing error."
+                )
+            )
+            SignClient.respond(response) { error ->
+                Log.e("WCV2", error.throwable.stackTraceToString())
+            }
+            Toast.makeText(
+                baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT
+            ).show()
+        }
+        moveToBackIfNeed()
+    }
+
+    fun approveCosmosSignAminoV2Request(
+        id: Long, transaction: String, sessionRequest: Sign.Model.SessionRequest
+    ) {
+        try {
+            val jsonObject = Gson().fromJson(transaction, JsonObject::class.java)
+            val signDocJson = jsonObject["signDoc"].asJsonObject
+            val chainId = signDocJson["chain_id"].asString
+            val signModel =
+                WcSignModel(signDocJson, getKey(WDp.getChainTypeByChainId(chainId).chain))
+            val response = Sign.Params.Response(
+                sessionTopic = sessionRequest.topic,
+                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
+                    id, Gson().toJson(signModel.signature)
+                )
+            )
+            SignClient.respond(response) { error ->
+                Log.e("WCV2", error.throwable.stackTraceToString())
+            }
+            Toast.makeText(
+                baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT
+            ).show()
+        } catch (e: Exception) {
+            val response = Sign.Params.Response(
+                sessionTopic = sessionRequest.topic,
+                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
+                    id, 500, "Signing error."
+                )
+            )
+            SignClient.respond(response) { error ->
+                Log.e("WCV2", error.throwable.stackTraceToString())
+            }
             Toast.makeText(
                 baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT
             ).show()
@@ -856,7 +919,8 @@ class WalletConnectActivity : BaseActivity() {
     ) {
         if (index >= chains.size) {
             fillConnectInfoAddressIfNeed()
-            wcV1Client?.approveRequest(id,
+            wcV1Client?.approveRequest(
+                id,
                 selectedAccounts.mapNotNull { toCosmosatationAccount(it) })
             moveToBackIfNeed()
             return
@@ -962,6 +1026,22 @@ class WalletConnectActivity : BaseActivity() {
         moveToBackIfNeed()
     }
 
+    private fun cancelV2SignRequest(id: Long, sessionRequest: Sign.Model.SessionRequest) {
+        val response = Sign.Params.Response(
+            sessionTopic = sessionRequest.topic,
+            jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
+                id, 300, getString(R.string.str_cancel)
+            )
+        )
+        SignClient.respond(response) { error ->
+            Log.e("WCV2", error.throwable.stackTraceToString())
+        }
+        Toast.makeText(
+            baseContext, getString(R.string.str_cancel), Toast.LENGTH_SHORT
+        ).show()
+        moveToBackIfNeed()
+    }
+
     private fun showErrorDialog(message: String) {
         CommonAlertDialog.showSingleButton(
             this,
@@ -1014,12 +1094,17 @@ class WalletConnectActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        wcV1Client?.let {
-            if (it.isConnected) {
-                it.killSession()
-            } else {
-                it.disconnect()
+        if (wcVersion == 1) {
+            wcV1Client?.let {
+                if (it.isConnected) {
+                    it.killSession()
+                } else {
+                    it.disconnect()
+                }
             }
+        } else {
+            val pairingList = CoreClient.Pairing.getPairings()
+            pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
         }
     }
 
