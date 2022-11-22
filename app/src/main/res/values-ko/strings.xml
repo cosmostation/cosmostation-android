@@ -39,7 +39,7 @@
     <string name="str_redelegate_c">재위임 하기</string>
     <string name="str_reinvest_c">컴파운딩</string>
     <string name="str_cancel">취소</string>
-    <string name="str_unknown_error">알 수없는 오류</string>
+    <string name="str_unknown_error">알 수 없는 오류</string>
     <string name="str_continue">계속</string>
     <string name="str_connect">연결</string>
     <string name="str_wait">기다리기</string>
@@ -554,11 +554,11 @@
     <string name="str_locked">잠긴 수량</string>
     <string name="str_frozen">얼린 수량</string>
     <string name="str_staking">위임 수량</string>
-    <string name="str_to_staking">위임 하기</string>
-    <string name="str_to_unbonding">위임 해제 하기</string>
+    <string name="str_to_staking">예치</string>
+    <string name="str_to_unbonding">회수</string>
     <string name="str_deposit">예금 하기</string>
     <string name="str_withdraw">출금 하기</string>
-    <string name="str_vote_for_validator">검증인 투표</string>
+    <string name="str_vote_for_validator">검증인 선출</string>
     <string name="str_name_service">스타네임 서비스</string>
     <string name="str_promotion_title">위임하고 이자받기</string>
     <string name="str_sorting_s">정렬</string>
@@ -638,8 +638,8 @@
     <string name="str_password_init">사용하실 PIN 번호를 입력하세요.</string>
     <string name="str_password_msg1">다시 한 번 입력해 주세요.</string>
     <string name="str_password_msg2">PIN 번호는 복구하실 방법이 전혀 없습니다.\n신중히 결정하시고 잊지않도록 주의해주세요.</string>
-    <string name="str_send_step_0">받을 지갑 주소를 입력하세요</string>
-    <string name="str_send_step_1">전송하실 코인과 수량을 입력하세요</string>
+    <string name="str_send_step_0">받으실 분의 정를 입력하세요</string>
+    <string name="str_send_step_1">전송하실 수량을 입력하세요</string>
     <string name="str_delegate_step_1">위임 할 수량을 입력하세요</string>
     <string name="str_undelegate_step_1">위임 철회할 수량을 입력하세요</string>
     <string name="str_unbonding_days_after"><![CDATA[일 후)]]></string>
@@ -866,8 +866,8 @@
     <string name="str_swap_kava">Kava Swap Rate</string>
     <string name="str_swap_osmosis">Osmosis Swap Rate</string>
     <string name="str_ibc_send_c">IBC 보내기</string>
-    <string name="str_select_ibc_address">받는 주소</string>
-    <string name="str_ibc_recipient_chain">받는 체인</string>
+    <string name="str_select_ibc_address">수신 주소</string>
+    <string name="str_ibc_recipient_chain">수신 체인</string>
     <string name="str_select_starname_domain">도메인 선택</string>
     <string name="str_picker_dialog_title">지정 경로를 선택 하세요</string>
     <string name="str_sif_dex_title">SifChain DeFi</string>
