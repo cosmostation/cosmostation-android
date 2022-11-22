@@ -204,12 +204,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             }
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
-            BigDecimal test = BigDecimal.valueOf(0.1).divide(new BigDecimal("1"), mDpDecimal, RoundingMode.DOWN);
             String es = String.valueOf(mAmountInput.getText()).trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(test).toPlainString());
+            mAmountInput.setText(existed.add(BigDecimal.valueOf(0.1).divide(new BigDecimal("1"), mDpDecimal, RoundingMode.DOWN)).toPlainString());
 
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
