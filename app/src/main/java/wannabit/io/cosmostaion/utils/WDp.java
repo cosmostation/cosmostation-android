@@ -912,6 +912,20 @@ public class WDp {
         return result;
     }
 
+    public static String getOkcDpTime(Context c, long txTime) {
+        String result = "??";
+        try {
+            Calendar calendar = Calendar.getInstance();
+            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime());
+            calendar.setTimeInMillis(txTime + timeZone);
+            SimpleDateFormat simpleFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
+            result = simpleFormat.format(calendar.getTimeInMillis());
+        } catch (Exception e) {
+        }
+
+        return result;
+    }
+
     public static String getUnbondTime(Context c, BaseData baseData, BaseChain baseChain) {
         String result = "??";
         try {
@@ -1093,13 +1107,13 @@ public class WDp {
         return "(" + result + " " + c.getString(R.string.str_ago) + ")";
     }
 
-    public static String getTimeTxGap(Context c, long rawValue) {
+    public static String getOkcTimeTxGap(Context c, long rawValue) {
         String result = "";
         try {
-            Date blockTime = new Date(rawValue);
-            Date nowTime = Calendar.getInstance().getTime();
-
-            long difference = nowTime.getTime() - blockTime.getTime();
+            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime());
+            long txTime = rawValue + timeZone;
+            long now = Calendar.getInstance().getTimeInMillis();
+            long difference = now - txTime;
 
             long differenceSeconds = difference / 1000 % 60;
             long differenceMinutes = difference / (60 * 1000) % 60;

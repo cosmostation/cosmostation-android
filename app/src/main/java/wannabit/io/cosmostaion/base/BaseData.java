@@ -269,9 +269,11 @@ public class BaseData {
     }
 
     public OkToken okToken(String denom) {
-        for (OkToken token : mOkTokenList.data) {
-            if (token.symbol.equals(denom)) {
-                return token;
+        if (mOkTokenList != null && mOkTokenList.data != null) {
+            for (OkToken token : mOkTokenList.data) {
+                if (token.symbol.equals(denom)) {
+                    return token;
+                }
             }
         }
         return null;
