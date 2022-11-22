@@ -61,7 +61,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private HistoryAdapter mHistoryAdapter;
 
     private ArrayList<BnbHistory> mBnbHistory = new ArrayList<>();
-    private ArrayList<ResOkHistory.Data.Hit> mOkHistory = new ArrayList<>();
+    private ArrayList<ResOkHistory.Data.transactionData> mOkHistory = new ArrayList<>();
     private ArrayList<ResApiNewTxListCustom> mApiNewTxCustomHistory = new ArrayList<>();
 
     private Account mAccount;
@@ -195,7 +195,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_OK_HISTORY) {
-            mOkHistory = (ArrayList<ResOkHistory.Data.Hit>) result.resultData;
+            mOkHistory = (ArrayList<ResOkHistory.Data.transactionData>) result.resultData;
             if (!CollectionUtils.isEmpty(mOkHistory)) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -248,7 +248,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     final BnbHistory history = mBnbHistory.get(position);
                     holder.onBindOldBnbHistory(getMainActivity(), mChainConfig, history);
                 } else if (mBaseChain.equals(OKEX_MAIN)) {
-                    final ResOkHistory.Data.Hit history = mOkHistory.get(position);
+                    final ResOkHistory.Data.transactionData history = mOkHistory.get(position);
                     holder.onBindOldOkHistory(getMainActivity(), mChainConfig, history);
                 }
             }
