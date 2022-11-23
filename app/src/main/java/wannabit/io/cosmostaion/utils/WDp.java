@@ -916,7 +916,7 @@ public class WDp {
         String result = "??";
         try {
             Calendar calendar = Calendar.getInstance();
-            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime()) - 3600000;
+            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime());
             calendar.setTimeInMillis(txTime + timeZone);
             SimpleDateFormat simpleFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
             result = simpleFormat.format(calendar.getTimeInMillis());
@@ -1110,7 +1110,7 @@ public class WDp {
     public static String getOkcTimeTxGap(Context c, long rawValue) {
         String result = "";
         try {
-            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime()) - 3600000;
+            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime());
             long txTime = rawValue + timeZone;
             long now = Calendar.getInstance().getTimeInMillis();
             long difference = now - txTime;
