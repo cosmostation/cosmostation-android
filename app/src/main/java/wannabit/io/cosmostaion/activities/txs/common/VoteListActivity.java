@@ -141,7 +141,6 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
     private void loadProposals() {
         if (mAccount == null) return;
-        onShowWaitDialog();
         ApiClient.getMintscan(VoteListActivity.this).getProposalList(mChain).enqueue(new Callback<ArrayList<ResProposal>>() {
             @Override
             public void onResponse(Call<ArrayList<ResProposal>> call, Response<ArrayList<ResProposal>> response) {
@@ -158,19 +157,12 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                         checkEmptyView();
                     });
                 }
-
-                runOnUiThread(() -> {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    onHideWaitDialog();
-                });
+                runOnUiThread(() -> mSwipeRefreshLayout.setRefreshing(false));
             }
 
             @Override
             public void onFailure(Call<ArrayList<ResProposal>> call, Throwable t) {
-                runOnUiThread(() -> {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    onHideWaitDialog();
-                });
+                runOnUiThread(() -> mSwipeRefreshLayout.setRefreshing(false));
             }
         });
     }
@@ -197,9 +189,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             public void onResponse(Call<ResVoteStatus> call, Response<ResVoteStatus> response) {
                 if (response.body() != null && response.isSuccessful() && response.body().votes != null) {
                     try {
-                        response.body().votes.forEach(votesData -> {
-                            statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet()));
-                        });
+                        response.body().votes.forEach(votesData -> statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet())));
                         mVoteListAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                     }
