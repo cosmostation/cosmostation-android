@@ -36,6 +36,7 @@ public class HistoryOldHolder extends BaseHolder {
         history_time.setText(WDp.getTimeformat(mainActivity, history.timeStamp));
         history_time_gap.setText(WDp.getTimeGap(mainActivity, history.timeStamp));
         history_block.setText(history.blockHeight + " block");
+        historySuccess.setVisibility(View.GONE);
 
         historyRoot.setOnClickListener(v -> {
             String url = chainConfig.explorerHistoryLink(history.txHash);
@@ -51,6 +52,8 @@ public class HistoryOldHolder extends BaseHolder {
         history_block.setText(history.height + " block");
         if (history.state.equals("fail")) {
             historySuccess.setVisibility(View.VISIBLE);
+        } else {
+            historySuccess.setVisibility(View.GONE);
         }
 
         historyRoot.setOnClickListener(v -> {
