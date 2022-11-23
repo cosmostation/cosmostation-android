@@ -165,6 +165,12 @@ public class ResApiNewTxListCustom {
                 } catch (Exception e) {
                 }
 
+                if (msgType.contains("stride.") && msgType.contains("stakeibc")) {
+                    if (msgType.contains("MsgLiquidStake")) {
+                        result = c.getString(R.string.tx_crescent_liquid_stake);
+                    }
+                }
+
                 // cosmos default msg type
                 if (msgType.contains("cosmos.") && msgType.contains("staking")) {
                     if (msgType.contains("MsgCreateValidator")) {
