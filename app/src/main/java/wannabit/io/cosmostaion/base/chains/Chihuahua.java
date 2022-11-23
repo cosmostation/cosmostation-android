@@ -35,6 +35,6 @@ public class Chihuahua extends ChainConfig {
     public String explorerUrl() { return EXPLORER_BASE_URL + "chihuahua/"; }
     public String monikerUrl() { return MONIKER_URL + "chihuahua/"; }
     public String homeInfoLink() { return  "https://chi.huahua.wtf"; }
-    public String blogInfoLink() { return  "https://chi.huahua.wtf"; }
+    public String blogInfoLink() { return  "https://chihuahuachain.medium.com/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "chihuahua-chain"; }
 }

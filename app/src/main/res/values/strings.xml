@@ -187,7 +187,7 @@
     <string name="str_address_type">Address Type</string>
     <string name="str_tender_type">Tendermint Style</string>
     <string name="str_eth_type">Ethereum Style</string>
-    <string name="str_import_msg">Currently in watch mode.\nAll transactions are made available after registering your mnemonic phrase.</string>
+    <string name="str_import_msg">Currently in watch mode.\nAll transactions are made available after registering your mnemonic or private key.</string>
     <string name="str_import_mnemonic">Import Mnemonic</string>
     <string name="str_import_key">Import PrivateKey</string>
     <string name="str_share">Share</string>
@@ -640,8 +640,8 @@
     <string name="str_locked">Locked</string>
     <string name="str_frozen">Frozen</string>
     <string name="str_staking">Staking</string>
-    <string name="str_to_staking">Staking</string>
-    <string name="str_to_unbonding">Unbonding</string>
+    <string name="str_to_staking">Deposit</string>
+    <string name="str_to_unbonding">Withdraw</string>
     <string name="str_deposit">Deposit</string>
     <string name="str_withdraw">Withdraw</string>
     <string name="str_vote_for_validator">Vote for Validator</string>
