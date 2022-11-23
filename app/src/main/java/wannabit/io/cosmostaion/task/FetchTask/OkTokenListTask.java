@@ -14,7 +14,7 @@ public class OkTokenListTask extends CommonTask {
 
     public OkTokenListTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
+        this.mResult.taskType = BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
 
     }
 
@@ -22,15 +22,13 @@ public class OkTokenListTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ResOkTokenList> response = ApiClient.getOkexChain().getTokenList().execute();
-            if (!response.isSuccessful()) {
+            if (response.isSuccessful() && response.body() != null) {
+                mResult.resultData = response.body();
+                mResult.isSuccess = true;
+            } else {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                 return mResult;
-            }
-
-            if (response.body() != null) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
             }
 
         } catch (Exception e) {
