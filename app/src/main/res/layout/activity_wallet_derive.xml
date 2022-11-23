@@ -49,12 +49,13 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_marginRight="@dimen/space_2"
-                    android:text="HD Path : " />
+                    android:text="@string/str_hd_path" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/space_16"
+                    android:layout_marginLeft="@dimen/space_4"
                     android:layout_toRightOf="@+id/path_title">
 
                     <LinearLayout
