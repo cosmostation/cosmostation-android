@@ -26,7 +26,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
@@ -52,7 +51,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 public class VoteDetailsActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar mToolbar;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private RelativeLayout mLoadingLayer;
     private Button mVoteBtn;
@@ -75,7 +73,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote_details);
         mToolbar = findViewById(R.id.tool_bar);
-        mSwipeRefreshLayout = findViewById(R.id.layer_refresher);
         mRecyclerView = findViewById(R.id.recycler);
         mLoadingLayer = findViewById(R.id.loadingLayer);
         mVoteBtn = findViewById(R.id.btn_action);
@@ -92,9 +89,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(() -> onFetch());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -118,7 +112,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void onUpdateView() {
-        mSwipeRefreshLayout.setRefreshing(false);
         mVoteDetailsAdapter.notifyDataSetChanged();
         mLoadingLayer.setVisibility(View.GONE);
         mVoteBtn.setVisibility(View.VISIBLE);
@@ -305,7 +298,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     onDisplayVote(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
                     holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(getBaseDao(), mApiProposal).setScale(2).toPlainString() + "%", 3));
-                    if (getBaseDao().mParam != null) holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mParam.getQuorum(mChainConfig)));
+                    if (getBaseDao().mParam != null)
+                        holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mParam.getQuorum(mChainConfig)));
                 }
 
                 if (mBaseChain.equals(CERTIK_MAIN) && mResMyProposal != null) {
