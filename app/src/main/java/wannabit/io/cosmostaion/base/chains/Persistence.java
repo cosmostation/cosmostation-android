@@ -59,6 +59,6 @@ public class Persistence extends ChainConfig {
     }
 
     public ArrayList<String> supportHdPaths() {
-        return Lists.newArrayList("m/44'/750'/0'/0/X", defaultPath());
+        return Lists.newArrayList(defaultPath(), "m/44'/750'/0'/0/X");
     }
 }

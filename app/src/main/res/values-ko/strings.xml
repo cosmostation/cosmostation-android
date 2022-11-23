@@ -415,6 +415,7 @@
     <string name="str_error_not_support_chain_title">오류</string>
     <string name="str_error_not_support_chain_msg">해당 체인에 대한 지갑이 없습니다.</string>
     <string name="str_error_not_support_msg">%1$s는 지원하지 않는 체인입니다.</string>
+    <string name="str_hd_path">HD 경로 : </string>
     <string name="str_search">체인이나 토큰을 검색하세요</string>
     <string name="str_no_search_result">검색 결과가 없습니다</string>
 
@@ -638,7 +639,7 @@
     <string name="str_password_init">사용하실 PIN 번호를 입력하세요.</string>
     <string name="str_password_msg1">다시 한 번 입력해 주세요.</string>
     <string name="str_password_msg2">PIN 번호는 복구하실 방법이 전혀 없습니다.\n신중히 결정하시고 잊지않도록 주의해주세요.</string>
-    <string name="str_send_step_0">받으실 분의 정를 입력하세요</string>
+    <string name="str_send_step_0">받으실 분의 정보를 입력하세요</string>
     <string name="str_send_step_1">전송하실 수량을 입력하세요</string>
     <string name="str_delegate_step_1">위임 할 수량을 입력하세요</string>
     <string name="str_undelegate_step_1">위임 철회할 수량을 입력하세요</string>
