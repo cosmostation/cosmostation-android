@@ -125,6 +125,10 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            loadProposals();
+            loadStatus();
+        });
     }
 
     @Override
