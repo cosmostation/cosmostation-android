@@ -1380,21 +1380,25 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal onParseStridePeriodicRemainVestingsAmountByDenom(StridePeriodicVestingAccount vestingAccount, String denom) {
-        ArrayList<Vesting.Period> vpList = new ArrayList<>();
-        BigDecimal result = BigDecimal.ZERO;
+    public static ArrayList<Vesting.Period> onParseStridePeriodicRemainVestingsByDenom(StridePeriodicVestingAccount vestingAccount, String denom) {
+        ArrayList<Vesting.Period> result = new ArrayList<>();
         long cTime = Calendar.getInstance().getTime().getTime();
         for (stride.vesting.Vesting.Period period : vestingAccount.getVestingPeriodsList()) {
             long vestingEnd = (period.getStartTime() + period.getLength()) * 1000;
             if (cTime < vestingEnd) {
                 for (CoinOuterClass.Coin vesting : period.getAmountList()) {
                     if (vesting.getDenom().equals(denom)) {
-                        vpList.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(period.getAmountList()).build());
+                        result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(period.getAmountList()).build());
                     }
                 }
             }
         }
+        return result;
+    }
 
+    public static BigDecimal onParseStridePeriodicRemainVestingsAmountByDenom(StridePeriodicVestingAccount vestingAccount, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        ArrayList<Vesting.Period> vpList = onParseStridePeriodicRemainVestingsByDenom(vestingAccount, denom);
         for (Vesting.Period vp : vpList) {
             for (CoinOuterClass.Coin coin : vp.getAmountList()) {
                 if (coin.getDenom().equals(denom)) {

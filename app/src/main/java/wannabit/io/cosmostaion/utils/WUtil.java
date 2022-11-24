@@ -1772,7 +1772,9 @@ public class WUtil {
             }
             for (Coin coin : sBalace) {
                 denom = coin.denom;
+                BigDecimal delegatedFree = BigDecimal.ZERO;
                 dpBalance = new BigDecimal(coin.amount);
+
                 for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
                     if (vesting.getDenom().equals(denom)) {
                         originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
@@ -1783,11 +1785,16 @@ public class WUtil {
                         delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
                     }
                 }
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedFreeList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedFree = delegatedFree.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
 
                 remainVesting = WDp.onParseStridePeriodicRemainVestingsAmountByDenom(vestingAccount, denom);
-                dpVesting = remainVesting.subtract(delegatedVesting);
+                dpVesting = remainVesting.subtract(delegatedVesting).subtract(delegatedFree);
                 dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
-                if (remainVesting.compareTo(delegatedVesting) > 0) {
+                if (remainVesting.compareTo(delegatedVesting.add(delegatedFree)) > 0) {
                     dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
                 }
             }

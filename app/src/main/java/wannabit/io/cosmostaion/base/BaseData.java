@@ -463,17 +463,7 @@ public class BaseData {
 
                 } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(StridePeriodicVestingAccount.getDescriptor().getFullName())) {
                     StridePeriodicVestingAccount vestingAccount = StridePeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
-                    long cTime = Calendar.getInstance().getTime().getTime();
-                    for (stride.vesting.Vesting.Period period : vestingAccount.getVestingPeriodsList()) {
-                        long vestingEnd = (period.getStartTime() + period.getLength()) * 1000;
-                        if (cTime < vestingEnd) {
-                            for (CoinOuterClass.Coin vesting : period.getAmountList()) {
-                                if (vesting.getDenom().equals(denom)) {
-                                    result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(period.getAmountList()).build());
-                                }
-                            }
-                        }
-                    }
+                    return WDp.onParseStridePeriodicRemainVestingsByDenom(vestingAccount, denom);
                 }
             } catch (InvalidProtocolBufferException e) {
             }
