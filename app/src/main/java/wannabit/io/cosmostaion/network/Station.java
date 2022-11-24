@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResMintscanAssets;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResNotice;
+import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 
@@ -47,4 +48,8 @@ public interface Station {
     //certik lcd
     @GET("/shentu/gov/v1alpha1/proposals/{proposal_id}/votes/{voter}")
     Call<ResMyProposal> getCertikProposal(@Path("proposal_id") String proposal_id, @Path("voter") String voter);
+
+    //okc history tx
+    @GET("v1/utils/proxy/okc-transaction-list")
+    Call<ResOkHistory> getNewOkcTxs(@Query("device") String device, @Query("chainShortName") String chainShortName, @Query("address") String address, @Query("limit") String limit);
 }

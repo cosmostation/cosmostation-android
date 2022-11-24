@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +24,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.gms.common.util.CollectionUtils;
 
 import java.util.ArrayList;
 
@@ -60,7 +61,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private HistoryAdapter mHistoryAdapter;
 
     private ArrayList<BnbHistory> mBnbHistory = new ArrayList<>();
-    private ArrayList<ResOkHistory.Data.Hit> mOkHistory = new ArrayList<>();
+    private ArrayList<ResOkHistory.Data.transactionData> mOkHistory = new ArrayList<>();
     private ArrayList<ResApiNewTxListCustom> mApiNewTxCustomHistory = new ArrayList<>();
 
     private Account mAccount;
@@ -101,12 +102,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mCardView.setOnClickListener(v -> getMainActivity().onClickQrCopy(mChainConfig, mAccount));
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            mId = 0;
-            mApiNewTxCustomHistory.clear();
-            onFetchHistory();
-            mSwipeRefreshLayout.setRefreshing(false);
-        });
+        mSwipeRefreshLayout.setOnRefreshListener(this::onRefreshTab);
 
         initRecyclerView();
     }
@@ -189,7 +185,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         if (result.taskType == BaseConstant.TASK_FETCH_BNB_HISTORY) {
             mBnbHistory = (ArrayList<BnbHistory>) result.resultData;
-            if (mBnbHistory != null && mBnbHistory.size() > 0) {
+            if (!CollectionUtils.isEmpty(mBnbHistory)) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
@@ -199,8 +195,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_OK_HISTORY) {
-            mOkHistory = (ArrayList<ResOkHistory.Data.Hit>) result.resultData;
-            if (result.isSuccess && mOkHistory != null && mOkHistory.size() > 0) {
+            mOkHistory = (ArrayList<ResOkHistory.Data.transactionData>) result.resultData;
+            if (!CollectionUtils.isEmpty(mOkHistory)) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
@@ -211,7 +207,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
             mApiNewTxCustomHistory.addAll((ArrayList<ResApiNewTxListCustom>) result.resultData);
-            if (mApiNewTxCustomHistory != null && mApiNewTxCustomHistory.size() > 0) {
+            if (!CollectionUtils.isEmpty(mApiNewTxCustomHistory)) {
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
@@ -252,7 +248,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     final BnbHistory history = mBnbHistory.get(position);
                     holder.onBindOldBnbHistory(getMainActivity(), mChainConfig, history);
                 } else if (mBaseChain.equals(OKEX_MAIN)) {
-                    final ResOkHistory.Data.Hit history = mOkHistory.get(position);
+                    final ResOkHistory.Data.transactionData history = mOkHistory.get(position);
                     holder.onBindOldOkHistory(getMainActivity(), mChainConfig, history);
                 }
             }

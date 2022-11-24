@@ -24,8 +24,4 @@ public interface HistoryApi {
 
     @GET("api/v1/transactions")
     Call<ResBnbHistories> getHistoryAsset(@Query("address") String address, @Query("startTime") String startTime, @Query("endTime") String endTime, @Query("txAsset") String txAsset);
-
-    //Okc
-    @GET("v1/okexchain/addresses/{addresses}/transactions/condition")
-    Call<ResOkHistory> getNewOecTxs(@Path("addresses") String addresses, @Query("limit") String limit);
 }

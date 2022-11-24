@@ -204,35 +204,35 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             }
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().trim();
+            String es = String.valueOf(mAmountInput.getText()).trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("0.1")).toPlainString());
+            mAmountInput.setText(existed.add(BigDecimal.valueOf(0.1).divide(new BigDecimal("1"), mDpDecimal, RoundingMode.DOWN)).toPlainString());
 
         } else if (v.equals(mAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().trim();
+            String es = String.valueOf(mAmountInput.getText()).trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("1")).toPlainString());
+            mAmountInput.setText(existed.add(BigDecimal.valueOf(1).divide(new BigDecimal("1"), mDpDecimal, RoundingMode.DOWN)).toPlainString());
 
         } else if (v.equals(mAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().trim();
+            String es = String.valueOf(mAmountInput.getText()).trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
+            mAmountInput.setText(existed.add(BigDecimal.valueOf(10).divide(new BigDecimal("1"), mDpDecimal, RoundingMode.DOWN)).toPlainString());
 
         } else if (v.equals(mAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().trim();
+            String es = String.valueOf(mAmountInput.getText()).trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
+            mAmountInput.setText(existed.add(BigDecimal.valueOf(100).divide(new BigDecimal("1"), mDpDecimal, RoundingMode.DOWN)).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
             if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN)) {
