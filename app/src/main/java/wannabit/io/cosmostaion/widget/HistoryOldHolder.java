@@ -51,6 +51,8 @@ public class HistoryOldHolder extends BaseHolder {
         history_block.setText(history.height + " block");
         if (history.state.equals("fail")) {
             historySuccess.setVisibility(View.VISIBLE);
+        } else {
+            historySuccess.setVisibility(View.GONE);
         }
 
         historyRoot.setOnClickListener(v -> {

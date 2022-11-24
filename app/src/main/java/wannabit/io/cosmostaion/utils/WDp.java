@@ -1096,31 +1096,18 @@ public class WDp {
             long now = Calendar.getInstance().getTimeInMillis();
             long difference = now - txTime;
 
-            long differenceSeconds = difference / 1000 % 60;
-            long differenceMinutes = difference / (60 * 1000) % 60;
-            long differenceHours = difference / (60 * 60 * 1000) % 24;
             long differenceDays = difference / (24 * 60 * 60 * 1000);
 
             if (differenceDays > 1) {
-                result = "" + differenceDays + " " + c.getString(R.string.str_day);
-            } else if (differenceDays == 1) {
-                result = "" + differenceDays + c.getString(R.string.str_d) + " " + differenceHours + c.getString(R.string.str_h);
+                result = "(" + "" + differenceDays + " " + c.getString(R.string.str_day) + "" + c.getString(R.string.str_ago) + ")";
             } else {
-                if (differenceHours > 0) {
-                    result = "" + differenceHours + c.getString(R.string.str_h) + " " + differenceMinutes + c.getString(R.string.str_m);
-                } else {
-                    if (differenceMinutes > 0) {
-                        result = "" + differenceMinutes + c.getString(R.string.str_m) + " " + differenceSeconds + c.getString(R.string.str_s);
-                    } else {
-                        result = differenceSeconds + c.getString(R.string.str_s);
-                    }
-                }
+                result = "(" + "" + "D-Day" + "" + ")";
             }
 
         } catch (Exception e) {
         }
 
-        return "(" + result + " " + c.getString(R.string.str_ago) + ")";
+        return result;
     }
 
 
