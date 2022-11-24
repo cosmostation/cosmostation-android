@@ -1,28 +1,8 @@
 package wannabit.io.cosmostaion.utils;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LIKECOIN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseChain.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 import android.content.Context;
 import android.text.SpannableString;
@@ -61,6 +41,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
+import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -1403,6 +1384,31 @@ public class WDp {
         BigDecimal result = BigDecimal.ZERO;
         ArrayList<Vesting.Period> vps = onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
         for (Vesting.Period vp : vps) {
+            for (CoinOuterClass.Coin coin : vp.getAmountList()) {
+                if (coin.getDenom().equals(denom)) {
+                    result = result.add(new BigDecimal(coin.getAmount()));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseStridePeriodicRemainVestingsAmountByDenom(StridePeriodicVestingAccount vestingAccount, String denom) {
+        ArrayList<Vesting.Period> vpList = new ArrayList<>();
+        BigDecimal result = BigDecimal.ZERO;
+        long cTime = Calendar.getInstance().getTime().getTime();
+        for (stride.vesting.Vesting.Period period : vestingAccount.getVestingPeriodsList()) {
+            long vestingEnd = (period.getStartTime() + period.getLength()) * 1000;
+            if (cTime < vestingEnd) {
+                for (CoinOuterClass.Coin vesting : period.getAmountList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        vpList.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(period.getAmountList()).build());
+                    }
+                }
+            }
+        }
+
+        for (Vesting.Period vp : vpList) {
             for (CoinOuterClass.Coin coin : vp.getAmountList()) {
                 if (coin.getDenom().equals(denom)) {
                     result = result.add(new BigDecimal(coin.getAmount()));

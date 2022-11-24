@@ -52,6 +52,7 @@ import kava.hard.v1beta1.Hard;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
 import osmosis.gamm.v1beta1.BalancerPool;
+import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.chains.Binance;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -197,7 +198,6 @@ public class BaseData {
 
     //GRPC for KAVA
     public HashMap<String, QueryOuterClass.CurrentPriceResponse> mKavaTokenPrice = new HashMap<>();
-//    public IncentiveParam mIncentiveParam;
     public IncentiveReward mIncentiveRewards;
     public Swap.Params mSwapParams;
     public Genesis.Params mCdpParams;
@@ -457,6 +457,20 @@ public class BaseData {
                         for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
                             if (vesting.getDenom().equals(denom)) {
                                 result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(vestingAccount.getBaseVestingAccount().getOriginalVestingList()).build());
+                            }
+                        }
+                    }
+
+                } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(StridePeriodicVestingAccount.getDescriptor().getFullName())) {
+                    StridePeriodicVestingAccount vestingAccount = StridePeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
+                    long cTime = Calendar.getInstance().getTime().getTime();
+                    for (stride.vesting.Vesting.Period period : vestingAccount.getVestingPeriodsList()) {
+                        long vestingEnd = (period.getStartTime() + period.getLength()) * 1000;
+                        if (cTime < vestingEnd) {
+                            for (CoinOuterClass.Coin vesting : period.getAmountList()) {
+                                if (vesting.getDenom().equals(denom)) {
+                                    result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(period.getAmountList()).build());
+                                }
                             }
                         }
                     }

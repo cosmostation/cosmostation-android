@@ -84,6 +84,10 @@ public class Signer {
             } else if (rawAccount.getTypeUrl().contains(ethermint.types.v1.Account.EthAccount.getDescriptor().getFullName())) {
                 Auth.BaseAccount account = ethermint.types.v1.Account.EthAccount.parseFrom(rawAccount.getValue()).getBaseAccount();
                 return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
+
+            } else if (rawAccount.getTypeUrl().contains(stride.vesting.Vesting.StridePeriodicVestingAccount.getDescriptor().getFullName())) {
+                Auth.BaseAccount account = stride.vesting.Vesting.StridePeriodicVestingAccount.parseFrom(rawAccount.getValue()).getBaseVestingAccount().getBaseAccount();
+                return Lists.newArrayList(account.getAddress(), account.getAccountNumber(), account.getSequence());
             }
         } catch (Exception e) { }
         return null;
