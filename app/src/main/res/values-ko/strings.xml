@@ -1252,6 +1252,9 @@
     <string name="tx_injective_cancel_limit_order">주문 취소\n(Derivative Limit)</string>
     <string name="tx_injective_cancel_spot_order">주문 취소\n(Spot Limit)</string>
 
+    <string name="tx_stride_liquid_stake">유동성 스테이크</string>
+    <string name="tx_stride_redeem_stake">유동성 상환</string>
+
     <string name="str_tx_kava_earn_delegateDeposit">어닝 리퀴디티\n위임 입금</string>
     <string name="tx_kava_earn_delegateDeposit">어닝 리퀴디티 위임 입금</string>
     <string name="str_tx_kava_earn_withdraw">어닝 리퀴디티\n출금</string>

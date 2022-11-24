@@ -165,12 +165,6 @@ public class ResApiNewTxListCustom {
                 } catch (Exception e) {
                 }
 
-                if (msgType.contains("stride.") && msgType.contains("stakeibc")) {
-                    if (msgType.contains("MsgLiquidStake")) {
-                        result = c.getString(R.string.tx_crescent_liquid_stake);
-                    }
-                }
-
                 // cosmos default msg type
                 if (msgType.contains("cosmos.") && msgType.contains("staking")) {
                     if (msgType.contains("MsgCreateValidator")) {
@@ -262,7 +256,7 @@ public class ResApiNewTxListCustom {
                 }
 
                 // ibc msg type
-                else if (msgType.contains("ibc.")) {
+                else if (msgType.contains("ibc.") && msgType.contains("core")) {
                     if (msgType.contains("MsgTransfer")) {
                         result = c.getString(R.string.tx_ibc_send);
                     } else if (msgType.contains("MsgUpdateClient")) {
@@ -770,6 +764,15 @@ public class ResApiNewTxListCustom {
                         result = c.getString(R.string.tx_injective_cancel_limit_order);
                     } else if (msgType.contains("MsgBatchCancelSpotOrder") || msgType.contains("MsgCancelSpotOrder")) {
                         result = c.getString(R.string.tx_injective_cancel_spot_order);
+                    }
+                }
+
+                // stride msg type
+                else if (msgType.contains("stride.") && msgType.contains("stakeibc")) {
+                    if (msgType.contains("MsgLiquidStake")) {
+                        result = c.getString(R.string.tx_stride_liquid_stake);
+                    } else if (msgType.contains("MsgRedeemStake")) {
+                        result = c.getString(R.string.tx_stride_redeem_stake);
                     }
                 }
 

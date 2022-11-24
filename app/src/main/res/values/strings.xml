@@ -13,7 +13,7 @@
 
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
 
-    <string name="url_lcd_certik_main" translatable="false">https://lcd-certik-app.cosmostation.io/</string>
+    <string name="url_lcd_certik_main" translatable="false">https://lcd-shentu-app.cosmostation.io/</string>
 
     <string name="url_lcd_ok" translatable="false">https://exchainrpc.okex.org/okexchain/v1/</string>
 
@@ -1342,6 +1342,9 @@
     <string name="tx_kava_earn_delegateDeposit">Earn Liquidate Delegate Deposit</string>
     <string name="str_tx_kava_earn_withdraw">Earn Liquidate\nWithdraw</string>
     <string name="tx_kava_earn_withdraw">Earn Liquidate Withdraw</string>
+
+    <string name="tx_stride_liquid_stake">Liquid Stake</string>
+    <string name="tx_stride_redeem_stake">Redeem Stake</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
