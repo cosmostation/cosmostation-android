@@ -124,7 +124,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                         }
                     }
 
-                } else if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(getSActivity().mDenom) && asset.path.equalsIgnoreCase(asset.getIbcPathSummary())) {
+                } else if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(getSActivity().mDenom)) {
                     for (ChainConfig chainConfig : allChainConfig) {
                         if (chainConfig.chainName().equalsIgnoreCase(asset.chain) && !mToSendableChains.contains(chainConfig)) {
                             mToSendableChains.add(chainConfig);
