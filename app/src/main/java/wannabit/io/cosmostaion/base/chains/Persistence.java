@@ -52,9 +52,9 @@ public class Persistence extends ChainConfig {
 
     public List<ChildNumber> setParentPath(int customPath) {
         if (customPath == 0) {
-            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-        } else {
             return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        } else {
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
         }
     }
 
