@@ -1052,6 +1052,8 @@ class WalletConnectActivity : BaseActivity() {
             if (!CollectionUtils.isEmpty(meta.icons)) {
                 Picasso.get().load(meta.icons.first()).fit()
                     .placeholder(R.drawable.validator_none_img).into(binding.wcImg)
+            } else {
+                binding.wcImg.setImageResource(R.drawable.validator_none_img)
             }
             if (StringUtils.isBlank(meta.name)) {
                 binding.wcName.text = getString(R.string.str_wallet_connect)
@@ -1074,6 +1076,8 @@ class WalletConnectActivity : BaseActivity() {
         if (!CollectionUtils.isEmpty(proposal.icons)) {
             Picasso.get().load(proposal.icons.first().path).fit()
                 .placeholder(R.drawable.validator_none_img).into(binding.wcImg)
+        } else {
+            binding.wcImg.setImageResource(R.drawable.validator_none_img)
         }
         if (StringUtils.isBlank(proposal.name)) {
             binding.wcName.text = getString(R.string.str_wallet_connect)

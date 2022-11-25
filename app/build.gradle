@@ -6,6 +6,10 @@ android {
     compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
+    def localPropertiesFile = rootProject.file("local.properties")
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(localPropertiesFile))
+
     defaultConfig {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 24
@@ -19,11 +23,13 @@ android {
             applicationIdSuffix '.debug'
             splits.abi.enable = false
             splits.density.enable = false
+            buildConfigField "String", "WALLETCONNECT_API_KEY", '"57a6070dfa02b49cc83f17171299a6b8"'
         }
         release {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "WALLETCONNECT_API_KEY", localProperties['walletconnect.apiKey.release']
         }
     }
 
