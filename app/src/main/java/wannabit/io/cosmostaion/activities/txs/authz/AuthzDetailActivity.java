@@ -38,6 +38,7 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import desmos.profiles.v1beta1.ModelsProfile;
+import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -223,6 +224,13 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
             balances.add(coin);
         }
 
+        String denom = "";
+        BigDecimal dpAvailable = BigDecimal.ZERO;
+        BigDecimal dpVesting = BigDecimal.ZERO;
+        BigDecimal originalVesting = BigDecimal.ZERO;
+        BigDecimal remainVesting = BigDecimal.ZERO;
+        BigDecimal delegatedVesting = BigDecimal.ZERO;
+
         if (rawAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
             Vesting.PeriodicVestingAccount vestingAccount = null;
             try {
@@ -231,13 +239,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
                 return;
             }
             for (Coin coin : balances) {
-                String denom = coin.denom;
-                BigDecimal dpAvailable = BigDecimal.ZERO;
-                BigDecimal dpVesting = BigDecimal.ZERO;
-                BigDecimal originalVesting = BigDecimal.ZERO;
-                BigDecimal remainVesting = BigDecimal.ZERO;
-                BigDecimal delegatedVesting = BigDecimal.ZERO;
-
+                denom = coin.denom;
                 dpAvailable = new BigDecimal(coin.amount);
                 for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
                     if (vesting.getDenom().equals(denom)) {
@@ -249,6 +251,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
                         delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
                     }
                 }
+
                 remainVesting = WDp.onParsePeriodicRemainVestingsAmountByDenom(vestingAccount, denom);
                 dpVesting = remainVesting.subtract(delegatedVesting);
                 dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
@@ -267,13 +270,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
                 return;
             }
             for (Coin coin : balances) {
-                String denom = coin.denom;
-                BigDecimal dpAvailable = BigDecimal.ZERO;
-                BigDecimal dpVesting = BigDecimal.ZERO;
-                BigDecimal originalVesting = BigDecimal.ZERO;
-                BigDecimal remainVesting = BigDecimal.ZERO;
-                BigDecimal delegatedVesting = BigDecimal.ZERO;
-
+                denom = coin.denom;
                 dpAvailable = new BigDecimal(coin.amount);
                 for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
                     if (vesting.getDenom().equals(denom)) {
@@ -285,6 +282,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
                         delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
                     }
                 }
+
                 long cTime = Calendar.getInstance().getTime().getTime();
                 long vestingStart = vestingAccount.getStartTime() * 1000;
                 long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
@@ -313,13 +311,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
                 return;
             }
             for (Coin coin : balances) {
-                String denom = coin.denom;
-                BigDecimal dpAvailable = BigDecimal.ZERO;
-                BigDecimal dpVesting = BigDecimal.ZERO;
-                BigDecimal originalVesting = BigDecimal.ZERO;
-                BigDecimal remainVesting = BigDecimal.ZERO;
-                BigDecimal delegatedVesting = BigDecimal.ZERO;
-
+                denom = coin.denom;
                 dpAvailable = new BigDecimal(coin.amount);
                 for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
                     if (vesting.getDenom().equals(denom)) {
@@ -331,6 +323,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
                         delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
                     }
                 }
+
                 long cTime = Calendar.getInstance().getTime().getTime();
                 long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
                 if (cTime < vestingEnd) {
@@ -344,6 +337,45 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
                 mGranterAvailable.add(new Coin(denom, dpAvailable.toPlainString()));
                 mGranterVesting.add(new Coin(denom, dpVesting.toPlainString()));
             }
+
+        } else if (rawAccount.getTypeUrl().contains(StridePeriodicVestingAccount.getDescriptor().getFullName())) {
+            StridePeriodicVestingAccount vestingAccount = null;
+            try {
+                vestingAccount = StridePeriodicVestingAccount.parseFrom(rawAccount.getValue());
+            } catch (InvalidProtocolBufferException e) {
+                return;
+            }
+            for (Coin coin : balances) {
+                denom = coin.denom;
+                BigDecimal delegatedFree = BigDecimal.ZERO;
+                dpAvailable = new BigDecimal(coin.amount);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedFreeList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedFree = delegatedFree.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+
+                remainVesting = WDp.onParseStridePeriodicRemainVestingsAmountByDenom(vestingAccount, denom);
+                dpVesting = remainVesting.subtract(delegatedVesting).subtract(delegatedFree);
+                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                if (remainVesting.compareTo(delegatedVesting.add(delegatedFree)) > 0) {
+                    dpAvailable = dpAvailable.subtract(remainVesting).add(delegatedVesting);
+                }
+                mGranterAvailable.add(new Coin(denom, dpAvailable.toPlainString()));
+                mGranterVesting.add(new Coin(denom, dpVesting.toPlainString()));
+            }
+
         } else {
             mGranterAvailable = mGranterBalance;
         }

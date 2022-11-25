@@ -52,6 +52,7 @@ import kava.hard.v1beta1.Hard;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
 import osmosis.gamm.v1beta1.BalancerPool;
+import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.chains.Binance;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -197,7 +198,6 @@ public class BaseData {
 
     //GRPC for KAVA
     public HashMap<String, QueryOuterClass.CurrentPriceResponse> mKavaTokenPrice = new HashMap<>();
-//    public IncentiveParam mIncentiveParam;
     public IncentiveReward mIncentiveRewards;
     public Swap.Params mSwapParams;
     public Genesis.Params mCdpParams;
@@ -269,9 +269,11 @@ public class BaseData {
     }
 
     public OkToken okToken(String denom) {
-        for (OkToken token : mOkTokenList.data) {
-            if (token.symbol.equals(denom)) {
-                return token;
+        if (mOkTokenList != null && mOkTokenList.data != null) {
+            for (OkToken token : mOkTokenList.data) {
+                if (token.symbol.equals(denom)) {
+                    return token;
+                }
             }
         }
         return null;
@@ -458,6 +460,10 @@ public class BaseData {
                             }
                         }
                     }
+
+                } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(StridePeriodicVestingAccount.getDescriptor().getFullName())) {
+                    StridePeriodicVestingAccount vestingAccount = StridePeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
+                    return WDp.onParseStridePeriodicRemainVestingsByDenom(vestingAccount, denom);
                 }
             } catch (InvalidProtocolBufferException e) {
             }

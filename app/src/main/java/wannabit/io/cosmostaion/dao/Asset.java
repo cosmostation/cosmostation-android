@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -141,17 +139,6 @@ public class Asset implements Parcelable {
             if (matched > 0) {
                 return chainPath[matched - 1];
             }
-        }
-        return null;
-    }
-
-    public String getIbcPathSummary() {
-        if (path != null) {
-            int secondIndex = StringUtils.ordinalIndexOf(path, ">", 2);
-            if (secondIndex > 0) {
-                return path.substring(0, secondIndex);
-            }
-            return path;
         }
         return null;
     }

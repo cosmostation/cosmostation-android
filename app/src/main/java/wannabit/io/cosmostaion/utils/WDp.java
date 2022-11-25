@@ -1,28 +1,8 @@
 package wannabit.io.cosmostaion.utils;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LIKECOIN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseChain.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 import android.content.Context;
 import android.text.SpannableString;
@@ -61,6 +41,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
+import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -912,6 +893,20 @@ public class WDp {
         return result;
     }
 
+    public static String getOkcDpTime(Context c, long txTime) {
+        String result = "??";
+        try {
+            Calendar calendar = Calendar.getInstance();
+            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime());
+            calendar.setTimeInMillis(txTime + timeZone);
+            SimpleDateFormat simpleFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
+            result = simpleFormat.format(calendar.getTimeInMillis());
+        } catch (Exception e) {
+        }
+
+        return result;
+    }
+
     public static String getUnbondTime(Context c, BaseData baseData, BaseChain baseChain) {
         String result = "??";
         try {
@@ -1093,39 +1088,26 @@ public class WDp {
         return "(" + result + " " + c.getString(R.string.str_ago) + ")";
     }
 
-    public static String getTimeTxGap(Context c, long rawValue) {
+    public static String getOkcTimeTxGap(Context c, long rawValue) {
         String result = "";
         try {
-            Date blockTime = new Date(rawValue);
-            Date nowTime = Calendar.getInstance().getTime();
+            long timeZone = TimeZone.getDefault().getOffset(new Date().getTime());
+            long txTime = rawValue + timeZone;
+            long now = Calendar.getInstance().getTimeInMillis();
+            long difference = now - txTime;
 
-            long difference = nowTime.getTime() - blockTime.getTime();
-
-            long differenceSeconds = difference / 1000 % 60;
-            long differenceMinutes = difference / (60 * 1000) % 60;
-            long differenceHours = difference / (60 * 60 * 1000) % 24;
             long differenceDays = difference / (24 * 60 * 60 * 1000);
 
             if (differenceDays > 1) {
-                result = "" + differenceDays + " " + c.getString(R.string.str_day);
-            } else if (differenceDays == 1) {
-                result = "" + differenceDays + c.getString(R.string.str_d) + " " + differenceHours + c.getString(R.string.str_h);
+                result = "(" + "" + differenceDays + " " + c.getString(R.string.str_day) + "" + c.getString(R.string.str_ago) + ")";
             } else {
-                if (differenceHours > 0) {
-                    result = "" + differenceHours + c.getString(R.string.str_h) + " " + differenceMinutes + c.getString(R.string.str_m);
-                } else {
-                    if (differenceMinutes > 0) {
-                        result = "" + differenceMinutes + c.getString(R.string.str_m) + " " + differenceSeconds + c.getString(R.string.str_s);
-                    } else {
-                        result = differenceSeconds + c.getString(R.string.str_s);
-                    }
-                }
+                result = "(" + "" + "D-Day" + "" + ")";
             }
 
         } catch (Exception e) {
         }
 
-        return "(" + result + " " + c.getString(R.string.str_ago) + ")";
+        return result;
     }
 
 
@@ -1389,6 +1371,35 @@ public class WDp {
         BigDecimal result = BigDecimal.ZERO;
         ArrayList<Vesting.Period> vps = onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
         for (Vesting.Period vp : vps) {
+            for (CoinOuterClass.Coin coin : vp.getAmountList()) {
+                if (coin.getDenom().equals(denom)) {
+                    result = result.add(new BigDecimal(coin.getAmount()));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<Vesting.Period> onParseStridePeriodicRemainVestingsByDenom(StridePeriodicVestingAccount vestingAccount, String denom) {
+        ArrayList<Vesting.Period> result = new ArrayList<>();
+        long cTime = Calendar.getInstance().getTime().getTime();
+        for (stride.vesting.Vesting.Period period : vestingAccount.getVestingPeriodsList()) {
+            long vestingEnd = (period.getStartTime() + period.getLength()) * 1000;
+            if (cTime < vestingEnd) {
+                for (CoinOuterClass.Coin vesting : period.getAmountList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(period.getAmountList()).build());
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseStridePeriodicRemainVestingsAmountByDenom(StridePeriodicVestingAccount vestingAccount, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        ArrayList<Vesting.Period> vpList = onParseStridePeriodicRemainVestingsByDenom(vestingAccount, denom);
+        for (Vesting.Period vp : vpList) {
             for (CoinOuterClass.Coin coin : vp.getAmountList()) {
                 if (coin.getDenom().equals(denom)) {
                     result = result.add(new BigDecimal(coin.getAmount()));

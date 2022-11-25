@@ -5,9 +5,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.R;
@@ -46,9 +48,17 @@ public class Persistence extends ChainConfig {
     public String blogInfoLink() { return  "https://medium.com/persistence-blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "persistence"; }
 
-    public String defaultPath() { return "m/44'/750'/0'/0/X"; }
+    public String defaultPath() { return "m/44'/118'/0'/0/X"; }
 
     public List<ChildNumber> setParentPath(int customPath) {
-        return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        if (customPath == 0) {
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        } else {
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        }
+    }
+
+    public ArrayList<String> supportHdPaths() {
+        return Lists.newArrayList(defaultPath(), "m/44'/750'/0'/0/X");
     }
 }

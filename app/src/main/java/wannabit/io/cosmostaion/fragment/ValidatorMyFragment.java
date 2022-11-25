@@ -143,7 +143,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                 WDp.setDpSymbol(getActivity(), getBaseDao(), mChainConfig, mChainConfig.mainDenom(), holder.itemTvDenom);
                 final BigDecimal allRewardAmount = getBaseDao().getRewardSum(mChainConfig.mainDenom());
-                holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, dpDecimal, 6));
+                holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, dpDecimal, dpDecimal));
 
                 holder.itemBtnAllRewards.setOnClickListener(view -> getMainActivity().onCheckEasyClaim());
 

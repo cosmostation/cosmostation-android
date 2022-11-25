@@ -255,6 +255,15 @@ public class ResApiNewTxListCustom {
                     }
                 }
 
+                // stride msg type
+                else if (msgType.contains("stride.") && msgType.contains("stakeibc")) {
+                    if (msgType.contains("MsgLiquidStake")) {
+                        result = c.getString(R.string.tx_stride_liquid_stake);
+                    } else if (msgType.contains("MsgRedeemStake")) {
+                        result = c.getString(R.string.tx_stride_redeem_stake);
+                    }
+                }
+
                 // ibc msg type
                 else if (msgType.contains("ibc.")) {
                     if (msgType.contains("MsgTransfer")) {

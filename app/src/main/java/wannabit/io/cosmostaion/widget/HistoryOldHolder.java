@@ -36,7 +36,6 @@ public class HistoryOldHolder extends BaseHolder {
         history_time.setText(WDp.getTimeformat(mainActivity, history.timeStamp));
         history_time_gap.setText(WDp.getTimeGap(mainActivity, history.timeStamp));
         history_block.setText(history.blockHeight + " block");
-        historySuccess.setVisibility(View.GONE);
 
         historyRoot.setOnClickListener(v -> {
             String url = chainConfig.explorerHistoryLink(history.txHash);
@@ -45,20 +44,19 @@ public class HistoryOldHolder extends BaseHolder {
         });
     }
 
-    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ChainConfig chainConfig, ResOkHistory.Data.Hit history) {
-        String type = history.transactionDatas.get(0).type;
-        if (type.contains("/")) {
-            historyType.setText(type.split("/")[type.split("/").length - 1].replace("Msg", ""));
+    public void onBindOldOkHistory(@NotNull MainActivity mainActivity, ChainConfig chainConfig, ResOkHistory.Data.transactionData history) {
+        historyType.setText(history.txId);
+        history_time.setText(WDp.getOkcDpTime(mainActivity, Long.parseLong(history.transactionTime)));
+        history_time_gap.setText(WDp.getOkcTimeTxGap(mainActivity, Long.parseLong(history.transactionTime)));
+        history_block.setText(history.height + " block");
+        if (history.state.equals("fail")) {
+            historySuccess.setVisibility(View.VISIBLE);
         } else {
-            historyType.setText(type);
+            historySuccess.setVisibility(View.GONE);
         }
-        historySuccess.setVisibility(View.GONE);
-        history_time.setText(WDp.getDpTime(mainActivity, history.blockTimeU0));
-        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.blockTimeU0));
-        history_block.setText(history.hash + " block");
 
         historyRoot.setOnClickListener(v -> {
-            String url = chainConfig.explorerHistoryLink(history.hash);
+            String url = chainConfig.explorerHistoryLink(history.txId);
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             mainActivity.startActivity(intent);
         });

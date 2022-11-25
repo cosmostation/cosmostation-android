@@ -125,9 +125,10 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(VoteListActivity.this, R.color.colorPrimary));
-        mSwipeRefreshLayout.setOnRefreshListener(this::loadProposals);
-        checkEmptyView();
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            loadProposals();
+            loadStatus();
+        });
     }
 
     @Override
