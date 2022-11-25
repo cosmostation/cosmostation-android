@@ -102,7 +102,6 @@
         android:layout_above="@+id/btn_disconnect"
         android:layout_below="@+id/tool_bar"
         android:keepScreenOn="true"
-        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.cardview.widget.CardView
@@ -137,8 +136,7 @@
                     android:layout_marginLeft="@dimen/space_16"
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_16"
-                    android:gravity="center"
-                    android:text="" />
+                    android:gravity="center" />
 
                 <View
                     android:layout_width="match_parent"

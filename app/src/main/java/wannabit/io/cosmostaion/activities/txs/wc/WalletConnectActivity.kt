@@ -254,25 +254,34 @@ class WalletConnectActivity : BaseActivity() {
             }
 
             override fun onSessionProposal(sessionProposal: Sign.Model.SessionProposal) {
-                sessionProposal.requiredNamespaces.values.flatMap { it.chains }
                 val sessionNamespaces: MutableMap<String, Sign.Model.Namespace.Session> =
                     mutableMapOf()
                 val methods = sessionProposal.requiredNamespaces.values.flatMap { it.methods }
                 val events = sessionProposal.requiredNamespaces.values.flatMap { it.events }
-                val accounts = mutableListOf<String>()
-                WDp.getChainTypeByChainId("cosmoshub-4").let {
-                    accounts.addAll(baseDao.onSelectAllAccountsByChainWithKey(it)
-                        .map { "cosmos:cosmoshub-4:${it.address}" })
-                }
-                sessionNamespaces["cosmos"] = Sign.Model.Namespace.Session(
-                    accounts = accounts, methods = methods, events = events, extensions = null
-                )
-                val approveProposal = Sign.Params.Approve(
-                    proposerPublicKey = sessionProposal.proposerPublicKey,
-                    namespaces = sessionNamespaces
-                )
-                SignClient.approveSession(approveProposal) { error ->
-                    Log.e("WCV2", error.throwable.stackTraceToString())
+                runOnUiThread {
+                    val chains = sessionProposal.requiredNamespaces.values.flatMap { it.chains }
+                    showAccountDialog(chains.map { it.split(":")[1] }, mutableListOf()) {
+                        chains.map { chain ->
+                            val chainId = chain.split(":")[1]
+                            val chainName = chain.split(":")[0]
+                            loadedAccountMap[WDp.getChainTypeByChainId(chainId).chain]?.address?.let {
+                                sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
+                                    accounts = listOf("$chain:$it"),
+                                    methods = methods,
+                                    events = events,
+                                    extensions = null
+                                )
+                            }
+                        }
+                        val approveProposal = Sign.Params.Approve(
+                            proposerPublicKey = sessionProposal.proposerPublicKey,
+                            namespaces = sessionNamespaces
+                        )
+                        setupConnectInfoView(sessionProposal)
+                        SignClient.approveSession(approveProposal) { error ->
+                            Log.e("WCV2", error.throwable.stackTraceToString())
+                        }
+                    }
                 }
             }
 
@@ -298,9 +307,7 @@ class WalletConnectActivity : BaseActivity() {
                         val signBundle = generateSignBundle(id, params)
                         showSignDialog(signBundle, object : WcSignRawDataListener {
                             override fun sign(id: Long, transaction: String) {
-                                approveCosmosSignDirectV2Request(
-                                    id, transaction, sessionRequest
-                                )
+                                approveCosmosSignDirectV2Request(id, transaction, sessionRequest)
                             }
 
                             override fun cancel(id: Long) {
@@ -312,9 +319,7 @@ class WalletConnectActivity : BaseActivity() {
                         val signBundle = generateSignBundle(id, params)
                         showSignDialog(signBundle, object : WcSignRawDataListener {
                             override fun sign(id: Long, transaction: String) {
-                                approveCosmosSignAminoV2Request(
-                                    id, transaction, sessionRequest
-                                )
+                                approveCosmosSignAminoV2Request(id, transaction, sessionRequest)
                             }
 
                             override fun cancel(id: Long) {
@@ -404,7 +409,9 @@ class WalletConnectActivity : BaseActivity() {
                 }
 
                 override fun reject(id: Long) {
-                    wcV1Client?.rejectRequest(id, getString(R.string.str_unknown_error))
+                    wcV1Client?.rejectRequest(
+                        id, getString(R.string.str_unknown_error)
+                    )
                 }
             })
         }
@@ -412,14 +419,20 @@ class WalletConnectActivity : BaseActivity() {
 
     private val processSendEvm = { id: Long, wcEthereumTransaction: WCEthereumTransaction ->
         runOnUiThread {
-            val signBundle = generateSignBundle(id, wcEthereumTransaction.data)
+            val signBundle = generateSignBundle(
+                id, wcEthereumTransaction.data
+            )
             showEvmSignDialog(signBundle, object : WcEvmosSignRawDataListener {
                 override fun sign(id: Long) {
-                    processEthSend(id, wcEthereumTransaction)
+                    processEthSend(
+                        id, wcEthereumTransaction
+                    )
                 }
 
                 override fun reject(id: Long) {
-                    wcV1Client?.rejectRequest(id, getString(R.string.str_unknown_error))
+                    wcV1Client?.rejectRequest(
+                        id, getString(R.string.str_unknown_error)
+                    )
                 }
             })
         }
@@ -428,29 +441,60 @@ class WalletConnectActivity : BaseActivity() {
     private val processGetKeplrAccounts = { id: Long, strings: List<String> ->
         runOnUiThread {
             val chainId = strings.first()
-            loadedAccountMap[WDp.getChainTypeByChainId(chainId).chain]?.let {
-                wcV1Client?.approveRequest(id, listOf(toKeplrWallet(it)))
+            loadedAccountMap[WDp.getChainTypeByChainId(
+                chainId
+            ).chain]?.let {
+                wcV1Client?.approveRequest(
+                    id, listOf(
+                        toKeplrWallet(
+                            it
+                        )
+                    )
+                )
                 moveToBackIfNeed()
             } ?: run {
-                showKeplrAccountDialog(id, chainId)
+                showKeplrAccountDialog(
+                    id, chainId
+                )
             }
         }
     }
 
     private val processGetCosmosAccounts = { id: Long, strings: List<String> ->
-        runOnUiThread { showAccountDialog(id, strings, mutableListOf(), 0) }
+        runOnUiThread {
+            showAccountDialog(
+                strings, mutableListOf()
+            ) { accounts ->
+                fillConnectInfoAddressIfNeed()
+                wcV1Client?.approveRequest(id, accounts.mapNotNull {
+                    toCosmosatationAccount(
+                        it
+                    )
+                })
+            }
+        }
     }
 
     private val processSignAmino = { id: Long, jsonArray: JsonArray ->
         runOnUiThread {
-            val signBundle = generateSignBundle(id, jsonArray.toString())
+            val signBundle = generateSignBundle(
+                id, jsonArray.toString()
+            )
             showSignDialog(signBundle, object : WcSignRawDataListener {
-                override fun sign(id: Long, transaction: String) {
-                    approveCosmosRequest(id, transaction)
+                override fun sign(
+                    id: Long, transaction: String
+                ) {
+                    approveCosmosRequest(
+                        id, transaction
+                    )
                 }
 
-                override fun cancel(id: Long) {
-                    cancelSignRequest(id)
+                override fun cancel(
+                    id: Long
+                ) {
+                    cancelSignRequest(
+                        id
+                    )
                 }
             })
         }
@@ -460,61 +504,100 @@ class WalletConnectActivity : BaseActivity() {
         runOnUiThread {
             var url: String? = wcPeerMeta.url
             if (connectType.isDapp()) {
-                url = Uri.parse(binding.dappWebView.url).host
+                url = Uri.parse(
+                    binding.dappWebView.url
+                ).host
             }
-            if (getWhiteList(this).contains(url)) {
-                processSessionRequest(wcPeerMeta)
+            if (getWhiteList(
+                    this
+                ).contains(
+                    url
+                )
+            ) {
+                processSessionRequest(
+                    wcPeerMeta
+                )
             } else {
-                showWhitelistAlert(url, wcPeerMeta)
+                showWhitelistAlert(
+                    url, wcPeerMeta
+                )
             }
         }
     }
 
-    private fun showWhitelistAlert(url: String?, wcPeerMeta: WCPeerMeta) {
+    private fun showWhitelistAlert(
+        url: String?, wcPeerMeta: WCPeerMeta
+    ) {
         CommonAlertDialog.showDoubleButton(
-            this@WalletConnectActivity,
-            getString(R.string.str_wc_connect_alert_title),
-            Html.fromHtml(
+            this@WalletConnectActivity, getString(
+                R.string.str_wc_connect_alert_title
+            ), Html.fromHtml(
                 String.format(
-                    "%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>",
-                    getString(R.string.str_wc_connect_alert_message),
-                    url,
-                    getString(R.string.str_wc_connect_alert_guide)
+                    "%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>", getString(
+                        R.string.str_wc_connect_alert_message
+                    ), url, getString(
+                        R.string.str_wc_connect_alert_guide
+                    )
                 ), Html.FROM_HTML_MODE_COMPACT
-            ),
-            getString(R.string.str_cancel),
-            {
+            ), getString(
+                R.string.str_cancel
+            ), {
                 if (isFinishing) {
                     return@showDoubleButton
                 }
 
-                wcV1Client?.rejectSession(getString(R.string.str_cancel))
+                wcV1Client?.rejectSession(
+                    getString(
+                        R.string.str_cancel
+                    )
+                )
                 if (connectType.isDapp()) {
-                    changeDappConnectStatus(false)
+                    changeDappConnectStatus(
+                        false
+                    )
                     binding.loadingLayer.postDelayed(
-                        { binding.loadingLayer.visibility = View.GONE }, 1000
+                        {
+                            binding.loadingLayer.visibility = View.GONE
+                        }, 1000
                     )
                 } else {
                     finish()
                 }
-            },
-            getString(R.string.str_ok)
+            }, getString(
+                R.string.str_ok
+            )
         ) {
-            url?.let { whiteListUrl -> addWhiteList(this, whiteListUrl) }
-            processSessionRequest(wcPeerMeta)
+            url?.let { whiteListUrl ->
+                addWhiteList(
+                    this, whiteListUrl
+                )
+            }
+            processSessionRequest(
+                wcPeerMeta
+            )
         }
     }
 
     private val processSignTrust = { id: Long, (_, transaction): WCSignTransaction ->
         runOnUiThread {
-            val signBundle = generateSignBundle(id, transaction)
+            val signBundle = generateSignBundle(
+                id, transaction
+            )
             showSignDialog(signBundle, object : WcSignRawDataListener {
-                override fun sign(id: Long, transaction: String) {
-                    approveTrustRequest(id, transaction)
+                override fun sign(
+                    id: Long, transaction: String
+                ) {
+                    approveTrustRequest(
+                        id, transaction
+                    )
                 }
 
-                override fun cancel(id: Long) {
-                    cancelSignRequest(id)
+                override fun cancel(
+                    id: Long
+                ) {
+                    cancelSignRequest(
+                        id
+                    )
                 }
             })
         }
@@ -522,89 +605,160 @@ class WalletConnectActivity : BaseActivity() {
 
     private val processSignDirect = { id: Long, jsonArray: JsonArray ->
         runOnUiThread {
-            val signBundle = generateSignBundle(id, jsonArray.toString())
+            val signBundle = generateSignBundle(
+                id, jsonArray.toString()
+            )
             showSignDialog(signBundle, object : WcSignRawDataListener {
-                override fun sign(id: Long, transaction: String) {
-                    approveCosmosSignDirectRequest(id, transaction)
+                override fun sign(
+                    id: Long, transaction: String
+                ) {
+                    approveCosmosSignDirectRequest(
+                        id, transaction
+                    )
                 }
 
-                override fun cancel(id: Long) {
-                    cancelSignRequest(id)
+                override fun cancel(
+                    id: Long
+                ) {
+                    cancelSignRequest(
+                        id
+                    )
                 }
             })
         }
     }
 
-    private fun processSessionRequest(wcPeerMeta: WCPeerMeta) {
+    private fun processSessionRequest(
+        wcPeerMeta: WCPeerMeta
+    ) {
         wcV1PeerMeta = wcPeerMeta
         if (!connectType.isDapp()) {
             setupConnectInfoView(wcPeerMeta)
-            fillConnectInfoAddressIfNeed()
         } else {
-            changeDappConnectStatus(true)
-            binding.loadingLayer.apply { postDelayed({ visibility = View.GONE }, 2500) }
+            changeDappConnectStatus(
+                true
+            )
+            binding.loadingLayer.apply {
+                postDelayed(
+                    {
+                        visibility = View.GONE
+                    }, 2500
+                )
+            }
         }
-        Toast.makeText(baseContext, getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            baseContext, getString(
+                R.string.str_wc_connected
+            ), Toast.LENGTH_SHORT
+        ).show()
 
         mBaseChain?.let { baseChain ->
             loadedAccountMap[mBaseChain.chain]?.let { account ->
                 when (baseChain) {
                     BaseChain.EVMOS_MAIN -> {
                         wcV1Client?.approveSession(
-                            listOf(WKey.generateEthAddressFromPrivateKey(getPrivateKey(account))),
-                            9001
+                            listOf(
+                                WKey.generateEthAddressFromPrivateKey(
+                                    getPrivateKey(
+                                        account
+                                    )
+                                )
+                            ), 9001
                         )
                         return
                     }
                     else -> {
-                        wcV1Client?.approveSession(listOf(account.address), 1)
+                        wcV1Client?.approveSession(
+                            listOf(
+                                account.address
+                            ), 1
+                        )
                         return
                     }
                 }
             }
         }
 
-        wcV1Client?.approveSession(listOf(), 1)
+        wcV1Client?.approveSession(
+            listOf(), 1
+        )
     }
 
-    private fun processEthSign(id: Long, signMessage: WCEthereumSignMessage) {
+    private fun processEthSign(
+        id: Long, signMessage: WCEthereumSignMessage
+    ) {
         try {
             loadedAccountMap[mBaseChain.chain]?.let { account ->
-                val credentials = Credentials.create(getPrivateKey(account))
+                val credentials = Credentials.create(
+                    getPrivateKey(
+                        account
+                    )
+                )
                 val signed = org.web3j.crypto.Sign.signPrefixedMessage(
                     signMessage.data.toByteArray(), credentials.ecKeyPair
                 )
-                wcV1Client?.approveRequest(id, signed)
+                wcV1Client?.approveRequest(
+                    id, signed
+                )
             } ?: run {
-                wcV1Client?.rejectRequest(id, getString(R.string.str_unknown_error))
+                wcV1Client?.rejectRequest(
+                    id, getString(
+                        R.string.str_unknown_error
+                    )
+                )
             }
         } catch (e: Exception) {
-            wcV1Client?.rejectRequest(id, getString(R.string.str_unknown_error))
+            wcV1Client?.rejectRequest(
+                id, getString(
+                    R.string.str_unknown_error
+                )
+            )
         }
     }
 
-    private fun processEthSend(id: Long, wcEthereumTransaction: WCEthereumTransaction) {
+    private fun processEthSend(
+        id: Long, wcEthereumTransaction: WCEthereumTransaction
+    ) {
         try {
             val rpcUrl: String = if (BaseChain.EVMOS_MAIN == mBaseChain) {
                 "https://eth.bd.evmos.org:8545"
             } else {
-                throw Exception("No endpoint.")
+                throw Exception(
+                    "No endpoint."
+                )
             }
 
-            val web3 = Web3j.build(HttpService(rpcUrl))
+            val web3 = Web3j.build(
+                HttpService(
+                    rpcUrl
+                )
+            )
             val account = loadedAccountMap[mBaseChain.chain] ?: run {
-                throw Exception("No account.")
+                throw Exception(
+                    "No account."
+                )
             }
 
-            val credentials = Credentials.create(getPrivateKey(account))
-            val ethGetTransactionCount =
-                web3.ethGetTransactionCount(credentials.address, DefaultBlockParameterName.LATEST)
-                    .sendAsync().get()
+            val credentials = Credentials.create(
+                getPrivateKey(
+                    account
+                )
+            )
+            val ethGetTransactionCount = web3.ethGetTransactionCount(
+                credentials.address, DefaultBlockParameterName.LATEST
+            ).sendAsync().get()
             val nonce = ethGetTransactionCount.transactionCount
             var value = BigInteger.ZERO
             wcEthereumTransaction.value?.let {
-                if (StringUtils.isNotBlank(it)) {
-                    value = BigInteger(it.replace("0x", ""), 16)
+                if (StringUtils.isNotBlank(
+                        it
+                    )
+                ) {
+                    value = BigInteger(
+                        it.replace(
+                            "0x", ""
+                        ), 16
+                    )
                 }
             }
             val transaction = Transaction(
@@ -616,7 +770,9 @@ class WalletConnectActivity : BaseActivity() {
                 value,
                 wcEthereumTransaction.data
             )
-            val limit = web3.ethEstimateGas(transaction).sendAsync().get()
+            val limit = web3.ethEstimateGas(
+                transaction
+            ).sendAsync().get()
             val rawTransaction = RawTransaction.createTransaction(
                 9001,
                 nonce,
@@ -624,28 +780,50 @@ class WalletConnectActivity : BaseActivity() {
                 wcEthereumTransaction.to,
                 value,
                 wcEthereumTransaction.data,
-                BigInteger.valueOf(500000000L),
-                BigInteger.valueOf(27500000000L)
+                BigInteger.valueOf(
+                    500000000L
+                ),
+                BigInteger.valueOf(
+                    27500000000L
+                )
             )
-            val signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials)
-            val hexValue = Numeric.toHexString(signedMessage)
-            val sendResult = web3.ethSendRawTransaction(hexValue).sendAsync().get()
-            wcV1Client?.approveRequest(id, sendResult.transactionHash)
+            val signedMessage = TransactionEncoder.signMessage(
+                rawTransaction, credentials
+            )
+            val hexValue = Numeric.toHexString(
+                signedMessage
+            )
+            val sendResult = web3.ethSendRawTransaction(
+                hexValue
+            ).sendAsync().get()
+            wcV1Client?.approveRequest(
+                id, sendResult.transactionHash
+            )
         } catch (e: Exception) {
-            wcV1Client?.rejectRequest(id, getString(R.string.str_unknown_error))
+            wcV1Client?.rejectRequest(
+                id, getString(
+                    R.string.str_unknown_error
+                )
+            )
         }
     }
 
     private fun moveToBackIfNeed() {
         if (connectType == ConnectType.DeepLinkWalletConnect) {
-            moveTaskToBack(true)
+            moveTaskToBack(
+                true
+            )
         }
     }
 
     private fun generateWCDefaultAccount(): List<WCAccount> {
         if (mBaseChain == BaseChain.KAVA_MAIN) {
             loadedAccountMap[mBaseChain.chain]?.let {
-                return listOf(WCAccount(459, it.address))
+                return listOf(
+                    WCAccount(
+                        459, it.address
+                    )
+                )
             }
         }
 
@@ -699,7 +877,9 @@ class WalletConnectActivity : BaseActivity() {
         } catch (ignored: Exception) {
         }
         try {
-            return Gson().fromJson(Gson().toJson(amount), object : TypeToken<List<Coin>>() {}.type)
+            return Gson().fromJson(
+                Gson().toJson(amount), object : TypeToken<List<Coin>>() {}.type
+            )
         } catch (ignored: Exception) {
         }
         return amount
@@ -729,8 +909,11 @@ class WalletConnectActivity : BaseActivity() {
             val transactionJson = Gson().fromJson(transaction, JsonArray::class.java)
             val jsonObject = transactionJson[1].asJsonObject
             val chainId = jsonObject["chainId"].asString
-            val txBody =
-                TxBody.parseFrom(Base64.decode(jsonObject["bodyBytes"].asString, Base64.DEFAULT))
+            val txBody = TxBody.parseFrom(
+                Base64.decode(
+                    jsonObject["bodyBytes"].asString, Base64.DEFAULT
+                )
+            )
             val authInfo = TxOuterClass.AuthInfo.parseFrom(
                 Base64.decode(jsonObject["authInfoBytes"].asString, Base64.DEFAULT)
             )
@@ -863,16 +1046,43 @@ class WalletConnectActivity : BaseActivity() {
             return
         }
 
+        fillConnectInfoAddressIfNeed()
+
         if (meta != null) {
             if (!CollectionUtils.isEmpty(meta.icons)) {
                 Picasso.get().load(meta.icons.first()).fit()
                     .placeholder(R.drawable.validator_none_img).into(binding.wcImg)
             }
-            binding.wcName.text = meta.name
+            if (StringUtils.isBlank(meta.name)) {
+                binding.wcName.text = getString(R.string.str_wallet_connect)
+            } else {
+                binding.wcName.text = meta.name
+            }
             binding.wcUrl.text = meta.url
             binding.wcLayer.visibility = View.VISIBLE
             binding.loadingLayer.visibility = View.GONE
         }
+    }
+
+    private fun setupConnectInfoView(proposal: Sign.Model.SessionProposal) {
+        if (connectType.isDapp()) {
+            return
+        }
+
+        fillConnectInfoAddressIfNeed()
+
+        if (!CollectionUtils.isEmpty(proposal.icons)) {
+            Picasso.get().load(proposal.icons.first().path).fit()
+                .placeholder(R.drawable.validator_none_img).into(binding.wcImg)
+        }
+        if (StringUtils.isBlank(proposal.name)) {
+            binding.wcName.text = getString(R.string.str_wallet_connect)
+        } else {
+            binding.wcName.text = proposal.name
+        }
+        binding.wcUrl.text = proposal.url
+        binding.wcLayer.visibility = View.VISIBLE
+        binding.loadingLayer.visibility = View.GONE
     }
 
     private fun hasAccount(chainId: String): Boolean {
@@ -883,7 +1093,11 @@ class WalletConnectActivity : BaseActivity() {
             }
         }
 
-        showErrorDialog(String.format(getString(R.string.str_error_not_support_msg), chainId))
+        showErrorDialog(
+            String.format(
+                getString(R.string.str_error_not_support_msg), chainId
+            )
+        )
         return false
     }
 
@@ -895,11 +1109,10 @@ class WalletConnectActivity : BaseActivity() {
         }
 
         val bundle = Bundle()
-        bundle.putLong("id", id)
         bundle.putString("chainName", chainId)
         val dialog = Dialog_Wc_Account.newInstance(bundle)
         dialog.setOnSelectListener(object : OnDialogSelectListener {
-            override fun onSelect(id: Long, account: Account) {
+            override fun onSelect(account: Account) {
                 loadedAccountMap[WDp.getChainTypeByChainId(chainId).chain] = account
                 fillConnectInfoAddressIfNeed()
                 wcV1Client?.approveRequest(id, listOf(toKeplrWallet(account)))
@@ -915,41 +1128,40 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private fun showAccountDialog(
-        id: Long, chains: List<String>, selectedAccounts: MutableList<Account>, index: Int
+        chains: List<String>,
+        selectedAccounts: MutableList<Account>,
+        index: Int = 0,
+        action: (selectedAccounts: List<Account>) -> Unit
     ) {
         if (index >= chains.size) {
-            fillConnectInfoAddressIfNeed()
-            wcV1Client?.approveRequest(
-                id,
-                selectedAccounts.mapNotNull { toCosmosatationAccount(it) })
+            action(selectedAccounts)
             moveToBackIfNeed()
             return
         }
 
         loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain]?.let {
             selectedAccounts.add(it)
-            showAccountDialog(id, chains, selectedAccounts, index + 1)
+            showAccountDialog(chains, selectedAccounts, index + 1, action)
             return
         }
 
         if (!hasAccount(chains[index])) {
-            showAccountDialog(id, chains, selectedAccounts, index + 1)
+            showAccountDialog(chains, selectedAccounts, index + 1, action)
             return
         }
 
         val bundle = Bundle()
-        bundle.putLong("id", id)
         bundle.putString("chainName", chains[index])
         val dialog = Dialog_Wc_Account.newInstance(bundle)
         dialog.setOnSelectListener(object : OnDialogSelectListener {
-            override fun onSelect(id: Long, account: Account) {
+            override fun onSelect(account: Account) {
                 loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain] = account
                 selectedAccounts.add(account)
-                showAccountDialog(id, chains, selectedAccounts, index + 1)
+                showAccountDialog(chains, selectedAccounts, index + 1, action)
             }
 
             override fun onCancel() {
-                showAccountDialog(id, chains, selectedAccounts, index + 1)
+                showAccountDialog(chains, selectedAccounts, index + 1, action)
             }
         })
         dialog.show(supportFragmentManager, "dialog$index")
@@ -1011,12 +1223,16 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
-    private fun showSignDialog(bundle: Bundle, signListener: WcSignRawDataListener) {
+    private fun showSignDialog(
+        bundle: Bundle, signListener: WcSignRawDataListener
+    ) {
         val wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, signListener)
         wcRawDataDialog.show(supportFragmentManager, "dialog")
     }
 
-    private fun showEvmSignDialog(bundle: Bundle, listener: WcEvmosSignRawDataListener) {
+    private fun showEvmSignDialog(
+        bundle: Bundle, listener: WcEvmosSignRawDataListener
+    ) {
         val dialog = Dialog_Wc_Raw_Data_Evmos.newInstance(bundle, listener)
         dialog.show(supportFragmentManager, "dialog")
     }
@@ -1026,7 +1242,9 @@ class WalletConnectActivity : BaseActivity() {
         moveToBackIfNeed()
     }
 
-    private fun cancelV2SignRequest(id: Long, sessionRequest: Sign.Model.SessionRequest) {
+    private fun cancelV2SignRequest(
+        id: Long, sessionRequest: Sign.Model.SessionRequest
+    ) {
         val response = Sign.Params.Response(
             sessionTopic = sessionRequest.topic,
             jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
@@ -1134,7 +1352,10 @@ class WalletConnectActivity : BaseActivity() {
             if (lastClickPositionY > scrollY && Math.abs(scrollY - oldScrollY) > 50 && isHideToolbar) {
                 isHideToolbar = false
                 supportActionBar?.show()
-            } else if (lastClickPositionY < scrollY && Math.abs(scrollY - oldScrollY) > 50 && !isHideToolbar) {
+            } else if (lastClickPositionY < scrollY && Math.abs(
+                    scrollY - oldScrollY
+                ) > 50 && !isHideToolbar
+            ) {
                 isHideToolbar = true
                 supportActionBar?.hide()
             }
@@ -1144,7 +1365,9 @@ class WalletConnectActivity : BaseActivity() {
         override fun onJsAlert(
             view: WebView, url: String, message: String, result: JsResult
         ): Boolean {
-            AlertDialog.Builder(view.context, R.style.DialogTheme).setMessage(message)
+            AlertDialog.Builder(
+                view.context, R.style.DialogTheme
+            ).setMessage(message)
                 .setPositiveButton("OK") { dialog: DialogInterface?, which: Int -> result.confirm() }
                 .setOnDismissListener { dialog: DialogInterface? -> result.confirm() }.create()
                 .show()
@@ -1154,7 +1377,9 @@ class WalletConnectActivity : BaseActivity() {
         override fun onJsConfirm(
             view: WebView, url: String, message: String, result: JsResult
         ): Boolean {
-            AlertDialog.Builder(view.context, R.style.DialogTheme).setMessage(message)
+            AlertDialog.Builder(
+                view.context, R.style.DialogTheme
+            ).setMessage(message)
                 .setPositiveButton("OK") { _: DialogInterface?, _: Int -> result.confirm() }
                 .setNegativeButton("Cancel") { _: DialogInterface?, _: Int -> result.cancel() }
                 .setOnDismissListener { dialog: DialogInterface? -> result.cancel() }.create()
@@ -1164,22 +1389,39 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private val dappWebViewClient = object : WebViewClient() {
-        override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+        override fun shouldOverrideUrlLoading(
+            view: WebView, request: WebResourceRequest
+        ): Boolean {
             var modifiedUrl = request.url.toString()
             if (isFinishing) {
                 return true
             }
-            if (modifiedUrl.startsWith("wc:")) {
-                processConnectScheme(modifiedUrl)
+            if (modifiedUrl.startsWith(
+                    "wc:"
+                )
+            ) {
+                processConnectScheme(
+                    modifiedUrl
+                )
                 return true
-            } else if (modifiedUrl.startsWith("intent:")) {
-                if (modifiedUrl.contains("intent://wcV1")) {
+            } else if (modifiedUrl.startsWith(
+                    "intent:"
+                )
+            ) {
+                if (modifiedUrl.contains(
+                        "intent://wcV1"
+                    )
+                ) {
                     modifiedUrl = modifiedUrl.replace(
                         "#Intent;package=com.chainapsis.keplr;scheme=keplrwallet;end;",
                         "#Intent;package=wannabit.io.cosmostaion;scheme=cosmostation;end;"
                     )
-                    modifiedUrl = modifiedUrl.replace("intent://wcV1", "intent://wc")
-                    modifiedUrl = modifiedUrl.replace("scheme=keplrwallet", "scheme=cosmostation")
+                    modifiedUrl = modifiedUrl.replace(
+                        "intent://wcV1", "intent://wc"
+                    )
+                    modifiedUrl = modifiedUrl.replace(
+                        "scheme=keplrwallet", "scheme=cosmostation"
+                    )
                 }
                 if (BuildConfig.DEBUG) {
                     modifiedUrl = modifiedUrl.replace(
@@ -1187,14 +1429,28 @@ class WalletConnectActivity : BaseActivity() {
                     )
                 }
                 try {
-                    val intent = Intent.parseUri(modifiedUrl, Intent.URI_INTENT_SCHEME)
+                    val intent = Intent.parseUri(
+                        modifiedUrl, Intent.URI_INTENT_SCHEME
+                    )
                     val existPackage = intent.getPackage()?.let {
-                        packageManager.getLaunchIntentForPackage(it)
+                        packageManager.getLaunchIntentForPackage(
+                            it
+                        )
                     }
-                    existPackage?.let { startActivity(intent) } ?: run {
-                        val marketIntent = Intent(Intent.ACTION_VIEW)
-                        marketIntent.data = Uri.parse("market://details?id=" + intent.getPackage())
-                        startActivity(marketIntent)
+                    existPackage?.let {
+                        startActivity(
+                            intent
+                        )
+                    } ?: run {
+                        val marketIntent = Intent(
+                            Intent.ACTION_VIEW
+                        )
+                        marketIntent.data = Uri.parse(
+                            "market://details?id=" + intent.getPackage()
+                        )
+                        startActivity(
+                            marketIntent
+                        )
                     }
                     return true
                 } catch (e: Exception) {

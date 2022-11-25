@@ -107,8 +107,8 @@ dependencies {
     //circle Image
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     //firebase
-    implementation 'com.google.firebase:firebase-messaging:23.0.5'
-    implementation 'com.google.firebase:firebase-core:21.0.0'
+    implementation 'com.google.firebase:firebase-messaging:23.1.0'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
     //for qr code
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
     implementation 'org.apache.commons:commons-lang3:3.6'

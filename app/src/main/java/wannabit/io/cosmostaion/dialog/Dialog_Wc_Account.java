@@ -34,7 +34,6 @@ public class Dialog_Wc_Account extends DialogFragment {
 
     private ArrayList<Account> mAccounts = new ArrayList<>();
     private OnDialogSelectListener mOnSelectListener = null;
-    private Long id;
 
     public static Dialog_Wc_Account newInstance(Bundle bundle) {
         Dialog_Wc_Account dialog = new Dialog_Wc_Account();
@@ -51,7 +50,6 @@ public class Dialog_Wc_Account extends DialogFragment {
         mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView = view.findViewById(R.id.recycler);
         mAccounts = getSActivity().getBaseDao().onSelectAllAccountsByChainWithKey(WDp.getChainTypeByChainId(getArguments().getString("chainName")));
-        id = getArguments().getLong("id");
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
@@ -89,7 +87,7 @@ public class Dialog_Wc_Account extends DialogFragment {
             holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
             holder.rootLayer.setOnClickListener(v -> {
                 if (mOnSelectListener != null) {
-                    mOnSelectListener.onSelect(id, account);
+                    mOnSelectListener.onSelect(account);
                 }
                 dismiss();
             });
@@ -124,7 +122,7 @@ public class Dialog_Wc_Account extends DialogFragment {
     }
 
     public interface OnDialogSelectListener {
-        void onSelect(Long id, Account account);
+        void onSelect(Account account);
 
         void onCancel();
     }
