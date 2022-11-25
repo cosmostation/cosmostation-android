@@ -38,6 +38,7 @@ public class Injective extends ChainConfig {
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
+    public boolean kadoMoneySupport() { return true; }
 
     public String grpcUrl() { return "lcd-injective-app.cosmostation.io"; }
     public String apiUrl() { return "https://api-injective.cosmostation.io/"; }
