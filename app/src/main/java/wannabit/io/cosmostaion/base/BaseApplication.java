@@ -69,7 +69,7 @@ public class BaseApplication extends Application {
     }
 
     private void initWalletConnectV2() {
-        String projectId = "63c00e1ca398a6aaaa517a30594c4559";
+        String projectId = BuildConfig.WALLETCONNECT_API_KEY;
         String relayUrl = "relay.walletconnect.com";
         String serverUrl = "wss://" + relayUrl + "?projectId=" + projectId;
         ConnectionType connectionType = ConnectionType.AUTOMATIC;
