@@ -1345,6 +1345,7 @@
 
     <string name="tx_stride_liquid_stake">Liquid Stake</string>
     <string name="tx_stride_redeem_stake">Redeem Stake</string>
+    <string name="str_liquid_staking"><![CDATA[Liquid Staking]]></string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
