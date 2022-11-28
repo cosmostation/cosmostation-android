@@ -84,6 +84,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     // Authz
     public String mGranter;
 
+    // Evm
+    public String mHexValue;
 
     public void onNextStep() { }
 

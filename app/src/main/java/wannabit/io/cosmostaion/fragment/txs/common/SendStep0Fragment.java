@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EVM_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
@@ -277,9 +278,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     private void onPathSetting() {
         if (getSActivity().mBaseChain.equals(mToSendChainConfig.baseChain())) {
-            if (mAsset != null) getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
-            else if (mMintscanToken != null) getSActivity().mTxType = CONST_PW_TX_EXECUTE_CONTRACT;
-            else getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
+            if (mAsset != null) { getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND; }
+            else if (mMintscanToken != null) {
+                if (mMintscanToken.contract_address.startsWith("0x")) {
+                    getSActivity().mTxType = CONST_PW_TX_EVM_TRANSFER;
+                } else {
+                    getSActivity().mTxType = CONST_PW_TX_EXECUTE_CONTRACT;
+                }
+            }
 
         } else {
             if (mAsset != null) {

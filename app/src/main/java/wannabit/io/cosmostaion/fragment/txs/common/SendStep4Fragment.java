@@ -161,8 +161,10 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 getSActivity().onStartIbcSend();
             } else if (getSActivity().mTxType == CONST_PW_TX_EXECUTE_CONTRACT) {
                 getSActivity().onStartSendContract();
-            } else {
+            } else if (getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
                 getSActivity().onStartIBCContract();
+            } else {
+                getSActivity().onStartEVMSend();
             }
         }
     }

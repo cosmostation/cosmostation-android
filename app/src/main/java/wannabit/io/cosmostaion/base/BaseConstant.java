@@ -196,8 +196,9 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SIF_EXIT_POOL                       = 5053;
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
-    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5058;
-    public final static int CONST_PW_TX_IBC_CONTRACT                        = 5059;
+    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5057;
+    public final static int CONST_PW_TX_IBC_CONTRACT                        = 5058;
+    public final static int CONST_PW_TX_EVM_TRANSFER                        = 5059;
 
     public final static int CONST_PW_TX_AUTHZ_DELEGATE                      = 5060;
     public final static int CONST_PW_TX_AUTHZ_UNDELEGATE                    = 5061;

@@ -8,24 +8,15 @@ import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Uint256;
-import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthBlockNumber;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.tx.Contract;
-import org.web3j.tx.FastRawTransactionManager;
-import org.web3j.tx.gas.ContractGasProvider;
-import org.web3j.tx.gas.DefaultGasProvider;
-import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.protocol.core.methods.response.EthCall;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.dao.Account;
@@ -56,11 +47,11 @@ public class Erc20BalanceGrpcTask extends CommonTask {
             List<Type> params = new ArrayList<>();
             params.add(new Address(ethAddress));
 
-            List<TypeReference<?>> returnTypes = Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {});
+            List<TypeReference<?>> returnTypes = Arrays.asList(new TypeReference<Uint256>() {});
             Function function = new Function("balanceOf", params, returnTypes);
 
             String txData = FunctionEncoder.encode(function);
-            org.web3j.protocol.core.methods.response.EthCall response = mWeb3j.ethCall(Transaction.createEthCallTransaction(ethAddress, mContAddress, txData), DefaultBlockParameterName.LATEST).sendAsync().get();
+            EthCall response = mWeb3j.ethCall(Transaction.createEthCallTransaction(ethAddress, mContAddress, txData), DefaultBlockParameterName.LATEST).sendAsync().get();
             List<Type> results = FunctionReturnDecoder.decode(response.getValue(), function.getOutputParameters());
             BigInteger balance = (BigInteger)results.get(0).getValue();
 
