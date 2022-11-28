@@ -304,7 +304,7 @@
     <string name="str_front_guide_msg_binance">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
     <string name="str_front_guide_msg_kava">First cross-chain DeFi platform based on Tendermint engine. Kava allows users to leverage assets with its cross-chain CDP.</string>
     <string name="str_front_guide_msg_starname">Built on Tendermint, Starname builds a fast, secure and decentralized universal name service.</string>
-    <string name="str_front_guide_msg_okx">OKC Chain is a public decentralized exchange powered by Tendermint.</string>
+    <string name="str_front_guide_msg_okx">OKX Chain(OKC) is a public decentralized exchange powered by Tendermint.</string>
     <string name="str_front_guide_msg_band">Cross-chain oracle platform based on Tendermint. Band Protocol aggregates and connects real-world data and APIs to smart contracts.</string>
     <string name="str_front_guide_msg_shentu"><![CDATA[A public platform based on the Shentu Foundation\'s unique Formal Verification security system.]]></string>
     <string name="str_front_guide_msg_akash"><![CDATA[The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.]]></string>
