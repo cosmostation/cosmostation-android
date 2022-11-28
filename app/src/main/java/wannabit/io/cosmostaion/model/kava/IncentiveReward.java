@@ -93,7 +93,7 @@ public class IncentiveReward {
                 if (matchedCoin.isPresent()) {
                     matchedCoin.get().amount = new BigDecimal(matchedCoin.get().amount).add(amount).toString();
                 } else {
-                    result.add(coin);
+                    result.add(new Coin(coin.denom, coin.amount));
                 }
             }
         }
