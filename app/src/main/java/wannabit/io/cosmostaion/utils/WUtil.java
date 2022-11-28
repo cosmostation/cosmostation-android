@@ -68,6 +68,7 @@ import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
+import wannabit.io.cosmostaion.activities.txs.liquidstaking.StrideLSActivity;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTListActivity;
 import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
@@ -1570,7 +1571,7 @@ public class WUtil {
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
             return new Intent(mainActivity, LabsListActivity.class);
         } else if (chainConfig.baseChain().equals(STRIDE_MAIN)) {
-            return new Intent(mainActivity, LabsListActivity.class);
+            return new Intent(mainActivity, StrideLSActivity.class);
         } else {
             return null;
         }

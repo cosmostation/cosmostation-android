@@ -1255,6 +1255,9 @@
     <string name="tx_stride_liquid_stake">유동성 스테이크</string>
     <string name="tx_stride_redeem_stake">유동성 상환</string>
     <string name="str_liquid_staking">리퀴드 스테이킹</string>
+    <string name="str_liquid_unstaking">리퀴드 언스테이킹</string>
+    <string name="str_start_staking">스테이킹 시작</string>
+    <string name="str_start_unstaking">언스테이킹 시작</string>
 
     <string name="str_tx_kava_earn_delegateDeposit">어닝 리퀴디티\n위임 입금</string>
     <string name="tx_kava_earn_delegateDeposit">어닝 리퀴디티 위임 입금</string>

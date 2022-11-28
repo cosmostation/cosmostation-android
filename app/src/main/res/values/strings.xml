@@ -1345,7 +1345,12 @@
 
     <string name="tx_stride_liquid_stake">Liquid Stake</string>
     <string name="tx_stride_redeem_stake">Redeem Stake</string>
+    <string name="title_liquid_staking" translatable="false">Staking</string>
+    <string name="title_liquid_unstaking" translatable="false">Unstaking</string>
     <string name="str_liquid_staking"><![CDATA[Liquid Staking]]></string>
+    <string name="str_liquid_unstaking"><![CDATA[Liquid Unstaking]]></string>
+    <string name="str_start_staking">START STAKE</string>
+    <string name="str_start_unstaking">START UNSTAKE</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

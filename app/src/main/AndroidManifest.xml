@@ -545,6 +545,11 @@
             android:name=".dialog.AlertDialogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity
+            android:name=".activities.txs.liquidstaking.StrideLSActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <service
             android:name=".base.BaseFCM"
