@@ -24,7 +24,7 @@ import java.util.Set;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 
 public class SelectCWTokenDialog extends BottomSheetDialogFragment implements View.OnClickListener {
 
@@ -35,7 +35,7 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
     private ContractListAdapter mContractListAdapter;
     private Button mBtnCancel, mBtnConfirm;
 
-    private ArrayList<Cw20Asset> mContractAssets = new ArrayList<>();
+    private ArrayList<MintscanToken> mContractAssets = new ArrayList<>();
     private Set<String> checkedContractSet = Sets.newHashSet();
     private Account mAccount;
 
@@ -56,7 +56,7 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
         mAccount = getSActivity().getBaseDao().onSelectAccount(getSActivity().getBaseDao().getLastUser());
 
         mDialogTitle.setText(getString(R.string.str_select_contract_token));
-        for (Cw20Asset asset : getSActivity().getBaseDao().mCw20Assets) {
+        for (MintscanToken asset : getSActivity().getBaseDao().mMintscanTokens) {
             if (!asset.default_show) {
                 mContractAssets.add(asset);
             }
@@ -95,7 +95,7 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
 
         @Override
         public void onBindViewHolder(@NonNull ContractListAdapter.ContractHolder holder, int position) {
-            final Cw20Asset asset = mContractAssets.get(position);
+            final MintscanToken asset = mContractAssets.get(position);
             holder.itemDisplayToken.setOnCheckedChangeListener(null);
             Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemChainImg);
             holder.itemChainName.setText(asset.denom.toUpperCase());

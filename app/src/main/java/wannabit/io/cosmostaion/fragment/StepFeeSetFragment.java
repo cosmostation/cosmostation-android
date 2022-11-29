@@ -16,6 +16,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAI
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EVM_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
@@ -109,6 +110,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulCw20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteDomainGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulErc20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulIBCTransferGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaBorrowHardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaClaimIncentiveAllGrpcTask;
@@ -255,7 +257,9 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onUpdateView() {
-        onCalculateFees();
+        if (getSActivity().mTxType != CONST_PW_TX_EVM_TRANSFER) {
+            onCalculateFees();
+        }
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mFeeData.denom, mFeeCoinImg);
         WDp.setDpSymbol(getActivity(), getBaseDao(), mChainConfig, mFeeData.denom, mFeeCoinDenom);
         mGasAmount.setVisibility(View.VISIBLE);
@@ -490,11 +494,11 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_EXECUTE_CONTRACT) {
-            new SimulCw20SendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mCw20Asset.contract_address, getSActivity().mAmounts,
+            new SimulCw20SendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mMintscanToken.contract_address, getSActivity().mAmounts,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
-            new SimulCw20IbcSendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mCw20Asset.contract_address, getSActivity().mAssetPath, getSActivity().mAmounts,
+            new SimulCw20IbcSendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mMintscanToken.contract_address, getSActivity().mAssetPath, getSActivity().mAmounts,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_AUTHZ_DELEGATE) {
@@ -529,20 +533,32 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             new SimulKavaLiquidityGrpcTask(getBaseApplication(), this, getSActivity().mTxType, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mToValAddress, getSActivity().mAmount,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        } else if (getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) {
+            new SimulErc20SendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mMintscanToken, getSActivity().mToAddress, getSActivity().mAmounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if (result.isSuccess && result.resultData != null) {
-            Abci.GasInfo gasInfo = ((Abci.GasInfo) result.resultData);
-            long gasused = gasInfo.getGasUsed();
-            if (mBaseChain.equals(BaseChain.PROVENANCE_MAIN) || mBaseChain.equals(BaseChain.TERITORI_MAIN))
-                gasused = (long) ((double) gasused * 1.3d);
-            else gasused = (long) ((double) gasused * 1.1d);
-            mFeeGasAmount = new BigDecimal(gasused);
+            if (mChainConfig.baseChain().equals(BaseChain.EVMOS_MAIN) && getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) {
+                BigDecimal gasLimit = new BigDecimal((String) result.resultData);
+                BigDecimal gasPrice = new BigDecimal(result.resultData2);
+                getSActivity().mHexValue = result.resultData3;
+                mFee = new Fee(gasLimit.toPlainString(), Lists.newArrayList(new Coin(mChainConfig.mainDenom(), gasLimit.multiply(gasPrice).toPlainString())));
+
+            } else {
+                Abci.GasInfo gasInfo = ((Abci.GasInfo) result.resultData);
+                long gasused = gasInfo.getGasUsed();
+                if (mBaseChain.equals(BaseChain.PROVENANCE_MAIN) || mBaseChain.equals(BaseChain.TERITORI_MAIN))
+                    gasused = (long) ((double) gasused * 1.3d);
+                else gasused = (long) ((double) gasused * 1.1d);
+                mFeeGasAmount = new BigDecimal(gasused);
+            }
             mSimulPassed = true;
             Toast.makeText(getContext(), getString(R.string.str_gas_checked), Toast.LENGTH_SHORT).show();
+
         } else {
             mSimulPassed = false;
             View layout = getLayoutInflater().inflate(R.layout.item_toast_msg, getView().findViewById(R.id.toast_layout));

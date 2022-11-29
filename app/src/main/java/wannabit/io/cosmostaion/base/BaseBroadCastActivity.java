@@ -11,7 +11,7 @@ import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.dao.AssetPath;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
@@ -47,8 +47,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mSwapInCoin;
     public Coin                         mSwapOutCoin;
 
-    public String                       mIncentiveMultiplier;
-
     public sifnode.clp.v1.Types.Pool    mSifPool;                                   // sif swap
     public Coin                         mSifSwapInCoin;
     public Coin                         mSifSwapOutCoin;
@@ -57,7 +55,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mSifWithdrawCoin;
     public Querier.LiquidityProviderRes mMyProvider;
 
-    public Cw20Asset                    mCw20Asset;
+    public MintscanToken                mMintscanToken;
     public AssetPath                    mAssetPath;
 
     // NFT
@@ -86,6 +84,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     // Authz
     public String mGranter;
 
+    // Evm
+    public String mHexValue;
 
     public void onNextStep() { }
 

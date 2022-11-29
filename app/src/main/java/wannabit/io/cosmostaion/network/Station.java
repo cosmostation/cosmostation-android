@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.network.res.ResAssets;
-import wannabit.io.cosmostaion.network.res.ResCw20Assets;
+import wannabit.io.cosmostaion.network.res.ResMintscanAssets;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
@@ -37,7 +37,10 @@ public interface Station {
     Call<ResAssets> getAssets();
 
     @GET("/v2/assets/{chain}/token/cw20")
-    Call<ResCw20Assets> getCw20Assets(@Path("chain") String chain);
+    Call<ResMintscanAssets> getCw20Assets(@Path("chain") String chain);
+
+    @GET("/v2/assets/{chain}/token/erc20")
+    Call<ResMintscanAssets> getErc20Assets(@Path("chain") String chain);
 
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);
