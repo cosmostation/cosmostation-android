@@ -386,7 +386,7 @@ public class ConnectWalletActivity extends BaseActivity {
         OkHttpClient client = new OkHttpClient.Builder().pingInterval(100000, TimeUnit.MILLISECONDS).build();
         wcClient = new WCClient(new GsonBuilder(), client);
         WCPeerMeta meta = new WCPeerMeta(getString(R.string.str_wc_peer_name), getString(R.string.str_wc_peer_url), getString(R.string.str_wc_peer_desc), Lists.newArrayList());
-        if (!mWcURL.isEmpty()) {
+        if (mWcURL != null) {
             wcSession = WCSession.Companion.from(mWcURL);
             wcClient.connect(wcSession, meta, UUID.randomUUID().toString(), null);
         }
