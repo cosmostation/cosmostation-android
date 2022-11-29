@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.activities.txs.liquidstaking;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_HOST_ZONE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_EPOCH_TRACKER;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -21,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import stride.stakeibc.EpochTrackerOuterClass;
@@ -60,8 +63,7 @@ public class StrideLSActivity extends BaseActivity {
 
         mToolbarTitle.setText(getString(R.string.str_sif_dex_title));
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -118,10 +120,34 @@ public class StrideLSActivity extends BaseActivity {
         }
     }
 
+    public void onStartStake(HostZoneOuterClass.HostZone hostZone, BigDecimal maxAvailAmount) {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog();
+            return;
+        }
+        if (maxAvailAmount.compareTo(BigDecimal.ZERO) <= 0) {
+            View layout = getLayoutInflater().inflate(R.layout.item_toast_msg, findViewById(R.id.toast_layout));
+            TextView textView = layout.findViewById(R.id.toast_msg);
+            textView.setText(getString(R.string.error_not_enough_liquid_stake));
+
+            Toast toast = new Toast(this);
+            toast.setView(layout);
+            toast.show();
+            return;
+        }
+
+        Intent intent = new Intent(StrideLSActivity.this, StrideLiquidActivity.class);
+        intent.putExtra("chainId", hostZone.getChainId());
+        intent.putExtra("stakingDenom", hostZone.getIbcDenom());
+        startActivity(intent);
+    }
+
     public void onFetchPoolListInfo() {
         mTaskCount = 2;
-        new AllHostZoneGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new EpochTrackerGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mHostZones.clear();
+        mDayEpoch = null;
+        new AllHostZoneGrpcTask(getBaseApplication(), this, mChainConfig).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new EpochTrackerGrpcTask(getBaseApplication(), this, mChainConfig).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

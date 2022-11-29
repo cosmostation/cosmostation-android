@@ -11,9 +11,17 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
+import stride.stakeibc.EpochTrackerOuterClass;
+import stride.stakeibc.HostZoneOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.liquidstaking.StrideLSActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
+import wannabit.io.cosmostaion.utils.WDp;
 
 public class StrideLSFragment extends BaseFragment implements View.OnClickListener {
 
@@ -25,8 +33,13 @@ public class StrideLSFragment extends BaseFragment implements View.OnClickListen
 
     private Button mBtnStartStake;
 
-    public String mInputCoinDenom;
-    public String mOutputCoinDenom;
+    private ArrayList<HostZoneOuterClass.HostZone> mHostZones = new ArrayList<>();
+    private EpochTrackerOuterClass.EpochTracker mDayEpoch;
+
+    private String mInputCoinDenom;
+    private String mOutputCoinDenom;
+    private int mSelectedPosition = 0;
+    private BigDecimal mAvailableMaxAmount = BigDecimal.ZERO;
 
     public static StrideLSFragment newInstance() {
         return new StrideLSFragment();
@@ -56,12 +69,43 @@ public class StrideLSFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onRefreshTab() {
+        mHostZones = getSActivity().mHostZones;
+        mDayEpoch = getSActivity().mDayEpoch;
+        onUpdateView();
+    }
 
+    private void onUpdateView() {
+        if (mHostZones == null || mDayEpoch == null) getSActivity().onBackPressed();
+
+        mInputCoinDenom = mHostZones.get(mSelectedPosition).getIbcDenom();
+        mOutputCoinDenom = "st" + mHostZones.get(mSelectedPosition).getHostDenom();
+        int inputDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom);
+
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputImg);
+        WDp.setDpSymbol(getActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputCoin);
+        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputImg);
+        WDp.setDpSymbol(getActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputCoin);
+
+        mAvailableMaxAmount = getBaseDao().getAvailable(mInputCoinDenom);
+        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), mAvailableMaxAmount, inputDecimal, inputDecimal));
     }
 
     @Override
     public void onClick(View v) {
-
+        if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
+            Bundle bundleData = new Bundle();
+            bundleData.putSerializable(SelectChainListDialog.SELECT_LIQUIDITY_STAKE_BUNDLE_KEY, mHostZones);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_LIQUIDITY_COIN_VALUE);
+            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+                mSelectedPosition = bundle.getInt(BaseConstant.POSITION);
+                onUpdateView();
+            });
+        
+        } else if (v.equals(mBtnStartStake)) {
+            getSActivity().onStartStake(mHostZones.get(mSelectedPosition), mAvailableMaxAmount);
+        }
     }
 
     private StrideLSActivity getSActivity() {
