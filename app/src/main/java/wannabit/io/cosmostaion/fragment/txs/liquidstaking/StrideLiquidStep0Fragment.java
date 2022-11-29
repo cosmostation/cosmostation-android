@@ -238,7 +238,7 @@ public class StrideLiquidStep0Fragment extends BaseFragment implements View.OnCl
             if (getSActivity().mTxType == CONST_PW_TX_STRIDE_LIQUID_STAKING) {
                 outputAmount = inputAmountTemp.movePointRight(mInputCoinDecimal).divide(rate, 0, RoundingMode.DOWN);
             } else {
-                outputAmount = inputAmountTemp.multiply(rate).setScale(0, RoundingMode.DOWN);
+                outputAmount = inputAmountTemp.movePointRight(mInputCoinDecimal).multiply(rate).setScale(0, RoundingMode.DOWN);
             }
             mLSOutputAmount.setText(outputAmount.movePointLeft(mOutputCoinDecimal).toPlainString());
         } catch (Exception e) { }

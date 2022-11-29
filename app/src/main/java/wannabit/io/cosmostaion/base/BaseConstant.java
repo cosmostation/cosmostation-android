@@ -133,6 +133,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_ALL_HOST_ZONE               = 4300;
     public final static int TASK_GRPC_FETCH_EPOCH_TRACKER               = 4301;
     public final static int TASK_GRPC_FETCH_HOST_ZONE_CHAINID           = 4302;
+    public final static int TASK_GRPC_FETCH_ALL_USER_REDEMPTION         = 4303;
 
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
@@ -218,6 +219,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_ADD_LIQUIDITY                       = 5080;
     public final static int CONST_PW_TX_REMOVE_LIQUIDITY                    = 5081;
     public final static int CONST_PW_TX_STRIDE_LIQUID_STAKING               = 5082;
+    public final static int CONST_PW_TX_STRIDE_LIQUID_UNSTAKING             = 5083;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;

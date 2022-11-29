@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.txs.liquidstaking;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_STRIDE_LIQUID_UNSTAKING;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_HOST_ZONE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_EPOCH_TRACKER;
 
@@ -34,6 +35,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.fragment.txs.liquidstaking.StrideLSFragment;
 import wannabit.io.cosmostaion.fragment.txs.liquidstaking.StrideLUSFragment;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -61,7 +63,7 @@ public class StrideLSActivity extends BaseActivity {
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
 
-        mToolbarTitle.setText(getString(R.string.str_sif_dex_title));
+        mToolbarTitle.setText(getString(R.string.str_liquid_staking));
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain));
 
@@ -95,7 +97,7 @@ public class StrideLSActivity extends BaseActivity {
             }
         });
         onShowWaitDialog();
-        onFetchPoolListInfo();
+        onFetchLiquidInfo();
     }
 
     private void createTab(ChainConfig chainConfig, int stringResourceId, int index) {
@@ -142,7 +144,29 @@ public class StrideLSActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    public void onFetchPoolListInfo() {
+    public void onClickUnStake(HostZoneOuterClass.HostZone hostZone, BigDecimal maxAvailAmount) {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog();
+            return;
+        }
+        if (maxAvailAmount.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(this, R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_tip), getString(R.string.str_msg_liquid_unstake),
+                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onStartUnStake(hostZone), false);
+    }
+
+    private void onStartUnStake(HostZoneOuterClass.HostZone hostZone) {
+        Intent intent = new Intent(StrideLSActivity.this, StrideLiquidActivity.class);
+        intent.putExtra("txType", CONST_PW_TX_STRIDE_LIQUID_UNSTAKING);
+        intent.putExtra("chainId", hostZone.getChainId());
+        intent.putExtra("stakingDenom", "st" + hostZone.getHostDenom());
+        startActivity(intent);
+    }
+
+    public void onFetchLiquidInfo() {
         mTaskCount = 2;
         mHostZones.clear();
         mDayEpoch = null;

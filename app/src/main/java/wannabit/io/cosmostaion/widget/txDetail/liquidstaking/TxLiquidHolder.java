@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
+import stride.stakeibc.Tx;
 import stride.stakeibc.Tx.MsgLiquidStake;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -19,11 +20,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxLiquidHolder extends TxHolder {
-    ImageView mLiquidImg;
-    TextView mLiquidTitle;
-    LinearLayout mLiquidReceiverLayer;
-    TextView mLiquidCreator, mLiquidReceiver;
-    TextView mLiquidAmount, mLiquidDenom;
+    private ImageView mLiquidImg;
+    private TextView mLiquidTitle;
+    private LinearLayout mLiquidReceiverLayer;
+    private TextView mLiquidCreator, mLiquidReceiver;
+    private TextView mLiquidAmount, mLiquidDenom;
 
     public TxLiquidHolder(@NonNull View itemView) {
         super(itemView);
@@ -41,19 +42,31 @@ public class TxLiquidHolder extends TxHolder {
 
         if (response.getTx().getBody().getMessages(position).getTypeUrl().contains("MsgLiquidStake")) {
             try {
-                MsgLiquidStake msg = stride.stakeibc.Tx.MsgLiquidStake.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+                MsgLiquidStake msg = MsgLiquidStake.parseFrom(response.getTx().getBody().getMessages(position).getValue());
                 mLiquidReceiverLayer.setVisibility(View.GONE);
                 mLiquidTitle.setText(c.getString(R.string.tx_stride_liquid_stake));
                 mLiquidCreator.setText(msg.getCreator());
 
-                ChainConfig recipientChain = ChainFactory.SUPPRT_CONFIG().stream().filter(item -> item.mainDenom().equalsIgnoreCase(msg.getHostDenom())).findFirst().get();
-                if (recipientChain != null) {
-                    WDp.setDpCoin(c, baseData, recipientChain, recipientChain.mainDenom(), String.valueOf(msg.getAmount()), mLiquidDenom, mLiquidAmount);
+                ChainConfig recipientChainConfig = ChainFactory.SUPPRT_CONFIG().stream().filter(item -> item.mainDenom().equalsIgnoreCase(msg.getHostDenom())).findFirst().get();
+                if (recipientChainConfig != null) {
+                    WDp.setDpCoin(c, baseData, recipientChainConfig, recipientChainConfig.mainDenom(), String.valueOf(msg.getAmount()), mLiquidDenom, mLiquidAmount);
                 }
 
             } catch (Exception e) { }
 
         } else {
+            try {
+                Tx.MsgRedeemStake msg = Tx.MsgRedeemStake.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+                mLiquidReceiverLayer.setVisibility(View.VISIBLE);
+                mLiquidTitle.setText(c.getString(R.string.tx_stride_redeem_stake));
+                mLiquidCreator.setText(msg.getCreator());
+                mLiquidReceiver.setText(msg.getReceiver());
+
+                ChainConfig recipientChainConfig = ChainFactory.SUPPRT_CONFIG().stream().filter(item -> msg.getHostZone().startsWith(item.chainIdPrefix())).findFirst().get();
+                if (recipientChainConfig != null) {
+                    WDp.setDpCoin(c, baseData, recipientChainConfig, recipientChainConfig.mainDenom(), String.valueOf(msg.getAmount()), mLiquidDenom, mLiquidAmount);
+                }
+            } catch (Exception e) { }
         }
     }
 }

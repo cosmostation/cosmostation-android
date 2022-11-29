@@ -1359,6 +1359,11 @@
     <string name="str_liquid_output">Withdraw Amount(est)</string>
     <string name="str_liquid_creator">Creator</string>
     <string name="str_liquid_receiver">Receiver</string>
+    <string name="str_no_unskake_history">No Unstake History</string>
+    <string name="str_unstaking_history">Unstaking Histories</string>
+    <string name="str_tip">Tip</string>
+    <string name="str_msg_liquid_unstake">Unstaking requires a period set by origin chain(14-28 days).\n\nYou can instantly convert st assets into original assets in Osmosis Dex.</string>
+    <string name="str_hint_msg_liquid_unstake">Insert Recipient Address</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

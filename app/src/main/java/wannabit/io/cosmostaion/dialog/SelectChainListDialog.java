@@ -45,7 +45,8 @@ public class SelectChainListDialog extends DialogFragment {
     public static int SELECT_FEE_DENOM_VALUE = 8502;
     public static int SELECT_SEND_COIN_VALUE = 8503;
     public static int SELECT_IBC_CHAIN_VALUE = 8504;
-    public static int SELECT_LIQUIDITY_COIN_VALUE = 8505;
+    public static int SELECT_LIQUIDITY_STAKING_COIN_VALUE = 8505;
+    public static int SELECT_LIQUIDITY_UNSTAKING_COIN_VALUE = 8506;
 
     public final static String SELECT_CHAIN_LIST_BUNDLE_KEY = "selectChainList";
     public final static String TO_SENDABLE_CHAIN_CONFIG_BUNDLE_KEY = "toSendCoins";
@@ -108,7 +109,7 @@ public class SelectChainListDialog extends DialogFragment {
             mDialogTitle.setText(R.string.str_select_to_send_coin);
         } else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) {
             mDialogTitle.setText(R.string.str_select_to_send_chain);
-        } else if (keyValue == SelectChainListDialog.SELECT_LIQUIDITY_COIN_VALUE) {
+        } else if (keyValue == SelectChainListDialog.SELECT_LIQUIDITY_STAKING_COIN_VALUE || keyValue == SELECT_LIQUIDITY_UNSTAKING_COIN_VALUE) {
             mDialogTitle.setText(R.string.str_select_to_coin);
         } else {
             mDialogTitle.setText(getSActivity().getString(R.string.str_select_chains));
@@ -267,7 +268,10 @@ public class SelectChainListDialog extends DialogFragment {
 
         private void onBindLiquidityCoinListItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
             final SwapChainHolder holder = (SwapChainHolder) viewHolder;
-            final String denom = mHostZones.get(position).getIbcDenom();
+            String denom;
+            if (keyValue == SELECT_LIQUIDITY_STAKING_COIN_VALUE) denom = mHostZones.get(position).getIbcDenom();
+            else denom = "st" + mHostZones.get(position).getHostDenom();
+
             WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinImg);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, denom, holder.coinName);
 
@@ -285,7 +289,7 @@ public class SelectChainListDialog extends DialogFragment {
             else if (keyValue == SelectChainListDialog.SELECT_FEE_DENOM_VALUE) return mFeeDataList.size();
             else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE) return mSendCoinList.size();
             else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) return mToSendableChainConfig.size();
-            else if (keyValue == SelectChainListDialog.SELECT_LIQUIDITY_COIN_VALUE) return mHostZones.size();
+            else if (keyValue == SelectChainListDialog.SELECT_LIQUIDITY_STAKING_COIN_VALUE || keyValue == SELECT_LIQUIDITY_UNSTAKING_COIN_VALUE) return mHostZones.size();
             else return WDp.getChainsFromAddress(mWatchAddress).size();
         }
 
@@ -295,7 +299,7 @@ public class SelectChainListDialog extends DialogFragment {
             else if (keyValue == SelectChainListDialog.SELECT_FEE_DENOM_VALUE) return TYPE_FEE_LIST;
             else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE) return TYPE_SEND_COIN_LIST;
             else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) return TYPE_SEND_CHAIN_LIST;
-            else if (keyValue == SelectChainListDialog.SELECT_LIQUIDITY_COIN_VALUE) return TYPE_LIQUIDITY_COIN_LIST;
+            else if (keyValue == SelectChainListDialog.SELECT_LIQUIDITY_STAKING_COIN_VALUE || keyValue == SELECT_LIQUIDITY_UNSTAKING_COIN_VALUE) return TYPE_LIQUIDITY_COIN_LIST;
             else return TYPE_WATCHING_ADDRESS_LIST;
         }
 

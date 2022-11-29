@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/input_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -29,6 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
+                    android:layout_marginBottom="@dimen/space_6"
                     android:background="@drawable/btn_trans_with_border">
                     <ImageView
                         android:id="@+id/img_input_coin"
@@ -47,7 +49,7 @@
                         android:layout_toRightOf="@+id/img_input_coin"
                         android:text="-" />
                     <TextView
-                        android:id="@+id/inpus_amount"
+                        android:id="@+id/input_amount"
                         style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -68,6 +70,50 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/input_layer"
+        android:layout_above="@+id/bottom_control"
+        android:layout_marginTop="@dimen/space_32"
+        android:layout_marginBottom="@dimen/space_16">
+
+        <LinearLayout
+            android:id="@+id/empty_no_unstake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/history_none_img" />
+
+            <TextView
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/space_6"
+                android:text="@string/str_no_unskake_history" />
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/space_6"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="@dimen/space_4"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/bottom_control"

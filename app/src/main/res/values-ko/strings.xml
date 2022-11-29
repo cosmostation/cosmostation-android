@@ -1265,6 +1265,11 @@
     <string name="str_liquid_output">출금 수량(예상)</string>
     <string name="str_liquid_creator">생성 주소</string>
     <string name="str_liquid_receiver">수령 주소</string>
+    <string name="str_no_unskake_history">No Unstake History</string>
+    <string name="str_unstaking_history">언스테이킹 기록</string>
+    <string name="str_tip">팁</string>
+    <string name="str_msg_liquid_unstake">언스테이킹이 완료되려면 원 체인이 설정한 기간이 필요합니다(14~28일).\n\nOsmosis Dex에서 st자산을 즉시 원 자산으로 바꾸실 수 있습니다.</string>
+    <string name="str_hint_msg_liquid_unstake">받는 주소를 입력하세요</string>
 
     <string name="str_tx_kava_earn_delegateDeposit">어닝 리퀴디티\n위임 입금</string>
     <string name="tx_kava_earn_delegateDeposit">어닝 리퀴디티 위임 입금</string>

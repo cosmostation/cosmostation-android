@@ -49,6 +49,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWAR
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_STRIDE_LIQUID_STAKING;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_STRIDE_LIQUID_UNSTAKING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
@@ -128,6 +129,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaWithDrawCdpGrpcTa
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulKavaWithdrawHardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulLiquidStakingGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulLiquidUnStakingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulMintNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisBeginUnbondingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisExitPoolGrpcTask;
@@ -540,6 +542,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         } else if (getSActivity().mTxType == CONST_PW_TX_STRIDE_LIQUID_STAKING) {
             new SimulLiquidStakingGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mSwapInCoin.amount, getSActivity().mHostZone.getHostDenom(),
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (getSActivity().mTxType == CONST_PW_TX_STRIDE_LIQUID_UNSTAKING) {
+            new SimulLiquidUnStakingGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mSwapInCoin.amount, getSActivity().mHostZone.getChainId(), getSActivity().mToAddress,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }

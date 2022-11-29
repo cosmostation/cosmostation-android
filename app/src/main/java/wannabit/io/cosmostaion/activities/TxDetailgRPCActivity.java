@@ -621,7 +621,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     } else if (msg.getTypeUrl().contains(kava.router.v1beta1.Tx.MsgDelegateMintDeposit.getDescriptor().getFullName()) ||
                             msg.getTypeUrl().contains(kava.router.v1beta1.Tx.MsgWithdrawBurn.getDescriptor().getFullName())) {
                         return TYPE_TX_LIQUIDITY;
-                    } else if (msg.getTypeUrl().contains(stride.stakeibc.Tx.MsgLiquidStake.getDescriptor().getFullName())) {
+                    } else if (msg.getTypeUrl().contains(stride.stakeibc.Tx.MsgLiquidStake.getDescriptor().getFullName()) ||
+                                msg.getTypeUrl().contains(stride.stakeibc.Tx.MsgRedeemStake.getDescriptor().getFullName())) {
                         return TYPE_TX_LIQUID;
                     }
                     return TYPE_TX_UNKNOWN;

@@ -56,7 +56,7 @@ public class StrideLSFragment extends BaseFragment implements View.OnClickListen
         mBtnInputCoinList = rootView.findViewById(R.id.btn_to_input_coin);
         mInputImg = rootView.findViewById(R.id.img_input_coin);
         mInputCoin = rootView.findViewById(R.id.txt_input_coin);
-        mInputAmount = rootView.findViewById(R.id.inpus_amount);
+        mInputAmount = rootView.findViewById(R.id.input_amount);
         mOutputImg = rootView.findViewById(R.id.img_output_coin);
         mOutputCoin = rootView.findViewById(R.id.txt_output_coin);
         mBtnStartStake = rootView.findViewById(R.id.btn_start_stake);
@@ -95,7 +95,7 @@ public class StrideLSFragment extends BaseFragment implements View.OnClickListen
         if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
             Bundle bundleData = new Bundle();
             bundleData.putSerializable(SelectChainListDialog.SELECT_LIQUIDITY_STAKE_BUNDLE_KEY, mHostZones);
-            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_LIQUIDITY_COIN_VALUE);
+            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_LIQUIDITY_STAKING_COIN_VALUE);
             SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
             dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
             getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {

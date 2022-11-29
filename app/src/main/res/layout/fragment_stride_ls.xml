@@ -29,6 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
+                    android:layout_marginBottom="@dimen/space_6"
                     android:background="@drawable/btn_trans_with_border">
                     <ImageView
                         android:id="@+id/img_input_coin"
@@ -47,7 +48,7 @@
                         android:layout_toRightOf="@+id/img_input_coin"
                         android:text="-" />
                     <TextView
-                        android:id="@+id/inpus_amount"
+                        android:id="@+id/input_amount"
                         style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -99,6 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
+                    android:layout_marginBottom="@dimen/space_6"
                     android:background="@drawable/btn_trans_with_border">
                     <ImageView
                         android:id="@+id/img_output_coin"

@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.liquidstaking;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_STRIDE_LIQUID_STAKING;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_STRIDE_LIQUID_UNSTAKING;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,8 +34,11 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.liquidstaking.StrideLiquidStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.liquidstaking.StrideLiquidStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.liquidstaking.StrideLiquidStep3Fragment;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.LiquidStakingGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.LiquidUnStakingGrpcTask;
 
 public class StrideLiquidActivity extends BaseBroadCastActivity {
 
@@ -59,9 +63,19 @@ public class StrideLiquidActivity extends BaseBroadCastActivity {
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_liquid_staking));
 
-        mTxType = CONST_PW_TX_STRIDE_LIQUID_STAKING;
+        if (getIntent().getIntExtra("txType", -1) != CONST_PW_TX_STRIDE_LIQUID_UNSTAKING) {
+            mTitle.setText(getString(R.string.str_liquid_staking));
+            mTxType = CONST_PW_TX_STRIDE_LIQUID_STAKING;
+            mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_1));
+            mViewPager.setOffscreenPageLimit(3);
+
+        } else {
+            mTitle.setText(getString(R.string.str_liquid_unstaking));
+            mTxType = CONST_PW_TX_STRIDE_LIQUID_UNSTAKING;
+            mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_1_img));
+            mViewPager.setOffscreenPageLimit(4);
+        }
         mChainId = getIntent().getStringExtra("chainId");
         mInputDenom = getIntent().getStringExtra("stakingDenom");
 
@@ -69,7 +83,6 @@ public class StrideLiquidActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_1));
         mTvStep.setText(getString(R.string.str_authz_send_step_1));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
@@ -77,7 +90,6 @@ public class StrideLiquidActivity extends BaseBroadCastActivity {
         mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mPageAdapter = new LiquidStakingPageAdapter(getSupportFragmentManager());
-        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -87,21 +99,44 @@ public class StrideLiquidActivity extends BaseBroadCastActivity {
 
             @Override
             public void onPageSelected(int i) {
-                if (i == 0) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_authz_send_step_1));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 1) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_tx_step_memo));
-                } else if (i == 2) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_tx_step_fee));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
-                } else if (i == 3) {
-                    mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_tx_step_confirm));
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                if (mTxType == CONST_PW_TX_STRIDE_LIQUID_STAKING) {
+                    if (i == 0) {
+                        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_1));
+                        mTvStep.setText(getString(R.string.str_authz_send_step_1));
+                        mPageAdapter.mCurrentFragment.onRefreshTab();
+                    } else if (i == 1) {
+                        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_2));
+                        mTvStep.setText(getString(R.string.str_tx_step_memo));
+                    } else if (i == 2) {
+                        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_3));
+                        mTvStep.setText(getString(R.string.str_tx_step_fee));
+                        mPageAdapter.mCurrentFragment.onRefreshTab();
+                    } else if (i == 3) {
+                        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img_4));
+                        mTvStep.setText(getString(R.string.str_tx_step_confirm));
+                        mPageAdapter.mCurrentFragment.onRefreshTab();
+                    }
+
+                } else {
+                    if (i == 0) {
+                        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_1_img));
+                        mTvStep.setText(getString(R.string.str_authz_send_step_1));
+                    } else if (i == 1) {
+                        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_2_img));
+                        mTvStep.setText(getString(R.string.str_authz_send_step_0));
+                    } else if (i == 2) {
+                        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_3_img));
+                        mTvStep.setText(getString(R.string.str_tx_step_memo));
+                        mPageAdapter.mCurrentFragment.onRefreshTab();
+                    } else if (i == 3) {
+                        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_4_img));
+                        mTvStep.setText(getString(R.string.str_tx_step_fee));
+                        mPageAdapter.mCurrentFragment.onRefreshTab();
+                    } else if (i == 4) {
+                        mIvStep.setImageDrawable(ContextCompat.getDrawable(StrideLiquidActivity.this, R.drawable.step_5_img));
+                        mTvStep.setText(getString(R.string.str_tx_step_confirm));
+                        mPageAdapter.mCurrentFragment.onRefreshTab();
+                    }
                 }
             }
 
@@ -169,16 +204,22 @@ public class StrideLiquidActivity extends BaseBroadCastActivity {
     });
 
     private void onBroadCastTx() {
-        new LiquidStakingGrpcTask(getBaseApplication(), result -> {
-            Intent txIntent = new Intent(StrideLiquidActivity.this, TxDetailgRPCActivity.class);
-            txIntent.putExtra("isGen", true);
-            txIntent.putExtra("isSuccess", result.isSuccess);
-            txIntent.putExtra("errorCode", result.errorCode);
-            txIntent.putExtra("errorMsg", result.errorMsg);
-            String hash = String.valueOf(result.resultData);
-            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-            startActivity(txIntent);
-        }, mAccount, mBaseChain, mAccount.address, mSwapInCoin.amount, mHostZone.getHostDenom(),mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (mTxType == CONST_PW_TX_STRIDE_LIQUID_STAKING) {
+            new LiquidStakingGrpcTask(getBaseApplication(), this::intentInfo, mAccount, mBaseChain, mAccount.address, mSwapInCoin.amount, mHostZone.getHostDenom(),mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            new LiquidUnStakingGrpcTask(getBaseApplication(), this::intentInfo, mAccount, mBaseChain, mAccount.address, mSwapInCoin.amount, mHostZone.getChainId(), mToAddress, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+    }
+
+    private void intentInfo(TaskResult result) {
+        Intent txIntent = new Intent(StrideLiquidActivity.this, TxDetailgRPCActivity.class);
+        txIntent.putExtra("isGen", true);
+        txIntent.putExtra("isSuccess", result.isSuccess);
+        txIntent.putExtra("errorCode", result.errorCode);
+        txIntent.putExtra("errorMsg", result.errorMsg);
+        String hash = String.valueOf(result.resultData);
+        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+        startActivity(txIntent);
     }
 
     private class LiquidStakingPageAdapter extends FragmentPagerAdapter {
@@ -189,10 +230,19 @@ public class StrideLiquidActivity extends BaseBroadCastActivity {
         public LiquidStakingPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(StrideLiquidStep0Fragment.newInstance());
-            mFragments.add(StepMemoFragment.newInstance());
-            mFragments.add(StepFeeSetFragment.newInstance());
-            mFragments.add(StrideLiquidStep3Fragment.newInstance());
+            if (mTxType == CONST_PW_TX_STRIDE_LIQUID_STAKING) {
+                mFragments.add(StrideLiquidStep0Fragment.newInstance());
+                mFragments.add(StepMemoFragment.newInstance());
+                mFragments.add(StepFeeSetFragment.newInstance());
+                mFragments.add(StrideLiquidStep3Fragment.newInstance());
+
+            } else {
+                mFragments.add(StrideLiquidStep0Fragment.newInstance());
+                mFragments.add(StrideLiquidStep1Fragment.newInstance());
+                mFragments.add(StepMemoFragment.newInstance());
+                mFragments.add(StepFeeSetFragment.newInstance());
+                mFragments.add(StrideLiquidStep3Fragment.newInstance());
+            }
         }
 
         @Override
