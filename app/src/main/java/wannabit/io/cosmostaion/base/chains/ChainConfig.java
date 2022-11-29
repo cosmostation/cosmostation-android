@@ -106,6 +106,8 @@ abstract public class ChainConfig {
 
     public abstract String apiUrl();
 
+    public String rpcUrl() { return ""; }
+
     public ManagedChannel channelMain() {
         return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().build();
     }

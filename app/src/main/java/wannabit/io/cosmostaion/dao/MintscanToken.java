@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.base.BaseConstant;
 
-public class Cw20Asset {
+public class MintscanToken {
     @SerializedName("id")
     public String id;
 
@@ -32,7 +32,7 @@ public class Cw20Asset {
     public boolean default_show;
 
     @SerializedName("total_supply")
-    public long total_supply;
+    public String total_supply;
 
     @SerializedName("coingecko_id")
     public String coingecko_id;

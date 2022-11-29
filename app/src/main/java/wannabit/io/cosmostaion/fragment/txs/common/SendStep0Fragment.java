@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EVM_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
@@ -54,7 +55,7 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
@@ -77,7 +78,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     private ChainConfig mToSendChainConfig;
     private ArrayList<Account> mToAccountList;
     private Asset mAsset;
-    private Cw20Asset mCw20Asset;
+    private MintscanToken mMintscanToken;
 
     public static SendStep0Fragment newInstance() {
         return new SendStep0Fragment();
@@ -111,7 +112,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mBtnWallet.setOnClickListener(this);
 
         mAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mDenom);
-        mCw20Asset = getBaseDao().getCw20Asset(getSActivity().mDenom);
+        mMintscanToken = getBaseDao().getCw20Asset(getSActivity().mDenom);
         mToSendableChains.add(getSActivity().mChainConfig);
 
         ArrayList<ChainConfig> allChainConfig = ChainFactory.SUPPRT_CONFIG();
@@ -132,8 +133,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     }
                 }
 
-            } else if (mCw20Asset != null) {
-                if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(mCw20Asset.contract_address)) {
+            } else if (mMintscanToken != null) {
+                if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(mMintscanToken.contract_address)) {
                     for (ChainConfig chainConfig : allChainConfig) {
                         if (chainConfig.chainName().equalsIgnoreCase(asset.chain)) {
                             mToSendableChains.add(chainConfig);
@@ -277,20 +278,25 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     private void onPathSetting() {
         if (getSActivity().mBaseChain.equals(mToSendChainConfig.baseChain())) {
-            if (mAsset != null) getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
-            else if (mCw20Asset != null) getSActivity().mTxType = CONST_PW_TX_EXECUTE_CONTRACT;
-            else getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
+            if (mAsset != null) { getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND; }
+            else if (mMintscanToken != null) {
+                if (mMintscanToken.contract_address.startsWith("0x")) {
+                    getSActivity().mTxType = CONST_PW_TX_EVM_TRANSFER;
+                } else {
+                    getSActivity().mTxType = CONST_PW_TX_EXECUTE_CONTRACT;
+                }
+            }
 
         } else {
             if (mAsset != null) {
                 getSActivity().mTxType = CONST_PW_TX_IBC_TRANSFER;
-            } else if (mCw20Asset != null) {
+            } else if (mMintscanToken != null) {
                 getSActivity().mTxType = CONST_PW_TX_IBC_CONTRACT;
             }
             getSActivity().mAssetPath = WDp.getAssetPath(getBaseDao(), getSActivity().mChainConfig, mToSendChainConfig, getSActivity().mDenom);
         }
         getSActivity().mAsset = mAsset;
-        getSActivity().mCw20Asset = mCw20Asset;
+        getSActivity().mMintscanToken = mMintscanToken;
     }
 
     private boolean isExchangeAddress(String userInput) {
