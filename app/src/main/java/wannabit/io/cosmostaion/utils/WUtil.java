@@ -80,7 +80,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -556,14 +556,17 @@ public class WUtil {
         });
     }
 
-    public static void onSortingContract(ArrayList<Cw20Asset> denom) {
-        Collections.sort(denom, new Comparator<Cw20Asset>() {
+    public static void onSortingContract(ArrayList<MintscanToken> denom) {
+        Collections.sort(denom, new Comparator<MintscanToken>() {
             @Override
-            public int compare(Cw20Asset o1, Cw20Asset o2) {
+            public int compare(MintscanToken o1, MintscanToken o2) {
                 if (o1.denom.equalsIgnoreCase("NETA")) return -1;
                 if (o2.denom.equalsIgnoreCase("NETA")) return 1;
                 if (o1.denom.equalsIgnoreCase("MARBLE")) return -1;
                 if (o2.denom.equalsIgnoreCase("MARBLE")) return 1;
+
+                if (o1.denom.equalsIgnoreCase("WEVMOS")) return -1;
+                if (o2.denom.equalsIgnoreCase("WEVMOS")) return 1;
                 return 0;
             }
         });

@@ -65,6 +65,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
     public final static int TASK_FETCH_MINTSCAN_PRICES                  = 2808;
+    public final static int TASK_FETCH_MINTSCAN_ERC20_ASSETS            = 2809;
 
 
     //gRPC
@@ -86,7 +87,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_NODE_INFO                   = 4024;
     public final static int TASK_GRPC_FETCH_AUTH                        = 4025;
     public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
-    public final static int TASK_GRPC_FETCH_BALANCE_OF_CW20             = 4033;
 
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
     public final static int TASK_GRPC_FETCH_STARNAME_CONFIG             = 4102;
@@ -199,8 +199,9 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SIF_EXIT_POOL                       = 5053;
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
-    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5058;
-    public final static int CONST_PW_TX_IBC_CONTRACT                        = 5059;
+    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5057;
+    public final static int CONST_PW_TX_IBC_CONTRACT                        = 5058;
+    public final static int CONST_PW_TX_EVM_TRANSFER                        = 5059;
 
     public final static int CONST_PW_TX_AUTHZ_DELEGATE                      = 5060;
     public final static int CONST_PW_TX_AUTHZ_UNDELEGATE                    = 5061;

@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_NETWORK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_CW20_ASSETS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_ERC20_ASSETS;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -15,13 +15,13 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class MintScanCw20AssetsTask extends CommonTask {
+public class MintscanErc20AssetsTask extends CommonTask {
 
     private BaseChain mBaseChain;
 
-    public MintScanCw20AssetsTask(BaseApplication app, TaskListener listener, BaseChain baseChain) {
+    public MintscanErc20AssetsTask(BaseApplication app, TaskListener listener, BaseChain baseChain) {
         super(app, listener);
-        this.mResult.taskType = TASK_FETCH_MINTSCAN_CW20_ASSETS;
+        this.mResult.taskType = TASK_FETCH_MINTSCAN_ERC20_ASSETS;
         this.mBaseChain = baseChain;
     }
 
@@ -29,12 +29,11 @@ public class MintScanCw20AssetsTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ChainConfig chainConfig = ChainFactory.getChain(mBaseChain);
-            if (!chainConfig.wasmSupport()) {
+            if (!chainConfig.erc20CoinSupport()) {
                 mResult.isSuccess = false;
                 return mResult;
             }
-
-            Response<ResMintscanAssets> response = ApiClient.getMintscan(mApp).getCw20Assets(ChainFactory.getChain(mBaseChain).chainName()).execute();
+            Response<ResMintscanAssets> response = ApiClient.getMintscan(mApp).getErc20Assets(chainConfig.chainName()).execute();
             if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;
@@ -46,7 +45,7 @@ public class MintScanCw20AssetsTask extends CommonTask {
                 mResult.resultData = response.body().assets;
             }
         } catch (Exception e) {
-            WLog.w("MintScanCw20AssetsTask Error " + e.getMessage());
+            WLog.w("MintscanErc20AssetsTask Error " + e.getMessage());
         }
         return mResult;
     }

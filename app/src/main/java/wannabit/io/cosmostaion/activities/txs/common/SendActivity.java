@@ -21,6 +21,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -29,6 +32,7 @@ import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Asset;
@@ -44,8 +48,10 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Cw20IBCSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Cw20SendGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Erc20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SendGrpcTask;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class SendActivity extends BaseBroadCastActivity {
 
@@ -207,6 +213,16 @@ public class SendActivity extends BaseBroadCastActivity {
         }
     }
 
+    public void  onStartEVMSend() {
+        if (getBaseDao().isAutoPass()) {
+            onBroadCastEvmSendsTx();
+        } else {
+            Intent intent = new Intent(this, PasswordCheckActivity.class);
+            activityResultEvmSendLauncher.launch(intent);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        }
+    }
+
     ActivityResultLauncher<Intent> activityResultSendLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             onShowWaitDialog();
@@ -235,6 +251,13 @@ public class SendActivity extends BaseBroadCastActivity {
         }
     });
 
+    ActivityResultLauncher<Intent> activityResultEvmSendLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+            onShowWaitDialog();
+            onBroadCastEvmSendsTx();
+        }
+    });
+
     private void onBroadCastSendTx() {
         if (isGRPC(mBaseChain)) {
             new SendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mBaseChain, mAccount, mToAddress, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -252,11 +275,19 @@ public class SendActivity extends BaseBroadCastActivity {
     }
 
     private void onBroadCastSendContractTx() {
-        new Cw20SendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Cw20SendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mMintscanToken.contract_address, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onBroadCastIbcSendContractTx() {
-        new Cw20IBCSendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mCw20Asset.contract_address, mAssetPath, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new Cw20IBCSendGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mMintscanToken.contract_address, mAssetPath, mAmounts, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    public void onBroadCastEvmSendsTx() {
+        String url = mChainConfig.rpcUrl();
+        if (!url.isEmpty()) {
+            Web3j web3 = Web3j.build(new HttpService(url));
+            new Erc20SendGrpcTask(getBaseApplication(), result -> onIntentTx(result), web3, mHexValue).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
     }
 
     private void onIntentTx(TaskResult result) {
@@ -271,7 +302,10 @@ public class SendActivity extends BaseBroadCastActivity {
         txIntent.putExtra("errorCode", result.errorCode);
         txIntent.putExtra("errorMsg", result.errorMsg);
         String hash = String.valueOf(result.resultData);
-        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+        if (!TextUtils.isEmpty(hash)) {
+            if (mTxType == BaseConstant.CONST_PW_TX_EVM_TRANSFER) txIntent.putExtra("ethTxHash", hash);
+            else txIntent.putExtra("txHash", hash);
+        }
         startActivity(txIntent);
     }
 

@@ -59,7 +59,7 @@ import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Param;
@@ -98,13 +98,13 @@ public class WDp {
             return "UNKNOWN";
         }
         final Asset asset = baseData.getAsset(chainConfig, denom);
-        final Cw20Asset cw20Asset = baseData.getCw20Asset(denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
 
         if (asset != null) {
             return asset.dp_denom;
 
-        } else if (cw20Asset != null) {
-            return cw20Asset.denom;
+        } else if (mintscanToken != null) {
+            return mintscanToken.denom;
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
@@ -234,12 +234,12 @@ public class WDp {
         int displayDecimal = 6;
 
         final Asset asset = baseData.getAsset(chainConfig, denom);
-        final Cw20Asset cw20Asset = baseData.getCw20Asset(denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
         if (asset != null) {
             amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimal, asset.decimal));
 
-        } else if (cw20Asset != null) {
-            amountTv.setText(getDpAmount2(new BigDecimal(amount), cw20Asset.decimal, cw20Asset.decimal));
+        } else if (mintscanToken != null) {
+            amountTv.setText(getDpAmount2(new BigDecimal(amount), mintscanToken.decimal, mintscanToken.decimal));
 
         } else {
             if (chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(OKEX_MAIN)) {
@@ -351,7 +351,7 @@ public class WDp {
 
     public static AssetPath getAssetPath(BaseData baseData, ChainConfig fromChain, ChainConfig toChain, String denom) {
         Optional<Asset> msAsset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
-        Cw20Asset msCw20asset = baseData.getCw20Asset(denom);
+        MintscanToken msMintscanToken = baseData.getCw20Asset(denom);
 
         for (Asset asset : baseData.mAssets) {
             if (msAsset.isPresent()) {
@@ -366,10 +366,10 @@ public class WDp {
                     return new AssetPath(asset.counter_party.channel, asset.counter_party.port);
                 }
 
-            } else if (msCw20asset != null) {
+            } else if (msMintscanToken != null) {
                 if (asset.chain.equalsIgnoreCase(toChain.chainName()) &&
                         asset.beforeChain(toChain) != null && asset.beforeChain(toChain).equalsIgnoreCase(fromChain.chainName()) &&
-                        asset.counter_party.denom.equalsIgnoreCase(msCw20asset.contract_address)) {
+                        asset.counter_party.denom.equalsIgnoreCase(msMintscanToken.contract_address)) {
                     return new AssetPath(asset.counter_party.channel, asset.counter_party.port);
                 }
             }
@@ -702,8 +702,8 @@ public class WDp {
                 }
             }
 
-            if (baseData.mCw20MyAssets.size() > 0) {
-                for (Cw20Asset myAsset : baseData.mCw20MyAssets) {
+            if (baseData.mMintscanMyTokens.size() > 0) {
+                for (MintscanToken myAsset : baseData.mMintscanMyTokens) {
                     BigDecimal amount = myAsset.getAmount();
                     totalValue = totalValue.add(assetValue(baseData, myAsset.denom, amount, myAsset.decimal));
                 }

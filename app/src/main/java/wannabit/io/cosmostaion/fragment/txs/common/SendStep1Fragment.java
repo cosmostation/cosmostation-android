@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -46,7 +46,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
-    private Cw20Asset mCw20Asset;
+    private MintscanToken mMintscanToken;
 
     public static SendStep1Fragment newInstance() {
         return new SendStep1Fragment();
@@ -92,12 +92,12 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         }
         mainDenom = getSActivity().mChainConfig.mainDenom();
         toSendDenom = getSActivity().mDenom;
-        mCw20Asset = getBaseDao().getCw20Asset(toSendDenom);
+        mMintscanToken = getBaseDao().getCw20Asset(toSendDenom);
 
         if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
             mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom);
-            if (mCw20Asset != null) {
-                mMaxAvailable = mCw20Asset.getAmount();
+            if (mMintscanToken != null) {
+                mMaxAvailable = mMintscanToken.getAmount();
             } else {
                 if (toSendDenom.equals(mainDenom)) {
                     mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));

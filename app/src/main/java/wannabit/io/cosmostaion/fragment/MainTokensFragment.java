@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -46,7 +47,7 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dialog.SelectCWTokenDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -81,7 +82,7 @@ public class MainTokensFragment extends BaseFragment {
     private ArrayList<Coin> mNativeGrpc = new ArrayList<>();
     private ArrayList<Coin> mIbcGrpc = new ArrayList<>();
     private ArrayList<Coin> mEtherGrpc = new ArrayList<>();
-    private ArrayList<Cw20Asset> mErc20Grpc = new ArrayList<>();
+    private ArrayList<MintscanToken> mErc20Grpc = new ArrayList<>();
 
     private ArrayList<Balance> mNative = new ArrayList<>();
     private ArrayList<Balance> mEtc = new ArrayList<>();
@@ -181,9 +182,13 @@ public class MainTokensFragment extends BaseFragment {
             }
 
             @Override
-            public String getSectionCw20Header(BaseChain baseChain, ArrayList<Cw20Asset> cw20Assets, int section) {
+            public String getSectionErcHeader(BaseChain baseChain, ArrayList<MintscanToken> mintscanTokens, int section) {
                 if (section == SECTION_ERC20_GRPC) {
-                    return getMainActivity().getString(R.string.str_cw20_token_title);
+                    if (baseChain.equals(JUNO_MAIN)) {
+                        return getMainActivity().getString(R.string.str_cw20_token_title);
+                    } else {
+                        return getMainActivity().getString(R.string.str_erc20_token_title);
+                    }
                 }
                 return getMainActivity().getString(R.string.str_unknown_token_title);
             }
@@ -220,7 +225,7 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onUpdateView() {
         final String mainDenom = mChainConfig.mainDenom();
-        mErc20Grpc = getBaseDao().mCw20MyAssets;
+        mErc20Grpc = getBaseDao().mMintscanMyTokens;
         mNativeGrpc.clear();
         mIbcGrpc.clear();
         mEtherGrpc.clear();
@@ -305,7 +310,7 @@ public class MainTokensFragment extends BaseFragment {
 
                     } else if (mChainConfig.erc20CoinSupport()) {
                         if (getItemViewType(position) == SECTION_ERC20_GRPC) {
-                            onBindCw20GrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcGrpc.size());
+                            onBindErcGrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcGrpc.size());
                         } else if (getItemViewType(position) == SECITON_CONTRACT_EDIT) {
                             onBindEdit(viewHolder);
                         }
@@ -424,9 +429,9 @@ public class MainTokensFragment extends BaseFragment {
             }
         }
 
-        private void onBindCw20GrpcToken(RecyclerView.ViewHolder viewHolder, int position) {
+        private void onBindErcGrpcToken(RecyclerView.ViewHolder viewHolder, int position) {
             final AssetHolder holder = (AssetHolder) viewHolder;
-            final Cw20Asset asset = mErc20Grpc.get(position);
+            final MintscanToken asset = mErc20Grpc.get(position);
 
             if (asset != null) {
                 Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
@@ -744,7 +749,7 @@ public class MainTokensFragment extends BaseFragment {
                     // cw20 token
                     else if (mSection == SECTION_ERC20_GRPC) {
                         mRoot.setVisibility(View.VISIBLE);
-                        title = sectionCallback.getSectionCw20Header(mBaseChain, mErc20Grpc, mSection);
+                        title = sectionCallback.getSectionErcHeader(mBaseChain, mErc20Grpc, mSection);
                         mItemCnt.setText("" + mErc20Grpc.size());
                     } else if (mSection == SECITON_CONTRACT_EDIT) {
                         mRoot.setVisibility(View.GONE);
@@ -816,7 +821,7 @@ public class MainTokensFragment extends BaseFragment {
 
         String getSectionGrpcHeader(BaseChain baseChain, ArrayList<Coin> coins, int section);
 
-        String getSectionCw20Header(BaseChain baseChain, ArrayList<Cw20Asset> cw20Assets, int section);
+        String getSectionErcHeader(BaseChain baseChain, ArrayList<MintscanToken> mintscanTokens, int section);
 
         String getSecitonHeader(BaseChain baseChain, ArrayList<Balance> balances, int section);
     }
