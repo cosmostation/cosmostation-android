@@ -29,7 +29,7 @@ public class Regen extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-regen-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-regen.cosmostation.io"; }
     public String apiUrl() { return "https://api-regen.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "regen/"; }

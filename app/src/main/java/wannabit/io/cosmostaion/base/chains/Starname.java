@@ -34,7 +34,7 @@ public class Starname extends ChainConfig {
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return false; }
 
-    public String grpcUrl() { return "lcd-starname-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-starname.cosmostation.io"; }
     public String apiUrl() { return "https://api-starname.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "starname/"; }

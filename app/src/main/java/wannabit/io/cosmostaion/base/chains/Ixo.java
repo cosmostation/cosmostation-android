@@ -28,7 +28,7 @@ public class Ixo extends ChainConfig {
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
-    public String grpcUrl() { return "lcd-ixo-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-ixo.cosmostation.io"; }
     public String apiUrl() { return "https://api-ixo.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "ixo/"; }
