@@ -340,7 +340,7 @@ public class MainTokensFragment extends BaseFragment {
                 }
 
                 WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.base_denom, holder.itemImg);
-                WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.base_denom, holder.itemSymbol);
+                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(),chainConfig,asset.base_denom));
                 holder.itemPath.setText(asset.description);
 
                 if (asset.price_denom != null) {

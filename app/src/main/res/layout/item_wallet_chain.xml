@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_4"
+        android:layout_marginRight="@dimen/space_12"
         app:cardBackgroundColor="@color/colorTransBgCosmos"
         app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
@@ -32,6 +31,7 @@
                     android:id="@+id/chain_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
+                    android:layout_marginTop="@dimen/space_4"
                     android:src="@drawable/token_cosmos" />
 
                 <TextView
@@ -39,6 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_4"
                     android:layout_toRightOf="@+id/chain_icon"
                     android:textSize="@dimen/text_size_14"
                     tools:text="ATOM" />
