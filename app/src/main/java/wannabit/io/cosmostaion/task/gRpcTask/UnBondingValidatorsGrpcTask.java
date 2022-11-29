@@ -9,6 +9,7 @@ import cosmos.staking.v1beta1.QueryOuterClass;
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -20,11 +21,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDIN
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class UnBondingValidatorsGrpcTask extends CommonTask {
-    private BaseChain mChain;
+    private ChainConfig mChain;
     private ArrayList<Staking.Validator> mResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public UnBondingValidatorsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    public UnBondingValidatorsGrpcTask(BaseApplication app, TaskListener listener, ChainConfig chain) {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_UNBONDING_VALIDATORS;

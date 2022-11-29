@@ -203,7 +203,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mFeeInfo = WDp.getFeeInfos(getActivity(), getBaseDao());
 
         mFeeTotalCard.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
@@ -240,6 +240,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onCalculateFees() {
+        if (mFeeInfo.isEmpty()) {
+            return;
+        }
+
         mFeeData = mFeeInfo.get(mSelectedFeeInfo).feeDatas.get(mSelectedFeeData);
         if (mBaseChain.equals(BaseChain.SIF_MAIN)) {
             mFeeCoin = new Coin(mFeeData.denom, "100000000000000000");
@@ -256,8 +260,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     private void onUpdateView() {
         onCalculateFees();
-        WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mFeeData.denom, mFeeCoinImg);
-        WDp.setDpSymbol(getActivity(), getBaseDao(), mChainConfig, mFeeData.denom, mFeeCoinDenom);
+        if (mFeeData != null) {
+            WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mFeeData.denom, mFeeCoinImg);
+            WDp.setDpSymbol(getActivity(), getBaseDao(), mChainConfig, mFeeData.denom, mFeeCoinDenom);
+        }
         mGasAmount.setVisibility(View.VISIBLE);
         mGasDenom.setVisibility(View.VISIBLE);
         mGasValue.setVisibility(View.VISIBLE);
@@ -555,17 +561,23 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         }
 
         onUpdateView();
-        WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
-        int denomDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mFeeData.denom);
-        Asset asset = getBaseDao().getAsset(mChainConfig, mFeeData.denom);
-        if (asset != null) {
-            if (asset.price_denom != null) {
-                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
-            } else {
-                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+        if (mFee != null && mFee.amount != null && !mFee.amount.isEmpty()) {
+            WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
+        }
+        if (mFeeData != null) {
+            int denomDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mFeeData.denom);
+            Asset asset = getBaseDao().getAsset(mChainConfig, mFeeData.denom);
+            if (asset != null) {
+                if (asset.price_denom != null) {
+                    mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+                } else {
+                    mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+                }
             }
         }
-        mSpeedTxt.setText(mFeeInfo.get(mSelectedFeeInfo).msg);
+        if (!mFeeInfo.isEmpty()) {
+            mSpeedTxt.setText(mFeeInfo.get(mSelectedFeeInfo).msg);
+        }
         getSActivity().onHideWaitDialog();
     }
 }

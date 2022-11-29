@@ -77,7 +77,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_REDELEGATE;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
@@ -198,7 +198,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     private void onFetchValidtors() {
         if (mTaskCount > 0) return;
         mTaskCount = 1;
-        new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new BondedValidatorsGrpcTask(getBaseApplication(), this, mChainConfig).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

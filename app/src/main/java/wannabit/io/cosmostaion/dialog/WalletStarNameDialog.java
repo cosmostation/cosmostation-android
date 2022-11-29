@@ -51,10 +51,10 @@ public class WalletStarNameDialog extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
         try {
             mStarNameAsset = getArguments().getParcelable(WalletStarNameDialog.STAR_NAME_ASSET_BUNDLE_KEY);
-            mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(mStarNameAsset.chainName));
+            mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(ChainFactory.getChain(mStarNameAsset.chainName).getClass());
         } catch (Exception e) {
             mUri = getArguments().getString(WalletStarNameDialog.STAR_NAME_URI_BUNDLE_KEY);
-            mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(StarnameAssets.getStarNameGetChain(mUri)));
+            mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(ChainFactory.getChain(StarnameAssets.getStarNameGetChain(mUri)).getClass());
         }
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mRecyclerView = view.findViewById(R.id.recycler);

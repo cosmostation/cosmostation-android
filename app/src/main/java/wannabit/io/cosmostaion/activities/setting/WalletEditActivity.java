@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Cosmos;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class WalletEditActivity extends BaseActivity implements View.OnClickListener{
@@ -39,9 +40,9 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
     private HideListAdapter     mHideListAdapter;
     private ItemTouchHelper     mItemTouchHelper;
 
-    private ArrayList<BaseChain>    mAllChains = new ArrayList<>();
-    private ArrayList<BaseChain>    mDisplayChains = new ArrayList<>();
-    private ArrayList<BaseChain>    mHideChains = new ArrayList<>();
+    private ArrayList<ChainConfig>    mAllChains = new ArrayList<>();
+    private ArrayList<ChainConfig>    mDisplayChains = new ArrayList<>();
+    private ArrayList<ChainConfig>    mHideChains = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         mHideListAdapter = new HideListAdapter();
         mHideRecyclerView.setAdapter(mHideListAdapter);
 
-        for (BaseChain baseChain : BaseChain.SUPPORT_CHAINS()) {
+        for (ChainConfig baseChain : ChainFactory.SUPPRT_CONFIG_WITH_CUSTOM()) {
             if (!baseChain.equals(BaseChain.COSMOS_MAIN)) {
                 mAllChains.add(baseChain);
             }
@@ -121,18 +122,17 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
 
         @Override
         public void onBindViewHolder(@NonNull DisplayListAdapter.DisplayHolder holder, final int position) {
-            final BaseChain chain = mDisplayChains.get(position);
-            final ChainConfig chainConfig = ChainFactory.getChain(chain);
+            final ChainConfig chainConfig = mDisplayChains.get(position);
             holder.chainTokenImg.setImageResource(chainConfig.chainImg());
             holder.chainName.setText(chainConfig.chainTitleToUp());
             holder.chainCard.setCardBackgroundColor(ContextCompat.getColor(WalletEditActivity.this, chainConfig.chainBgColor()));
 
             holder.chainRemoveImg.setOnClickListener(v -> {
-                if (getBaseDao().onSelectAccountsByChain(BaseChain.COSMOS_MAIN).size() <= 0) {
+                if (getBaseDao().onSelectAccountsByChain(Cosmos.class).size() <= 0) {
                     int dpAccountSum = 0;
-                    for (BaseChain baseChain: mDisplayChains) {
-                        if (!baseChain.equals(chain)) {
-                            dpAccountSum = dpAccountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
+                    for (ChainConfig baseChain: mDisplayChains) {
+                        if (!baseChain.getClass().isInstance(chainConfig)) {
+                            dpAccountSum = dpAccountSum + getBaseDao().onSelectAccountsByChain(baseChain.getClass()).size();
                         }
                     }
                     if (dpAccountSum <= 0) {
@@ -140,12 +140,12 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
                         return;
                     }
                 }
-                int displayChainIndex = mDisplayChains.indexOf(chain);
+                int displayChainIndex = mDisplayChains.indexOf(chainConfig);
                 if (displayChainIndex >= 0) {
                     mDisplayChains.remove(displayChainIndex);
-                    mHideChains.add(chain);
-                    ArrayList<BaseChain> tempHide = new ArrayList<>();
-                    for (BaseChain baseChain : mAllChains) {
+                    mHideChains.add(chainConfig);
+                    ArrayList<ChainConfig> tempHide = new ArrayList<>();
+                    for (ChainConfig baseChain : mAllChains) {
                         if (mHideChains.contains(baseChain)) {
                             tempHide.add(baseChain);
                         }
@@ -176,7 +176,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
 
         @Override
         public boolean onItemMove(int fromPosition, int toPosition) {
-            BaseChain fromItem = mDisplayChains.get(fromPosition);
+            ChainConfig fromItem = mDisplayChains.get(fromPosition);
             mDisplayChains.remove(fromPosition);
             mDisplayChains.add(toPosition, fromItem);
             notifyItemMoved(fromPosition, toPosition);
@@ -209,17 +209,16 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
 
         @Override
         public void onBindViewHolder(@NonNull HideListAdapter.HideHolder holder, int position) {
-            final BaseChain chain = mHideChains.get(position);
-            final ChainConfig chainConfig = ChainFactory.getChain(chain);
+            final ChainConfig chainConfig = mHideChains.get(position);
             holder.chainTokenImg.setImageResource(chainConfig.chainImg());
             holder.chainName.setText(chainConfig.chainTitleToUp());
             holder.chainCard.setCardBackgroundColor(ContextCompat.getColor(WalletEditActivity.this, chainConfig.chainBgColor()));
 
             holder.chainAddImg.setOnClickListener(v -> {
-                int hideChainIndex = mHideChains.indexOf(chain);
+                int hideChainIndex = mHideChains.indexOf(chainConfig);
                 if (hideChainIndex >= 0) {
                     mHideChains.remove(hideChainIndex);
-                    mDisplayChains.add(chain);
+                    mDisplayChains.add(chainConfig);
 
                     if (mHideChains.size() <= 0) {
                         mEmptyChains.setVisibility(View.VISIBLE);

@@ -38,7 +38,9 @@ abstract public class ChainConfig {
 
     public abstract String chainKoreanName();
 
-    public List<String> chainNameList() { return Lists.newArrayList(chainName(), chainKoreanName(), mainSymbol()); }
+    public List<String> chainNameList() {
+        return Lists.newArrayList(chainName(), chainKoreanName(), mainSymbol());
+    }
 
     public String chainTitle() {
         return "(" + chainName().substring(0, 1).toUpperCase() + chainName().substring(1) + ")";
@@ -72,29 +74,49 @@ abstract public class ChainConfig {
 
     public abstract String addressPrefix();
 
-    public String validatorPrefix() { return addressPrefix() + "valoper"; }
+    public String validatorPrefix() {
+        return addressPrefix() + "valoper";
+    }
 
-    public boolean ethAccountType() { return false; }
+    public boolean ethAccountType() {
+        return false;
+    }
 
-    public boolean evmSupport() { return false; }
+    public boolean evmSupport() {
+        return false;
+    }
 
-    public boolean bridgeCoinSupport() { return false; }
+    public boolean bridgeCoinSupport() {
+        return false;
+    }
 
-    public boolean erc20CoinSupport() { return false; }
+    public boolean erc20CoinSupport() {
+        return false;
+    }
 
     public abstract boolean dexSupport();
 
-    public boolean wasmSupport() { return false; }
+    public boolean wasmSupport() {
+        return false;
+    }
 
     public abstract boolean wcSupport();
 
-    public boolean authzSupport() { return false; }
+    public boolean authzSupport() {
+        return false;
+    }
 
-    public boolean moonPaySupport() { return false; }
+    public boolean moonPaySupport() {
+        return false;
+    }
 
-    public boolean kadoMoneySupport() { return false; }
+    public boolean kadoMoneySupport() {
+        return false;
+    }
 
-    public String grpcUrl() { return ""; }
+    public String grpcUrl() {
+        return "";
+    }
 
     public int grpcPort() {
         return 9090;
@@ -107,7 +129,7 @@ abstract public class ChainConfig {
     public abstract String apiUrl();
 
     public ManagedChannel channelMain() {
-        return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().build();
+        return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().useTransportSecurity().build();
     }
 
     public Retrofit lcdMain() {
@@ -128,19 +150,25 @@ abstract public class ChainConfig {
 
     public abstract String coingeckoLink();
 
-    public String defaultPath() { return "m/44'/118'/0'/0/X"; }
+    public String defaultPath() {
+        return "m/44'/118'/0'/0/X";
+    }
 
     public List<ChildNumber> setParentPath(int customPath) {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
-    public ArrayList<String> supportHdPaths() { return Lists.newArrayList(defaultPath()); }
+    public ArrayList<String> supportHdPaths() {
+        return Lists.newArrayList(defaultPath());
+    }
 
     public String getHdPath(int customPath, String path) {
         return supportHdPaths().get(customPath).replace("X", path);
     }
 
-    public String coinFullName(String denom) { return StringUtils.capitalize(chainName()) + " Staking Coin"; }
+    public String coinFullName(String denom) {
+        return StringUtils.capitalize(chainName()) + " Staking Coin";
+    }
 
     public String explorerAccountLink() {
         return explorerUrl() + "account/";

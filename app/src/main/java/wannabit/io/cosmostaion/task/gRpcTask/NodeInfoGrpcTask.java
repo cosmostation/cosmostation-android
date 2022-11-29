@@ -6,6 +6,7 @@ import cosmos.base.tendermint.v1beta1.Query;
 import cosmos.base.tendermint.v1beta1.ServiceGrpc;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -16,10 +17,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INF
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class NodeInfoGrpcTask extends CommonTask {
-    private BaseChain mChain;
+    private ChainConfig mChain;
     private ServiceGrpc.ServiceBlockingStub mStub;
 
-    public NodeInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    public NodeInfoGrpcTask(BaseApplication app, TaskListener listener, ChainConfig chain) {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_NODE_INFO;

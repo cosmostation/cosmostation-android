@@ -54,7 +54,7 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         mPageAdapter = new OKValidatorPageAdapter(getSupportFragmentManager());
         mValidatorPager.setAdapter(mPageAdapter);

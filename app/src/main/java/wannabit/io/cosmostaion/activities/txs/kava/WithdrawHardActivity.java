@@ -112,7 +112,7 @@ public class WithdrawHardActivity extends BaseBroadCastActivity {
     public void loadData() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_WITHDRAW_HARD;
         mHardMoneyMarketDenom = getIntent().getStringExtra("hardPoolDemon");
     }

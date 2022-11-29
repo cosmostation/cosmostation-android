@@ -74,7 +74,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_REWARD;
 
         mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
@@ -164,7 +164,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     private void onFetchReward() {
         if (mTaskCount > 0) return;
         mTaskCount = 2;
-        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AllRewardGrpcTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

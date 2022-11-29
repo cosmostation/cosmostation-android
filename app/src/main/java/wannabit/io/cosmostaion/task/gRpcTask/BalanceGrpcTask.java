@@ -9,6 +9,7 @@ import cosmos.base.query.v1beta1.Pagination;
 import cosmos.base.v1beta1.CoinOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -19,12 +20,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class BalanceGrpcTask extends CommonTask {
-    private BaseChain mChain;
+    private ChainConfig mChain;
     private String mAddress;
     private ArrayList<CoinOuterClass.Coin> mResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public BalanceGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String address) {
+    public BalanceGrpcTask(BaseApplication app, TaskListener listener, ChainConfig chain, String address) {
         super(app, listener);
         this.mChain = chain;
         this.mAddress = address;

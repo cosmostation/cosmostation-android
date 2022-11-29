@@ -68,7 +68,7 @@ public class NFTCreateActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_MINT_NFT;
 
         mPageAdapter = new NFTCreateAdapter(getSupportFragmentManager());

@@ -109,7 +109,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
         mSendFee = getIntent().getParcelableExtra("sendFee");
         mClaimFee = getIntent().getParcelableExtra("claimFee");
 
-        mFromChainConfig = ChainFactory.getChain(mBaseChain);
+        mFromChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mToChainConfig = ChainFactory.getChain(mRecipientChain);
 
         mLoadingProgress.setText(getString(R.string.str_htlc_loading_progress_0));

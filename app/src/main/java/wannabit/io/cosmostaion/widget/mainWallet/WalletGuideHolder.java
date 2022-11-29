@@ -37,7 +37,7 @@ public class WalletGuideHolder extends BaseHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
-        final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
+        final ChainConfig chainConfig = mainActivity.mChainConfig;
         itemGuideImg.setImageResource(chainConfig.chainInfoImg());
         itemGuideTitle.setText(chainConfig.chainInfoTitle());
         itemGuideMsg.setText(chainConfig.chainInfoMsg());

@@ -68,7 +68,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mMyDomain = getIntent().getStringExtra("domain");
 
         mToolTitle.setText(getString(R.string.str_domain_detail));

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.CustomChain;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
@@ -38,52 +39,56 @@ public class GenerateAccountTask extends CommonTask {
             long id = mApp.getBaseDao().onInsertAccount(onGenAccount());
             if (id > 0) {
                 mResult.isSuccess = true;
-                mHideChains = mApp.getBaseDao().userHideChains();
-                if (mHideChains.contains(mDerive.baseChain)) {
-                    int position = mHideChains.indexOf(mHideChains.stream().filter(item -> item.equals(mDerive.baseChain)).findFirst().get());
-                    if (position >= 0) {
-                        mHideChains.remove(position);
-                    }
-                    mApp.getBaseDao().setUserHidenChains(mHideChains);
-                }
+//                mHideChains = mApp.getBaseDao().userHideChains();
+//                if (mHideChains.contains(mDerive.chainConfig.baseChain())) {
+//                    int position = mHideChains.indexOf(mHideChains.stream().filter(item -> item.equals(mDerive.chainConfig.baseChain())).findFirst().get());
+//                    if (position >= 0) {
+//                        mHideChains.remove(position);
+//                    }
+//                    mApp.getBaseDao().setUserHidenChains(mHideChains);
+//                }
 
             } else {
                 mResult.errorMsg = "Already existed account";
                 mResult.errorCode = 7001;
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             WLog.w("error : " + e.getMessage());
         }
         return mResult;
     }
 
     private Account onGenAccount() {
-        Account newAccount          = Account.getNewInstance();
+        Account newAccount = Account.getNewInstance();
         EncResult encR;
         if (mIsPrivateKey) {
             if (mPKey.toLowerCase().startsWith("0x")) {
                 mPKey = mPKey.substring(2);
             }
             encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_private) + newAccount.uuid, mPKey, false);
-            newAccount.fromMnemonic     = false;
+            newAccount.fromMnemonic = false;
 
         } else {
-            encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic)+ newAccount.uuid, mPKey, false);
-            newAccount.fromMnemonic     = true;
-            newAccount.msize            = mWords.wordsCnt;
-            newAccount.mnemonicId       = mWords.id;
-            newAccount.nickName         = mWords.getName() + " - " + String.valueOf(mDerive.path);
+            encR = CryptoHelper.doEncryptData(mApp.getString(R.string.key_mnemonic) + newAccount.uuid, mPKey, false);
+            newAccount.fromMnemonic = true;
+            newAccount.msize = mWords.wordsCnt;
+            newAccount.mnemonicId = mWords.id;
+            newAccount.nickName = mWords.getName() + " - " + String.valueOf(mDerive.path);
         }
 
-        newAccount.path             = String.valueOf(mDerive.path);
-        newAccount.customPath       = mDerive.hdpathtype;
-        newAccount.address          = mDerive.dpAddress;
-        newAccount.baseChain        = mDerive.baseChain.getChain();
-        newAccount.hasPrivateKey    = true;
-        newAccount.resource         = encR.getEncDataString();
-        newAccount.spec             = encR.getIvDataString();
-        newAccount.importTime       = System.currentTimeMillis();
+        newAccount.path = String.valueOf(mDerive.path);
+        newAccount.customPath = mDerive.hdpathtype;
+        newAccount.address = mDerive.dpAddress;
+        if (mDerive.chainConfig instanceof CustomChain) {
+            newAccount.baseChain = mDerive.chainConfig.baseChain().chainName + "-" + ((CustomChain) mDerive.chainConfig).getChainInfo().getChainId();
+        } else {
+            newAccount.baseChain = mDerive.chainConfig.baseChain().chainName;
+        }
+        newAccount.hasPrivateKey = true;
+        newAccount.resource = encR.getEncDataString();
+        newAccount.spec = encR.getIvDataString();
+        newAccount.importTime = System.currentTimeMillis();
         return newAccount;
     }
 

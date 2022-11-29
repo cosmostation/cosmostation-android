@@ -116,7 +116,7 @@ public class StartEarningActivity extends BaseBroadCastActivity {
         mTxType = CONST_PW_TX_OSMOSIS_EARNING;
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         try {
             mOsmosisPool = BalancerPool.Pool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));

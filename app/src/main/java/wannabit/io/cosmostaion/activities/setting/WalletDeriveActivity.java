@@ -28,9 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -158,17 +156,16 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
         mSearchList.clear();
         mDerives.clear();
-        for (BaseChain chain : BaseChain.SUPPORT_CHAINS()) {
-            ChainConfig chainConfig = ChainFactory.getChain(chain);
+        for (ChainConfig chainConfig : ChainFactory.SUPPRT_CONFIG_WITH_CUSTOM()) {
             for (int i = 0; i < chainConfig.supportHdPaths().size(); i++) {
                 String dpAddress = "";
                 if (mPrivateKeyMode) {
-                    dpAddress = WKey.getCreateDpAddressFromPkey(chain, mPKey, i);
+                    dpAddress = WKey.getCreateDpAddressFromPkey(chainConfig, mPKey, i);
                 } else {
-                    dpAddress = WKey.getCreateDpAddressFromEntropy(chain, mPKey, mPath, i);
+                    dpAddress = WKey.getCreateDpAddressFromEntropy(chainConfig, mPKey, mPath, i);
                 }
                 int status = -1;
-                Account checkAccount = getBaseDao().onSelectExistAccount(dpAddress, chain);
+                Account checkAccount = getBaseDao().onSelectExistAccount(dpAddress, chainConfig);
                 if (checkAccount != null) {
                     if (checkAccount.hasPrivateKey) {
                         status = 2;
@@ -178,8 +175,8 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     status = 0;
                 }
-                Derive derive = new Derive(chain, i, mPath, chainConfig.getHdPath(i, String.valueOf(mPath)), dpAddress, status);
-                if (mDerives.stream().noneMatch(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress))) {
+                Derive derive = new Derive(chainConfig, i, mPath, chainConfig.getHdPath(i, String.valueOf(mPath)), dpAddress, status);
+                if (mDerives.stream().noneMatch(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress) && item.chainConfig.chainName().equalsIgnoreCase(derive.chainConfig.chainName()))) {
                     mDerives.add(derive);
                     mSearchList.add(derive);
                 }
@@ -208,7 +205,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 if (StringUtils.isEmpty(newText)) {
                     mSearchList.addAll(mDerives);
                 } else {
-                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(String.valueOf(ChainFactory.getChain(item.baseChain).chainNameList()), newText)).collect(Collectors.toList()));
+                    mSearchList.addAll(mDerives.stream().filter(item -> StringUtils.containsIgnoreCase(String.valueOf(item.chainConfig.chainNameList()), newText)).collect(Collectors.toList()));
                     if (mSearchList.isEmpty()) {
                         mNoSearchResult.setVisibility(View.VISIBLE);
                     }
@@ -233,8 +230,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 Toast.makeText(this, R.string.error_not_selected_to_import, Toast.LENGTH_SHORT).show();
                 return;
             }
-            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_add_new), String.format(getString(R.string.str_add_wallet), String.valueOf(selectedCnt)),
-                    getString(R.string.str_cancel), null, getString(R.string.str_confirm), view -> onSaveAccount());
+            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_add_new), String.format(getString(R.string.str_add_wallet), String.valueOf(selectedCnt)), getString(R.string.str_cancel), null, getString(R.string.str_confirm), view -> onSaveAccount());
         }
     }
 
@@ -256,8 +252,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         @Override
         public void onBindViewHolder(@NonNull AccountHolder holder, int position) {
             final Derive derive = mSearchList.get(position);
-            final BaseChain baseChain = derive.baseChain;
-            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            final ChainConfig chainConfig = derive.chainConfig;
 
             holder.accountChainImg.setImageResource(chainConfig.chainImg());
             holder.accountAddress.setText(derive.dpAddress);
@@ -296,18 +291,14 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     holder.accountCheck.setVisibility(View.VISIBLE);
                     holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
                     if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
-                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>", Html.FROM_HTML_MODE_COMPACT), null,
-                                getString(R.string.str_cancel),
-                                dialogView -> {
-                                    derive.selected = false;
-                                    holder.accountCheck.setVisibility(View.GONE);
-                                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
-                                },
-                                Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>", Html.FROM_HTML_MODE_COMPACT),
-                                dialogView -> {
-                                    holder.accountCheck.setVisibility(View.VISIBLE);
-                                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
-                                }, false);
+                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>", Html.FROM_HTML_MODE_COMPACT), null, getString(R.string.str_cancel), dialogView -> {
+                            derive.selected = false;
+                            holder.accountCheck.setVisibility(View.GONE);
+                            holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                        }, Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>", Html.FROM_HTML_MODE_COMPACT), dialogView -> {
+                            holder.accountCheck.setVisibility(View.VISIBLE);
+                            holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
+                        }, false);
                     }
                 } else {
                     holder.accountCheck.setVisibility(View.GONE);
@@ -320,32 +311,32 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
 
 
         private void loadBalance(AccountHolder holder, Derive derive) {
-            ChainConfig chainConfig = ChainFactory.getChain(derive.baseChain);
+            ChainConfig chainConfig = derive.chainConfig;
             if (derive.coin != null) {
                 WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), chainConfig, derive.coin, holder.accountDenom, holder.accountAvailable);
                 return;
             }
 
-            if (isGRPC(derive.baseChain)) {
+            if (isGRPC(derive.chainConfig.baseChain())) {
                 new Thread(() -> new BalanceGrpcTask(getBaseApplication(), result -> {
                     ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>) result.resultData;
                     if (balances != null && balances.size() > 0) {
                         for (CoinOuterClass.Coin coin : balances) {
                             if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
                                 derive.coin = new Coin(coin.getDenom(), coin.getAmount());
-                                runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                                runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), derive.chainConfig, derive.coin, holder.accountDenom, holder.accountAvailable));
                                 return;
                             }
                         }
                     }
 
                     derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                    runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                    runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), derive.chainConfig, derive.coin, holder.accountDenom, holder.accountAvailable));
 
-                }, derive.baseChain, derive.dpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)).start();
+                }, derive.chainConfig, derive.dpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)).start();
 
             } else {
-                if (derive.baseChain.equals(BNB_MAIN)) {
+                if (derive.chainConfig.equals(BNB_MAIN)) {
                     new Thread(() -> ApiClient.getBnbChain().getAccountInfo(derive.dpAddress).enqueue(new Callback<ResBnbAccountInfo>() {
                         @Override
                         public void onResponse(Call<ResBnbAccountInfo> call, Response<ResBnbAccountInfo> response) {
@@ -353,7 +344,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                 for (ResBnbAccountInfo.BnbBalance balance : response.body().balances) {
                                     if (balance.symbol.equalsIgnoreCase(chainConfig.mainDenom())) {
                                         derive.coin = new Coin(balance.symbol, balance.free);
-                                        runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                                        runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), derive.chainConfig, derive.coin, holder.accountDenom, holder.accountAvailable));
 
                                         return;
                                     }
@@ -361,7 +352,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                             }
 
                             derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                            runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                            runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), derive.chainConfig, derive.coin, holder.accountDenom, holder.accountAvailable));
 
                         }
 
@@ -370,7 +361,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                         }
                     })).start();
 
-                } else if (derive.baseChain.equals(OKEX_MAIN)) {
+                } else if (derive.chainConfig.equals(OKEX_MAIN)) {
                     new Thread(() -> ApiClient.getOkexChain().getAccountBalance(derive.dpAddress).enqueue(new Callback<ResOkAccountToken>() {
                         @Override
                         public void onResponse(Call<ResOkAccountToken> call, Response<ResOkAccountToken> response) {
@@ -378,7 +369,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                 for (ResOkAccountToken.OkCurrency balance : response.body().data.currencies) {
                                     if (balance.symbol.equals(chainConfig.mainDenom())) {
                                         derive.coin = new Coin(balance.symbol, balance.available);
-                                        runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                                        runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), derive.chainConfig, derive.coin, holder.accountDenom, holder.accountAvailable));
 
                                         return;
                                     }
@@ -386,7 +377,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                             }
 
                             derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                            runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                            runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), derive.chainConfig, derive.coin, holder.accountDenom, holder.accountAvailable));
                         }
 
                         @Override
@@ -450,10 +441,10 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         mTaskCount--;
         if (result.isSuccess) {
             Derive initDerive = mDerives.stream().filter(derive -> derive.selected).findFirst().get();
-            Account initAccount = getBaseDao().onSelectExistAccount(initDerive.dpAddress, initDerive.baseChain);
+            Account initAccount = getBaseDao().onSelectExistAccount(initDerive.dpAddress, mChainConfig);
             if (initAccount != null && initAccount.id != null) {
                 getBaseDao().setLastUser(initAccount.id);
-                getBaseDao().setLastChain(initDerive.baseChain.getChain());
+                getBaseDao().setLastChain(initDerive.chainConfig.chainName());
             }
         }
 

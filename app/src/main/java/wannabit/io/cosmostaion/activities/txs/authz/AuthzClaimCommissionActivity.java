@@ -70,7 +70,7 @@ public class AuthzClaimCommissionActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_AUTHZ_CLAIM_COMMISSION;
 
         mGranterCommission = getIntent().getParcelableExtra("granterCommission");

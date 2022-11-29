@@ -86,7 +86,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mNativeGrpcDenom = getIntent().getStringExtra("denom");
         mToolbarChannel.setVisibility(View.GONE);
 

@@ -37,14 +37,14 @@ public class OverrideAccountTask extends CommonTask {
             long id = mApp.getBaseDao().onOverrideAccount(onModAccount());
             if (id > 0) {
                 mResult.isSuccess = true;
-                mHideChains = mApp.getBaseDao().userHideChains();
-                if (mHideChains.contains(mDerive.baseChain)) {
-                    int position = mHideChains.indexOf(mHideChains.stream().filter(item -> item.equals(mDerive.baseChain)).findFirst().get());
-                    if (position >= 0) {
-                        mHideChains.remove(position);
-                    }
-                    mApp.getBaseDao().setUserHidenChains(mHideChains);
-                }
+//                mHideChains = mApp.getBaseDao().userHideChains();
+//                if (mHideChains.contains(mDerive.chainConfig)) {
+//                    int position = mHideChains.indexOf(mHideChains.stream().filter(item -> item.equals(mDerive.chainConfig)).findFirst().get());
+//                    if (position >= 0) {
+//                        mHideChains.remove(position);
+//                    }
+//                    mApp.getBaseDao().setUserHidenChains(mHideChains);
+//                }
             } else {
                 mResult.errorMsg = "Override error";
                 mResult.errorCode = 7002;
@@ -56,7 +56,7 @@ public class OverrideAccountTask extends CommonTask {
 
     private Account onModAccount() {
         EncResult encR;
-        Account existAccount = mApp.getBaseDao().onSelectExistAccount(mDerive.dpAddress, mDerive.baseChain);
+        Account existAccount = mApp.getBaseDao().onSelectExistAccount(mDerive.dpAddress, mDerive.chainConfig);
         if (mIsPrivateKey) {
             if (mPKey.toLowerCase().startsWith("0x")) {
                 mPKey = mPKey.substring(2);

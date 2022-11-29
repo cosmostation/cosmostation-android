@@ -89,7 +89,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         mToolbarTitle.setText(getString(R.string.str_kava_dapp));
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         mPageAdapter = new KavaDApp5PageAdapter(getSupportFragmentManager());
         mDappPager.setAdapter(mPageAdapter);

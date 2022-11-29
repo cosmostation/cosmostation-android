@@ -50,6 +50,9 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.FetchAi;
+import wannabit.io.cosmostaion.base.chains.Okc;
+import wannabit.io.cosmostaion.base.chains.Xpla;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
@@ -71,8 +74,7 @@ public class WKey {
             result = MnemonicCode.INSTANCE.toMnemonic(entropy);
 
         } catch (MnemonicException.MnemonicLengthException e) {
-            if (BuildConfig.DEBUG)
-                e.printStackTrace();
+            if (BuildConfig.DEBUG) e.printStackTrace();
 
         }
         return result;
@@ -122,12 +124,8 @@ public class WKey {
         return result;
     }
 
-    public static List<ChildNumber> getParentPath(BaseChain chain, int customPath) {
-        if (chain != null) {
-            ChainConfig chainConfig = ChainFactory.getChain(chain);
-            return chainConfig.setParentPath(customPath);
-        }
-        return null;
+    public static List<ChildNumber> getParentPath(ChainConfig chainConfig, int customPath) {
+        return chainConfig.setParentPath(customPath);
     }
 
     public static List<ChildNumber> getFetchParentPath2() {
@@ -137,17 +135,17 @@ public class WKey {
 
     //singer
     public static DeterministicKey getKeyWithPathfromEntropy(Account account, String entropy) {
-        BaseChain chain = getChain(account.baseChain);
-        if (!chain.equals(FETCHAI_MAIN)) {
+        ChainConfig chainConfig = ChainFactory.getChain(account.baseChain);
+        if (!(chainConfig instanceof FetchAi)) {
             DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
-            return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, account.customPath), true, true, new ChildNumber(Integer.parseInt(account.path)));
+            return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chainConfig, account.customPath), true, true, new ChildNumber(Integer.parseInt(account.path)));
         } else {
             DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
             if (account.customPath != 2) {
-                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, account.customPath), true, true, new ChildNumber(Integer.parseInt(account.path)));
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chainConfig, account.customPath), true, true, new ChildNumber(Integer.parseInt(account.path)));
                 return targetKey;
             } else {
-                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, account.customPath), true, true, new ChildNumber(Integer.parseInt(account.path), true));
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chainConfig, account.customPath), true, true, new ChildNumber(Integer.parseInt(account.path), true));
                 DeterministicKey targetKey2 = new DeterministicHierarchy(targetKey).deriveChild(WKey.getFetchParentPath2(), true, true, ChildNumber.ZERO);
                 return targetKey2;
             }
@@ -155,17 +153,17 @@ public class WKey {
     }
 
     // create, restore
-    public static DeterministicKey getCreateKeyWithPathfromEntropy(BaseChain chain, String entropy, int path, int customPath) {
-        if (!chain.equals(FETCHAI_MAIN)) {
+    public static DeterministicKey getCreateKeyWithPathfromEntropy(ChainConfig chainConfig, String entropy, int path, int customPath) {
+        if (!(chainConfig instanceof FetchAi)) {
             DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
-            return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, customPath), true, true, new ChildNumber(path));
+            return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chainConfig, customPath), true, true, new ChildNumber(path));
         } else {
             DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
             if (customPath != 2) {
-                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, customPath), true, true, new ChildNumber(path));
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chainConfig, customPath), true, true, new ChildNumber(path));
                 return targetKey;
             } else {
-                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, customPath), true, true, new ChildNumber(path, true));
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chainConfig, customPath), true, true, new ChildNumber(path, true));
                 DeterministicKey targetKey2 = new DeterministicHierarchy(targetKey).deriveChild(WKey.getFetchParentPath2(), true, true, ChildNumber.ZERO);
                 return targetKey2;
             }
@@ -273,19 +271,18 @@ public class WKey {
         return hash3;
     }
 
-    public static String getCreateDpAddressFromEntropy(BaseChain chain, String entropy, int path, int customPath) {
-        DeterministicKey childKey = getCreateKeyWithPathfromEntropy(chain, entropy, path, customPath);
-        ChainConfig chainConfig = ChainFactory.getChain(chain);
-        if (chain.equals(OKEX_MAIN)) {
+    public static String getCreateDpAddressFromEntropy(ChainConfig chainConfig, String entropy, int path, int customPath) {
+        DeterministicKey childKey = getCreateKeyWithPathfromEntropy(chainConfig, entropy, path, customPath);
+        if (chainConfig instanceof Okc) {
             if (customPath == 0) {
                 return genLegegacyOkcAddres(childKey.getPrivateKeyAsHex());
             } else {
                 return generateEthAddressFromPrivateKey(childKey.getPrivateKeyAsHex());
             }
         } else if (chainConfig.ethAccountType()) {
-            if (chain.equals(XPLA_MAIN)) {
+            if (chainConfig instanceof Xpla) {
                 if (customPath == 0) {
-                    return genTendermintBech32Address(chain, generatePubKeyHexFromPriv(childKey.getPrivateKeyAsHex()));
+                    return genTendermintBech32Address(chainConfig, generatePubKeyHexFromPriv(childKey.getPrivateKeyAsHex()));
                 } else {
                     return genEthermintBech32Address(chainConfig.addressPrefix(), childKey.getPrivateKeyAsHex());
                 }
@@ -293,22 +290,21 @@ public class WKey {
                 return genEthermintBech32Address(chainConfig.addressPrefix(), childKey.getPrivateKeyAsHex());
             }
         } else {
-            return genTendermintBech32Address(chain, childKey.getPublicKeyAsHex());
+            return genTendermintBech32Address(chainConfig, childKey.getPublicKeyAsHex());
         }
     }
 
-    public static String getCreateDpAddressFromPkey(BaseChain chain, String pKey, int customPath) {
-        ChainConfig chainConfig = ChainFactory.getChain(chain);
-        if (chain.equals(OKEX_MAIN)) {
+    public static String getCreateDpAddressFromPkey(ChainConfig chainConfig, String pKey, int customPath) {
+        if (chainConfig instanceof Okc) {
             if (customPath == 0) {
                 return genLegegacyOkcAddres(pKey);
             } else {
                 return generateEthAddressFromPrivateKey(pKey);
             }
         } else if (chainConfig.ethAccountType()) {
-            if (chain.equals(XPLA_MAIN)) {
+            if (chainConfig instanceof Xpla) {
                 if (customPath == 0) {
-                    return genTendermintBech32Address(chain, generatePubKeyHexFromPriv(pKey));
+                    return genTendermintBech32Address(chainConfig, generatePubKeyHexFromPriv(pKey));
                 } else {
                     return genEthermintBech32Address(chainConfig.addressPrefix(), pKey);
                 }
@@ -316,7 +312,7 @@ public class WKey {
                 return genEthermintBech32Address(chainConfig.addressPrefix(), pKey);
             }
         } else {
-            return genTendermintBech32Address(chain, generatePubKeyHexFromPriv(pKey));
+            return genTendermintBech32Address(chainConfig, generatePubKeyHexFromPriv(pKey));
         }
     }
 
@@ -326,7 +322,7 @@ public class WKey {
     }
 
     // ripemd160 + bech32 for base cosmos sdk style (cosmos1.........)
-    public static String genTendermintBech32Address(BaseChain chain, String pubHex) {
+    public static String genTendermintBech32Address(ChainConfig chainConfig, String pubHex) {
         String result = null;
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
@@ -339,10 +335,7 @@ public class WKey {
 
         try {
             byte[] converted = convertBits(hash3, 8, 5, true);
-            if (chain != null) {
-                ChainConfig chainConfig = ChainFactory.getChain(chain);
-                result = bech32Encode(chainConfig.addressPrefix().getBytes(), converted);
-            }
+            result = bech32Encode(chainConfig.addressPrefix().getBytes(), converted);
         } catch (Exception e) {
             WLog.w("Secp256k1 genDPAddress Error");
         }
@@ -631,17 +624,12 @@ public class WKey {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
+            if (this == obj) return true;
+            if (obj == null) return false;
+            if (getClass() != obj.getClass()) return false;
             HrpAndData other = (HrpAndData) obj;
-            if (!Arrays.equals(data, other.data))
-                return false;
-            if (!Arrays.equals(hrp, other.hrp))
-                return false;
+            if (!Arrays.equals(data, other.data)) return false;
+            if (!Arrays.equals(hrp, other.hrp)) return false;
             return true;
         }
     }

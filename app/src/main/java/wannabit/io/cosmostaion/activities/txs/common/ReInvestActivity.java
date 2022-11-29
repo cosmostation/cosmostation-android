@@ -74,7 +74,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_REINVEST;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");
@@ -114,7 +114,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
         mViewPager.setCurrentItem(0);
 
         mRootView.setOnClickListener(v -> onHideKeyboard());
-        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AllRewardGrpcTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

@@ -89,7 +89,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         try {
             mPool = BalancerPool.Pool.parseFrom(getIntent().getByteArrayExtra("osmosisPool"));

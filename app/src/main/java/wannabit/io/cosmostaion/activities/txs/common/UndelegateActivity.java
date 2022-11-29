@@ -64,7 +64,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_UNDELEGATE;
 
         mValAddress = getIntent().getStringExtra("valOpAddress");

@@ -75,8 +75,7 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
 
         public void onBindReceiveAccountItemViewHolder(AccountHolder holder, int position) {
             final Account account = mAccounts.get(position);
-            final BaseChain baseChain = BaseChain.getChain(account.baseChain);
-            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            final ChainConfig chainConfig = ChainFactory.getChain(account.baseChain);
             holder.accountAddress.setText(account.address);
 
             if (TextUtils.isEmpty(account.nickName))
@@ -91,7 +90,7 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
                 holder.accountKeyState.setColorFilter(null);
             }
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
-            holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
+            holder.accountAvailable.setText(account.getLastTotal(getSActivity(), chainConfig.baseChain()));
             holder.rootLayer.setOnClickListener(v -> {
                 Bundle result = new Bundle();
                 result.putInt(BaseConstant.POSITION, position);

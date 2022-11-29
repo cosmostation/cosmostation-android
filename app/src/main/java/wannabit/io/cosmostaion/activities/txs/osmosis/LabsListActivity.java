@@ -78,7 +78,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         mToolbarTitle.setText(getString(R.string.str_osmosis_defi_lab));
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

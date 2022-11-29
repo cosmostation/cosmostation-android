@@ -72,7 +72,7 @@ public class NFTListActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(NFTListActivity.this, R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(() -> onFetchNftListInfo());

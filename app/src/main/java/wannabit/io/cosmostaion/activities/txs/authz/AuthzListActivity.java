@@ -146,7 +146,7 @@ public class AuthzListActivity extends BaseActivity implements TaskListener {
                             }
                         }
                     }
-                }, mBaseChain, granter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }, mChainConfig, granter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }).start();
 
             holder.granterLayer.setOnClickListener(view -> {

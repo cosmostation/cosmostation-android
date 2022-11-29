@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
@@ -64,8 +65,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public MainViewPageAdapter mPageAdapter;
     public FloatingActionButton mFloatBtn;
 
-    private BaseChain mSelectedChain;
-    private ArrayList<BaseChain> mExpendedChains = new ArrayList<>();
+    private ChainConfig mSelectedChain;
+    private ArrayList<ChainConfig> mExpendedChains = new ArrayList<>();
     private ArrayList<ChainAccounts> mChainAccounts = new ArrayList<>();
 
     @Override
@@ -157,7 +158,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     protected void onResume() {
         super.onResume();
         onAccountSwitched();
-        onChainSelect(mBaseChain);
+        onChainSelect(mChainConfig);
     }
 
     public void onAccountSwitched() {
@@ -175,7 +176,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         if (needFetch) {
             onShowWaitDialog();
@@ -185,7 +186,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, mChainConfig.sendBgColor()));
             mFloatBtn.setImageTintList(ContextCompat.getColorStateList(this, mChainConfig.sendImgColor()));
 
-            mSelectedChain = mBaseChain;
+            mSelectedChain = mChainConfig;
             onChainSelect(mSelectedChain);
         }
 
@@ -198,20 +199,20 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
     }
 
-    private void onChainSelect(BaseChain baseChain) {
+    private void onChainSelect(ChainConfig baseChain) {
         invalidateOptionsMenu();
         mChainAccounts.clear();
-        ArrayList<BaseChain> mDisplayChains = new ArrayList<>();
+        ArrayList<ChainConfig> mDisplayChains = new ArrayList<>();
         mDisplayChains = getBaseDao().dpSortedChains();
         mExpendedChains = getBaseDao().getExpendedChains();
         mSelectedChain = baseChain;
-        getBaseDao().setLastChain(mSelectedChain.getChain());
+        getBaseDao().setLastChain(mSelectedChain.chainName());
 
-        for (BaseChain chain : mDisplayChains) {
+        for (ChainConfig chain : mDisplayChains) {
             if (mExpendedChains.contains(chain) || mSelectedChain.equals(chain)) {
-                mChainAccounts.add(new ChainAccounts(true, chain, getBaseDao().onSelectAccountsByChain(chain)));
+                mChainAccounts.add(new ChainAccounts(true, chain, getBaseDao().onSelectAccountsByChain(chain.getClass())));
             } else {
-                mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().onSelectAccountsByChain(chain)));
+                mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().onSelectAccountsByChain(chain.getClass())));
             }
         }
     }
@@ -275,8 +276,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
 
-        if (getBaseDao().mIncentiveRewards.getIncentiveAmount(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO &&
-                getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
+        if (getBaseDao().mIncentiveRewards.getIncentiveAmount(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
             Toast.makeText(this, R.string.error_no_incentive_to_claim, Toast.LENGTH_SHORT).show();
             return;
         }

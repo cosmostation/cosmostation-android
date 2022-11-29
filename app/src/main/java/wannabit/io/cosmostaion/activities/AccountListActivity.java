@@ -38,8 +38,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
     private ChainListAdapter mChainListAdapter;
     private AccountListAdapter mAccountListAdapter;
-    private BaseChain mSelectedChain;
-    private ArrayList<BaseChain> mDisplayChains = new ArrayList<>();
+    private ChainConfig mSelectedChain;
+    private ArrayList<ChainConfig> mDisplayChains = new ArrayList<>();
     private ArrayList<Account> mDisplayAccounts = new ArrayList<>();
 
     @Override
@@ -88,11 +88,11 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         onChainSelect(getBaseDao().getLastChain());
     }
 
-    public void onChainSelect(BaseChain baseChain) {
+    public void onChainSelect(ChainConfig baseChain) {
         mDisplayChains = getBaseDao().dpSortedChains();
         mSelectedChain = baseChain;
-        getBaseDao().setLastChain(mSelectedChain.getChain());
-        mDisplayAccounts = getBaseDao().onSelectAccountsByChain(mSelectedChain);
+        getBaseDao().setLastChain(mSelectedChain.chainName());
+        mDisplayAccounts = getBaseDao().onSelectAccountsByChain(mSelectedChain.getClass());
         mChainRecyclerView.scrollToPosition(mDisplayChains.indexOf(getBaseDao().getLastChain()));
 
         mChainListAdapter.notifyDataSetChanged();
@@ -117,12 +117,11 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, final int position) {
-            BaseChain chain = mDisplayChains.get(position);
-            ChainConfig chainConfig = ChainFactory.getChain(chain);
+            ChainConfig chainConfig = mDisplayChains.get(position);
             holder.chainCard.setOnClickListener(v -> {
-                if (chain != mSelectedChain) {
+                if (!chainConfig.getClass().isInstance(mSelectedChain)) {
                     new Handler().postDelayed(() -> {
-                        onChainSelect(chain);
+                        onChainSelect(chainConfig);
                         getBaseDao().setUserSortedChains(mDisplayChains);
                     }, 150);
                 }
@@ -130,7 +129,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             holder.chainImg.setImageResource(chainConfig.chainImg());
             holder.chainName.setText(chainConfig.chainTitleToUp());
 
-            if (chain.equals(mSelectedChain)) {
+            if (chainConfig.getClass().isInstance(mSelectedChain)) {
                 holder.chainCard.setBackground(ContextCompat.getDrawable(AccountListActivity.this, R.drawable.box_chain_selected));
                 holder.chainImg.setAlpha(1f);
                 holder.chainName.setTextColor(getColor(R.color.colorBlackDayNight));

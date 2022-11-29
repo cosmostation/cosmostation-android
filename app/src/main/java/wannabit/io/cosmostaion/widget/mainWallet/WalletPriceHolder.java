@@ -41,7 +41,7 @@ public class WalletPriceHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData data = mainActivity.getBaseDao();
-        final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
+        final ChainConfig chainConfig = mainActivity.mChainConfig;
         final String denom = chainConfig.mainDenom();
 
         itemPerPrice.setText(WDp.dpPrice(data, denom));

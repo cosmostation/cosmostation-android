@@ -57,6 +57,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.chains.Binance;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.base.chains.Cosmos;
+import wannabit.io.cosmostaion.base.chains.Kava;
+import wannabit.io.cosmostaion.base.chains.Lum;
+import wannabit.io.cosmostaion.base.chains.Okc;
+import wannabit.io.cosmostaion.base.chains.Secret;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
@@ -736,24 +741,17 @@ public class BaseData {
 
     public String getLastUser() {
         Account account = onSelectAccount(String.valueOf(getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1)));
-        BaseChain mBaseChain = BaseChain.getChain(account.baseChain);
-        if (!dpSortedChains().contains(mBaseChain)) {
-            for (BaseChain chain : dpSortedChains()) {
-                if (onSelectAccountsByChain(chain).size() > 0) {
-                    return String.valueOf(onSelectAccountsByChain(chain).get(0).id);
-                }
-            }
-        }
         return String.valueOf(getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1));
     }
 
-    public BaseChain getLastChain() {
+    public ChainConfig getLastChain() {
         String chainName = getSharedPreferences().getString(BaseConstant.PRE_SELECTED_CHAINS, COSMOS_MAIN.getChain());
-        if (userSortedChains().contains(BaseChain.getChain(chainName))) {
-            return BaseChain.getChain(chainName);
-        } else {
-            return COSMOS_MAIN;
-        }
+//        if (userSortedChains().contains(BaseChain.getChain(chainName))) {
+//            return BaseChain.getChain(chainName);
+//        } else {
+//            return COSMOS_MAIN;
+//        }
+        return ChainFactory.getChain(COSMOS_MAIN);
     }
 
     public void setLastChain(String chainName) {
@@ -937,10 +935,10 @@ public class BaseData {
         return getSharedPreferences().getInt(BaseConstant.PRE_DB_VERSION, 0);
     }
 
-    public void setUserHidenChains(ArrayList<BaseChain> hidedChains) {
+    public void setUserHidenChains(ArrayList<ChainConfig> hidedChains) {
         JSONArray array = new JSONArray();
-        for (BaseChain baseChain : hidedChains) {
-            array.put(baseChain.getChain());
+        for (ChainConfig baseChain : hidedChains) {
+            array.put(baseChain.chainName());
         }
         if (!hidedChains.isEmpty()) {
             getSharedPreferences().edit().putString(PRE_USER_HIDEN_CHAINS, array.toString()).commit();
@@ -966,10 +964,10 @@ public class BaseData {
         return hideChains;
     }
 
-    public void setUserSortedChains(ArrayList<BaseChain> displayedChains) {
+    public void setUserSortedChains(ArrayList<ChainConfig> displayedChains) {
         JSONArray array = new JSONArray();
-        for (BaseChain baseChain : displayedChains) {
-            array.put(baseChain.getChain());
+        for (ChainConfig baseChain : displayedChains) {
+            array.put(baseChain.chainName());
         }
         if (!displayedChains.isEmpty()) {
             getSharedPreferences().edit().putString(PRE_USER_SORTED_CHAINS, array.toString()).commit();
@@ -995,17 +993,17 @@ public class BaseData {
         return displayChains;
     }
 
-    public ArrayList<BaseChain> userHideChains() {
-        ArrayList<BaseChain> result = new ArrayList<>();
-        ArrayList<BaseChain> mAllChains = new ArrayList<>();
+    public ArrayList<ChainConfig> userHideChains() {
+        ArrayList<ChainConfig> result = new ArrayList<>();
+        ArrayList<ChainConfig> mAllChains = new ArrayList<>();
         ArrayList<String> hiddenChains = getUserHiddenChains();
-        for (BaseChain baseChain : BaseChain.SUPPORT_CHAINS()) {
-            if (!baseChain.equals(BaseChain.COSMOS_MAIN)) {
-                mAllChains.add(baseChain);
+        for (ChainConfig chainConfig : ChainFactory.SUPPRT_CONFIG_WITH_CUSTOM()) {
+            if (!(chainConfig instanceof Cosmos)) {
+                mAllChains.add(chainConfig);
             }
         }
-        for (BaseChain baseChain : mAllChains) {
-            if (hiddenChains.contains(baseChain.getChain())) {
+        for (ChainConfig baseChain : mAllChains) {
+            if (hiddenChains.contains(baseChain.chainName())) {
                 result.add(baseChain);
             }
         }
@@ -1013,27 +1011,28 @@ public class BaseData {
         return result;
     }
 
-    public ArrayList<BaseChain> userDisplayChains() {
-        ArrayList<BaseChain> result = new ArrayList<>();
-        ArrayList<BaseChain> mAllChains = new ArrayList<>();
-        ArrayList<BaseChain> hiddenChains = userHideChains();
-        for (BaseChain baseChain : BaseChain.SUPPORT_CHAINS()) {
-            if (!baseChain.equals(BaseChain.COSMOS_MAIN)) {
+    public ArrayList<ChainConfig> userDisplayChains() {
+        ArrayList<ChainConfig> result = new ArrayList<>();
+        ArrayList<ChainConfig> mAllChains = new ArrayList<>();
+        ArrayList<ChainConfig> hiddenChains = userHideChains();
+        for (ChainConfig baseChain : ChainFactory.SUPPRT_CONFIG_WITH_CUSTOM()) {
+            if (!(baseChain instanceof Cosmos)) {
                 mAllChains.add(baseChain);
             }
         }
-        for (BaseChain baseChain : mAllChains) {
+        for (ChainConfig baseChain : mAllChains) {
             if (!hiddenChains.contains(baseChain)) {
                 result.add(baseChain);
             }
         }
-        ArrayList<BaseChain> sorted = new ArrayList<>();
+        ArrayList<ChainConfig> sorted = new ArrayList<>();
         for (String chainName : getUserSortedChains()) {
-            if (result.contains(BaseChain.getChain(chainName))) {
-                sorted.add(BaseChain.getChain(chainName));
-            }
+//            if (result.contains(BaseChain.getChain(chainName))) {
+//                sorted.add(BaseChain.getChain(chainName));
+//            }
+            sorted.add(ChainFactory.getChain(chainName));
         }
-        for (BaseChain baseChain : result) {
+        for (ChainConfig baseChain : result) {
             if (!sorted.contains(baseChain)) {
                 sorted.add(baseChain);
             }
@@ -1041,35 +1040,35 @@ public class BaseData {
         return sorted;
     }
 
-    public ArrayList<BaseChain> userSortedChains() {
-        ArrayList<BaseChain> result = new ArrayList<>();
-        ArrayList<BaseChain> rawDpChains = userDisplayChains();
+    public ArrayList<ChainConfig> userSortedChains() {
+        ArrayList<ChainConfig> result = new ArrayList<>();
+        ArrayList<ChainConfig> rawDpChains = userDisplayChains();
         ArrayList<String> orderedChains = getUserHiddenChains();
-        for (BaseChain chain : rawDpChains) {
-            if (!orderedChains.contains(chain.getChain())) {
+        for (ChainConfig chain : rawDpChains) {
+            if (!orderedChains.contains(chain.chainName())) {
                 result.add(chain);
             }
         }
         return result;
     }
 
-    public ArrayList<BaseChain> dpSortedChains() {
-        ArrayList<BaseChain> result = new ArrayList<>();
-        result.add(BaseChain.COSMOS_MAIN);
-        ArrayList<BaseChain> rawDpChains = userDisplayChains();
+    public ArrayList<ChainConfig> dpSortedChains() {
+        ArrayList<ChainConfig> result = new ArrayList<>();
+        result.add(new Cosmos());
+        ArrayList<ChainConfig> rawDpChains = userDisplayChains();
         ArrayList<String> orderedChains = getUserHiddenChains();
-        for (BaseChain chain : rawDpChains) {
-            if (!orderedChains.contains(chain.getChain())) {
+        for (ChainConfig chain : rawDpChains) {
+            if (!orderedChains.contains(chain.chainName())) {
                 result.add(chain);
             }
         }
         return result;
     }
 
-    public void setExpendedChains(ArrayList<BaseChain> chains) {
+    public void setExpendedChains(ArrayList<ChainConfig> chains) {
         JSONArray array = new JSONArray();
-        for (BaseChain baseChain : chains) {
-            array.put(baseChain.getChain());
+        for (ChainConfig chainConfig : chains) {
+            array.put(chainConfig.chainName());
         }
         if (!chains.isEmpty()) {
             getSharedPreferences().edit().putString(PRE_USER_EXPENDED_CHAINS, array.toString()).commit();
@@ -1078,14 +1077,14 @@ public class BaseData {
         }
     }
 
-    public ArrayList<BaseChain> getExpendedChains() {
+    public ArrayList<ChainConfig> getExpendedChains() {
         String json = getSharedPreferences().getString(PRE_USER_EXPENDED_CHAINS, null);
-        ArrayList<BaseChain> chains = new ArrayList<>();
+        ArrayList<ChainConfig> chains = new ArrayList<>();
         if (json != null) {
             try {
                 JSONArray array = new JSONArray(json);
                 for (int i = 0; i < array.length(); i++) {
-                    chains.add(BaseChain.getChain(array.optString(i)));
+                    chains.add(ChainFactory.getChain(array.optString(i)));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -1147,13 +1146,13 @@ public class BaseData {
         }
         cursor.close();
 
-        Iterator<Account> iterator = result.iterator();
-        while (iterator.hasNext()) {
-            Account account = iterator.next();
-            if (!BaseChain.IS_SUPPORT_CHAIN(account.baseChain)) {
-                iterator.remove();
-            }
-        }
+//        Iterator<Account> iterator = result.iterator();
+//        while (iterator.hasNext()) {
+//            Account account = iterator.next();
+//            if (!BaseChain.IS_SUPPORT_CHAIN(account.baseChain)) {
+//                iterator.remove();
+//            }
+//        }
         return result;
     }
 
@@ -1168,11 +1167,11 @@ public class BaseData {
         return result;
     }
 
-    public ArrayList<Account> onSelectAccountsByChain(BaseChain chain) {
+    public ArrayList<Account> onSelectAccountsByChain(Class chainClass) {
         ArrayList<Account> result = new ArrayList<>();
         ArrayList<Account> AllAccount = onSelectAccounts();
         for (Account account : AllAccount) {
-            if (BaseChain.getChain(account.baseChain).equals(chain)) {
+            if (chainClass.isInstance(ChainFactory.getChain(account.baseChain))) {
                 result.add(account);
             }
         }
@@ -1229,13 +1228,13 @@ public class BaseData {
             result.setBalances(onSelectBalance(result.id));
         }
         cursor.close();
-        if (result == null || !BaseChain.IS_SUPPORT_CHAIN(result.baseChain)) {
+        if (result == null) {
             return onSelectAccounts().get(0);
         }
         return result;
     }
 
-    public Account onSelectExistAccount(String address, BaseChain chain) {
+    public Account onSelectExistAccount(String address, ChainConfig chainConfig) {
         ArrayList<Account> result = new ArrayList<>();
         Cursor cursor = getBaseDB().query(BaseConstant.DB_TABLE_ACCOUNT, new String[]{"id", "uuid", "nickName", "isFavo", "address", "baseChain", "hasPrivateKey", "resource", "spec", "fromMnemonic", "path", "isValidator", "sequenceNumber", "accountNumber", "fetchTime", "msize", "importTime", "lastTotal", "sortOrder", "pushAlarm", "newBip", "customPath", "mnemonicId"}, "address == ?", new String[]{address}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -1248,7 +1247,7 @@ public class BaseData {
         cursor.close();
 
         for (Account account : result) {
-            if (chain.equals(BaseChain.getChain(account.baseChain))) {
+            if (chainConfig.getClass().isInstance(ChainFactory.getChain(account.baseChain))) {
                 return account;
             }
         }
@@ -1396,7 +1395,7 @@ public class BaseData {
 
     //set custompath 118 - > 0,
     public void upgradeAaccountAddressforPath() {
-        ArrayList<Account> allOKAccounts = onSelectAccountsByChain(OKEX_MAIN);
+        ArrayList<Account> allOKAccounts = onSelectAccountsByChain(Okc.class);
         // update address with "0x" Eth style
         for (Account account : allOKAccounts) {
             if (account.newBip44 && account.customPath == 0) {
@@ -1412,7 +1411,7 @@ public class BaseData {
             }
         }
 
-        allOKAccounts = onSelectAccountsByChain(OKEX_MAIN);
+        allOKAccounts = onSelectAccountsByChain(Okc.class);
         for (Account account : allOKAccounts) {
             if (account.address.startsWith("ex")) {
                 try {
@@ -1425,7 +1424,7 @@ public class BaseData {
         }
 
         //set custompath 118 -> 0, 529 -> 1
-        ArrayList<Account> allSecretAccount = onSelectAccountsByChain(SECRET_MAIN);
+        ArrayList<Account> allSecretAccount = onSelectAccountsByChain(Secret.class);
         for (Account account : allSecretAccount) {
             if (account.fromMnemonic) {
                 if (account.newBip44 && account.customPath != 1) {
@@ -1440,7 +1439,7 @@ public class BaseData {
         }
 
         //set custompath 118 -> 0, 459 -> 1
-        ArrayList<Account> allKavaAccount = onSelectAccountsByChain(KAVA_MAIN);
+        ArrayList<Account> allKavaAccount = onSelectAccountsByChain(Kava.class);
         for (Account account : allKavaAccount) {
             if (account.fromMnemonic) {
                 if (account.newBip44 && account.customPath != 1) {
@@ -1455,7 +1454,7 @@ public class BaseData {
         }
 
         //set custompath 118 -> 0, 880 -> 1
-        ArrayList<Account> allLumAccount = onSelectAccountsByChain(LUM_MAIN);
+        ArrayList<Account> allLumAccount = onSelectAccountsByChain(Lum.class);
         for (Account account : allLumAccount) {
             if (account.fromMnemonic) {
                 if (account.newBip44 && account.customPath != 1) {

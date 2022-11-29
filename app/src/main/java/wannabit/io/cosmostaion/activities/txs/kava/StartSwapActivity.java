@@ -76,7 +76,7 @@ public class StartSwapActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         mPageAdapter = new CoinSwapPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

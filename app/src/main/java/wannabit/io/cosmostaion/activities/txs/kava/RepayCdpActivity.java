@@ -126,7 +126,7 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
     public void loadData() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_REPAY_CDP;
 
         mCollateralType = getIntent().getStringExtra("collateralParamType");

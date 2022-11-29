@@ -24,4 +24,14 @@ public class ChannelBuilder {
             return channel;
         }
     }
+
+    public static ManagedChannel getChain(ChainConfig chainConfig) {
+        if (channelMap.containsKey(chainConfig.chainName())) {
+            return channelMap.get(chainConfig.chainName());
+        } else {
+            ManagedChannel channel = chainConfig.channelMain();
+            channelMap.put(chainConfig.chainName(), channel);
+            return channel;
+        }
+    }
 }

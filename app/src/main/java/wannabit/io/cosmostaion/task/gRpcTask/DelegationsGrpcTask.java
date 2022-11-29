@@ -12,6 +12,7 @@ import cosmos.staking.v1beta1.QueryOuterClass;
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -20,12 +21,12 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 
 public class DelegationsGrpcTask extends CommonTask {
-    private BaseChain mChain;
+    private ChainConfig mChain;
     private String mAddress;
     private ArrayList<Staking.DelegationResponse> mResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public DelegationsGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String address) {
+    public DelegationsGrpcTask(BaseApplication app, TaskListener listener, ChainConfig chain, String address) {
         super(app, listener);
         this.mChain = chain;
         this.mAddress = address;

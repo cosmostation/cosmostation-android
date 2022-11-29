@@ -99,7 +99,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     public void loadData() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         mCdpParams = getBaseDao().mCdpParams;
         mCollateralType = getIntent().getStringExtra("collateralParamType");

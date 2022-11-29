@@ -82,7 +82,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mMainDenom = mChainConfig.mainDenom();
         mToolbarChannel.setVisibility(View.GONE);
 

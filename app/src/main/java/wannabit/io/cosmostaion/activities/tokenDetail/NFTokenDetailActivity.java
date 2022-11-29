@@ -71,7 +71,7 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         }
         mDenomId = getIntent().getStringExtra("mDenomId");
         mTokenId = getIntent().getStringExtra("mTokenId");
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

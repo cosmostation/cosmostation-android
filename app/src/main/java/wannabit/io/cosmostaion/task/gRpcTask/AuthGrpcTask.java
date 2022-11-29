@@ -6,6 +6,7 @@ import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -16,11 +17,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_AUTH;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class AuthGrpcTask extends CommonTask {
-    private BaseChain mChain;
+    private ChainConfig mChain;
     private String mAddress;
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public AuthGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String address) {
+    public AuthGrpcTask(BaseApplication app, TaskListener listener, ChainConfig chain, String address) {
         super(app, listener);
         this.mChain = chain;
         this.mAddress = address;

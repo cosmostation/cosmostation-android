@@ -96,7 +96,7 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mGranter = getIntent().getStringExtra("granter");
 
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -135,11 +135,11 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
         mGranterCommission = new Coin(mChainConfig.mainDenom(), "0");
         mTaskCount = 7;
         new AuthzGrantsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AuthGrpcTask(getBaseApplication(), this, mChainConfig, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new BalanceGrpcTask(getBaseApplication(), this, mChainConfig, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new DelegationsGrpcTask(getBaseApplication(), this, mChainConfig, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new UnDelegationsGrpcTask(getBaseApplication(), this, mChainConfig, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new AllRewardGrpcTask(getBaseApplication(), this, mChainConfig, mGranter).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new CommissionGrpcTask(getBaseApplication(), this, mBaseChain, WKey.convertDpAddressToDpOpAddress(mGranter, mChainConfig)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

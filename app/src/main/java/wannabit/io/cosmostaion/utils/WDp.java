@@ -50,6 +50,7 @@ import wannabit.io.cosmostaion.base.chains.Binance;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Crescent;
+import wannabit.io.cosmostaion.base.chains.CustomChain;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Okc;
@@ -307,7 +308,9 @@ public class WDp {
                 return true;
             }
             return false;
-        } else if (baseData.mParam.mGasPrice == null) {
+        } else if (chainConfig instanceof CustomChain) {
+            return true;
+        } else if (baseData.mParam == null || baseData.mParam.mGasPrice == null) {
             return false;
         }
         boolean result = false;
@@ -322,8 +325,11 @@ public class WDp {
     public static ArrayList<Coin> getMinTxFeeAmounts(Context c, BaseData baseData) {
         ArrayList<Coin> result = new ArrayList<>();
         BigDecimal gasAmount = new BigDecimal(BASE_GAS_AMOUNT);
-        ArrayList<FeeInfo.FeeData> feeDatas = getFeeInfos(c, baseData).get(0).feeDatas;
-
+        ArrayList<FeeInfo> feeInfos = getFeeInfos(c, baseData);
+        if (feeInfos.isEmpty()) {
+            return result;
+        }
+        ArrayList<FeeInfo.FeeData> feeDatas = feeInfos.get(0).feeDatas;
         for (FeeInfo.FeeData feeData : feeDatas) {
             BigDecimal amount = feeData.gasRate.multiply(gasAmount).setScale(0, RoundingMode.UP);
             result.add(new Coin(feeData.denom, amount.toPlainString()));
@@ -355,21 +361,15 @@ public class WDp {
 
         for (Asset asset : baseData.mAssets) {
             if (msAsset.isPresent()) {
-                if (asset.chain.equalsIgnoreCase(fromChain.chainName()) &&
-                        asset.beforeChain(fromChain) != null && asset.beforeChain(fromChain).equalsIgnoreCase(toChain.chainName()) &&
-                        asset.denom.equalsIgnoreCase(denom)) {
+                if (asset.chain.equalsIgnoreCase(fromChain.chainName()) && asset.beforeChain(fromChain) != null && asset.beforeChain(fromChain).equalsIgnoreCase(toChain.chainName()) && asset.denom.equalsIgnoreCase(denom)) {
                     return new AssetPath(asset.channel, asset.port);
                 }
-                if (asset.chain.equalsIgnoreCase(toChain.chainName()) &&
-                        asset.beforeChain(toChain) != null && asset.beforeChain(toChain).equalsIgnoreCase(fromChain.chainName()) &&
-                        asset.counter_party.denom.equalsIgnoreCase(denom)) {
+                if (asset.chain.equalsIgnoreCase(toChain.chainName()) && asset.beforeChain(toChain) != null && asset.beforeChain(toChain).equalsIgnoreCase(fromChain.chainName()) && asset.counter_party.denom.equalsIgnoreCase(denom)) {
                     return new AssetPath(asset.counter_party.channel, asset.counter_party.port);
                 }
 
             } else if (msCw20asset != null) {
-                if (asset.chain.equalsIgnoreCase(toChain.chainName()) &&
-                        asset.beforeChain(toChain) != null && asset.beforeChain(toChain).equalsIgnoreCase(fromChain.chainName()) &&
-                        asset.counter_party.denom.equalsIgnoreCase(msCw20asset.contract_address)) {
+                if (asset.chain.equalsIgnoreCase(toChain.chainName()) && asset.beforeChain(toChain) != null && asset.beforeChain(toChain).equalsIgnoreCase(fromChain.chainName()) && asset.counter_party.denom.equalsIgnoreCase(msCw20asset.contract_address)) {
                     return new AssetPath(asset.counter_party.channel, asset.counter_party.port);
                 }
             }
@@ -488,8 +488,7 @@ public class WDp {
         return getDpAmount2(dayReward, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()), mainDisplayDecimal(chain));
     }
 
-    public static BigDecimal kavaTokenDollorValue(BaseData baseData, ChainConfig chainConfig, String denom, BigDecimal
-            amount) {
+    public static BigDecimal kavaTokenDollorValue(BaseData baseData, ChainConfig chainConfig, String denom, BigDecimal amount) {
         int dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
         HashMap<String, kava.pricefeed.v1beta1.QueryOuterClass.CurrentPriceResponse> prices = baseData.mKavaTokenPrice;
         if (denom.equals("hard") && prices.get("hard:usd") != null) {
@@ -767,8 +766,7 @@ public class WDp {
 
     public static BigDecimal getCommissionGrpcRate(Staking.Validator validator) {
         BigDecimal result = BigDecimal.ZERO;
-        if (validator != null && validator.getCommission() != null && validator.getCommission().getCommissionRates() != null &&
-                validator.getCommission().getCommissionRates().getRate() != null) {
+        if (validator != null && validator.getCommission() != null && validator.getCommission().getCommissionRates() != null && validator.getCommission().getCommissionRates().getRate() != null) {
             result = new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18);
         }
         return result;
@@ -1151,17 +1149,13 @@ public class WDp {
         return result;
     }
 
-    public static void getProposalStatus(Context c, ResProposal proposal, ImageView
-            statusImg, TextView status) {
+    public static void getProposalStatus(Context c, ResProposal proposal, ImageView statusImg, TextView status) {
         if (proposal != null) {
             if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD") || proposal.proposal_status.equalsIgnoreCase("DepositPeriod")) {
                 statusImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.ic_deposit_img));
                 status.setText("DepositPeriod");
 
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
+            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") || proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD") || proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD") || proposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
                 statusImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.ic_voting_img));
                 status.setText("VotingPeriod");
 
@@ -1342,8 +1336,7 @@ public class WDp {
         return result * 1000;
     }
 
-    public static ArrayList<Vesting.Period> onParsePeriodicRemainVestings
-            (Vesting.PeriodicVestingAccount vestingAccount) {
+    public static ArrayList<Vesting.Period> onParsePeriodicRemainVestings(Vesting.PeriodicVestingAccount vestingAccount) {
         ArrayList<Vesting.Period> result = new ArrayList<>();
         long cTime = Calendar.getInstance().getTime().getTime();
         for (int i = 0; i < vestingAccount.getVestingPeriodsCount(); i++) {

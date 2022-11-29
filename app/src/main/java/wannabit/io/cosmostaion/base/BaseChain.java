@@ -86,9 +86,10 @@ public enum BaseChain {
     SOMMELIER_MAIN("sommelier-mainnet"),
     KUJIRA_MAIN("kujira-mainnet"),
     TERITORI_MAIN("teritori-mainnet"),
-    XPLA_MAIN("xpla-mainnet");
+    XPLA_MAIN("xpla-mainnet"),
+    CUSTOM("custom");
 
-    private final String chainName;
+    public final String chainName;
 
     BaseChain(final String chainname) {
         this.chainName = chainname;
@@ -275,6 +276,9 @@ public enum BaseChain {
         }
         if (chainName.equals(XPLA_MAIN.chainName)) {
             return XPLA_MAIN;
+        }
+        if (chainName.startsWith("custom")) {
+            return CUSTOM;
         }
         return null;
     }

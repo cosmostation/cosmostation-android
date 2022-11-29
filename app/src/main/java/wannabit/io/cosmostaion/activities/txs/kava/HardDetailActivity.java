@@ -106,7 +106,7 @@ public class HardDetailActivity extends BaseActivity {
     public void loadData() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mHardMoneyMarketDenom = getIntent().getStringExtra("hard_money_market_denom");
         mIncentiveRewards = getBaseDao().mIncentiveRewards;
 

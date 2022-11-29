@@ -90,7 +90,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private void loadAccount() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mChain = mChainConfig.chainName();
     }
 

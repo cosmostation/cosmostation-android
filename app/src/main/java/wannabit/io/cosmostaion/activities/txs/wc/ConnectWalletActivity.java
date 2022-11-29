@@ -255,7 +255,7 @@ public class ConnectWalletActivity extends BaseActivity {
         Account currentAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         chainAccountMap.put(currentAccount.baseChain, currentAccount);
         mBaseChain = BaseChain.getChain(currentAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mWcCardView.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
     }
 
@@ -701,7 +701,7 @@ public class ConnectWalletActivity extends BaseActivity {
                     chainAccountMap.put(WDp.getChainTypeByChainId(chainId).getChain(), account);
                     if (mBaseChain == null) {
                         mBaseChain = WDp.getChainTypeByChainId(chainId);
-                        mChainConfig = ChainFactory.getChain(mBaseChain);
+                        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
                         onInitView(mWcPeerMeta);
                     }
                     wcClient.approveRequest(id, Lists.newArrayList(toKeplrWallet(account)));
@@ -753,7 +753,7 @@ public class ConnectWalletActivity extends BaseActivity {
                     chainAccountMap.put(WDp.getChainTypeByChainId(chains.get(index)).getChain(), account);
                     if (mBaseChain == null) {
                         mBaseChain = WDp.getChainTypeByChainId(chains.get(index));
-                        mChainConfig = ChainFactory.getChain(mBaseChain);
+                        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
                         onInitView(mWcPeerMeta);
                     }
                     selectedAccounts.add(account);

@@ -78,7 +78,7 @@ public class SendActivity extends BaseBroadCastActivity {
         mTvStep.setText(getString(R.string.str_send_step_0));
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
 
         mDenom = getIntent().getStringExtra("sendTokenDenom");
         if (mBaseChain.equals(BaseChain.BNB_MAIN)) {

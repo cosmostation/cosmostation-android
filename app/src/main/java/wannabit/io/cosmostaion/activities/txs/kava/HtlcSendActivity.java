@@ -84,7 +84,7 @@ public class HtlcSendActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mToSwapDenom = getIntent().getStringExtra("toSwapDenom");
 
         mIvStep.setImageDrawable(ContextCompat.getDrawable(HtlcSendActivity.this, R.drawable.step_4_img_1));

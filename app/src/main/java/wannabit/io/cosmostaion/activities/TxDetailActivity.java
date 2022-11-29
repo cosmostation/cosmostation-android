@@ -101,7 +101,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mIsGen = getIntent().getBooleanExtra("isGen", false);
         mIsSuccess = getIntent().getBooleanExtra("isSuccess", false);
         mErrorCode = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);

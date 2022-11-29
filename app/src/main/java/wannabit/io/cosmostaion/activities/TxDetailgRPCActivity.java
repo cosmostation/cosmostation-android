@@ -128,7 +128,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mIsSuccess = getIntent().getBooleanExtra("isSuccess", false);
         mErrorCode = getIntent().getIntExtra("errorCode", ERROR_CODE_UNKNOWN);
         mErrorMsg = getIntent().getStringExtra("errorMsg");

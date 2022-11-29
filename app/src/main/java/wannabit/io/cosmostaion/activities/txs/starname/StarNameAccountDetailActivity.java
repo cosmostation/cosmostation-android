@@ -69,7 +69,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(mAccount.baseChain);
         mMyDomain = getIntent().getStringExtra("domain");
         mMyAccount = getIntent().getStringExtra("account");
 
