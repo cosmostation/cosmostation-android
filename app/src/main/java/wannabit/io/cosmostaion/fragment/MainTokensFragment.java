@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.MintscanToken;
+import wannabit.io.cosmostaion.dao.V3Asset;
 import wannabit.io.cosmostaion.dialog.SelectCWTokenDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -229,9 +230,8 @@ public class MainTokensFragment extends BaseFragment {
         mNativeGrpc.clear();
         mIbcGrpc.clear();
         mEtherGrpc.clear();
-
         for (Coin coin : getBaseDao().mGrpcBalance) {
-            final Asset asset = getBaseDao().getAsset(getMainActivity().mChainConfig, coin.denom);
+            final V3Asset asset = getBaseDao().getV3Asset(getMainActivity().mChainConfig, coin.denom);
             if (asset != null) {
                 if (asset.type.equalsIgnoreCase("staking") || asset.type.equalsIgnoreCase("native")) {
                     mNativeGrpc.add(coin);
@@ -247,7 +247,6 @@ public class MainTokensFragment extends BaseFragment {
 
         mNative.clear();
         mEtc.clear();
-
         for (Balance balance : getBaseDao().mBalances) {
             if (balance.symbol.equalsIgnoreCase(mainDenom)) {
                 mNative.add(balance);
@@ -329,39 +328,42 @@ public class MainTokensFragment extends BaseFragment {
         private void onNativeGrpcItem(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
             final AssetHolder holder = (AssetHolder) viewHolder;
             final Coin coin = mNativeGrpc.get(position);
-            final Asset asset = getBaseDao().getAsset(getMainActivity().mChainConfig, coin.denom);
+            final V3Asset asset = getBaseDao().getV3Asset(getMainActivity().mChainConfig, coin.denom);
 
             BigDecimal totalAmount = BigDecimal.ZERO;
             if (asset != null) {
-                if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                if (asset.origin_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                     totalAmount = getBaseDao().getAllMainAsset(chainConfig.mainDenom());
                 } else {
-                    totalAmount = getBaseDao().getAvailable(asset.base_denom).add(getBaseDao().getVesting(asset.base_denom));
+                    totalAmount = getBaseDao().getAvailable(asset.origin_denom).add(getBaseDao().getVesting(asset.origin_denom));
                 }
 
-                WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.base_denom, holder.itemImg);
-                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(),chainConfig,asset.base_denom));
+                WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.origin_denom, holder.itemImg);
+                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(),chainConfig,asset.origin_denom));
                 holder.itemPath.setText(asset.description);
 
-                if (asset.price_denom != null) {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, totalAmount, asset.decimal));
-                } else {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
-                }
+//                if (asset.price_denom != null) {
+//                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
+//                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
+//                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, totalAmount, asset.decimal));
+//                } else {
+//                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.origin_denom));
+//                    valueChangeStatus(getActivity(), getBaseDao(), asset.origin_denom, holder.itemUpDown);
+//                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.origin_denom, totalAmount, asset.decimal));
+//                }
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.origin_denom));
+                valueChangeStatus(getActivity(), getBaseDao(), asset.origin_denom, holder.itemUpDown);
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.origin_denom, totalAmount, asset.decimal));
                 holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimal, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     Intent intent;
-                    if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                    if (asset.origin_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                         intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
                     } else {
                         intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
                     }
-                    intent.putExtra("denom", asset.base_denom);
+                    intent.putExtra("denom", asset.origin_denom);
                     startActivity(intent);
                 });
             }
@@ -370,22 +372,25 @@ public class MainTokensFragment extends BaseFragment {
         private void onBindIbcAuthToken(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
             final AssetHolder holder = (AssetHolder) viewHolder;
             final Coin coin = mIbcGrpc.get(position);
-            final Asset asset = getBaseDao().getAsset(getMainActivity().mChainConfig, mIbcGrpc.get(position).denom);
+            final V3Asset asset = getBaseDao().getV3Asset(getMainActivity().mChainConfig, mIbcGrpc.get(position).denom);
 
             if (asset != null) {
                 WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                if (asset.price_denom != null) {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(coin.amount), asset.decimal));
-                } else {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
-                }
+//                if (asset.price_denom != null) {
+//                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
+//                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
+//                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(coin.amount), asset.decimal));
+//                } else {
+//                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.origin_denom));
+//                    valueChangeStatus(getActivity(), getBaseDao(), asset.origin_denom, holder.itemUpDown);
+//                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.origin_denom, new BigDecimal(coin.amount), asset.decimal));
+//                }
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.origin_denom));
+                valueChangeStatus(getActivity(), getBaseDao(), asset.origin_denom, holder.itemUpDown);
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.origin_denom, new BigDecimal(coin.amount), asset.decimal));
                 holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
@@ -399,22 +404,25 @@ public class MainTokensFragment extends BaseFragment {
         private void onBindEthToken(RecyclerView.ViewHolder viewHolder, ChainConfig chainConfig, int position) {
             final AssetHolder holder = (AssetHolder) viewHolder;
             final Coin coin = mEtherGrpc.get(position);
-            final Asset asset = getBaseDao().getAsset(getMainActivity().mChainConfig, coin.denom);
+            final V3Asset asset = getBaseDao().getV3Asset(getMainActivity().mChainConfig, coin.denom);
 
             if (asset != null) {
                 WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.denom, holder.itemImg);
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                if (asset.price_denom != null) {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(coin.amount), asset.decimal));
-                } else {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
-                }
+//                if (asset.price_denom != null) {
+//                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
+//                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
+//                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(coin.amount), asset.decimal));
+//                } else {
+//                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.origin_denom));
+//                    valueChangeStatus(getActivity(), getBaseDao(), asset.origin_denom, holder.itemUpDown);
+//                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.origin_denom, new BigDecimal(coin.amount), asset.decimal));
+//                }
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.origin_denom));
+                valueChangeStatus(getActivity(), getBaseDao(), asset.origin_denom, holder.itemUpDown);
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.origin_denom, new BigDecimal(coin.amount), asset.decimal));
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {

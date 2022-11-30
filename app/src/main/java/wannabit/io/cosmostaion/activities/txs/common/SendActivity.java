@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.V3Asset;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
@@ -63,8 +64,7 @@ public class SendActivity extends BaseBroadCastActivity {
     private SendPageAdapter mPageAdapter;
 
     public BnbToken mBnbToken;
-
-    public Asset mAsset;
+    public V3Asset mV3Asset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

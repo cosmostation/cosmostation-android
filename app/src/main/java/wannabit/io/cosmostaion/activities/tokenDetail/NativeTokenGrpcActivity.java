@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Asset;
+import wannabit.io.cosmostaion.dao.V3Asset;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
@@ -129,16 +130,19 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbolImg);
         WDp.setDpSymbol(NativeTokenGrpcActivity.this, getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbol);
 
-        final Asset asset = getBaseDao().getAsset(mChainConfig, mNativeGrpcDenom);
-        if (asset.price_denom != null) {
-            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
-            valueChangeStatus(this, getBaseDao(), asset.price_denom, mItemUpDownPrice);
-            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, totalAmount, decimal));
-        } else {
-            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mNativeGrpcDenom));
-            valueChangeStatus(this, getBaseDao(), mNativeGrpcDenom, mItemUpDownPrice);
-            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mNativeGrpcDenom, totalAmount, decimal));
-        }
+        final V3Asset asset = getBaseDao().getV3Asset(mChainConfig, mNativeGrpcDenom);
+//        if (asset.price_denom != null) {
+//            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
+//            valueChangeStatus(this, getBaseDao(), asset.price_denom, mItemUpDownPrice);
+//            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, totalAmount, decimal));
+//        } else {
+//            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mNativeGrpcDenom));
+//            valueChangeStatus(this, getBaseDao(), mNativeGrpcDenom, mItemUpDownPrice);
+//            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mNativeGrpcDenom, totalAmount, decimal));
+//        }
+        mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mNativeGrpcDenom));
+        valueChangeStatus(this, getBaseDao(), mNativeGrpcDenom, mItemUpDownPrice);
+        mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mNativeGrpcDenom, totalAmount, decimal));
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         mAddress.setText(mAccount.address);

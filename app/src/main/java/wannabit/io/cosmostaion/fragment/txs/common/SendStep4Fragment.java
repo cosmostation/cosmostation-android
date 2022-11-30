@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.MintscanToken;
+import wannabit.io.cosmostaion.dao.V3Asset;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
@@ -83,7 +84,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, toSendAmount.toPlainString(), mSendDenom, mSendAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
 
-        Asset msAsset = getSActivity().mAsset;
+        V3Asset msAsset = getSActivity().mV3Asset;
         MintscanToken msMintscanToken = getSActivity().mMintscanToken;
 
         if (BaseChain.isGRPC(getSActivity().mBaseChain)) {

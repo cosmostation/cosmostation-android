@@ -285,6 +285,8 @@ public class BaseConstant {
     public final static String RESOURCE_BASE_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/";
     public final static String MONIKER_URL              = RESOURCE_BASE_URL + "moniker/";
     public final static String ASSET_IMG_URL            = RESOURCE_BASE_URL + "assets/images/";
+    public final static String CHAIN_BASE_URL           = "https://raw.githubusercontent.com/cosmostation/chainlist/master/";
+    public final static String CHAIN_ASSET_IMG_URL      = CHAIN_BASE_URL + "chain/";
     public final static String COINGECKO_URL            = "https://www.coingecko.com/en/coins/";
 
     //cosmostation

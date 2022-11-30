@@ -64,6 +64,7 @@ import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.dao.V3Asset;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -97,11 +98,11 @@ public class WDp {
         if (chainConfig == null || denom == null || denom.isEmpty()) {
             return "UNKNOWN";
         }
-        final Asset asset = baseData.getAsset(chainConfig, denom);
+        final V3Asset asset = baseData.getV3Asset(chainConfig, denom);
         final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
 
         if (asset != null) {
-            return asset.dp_denom;
+            return asset.symbol;
 
         } else if (mintscanToken != null) {
             return mintscanToken.denom;
@@ -177,7 +178,7 @@ public class WDp {
 
     public static int getDenomDecimal(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
-        final Asset asset = baseData.getAsset(chainConfig, denom);
+        final V3Asset asset = baseData.getV3Asset(chainConfig, denom);
         final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
 
         if (asset != null) {
@@ -197,17 +198,17 @@ public class WDp {
     public static void setDpSymbolImg(BaseData baseData, ChainConfig chainConfig, String denom, ImageView imageView) {
         if (chainConfig == null || denom == null || denom.isEmpty())
             imageView.setImageResource(R.drawable.token_default);
-        final Asset asset = baseData.getAsset(chainConfig, denom);
+        final V3Asset asset = baseData.getV3Asset(chainConfig, denom);
 
         if (asset != null) {
-            Picasso.get().load(BaseConstant.ASSET_IMG_URL + asset.image).error(R.drawable.token_default).into(imageView);
+            Picasso.get().load(BaseConstant.CHAIN_ASSET_IMG_URL + asset.image).error(R.drawable.token_default).into(imageView);
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
                 imageView.setImageResource(chainConfig.mainDenomImg());
 
             } else if (denom.startsWith("gamm/pool") || denom.startsWith("pool") || denom.startsWith("share")) {
-                Picasso.get().load(BaseConstant.ASSET_IMG_URL + chainConfig.chainName() + "/pool.png").error(R.drawable.token_default).into(imageView);
+                Picasso.get().load(BaseConstant.CHAIN_ASSET_IMG_URL + chainConfig.chainName() + "/asset/pool.png").error(R.drawable.token_default).into(imageView);
 
             } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
                 BnbToken bnbToken = baseData.getBnbToken(denom);
@@ -237,7 +238,7 @@ public class WDp {
         int divideDecimal = 6;
         int displayDecimal = 6;
 
-        final Asset asset = baseData.getAsset(chainConfig, denom);
+        final V3Asset asset = baseData.getV3Asset(chainConfig, denom);
         final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
         if (asset != null) {
             amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimal, asset.decimal));
@@ -354,10 +355,10 @@ public class WDp {
     }
 
     public static AssetPath getAssetPath(BaseData baseData, ChainConfig fromChain, ChainConfig toChain, String denom) {
-        Optional<Asset> msAsset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+        Optional<V3Asset> msAsset = baseData.mV3Assets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
         MintscanToken msMintscanToken = baseData.getCw20Asset(denom);
 
-        for (Asset asset : baseData.mAssets) {
+        for (V3Asset asset : baseData.mV3Assets) {
             if (msAsset.isPresent()) {
                 if (asset.chain.equalsIgnoreCase(fromChain.chainName()) &&
                         asset.beforeChain(fromChain) != null && asset.beforeChain(fromChain).equalsIgnoreCase(toChain.chainName()) &&
@@ -526,11 +527,11 @@ public class WDp {
 
     public static String getKavaPriceFeedSymbol(BaseData baseData, String denom) {
         if (denom != null) {
-            Optional<Asset> asset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+            Optional<V3Asset> asset = baseData.mV3Assets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
 
             if (asset.isPresent()) {
                 if (denom.startsWith("ibc/")) {
-                    return asset.get().base_denom + ":usd";
+                    return asset.get().origin_denom + ":usd";
                 } else {
                     String priceDenom = "";
                     if (denom.equalsIgnoreCase(ChainFactory.getChain(BaseChain.KAVA_MAIN).mainDenom())) {
@@ -686,7 +687,7 @@ public class WDp {
         BigDecimal totalValue = BigDecimal.ZERO;
         if (isGRPC(baseChain)) {
             for (Coin coin : baseData.mGrpcBalance) {
-                final Asset asset = baseData.getAsset(chainConfig, coin.denom);
+                final V3Asset asset = baseData.getV3Asset(chainConfig, coin.denom);
                 if (asset != null) {
                     if (asset.type.equalsIgnoreCase("staking")) {
                         BigDecimal totalAmount = baseData.getAllMainAsset(asset.denom);
@@ -700,7 +701,7 @@ public class WDp {
 
                     } else {
                         BigDecimal totalAmount = baseData.getAvailable(asset.denom);
-                        BigDecimal assetValue = assetValue(baseData, asset.base_denom, totalAmount, asset.decimal);
+                        BigDecimal assetValue = assetValue(baseData, asset.origin_denom, totalAmount, asset.decimal);
                         totalValue = totalValue.add(assetValue);
                     }
                 }

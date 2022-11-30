@@ -94,6 +94,7 @@ import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanCw20AssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanPriceTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanUtilityParamTask;
+import wannabit.io.cosmostaion.task.FetchTask.MintScanV3AssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintscanErc20AssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
@@ -475,6 +476,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         getBaseDao().mParam = null;
         getBaseDao().mAssets.clear();
+        getBaseDao().mV3Assets.clear();
         getBaseDao().mMintscanTokens.clear();
         getBaseDao().mMintscanMyTokens.clear();
 
@@ -686,8 +688,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             tendermint.p2p.Types.NodeInfo tempNodeInfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (tempNodeInfo != null) {
                 getBaseDao().mGRpcNodeInfo = tempNodeInfo;
-                mTaskCount = mTaskCount + 4;
+                mTaskCount = mTaskCount + 5;
                 new MintScanAssetsTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new MintScanV3AssetsTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanCw20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintscanErc20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanUtilityParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

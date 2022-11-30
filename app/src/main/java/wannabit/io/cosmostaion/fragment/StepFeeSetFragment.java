@@ -93,6 +93,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.StationNFTData;
+import wannabit.io.cosmostaion.dao.V3Asset;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -585,13 +586,14 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         onUpdateView();
         WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
         int denomDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mFeeData.denom);
-        Asset asset = getBaseDao().getAsset(mChainConfig, mFeeData.denom);
+        V3Asset asset = getBaseDao().getV3Asset(mChainConfig, mFeeData.denom);
         if (asset != null) {
-            if (asset.price_denom != null) {
-                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
-            } else {
-                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
-            }
+//            if (asset.price_denom != null) {
+//                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+//            } else {
+//                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.origin_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
+//            }
+            mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.origin_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
         }
         mSpeedTxt.setText(mFeeInfo.get(mSelectedFeeInfo).msg);
         getSActivity().onHideWaitDialog();
