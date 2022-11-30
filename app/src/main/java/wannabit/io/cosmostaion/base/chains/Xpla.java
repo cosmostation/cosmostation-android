@@ -40,7 +40,7 @@ public class Xpla extends ChainConfig {
     public boolean authzSupport() { return true; }
     public boolean evmSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-xpla-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-xpla.cosmostation.io"; }
     public String apiUrl() { return "https://api-xpla.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "xpla/"; }

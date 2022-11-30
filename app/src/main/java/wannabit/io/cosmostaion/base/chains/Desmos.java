@@ -34,7 +34,7 @@ public class Desmos extends ChainConfig {
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
-    public String grpcUrl() { return "lcd-desmos-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-desmos.cosmostation.io"; }
     public String apiUrl() { return "https://api-desmos.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "desmos/"; }

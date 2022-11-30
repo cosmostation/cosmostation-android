@@ -41,7 +41,7 @@ public class Evmos extends ChainConfig {
     public boolean authzSupport() { return true; }
     public boolean erc20CoinSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-evmos-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-evmos.cosmostation.io"; }
     public String apiUrl() { return "https://api-evmos.cosmostation.io/"; }
     public String rpcUrl() { return "https://rpc-evmos-app.cosmostation.io"; }
 

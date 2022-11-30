@@ -31,7 +31,7 @@ public class Ki extends ChainConfig {
     public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-ki-chain-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-ki-chain.cosmostation.io"; }
     public String apiUrl() { return "https://api-ki-chain.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "ki-chain/"; }

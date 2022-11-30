@@ -29,7 +29,7 @@ public class Rizon extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-rizon-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-rizon.cosmostation.io"; }
     public String apiUrl() { return "https://api-rizon.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "rizon/"; }

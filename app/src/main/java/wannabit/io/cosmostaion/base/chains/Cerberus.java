@@ -29,7 +29,7 @@ public class Cerberus extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-cerberus-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-cerberus.cosmostation.io"; }
     public String apiUrl() { return "https://api-cerberus.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "cerberus/"; }

@@ -28,7 +28,7 @@ public class Omniflix extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-omniflix-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-omniflix.cosmostation.io"; }
     public String apiUrl() { return "https://api-omniflix.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "omniflix/"; }

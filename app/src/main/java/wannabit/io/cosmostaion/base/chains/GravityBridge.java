@@ -32,7 +32,7 @@ public class GravityBridge extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-gravity-bridge-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-gravity-bridge.cosmostation.io"; }
     public String apiUrl() { return "https://api-gravity-bridge.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "gravity-bridge/"; }

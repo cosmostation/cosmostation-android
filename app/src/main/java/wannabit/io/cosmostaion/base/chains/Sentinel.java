@@ -28,7 +28,7 @@ public class Sentinel extends ChainConfig {
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
-    public String grpcUrl() { return "lcd-sentinel-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-sentinel.cosmostation.io"; }
     public String apiUrl() { return "https://api-sentinel.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "sentinel/"; }

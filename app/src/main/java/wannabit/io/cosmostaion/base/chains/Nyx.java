@@ -28,7 +28,7 @@ public class Nyx extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-nyx-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-nyx.cosmostation.io"; }
     public String apiUrl() { return "https://api-nyx.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "nyx/"; }

@@ -29,7 +29,7 @@ public class Comdex extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-comdex-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-comdex.cosmostation.io"; }
     public String apiUrl() { return "https://api-comdex.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "comdex/"; }

@@ -29,7 +29,7 @@ public class Konstellation extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-konstellation-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-konstellation.cosmostation.io"; }
     public String apiUrl() { return "https://api-konstellation.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "konstellation/"; }
