@@ -7,8 +7,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/space_12">
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -21,22 +23,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_12">
+                android:padding="@dimen/space_8">
 
                 <TextView
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_6"
                     android:text="@string/str_token_swap_input_coin" />
 
                 <RelativeLayout
                     android:id="@+id/btn_to_input_coin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_6"
                     android:layout_marginTop="@dimen/space_6"
+                    android:layout_marginRight="@dimen/space_6"
                     android:layout_marginBottom="@dimen/space_6"
                     android:background="@drawable/btn_trans_with_border"
-                    android:maxHeight="@dimen/space_40">
+                    android:minHeight="@dimen/space_40">
 
                     <ImageView
                         android:id="@+id/img_input_coin"
@@ -96,22 +102,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_12">
+                android:padding="@dimen/space_8">
 
                 <TextView
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_6"
                     android:text="@string/str_token_swap_output_coin" />
 
                 <RelativeLayout
                     android:id="@+id/btn_to_output_coin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_6"
                     android:layout_marginTop="@dimen/space_6"
+                    android:layout_marginRight="@dimen/space_6"
                     android:layout_marginBottom="@dimen/space_6"
                     android:background="@drawable/btn_trans_with_border"
-                    android:maxHeight="@dimen/space_40">
+                    android:minHeight="@dimen/space_40">
 
                     <ImageView
                         android:id="@+id/img_output_coin"
