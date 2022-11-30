@@ -57,7 +57,7 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
 
         mDialogTitle.setText(getString(R.string.str_select_contract_token));
         for (MintscanToken asset : getSActivity().getBaseDao().mMintscanTokens) {
-            if (!asset.default_show) {
+            if (asset.default_show == false) {
                 mContractAssets.add(asset);
             }
         }
