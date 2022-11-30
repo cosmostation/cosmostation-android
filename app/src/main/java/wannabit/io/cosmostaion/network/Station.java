@@ -45,6 +45,9 @@ public interface Station {
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);
 
+    @GET("v1/{chain}/evm/tx/{etherTxHash}")
+    Call<Object> getEvmTxHash(@Path("chain") String chain, @Path("etherTxHash") String etherTxHash);
+
     //certik lcd
     @GET("/shentu/gov/v1alpha1/proposals/{proposal_id}/votes/{voter}")
     Call<ResMyProposal> getCertikProposal(@Path("proposal_id") String proposal_id, @Path("voter") String voter);
