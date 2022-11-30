@@ -220,7 +220,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             if (!TextUtils.isEmpty(mEthHash)) {
-                WLog.w("Test12345 : " + mEthTxHash);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthTxHash));
             } else {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
