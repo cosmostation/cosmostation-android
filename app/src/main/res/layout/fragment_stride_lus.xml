@@ -3,35 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/input_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/space_12">
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
+        android:orientation="vertical">
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="@color/colorTransBg"
-            app:cardCornerRadius="@dimen/space_8">
+            app:cardCornerRadius="@dimen/space_8"
+            app:cardElevation="0dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_12">
+                android:padding="@dimen/space_8">
+
                 <TextView
                     style="@style/font_rr_12_gray1"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_swap_input_coin" />
+
                 <RelativeLayout
                     android:id="@+id/btn_to_input_coin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_6"
                     android:layout_marginTop="@dimen/space_6"
+                    android:layout_marginRight="@dimen/space_6"
                     android:layout_marginBottom="@dimen/space_6"
                     android:background="@drawable/btn_trans_with_border">
+
                     <ImageView
                         android:id="@+id/img_input_coin"
                         android:layout_width="@dimen/space_20"
@@ -39,6 +51,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_6"
                         android:src="@drawable/token_default" />
+
                     <TextView
                         android:id="@+id/txt_input_coin"
                         style="@style/font_rr_14_black_daynight"
@@ -48,6 +61,7 @@
                         android:layout_marginLeft="@dimen/space_6"
                         android:layout_toRightOf="@+id/img_input_coin"
                         android:text="-" />
+
                     <TextView
                         android:id="@+id/input_amount"
                         style="@style/font_rr_14_black_daynight"
@@ -74,9 +88,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/input_layer"
         android:layout_above="@+id/bottom_control"
-        android:layout_marginTop="@dimen/space_32"
+        android:layout_below="@+id/input_layer"
+        android:layout_marginTop="@dimen/space_20"
         android:layout_marginBottom="@dimen/space_16">
 
         <LinearLayout

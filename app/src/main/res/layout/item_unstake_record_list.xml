@@ -3,16 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/space_8">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
-        android:padding="@dimen/space_16"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
         android:background="@drawable/box_white2_border"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="@dimen/space_14">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -23,7 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Request Date"/>
+                android:layout_marginLeft="@dimen/space_4"
+                android:text="Request Date" />
 
             <TextView
                 android:id="@+id/request_date"
@@ -32,24 +35,27 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_12"
                 android:layout_toRightOf="@+id/request_date_title"
                 android:ellipsize="middle"
                 android:gravity="right"
                 android:maxWidth="@dimen/space_120"
-                android:layout_marginLeft="@dimen/space_12"
                 android:singleLine="true" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/space_8">
+            android:layout_marginTop="@dimen/space_8"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/liquid_unstake_amount_title"
+                style="@style/font_rr_12_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_amount"
-                style="@style/font_rr_12_gray1"/>
+                android:layout_marginLeft="@dimen/space_4"
+                android:text="@string/str_amount" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -74,6 +80,7 @@
                     android:text="-" />
             </RelativeLayout>
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,7 +92,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/str_recipient"/>
+                android:layout_marginLeft="@dimen/space_4"
+                android:text="@string/str_recipient" />
 
             <TextView
                 android:id="@+id/unstake_recipient"
@@ -94,11 +102,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/space_36"
                 android:layout_toRightOf="@+id/unstake_recipient_title"
                 android:ellipsize="middle"
                 android:gravity="right"
-                android:maxWidth="@dimen/space_120"
-                android:layout_marginLeft="@dimen/space_12"
                 android:singleLine="true" />
         </RelativeLayout>
     </LinearLayout>
