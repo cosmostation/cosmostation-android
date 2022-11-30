@@ -175,12 +175,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
 
-                        } else if (mMaxAvailable.precision() <= 6) {
-                            if (inputAmount.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) {
-                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
-                            } else {
-                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
-                            }
                         } else {
                             if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                                 mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
@@ -244,9 +238,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN)) {
                 BigDecimal half = mMaxAvailable.divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
                 mAmountInput.setText(half.toPlainString());
-            } else if (mMaxAvailable.precision() <= 6) {
-                BigDecimal half = mMaxAvailable.movePointLeft(6).divide(new BigDecimal("2"), 6, RoundingMode.DOWN);
-                mAmountInput.setText(half.toPlainString());
             } else {
                 BigDecimal half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
                 mAmountInput.setText(half.toPlainString());
@@ -255,8 +246,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         } else if (v.equals(mAddMax)) {
             if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.toPlainString());
-            } else if (mMaxAvailable.precision() <= 6) {
-                mAmountInput.setText(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.DOWN).toPlainString());
             } else {
                 mAmountInput.setText(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN).toPlainString());
             }
@@ -273,22 +262,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         mToSendCoins.clear();
         try {
             if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
-                Coin coin = new Coin();
                 BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (mMaxAvailable.precision() <= 6) {
-                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) {
-                        return false;
-                    } else {
-                        coin = new Coin(getSActivity().mDenom, sendTemp.movePointRight(6).setScale(0).toPlainString());
-                    }
-                } else {
-                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
-                        return false;
-                    } else {
-                        coin = new Coin(getSActivity().mDenom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
-                    }
-                }
+                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
+                    return false;
+                Coin coin = new Coin(getSActivity().mDenom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
                 mToSendCoins.add(coin);
                 return true;
 
