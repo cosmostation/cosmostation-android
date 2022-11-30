@@ -178,9 +178,13 @@ public class WDp {
     public static int getDenomDecimal(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
         final Asset asset = baseData.getAsset(chainConfig, denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
 
         if (asset != null) {
             return asset.decimal;
+
+        } else if (mintscanToken != null) {
+            return mintscanToken.decimal;
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) return chainConfig.decimal();

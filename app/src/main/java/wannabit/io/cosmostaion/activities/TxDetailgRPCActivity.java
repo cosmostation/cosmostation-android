@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.protobuf2.Any;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
 import org.web3j.protocol.core.methods.response.Transaction;
@@ -37,11 +39,16 @@ import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import ibc.applications.transfer.v1.Tx;
 import io.grpc.stub.StreamObserver;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
+import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameDeleteAccountHolder;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameDeleteDomainHolder;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameRegisterAccountHolder;
@@ -160,6 +167,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         if (mIsSuccess) {
             if (!TextUtils.isEmpty(mEthHash)) {
                 onFetchEvmTx(mEthHash);
+                getEthTxHash(mEthHash);
             } else {
                 onFetchTx(mTxHash);
             }
@@ -211,17 +219,45 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         } else if (v.equals(mShareBtn)) {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
+            if (!TextUtils.isEmpty(mEthHash)) {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthTxHash));
+            } else {
+                shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
+            }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
 
         } else if (v.equals(mExplorerBtn)) {
-            String url = mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash());
+            String url;
+            if (!TextUtils.isEmpty(mEthHash)) {
+                url = mChainConfig.explorerHistoryLink(mEthTxHash);
+            } else {
+                url = mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash());
+            }
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         }
     }
 
+    private String mEthTxHash;
+    private void getEthTxHash(String hash) {
+        ApiClient.getMintscan(this).getEvmTxHash(mChainConfig.chainName(), hash).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                try {
+                    if (response.body() != null && response.isSuccessful()) {
+                        JSONObject jsonObject = new JSONObject(response.body().toString());
+                        mEthTxHash = jsonObject.getString("txHash");
+                    }
+                } catch (JSONException e) {}
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                WLog.w("message error : " + t.getMessage());
+            }
+        });
+    }
 
     private class TxDetailgRPCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_TX_COMMON = 0;

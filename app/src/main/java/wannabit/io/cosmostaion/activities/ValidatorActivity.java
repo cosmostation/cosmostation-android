@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,7 +49,6 @@ import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.activities.txs.common.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -294,22 +295,29 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
+    private int FetchCnt = 0;
     private void onFetchValHistory() {
-        mTaskCount++;
-        new ApiStakeTxsHistoryTask(getBaseApplication(), this, mBaseChain, mAccount.address, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new ApiStakeTxsHistoryTask(getBaseApplication(), result -> {
+            ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
+            if (hits != null && hits.size() > 0) {
+                mApiNewTxCustomHistory = hits;
+                mValidatorAdapter.notifyDataSetChanged();
+            } else {
+                if (FetchCnt < 10) {
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        FetchCnt++;
+                        onFetchValHistory();
+                    }, 8000);
+                }
+            }
+        }, mBaseChain, mAccount.address, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_FETCH_API_STAKE_HISTORY) {
-            ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
-            if (hits != null && hits.size() > 0) {
-                mApiNewTxCustomHistory = hits;
-
-            }
-        } else if (result.taskType == TASK_GRPC_FETCH_DELEGATIONS) {
+        if (result.taskType == TASK_GRPC_FETCH_DELEGATIONS) {
             ArrayList<Staking.DelegationResponse> delegations = (ArrayList<Staking.DelegationResponse>) result.resultData;
             if (delegations != null) {
                 getBaseDao().mGrpcDelegations = delegations;
@@ -355,7 +363,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         private static final int TYPE_ACTION = 2;
         private static final int TYPE_HISTORY_HEADER = 3;
         private static final int TYPE_HISTORY = 4;
-        private static final int TYPE_HISTORY_EMPTY = 5;
 
         @NonNull
         @Override
@@ -370,8 +377,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return new HistoryHeaderHolder(getLayoutInflater().inflate(R.layout.item_validator_history_header, viewGroup, false));
             } else if (viewType == TYPE_HISTORY) {
                 return new HistoryNewHolder(getLayoutInflater().inflate(R.layout.item_new_history, viewGroup, false));
-            } else if (viewType == TYPE_HISTORY_EMPTY) {
-                return new HistoryEmptyHolder(getLayoutInflater().inflate(R.layout.item_validator_history_empty, viewGroup, false));
             }
             return null;
         }
@@ -600,26 +605,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     return TYPE_HISTORY_HEADER;
                 }
             }
-            if (mApiNewTxCustomHistory.size() > 0) {
-                return TYPE_HISTORY;
-            }
-            return TYPE_HISTORY_EMPTY;
+            return TYPE_HISTORY;
         }
 
         @Override
         public int getItemCount() {
             if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                if (mApiNewTxCustomHistory.size() > 0) {
-                    return mApiNewTxCustomHistory.size() + 2;
-                } else {
-                    return 3;
-                }
+                return mApiNewTxCustomHistory.size() + 2;
             } else {
-                if (mApiNewTxCustomHistory.size() > 0) {
-                    return mApiNewTxCustomHistory.size() + 3;
-                } else {
-                    return 4;
-                }
+                return mApiNewTxCustomHistory.size() + 3;
             }
         }
 
@@ -731,14 +725,5 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 history_amount_symbol = itemView.findViewById(R.id.history_amount_symobl);
             }
         }
-
-        public class HistoryEmptyHolder extends RecyclerView.ViewHolder {
-
-            public HistoryEmptyHolder(View v) {
-                super(v);
-            }
-        }
-
     }
-
 }

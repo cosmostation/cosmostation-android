@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/space_12"
-                style="@style/font_rm_21_black_daynight"
+                style="@style/font_rm_20_black_daynight"
                 android:singleLine="true"
                 android:text="0.000"
                 android:gravity="center_horizontal"/>

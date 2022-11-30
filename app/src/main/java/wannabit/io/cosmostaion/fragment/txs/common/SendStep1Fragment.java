@@ -134,7 +134,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable et) {
-                String es = et.toString().trim();
+                String es = String.valueOf(et).trim();
                 if (TextUtils.isEmpty(es)) {
                     mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
@@ -238,7 +238,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN)) {
                 BigDecimal half = mMaxAvailable.divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
                 mAmountInput.setText(half.toPlainString());
-
             } else {
                 BigDecimal half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
                 mAmountInput.setText(half.toPlainString());
@@ -263,7 +262,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         mToSendCoins.clear();
         try {
             if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
-                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
                     return false;
@@ -273,7 +272,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             } else {
                 if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                    BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                    BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
                     if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                     if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
                     if (getSActivity().mBnbToken.type == BnbToken.BNB_TOKEN_TYPE_MINI) {
@@ -287,7 +286,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                     return true;
 
                 } else if (getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN)) {
-                    BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                    BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
                     if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                     if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
                     Coin coin = new Coin(getSActivity().mDenom, sendTemp.setScale(mDpDecimal).toPlainString());
@@ -295,7 +294,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                     return true;
 
                 } else {
-                    BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                    BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
                     if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                     if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
                         return false;
