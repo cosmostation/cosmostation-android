@@ -90,6 +90,7 @@ import wannabit.io.cosmostaion.widget.txDetail.kava.TxRepayHardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapIncentiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxWithdrawCdpHolder;
 import wannabit.io.cosmostaion.widget.txDetail.kava.TxWithdrawHardHolder;
+import wannabit.io.cosmostaion.widget.txDetail.liquidstaking.TxLiquidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxIssueDenomHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxMintNFTHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxTransferNFTHolder;
@@ -320,6 +321,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         private static final int TYPE_TX_EVM_TRANSFER = 170;
 
+        private static final int TYPE_TX_LIQUID = 171;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -495,6 +498,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 return new TxEvmTransferHolder(getLayoutInflater().inflate(R.layout.item_tx_evm_transfer, viewGroup, false));
 
             }
+
+            else if (viewType == TYPE_TX_LIQUID) {
+                return new TxLiquidHolder(getLayoutInflater().inflate(R.layout.item_tx_liquid, viewGroup, false));
+
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -649,6 +657,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     } else if (msg.getTypeUrl().contains(kava.router.v1beta1.Tx.MsgDelegateMintDeposit.getDescriptor().getFullName()) ||
                             msg.getTypeUrl().contains(kava.router.v1beta1.Tx.MsgWithdrawBurn.getDescriptor().getFullName())) {
                         return TYPE_TX_LIQUIDITY;
+                    } else if (msg.getTypeUrl().contains(stride.stakeibc.Tx.MsgLiquidStake.getDescriptor().getFullName()) ||
+                                msg.getTypeUrl().contains(stride.stakeibc.Tx.MsgRedeemStake.getDescriptor().getFullName())) {
+                        return TYPE_TX_LIQUID;
                     }
                     return TYPE_TX_UNKNOWN;
                 }

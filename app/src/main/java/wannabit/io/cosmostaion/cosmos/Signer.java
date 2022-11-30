@@ -1107,6 +1107,36 @@ public class Signer {
         return msgAnys;
     }
 
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLiquidStkaingReq(QueryOuterClass.QueryAccountResponse auth, String creator, String amount, String hostDenom, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignTx(auth, getLiquidStakingMsg(creator, amount, hostDenom), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcLiquidStkaingSimulateReq(QueryOuterClass.QueryAccountResponse auth, String creator, String amount, String hostDenom, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignSimulTx(auth, getLiquidStakingMsg(creator, amount, hostDenom), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ArrayList<Any> getLiquidStakingMsg(String creator, String amount, String hostDenom) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        stride.stakeibc.Tx.MsgLiquidStake msgLiquidStake = stride.stakeibc.Tx.MsgLiquidStake.newBuilder().setCreator(creator).setAmount(Long.parseLong(amount)).setHostDenom(hostDenom).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/stride.stakeibc.MsgLiquidStake").setValue(msgLiquidStake.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLiquidUnStkaingReq(QueryOuterClass.QueryAccountResponse auth, String creator, String amount, String hostZone, String receiver, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignTx(auth, getLiquidUnStakingMsg(creator, amount, hostZone, receiver), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcLiquidUnStkaingSimulateReq(QueryOuterClass.QueryAccountResponse auth, String creator, String amount, String hostZone, String receiver, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignSimulTx(auth, getLiquidUnStakingMsg(creator, amount, hostZone, receiver), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ArrayList<Any> getLiquidUnStakingMsg(String creator, String amount, String hostZone, String receiver) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        stride.stakeibc.Tx.MsgRedeemStake msgLiquidUnStake = stride.stakeibc.Tx.MsgRedeemStake.newBuilder().setCreator(creator).setAmount(Long.parseLong(amount)).setHostZone(hostZone).setReceiver(receiver).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/stride.stakeibc.MsgRedeemStake").setValue(msgLiquidUnStake.toByteString()).build());
+        return msgAnys;
+    }
+
 
     public static TxOuterClass.TxBody getGrpcTxBodys(ArrayList<Any> msgsAny, String memo) {
         TxOuterClass.TxBody.Builder builder = TxOuterClass.TxBody.newBuilder();
