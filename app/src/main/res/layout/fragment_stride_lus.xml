@@ -29,7 +29,7 @@
                 <TextView
                     style="@style/font_rr_12_gray1"
                     android:layout_marginLeft="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_swap_input_coin" />
