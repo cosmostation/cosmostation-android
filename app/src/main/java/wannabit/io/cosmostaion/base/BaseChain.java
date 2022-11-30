@@ -86,7 +86,8 @@ public enum BaseChain {
     SOMMELIER_MAIN("sommelier-mainnet"),
     KUJIRA_MAIN("kujira-mainnet"),
     TERITORI_MAIN("teritori-mainnet"),
-    XPLA_MAIN("xpla-mainnet");
+    XPLA_MAIN("xpla-mainnet"),
+    ONOMY_MAIN("onomy-mainnet");
 
     private final String chainName;
 
@@ -276,6 +277,9 @@ public enum BaseChain {
         if (chainName.equals(XPLA_MAIN.chainName)) {
             return XPLA_MAIN;
         }
+        if (chainName.equals(ONOMY_MAIN.chainName)) {
+            return ONOMY_MAIN;
+        }
         return null;
     }
 
@@ -314,6 +318,7 @@ public enum BaseChain {
         result.add(NYX_MAIN);
         result.add(OKEX_MAIN);
         result.add(OMNIFLIX_MAIN);
+        result.add(ONOMY_MAIN);
         result.add(OSMOSIS_MAIN);
         result.add(PASSAGE_MAIN);
         result.add(PERSIS_MAIN);
