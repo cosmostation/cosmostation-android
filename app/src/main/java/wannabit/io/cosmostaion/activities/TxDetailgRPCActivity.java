@@ -220,6 +220,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             if (!TextUtils.isEmpty(mEthHash)) {
+                WLog.w("Test12345 : " + mEthTxHash);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthTxHash));
             } else {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
@@ -248,8 +249,14 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     if (response.body() != null && response.isSuccessful()) {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
                         mEthTxHash = jsonObject.getString("txHash");
+                        onUpdateView();
+
+                    } else {
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            getEthTxHash(hash);
+                        }, 6000);
                     }
-                } catch (JSONException e) {}
+                } catch (JSONException e) { }
             }
 
             @Override
@@ -756,7 +763,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                                 onFetchEvmRecipient(hash);
                             }, 6000);
                         } else {
-                            runOnUiThread(() -> onUpdateView());
+                            runOnUiThread(() -> {
+                                if (mEthTxHash != null) onUpdateView();
+                            });
                         }
 
                     } catch (IOException e) {
