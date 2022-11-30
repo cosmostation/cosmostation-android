@@ -116,7 +116,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
             @Override
             public void onPageSelected(int i) {
-                mPageAdapter.mFragments.get(i).onRefreshTab();
+                if (mPageAdapter != null && mPageAdapter.mCurrentFragment != null) {
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
             }
         });
         onShowWaitDialog();

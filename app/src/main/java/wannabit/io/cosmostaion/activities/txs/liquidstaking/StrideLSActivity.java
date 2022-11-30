@@ -93,7 +93,9 @@ public class StrideLSActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int i) {
-                mPageAdapter.mFragments.get(i).onRefreshTab();
+                if (mPageAdapter != null && mPageAdapter.mCurrentFragment != null) {
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
             }
         });
         onShowWaitDialog();

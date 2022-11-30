@@ -1803,6 +1803,8 @@ public class WUtil {
                 if (remainVesting.compareTo(delegatedVesting.add(delegatedFree)) > 0) {
                     dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
                 }
+
+                dpBalance = dpBalance.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpBalance;
             }
         }
 
