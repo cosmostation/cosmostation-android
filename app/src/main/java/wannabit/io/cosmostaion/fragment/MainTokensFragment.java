@@ -516,15 +516,15 @@ public class MainTokensFragment extends BaseFragment {
                 totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
                 convertAmount = WDp.bnbConvertAmount(getBaseDao(), balance.symbol);
                 holder.itemPerPrice.setText(WDp.dpBnbTokenPrice(getBaseDao(), balance.symbol));
+                holder.itemUpDown.setText("");
 
             } else {
                 holder.itemPath.setText(getBaseDao().okToken(balance.symbol).description);
-                holder.itemPerPrice.setText("");
                 totalAmount = getBaseDao().getAllExToken(balance.symbol);
                 convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
-                holder.itemPriceLayer.setVisibility(View.GONE);
+                holder.itemPerPrice.setVisibility(View.GONE);
+                holder.itemUpDown.setVisibility(View.GONE);
             }
-            holder.itemUpDown.setText("");
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
             holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
@@ -605,7 +605,6 @@ public class MainTokensFragment extends BaseFragment {
             private CardView itemRoot;
             private ImageView itemImg;
             private TextView itemSymbol, itemPath, itemPerPrice, itemUpDown, itemBalance, itemValue;
-            private LinearLayout itemPriceLayer;
 
             public AssetHolder(View v) {
                 super(v);
@@ -617,7 +616,6 @@ public class MainTokensFragment extends BaseFragment {
                 itemUpDown = itemView.findViewById(R.id.up_down);
                 itemBalance = itemView.findViewById(R.id.token_balance);
                 itemValue = itemView.findViewById(R.id.token_value);
-                itemPriceLayer = itemView.findViewById(R.id.price_layer);
             }
         }
 

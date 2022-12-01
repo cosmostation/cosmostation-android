@@ -174,6 +174,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 });
             }
         });
+        checkEmptyView();
     }
 
     private void checkEmptyView() {
