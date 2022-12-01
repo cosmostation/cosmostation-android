@@ -35,9 +35,12 @@ import com.trustwallet.walletconnect.models.session.WCSession
 import com.walletconnect.android.Core
 import com.walletconnect.android.CoreClient
 import com.walletconnect.sign.client.Sign
+import com.walletconnect.sign.client.SignClient
+import com.walletconnect.sign.client.SignInterface
 import cosmos.tx.v1beta1.TxOuterClass
 import cosmos.tx.v1beta1.TxOuterClass.SignDoc
 import cosmos.tx.v1beta1.TxOuterClass.TxBody
+import net.i2p.crypto.eddsa.Utils
 import okhttp3.OkHttpClient
 import org.apache.commons.lang3.StringUtils
 import org.bitcoinj.core.ECKey
@@ -78,9 +81,6 @@ import wannabit.io.cosmostaion.utils.WalletConnectManager.addWhiteList
 import wannabit.io.cosmostaion.utils.WalletConnectManager.getWhiteList
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
-import com.walletconnect.sign.client.SignClient
-import com.walletconnect.sign.client.SignInterface
-import net.i2p.crypto.eddsa.Utils
 
 
 class WalletConnectActivity : BaseActivity() {
@@ -254,6 +254,10 @@ class WalletConnectActivity : BaseActivity() {
             }
 
             override fun onSessionProposal(sessionProposal: Sign.Model.SessionProposal) {
+                if (isFinishing) {
+                    return
+                }
+
                 val sessionNamespaces: MutableMap<String, Sign.Model.Namespace.Session> =
                     mutableMapOf()
                 val methods = sessionProposal.requiredNamespaces.values.flatMap { it.methods }
@@ -285,11 +289,7 @@ class WalletConnectActivity : BaseActivity() {
                                 true
                             )
                             binding.loadingLayer.apply {
-                                postDelayed(
-                                    {
-                                        visibility = View.GONE
-                                    }, 2500
-                                )
+                                postDelayed({ visibility = View.GONE }, 2500)
                             }
                         }
                         SignClient.approveSession(approveProposal) { error ->
@@ -300,6 +300,10 @@ class WalletConnectActivity : BaseActivity() {
             }
 
             override fun onSessionRequest(sessionRequest: Sign.Model.SessionRequest) {
+                if (isFinishing) {
+                    return
+                }
+
                 processV2SessionRequest(sessionRequest)
             }
 
@@ -1241,9 +1245,7 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
-    private fun showSignDialog(
-        bundle: Bundle, signListener: WcSignRawDataListener
-    ) {
+    private fun showSignDialog(bundle: Bundle, signListener: WcSignRawDataListener) {
         val wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, signListener)
         wcRawDataDialog.show(supportFragmentManager, "dialog")
     }
@@ -1329,7 +1331,6 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         if (wcVersion == 1) {
             wcV1Client?.let {
                 if (it.isConnected) {
@@ -1342,6 +1343,7 @@ class WalletConnectActivity : BaseActivity() {
             val pairingList = CoreClient.Pairing.getPairings()
             pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
         }
+        super.onDestroy()
     }
 
     private val connectWalletResultLauncher =
