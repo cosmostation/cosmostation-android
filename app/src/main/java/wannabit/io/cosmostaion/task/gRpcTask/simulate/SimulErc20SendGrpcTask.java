@@ -60,7 +60,7 @@ public class SimulErc20SendGrpcTask extends CommonTask {
             String fromEthAddress = WKey.generateEthAddressFromPrivateKey(ecKey.getPrivateKeyAsHex());
             String toEthAddress = WKey.convertBech32ToEvm(mToAddress);
 
-            BigInteger value = BigInteger.valueOf(Long.parseLong(mAmounts.get(0).amount));
+            BigInteger value = new BigInteger(mAmounts.get(0).amount);
 
             if (!url.isEmpty()) {
                 Web3j web3 = Web3j.build(new HttpService(url));
