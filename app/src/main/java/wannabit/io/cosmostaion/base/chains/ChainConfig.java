@@ -18,6 +18,10 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 
 abstract public class ChainConfig {
+    public String chainKey() {
+        return baseChain().name();
+    }
+
     public abstract BaseChain baseChain();
 
     public abstract int chainImg();
@@ -129,7 +133,7 @@ abstract public class ChainConfig {
     public abstract String apiUrl();
 
     public ManagedChannel channelMain() {
-        return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().useTransportSecurity().build();
+        return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().build();
     }
 
     public Retrofit lcdMain() {

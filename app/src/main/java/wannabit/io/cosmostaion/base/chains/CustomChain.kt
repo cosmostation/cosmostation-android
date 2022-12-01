@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.base.chains
 
-import wannabit.io.cosmostaion.base.BaseChain
+import io.grpc.ManagedChannel
+import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.base.BaseChain
 
 class CustomChain(val chainInfo: CustomChainInfo) : ChainConfig() {
     override fun baseChain() = BaseChain.CUSTOM
@@ -28,4 +30,9 @@ class CustomChain(val chainInfo: CustomChainInfo) : ChainConfig() {
     override fun homeInfoLink() = ""
     override fun blogInfoLink() = ""
     override fun coingeckoLink() = ""
+    override fun chainKey() = super.chainKey() + chainInfo.chainId
+    override fun channelMain(): ManagedChannel {
+        return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext()
+            .useTransportSecurity().build()
+    }
 }

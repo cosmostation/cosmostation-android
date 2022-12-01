@@ -84,7 +84,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        mChainConfig = ChainFactory.getChain(getMainActivity().mBaseChain);
+        mChainConfig = ChainFactory.getChain(getMainActivity().mAccount.baseChain);
 
         mValidatorSize.setText("" + getBaseDao().mGRpcMyValidators.size());
         onSortValidator();

@@ -66,11 +66,11 @@ public class WalletSwitchActivity extends BaseActivity {
         mSelectedChain = ChainFactory.getChain(mAccount.baseChain);
         getBaseDao().setLastChain(mSelectedChain.chainName());
 
-        for (ChainConfig chain : mDisplayChains) {
-            if (mExpendedChains.contains(chain) || mSelectedChain.equals(chain)) {
-                mChainAccounts.add(new ChainAccounts(true, chain, getBaseDao().onSelectAccountsByChain(chain.getClass())));
+        for (ChainConfig chainConfig : mDisplayChains) {
+            if (mExpendedChains.contains(chainConfig) || mSelectedChain.equals(chainConfig)) {
+                mChainAccounts.add(new ChainAccounts(true, chainConfig, getBaseDao().onSelectAccountsByChain(chainConfig)));
             } else {
-                mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().onSelectAccountsByChain(chain.getClass())));
+                mChainAccounts.add(new ChainAccounts(false, chainConfig, getBaseDao().onSelectAccountsByChain(chainConfig)));
             }
         }
         mChainRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));

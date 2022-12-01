@@ -1178,6 +1178,17 @@ public class BaseData {
         return result;
     }
 
+    public ArrayList<Account> onSelectAccountsByChain(ChainConfig chainConfig) {
+        ArrayList<Account> result = new ArrayList<>();
+        ArrayList<Account> AllAccount = onSelectAccounts();
+        for (Account account : AllAccount) {
+            if (chainConfig.chainName().equalsIgnoreCase(ChainFactory.getChain(account.baseChain).chainName())) {
+                result.add(account);
+            }
+        }
+        return result;
+    }
+
     public ArrayList<Account> onSelectAccountsExceptSelfByChain(BaseChain chain, Account selfAccount) {
         ArrayList<Account> result = new ArrayList<>();
         ArrayList<Account> AllAccount = onSelectAccounts();
