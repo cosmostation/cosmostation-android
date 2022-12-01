@@ -47,6 +47,11 @@ android {
         }
     }
 
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -68,7 +73,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     //bitcoin
-    implementation ('org.bitcoinj:bitcoinj-core:0.16.1') {
+    implementation('org.bitcoinj:bitcoinj-core:0.16.1') {
         exclude group: "org.bouncycastle"
         exclude group: "com.google.guava"
         exclude group: "com.google.protobuf"

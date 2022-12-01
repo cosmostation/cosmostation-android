@@ -7,6 +7,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TELEGRAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_EN;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_KR;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
+import static wannabit.io.cosmostaion.utils.LanguageUtil.languageSet;
 import static wannabit.io.cosmostaion.utils.ThemeUtil.themeColor;
 
 import android.Manifest;
@@ -65,16 +66,17 @@ import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.dialog.PriceColorChangeDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.PushStatusResponse;
+import wannabit.io.cosmostaion.utils.LanguageUtil;
 import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnAutoPass, mBtnCurrency,
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency,
             mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
             mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
 
-    private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme;
+    private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme, mTvLanguage;
 
     private ImageView mPriceColorUp, mPriceColorDown;
 
@@ -92,6 +94,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         themeColor = ThemeUtil.modLoad(getBaseActivity());
         ThemeUtil.applyTheme(themeColor);
+
+        languageSet = LanguageUtil.modLoad(getBaseActivity());
+        LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
+
     }
 
     @Override
@@ -102,6 +108,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnImportKey = rootView.findViewById(R.id.card_key);
         mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
         mBtnTheme = rootView.findViewById(R.id.card_theme);
+        mBtnLanguage = rootView.findViewById(R.id.card_language);
         mBtnAutoPass = rootView.findViewById(R.id.card_auto_pass);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
         mBtnPriceColorChange = rootView.findViewById(R.id.card_price_color_change);
@@ -120,6 +127,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mTvTheme = rootView.findViewById(R.id.theme_text);
+        mTvLanguage = rootView.findViewById(R.id.language_text);
         alarmSwitch = rootView.findViewById(R.id.switch_alaram);
         alarmSwitch.setOnCheckedChangeListener(switchListener());
 
@@ -133,6 +141,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnImportKey.setOnClickListener(this);
         mBtnWatchAddress.setOnClickListener(this);
         mBtnTheme.setOnClickListener(this);
+        mBtnLanguage.setOnClickListener(this);
         mSwitchUsingAppLock.setOnClickListener(this);
         mSwitchUsingUsingBio.setOnClickListener(this);
         mBtnAutoPass.setOnClickListener(this);
@@ -169,12 +178,20 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        if (themeColor.equals("light")) {
+        if (themeColor.equals(ThemeUtil.LIGHT_MODE)) {
             mTvTheme.setText(R.string.str_theme_light);
-        } else if (themeColor.equals("dark")) {
+        } else if (themeColor.equals(ThemeUtil.DARK_MODE)) {
             mTvTheme.setText(R.string.str_theme_dark);
         } else {
             mTvTheme.setText(R.string.str_theme_system);
+        }
+
+        if (languageSet.equals(LanguageUtil.LANGUAGE_ENGLISH)) {
+            mTvLanguage.setText(R.string.str_language_english);
+        } else if (languageSet.equals(LanguageUtil.LANGUAGE_KOREAN)) {
+            mTvLanguage.setText(R.string.str_language_korean);
+        } else {
+            mTvLanguage.setText(R.string.str_theme_system);
         }
 
         onUpdatePriceColor(getMainActivity().getBaseDao().getPriceColorOption());
@@ -265,6 +282,36 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                         ThemeUtil.applyTheme(themeColor);
                         mTvTheme.setText(R.string.str_theme_dark);
                         ThemeUtil.modSave(getBaseActivity(), themeColor);
+                    }, null);
+
+        } else if (v.equals(mBtnLanguage)) {
+            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
+                    getString(R.string.str_theme_system), view -> {
+                        languageSet = LanguageUtil.DEFAULT_MODE;
+                        LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
+                        mTvLanguage.setText(R.string.str_theme_system);
+                        LanguageUtil.modSave(getBaseActivity(), languageSet);
+                        Intent intent = getBaseActivity().getIntent();
+                        getBaseActivity().finish();
+                        startActivity(intent);
+                    }, null,
+                    getString(R.string.str_language_english), view -> {
+                        languageSet = LanguageUtil.LANGUAGE_ENGLISH;
+                        LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
+                        mTvLanguage.setText(R.string.str_language_english);
+                        LanguageUtil.modSave(getBaseActivity(), languageSet);
+                        Intent intent = getBaseActivity().getIntent();
+                        getBaseActivity().finish();
+                        startActivity(intent);
+                    }, null,
+                    getString(R.string.str_language_korean), view -> {
+                        languageSet = LanguageUtil.LANGUAGE_KOREAN;
+                        LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
+                        mTvLanguage.setText(R.string.str_language_korean);
+                        LanguageUtil.modSave(getBaseActivity(), languageSet);
+                        Intent intent = getBaseActivity().getIntent();
+                        getBaseActivity().finish();
+                        startActivity(intent);
                     }, null);
 
         } else if (v.equals(mSwitchUsingAppLock)) {
