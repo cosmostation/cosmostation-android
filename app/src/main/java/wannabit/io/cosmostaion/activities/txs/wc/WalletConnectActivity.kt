@@ -277,7 +277,21 @@ class WalletConnectActivity : BaseActivity() {
                             proposerPublicKey = sessionProposal.proposerPublicKey,
                             namespaces = sessionNamespaces
                         )
-                        setupConnectInfoView(sessionProposal)
+
+                        if (!connectType.isDapp()) {
+                            setupConnectInfoView(sessionProposal)
+                        } else {
+                            changeDappConnectStatus(
+                                true
+                            )
+                            binding.loadingLayer.apply {
+                                postDelayed(
+                                    {
+                                        visibility = View.GONE
+                                    }, 2500
+                                )
+                            }
+                        }
                         SignClient.approveSession(approveProposal) { error ->
                             Log.e("WCV2", error.throwable.stackTraceToString())
                         }
