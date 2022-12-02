@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -389,6 +390,14 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
+                    if (!mAccount.hasPrivateKey) {
+                        getMainActivity().onInsertKeyDialog();
+                        return;
+                    }
+                    if (!WDp.isTxFeePayable(getActivity(), getBaseDao(), mChainConfig)) {
+                        Toast.makeText(getActivity(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     Intent intent = new Intent(getMainActivity(), SendActivity.class);
                     intent.putExtra("sendTokenDenom", asset.denom);
                     startActivity(intent);
@@ -418,6 +427,14 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
+                    if (!mAccount.hasPrivateKey) {
+                        getMainActivity().onInsertKeyDialog();
+                        return;
+                    }
+                    if (!WDp.isTxFeePayable(getActivity(), getBaseDao(), mChainConfig)) {
+                        Toast.makeText(getActivity(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if (chainConfig.baseChain().equals(KAVA_MAIN) && WUtil.isBep3Coin(asset.denom)) {
                         onSendDialog(asset.denom);
                     } else {
@@ -445,6 +462,14 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
 
                 holder.itemRoot.setOnClickListener(v -> {
+                    if (!mAccount.hasPrivateKey) {
+                        getMainActivity().onInsertKeyDialog();
+                        return;
+                    }
+                    if (!WDp.isTxFeePayable(getActivity(), getBaseDao(), mChainConfig)) {
+                        Toast.makeText(getActivity(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     Intent intent = new Intent(getMainActivity(), SendActivity.class);
                     intent.putExtra("sendTokenDenom", asset.denom);
                     startActivity(intent);
@@ -471,7 +496,7 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = BigDecimal.ZERO;
 
             WDp.setDpSymbolImg(getBaseDao(), chainConfig, balance.symbol, holder.itemImg);
-            WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, balance.symbol, holder.itemSymbol);
+            holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig, balance.symbol));
             holder.itemPath.setText(chainConfig.coinFullName(balance.symbol));
             holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), chainConfig.mainDenom()));
             valueChangeStatus(getActivity(), getBaseDao(), chainConfig.mainDenom(), holder.itemUpDown);
@@ -508,20 +533,28 @@ public class MainTokensFragment extends BaseFragment {
                 totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
                 convertAmount = WDp.bnbConvertAmount(getBaseDao(), balance.symbol);
                 holder.itemPerPrice.setText(WDp.dpBnbTokenPrice(getBaseDao(), balance.symbol));
+                holder.itemUpDown.setText("");
 
             } else {
                 holder.itemPath.setText(getBaseDao().okToken(balance.symbol).description);
-                holder.itemPerPrice.setText("");
                 totalAmount = getBaseDao().getAllExToken(balance.symbol);
                 convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
-                holder.itemPriceLayer.setVisibility(View.GONE);
+                holder.itemPerPrice.setVisibility(View.GONE);
+                holder.itemUpDown.setVisibility(View.GONE);
             }
-            holder.itemUpDown.setText("");
 
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
             holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
 
             holder.itemRoot.setOnClickListener(v -> {
+                if (!mAccount.hasPrivateKey) {
+                    getMainActivity().onInsertKeyDialog();
+                    return;
+                }
+                if (!WDp.isTxFeePayable(getActivity(), getBaseDao(), mChainConfig)) {
+                    Toast.makeText(getActivity(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (mBaseChain.equals(BNB_MAIN) && WUtil.isBep3Coin(balance.symbol)) {
                     onSendDialog(balance.symbol);
                 } else {
@@ -597,7 +630,6 @@ public class MainTokensFragment extends BaseFragment {
             private CardView itemRoot;
             private ImageView itemImg;
             private TextView itemSymbol, itemPath, itemPerPrice, itemUpDown, itemBalance, itemValue;
-            private LinearLayout itemPriceLayer;
 
             public AssetHolder(View v) {
                 super(v);
@@ -609,7 +641,6 @@ public class MainTokensFragment extends BaseFragment {
                 itemUpDown = itemView.findViewById(R.id.up_down);
                 itemBalance = itemView.findViewById(R.id.token_balance);
                 itemValue = itemView.findViewById(R.id.token_value);
-                itemPriceLayer = itemView.findViewById(R.id.price_layer);
             }
         }
 

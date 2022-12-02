@@ -167,7 +167,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         if (mIsSuccess) {
             if (!TextUtils.isEmpty(mEthHash)) {
                 onFetchEvmTx(mEthHash);
-                getEthTxHash(mEthHash);
             } else {
                 onFetchTx(mTxHash);
             }
@@ -220,7 +219,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             if (!TextUtils.isEmpty(mEthHash)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthTxHash));
+                getEthTxHash(mEthHash);
+                if (mEthTxHash != null) {
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthTxHash));
+                } else {
+                    return;
+                }
             } else {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
             }
@@ -230,7 +234,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         } else if (v.equals(mExplorerBtn)) {
             String url;
             if (!TextUtils.isEmpty(mEthHash)) {
-                url = mChainConfig.explorerHistoryLink(mEthTxHash);
+                getEthTxHash(mEthHash);
+                if (mEthTxHash != null) {
+                    url = mChainConfig.explorerHistoryLink(mEthTxHash);
+                } else {
+                    return;
+                }
             } else {
                 url = mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash());
             }
@@ -248,12 +257,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     if (response.body() != null && response.isSuccessful()) {
                         JSONObject jsonObject = new JSONObject(response.body().toString());
                         mEthTxHash = jsonObject.getString("txHash");
-                        onUpdateView();
-
-                    } else {
-                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                            getEthTxHash(hash);
-                        }, 6000);
                     }
                 } catch (JSONException e) { }
             }
@@ -763,7 +766,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                             }, 6000);
                         } else {
                             runOnUiThread(() -> {
-                                if (mEthTxHash != null) onUpdateView();
+                                onUpdateView();
                             });
                         }
 

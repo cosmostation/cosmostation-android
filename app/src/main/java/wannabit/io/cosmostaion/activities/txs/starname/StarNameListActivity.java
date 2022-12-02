@@ -83,9 +83,7 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
 
             @Override
             public void onPageSelected(int i) {
-                if (mPageAdapter != null && mPageAdapter.mCurrentFragment != null) {
-                    mPageAdapter.mCurrentFragment.onRefreshTab();
-                }
+                mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
 
