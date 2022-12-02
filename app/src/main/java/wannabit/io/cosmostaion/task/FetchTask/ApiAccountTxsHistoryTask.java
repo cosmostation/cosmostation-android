@@ -30,7 +30,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getChainApi(mBaseChain).getNewAccountTxCustom(mAddress, "50", mId).execute();
+            Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getChainApi(mBaseChain).getNewAccountTxCustom(mAddress, "20", mId).execute();
             if (response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body();
                 mResult.isSuccess = true;
