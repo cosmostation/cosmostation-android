@@ -200,19 +200,6 @@
                             style="@style/font_rr_12_black_daynight"/>
                     </LinearLayout>
                 </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/expected_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="right"
-                        style="@style/font_rr_10_gray1"
-                        android:text="-"/>
-                </RelativeLayout>
             </LinearLayout>
 
 

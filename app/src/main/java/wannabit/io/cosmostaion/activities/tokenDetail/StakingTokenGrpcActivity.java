@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -25,13 +24,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Asset;
-import wannabit.io.cosmostaion.dao.V3Asset;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingNewHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
@@ -39,7 +36,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
     private Toolbar mToolbar;
     private ImageView mToolbarSymbolImg;
-    private TextView mToolbarSymbol, mToolbarChannel;
+    private TextView mToolbarSymbol;
     private TextView mItemPerPrice;
     private TextView mItemUpDownPrice;
 
@@ -64,7 +61,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mToolbar = findViewById(R.id.tool_bar);
         mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
-        mToolbarChannel = findViewById(R.id.toolbar_channel);
         mItemPerPrice = findViewById(R.id.per_price);
         mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
@@ -82,14 +78,10 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain));
         mMainDenom = mChainConfig.mainDenom();
-        mToolbarChannel.setVisibility(View.GONE);
 
-        if (getBaseDao().onParseRemainVestingsByDenom(mChainConfig.mainDenom()).size() > 0) {
-            mHasVesting = true;
-        }
+        if (getBaseDao().onParseRemainVestingsByDenom(mChainConfig.mainDenom()).size() > 0) mHasVesting = true;
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -116,48 +108,18 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
 
     private void onUpdateView() {
         mToolbarSymbolImg.setImageResource(mChainConfig.mainDenomImg());
-        WDp.setDpSymbol(StakingTokenGrpcActivity.this, getBaseDao(), mChainConfig, mMainDenom, mToolbarSymbol);
+        mToolbarSymbol.setText(WDp.getDpSymbol(getBaseDao(), mChainConfig, mMainDenom));
 
-        final V3Asset asset = getBaseDao().getV3Asset(mChainConfig, mMainDenom);
-//        if (asset != null && asset.price_denom != null) {
-//            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
-//            valueChangeStatus(this, getBaseDao(), asset.price_denom, mItemUpDownPrice);
-//            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
-//        } else {
-//            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mMainDenom));
-//            valueChangeStatus(this, getBaseDao(), mMainDenom, mItemUpDownPrice);
-//            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
-//        }
-        mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mMainDenom));
-        valueChangeStatus(this, getBaseDao(), mMainDenom, mItemUpDownPrice);
-        mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mMainDenom, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
+        final Asset asset = getBaseDao().getAsset(mChainConfig, mMainDenom);
+        mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
+        WDp.valueChangeStatus(this, getBaseDao(), asset.coinGeckoId, mItemUpDownPrice);
+        mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, getBaseDao().getAllMainAsset(mMainDenom), WDp.getDenomDecimal(getBaseDao(), mChainConfig, mMainDenom)));
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(StakingTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mAddress.setText(mAccount.address);
         setEthAddress(mChainConfig, mEthAddress);
         mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-    private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
-        BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
-        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
-            if (baseData.getPriceColorOption() == 1) {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
-            } else {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
-            }
-            changeTxt.setText(lastUpDown + "%");
-        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
-            if (baseData.getPriceColorOption() == 1) {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
-            } else {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
-            }
-            changeTxt.setText("+" + lastUpDown + "%");
-        } else {
-            changeTxt.setText("");
-        }
     }
 
     @Override
@@ -198,25 +160,24 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         @Override
         public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_STAKE_NEW) {
-                return new TokenStakingNewHolder(getLayoutInflater().inflate(R.layout.layout_card_staking_new, viewGroup, false));
+                return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.layout_card_staking_new, viewGroup, false));
             } else if (viewType == TYPE_VESTING) {
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
-            } else if (viewType == TYPE_UNBONDING) {
+            } else {
                 return new UnBondingHolder(getLayoutInflater().inflate(R.layout.item_wallet_undelegation, viewGroup, false));
             }
-            return null;
         }
 
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
             if (getItemViewType(position) == TYPE_STAKE_NEW) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mChainConfig.mainDenom());
+                holder.onBindTokenHolder(getBaseContext(), mChainConfig.baseChain(), getBaseDao(), mChainConfig.mainDenom());
+
             } else if (getItemViewType(position) == TYPE_VESTING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mChainConfig.mainDenom());
+                holder.onBindTokenHolder(getBaseContext(), mChainConfig.baseChain(), getBaseDao(), mChainConfig.mainDenom());
 
             } else if (getItemViewType(position) == TYPE_UNBONDING) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mChainConfig.mainDenom());
-
+                holder.onBindTokenHolder(getBaseContext(), mChainConfig.baseChain(), getBaseDao(), mChainConfig.mainDenom());
             }
         }
 
@@ -241,7 +202,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         public int getItemViewType(int position) {
             if (position == 0) {
                 return TYPE_STAKE_NEW;
-
             } else if (position == 1) {
                 if (mHasVesting) {
                     return TYPE_VESTING;

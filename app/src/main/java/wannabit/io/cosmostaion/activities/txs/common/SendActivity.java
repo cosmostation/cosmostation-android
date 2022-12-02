@@ -35,9 +35,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.V3Asset;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
@@ -52,7 +51,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Cw20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Erc20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SendGrpcTask;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class SendActivity extends BaseBroadCastActivity {
 
@@ -64,7 +62,7 @@ public class SendActivity extends BaseBroadCastActivity {
     private SendPageAdapter mPageAdapter;
 
     public BnbToken mBnbToken;
-    public V3Asset mV3Asset;
+    public Asset mAsset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

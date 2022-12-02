@@ -61,4 +61,5 @@ public class Binance extends ChainConfig {
 
 
     public static String BNB_MAIN_DENOM = "BNB";
+    public static String BNB_GECKO_ID = "binancecoin";
 }

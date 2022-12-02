@@ -6,6 +6,9 @@ public class Price {
     @SerializedName("denom")
     public String denom;
 
+    @SerializedName("coinGeckoId")
+    public String coinGeckoId;
+
     @SerializedName("current_price")
     public Double current_price;
 

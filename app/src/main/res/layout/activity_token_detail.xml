@@ -49,16 +49,6 @@
                     android:textSize="@dimen/text_size_17" />
 
                 <TextView
-                    android:id="@+id/toolbar_channel"
-                    style="@style/font_rr_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_4"
-                    android:layout_toRightOf="@+id/toolbar_symbol"
-                    android:text="-" />
-
-                <TextView
                     android:id="@+id/per_price"
                     style="@style/font_rm_14_black_daynight"
                     android:layout_width="wrap_content"

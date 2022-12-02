@@ -1668,6 +1668,20 @@ public class WUtil {
                     dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
                 }
                 WLog.w("final dpBalance  " + denom + "  " + dpBalance);
+
+                if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
+                    baseData.mGrpcVesting.add(vestingCoin);
+                    int replace = -1;
+                    for (int i = 0; i < baseData.mGrpcBalance.size(); i++) {
+                        if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
+                            replace = i;
+                        }
+                    }
+                    if (replace >= 0) {
+                        baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
+                    }
+                }
             }
 
         } else if (account.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
@@ -1720,6 +1734,20 @@ public class WUtil {
                     dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
                 }
                 WLog.w("final dpBalance  " + denom + "  " + dpBalance);
+
+                if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
+                    baseData.mGrpcVesting.add(vestingCoin);
+                    int replace = -1;
+                    for (int i = 0; i < baseData.mGrpcBalance.size(); i++) {
+                        if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
+                            replace = i;
+                        }
+                    }
+                    if (replace >= 0) {
+                        baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
+                    }
+                }
             }
 
         } else if (account.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
@@ -1767,6 +1795,20 @@ public class WUtil {
                     dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
                 }
                 WLog.w("final dpBalance  " + denom + "  " + dpBalance);
+
+                if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
+                    baseData.mGrpcVesting.add(vestingCoin);
+                    int replace = -1;
+                    for (int i = 0; i < baseData.mGrpcBalance.size(); i++) {
+                        if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
+                            replace = i;
+                        }
+                    }
+                    if (replace >= 0) {
+                        baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
+                    }
+                }
             }
 
         } else if (account.getTypeUrl().contains(StridePeriodicVestingAccount.getDescriptor().getFullName())) {
@@ -1805,20 +1847,20 @@ public class WUtil {
                 }
 
                 dpBalance = dpBalance.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpBalance;
-            }
-        }
 
-        if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
-            Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
-            baseData.mGrpcVesting.add(vestingCoin);
-            int replace = -1;
-            for (int i = 0; i < baseData.mGrpcBalance.size(); i++) {
-                if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
-                    replace = i;
+                if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
+                    baseData.mGrpcVesting.add(vestingCoin);
+                    int replace = -1;
+                    for (int i = 0; i < baseData.mGrpcBalance.size(); i++) {
+                        if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
+                            replace = i;
+                        }
+                    }
+                    if (replace >= 0) {
+                        baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
+                    }
                 }
-            }
-            if (replace >= 0) {
-                baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
             }
         }
     }

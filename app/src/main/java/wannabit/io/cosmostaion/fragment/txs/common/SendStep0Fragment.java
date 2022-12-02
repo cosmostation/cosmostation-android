@@ -54,9 +54,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.MintscanToken;
-import wannabit.io.cosmostaion.dao.V3Asset;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
@@ -78,7 +77,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     private ArrayList<ChainConfig> mToSendableChains = new ArrayList<>();
     private ChainConfig mToSendChainConfig;
     private ArrayList<Account> mToAccountList;
-    private V3Asset mV3Asset;
+    private Asset mAsset;
     private MintscanToken mMintscanToken;
 
     public static SendStep0Fragment newInstance() {
@@ -112,13 +111,13 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mBtnPaste.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
 
-        mV3Asset = getBaseDao().getV3Asset(getSActivity().mChainConfig, getSActivity().mDenom);
+        mAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mDenom);
         mMintscanToken = getBaseDao().getCw20Asset(getSActivity().mDenom);
         mToSendableChains.add(getSActivity().mChainConfig);
 
         ArrayList<ChainConfig> allChainConfig = ChainFactory.SUPPRT_CONFIG();
-        for (V3Asset asset : getBaseDao().mV3Assets) {
-            if (mV3Asset != null) {
+        for (Asset asset : getBaseDao().mAssets) {
+            if (mAsset != null) {
                 if (asset.chain.equalsIgnoreCase(getSActivity().mChainConfig.chainName()) && asset.denom.equalsIgnoreCase(getSActivity().mDenom)) {
                     for (ChainConfig chainConfig : allChainConfig) {
                         if (chainConfig.chainName().equalsIgnoreCase(asset.beforeChain(getSActivity().mChainConfig)) && !mToSendableChains.contains(chainConfig)) {
@@ -279,7 +278,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     private void onPathSetting() {
         if (getSActivity().mBaseChain.equals(mToSendChainConfig.baseChain())) {
-            if (mV3Asset != null) { getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND; }
+            if (mAsset != null) { getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND; }
             else if (mMintscanToken != null) {
                 if (mMintscanToken.contract_address.startsWith("0x")) {
                     getSActivity().mTxType = CONST_PW_TX_EVM_TRANSFER;
@@ -289,14 +288,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
         } else {
-            if (mV3Asset != null) {
+            if (mAsset != null) {
                 getSActivity().mTxType = CONST_PW_TX_IBC_TRANSFER;
             } else if (mMintscanToken != null) {
                 getSActivity().mTxType = CONST_PW_TX_IBC_CONTRACT;
             }
             getSActivity().mAssetPath = WDp.getAssetPath(getBaseDao(), getSActivity().mChainConfig, mToSendChainConfig, getSActivity().mDenom);
         }
-        getSActivity().mV3Asset = mV3Asset;
+        getSActivity().mAsset = mAsset;
         getSActivity().mMintscanToken = mMintscanToken;
     }
 

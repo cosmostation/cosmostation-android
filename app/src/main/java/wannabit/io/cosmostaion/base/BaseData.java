@@ -64,13 +64,12 @@ import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.MWords;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
-import wannabit.io.cosmostaion.dao.V3Asset;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
@@ -118,12 +117,11 @@ public class BaseData {
     public ArrayList<Price> mPrices = new ArrayList<>();
     public Param mParam;
     public ArrayList<Asset> mAssets = new ArrayList<>();
-    public ArrayList<V3Asset> mV3Assets = new ArrayList<>();
     public ArrayList<MintscanToken> mMintscanTokens = new ArrayList<>();
     public ArrayList<MintscanToken> mMintscanMyTokens = new ArrayList<>();
 
-    public Price getPrice(String denom) {
-        Optional<Price> prices = mPrices.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+    public Price getPrice(String coinGeckoId) {
+        Optional<Price> prices = mPrices.stream().filter(item -> item.coinGeckoId.equalsIgnoreCase(coinGeckoId)).findFirst();
         if (prices.isPresent()) return prices.get();
         else return null;
     }
@@ -131,17 +129,6 @@ public class BaseData {
     public Asset getAsset(ChainConfig chainConfig, String denom) {
         if (mAssets != null && mAssets.size() > 0) {
             for (Asset asset : mAssets) {
-                if (asset.chain.equalsIgnoreCase(chainConfig.chainName()) && asset.denom.equalsIgnoreCase(denom)) {
-                    return asset;
-                }
-            }
-        }
-        return null;
-    }
-
-    public V3Asset getV3Asset(ChainConfig chainConfig, String denom) {
-        if (mV3Assets != null && mV3Assets.size() > 0) {
-            for (V3Asset asset : mV3Assets) {
                 if (asset.chain.equalsIgnoreCase(chainConfig.chainName()) && asset.denom.equalsIgnoreCase(denom)) {
                     return asset;
                 }
@@ -177,9 +164,8 @@ public class BaseData {
 
     public String getBaseDenom(String denom) {
         Optional<Asset> asset = mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
-
         if (asset.isPresent()) {
-            return asset.get().base_denom;
+            return asset.get().origin_denom;
         } else {
             return denom;
         }

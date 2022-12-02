@@ -26,14 +26,13 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.MintscanToken;
-import wannabit.io.cosmostaion.dao.V3Asset;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView mSendAmount;
     private TextView mFeeAmount;
-    private TextView mCurrentBalance, mRemainingBalance, mRemainingPrice;
+    private TextView mCurrentBalance, mRemainingBalance;
     private LinearLayout mRecipientLayer, mIbcLayer;
     private TextView mRecipientChain, mRecipientAddress, mMemo;
     private Button mBeforeBtn, mConfirmBtn;
@@ -55,7 +54,6 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         mFeeAmount = rootView.findViewById(R.id.send_fees);
         mCurrentBalance = rootView.findViewById(R.id.current_available);
         mRemainingBalance = rootView.findViewById(R.id.remaining_available);
-        mRemainingPrice = rootView.findViewById(R.id.remaining_price);
         mRecipientLayer = rootView.findViewById(R.id.recipient_layer);
         mRecipientChain = rootView.findViewById(R.id.recipient_chain);
         mRecipientAddress = rootView.findViewById(R.id.recipient_address);
@@ -78,13 +76,12 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
     public void onRefreshTab() {
         final BigDecimal toSendAmount = new BigDecimal(getSActivity().mAmounts.get(0).amount);
         final BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        final String mainDenom = getSActivity().mChainConfig.mainDenom();
         final String toSendDenom = getSActivity().mDenom;
 
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, toSendAmount.toPlainString(), mSendDenom, mSendAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
 
-        V3Asset msAsset = getSActivity().mV3Asset;
+        Asset msAsset = getSActivity().mAsset;
         MintscanToken msMintscanToken = getSActivity().mMintscanToken;
 
         if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
@@ -105,12 +102,6 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             }
             WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, currentAvai.toPlainString(), mCurrentDenom, mCurrentBalance);
             WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAvailable.toPlainString(), mRemainDenom, mRemainingBalance);
-
-            if (toSendDenom.equals(mainDenom)) {
-                mRemainingPrice.setText(WDp.dpAssetValue(getBaseDao(), toSendDenom, remainAvailable, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom)));
-            } else {
-                mRemainingPrice.setVisibility(View.GONE);
-            }
 
             if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER || getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
                 mRecipientLayer.setVisibility(View.VISIBLE);
@@ -137,12 +128,6 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 remainAmount = currentAvai.subtract(toSendAmount);
             }
             WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAmount.toPlainString(), mRemainDenom, mRemainingBalance);
-
-            if (toSendDenom.equals(mainDenom)) {
-                mRemainingPrice.setText(WDp.dpAssetValue(getBaseDao(), toSendDenom, remainAmount, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom)));
-            } else {
-                mRemainingPrice.setVisibility(View.GONE);
-            }
             mRecipientLayer.setVisibility(View.GONE);
             mIbcLayer.setVisibility(View.GONE);
         }

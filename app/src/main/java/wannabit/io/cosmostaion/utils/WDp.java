@@ -54,7 +54,6 @@ import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Okc;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
-import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
@@ -64,13 +63,12 @@ import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
-import wannabit.io.cosmostaion.dao.V3Asset;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 
 public class WDp {
-    //show display text with full input amount and to divide deciaml and to show point
     public static SpannableString getDpAmount2(Context c, BigDecimal input, int divideDecimal, int displayDecimal) {
         SpannableString result;
         BigDecimal amount = input.movePointLeft(divideDecimal).setScale(displayDecimal, BigDecimal.ROUND_DOWN);
@@ -98,7 +96,7 @@ public class WDp {
         if (chainConfig == null || denom == null || denom.isEmpty()) {
             return "UNKNOWN";
         }
-        final V3Asset asset = baseData.getV3Asset(chainConfig, denom);
+        final Asset asset = baseData.getAsset(chainConfig, denom);
         final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
 
         if (asset != null) {
@@ -178,11 +176,11 @@ public class WDp {
 
     public static int getDenomDecimal(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
-        final V3Asset asset = baseData.getV3Asset(chainConfig, denom);
+        final Asset asset = baseData.getAsset(chainConfig, denom);
         final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
 
         if (asset != null) {
-            return asset.decimal;
+            return asset.decimals;
 
         } else if (mintscanToken != null) {
             return mintscanToken.decimal;
@@ -198,7 +196,7 @@ public class WDp {
     public static void setDpSymbolImg(BaseData baseData, ChainConfig chainConfig, String denom, ImageView imageView) {
         if (chainConfig == null || denom == null || denom.isEmpty())
             imageView.setImageResource(R.drawable.token_default);
-        final V3Asset asset = baseData.getV3Asset(chainConfig, denom);
+        final Asset asset = baseData.getAsset(chainConfig, denom);
 
         if (asset != null) {
             Picasso.get().load(BaseConstant.CHAIN_ASSET_IMG_URL + asset.image).error(R.drawable.token_default).into(imageView);
@@ -223,7 +221,7 @@ public class WDp {
                 }
 
             } else {
-                Picasso.get().load(BaseConstant.ASSET_IMG_URL + "common/unknown.png").error(R.drawable.token_default).into(imageView);
+                Picasso.get().load(BaseConstant.CHAIN_ASSET_IMG_URL + chainConfig.chainName() + ".png").error(R.drawable.token_default).into(imageView);
             }
         }
     }
@@ -238,10 +236,10 @@ public class WDp {
         int divideDecimal = 6;
         int displayDecimal = 6;
 
-        final V3Asset asset = baseData.getV3Asset(chainConfig, denom);
+        final Asset asset = baseData.getAsset(chainConfig, denom);
         final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
         if (asset != null) {
-            amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimal, asset.decimal));
+            amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimals, asset.decimals));
 
         } else if (mintscanToken != null) {
             amountTv.setText(getDpAmount2(new BigDecimal(amount), mintscanToken.decimal, mintscanToken.decimal));
@@ -355,10 +353,10 @@ public class WDp {
     }
 
     public static AssetPath getAssetPath(BaseData baseData, ChainConfig fromChain, ChainConfig toChain, String denom) {
-        Optional<V3Asset> msAsset = baseData.mV3Assets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+        Optional<Asset> msAsset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
         MintscanToken msMintscanToken = baseData.getCw20Asset(denom);
 
-        for (V3Asset asset : baseData.mV3Assets) {
+        for (Asset asset : baseData.mAssets) {
             if (msAsset.isPresent()) {
                 if (asset.chain.equalsIgnoreCase(fromChain.chainName()) &&
                         asset.beforeChain(fromChain) != null && asset.beforeChain(fromChain).equalsIgnoreCase(toChain.chainName()) &&
@@ -380,6 +378,21 @@ public class WDp {
             }
         }
         return null;
+    }
+
+    public static String getGeckoId(BaseData baseData, ChainConfig chainConfig) {
+        if (chainConfig == null) return "";
+        final Asset asset = baseData.getAsset(chainConfig, chainConfig.mainDenom());
+        if (asset != null) {
+            return asset.coinGeckoId;
+        }
+        if (chainConfig.baseChain().equals(BNB_MAIN)) {
+            return Binance.BNB_GECKO_ID;
+        }
+        if (chainConfig.baseChain().equals(OKEX_MAIN)) {
+            return Okc.OKC_GECKO_ID;
+        }
+        return "";
     }
 
     public static void showChainDp(Context c, ChainConfig chainConfig, CardView cardName, CardView cardBody, CardView cardRewardAddress) {
@@ -527,7 +540,7 @@ public class WDp {
 
     public static String getKavaPriceFeedSymbol(BaseData baseData, String denom) {
         if (denom != null) {
-            Optional<V3Asset> asset = baseData.mV3Assets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
+            Optional<Asset> asset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
 
             if (asset.isPresent()) {
                 if (denom.startsWith("ibc/")) {
@@ -573,13 +586,13 @@ public class WDp {
     public static BigDecimal bnbTokenPrice(BaseData baseData, String denom) {
         BnbTicker bnbTicker = baseData.getBnbTicker(denom);
         if (bnbTicker != null) {
+            BigDecimal perPrice;
             if (bnbTicker.baseAssetName.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
-                BigDecimal perPrice = BigDecimal.ONE.divide(new BigDecimal(bnbTicker.lastPrice), 8, RoundingMode.DOWN);
-                return perPrice.multiply(price(baseData, Binance.BNB_MAIN_DENOM));
+                perPrice = BigDecimal.ONE.divide(new BigDecimal(bnbTicker.lastPrice), 8, RoundingMode.DOWN);
             } else {
-                BigDecimal perPrice = BigDecimal.ONE.multiply(new BigDecimal(bnbTicker.lastPrice)).setScale(8, RoundingMode.DOWN);
-                return perPrice.multiply(price(baseData, Binance.BNB_MAIN_DENOM));
+                perPrice = BigDecimal.ONE.multiply(new BigDecimal(bnbTicker.lastPrice)).setScale(8, RoundingMode.DOWN);
             }
+            return perPrice.multiply(price(baseData, Binance.BNB_GECKO_ID));
         }
         return BigDecimal.ZERO;
     }
@@ -638,8 +651,8 @@ public class WDp {
     }
 
     //Token & Price
-    public static BigDecimal priceChange(BaseData baseData, String denom) {
-        Price coinPrice = baseData.getPrice(denom);
+    public static BigDecimal priceChange(BaseData baseData, String coinGeckoId) {
+        Price coinPrice = baseData.getPrice(coinGeckoId);
         if (coinPrice != null) {
             return new BigDecimal(coinPrice.daily_price_change_in_percentage).setScale(2, RoundingMode.FLOOR);
         } else {
@@ -647,12 +660,8 @@ public class WDp {
         }
     }
 
-    public static SpannableString dpPriceChange(BaseData baseData, String denom) {
-        return getDpString(priceChange(baseData, denom).toPlainString() + "%", 3);
-    }
-
-    public static BigDecimal price(BaseData baseData, String denom) {
-        Price coinPrice = baseData.getPrice(denom);
+    public static BigDecimal price(BaseData baseData, String coinGeckoId) {
+        Price coinPrice = baseData.getPrice(coinGeckoId);
         if (coinPrice != null) {
             return new BigDecimal(coinPrice.current_price);
         } else {
@@ -660,17 +669,17 @@ public class WDp {
         }
     }
 
-    public static SpannableString dpPrice(BaseData baseData, String denom) {
-        final String formatted = baseData.getCurrencySymbol() + " " + getDecimalFormat(3).format(price(baseData, denom));
+    public static SpannableString dpPrice(BaseData baseData, String coinGeckoId) {
+        final String formatted = baseData.getCurrencySymbol() + " " + getDecimalFormat(3).format(price(baseData, coinGeckoId));
         return dpCurrencyValue(formatted, 3);
     }
 
-    public static BigDecimal assetValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
-        return price(baseData, denom).multiply(amount).movePointLeft(divider).setScale(3, RoundingMode.DOWN);
+    public static BigDecimal assetValue(BaseData baseData, String coinGeckoId, BigDecimal amount, int divider) {
+        return price(baseData, coinGeckoId).multiply(amount).movePointLeft(divider).setScale(3, RoundingMode.DOWN);
     }
 
-    public static SpannableString dpAssetValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
-        BigDecimal totalValue = assetValue(baseData, denom, amount, divider);
+    public static SpannableString dpAssetValue(BaseData baseData, String coinGeckoId, BigDecimal amount, int divider) {
+        BigDecimal totalValue = assetValue(baseData, coinGeckoId, amount, divider);
         final String formatted = baseData.getCurrencySymbol() + " " + getDecimalFormat(3).format(totalValue);
         return dpCurrencyValue(formatted, 3);
     }
@@ -687,21 +696,21 @@ public class WDp {
         BigDecimal totalValue = BigDecimal.ZERO;
         if (isGRPC(baseChain)) {
             for (Coin coin : baseData.mGrpcBalance) {
-                final V3Asset asset = baseData.getV3Asset(chainConfig, coin.denom);
+                final Asset asset = baseData.getAsset(chainConfig, coin.denom);
                 if (asset != null) {
                     if (asset.type.equalsIgnoreCase("staking")) {
                         BigDecimal totalAmount = baseData.getAllMainAsset(asset.denom);
-                        BigDecimal assetValue = assetValue(baseData, asset.denom, totalAmount, asset.decimal);
+                        BigDecimal assetValue = assetValue(baseData, asset.coinGeckoId, totalAmount, asset.decimals);
                         totalValue = totalValue.add(assetValue);
 
                     } else if (asset.type.equalsIgnoreCase("native")) {
                         BigDecimal totalAmount = baseData.getAvailable(asset.denom).add(baseData.getVesting(asset.denom));
-                        BigDecimal assetValue = assetValue(baseData, asset.denom, totalAmount, asset.decimal);
+                        BigDecimal assetValue = assetValue(baseData, asset.coinGeckoId, totalAmount, asset.decimals);
                         totalValue = totalValue.add(assetValue);
 
                     } else {
                         BigDecimal totalAmount = baseData.getAvailable(asset.denom);
-                        BigDecimal assetValue = assetValue(baseData, asset.origin_denom, totalAmount, asset.decimal);
+                        BigDecimal assetValue = assetValue(baseData, asset.coinGeckoId, totalAmount, asset.decimals);
                         totalValue = totalValue.add(assetValue);
                     }
                 }
@@ -716,28 +725,25 @@ public class WDp {
 
         } else if (baseChain.equals(BNB_MAIN)) {
             for (Balance balance : baseData.mBalances) {
+                BigDecimal allBnb = BigDecimal.ZERO;
+                BigDecimal amount = baseData.getAllBnbTokenAmount(balance.symbol);
                 if (balance.symbol.equals(chainConfig.mainDenom())) {
-                    BigDecimal amount = baseData.getAllBnbTokenAmount(balance.symbol);
-                    BigDecimal assetValue = assetValue(baseData, chainConfig.mainDenom(), amount, getDenomDecimal(baseData, chainConfig, balance.symbol));
-                    totalValue = totalValue.add(assetValue);
+                    allBnb = allBnb.add(amount);
                 } else {
-                    BigDecimal convertAmount = bnbConvertAmount(baseData, balance.symbol);
-                    BigDecimal assetValue = assetValue(baseData, chainConfig.mainDenom(), convertAmount, getDenomDecimal(baseData, chainConfig, balance.symbol));
-                    totalValue = totalValue.add(assetValue);
+                    allBnb = allBnb.add(bnbConvertAmount(baseData, balance.symbol));
                 }
+                BigDecimal assetValue = assetValue(baseData, Binance.BNB_GECKO_ID, allBnb, 0);
+                totalValue = totalValue.add(assetValue);
             }
 
         } else if (baseChain.equals(OKEX_MAIN)) {
             for (Balance balance : baseData.mBalances) {
+                BigDecimal allOKT = BigDecimal.ZERO;
                 if (balance.symbol.equals(chainConfig.mainDenom())) {
-                    BigDecimal amount = baseData.getAllExToken(balance.symbol);
-                    BigDecimal assetValue = assetValue(baseData, chainConfig.mainDenom(), amount, getDenomDecimal(baseData, chainConfig, balance.symbol));
-                    totalValue = totalValue.add(assetValue);
-                } else {
-                    BigDecimal convertAmount = convertTokenToOkt(baseData, balance.symbol);
-                    BigDecimal assetValue = assetValue(baseData, chainConfig.mainDenom(), convertAmount, getDenomDecimal(baseData, chainConfig, balance.symbol));
-                    totalValue = totalValue.add(assetValue);
+                    allOKT = allOKT.add(baseData.getAllExToken(balance.symbol));
                 }
+                BigDecimal assetValue = assetValue(baseData, Okc.OKC_GECKO_ID, allOKT, 0);
+                totalValue = totalValue.add(assetValue);
             }
         }
         return totalValue;
@@ -753,6 +759,26 @@ public class WDp {
         return getDpString(input, dpPoint);
     }
 
+    public static void valueChangeStatus(Context c, BaseData baseData, String coinGeckoId, TextView changeTxt) {
+        BigDecimal lastUpDown = WDp.priceChange(baseData, coinGeckoId);
+        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
+            if (baseData.getPriceColorOption() == 1) {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
+            } else {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
+            }
+            changeTxt.setText(lastUpDown + "%");
+        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
+            if (baseData.getPriceColorOption() == 1) {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
+            } else {
+                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
+            }
+            changeTxt.setText("+" + lastUpDown + "%");
+        } else {
+            changeTxt.setText("");
+        }
+    }
 
     public static SpannableString getSelfBondRate(String total, String self) {
         BigDecimal result = new BigDecimal(self).multiply(new BigDecimal("100")).divide(new BigDecimal(total), 2, RoundingMode.DOWN);

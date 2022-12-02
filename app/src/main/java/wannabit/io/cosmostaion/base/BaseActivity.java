@@ -50,7 +50,6 @@ import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
-import ethermint.types.v1.Web3;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
@@ -90,11 +89,10 @@ import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
-import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanCw20AssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanPriceTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanUtilityParamTask;
-import wannabit.io.cosmostaion.task.FetchTask.MintScanV3AssetsTask;
+import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintscanErc20AssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MoonPayTask;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
@@ -122,7 +120,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -476,7 +473,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         getBaseDao().mParam = null;
         getBaseDao().mAssets.clear();
-        getBaseDao().mV3Assets.clear();
         getBaseDao().mMintscanTokens.clear();
         getBaseDao().mMintscanMyTokens.clear();
 
@@ -688,9 +684,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             tendermint.p2p.Types.NodeInfo tempNodeInfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (tempNodeInfo != null) {
                 getBaseDao().mGRpcNodeInfo = tempNodeInfo;
-                mTaskCount = mTaskCount + 5;
+                mTaskCount = mTaskCount + 4;
                 new MintScanAssetsTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                new MintScanV3AssetsTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanCw20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintscanErc20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanUtilityParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
