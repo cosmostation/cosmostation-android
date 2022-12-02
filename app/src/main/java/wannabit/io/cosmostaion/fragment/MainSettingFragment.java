@@ -30,6 +30,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
@@ -291,27 +292,21 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                         LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
                         mTvLanguage.setText(R.string.str_theme_system);
                         LanguageUtil.modSave(getBaseActivity(), languageSet);
-                        Intent intent = getBaseActivity().getIntent();
-                        getBaseActivity().finish();
-                        startActivity(intent);
+                        getMainActivity().refresh();
                     }, null,
                     getString(R.string.str_language_english), view -> {
                         languageSet = LanguageUtil.LANGUAGE_ENGLISH;
                         LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
                         mTvLanguage.setText(R.string.str_language_english);
                         LanguageUtil.modSave(getBaseActivity(), languageSet);
-                        Intent intent = getBaseActivity().getIntent();
-                        getBaseActivity().finish();
-                        startActivity(intent);
+                        getMainActivity().refresh();
                     }, null,
                     getString(R.string.str_language_korean), view -> {
                         languageSet = LanguageUtil.LANGUAGE_KOREAN;
                         LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
                         mTvLanguage.setText(R.string.str_language_korean);
                         LanguageUtil.modSave(getBaseActivity(), languageSet);
-                        Intent intent = getBaseActivity().getIntent();
-                        getBaseActivity().finish();
-                        startActivity(intent);
+                        getMainActivity().refresh();
                     }, null);
 
         } else if (v.equals(mSwitchUsingAppLock)) {

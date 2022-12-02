@@ -284,6 +284,15 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         startActivity(intent);
     }
 
+    public void refresh() {
+        mPageAdapter.notifyDataSetChanged();
+        createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
+        createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
+        createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
+        createDappTab(R.string.str_main_dapp, 3);
+        createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
+    }
+
     private class MainViewPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
@@ -315,6 +324,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 mCurrentFragment = ((BaseFragment) object);
             }
             super.setPrimaryItem(container, position, object);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
         public BaseFragment getCurrentFragment() {
