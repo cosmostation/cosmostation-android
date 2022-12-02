@@ -97,7 +97,7 @@ abstract public class ChainConfig {
     public String grpcUrl() { return ""; }
 
     public int grpcPort() {
-        return 9090;
+        return 443;
     }
 
     public String lcdUrl() {
@@ -106,8 +106,10 @@ abstract public class ChainConfig {
 
     public abstract String apiUrl();
 
+    public String rpcUrl() { return ""; }
+
     public ManagedChannel channelMain() {
-        return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).usePlaintext().build();
+        return ManagedChannelBuilder.forAddress(grpcUrl(), grpcPort()).useTransportSecurity().build();
     }
 
     public Retrofit lcdMain() {

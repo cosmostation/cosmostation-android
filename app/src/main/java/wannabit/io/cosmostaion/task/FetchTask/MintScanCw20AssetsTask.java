@@ -9,7 +9,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResCw20Assets;
+import wannabit.io.cosmostaion.network.res.ResMintscanAssets;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -34,7 +34,7 @@ public class MintScanCw20AssetsTask extends CommonTask {
                 return mResult;
             }
 
-            Response<ResCw20Assets> response = ApiClient.getMintscan(mApp).getCw20Assets(ChainFactory.getChain(mBaseChain).chainName()).execute();
+            Response<ResMintscanAssets> response = ApiClient.getMintscan(mApp).getCw20Assets(ChainFactory.getChain(mBaseChain).chainName()).execute();
             if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;

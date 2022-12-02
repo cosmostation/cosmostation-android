@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import irismod.nft.QueryOuterClass;
+import kava.swap.v1beta1.QueryOuterClass.DepositResponse;
+import kava.swap.v1beta1.QueryOuterClass.PoolResponse;
 import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
+import stride.stakeibc.HostZoneOuterClass;
 import wannabit.io.cosmostaion.dao.AssetPath;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
@@ -47,8 +50,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mSwapInCoin;
     public Coin                         mSwapOutCoin;
 
-    public String                       mIncentiveMultiplier;
-
     public sifnode.clp.v1.Types.Pool    mSifPool;                                   // sif swap
     public Coin                         mSifSwapInCoin;
     public Coin                         mSifSwapOutCoin;
@@ -57,7 +58,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mSifWithdrawCoin;
     public Querier.LiquidityProviderRes mMyProvider;
 
-    public Cw20Asset                    mCw20Asset;
+    public MintscanToken                mMintscanToken;
     public AssetPath                    mAssetPath;
 
     // NFT
@@ -70,22 +71,27 @@ public class BaseBroadCastActivity extends BaseActivity {
     public QueryOuterClass.QueryNFTResponse mIrisResponse;
 
     // Kava
-    public kava.swap.v1beta1.QueryOuterClass.PoolResponse       mKavaSwapPool;
-    public kava.swap.v1beta1.QueryOuterClass.DepositResponse    mKavaDepositPool;
-    public Coin                                                 mKavaSwapIn;
-    public Coin                                                 mKavaSwapOut;
-    public Coin                                                 mKavaPoolTokenA;
-    public Coin                                                 mKavaPoolTokenB;
-    public BigDecimal                                           mKavaShareAmount = BigDecimal.ZERO;
-    public Coin                                                 mCollateral;
-    public Coin                                                 mPrincipal;
-    public String                                               mCollateralType;
-    public Coin                                                 mPayment;
-    public ArrayList<Coin>                                      mHardPoolCoins = new ArrayList<>();
+    public PoolResponse       mKavaSwapPool;
+    public DepositResponse    mKavaDepositPool;
+    public Coin               mKavaSwapIn;
+    public Coin               mKavaSwapOut;
+    public Coin               mKavaPoolTokenA;
+    public Coin               mKavaPoolTokenB;
+    public BigDecimal         mKavaShareAmount = BigDecimal.ZERO;
+    public Coin               mCollateral;
+    public Coin               mPrincipal;
+    public String             mCollateralType;
+    public Coin               mPayment;
+    public ArrayList<Coin>    mHardPoolCoins = new ArrayList<>();
 
     // Authz
     public String mGranter;
 
+    // Evm
+    public String mHexValue;
+
+    // Liquid
+    public HostZoneOuterClass.HostZone mHostZone;
 
     public void onNextStep() { }
 

@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 
-public class ResCw20Assets {
+public class ResMintscanAssets {
     @SerializedName("assets")
-    public ArrayList<Cw20Asset> assets;
+    public ArrayList<MintscanToken> assets;
 }

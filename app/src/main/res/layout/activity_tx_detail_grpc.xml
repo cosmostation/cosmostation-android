@@ -91,7 +91,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            android:visibility="gone"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/error_Card"

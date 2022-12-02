@@ -219,7 +219,7 @@
     <string name="str_front_guide_msg_kava">Tendermint 기반의 레버리지, 헤지 및 CDP를 지원하는 최초의 인터 체인 DeFi 플랫폼.</string>
     <string name="str_front_guide_msg_starname">Tendermint를 기반으로하는 Starname은 빠르고 안전하며 분산 된 범용 네이밍 서비스를 구축합니다.</string>
     <string name="str_front_guide_msg_band">Tendermint를 기반으로 하는 크로스 체인 오라클 플랫폼입니다. 밴드 프로토콜은 실제 데이터와 API를 스마트 계약으로 통합하여 제공합니다.</string>
-    <string name="str_front_guide_msg_okx">OKC Chain은 Tendermint를 기반으로 하는 퍼블릭 탈 중앙화 거래소 플랫폼 입니다.</string>
+    <string name="str_front_guide_msg_okx">OKX Chain(OKC)은 Tendermint를 기반으로 하는 퍼블릭 탈 중앙화 거래소 플랫폼 입니다.</string>
     <string name="str_front_guide_msg_shentu"><![CDATA[Shentu Foundation의 고유 한 공식 검증 보안 시스템을 기반으로하는 공용 플랫폼입니다. Shentu는 보안 중심 체인에서 스마트 계약 실행 및 상호 작용을 허용합니다.]]></string>
     <string name="str_front_guide_msg_akash"><![CDATA[DeFi 용 DeCloud와 세계 최초의 분산 형 클라우드 컴퓨팅 마켓입니다.]]></string>
     <string name="str_front_guide_msg_secret"><![CDATA[프라이버시를 보호하는 스마트 계약을 가능하게하는 최초의 지분 증명 네트워크. 비밀은 개인적이고 안전한 계산을 허용합니다.]]></string>
@@ -517,6 +517,7 @@
     <string name="str_bep3_remain_cap">남은 전송 가능량</string>
     <string name="str_select_to_send_coin">보낼 코인 종류를 선택하세요</string>
     <string name="str_select_to_send_chain">전송할 체인을 골라주세요</string>
+    <string name="str_select_to_coin">코인을 선택하세요</string>
     <string name="str_delete_msg">지갑의 모든 정보가 삭제됩니다.\n복구 단어를 백업하지 않았을 경우 해당 지갑을 영구히 다시 복원할 수 없습니다.</string>
     <string name="str_delete">삭제</string>
     <string name="str_close">닫기</string>
@@ -838,6 +839,7 @@
     <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_cw20_token_title">Contract Tokens</string>
+    <string name="str_erc20_token_title">Erc20 Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
     <string name="str_title_start_lock_osmosis">코인 잠그기</string>
@@ -1034,6 +1036,7 @@
     <string name="error_no_select_chains">체인을 선택해주세요.</string>
     <string name="error_exchange_address_msg">중앙 거래소 주소로 IBC 출금시 자금이 손실될 수 있습니다.\n\n중앙 거래소는 IBC 입금을 지원하지 않습니다.\n중앙 거래소로 보내기전에 자산을 원래 체인으로 전송하세요.</string>
     <string name="error_exchange_address_memo_msg">일부 중앙화 거래소는 수탁 주소를 사용하기 때문에 입금 메모가 필요합니다. 거래소에 메모 없이 입금 시 자산이 영구 손실될 수 있습니다.\n\n입금 메모가 필요한지 다시 한번 확인해주세요!</string>
+    <string name="error_not_enough_liquid_stake">수량이 충분하지 않습니다.\n원 체인으로 부터 IBC전송을 완료하신후 계속 진행하실 수 있습니다.</string>
 
 
     <string name="tx_send">보내기</string>
@@ -1254,6 +1257,19 @@
 
     <string name="tx_stride_liquid_stake">유동성 스테이크</string>
     <string name="tx_stride_redeem_stake">유동성 상환</string>
+    <string name="str_liquid_staking">리퀴드 스테이킹</string>
+    <string name="str_liquid_unstaking">리퀴드 언스테이킹</string>
+    <string name="str_start_staking">스테이킹 시작</string>
+    <string name="str_start_unstaking">언스테이킹 시작</string>
+    <string name="str_liquid_input">입금 수량</string>
+    <string name="str_liquid_output">출금 수량(예상)</string>
+    <string name="str_liquid_creator">생성 주소</string>
+    <string name="str_liquid_receiver">수령 주소</string>
+    <string name="str_no_unskake_history">No Unstake History</string>
+    <string name="str_unstaking_history">언스테이킹 기록</string>
+    <string name="str_tip">팁</string>
+    <string name="str_msg_liquid_unstake">언스테이킹이 완료되려면 원 체인이 설정한 기간이 필요합니다(14~28일).\n\nOsmosis Dex에서 st자산을 즉시 원 자산으로 바꾸실 수 있습니다.</string>
+    <string name="str_hint_msg_liquid_unstake">받는 주소를 입력하세요</string>
 
     <string name="str_tx_kava_earn_delegateDeposit">어닝 리퀴디티\n위임 입금</string>
     <string name="tx_kava_earn_delegateDeposit">어닝 리퀴디티 위임 입금</string>

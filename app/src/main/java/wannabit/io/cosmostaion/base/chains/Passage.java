@@ -28,7 +28,7 @@ public class Passage extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-passage-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-passage.cosmostation.io"; }
     public String apiUrl() { return "https://api-passage.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "passage/"; }

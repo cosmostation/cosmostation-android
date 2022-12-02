@@ -68,6 +68,7 @@ import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
+import wannabit.io.cosmostaion.activities.txs.liquidstaking.StrideLSActivity;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTListActivity;
 import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
@@ -79,7 +80,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.Cw20Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -555,14 +556,17 @@ public class WUtil {
         });
     }
 
-    public static void onSortingContract(ArrayList<Cw20Asset> denom) {
-        Collections.sort(denom, new Comparator<Cw20Asset>() {
+    public static void onSortingContract(ArrayList<MintscanToken> denom) {
+        Collections.sort(denom, new Comparator<MintscanToken>() {
             @Override
-            public int compare(Cw20Asset o1, Cw20Asset o2) {
+            public int compare(MintscanToken o1, MintscanToken o2) {
                 if (o1.denom.equalsIgnoreCase("NETA")) return -1;
                 if (o2.denom.equalsIgnoreCase("NETA")) return 1;
                 if (o1.denom.equalsIgnoreCase("MARBLE")) return -1;
                 if (o2.denom.equalsIgnoreCase("MARBLE")) return 1;
+
+                if (o1.denom.equalsIgnoreCase("WEVMOS")) return -1;
+                if (o2.denom.equalsIgnoreCase("WEVMOS")) return 1;
                 return 0;
             }
         });
@@ -1536,36 +1540,41 @@ public class WUtil {
         return result;
     }
 
-    public static void setDexTitle(MainActivity mainActivity, BaseChain chain, TextView dexTitle) {
-        if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
+    public static void setDexTitle(MainActivity mainActivity, ChainConfig chainConfig, TextView dexTitle) {
+        if (chainConfig.baseChain().equals(IRIS_MAIN) || chainConfig.baseChain().equals(CRYPTO_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_nft), null, null, null);
             dexTitle.setText(R.string.str_nft_c);
-        } else if (chain.equals(IOV_MAIN)) {
+        } else if (chainConfig.baseChain().equals(IOV_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.name_ic), null, null, null);
             dexTitle.setText(R.string.str_name_service);
-        } else if (chain.equals(KAVA_MAIN)) {
+        } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.cdp_s_ic), null, null, null);
             dexTitle.setText(R.string.str_kava_dapp);
-        } else if (chain.equals(SIF_MAIN)) {
+        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_sifdex), null, null, null);
             dexTitle.setText(R.string.str_sif_dex_title);
-        } else if (chain.equals(OSMOSIS_MAIN)) {
+        } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_osmosislab), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
+        } else if (chainConfig.baseChain().equals(STRIDE_MAIN)) {
+            dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_liquidstake), null, null, null);
+            dexTitle.setText(R.string.str_liquid_staking);
         }
     }
 
-    public static Intent getDexIntent(MainActivity mainActivity, BaseChain chain) {
-        if (chain.equals(IRIS_MAIN) || chain.equals(CRYPTO_MAIN)) {
+    public static Intent getDexIntent(MainActivity mainActivity, ChainConfig chainConfig) {
+        if (chainConfig.baseChain().equals(IRIS_MAIN) || chainConfig.baseChain().equals(CRYPTO_MAIN)) {
             return new Intent(mainActivity, NFTListActivity.class);
-        } else if (chain.equals(IOV_MAIN)) {
+        } else if (chainConfig.baseChain().equals(IOV_MAIN)) {
             return new Intent(mainActivity, StarNameListActivity.class);
-        } else if (chain.equals(KAVA_MAIN)) {
+        } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
             return new Intent(mainActivity, DAppsList5Activity.class);
-        } else if (chain.equals(SIF_MAIN)) {
+        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
             return new Intent(mainActivity, SifDexListActivity.class);
-        } else if (chain.equals(OSMOSIS_MAIN)) {
+        } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
             return new Intent(mainActivity, LabsListActivity.class);
+        } else if (chainConfig.baseChain().equals(STRIDE_MAIN)) {
+            return new Intent(mainActivity, StrideLSActivity.class);
         } else {
             return null;
         }
@@ -1794,6 +1803,8 @@ public class WUtil {
                 if (remainVesting.compareTo(delegatedVesting.add(delegatedFree)) > 0) {
                     dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
                 }
+
+                dpBalance = dpBalance.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpBalance;
             }
         }
 

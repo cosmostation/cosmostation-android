@@ -39,7 +39,7 @@ public class Persistence extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-persistence-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-persistence.cosmostation.io"; }
     public String apiUrl() { return "https://api-persistence.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "persistence/"; }

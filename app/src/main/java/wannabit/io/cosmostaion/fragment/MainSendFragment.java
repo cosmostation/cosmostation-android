@@ -248,9 +248,9 @@ public class MainSendFragment extends BaseFragment {
         public int getItemCount() {
             if (getMainActivity().mBaseChain == null) return 0;
 
-            if (mChainConfig.baseChain().equals(KAVA_MAIN) || mChainConfig.baseChain().equals(MEDI_MAIN)) return 6;
-            else if (mChainConfig.authzSupport() || mChainConfig.baseChain().equals(DESMOS_MAIN)) return 5;
-            else if (isGRPC(mChainConfig.baseChain())) return 4;
+            if (getMainActivity().mChainConfig.baseChain().equals(KAVA_MAIN) || getMainActivity().mChainConfig.baseChain().equals(MEDI_MAIN)) return 6;
+            else if (getMainActivity().mChainConfig.authzSupport() || getMainActivity().mChainConfig.baseChain().equals(DESMOS_MAIN)) return 5;
+            else if (isGRPC(getMainActivity().mChainConfig.baseChain())) return 4;
             else return 3;
         }
 
@@ -258,14 +258,14 @@ public class MainSendFragment extends BaseFragment {
         public int getItemViewType(int position) {
             if (getItemCount() == 6) {
                 if (position == 0) return TYPE_WALLET;
-                if (mChainConfig.baseChain().equals(KAVA_MAIN)) {
+                if (getMainActivity().mChainConfig.baseChain().equals(KAVA_MAIN)) {
                     if (position == 1) return TYPE_KAVA_INCENTIVE;
                     else if (position == 2) return TYPE_PRICE;
                     else if (position == 3) return TYPE_MINT;
                     else if (position == 4) return TYPE_AUTHZ;
                     else if (position == 5) return TYPE_GIUDE;
 
-                } else if (mChainConfig.baseChain().equals(MEDI_MAIN)) {
+                } else if (getMainActivity().mChainConfig.baseChain().equals(MEDI_MAIN)) {
                     if (position == 1) return TYPE_PRICE;
                     else if (position == 2) return TYPE_MINT;
                     else if (position == 3) return TYPE_AUTHZ;
@@ -278,7 +278,7 @@ public class MainSendFragment extends BaseFragment {
                 else if (position == 1) return TYPE_PRICE;
                 else if (position == 2) return TYPE_MINT;
                 else if (position == 3) {
-                    if (mChainConfig.baseChain().equals(DESMOS_MAIN)) return TYPE_DESMOS_APP;
+                    if (getMainActivity().mChainConfig.baseChain().equals(DESMOS_MAIN)) return TYPE_DESMOS_APP;
                     else return TYPE_AUTHZ;
                 }
                 else if (position == 4) return TYPE_GIUDE;
@@ -291,7 +291,7 @@ public class MainSendFragment extends BaseFragment {
 
             } else {
                 if (position == 0) {
-                    if (mChainConfig.baseChain().equals(BNB_MAIN)) return TYPE_BINANCE;
+                    if (getMainActivity().mChainConfig.baseChain().equals(BNB_MAIN)) return TYPE_BINANCE;
                     else return TYPE_OKEX;
                 } else if (position == 1) return TYPE_PRICE;
                 else if (position == 2) return TYPE_GIUDE;

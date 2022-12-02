@@ -40,41 +40,48 @@
                 android:paddingRight="@dimen/space_8">
 
                 <LinearLayout
-                    android:id="@+id/token_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/token_symbol"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_13_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
                         <TextView
                             android:id="@+id/token_path"
-                            style="@style/font_rr_10_gray1"
+                            style="@style/font_rr_9_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/token_symbol"
+                            android:layout_toLeftOf="@+id/token_balance"
+                            android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/space_4"
-                            android:ellipsize="middle"
-                            android:maxWidth="@dimen/space_180"
-                            android:singleLine="true" />
-                    </LinearLayout>
+                            android:layout_marginTop="@dimen/space_2"
+                            android:singleLine="true"
+                            android:ellipsize="end" />
 
-                    <LinearLayout
-                        android:id="@+id/price_layer"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/token_balance"
+                            style="@style/font_rr_13_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_10"
+                            android:layout_alignParentRight="true"
+                            android:singleLine="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="@dimen/space_4">
+                        android:layout_marginTop="@dimen/space_2">
 
                         <TextView
                             android:id="@+id/per_price"
@@ -83,42 +90,25 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="middle"
                             android:maxWidth="@dimen/space_180"
-                            android:singleLine="true"/>
+                            android:singleLine="true" />
 
                         <TextView
                             android:id="@+id/up_down"
                             style="@style/font_rr_10_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/space_2"
-                            android:layout_marginLeft="@dimen/space_4"/>
-                    </LinearLayout>
-                </LinearLayout>
+                            android:layout_toRightOf="@+id/per_price"
+                            android:layout_marginLeft="@dimen/space_4"
+                            android:layout_marginTop="@dimen/space_2" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_4"
-                    android:layout_toRightOf="@+id/token_layout"
-                    android:gravity="right"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/token_balance"
-                        style="@style/font_rr_14_black_daynight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:singleLine="true" />
-
-                    <TextView
-                        android:id="@+id/token_value"
-                        style="@style/font_rr_12_gray1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_4" />
+                        <TextView
+                            android:id="@+id/token_value"
+                            style="@style/font_rr_12_gray1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:singleLine="true" />
+                    </RelativeLayout>
 
                 </LinearLayout>
             </RelativeLayout>

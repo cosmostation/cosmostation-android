@@ -32,7 +32,7 @@ public class Cudos extends ChainConfig {
     public boolean wasmSupport() { return true; }
     public boolean wcSupport() { return false; }
 
-    public String grpcUrl() { return "lcd-cudos-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-cudos.cosmostation.io"; }
     public String apiUrl() { return "https://api-cudos.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "cudos/"; }

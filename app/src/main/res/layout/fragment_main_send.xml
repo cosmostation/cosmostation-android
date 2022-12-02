@@ -115,7 +115,7 @@
 
                 <TextView
                     android:id="@+id/total_value"
-                    style="@style/font_rm_21_black_daynight"
+                    style="@style/font_rm_20_black_daynight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"

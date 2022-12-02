@@ -65,6 +65,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_MINTSCAN_PROPOSAL                = 2804;
     public final static int TASK_FETCH_MINTSCAN_CW20_ASSETS             = 2807;
     public final static int TASK_FETCH_MINTSCAN_PRICES                  = 2808;
+    public final static int TASK_FETCH_MINTSCAN_ERC20_ASSETS            = 2809;
 
 
     //gRPC
@@ -86,7 +87,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_NODE_INFO                   = 4024;
     public final static int TASK_GRPC_FETCH_AUTH                        = 4025;
     public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
-    public final static int TASK_GRPC_FETCH_BALANCE_OF_CW20             = 4033;
 
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
     public final static int TASK_GRPC_FETCH_STARNAME_CONFIG             = 4102;
@@ -129,6 +129,11 @@ public class BaseConstant {
 
     public final static int TASK_GRPC_FETCH_AUTHZ_GRANTER_LIST          = 4294;
     public final static int TASK_GRPC_FETCH_AUTHZ_GRANT_LIST            = 4295;
+
+    public final static int TASK_GRPC_FETCH_ALL_HOST_ZONE               = 4300;
+    public final static int TASK_GRPC_FETCH_EPOCH_TRACKER               = 4301;
+    public final static int TASK_GRPC_FETCH_HOST_ZONE_CHAINID           = 4302;
+    public final static int TASK_GRPC_FETCH_ALL_USER_REDEMPTION         = 4303;
 
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
@@ -196,8 +201,9 @@ public class BaseConstant {
     public final static int CONST_PW_TX_SIF_EXIT_POOL                       = 5053;
     public final static int CONST_PW_TX_MINT_NFT                            = 5055;
     public final static int CONST_PW_TX_SEND_NFT                            = 5056;
-    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5058;
-    public final static int CONST_PW_TX_IBC_CONTRACT                        = 5059;
+    public final static int CONST_PW_TX_EXECUTE_CONTRACT                    = 5057;
+    public final static int CONST_PW_TX_IBC_CONTRACT                        = 5058;
+    public final static int CONST_PW_TX_EVM_TRANSFER                        = 5059;
 
     public final static int CONST_PW_TX_AUTHZ_DELEGATE                      = 5060;
     public final static int CONST_PW_TX_AUTHZ_UNDELEGATE                    = 5061;
@@ -212,6 +218,8 @@ public class BaseConstant {
 
     public final static int CONST_PW_TX_ADD_LIQUIDITY                       = 5080;
     public final static int CONST_PW_TX_REMOVE_LIQUIDITY                    = 5081;
+    public final static int CONST_PW_TX_STRIDE_LIQUID_STAKING               = 5082;
+    public final static int CONST_PW_TX_STRIDE_LIQUID_UNSTAKING             = 5083;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;

@@ -24,11 +24,11 @@ public class Stride extends ChainConfig {
     public String mainDenom() { return "ustrd"; }
     public String addressPrefix() { return "stride"; }
 
-    public boolean dexSupport() { return false; }
+    public boolean dexSupport() { return true; }
     public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
 
-    public String grpcUrl() { return "lcd-stride-app.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-stride.cosmostation.io"; }
     public String apiUrl() { return "https://api-stride.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "stride/"; }
