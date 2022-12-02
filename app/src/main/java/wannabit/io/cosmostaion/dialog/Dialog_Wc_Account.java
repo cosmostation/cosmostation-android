@@ -85,7 +85,7 @@ public class Dialog_Wc_Account extends DialogFragment {
                 holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
             else holder.accountName.setText(account.nickName);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
-            holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
+            holder.accountAvailable.setText(account.getLastTotal(baseChain));
             holder.rootLayer.setOnClickListener(v -> {
                 if (mOnSelectListener != null) {
                     mOnSelectListener.onSelect(id, account);

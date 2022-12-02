@@ -29,12 +29,12 @@ public class Onomy extends ChainConfig {
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
 
-    public String grpcUrl() { return "grpc-onomy.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-onomy-protocol.cosmostation.io"; }
     public String apiUrl() { return "https://api-onomy-protocol.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "onomy-protocol/"; }
     public String monikerUrl() { return MONIKER_URL + "onomy-protocol/"; }
-    public String homeInfoLink() { return  "https://onomy.io/"; }
+    public String homeInfoLink() { return "https://onomy.io/"; }
     public String blogInfoLink() { return "https://medium.com/onomy-protocol"; }
     public String coingeckoLink() { return  ""; }
 }
