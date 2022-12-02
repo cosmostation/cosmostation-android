@@ -3,9 +3,9 @@ package wannabit.io.cosmostaion.utils;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.LocaleList;
 
 import java.util.Locale;
@@ -21,10 +21,10 @@ public class LanguageUtil extends BaseFragment {
 
     public static void setLanguageCode(Context context, String language) {
         LocaleList locale;
-        if (language.equals(DEFAULT_MODE)) {
-            locale = new LocaleList(Locale.forLanguageTag(Locale.getDefault().getLanguage()));
-        } else {
+        if (language.equals(LANGUAGE_ENGLISH) || language.equals(LANGUAGE_KOREAN)) {
             locale = new LocaleList(Locale.forLanguageTag(language));
+        } else {
+            locale = Resources.getSystem().getConfiguration().getLocales();
         }
         LocaleList.setDefault(locale);
         Configuration config = new Configuration();
@@ -34,9 +34,7 @@ public class LanguageUtil extends BaseFragment {
 
     public static void modSave(Context context, String selectMod) {
         SharedPreferences sp = context.getSharedPreferences(BaseConstant.PRE_LANGUAGE, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(BaseConstant.PRE_LANGUAGE, selectMod);
-        editor.apply();
+        sp.edit().putString(BaseConstant.PRE_LANGUAGE, selectMod).apply();
     }
 
     public static String modLoad(Context context) {
