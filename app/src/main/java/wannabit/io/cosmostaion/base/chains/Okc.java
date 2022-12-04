@@ -76,5 +76,5 @@ public class Okc extends ChainConfig {
 
     public static String OKC_MAIN_DENOM = "okt";
     public static String OKC_GECKO_ID = "oec-token";
-    public static String OKC_COIN_IMG_URL = BaseConstant.CHAIN_BASE_URL + "asset/okc/";
+    public static String OKC_COIN_IMG_URL = BaseConstant.CHAIN_BASE_URL + "okc/asset/";
 }

@@ -161,7 +161,7 @@ public class BaseData {
             }
         }
     }
-    
+
     //COMMON DATA
     public NodeInfo mNodeInfo;
     public ArrayList<Validator> mAllValidators = new ArrayList<>();
