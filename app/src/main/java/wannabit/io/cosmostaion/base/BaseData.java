@@ -161,16 +161,7 @@ public class BaseData {
             }
         }
     }
-
-    public String getBaseDenom(String denom) {
-        Optional<Asset> asset = mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
-        if (asset.isPresent()) {
-            return asset.get().origin_denom;
-        } else {
-            return denom;
-        }
-    }
-
+    
     //COMMON DATA
     public NodeInfo mNodeInfo;
     public ArrayList<Validator> mAllValidators = new ArrayList<>();

@@ -13,6 +13,7 @@ import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Kava extends ChainConfig {
 
@@ -67,6 +68,6 @@ public class Kava extends ChainConfig {
     public static String KAVA_USDX_DENOM = "usdx";
     public static String KAVA_SWP_DENOM = "swp";
 
-    public static String KAVA_CDP_IMG_URL = "kava/cdp/";
-    public static String KAVA_HARD_POOL_IMG_URL = "kava/hard/";
+    public static String KAVA_CDP_IMG_URL = BaseConstant.CHAIN_BASE_URL + "kava/module/mint/";
+    public static String KAVA_HARD_POOL_IMG_URL = BaseConstant.CHAIN_BASE_URL + "kava/module/lend/";
 }

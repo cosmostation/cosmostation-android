@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -161,8 +162,11 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
             WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
 
-            BigDecimal priceInput = WDp.price(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
-            BigDecimal priceOutput = WDp.price(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
+            final Asset inputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, mInputCoinDenom);
+            final Asset outputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, mOutputCoinDenom);
+
+            BigDecimal priceInput = WDp.price(getBaseDao(), inputAsset.coinGeckoId);
+            BigDecimal priceOutput = WDp.price(getBaseDao(), outputAsset.coinGeckoId);
             BigDecimal priceRate = BigDecimal.ZERO;
             if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
                 mSwapOutputCoinExRate.setText("?.??????");
