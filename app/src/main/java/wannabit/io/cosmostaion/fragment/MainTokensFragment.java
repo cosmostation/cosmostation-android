@@ -437,8 +437,8 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemSymbol.setText(asset.symbol.toUpperCase());
                 holder.itemPath.setText("");
 
-                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.symbol));
-                WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.symbol, holder.itemUpDown);
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
+                WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.coinGeckoId, holder.itemUpDown);
 
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimals, 6));
                 holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, asset.getAmount(), asset.decimals));
@@ -453,7 +453,7 @@ public class MainTokensFragment extends BaseFragment {
                         return;
                     }
                     Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                    intent.putExtra("sendTokenDenom", asset.address);
+                    intent.putExtra("sendTokenDenom", asset.symbol);
                     startActivity(intent);
                 });
             }

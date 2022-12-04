@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
+import static wannabit.io.cosmostaion.base.chains.Binance.BINANCE_COIN_IMG_URL;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -66,10 +66,10 @@ public class Dialog_Wc_Trade extends DialogFragment {
             side_tv.setText("BUY");
             side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_bnbBuy));
 
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[1].split("-")[0] + ".png")
+            Picasso.get().load(BINANCE_COIN_IMG_URL + pair_denom[1].split("-")[0].toLowerCase() + ".png")
                     .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(fromCoinImg);
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[0].split("-")[0] + ".png")
+            Picasso.get().load(BINANCE_COIN_IMG_URL + pair_denom[0].split("-")[0].toLowerCase() + ".png")
                     .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(toCoinImg);
 
@@ -83,10 +83,10 @@ public class Dialog_Wc_Trade extends DialogFragment {
             side_tv.setText("SELL");
             side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_bnbSell));
 
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[0].split("-")[0] + ".png")
+            Picasso.get().load(BINANCE_COIN_IMG_URL + pair_denom[0].split("-")[0].toLowerCase() + ".png")
                     .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(fromCoinImg);
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL + pair_denom[1].split("-")[0] + ".png")
+            Picasso.get().load(BINANCE_COIN_IMG_URL + pair_denom[1].split("-")[0].toLowerCase() + ".png")
                     .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(toCoinImg);
 

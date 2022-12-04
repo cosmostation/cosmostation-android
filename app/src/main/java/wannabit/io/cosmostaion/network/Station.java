@@ -39,7 +39,7 @@ public interface Station {
     @GET("/v3/assets/{chain}/cw20")
     Call<ResMintscanAssets> getCw20Assets(@Path("chain") String chain);
 
-    @GET("/v2/assets/{chain}/token/erc20")
+    @GET("/v3/assets/{chain}/erc20")
     Call<ResMintscanAssets> getErc20Assets(@Path("chain") String chain);
 
     @GET("v1/boards")

@@ -272,10 +272,7 @@ public class BaseConstant {
     public final static String EXCHANGE_COINONE_ADDRESS     = "cosmos1z7g5w84ynmjyg0kqpahdjqpj7yq34v3suckp0e";
     public final static String EXCHANGE_MEXC_ADDRESS        = "cosmos144sh8vyv5nqfylmg4mlydnpe3l4w780jsrmf4k";
     public final static String EXCHANGE_HITBTC_ADDRESS      = "cosmos1ghz39h0zkugxs3tst8mfvsy2g98xdaah83xl0t";
-    public final static String EXCHANGE_DIGFINEX_ADDRESS    = "cosmos10njsfnzz5lqch2p5362ueyyus98dje0vdsmds7";
-
-    public final static String CHAIN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/chains/logo/";
-    public final static String BINANCE_TOKEN_IMG_URL    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/binance/";
+    public final static String EXCHANGE_DIGFINEX_ADDRESS    = "cosmos10njsfnzz5lqch2p5362ueyyus98dje0vdsmds7";;
 
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
 

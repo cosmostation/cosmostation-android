@@ -211,7 +211,7 @@ public class WDp {
             } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
                 BnbToken bnbToken = baseData.getBnbToken(denom);
                 if (bnbToken != null) {
-                    Picasso.get().load(Binance.BINANCE_COIN_IMG_URL + bnbToken.original_symbol + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
+                    Picasso.get().load(Binance.BINANCE_COIN_IMG_URL + bnbToken.original_symbol.toLowerCase() + ".png").fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(imageView);
                 }
 
             } else if (chainConfig.baseChain().equals(OKEX_MAIN)) {

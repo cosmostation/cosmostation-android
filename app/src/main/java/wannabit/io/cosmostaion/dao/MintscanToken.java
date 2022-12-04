@@ -10,6 +10,9 @@ public class MintscanToken {
     @SerializedName("id")
     public int id;
 
+    @SerializedName("chainId")
+    public String chainId;
+
     @SerializedName("chainName")
     public String chainName;
 

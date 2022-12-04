@@ -112,7 +112,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mBtnWallet.setOnClickListener(this);
 
         mAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mDenom);
-        mMintscanToken = getBaseDao().mMintscanMyTokens.stream().filter(item -> item.address.equalsIgnoreCase(getSActivity().mDenom)).findFirst().get();
+        mMintscanToken = getBaseDao().getCw20Asset(getSActivity().mDenom);
         mToSendableChains.add(getSActivity().mChainConfig);
 
         ArrayList<ChainConfig> allChainConfig = ChainFactory.SUPPRT_CONFIG();
