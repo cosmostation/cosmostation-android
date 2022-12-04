@@ -62,6 +62,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         mValidatorSize = rootView.findViewById(R.id.validator_cnt);
         mSortType = rootView.findViewById(R.id.token_sort_type);
         mBtnSort = rootView.findViewById(R.id.btn_validator_sort);
+
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getMainActivity(), R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             getMainActivity().onFetchAllData();
@@ -109,7 +110,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         }
     }
 
-
     private class AllValidatorAdapter extends RecyclerView.Adapter<AllValidatorAdapter.AllValidatorHolder> {
 
         @NonNull
@@ -129,7 +129,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
                 try {
-                    Picasso.get().load(chainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) {
                 }
 
@@ -166,7 +166,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetail(validator));
                 try {
-                    Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) {
                 }
 

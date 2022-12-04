@@ -2,8 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.RESOURCE_BASE_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -46,7 +44,6 @@ public class Kava extends ChainConfig {
     public String apiUrl() { return "https://api-kava.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "kava/"; }
-    public String monikerUrl() { return MONIKER_URL + "kava/"; }
     public String homeInfoLink() { return  "https://www.kava.io"; }
     public String blogInfoLink() { return  "https://medium.com/kava-labs"; }
     public String coingeckoLink() { return  COINGECKO_URL + "kava"; }
@@ -70,6 +67,6 @@ public class Kava extends ChainConfig {
     public static String KAVA_USDX_DENOM = "usdx";
     public static String KAVA_SWP_DENOM = "swp";
 
-    public static String KAVA_CDP_IMG_URL = RESOURCE_BASE_URL + "kava/cdp/";
-    public static String KAVA_HARD_POOL_IMG_URL = RESOURCE_BASE_URL + "kava/hard/";
+    public static String KAVA_CDP_IMG_URL = "kava/cdp/";
+    public static String KAVA_HARD_POOL_IMG_URL = "kava/hard/";
 }

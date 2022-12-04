@@ -8,34 +8,37 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class MintscanToken {
     @SerializedName("id")
-    public String id;
+    public int id;
 
-    @SerializedName("chain")
-    public String chain;
+    @SerializedName("chainName")
+    public String chainName;
 
-    @SerializedName("contract_address")
-    public String contract_address;
+    @SerializedName("address")
+    public String address;
 
-    @SerializedName("denom")
-    public String denom;
+    @SerializedName("symbol")
+    public String symbol;
 
-    @SerializedName("decimal")
-    public int decimal;
+    @SerializedName("decimals")
+    public int decimals;
+
+    @SerializedName("description")
+    public String description;
 
     @SerializedName("display")
     public int display;
 
-    @SerializedName("logo")
-    public String logo;
+    @SerializedName("image")
+    public String image;
 
     @SerializedName("default")
     public boolean default_show;
 
-    @SerializedName("total_supply")
-    public String total_supply;
+    @SerializedName("totalSupply")
+    public String totalSupply;
 
-    @SerializedName("coingecko_id")
-    public String coingecko_id;
+    @SerializedName("coinGeckoId")
+    public String coinGeckoId;
 
     public String amount = "0";
 
@@ -52,10 +55,6 @@ public class MintscanToken {
     }
 
     public String assetImg() {
-        if (logo.startsWith("https://"))  {
-            return logo;
-        } else {
-            return BaseConstant.ASSET_IMG_URL + logo;
-        }
+        return BaseConstant.CHAIN_BASE_URL + image;
     }
 }

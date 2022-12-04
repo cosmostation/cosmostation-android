@@ -112,7 +112,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mBtnWallet.setOnClickListener(this);
 
         mAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mDenom);
-        mMintscanToken = getBaseDao().getCw20Asset(getSActivity().mDenom);
+        mMintscanToken = getBaseDao().mMintscanMyTokens.stream().filter(item -> item.address.equalsIgnoreCase(getSActivity().mDenom)).findFirst().get();
         mToSendableChains.add(getSActivity().mChainConfig);
 
         ArrayList<ChainConfig> allChainConfig = ChainFactory.SUPPRT_CONFIG();
@@ -134,7 +134,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (mMintscanToken != null) {
-                if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(mMintscanToken.contract_address)) {
+                if (asset.counter_party != null && asset.counter_party.denom.equalsIgnoreCase(mMintscanToken.address)) {
                     for (ChainConfig chainConfig : allChainConfig) {
                         if (chainConfig.chainName().equalsIgnoreCase(asset.chain)) {
                             mToSendableChains.add(chainConfig);
@@ -280,7 +280,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         if (getSActivity().mBaseChain.equals(mToSendChainConfig.baseChain())) {
             if (mAsset != null) { getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND; }
             else if (mMintscanToken != null) {
-                if (mMintscanToken.contract_address.startsWith("0x")) {
+                if (mMintscanToken.address.startsWith("0x")) {
                     getSActivity().mTxType = CONST_PW_TX_EVM_TRANSFER;
                 } else {
                     getSActivity().mTxType = CONST_PW_TX_EXECUTE_CONTRACT;

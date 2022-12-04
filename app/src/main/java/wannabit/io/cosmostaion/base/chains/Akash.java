@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -33,7 +32,6 @@ public class Akash extends ChainConfig {
     public String apiUrl() { return "https://api-akash.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "akash/"; }
-    public String monikerUrl() { return MONIKER_URL + "akash/"; }
     public String homeInfoLink() { return  "https://akash.network"; }
     public String blogInfoLink() { return  "https://akash.network/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "akash-network"; }

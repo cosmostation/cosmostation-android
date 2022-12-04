@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -17,7 +16,7 @@ public class Ki extends ChainConfig {
     public int chainColor() { return R.color.color_ki; }
     public int chainBgColor() { return R.color.colorTransBgKi; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_ki; }
-    public String chainName() { return "kichain"; }
+    public String chainName() { return "ki-chain"; }
     public String chainKoreanName() { return "키"; }
     public String chainTitle() { return "(KiChain)"; }
     public String chainTitleToUp() { return "KI"; }
@@ -35,7 +34,6 @@ public class Ki extends ChainConfig {
     public String apiUrl() { return "https://api-ki-chain.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "ki-chain/"; }
-    public String monikerUrl() { return MONIKER_URL + "ki/"; }
     public String homeInfoLink() { return  "https://foundation.ki"; }
     public String blogInfoLink() { return  "https://medium.com/ki-foundation"; }
     public String coingeckoLink() { return  COINGECKO_URL + "ki"; }

@@ -92,7 +92,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         }
         mainDenom = getSActivity().mChainConfig.mainDenom();
         toSendDenom = getSActivity().mDenom;
-        mMintscanToken = getBaseDao().getCw20Asset(toSendDenom);
+        mMintscanToken = getBaseDao().mMintscanMyTokens.stream().filter(item -> item.address.equalsIgnoreCase(toSendDenom)).findFirst().get();
 
         if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
             mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom);

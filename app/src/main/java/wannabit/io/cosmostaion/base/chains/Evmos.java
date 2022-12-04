@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 
@@ -46,7 +45,6 @@ public class Evmos extends ChainConfig {
     public String rpcUrl() { return "https://rpc-evmos-app.cosmostation.io"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "evmos/"; }
-    public String monikerUrl() { return MONIKER_URL + "evmos/"; }
     public String homeInfoLink() { return  "https://evmos.org"; }
     public String blogInfoLink() { return  "https://evmos.blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "evmos"; }

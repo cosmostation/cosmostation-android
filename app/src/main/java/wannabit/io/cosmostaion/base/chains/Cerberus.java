@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -33,7 +32,6 @@ public class Cerberus extends ChainConfig {
     public String apiUrl() { return "https://api-cerberus.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "cerberus/"; }
-    public String monikerUrl() { return MONIKER_URL + "cerberus/"; }
     public String homeInfoLink() { return  "https://cerberus.zone"; }
     public String blogInfoLink() { return  "https://medium.com/@cerberus_zone"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cerberus"; }

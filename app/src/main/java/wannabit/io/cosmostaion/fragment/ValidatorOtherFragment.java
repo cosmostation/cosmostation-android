@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.squareup.picasso.Picasso;
 
@@ -110,10 +109,11 @@ public class ValidatorOtherFragment extends BaseFragment {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
             ChainConfig chainConfig = getMainActivity().mChainConfig;
             final int dpDecimal = WDp.getDenomDecimal(getBaseDao(), chainConfig, chainConfig.mainDenom());
+
             if (isGRPC(getMainActivity().mBaseChain)) {
                 final Staking.Validator validator = getBaseDao().mGRpcOtherValidators.get(position);
                 try {
-                    Picasso.get().load(chainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) { }
 
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), dpDecimal, 6));
@@ -131,7 +131,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                 if (getBaseDao().mGRpcMyValidators.contains(validator)) {
                     holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), chainConfig.chainBgColor()));
                 } else {
-                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorTransBg));
                 }
                 holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress()));
 
@@ -142,7 +142,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemRoot.setOnClickListener(v -> getMainActivity().onStartValidatorDetail(validator));
                 try {
-                    Picasso.get().load(chainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e) { }
 
                 if (validator.jailed) {
@@ -156,7 +156,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                 if (checkIsMyValidator(getBaseDao().mMyValidators, validator.description.moniker)) {
                     holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), chainConfig.chainBgColor()));
                 } else {
-                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), R.color.colorTransBg));
+                    holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorTransBg));
                 }
             }
         }

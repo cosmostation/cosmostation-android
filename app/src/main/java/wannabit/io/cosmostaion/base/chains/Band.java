@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 
@@ -38,7 +37,6 @@ public class Band extends ChainConfig {
     public String apiUrl() { return "https://api-band.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "band/"; }
-    public String monikerUrl() { return MONIKER_URL + "bandprotocol/"; }
     public String homeInfoLink() { return  "https://bandprotocol.com"; }
     public String blogInfoLink() { return  "https://medium.com/bandprotocol"; }
     public String coingeckoLink() { return  COINGECKO_URL + "band-protocol"; }

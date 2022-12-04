@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -35,7 +34,6 @@ public class Crescent extends ChainConfig {
     public String apiUrl() { return "https://api-crescent.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "crescent/"; }
-    public String monikerUrl() { return MONIKER_URL + "crescent/"; }
     public String homeInfoLink() { return  "https://crescent.network"; }
     public String blogInfoLink() { return  "https://crescentnetwork.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "crescent-network"; }

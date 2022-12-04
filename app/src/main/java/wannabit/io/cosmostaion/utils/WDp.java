@@ -103,7 +103,7 @@ public class WDp {
             return asset.symbol;
 
         } else if (mintscanToken != null) {
-            return mintscanToken.denom;
+            return mintscanToken.symbol;
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
@@ -183,7 +183,7 @@ public class WDp {
             return asset.decimals;
 
         } else if (mintscanToken != null) {
-            return mintscanToken.decimal;
+            return mintscanToken.decimals;
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) return chainConfig.decimal();
@@ -199,14 +199,14 @@ public class WDp {
         final Asset asset = baseData.getAsset(chainConfig, denom);
 
         if (asset != null) {
-            Picasso.get().load(BaseConstant.CHAIN_ASSET_IMG_URL + asset.image).error(R.drawable.token_default).into(imageView);
+            Picasso.get().load(CHAIN_BASE_URL + asset.image).error(R.drawable.token_default).into(imageView);
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
                 imageView.setImageResource(chainConfig.mainDenomImg());
 
             } else if (denom.startsWith("gamm/pool") || denom.startsWith("pool") || denom.startsWith("share")) {
-                Picasso.get().load(BaseConstant.CHAIN_ASSET_IMG_URL + chainConfig.chainName() + "/asset/pool.png").error(R.drawable.token_default).into(imageView);
+                Picasso.get().load(CHAIN_BASE_URL + chainConfig.chainName() + "/asset/pool.png").error(R.drawable.token_default).into(imageView);
 
             } else if (chainConfig.baseChain().equals(BNB_MAIN)) {
                 BnbToken bnbToken = baseData.getBnbToken(denom);
@@ -221,7 +221,7 @@ public class WDp {
                 }
 
             } else {
-                Picasso.get().load(BaseConstant.CHAIN_ASSET_IMG_URL + chainConfig.chainName() + ".png").error(R.drawable.token_default).into(imageView);
+                Picasso.get().load(CHAIN_BASE_URL + chainConfig.chainName() + "unknown.png").error(R.drawable.token_default).into(imageView);
             }
         }
     }
@@ -242,7 +242,7 @@ public class WDp {
             amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimals, asset.decimals));
 
         } else if (mintscanToken != null) {
-            amountTv.setText(getDpAmount2(new BigDecimal(amount), mintscanToken.decimal, mintscanToken.decimal));
+            amountTv.setText(getDpAmount2(new BigDecimal(amount), mintscanToken.decimals, mintscanToken.decimals));
 
         } else {
             if (chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(OKEX_MAIN)) {
@@ -372,7 +372,7 @@ public class WDp {
             } else if (msMintscanToken != null) {
                 if (asset.chain.equalsIgnoreCase(toChain.chainName()) &&
                         asset.beforeChain(toChain) != null && asset.beforeChain(toChain).equalsIgnoreCase(fromChain.chainName()) &&
-                        asset.counter_party.denom.equalsIgnoreCase(msMintscanToken.contract_address)) {
+                        asset.counter_party.denom.equalsIgnoreCase(msMintscanToken.address)) {
                     return new AssetPath(asset.counter_party.channel, asset.counter_party.port);
                 }
             }
@@ -393,6 +393,11 @@ public class WDp {
             return Okc.OKC_GECKO_ID;
         }
         return "";
+    }
+
+    public static String getMonikerImgUrl(ChainConfig chainConfig, String opAddress) {
+        if (chainConfig == null) { return ""; }
+        return CHAIN_BASE_URL + chainConfig.chainName() + "/moniker/" + opAddress + ".png";
     }
 
     public static void showChainDp(Context c, ChainConfig chainConfig, CardView cardName, CardView cardBody, CardView cardRewardAddress) {
@@ -719,7 +724,7 @@ public class WDp {
             if (baseData.mMintscanMyTokens.size() > 0) {
                 for (MintscanToken myAsset : baseData.mMintscanMyTokens) {
                     BigDecimal amount = myAsset.getAmount();
-                    totalValue = totalValue.add(assetValue(baseData, myAsset.denom, amount, myAsset.decimal));
+                    totalValue = totalValue.add(assetValue(baseData, myAsset.coinGeckoId, amount, myAsset.decimals));
                 }
             }
 

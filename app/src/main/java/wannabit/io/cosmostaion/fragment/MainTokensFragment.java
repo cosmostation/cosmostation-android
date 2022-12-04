@@ -91,6 +91,7 @@ public class MainTokensFragment extends BaseFragment {
     private Account mAccount;
     private BaseChain mBaseChain;
     private ChainConfig mChainConfig;
+    private ArrayList<MintscanToken> mMintscanToken = new ArrayList<>();
 
     public static MainTokensFragment newInstance() {
         return new MainTokensFragment();
@@ -144,6 +145,7 @@ public class MainTokensFragment extends BaseFragment {
         mAccount = getMainActivity().mAccount;
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = getMainActivity().mChainConfig;
+        mMintscanToken = getBaseDao().mMintscanMyTokens;
 
         mCardView.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), mChainConfig.chainBgColor()));
         getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
@@ -432,14 +434,14 @@ public class MainTokensFragment extends BaseFragment {
 
             if (asset != null) {
                 Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-                holder.itemSymbol.setText(asset.denom.toUpperCase());
+                holder.itemSymbol.setText(asset.symbol.toUpperCase());
                 holder.itemPath.setText("");
 
-                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.denom));
-                WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.denom, holder.itemUpDown);
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.symbol));
+                WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.symbol, holder.itemUpDown);
 
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimals, 6));
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, asset.getAmount(), asset.decimals));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     if (!mAccount.hasPrivateKey) {
@@ -451,7 +453,7 @@ public class MainTokensFragment extends BaseFragment {
                         return;
                     }
                     Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                    intent.putExtra("sendTokenDenom", asset.denom);
+                    intent.putExtra("sendTokenDenom", asset.address);
                     startActivity(intent);
                 });
             }
@@ -460,8 +462,9 @@ public class MainTokensFragment extends BaseFragment {
         private void onBindEdit(RecyclerView.ViewHolder viewHolder) {
             final EditHolder holder = (EditHolder) viewHolder;
             holder.itemRoot.setOnClickListener(view -> {
-                SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(null);
-                dialog.setCancelable(false);
+                Bundle bundleData = new Bundle();
+                bundleData.putSerializable(SelectCWTokenDialog.SELECT_CW_TOKEN_BUNDLE_KEY, mMintscanToken);
+                SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(bundleData);
                 dialog.show(getParentFragmentManager(), SelectCWTokenDialog.class.getName());
                 getParentFragmentManager().setFragmentResultListener(SelectCWTokenDialog.SELECT_CW_TOKEN_BUNDLE_KEY, MainTokensFragment.this, (requestKey, bundle) -> {
                     onUpdateInfo();

@@ -36,7 +36,7 @@ public interface Station {
     @GET("v3/assets")
     Call<ResAssets> getAssets();
 
-    @GET("/v2/assets/{chain}/token/cw20")
+    @GET("/v3/assets/{chain}/cw20")
     Call<ResMintscanAssets> getCw20Assets(@Path("chain") String chain);
 
     @GET("/v2/assets/{chain}/token/erc20")

@@ -140,7 +140,7 @@ public class BaseData {
     public MintscanToken getCw20Asset(String denom) {
         if (mMintscanMyTokens != null && mMintscanMyTokens.size() > 0) {
             for (MintscanToken asset : mMintscanMyTokens) {
-                if (asset.denom.equalsIgnoreCase(denom)) {
+                if (asset.symbol.equalsIgnoreCase(denom)) {
                     return asset;
                 }
             }
@@ -150,13 +150,13 @@ public class BaseData {
 
     public void setMyTokens(String address) {
         Set<String> listingContractAddressSet = getUserFavoTokens(address);
-        listingContractAddressSet.addAll(mMintscanTokens.stream().filter(item -> item.default_show).map(item -> item.contract_address).collect(Collectors.toSet()));
-        mMintscanMyTokens.addAll(mMintscanTokens.stream().filter(item -> listingContractAddressSet.contains(item.contract_address)).collect(Collectors.toList()));
+        listingContractAddressSet.addAll(mMintscanTokens.stream().filter(item -> item.default_show).map(item -> item.address).collect(Collectors.toSet()));
+        mMintscanMyTokens.addAll(mMintscanTokens.stream().filter(item -> listingContractAddressSet.contains(item.address)).collect(Collectors.toList()));
     }
 
     public void setMyTokenBalance(String contractAddress, String amount) {
         for (MintscanToken myAsset : mMintscanMyTokens) {
-            if (myAsset.contract_address.equalsIgnoreCase(contractAddress)) {
+            if (myAsset.address.equalsIgnoreCase(contractAddress)) {
                 myAsset.setAmount(amount);
             }
         }

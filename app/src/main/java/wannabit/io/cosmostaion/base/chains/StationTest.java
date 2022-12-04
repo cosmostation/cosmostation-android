@@ -30,7 +30,6 @@ public class StationTest extends ChainConfig {
     public String apiUrl() { return "https://api-office.cosmostation.io/station-testnet/"; }
 
     public String explorerUrl() { return "https://testnet.mintscan.io/station/"; }
-    public String monikerUrl() { return ""; }
     public String homeInfoLink() { return  ""; }
     public String blogInfoLink() { return  ""; }
     public String coingeckoLink() { return  ""; }

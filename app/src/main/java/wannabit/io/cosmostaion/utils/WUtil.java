@@ -560,13 +560,13 @@ public class WUtil {
         Collections.sort(denom, new Comparator<MintscanToken>() {
             @Override
             public int compare(MintscanToken o1, MintscanToken o2) {
-                if (o1.denom.equalsIgnoreCase("NETA")) return -1;
-                if (o2.denom.equalsIgnoreCase("NETA")) return 1;
-                if (o1.denom.equalsIgnoreCase("MARBLE")) return -1;
-                if (o2.denom.equalsIgnoreCase("MARBLE")) return 1;
+                if (o1.symbol.equalsIgnoreCase("NETA")) return -1;
+                if (o2.symbol.equalsIgnoreCase("NETA")) return 1;
+                if (o1.symbol.equalsIgnoreCase("MARBLE")) return -1;
+                if (o2.symbol.equalsIgnoreCase("MARBLE")) return 1;
 
-                if (o1.denom.equalsIgnoreCase("WEVMOS")) return -1;
-                if (o2.denom.equalsIgnoreCase("WEVMOS")) return 1;
+                if (o1.symbol.equalsIgnoreCase("WEVMOS")) return -1;
+                if (o2.symbol.equalsIgnoreCase("WEVMOS")) return 1;
                 return 0;
             }
         });
