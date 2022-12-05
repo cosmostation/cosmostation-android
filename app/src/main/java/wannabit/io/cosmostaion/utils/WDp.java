@@ -772,14 +772,14 @@ public class WDp {
             } else {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
             }
-            changeTxt.setText(lastUpDown + "%");
+            changeTxt.setText(getDpString(lastUpDown.toPlainString() + "%", 3));
         } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
             if (baseData.getPriceColorOption() == 1) {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
             } else {
                 changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
             }
-            changeTxt.setText("+" + lastUpDown + "%");
+            changeTxt.setText(getDpString("+" + lastUpDown.toPlainString() + "%", 3));
         } else {
             changeTxt.setText("");
         }
