@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -33,7 +32,6 @@ public class Onomy extends ChainConfig {
     public String apiUrl() { return "https://api-onomy-protocol.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "onomy-protocol/"; }
-    public String monikerUrl() { return MONIKER_URL + "onomy-protocol/"; }
     public String homeInfoLink() { return "https://onomy.io/"; }
     public String blogInfoLink() { return "https://medium.com/onomy-protocol"; }
     public String coingeckoLink() { return  ""; }
