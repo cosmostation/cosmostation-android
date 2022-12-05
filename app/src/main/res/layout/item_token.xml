@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="@dimen/space_12"
+    android:paddingRight="@dimen/space_12"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,8 +10,7 @@
         android:id="@+id/token_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:padding="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_6"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -36,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/token_img"
-                android:paddingLeft="@dimen/space_10"
-                android:paddingRight="@dimen/space_8">
+                android:paddingLeft="@dimen/space_12"
+                android:paddingRight="@dimen/space_12">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -60,21 +61,21 @@
                             style="@style/font_rr_9_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/token_symbol"
-                            android:layout_toLeftOf="@+id/token_balance"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/space_4"
                             android:layout_marginTop="@dimen/space_2"
-                            android:singleLine="true"
-                            android:ellipsize="end" />
+                            android:layout_toLeftOf="@+id/token_balance"
+                            android:layout_toRightOf="@+id/token_symbol"
+                            android:ellipsize="end"
+                            android:singleLine="true" />
 
                         <TextView
                             android:id="@+id/token_balance"
                             style="@style/font_rr_13_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_10"
                             android:layout_alignParentRight="true"
+                            android:layout_marginLeft="@dimen/space_10"
                             android:singleLine="true" />
                     </RelativeLayout>
 
@@ -97,9 +98,9 @@
                             style="@style/font_rr_10_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/per_price"
                             android:layout_marginLeft="@dimen/space_4"
-                            android:layout_marginTop="@dimen/space_2" />
+                            android:layout_marginTop="@dimen/space_2"
+                            android:layout_toRightOf="@+id/per_price" />
 
                         <TextView
                             android:id="@+id/token_value"

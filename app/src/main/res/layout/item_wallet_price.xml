@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginLeft="@dimen/space_4"
-            android:padding="@dimen/space_14">
+            android:padding="@dimen/space_16">
 
             <RelativeLayout
                 android:id="@+id/price_layer"
