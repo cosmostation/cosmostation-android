@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -34,7 +33,6 @@ public class Kujira extends ChainConfig {
     public String apiUrl() { return "https://api-kujira.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "kujira/"; }
-    public String monikerUrl() { return MONIKER_URL + "kujira/"; }
     public String homeInfoLink() { return  "https://kujira.app/"; }
     public String blogInfoLink() { return  "https://medium.com/team-kujira"; }
     public String coingeckoLink() { return  COINGECKO_URL + "kujira"; }

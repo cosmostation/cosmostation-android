@@ -101,7 +101,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
             holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
             holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
             try {
-                Picasso.get().load(getSActivity().mChainConfig.monikerUrl() + validator.operator_address + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mChainConfig, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
             holder.itemTvMoniker.setText(validator.description.moniker);

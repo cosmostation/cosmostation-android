@@ -28,7 +28,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailHolder;
 
 public class NFTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -155,9 +155,9 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_INFO) {
-                return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_nft_detail, viewGroup, false));
+                return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.item_nft_detail, viewGroup, false));
             } else if (viewType == TYPE_RAW) {
-                return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_nft_raw_data, viewGroup, false));
+                return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.item_nft_raw_data, viewGroup, false));
             }
             return null;
         }
@@ -165,10 +165,10 @@ public class NFTokenDetailActivity extends BaseActivity implements View.OnClickL
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_INFO) {
-                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
+                TokenDetailHolder holder = (TokenDetailHolder) viewHolder;
                 holder.onBindNftInfo(NFTokenDetailActivity.this, mBaseChain, mIrisResponse, myCryptoNftInfo, mDenomId, mTokenId);
             } else if (getItemViewType(position) == TYPE_RAW) {
-                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
+                TokenDetailHolder holder = (TokenDetailHolder) viewHolder;
                 holder.onBindNftRawData(NFTokenDetailActivity.this, mBaseChain, mIrisResponse, myCryptoNftInfo);
             }
         }

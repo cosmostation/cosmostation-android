@@ -30,18 +30,6 @@ public class BnbToken implements Parcelable {
 
     public int type = 0;
 
-    public BnbToken() {
-    }
-
-    public BnbToken(String symbol, String original_symbol, String name, String owner, String total_supply, boolean mintable) {
-        this.symbol = symbol;
-        this.original_symbol = original_symbol;
-        this.name = name;
-        this.owner = owner;
-        this.total_supply = total_supply;
-        this.mintable = mintable;
-    }
-
     protected BnbToken(Parcel in) {
         readFromParcel(in);
     }

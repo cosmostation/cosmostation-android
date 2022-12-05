@@ -87,7 +87,7 @@ public class SimulErc20SendGrpcTask extends CommonTask {
                         chainID,
                         nonce,
                         BigInteger.valueOf(900000L),
-                        mMintscanToken.contract_address,
+                        mMintscanToken.address,
                         BigInteger.ZERO,
                         transaction.getData(),
                         BigInteger.valueOf(500000000L),

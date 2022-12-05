@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 
@@ -44,7 +43,6 @@ public class Injective extends ChainConfig {
     public String apiUrl() { return "https://api-injective.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "injective/"; }
-    public String monikerUrl() { return MONIKER_URL + "injective/"; }
     public String homeInfoLink() { return  "https://injectiveprotocol.com"; }
     public String blogInfoLink() { return  "https://blog.injectiveprotocol.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "injective-protocol"; }

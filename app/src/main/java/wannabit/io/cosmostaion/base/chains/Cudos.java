@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -36,7 +35,6 @@ public class Cudos extends ChainConfig {
     public String apiUrl() { return "https://api-cudos.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "cudos/"; }
-    public String monikerUrl() { return MONIKER_URL + "cudos/"; }
     public String homeInfoLink() { return  "https://www.cudos.org"; }
     public String blogInfoLink() { return  "https://www.cudos.org/blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cudos"; }

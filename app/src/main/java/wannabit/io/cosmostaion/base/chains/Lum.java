@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -41,7 +40,6 @@ public class Lum extends ChainConfig {
     public String apiUrl() { return "https://api-lum.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "lum/"; }
-    public String monikerUrl() { return MONIKER_URL + "lum-network/"; }
     public String homeInfoLink() { return  "https://lum.network"; }
     public String blogInfoLink() { return  "https://medium.com/lum-network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "lum-network"; }

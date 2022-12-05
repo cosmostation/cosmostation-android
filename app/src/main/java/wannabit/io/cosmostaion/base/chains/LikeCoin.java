@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -35,7 +34,6 @@ public class LikeCoin extends ChainConfig {
     public String apiUrl() { return "https://api-likecoin.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "likecoin/"; }
-    public String monikerUrl() { return MONIKER_URL + "likecoin/"; }
     public String homeInfoLink() { return  "https://about.like.co/"; }
     public String blogInfoLink() { return  "https://medium.com/likecoin"; }
     public String coingeckoLink() { return  COINGECKO_URL + "likecoin"; }

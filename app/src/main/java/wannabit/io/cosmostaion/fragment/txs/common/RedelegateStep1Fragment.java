@@ -32,7 +32,6 @@ import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
-import wannabit.io.cosmostaion.activities.txs.common.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -124,7 +123,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), WDp.getDenomDecimal(getBaseDao(), chainConfig, chainConfig.mainDenom()), 6));
             holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             try {
-                Picasso.get().load(chainConfig.monikerUrl() + mGrpcValidator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, mGrpcValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
             holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());

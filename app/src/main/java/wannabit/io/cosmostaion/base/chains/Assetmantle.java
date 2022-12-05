@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -32,7 +31,6 @@ public class Assetmantle extends ChainConfig {
     public String apiUrl() { return "https://api-asset-mantle.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "asset-mantle/"; }
-    public String monikerUrl() { return MONIKER_URL + "asset-mantle/"; }
     public String homeInfoLink() { return  "https://assetmantle.one"; }
     public String blogInfoLink() { return  "https://blog.assetmantle.one"; }
     public String coingeckoLink() { return  COINGECKO_URL + "assetmantle"; }

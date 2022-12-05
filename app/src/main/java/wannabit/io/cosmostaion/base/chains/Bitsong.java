@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 
@@ -39,7 +38,6 @@ public class Bitsong extends ChainConfig {
     public String apiUrl() { return "https://api-bitsong.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "bitsong/"; }
-    public String monikerUrl() { return MONIKER_URL + "bitsong/"; }
     public String homeInfoLink() { return  "https://bitsong.io"; }
     public String blogInfoLink() { return  "https://bitsongofficial.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "bitsong"; }

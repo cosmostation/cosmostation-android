@@ -69,6 +69,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private ChainConfig mChainConfig;
     private View rootView;
     private int mId = 0;
+    private boolean mHasMore = false;
     private boolean isLoading = false;
 
     public static MainHistoryFragment newInstance() {
@@ -124,9 +125,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
                 int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
-                if (lastVisibleItemPosition == itemTotalCount && !mBaseChain.equals(BNB_MAIN) && !mBaseChain.equals(OKEX_MAIN)) {
-                    if (!mApiNewTxCustomHistory.isEmpty()) {
-                        mId = mApiNewTxCustomHistory.get(mApiNewTxCustomHistory.size() - 1).header.id;
+                if (lastVisibleItemPosition == itemTotalCount && isGRPC(mBaseChain)) {
+                    if (mHasMore) {
+                        mHasMore = false;
                         onFetchHistory();
                     }
                 }
@@ -207,7 +208,15 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
             mApiNewTxCustomHistory.addAll((ArrayList<ResApiNewTxListCustom>) result.resultData);
+            ArrayList<ResApiNewTxListCustom> tempList = (ArrayList<ResApiNewTxListCustom>) result.resultData;
             if (!CollectionUtils.isEmpty(mApiNewTxCustomHistory)) {
+                if (tempList.size() >= 30) {
+                    mId = mApiNewTxCustomHistory.get(mApiNewTxCustomHistory.size() - 1).header.id;
+                    mHasMore = true;
+                } else {
+                    mId = 0;
+                    mHasMore = false;
+                }
                 mEmptyHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mHistoryAdapter.notifyDataSetChanged();
