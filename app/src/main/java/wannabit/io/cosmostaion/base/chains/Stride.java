@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.base.chains;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
@@ -35,5 +36,5 @@ public class Stride extends ChainConfig {
     public String monikerUrl() { return MONIKER_URL + "stride/"; }
     public String homeInfoLink() { return  "https://stride.zone/"; }
     public String blogInfoLink() { return  "https://stride.zone/blog"; }
-    public String coingeckoLink() { return  ""; }
+    public String coingeckoLink() { return  COINGECKO_URL + "stride"; }
 }
