@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 public class LanguageUtil extends BaseFragment {
     public static final String LANGUAGE_ENGLISH = "en";
     public static final String LANGUAGE_KOREAN = "ko";
-    public static final String DEFAULT_MODE = "default";
+    public static final String SYSTEM_MODE = "system";
     public static String languageSet;
 
     public static void setLanguageCode(Context context, String language) {
@@ -30,6 +30,7 @@ public class LanguageUtil extends BaseFragment {
         Configuration config = new Configuration();
         config.setLocales(locale);
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+
     }
 
     public static void modSave(Context context, String selectMod) {

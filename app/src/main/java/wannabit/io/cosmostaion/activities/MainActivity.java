@@ -90,12 +90,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mTabLayer.setupWithViewPager(mContentsPager);
         mTabLayer.setTabRippleColor(null);
 
-        createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
-        createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
-        createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
-        createDappTab(R.string.str_main_dapp, 3);
-        createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
-
         mContentsPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -158,6 +152,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         onAccountSwitched();
         onChainSelect(mBaseChain);
+        mPageAdapter.notifyDataSetChanged();
+
+        createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
+        createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
+        createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
+        createDappTab(R.string.str_main_dapp, 3);
+        createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
     }
 
     public void onAccountSwitched() {
@@ -284,16 +285,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         startActivity(intent);
     }
 
-    public void refresh() {
-        mPageAdapter.notifyDataSetChanged();
-        createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
-        createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
-        createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
-        createDappTab(R.string.str_main_dapp, 3);
-        createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
-    }
-
-    private class MainViewPageAdapter extends FragmentPagerAdapter {
+    public static class MainViewPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;

@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.base;
 
-import static wannabit.io.cosmostaion.utils.LanguageUtil.languageSet;
-
 import android.app.Activity;
 import android.app.Application;
 import android.os.Build;
@@ -15,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import java.util.UUID;
 
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
-import wannabit.io.cosmostaion.utils.LanguageUtil;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class BaseApplication extends Application {

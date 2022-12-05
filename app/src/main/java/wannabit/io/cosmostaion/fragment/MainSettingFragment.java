@@ -12,6 +12,7 @@ import static wannabit.io.cosmostaion.utils.ThemeUtil.themeColor;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -30,7 +31,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
@@ -179,17 +179,17 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        if (themeColor.equals(ThemeUtil.LIGHT_MODE)) {
+        if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.LIGHT_MODE)) {
             mTvTheme.setText(R.string.str_theme_light);
-        } else if (themeColor.equals(ThemeUtil.DARK_MODE)) {
+        } else if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.DARK_MODE)) {
             mTvTheme.setText(R.string.str_theme_dark);
         } else {
             mTvTheme.setText(R.string.str_theme_system);
         }
 
-        if (languageSet.equals(LanguageUtil.LANGUAGE_ENGLISH)) {
+        if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_ENGLISH)) {
             mTvLanguage.setText(R.string.str_language_english);
-        } else if (languageSet.equals(LanguageUtil.LANGUAGE_KOREAN)) {
+        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN)) {
             mTvLanguage.setText(R.string.str_language_korean);
         } else {
             mTvLanguage.setText(R.string.str_theme_system);
@@ -265,49 +265,16 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), WatchingWalletAddActivity.class));
 
         } else if (v.equals(mBtnTheme)) {
-            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_theme_system), view -> {
-                        themeColor = ThemeUtil.DEFAULT_MODE;
-                        ThemeUtil.applyTheme(themeColor);
-                        mTvTheme.setText(R.string.str_theme_system);
-                        ThemeUtil.modSave(getBaseActivity(), themeColor);
-                    }, null,
-                    getString(R.string.str_theme_light), view -> {
-                        themeColor = ThemeUtil.LIGHT_MODE;
-                        ThemeUtil.applyTheme(themeColor);
-                        mTvTheme.setText(R.string.str_theme_light);
-                        ThemeUtil.modSave(getBaseActivity(), themeColor);
-                    }, null,
-                    getString(R.string.str_theme_dark), view -> {
-                        themeColor = ThemeUtil.DARK_MODE;
-                        ThemeUtil.applyTheme(themeColor);
-                        mTvTheme.setText(R.string.str_theme_dark);
-                        ThemeUtil.modSave(getBaseActivity(), themeColor);
-                    }, null);
+            FilledVerticalButtonAlertDialog.showTripleButton(getActivity(), null, null,
+                    getString(R.string.str_theme_system), view -> setTheme(getActivity(), R.string.str_theme_system, ThemeUtil.DEFAULT_MODE), null,
+                    getString(R.string.str_theme_light), view -> setTheme(getActivity(), R.string.str_theme_light, ThemeUtil.LIGHT_MODE), null,
+                    getString(R.string.str_theme_dark), view -> setTheme(getActivity(), R.string.str_theme_dark, ThemeUtil.DARK_MODE), null);
 
         } else if (v.equals(mBtnLanguage)) {
             FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_theme_system), view -> {
-                        languageSet = LanguageUtil.DEFAULT_MODE;
-                        LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
-                        mTvLanguage.setText(R.string.str_theme_system);
-                        LanguageUtil.modSave(getBaseActivity(), languageSet);
-                        getMainActivity().refresh();
-                    }, null,
-                    getString(R.string.str_language_english), view -> {
-                        languageSet = LanguageUtil.LANGUAGE_ENGLISH;
-                        LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
-                        mTvLanguage.setText(R.string.str_language_english);
-                        LanguageUtil.modSave(getBaseActivity(), languageSet);
-                        getMainActivity().refresh();
-                    }, null,
-                    getString(R.string.str_language_korean), view -> {
-                        languageSet = LanguageUtil.LANGUAGE_KOREAN;
-                        LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
-                        mTvLanguage.setText(R.string.str_language_korean);
-                        LanguageUtil.modSave(getBaseActivity(), languageSet);
-                        getMainActivity().refresh();
-                    }, null);
+                    getString(R.string.str_theme_system), view -> setLanguage(getActivity(), R.string.str_theme_system, LanguageUtil.SYSTEM_MODE), null,
+                    getString(R.string.str_language_english), view -> setLanguage(getActivity(), R.string.str_language_english, LanguageUtil.LANGUAGE_ENGLISH), null,
+                    getString(R.string.str_language_korean), view -> setLanguage(getActivity(), R.string.str_language_korean, LanguageUtil.LANGUAGE_KOREAN), null);
 
         } else if (v.equals(mSwitchUsingAppLock)) {
             onClickAppLock();
@@ -501,4 +468,18 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(wcIntent);
         }
     });
+
+    private void setTheme(Context context, int themeSetMod, String themeColor) {
+        mTvTheme.setText(themeSetMod);
+        ThemeUtil.applyTheme(themeColor);
+        ThemeUtil.modSave(context, themeColor);
+    }
+
+    private void setLanguage(Context context, int languageSetMod, String languageSet) {
+        mTvLanguage.setText(languageSetMod);
+        LanguageUtil.setLanguageCode(context, languageSet);
+        LanguageUtil.modSave(context, languageSet);
+        Intent intent = new Intent(context, MainActivity.class);
+        startActivity(intent);
+    }
 }
