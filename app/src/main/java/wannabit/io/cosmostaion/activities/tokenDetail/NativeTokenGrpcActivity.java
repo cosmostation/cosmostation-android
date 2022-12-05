@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -27,20 +26,19 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
-import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
 public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
     private ImageView mToolbarSymbolImg;
-    private TextView mToolbarSymbol, mToolbarChannel;
+    private TextView mToolbarSymbol;
     private TextView mItemPerPrice;
     private TextView mItemUpDownPrice;
 
@@ -66,7 +64,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         mToolbar = findViewById(R.id.tool_bar);
         mToolbarSymbolImg = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol = findViewById(R.id.toolbar_symbol);
-        mToolbarChannel = findViewById(R.id.toolbar_channel);
         mItemPerPrice = findViewById(R.id.per_price);
         mItemUpDownPrice = findViewById(R.id.dash_price_updown_tx);
 
@@ -85,18 +82,12 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mChainConfig = ChainFactory.getChain(mBaseChain);
+        mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain));
         mNativeGrpcDenom = getIntent().getStringExtra("denom");
-        mToolbarChannel.setVisibility(View.GONE);
 
-        if (mBaseChain.equals(KAVA_MAIN)) {
-            if (getBaseDao().onParseRemainVestingsByDenom(mNativeGrpcDenom).size() > 0) {
-                mHasVesting = true;
-            }
-            if (WUtil.isBep3Coin(mNativeGrpcDenom)) {
-                mBtnBep3Send.setVisibility(View.VISIBLE);
-            }
+        if (mChainConfig.baseChain().equals(KAVA_MAIN)) {
+            if (getBaseDao().onParseRemainVestingsByDenom(mNativeGrpcDenom).size() > 0) mHasVesting = true;
+            if (WUtil.isBep3Coin(mNativeGrpcDenom)) mBtnBep3Send.setVisibility(View.VISIBLE);
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -127,45 +118,18 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         BigDecimal totalAmount = getBaseDao().getAvailable(mNativeGrpcDenom).add(getBaseDao().getVesting(mNativeGrpcDenom));
         int decimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mNativeGrpcDenom);
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbolImg);
-        WDp.setDpSymbol(NativeTokenGrpcActivity.this, getBaseDao(), mChainConfig, mNativeGrpcDenom, mToolbarSymbol);
+        mToolbarSymbol.setText(WDp.getDpSymbol(getBaseDao(), mChainConfig, mNativeGrpcDenom));
 
         final Asset asset = getBaseDao().getAsset(mChainConfig, mNativeGrpcDenom);
-        if (asset.price_denom != null) {
-            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
-            valueChangeStatus(this, getBaseDao(), asset.price_denom, mItemUpDownPrice);
-            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, totalAmount, decimal));
-        } else {
-            mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), mNativeGrpcDenom));
-            valueChangeStatus(this, getBaseDao(), mNativeGrpcDenom, mItemUpDownPrice);
-            mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), mNativeGrpcDenom, totalAmount, decimal));
-        }
+        mItemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
+        WDp.valueChangeStatus(this, getBaseDao(), asset.coinGeckoId, mItemUpDownPrice);
+        mTotalValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, totalAmount, decimal));
 
         mBtnAddressPopup.setCardBackgroundColor(ContextCompat.getColor(NativeTokenGrpcActivity.this, mChainConfig.chainBgColor()));
         mAddress.setText(mAccount.address);
         setEthAddress(mChainConfig, mEthAddress);
         setAccountKeyStatus(this, mAccount, mChainConfig, mKeyState);
         mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-    private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
-        BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
-        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
-            if (baseData.getPriceColorOption() == 1) {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
-            } else {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
-            }
-            changeTxt.setText(lastUpDown + "%");
-        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
-            if (baseData.getPriceColorOption() == 1) {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
-            } else {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
-            }
-            changeTxt.setText("+" + lastUpDown + "%");
-        } else {
-            changeTxt.setText("");
-        }
     }
 
     @Override
@@ -190,7 +154,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         } else if (v.equals(mBtnBep3Send)) {
             onStartHTLCSendActivity(mNativeGrpcDenom);
         }
-
     }
 
     private class NativeTokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -201,36 +164,33 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_NATIVE) {
-                return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
-            } else if (viewType == TYPE_VESTING) {
+                return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
+            } else {
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
             }
-            return null;
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_NATIVE) {
-                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
+                TokenDetailHolder holder = (TokenDetailHolder) viewHolder;
                 holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mChainConfig, getBaseDao(), mNativeGrpcDenom);
 
             } else if (getItemViewType(position) == TYPE_VESTING) {
                 VestingHolder holder = (VestingHolder) viewHolder;
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mNativeGrpcDenom);
+                holder.onBindTokenHolder(getBaseContext(), mChainConfig.baseChain(), getBaseDao(), mNativeGrpcDenom);
             }
         }
 
         @Override
         public int getItemCount() {
-            if (mHasVesting) {
-                return 2;
-            }
-            return 1;
+            if (mHasVesting) return 2;
+            else return 1;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(KAVA_MAIN)) {
+            if (mChainConfig.baseChain().equals(KAVA_MAIN)) {
                 if (mNativeGrpcDenom.equalsIgnoreCase(Kava.KAVA_HARD_DENOM) || mNativeGrpcDenom.equalsIgnoreCase(Kava.KAVA_SWP_DENOM)) {
                     if (mHasVesting) {
                         if (position == 0) return TYPE_NATIVE;

@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.RESOURCE_BASE_URL;
 
 import com.google.common.collect.ImmutableList;
 
@@ -11,6 +10,7 @@ import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Binance extends ChainConfig {
 
@@ -57,8 +57,7 @@ public class Binance extends ChainConfig {
     public String coinFullName(String denom) { return "Binance Chain Native Coin"; }
 
 
-    public static String BINANCE_COIN_IMG_URL = RESOURCE_BASE_URL + "coin_image/binance/";
-
-
     public static String BNB_MAIN_DENOM = "BNB";
+    public static String BNB_GECKO_ID = "binancecoin";
+    public static String BINANCE_COIN_IMG_URL = BaseConstant.CHAIN_BASE_URL + "bnb-beacon-chain/asset/";
 }

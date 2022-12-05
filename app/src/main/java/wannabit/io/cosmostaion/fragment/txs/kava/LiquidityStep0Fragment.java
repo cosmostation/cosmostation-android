@@ -117,7 +117,7 @@ public class LiquidityStep0Fragment extends BaseFragment implements View.OnClick
             final LiquidityValidatorHolder holder = (LiquidityValidatorHolder) viewHolder;
             final ChainConfig chainConfig = ChainFactory.getChain(mBaseChain);
             try {
-                Picasso.get().load(chainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.mAvatar);
+                Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.mAvatar);
             } catch (Exception e) { }
             holder.mMoniker.setText(validator.getDescription().getMoniker());
 
@@ -150,7 +150,7 @@ public class LiquidityStep0Fragment extends BaseFragment implements View.OnClick
             String valOpAddress = mKavaEarnDeposit.denom.replace("bkava-", "");
             Staking.Validator validator = getBaseDao().mGRpcAllValidators.stream().filter(item -> item.getOperatorAddress().equalsIgnoreCase(valOpAddress)).findFirst().get();
             try {
-                Picasso.get().load(chainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.mAvatar);
+                Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.mAvatar);
             } catch (Exception e) { }
             holder.mMoniker.setText(validator.getDescription().getMoniker());
 

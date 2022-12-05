@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -41,7 +40,6 @@ public class Secret extends ChainConfig {
     public String apiUrl() { return "https://api-secret.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "secret/"; }
-    public String monikerUrl() { return MONIKER_URL + "secret/"; }
     public String homeInfoLink() { return  "https://scrt.network"; }
     public String blogInfoLink() { return  "https://blog.scrt.network"; }
     public String coingeckoLink() { return  COINGECKO_URL + "secret"; }

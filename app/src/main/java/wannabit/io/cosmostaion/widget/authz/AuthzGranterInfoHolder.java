@@ -81,7 +81,7 @@ public class AuthzGranterInfoHolder extends RecyclerView.ViewHolder {
         }
 
         mGranterTotalAmount.setText(WDp.getDpAmount2(totalAmount, divideDecimal, 6));
-        mGranterTotalValue.setText(WDp.dpAssetValue(baseData, stakingDenom, totalAmount, divideDecimal));
+        mGranterTotalValue.setText(WDp.dpAssetValue(baseData, WDp.getGeckoId(baseData, chainConfig), totalAmount, divideDecimal));
 
         mBtnExploer.setOnClickListener(view -> {
             String url = chainConfig.explorerAccountLink() + granter;

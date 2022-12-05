@@ -182,7 +182,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
             WDp.setDpSymbol(AccountListActivity.this, getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
             holder.accountAddress.setText(account.address);
-            holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), baseChain));
+            holder.accountAvailable.setText(account.getLastTotal(baseChain));
             setAccountKeyStatus(AccountListActivity.this, account, chainConfig, holder.accountKeyState);
 
             if (TextUtils.isEmpty(account.nickName))

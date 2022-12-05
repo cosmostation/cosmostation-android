@@ -24,11 +24,13 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
-public class TokenDetailSupportHolder extends BaseHolder {
-    private TextView            mTvTotal;
-    private TextView            mTvAvailable;
-    private RelativeLayout      mVestingLayout;
-    private TextView            mTvVesting;
+public class TokenDetailHolder extends BaseHolder {
+    private CardView            mCardRoot;
+    private RelativeLayout      mVestingLayer;
+
+    private TextView            mTotalAmount, mAvailableAmount;
+    private TextView            mVestingAmount;
+    private TextView            mDelegatedAmount, mUnbondingAmount, mRewardAmount;
 
     // nft
     private CardView            mNftInfo;
@@ -41,15 +43,16 @@ public class TokenDetailSupportHolder extends BaseHolder {
     private CardView            mNftRawRoot;
     private TextView            mNftRawData;
 
-    private int                 dpDecimal = 6;
-    private BigDecimal          mAvailableAmount = BigDecimal.ZERO;
-
-    public TokenDetailSupportHolder(@NonNull View itemView) {
+    public TokenDetailHolder(@NonNull View itemView) {
         super(itemView);
-        mTvTotal            = itemView.findViewById(R.id.total_amount);
-        mTvAvailable        = itemView.findViewById(R.id.available_amount);
-        mVestingLayout      = itemView.findViewById(R.id.vesting_layout);
-        mTvVesting          = itemView.findViewById(R.id.vesrting_amount);
+        mCardRoot           = itemView.findViewById(R.id.card_root);
+        mTotalAmount        = itemView.findViewById(R.id.total_amount);
+        mAvailableAmount    = itemView.findViewById(R.id.available_amount);
+        mVestingAmount      = itemView.findViewById(R.id.vesting_amount);
+        mDelegatedAmount    = itemView.findViewById(R.id.delegated_amount);
+        mUnbondingAmount    = itemView.findViewById(R.id.unbonding_amount);
+        mRewardAmount       = itemView.findViewById(R.id.reward_amount);
+        mVestingLayer       = itemView.findViewById(R.id.vesting_layer);
 
         mNftInfo            = itemView.findViewById(R.id.nft_card_root);
         mNftName            = itemView.findViewById(R.id.nft_name);
@@ -62,20 +65,40 @@ public class TokenDetailSupportHolder extends BaseHolder {
         mNftRawData         = itemView.findViewById(R.id.nft_raw_data);
     }
 
+    @Override
+    public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
+        final int stakingDivideDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(chain), denom);
+        final int stakingDisplayDecimal = WDp.mainDisplayDecimal(chain);
+        final BigDecimal totalToken = baseData.getAllMainAsset(denom);
+
+        mTotalAmount.setText(WDp.getDpAmount2(totalToken, stakingDivideDecimal, stakingDisplayDecimal));
+        mAvailableAmount.setText(WDp.getDpAmount2(baseData.getAvailable(denom), stakingDivideDecimal, stakingDisplayDecimal));
+        mDelegatedAmount.setText(WDp.getDpAmount2(baseData.getDelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
+        mUnbondingAmount.setText(WDp.getDpAmount2(baseData.getUndelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
+        mRewardAmount.setText(WDp.getDpAmount2(baseData.getRewardSum(denom), stakingDivideDecimal, stakingDisplayDecimal));
+
+        final BigDecimal vestingAmount = baseData.getVesting(denom);
+        if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
+            mVestingLayer.setVisibility(View.VISIBLE);
+            mVestingAmount.setText(WDp.getDpAmount2(vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
+        }
+        mCardRoot.setCardBackgroundColor(ContextCompat.getColor(c, ChainFactory.getChain(chain).chainBgColor()));
+    }
+
     public void onBindNativeTokengRPC(Context c, ChainConfig chainConfig, BaseData baseData, String denom) {
-        dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
-        mAvailableAmount = baseData.getAvailable(denom);
-        mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+        final int decimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
+        final BigDecimal availableAmount = baseData.getAvailable(denom);
+        mAvailableAmount.setText(WDp.getDpAmount2(availableAmount, decimal, decimal));
 
         if (chainConfig.baseChain().equals(BaseChain.KAVA_MAIN)) {
             BigDecimal vestingAmount = baseData.getVesting(denom);
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
+            mTotalAmount.setText(WDp.getDpAmount2(availableAmount.add(vestingAmount), decimal, decimal));
             if (vestingAmount.compareTo(BigDecimal.ZERO) > 0){
-                mVestingLayout.setVisibility(View.VISIBLE);
-                mTvVesting.setText(WDp.getDpAmount2(c, vestingAmount, dpDecimal, dpDecimal));
+                mVestingLayer.setVisibility(View.VISIBLE);
+                mVestingAmount.setText(WDp.getDpAmount2(c, vestingAmount, decimal, decimal));
             }
         } else {
-            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+            mTotalAmount.setText(WDp.getDpAmount2(availableAmount, decimal, decimal));
         }
     }
 

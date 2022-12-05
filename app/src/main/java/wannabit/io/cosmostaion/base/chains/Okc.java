@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.RESOURCE_BASE_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -14,6 +12,7 @@ import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Okc extends ChainConfig {
 
@@ -46,7 +45,6 @@ public class Okc extends ChainConfig {
     public String apiUrl() { return ""; }
 
     public String explorerUrl() { return "https://www.oklink.com/okexchain/"; }
-    public String monikerUrl() { return MONIKER_URL + "okex/"; }
     public String homeInfoLink() { return  "https://www.okx.com"; }
     public String blogInfoLink() { return  "https://www.okx.com/academy/en/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "okc-token"; }
@@ -77,5 +75,6 @@ public class Okc extends ChainConfig {
 
 
     public static String OKC_MAIN_DENOM = "okt";
-    public static String OKC_COIN_IMG_URL = RESOURCE_BASE_URL + "coin_image/okex/";
+    public static String OKC_GECKO_ID = "oec-token";
+    public static String OKC_COIN_IMG_URL = BaseConstant.CHAIN_BASE_URL + "okc/asset/";
 }

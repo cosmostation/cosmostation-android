@@ -46,7 +46,7 @@ public class AllValidatorHolder extends RecyclerView.ViewHolder {
         itemTvVotingPower.setText(WDp.getDpAmount2(itemView.getContext(), new BigDecimal(otherValidator.getTokens()), dpDecimal, 6));
         itemTvCommission.setText(WDp.getDpEstAprCommission(baseData, chainConfig.baseChain(), new BigDecimal(otherValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
         try {
-            Picasso.get().load(chainConfig.monikerUrl() + otherValidator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(itemAvatar);
+            Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, otherValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(itemAvatar);
         } catch (Exception e) { }
 
         itemTvMoniker.setText(otherValidator.getDescription().getMoniker());

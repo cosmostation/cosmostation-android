@@ -20,23 +20,26 @@ public class Asset implements Parcelable {
     @SerializedName("type")
     public String type;
 
-    @SerializedName("base_denom")
-    public String base_denom;
-
-    @SerializedName("base_type")
-    public String base_type;
-
-    @SerializedName("dp_denom")
-    public String dp_denom;
-
     @SerializedName("origin_chain")
     public String origin_chain;
 
-    @SerializedName("decimal")
-    public int decimal;
+    @SerializedName("origin_denom")
+    public String origin_denom;
+
+    @SerializedName("origin_type")
+    public String origin_type;
+
+    @SerializedName("symbol")
+    public String symbol;
+
+    @SerializedName("decimals")
+    public int decimals;
 
     @SerializedName("description")
     public String description;
+
+    @SerializedName("enable")
+    public boolean enable;
 
     @SerializedName("path")
     public String path;
@@ -56,9 +59,6 @@ public class Asset implements Parcelable {
     @SerializedName("coinGeckoId")
     public String coinGeckoId;
 
-    @SerializedName("price_denom")
-    public String price_denom;
-
     @SerializedName("contract")
     public String contract;
 
@@ -66,18 +66,18 @@ public class Asset implements Parcelable {
         chain = in.readString();
         denom = in.readString();
         type = in.readString();
-        base_denom = in.readString();
-        base_type = in.readString();
-        dp_denom = in.readString();
         origin_chain = in.readString();
-        decimal = in.readInt();
+        origin_denom = in.readString();
+        origin_type = in.readString();
+        symbol = in.readString();
+        decimals = in.readInt();
         description = in.readString();
+        enable = in.readByte() != 0;
         path = in.readString();
         channel = in.readString();
         port = in.readString();
         image = in.readString();
         coinGeckoId = in.readString();
-        price_denom = in.readString();
         contract = in.readString();
     }
 
@@ -99,25 +99,24 @@ public class Asset implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(chain);
-        parcel.writeString(denom);
-        parcel.writeString(type);
-        parcel.writeString(base_denom);
-        parcel.writeString(base_type);
-        parcel.writeString(dp_denom);
-        parcel.writeString(origin_chain);
-        parcel.writeInt(decimal);
-        parcel.writeString(description);
-        parcel.writeString(path);
-        parcel.writeString(channel);
-        parcel.writeString(port);
-        parcel.writeString(image);
-        parcel.writeString(coinGeckoId);
-        parcel.writeString(price_denom);
-        parcel.writeString(contract);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(chain);
+        dest.writeString(denom);
+        dest.writeString(type);
+        dest.writeString(origin_chain);
+        dest.writeString(origin_denom);
+        dest.writeString(origin_type);
+        dest.writeString(symbol);
+        dest.writeInt(decimals);
+        dest.writeString(description);
+        dest.writeByte((byte) (enable ? 1 : 0));
+        dest.writeString(path);
+        dest.writeString(channel);
+        dest.writeString(port);
+        dest.writeString(image);
+        dest.writeString(coinGeckoId);
+        dest.writeString(contract);
     }
-
 
     public class CounterParty {
         @SerializedName("channel")

@@ -50,7 +50,7 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
         if (chainConfig == null) return;
         int dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
         try {
-            Picasso.get().load(chainConfig.monikerUrl() + myValidator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(itemAvatar);
+            Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, myValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(itemAvatar);
         } catch (Exception e) { }
         itemTvMoniker.setText(myValidator.getDescription().getMoniker());
         itemRoot.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), chainConfig.chainBgColor()));

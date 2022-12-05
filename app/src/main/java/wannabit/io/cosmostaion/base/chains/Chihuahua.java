@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -33,7 +32,6 @@ public class Chihuahua extends ChainConfig {
     public String apiUrl() { return "https://api-chihuahua.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "chihuahua/"; }
-    public String monikerUrl() { return MONIKER_URL + "chihuahua/"; }
     public String homeInfoLink() { return  "https://chi.huahua.wtf"; }
     public String blogInfoLink() { return  "https://chihuahuachain.medium.com/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "chihuahua-chain"; }

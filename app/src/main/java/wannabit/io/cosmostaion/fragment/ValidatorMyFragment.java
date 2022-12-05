@@ -159,9 +159,8 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 final BigDecimal undelegationAmount = getBaseDao().getUndelegation(validator.getOperatorAddress());
                 final BigDecimal rewardAmount = getBaseDao().getReward(mChainConfig.mainDenom(), validator.getOperatorAddress());
                 try {
-                    Picasso.get().load(mChainConfig.monikerUrl() + validator.getOperatorAddress() + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e) {
-                }
+                    Picasso.get().load(WDp.getMonikerImgUrl(mChainConfig, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                } catch (Exception e) { }
 
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                 holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));

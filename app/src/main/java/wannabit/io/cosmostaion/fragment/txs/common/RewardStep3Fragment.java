@@ -27,7 +27,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     private LinearLayout mTvGoalLayer;
     private TextView mTvGoalAddress, mMemo;
     private LinearLayout mExpectedLayer;
-    private TextView mExpectedAmount, mExpectedPrice;
+    private TextView mExpectedAmount;
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mRewardDenom, mFeeDenom, mResultDenom;
 
@@ -51,7 +51,6 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         mMemo = rootView.findViewById(R.id.memo);
         mExpectedLayer = rootView.findViewById(R.id.expected_Layer);
         mExpectedAmount = rootView.findViewById(R.id.expected_amount);
-        mExpectedPrice = rootView.findViewById(R.id.expected_price);
         mRewardDenom = rootView.findViewById(R.id.reward_denom);
         mFeeDenom = rootView.findViewById(R.id.reward_fees_type);
         mResultDenom = rootView.findViewById(R.id.expected_denom);
@@ -85,7 +84,6 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 expectedAmount = availableAmount.add(rewardSum);
             }
             WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), expectedAmount.toPlainString(), mResultDenom, mExpectedAmount);
-            mExpectedPrice.setText(WDp.dpAssetValue(getBaseDao(), getSActivity().mChainConfig.mainDenom(), expectedAmount, WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom())));
 
         } else {
             mTvGoalLayer.setVisibility(View.VISIBLE);
