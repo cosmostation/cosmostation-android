@@ -125,7 +125,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemTotalCount = recyclerView.getAdapter().getItemCount() - 1;
                 if (lastVisibleItemPosition == itemTotalCount && !mBaseChain.equals(BNB_MAIN) && !mBaseChain.equals(OKEX_MAIN)) {
-                    if (!mApiNewTxCustomHistory.isEmpty() && mApiNewTxCustomHistory.size() >= 20) {
+                    if (!mApiNewTxCustomHistory.isEmpty() && mApiNewTxCustomHistory.size() >= 30) {
                         mId = mApiNewTxCustomHistory.get(mApiNewTxCustomHistory.size() - 1).header.id;
                         onFetchHistory();
                     }
