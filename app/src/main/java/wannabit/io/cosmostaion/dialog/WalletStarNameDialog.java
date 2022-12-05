@@ -82,7 +82,7 @@ public class WalletStarNameDialog extends DialogFragment {
             final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
             holder.accountAddress.setText(account.address);
-            holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
+            holder.accountAvailable.setText(account.getLastTotal(baseChain));
 
             holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
             if (account.hasPrivateKey) {

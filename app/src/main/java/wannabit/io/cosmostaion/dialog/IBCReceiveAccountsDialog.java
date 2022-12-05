@@ -91,7 +91,7 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
                 holder.accountKeyState.setColorFilter(null);
             }
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
-            holder.accountAvailable.setText(account.getLastTotal(getSActivity(), baseChain));
+            holder.accountAvailable.setText(account.getLastTotal(baseChain));
             holder.rootLayer.setOnClickListener(v -> {
                 Bundle result = new Bundle();
                 result.putInt(BaseConstant.POSITION, position);
