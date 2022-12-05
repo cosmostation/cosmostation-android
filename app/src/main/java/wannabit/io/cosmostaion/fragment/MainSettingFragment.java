@@ -265,16 +265,16 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), WatchingWalletAddActivity.class));
 
         } else if (v.equals(mBtnTheme)) {
-            FilledVerticalButtonAlertDialog.showTripleButton(getActivity(), null, null,
-                    getString(R.string.str_theme_system), view -> setTheme(getActivity(), R.string.str_theme_system, ThemeUtil.DEFAULT_MODE), null,
-                    getString(R.string.str_theme_light), view -> setTheme(getActivity(), R.string.str_theme_light, ThemeUtil.LIGHT_MODE), null,
-                    getString(R.string.str_theme_dark), view -> setTheme(getActivity(), R.string.str_theme_dark, ThemeUtil.DARK_MODE), null);
+            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
+                    getString(R.string.str_theme_system), view -> setTheme(getBaseActivity(), R.string.str_theme_system, ThemeUtil.DEFAULT_MODE), null,
+                    getString(R.string.str_theme_light), view -> setTheme(getBaseActivity(), R.string.str_theme_light, ThemeUtil.LIGHT_MODE), null,
+                    getString(R.string.str_theme_dark), view -> setTheme(getBaseActivity(), R.string.str_theme_dark, ThemeUtil.DARK_MODE), null);
 
         } else if (v.equals(mBtnLanguage)) {
             FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_theme_system), view -> setLanguage(getActivity(), R.string.str_theme_system, LanguageUtil.SYSTEM_MODE), null,
-                    getString(R.string.str_language_english), view -> setLanguage(getActivity(), R.string.str_language_english, LanguageUtil.LANGUAGE_ENGLISH), null,
-                    getString(R.string.str_language_korean), view -> setLanguage(getActivity(), R.string.str_language_korean, LanguageUtil.LANGUAGE_KOREAN), null);
+                    getString(R.string.str_theme_system), view -> setLanguage(getBaseActivity(), R.string.str_theme_system, LanguageUtil.SYSTEM_MODE), null,
+                    getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), R.string.str_language_english, LanguageUtil.LANGUAGE_ENGLISH), null,
+                    getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), R.string.str_language_korean, LanguageUtil.LANGUAGE_KOREAN), null);
 
         } else if (v.equals(mSwitchUsingAppLock)) {
             onClickAppLock();
