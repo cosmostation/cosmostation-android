@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.google.android.gms.common.util.CollectionUtils;
 import com.google.common.collect.Sets;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
@@ -121,7 +122,10 @@ public class BaseData {
     public ArrayList<MintscanToken> mMintscanMyTokens = new ArrayList<>();
 
     public Price getPrice(String coinGeckoId) {
-        Optional<Price> prices = mPrices.stream().filter(item -> item.coinGeckoId.equalsIgnoreCase(coinGeckoId)).findFirst();
+        if (CollectionUtils.isEmpty(mPrices)) {
+            return null;
+        }
+        Optional<Price> prices = mPrices.stream().filter(item -> coinGeckoId.equalsIgnoreCase(item.coinGeckoId)).findFirst();
         if (prices.isPresent()) return prices.get();
         else return null;
     }
