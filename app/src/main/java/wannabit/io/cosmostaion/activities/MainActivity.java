@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -90,6 +92,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mTabLayer.setupWithViewPager(mContentsPager);
         mTabLayer.setTabRippleColor(null);
 
+        createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
+        createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
+        createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
+        createDappTab(R.string.str_main_dapp, 3);
+        createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
+
         mContentsPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -152,13 +160,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         super.onResume();
         onAccountSwitched();
         onChainSelect(mBaseChain);
-        mPageAdapter.notifyDataSetChanged();
-
-        createTab(R.drawable.wallet_ic, R.string.str_main_wallet, 0);
-        createTab(R.drawable.tokens_ic, R.string.str_main_tokens, 1);
-        createTab(R.drawable.ts_ic, R.string.str_main_history, 2);
-        createDappTab(R.string.str_main_dapp, 3);
-        createTab(R.drawable.setting_ic, R.string.str_main_set, 4);
     }
 
     public void onAccountSwitched() {
@@ -316,11 +317,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 mCurrentFragment = ((BaseFragment) object);
             }
             super.setPrimaryItem(container, position, object);
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
         }
 
         public BaseFragment getCurrentFragment() {

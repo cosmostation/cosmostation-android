@@ -73,9 +73,7 @@ import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency,
-            mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc,
-            mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
 
     private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme, mTvLanguage;
 
@@ -92,13 +90,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        themeColor = ThemeUtil.modLoad(getBaseActivity());
-        ThemeUtil.applyTheme(themeColor);
-
-        languageSet = LanguageUtil.modLoad(getBaseActivity());
-        LanguageUtil.setLanguageCode(getBaseActivity(), languageSet);
-
     }
 
     @Override
@@ -265,16 +256,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), WatchingWalletAddActivity.class));
 
         } else if (v.equals(mBtnTheme)) {
-            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_theme_system), view -> setTheme(getBaseActivity(), R.string.str_theme_system, ThemeUtil.DEFAULT_MODE), null,
-                    getString(R.string.str_theme_light), view -> setTheme(getBaseActivity(), R.string.str_theme_light, ThemeUtil.LIGHT_MODE), null,
-                    getString(R.string.str_theme_dark), view -> setTheme(getBaseActivity(), R.string.str_theme_dark, ThemeUtil.DARK_MODE), null);
+            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null, getString(R.string.str_theme_system), view -> setTheme(getBaseActivity(), ThemeUtil.DEFAULT_MODE), null, getString(R.string.str_theme_light), view -> setTheme(getBaseActivity(), ThemeUtil.LIGHT_MODE), null, getString(R.string.str_theme_dark), view -> setTheme(getBaseActivity(), ThemeUtil.DARK_MODE), null);
 
         } else if (v.equals(mBtnLanguage)) {
-            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_theme_system), view -> setLanguage(getBaseActivity(), R.string.str_theme_system, LanguageUtil.SYSTEM_MODE), null,
-                    getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), R.string.str_language_english, LanguageUtil.LANGUAGE_ENGLISH), null,
-                    getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), R.string.str_language_korean, LanguageUtil.LANGUAGE_KOREAN), null);
+            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null, getString(R.string.str_theme_system), view -> setLanguage(getBaseActivity(), LanguageUtil.SYSTEM_MODE), null, getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_ENGLISH), null, getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_KOREAN), null);
 
         } else if (v.equals(mSwitchUsingAppLock)) {
             onClickAppLock();
@@ -346,25 +331,20 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnStarnameWc)) {
-            CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg),
-                    getString(R.string.str_cancel), null,
-                    getString(R.string.str_continue), view -> new TedPermission(getMainActivity()).setPermissionListener(new PermissionListener() {
-                                @Override
-                                public void onPermissionGranted() {
-                                    IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
-                                    integrator.setOrientationLocked(true);
-                                    integrator.setCaptureActivity(QRcodeActivity.class);
-                                    wcQrcodeResultLauncher.launch(integrator.createScanIntent());
-                                }
+            CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg), getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> new TedPermission(getMainActivity()).setPermissionListener(new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
+                    integrator.setOrientationLocked(true);
+                    integrator.setCaptureActivity(QRcodeActivity.class);
+                    wcQrcodeResultLauncher.launch(integrator.createScanIntent());
+                }
 
-                                @Override
-                                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                                    Toast.makeText(getContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            .setRationaleMessage(getString(R.string.str_permission_qr))
-                            .check());
+                @Override
+                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    Toast.makeText(getContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                }
+            }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(getString(R.string.str_permission_qr)).check());
         }
     }
 
@@ -426,11 +406,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onShowAutoPassDialog() {
-        FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg),
-                getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null,
-                getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null,
-                getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null,
-                getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
+        FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg), getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null, getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null, getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null, getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
     }
 
     private void onSetAutoPass(int value) {
@@ -469,17 +445,14 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         }
     });
 
-    private void setTheme(Context context, int themeSetMod, String themeColor) {
-        mTvTheme.setText(themeSetMod);
+    private void setTheme(Context context, String themeColor) {
         ThemeUtil.applyTheme(themeColor);
         ThemeUtil.modSave(context, themeColor);
     }
 
-    private void setLanguage(Context context, int languageSetMod, String languageSet) {
-        mTvLanguage.setText(languageSetMod);
+    private void setLanguage(Context context, String languageSet) {
         LanguageUtil.setLanguageCode(context, languageSet);
         LanguageUtil.modSave(context, languageSet);
-        Intent intent = new Intent(context, MainActivity.class);
-        startActivity(intent);
+        getMainActivity().recreate();
     }
 }
