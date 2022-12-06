@@ -33,7 +33,7 @@ public class Umee extends ChainConfig {
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "umee/"; }
     public String homeInfoLink() { return  "https://www.umee.cc"; }
-    public String blogInfoLink() { return  "https://medium.com/umeeblog"; }
+    public String blogInfoLink() { return  "https://umee.cc/blog/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "umee"; }
 }
 
