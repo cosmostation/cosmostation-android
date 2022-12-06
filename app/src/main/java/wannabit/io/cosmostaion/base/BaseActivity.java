@@ -788,9 +788,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mGrpcStarNameConfig = ((starnamed.x.configuration.v1beta1.Types.Config) result.resultData);
             }
 
-        }
-
-        else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
+        } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mIncentiveRewards = (IncentiveReward) result.resultData;
             }
@@ -939,7 +937,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyWarnNoKey() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowCryptoPay());
+                getString(R.string.str_continue), view -> onShowCryptoPay(), getString(R.string.str_cancel), null);
     }
 
     public void onShowCryptoPay() {
@@ -958,7 +956,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyKado() {
         String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + mChainConfig.chainName() + "&networkList=" + mChainConfig.chainName() + "&onToAddress=" + mAccount.address;
-        if(mChainConfig.baseChain().equals(INJ_MAIN)) {
+        if (mChainConfig.baseChain().equals(INJ_MAIN)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query + "&onRevCurrency=" + "USDT"));
             startActivity(intent);
         } else {
