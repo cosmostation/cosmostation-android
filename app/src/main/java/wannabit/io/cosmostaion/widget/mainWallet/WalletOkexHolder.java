@@ -68,9 +68,7 @@ public class WalletOkexHolder extends BaseHolder {
             if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0)
                 return;
             if (!mainActivity.mAccount.hasPrivateKey) {
-                CommonAlertDialog.showDoubleButton(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>", Html.FROM_HTML_MODE_COMPACT), view -> mainActivity.onAddMnemonicForAccount(),
-                        mainActivity.getString(R.string.str_close), null);
+                mainActivity.onInsertKeyDialog();
                 return;
             }
 
