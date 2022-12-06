@@ -63,6 +63,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(path: ':proto')
+    implementation project(":transport-ble")
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
@@ -113,7 +114,6 @@ dependencies {
     implementation files('libs/apache-httpcomponents-httpcore.jar')
     implementation "com.github.cosmostation:wallet-connect-kotlin:1.6.4"
     implementation 'net.i2p.crypto:eddsa:0.3.0'
-
     implementation 'com.google.guava:guava:24.1-jre'
 
     //web3 for ethermint

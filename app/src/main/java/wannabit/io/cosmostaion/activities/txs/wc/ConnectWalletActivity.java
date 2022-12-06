@@ -29,6 +29,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.android.gms.common.util.CollectionUtils;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.common.collect.Lists;
@@ -71,11 +74,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import cosmos.tx.v1beta1.TxOuterClass;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.functions.Function2;
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
@@ -96,6 +103,7 @@ import wannabit.io.cosmostaion.model.WcSignModel;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -135,6 +143,8 @@ public class ConnectWalletActivity extends BaseActivity {
     private final Map<String, Account> chainAccountMap = Maps.newHashMap();
     private Boolean isHideToolbar = false;
     private int lastClickPositionY = -1;
+    private byte[] tempPubKey;
+    private String tempAddr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,6 +267,11 @@ public class ConnectWalletActivity extends BaseActivity {
         mBaseChain = BaseChain.getChain(currentAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
         mWcCardView.setCardBackgroundColor(ContextCompat.getColor(this, mChainConfig.chainBgColor()));
+        LedgerManager.Companion.getInstance().isConnect((s, bytes) -> {
+            tempAddr = s;
+            tempPubKey = bytes;
+            return null;
+        });
     }
 
     private void initView() {
@@ -291,7 +306,7 @@ public class ConnectWalletActivity extends BaseActivity {
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
-        
+
         mWebView.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 lastClickPositionY = -1;
@@ -322,24 +337,13 @@ public class ConnectWalletActivity extends BaseActivity {
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme)
-                        .setMessage(message)
-                        .setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm())
-                        .setOnDismissListener((DialogInterface dialog) -> result.confirm())
-                        .create()
-                        .show();
+                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme).setMessage(message).setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm()).setOnDismissListener((DialogInterface dialog) -> result.confirm()).create().show();
                 return true;
             }
 
             @Override
             public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
-                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme)
-                        .setMessage(message)
-                        .setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm())
-                        .setNegativeButton("Cancel", (DialogInterface dialog, int which) -> result.cancel())
-                        .setOnDismissListener((DialogInterface dialog) -> result.cancel())
-                        .create()
-                        .show();
+                new AlertDialog.Builder(view.getContext(), R.style.DialogTheme).setMessage(message).setPositiveButton("OK", (DialogInterface dialog, int which) -> result.confirm()).setNegativeButton("Cancel", (DialogInterface dialog, int which) -> result.cancel()).setOnDismissListener((DialogInterface dialog) -> result.cancel()).create().show();
                 return true;
             }
         });
@@ -412,21 +416,15 @@ public class ConnectWalletActivity extends BaseActivity {
                     processSessionRequest(wcPeerMeta);
                 } else {
                     String finalUrl = url;
-                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this,
-                            getString(R.string.str_wc_connect_alert_title),
-                            Html.fromHtml(String.format("%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>", getString(R.string.str_wc_connect_alert_message), url, getString(R.string.str_wc_connect_alert_guide)), Html.FROM_HTML_MODE_COMPACT),
-                            getString(R.string.str_cancel),
-                            view -> {
-                                mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 1000);
-                                wcClient.rejectSession(getString(R.string.str_cancel));
-                                if (!isFinishing() && !isDapp) finish();
-                                if (isDapp) changeDappConnectStatus(false);
-                            },
-                            getString(R.string.str_ok),
-                            view -> {
-                                WalletConnectManager.addWhiteList(this, finalUrl);
-                                processSessionRequest(wcPeerMeta);
-                            });
+                    CommonAlertDialog.showDoubleButton(ConnectWalletActivity.this, getString(R.string.str_wc_connect_alert_title), Html.fromHtml(String.format("%s<br/><b>%s</b><br/><br/><font color=\"#ff2745\">%s</font>", getString(R.string.str_wc_connect_alert_message), url, getString(R.string.str_wc_connect_alert_guide)), Html.FROM_HTML_MODE_COMPACT), getString(R.string.str_cancel), view -> {
+                        mLoadingLayer.postDelayed(() -> mLoadingLayer.setVisibility(View.GONE), 1000);
+                        wcClient.rejectSession(getString(R.string.str_cancel));
+                        if (!isFinishing() && !isDapp) finish();
+                        if (isDapp) changeDappConnectStatus(false);
+                    }, getString(R.string.str_ok), view -> {
+                        WalletConnectManager.addWhiteList(this, finalUrl);
+                        processSessionRequest(wcPeerMeta);
+                    });
                 }
             });
             return null;
@@ -536,16 +534,7 @@ public class ConnectWalletActivity extends BaseActivity {
 
         Transaction transaction = new Transaction(wcEthereumTransaction.getFrom(), nonce, BigInteger.ZERO, BigInteger.ZERO, wcEthereumTransaction.getTo(), value, wcEthereumTransaction.getData());
         EthEstimateGas limit = web3.ethEstimateGas(transaction).sendAsync().get();
-        RawTransaction rawTransaction = RawTransaction.createTransaction(
-                9001,
-                nonce,
-                limit.getAmountUsed(),
-                wcEthereumTransaction.getTo(),
-                value,
-                wcEthereumTransaction.getData(),
-                BigInteger.valueOf(500000000L),
-                BigInteger.valueOf(27500000000L)
-        );
+        RawTransaction rawTransaction = RawTransaction.createTransaction(9001, nonce, limit.getAmountUsed(), wcEthereumTransaction.getTo(), value, wcEthereumTransaction.getData(), BigInteger.valueOf(500000000L), BigInteger.valueOf(27500000000L));
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
         String hexValue = Numeric.toHexString(signedMessage);
         return web3.ethSendRawTransaction(hexValue).sendAsync().get();
@@ -608,10 +597,21 @@ public class ConnectWalletActivity extends BaseActivity {
 
     public void approveCosmosRequest(long id, String transaction) {
         JsonArray transactionJson = new Gson().fromJson(transaction, JsonArray.class);
-        WcSignModel signModel = new WcSignModel(transactionJson.get(2).getAsJsonObject(), getKey(WDp.getChainTypeByChainId(transactionJson.get(0).getAsString()).getChain()));
-        wcClient.approveRequest(id, Lists.newArrayList(signModel));
-        Toast.makeText(getBaseContext(), getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT).show();
-        moveToBackIfNeed();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+        try {
+            LedgerManager.Companion.getInstance().sign(mapper.writeValueAsString(mapper.readValue(transactionJson.get(2).getAsJsonObject().toString(), TreeMap.class)), s -> {
+                WcSignModel signModel = new WcSignModel(transactionJson.get(2).getAsJsonObject(), s, tempPubKey);
+                wcClient.approveRequest(id, Lists.newArrayList(signModel));
+                runOnUiThread(() -> {
+                    Toast.makeText(getBaseContext(), getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT).show();
+                    moveToBackIfNeed();
+                });
+                return null;
+            });
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     public void approveCosmosSignDirectRequest(long id, String transaction) {
@@ -651,11 +651,7 @@ public class ConnectWalletActivity extends BaseActivity {
 
         if (meta != null) {
             if (!CollectionUtils.isEmpty(meta.getIcons())) {
-                Picasso.get()
-                        .load(meta.getIcons().get(0))
-                        .fit()
-                        .placeholder(R.drawable.validator_none_img)
-                        .into(mWcImg);
+                Picasso.get().load(meta.getIcons().get(0)).fit().placeholder(R.drawable.validator_none_img).into(mWcImg);
             }
             mWcName.setText(meta.getName());
             mWcUrl.setText(meta.getUrl());
@@ -796,24 +792,14 @@ public class ConnectWalletActivity extends BaseActivity {
     }
 
     private WCKeplrWallet toKeplrWallet(Account account) {
-        ECKey key = getKey(account.baseChain);
-        return new WCKeplrWallet(
-                WUtil.getWalletName(this, account),
-                "secp256k1",
-                key.getPubKey(),
-                WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()),
-                account.address,
-                false);
+//        ECKey key = getKey(account.baseChain);
+        return new WCKeplrWallet(WUtil.getWalletName(this, account), "secp256k1", tempPubKey, tempPubKey, account.address, false);
+//        return new WCKeplrWallet(WUtil.getWalletName(this, account), "secp256k1", key.getPubKey(), WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()), account.address, false);
     }
 
     private WCCosmostationAccount toCosmosatationAccount(Account account) {
-        ECKey key = getKey(account.baseChain);
-        return new WCCosmostationAccount(
-                WUtil.getWalletName(this, account),
-                "secp256k1",
-                key.getPubKey(),
-                WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()),
-                account.address);
+//        ECKey key = getKey(account.baseChain);
+        return new WCCosmostationAccount(WUtil.getWalletName(this, account), "secp256k1", tempPubKey, tempPubKey, account.address);
     }
 
     private void onShowSignDialog(Bundle bundle) {

@@ -146,6 +146,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
+import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -229,7 +230,17 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onAddMnemonicForAccount() {
-        startActivity(new Intent(BaseActivity.this, MnemonicRestoreActivity.class));
+        new TedPermission(this).setPermissionListener(new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                LedgerManager.Companion.getInstance().isConnect(null);
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            }
+        }).setPermissions(Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_ADVERTISE).check();
+//        startActivity(new Intent(BaseActivity.this, MnemonicRestoreActivity.class));
     }
 
     public void setAccountKeyStatus(Context c, Account account, ChainConfig chainConfig, ImageView keyState) {
@@ -788,9 +799,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mGrpcStarNameConfig = ((starnamed.x.configuration.v1beta1.Types.Config) result.resultData);
             }
 
-        }
-
-        else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
+        } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mIncentiveRewards = (IncentiveReward) result.resultData;
             }
@@ -958,7 +967,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyKado() {
         String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + mChainConfig.chainName() + "&networkList=" + mChainConfig.chainName() + "&onToAddress=" + mAccount.address;
-        if(mChainConfig.baseChain().equals(INJ_MAIN)) {
+        if (mChainConfig.baseChain().equals(INJ_MAIN)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query + "&onRevCurrency=" + "USDT"));
             startActivity(intent);
         } else {

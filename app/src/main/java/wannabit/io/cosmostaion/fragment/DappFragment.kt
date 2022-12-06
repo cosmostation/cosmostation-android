@@ -62,20 +62,20 @@ class DappFragment : BaseFragment() {
             }
 
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                (activity as? MainActivity)?.let {
-                    if (!it.mAccount.hasPrivateKey) {
-                        CommonAlertDialog.showDoubleButton(
-                            it,
-                            it.getString(R.string.str_only_observe_title),
-                            it.getString(R.string.str_only_observe_msg),
-                            Html.fromHtml("<font color=\"#9C6CFF\">" + it.getString(R.string.str_add_mnemonics) + "</font>", Html.FROM_HTML_MODE_COMPACT),
-                            { view: View? -> it.onAddMnemonicForAccount() },
-                            it.getString(R.string.str_close),
-                            null
-                        )
-                        return true
-                    }
-                }
+//                (activity as? MainActivity)?.let {
+//                    if (!it.mAccount.hasPrivateKey) {
+//                        CommonAlertDialog.showDoubleButton(
+//                            it,
+//                            it.getString(R.string.str_only_observe_title),
+//                            it.getString(R.string.str_only_observe_msg),
+//                            Html.fromHtml("<font color=\"#9C6CFF\">" + it.getString(R.string.str_add_mnemonics) + "</font>", Html.FROM_HTML_MODE_COMPACT),
+//                            { view: View? -> it.onAddMnemonicForAccount() },
+//                            it.getString(R.string.str_close),
+//                            null
+//                        )
+//                        return true
+//                    }
+//                }
 
                 if (url.startsWith("intent:")) {
                     val replacedUrl = if (BuildConfig.DEBUG) {

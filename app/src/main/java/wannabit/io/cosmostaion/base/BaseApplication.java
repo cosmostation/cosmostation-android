@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.base;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -10,19 +11,26 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.firebase.FirebaseApp;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.UUID;
 
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class BaseApplication extends Application {
-
     private BaseData        mBaseData;
     private AppStatus       mAppStatus;
+    private static Application instance;
+
+    public static Context getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         FirebaseApp.initializeApp(this);
         new DeviceUuidFactory(this);
 

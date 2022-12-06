@@ -1188,7 +1188,7 @@ public class BaseData {
         ArrayList<Account> result = new ArrayList<>();
         ArrayList<Account> AllAccount = onSelectAccounts();
         for (Account account : AllAccount) {
-            if (BaseChain.getChain(account.baseChain).equals(chain) && account.hasPrivateKey) {
+            if (BaseChain.getChain(account.baseChain).equals(chain)) {
                 result.add(account);
             }
         }
