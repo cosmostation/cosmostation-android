@@ -54,8 +54,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.Asset;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
@@ -112,7 +112,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mBtnWallet.setOnClickListener(this);
 
         mAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mDenom);
-        mMintscanToken = getBaseDao().getCw20Asset(getSActivity().mDenom);
+        mMintscanToken = getBaseDao().getCw20Asset(getSActivity().mChainConfig, getSActivity().mDenom);
         mToSendableChains.add(getSActivity().mChainConfig);
 
         ArrayList<ChainConfig> allChainConfig = ChainFactory.SUPPRT_CONFIG();
@@ -278,8 +278,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     private void onPathSetting() {
         if (getSActivity().mBaseChain.equals(mToSendChainConfig.baseChain())) {
-            if (mAsset != null) { getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND; }
-            else if (mMintscanToken != null) {
+            if (mMintscanToken == null) getSActivity().mTxType = CONST_PW_TX_SIMPLE_SEND;
+            else {
                 if (mMintscanToken.address.startsWith("0x")) {
                     getSActivity().mTxType = CONST_PW_TX_EVM_TRANSFER;
                 } else {

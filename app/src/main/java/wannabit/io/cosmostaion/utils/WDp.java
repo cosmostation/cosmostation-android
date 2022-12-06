@@ -97,7 +97,7 @@ public class WDp {
             return "UNKNOWN";
         }
         final Asset asset = baseData.getAsset(chainConfig, denom);
-        final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
 
         if (asset != null) {
             return asset.symbol;
@@ -177,7 +177,7 @@ public class WDp {
     public static int getDenomDecimal(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
         final Asset asset = baseData.getAsset(chainConfig, denom);
-        final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
 
         if (asset != null) {
             return asset.decimals;
@@ -237,7 +237,7 @@ public class WDp {
         int displayDecimal = 6;
 
         final Asset asset = baseData.getAsset(chainConfig, denom);
-        final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
         if (asset != null) {
             amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimals, asset.decimals));
 
@@ -354,7 +354,7 @@ public class WDp {
 
     public static AssetPath getAssetPath(BaseData baseData, ChainConfig fromChain, ChainConfig toChain, String denom) {
         Optional<Asset> msAsset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
-        MintscanToken msMintscanToken = baseData.getCw20Asset(denom);
+        MintscanToken msMintscanToken = baseData.getCw20Asset(fromChain, denom);
 
         for (Asset asset : baseData.mAssets) {
             if (msAsset.isPresent()) {
@@ -722,8 +722,14 @@ public class WDp {
                 }
             }
 
-            if (baseData.mMintscanMyTokens.size() > 0) {
-                for (MintscanToken myAsset : baseData.mMintscanMyTokens) {
+            if (baseData.mCw20MyTokens.size() > 0) {
+                for (MintscanToken myAsset : baseData.mCw20MyTokens) {
+                    BigDecimal amount = myAsset.getAmount();
+                    totalValue = totalValue.add(assetValue(baseData, myAsset.coinGeckoId, amount, myAsset.decimals));
+                }
+
+            } else if (baseData.mErc20MyTokens.size() > 0) {
+                for (MintscanToken myAsset : baseData.mErc20MyTokens) {
                     BigDecimal amount = myAsset.getAmount();
                     totalValue = totalValue.add(assetValue(baseData, myAsset.coinGeckoId, amount, myAsset.decimals));
                 }
