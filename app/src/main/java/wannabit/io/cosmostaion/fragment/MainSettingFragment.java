@@ -7,8 +7,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TELEGRAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_EN;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_KR;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
-import static wannabit.io.cosmostaion.utils.LanguageUtil.languageSet;
-import static wannabit.io.cosmostaion.utils.ThemeUtil.themeColor;
 
 import android.Manifest;
 import android.app.Activity;
