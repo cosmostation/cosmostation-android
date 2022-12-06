@@ -285,7 +285,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         startActivity(intent);
     }
 
-    public static class MainViewPageAdapter extends FragmentPagerAdapter {
+    private class MainViewPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;

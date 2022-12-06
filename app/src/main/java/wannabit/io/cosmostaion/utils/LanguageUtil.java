@@ -30,7 +30,6 @@ public class LanguageUtil extends BaseFragment {
         Configuration config = new Configuration();
         config.setLocales(locale);
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
-
     }
 
     public static void modSave(Context context, String selectMod) {
