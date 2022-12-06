@@ -226,7 +226,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return;
                 }
             } else {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
+                if(mResponse != null) {
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
+                } else {
+                    return;
+                }
             }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
@@ -241,7 +245,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return;
                 }
             } else {
-                url = mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash());
+                if(mResponse != null) {
+                    url = mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash());
+                } else {
+                    return;
+                }
             }
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
