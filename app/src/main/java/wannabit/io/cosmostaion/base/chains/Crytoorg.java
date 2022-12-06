@@ -22,7 +22,7 @@ public class Crytoorg extends ChainConfig {
     public int chainColor() { return R.color.color_cryto; }
     public int chainBgColor() { return R.color.colorTransBgCryto; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_cryto; }
-    public String chainName() { return "cryptoorg"; }
+    public String chainName() { return "crypto-org"; }
     public String chainKoreanName() { return "크립토"; }
     public String chainTitle() { return "(Crypto.org)"; }
     public String chainTitleToUp() { return "CRYPTO.ORG"; }

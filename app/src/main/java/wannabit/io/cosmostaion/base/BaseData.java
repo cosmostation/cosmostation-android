@@ -125,9 +125,14 @@ public class BaseData {
         if (CollectionUtils.isEmpty(mPrices)) {
             return null;
         }
-        Optional<Price> prices = mPrices.stream().filter(item -> coinGeckoId.equalsIgnoreCase(item.coinGeckoId)).findFirst();
-        if (prices.isPresent()) return prices.get();
-        else return null;
+        for (Price price : mPrices) {
+            if (price.coinGeckoId != null) {
+                if (price.coinGeckoId.equalsIgnoreCase(coinGeckoId)) {
+                    return price;
+                }
+            }
+        }
+        return null;
     }
 
     public Asset getAsset(ChainConfig chainConfig, String denom) {
