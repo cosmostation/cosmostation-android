@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.task.FetchTask;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -24,16 +23,7 @@ public class MintScanUtilityParamTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            ChainConfig chainConfig = ChainFactory.getChain(mBaseChain);
-            Response<Param> response;
-            if (chainConfig.baseChain().equals(BaseChain.KI_MAIN)) {
-                response = ApiClient.getMintscan(mApp).getParam("ki-chain").execute();
-            } else if (chainConfig.baseChain().equals(BaseChain.CRYPTO_MAIN)) {
-                response = ApiClient.getMintscan(mApp).getParam("crypto-org").execute();
-            } else {
-                response = ApiClient.getMintscan(mApp).getParam(ChainFactory.getChain(mBaseChain).chainName()).execute();
-            }
-
+            Response<Param> response = ApiClient.getMintscan(mApp).getParam(ChainFactory.getChain(mBaseChain).chainName()).execute();
             if (response.isSuccessful() && response.body() != null) {
                 mApp.getBaseDao().mParam = response.body();
             }
