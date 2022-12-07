@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -37,7 +36,6 @@ public class Juno extends ChainConfig{
     public String apiUrl() { return "https://api-juno.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "juno/"; }
-    public String monikerUrl() { return MONIKER_URL + "juno/"; }
     public String homeInfoLink() { return  "https://junochain.com"; }
     public String blogInfoLink() { return  "https://medium.com/@JunoNetwork"; }
     public String coingeckoLink() { return  COINGECKO_URL + "juno-network"; }

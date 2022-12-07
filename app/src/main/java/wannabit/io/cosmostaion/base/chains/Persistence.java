@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -43,7 +42,6 @@ public class Persistence extends ChainConfig {
     public String apiUrl() { return "https://api-persistence.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "persistence/"; }
-    public String monikerUrl() { return MONIKER_URL + "persistence/"; }
     public String homeInfoLink() { return  "https://persistence.one"; }
     public String blogInfoLink() { return  "https://medium.com/persistence-blog"; }
     public String coingeckoLink() { return  COINGECKO_URL + "persistence"; }

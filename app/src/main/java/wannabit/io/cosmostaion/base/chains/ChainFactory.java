@@ -131,6 +131,9 @@ public class ChainFactory {
                 case OMNIFLIX_MAIN:
                     return new Omniflix();
 
+                case ONOMY_MAIN:
+                    return new Onomy();
+
                 case OSMOSIS_MAIN:
                     return new Osmosis();
 

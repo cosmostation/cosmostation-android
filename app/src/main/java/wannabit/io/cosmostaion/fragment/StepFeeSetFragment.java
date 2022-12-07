@@ -498,11 +498,11 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_EXECUTE_CONTRACT) {
-            new SimulCw20SendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mMintscanToken.contract_address, getSActivity().mAmounts,
+            new SimulCw20SendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mMintscanToken.address, getSActivity().mAmounts,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
-            new SimulCw20IbcSendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mMintscanToken.contract_address, getSActivity().mAssetPath, getSActivity().mAmounts,
+            new SimulCw20IbcSendGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mMintscanToken.address, getSActivity().mAssetPath, getSActivity().mAmounts,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_AUTHZ_DELEGATE) {
@@ -587,11 +587,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         int denomDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mFeeData.denom);
         Asset asset = getBaseDao().getAsset(mChainConfig, mFeeData.denom);
         if (asset != null) {
-            if (asset.price_denom != null) {
-                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
-            } else {
-                mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
-            }
+            mGasValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, new BigDecimal(mFee.amount.get(0).amount), denomDecimal));
         }
         mSpeedTxt.setText(mFeeInfo.get(mSelectedFeeInfo).msg);
         getSActivity().onHideWaitDialog();

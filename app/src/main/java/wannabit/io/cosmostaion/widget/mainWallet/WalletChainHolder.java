@@ -91,7 +91,7 @@ public class WalletChainHolder extends BaseHolder {
         mTvChainDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, decimal, 6));
         mTvChainUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, decimal, 6));
         mTvChainRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, decimal, 6));
-        mTvChainValue.setText(WDp.dpAssetValue(baseData, denom, totalAmount, decimal));
+        mTvChainValue.setText(WDp.dpAssetValue(baseData, WDp.getGeckoId(baseData, chainConfig), totalAmount, decimal));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) {
             mChainVestingLayer.setVisibility(View.VISIBLE);
@@ -125,9 +125,7 @@ public class WalletChainHolder extends BaseHolder {
         }
         mBtnWalletConnect.setOnClickListener(v -> {
             if (!mainActivity.mAccount.hasPrivateKey) {
-                CommonAlertDialog.showDoubleButton(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                        mainActivity.getString(R.string.str_close), null,
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>", Html.FROM_HTML_MODE_COMPACT), view -> mainActivity.onAddMnemonicForAccount());
+                mainActivity.onInsertKeyDialog();
                 return;
             } else {
                 new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {

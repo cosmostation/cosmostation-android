@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 
@@ -40,7 +39,6 @@ public class Medibloc extends ChainConfig {
     public String apiUrl() { return "https://api-medibloc.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "medibloc/"; }
-    public String monikerUrl() { return MONIKER_URL + "medibloc/"; }
     public String homeInfoLink() {
         if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
             return "https://medibloc.com";

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
@@ -9,11 +8,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -42,10 +38,9 @@ public class WalletPriceHolder extends BaseHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData data = mainActivity.getBaseDao();
         final ChainConfig chainConfig = ChainFactory.getChain(mainActivity.mBaseChain);
-        final String denom = chainConfig.mainDenom();
 
-        itemPerPrice.setText(WDp.dpPrice(data, denom));
-        valueChangeStatus(mainActivity, data, denom, itemUpDownPrice);
+        itemPerPrice.setText(WDp.dpPrice(data, WDp.getGeckoId(data, chainConfig)));
+        WDp.valueChangeStatus(mainActivity, data, WDp.getGeckoId(data, chainConfig), itemUpDownPrice);
 
         if (chainConfig.moonPaySupport() || chainConfig.kadoMoneySupport()) {
             itemBuyLayer.setVisibility(View.VISIBLE);
@@ -70,26 +65,5 @@ public class WalletPriceHolder extends BaseHolder {
             if (!chainConfig.coingeckoLink().isEmpty())
                 mainActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(chainConfig.coingeckoLink())));
         });
-    }
-
-    private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
-        BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
-        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
-            if (baseData.getPriceColorOption() == 1) {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
-            } else {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
-            }
-            changeTxt.setText(lastUpDown + "%");
-        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
-            if (baseData.getPriceColorOption() == 1) {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
-            } else {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
-            }
-            changeTxt.setText("+" + lastUpDown + "%");
-        } else {
-            changeTxt.setText("");
-        }
     }
 }

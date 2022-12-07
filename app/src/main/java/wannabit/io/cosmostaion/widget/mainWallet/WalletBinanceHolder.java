@@ -57,15 +57,13 @@ public class WalletBinanceHolder extends BaseHolder {
         mTvBnbBalance.setText(WDp.getDpAmount2(availableAmount, 0, 6));
         mTvBnbLocked.setText(WDp.getDpAmount2(lockedAmount, 0, 6));
         mTvBnbFrozen.setText(WDp.getDpAmount2(frozenAmount, 0, 6));
-        mTvBnbValue.setText(WDp.dpAssetValue(baseData, denom, totalAmount, 0));
+        mTvBnbValue.setText(WDp.dpAssetValue(baseData, WDp.getGeckoId(baseData, mainActivity.mChainConfig), totalAmount, 0));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnWalletConnect.setOnClickListener(v -> {
             if (!mainActivity.mAccount.hasPrivateKey) {
-                CommonAlertDialog.showDoubleButton(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                        mainActivity.getString(R.string.str_close), null,
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>", Html.FROM_HTML_MODE_COMPACT), view -> mainActivity.onAddMnemonicForAccount());
+                mainActivity.onInsertKeyDialog();
                 return;
             }
             new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {

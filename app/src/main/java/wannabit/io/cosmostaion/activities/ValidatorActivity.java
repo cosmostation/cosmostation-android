@@ -497,7 +497,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
             }
             try {
-                Picasso.get().load(mChainConfig.monikerUrl() + mValOpAddress + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(WDp.getMonikerImgUrl(mChainConfig, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
             holder.itemBtnDelegate.setOnClickListener(v -> onCheckDelegate());
@@ -553,7 +553,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvYieldRate.setTextColor(ContextCompat.getColor(ValidatorActivity.this, R.color.colorRed));
             }
             try {
-                Picasso.get().load(mChainConfig.monikerUrl() + mValOpAddress + ".png").fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                Picasso.get().load(WDp.getMonikerImgUrl(mChainConfig, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) {
             }
         }

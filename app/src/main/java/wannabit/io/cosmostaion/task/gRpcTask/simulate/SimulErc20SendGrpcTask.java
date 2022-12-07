@@ -17,11 +17,13 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -87,7 +89,7 @@ public class SimulErc20SendGrpcTask extends CommonTask {
                         chainID,
                         nonce,
                         BigInteger.valueOf(900000L),
-                        mMintscanToken.contract_address,
+                        mMintscanToken.address,
                         BigInteger.ZERO,
                         transaction.getData(),
                         BigInteger.valueOf(500000000L),
@@ -99,7 +101,15 @@ public class SimulErc20SendGrpcTask extends CommonTask {
                 mResult.resultData = rawTransaction.getGasLimit().toString();
                 mResult.resultData2 = web3.ethGasPrice().send().getGasPrice().toString();
                 mResult.resultData3 = hexValue;
-                mResult.isSuccess = true;
+
+                BigDecimal gasLimit = new BigDecimal(rawTransaction.getGasLimit().toString());
+                BigDecimal gasPrice = new BigDecimal(web3.ethGasPrice().send().getGasPrice().toString());
+                if (gasLimit.multiply(gasPrice).compareTo(mApp.getBaseDao().getAvailable(ChainFactory.getChain(mBaseChain).mainDenom())) < 0) {
+                    mResult.isSuccess = true;
+                } else {
+                    mResult.isSuccess = false;
+                    mResult.errorMsg = mApp.getString(R.string.error_not_enough_fee);
+                }
             }
 
         } catch (Exception e) {

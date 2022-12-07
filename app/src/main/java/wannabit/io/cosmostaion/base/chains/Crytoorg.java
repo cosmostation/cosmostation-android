@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 
@@ -23,7 +22,7 @@ public class Crytoorg extends ChainConfig {
     public int chainColor() { return R.color.color_cryto; }
     public int chainBgColor() { return R.color.colorTransBgCryto; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_cryto; }
-    public String chainName() { return "cryptoorg"; }
+    public String chainName() { return "crypto-org"; }
     public String chainKoreanName() { return "크립토"; }
     public String chainTitle() { return "(Crypto.org)"; }
     public String chainTitleToUp() { return "CRYPTO.ORG"; }
@@ -45,7 +44,6 @@ public class Crytoorg extends ChainConfig {
     public String apiUrl() { return "https://api-crypto-org.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "crypto-org/"; }
-    public String monikerUrl() { return MONIKER_URL + "cryto/"; }
     public String homeInfoLink() { return  "https://crypto.org"; }
     public String blogInfoLink() { return  "https://blog.crypto.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cronos"; }

@@ -1,13 +1,13 @@
 package wannabit.io.cosmostaion.utils;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CHAIN_BASE_URL;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.base.BaseChain;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CHAIN_IMG_URL;
 
 public class StarnameAssets implements Parcelable {
     public String name;
@@ -23,9 +23,9 @@ public class StarnameAssets implements Parcelable {
         this.chainName = chainName;
 
         if (chainImg == null) {
-            this.chainImg = CHAIN_IMG_URL + "unknown.png";
+            this.chainImg = CHAIN_BASE_URL + "starname/module/nameservice/unknown.png";
         } else {
-            this.chainImg = CHAIN_IMG_URL + chainImg;
+            this.chainImg = CHAIN_BASE_URL + "starname/module/nameservice/" + chainImg;
         }
     }
 
@@ -69,7 +69,7 @@ public class StarnameAssets implements Parcelable {
                 return assets.chainImg;
             }
         }
-        return CHAIN_IMG_URL + "unknown.png";
+        return CHAIN_BASE_URL + "starname/module/nameservice/unknown.png";
     }
 
     public static String getStarNameChainName(String url) {

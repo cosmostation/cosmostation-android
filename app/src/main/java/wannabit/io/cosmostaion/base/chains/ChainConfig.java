@@ -122,8 +122,6 @@ abstract public class ChainConfig {
 
     public abstract String explorerUrl();
 
-    public abstract String monikerUrl();
-
     public abstract String homeInfoLink();
 
     public abstract String blogInfoLink();

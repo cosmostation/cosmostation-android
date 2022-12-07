@@ -147,7 +147,7 @@ public class WalletSwitchActivity extends BaseActivity {
                 }
                 WDp.setDpSymbol(WalletSwitchActivity.this, getBaseDao(), chainConfig, chainConfig.mainDenom(), accountDenom);
                 accountAddress.setText(account.address);
-                accountAvailable.setText(account.getLastTotal(WalletSwitchActivity.this, BaseChain.getChain(account.baseChain)));
+                accountAvailable.setText(account.getLastTotal(BaseChain.getChain(account.baseChain)));
                 if (account.hasPrivateKey) {
                     accountState.setImageResource(R.drawable.key_off);
                     accountState.setColorFilter(ContextCompat.getColor(WalletSwitchActivity.this, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);

@@ -23,6 +23,7 @@ import java.util.Set;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.MintscanToken;
 
@@ -56,7 +57,10 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
         mAccount = getSActivity().getBaseDao().onSelectAccount(getSActivity().getBaseDao().getLastUser());
 
         mDialogTitle.setText(getString(R.string.str_select_contract_token));
-        for (MintscanToken asset : getSActivity().getBaseDao().mMintscanTokens) {
+        ArrayList<MintscanToken> mintscanTokenList = new ArrayList<>();
+        if (getSActivity().mChainConfig.baseChain().equals(BaseChain.JUNO_MAIN)) mintscanTokenList = getSActivity().getBaseDao().mCw20Tokens;
+        else mintscanTokenList = getSActivity().getBaseDao().mErc20Tokens;
+        for (MintscanToken asset : mintscanTokenList) {
             if (!asset.default_show) {
                 mContractAssets.add(asset);
             }
@@ -98,13 +102,13 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
             final MintscanToken asset = mContractAssets.get(position);
             holder.itemDisplayToken.setOnCheckedChangeListener(null);
             Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemChainImg);
-            holder.itemChainName.setText(asset.denom.toUpperCase());
-            holder.itemDisplayToken.setChecked(checkedContractSet.contains(asset.contract_address));
+            holder.itemChainName.setText(asset.symbol.toUpperCase());
+            holder.itemDisplayToken.setChecked(checkedContractSet.contains(asset.address));
             holder.itemDisplayToken.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
-                    checkedContractSet.add(asset.contract_address);
+                    checkedContractSet.add(asset.address);
                 } else {
-                    checkedContractSet.remove(asset.contract_address);
+                    checkedContractSet.remove(asset.address);
                 }
             });
         }

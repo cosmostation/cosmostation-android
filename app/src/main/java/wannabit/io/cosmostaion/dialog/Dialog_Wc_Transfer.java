@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
+import static wannabit.io.cosmostaion.base.chains.Binance.BINANCE_COIN_IMG_URL;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -55,7 +55,7 @@ public class Dialog_Wc_Transfer extends DialogFragment {
             String dpDenom = msg.getOutputs().get(0).getCoins().get(0).getDenom().split("-")[0];
             BigDecimal dpAmount = new BigDecimal(msg.getOutputs().get(0).getCoins().get(0).getAmount()).movePointLeft(8);
 
-            Picasso.get().load(BINANCE_TOKEN_IMG_URL + dpDenom + ".png")
+            Picasso.get().load(BINANCE_COIN_IMG_URL + dpDenom.toLowerCase() + ".png")
                     .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
                     .into(send_coin_icon);
             send_coin_symbol.setText(dpDenom);

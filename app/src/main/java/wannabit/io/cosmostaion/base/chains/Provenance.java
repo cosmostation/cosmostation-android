@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import com.google.common.collect.ImmutableList;
 
@@ -39,9 +38,8 @@ public class Provenance extends ChainConfig {
     public String apiUrl() { return "https://api-provenance.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "provenance/"; }
-    public String monikerUrl() { return MONIKER_URL + "provenance/"; }
     public String homeInfoLink() { return  "https://www.provenance.io"; }
-    public String blogInfoLink() { return  "https://www.provenance.io/blog"; }
+    public String blogInfoLink() { return  "https://medium.com/provenanceblockchain"; }
     public String coingeckoLink() { return  COINGECKO_URL + "provenance-blockchain"; }
 
     public String defaultPath() { return "m/44'/505'/0'/0/X"; }

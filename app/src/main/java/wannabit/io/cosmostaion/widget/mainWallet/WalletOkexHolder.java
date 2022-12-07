@@ -60,7 +60,7 @@ public class WalletOkexHolder extends BaseHolder {
         mOkLocked.setText(WDp.getDpAmount2(lockedAmount, 0, 6));
         mOkDeposit.setText(WDp.getDpAmount2(depositAmount, 0, 6));
         mOkWithdrawing.setText(WDp.getDpAmount2(withdrawAmount, 0, 6));
-        mOkTotalValue.setText(WDp.dpAssetValue(baseData, denom, totalAmount, 0));
+        mOkTotalValue.setText(WDp.dpAssetValue(baseData, WDp.getGeckoId(baseData, chainConfig), totalAmount, 0));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
@@ -68,9 +68,7 @@ public class WalletOkexHolder extends BaseHolder {
             if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0)
                 return;
             if (!mainActivity.mAccount.hasPrivateKey) {
-                CommonAlertDialog.showDoubleButton(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                        mainActivity.getString(R.string.str_close), null,
-                        Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>", Html.FROM_HTML_MODE_COMPACT), view -> mainActivity.onAddMnemonicForAccount());
+                mainActivity.onInsertKeyDialog();
                 return;
             }
 
@@ -91,8 +89,7 @@ public class WalletOkexHolder extends BaseHolder {
             if (mainActivity.getBaseDao().mTopValidators == null && mainActivity.getBaseDao().mTopValidators.size() == 0)
                 return;
             if (!mainActivity.mAccount.hasPrivateKey) {
-                CommonAlertDialog.showDoubleButton(mainActivity, mainActivity.getString(R.string.str_only_observe_title), mainActivity.getString(R.string.str_only_observe_msg),
-                        mainActivity.getString(R.string.str_close), null, Html.fromHtml("<font color=\"#9C6CFF\">" + mainActivity.getString(R.string.str_add_mnemonics) + "</font>", Html.FROM_HTML_MODE_COMPACT), view -> mainActivity.onAddMnemonicForAccount());
+                mainActivity.onInsertKeyDialog();
                 return;
             }
 

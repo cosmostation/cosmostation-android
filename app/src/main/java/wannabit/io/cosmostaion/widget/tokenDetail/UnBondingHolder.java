@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 public class UnBondingHolder extends BaseHolder {
     private CardView            mUndelegateCard;
     private TextView            mUndelegateCnt;
-    private RelativeLayout      mUndelegateLayer0, mUndelegateLayer1, mUndelegateLayer2, mUndelegateLayer3, mUndelegateLayer4;
+    private RelativeLayout      mUndelegateLayer1, mUndelegateLayer2, mUndelegateLayer3, mUndelegateLayer4;
     private TextView            mUndelegateTime0, mUndelegateTime1, mUndelegateTime2, mUndelegateTime3, mUndelegateTime4;
     private TextView            mUndelegateAmount0, mUndelegateAmount1, mUndelegateAmount2, mUndelegateAmount3, mUndelegateAmount4;
     private TextView            mUndelegateRemain0, mUndelegateRemain1, mUndelegateRemain2, mUndelegateRemain3, mUndelegateRemain4;
@@ -36,7 +36,6 @@ public class UnBondingHolder extends BaseHolder {
         mUndelegateCard         = itemView.findViewById(R.id.card_root);
         mUndelegateCnt          = itemView.findViewById(R.id.undelegate_count);
 
-        mUndelegateLayer0       = itemView.findViewById(R.id.undelegate_detail_layer0);
         mUndelegateLayer1       = itemView.findViewById(R.id.undelegate_detail_layer1);
         mUndelegateLayer2       = itemView.findViewById(R.id.undelegate_detail_layer2);
         mUndelegateLayer3       = itemView.findViewById(R.id.undelegate_detail_layer3);
@@ -83,31 +82,31 @@ public class UnBondingHolder extends BaseHolder {
         final ArrayList<UnbondingInfo.DpEntry> unbondings = WUtil.onSortUnbondingsRecent_Grpc(c, baseData.mGrpcUndelegations);
         mUndelegateCnt.setText(String.valueOf(unbondings.size()));
         mUndelegateTime0.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(0).completion_time) * 1000));
-        mUndelegateAmount0.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(0).balance), stakingDivideDecimal, stakingDisplayDecimal));
+        mUndelegateAmount0.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(0).balance), stakingDivideDecimal, stakingDisplayDecimal));
         mUndelegateRemain0.setText(WDp.getGapTime(Long.parseLong(unbondings.get(0).completion_time) * 1000));
 
         if (unbondings.size() > 1) {
             mUndelegateLayer1.setVisibility(View.VISIBLE);
             mUndelegateTime1.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(1).completion_time) * 1000));
-            mUndelegateAmount1.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(1).balance), stakingDivideDecimal, stakingDisplayDecimal));
+            mUndelegateAmount1.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(1).balance), stakingDivideDecimal, stakingDisplayDecimal));
             mUndelegateRemain1.setText(WDp.getGapTime(Long.parseLong(unbondings.get(1).completion_time) * 1000));
         }
         if (unbondings.size() > 2) {
             mUndelegateLayer2.setVisibility(View.VISIBLE);
             mUndelegateTime2.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(2).completion_time) * 1000));
-            mUndelegateAmount2.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(2).balance), stakingDivideDecimal, stakingDisplayDecimal));
+            mUndelegateAmount2.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(2).balance), stakingDivideDecimal, stakingDisplayDecimal));
             mUndelegateRemain2.setText(WDp.getGapTime(Long.parseLong(unbondings.get(2).completion_time) * 1000));
         }
         if (unbondings.size() > 3) {
             mUndelegateLayer3.setVisibility(View.VISIBLE);
             mUndelegateTime3.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(3).completion_time) * 1000));
-            mUndelegateAmount3.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(3).balance), stakingDivideDecimal, stakingDisplayDecimal));
+            mUndelegateAmount3.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(3).balance), stakingDivideDecimal, stakingDisplayDecimal));
             mUndelegateRemain3.setText(WDp.getGapTime(Long.parseLong(unbondings.get(3).completion_time) * 1000));
         }
         if (unbondings.size() > 4) {
             mUndelegateLayer4.setVisibility(View.VISIBLE);
             mUndelegateTime4.setText(WDp.getDpTime(c, Long.parseLong(unbondings.get(4).completion_time) * 1000));
-            mUndelegateAmount4.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(4).balance), stakingDivideDecimal, stakingDisplayDecimal));
+            mUndelegateAmount4.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(4).balance), stakingDivideDecimal, stakingDisplayDecimal));
             mUndelegateRemain4.setText(WDp.getGapTime(Long.parseLong(unbondings.get(4).completion_time) * 1000));
         }
     }
@@ -124,32 +123,32 @@ public class UnBondingHolder extends BaseHolder {
         final ArrayList<UnbondingInfo.DpEntry> unbondings = WUtil.onSortUnbondingsRecent(c, baseData.mMyUnbondings);
         mUndelegateCnt.setText(String.valueOf(unbondings.size()));
         mUndelegateTime0.setText(WDp.getTimeformat(c, unbondings.get(0).completion_time));
-        mUndelegateAmount0.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(0).balance), stakingDivideDecimal, stakingDisplayDecimal));
+        mUndelegateAmount0.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(0).balance), stakingDivideDecimal, stakingDisplayDecimal));
         final String formatType = c.getString(R.string.str_block_time_format);
         mUndelegateRemain0.setText(WDp.getGapTime(WDp.convertDateToLong(formatType, unbondings.get(0).completion_time)));
 
         if (unbondings.size() > 1) {
             mUndelegateLayer1.setVisibility(View.VISIBLE);
             mUndelegateTime1.setText(WDp.getTimeformat(c, unbondings.get(1).completion_time));
-            mUndelegateAmount1.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(1).balance), stakingDivideDecimal, stakingDisplayDecimal));
+            mUndelegateAmount1.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(1).balance), stakingDivideDecimal, stakingDisplayDecimal));
             mUndelegateRemain1.setText(WDp.getGapTime(WDp.convertDateToLong(formatType, unbondings.get(1).completion_time)));
         }
         if (unbondings.size() > 2) {
             mUndelegateLayer2.setVisibility(View.VISIBLE);
             mUndelegateTime2.setText(WDp.getTimeformat(c, unbondings.get(2).completion_time));
-            mUndelegateAmount2.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(2).balance), stakingDivideDecimal, stakingDisplayDecimal));
+            mUndelegateAmount2.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(2).balance), stakingDivideDecimal, stakingDisplayDecimal));
             mUndelegateRemain2.setText(WDp.getGapTime(WDp.convertDateToLong(formatType, unbondings.get(2).completion_time)));
         }
         if (unbondings.size() > 3) {
             mUndelegateLayer3.setVisibility(View.VISIBLE);
             mUndelegateTime3.setText(WDp.getTimeformat(c, unbondings.get(3).completion_time));
-            mUndelegateAmount3.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(3).balance), stakingDivideDecimal, stakingDisplayDecimal));
+            mUndelegateAmount3.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(3).balance), stakingDivideDecimal, stakingDisplayDecimal));
             mUndelegateRemain3.setText(WDp.getGapTime(WDp.convertDateToLong(formatType, unbondings.get(3).completion_time)));
         }
         if (unbondings.size() > 4) {
             mUndelegateLayer4.setVisibility(View.VISIBLE);
             mUndelegateTime4.setText(WDp.getTimeformat(c, unbondings.get(4).completion_time));
-            mUndelegateAmount4.setText(WDp.getDpAmount2(c, new BigDecimal(unbondings.get(4).balance), stakingDivideDecimal, stakingDisplayDecimal));
+            mUndelegateAmount4.setText(WDp.getDpAmount2(new BigDecimal(unbondings.get(4).balance), stakingDivideDecimal, stakingDisplayDecimal));
             mUndelegateRemain4.setText(WDp.getGapTime(WDp.convertDateToLong(formatType, unbondings.get(4).completion_time)));
         }
     }

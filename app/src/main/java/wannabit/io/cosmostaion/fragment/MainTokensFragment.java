@@ -41,10 +41,10 @@ import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.Binance;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.Okc;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.Balance;
@@ -226,11 +226,11 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onUpdateView() {
         final String mainDenom = mChainConfig.mainDenom();
-        mErc20Grpc = getBaseDao().mMintscanMyTokens;
+        if (mChainConfig.baseChain().equals(JUNO_MAIN)) mErc20Grpc = getBaseDao().mCw20MyTokens;
+        else mErc20Grpc = getBaseDao().mErc20MyTokens;
         mNativeGrpc.clear();
         mIbcGrpc.clear();
         mEtherGrpc.clear();
-
         for (Coin coin : getBaseDao().mGrpcBalance) {
             final Asset asset = getBaseDao().getAsset(getMainActivity().mChainConfig, coin.denom);
             if (asset != null) {
@@ -248,7 +248,6 @@ public class MainTokensFragment extends BaseFragment {
 
         mNative.clear();
         mEtc.clear();
-
         for (Balance balance : getBaseDao().mBalances) {
             if (balance.symbol.equalsIgnoreCase(mainDenom)) {
                 mNative.add(balance);
@@ -334,35 +333,29 @@ public class MainTokensFragment extends BaseFragment {
 
             BigDecimal totalAmount = BigDecimal.ZERO;
             if (asset != null) {
-                if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                if (asset.origin_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                     totalAmount = getBaseDao().getAllMainAsset(chainConfig.mainDenom());
                 } else {
-                    totalAmount = getBaseDao().getAvailable(asset.base_denom).add(getBaseDao().getVesting(asset.base_denom));
+                    totalAmount = getBaseDao().getAvailable(asset.origin_denom).add(getBaseDao().getVesting(asset.origin_denom));
                 }
 
-                WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.base_denom, holder.itemImg);
-                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(),chainConfig,asset.base_denom));
+                WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.origin_denom, holder.itemImg);
+                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig,asset.origin_denom));
                 holder.itemPath.setText(asset.description);
 
-                if (asset.price_denom != null) {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, totalAmount, asset.decimal));
-                } else {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, totalAmount, asset.decimal));
-                }
-                holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimal, 6));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
+                WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.coinGeckoId, holder.itemUpDown);
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, totalAmount, asset.decimals));
+                holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimals, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     Intent intent;
-                    if (asset.base_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                    if (asset.origin_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                         intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
                     } else {
                         intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
                     }
-                    intent.putExtra("denom", asset.base_denom);
+                    intent.putExtra("denom", asset.origin_denom);
                     startActivity(intent);
                 });
             }
@@ -378,16 +371,10 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                if (asset.price_denom != null) {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(coin.amount), asset.decimal));
-                } else {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
-                }
-                holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimal, 6));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
+                WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.coinGeckoId, holder.itemUpDown);
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, new BigDecimal(coin.amount), asset.decimals));
+                holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimals, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     if (!mAccount.hasPrivateKey) {
@@ -415,16 +402,10 @@ public class MainTokensFragment extends BaseFragment {
                 WDp.setDpSymbol(getMainActivity(), getBaseDao(), chainConfig, asset.denom, holder.itemSymbol);
                 holder.itemPath.setText(assetDpPath(asset.path));
 
-                if (asset.price_denom != null) {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.price_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.price_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.price_denom, new BigDecimal(coin.amount), asset.decimal));
-                } else {
-                    holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.base_denom));
-                    valueChangeStatus(getActivity(), getBaseDao(), asset.base_denom, holder.itemUpDown);
-                    holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.base_denom, new BigDecimal(coin.amount), asset.decimal));
-                }
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimal, 6));
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
+                WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.coinGeckoId, holder.itemUpDown);
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, new BigDecimal(coin.amount), asset.decimals));
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimals, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     if (!mAccount.hasPrivateKey) {
@@ -452,14 +433,14 @@ public class MainTokensFragment extends BaseFragment {
 
             if (asset != null) {
                 Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-                holder.itemSymbol.setText(asset.denom.toUpperCase());
-                holder.itemPath.setText("");
+                holder.itemSymbol.setText(asset.symbol.toUpperCase());
+                holder.itemPath.setText(asset.description);
 
-                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.denom));
-                valueChangeStatus(getActivity(), getBaseDao(), asset.denom, holder.itemUpDown);
+                holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
+                WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.coinGeckoId, holder.itemUpDown);
 
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimal, 6));
-                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.denom, asset.getAmount(), asset.decimal));
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimals, 6));
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, asset.getAmount(), asset.decimals));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     if (!mAccount.hasPrivateKey) {
@@ -471,7 +452,7 @@ public class MainTokensFragment extends BaseFragment {
                         return;
                     }
                     Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                    intent.putExtra("sendTokenDenom", asset.denom);
+                    intent.putExtra("sendTokenDenom", asset.symbol);
                     startActivity(intent);
                 });
             }
@@ -498,15 +479,14 @@ public class MainTokensFragment extends BaseFragment {
             WDp.setDpSymbolImg(getBaseDao(), chainConfig, balance.symbol, holder.itemImg);
             holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig, balance.symbol));
             holder.itemPath.setText(chainConfig.coinFullName(balance.symbol));
-            holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), chainConfig.mainDenom()));
-            valueChangeStatus(getActivity(), getBaseDao(), chainConfig.mainDenom(), holder.itemUpDown);
 
-            if (mBaseChain.equals(BNB_MAIN))
-                totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
+            if (mBaseChain.equals(BNB_MAIN)) totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
             else totalAmount = getBaseDao().getAllExToken(balance.symbol);
 
+            holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), WDp.getGeckoId(getBaseDao(), chainConfig), totalAmount, 0));
+            holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), WDp.getGeckoId(getBaseDao(), chainConfig)));
+            WDp.valueChangeStatus(getActivity(), getBaseDao(), WDp.getGeckoId(getBaseDao(), chainConfig), holder.itemUpDown);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-            holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), balance.symbol, totalAmount, 0));
 
             holder.itemRoot.setOnClickListener(view -> {
                 if (balance.symbol.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
@@ -532,19 +512,18 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemPath.setText(getBaseDao().getBnbToken(balance.symbol).name);
                 totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
                 convertAmount = WDp.bnbConvertAmount(getBaseDao(), balance.symbol);
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), Binance.BNB_GECKO_ID, convertAmount, 0));
                 holder.itemPerPrice.setText(WDp.dpBnbTokenPrice(getBaseDao(), balance.symbol));
                 holder.itemUpDown.setText("");
 
             } else {
                 holder.itemPath.setText(getBaseDao().okToken(balance.symbol).description);
                 totalAmount = getBaseDao().getAllExToken(balance.symbol);
-                convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
+                holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), Okc.OKC_GECKO_ID, convertAmount, 0));
                 holder.itemPerPrice.setVisibility(View.GONE);
                 holder.itemUpDown.setVisibility(View.GONE);
             }
-
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-            holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), chainConfig.mainDenom(), convertAmount, 0));
 
             holder.itemRoot.setOnClickListener(v -> {
                 if (!mAccount.hasPrivateKey) {
@@ -651,27 +630,6 @@ public class MainTokensFragment extends BaseFragment {
                 super(itemView);
                 itemRoot = itemView.findViewById(R.id.edit_card);
             }
-        }
-    }
-
-    private void valueChangeStatus(Context c, BaseData baseData, String denom, TextView changeTxt) {
-        BigDecimal lastUpDown = WDp.priceChange(baseData, denom);
-        if (BigDecimal.ZERO.compareTo(lastUpDown) > 0) {
-            if (baseData.getPriceColorOption() == 1) {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
-            } else {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
-            }
-            changeTxt.setText(lastUpDown + "%");
-        } else if (BigDecimal.ZERO.compareTo(lastUpDown) < 0) {
-            if (baseData.getPriceColorOption() == 1) {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteYes));
-            } else {
-                changeTxt.setTextColor(ContextCompat.getColor(c, R.color.colorVoteNo));
-            }
-            changeTxt.setText("+" + lastUpDown + "%");
-        } else {
-            changeTxt.setText("");
         }
     }
 

@@ -21,7 +21,7 @@ public class MintScanAssetsTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             Response<ResAssets> response = ApiClient.getMintscan(mApp).getAssets().execute();
-            if(!response.isSuccessful()) {
+            if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;
                 return mResult;
@@ -36,3 +36,4 @@ public class MintScanAssetsTask extends CommonTask {
         return mResult;
     }
 }
+

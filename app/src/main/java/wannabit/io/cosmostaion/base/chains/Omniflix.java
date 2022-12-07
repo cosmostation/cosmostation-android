@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.base.chains;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONIKER_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -32,7 +31,6 @@ public class Omniflix extends ChainConfig {
     public String apiUrl() { return "https://api-omniflix.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "omniflix/"; }
-    public String monikerUrl() { return MONIKER_URL + "omniflix/"; }
     public String homeInfoLink() { return  "https://www.omniflix.network"; }
     public String blogInfoLink() { return  "https://blog.omniflix.network"; }
     public String coingeckoLink() { return  ""; }
