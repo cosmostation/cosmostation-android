@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.base;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -118,8 +119,10 @@ public class BaseData {
     public ArrayList<Price> mPrices = new ArrayList<>();
     public Param mParam;
     public ArrayList<Asset> mAssets = new ArrayList<>();
-    public ArrayList<MintscanToken> mMintscanTokens = new ArrayList<>();
-    public ArrayList<MintscanToken> mMintscanMyTokens = new ArrayList<>();
+    public ArrayList<MintscanToken> mCw20Tokens = new ArrayList<>();
+    public ArrayList<MintscanToken> mCw20MyTokens = new ArrayList<>();
+    public ArrayList<MintscanToken> mErc20Tokens = new ArrayList<>();
+    public ArrayList<MintscanToken> mErc20MyTokens = new ArrayList<>();
 
     public Price getPrice(String coinGeckoId) {
         if (CollectionUtils.isEmpty(mPrices)) {
@@ -146,29 +149,54 @@ public class BaseData {
         return null;
     }
 
-    public MintscanToken getCw20Asset(String denom) {
-        if (mMintscanMyTokens != null && mMintscanMyTokens.size() > 0) {
-            for (MintscanToken asset : mMintscanMyTokens) {
-                if (asset.symbol.equalsIgnoreCase(denom)) {
-                    return asset;
+    public MintscanToken getCw20Asset(ChainConfig chainConfig, String denom) {
+        if (chainConfig.baseChain().equals(JUNO_MAIN)) {
+            if (mCw20Tokens != null && mCw20Tokens.size() > 0) {
+                for (MintscanToken asset : mCw20Tokens) {
+                    if (asset.symbol.equalsIgnoreCase(denom)) {
+                        return asset;
+                    }
+                }
+            }
+
+        } else {
+            if (mErc20Tokens != null && mErc20Tokens.size() > 0) {
+                for (MintscanToken asset : mErc20Tokens) {
+                    if (asset.symbol.equalsIgnoreCase(denom)) {
+                        return asset;
+                    }
                 }
             }
         }
         return null;
     }
 
-    public void setMyTokens(String address) {
+    public void setMyTokens(ChainConfig chainConfig, String address) {
         Set<String> listingContractAddressSet = getUserFavoTokens(address);
-        listingContractAddressSet.addAll(mMintscanTokens.stream().filter(item -> item.default_show).map(item -> item.address).collect(Collectors.toSet()));
-        mMintscanMyTokens.addAll(mMintscanTokens.stream().filter(item -> listingContractAddressSet.contains(item.address)).collect(Collectors.toList()));
+        if (chainConfig.baseChain().equals(JUNO_MAIN)) {
+            listingContractAddressSet.addAll(mCw20Tokens.stream().filter(item -> item.default_show).map(item -> item.address).collect(Collectors.toSet()));
+            mCw20MyTokens.addAll(mCw20Tokens.stream().filter(item -> listingContractAddressSet.contains(item.address)).collect(Collectors.toList()));
+        } else {
+            listingContractAddressSet.addAll(mErc20Tokens.stream().filter(item -> item.default_show).map(item -> item.address).collect(Collectors.toSet()));
+            mErc20MyTokens.addAll(mErc20Tokens.stream().filter(item -> listingContractAddressSet.contains(item.address)).collect(Collectors.toList()));
+        }
     }
 
-    public void setMyTokenBalance(String contractAddress, String amount) {
-        for (MintscanToken myAsset : mMintscanMyTokens) {
-            if (myAsset.address.equalsIgnoreCase(contractAddress)) {
-                myAsset.setAmount(amount);
+    public void setMyTokenBalance(ChainConfig chainConfig, String contractAddress, String amount) {
+        if (chainConfig.baseChain().equals(JUNO_MAIN)) {
+            for (MintscanToken myAsset : mCw20MyTokens) {
+                if (myAsset.address.equalsIgnoreCase(contractAddress)) {
+                    myAsset.setAmount(amount);
+                }
+            }
+        } else {
+            for (MintscanToken myAsset : mErc20MyTokens) {
+                if (myAsset.address.equalsIgnoreCase(contractAddress)) {
+                    myAsset.setAmount(amount);
+                }
             }
         }
+
     }
 
     //COMMON DATA

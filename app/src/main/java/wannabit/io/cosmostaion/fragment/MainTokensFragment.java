@@ -226,7 +226,8 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onUpdateView() {
         final String mainDenom = mChainConfig.mainDenom();
-        mErc20Grpc = getBaseDao().mMintscanMyTokens;
+        if (mChainConfig.baseChain().equals(JUNO_MAIN)) mErc20Grpc = getBaseDao().mCw20MyTokens;
+        else mErc20Grpc = getBaseDao().mErc20MyTokens;
         mNativeGrpc.clear();
         mIbcGrpc.clear();
         mEtherGrpc.clear();

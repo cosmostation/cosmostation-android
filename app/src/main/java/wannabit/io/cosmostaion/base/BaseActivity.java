@@ -501,8 +501,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         getBaseDao().mParam = null;
         getBaseDao().mAssets.clear();
-        getBaseDao().mMintscanTokens.clear();
-        getBaseDao().mMintscanMyTokens.clear();
+        getBaseDao().mCw20Tokens.clear();
+        getBaseDao().mCw20MyTokens.clear();
+        getBaseDao().mErc20Tokens.clear();
+        getBaseDao().mErc20MyTokens.clear();
 
         getBaseDao().mNodeInfo = null;
         getBaseDao().mAllValidators.clear();
@@ -788,9 +790,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mGrpcStarNameConfig = ((starnamed.x.configuration.v1beta1.Types.Config) result.resultData);
             }
 
-        }
-
-        else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
+        } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mIncentiveRewards = (IncentiveReward) result.resultData;
             }
@@ -809,10 +809,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         // mintscan
         else if (result.taskType == TASK_FETCH_MINTSCAN_CW20_ASSETS) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mMintscanTokens = (ArrayList<MintscanToken>) result.resultData;
-                if (getBaseDao().mMintscanTokens != null && getBaseDao().mMintscanTokens.size() > 0) {
-                    getBaseDao().setMyTokens(mAccount.address);
-                    for (MintscanToken asset : getBaseDao().mMintscanMyTokens) {
+                getBaseDao().mCw20Tokens = (ArrayList<MintscanToken>) result.resultData;
+                if (getBaseDao().mCw20Tokens != null && getBaseDao().mCw20Tokens.size() > 0) {
+                    getBaseDao().setMyTokens(mChainConfig, mAccount.address);
+                    for (MintscanToken asset : getBaseDao().mCw20MyTokens) {
                         mTaskCount = mTaskCount + 1;
                         new Cw20BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, asset.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
@@ -821,13 +821,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_MINTSCAN_ERC20_ASSETS) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mMintscanTokens = (ArrayList<MintscanToken>) result.resultData;
-                if (getBaseDao().mMintscanTokens != null && getBaseDao().mMintscanTokens.size() > 0) {
-                    getBaseDao().setMyTokens(mAccount.address);
+                getBaseDao().mErc20Tokens = (ArrayList<MintscanToken>) result.resultData;
+                if (getBaseDao().mErc20Tokens != null && getBaseDao().mErc20Tokens.size() > 0) {
+                    getBaseDao().setMyTokens(mChainConfig, mAccount.address);
                     String url = mChainConfig.rpcUrl();
                     if (!url.isEmpty()) {
                         Web3j web3 = Web3j.build(new HttpService(url));
-                        for (MintscanToken asset : getBaseDao().mMintscanMyTokens) {
+                        for (MintscanToken asset : getBaseDao().mErc20MyTokens) {
                             mTaskCount = mTaskCount + 1;
                             new Erc20BalanceGrpcTask(getBaseApplication(), this, mAccount, web3, asset.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }
@@ -939,7 +939,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyWarnNoKey() {
         CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> onShowCryptoPay());
+                getString(R.string.str_continue), view -> onShowCryptoPay(), getString(R.string.str_cancel), null);
     }
 
     public void onShowCryptoPay() {
@@ -958,7 +958,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowBuyKado() {
         String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + mChainConfig.chainName() + "&networkList=" + mChainConfig.chainName() + "&onToAddress=" + mAccount.address;
-        if(mChainConfig.baseChain().equals(INJ_MAIN)) {
+        if (mChainConfig.baseChain().equals(INJ_MAIN)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query + "&onRevCurrency=" + "USDT"));
             startActivity(intent);
         } else {

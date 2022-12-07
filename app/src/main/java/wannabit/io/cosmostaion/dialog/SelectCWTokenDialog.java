@@ -23,6 +23,7 @@ import java.util.Set;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.MintscanToken;
 
@@ -56,7 +57,10 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
         mAccount = getSActivity().getBaseDao().onSelectAccount(getSActivity().getBaseDao().getLastUser());
 
         mDialogTitle.setText(getString(R.string.str_select_contract_token));
-        for (MintscanToken asset : getSActivity().getBaseDao().mMintscanTokens) {
+        ArrayList<MintscanToken> mintscanTokenList = new ArrayList<>();
+        if (getSActivity().mChainConfig.baseChain().equals(BaseChain.JUNO_MAIN)) mintscanTokenList = getSActivity().getBaseDao().mCw20Tokens;
+        else mintscanTokenList = getSActivity().getBaseDao().mErc20Tokens;
+        for (MintscanToken asset : mintscanTokenList) {
             if (!asset.default_show) {
                 mContractAssets.add(asset);
             }
