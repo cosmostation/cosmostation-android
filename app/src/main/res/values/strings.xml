@@ -1349,6 +1349,7 @@
     <string name="tx_kava_earn_delegateDeposit">Earn Liquidate Delegate Deposit</string>
     <string name="str_tx_kava_earn_withdraw">Earn Liquidate\nWithdraw</string>
     <string name="tx_kava_earn_withdraw">Earn Liquidate Withdraw</string>
+    <string name="tx_kava_earn_deposit">Earn Liquidate\nDeposit</string>
 
     <string name="tx_stride_liquid_stake">Liquid Stake</string>
     <string name="tx_stride_redeem_stake">Redeem Stake</string>

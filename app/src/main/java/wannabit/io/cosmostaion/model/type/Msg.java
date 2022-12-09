@@ -112,21 +112,7 @@ public class Msg {
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("option")
-        public Object option;
-
-        public String getOption() {
-            try {
-                int temp = new Gson().fromJson(new Gson().toJson(option), Integer.class);
-                return String.valueOf(temp);
-
-            } catch (Exception e) {}
-
-            try {
-                String temp = new Gson().fromJson(new Gson().toJson(option), String.class);
-                return temp;
-            } catch (Exception e) { }
-            return "";
-        }
+        public int option;
 
 
 
