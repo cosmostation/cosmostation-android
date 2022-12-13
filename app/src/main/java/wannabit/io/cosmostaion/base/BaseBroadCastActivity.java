@@ -9,7 +9,6 @@ import kava.swap.v1beta1.QueryOuterClass.DepositResponse;
 import kava.swap.v1beta1.QueryOuterClass.PoolResponse;
 import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.gamm.v1beta1.Tx;
-import osmosis.lockup.Lock;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import stride.stakeibc.HostZoneOuterClass;
@@ -42,11 +41,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Tx.SwapAmountInRoute         mOsmosisSwapAmountInRoute;                          // osmosis
     public long                         mOsmosisPoolId;
     public BalancerPool.Pool            mOsmosisPool;
-    public Coin                         mPoolCoin0;
-    public Coin                         mPoolCoin1;
-    public Coin                         mLpToken;
-    public long                         mOsmosisLockupDuration;
-    public ArrayList<Lock.PeriodLock>   mOsmosisLockups = new ArrayList<>();
     public Coin                         mSwapInCoin;
     public Coin                         mSwapOutCoin;
 

@@ -11,19 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.BalancerPool;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
-import wannabit.io.cosmostaion.utils.WDp;
 
 public class ListSwapFragment extends BaseFragment implements View.OnClickListener {
 
@@ -89,163 +82,160 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         mBtnToggle.setOnClickListener(this);
         mBtnSwapStart.setOnClickListener(this);
 
-        mBtnToggle.setBackgroundTintList(ContextCompat.getColorStateList(getSActivity(), R.color.color_osmosis));
-        mSwapTitle.setText(getString(R.string.str_swap_osmosis));
+//        mBtnToggle.setBackgroundTintList(ContextCompat.getColorStateList(getSActivity(), R.color.color_osmosis));
+//        mSwapTitle.setText(getString(R.string.str_swap_osmosis));
         return rootView;
     }
 
-    @Override
-    public void onRefreshTab() {
-        mPoolList = getSActivity().mPoolList;
-        mAllDenoms = getSActivity().mAllDenoms;
+//    @Override
+//    public void onRefreshTab() {
+//        mPoolList = getSActivity().mPoolList;
+//        mAllDenoms = getSActivity().mAllDenoms;
+//
+//        if (mSelectedPool == null || mInputCoinDenom.isEmpty() || mOutputCoinDenom.isEmpty()) {
+//            if (mPoolList != null && mPoolList.size() > 0) {
+//                mSelectedPool = mPoolList.get(0);
+//                mInputCoinDenom = "uosmo";
+//                mOutputCoinDenom = "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2";
+//            }
+//        }
+//        onUpdateView();
+//    }
 
-        if (mSelectedPool == null || mInputCoinDenom.isEmpty() || mOutputCoinDenom.isEmpty()) {
-            if (mPoolList != null && mPoolList.size() > 0) {
-                mSelectedPool = mPoolList.get(0);
-                mInputCoinDenom = "uosmo";
-                mOutputCoinDenom = "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2";
-            }
-        }
-        onUpdateView();
-    }
-
-    private void onUpdateView() {
-        if (mInputCoinDenom != null && mOutputCoinDenom != null) {
-            int inputDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom);
-            int outputDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom);
-            WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputImg);
-            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputCoin);
-            WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputImg);
-            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputCoin);
-
-            mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), inputDecimal, inputDecimal));
-            mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
-            BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
-            mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
-
-            BigDecimal inputAssetAmount = BigDecimal.ZERO;
-            BigDecimal inputAssetWeight = BigDecimal.ZERO;
-            BigDecimal outputAssetAmount = BigDecimal.ZERO;
-            BigDecimal outputAssetWeight = BigDecimal.ZERO;
-
-            for (BalancerPool.PoolAsset asset : mSelectedPool.getPoolAssetsList()) {
-                if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
-                    inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
-                    inputAssetWeight = new BigDecimal(asset.getWeight());
-                }
-                if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
-                    outputAssetAmount = new BigDecimal(asset.getToken().getAmount());
-                    outputAssetWeight = new BigDecimal(asset.getWeight());
-                }
-            }
-            inputAssetAmount = inputAssetAmount.movePointLeft(inputDecimal);
-            outputAssetAmount = outputAssetAmount.movePointLeft(outputDecimal);
-            BigDecimal swapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 16, RoundingMode.DOWN).divide(outputAssetWeight, 16, RoundingMode.DOWN);
-
-            mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
-            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinSymbol);
-            mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, 6));
-            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinSymbol);
-
-            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
-            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
-
-            BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), mInputCoinDenom);
-            BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), mOutputCoinDenom);
-            BigDecimal priceRate = BigDecimal.ZERO;
-            if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
-                mSwapOutputCoinExRate.setText("??????");
-            } else {
-                priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-                mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, 6));
-            }
-            mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
-        }
-    }
+//    private void onUpdateView() {
+//        if (mInputCoinDenom != null && mOutputCoinDenom != null) {
+//            int inputDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom);
+//            int outputDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom);
+//            WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputImg);
+//            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputCoin);
+//            WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputImg);
+//            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputCoin);
+//
+//            mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), inputDecimal, inputDecimal));
+//            mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
+//            BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
+//            mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
+//
+//            BigDecimal inputAssetAmount = BigDecimal.ZERO;
+//            BigDecimal inputAssetWeight = BigDecimal.ZERO;
+//            BigDecimal outputAssetAmount = BigDecimal.ZERO;
+//            BigDecimal outputAssetWeight = BigDecimal.ZERO;
+//
+//            for (BalancerPool.PoolAsset asset : mSelectedPool.getPoolAssetsList()) {
+//                if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
+//                    inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
+//                    inputAssetWeight = new BigDecimal(asset.getWeight());
+//                }
+//                if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
+//                    outputAssetAmount = new BigDecimal(asset.getToken().getAmount());
+//                    outputAssetWeight = new BigDecimal(asset.getWeight());
+//                }
+//            }
+//            inputAssetAmount = inputAssetAmount.movePointLeft(inputDecimal);
+//            outputAssetAmount = outputAssetAmount.movePointLeft(outputDecimal);
+//            BigDecimal swapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 16, RoundingMode.DOWN).divide(outputAssetWeight, 16, RoundingMode.DOWN);
+//
+//            mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
+//            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinSymbol);
+//            mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, 6));
+//            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinSymbol);
+//
+//            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
+//            WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
+//
+//            BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), mInputCoinDenom);
+//            BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), mOutputCoinDenom);
+//            BigDecimal priceRate = BigDecimal.ZERO;
+//            if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
+//                mSwapOutputCoinExRate.setText("??????");
+//            } else {
+//                priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
+//                mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, 6));
+//            }
+//            mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
+//        }
+//    }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
-            Bundle bundleData = new Bundle();
-            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mAllDenoms);
-            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
-            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
-                int result = bundle.getInt(BaseConstant.POSITION);
-                mInputCoinDenom = mAllDenoms.get(result);
-                loop:
-                for (BalancerPool.Pool pool : mPoolList) {
-                    for (BalancerPool.PoolAsset asset : pool.getPoolAssetsList()) {
-                        if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
-                            mSelectedPool = pool;
-                            break loop;
-                        }
-                    }
-                }
-                for (BalancerPool.PoolAsset asset : mSelectedPool.getPoolAssetsList()) {
-                    if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
-                        mOutputCoinDenom = asset.getToken().getDenom();
-                        break;
-                    }
-                }
-                onUpdateView();
-            });
+//        if (v.equals(mBtnInputCoinList) && !getSActivity().isFinishing()) {
+//            Bundle bundleData = new Bundle();
+//            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mAllDenoms);
+//            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE);
+//            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+//            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+//            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+//                int result = bundle.getInt(BaseConstant.POSITION);
+//                mInputCoinDenom = mAllDenoms.get(result);
+//                loop:
+//                for (BalancerPool.Pool pool : mPoolList) {
+//                    for (BalancerPool.PoolAsset asset : pool.getPoolAssetsList()) {
+//                        if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
+//                            mSelectedPool = pool;
+//                            break loop;
+//                        }
+//                    }
+//                }
+//                for (BalancerPool.PoolAsset asset : mSelectedPool.getPoolAssetsList()) {
+//                    if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
+//                        mOutputCoinDenom = asset.getToken().getDenom();
+//                        break;
+//                    }
+//                }
+//                onUpdateView();
+//            });
 
-        } else if (v.equals(mBtnOutputCoinList) && !getSActivity().isFinishing()) {
-            mSwapablePools.clear();
-            mSwapableDenoms.clear();
-            for (BalancerPool.Pool pool : mPoolList) {
-                for (BalancerPool.PoolAsset asset : pool.getPoolAssetsList()) {
-                    if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
-                        mSwapablePools.add(pool);
-                        break;
-                    }
-                }
-            }
-
-            for (BalancerPool.Pool sPool : mSwapablePools) {
-                for (BalancerPool.PoolAsset asset : sPool.getPoolAssetsList()) {
-                    if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
-                        mSwapableDenoms.add(asset.getToken().getDenom());
-                    }
-                }
-            }
-
-            Bundle bundleData = new Bundle();
-            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mSwapableDenoms);
-            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
-            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
-                int result = bundle.getInt(BaseConstant.POSITION);
-                mOutputCoinDenom = mSwapableDenoms.get(result);
-                loop:
-                for (BalancerPool.Pool pool : mSwapablePools) {
-                    for (BalancerPool.PoolAsset asset : pool.getPoolAssetsList()) {
-                        if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
-                            mSelectedPool = pool;
-                            break loop;
-                        }
-                    }
-                }
-                onUpdateView();
-            });
-
-        } else if (v.equals(mBtnToggle)) {
-            String temp = mInputCoinDenom;
-            mInputCoinDenom = mOutputCoinDenom;
-            mOutputCoinDenom = temp;
-            onUpdateView();
-
-        } else if (v.equals(mBtnSwapStart)) {
-            if (mInputCoinDenom != null && mOutputCoinDenom != null && mSelectedPool != null) {
-                getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId());
-            }
-        }
-    }
-
-    private LabsListActivity getSActivity() {
-        return (LabsListActivity) getBaseActivity();
+//        } else if (v.equals(mBtnOutputCoinList) && !getSActivity().isFinishing()) {
+//            mSwapablePools.clear();
+//            mSwapableDenoms.clear();
+//            for (BalancerPool.Pool pool : mPoolList) {
+//                for (BalancerPool.PoolAsset asset : pool.getPoolAssetsList()) {
+//                    if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
+//                        mSwapablePools.add(pool);
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            for (BalancerPool.Pool sPool : mSwapablePools) {
+//                for (BalancerPool.PoolAsset asset : sPool.getPoolAssetsList()) {
+//                    if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
+//                        mSwapableDenoms.add(asset.getToken().getDenom());
+//                    }
+//                }
+//            }
+//
+//            Bundle bundleData = new Bundle();
+//            bundleData.putStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY, mSwapableDenoms);
+//            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE);
+//            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
+//            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
+//            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
+//                int result = bundle.getInt(BaseConstant.POSITION);
+//                mOutputCoinDenom = mSwapableDenoms.get(result);
+//                loop:
+//                for (BalancerPool.Pool pool : mSwapablePools) {
+//                    for (BalancerPool.PoolAsset asset : pool.getPoolAssetsList()) {
+//                        if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
+//                            mSelectedPool = pool;
+//                            break loop;
+//                        }
+//                    }
+//                }
+//                onUpdateView();
+//            });
+//
+//        } else if (v.equals(mBtnToggle)) {
+//            String temp = mInputCoinDenom;
+//            mInputCoinDenom = mOutputCoinDenom;
+//            mOutputCoinDenom = temp;
+//            onUpdateView();
+//
+//        } else if (v.equals(mBtnSwapStart)) {
+//            if (mInputCoinDenom != null && mOutputCoinDenom != null && mSelectedPool != null) {
+//                getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId());
+//            }
+//        }
+//    }
     }
 }

@@ -189,10 +189,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_BORROW_HARD                         = 5034;
     public final static int CONST_PW_TX_REPAY_HARD                          = 5035;
     public final static int CONST_PW_TX_OSMOSIS_SWAP                        = 5036;
-    public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5037;
-    public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5038;
-    public final static int CONST_PW_TX_OSMOSIS_EARNING                     = 5040;
-    public final static int CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING             = 5041;
     public final static int CONST_PW_TX_KAVA_SWAP                           = 5043;
     public final static int CONST_PW_TX_KAVA_JOIN_POOL                      = 5044;
     public final static int CONST_PW_TX_KAVA_EXIT_POOL                      = 5045;

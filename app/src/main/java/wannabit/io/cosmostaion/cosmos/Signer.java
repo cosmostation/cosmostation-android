@@ -8,7 +8,6 @@ import android.util.Base64;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
-import com.google.protobuf.Duration;
 import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.ECKey;
@@ -378,83 +377,6 @@ public class Signer {
         CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(swapInputCoin.denom).setAmount(swapInputCoin.amount).build();
         osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn msgSwapExactAmountIn = osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.newBuilder().setSender((String) onParseAuthGrpc(auth).get(0)).addRoutes(swapRoute).setTokenIn(inputCoin).setTokenOutMinAmount(outputAmount).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgSwapExactAmountIn").setValue(msgSwapExactAmountIn.toByteString()).build());
-        return msgAnys;
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcJoinPoolReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignTx(auth, getJoinPoolMsg(auth, poolId, deposit0Coin, deposit1Coin, shareAmount), fee, memo, pKey, chainId, pubKeyType, baseChain);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcJoinPoolSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getJoinPoolMsg(auth, poolId, deposit0Coin, deposit1Coin, shareAmount), fee, memo, pKey, chainId, pubKeyType, baseChain);
-    }
-
-    public static ArrayList<Any> getJoinPoolMsg(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        CoinOuterClass.Coin inputCoin0 = CoinOuterClass.Coin.newBuilder().setDenom(deposit0Coin.denom).setAmount(deposit0Coin.amount).build();
-        CoinOuterClass.Coin inputCoin1 = CoinOuterClass.Coin.newBuilder().setDenom(deposit1Coin.denom).setAmount(deposit1Coin.amount).build();
-        ArrayList<CoinOuterClass.Coin> tokenMax = new ArrayList<>();
-        tokenMax.add(inputCoin0);
-        tokenMax.add(inputCoin1);
-        osmosis.gamm.v1beta1.Tx.MsgJoinPool msgJoinPool = osmosis.gamm.v1beta1.Tx.MsgJoinPool.newBuilder().setSender((String) onParseAuthGrpc(auth).get(0)).setPoolId(poolId).addAllTokenInMaxs(tokenMax).setShareOutAmount(shareAmount).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgJoinPool").setValue(msgJoinPool.toByteString()).build());
-        return msgAnys;
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcExitPoolReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin Withdraw0Coin, Coin Withdraw1Coin, String shareAmount, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignTx(auth, getExitPoolMsg(auth, poolId, Withdraw0Coin, Withdraw1Coin, shareAmount), fee, memo, pKey, chainId, pubKeyType, baseChain);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcExitPoolSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin Withdraw0Coin, Coin Withdraw1Coin, String shareAmount, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getExitPoolMsg(auth, poolId, Withdraw0Coin, Withdraw1Coin, shareAmount), fee, memo, pKey, chainId, pubKeyType, baseChain);
-    }
-
-    public static ArrayList<Any> getExitPoolMsg(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin Withdraw0Coin, Coin Withdraw1Coin, String shareAmount) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        CoinOuterClass.Coin OutputCoin0 = CoinOuterClass.Coin.newBuilder().setDenom(Withdraw0Coin.denom).setAmount(Withdraw0Coin.amount).build();
-        CoinOuterClass.Coin OutputCoin1 = CoinOuterClass.Coin.newBuilder().setDenom(Withdraw1Coin.denom).setAmount(Withdraw1Coin.amount).build();
-        ArrayList<CoinOuterClass.Coin> tokenMin = new ArrayList<>();
-        tokenMin.add(OutputCoin0);
-        tokenMin.add(OutputCoin1);
-        osmosis.gamm.v1beta1.Tx.MsgExitPool msgExitPool = osmosis.gamm.v1beta1.Tx.MsgExitPool.newBuilder().setSender((String) onParseAuthGrpc(auth).get(0)).setPoolId(poolId).addAllTokenOutMins(tokenMin).setShareInAmount(shareAmount).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgExitPool").setValue(msgExitPool.toByteString()).build());
-        return msgAnys;
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcStartLockReq(QueryOuterClass.QueryAccountResponse auth, long duration, Coin lpCoin, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignTx(auth, getStartLockMsg(auth, duration, lpCoin), fee, memo, pKey, chainId, pubKeyType, baseChain);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcStartLockSimulateReq(QueryOuterClass.QueryAccountResponse auth, long duration, Coin lpCoin, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getStartLockMsg(auth, duration, lpCoin), fee, memo, pKey, chainId, pubKeyType, baseChain);
-    }
-
-    public static ArrayList<Any> getStartLockMsg(QueryOuterClass.QueryAccountResponse auth, long duration, Coin lpCoin) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        CoinOuterClass.Coin lockupCoin = CoinOuterClass.Coin.newBuilder().setDenom(lpCoin.denom).setAmount(lpCoin.amount).build();
-        ArrayList<CoinOuterClass.Coin> lockupTokens = new ArrayList<>();
-        lockupTokens.add(lockupCoin);
-        Duration OsmoDuration = Duration.newBuilder().setSeconds(duration).setNanos(0).build();
-        osmosis.lockup.Tx.MsgLockTokens msgLockTokens = osmosis.lockup.Tx.MsgLockTokens.newBuilder().setOwner((String) onParseAuthGrpc(auth).get(0)).setDuration(OsmoDuration).addAllCoins(lockupTokens).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/osmosis.lockup.MsgLockTokens").setValue(msgLockTokens.toByteString()).build());
-        return msgAnys;
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcBeginUnbondingReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Long> ids, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignTx(auth, getBeginUnbondingMsg(auth, ids), fee, memo, pKey, chainId, pubKeyType, baseChain);
-    }
-
-    public static ServiceOuterClass.SimulateRequest getGrpcBeginUnbondingSimulateReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Long> ids, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getBeginUnbondingMsg(auth, ids), fee, memo, pKey, chainId, pubKeyType, baseChain);
-    }
-
-    public static ArrayList<Any> getBeginUnbondingMsg(QueryOuterClass.QueryAccountResponse auth, ArrayList<Long> ids) {
-        ArrayList<Any> msgAnys = new ArrayList<>();
-        for (Long id: ids) {
-            osmosis.lockup.Tx.MsgBeginUnlocking msgBeginUnlocking = osmosis.lockup.Tx.MsgBeginUnlocking.newBuilder().setOwner((String) onParseAuthGrpc(auth).get(0)).setID(id).build();
-            Any msgBeginUnbondingAny = Any.newBuilder().setTypeUrl("/osmosis.lockup.MsgBeginUnlocking").setValue(msgBeginUnlocking.toByteString()).build();
-            msgAnys.add(msgBeginUnbondingAny);
-        }
         return msgAnys;
     }
 
