@@ -7,8 +7,13 @@ android {
     buildToolsVersion "30.0.3"
 
     def localPropertiesFile = rootProject.file("local.properties")
-    def localProperties = new Properties()
-    localProperties.load(new FileInputStream(localPropertiesFile))
+    def walletConnectDevApiKey = '"57a6070dfa02b49cc83f17171299a6b8"'
+    def walletConnectApiKey = '"57a6070dfa02b49cc83f17171299a6b8"'
+    if (localPropertiesFile.exists()) {
+        def localProperties = new Properties()
+        localProperties.load(new FileInputStream(localPropertiesFile))
+        walletConnectApiKey = localProperties['walletconnect.apiKey.release']
+    }
 
     defaultConfig {
         applicationId "wannabit.io.cosmostaion"
@@ -23,13 +28,13 @@ android {
             applicationIdSuffix '.debug'
             splits.abi.enable = false
             splits.density.enable = false
-            buildConfigField "String", "WALLETCONNECT_API_KEY", '"57a6070dfa02b49cc83f17171299a6b8"'
+            buildConfigField "String", "WALLETCONNECT_API_KEY", walletConnectDevApiKey
         }
         release {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "WALLETCONNECT_API_KEY", localProperties['walletconnect.apiKey.release']
+            buildConfigField "String", "WALLETCONNECT_API_KEY", walletConnectApiKey
         }
     }
 
