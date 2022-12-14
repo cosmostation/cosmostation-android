@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
-        tools:replace="android:allowBackup">
+        tools:replace="android:fullBackupContent">
         <activity
             android:name=".activities.IntroActivity"
             android:exported="true"
@@ -224,12 +224,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.txs.wc.WalletConnectActivity"
+            android:name=".activities.txs.wc.BnbWalletConnectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.txs.wc.ConnectWalletActivity"
+            android:name=".activities.txs.wc.WalletConnectActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

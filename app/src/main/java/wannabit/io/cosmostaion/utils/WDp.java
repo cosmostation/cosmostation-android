@@ -54,16 +54,16 @@ import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Okc;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.FeeInfo;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
-import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -295,6 +295,10 @@ public class WDp {
     }
 
     public static boolean isTxFeePayable(Context c, BaseData baseData, ChainConfig chainConfig) {
+        if (baseData == null || baseData.mParam == null || baseData.mParam.mGasPrice == null) {
+            return false;
+        }
+
         if (chainConfig.baseChain().equals(SIF_MAIN)) {
             if (new BigDecimal("100000000000000000").compareTo(baseData.getAvailable(chainConfig.mainDenom())) < 0) {
                 return true;
@@ -310,9 +314,8 @@ public class WDp {
                 return true;
             }
             return false;
-        } else if (baseData.mParam.mGasPrice == null) {
-            return false;
         }
+
         boolean result = false;
         for (Coin coin : getMinTxFeeAmounts(c, baseData)) {
             if (baseData.getAvailable(coin.denom).compareTo(new BigDecimal(coin.amount)) >= 0) {
@@ -396,7 +399,9 @@ public class WDp {
     }
 
     public static String getMonikerImgUrl(ChainConfig chainConfig, String opAddress) {
-        if (chainConfig == null) { return ""; }
+        if (chainConfig == null) {
+            return "";
+        }
         return CHAIN_BASE_URL + chainConfig.chainName() + "/moniker/" + opAddress + ".png";
     }
 

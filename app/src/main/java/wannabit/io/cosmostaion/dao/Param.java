@@ -156,7 +156,7 @@ public class Param {
             if (mParams.mCrescentMintingParams != null && mParams.mCrescentMintingParams.params != null && mParams.mCrescentMintingParams.params.inflation_schedules != null) {
                 BigDecimal genesisSupply = new BigDecimal("200000000000000");
                 BigDecimal thisInflation = getCurrentInflationAmount();
-                for (CrescentMintingParams.CrescentMintingParam.InflationSchedule schedules: mParams.mCrescentMintingParams.params.inflation_schedules) {
+                for (CrescentMintingParams.CrescentMintingParam.InflationSchedule schedules : mParams.mCrescentMintingParams.params.inflation_schedules) {
                     if (schedules.getStart_time() < now && schedules.getEnd_time() < now) {
                         genesisSupply = genesisSupply.add(schedules.getAmount());
                     }
@@ -219,9 +219,11 @@ public class Param {
 
     public BigDecimal getMainSupply() {
         String denom = getMainDenom();
-        for (Coin coin : mParams.mBankSupply.supply) {
-            if (coin.denom.equals(denom)) {
-                return new BigDecimal(coin.amount);
+        if (mParams != null && mParams.mBankSupply != null) {
+            for (Coin coin : mParams.mBankSupply.supply) {
+                if (coin.denom.equals(denom)) {
+                    return new BigDecimal(coin.amount);
+                }
             }
         }
         return BigDecimal.ZERO;
@@ -258,7 +260,8 @@ public class Param {
 
                 } else if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
                     if (mParams.mEvmosInflationParams != null && mParams.mEvmosInflationParams.params != null && mParams.mEvmosEpochMintProvision != null) {
-                        if (!mParams.mEvmosInflationParams.params.enable_inflation) return BigDecimal.ZERO;
+                        if (!mParams.mEvmosInflationParams.params.enable_inflation)
+                            return BigDecimal.ZERO;
                         BigDecimal stakingRewardsFactor = BigDecimal.ZERO;
                         BigDecimal ap = new BigDecimal(mParams.mEvmosEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
                         if (mParams.mEvmosInflationParams.params.mInflationDistribution != null) {
@@ -286,7 +289,8 @@ public class Param {
 
                 } else {
                     BigDecimal ap;
-                    if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN)) ap = getMainSupply().multiply(getMintInflation(chainConfig));
+                    if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN))
+                        ap = getMainSupply().multiply(getMintInflation(chainConfig));
                     else ap = getAnnualProvision();
                     if (ap.compareTo(BigDecimal.ZERO) > 0) {
                         return ap.multiply(calTax).divide(getBondedAmount(), 6, RoundingMode.DOWN);
@@ -341,7 +345,7 @@ public class Param {
         BigDecimal inflationAmount = BigDecimal.ZERO;
         long now = Calendar.getInstance().getTime().getTime();
         if (mParams.mCrescentMintingParams != null && mParams.mCrescentMintingParams.params != null) {
-            for (CrescentMintingParams.CrescentMintingParam.InflationSchedule schedules: mParams.mCrescentMintingParams.params.inflation_schedules) {
+            for (CrescentMintingParams.CrescentMintingParam.InflationSchedule schedules : mParams.mCrescentMintingParams.params.inflation_schedules) {
                 if (schedules.getStart_time() < now && schedules.getEnd_time() > now) {
                     inflationAmount = schedules.getAmount();
                 }
@@ -353,7 +357,7 @@ public class Param {
     public BigDecimal getBudgetRate() {
         BigDecimal budgetRate = BigDecimal.ZERO;
         if (mParams.mCrescentBudgets != null) {
-            for (CrescentBudgets.Budgets budgets: mParams.mCrescentBudgets.mBudgets) {
+            for (CrescentBudgets.Budgets budgets : mParams.mCrescentBudgets.mBudgets) {
                 if (budgets.mBudget.name.equalsIgnoreCase("budget-ecosystem-incentive") || budgets.mBudget.name.equalsIgnoreCase("budget-dev-team")) {
                     budgetRate = budgetRate.add(new BigDecimal(budgets.mBudget.rate));
                 }

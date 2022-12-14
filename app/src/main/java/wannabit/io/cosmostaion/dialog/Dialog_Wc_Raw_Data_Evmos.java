@@ -12,19 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import org.apache.commons.lang3.StringUtils;
+
 import wannabit.io.cosmostaion.R;
 
 public class Dialog_Wc_Raw_Data_Evmos extends DialogFragment {
     public WcEvmosSignRawDataListener listener = null;
-    private LinearLayout wcRawDataLayout;
     private TextView chainNameTv, chainUrlTv, wcRawDataTv, addressDetailTv;
     private Button btnNegative, btnPositive;
-    private String transaction, txAddress, message;
+    private String data, address;
 
     public static Dialog_Wc_Raw_Data_Evmos newInstance(Bundle bundle, WcEvmosSignRawDataListener listener) {
         Dialog_Wc_Raw_Data_Evmos dialog = new Dialog_Wc_Raw_Data_Evmos();
         dialog.setArguments(bundle);
         dialog.listener = listener;
+        dialog.setCancelable(false);
         return dialog;
     }
 
@@ -34,20 +36,13 @@ public class Dialog_Wc_Raw_Data_Evmos extends DialogFragment {
         View view = settingViews();
 
         assert getArguments() != null;
-        transaction = getArguments().getString("transaction");
-        txAddress = getArguments().getString("address");
-        message = getArguments().getString("message");
+        data = getArguments().getString("data");
+        address = getArguments().getString("address");
         Long id = getArguments().getLong("id");
-        int type = getArguments().getInt("type");
         String url = getArguments().getString("url");
 
         chainUrlTv.setText(url);
-
-        try {
-            fillTxData(transaction, txAddress);
-        } catch (Exception e) {
-            defaultTxView(transaction);
-        }
+        fillTxData();
 
         btnNegative.setOnClickListener(v -> {
             if (listener != null) {
@@ -58,7 +53,7 @@ public class Dialog_Wc_Raw_Data_Evmos extends DialogFragment {
 
         btnPositive.setOnClickListener(v -> {
             if (listener != null) {
-                listener.sign(type, id, transaction, message);
+                listener.sign(id);
             }
             dismiss();
         });
@@ -68,8 +63,7 @@ public class Dialog_Wc_Raw_Data_Evmos extends DialogFragment {
 
     @NonNull
     private View settingViews() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_raw_data_evmos, null);
-        wcRawDataLayout = view.findViewById(R.id.layout_wc_raw_data);
+        View view = getLayoutInflater().inflate(R.layout.dialog_wc_raw_data_evmos, null);
         chainNameTv = view.findViewById(R.id.chain_name);
         chainUrlTv = view.findViewById(R.id.chain_url);
         wcRawDataTv = view.findViewById(R.id.wc_raw_data);
@@ -79,21 +73,17 @@ public class Dialog_Wc_Raw_Data_Evmos extends DialogFragment {
         return view;
     }
 
-    private void defaultTxView(String transaction) {
+    private void fillTxData() {
         chainNameTv.setText(getString(R.string.str_wc_sign_title));
-        wcRawDataTv.setText(transaction);
-    }
-
-    private void fillTxData(String transaction, String txAddress) {
-        chainNameTv.setText(getString(R.string.str_wc_sign_title));
-        wcRawDataTv.setText(transaction);
-        addressDetailTv.setText(txAddress);
+        wcRawDataTv.setText(data);
+        if (StringUtils.isEmpty(address)) {
+            addressDetailTv.setText(address);
+        }
     }
 
     public interface WcEvmosSignRawDataListener {
-        void sign(int type, Long id, String transaction, String message);
+        void sign(Long id);
 
         void reject(Long id);
     }
-
 }
