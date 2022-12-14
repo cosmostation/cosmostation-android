@@ -42,7 +42,6 @@ public class MintscanOsmoPoolListTask extends CommonTask {
 
             if (response.body() != null && response.body().size() > 0) {
                 mResult.isSuccess = true;
-                WLog.w("test1234 : " + response.body().get(0).adenom);
                 mResult.resultData = response.body();
             }
 

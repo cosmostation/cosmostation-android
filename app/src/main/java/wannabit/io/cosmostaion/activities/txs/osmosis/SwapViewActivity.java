@@ -58,7 +58,7 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
     private ArrayList<SupportPool> mSupportPoolList = new ArrayList<>();
     private ArrayList<String> mAllDenoms = new ArrayList<>();
     private ArrayList<String> mSwapableDenoms = new ArrayList<>();
-    private int mSelectedPoolId = 1;
+    private long mSelectedPoolId = 1;
     private BalancerPool.Pool mSelectedPool;
     private StableswapPool.Pool mSelectedStablePool;
     public String mInputCoinDenom;
@@ -212,7 +212,6 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
                 } catch (InvalidProtocolBufferException e) { e.printStackTrace(); }
             }
         }, mBaseChain, mSelectedPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, mBaseChain, mSelectedPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -274,13 +273,13 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
                 for (SupportPool pool : mSupportPoolList) {
                     if (pool.adenom.equalsIgnoreCase(mInputCoinDenom)) {
                         mOutputCoinDenom = pool.bdenom;
-                        mSelectedPoolId = Integer.parseInt(pool.id);
+                        mSelectedPoolId = Long.parseLong(pool.id);
                         onFetchPoolInfo();
                         return;
                     }
                     if (pool.bdenom.equalsIgnoreCase(mInputCoinDenom)) {
                         mOutputCoinDenom = pool.adenom;
-                        mSelectedPoolId = Integer.parseInt(pool.id);
+                        mSelectedPoolId = Long.parseLong(pool.id);
                         onFetchPoolInfo();
                         return;
                     }

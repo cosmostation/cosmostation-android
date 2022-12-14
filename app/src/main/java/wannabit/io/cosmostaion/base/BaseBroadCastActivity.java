@@ -38,9 +38,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public ArrayList<Types.Resource>    mStarNameResources = new ArrayList();       //starname
     public boolean                      mIsDomain;
 
-    public Tx.SwapAmountInRoute         mOsmosisSwapAmountInRoute;                          // osmosis
+    public Tx.SwapAmountInRoute         mOsmosisSwapAmountInRoute;                  // osmosis
     public long                         mOsmosisPoolId;
-    public BalancerPool.Pool            mOsmosisPool;
     public Coin                         mSwapInCoin;
     public Coin                         mSwapOutCoin;
 
