@@ -4,14 +4,23 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Build;
 import android.os.Bundle;
+import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.google.common.collect.Lists;
 import com.google.firebase.FirebaseApp;
 import com.squareup.picasso.Picasso;
+import com.walletconnect.android.Core;
+import com.walletconnect.android.CoreClient;
+import com.walletconnect.android.relay.ConnectionType;
+import com.walletconnect.sign.client.Sign;
+import com.walletconnect.sign.client.SignClient;
 
 import java.util.UUID;
 
+import wannabit.io.cosmostaion.BuildConfig;
+import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
@@ -51,11 +60,26 @@ public class BaseApplication extends Application {
         } else if (themeColor.equals(ThemeUtil.DARK_MODE)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
+
+        initWalletConnectV2();
+
+        if (BuildConfig.DEBUG) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
+    }
+
+    private void initWalletConnectV2() {
+        String projectId = BuildConfig.WALLETCONNECT_API_KEY;
+        String relayUrl = "relay.walletconnect.com";
+        String serverUrl = "wss://" + relayUrl + "?projectId=" + projectId;
+        ConnectionType connectionType = ConnectionType.AUTOMATIC;
+        Core.Model.AppMetaData metaData = new Core.Model.AppMetaData(getString(R.string.str_wc_peer_name), getString(R.string.str_wc_peer_url), getString(R.string.str_wc_peer_desc), Lists.newArrayList(), null);
+        CoreClient.INSTANCE.initialize(metaData, serverUrl, connectionType, this, null);
+        SignClient.INSTANCE.initialize(new Sign.Params.Init(CoreClient.INSTANCE), error -> null);
     }
 
     public BaseData getBaseDao() {
-        if (mBaseData == null)
-            mBaseData = new BaseData(this);
+        if (mBaseData == null) mBaseData = new BaseData(this);
         return mBaseData;
     }
 
@@ -72,9 +96,7 @@ public class BaseApplication extends Application {
     }
 
     public enum AppStatus {
-        BACKGROUND,
-        RETURNED_TO_FOREGROUND,
-        FOREGROUND;
+        BACKGROUND, RETURNED_TO_FOREGROUND, FOREGROUND;
     }
 
     public class LifecycleCallbacks implements ActivityLifecycleCallbacks {
