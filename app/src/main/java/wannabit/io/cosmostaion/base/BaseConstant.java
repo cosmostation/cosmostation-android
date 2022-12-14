@@ -96,11 +96,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_STARNAME_RESOLVE            = 4105;
     public final static int TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO        = 4106;
 
-    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_LIST           = 4200;
-    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_INFO           = 4201;
-    public final static int TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED        = 4202;
-    public final static int TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES       = 4203;
-    public final static int TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS       = 4204;
+    public final static int TASK_FETCH_OSMOSIS_POOL_LIST                = 4201;
+    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_INFO           = 4202;
 
     public final static int TASK_GRPC_FETCH_SIF_POOL_LIST               = 4250;
     public final static int TASK_GRPC_FETCH_SIF_POOL_INFO               = 4251;

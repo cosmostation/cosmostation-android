@@ -442,6 +442,11 @@
             android:theme="@style/Theme.AppCompat.Translucent"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
+            android:name=".activities.txs.osmosis.SwapViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
             android:name=".activities.txs.osmosis.SwapActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

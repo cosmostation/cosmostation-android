@@ -109,6 +109,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.activities.txs.liquidstaking.StrideLSActivity;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTListActivity;
+import wannabit.io.cosmostaion.activities.txs.osmosis.SwapViewActivity;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -1527,6 +1528,8 @@ public class WUtil {
             return new Intent(mainActivity, DAppsList5Activity.class);
         } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
             return new Intent(mainActivity, SifDexListActivity.class);
+        } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
+            return new Intent(mainActivity, SwapViewActivity.class);
         } else if (chainConfig.baseChain().equals(STRIDE_MAIN)) {
             return new Intent(mainActivity, StrideLSActivity.class);
         } else {
