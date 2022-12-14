@@ -47,7 +47,7 @@ public class BaseApplication extends Application {
         String themeColor = ThemeUtil.modLoad(getApplicationContext());
         ThemeUtil.applyTheme(themeColor);
 
-        if (themeColor.equals("default")) {
+        if (themeColor.equals(ThemeUtil.DEFAULT_MODE)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
             }
@@ -55,9 +55,9 @@ public class BaseApplication extends Application {
             else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
             }
-        } else if (themeColor.equals("light")) {
+        } else if (themeColor.equals(ThemeUtil.LIGHT_MODE)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else if (themeColor.equals("dark")) {
+        } else if (themeColor.equals(ThemeUtil.DARK_MODE)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
 
@@ -88,8 +88,10 @@ public class BaseApplication extends Application {
     }
 
     public boolean needShowLockScreen() {
-        if (!isReturnedForground() || !getBaseDao().onHasPassword() || !getBaseDao().getUsingAppLock() || (getBaseDao().onSelectAccounts().size() <= 0))
-            return false;
+        if (!isReturnedForground() ||
+                !getBaseDao().onHasPassword() ||
+                !getBaseDao().getUsingAppLock() ||
+                (getBaseDao().onSelectAccounts().size() <= 0)) return false;
         return true;
     }
 

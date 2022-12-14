@@ -220,13 +220,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             shareIntent.setAction(Intent.ACTION_SEND);
             if (!TextUtils.isEmpty(mEthHash)) {
                 getEthTxHash(mEthHash);
-                if (mEthTxHash != null) {
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthTxHash));
-                } else {
-                    return;
-                }
+                if (mEthTxHash != null) shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthTxHash));
+                else return;
             } else {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
+                if (mResponse != null) shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
+                else return;
             }
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
@@ -235,13 +233,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             String url;
             if (!TextUtils.isEmpty(mEthHash)) {
                 getEthTxHash(mEthHash);
-                if (mEthTxHash != null) {
-                    url = mChainConfig.explorerHistoryLink(mEthTxHash);
-                } else {
-                    return;
-                }
+                if (mEthTxHash != null) url = mChainConfig.explorerHistoryLink(mEthTxHash);
+                else return;
+
             } else {
-                url = mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash());
+                if (mResponse != null) url = mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash());
+                else return;
             }
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
