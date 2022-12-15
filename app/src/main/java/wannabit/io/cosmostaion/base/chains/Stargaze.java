@@ -29,7 +29,6 @@ public class Stargaze extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-stargaze.cosmostation.io"; }
-    public String apiUrl() { return "https://api-stargaze.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "stargaze/"; }
     public String homeInfoLink() { return  "https://stargaze.zone"; }

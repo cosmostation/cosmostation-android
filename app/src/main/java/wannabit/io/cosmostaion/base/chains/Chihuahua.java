@@ -29,7 +29,6 @@ public class Chihuahua extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-chihuahua.cosmostation.io"; }
-    public String apiUrl() { return "https://api-chihuahua.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "chihuahua/"; }
     public String homeInfoLink() { return  "https://chi.huahua.wtf"; }

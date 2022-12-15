@@ -29,7 +29,6 @@ public class Stride extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-stride.cosmostation.io"; }
-    public String apiUrl() { return "https://api-stride.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "stride/"; }
     public String homeInfoLink() { return  "https://stride.zone/"; }

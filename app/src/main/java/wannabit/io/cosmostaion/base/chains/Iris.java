@@ -29,7 +29,6 @@ public class Iris extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "grpc-iris.cosmostation.io"; }
-    public String apiUrl() { return "https://api-iris.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "iris/"; }
     public String homeInfoLink() { return "https://www.irisnet.org"; }

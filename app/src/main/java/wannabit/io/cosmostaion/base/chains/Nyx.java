@@ -28,7 +28,6 @@ public class Nyx extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-nyx.cosmostation.io"; }
-    public String apiUrl() { return "https://api-nyx.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "nyx/"; }
     public String homeInfoLink() { return  "https://nymtech.net"; }
