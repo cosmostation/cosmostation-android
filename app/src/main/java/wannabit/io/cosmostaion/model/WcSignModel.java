@@ -12,10 +12,11 @@ import java.util.TreeMap;
 
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.model.type.Signature;
+import wannabit.io.cosmostaion.model.type.WcSignature;
 
 public class WcSignModel {
     public TreeMap<String, Object> signed;
-    public Signature signature;
+    public WcSignature signature;
 
     public WcSignModel(JsonObject txMsg, ECKey key) {
         ObjectMapper mapper = new ObjectMapper();
