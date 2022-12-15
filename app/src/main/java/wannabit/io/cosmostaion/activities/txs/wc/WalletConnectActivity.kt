@@ -869,7 +869,9 @@ class WalletConnectActivity : BaseActivity() {
                 msgModel.type = rawMessage.getString("type")
                 msgModel.value =
                     Gson().fromJson(rawMessage.getString("value"), Msg.Value::class.java)
-                msgModel.value.amount = parseAmount(msgModel.value.amount)
+                if (msgModel.value.amount != null) {
+                    msgModel.value.amount = parseAmount(msgModel.value.amount)
+                }
                 msgList.add(msgModel)
             }
             wcStdSignMsg.msgs = msgList
