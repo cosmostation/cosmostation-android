@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.cosmos;
 
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
+import static desmos.profiles.v3.ModelsProfile.Profile;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 import android.util.Base64;
@@ -34,7 +35,6 @@ import cosmos.gov.v1beta1.Tx;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
-import desmos.profiles.v1beta1.ModelsProfile;
 import ibc.core.client.v1.Client;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -57,8 +57,8 @@ public class Signer {
     public static ArrayList<Serializable> onParseAuthGrpc(QueryOuterClass.QueryAccountResponse auth) {
         try {
             Any rawAccount = auth.getAccount();
-            if (rawAccount.getTypeUrl().contains(ModelsProfile.Profile.getDescriptor().getFullName())) {
-                rawAccount = ModelsProfile.Profile.parseFrom(auth.getAccount().getValue()).getAccount();
+            if (rawAccount.getTypeUrl().contains(Profile.getDescriptor().getFullName())) {
+                rawAccount = Profile.parseFrom(auth.getAccount().getValue()).getAccount();
             }
 
             if (rawAccount.getTypeUrl().contains(Auth.BaseAccount.getDescriptor().getFullName())) {
