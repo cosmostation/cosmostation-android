@@ -8,6 +8,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResMintscanAssets;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
@@ -47,6 +48,9 @@ public interface Station {
 
     @GET("v1/{chain}/evm/tx/{etherTxHash}")
     Call<Object> getEvmTxHash(@Path("chain") String chain, @Path("etherTxHash") String etherTxHash);
+
+    @GET("v1/{chain}/account/{address}/txs")
+    Call<ArrayList<ResApiNewTxListCustom>> getNewAccountTxCustom(@Path("chain") String chain, @Path("address") String address, @Query("limit") String limit, @Query("from") int id);
 
     //certik lcd
     @GET("/shentu/gov/v1alpha1/proposals/{proposal_id}/votes/{voter}")

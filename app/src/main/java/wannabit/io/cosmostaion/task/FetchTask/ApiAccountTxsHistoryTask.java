@@ -15,13 +15,13 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 public class ApiAccountTxsHistoryTask extends CommonTask {
 
-    private BaseChain mBaseChain;
+    private String mChain;
     private String mAddress;
     private int mId;
 
-    public ApiAccountTxsHistoryTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String address, int id) {
+    public ApiAccountTxsHistoryTask(BaseApplication app, TaskListener listener, String chain, String address, int id) {
         super(app, listener);
-        this.mBaseChain = baseChain;
+        this.mChain = chain;
         this.mAddress = address;
         this.mId = id;
         this.mResult.taskType = BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY;
@@ -30,7 +30,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getChainApi(mBaseChain).getNewAccountTxCustom(mAddress, "30", mId).execute();
+            Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMintscan(mApp).getNewAccountTxCustom(mChain, mAddress, "30", mId).execute();
             if (response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body();
                 mResult.isSuccess = true;
