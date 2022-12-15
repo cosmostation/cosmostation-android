@@ -24,7 +24,7 @@ public class Omniflix extends ChainConfig {
     public String addressPrefix() { return "omniflix"; }
 
     public boolean dexSupport() { return false; }
-    public boolean wcSupport() { return false; }
+    public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-omniflix.cosmostation.io"; }
