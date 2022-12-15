@@ -113,6 +113,9 @@
     <string name="str_wallet_detail">지갑 상세</string>
     <string name="str_general">일반</string>
     <string name="str_notice">공지사항</string>
+    <string name="str_language">언어</string>
+    <string name="str_language_english">영어</string>
+    <string name="str_language_korean">한국어</string>
     <string name="str_theme">테마</string>
     <string name="str_theme_system">시스템</string>
     <string name="str_theme_light">라이트 모드</string>
@@ -1276,6 +1279,7 @@
     <string name="tx_kava_earn_delegateDeposit">어닝 리퀴디티 위임 입금</string>
     <string name="str_tx_kava_earn_withdraw">어닝 리퀴디티\n출금</string>
     <string name="tx_kava_earn_withdraw">어닝 리퀴디티 출금</string>
+    <string name="tx_kava_earn_deposit">어닝 리퀴디티\n입금</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

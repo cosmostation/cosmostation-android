@@ -34,6 +34,7 @@ public class BaseConstant {
     public final static String PRE_USER_FAVO_TOKENS         = "PRE_USER_FAVO_TOKENS";
     public final static String PRE_DB_VERSION               = "PRE_DB_VERSION";
     public final static String PRE_THEME_MOD                = "PRE_THEME_MOD";
+    public final static String PRE_LANGUAGE                 = "PRE_LANGUAGE";
     public final static String PRE_AUTO_SIGN                = "PRE_AUTO_SIGN";
     public final static String PRE_WC_WHITE_LIST            = "PRE_WC_WHITE_LIST";
     public final static String PRE_PRICE_COLOR              = "PRE_PRICE_COLOR";

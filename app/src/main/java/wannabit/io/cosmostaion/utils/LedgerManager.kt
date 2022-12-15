@@ -25,7 +25,7 @@ class LedgerManager {
         BleManagerFactory.newInstance(BaseApplication.getInstance())
     var device: BleDeviceModel? = null
 
-    fun isConnect(listener: (address: String, pubKey: ByteArray) -> Void) {
+    fun isConnect(listener: (address: String, pubKey: ByteArray) -> Unit) {
         if (ActivityCompat.checkSelfPermission(
                 BaseApplication.getInstance(), Manifest.permission.BLUETOOTH_CONNECT
             ) != PackageManager.PERMISSION_GRANTED
@@ -69,7 +69,7 @@ class LedgerManager {
             0,
             0,
             128.toByte(),
-            118,
+            60,
             0,
             0,
             128.toByte(),
@@ -95,9 +95,9 @@ class LedgerManager {
         return t
     }
 
-    fun getAddress(listener: (address: String, pubKey: ByteArray) -> Void) {
+    fun getAddress(listener: (address: String, pubKey: ByteArray) -> Unit) {
         val serializedPath = this.serializePath()
-        val data = serializeHRP("osmo") + serializedPath
+        val data = serializeHRP("kava") + serializedPath
         val byteArray = byteArrayOf(
             CLA.toByte(), INS_GET_ADDR_SECP256K1.toByte(), 0.toByte(), 0.toByte()
         ) + data.size.toByte() + data
@@ -112,7 +112,7 @@ class LedgerManager {
         })
     }
 
-    fun sign(message: String, listener: (signature: ByteArray) -> Void) {
+    fun sign(message: String, listener: (signature: ByteArray) -> Unit) {
         val serializedPath = this.serializePath()
         val chunks = mutableListOf<ByteArray>()
         chunks.add(serializedPath)

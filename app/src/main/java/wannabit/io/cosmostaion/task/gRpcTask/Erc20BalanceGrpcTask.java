@@ -19,6 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -55,7 +58,8 @@ public class Erc20BalanceGrpcTask extends CommonTask {
             List<Type> results = FunctionReturnDecoder.decode(response.getValue(), function.getOutputParameters());
             BigInteger balance = (BigInteger)results.get(0).getValue();
 
-            mApp.getBaseDao().setMyTokenBalance(mContAddress, balance.toString());
+            ChainConfig chainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain));
+            mApp.getBaseDao().setMyTokenBalance(chainConfig, mContAddress, balance.toString());
 
         } catch (Exception e) {
             WLog.e("Erc20BalanceGrpcTask " + e.getMessage());

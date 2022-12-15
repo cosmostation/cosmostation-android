@@ -37,13 +37,14 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
     private LinearLayout wcRawDetailLayout, wcRawDataLayout, buttonWrapLayout, infoWrapLayout;
     private TextView chainNameTv, chainUrlTv, wcDetailTv, wcRawDataTv, addressDetailTv, memoDetailTv, totalFeeAmountTv;
     private Button btnDetail, btnData, btnNegative, btnPositive;
-    private String transaction;
+    private String data;
     private JsonArray txJsonArray;
 
     public static Dialog_Wc_Raw_Data newInstance(Bundle bundle, WcSignRawDataListener listener) {
         Dialog_Wc_Raw_Data dialog = new Dialog_Wc_Raw_Data();
         dialog.setArguments(bundle);
         dialog.listener = listener;
+        dialog.setCancelable(false);
         return dialog;
     }
 
@@ -53,29 +54,28 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
         View view = settingViews();
 
         assert getArguments() != null;
-        transaction = getArguments().getString("transaction");
+        data = getArguments().getString("data");
         Long id = getArguments().getLong("id");
-        int type = getArguments().getInt("type");
         String url = getArguments().getString("url");
 
         chainUrlTv.setText(url);
 
         try {
-            fillTxData(transaction);
+            fillTxData(data);
         } catch (Exception e) {
-            defaultTxView(transaction);
+            defaultTxView(data);
         }
 
         btnNegative.setOnClickListener(v -> {
             if (listener != null) {
-                listener.reject(id);
+                listener.cancel(id);
             }
             dismiss();
         });
 
         btnPositive.setOnClickListener(v -> {
             if (listener != null) {
-                listener.sign(type, id, transaction);
+                listener.sign(id, data);
             }
             dismiss();
         });
@@ -173,9 +173,9 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
     }
 
     public interface WcSignRawDataListener {
-        void sign(int type, Long id, String transaction);
+        void sign(Long id, String transaction);
 
-        void reject(Long id);
+        void cancel(Long id);
     }
 
     private BaseActivity getSActivity() {

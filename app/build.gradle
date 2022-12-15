@@ -6,12 +6,21 @@ android {
     compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
+    def localPropertiesFile = rootProject.file("local.properties")
+    def walletConnectDevApiKey = '"57a6070dfa02b49cc83f17171299a6b8"'
+    def walletConnectApiKey = '"57a6070dfa02b49cc83f17171299a6b8"'
+    if (localPropertiesFile.exists()) {
+        def localProperties = new Properties()
+        localProperties.load(new FileInputStream(localPropertiesFile))
+        walletConnectApiKey = localProperties['walletconnect.apiKey.release']
+    }
+
     defaultConfig {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 24
         targetSdkVersion 32
-        versionCode 177
-        versionName "1.7.7"
+        versionCode 178
+        versionName "1.7.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -19,11 +28,13 @@ android {
             applicationIdSuffix '.debug'
             splits.abi.enable = false
             splits.density.enable = false
+            buildConfigField "String", "WALLETCONNECT_API_KEY", walletConnectDevApiKey
         }
         release {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "WALLETCONNECT_API_KEY", walletConnectApiKey
         }
     }
 
@@ -39,6 +50,8 @@ android {
         }
     }
     packagingOptions {
+        exclude 'META-INF/*'
+
         jniLibs {
             excludes += ['lib/x86_64/freebsd/libscrypt.so', 'lib/x86_64/linux/libscrypt.so']
         }
@@ -46,7 +59,6 @@ android {
             excludes += ['lib/x86_64/darwin/libscrypt.dylib']
         }
     }
-
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -58,6 +70,9 @@ android {
     }
     namespace 'wannabit.io.cosmostaion'
 
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -69,7 +84,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     //bitcoin
-    implementation ('org.bitcoinj:bitcoinj-core:0.16.1') {
+    implementation('org.bitcoinj:bitcoinj-core:0.16.1') {
         exclude group: "org.bouncycastle"
         exclude group: "com.google.guava"
         exclude group: "com.google.protobuf"
@@ -87,7 +102,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.7.3'
     //sqliteChiper
-    implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.0'
     //picasso for images
     implementation 'com.squareup.picasso:picasso:2.71828'
     //glide for images
@@ -103,21 +118,28 @@ dependencies {
     //circle Image
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     //firebase
-    implementation 'com.google.firebase:firebase-messaging:23.0.5'
-    implementation 'com.google.firebase:firebase-core:21.0.0'
+    implementation 'com.google.firebase:firebase-messaging:23.1.0'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
     //for qr code
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
     implementation 'org.apache.commons:commons-lang3:3.6'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
     implementation 'com.squareup.moshi:moshi:1.8.0'
-    implementation files('libs/httpclient-4.5.3.jar')
-    implementation files('libs/apache-httpcomponents-httpcore.jar')
     implementation "com.github.cosmostation:wallet-connect-kotlin:1.6.4"
+    implementation("com.walletconnect:sign:2.1.0") {
+        exclude group: "org.jboss.spec.javax.annotation"
+        exclude group: "com.github.stephenc.jcip"
+    }
+    implementation('com.walletconnect:android-core:1.3.0') {
+        exclude group: "org.jboss.spec.javax.annotation"
+        exclude group: "com.github.stephenc.jcip"
+    }
     implementation 'net.i2p.crypto:eddsa:0.3.0'
     implementation 'com.google.guava:guava:24.1-jre'
 
     //web3 for ethermint
     implementation 'org.web3j:core:4.8.7-android'
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     implementation 'com.github.addisonelliott:SegmentedButton:3.1.9'
 

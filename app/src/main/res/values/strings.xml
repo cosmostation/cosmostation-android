@@ -147,6 +147,9 @@
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
     <string name="str_notice">Notice</string>
+    <string name="str_language">Language</string>
+    <string name="str_language_english">English</string>
+    <string name="str_language_korean">Korean</string>
     <string name="str_theme">Theme</string>
     <string name="str_theme_system">System</string>
     <string name="str_theme_light">Light Mode</string>
@@ -1349,6 +1352,7 @@
     <string name="tx_kava_earn_delegateDeposit">Earn Liquidate Delegate Deposit</string>
     <string name="str_tx_kava_earn_withdraw">Earn Liquidate\nWithdraw</string>
     <string name="tx_kava_earn_withdraw">Earn Liquidate Withdraw</string>
+    <string name="tx_kava_earn_deposit">Earn Liquidate\nDeposit</string>
 
     <string name="tx_stride_liquid_stake">Liquid Stake</string>
     <string name="tx_stride_redeem_stake">Redeem Stake</string>

@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -36,8 +38,8 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.ClaimIncentiveActivity;
-import wannabit.io.cosmostaion.activities.txs.wc.ConnectWalletActivity;
 import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.BnbWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -289,8 +291,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
 
-        if (getBaseDao().mIncentiveRewards.getIncentiveAmount(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO &&
-                getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
+        if (getBaseDao().mIncentiveRewards.getIncentiveAmount(mChainConfig.mainDenom()) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_HARD_DENOM) == BigDecimal.ZERO && getBaseDao().mIncentiveRewards.getIncentiveAmount(Kava.KAVA_SWP_DENOM) == BigDecimal.ZERO) {
             Toast.makeText(this, R.string.error_no_incentive_to_claim, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -344,9 +345,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && !TextUtils.isEmpty(result.getData().getStringExtra("wcUrl"))) {
             Intent wIntent;
             if (mBaseChain.equals(BNB_MAIN)) {
-                wIntent = new Intent(MainActivity.this, WalletConnectActivity.class);
+                wIntent = new Intent(MainActivity.this, BnbWalletConnectActivity.class);
             } else {
-                wIntent = new Intent(MainActivity.this, ConnectWalletActivity.class);
+                wIntent = new Intent(MainActivity.this, WalletConnectActivity.class);
             }
             wIntent.putExtra("wcUrl", result.getData().getStringExtra("wcUrl"));
             startActivity(wIntent);

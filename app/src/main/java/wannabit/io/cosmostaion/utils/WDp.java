@@ -54,16 +54,16 @@ import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.base.chains.Nyx;
 import wannabit.io.cosmostaion.base.chains.Okc;
 import wannabit.io.cosmostaion.base.chains.Osmosis;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.FeeInfo;
+import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
-import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -97,7 +97,7 @@ public class WDp {
             return "UNKNOWN";
         }
         final Asset asset = baseData.getAsset(chainConfig, denom);
-        final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
 
         if (asset != null) {
             return asset.symbol;
@@ -177,7 +177,7 @@ public class WDp {
     public static int getDenomDecimal(BaseData baseData, ChainConfig chainConfig, String denom) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return 6;
         final Asset asset = baseData.getAsset(chainConfig, denom);
-        final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
 
         if (asset != null) {
             return asset.decimals;
@@ -237,7 +237,7 @@ public class WDp {
         int displayDecimal = 6;
 
         final Asset asset = baseData.getAsset(chainConfig, denom);
-        final MintscanToken mintscanToken = baseData.getCw20Asset(denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
         if (asset != null) {
             amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimals, asset.decimals));
 
@@ -295,6 +295,10 @@ public class WDp {
     }
 
     public static boolean isTxFeePayable(Context c, BaseData baseData, ChainConfig chainConfig) {
+        if (baseData == null || baseData.mParam == null || baseData.mParam.mGasPrice == null) {
+            return false;
+        }
+
         if (chainConfig.baseChain().equals(SIF_MAIN)) {
             if (new BigDecimal("100000000000000000").compareTo(baseData.getAvailable(chainConfig.mainDenom())) < 0) {
                 return true;
@@ -310,9 +314,8 @@ public class WDp {
                 return true;
             }
             return false;
-        } else if (baseData.mParam.mGasPrice == null) {
-            return false;
         }
+
         boolean result = false;
         for (Coin coin : getMinTxFeeAmounts(c, baseData)) {
             if (baseData.getAvailable(coin.denom).compareTo(new BigDecimal(coin.amount)) >= 0) {
@@ -354,7 +357,7 @@ public class WDp {
 
     public static AssetPath getAssetPath(BaseData baseData, ChainConfig fromChain, ChainConfig toChain, String denom) {
         Optional<Asset> msAsset = baseData.mAssets.stream().filter(item -> item.denom.equalsIgnoreCase(denom)).findFirst();
-        MintscanToken msMintscanToken = baseData.getCw20Asset(denom);
+        MintscanToken msMintscanToken = baseData.getCw20Asset(fromChain, denom);
 
         for (Asset asset : baseData.mAssets) {
             if (msAsset.isPresent()) {
@@ -396,7 +399,9 @@ public class WDp {
     }
 
     public static String getMonikerImgUrl(ChainConfig chainConfig, String opAddress) {
-        if (chainConfig == null) { return ""; }
+        if (chainConfig == null) {
+            return "";
+        }
         return CHAIN_BASE_URL + chainConfig.chainName() + "/moniker/" + opAddress + ".png";
     }
 
@@ -722,8 +727,14 @@ public class WDp {
                 }
             }
 
-            if (baseData.mMintscanMyTokens.size() > 0) {
-                for (MintscanToken myAsset : baseData.mMintscanMyTokens) {
+            if (baseData.mCw20MyTokens.size() > 0) {
+                for (MintscanToken myAsset : baseData.mCw20MyTokens) {
+                    BigDecimal amount = myAsset.getAmount();
+                    totalValue = totalValue.add(assetValue(baseData, myAsset.coinGeckoId, amount, myAsset.decimals));
+                }
+
+            } else if (baseData.mErc20MyTokens.size() > 0) {
+                for (MintscanToken myAsset : baseData.mErc20MyTokens) {
                     BigDecimal amount = myAsset.getAmount();
                     totalValue = totalValue.add(assetValue(baseData, myAsset.coinGeckoId, amount, myAsset.decimals));
                 }

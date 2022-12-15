@@ -91,7 +91,6 @@ public class MainTokensFragment extends BaseFragment {
     private Account mAccount;
     private BaseChain mBaseChain;
     private ChainConfig mChainConfig;
-    private ArrayList<MintscanToken> mMintscanToken = new ArrayList<>();
 
     public static MainTokensFragment newInstance() {
         return new MainTokensFragment();
@@ -145,7 +144,6 @@ public class MainTokensFragment extends BaseFragment {
         mAccount = getMainActivity().mAccount;
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = getMainActivity().mChainConfig;
-        mMintscanToken = getBaseDao().mMintscanMyTokens;
 
         mCardView.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), mChainConfig.chainBgColor()));
         getMainActivity().setAccountKeyStatus(getActivity(), mAccount, mChainConfig, itemKeyStatus);
@@ -228,7 +226,8 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onUpdateView() {
         final String mainDenom = mChainConfig.mainDenom();
-        mErc20Grpc = getBaseDao().mMintscanMyTokens;
+        if (mChainConfig.baseChain().equals(JUNO_MAIN)) mErc20Grpc = getBaseDao().mCw20MyTokens;
+        else mErc20Grpc = getBaseDao().mErc20MyTokens;
         mNativeGrpc.clear();
         mIbcGrpc.clear();
         mEtherGrpc.clear();
@@ -341,7 +340,7 @@ public class MainTokensFragment extends BaseFragment {
                 }
 
                 WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.origin_denom, holder.itemImg);
-                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(),chainConfig,asset.origin_denom));
+                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig,asset.origin_denom));
                 holder.itemPath.setText(asset.description);
 
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
@@ -462,9 +461,8 @@ public class MainTokensFragment extends BaseFragment {
         private void onBindEdit(RecyclerView.ViewHolder viewHolder) {
             final EditHolder holder = (EditHolder) viewHolder;
             holder.itemRoot.setOnClickListener(view -> {
-                Bundle bundleData = new Bundle();
-                bundleData.putSerializable(SelectCWTokenDialog.SELECT_CW_TOKEN_BUNDLE_KEY, mMintscanToken);
-                SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(bundleData);
+                SelectCWTokenDialog dialog = SelectCWTokenDialog.newInstance(null);
+                dialog.setCancelable(false);
                 dialog.show(getParentFragmentManager(), SelectCWTokenDialog.class.getName());
                 getParentFragmentManager().setFragmentResultListener(SelectCWTokenDialog.SELECT_CW_TOKEN_BUNDLE_KEY, MainTokensFragment.this, (requestKey, bundle) -> {
                     onUpdateInfo();

@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
+import wannabit.io.cosmostaion.activities.txs.wc.BnbWalletConnectActivity;
 
 public class Dialog_Wc_Cancel extends DialogFragment {
 
@@ -41,7 +41,7 @@ public class Dialog_Wc_Cancel extends DialogFragment {
         btn_negative.setOnClickListener(v -> dismiss());
 
         btn_positive.setOnClickListener(v -> {
-            ((WalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
+            ((BnbWalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
             dismiss();
         });
 

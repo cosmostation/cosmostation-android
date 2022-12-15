@@ -25,7 +25,7 @@ public class Cosmos extends ChainConfig {
     public String addressPrefix() { return "cosmos"; }
 
     public boolean dexSupport() { return false; }
-    public boolean wcSupport() { return false; }
+    public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
     public boolean moonPaySupport() { return true; }
 

@@ -306,8 +306,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
     private boolean onCommonCheck() {
         if (!mAccount.hasPrivateKey) {
-            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                    getString(R.string.str_close), null, getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount());
+            onInsertKeyDialog();
             return false;
         }
 

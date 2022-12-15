@@ -13,6 +13,7 @@ import cosmwasm.wasm.v1.QueryGrpc;
 import cosmwasm.wasm.v1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Cw20BalanceReq;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
@@ -45,7 +46,7 @@ public class Cw20BalanceGrpcTask extends CommonTask {
             QueryOuterClass.QuerySmartContractStateResponse response = mStub.smartContractState(request);
 
             JSONObject json = new JSONObject(response.getData().toStringUtf8());
-            mApp.getBaseDao().setMyTokenBalance(mContAddress, json.get("balance").toString());
+            mApp.getBaseDao().setMyTokenBalance(ChainFactory.getChain(mChain), mContAddress, json.get("balance").toString());
 
         } catch (Exception e) {
             WLog.e("Cw20BalanceGrpcTask " + e.getMessage());

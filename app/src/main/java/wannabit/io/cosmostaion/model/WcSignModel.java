@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.utils.WKey;
 
 public class WcSignModel {
-    TreeMap<String, Object> signed;
-    Signature signature;
+    public TreeMap<String, Object> signed;
+    public Signature signature;
 
     public WcSignModel(JsonObject txMsg, ECKey key) {
         ObjectMapper mapper = new ObjectMapper();
