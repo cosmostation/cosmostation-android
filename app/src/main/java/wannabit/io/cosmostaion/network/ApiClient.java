@@ -19,21 +19,6 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 
 public class ApiClient {
 
-    //Services for station wallet api
-    private static Station station = null;
-    public static Station getStation(Context c) {
-        if (station == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_station))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                station = retrofit.create(Station.class);
-            }
-        }
-        return station;
-    }
-
     //Services for station mintscan api
     private static Station mintscan = null;
     public static Station getMintscan(Context c) {

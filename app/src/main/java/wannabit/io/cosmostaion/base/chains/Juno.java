@@ -33,7 +33,6 @@ public class Juno extends ChainConfig{
 
 
     public String grpcUrl() { return "grpc-juno.cosmostation.io"; }
-    public String apiUrl() { return "https://api-juno.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "juno/"; }
     public String homeInfoLink() { return  "https://junochain.com"; }

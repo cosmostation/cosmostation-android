@@ -27,7 +27,6 @@ public class StationTest extends ChainConfig {
     public boolean wcSupport() { return true; }
 
     public String grpcUrl() { return "grpc-office.cosmostation.io"; }
-    public String apiUrl() { return "https://api-office.cosmostation.io/station-testnet/"; }
 
     public String explorerUrl() { return "https://testnet.mintscan.io/station/"; }
     public String homeInfoLink() { return  ""; }

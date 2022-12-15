@@ -29,7 +29,6 @@ public class Akash extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-akash.cosmostation.io"; }
-    public String apiUrl() { return "https://api-akash.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "akash/"; }
     public String homeInfoLink() { return  "https://akash.network"; }

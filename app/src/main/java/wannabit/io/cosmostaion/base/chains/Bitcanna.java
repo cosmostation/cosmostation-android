@@ -29,7 +29,6 @@ public class Bitcanna extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-bitcanna.cosmostation.io"; }
-    public String apiUrl() { return "https://api-bitcanna.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "bitcanna/"; }
     public String homeInfoLink() { return  "https://www.bitcanna.io"; }

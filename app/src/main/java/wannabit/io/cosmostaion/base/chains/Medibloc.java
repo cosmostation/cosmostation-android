@@ -36,18 +36,17 @@ public class Medibloc extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-medibloc.cosmostation.io"; }
-    public String apiUrl() { return "https://api-medibloc.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "medibloc/"; }
     public String homeInfoLink() {
-        if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+        if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
             return "https://medibloc.com";
         } else {
             return "https://medibloc.com/en";
         }
     }
     public String blogInfoLink() {
-        if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+        if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
             return "https://blog.medibloc.org";
         } else {
             return "https://medium.com/medibloc";

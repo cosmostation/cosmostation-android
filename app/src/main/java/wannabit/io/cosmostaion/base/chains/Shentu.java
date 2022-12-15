@@ -29,7 +29,6 @@ public class Shentu extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-shentu.cosmostation.io"; }
-    public String apiUrl() { return "https://api-shentu.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "shentu/"; }
     public String homeInfoLink() { return  "https://www.certik.com"; }

@@ -29,7 +29,6 @@ public class Teritori extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-teritori.cosmostation.io"; }
-    public String apiUrl() { return "https://api-teritori.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "teritori/"; }
     public String homeInfoLink() { return  "https://teritori.com/"; }

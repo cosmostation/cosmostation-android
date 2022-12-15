@@ -34,7 +34,6 @@ public class Sif extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-sifchain.cosmostation.io"; }
-    public String apiUrl() { return "https://api-sifchain.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "sifchain/"; }
     public String homeInfoLink() { return  "https://sifchain.finance"; }
