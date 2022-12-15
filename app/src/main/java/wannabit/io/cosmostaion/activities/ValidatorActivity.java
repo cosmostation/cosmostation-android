@@ -511,7 +511,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     return TYPE_ACTION;
                 }
             }
-            return TYPE_MY_VALIDATOR;
+            return -1;
         }
 
         @Override
