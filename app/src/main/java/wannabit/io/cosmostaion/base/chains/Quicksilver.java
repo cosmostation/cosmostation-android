@@ -22,7 +22,7 @@ public class Quicksilver extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_quicksilver; }
     public String mainDenom() { return "uqck"; }
-    public String addressPrefix() { return "quicksilver"; }
+    public String addressPrefix() { return "quick"; }
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
