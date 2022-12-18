@@ -708,6 +708,8 @@ public class ResApiNewTxListCustom {
                         result = c.getString(R.string.str_tx_kava_earn_delegateDeposit);
                     } else if (msgType.contains("MsgWithdrawBurn")) {
                         result = c.getString(R.string.str_tx_kava_earn_withdraw);
+                    } else if (msgType.contains("MsgMintDeposit")) {
+                        result = c.getString(R.string.tx_kava_earn_deposit);
                     }
                 }
 

@@ -43,7 +43,6 @@ public class Binance extends ChainConfig {
     public String apiUrl() { return "https://dex.binance.org/"; }
 
     public String explorerUrl() { return "https://binance.mintscan.io/"; }
-    public String monikerUrl() { return ""; }
     public String homeInfoLink() { return  "https://www.bnbchain.org/en"; }
     public String blogInfoLink() { return  "https://www.bnbchain.org/en/blog/"; }
     public String coingeckoLink() { return  COINGECKO_URL + "binancecoin"; }

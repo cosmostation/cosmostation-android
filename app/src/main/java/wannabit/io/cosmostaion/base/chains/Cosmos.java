@@ -30,7 +30,6 @@ public class Cosmos extends ChainConfig {
     public boolean moonPaySupport() { return true; }
 
     public String grpcUrl() { return "grpc-cosmos.cosmostation.io"; }
-    public String apiUrl() { return "https://api-cosmos.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "cosmos/"; }
     public String homeInfoLink() { return  "https://cosmos.network"; }

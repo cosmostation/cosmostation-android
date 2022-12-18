@@ -29,7 +29,6 @@ public class Umee extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-umee.cosmostation.io"; }
-    public String apiUrl() { return "https://api-umee.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "umee/"; }
     public String homeInfoLink() { return  "https://www.umee.cc"; }

@@ -6,7 +6,6 @@
     <string name="url_kado_money" translatable="false">https://app.kado.money</string>
     <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
-    <string name="url_station_testnet" translatable="false">https://api-office.cosmostation.io/utility/</string>
     <string name="url_mintscan" translatable="false">https://api.mintscan.io/</string>
 
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
@@ -1336,6 +1335,7 @@
     <string name="tx_kava_earn_delegateDeposit">Earn Liquidate Delegate Deposit</string>
     <string name="str_tx_kava_earn_withdraw">Earn Liquidate\nWithdraw</string>
     <string name="tx_kava_earn_withdraw">Earn Liquidate Withdraw</string>
+    <string name="tx_kava_earn_deposit">Earn Liquidate\nDeposit</string>
 
     <string name="tx_stride_liquid_stake">Liquid Stake</string>
     <string name="tx_stride_redeem_stake">Redeem Stake</string>

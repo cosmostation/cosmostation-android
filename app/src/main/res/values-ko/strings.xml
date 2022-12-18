@@ -1262,6 +1262,7 @@
     <string name="tx_kava_earn_delegateDeposit">어닝 리퀴디티 위임 입금</string>
     <string name="str_tx_kava_earn_withdraw">어닝 리퀴디티\n출금</string>
     <string name="tx_kava_earn_withdraw">어닝 리퀴디티 출금</string>
+    <string name="tx_kava_earn_deposit">어닝 리퀴디티\n입금</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

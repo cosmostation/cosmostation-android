@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
+import wannabit.io.cosmostaion.model.type.WcSignature;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -212,13 +213,7 @@ public class MsgGenerator {
     }
 
     public static ReqBroadCast getBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
-        StdSignMsg tosign = genToSignMsg(
-                chainId,
-                "" + account.accountNumber,
-                "" + account.sequenceNumber,
-                msgs,
-                fee,
-                memo);
+        StdSignMsg tosign = genToSignMsg(chainId, "" + account.accountNumber, "" + account.sequenceNumber, msgs, fee, memo);
 //        WLog.w("Tendermint tosign " + WUtil.prettyPrinter(tosign));
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
@@ -251,13 +246,7 @@ public class MsgGenerator {
     }
 
     public static ReqBroadCast getWcTrustBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {
-        StdSignMsg tosign = genToSignMsg(
-                chainId,
-                "" + account.accountNumber,
-                "" + account.sequenceNumber,
-                msgs,
-                fee,
-                memo);
+        StdSignMsg tosign = genToSignMsg(chainId, "" + account.accountNumber, "" + account.sequenceNumber, msgs, fee, memo);
 //        WLog.w("Tendermint tosign " + WUtil.prettyPrinter(tosign));
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
@@ -298,14 +287,14 @@ public class MsgGenerator {
         return signature;
     }
 
-    public static Signature getWcKeplrBroadcaseReq(ECKey key, JsonObject txMsg) {
+    public static WcSignature getWcKeplrBroadcaseReq(ECKey key, JsonObject txMsg) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
         try {
             String test = mapper.writeValueAsString(mapper.readValue(txMsg.toString(), TreeMap.class));
             String signatureTx = MsgGenerator.getSignature(key, test.getBytes(Charset.forName("UTF-8")));
 
-            Signature signature = new Signature();
+            WcSignature signature = new WcSignature();
             Pub_key pubKey = new Pub_key();
             pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
             pubKey.value = WKey.getPubKeyValue(key);
@@ -315,7 +304,7 @@ public class MsgGenerator {
             return signature;
         } catch (IOException e) {
             e.printStackTrace();
-            return new Signature();
+            return new WcSignature();
         }
     }
 

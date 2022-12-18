@@ -37,7 +37,6 @@ public class Lum extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-lum.cosmostation.io"; }
-    public String apiUrl() { return "https://api-lum.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "lum/"; }
     public String homeInfoLink() { return  "https://lum.network"; }

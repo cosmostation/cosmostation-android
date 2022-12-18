@@ -126,11 +126,15 @@ class WalletConnectActivity : BaseActivity() {
 
     private fun fillByConnectType() {
         intent.data?.let { data ->
-            data.query?.let { query ->
-                if (connectType.isDapp()) {
-                    setupDappTypeView(query)
-                } else {
-                    setupWalletConnectTypeView(query)
+            if (ConnectType.DeepLinkWalletConnectCommon == connectType) {
+                setupWalletConnectTypeView(data.toString().replace("wc:/", "wc:"))
+            } else {
+                data.query?.let { query ->
+                    if (connectType.isDapp()) {
+                        setupDappTypeView(query)
+                    } else {
+                        setupWalletConnectTypeView(query)
+                    }
                 }
             }
         }
@@ -141,20 +145,21 @@ class WalletConnectActivity : BaseActivity() {
 
     private fun loadConnectType() {
         intent.data?.let { data ->
-            if (!fromCosmostationScheme(data)) {
-                return
-            }
-            when (data.host) {
-                WC_URL_SCHEME_HOST_WC -> {
-                    connectType = ConnectType.DeepLinkWalletConnect
+            if (fromCosmostationScheme(data)) {
+                when (data.host) {
+                    WC_URL_SCHEME_HOST_WC -> {
+                        connectType = ConnectType.DeepLinkWalletConnect
+                    }
+                    WC_URL_SCHEME_HOST_DAPP_EXTERNAL -> {
+                        connectType = ConnectType.ExternalDapp
+                    }
+                    WC_URL_SCHEME_HOST_DAPP_INTERNAL -> {
+                        connectType = ConnectType.InternalDapp
+                    }
+                    else -> {}
                 }
-                WC_URL_SCHEME_HOST_DAPP_EXTERNAL -> {
-                    connectType = ConnectType.ExternalDapp
-                }
-                WC_URL_SCHEME_HOST_DAPP_INTERNAL -> {
-                    connectType = ConnectType.InternalDapp
-                }
-                else -> {}
+            } else if (fromCommonWalletConnectScheme(data)) {
+                connectType = ConnectType.DeepLinkWalletConnectCommon
             }
         }
     }
@@ -204,6 +209,10 @@ class WalletConnectActivity : BaseActivity() {
 
     private fun fromCosmostationScheme(data: Uri): Boolean {
         return WC_URL_SCHEME_COSMOSTATION == data.scheme
+    }
+
+    private fun fromCommonWalletConnectScheme(data: Uri): Boolean {
+        return WC_URL_SCHEME_COMMON == data.scheme
     }
 
     private fun loadBaseAccount() {
@@ -827,7 +836,7 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private fun moveToBackIfNeed() {
-        if (connectType == ConnectType.DeepLinkWalletConnect) {
+        if (connectType == ConnectType.DeepLinkWalletConnect || connectType == ConnectType.DeepLinkWalletConnectCommon) {
             moveTaskToBack(
                 true
             )
@@ -860,7 +869,9 @@ class WalletConnectActivity : BaseActivity() {
                 msgModel.type = rawMessage.getString("type")
                 msgModel.value =
                     Gson().fromJson(rawMessage.getString("value"), Msg.Value::class.java)
-                msgModel.value.amount = parseAmount(msgModel.value.amount)
+                if (msgModel.value.amount != null) {
+                    msgModel.value.amount = parseAmount(msgModel.value.amount)
+                }
                 msgList.add(msgModel)
             }
             wcStdSignMsg.msgs = msgList
@@ -1108,16 +1119,21 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private fun hasAccount(chainId: String): Boolean {
-        WDp.getChainTypeByChainId(chainId).let {
+        WDp.getChainTypeByChainId(chainId)?.let {
             val existAccount = baseDao.onSelectAllAccountsByChainWithKey(it)
             if (existAccount.isNotEmpty()) {
                 return true
             }
+        } ?: run {
+            showErrorDialog(
+                String.format(getString(R.string.str_error_not_support_msg), chainId)
+            )
+            return false
         }
 
         showErrorDialog(
             String.format(
-                getString(R.string.str_error_not_support_msg), chainId
+                getString(R.string.str_error_not_support_chain_msg), chainId
             )
         )
         return false
@@ -1486,5 +1502,6 @@ class WalletConnectActivity : BaseActivity() {
         const val WC_URL_SCHEME_HOST_DAPP_EXTERNAL = "dapp"
         const val WC_URL_SCHEME_HOST_DAPP_INTERNAL = "internaldapp"
         const val WC_URL_SCHEME_COSMOSTATION = "cosmostation"
+        const val WC_URL_SCHEME_COMMON = "wc"
     }
 }

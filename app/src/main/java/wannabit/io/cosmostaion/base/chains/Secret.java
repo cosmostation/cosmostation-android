@@ -37,7 +37,6 @@ public class Secret extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-secret.cosmostation.io"; }
-    public String apiUrl() { return "https://api-secret.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "secret/"; }
     public String homeInfoLink() { return  "https://scrt.network"; }

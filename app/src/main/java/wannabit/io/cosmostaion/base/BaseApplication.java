@@ -73,7 +73,7 @@ public class BaseApplication extends Application {
         String relayUrl = "relay.walletconnect.com";
         String serverUrl = "wss://" + relayUrl + "?projectId=" + projectId;
         ConnectionType connectionType = ConnectionType.AUTOMATIC;
-        Core.Model.AppMetaData metaData = new Core.Model.AppMetaData(getString(R.string.str_wc_peer_name), getString(R.string.str_wc_peer_url), getString(R.string.str_wc_peer_desc), Lists.newArrayList(), null);
+        Core.Model.AppMetaData metaData = new Core.Model.AppMetaData(getString(R.string.str_wc_peer_name), getString(R.string.str_wc_peer_url), getString(R.string.str_wc_peer_desc), Lists.newArrayList(), "cosmostation://wc");
         CoreClient.INSTANCE.initialize(metaData, serverUrl, connectionType, this, null);
         SignClient.INSTANCE.initialize(new Sign.Params.Init(CoreClient.INSTANCE), error -> null);
     }

@@ -37,7 +37,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
-import desmos.profiles.v1beta1.ModelsProfile;
+import desmos.profiles.v3.ModelsProfile;
 import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;

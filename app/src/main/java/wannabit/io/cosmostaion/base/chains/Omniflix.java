@@ -24,11 +24,10 @@ public class Omniflix extends ChainConfig {
     public String addressPrefix() { return "omniflix"; }
 
     public boolean dexSupport() { return false; }
-    public boolean wcSupport() { return false; }
+    public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-omniflix.cosmostation.io"; }
-    public String apiUrl() { return "https://api-omniflix.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "omniflix/"; }
     public String homeInfoLink() { return  "https://www.omniflix.network"; }
