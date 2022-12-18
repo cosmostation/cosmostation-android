@@ -298,13 +298,13 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
                 mOutputCoinDenom = mSwapableDenoms.get(result);
                 mSelectedPoolId = 0;
                 for (SupportPool pool : mSupportPoolList) {
-                    if (pool.adenom.equalsIgnoreCase(mOutputCoinDenom)) {
+                    if (pool.adenom.equalsIgnoreCase(mOutputCoinDenom) && pool.bdenom.equalsIgnoreCase(mInputCoinDenom)) {
                         mInputCoinDenom = pool.bdenom;
                         mSelectedPoolId = Integer.parseInt(pool.id);
                         onFetchPoolInfo();
                         return;
                     }
-                    if (pool.bdenom.equalsIgnoreCase(mOutputCoinDenom)) {
+                    if (pool.bdenom.equalsIgnoreCase(mOutputCoinDenom) && pool.adenom.equalsIgnoreCase(mInputCoinDenom)) {
                         mInputCoinDenom = pool.adenom;
                         mSelectedPoolId = Integer.parseInt(pool.id);
                         onFetchPoolInfo();
