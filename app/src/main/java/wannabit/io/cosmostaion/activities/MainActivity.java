@@ -331,10 +331,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null && !TextUtils.isEmpty(result.getData().getStringExtra("wcUrl"))) {
             Intent wIntent;
             if (mBaseChain.equals(BNB_MAIN)) {
-                if (result.getData().getStringExtra("wcUrl").contains("@2")) {
-                    Toast.makeText(this, "지원하지 않는 Url입니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 wIntent = new Intent(MainActivity.this, BnbWalletConnectActivity.class);
             } else {
                 wIntent = new Intent(MainActivity.this, WalletConnectActivity.class);

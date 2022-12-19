@@ -396,6 +396,7 @@
     <string name="str_wc_dapp_not_connected">Not Connected</string>
     <string name="str_wc_dapp_title">Browser</string>
     <string name="str_wc_connected">Wallet is connected.</string>
+    <string name="str_wc_not_supported">URL does not support W·C.</string>
     <string name="str_wc_not_connected">Wallet is disconnected.</string>
     <string name="str_wc_request_responsed">Responsed for Request</string>
     <string name="str_wc_sign_title">Request Transaction Sign</string>

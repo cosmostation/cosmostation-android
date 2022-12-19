@@ -308,6 +308,7 @@
     <string name="str_wc_dapp_connected">Connected</string>
     <string name="str_wc_dapp_not_connected">Not Connected</string>
     <string name="str_wc_dapp_title">Browser</string>
+    <string name="str_wc_not_supported">W·C를 지원하지 않는 URL입니다.</string>
     <string name="str_wc_connected">지갑이 연결되었습니다.</string>
     <string name="str_wc_not_connected">지갑 연결이 해제되었습니다.</string>
     <string name="str_wc_sign_title">지갑 사인 요청</string>
