@@ -77,11 +77,16 @@ public class BnbWalletConnectActivity extends BaseActivity implements View.OnCli
         setContentView(R.layout.activity_wallet_connect);
         initView();
         loadInfo();
-        initWalletConnect();
     }
 
     private void loadInfo() {
         mWcURL = getIntent().getStringExtra("wcUrl");
+        if (mWcURL.contains("@2")) {
+            Toast.makeText(this, getString(R.string.str_wc_not_supported), Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            initWalletConnect();
+        }
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
     }
@@ -164,6 +169,7 @@ public class BnbWalletConnectActivity extends BaseActivity implements View.OnCli
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (wcClient == null) return;
         if (wcSession != null && wcClient.isConnected()) {
             wcClient.killSession();
         } else {
