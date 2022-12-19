@@ -1,15 +1,21 @@
 package wannabit.io.cosmostaion.fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EVM_TRANSFER;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+
+import com.google.common.collect.Lists;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,6 +30,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulErc20SendGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickListener {
@@ -37,7 +44,8 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     private BaseChain mBaseChain;
     private ChainConfig mChainConfig;
 
-    private BigDecimal mFee = BigDecimal.ZERO;
+    private BigDecimal mFeeGasAmount = BigDecimal.ZERO;
+    private boolean mSimulPassed = true;
 
     public static StepFeeSetOldFragment newInstance() {
         return new StepFeeSetOldFragment();
@@ -64,7 +72,6 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
         mChainConfig = ChainFactory.getChain(mBaseChain);
 
         mFeeTotalCard.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
-        onUpdateView();
 
         mBtnBefore.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
@@ -72,10 +79,17 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     }
 
     private void onUpdateView() {
-        mFee = WDp.getMainDenomFee(getActivity(), getBaseDao(), mChainConfig);
-        WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mChainConfig.mainDenom(), mFee.toPlainString(), mFeeDenom, mFeeAmount);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), mFee, WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom()), WDp.mainDisplayDecimal(getSActivity().mBaseChain)));
-        mFeeValue.setText(WDp.dpAssetValue(getBaseDao(), WDp.getGeckoId(getBaseDao(), mChainConfig), mFee, WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom())));
+        mFeeValue.setText(WDp.dpAssetValue(getBaseDao(), WDp.getGeckoId(getBaseDao(), mChainConfig), mFeeGasAmount, WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom())));
+        WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mChainConfig.mainDenom(), mFeeGasAmount.toPlainString(), mFeeDenom, mFeeAmount);
+    }
+
+    @Override
+    public void onRefreshTab() {
+        if (getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) {
+            onCalculEvmFee();
+        } else {
+            onCalculFee();
+        }
     }
 
     @Override
@@ -84,32 +98,59 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
-            onSetFee();
+            if (!mSimulPassed) {
+                Toast.makeText(getActivity(), getString(R.string.error_simul_error), Toast.LENGTH_SHORT).show();
+                return;
+            }
             getSActivity().onNextStep();
         }
     }
 
-    private void onSetFee() {
+    private void onCalculFee() {
+        mFeeGasAmount = WDp.getMainDenomFee(getActivity(), getBaseDao(), mChainConfig);
         if (mBaseChain.equals(BaseChain.OKEX_MAIN)) {
-            Coin gasCoin = new Coin(mChainConfig.mainDenom(), mFee.setScale(WDp.mainDisplayDecimal(mChainConfig.baseChain())).toPlainString());
+            Coin gasCoin = new Coin(mChainConfig.mainDenom(), mFeeGasAmount.setScale(WDp.mainDisplayDecimal(mChainConfig.baseChain())).toPlainString());
             ArrayList<Coin> amount = new ArrayList<>();
             amount.add(gasCoin);
 
-            Fee fee = new Fee();
-            fee.amount = amount;
-            fee.gas = "5000000";
-            getSActivity().mTxFee = fee;
+            getSActivity().mTxFee = new Fee("5000000", amount);
 
         } else {
-            Coin gasCoin = new Coin(mChainConfig.mainDenom(), mFee.toPlainString());
+            Coin gasCoin = new Coin(mChainConfig.mainDenom(), mFeeGasAmount.toPlainString());
             ArrayList<Coin> amount = new ArrayList<>();
             amount.add(gasCoin);
 
-            Fee fee = new Fee();
-            fee.amount = amount;
-            fee.gas = BaseConstant.BASE_GAS_AMOUNT;
-            getSActivity().mTxFee = fee;
+            getSActivity().mTxFee = new Fee(BaseConstant.BASE_GAS_AMOUNT, amount);
         }
+        onUpdateView();
+    }
+
+    private void onCalculEvmFee() {
+        getSActivity().onShowWaitDialog();
+        new SimulErc20SendGrpcTask(getBaseApplication(), result -> {
+            getSActivity().onHideWaitDialog();
+            if (result.isSuccess) {
+                BigDecimal gasLimit = new BigDecimal((String) result.resultData);
+                BigDecimal gasPrice = new BigDecimal(result.resultData2);
+                getSActivity().mHexValue = result.resultData3;
+
+                mFeeGasAmount = gasLimit.multiply(gasPrice).movePointLeft(WDp.mainDisplayDecimal(mChainConfig.baseChain()));
+                getSActivity().mTxFee = new Fee(gasLimit.toPlainString(), Lists.newArrayList(new Coin(mChainConfig.mainDenom(), mFeeGasAmount.toPlainString())));
+                mSimulPassed = true;
+
+                getActivity().runOnUiThread(() -> onUpdateView());
+
+            } else {
+                View layout = getLayoutInflater().inflate(R.layout.item_toast_msg, getView().findViewById(R.id.toast_layout));
+                TextView textView = layout.findViewById(R.id.toast_msg);
+                textView.setText(result.errorMsg);
+
+                Toast toast = new Toast(getContext());
+                toast.setView(layout);
+                toast.show();
+                mSimulPassed = false;
+            }
+        }, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mMintscanToken, getSActivity().mToAddress, getSActivity().mAmounts).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private BaseBroadCastActivity getSActivity() {

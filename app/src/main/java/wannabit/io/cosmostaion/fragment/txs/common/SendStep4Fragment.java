@@ -78,59 +78,57 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         final BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         final String toSendDenom = getSActivity().mDenom;
 
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, toSendAmount.toPlainString(), mSendDenom, mSendAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, toSendAmount.toPlainString(), mSendDenom, mSendAmount);
 
         Asset msAsset = getSActivity().mAsset;
         MintscanToken msMintscanToken = getSActivity().mMintscanToken;
 
-        if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
-            BigDecimal currentAvai = BigDecimal.ZERO;
-            BigDecimal remainAvailable = BigDecimal.ZERO;
-            if (msAsset != null) {
-                currentAvai = getBaseDao().getAvailable(toSendDenom);
+        BigDecimal currentAvai = BigDecimal.ZERO;
+        BigDecimal remainAvailable = BigDecimal.ZERO;
 
+        if (msMintscanToken != null) {
+            currentAvai = new BigDecimal(msMintscanToken.amount);
+            remainAvailable = currentAvai.subtract(toSendAmount);
+
+        } else {
+            if (BaseChain.isGRPC(getSActivity().mChainConfig.baseChain())) {
+                if (msAsset != null) {
+                    currentAvai = getBaseDao().getAvailable(toSendDenom);
+
+                    if (toSendDenom.equalsIgnoreCase(getSActivity().mTxFee.amount.get(0).denom)) {
+                        remainAvailable = currentAvai.subtract(toSendAmount).subtract(feeAmount);
+                    } else {
+                        remainAvailable = currentAvai.subtract(toSendAmount);
+                    }
+                }
+
+                if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER || getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
+                    mRecipientLayer.setVisibility(View.VISIBLE);
+                    mIbcLayer.setVisibility(View.VISIBLE);
+                    ChainConfig chainConfig = ChainFactory.getChain(WDp.getChainsFromAddress(getSActivity().mToAddress).get(0));
+                    if (chainConfig != null) {
+                        mRecipientChain.setText(chainConfig.chainTitleToUp());
+                        mRecipientChain.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
+                    }
+
+                } else {
+                    mRecipientLayer.setVisibility(View.GONE);
+                    mIbcLayer.setVisibility(View.GONE);
+                }
+
+            } else {
+                currentAvai = getBaseDao().availableAmount(toSendDenom);
                 if (toSendDenom.equalsIgnoreCase(getSActivity().mTxFee.amount.get(0).denom)) {
                     remainAvailable = currentAvai.subtract(toSendAmount).subtract(feeAmount);
                 } else {
                     remainAvailable = currentAvai.subtract(toSendAmount);
                 }
-
-            } else if (msMintscanToken != null) {
-                currentAvai = new BigDecimal(msMintscanToken.amount);
-                remainAvailable = currentAvai.subtract(toSendAmount);
-            }
-            WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, currentAvai.toPlainString(), mCurrentDenom, mCurrentBalance);
-            WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAvailable.toPlainString(), mRemainDenom, mRemainingBalance);
-
-            if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER || getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
-                mRecipientLayer.setVisibility(View.VISIBLE);
-                mIbcLayer.setVisibility(View.VISIBLE);
-                ChainConfig chainConfig = ChainFactory.getChain(WDp.getChainsFromAddress(getSActivity().mToAddress).get(0));
-                if (chainConfig != null) {
-                    mRecipientChain.setText(chainConfig.chainTitleToUp());
-                    mRecipientChain.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
-                }
-
-            } else {
                 mRecipientLayer.setVisibility(View.GONE);
-                mIbcLayer.setVisibility(View.GONE);
             }
-
-        } else {
-            BigDecimal currentAvai = getBaseDao().availableAmount(toSendDenom);
-            WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, currentAvai.toPlainString(), mCurrentDenom, mCurrentBalance);
-
-            BigDecimal remainAmount = BigDecimal.ZERO;
-            if (toSendDenom.equalsIgnoreCase(getSActivity().mTxFee.amount.get(0).denom)) {
-                remainAmount = currentAvai.subtract(toSendAmount).subtract(feeAmount);
-            } else {
-                remainAmount = currentAvai.subtract(toSendAmount);
-            }
-            WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAmount.toPlainString(), mRemainDenom, mRemainingBalance);
-            mRecipientLayer.setVisibility(View.GONE);
-            mIbcLayer.setVisibility(View.GONE);
         }
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, currentAvai.toPlainString(), mCurrentDenom, mCurrentBalance);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAvailable.toPlainString(), mRemainDenom, mRemainingBalance);
         mRecipientAddress.setText(getSActivity().mToAddress);
         mMemo.setText(getSActivity().mTxMemo);
     }

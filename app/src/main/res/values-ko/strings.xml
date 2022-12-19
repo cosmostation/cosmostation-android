@@ -847,6 +847,7 @@
     <string name="str_cw20_token_title">Contract Tokens</string>
     <string name="str_erc20_token_title">Erc20 Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
+    <string name="str_oec_kip20_title">KIP20 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
     <string name="str_title_start_lock_osmosis">코인 잠그기</string>
     <string name="str_osmosis_start_lock_step_0">락업 수량을 입력해주세요</string>
