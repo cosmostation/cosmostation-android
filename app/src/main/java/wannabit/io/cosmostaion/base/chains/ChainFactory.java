@@ -146,6 +146,9 @@ public class ChainFactory {
                 case PROVENANCE_MAIN:
                     return new Provenance();
 
+                case QUICKSILVER_MAIN:
+                    return new Quicksilver();
+
                 case REGEN_MAIN:
                     return new Regen();
 

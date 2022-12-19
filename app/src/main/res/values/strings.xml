@@ -302,6 +302,7 @@
     <string name="str_front_guide_title_teritori" translatable="false"><![CDATA[TERITORI]]></string>
     <string name="str_front_guide_title_xpla" translatable="false"><![CDATA[XPLA]]></string>
     <string name="str_front_guide_title_onomy" translatable="false"><![CDATA[ONOMY]]></string>
+    <string name="str_front_guide_title_quicksilver" translatable="false"><![CDATA[QUICKSILVER]]></string>
 
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
@@ -356,6 +357,7 @@
     <string name="str_front_guide_msg_teritori"><![CDATA[Teritori is a decentralized multichain hub designed to provide an all-in-one experience for Web3 communities.]]></string>
     <string name="str_front_guide_msg_xpla"><![CDATA[XPLA is a gaming media content-focused Cosmos SDK network built by Com2uS Corporation.]]></string>
     <string name="str_front_guide_msg_onomy"><![CDATA[Onomy is a Cosmos SDK-based layer-1 protocol designed for Onomy Exchange and Onomy Reserve.]]></string>
+    <string name="str_front_guide_msg_quicksilver"><![CDATA[Quicksilver Protocol is an liquid staking protocol for the Cosmos Interchain ecosystem.]]></string>
 
 
     <string name="str_current_reward_address">Current Reward Address</string>

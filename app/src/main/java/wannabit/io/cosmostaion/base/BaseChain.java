@@ -87,7 +87,8 @@ public enum BaseChain {
     KUJIRA_MAIN("kujira-mainnet"),
     TERITORI_MAIN("teritori-mainnet"),
     XPLA_MAIN("xpla-mainnet"),
-    ONOMY_MAIN("onomy-mainnet");
+    ONOMY_MAIN("onomy-mainnet"),
+    QUICKSILVER_MAIN("quicksilver-mainnet");
 
     private final String chainName;
 
@@ -280,6 +281,9 @@ public enum BaseChain {
         if (chainName.equals(ONOMY_MAIN.chainName)) {
             return ONOMY_MAIN;
         }
+        if (chainName.equals(QUICKSILVER_MAIN.chainName)) {
+            return QUICKSILVER_MAIN;
+        }
         return null;
     }
 
@@ -323,6 +327,7 @@ public enum BaseChain {
         result.add(PASSAGE_MAIN);
         result.add(PERSIS_MAIN);
         result.add(PROVENANCE_MAIN);
+        result.add(QUICKSILVER_MAIN);
         result.add(REGEN_MAIN);
         result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);

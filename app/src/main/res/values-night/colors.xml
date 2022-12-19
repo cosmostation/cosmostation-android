@@ -64,6 +64,7 @@
     <color name="colorTransBgTeritori">#052736</color>
     <color name="colorTransBgXpla">#00293b</color>
     <color name="colorTransBgOnomy">#232535</color>
+    <color name="colorTransBgQuicksilver">#333135</color>
 
     <color name="colorWhiteDayNight">#000000</color>
     <color name="colorWhite2DayNight">#232428</color>
