@@ -446,6 +446,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     private void setTheme(Context context, String themeColor) {
         ThemeUtil.applyTheme(themeColor);
         ThemeUtil.modSave(context, themeColor);
+        getMainActivity().recreate();
     }
 
     private void setLanguage(Context context, String languageSet) {
