@@ -440,6 +440,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             Intent wcIntent = new Intent(getMainActivity(), StarNameWalletConnectActivity.class);
             wcIntent.putExtra("wcUrl", result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             startActivity(wcIntent);
+        } else {
+            Toast.makeText(getActivity(), "지원하지 않는 Url입니다.", Toast.LENGTH_SHORT).show();
+            return;
         }
     });
 
