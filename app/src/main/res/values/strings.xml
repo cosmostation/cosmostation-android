@@ -60,17 +60,17 @@
     <string name="str_watch">Watching only</string>
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
-    <string name="str_send_c">SEND</string>
+    <string name="str_send_c">Send</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 Send & Claim]]></string>
 
     <string name="str_participate_incentive">Incentive Claim</string>
     <string name="str_send">Send</string>
     <string name="str_change_reward_address_c">CHANGE REWARD ADDRESS</string>
-    <string name="str_vote_c">VOTE</string>
-    <string name="str_delegate_c">DELEGATE</string>
-    <string name="str_undelegate_c">UNDELEGATE</string>
-    <string name="str_redelegate_c">REDELEGATE</string>
-    <string name="str_reinvest_c">COMPOUNDING</string>
+    <string name="str_vote_c">Vote</string>
+    <string name="str_delegate_c">Delegate</string>
+    <string name="str_undelegate_c">Undelegate</string>
+    <string name="str_redelegate_c">Redelegate</string>
+    <string name="str_reinvest_c">Compounding</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_unknown_error">Unknown error</string>
     <string name="str_continue">Continue</string>
@@ -302,6 +302,7 @@
     <string name="str_front_guide_title_teritori" translatable="false"><![CDATA[TERITORI]]></string>
     <string name="str_front_guide_title_xpla" translatable="false"><![CDATA[XPLA]]></string>
     <string name="str_front_guide_title_onomy" translatable="false"><![CDATA[ONOMY]]></string>
+    <string name="str_front_guide_title_quicksilver" translatable="false"><![CDATA[QUICKSILVER]]></string>
 
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
@@ -356,6 +357,7 @@
     <string name="str_front_guide_msg_teritori"><![CDATA[Teritori is a decentralized multichain hub designed to provide an all-in-one experience for Web3 communities.]]></string>
     <string name="str_front_guide_msg_xpla"><![CDATA[XPLA is a gaming media content-focused Cosmos SDK network built by Com2uS Corporation.]]></string>
     <string name="str_front_guide_msg_onomy"><![CDATA[Onomy is a Cosmos SDK-based layer-1 protocol designed for Onomy Exchange and Onomy Reserve.]]></string>
+    <string name="str_front_guide_msg_quicksilver"><![CDATA[Quicksilver Protocol is an liquid staking protocol for the Cosmos Interchain ecosystem.]]></string>
 
 
     <string name="str_current_reward_address">Current Reward Address</string>
@@ -396,6 +398,7 @@
     <string name="str_wc_dapp_not_connected">Not Connected</string>
     <string name="str_wc_dapp_title">Browser</string>
     <string name="str_wc_connected">Wallet is connected.</string>
+    <string name="str_wc_not_supported">URL does not support W·C.</string>
     <string name="str_wc_not_connected">Wallet is disconnected.</string>
     <string name="str_wc_request_responsed">Responsed for Request</string>
     <string name="str_wc_sign_title">Request Transaction Sign</string>
