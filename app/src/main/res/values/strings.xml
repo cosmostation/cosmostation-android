@@ -60,17 +60,17 @@
     <string name="str_watch">Watching only</string>
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
-    <string name="str_send_c">SEND</string>
+    <string name="str_send_c">Send</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 Send & Claim]]></string>
 
     <string name="str_participate_incentive">Incentive Claim</string>
     <string name="str_send">Send</string>
     <string name="str_change_reward_address_c">CHANGE REWARD ADDRESS</string>
-    <string name="str_vote_c">VOTE</string>
-    <string name="str_delegate_c">DELEGATE</string>
-    <string name="str_undelegate_c">UNDELEGATE</string>
-    <string name="str_redelegate_c">REDELEGATE</string>
-    <string name="str_reinvest_c">COMPOUNDING</string>
+    <string name="str_vote_c">Vote</string>
+    <string name="str_delegate_c">Delegate</string>
+    <string name="str_undelegate_c">Undelegate</string>
+    <string name="str_redelegate_c">Redelegate</string>
+    <string name="str_reinvest_c">Compounding</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_unknown_error">Unknown error</string>
     <string name="str_continue">Continue</string>
