@@ -32,6 +32,7 @@ public class Starname extends ChainConfig {
 
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return false; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-starname.cosmostation.io"; }
 
