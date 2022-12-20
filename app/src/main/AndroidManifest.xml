@@ -449,37 +449,12 @@
             android:theme="@style/Theme.AppCompat.Translucent"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.txs.osmosis.LabsListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".activities.txs.osmosis.EarningDetailActivity"
+            android:name=".activities.txs.osmosis.SwapViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activities.txs.osmosis.SwapActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".activities.txs.osmosis.JoinPoolActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".activities.txs.osmosis.ExitPoolActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".activities.txs.osmosis.StartEarningActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".activities.txs.osmosis.StartUnbondingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />

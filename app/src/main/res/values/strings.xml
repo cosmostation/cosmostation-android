@@ -902,7 +902,6 @@
     <string name="str_osmosis_defi_lab"><![CDATA[Osmosis DeFi]]> </string>
     <string name="str_swap">Swap</string>
     <string name="str_pool">Pool</string>
-    <string name="str_osmosis_earning">Earning</string>
     <string name="str_token_swap_input_coin">Inputs</string>
     <string name="str_token_swap_output_coin">Outputs</string>
     <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
@@ -928,7 +927,6 @@
     <string name="str_osmosis_join_deposit_coin">To Deposit Coin (Max)</string>
     <string name="str_osmosis_join_receive_lp_coin">Receiving LP Coin</string>
     <string name="str_exit_insert_lp_coin">Insert LP Coin</string>
-    <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
     <string name="str_native_token_title">Native Coins</string>
     <string name="str_ibc_token_title">IBC Coins</string>
     <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
@@ -937,20 +935,7 @@
     <string name="str_erc20_token_title">Erc20 Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
-    <string name="str_title_start_lock_osmosis">Lock Coin</string>
-    <string name="str_osmosis_start_lock_step_0">Insert amount to lock</string>
-    <string name="str_osmosis_to_lock_coin">To Lock Coin</string>
-    <string name="str_osmosis_unbonding_duraion">Unbonding Duration</string>
-    <string name="str_title_start_unbonding_osmosis">Begin Unbonding</string>
-    <string name="str_osmosis_start_unbonding_step_0">Insert amount to lock</string>
-    <string name="str_osmosis_to_unbonding_id">To Unbonding ID</string>
-    <string name="str_osmosis_to_unbonding_amount">To Unbonding Amount</string>
-    <string name="str_osmosis_unbonding_duration">Unbonding Duration</string>
-    <string name="str_osmosis_start_unlock_step_0">Insert amount to unlock</string>
-    <string name="str_osmosis_to_unlock_id">To UnLock ID</string>
-    <string name="str_osmosis_to_unlock_amount">To UnLock Amount</string>
-    <string name="str_earing_bonded_header">Bonded</string>
-    <string name="str_earing_unbonding_header">Unbonding</string>
+
     <string name="str_kava_incentive_info_title">Incentive Info</string>
     <string name="str_kava_slippage_title">Slippage</string>
     <string name="str_kava_deposit_my_share_title">My Share</string>
@@ -1251,7 +1236,6 @@
     <string name="tx_osmosis_token_lockup">Lock Coin(Start Earning)</string>
     <string name="tx_osmosis_begin_token_unlock">Begin Unlocking</string>
     <string name="tx_osmosis_begin_token_unlock_all">Begin Unlocking All</string>
-    <string name="tx_osmosis_periodlock_unlock">Unlock Period Coin(End Earning)</string>
 
     <string name="tx_gravity_create_pool">Create Pool</string>
     <string name="tx_gravity_swap_batch">Swap Coin</string>

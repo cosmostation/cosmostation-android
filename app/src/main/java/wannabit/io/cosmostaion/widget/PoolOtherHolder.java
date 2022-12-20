@@ -14,18 +14,15 @@ import java.math.RoundingMode;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import kava.swap.v1beta1.QueryOuterClass;
-import osmosis.gamm.v1beta1.BalancerPool;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
-import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -56,41 +53,6 @@ public class PoolOtherHolder extends BaseHolder {
         itemMyAvailableSymbol0 = itemView.findViewById(R.id.mypool_symbol1);
         itemMyAvailableAmount1 = itemView.findViewById(R.id.mypool_amount2);
         itemMyAvailableSymbol1 = itemView.findViewById(R.id.mypool_symbol2);
-    }
-
-    @Override
-    public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, BalancerPool.Pool otherPool) {
-        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
-        itemPoolTypeLayer.setVisibility(View.VISIBLE);
-        itemPoolImgLayer.setVisibility(View.GONE);
-        Coin coin0 = new Coin(otherPool.getPoolAssets(0).getToken().getDenom(), otherPool.getPoolAssets(0).getToken().getAmount());
-        Coin coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), otherPool.getPoolAssets(1).getToken().getAmount());
-
-        itemPoolType.setText("#" + otherPool.getId() + " " + WDp.getDpSymbol(baseData, chainConfig, coin0.denom) + "/" + WDp.getDpSymbol(baseData, chainConfig, coin1.denom));
-
-        itemTotalDepositValue.setText("" + WDp.usdValue(baseData, coin0.denom, new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom)));
-
-        BigDecimal coin0Value = WDp.usdValue(baseData, coin0.denom, new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, coin1.denom, new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
-        BigDecimal PoolValue = coin0Value.add(coin1Value);
-        itemTotalDepositValue.setText(WDp.getDpRawDollor(context, PoolValue, 2));
-
-        WDp.setDpSymbol(context, baseData, chainConfig, coin0.denom, itemTotalDepositSymbol0);
-        WDp.setDpSymbol(context, baseData, chainConfig, coin1.denom, itemTotalDepositSymbol1);
-        itemTotalDepositAmount0.setText(WDp.getDpAmount2(new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom), 6));
-        itemTotalDepositAmount1.setText(WDp.getDpAmount2(new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom), 6));
-
-        BigDecimal availableCoin0 = baseData.getAvailable(coin0.denom);
-        Coin Coin0 = new Coin(otherPool.getPoolAssets(0).getToken().getDenom(), availableCoin0.toPlainString());
-        BigDecimal availableCoin1 = baseData.getAvailable(coin1.denom);
-        Coin Coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), availableCoin1.toPlainString());
-
-        WDp.setDpSymbol(context, baseData, chainConfig, Coin0.denom, itemMyAvailableSymbol0);
-        WDp.setDpSymbol(context, baseData, chainConfig, Coin1.denom, itemMyAvailableSymbol1);
-        itemMyAvailableAmount0.setText(WDp.getDpAmount2(new BigDecimal(Coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, Coin0.denom), 6));
-        itemMyAvailableAmount1.setText(WDp.getDpAmount2(new BigDecimal(Coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, Coin1.denom), 6));
-
-        itemRoot.setOnClickListener(v -> ((LabsListActivity) activity).onCheckStartJoinPool(otherPool.getId()));
     }
 
     @Override
