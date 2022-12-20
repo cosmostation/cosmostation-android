@@ -28,7 +28,6 @@ public class Passage extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-passage.cosmostation.io"; }
-    public String apiUrl() { return "https://api-passage.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "passage/"; }
     public String homeInfoLink() { return  "https://passage3d.com/"; }

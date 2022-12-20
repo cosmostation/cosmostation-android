@@ -29,7 +29,6 @@ public class Osmosis extends ChainConfig {
     public boolean kadoMoneySupport() { return true; }
 
     public String grpcUrl() { return "grpc-osmosis.cosmostation.io"; }
-    public String apiUrl() { return "https://api-osmosis.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "osmosis/"; }
     public String homeInfoLink() { return  "https://osmosis.zone"; }

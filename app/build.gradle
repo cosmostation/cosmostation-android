@@ -19,8 +19,8 @@ android {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 24
         targetSdkVersion 32
-        versionCode 178
-        versionName "1.7.8"
+        versionCode 180
+        versionName "1.8.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -78,7 +78,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(path: ':proto')
-    implementation project(":transport-ble")
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
@@ -126,6 +125,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
     implementation 'com.squareup.moshi:moshi:1.8.0'
     implementation "com.github.cosmostation:wallet-connect-kotlin:1.6.4"
+    implementation "com.github.cosmostation:hw-transport-android-ble:0.0.2"
     implementation("com.walletconnect:sign:2.1.0") {
         exclude group: "org.jboss.spec.javax.annotation"
         exclude group: "com.github.stephenc.jcip"

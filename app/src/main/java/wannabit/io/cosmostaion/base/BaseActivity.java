@@ -85,7 +85,6 @@ import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
-import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -146,7 +145,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
-import wannabit.io.cosmostaion.utils.LedgerManager;
+import wannabit.io.cosmostaion.utils.LedgerUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -233,7 +232,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         new TedPermission(this).setPermissionListener(new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                LedgerManager.Companion.getInstance().isConnect(null);
+                LedgerUtils.Companion.getInstance().connect(null);
             }
 
             @Override

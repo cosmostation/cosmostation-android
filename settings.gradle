@@ -1,3 +1,2 @@
 include ':app'
 include ':proto'
-include ':transport-ble'

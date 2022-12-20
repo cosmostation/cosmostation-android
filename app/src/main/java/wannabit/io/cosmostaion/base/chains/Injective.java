@@ -40,7 +40,6 @@ public class Injective extends ChainConfig {
     public boolean kadoMoneySupport() { return true; }
 
     public String grpcUrl() { return "grpc-injective.cosmostation.io"; }
-    public String apiUrl() { return "https://api-injective.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "injective/"; }
     public String homeInfoLink() { return  "https://injectiveprotocol.com"; }

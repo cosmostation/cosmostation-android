@@ -35,7 +35,6 @@ public class Provenance extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "grpc-provenance.cosmostation.io"; }
-    public String apiUrl() { return "https://api-provenance.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "provenance/"; }
     public String homeInfoLink() { return  "https://www.provenance.io"; }

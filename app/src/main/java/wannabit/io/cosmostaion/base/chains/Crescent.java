@@ -31,7 +31,6 @@ public class Crescent extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-crescent.cosmostation.io"; }
-    public String apiUrl() { return "https://api-crescent.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "crescent/"; }
     public String homeInfoLink() { return  "https://crescent.network"; }

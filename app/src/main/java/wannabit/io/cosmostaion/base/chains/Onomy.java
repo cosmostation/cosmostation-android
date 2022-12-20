@@ -29,7 +29,6 @@ public class Onomy extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "grpc-onomy-protocol.cosmostation.io"; }
-    public String apiUrl() { return "https://api-onomy-protocol.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "onomy-protocol/"; }
     public String homeInfoLink() { return "https://onomy.io/"; }

@@ -104,7 +104,7 @@ abstract public class ChainConfig {
         return "";
     }
 
-    public abstract String apiUrl();
+    public String apiUrl() { return ""; }
 
     public String rpcUrl() { return ""; }
 

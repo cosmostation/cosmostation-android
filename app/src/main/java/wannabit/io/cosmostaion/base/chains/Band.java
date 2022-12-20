@@ -34,7 +34,6 @@ public class Band extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "grpc-band.cosmostation.io"; }
-    public String apiUrl() { return "https://api-band.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "band/"; }
     public String homeInfoLink() { return  "https://bandprotocol.com"; }

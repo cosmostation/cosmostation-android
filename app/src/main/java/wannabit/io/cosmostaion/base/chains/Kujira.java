@@ -30,7 +30,6 @@ public class Kujira extends ChainConfig {
     public boolean kadoMoneySupport() { return true; }
 
     public String grpcUrl() { return "grpc-kujira.cosmostation.io"; }
-    public String apiUrl() { return "https://api-kujira.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "kujira/"; }
     public String homeInfoLink() { return  "https://kujira.app/"; }

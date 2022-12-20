@@ -26,6 +26,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
+import com.ledger.live.ble.app.CosmosHelper
 import com.squareup.picasso.Picasso
 import com.trustwallet.walletconnect.WCClient
 import com.trustwallet.walletconnect.models.WCAccount
@@ -78,7 +79,7 @@ import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
 import wannabit.io.cosmostaion.model.type.Coin
 import wannabit.io.cosmostaion.model.type.Msg
-import wannabit.io.cosmostaion.utils.LedgerManager.Companion.instance
+import wannabit.io.cosmostaion.utils.LedgerUtils
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 import wannabit.io.cosmostaion.utils.WUtil
@@ -107,7 +108,7 @@ class WalletConnectActivity : BaseActivity() {
     private var isHideToolbar = false
     private var lastClickPositionY = -1
 
-    private var tempPubKey: ByteArray?= null
+    private var tempPubKey: ByteArray? = null
     private var tempAddr: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -228,9 +229,18 @@ class WalletConnectActivity : BaseActivity() {
         val currentAccount = baseDao.onSelectAccount(baseDao.lastUser)
         loadedAccountMap[currentAccount.baseChain] = currentAccount
         mBaseChain = BaseChain.getChain(currentAccount.baseChain)
-        instance.isConnect { address, pubKey ->
-            tempAddr = address
-            tempPubKey = pubKey
+        LedgerUtils.instance.connect {
+            CosmosHelper.getAddress(
+                LedgerUtils.instance.bleManager,
+                object : CosmosHelper.GetAddressListener {
+                    override fun error(code: String, message: String) {
+                    }
+
+                    override fun success(address: String, pubKey: ByteArray) {
+                        tempAddr = address
+                        tempPubKey = pubKey
+                    }
+                })
         }
     }
 
@@ -882,7 +892,9 @@ class WalletConnectActivity : BaseActivity() {
                 msgModel.type = rawMessage.getString("type")
                 msgModel.value =
                     Gson().fromJson(rawMessage.getString("value"), Msg.Value::class.java)
-                msgModel.value.amount = parseAmount(msgModel.value.amount)
+                if (msgModel.value.amount != null) {
+                    msgModel.value.amount = parseAmount(msgModel.value.amount)
+                }
                 msgList.add(msgModel)
             }
             wcStdSignMsg.msgs = msgList
@@ -928,36 +940,39 @@ class WalletConnectActivity : BaseActivity() {
 
     fun approveCosmosRequest(id: Long, transaction: String?) {
         val transactionJson = Gson().fromJson(
-            transaction,
-            JsonArray::class.java
+            transaction, JsonArray::class.java
         )
         val mapper = ObjectMapper()
         mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
         try {
-            instance.sign(
-                mapper.writeValueAsString(
-                    mapper.readValue(
-                        transactionJson[2].asJsonObject.toString(),
-                        TreeMap::class.java
-                    )
+            val message = mapper.writeValueAsString(
+                mapper.readValue(
+                    transactionJson[2].asJsonObject.toString(), TreeMap::class.java
                 )
-            ) { s: ByteArray? ->
-                val signModel =
-                    WcSignModel(transactionJson[2].asJsonObject, s, tempPubKey)
-                wcV1Client?.approveRequest<ArrayList<WcSignModel>>(
-                    id,
-                    Lists.newArrayList(signModel)
-                )
-                runOnUiThread {
-                    Toast.makeText(
-                        baseContext,
-                        getString(R.string.str_wc_request_responsed),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    moveToBackIfNeed()
-                }
-                null
-            }
+            )
+            CosmosHelper.sign(
+                LedgerUtils.instance.bleManager,
+                message,
+                object : CosmosHelper.SignListener {
+                    override fun error(code: String, message: String) {
+                    }
+
+                    override fun success(signature: ByteArray) {
+                        val signModel =
+                            WcSignModel(transactionJson[2].asJsonObject, signature, tempPubKey)
+                        wcV1Client?.approveRequest<ArrayList<WcSignModel>>(
+                            id, Lists.newArrayList(signModel)
+                        )
+                        runOnUiThread {
+                            Toast.makeText(
+                                baseContext,
+                                getString(R.string.str_wc_request_responsed),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            moveToBackIfNeed()
+                        }
+                    }
+                })
         } catch (e: JsonProcessingException) {
             e.printStackTrace()
         }
@@ -1314,8 +1329,12 @@ class WalletConnectActivity : BaseActivity() {
     private fun toKeplrWallet(account: Account): WCKeplrWallet? {
 //        ECKey key = getKey(account.baseChain);
         return WCKeplrWallet(
-            WUtil.getWalletName(this, account), "secp256k1",
-            tempPubKey!!, tempPubKey!!, account.address, false
+            WUtil.getWalletName(this, account),
+            "secp256k1",
+            tempPubKey!!,
+            tempPubKey!!,
+            account.address,
+            false
         )
 //        return new WCKeplrWallet(WUtil.getWalletName(this, account), "secp256k1", key.getPubKey(), WKey.generateTenderAddressBytesFromPrivateKey(key.getPrivateKeyAsHex()), account.address, false);
     }
@@ -1323,10 +1342,14 @@ class WalletConnectActivity : BaseActivity() {
     private fun toCosmosatationAccount(account: Account): WCCosmostationAccount? {
 //        ECKey key = getKey(account.baseChain);
         return WCCosmostationAccount(
-            WUtil.getWalletName(this, account), "secp256k1",
-            tempPubKey!!, tempPubKey!!, account.address
+            WUtil.getWalletName(this, account),
+            "secp256k1",
+            tempPubKey!!,
+            tempPubKey!!,
+            account.address
         )
     }
+
     private fun showSignDialog(bundle: Bundle, signListener: WcSignRawDataListener) {
         val wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, signListener)
         wcRawDataDialog.show(supportFragmentManager, "dialog")

@@ -29,7 +29,6 @@ public class Comdex extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-comdex.cosmostation.io"; }
-    public String apiUrl() { return "https://api-comdex.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "comdex/"; }
     public String homeInfoLink() { return  "https://comdex.one"; }

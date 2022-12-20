@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,7 +47,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
-import desmos.profiles.v1beta1.ModelsProfile;
+import desmos.profiles.v3.ModelsProfile;
 import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import kava.pricefeed.v1beta1.QueryOuterClass;

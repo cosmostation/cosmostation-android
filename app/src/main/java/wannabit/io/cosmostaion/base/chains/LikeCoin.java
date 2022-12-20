@@ -31,7 +31,6 @@ public class LikeCoin extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-likecoin.cosmostation.io"; }
-    public String apiUrl() { return "https://api-likecoin.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "likecoin/"; }
     public String homeInfoLink() { return  "https://about.like.co/"; }

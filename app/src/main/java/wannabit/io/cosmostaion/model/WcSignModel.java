@@ -10,21 +10,18 @@ import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
 import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.Sha256Hash;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.TreeMap;
 
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.model.type.Pub_key;
-import wannabit.io.cosmostaion.model.type.Signature;
-import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.model.type.WcSignature;
 
 public class WcSignModel {
     public TreeMap<String, Object> signed;
-    public Signature signature;
+    public WcSignature signature;
 
     public WcSignModel(JsonObject txMsg, ECKey key) {
         ObjectMapper mapper = new ObjectMapper();
@@ -50,7 +47,7 @@ public class WcSignModel {
             System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
             System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);
             String signatureTx = Base64.encodeToString(sigData, Base64.DEFAULT).replace("\n", "");
-            Signature signature1 = new Signature();
+            WcSignature signature1 = new WcSignature();
             Pub_key pubKey1 = new Pub_key();
             pubKey1.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
             pubKey1.value = Base64.encodeToString(pubKey, Base64.DEFAULT).replace("\n", "");
@@ -61,7 +58,6 @@ public class WcSignModel {
             this.signed = Maps.newTreeMap();
             e.printStackTrace();
         }
-
 
 
     }

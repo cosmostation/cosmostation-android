@@ -169,7 +169,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         } else if (mBaseChain.equals(OKEX_MAIN)) {
             new OkHistoryTask(getBaseApplication(), this, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
-            new ApiAccountTxsHistoryTask(getBaseApplication(), this, mBaseChain, mAccount.address, mId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ApiAccountTxsHistoryTask(getBaseApplication(), this, mChainConfig.chainName(), mAccount.address, mId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 

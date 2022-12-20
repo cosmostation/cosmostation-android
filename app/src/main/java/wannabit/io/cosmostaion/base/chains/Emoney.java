@@ -30,7 +30,6 @@ public class Emoney extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "grpc-emoney.cosmostation.io"; }
-    public String apiUrl() { return "https://api-emoney.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "emoney/"; }
     public String homeInfoLink() { return  "https://www.e-money.com"; }

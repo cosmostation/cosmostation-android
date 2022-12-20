@@ -440,12 +440,16 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             Intent wcIntent = new Intent(getMainActivity(), StarNameWalletConnectActivity.class);
             wcIntent.putExtra("wcUrl", result.getData().getStringExtra(Intents.Scan.RESULT).trim());
             startActivity(wcIntent);
+        } else {
+            Toast.makeText(getActivity(), getActivity().getString(R.string.str_wc_not_supported), Toast.LENGTH_SHORT).show();
+            return;
         }
     });
 
     private void setTheme(Context context, String themeColor) {
         ThemeUtil.applyTheme(themeColor);
         ThemeUtil.modSave(context, themeColor);
+        getMainActivity().recreate();
     }
 
     private void setLanguage(Context context, String languageSet) {

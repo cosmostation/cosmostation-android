@@ -35,7 +35,6 @@ public class Bitsong extends ChainConfig {
     public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-bitsong.cosmostation.io"; }
-    public String apiUrl() { return "https://api-bitsong.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "bitsong/"; }
     public String homeInfoLink() { return  "https://bitsong.io"; }

@@ -29,7 +29,6 @@ public class Axelar extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "grpc-axelar.cosmostation.io"; }
-    public String apiUrl() { return "https://api-axelar.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "axelar/"; }
     public String homeInfoLink() { return  "https://axelar.network"; }

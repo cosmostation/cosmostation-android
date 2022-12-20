@@ -28,7 +28,6 @@ public class Sommelier extends ChainConfig {
     public boolean wcSupport() { return false; }
 
     public String grpcUrl() { return "grpc-sommelier.cosmostation.io"; }
-    public String apiUrl() { return "https://api-sommelier.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "sommelier/"; }
     public String homeInfoLink() { return  "https://sommelier.finance/"; }
