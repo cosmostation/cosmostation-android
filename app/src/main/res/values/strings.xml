@@ -983,6 +983,7 @@
     <string name="str_tx_step_fee">Select transaction fee</string>
     <string name="str_tx_step_confirm">Check transaction detail</string>
 
+    <string name="str_authz_description">Perform transactions on behalf of another account</string>
     <string name="str_authz_list_title">Authz List</string>
     <string name="str_authz_detail_title">Authz Detail</string>
     <string name="str_authz_empty_title">RECEIVE GRANT TO START AUTHZ</string>
