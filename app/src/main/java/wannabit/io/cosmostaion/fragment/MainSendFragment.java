@@ -248,8 +248,9 @@ public class MainSendFragment extends BaseFragment {
         public int getItemCount() {
             if (getMainActivity().mBaseChain == null) return 0;
 
-            if (getMainActivity().mChainConfig.baseChain().equals(KAVA_MAIN) || getMainActivity().mChainConfig.baseChain().equals(MEDI_MAIN)) return 6;
-            else if (getMainActivity().mChainConfig.authzSupport() || getMainActivity().mChainConfig.baseChain().equals(DESMOS_MAIN)) return 5;
+            if (getMainActivity().mChainConfig.baseChain().equals(KAVA_MAIN) || getMainActivity().mChainConfig.baseChain().equals(MEDI_MAIN) ||
+                    getMainActivity().mChainConfig.baseChain().equals(DESMOS_MAIN)) return 6;
+            else if (getMainActivity().mChainConfig.authzSupport()) return 5;
             else if (isGRPC(getMainActivity().mChainConfig.baseChain())) return 4;
             else return 3;
         }
@@ -265,11 +266,14 @@ public class MainSendFragment extends BaseFragment {
                     else if (position == 4) return TYPE_AUTHZ;
                     else if (position == 5) return TYPE_GIUDE;
 
-                } else if (getMainActivity().mChainConfig.baseChain().equals(MEDI_MAIN)) {
+                } else if (getMainActivity().mChainConfig.baseChain().equals(MEDI_MAIN) || getMainActivity().mChainConfig.baseChain().equals(DESMOS_MAIN)) {
                     if (position == 1) return TYPE_PRICE;
                     else if (position == 2) return TYPE_MINT;
                     else if (position == 3) return TYPE_AUTHZ;
-                    else if (position == 4) return TYPE_MEDIPASS;
+                    else if (position == 4) {
+                        if (mChainConfig.baseChain().equals(MEDI_MAIN)) return TYPE_MEDIPASS;
+                        else if (mChainConfig.baseChain().equals(DESMOS_MAIN)) return TYPE_DESMOS_APP;
+                    }
                     else if (position == 5) return TYPE_GIUDE;
                 }
 

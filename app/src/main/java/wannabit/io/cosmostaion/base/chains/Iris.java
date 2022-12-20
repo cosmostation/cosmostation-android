@@ -27,6 +27,7 @@ public class Iris extends ChainConfig {
     public boolean bridgeCoinSupport() { return true; }
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-iris.cosmostation.io"; }
 
