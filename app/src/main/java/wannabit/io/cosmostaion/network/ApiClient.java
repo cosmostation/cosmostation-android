@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 
@@ -32,6 +33,20 @@ public class ApiClient {
             }
         }
         return mintscan;
+    }
+
+    private static Station chainBase = null;
+    public static Station getChainBase() {
+        if (chainBase == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BaseConstant.CHAIN_BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                chainBase = retrofit.create(Station.class);
+            }
+        }
+        return chainBase;
     }
 
     //Services for Cosmostation wallet api

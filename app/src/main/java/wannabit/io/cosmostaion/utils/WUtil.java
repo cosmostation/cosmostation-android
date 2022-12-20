@@ -1,7 +1,49 @@
 package wannabit.io.cosmostaion.utils;
 
-import static wannabit.io.cosmostaion.base.BaseChain.*;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STRIDE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_BINANCE_ADDRESS_01;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_BINANCE_ADDRESS_02;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_BINANCE_ADDRESS_03;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_BITHUMB_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_COINONE_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_DIGFINEX_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_HITBTC_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_MEXC_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXCHANGE_UPBIT_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_XRPB_DEPUTY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 import android.content.Context;
 import android.content.Intent;
@@ -59,9 +101,6 @@ import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import okhttp3.OkHttpClient;
 import osmosis.gamm.v1beta1.BalancerPool;
-import osmosis.incentives.GaugeOuterClass;
-import osmosis.lockup.Lock;
-import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import stride.vesting.Vesting.StridePeriodicVestingAccount;
@@ -70,7 +109,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.activities.txs.liquidstaking.StrideLSActivity;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTListActivity;
-import wannabit.io.cosmostaion.activities.txs.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.activities.txs.osmosis.SwapViewActivity;
 import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -638,33 +677,6 @@ public class WUtil {
         return result;
     }
 
-    public static ArrayList<GaugeOuterClass.Gauge> getGaugesByPoolId(long poolId, ArrayList<QueryOuterClass.IncentivizedPool> incentivizedPools, ArrayList<GaugeOuterClass.Gauge> allGauges) {
-        ArrayList<Long> gaugeIds = new ArrayList<Long>();
-        ArrayList<GaugeOuterClass.Gauge> result = new ArrayList<GaugeOuterClass.Gauge>();
-        for (QueryOuterClass.IncentivizedPool pool : incentivizedPools) {
-            if (pool.getPoolId() == poolId) {
-                gaugeIds.add(pool.getGaugeId());
-            }
-        }
-        for (GaugeOuterClass.Gauge gauge : allGauges) {
-            if (gaugeIds.contains(gauge.getId())) {
-                result.add(gauge);
-            }
-        }
-        return result;
-    }
-
-    public static ArrayList<Lock.PeriodLock> getLockupByPoolId(long poolId, ArrayList<Lock.PeriodLock> lockups) {
-        ArrayList<Lock.PeriodLock> result = new ArrayList<Lock.PeriodLock>();
-        for (Lock.PeriodLock lockup : lockups) {
-            Coin lpCoin = new Coin(lockup.getCoins(0).getDenom(), lockup.getCoins(0).getAmount());
-            if (lpCoin.osmosisAmmPoolId() == poolId) {
-                result.add(lockup);
-            }
-        }
-        return result;
-    }
-
     public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, BalancerPool.Pool pool) {
         try {
             BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
@@ -681,61 +693,6 @@ public class WUtil {
         BigDecimal coin0Value = WDp.usdValue(baseData, coin0.denom, new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
         BigDecimal coin1Value = WDp.usdValue(baseData, coin1.denom, new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
         return coin0Value.add(coin1Value);
-    }
-
-    public static BigDecimal getNextIncentiveAmount(ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
-        BigDecimal incentive1Day = BigDecimal.ZERO;
-        BigDecimal incentive7Day = BigDecimal.ZERO;
-        BigDecimal incentive14Day = BigDecimal.ZERO;
-        if (gauges.size() > 0) {
-            if (gauges.get(0).getDistributedCoinsCount() == 0) {
-                return BigDecimal.ZERO;
-            } else {
-                for (CoinOuterClass.Coin coin : gauges.get(0).getCoinsList()) {
-                    if (coin.getDenom().equalsIgnoreCase(gauges.get(0).getDistributedCoins(0).getDenom())) {
-                        incentive1Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
-                    }
-                }
-            }
-            if (gauges.get(1).getDistributedCoinsCount() == 0) {
-                return BigDecimal.ZERO;
-            } else {
-                for (CoinOuterClass.Coin coin : gauges.get(1).getCoinsList()) {
-                    if (coin.getDenom().equalsIgnoreCase(gauges.get(1).getDistributedCoins(0).getDenom())) {
-                        incentive7Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
-                    }
-                }
-            }
-            if (gauges.get(2).getDistributedCoinsCount() == 0) {
-                return BigDecimal.ZERO;
-            } else {
-                for (CoinOuterClass.Coin coin : gauges.get(2).getCoinsList()) {
-                    if (coin.getDenom().equalsIgnoreCase(gauges.get(2).getDistributedCoins(0).getDenom())) {
-                        incentive14Day = new BigDecimal(coin.getAmount()).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
-                    }
-                }
-            }
-        }
-
-        if (position == 0) {
-            return incentive1Day;
-        } else if (position == 1) {
-            return incentive1Day.add(incentive7Day);
-        } else {
-            return incentive1Day.add(incentive7Day).add(incentive14Day);
-        }
-    }
-
-    public static BigDecimal getPoolArp(BaseData baseData, BalancerPool.Pool pool, ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
-        ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
-        BigDecimal poolValue = getPoolValue(baseData, pool);
-        BigDecimal incentiveAmount = getNextIncentiveAmount(gauges, position);
-        BigDecimal incentiveValue = WDp.usdValue(baseData, chainConfig.mainDenom(), incentiveAmount, WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom()));
-        try {
-            return incentiveValue.multiply(new BigDecimal("36500")).divide(poolValue, 12, RoundingMode.DOWN);
-        } catch (Exception e) {
-            return BigDecimal.ZERO;
-        }
     }
 
     /**
@@ -1572,7 +1529,7 @@ public class WUtil {
         } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
             return new Intent(mainActivity, SifDexListActivity.class);
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
-            return new Intent(mainActivity, LabsListActivity.class);
+            return new Intent(mainActivity, SwapViewActivity.class);
         } else if (chainConfig.baseChain().equals(STRIDE_MAIN)) {
             return new Intent(mainActivity, StrideLSActivity.class);
         } else {

@@ -96,11 +96,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_STARNAME_RESOLVE            = 4105;
     public final static int TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO        = 4106;
 
-    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_LIST           = 4200;
-    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_INFO           = 4201;
-    public final static int TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED        = 4202;
-    public final static int TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES       = 4203;
-    public final static int TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS       = 4204;
+    public final static int TASK_FETCH_OSMOSIS_POOL_LIST                = 4201;
+    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_INFO           = 4202;
 
     public final static int TASK_GRPC_FETCH_SIF_POOL_LIST               = 4250;
     public final static int TASK_GRPC_FETCH_SIF_POOL_INFO               = 4251;
@@ -189,10 +186,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_BORROW_HARD                         = 5034;
     public final static int CONST_PW_TX_REPAY_HARD                          = 5035;
     public final static int CONST_PW_TX_OSMOSIS_SWAP                        = 5036;
-    public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5037;
-    public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5038;
-    public final static int CONST_PW_TX_OSMOSIS_EARNING                     = 5040;
-    public final static int CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING             = 5041;
     public final static int CONST_PW_TX_KAVA_SWAP                           = 5043;
     public final static int CONST_PW_TX_KAVA_JOIN_POOL                      = 5044;
     public final static int CONST_PW_TX_KAVA_EXIT_POOL                      = 5045;

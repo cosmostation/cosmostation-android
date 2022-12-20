@@ -95,10 +95,6 @@ import wannabit.io.cosmostaion.widget.txDetail.liquidstaking.TxLiquidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxIssueDenomHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxMintNFTHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxTransferNFTHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockTokenHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxExitPoolHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxJoinPoolHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxLockTokenHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxTokenSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxAddLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
@@ -295,11 +291,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME = 35;
         private static final int TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME = 36;
 
-        private static final int TYPE_TX_JOIN_POOL = 41;
-        private static final int TYPE_TX_EXIT_POOL = 42;
         private static final int TYPE_TX_SWAP_COIN = 43;
-        private static final int TYPE_TX_LOCK_TOKEN = 44;
-        private static final int TYPE_TX_BEGIN_UNLOCK_TOKEN = 45;
 
         private static final int TYPE_TX_ADD_LIQUIDITY = 70;
         private static final int TYPE_TX_REMOVE_LIQUIDITY = 71;
@@ -392,20 +384,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME || viewType == TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME) {
                 return new TxStarnameRenewHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_JOIN_POOL) {
-                return new TxJoinPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_join_pool, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_EXIT_POOL) {
-                return new TxExitPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_exit_pool, viewGroup, false));
-
             } else if (viewType == TYPE_TX_SWAP_COIN) {
                 return new TxTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_token_swap, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_LOCK_TOKEN) {
-                return new TxLockTokenHolder(getLayoutInflater().inflate(R.layout.item_tx_lock_token, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_BEGIN_UNLOCK_TOKEN) {
-                return new TxBeginUnlockTokenHolder(getLayoutInflater().inflate(R.layout.item_tx_begin_unlock_token, viewGroup, false));
 
             }
 
@@ -591,18 +571,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                         return TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME;
                     } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRenewDomain.getDescriptor().getFullName())) {
                         return TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME;
-                    } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinPool.getDescriptor().getFullName()) ||
-                            msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinSwapExternAmountIn.getDescriptor().getFullName())) {
-                        return TYPE_TX_JOIN_POOL;
-                    } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgExitPool.getDescriptor().getFullName())) {
-                        return TYPE_TX_EXIT_POOL;
                     } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
                             msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
                         return TYPE_TX_SWAP_COIN;
-                    } else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgLockTokens.getDescriptor().getFullName())) {
-                        return TYPE_TX_LOCK_TOKEN;
-                    } else if (msg.getTypeUrl().equals("/" + osmosis.lockup.Tx.MsgBeginUnlocking.getDescriptor().getFullName())) {
-                        return TYPE_TX_BEGIN_UNLOCK_TOKEN;
                     }
 
                     // sifchain msg

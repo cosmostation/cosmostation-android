@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.SwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -21,7 +19,7 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
 
     private TextView        mFeeAmount;
     private TextView        mFeeAmountSymbol;
-    private TextView        mSwapFee;
+    private RelativeLayout  mSwapFeeLayer;
     private TextView        mSwapInAmount, mSwapInAmountSymbol;
     private TextView        mSwapOutAmount, mSwapOutAmountSymbol;
     private RelativeLayout  mSlippageLayer;
@@ -41,9 +39,9 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_swap_step3, container, false);
+        mSwapFeeLayer           = rootView.findViewById(R.id.swap_fee_layer);
         mFeeAmount              = rootView.findViewById(R.id.swap_fee_amount);
         mFeeAmountSymbol        = rootView.findViewById(R.id.swap_fee_amount_symbol);
-        mSwapFee                = rootView.findViewById(R.id.swap_fee);
         mSwapInAmount           = rootView.findViewById(R.id.swap_in_amount);
         mSwapInAmountSymbol     = rootView.findViewById(R.id.swap_in_amount_symbol);
         mSwapOutAmount          = rootView.findViewById(R.id.swap_out_amount);
@@ -61,14 +59,12 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        mSlippageLayer.setVisibility(View.VISIBLE);
-        BigDecimal swapFee = new BigDecimal(getSActivity().mOsmosisPool.getPoolParams().getSwapFee());
+        mSwapFeeLayer.setVisibility(View.GONE);
+        mSlippageLayer.setVisibility(View.GONE);
 
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
-        mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
         WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mSwapInCoin, mSwapInAmountSymbol, mSwapInAmount);
         WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount);
-
 
         mMemo.setText(getSActivity().mTxMemo);
     }

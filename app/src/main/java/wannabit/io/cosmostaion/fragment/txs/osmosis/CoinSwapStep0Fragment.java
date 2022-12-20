@@ -20,14 +20,19 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import osmosis.gamm.poolmodels.stableswap.v1beta1.StableswapPool;
 import osmosis.gamm.v1beta1.BalancerPool;
+import osmosis.gamm.v1beta1.QueryOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.osmosis.SwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -55,6 +60,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private int mOutputCoinDecimal;
     private BigDecimal mAvailableMaxAmount;
     private BigDecimal mSwapRate;
+    private com.google.protobuf2.Any mSelectedPool;
 
     private String mInDecimalChecker, mInDecimalSetter;
 
@@ -106,37 +112,48 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        mInputCoinDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom);
-        mOutputCoinDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom);
+        final Asset inputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mInputDenom);
+        final Asset outputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mOutputDenom);
+        mInputCoinDecimal = inputAsset.decimals;
+        mOutputCoinDecimal = outputAsset.decimals;
         setDpDecimals(mInputCoinDecimal);
+
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
         if (getSActivity().mInputDenom.equals(getSActivity().mChainConfig.mainDenom())) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
         }
-        mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WDp.setDpSymbol(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapAvailAmountSymbol);
-
+        WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mAvailableMaxAmount.toPlainString(), mSwapAvailAmountSymbol, mSwapAvailAmount);
         WDp.setDpSymbol(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputSymbol);
         WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputImg);
         WDp.setDpSymbol(getContext(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputSymbol);
         WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mOutputDenom, mSwapOutputImg);
 
-        BigDecimal inputAssetAmount = BigDecimal.ZERO;
-        BigDecimal inputAssetWeight = BigDecimal.ZERO;
-        BigDecimal outputAssetAmount = BigDecimal.ZERO;
-        BigDecimal outputAssetWeight = BigDecimal.ZERO;
+        if (mSelectedPool.getTypeUrl().contains(BalancerPool.Pool.getDescriptor().getFullName())) {
+            BigDecimal inputAssetAmount = BigDecimal.ZERO;
+            BigDecimal inputAssetWeight = BigDecimal.ZERO;
+            BigDecimal outputAssetAmount = BigDecimal.ZERO;
+            BigDecimal outputAssetWeight = BigDecimal.ZERO;
 
-        for (BalancerPool.PoolAsset asset: getSActivity().mOsmosisPool.getPoolAssetsList()) {
-            if (asset.getToken().getDenom().equals(getSActivity().mInputDenom)) {
-                inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
-                inputAssetWeight = new BigDecimal(asset.getWeight());
-            }
-            if (asset.getToken().getDenom().equals(getSActivity().mOutputDenom)) {
-                outputAssetAmount = new BigDecimal(asset.getToken().getAmount());
-                outputAssetWeight = new BigDecimal(asset.getWeight());
-            }
+            try {
+                BalancerPool.Pool pool = BalancerPool.Pool.parseFrom(mSelectedPool.getValue());
+                for (BalancerPool.PoolAsset poolAsset : pool.getPoolAssetsList()) {
+                    if (poolAsset.getToken().getDenom().equalsIgnoreCase(getSActivity().mInputDenom)) {
+                        inputAssetAmount = new BigDecimal(poolAsset.getToken().getAmount());
+                        inputAssetWeight = new BigDecimal(poolAsset.getWeight());
+                    }
+                    if (poolAsset.getToken().getDenom().equalsIgnoreCase(getSActivity().mOutputDenom)) {
+                        outputAssetAmount = new BigDecimal(poolAsset.getToken().getAmount());
+                        outputAssetWeight = new BigDecimal(poolAsset.getWeight());
+                    }
+                }
+
+            } catch (InvalidProtocolBufferException e) { e.printStackTrace(); }
+
+            mSwapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 18, RoundingMode.DOWN).divide(outputAssetWeight, 18, RoundingMode.DOWN);
+
+        } else if (mSelectedPool.getTypeUrl().contains(StableswapPool.Pool.getDescriptor().getFullName())) {
+
         }
-        mSwapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 18, RoundingMode.DOWN).divide(outputAssetWeight, 18, RoundingMode.DOWN);
     }
 
     private void onAddAmountWatcher() {
@@ -237,7 +254,6 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal max = mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.DOWN);
             mSwapInputAmount.setText(max.toPlainString());
             onUpdateOutputTextView();
-
         }
     }
 
@@ -253,8 +269,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal OutputAmount = InputAmountTemp.movePointRight(mInputCoinDecimal).multiply(padding).multiply(mSwapRate).setScale(0, RoundingMode.DOWN);
 
             mSwapOutputAmount.setText(OutputAmount.movePointLeft(mOutputCoinDecimal).toPlainString());
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
     }
 
     private boolean isValidateSwapInputAmount() {
@@ -267,7 +282,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
             getSActivity().mSwapInCoin = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
             getSActivity().mSwapOutCoin = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).setScale(0).toPlainString());
-            getSActivity().mOsmosisSwapAmountInRoute = Tx.SwapAmountInRoute.newBuilder().setPoolId(getSActivity().mOsmosisPool.getId()).setTokenOutDenom(getSActivity().mOutputDenom).build();
+            getSActivity().mOsmosisSwapAmountInRoute = Tx.SwapAmountInRoute.newBuilder().setPoolId(getSActivity().mOsmosisPoolId).setTokenOutDenom(getSActivity().mOutputDenom).build();
             return true;
 
         } catch (Exception e) {
@@ -278,9 +293,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-
     private int mTaskCount;
-
     public void onFetchPoolInfo() {
         mTaskCount = 1;
         new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -291,7 +304,8 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mOsmosisPool = (BalancerPool.Pool) result.resultData;
+                QueryOuterClass.QueryPoolResponse response = (QueryOuterClass.QueryPoolResponse) result.resultData;
+                mSelectedPool = response.getPool();
             }
         }
         if (mTaskCount == 0) {
