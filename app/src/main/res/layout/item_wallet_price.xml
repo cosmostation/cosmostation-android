@@ -20,7 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/space_12">
+            android:paddingLeft="@dimen/space_12"
+            android:paddingTop="@dimen/space_12"
+            android:paddingRight="@dimen/space_12">
 
             <RelativeLayout
                 android:id="@+id/price_layer"
@@ -59,8 +61,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/current_price"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:layout_marginRight="@dimen/space_4"
                     android:layout_marginTop="@dimen/space_2"
+                    android:layout_marginRight="@dimen/space_4"
                     android:gravity="center">
 
                     <TextView
@@ -88,9 +90,8 @@
                 android:id="@+id/buy_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/space_12"
+                android:orientation="vertical">
 
                 <View
                     android:layout_width="match_parent"
@@ -101,8 +102,8 @@
                     android:id="@+id/btn_buy_coin"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
-                    android:layout_marginTop="-4dp"
                     android:clickable="true"
+                    android:gravity="center"
                     android:minHeight="@dimen/space_40">
 
                     <TextView
