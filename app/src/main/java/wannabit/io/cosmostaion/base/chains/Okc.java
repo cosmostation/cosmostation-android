@@ -62,7 +62,7 @@ public class Okc extends ChainConfig {
         return Lists.newArrayList("m/44'/996'/0'/0/X", "m/44'/996'/0'/0/X", defaultPath());
     }
 
-    public String coinFullName(String denom) { return "OKC Staking Coin"; }
+    public String coinFullName(String denom) { return "OKExChain Native Token"; }
 
     public String explorerAccountLink() {
         return explorerUrl() + "address/";

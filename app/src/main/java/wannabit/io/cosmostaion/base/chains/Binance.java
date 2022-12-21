@@ -53,7 +53,7 @@ public class Binance extends ChainConfig {
         return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
-    public String coinFullName(String denom) { return "Binance Chain Native Coin"; }
+    public String coinFullName(String denom) { return "Binance Chain Native Token"; }
 
 
     public static String BNB_MAIN_DENOM = "BNB";
