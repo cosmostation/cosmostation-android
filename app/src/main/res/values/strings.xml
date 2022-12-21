@@ -932,7 +932,6 @@
     <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_cw20_token_title">Contract Tokens</string>
-    <string name="str_erc20_token_title">Erc20 Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
 

@@ -185,11 +185,7 @@ public class MainTokensFragment extends BaseFragment {
             @Override
             public String getSectionErcHeader(BaseChain baseChain, ArrayList<MintscanToken> mintscanTokens, int section) {
                 if (section == SECTION_ERC20_GRPC) {
-                    if (baseChain.equals(JUNO_MAIN)) {
-                        return getMainActivity().getString(R.string.str_cw20_token_title);
-                    } else {
-                        return getMainActivity().getString(R.string.str_erc20_token_title);
-                    }
+                    return getMainActivity().getString(R.string.str_cw20_token_title);
                 }
                 return getMainActivity().getString(R.string.str_unknown_token_title);
             }
@@ -340,7 +336,7 @@ public class MainTokensFragment extends BaseFragment {
                 }
 
                 WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.origin_denom, holder.itemImg);
-                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig,asset.origin_denom));
+                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig, asset.origin_denom));
                 holder.itemPath.setText(asset.description);
 
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
@@ -480,7 +476,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig, balance.symbol));
             holder.itemPath.setText(chainConfig.coinFullName(balance.symbol));
 
-            if (mBaseChain.equals(BNB_MAIN)) totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
+            if (mBaseChain.equals(BNB_MAIN))
+                totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
             else totalAmount = getBaseDao().getAllExToken(balance.symbol);
 
             holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), WDp.getGeckoId(getBaseDao(), chainConfig), totalAmount, 0));
