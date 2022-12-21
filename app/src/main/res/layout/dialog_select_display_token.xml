@@ -59,6 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/colorTrans"
+                    android:textColor="@color/colorRed"
                     android:text="@string/str_cancel"
                     android:textAllCaps="false" />
 

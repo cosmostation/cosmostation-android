@@ -429,7 +429,7 @@ public class MainTokensFragment extends BaseFragment {
 
             if (asset != null) {
                 Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-                holder.itemSymbol.setText(asset.symbol.toUpperCase());
+                holder.itemSymbol.setText(asset.symbol);
                 holder.itemPath.setText(asset.description);
 
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));

@@ -1011,6 +1011,7 @@
     <string name="str_authz_commission_title">Authz Claim Commission</string>
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
 
+    <string name="str_select_contract_token_title">Edit Token List</string>
     <string name="str_select_contract_token">Select token to Display</string>
     <string name="str_ibc_transfer_title">IBC Transfer</string>
     <string name="str_ibc_transfer_msg1">IBC transactions are NOT supported on centralized exchanges.</string>
