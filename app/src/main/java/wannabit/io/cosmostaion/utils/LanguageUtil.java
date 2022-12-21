@@ -19,19 +19,6 @@ public class LanguageUtil {
     public static final String LANGUAGE_KOREAN = "ko";
     public static final String SYSTEM_MODE = "system";
 
-    public static void setLanguageCode(Context context, String language) {
-        LocaleList locale;
-        if (language.equals(LANGUAGE_ENGLISH) || language.equals(LANGUAGE_KOREAN)) {
-            locale = new LocaleList(Locale.forLanguageTag(language));
-        } else {
-            locale = Resources.getSystem().getConfiguration().getLocales();
-        }
-        LocaleList.setDefault(locale);
-        Configuration config = new Configuration();
-        config.setLocales(locale);
-        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
-    }
-
     public static void modSave(Context context, String selectMod) {
         SharedPreferences sp = context.getSharedPreferences(BaseConstant.PRE_LANGUAGE, MODE_PRIVATE);
         sp.edit().putString(BaseConstant.PRE_LANGUAGE, selectMod).apply();
@@ -43,18 +30,16 @@ public class LanguageUtil {
     }
 
     public static Context updateResources(Context context) {
-        Locale locale = new Locale(modLoad(context));
-        Locale.setDefault(locale);
-
-        Resources res = context.getResources();
-        Configuration config = new Configuration(res.getConfiguration());
-        if (Build.VERSION.SDK_INT >= 17) {
-            config.setLocale(locale);
-            context = context.createConfigurationContext(config);
+        String language = modLoad(context);
+        Locale locale;
+        if (language.equals(LANGUAGE_ENGLISH) || language.equals(LANGUAGE_KOREAN)) {
+            locale = new Locale(language);
         } else {
-            config.locale = locale;
-            res.updateConfiguration(config, res.getDisplayMetrics());
+            locale = Resources.getSystem().getConfiguration().getLocales().get(0);
         }
-        return context;
+        Locale.setDefault(locale);
+        Configuration config = new Configuration(context.getResources().getConfiguration());
+        config.setLocale(locale);
+        return context.createConfigurationContext(config);
     }
 }
