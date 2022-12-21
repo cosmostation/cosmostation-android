@@ -7,8 +7,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/space_15">
+            android:padding="@dimen/space_16">
 
             <LinearLayout
                 android:id="@+id/turnout_layer"
@@ -73,7 +73,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_view"
-                    android:layout_marginTop="@dimen/space_15"
+                    android:layout_marginTop="@dimen/space_16"
                     android:background="@color/colorGrayDayNight" />
             </LinearLayout>
 
@@ -91,7 +91,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/box_vote_trans"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_15">
+                    android:padding="@dimen/space_16">
 
                     <ImageView
                         android:id="@+id/vote_yes_voted"
@@ -137,7 +137,7 @@
 
                         <TextView
                             android:id="@+id/vote_yes_cnt"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -165,7 +165,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/box_vote_trans"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_15">
+                    android:padding="@dimen/space_16">
 
                     <ImageView
                         android:id="@+id/vote_no_voted"
@@ -211,7 +211,7 @@
 
                         <TextView
                             android:id="@+id/vote_no_cnt"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -245,7 +245,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/box_vote_trans"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_15">
+                    android:padding="@dimen/space_16">
 
                     <ImageView
                         android:id="@+id/vote_veto_voted"
@@ -291,7 +291,7 @@
 
                         <TextView
                             android:id="@+id/vote_veto_cnt"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -319,7 +319,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/box_vote_trans"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_15">
+                    android:padding="@dimen/space_16">
 
                     <ImageView
                         android:id="@+id/vote_abstain_voted"
@@ -365,7 +365,7 @@
 
                         <TextView
                             android:id="@+id/vote_abstain_cnt"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

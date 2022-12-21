@@ -177,8 +177,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_24">
         <Button
             android:id="@+id/btn_before"

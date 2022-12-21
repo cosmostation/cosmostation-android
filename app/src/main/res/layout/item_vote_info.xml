@@ -7,8 +7,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
@@ -42,7 +42,7 @@
 
                     <TextView
                         android:id="@+id/vote_status"
-                        style="@style/font_rr_14_black_daynight"
+                        style="@style/font_rr_11_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_8"
@@ -65,9 +65,9 @@
                 style="@style/font_rr_14_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_4"
-                android:layout_marginRight="@dimen/space_15"
+                android:layout_marginRight="@dimen/space_16"
                 android:ellipsize="end"
                 android:singleLine="true" />
 
@@ -75,9 +75,9 @@
                 android:id="@+id/vote_proposer_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_12"
-                android:layout_marginRight="@dimen/space_15">
+                android:layout_marginRight="@dimen/space_16">
 
                 <TextView
                     android:id="@+id/vote_proposer_title"
@@ -102,9 +102,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_8"
-                android:layout_marginRight="@dimen/space_15">
+                android:layout_marginRight="@dimen/space_16">
 
                 <TextView
                     android:id="@+id/vote_type_title"
@@ -130,9 +130,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_8"
-                android:layout_marginRight="@dimen/space_15">
+                android:layout_marginRight="@dimen/space_16">
 
                 <TextView
                     android:id="@+id/vote_startTime_title"
@@ -156,9 +156,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_8"
-                android:layout_marginRight="@dimen/space_15">
+                android:layout_marginRight="@dimen/space_16">
 
                 <TextView
                     android:id="@+id/vote_endTime_title"
@@ -232,7 +232,7 @@
                 style="@style/font_rr_12_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16"
                 android:text="@string/str_voting_description" />
 
