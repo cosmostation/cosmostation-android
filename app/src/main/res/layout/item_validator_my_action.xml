@@ -79,7 +79,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
                     android:minHeight="@dimen/space_40"
-                    android:text="@string/str_delegate" />
+                    android:text="@string/str_delegate"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/validator_btn_undelegate"
@@ -91,7 +92,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
                     android:minHeight="@dimen/space_40"
-                    android:text="@string/str_undelegate" />
+                    android:text="@string/str_undelegate"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/validator_btn_redelegate"
@@ -102,7 +104,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
                     android:minHeight="@dimen/space_40"
-                    android:text="@string/str_redelegate" />
+                    android:text="@string/str_redelegate"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
             <View
@@ -146,7 +149,7 @@
 
                 <TextView
                     android:id="@+id/validator_daily_return"
-                    style="@style/font_rr_12_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -166,7 +169,7 @@
 
                 <TextView
                     android:id="@+id/validator_monthly_return"
-                    style="@style/font_rr_12_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -241,7 +244,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
                     android:minHeight="@dimen/space_40"
-                    android:text="@string/str_claim_reward" />
+                    android:text="@string/str_claim_reward"
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/validator_btn_reinvest"
@@ -253,7 +257,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
                     android:minHeight="@dimen/space_40"
-                    android:text="@string/str_reinvest" />
+                    android:text="@string/str_reinvest"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
 

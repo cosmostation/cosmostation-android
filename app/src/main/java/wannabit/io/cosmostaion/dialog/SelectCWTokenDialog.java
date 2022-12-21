@@ -102,7 +102,7 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
             final MintscanToken asset = mContractAssets.get(position);
             holder.itemDisplayToken.setOnCheckedChangeListener(null);
             Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemChainImg);
-            holder.itemChainName.setText(asset.symbol.toUpperCase());
+            holder.itemChainName.setText(asset.symbol);
             holder.itemDisplayToken.setChecked(checkedContractSet.contains(asset.address));
             holder.itemDisplayToken.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
