@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
         android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_6"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
-        app:cardBackgroundColor="@color/colorTransBg">
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,13 +48,14 @@
                         android:layout_marginLeft="@dimen/space_8"
                         android:text="DepositPeriod" />
                 </LinearLayout>
+
                 <ImageView
                     android:id="@+id/vote_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/space_8"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/space_8"
                     android:padding="@dimen/space_8"
                     android:src="@drawable/icon_explorer" />
             </RelativeLayout>
@@ -64,19 +65,19 @@
                 style="@style/font_rr_14_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginLeft="@dimen/space_15"
                 android:layout_marginTop="@dimen/space_4"
-                android:layout_marginRight="@dimen/space_16"
-                android:singleLine="true"
-                android:ellipsize="end"/>
+                android:layout_marginRight="@dimen/space_15"
+                android:ellipsize="end"
+                android:singleLine="true" />
 
             <RelativeLayout
                 android:id="@+id/vote_proposer_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_15"
                 android:layout_marginTop="@dimen/space_12"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_16">
+                android:layout_marginRight="@dimen/space_15">
 
                 <TextView
                     android:id="@+id/vote_proposer_title"
@@ -101,9 +102,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_15"
                 android:layout_marginTop="@dimen/space_8"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_16">
+                android:layout_marginRight="@dimen/space_15">
 
                 <TextView
                     android:id="@+id/vote_type_title"
@@ -111,66 +112,71 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_proposal_type" />
+
                 <TextView
                     android:id="@+id/vote_type"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/vote_type_title"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:singleLine="true"
+                    android:layout_toRightOf="@+id/vote_type_title"
                     android:ellipsize="end"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_rr_12_black_daynight"/>
+                    android:singleLine="true"
+                    android:text="-" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_15"
                 android:layout_marginTop="@dimen/space_8"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_16">
+                android:layout_marginRight="@dimen/space_15">
+
                 <TextView
                     android:id="@+id/vote_startTime_title"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_voting_start_time"
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="@string/str_voting_start_time" />
+
                 <TextView
                     android:id="@+id/vote_startTime"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/vote_startTime_title"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="@dimen/space_8"
+                    android:layout_toRightOf="@+id/vote_startTime_title"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_rr_12_black_daynight"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_15"
                 android:layout_marginTop="@dimen/space_8"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_16">
+                android:layout_marginRight="@dimen/space_15">
+
                 <TextView
                     android:id="@+id/vote_endTime_title"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_voting_end_time"
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="@string/str_voting_end_time" />
+
                 <TextView
                     android:id="@+id/vote_endTime"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/vote_endTime_title"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="@dimen/space_8"
+                    android:layout_toRightOf="@+id/vote_endTime_title"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_rr_12_black_daynight"/>
+                    android:text="-" />
             </RelativeLayout>
 
 
@@ -178,35 +184,39 @@
                 android:id="@+id/request_amount_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
                 android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_8"
                 android:layout_marginRight="@dimen/space_16"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/request_amount_title"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_request_amount"
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="@string/str_request_amount" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/request_amount_title">
+
                     <TextView
                         android:id="@+id/request_amount_denom"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        style="@style/font_rr_12_black_daynight"/>
+                        android:layout_alignParentRight="true" />
+
                     <TextView
                         android:id="@+id/request_amount"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/request_amount_denom"
-                        android:layout_toLeftOf="@+id/request_amount_denom"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_rr_12_black_daynight"/>
+                        android:layout_toLeftOf="@+id/request_amount_denom"
+                        android:text="-" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -219,33 +229,33 @@
                 android:background="@color/colorGrayDayNight" />
 
             <TextView
+                style="@style/font_rr_12_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginLeft="@dimen/space_15"
                 android:layout_marginTop="@dimen/space_16"
-                android:text="@string/str_voting_description"
-                style="@style/font_rr_12_gray1"/>
+                android:text="@string/str_voting_description" />
 
             <TextView
                 android:id="@+id/vote_msg"
+                style="@style/font_rr_11_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4"
                 android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_4"
                 android:layout_marginRight="@dimen/space_16"
-                android:lineSpacingExtra="1sp"
-                android:maxLines="3"
                 android:autoLink="web"
                 android:clickable="true"
-                android:textColorLink="@color/colorPhotonDayNight"
-                style="@style/font_rr_11_black_daynight"/>
+                android:lineSpacingExtra="1sp"
+                android:maxLines="3"
+                android:textColorLink="@color/colorPhotonDayNight" />
 
             <ImageView
                 android:id="@+id/vote_btn_expend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/space_8"
-                android:src="@drawable/arrow_down_gr"/>
+                android:src="@drawable/arrow_down_gr" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

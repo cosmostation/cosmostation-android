@@ -20,9 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/space_12"
-            android:paddingTop="@dimen/space_12"
-            android:paddingRight="@dimen/space_12">
+            android:padding="@dimen/space_12">
 
             <RelativeLayout
                 android:id="@+id/price_layer"
@@ -111,11 +109,10 @@
                         style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/space_12"
                         android:drawableLeft="@drawable/card_ic"
                         android:drawablePadding="@dimen/space_8"
-                        android:gravity="center"
                         android:text="@string/str_buy_coin" />
                 </RelativeLayout>
             </LinearLayout>
