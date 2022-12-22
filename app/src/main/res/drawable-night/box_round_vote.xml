@@ -8,8 +8,8 @@
         android:color="@color/colorGrayDayNight"
         android:width="@dimen/space_1"/>
     <padding
-        android:top="@dimen/space_6"
-        android:bottom="@dimen/space_6"
+        android:top="@dimen/space_4"
+        android:bottom="@dimen/space_4"
         android:left="@dimen/space_12"
         android:right="@dimen/space_12"/>
 </shape>

@@ -59,8 +59,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/current_price"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:layout_marginRight="@dimen/space_4"
                     android:layout_marginTop="@dimen/space_2"
+                    android:layout_marginRight="@dimen/space_4"
                     android:gravity="center">
 
                     <TextView
@@ -88,9 +88,8 @@
                 android:id="@+id/buy_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/space_12"
+                android:orientation="vertical">
 
                 <View
                     android:layout_width="match_parent"
@@ -101,8 +100,8 @@
                     android:id="@+id/btn_buy_coin"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
-                    android:layout_marginTop="-4dp"
                     android:clickable="true"
+                    android:gravity="center"
                     android:minHeight="@dimen/space_40">
 
                     <TextView
@@ -110,11 +109,10 @@
                         style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/space_12"
                         android:drawableLeft="@drawable/card_ic"
                         android:drawablePadding="@dimen/space_8"
-                        android:gravity="center"
                         android:text="@string/str_buy_coin" />
                 </RelativeLayout>
             </LinearLayout>

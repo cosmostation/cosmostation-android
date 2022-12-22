@@ -59,7 +59,7 @@ public class MainTokensFragment extends BaseFragment {
     public final static int SECTION_NATIVE_GRPC = 0;
     public final static int SECTION_IBC_GRPC = 1;
     public final static int SECTION_ETHER_GRPC = 2;
-    public final static int SECTION_ERC20_GRPC = 3;
+    public final static int SECTION_CW_GRPC = 3;
 
     public final static int SECITON_CONTRACT_EDIT = 10;
 
@@ -84,7 +84,7 @@ public class MainTokensFragment extends BaseFragment {
     private ArrayList<Coin> mNativeGrpc = new ArrayList<>();
     private ArrayList<Coin> mIbcGrpc = new ArrayList<>();
     private ArrayList<Coin> mEtherGrpc = new ArrayList<>();
-    private ArrayList<MintscanToken> mErc20Grpc = new ArrayList<>();
+    private ArrayList<MintscanToken> mCwGrpc = new ArrayList<>();
 
     private ArrayList<Balance> mNative = new ArrayList<>();
     private ArrayList<Balance> mEtc = new ArrayList<>();
@@ -189,14 +189,8 @@ public class MainTokensFragment extends BaseFragment {
 
             @Override
             public String getSectionErcHeader(BaseChain baseChain, ArrayList<MintscanToken> mintscanTokens, int section) {
-                if (section == SECTION_ERC20_GRPC) {
-                    if (baseChain.equals(JUNO_MAIN)) {
-                        return getMainActivity().getString(R.string.str_cw20_token_title);
-                    } else if (baseChain.equals(EVMOS_MAIN)) {
-                        return getMainActivity().getString(R.string.str_erc20_token_title);
-                    } else {
-                        return getMainActivity().getString(R.string.str_oec_kip20_title);
-                    }
+                if (section == SECTION_CW_GRPC) {
+                    return getMainActivity().getString(R.string.str_cw_token_title);
                 }
                 return getMainActivity().getString(R.string.str_unknown_token_title);
             }
@@ -233,8 +227,8 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onUpdateView() {
         final String mainDenom = mChainConfig.mainDenom();
-        if (mChainConfig.baseChain().equals(JUNO_MAIN)) mErc20Grpc = getBaseDao().mCw20MyTokens;
-        else mErc20Grpc = getBaseDao().mErc20MyTokens;
+        if (mChainConfig.baseChain().equals(JUNO_MAIN)) mCwGrpc = getBaseDao().mCw20MyTokens;
+        else mCwGrpc = getBaseDao().mErc20MyTokens;
         mNativeGrpc.clear();
         mIbcGrpc.clear();
         mEtherGrpc.clear();
@@ -268,7 +262,7 @@ public class MainTokensFragment extends BaseFragment {
         } else {
             WUtil.onSortingNativeCoins(mEtc, mBaseChain);
         }
-        WUtil.onSortingContract(mErc20Grpc);
+        WUtil.onSortingContract(mCwGrpc);
 
         if (isGRPC(mBaseChain)) {
             if (getBaseDao().mGrpcBalance != null && getBaseDao().mGrpcBalance.size() > 0) {
@@ -316,7 +310,7 @@ public class MainTokensFragment extends BaseFragment {
                         onBindEthToken(viewHolder, mChainConfig, position - mNativeGrpc.size() - mIbcGrpc.size());
 
                     } else if (mChainConfig.erc20CoinSupport()) {
-                        if (getItemViewType(position) == SECTION_ERC20_GRPC) {
+                        if (getItemViewType(position) == SECTION_CW_GRPC) {
                             onBindErcGrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcGrpc.size());
                         } else if (getItemViewType(position) == SECITON_CONTRACT_EDIT) {
                             onBindEdit(viewHolder);
@@ -330,7 +324,7 @@ public class MainTokensFragment extends BaseFragment {
                 } else if (getItemViewType(position) == SECTION_ETC) {
                     onBindEtcToken(viewHolder, mChainConfig, position - mNative.size());
                 } else if (mChainConfig.erc20CoinSupport()) {
-                    if (getItemViewType(position) == SECTION_ERC20_GRPC) {
+                    if (getItemViewType(position) == SECTION_CW_GRPC) {
                         onBindErcGrpcToken(viewHolder, position - mNative.size() - mEtc.size());
                     } else if (getItemViewType(position) == SECITON_CONTRACT_EDIT) {
                         onBindEdit(viewHolder);
@@ -353,7 +347,7 @@ public class MainTokensFragment extends BaseFragment {
                 }
 
                 WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.origin_denom, holder.itemImg);
-                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig,asset.origin_denom));
+                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig, asset.origin_denom));
                 holder.itemPath.setText(asset.description);
 
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
@@ -442,11 +436,11 @@ public class MainTokensFragment extends BaseFragment {
 
         private void onBindErcGrpcToken(RecyclerView.ViewHolder viewHolder, int position) {
             final AssetHolder holder = (AssetHolder) viewHolder;
-            final MintscanToken asset = mErc20Grpc.get(position);
+            final MintscanToken asset = mCwGrpc.get(position);
 
             if (asset != null) {
                 Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemImg);
-                holder.itemSymbol.setText(asset.symbol.toUpperCase());
+                holder.itemSymbol.setText(asset.symbol);
                 holder.itemPath.setText(asset.description);
 
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
@@ -562,10 +556,10 @@ public class MainTokensFragment extends BaseFragment {
             int defaultCount = mNativeGrpc.size() + mIbcGrpc.size();
             if (isGRPC(mBaseChain)) {
                 if (mChainConfig.bridgeCoinSupport()) return defaultCount + mEtherGrpc.size();
-                else if (mChainConfig.erc20CoinSupport()) return defaultCount + mErc20Grpc.size() + 1;
+                else if (mChainConfig.erc20CoinSupport()) return defaultCount + mCwGrpc.size() + 1;
                 else return defaultCount;
             } else {
-                if (mChainConfig.erc20CoinSupport()) return getBaseDao().mBalances.size() + mErc20Grpc.size() + 1;
+                if (mChainConfig.erc20CoinSupport()) return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
                 else return getBaseDao().mBalances.size();
             }
         }
@@ -580,7 +574,7 @@ public class MainTokensFragment extends BaseFragment {
                 } else if (mChainConfig.erc20CoinSupport()) {
                     if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
                     else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mErc20Grpc.size()) return SECTION_ERC20_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mCwGrpc.size()) return SECTION_CW_GRPC;
                     else return SECITON_CONTRACT_EDIT;
                 } else {
                     if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
@@ -591,7 +585,7 @@ public class MainTokensFragment extends BaseFragment {
                 if (mChainConfig.erc20CoinSupport()) {
                     if (position < mNative.size()) return SECTION_NATIVE;
                     else if (position < mNative.size() + mEtc.size()) return SECTION_ETC;
-                    else if (position < mNative.size() + mEtc.size() + mErc20Grpc.size()) return SECTION_ERC20_GRPC;
+                    else if (position < mNative.size() + mEtc.size() + mCwGrpc.size()) return SECTION_CW_GRPC;
                     else return SECITON_CONTRACT_EDIT;
                 } else {
                     if (position < mNative.size()) return SECTION_NATIVE;
@@ -729,10 +723,10 @@ public class MainTokensFragment extends BaseFragment {
                         title = sectionCallback.getSectionGrpcHeader(mBaseChain, mEtherGrpc, mSection);
                         mItemCnt.setText("" + mEtherGrpc.size());
 
-                    } else if (mSection == SECTION_ERC20_GRPC) {
+                    } else if (mSection == SECTION_CW_GRPC) {
                         mRoot.setVisibility(View.VISIBLE);
-                        title = sectionCallback.getSectionErcHeader(mBaseChain, mErc20Grpc, mSection);
-                        mItemCnt.setText("" + mErc20Grpc.size());
+                        title = sectionCallback.getSectionErcHeader(mBaseChain, mCwGrpc, mSection);
+                        mItemCnt.setText("" + mCwGrpc.size());
                     } else if (mSection == SECITON_CONTRACT_EDIT) {
                         mRoot.setVisibility(View.GONE);
                     }
@@ -747,10 +741,10 @@ public class MainTokensFragment extends BaseFragment {
                         title = sectionCallback.getSecitonHeader(mBaseChain, mEtc, mSection);
                         mItemCnt.setText("" + mEtc.size());
 
-                    } else if (mSection == SECTION_ERC20_GRPC) {
+                    } else if (mSection == SECTION_CW_GRPC) {
                         mRoot.setVisibility(View.VISIBLE);
-                        title = sectionCallback.getSectionErcHeader(mBaseChain, mErc20Grpc, mSection);
-                        mItemCnt.setText("" + mErc20Grpc.size());
+                        title = sectionCallback.getSectionErcHeader(mBaseChain, mCwGrpc, mSection);
+                        mItemCnt.setText("" + mCwGrpc.size());
                     } else if (mSection == SECITON_CONTRACT_EDIT) {
                         mRoot.setVisibility(View.GONE);
                     }

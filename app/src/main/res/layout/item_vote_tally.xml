@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -9,11 +7,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
-        app:cardElevation="0dp"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true">
 
         <LinearLayout
@@ -27,22 +25,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/space_8"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        style="@style/font_ss_14_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_quorum" />
 
                     <TextView
                         android:id="@+id/current_quorum"
-                        style="@style/font_rr_17_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -57,14 +54,14 @@
                     android:layout_marginTop="@dimen/space_8">
 
                     <TextView
-                        style="@style/font_ss_14_gray1"
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_current_turnout" />
 
                     <TextView
                         android:id="@+id/current_turnout"
-                        style="@style/font_rr_17_black_daynight"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -94,7 +91,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/box_vote_trans"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_14">
+                    android:padding="@dimen/space_16">
 
                     <ImageView
                         android:id="@+id/vote_yes_voted"
@@ -140,7 +137,7 @@
 
                         <TextView
                             android:id="@+id/vote_yes_cnt"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -168,7 +165,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/box_vote_trans"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_14">
+                    android:padding="@dimen/space_16">
 
                     <ImageView
                         android:id="@+id/vote_no_voted"
@@ -214,7 +211,7 @@
 
                         <TextView
                             android:id="@+id/vote_no_cnt"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -248,7 +245,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/box_vote_trans"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_14">
+                    android:padding="@dimen/space_16">
 
                     <ImageView
                         android:id="@+id/vote_veto_voted"
@@ -294,7 +291,7 @@
 
                         <TextView
                             android:id="@+id/vote_veto_cnt"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -322,7 +319,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/box_vote_trans"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_14">
+                    android:padding="@dimen/space_16">
 
                     <ImageView
                         android:id="@+id/vote_abstain_voted"
@@ -368,7 +365,7 @@
 
                         <TextView
                             android:id="@+id/vote_abstain_cnt"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_11_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

@@ -110,7 +110,7 @@
     <string name="str_commission_from">Commission From</string>
     <string name="str_failed">(failed)</string>
     <string name="str_select_wallet_path_c">SELECT WALLET TO RESTORE</string>
-    <string name="str_watch_address_path_c">WATCH ADDRESS</string>
+    <string name="str_watch_address_path_c">Add Watch Wallet</string>
     <string name="str_address_pubkey">Insert address</string>
     <string name="str_watch_msg">With watch mode, you can check the status of an account. \nYou need to add the correct mnemonics for the wallet to enable transactions.</string>
     <string name="str_insert_private_key">Insert Private Key</string>
@@ -490,7 +490,7 @@
     <string name="str_random_number">Random Number</string>
     <string name="str_swap_id">Swap ID</string>
     <string name="str_ibc_send">IBC Send</string>
-    <string name="str_bep3_send">BEP3 Send</string>
+    <string name="str_bep3_send">Bep3 Send</string>
     <string name="str_default_send">Send</string>
     <string name="str_to_swap_coin">Send Coin</string>
     <string name="str_source_chain">Source Chain</string>
@@ -929,10 +929,9 @@
     <string name="str_exit_insert_lp_coin">Insert LP Coin</string>
     <string name="str_native_token_title">Native Coins</string>
     <string name="str_ibc_token_title">IBC Coins</string>
-    <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
+    <string name="str_sif_ether_token_title">Bridged Assets</string>
     <string name="str_etc_token_title">Etc Coins</string>
-    <string name="str_cw20_token_title">Contract Tokens</string>
-    <string name="str_erc20_token_title">Erc20 Tokens</string>
+    <string name="str_cw_token_title">Contract Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_oec_kip20_title">KIP20 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
@@ -1013,6 +1012,7 @@
     <string name="str_authz_commission_title">Authz Claim Commission</string>
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
 
+    <string name="str_select_contract_token_title">Edit Token List</string>
     <string name="str_select_contract_token">Select token to Display</string>
     <string name="str_ibc_transfer_title">IBC Transfer</string>
     <string name="str_ibc_transfer_msg1">IBC transactions are NOT supported on centralized exchanges.</string>

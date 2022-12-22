@@ -77,7 +77,7 @@
     <string name="str_commission_from">커미션 지급 검증인</string>
     <string name="str_failed">(실패)</string>
     <string name="str_select_wallet_path_c">복구 지갑 선택</string>
-    <string name="str_watch_address_path_c">주소 관찰</string>
+    <string name="str_watch_address_path_c">관찰 지갑 등록</string>
     <string name="str_address_pubkey">주소 입력</string>
     <string name="str_watch_msg">관찰 모드로 복구 단어 입력 없이 지갑의 상태를 확인할 수 있습니다.\n추후 설정에서 복구 단어를 입력하면 전송 등의 활동이 가능합니다.</string>
     <string name="str_insert_private_key">개인키 입력</string>
@@ -413,7 +413,7 @@
     <string name="str_incentive_amount">인센티브 수량</string>
     <string name="str_vesting_schedule">베스팅 풀림 정보</string>
     <string name="str_relayer_status">릴레이어 현황</string>
-    <string name="str_apr_help_title">위임 수익률</string>
+    <string name="str_apr_help_title">위임 연간 수익률</string>
     <string name="str_apr_help_onchain_msg">체인 타겟 수익률</string>
     <string name="str_apr_help_real_msg">실제 블럭타임 기준 수익률</string>
     <string name="str_add_new">지갑 추가</string>
@@ -842,8 +842,7 @@
     <string name="str_ibc_token_title">IBC Coins</string>
     <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
     <string name="str_etc_token_title">Etc Coins</string>
-    <string name="str_cw20_token_title">Contract Tokens</string>
-    <string name="str_erc20_token_title">Erc20 Tokens</string>
+    <string name="str_cw_token_title">Contract Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_oec_kip20_title">KIP20 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
@@ -923,6 +922,7 @@
     <string name="str_authz_commission_title">Authz 커미션 받기</string>
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
 
+    <string name="str_select_contract_token_title">토큰 편집</string>
     <string name="str_select_contract_token">표시할 토큰을 선택하세요</string>
     <string name="str_ibc_transfer_title">IBC 전송하기</string>
     <string name="str_ibc_transfer_msg1">중앙화 거래소에서는 가상자산의 IBC 기능을 지원하지 않습니다.</string>
