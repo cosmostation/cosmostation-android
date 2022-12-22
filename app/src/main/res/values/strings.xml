@@ -77,7 +77,7 @@
     <string name="str_connect">Connect</string>
     <string name="str_wait">Wait</string>
     <string name="str_recipient_address">Recipient Address</string>
-    <string name="str_starname_recipient_address">insert *starname or recipient address</string>
+    <string name="str_starname_recipient_address">insert name service or recipient address</string>
     <string name="str_recipient_chain">Recipient Chain</string>
     <string name="str_claim_address">Claim Address</string>
     <string name="str_done">Done</string>
