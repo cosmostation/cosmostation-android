@@ -927,6 +927,8 @@
     <string name="str_ibc_transfer_msg1">중앙화 거래소에서는 가상자산의 IBC 기능을 지원하지 않습니다.</string>
     <string name="str_ibc_transfer_msg2">반드시 IBC를 통해 해당 자산을 원래 체인으로 전송한 후, \n거래소로의 출금을 진행하세요.</string>
 
+    <string name="str_icns_confirm_title">네임서비스 주소 사용</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1028,6 +1030,7 @@
     <string name="error_exchange_address_msg">중앙 거래소 주소로 IBC 출금시 자금이 손실될 수 있습니다.\n\n중앙 거래소는 IBC 입금을 지원하지 않습니다.\n중앙 거래소로 보내기전에 자산을 원래 체인으로 전송하세요.</string>
     <string name="error_exchange_address_memo_msg">일부 중앙화 거래소는 수탁 주소를 사용하기 때문에 입금 메모가 필요합니다. 거래소에 메모 없이 입금 시 자산이 영구 손실될 수 있습니다.\n\n입금 메모가 필요한지 다시 한번 확인해주세요!</string>
     <string name="error_not_enough_liquid_stake">수량이 충분하지 않습니다.\n원 체인으로 부터 IBC전송을 완료하신후 계속 진행하실 수 있습니다.</string>
+    <string name="error_invalid_icns">등록되지 않은 네임서비스입니다.</string>
 
 
     <string name="tx_send">보내기</string>

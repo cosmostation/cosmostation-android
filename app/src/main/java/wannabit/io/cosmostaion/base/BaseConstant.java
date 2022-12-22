@@ -268,6 +268,9 @@ public class BaseConstant {
     public final static String EXCHANGE_HITBTC_ADDRESS      = "cosmos1ghz39h0zkugxs3tst8mfvsy2g98xdaah83xl0t";
     public final static String EXCHANGE_DIGFINEX_ADDRESS    = "cosmos10njsfnzz5lqch2p5362ueyyus98dje0vdsmds7";;
 
+    // ICNS Contract Address
+    public final static String ICNS_OSMOSIS_ADDRESS         = "osmo1xk0s8xgktn9x5vwcgtjdxqzadg88fgn33p8u9cnpdxwemvxscvast52cdd";
+
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
 
     public final static String NFT_INFURA               = "https://ipfs.infura.io/ipfs/";

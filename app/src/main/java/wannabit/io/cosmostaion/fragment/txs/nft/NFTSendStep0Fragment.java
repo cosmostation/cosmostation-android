@@ -41,7 +41,7 @@ import wannabit.io.cosmostaion.activities.txs.nft.NFTSendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.StarNameConfirmDialog;
+import wannabit.io.cosmostaion.dialog.NameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -184,13 +184,14 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
                     }
 
                     Bundle bundleData = new Bundle();
-                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_BUNDLE_KEY, userInput);
-                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY, matchAddress);
+                    bundleData.putInt(NameConfirmDialog.NAME_SERVICE_BUNDLE_KEY, NameConfirmDialog.STAR_NAME_BUNDLE_VALUE);
+                    bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, userInput);
+                    bundleData.putString(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, matchAddress);
                     if (!getSActivity().isFinishing()) {
-                        StarNameConfirmDialog dialog = StarNameConfirmDialog.newInstance(bundleData);
-                        dialog.show(getParentFragmentManager(), StarNameConfirmDialog.class.getName());
-                        getParentFragmentManager().setFragmentResultListener(StarNameConfirmDialog.STAR_NAME_CONFIRM_BUNDLE_KEY, NFTSendStep0Fragment.this, (requestKey, bundle) -> {
-                            String originAddress = bundle.getString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY);
+                        NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
+                        dialog.show(getParentFragmentManager(), NameConfirmDialog.class.getName());
+                        getParentFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, NFTSendStep0Fragment.this, (requestKey, bundle) -> {
+                            String originAddress = bundle.getString(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY);
                             getSActivity().mToAddress = originAddress;
                             getSActivity().onNextStep();
                         });

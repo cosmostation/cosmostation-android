@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/name_service_title"
             style="@style/font_rm_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,10 +20,12 @@
             android:text="@string/str_starname_confirm_title" />
 
         <TextView
-            android:id="@+id/starname_info"
+            android:id="@+id/name_service_info"
             style="@style/font_rr_12_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_32"
+            android:layout_marginRight="@dimen/space_32"
             android:layout_marginTop="@dimen/space_10"
             android:gravity="center"
             android:text="@string/str_starname_confirm_msg" />
