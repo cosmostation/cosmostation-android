@@ -6,8 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
         android:orientation="vertical">
 
         <TextView
@@ -19,18 +19,18 @@
         <RelativeLayout
             android:id="@+id/btn_to_chain_list"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_50"
+            android:layout_height="@dimen/space_44"
             android:layout_marginTop="@dimen/space_4">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_50"
+                android:layout_height="@dimen/space_44"
                 android:background="@drawable/btn_trans_with_border" />
 
             <ImageView
                 android:id="@+id/img_to_chain"
-                android:layout_width="@dimen/space_32"
-                android:layout_height="@dimen/space_32"
+                android:layout_width="@dimen/space_36"
+                android:layout_height="@dimen/space_36"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_4" />
 
@@ -50,7 +50,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_8"
-                android:layout_marginRight="@dimen/space_16"
+                android:layout_marginRight="@dimen/space_8"
                 android:src="@drawable/arrow_down_gr" />
         </RelativeLayout>
 
@@ -71,13 +71,13 @@
                 android:id="@+id/receiver_account"
                 style="@style/font_rr_12_black_daynight"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_50"
+                android:layout_height="@dimen/space_44"
                 android:background="@drawable/edittext_box"
                 android:hint="@string/str_starname_recipient_address"
                 android:imeOptions="actionNext"
                 android:maxLength="60"
-                android:paddingLeft="@dimen/space_8"
-                android:paddingRight="@dimen/space_8"
+                android:paddingLeft="@dimen/space_14"
+                android:paddingRight="@dimen/space_4"
                 android:textColorHint="@color/colorGray1"
                 android:textCursorDrawable="@drawable/white_cursor" />
         </RelativeLayout>
@@ -90,18 +90,18 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="@dimen/space_36"
+                android:layout_height="@dimen/space_30"
                 android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="@dimen/space_36"
+                android:layout_height="@dimen/space_30"
                 android:layout_weight="1" />
 
             <LinearLayout
                 android:id="@+id/btn_wallet"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/space_36"
+                android:layout_height="@dimen/space_30"
                 android:layout_weight="1"
                 android:background="@drawable/btn_trans_with_border"
                 android:clickable="true"
@@ -124,7 +124,7 @@
             <LinearLayout
                 android:id="@+id/btn_qr"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/space_36"
+                android:layout_height="@dimen/space_30"
                 android:layout_marginLeft="@dimen/space_4"
                 android:layout_weight="1"
                 android:background="@drawable/btn_trans_with_border"
@@ -148,7 +148,7 @@
             <LinearLayout
                 android:id="@+id/btn_paste"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/space_36"
+                android:layout_height="@dimen/space_30"
                 android:layout_marginLeft="@dimen/space_4"
                 android:layout_weight="1"
                 android:background="@drawable/btn_trans_with_border2"
@@ -219,9 +219,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_14"
         android:layout_marginTop="@dimen/space_10"
-        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_14"
         android:layout_marginBottom="@dimen/space_24"
         android:background="@color/colorWhiteDayNight"
         android:orientation="horizontal">

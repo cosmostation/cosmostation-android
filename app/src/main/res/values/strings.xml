@@ -736,7 +736,7 @@
     <string name="str_password_msg1">Insert again for confirm.</string>
     <string name="str_password_msg2">No way to recover this. please remember!</string>
     <string name="str_send_step_0">Insert recipient address</string>
-    <string name="str_send_step_1">Insert send amount and select token type</string>
+    <string name="str_send_step_1">Enter to send amount</string>
     <string name="str_delegate_step_1">Enter delegation amount</string>
     <string name="str_undelegate_step_1">Enter undelegation amount</string>
     <string name="str_unbonding_days_after"><![CDATA[days after)]]></string>

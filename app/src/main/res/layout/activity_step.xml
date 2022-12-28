@@ -34,7 +34,6 @@
         android:layout_below="@+id/tool_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_6"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -49,8 +48,8 @@
             style="@style/font_rr_14_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_10"
-            android:layout_marginBottom="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_20"
             android:text="-" />
     </LinearLayout>
 
