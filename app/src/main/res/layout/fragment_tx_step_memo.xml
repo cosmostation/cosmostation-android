@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_memo"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_8"
             android:text="0/255" />
     </RelativeLayout>
 
@@ -49,18 +49,18 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="@dimen/space_30"
+            android:layout_height="@dimen/space_36"
             android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="@dimen/space_30"
+            android:layout_height="@dimen/space_36"
             android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/btn_qr"
             android:layout_width="0dp"
-            android:layout_height="@dimen/space_30"
+            android:layout_height="@dimen/space_36"
             android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true"
@@ -84,7 +84,7 @@
         <LinearLayout
             android:id="@+id/btn_history"
             android:layout_width="0dp"
-            android:layout_height="@dimen/space_30"
+            android:layout_height="@dimen/space_36"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
@@ -109,7 +109,7 @@
         <LinearLayout
             android:id="@+id/btn_paste"
             android:layout_width="0dp"
-            android:layout_height="@dimen/space_30"
+            android:layout_height="@dimen/space_36"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
