@@ -207,7 +207,7 @@
                     android:minHeight="@dimen/space_40">
 
                     <TextView
-                        style="@style/font_rr_12_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -229,7 +229,7 @@
                     android:minHeight="@dimen/space_40">
 
                     <TextView
-                        style="@style/font_rr_12_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -252,7 +252,7 @@
 
                 <TextView
                     android:id="@+id/dex_title"
-                    style="@style/font_rr_12_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -271,7 +271,7 @@
                 android:visibility="gone">
 
                 <TextView
-                    style="@style/font_rr_12_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
