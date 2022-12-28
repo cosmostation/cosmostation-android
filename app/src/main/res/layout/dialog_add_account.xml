@@ -126,5 +126,15 @@
             android:minHeight="@dimen/space_45"
             android:text="@string/str_create" />
 
+        <Button
+            android:id="@+id/btn_ledger"
+            style="@style/font_rr_14_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginTop="@dimen/space_12"
+            android:background="@drawable/btn_trans_with_border_thin"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_ledger" />
+
     </LinearLayout>
 </RelativeLayout>

@@ -146,6 +146,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
+import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -189,14 +190,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public BaseApplication getBaseApplication() {
-        if (mApplication == null)
-            mApplication = (BaseApplication) getApplication();
+        if (mApplication == null) mApplication = (BaseApplication) getApplication();
         return mApplication;
     }
 
     public BaseData getBaseDao() {
-        if (mData == null)
-            mData = getBaseApplication().getBaseDao();
+        if (mData == null) mData = getBaseApplication().getBaseDao();
         return mData;
     }
 
@@ -224,8 +223,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onInsertKeyDialog() {
-        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(), getString(R.string.str_close), null);
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg), getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(), getString(R.string.str_close), null);
     }
 
     public void onAddMnemonicForAccount() {
@@ -237,8 +235,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             keyState.setImageResource(R.drawable.key_off);
             keyState.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
-            keyState.setImageResource(R.drawable.watchmode);
-            keyState.setColorFilter(null);
+            if (account.isLedger()) {
+                keyState.setImageResource(R.drawable.icon_ledger_wallet_dark);
+                keyState.setColorFilter(null);
+            } else {
+                keyState.setImageResource(R.drawable.watchmode);
+                keyState.setColorFilter(null);
+            }
         }
     }
 
@@ -264,9 +267,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (chainConfig.evmSupport()) {
             try {
                 String ethAddress = WKey.convertBech32ToEvm(account.address);
-                CommonAlertDialog.showDoubleButton(this, getString(R.string.str_address_type), "",
-                        getString(R.string.str_tender_type), view -> onClickShowAccountDialog(account.address, nickName),
-                        getString(R.string.str_eth_type), view -> onClickShowAccountDialog(ethAddress, nickName));
+                CommonAlertDialog.showDoubleButton(this, getString(R.string.str_address_type), "", getString(R.string.str_tender_type), view -> onClickShowAccountDialog(account.address, nickName), getString(R.string.str_eth_type), view -> onClickShowAccountDialog(ethAddress, nickName));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -304,7 +305,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onStartSendMainDenom() {
         if (mAccount == null) return;
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }
@@ -373,40 +374,36 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             try {
                 final Bitmap mBitmap = WUtil.toBitmap(qrCodeWriter.encode(address, BarcodeFormat.QR_CODE, 480, 480));
-                new TedPermission(this)
-                        .setPermissionListener(new PermissionListener() {
-                            @Override
-                            public void onPermissionGranted() {
-                                try {
-                                    ContentValues values = new ContentValues();
-                                    values.put(MediaStore.Images.Media.TITLE, address);
-                                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                                    Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                                    OutputStream outstream = getContentResolver().openOutputStream(uri);
-                                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
-                                    outstream.close();
+                new TedPermission(this).setPermissionListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        try {
+                            ContentValues values = new ContentValues();
+                            values.put(MediaStore.Images.Media.TITLE, address);
+                            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                            Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                            OutputStream outstream = getContentResolver().openOutputStream(uri);
+                            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                            outstream.close();
 
-                                    Intent shareIntent = new Intent();
-                                    shareIntent.setAction(Intent.ACTION_SEND);
-                                    shareIntent.putExtra(Intent.EXTRA_TEXT, address);
-                                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                                    shareIntent.setType("image/jpeg");
-                                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    startActivity(Intent.createChooser(shareIntent, "send"));
+                            Intent shareIntent = new Intent();
+                            shareIntent.setAction(Intent.ACTION_SEND);
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, address);
+                            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                            shareIntent.setType("image/jpeg");
+                            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivity(Intent.createChooser(shareIntent, "send"));
 
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                            @Override
-                            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                                Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .setRationaleMessage(getString(R.string.str_permission_qr))
-                        .check();
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                        Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                    }
+                }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(getString(R.string.str_permission_qr)).check();
 
             } catch (WriterException e) {
                 e.printStackTrace();
@@ -415,9 +412,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShareType(String address) {
-        FilledVerticalButtonAlertDialog.showDoubleButton(this, null, null,
-                getString(R.string.str_with_qr), view -> onShare(false, address), null,
-                getString(R.string.str_with_text), view -> onShare(true, address), null);
+        FilledVerticalButtonAlertDialog.showDoubleButton(this, null, null, getString(R.string.str_with_qr), view -> onShare(false, address), null, getString(R.string.str_with_text), view -> onShare(true, address), null);
     }
 
     public void onDeleteAccount(Account account) {
@@ -938,15 +933,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public void onShowBuyWarnNoKey() {
-        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_continue), view -> onShowCryptoPay(), getString(R.string.str_cancel), null);
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg), getString(R.string.str_continue), view -> onShowCryptoPay(), getString(R.string.str_cancel), null);
     }
 
     public void onShowCryptoPay() {
         if (mChainConfig.moonPaySupport() && mChainConfig.kadoMoneySupport()) {
-            FilledVerticalButtonAlertDialog.showDoubleButton(this, "", "",
-                    getString(R.string.str_moonPay), view -> onStartMoonPaySignature(), null,
-                    getString(R.string.str_kadoMoney), view -> onShowBuyKado(), null);
+            FilledVerticalButtonAlertDialog.showDoubleButton(this, "", "", getString(R.string.str_moonPay), view -> onStartMoonPaySignature(), null, getString(R.string.str_kadoMoney), view -> onShowBuyKado(), null);
         } else {
             if (mChainConfig.moonPaySupport()) {
                 onStartMoonPaySignature();

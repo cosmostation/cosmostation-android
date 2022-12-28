@@ -45,6 +45,7 @@
     <string name="str_mnemonic_delete_msg">If you do not backup your mnemonics, you can not find it again!\n\nAnd %1$s derived wallets will also be deleted</string>
     <string name="str_clear_all">Clear All</string>
     <string name="str_create">CREATE</string>
+    <string name="str_ledger">Connect Ledger</string>
     <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
     <string name="str_check_private_key_c">CHECK PRIVATE KEY</string>
     <string name="str_manage_mnemonic">Manage Mnemonic</string>

@@ -18,17 +18,20 @@ public class GenerateEmptyAccountTask extends CommonTask {
     }
 
     /**
-     *
-     * @param strings
-     *  strings[0] : chainType
-     *  strings[1] : address
+     * @param strings strings[0] : chainType
+     *                strings[1] : address
+     *                string[2] : path
      * @return
      */
     @Override
     protected TaskResult doInBackground(String... strings) {
-
-        long id = mApp.getBaseDao().onInsertAccount(onGenEmptyAccount(strings[0], strings[1]));
-        if(id > 0) {
+        long id;
+        if (strings.length > 2) {
+            id = mApp.getBaseDao().onInsertAccount(Account.newLedgerAccount(strings[0], strings[1], strings[2]));
+        } else {
+            id = mApp.getBaseDao().onInsertAccount(onGenEmptyAccount(strings[0], strings[1]));
+        }
+        if (id > 0) {
             mResult.isSuccess = true;
             mHideChains = mApp.getBaseDao().userHideChains();
             if (mHideChains.contains(BaseChain.getChain(strings[0]))) {
@@ -48,12 +51,12 @@ public class GenerateEmptyAccountTask extends CommonTask {
     }
 
     private Account onGenEmptyAccount(String chainType, String address) {
-        Account newAccount          = Account.getNewInstance();
-        newAccount.address          = address.toLowerCase();
-        newAccount.baseChain        = chainType;
-        newAccount.hasPrivateKey    = false;
-        newAccount.fromMnemonic     = false;
-        newAccount.importTime       = System.currentTimeMillis();
+        Account newAccount = Account.getNewInstance();
+        newAccount.address = address.toLowerCase();
+        newAccount.baseChain = chainType;
+        newAccount.hasPrivateKey = false;
+        newAccount.fromMnemonic = false;
+        newAccount.importTime = System.currentTimeMillis();
 
         return newAccount;
     }

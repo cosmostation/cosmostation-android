@@ -142,6 +142,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulTransferNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.DisplayUtils;
+import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
@@ -287,7 +288,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
-            if (!mSimulPassed) {
+            if (!mSimulPassed && !mAccount.isLedger()) {
                 Toast.makeText(getActivity(), getString(R.string.error_simul_error), Toast.LENGTH_SHORT).show();
                 return;
             }
