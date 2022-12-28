@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -11,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_6"
+        android:layout_marginRight="@dimen/space_12"
         app:cardBackgroundColor="@color/colorTransBgKava"
         app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
@@ -22,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/space_16">
+            android:padding="@dimen/space_14">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -48,9 +46,9 @@
                         style="@style/font_rm_17_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ellipsize="middle"
                         android:gravity="right"
                         android:maxLines="1"
-                        android:ellipsize="middle"
                         android:text="-" />
                 </LinearLayout>
             </RelativeLayout>
@@ -59,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGrayDayNight"/>
+                android:background="@color/colorGrayDayNight" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -80,9 +78,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/available_title"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
                     android:text="-" />
             </RelativeLayout>
 
@@ -105,9 +103,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
                     android:text="-" />
             </RelativeLayout>
 
@@ -131,9 +129,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/delegate_title"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
                     android:text="-" />
             </RelativeLayout>
 
@@ -157,9 +155,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/undelegate_title"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
                     android:text="-" />
             </RelativeLayout>
 
@@ -183,9 +181,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/reward_title"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
                     android:text="-" />
             </RelativeLayout>
 
