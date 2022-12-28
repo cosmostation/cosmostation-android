@@ -20,7 +20,7 @@
             android:id="@+id/btn_to_chain_list"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_44"
-            android:layout_marginTop="@dimen/space_4">
+            android:layout_marginTop="@dimen/space_8">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,7 +65,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_4">
+            android:layout_marginTop="@dimen/space_8">
 
             <EditText
                 android:id="@+id/receiver_account"
@@ -103,7 +103,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_36"
                 android:layout_weight="1"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_no_padding"
                 android:clickable="true"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -114,7 +114,7 @@
                     android:src="@drawable/list_ic" />
 
                 <TextView
-                    style="@style/font_rr_9_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -127,7 +127,7 @@
                 android:layout_height="@dimen/space_36"
                 android:layout_marginLeft="@dimen/space_4"
                 android:layout_weight="1"
-                android:background="@drawable/btn_trans_with_border"
+                android:background="@drawable/btn_trans_no_padding"
                 android:clickable="true"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -138,7 +138,7 @@
                     android:src="@drawable/qr_ic" />
 
                 <TextView
-                    style="@style/font_rr_9_black_daynight"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -151,7 +151,7 @@
                 android:layout_height="@dimen/space_36"
                 android:layout_marginLeft="@dimen/space_4"
                 android:layout_weight="1"
-                android:background="@drawable/btn_trans_with_border2"
+                android:background="@drawable/btn_trans_no_padding"
                 android:clickable="true"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -162,7 +162,7 @@
                     android:src="@drawable/copy_ic" />
 
                 <TextView
-                    style="@style/font_rr_8_black_daynight"
+                    style="@style/font_rr_10_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
@@ -178,8 +178,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_control"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 

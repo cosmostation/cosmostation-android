@@ -62,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/space_36"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_no_padding"
             android:clickable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -74,7 +74,7 @@
                 android:src="@drawable/qr_ic" />
 
             <TextView
-                style="@style/font_rr_9_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
@@ -87,7 +87,7 @@
             android:layout_height="@dimen/space_36"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_no_padding"
             android:clickable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -112,7 +112,7 @@
             android:layout_height="@dimen/space_36"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_no_padding"
             android:clickable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -124,7 +124,7 @@
                 android:src="@drawable/copy_ic" />
 
             <TextView
-                style="@style/font_rr_9_black_daynight"
+                style="@style/font_rr_10_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
