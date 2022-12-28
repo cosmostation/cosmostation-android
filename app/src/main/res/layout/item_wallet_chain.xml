@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/space_16">
+            android:padding="@dimen/space_14">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -40,9 +40,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginTop="@dimen/space_2"
                     android:layout_toRightOf="@+id/chain_icon"
-                    android:textSize="@dimen/text_size_14"
+                    android:textSize="@dimen/text_size_16"
                     tools:text="ATOM" />
 
                 <LinearLayout

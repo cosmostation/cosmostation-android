@@ -6,80 +6,90 @@
     android:layout_marginLeft="@dimen/space_12"
     android:layout_marginRight="@dimen/space_12"
     android:orientation="horizontal">
+
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginRight="@dimen/space_4"
         android:layout_marginTop="@dimen/space_6"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
+        android:layout_marginRight="@dimen/space_4"
+        android:layout_weight="1"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
-        app:cardBackgroundColor="@color/colorTransBg">
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:padding="@dimen/space_12">
+
             <TextView
+                style="@style/font_rr_12_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_inflation"
-                style="@style/font_rr_12_gray1"/>
+                android:text="@string/str_inflation" />
+
             <TextView
                 android:id="@+id/mint_inflation"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
-                style="@style/font_rr_14_black_daynight"
-                android:text="-"/>
+                android:text="-" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/apr_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_marginLeft="@dimen/space_2"
         android:layout_marginTop="@dimen/space_6"
-        app:cardPreventCornerOverlap="true"
+        android:layout_weight="1"
         android:clickable="true"
-        app:cardElevation="0dp"
         android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
-        app:cardBackgroundColor="@color/colorTransBg">
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:padding="@dimen/space_12">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <TextView
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_apr_help_title"
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="@string/str_apr_help_title" />
+
                 <ImageView
                     android:layout_width="@dimen/space_14"
                     android:layout_height="@dimen/space_14"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:src="@drawable/question_ic"/>
+                    android:src="@drawable/question_ic" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/mint_apr"
+                style="@style/font_rr_14_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
-                style="@style/font_rr_14_black_daynight"
-                android:text="-"/>
+                android:text="-" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
