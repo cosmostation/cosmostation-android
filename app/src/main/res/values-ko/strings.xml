@@ -810,7 +810,7 @@
     <string name="str_swap_in">Swap In</string>
     <string name="str_swap_out">Swap Out</string>
     <string name="str_swap_coin_type">Type</string>
-    <string name="str_osmosis_defi_lab"><![CDATA[오스모시스 De스-Fi]]> </string>
+    <string name="str_osmosis_defi_lab"><![CDATA[오스모시스 De-Fi]]> </string>
     <string name="str_swap">Swap</string>
     <string name="str_pool">Pool</string>
     <string name="str_token_swap_input_coin">Inputs</string>

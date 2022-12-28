@@ -141,7 +141,7 @@
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
     <string name="str_validator_detail">Validator Details</string>
     <string name="str_proposal_list">Proposal List</string>
-    <string name="str_proposal_detail">Proposal Detail</string>
+    <string name="str_proposal_detail">Proposal Details</string>
     <string name="str_proposer">Proposer</string>
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>

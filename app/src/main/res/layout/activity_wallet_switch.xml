@@ -44,18 +44,20 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/space_4"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/space_4">
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/account_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingTop="@dimen/space_4"
                         android:clipToPadding="false"
-                        android:overScrollMode="never"/>
+                        android:overScrollMode="never"
+                        android:paddingTop="@dimen/space_4" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
