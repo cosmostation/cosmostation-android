@@ -65,7 +65,7 @@
 
     <string name="str_participate_incentive">Incentive Claim</string>
     <string name="str_send">Send</string>
-    <string name="str_change_reward_address_c">CHANGE REWARD ADDRESS</string>
+    <string name="str_change_reward_address_c">Change Reward Address</string>
     <string name="str_vote_c">Vote</string>
     <string name="str_delegate_c">Delegate</string>
     <string name="str_undelegate_c">Undelegate</string>
