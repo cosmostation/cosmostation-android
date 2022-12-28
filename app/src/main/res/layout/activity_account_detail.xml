@@ -372,7 +372,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_trans_with_red_border"
                 android:minHeight="@dimen/space_45"
-                android:text="@string/str_delete_wallet" />
+                android:text="@string/str_delete_wallet"
+                android:textAllCaps="false" />
 
             <View
                 android:id="@+id/view"
@@ -388,7 +389,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_trans_with_photon_border"
                 android:minHeight="@dimen/space_45"
-                android:text="@string/str_check_private_key" />
+                android:text="@string/str_check_private_key"
+                android:textAllCaps="false" />
         </LinearLayout>
 
         <Button
@@ -401,6 +403,7 @@
             android:layout_marginRight="@dimen/space_16"
             android:background="@drawable/btn_trans_with_photon_border"
             android:minHeight="@dimen/space_45"
-            android:text="@string/str_check_mnemonic" />
+            android:text="@string/str_check_mnemonic"
+            android:textAllCaps="false" />
     </LinearLayout>
 </RelativeLayout>
