@@ -62,7 +62,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_14">
+                    android:layout_marginTop="@dimen/space_12">
 
                     <TextView
                         android:id="@+id/total_fee_title"
@@ -102,7 +102,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-2dp">
+                    android:layout_marginTop="@dimen/space_4">
 
                     <TextView
                         android:id="@+id/total_fee_value"
