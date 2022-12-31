@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/space_14"
+                android:paddingLeft="@dimen/space_12"
                 android:paddingTop="@dimen/space_10"
                 android:paddingRight="@dimen/space_6"
                 android:paddingBottom="@dimen/space_10">
@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_14">
+                android:padding="@dimen/space_12">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
