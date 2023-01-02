@@ -7,9 +7,8 @@
         android:id="@+id/memo_input_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12">
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14">
 
         <EditText
             android:id="@+id/et_memo"
@@ -34,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_memo"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_8"
             android:text="0/255" />
     </RelativeLayout>
 
@@ -43,27 +42,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/memo_input_layer"
-        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_14"
         android:layout_marginTop="@dimen/space_8"
-        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_14"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="@dimen/space_36"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="@dimen/space_36"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/btn_qr"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_36"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_no_padding"
             android:clickable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -75,7 +74,7 @@
                 android:src="@drawable/qr_ic" />
 
             <TextView
-                style="@style/font_rr_9_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
@@ -88,7 +87,7 @@
             android:layout_height="@dimen/space_36"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_no_padding"
             android:clickable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -100,7 +99,7 @@
                 android:src="@drawable/list_ic" />
 
             <TextView
-                style="@style/font_rr_9_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
@@ -113,7 +112,7 @@
             android:layout_height="@dimen/space_36"
             android:layout_marginLeft="@dimen/space_8"
             android:layout_weight="1"
-            android:background="@drawable/btn_trans_with_border"
+            android:background="@drawable/btn_trans_no_padding"
             android:clickable="true"
             android:gravity="center"
             android:orientation="horizontal"
@@ -125,7 +124,7 @@
                 android:src="@drawable/copy_ic" />
 
             <TextView
-                style="@style/font_rr_9_black_daynight"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_4"
@@ -167,8 +166,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
         android:layout_marginBottom="@dimen/space_24"
         android:orientation="horizontal">
 

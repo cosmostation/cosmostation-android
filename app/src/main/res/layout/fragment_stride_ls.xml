@@ -7,9 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginRight="@dimen/space_14"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -23,24 +23,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_8">
+                android:padding="@dimen/space_14">
 
                 <TextView
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_4"
                     android:text="@string/str_token_swap_input_coin" />
 
                 <RelativeLayout
                     android:id="@+id/btn_to_input_coin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_6"
-                    android:layout_marginRight="@dimen/space_6"
-                    android:layout_marginBottom="@dimen/space_6"
+                    android:layout_height="@dimen/space_44"
+                    android:layout_marginTop="@dimen/space_12"
                     android:background="@drawable/btn_trans_with_border"
                     android:minHeight="@dimen/space_40">
 
@@ -78,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/space_8"
+                        android:layout_marginRight="@dimen/space_6"
                         android:src="@drawable/arrow_down_gr" />
                 </RelativeLayout>
             </LinearLayout>
@@ -102,24 +97,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_8">
+                android:padding="@dimen/space_14">
 
                 <TextView
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_4"
                     android:text="@string/str_token_swap_output_coin" />
 
                 <RelativeLayout
                     android:id="@+id/btn_to_output_coin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_6"
-                    android:layout_marginRight="@dimen/space_6"
-                    android:layout_marginBottom="@dimen/space_6"
+                    android:layout_height="@dimen/space_44"
+                    android:layout_marginTop="@dimen/space_12"
                     android:background="@drawable/btn_trans_with_border"
                     android:minHeight="@dimen/space_40">
 
@@ -150,8 +140,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
         android:layout_marginBottom="@dimen/space_24"
         android:orientation="horizontal">
 
@@ -160,7 +150,6 @@
             style="@style/font_rr_14_photon_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_marginLeft="@dimen/space_4"
             android:layout_weight="1"
             android:background="@drawable/btn_trans_with_photon_border"
             android:minHeight="@dimen/space_45"

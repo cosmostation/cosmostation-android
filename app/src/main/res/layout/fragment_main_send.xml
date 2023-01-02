@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/space_16"
+                android:paddingLeft="@dimen/space_12"
                 android:paddingTop="@dimen/space_10"
                 android:paddingRight="@dimen/space_6"
                 android:paddingBottom="@dimen/space_10">
@@ -87,8 +87,8 @@
 
                     <ImageView
                         android:id="@+id/img_account"
-                        android:layout_width="@dimen/space_24"
-                        android:layout_height="@dimen/space_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:src="@drawable/key_off" />
 
