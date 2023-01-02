@@ -559,8 +559,11 @@ public class MainTokensFragment extends BaseFragment {
                 else if (mChainConfig.erc20CoinSupport()) return defaultCount + mCwGrpc.size() + 1;
                 else return defaultCount;
             } else {
-                if (mChainConfig.erc20CoinSupport()) return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
-                else return getBaseDao().mBalances.size();
+                if (mChainConfig.erc20CoinSupport() && mChainConfig.getHdPath(mAccount.customPath, mAccount.path).contains("60")) {
+                    return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
+                } else {
+                    return getBaseDao().mBalances.size();
+                }
             }
         }
 
