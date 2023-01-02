@@ -79,6 +79,13 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
     }
 
     private void onUpdateView() {
+        if (getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) {
+            if (mSimulPassed) {
+                Toast.makeText(getContext(), getString(R.string.str_gas_checked), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), getString(R.string.error_simul_error), Toast.LENGTH_SHORT).show();
+            }
+        }
         mFeeValue.setText(WDp.dpAssetValue(getBaseDao(), WDp.getGeckoId(getBaseDao(), mChainConfig), mFeeGasAmount, WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom())));
         WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mChainConfig.mainDenom(), mFeeGasAmount.toPlainString(), mFeeDenom, mFeeAmount);
     }
