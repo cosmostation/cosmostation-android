@@ -180,6 +180,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             mTvLanguage.setText(R.string.str_language_english);
         } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN)) {
             mTvLanguage.setText(R.string.str_language_korean);
+        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_JAPANESE)) {
+            mTvLanguage.setText(R.string.str_language_japanese);
         } else {
             mTvLanguage.setText(R.string.str_theme_system);
         }
@@ -254,10 +256,17 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), WatchingWalletAddActivity.class));
 
         } else if (v.equals(mBtnTheme)) {
-            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null, getString(R.string.str_theme_system), view -> setTheme(getBaseActivity(), ThemeUtil.DEFAULT_MODE), null, getString(R.string.str_theme_light), view -> setTheme(getBaseActivity(), ThemeUtil.LIGHT_MODE), null, getString(R.string.str_theme_dark), view -> setTheme(getBaseActivity(), ThemeUtil.DARK_MODE), null);
+            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
+                    getString(R.string.str_theme_system), view -> setTheme(getBaseActivity(), ThemeUtil.DEFAULT_MODE), null,
+                    getString(R.string.str_theme_light), view -> setTheme(getBaseActivity(), ThemeUtil.LIGHT_MODE), null,
+                    getString(R.string.str_theme_dark), view -> setTheme(getBaseActivity(), ThemeUtil.DARK_MODE), null);
 
         } else if (v.equals(mBtnLanguage)) {
-            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null, getString(R.string.str_theme_system), view -> setLanguage(getBaseActivity(), LanguageUtil.SYSTEM_MODE), null, getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_ENGLISH), null, getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_KOREAN), null);
+            FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, null,
+                    getString(R.string.str_theme_system), view -> setLanguage(getBaseActivity(), LanguageUtil.SYSTEM_MODE), null,
+                    getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_ENGLISH), null,
+                    getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_KOREAN), null,
+                    getString(R.string.str_language_japanese), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_JAPANESE), null);
 
         } else if (v.equals(mSwitchUsingAppLock)) {
             onClickAppLock();
@@ -404,7 +413,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onShowAutoPassDialog() {
-        FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg), getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null, getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null, getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null, getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
+        FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg),
+                getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null,
+                getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null,
+                getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null,
+                getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
     }
 
     private void onSetAutoPass(int value) {
