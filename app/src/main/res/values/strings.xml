@@ -65,7 +65,7 @@
 
     <string name="str_participate_incentive">Incentive Claim</string>
     <string name="str_send">Send</string>
-    <string name="str_change_reward_address_c">CHANGE REWARD ADDRESS</string>
+    <string name="str_change_reward_address_c">Change Reward Address</string>
     <string name="str_vote_c">Vote</string>
     <string name="str_delegate_c">Delegate</string>
     <string name="str_undelegate_c">Undelegate</string>
@@ -141,7 +141,7 @@
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
     <string name="str_validator_detail">Validator Details</string>
     <string name="str_proposal_list">Proposal List</string>
-    <string name="str_proposal_detail">Proposal Detail</string>
+    <string name="str_proposal_detail">Proposal Details</string>
     <string name="str_proposer">Proposer</string>
     <string name="str_wallet_detail">Wallet Detail</string>
     <string name="str_general">General</string>
@@ -169,11 +169,11 @@
     <string name="str_support">Support</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
-    <string name="str_homepage">Cosmostation</string>
+    <string name="str_homepage">Cosmostation Home Page</string>
     <string name="str_cosmostation_blog">Cosmostation Blog</string>
     <string name="str_starname_wallet_connect">Starname Wallet Connect</string>
     <string name="str_app_info">App Info</string>
-    <string name="str_term">Terms of Service</string>
+    <string name="str_term">Term and Policy</string>
     <string name="str_github">Open Source (GitHub)</string>
     <string name="str_version">Version</string>
     <string name="str_with_mnemonic">With Mnemonics</string>
@@ -501,7 +501,7 @@
     <string name="str_incentive_amount">Incentive Reward</string>
     <string name="str_vesting_schedule">Vesting Unlock Schedule</string>
     <string name="str_relayer_status">Relayer Status</string>
-    <string name="str_apr_help_title">Staking APY</string>
+    <string name="str_apr_help_title">Staking APR</string>
     <string name="str_apr_help_onchain_msg">With on chain params</string>
     <string name="str_apr_help_real_msg">With real block time</string>
     <string name="str_add_new">Add Wallet</string>
@@ -736,7 +736,7 @@
     <string name="str_password_msg1">Insert again for confirm.</string>
     <string name="str_password_msg2">No way to recover this. please remember!</string>
     <string name="str_send_step_0">Insert recipient address</string>
-    <string name="str_send_step_1">Insert send amount and select token type</string>
+    <string name="str_send_step_1">Enter to send amount</string>
     <string name="str_delegate_step_1">Enter delegation amount</string>
     <string name="str_undelegate_step_1">Enter undelegation amount</string>
     <string name="str_unbonding_days_after"><![CDATA[days after)]]></string>
@@ -899,7 +899,7 @@
     <string name="str_swap_in">Swap In</string>
     <string name="str_swap_out">Swap Out</string>
     <string name="str_swap_coin_type">Type</string>
-    <string name="str_osmosis_defi_lab"><![CDATA[Osmosis DeFi]]> </string>
+    <string name="str_osmosis_defi_lab"><![CDATA[Osmosis De-Fi]]> </string>
     <string name="str_swap">Swap</string>
     <string name="str_pool">Pool</string>
     <string name="str_token_swap_input_coin">Inputs</string>
@@ -931,7 +931,7 @@
     <string name="str_ibc_token_title">IBC Coins</string>
     <string name="str_sif_ether_token_title">Bridged Assets</string>
     <string name="str_etc_token_title">Etc Coins</string>
-    <string name="str_cw_token_title">Contract Tokens</string>
+    <string name="str_contract_token_title">Contract Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_oec_kip20_title">KIP20 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>

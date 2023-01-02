@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import wannabit.io.cosmostaion.utils.WLog;
-
 public class Coin implements Parcelable {
 
     @SerializedName("denom")
@@ -55,61 +53,4 @@ public class Coin implements Parcelable {
             return new Coin[size];
         }
     };
-
-    public boolean isIbc() {
-        if (denom.startsWith("ibc/")) {
-            return true;
-        }
-        return false;
-    }
-
-    public String getIbcHash() {
-        if (!isIbc()) { return null; }
-        return denom.replaceAll("ibc/", "");
-    }
-
-    public boolean osmosisAmm() {
-        if (denom.startsWith("gamm/pool/")) {
-            return true;
-        }
-        return false;
-    }
-
-    public String osmosisAmmDpDenom() {
-        String[] split = denom.split("/");
-        return "GAMM-" + split[split.length - 1];
-    }
-
-    public long osmosisAmmPoolId() {
-        if (denom.startsWith("ibc/")) {
-            return 0;
-        }
-        String id = denom.replace("gamm/pool/", "");
-        return Long.parseLong(id);
-    }
-
-    public boolean isInjectivePool() {
-        if (denom.startsWith("share")) {
-            return true;
-        }
-        return false;
-    }
-
-    public long injectivePoolId() {
-        String id = denom.replace("share", "");
-        return Long.parseLong(id);
-    }
-
-    public boolean isCrescnetPool() {
-        if (denom.startsWith("pool")) {
-            return true;
-        }
-        return false;
-    }
-
-    public long crescnetPoolId() {
-        String id = denom.replace("pool", "");
-        return Long.parseLong(id);
-    }
-
 }

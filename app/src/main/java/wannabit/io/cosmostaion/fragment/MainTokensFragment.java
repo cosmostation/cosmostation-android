@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -190,7 +189,8 @@ public class MainTokensFragment extends BaseFragment {
             @Override
             public String getSectionErcHeader(BaseChain baseChain, ArrayList<MintscanToken> mintscanTokens, int section) {
                 if (section == SECTION_CW_GRPC) {
-                    return getMainActivity().getString(R.string.str_cw_token_title);
+                    if (mChainConfig.baseChain().equals(OKEX_MAIN)) return getMainActivity().getString(R.string.str_oec_kip20_title);
+                    else return getMainActivity().getString(R.string.str_contract_token_title);
                 }
                 return getMainActivity().getString(R.string.str_unknown_token_title);
             }

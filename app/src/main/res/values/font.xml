@@ -518,6 +518,12 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_rr_16_bnb" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/color_binance</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
     <style name="font_rr_14_iov" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_starname</item>
@@ -549,6 +555,12 @@
     </style>
 
     <style name="font_rr_14_ok" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/color_okc</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_rr_16_ok" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">@color/color_okc</item>
         <item name="android:textSize">@dimen/text_size_14</item>

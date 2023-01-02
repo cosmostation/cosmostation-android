@@ -69,7 +69,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         mBtnAddressPopup = findViewById(R.id.card_root);
         mKeyState = findViewById(R.id.img_account);
-        mAddress = findViewById(R.id.account_Address);
+        mAddress = findViewById(R.id.wallet_address);
         mEthAddress = findViewById(R.id.eth_address);
         mTotalValue = findViewById(R.id.total_value);
         mSwipeRefreshLayout = findViewById(R.id.layer_refresher);

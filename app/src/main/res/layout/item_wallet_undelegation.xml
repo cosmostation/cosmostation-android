@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
         android:layout_marginTop="@dimen/space_6"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
+        android:layout_marginRight="@dimen/space_12"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
-        app:cardBackgroundColor="@color/colorTransBg">
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/space_16">
+            android:padding="@dimen/space_14">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -30,182 +31,201 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_undelegate_status" />
+
                 <TextView
                     android:id="@+id/undelegate_count"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="right"
-                    style="@style/font_rr_14_black_daynight"
-                    android:text="-"/>
+                    android:text="-" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_view"
                 android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGrayDayNight"/>
+                android:background="@color/colorGrayDayNight" />
 
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
+
                 <TextView
                     android:id="@+id/undelegate_detail_time0"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:maxWidth="@dimen/space_140"
                     android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text=""
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="" />
+
                 <TextView
                     android:id="@+id/undelegate_detail_amount0"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_rr_12_black_daynight"/>
+                    android:text="-" />
+
                 <TextView
                     android:id="@+id/undelegate_detail_time0_remain"
+                    style="@style/font_rr_10_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_below="@+id/undelegate_detail_time0"
-                    android:text=""
-                    style="@style/font_rr_10_gray1"/>
+                    android:gravity="right"
+                    android:text="" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/undelegate_detail_time1"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:maxWidth="@dimen/space_140"
                     android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text=""
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="" />
+
                 <TextView
                     android:id="@+id/undelegate_detail_amount1"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_rr_12_black_daynight"/>
+                    android:text="-" />
+
                 <TextView
                     android:id="@+id/undelegate_detail_time1_remain"
+                    style="@style/font_rr_10_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_below="@+id/undelegate_detail_time1"
-                    android:text=""
-                    style="@style/font_rr_10_gray1"/>
+                    android:gravity="right"
+                    android:text="" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/undelegate_detail_time2"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:maxWidth="@dimen/space_140"
                     android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text=""
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="" />
+
                 <TextView
                     android:id="@+id/undelegate_detail_amount2"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_rr_12_black_daynight"/>
+                    android:text="-" />
+
                 <TextView
                     android:id="@+id/undelegate_detail_time2_remain"
+                    style="@style/font_rr_10_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_below="@+id/undelegate_detail_time2"
-                    android:text=""
-                    style="@style/font_rr_10_gray1"/>
+                    android:gravity="right"
+                    android:text="" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/undelegate_detail_time3"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:maxWidth="@dimen/space_140"
                     android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text=""
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="" />
+
                 <TextView
                     android:id="@+id/undelegate_detail_amount3"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_rr_12_black_daynight"/>
+                    android:text="-" />
+
                 <TextView
                     android:id="@+id/undelegate_detail_time3_remain"
+                    style="@style/font_rr_10_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_below="@+id/undelegate_detail_time3"
-                    android:text=""
-                    style="@style/font_rr_10_gray1"/>
+                    android:gravity="right"
+                    android:text="" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/undelegate_detail_time4"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:maxWidth="@dimen/space_140"
                     android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text=""
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="" />
+
                 <TextView
                     android:id="@+id/undelegate_detail_amount4"
+                    style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:ellipsize="middle"
                     android:gravity="right"
                     android:maxLines="1"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_rr_12_black_daynight"/>
+                    android:text="-" />
 
                 <TextView
                     android:id="@+id/undelegate_detail_time4_remain"
