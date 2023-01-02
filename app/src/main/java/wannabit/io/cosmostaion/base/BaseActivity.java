@@ -643,6 +643,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_NODE_INFO) {
             getBaseDao().mNodeInfo = (NodeInfo) result.resultData;
+            if (getBaseDao().mNodeInfo != null) {
+                mTaskCount = mTaskCount + 1;
+                new MintscanErc20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
 
         } else if (result.taskType == TASK_FETCH_OKEX_ALL_VALIDATORS) {
             ArrayList<Validator> allValis = (ArrayList<Validator>) result.resultData;

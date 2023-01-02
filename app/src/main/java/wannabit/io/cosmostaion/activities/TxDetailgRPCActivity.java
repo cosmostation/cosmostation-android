@@ -44,6 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -215,9 +216,14 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             if (!TextUtils.isEmpty(mEthHash)) {
-                getEthTxHash(mEthHash);
-                if (mEthTxHash != null) shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthTxHash));
-                else return;
+                if (BaseChain.isGRPC(mChainConfig.baseChain())) {
+                    getEthTxHash(mEthHash);
+                    if (mEthTxHash != null) shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthTxHash));
+                    else return;
+                } else {
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mEthHash));
+                }
+
             } else {
                 if (mResponse != null) shareIntent.putExtra(Intent.EXTRA_TEXT, mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash()));
                 else return;
@@ -228,9 +234,13 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         } else if (v.equals(mExplorerBtn)) {
             String url;
             if (!TextUtils.isEmpty(mEthHash)) {
-                getEthTxHash(mEthHash);
-                if (mEthTxHash != null) url = mChainConfig.explorerHistoryLink(mEthTxHash);
-                else return;
+                if (BaseChain.isGRPC(mChainConfig.baseChain())) {
+                    getEthTxHash(mEthHash);
+                    if (mEthTxHash != null) url = mChainConfig.explorerHistoryLink(mEthTxHash);
+                    else return;
+                } else {
+                    url = mChainConfig.explorerHistoryLink(mEthHash);
+                }
 
             } else {
                 if (mResponse != null) url = mChainConfig.explorerHistoryLink(mResponse.getTxResponse().getTxhash());
