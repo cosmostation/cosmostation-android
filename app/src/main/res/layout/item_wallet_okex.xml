@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/space_16">
+            android:padding="@dimen/space_14">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
                     android:src="@drawable/token_okc" />
 
                 <TextView
-                    style="@style/font_rr_14_ok"
+                    style="@style/font_rr_16_ok"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_8"
@@ -180,7 +180,7 @@
                     android:minHeight="@dimen/space_40">
 
                     <TextView
-                        style="@style/font_rr_12_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -202,7 +202,7 @@
                     android:minHeight="@dimen/space_40">
 
                     <TextView
-                        style="@style/font_rr_12_black_daynight"
+                        style="@style/font_rr_14_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -223,7 +223,7 @@
                 android:minHeight="@dimen/space_40">
 
                 <TextView
-                    style="@style/font_rr_12_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -243,7 +243,7 @@
                 android:minHeight="@dimen/space_40">
 
                 <TextView
-                    style="@style/font_rr_12_black_daynight"
+                    style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
