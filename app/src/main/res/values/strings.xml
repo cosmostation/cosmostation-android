@@ -779,8 +779,8 @@
     <string name="str_admin_address">Admin</string>
     <string name="str_domain">Domain</string>
     <string name="str_account">Account</string>
-    <string name="str_starnamne">Starname</string>
-    <string name="str_starnamne_fee">Starname Fee</string>
+    <string name="str_starname">Starname</string>
+    <string name="str_starname_fee">Starname Fee</string>
     <string name="str_owner">Owner</string>
     <string name="str_register">Register</string>
     <string name="str_register_domain">Register Premium Starname</string>
@@ -953,7 +953,7 @@
     <string name="str_select_ibc_address">Recipient Address</string>
     <string name="str_ibc_recipient_chain">Recipient Chain</string>
     <string name="str_picker_dialog_title">Select Custom Path</string>
-    <string name="str_sif_dex_title">SifChain DeFi</string>
+    <string name="str_sif_dex_title">SifChain De-Fi</string>
     <string name="str_sif_dex_swap">Swap</string>
     <string name="str_sif_dex_ibc_pool">IBC Pool</string>
     <string name="str_sif_dex_eth_pol">Eth Pool</string>

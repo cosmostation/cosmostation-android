@@ -690,8 +690,8 @@
     <string name="str_admin_address">관리자</string>
     <string name="str_domain">도메인</string>
     <string name="str_account">계정</string>
-    <string name="str_starnamne">스타네임</string>
-    <string name="str_starnamne_fee">스타네임 수수료</string>
+    <string name="str_starname">스타네임</string>
+    <string name="str_starname_fee">스타네임 수수료</string>
     <string name="str_owner">소유자</string>
     <string name="str_register">등록자</string>
     <string name="str_register_domain">프리미엄 스타네임 등록하기</string>
@@ -863,7 +863,7 @@
     <string name="str_ibc_recipient_chain">수신 체인</string>
     <string name="str_select_starname_domain">도메인 선택</string>
     <string name="str_picker_dialog_title">지정 경로를 선택 하세요</string>
-    <string name="str_sif_dex_title">SifChain DeFi</string>
+    <string name="str_sif_dex_title">SifChain De-Fi</string>
     <string name="str_sif_dex_swap">Swap</string>
     <string name="str_sif_dex_ibc_pool">IBC Pool</string>
     <string name="str_sif_dex_eth_pol">Eth Pool</string>
