@@ -185,7 +185,7 @@ public class MainTokensFragment extends BaseFragment {
             @Override
             public String getSectionErcHeader(BaseChain baseChain, ArrayList<MintscanToken> mintscanTokens, int section) {
                 if (section == SECTION_ERC20_GRPC) {
-                    return getMainActivity().getString(R.string.str_cw20_token_title);
+                    return getMainActivity().getString(R.string.str_contract_token_title);
                 }
                 return getMainActivity().getString(R.string.str_unknown_token_title);
             }
