@@ -810,7 +810,7 @@
     <string name="str_swap_in">Swap In</string>
     <string name="str_swap_out">Swap Out</string>
     <string name="str_swap_coin_type">Type</string>
-    <string name="str_osmosis_defi_lab"><![CDATA[오스모시스 DeFi]]> </string>
+    <string name="str_osmosis_defi_lab"><![CDATA[오스모시스 De-Fi]]> </string>
     <string name="str_swap">Swap</string>
     <string name="str_pool">Pool</string>
     <string name="str_token_swap_input_coin">Inputs</string>
@@ -842,7 +842,7 @@
     <string name="str_ibc_token_title">IBC Coins</string>
     <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
     <string name="str_etc_token_title">Etc Coins</string>
-    <string name="str_cw20_token_title">Contract Tokens</string>
+    <string name="str_contract_token_title">Contract Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
     <string name="str_kava_incentive_info_title">Incentive Info</string>

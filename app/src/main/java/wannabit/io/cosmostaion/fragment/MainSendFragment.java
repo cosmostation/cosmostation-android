@@ -271,8 +271,8 @@ public class MainSendFragment extends BaseFragment {
                     else if (position == 2) return TYPE_MINT;
                     else if (position == 3) return TYPE_AUTHZ;
                     else if (position == 4) {
-                        if (mChainConfig.baseChain().equals(MEDI_MAIN)) return TYPE_MEDIPASS;
-                        else if (mChainConfig.baseChain().equals(DESMOS_MAIN)) return TYPE_DESMOS_APP;
+                        if (getMainActivity().mChainConfig.baseChain().equals(MEDI_MAIN)) return TYPE_MEDIPASS;
+                        else if (getMainActivity().mChainConfig.baseChain().equals(DESMOS_MAIN)) return TYPE_DESMOS_APP;
                     }
                     else if (position == 5) return TYPE_GIUDE;
                 }
