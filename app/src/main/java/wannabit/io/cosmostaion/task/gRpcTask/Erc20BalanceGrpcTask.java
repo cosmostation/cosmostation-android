@@ -45,8 +45,13 @@ public class Erc20BalanceGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            ECKey ecKey = WKey.getECKey(mApp, mAccount);
-            String ethAddress = WKey.generateEthAddressFromPrivateKey(ecKey.getPrivateKeyAsHex());
+            String ethAddress;
+            if (mAccount.address.startsWith("0x")) {
+                ethAddress = mAccount.address;
+            } else {
+                ECKey ecKey = WKey.getECKey(mApp, mAccount);
+                ethAddress = WKey.generateEthAddressFromPrivateKey(ecKey.getPrivateKeyAsHex());
+            }
             List<Type> params = new ArrayList<>();
             params.add(new Address(ethAddress));
 
