@@ -133,6 +133,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_HOST_ZONE_CHAINID           = 4302;
     public final static int TASK_GRPC_FETCH_ALL_USER_REDEMPTION         = 4303;
 
+    public final static int TASK_GRPC_FETCH_OSMOSIS_ICNS                = 4310;
+
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
     public final static String COSMOS_AUTH_TYPE_OKEX_ACCOUNT                = "okexchain/EthAccount";

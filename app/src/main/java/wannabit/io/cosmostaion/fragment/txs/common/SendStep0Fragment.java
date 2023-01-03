@@ -1,14 +1,11 @@
 package wannabit.io.cosmostaion.fragment.txs.common;
 
-import static cosmwasm.wasm.v1.QueryGrpc.QueryBlockingStub;
-import static cosmwasm.wasm.v1.QueryGrpc.newBlockingStub;
-import static cosmwasm.wasm.v1.QueryOuterClass.QuerySmartContractStateRequest;
-import static cosmwasm.wasm.v1.QueryOuterClass.QuerySmartContractStateResponse;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EVM_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ICNS;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import android.app.Activity;
@@ -16,6 +13,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,12 +38,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.google.gson.Gson;
-import com.google.protobuf.ByteString;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -63,18 +57,19 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
-import wannabit.io.cosmostaion.dao.ICNSInfoReq;
 import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
 import wannabit.io.cosmostaion.dialog.NameConfirmDialog;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisCheckIcnsGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class SendStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
     private RelativeLayout mToChainList;
     private ImageView mToChainImg;
@@ -89,6 +84,9 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     private ArrayList<Account> mToAccountList;
     private Asset mAsset;
     private MintscanToken mMintscanToken;
+
+    private String mUserInput;
+    private ArrayList<String> mMatchAddressList = new ArrayList<>();
 
     public static SendStep0Fragment newInstance() {
         return new SendStep0Fragment();
@@ -227,6 +225,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mNextBtn)) {
             String userInput = String.valueOf(mAddressInput.getText()).trim();
+            mMatchAddressList.clear();
 
             if (getSActivity().mAccount.address.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
@@ -250,31 +249,15 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 getSActivity().onNextStep();
 
             } else {
-                if (onCheckICNS(userInput).isEmpty()) {
-                    Toast.makeText(getContext(), R.string.error_invalid_icns, Toast.LENGTH_SHORT).show();
-                    return;
-
+                if (userInput.contains("." + mToSendChainConfig.addressPrefix())) {
+                    mUserInput = userInput;
+                } else if (userInput.contains(".")) {
+                    mUserInput = userInput + mToSendChainConfig.addressPrefix();
                 } else {
-                    if (getSActivity().mAccount.address.equals(onCheckICNS(userInput))) {
-                        Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    Bundle bundleData = new Bundle();
-                    bundleData.putInt(NameConfirmDialog.NAME_SERVICE_BUNDLE_KEY, NameConfirmDialog.ICNS_BUNDLE_VALUE);
-                    bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, userInput + "." + mToSendChainConfig.addressPrefix());
-                    bundleData.putString(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, onCheckICNS(userInput));
-                    if (!getSActivity().isFinishing()) {
-                        NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
-                        dialog.show(getParentFragmentManager(), NameConfirmDialog.class.getName());
-                        getParentFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
-                            String originAddress = bundle.getString(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY);
-                            onPathSetting();
-                            getSActivity().mToAddress = originAddress;
-                            getSActivity().onNextStep();
-                        });
-                    }
+                    mUserInput = userInput + "." + mToSendChainConfig.addressPrefix();
                 }
+                onFetchCheckICNS(mUserInput);
+                onPathSetting();
             }
 
         } else if (v.equals(mCancel)) {
@@ -369,25 +352,23 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             public void onNext(QueryOuterClass.QueryStarnameResponse value) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
                     final String matchAddress = WUtil.checkStarnameWithResource(chainConfig, value.getAccount().getResourcesList());
+                    mMatchAddressList.add(matchAddress);
                     if (TextUtils.isEmpty(matchAddress)) {
                         Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    if (getSActivity().mAccount.address.equals(matchAddress)) {
-                        Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
                     Bundle bundleData = new Bundle();
-                    bundleData.putInt(NameConfirmDialog.NAME_SERVICE_BUNDLE_KEY, NameConfirmDialog.STAR_NAME_BUNDLE_VALUE);
+                    bundleData.putString("address", getSActivity().mAccount.address);
                     bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, userInput);
-                    bundleData.putString(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, matchAddress);
+                    bundleData.putSerializable(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, mMatchAddressList);
+
                     if (!getSActivity().isFinishing()) {
                         NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
                         dialog.show(getParentFragmentManager(), NameConfirmDialog.class.getName());
                         getParentFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
-                            String originAddress = bundle.getString(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY);
+                            int result = bundle.getInt(BaseConstant.POSITION);
+                            String originAddress = mMatchAddressList.get(result);
                             getSActivity().mToAddress = originAddress;
                             getSActivity().onNextStep();
                         });
@@ -407,22 +388,46 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         });
     }
 
-    private String onCheckICNS(String userInput) {
-        QueryBlockingStub mStub = newBlockingStub(ChannelBuilder.getChain(BaseChain.OSMOSIS_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-        try {
-            ICNSInfoReq infoReq = new ICNSInfoReq(userInput + "." + mToSendChainConfig.addressPrefix());
-            String jsonData = new Gson().toJson(infoReq);
-            ByteString queryData = ByteString.copyFromUtf8(jsonData);
-            QuerySmartContractStateRequest request = QuerySmartContractStateRequest.newBuilder().setAddress(BaseConstant.ICNS_OSMOSIS_ADDRESS).setQueryData(queryData).build();
-            QuerySmartContractStateResponse response = mStub.smartContractState(request);
+    private int mTaskCount = 0;
+    private void onFetchCheckICNS(String userInput) {
+        mTaskCount = 1;
+        new OsmosisCheckIcnsGrpcTask(getBaseApplication(), this, mToSendChainConfig, userInput).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
 
-            JSONObject json = new JSONObject(response.getData().toStringUtf8());
-            return json.get("bech32_address").toString();
-
-        } catch (Exception e) {
-            WLog.e("ICNSAccountInfo : " + e.getMessage());
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_ICNS) {
+            if (result.isSuccess && result.resultData != null) {
+                String matchAddress = (String) result.resultData;
+                if (!TextUtils.isEmpty(matchAddress)) {
+                    mMatchAddressList.add(matchAddress);
+                }
+            }
         }
-        return "";
+
+        if (mTaskCount == 0) {
+            if (mMatchAddressList.size() <= 0) {
+                Toast.makeText(getContext(), R.string.error_invalid_icns, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Bundle bundleData = new Bundle();
+            bundleData.putString("address", getSActivity().mAccount.address);
+            bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, mUserInput);
+            bundleData.putSerializable(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, mMatchAddressList);
+
+            if (!getSActivity().isFinishing()) {
+                NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
+                dialog.show(getParentFragmentManager(), NameConfirmDialog.class.getName());
+                getParentFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
+                    int position = bundle.getInt(BaseConstant.POSITION);
+                    String originAddress = mMatchAddressList.get(position);
+                    getSActivity().mToAddress = originAddress;
+                    getSActivity().onNextStep();
+                });
+            }
+        }
     }
 
     private void onSortToChain() {

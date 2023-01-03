@@ -184,7 +184,6 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
                     }
 
                     Bundle bundleData = new Bundle();
-                    bundleData.putInt(NameConfirmDialog.NAME_SERVICE_BUNDLE_KEY, NameConfirmDialog.STAR_NAME_BUNDLE_VALUE);
                     bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, userInput);
                     bundleData.putString(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, matchAddress);
                     if (!getSActivity().isFinishing()) {
