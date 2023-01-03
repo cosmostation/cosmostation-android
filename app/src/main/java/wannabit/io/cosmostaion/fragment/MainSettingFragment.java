@@ -466,7 +466,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void setLanguage(Context context, String languageSet) {
-        LanguageUtil.setLanguageCode(context, languageSet);
+        LanguageUtil.updateResources(context);
         LanguageUtil.modSave(context, languageSet);
         getMainActivity().recreate();
     }
