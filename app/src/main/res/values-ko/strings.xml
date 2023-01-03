@@ -26,7 +26,7 @@
     <string name="str_private_key">개인키</string>
     <string name="str_watch">관찰하기</string>
     <string name="str_address">주소</string>
-    <string name="str_paste">붙여넣기</string>
+    <string name="str_paste">Paste</string>
     <string name="str_send_c">보내기</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 보내기 & 받기]]></string>
 
@@ -95,7 +95,7 @@
     <string name="str_accounts">계정</string>
     <string name="str_web">웹</string>
     <string name="str_detail">자세히</string>
-    <string name="str_wallet">지갑</string>
+    <string name="str_wallet">Wallet</string>
 
     <string name="str_mnemonic_manage">니모닉 관리 / 지갑 추가</string>
     <string name="str_mnemonic_detail">니모닉 상세</string>
@@ -200,8 +200,8 @@
     <string name="str_add1">+ 1</string>
     <string name="str_add10">+ 10</string>
     <string name="str_add100">+ 100</string>
-    <string name="str_add_half">절반</string>
-    <string name="str_add_max">최대</string>
+    <string name="str_add_half">Half</string>
+    <string name="str_add_max">Max</string>
     <string name="str_max_available_delegate_amount"><![CDATA[최대 위임 가능량 : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[최대 위임 철회 가능량 : ]]></string>
     <string name="str_max_available_redelegate_amount"><![CDATA[최대 재위임 가능량 : ]]></string>
@@ -576,7 +576,7 @@
     <string name="str_sorting_by_yield">이율로 정렬</string>
     <string name="str_sorting_by_my_delegated">내 위임 수량으로 정렬</string>
     <string name="str_sorting_by_reward">내 이자 수량으로 정렬</string>
-    <string name="str_qr_code">스캔</string>
+    <string name="str_qr_code">Scan</string>
     <string name="str_recent">최근 목록</string>
     <string name="str_delegate_notice">위임 시 해당 검증인에게 발생한 기존 이자는 사용 가능 수량으로 자동 정산 됩니다.</string>
     <string name="str_undelegate_notice">현재 이 검증인에게 받을 이자가 있다면,\n위임 철회를 하는 순간 모든 이자는 귀하의 사용가능\n수량으로 자동적으로 입금될 것입니다.</string>

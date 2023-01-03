@@ -26,7 +26,7 @@
     <string name="str_private_key">プライベートキー</string>
     <string name="str_watch">観察する</string>
     <string name="str_address">アドレス</string>
-    <string name="str_paste">貼り付け</string>
+    <string name="str_paste">Paste</string>
     <string name="str_send_c">送る</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3送る ＆ もらう]]></string>
 
@@ -95,7 +95,7 @@
     <string name="str_accounts">アカウント</string>
     <string name="str_web">ウェブ</string>
     <string name="str_detail">詳細</string>
-    <string name="str_wallet">ウォーレット</string>
+    <string name="str_wallet">Wallet</string>
 
     <string name="str_mnemonic_manage">ニーモニック管理 / ウォレット追加</string>
     <string name="str_mnemonic_detail">ニーモニック詳細</string>
@@ -124,7 +124,7 @@
     <string name="str_notification">通知</string>
     <string name="str_app_applock">アプリロック</string>
     <string name="str_app_auto_pass">PINコードオートパス</string>
-    <string name="str_app_auto_pass_msg">最初PINコードを通過後に設定した時間の間、PINコードを自動に通過します。\nTx 転送、個人データ確認に該当します。\n(アプリロックは常に作動します。)</string>
+    <string name="str_app_auto_pass_msg">最初PINコードを通過後に設定した時間の間、\nPINコードを自動に通過します。\nTx 転送、個人データ確認に該当します。\n(アプリロックは常に作動します。)</string>
     <string name="str_app_auto_pass_5m">5分</string>
     <string name="str_app_auto_pass_10m">10分</string>
     <string name="str_app_auto_pass_30m">30分</string>
@@ -200,8 +200,8 @@
     <string name="str_add1">+ 1</string>
     <string name="str_add10">+ 10</string>
     <string name="str_add100">+ 100</string>
-    <string name="str_add_half">半分</string>
-    <string name="str_add_max">マックス</string>
+    <string name="str_add_half">Half</string>
+    <string name="str_add_max">Max</string>
     <string name="str_max_available_delegate_amount"><![CDATA[最大委任可能量 : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[最大委任撤回可能量 : ]]></string>
     <string name="str_max_available_redelegate_amount"><![CDATA[最大再委任可能量 : ]]></string>
@@ -576,7 +576,7 @@
     <string name="str_sorting_by_yield">利子で整列</string>
     <string name="str_sorting_by_my_delegated">私の委任数量で整列</string>
     <string name="str_sorting_by_reward">私の利子数量で整列</string>
-    <string name="str_qr_code">スキャン</string>
+    <string name="str_qr_code">Scan</string>
     <string name="str_recent">最近リスト</string>
     <string name="str_delegate_notice">委任時、該当検証人に発生した既存利子は使用可能数量で自動清算されます。</string>
     <string name="str_undelegate_notice">現在、この検証人からもらう利子があれば、\n委任撤回をするとすべての利子はあなたの使用可能数量に自動的に入金されます。</string>
