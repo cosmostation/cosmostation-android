@@ -93,34 +93,32 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         mainDenom = getSActivity().mChainConfig.mainDenom();
         toSendDenom = getSActivity().mDenom;
         mMintscanToken = getBaseDao().getCw20Asset(getSActivity().mChainConfig, toSendDenom);
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom);
 
-        if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
-            mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, toSendDenom);
-            if (mMintscanToken != null) {
-                mMaxAvailable = mMintscanToken.getAmount();
-            } else {
+        if (mMintscanToken != null) {
+            mMaxAvailable = mMintscanToken.getAmount();
+
+        } else {
+            if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
                 if (toSendDenom.equals(mainDenom)) {
                     mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
                 } else {
                     mMaxAvailable = getBaseDao().getAvailable(toSendDenom);
                 }
-            }
-            WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
 
-        } else {
-            mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
-            if (toSendDenom.equals(mainDenom)) {
-                mMaxAvailable = getBaseDao().availableAmount(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
             } else {
-                mMaxAvailable = getBaseDao().availableAmount(toSendDenom);
+                mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
+                if (toSendDenom.equals(mainDenom)) {
+                    mMaxAvailable = getBaseDao().availableAmount(toSendDenom).subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
+                } else {
+                    mMaxAvailable = getBaseDao().availableAmount(toSendDenom);
+                }
             }
-            WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
-
         }
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
         setDisplayDecimals(mDpDecimal);
         onAddAmountWatcher();
     }
-
 
     private void onAddAmountWatcher() {
         mAmountInput.addTextChangedListener(new TextWatcher() {
@@ -168,23 +166,22 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                             return;
                         }
 
-                        if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN)) {
-                            if (inputAmount.compareTo(mMaxAvailable) > 0) {
+                        if (mMintscanToken != null) {
+                            if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                                 mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             } else {
                                 mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
 
                         } else {
-                            if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
+                            if (inputAmount.compareTo(mMaxAvailable) > 0) {
                                 mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             } else {
                                 mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
                         }
                         mAmountInput.setSelection(mAmountInput.getText().length());
-                    } catch (Exception e) {
-                    }
+                    } catch (Exception e) { }
                 }
             }
         });
@@ -202,6 +199,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }
+
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = String.valueOf(mAmountInput.getText()).trim();
@@ -235,19 +233,19 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN)) {
-                BigDecimal half = mMaxAvailable.divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
-                mAmountInput.setText(half.toPlainString());
+            BigDecimal half;
+            if (mMintscanToken != null) {
+                half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
             } else {
-                BigDecimal half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
-                mAmountInput.setText(half.toPlainString());
+                half = mMaxAvailable.divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
             }
+            mAmountInput.setText(half.toPlainString());
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.toPlainString());
-            } else {
+            if (mMintscanToken != null) {
                 mAmountInput.setText(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN).toPlainString());
+            } else {
+                mAmountInput.setText(mMaxAvailable.toPlainString());
             }
             onShowEmptyBalanceWarnDialog();
 
@@ -255,54 +253,38 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mAmountInput.setText("");
 
         }
-
     }
 
     private boolean isValidateSendAmount() {
         mToSendCoins.clear();
         try {
-            if (BaseChain.isGRPC(getSActivity().mBaseChain)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
                 BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
-                    return false;
-                Coin coin = new Coin(getSActivity().mDenom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
-                mToSendCoins.add(coin);
+                if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
+                if (getSActivity().mBnbToken.type == BnbToken.BNB_TOKEN_TYPE_MINI) {
+                    if ((sendTemp.compareTo(BigDecimal.ONE) < 0) && (sendTemp.compareTo(mMaxAvailable) != 0)) {
+                        Toast.makeText(getContext(), R.string.error_bnb_mini_amount, Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }
+                Coin token = new Coin(getSActivity().mBnbToken.symbol, sendTemp.toPlainString());
+                mToSendCoins.add(token);
                 return true;
 
             } else {
-                if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                    BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
-                    if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                    if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
-                    if (getSActivity().mBnbToken.type == BnbToken.BNB_TOKEN_TYPE_MINI) {
-                        if ((sendTemp.compareTo(BigDecimal.ONE) < 0) && (sendTemp.compareTo(mMaxAvailable) != 0)) {
-                            Toast.makeText(getContext(), R.string.error_bnb_mini_amount, Toast.LENGTH_SHORT).show();
-                            return false;
-                        }
-                    }
-                    Coin token = new Coin(getSActivity().mBnbToken.symbol, sendTemp.toPlainString());
-                    mToSendCoins.add(token);
-                    return true;
-
-                } else if (getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN)) {
-                    BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
-                    if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
+                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if (getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN) && mMintscanToken == null) {
                     if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
                     Coin coin = new Coin(getSActivity().mDenom, sendTemp.setScale(mDpDecimal).toPlainString());
                     mToSendCoins.add(coin);
-                    return true;
-
                 } else {
-                    BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
-                    if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
-                        return false;
+                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
                     Coin coin = new Coin(getSActivity().mDenom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
                     mToSendCoins.add(coin);
-                    return true;
                 }
-
+                return true;
             }
 
         } catch (Exception e) {

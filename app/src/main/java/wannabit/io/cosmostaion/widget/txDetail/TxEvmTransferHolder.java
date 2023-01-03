@@ -13,6 +13,7 @@ import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 
 public class TxEvmTransferHolder extends RecyclerView.ViewHolder {
@@ -51,8 +52,12 @@ public class TxEvmTransferHolder extends RecyclerView.ViewHolder {
 
         itemblockHeight.setText(txRecp.getBlockNumber().toString());
         itemgasInfo.setText(txRecp.getGasUsed().toString() + "/" + tx.getGas().toString());
-        if (tx.getType().equalsIgnoreCase("0x2")) itemtxType.setText("EIP-1559");
-        else itemtxType.setText(tx.getType());
+        if (BaseChain.isGRPC(chainConfig.baseChain())) {
+            if (tx.getType().equalsIgnoreCase("0x2")) itemtxType.setText("EIP-1559");
+            else itemtxType.setText(tx.getType());
+        } else {
+            itemtxType.setText("LEGACY");
+        }
         itemContAddress.setText(tx.getTo());
         itemtxData.setText(tx.getInput());
     }
