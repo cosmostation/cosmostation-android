@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,54 +8,61 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_control">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_margin="@dimen/space_12"
-                app:cardElevation="0dp"
-                app:cardPreventCornerOverlap="true"
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                app:cardBackgroundColor="@color/colorTransBg"
                 app:cardCornerRadius="@dimen/space_8"
-                app:cardBackgroundColor="@color/colorTransBg">
+                app:cardElevation="0dp"
+                app:cardPreventCornerOverlap="true">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/space_16"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_14">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_fees"
-                            style="@style/font_rr_12_gray1"/>
+                            android:text="@string/str_fees" />
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:orientation="horizontal"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
                             <TextView
                                 android:id="@+id/fee_amount"
+                                style="@style/font_rr_14_black_daynight"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:text="-"
-                                style="@style/font_rr_14_black_daynight"/>
+                                android:text="-" />
+
                             <TextView
                                 android:id="@+id/fee_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
                                 android:text="KAVA"
-                                android:textSize="@dimen/text_size_12"
-                                android:textColor="@color/color_kava"/>
+                                android:textColor="@color/color_kava"
+                                android:textSize="@dimen/text_size_12" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -64,34 +70,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_view"
                         android:layout_marginTop="@dimen/space_16"
-                        android:background="@color/colorGrayDayNight"/>
+                        android:background="@color/colorGrayDayNight" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16">
+
                         <TextView
                             style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/str_incentive_amount_title" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
+
                             <LinearLayout
                                 android:id="@+id/incen0Layer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_gravity="right"
+                                android:orientation="horizontal"
                                 android:visibility="gone">
+
                                 <TextView
                                     android:id="@+id/incen0_amount"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
+
                                 <TextView
                                     android:id="@+id/incen0_denom"
                                     style="@style/font_rr_12_black_daynight"
@@ -100,19 +111,22 @@
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:id="@+id/incen1Layer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_gravity="right"
+                                android:orientation="horizontal"
                                 android:visibility="gone">
+
                                 <TextView
                                     android:id="@+id/incen1_amount"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
+
                                 <TextView
                                     android:id="@+id/incen1_denom"
                                     style="@style/font_rr_12_black_daynight"
@@ -121,19 +135,22 @@
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:id="@+id/incen2Layer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_gravity="right"
+                                android:orientation="horizontal"
                                 android:visibility="gone">
+
                                 <TextView
                                     android:id="@+id/incen2_amount"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
+
                                 <TextView
                                     android:id="@+id/incen2_denom"
                                     style="@style/font_rr_12_black_daynight"
@@ -142,19 +159,22 @@
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:id="@+id/incen3Layer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_gravity="right"
+                                android:orientation="horizontal"
                                 android:visibility="gone">
+
                                 <TextView
                                     android:id="@+id/incen3_amount"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
+
                                 <TextView
                                     android:id="@+id/incen3_denom"
                                     style="@style/font_rr_12_black_daynight"
@@ -163,19 +183,22 @@
                                     android:layout_marginLeft="@dimen/space_2"
                                     android:gravity="end" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:id="@+id/incen4Layer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_gravity="right"
+                                android:orientation="horizontal"
                                 android:visibility="gone">
+
                                 <TextView
                                     android:id="@+id/incen4_amount"
                                     style="@style/font_rr_12_black_daynight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-" />
+
                                 <TextView
                                     android:id="@+id/incen4_denom"
                                     style="@style/font_rr_12_black_daynight"
@@ -191,35 +214,38 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_20">
+
                         <TextView
+                            style="@style/font_rr_12_gray1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="@string/str_multiplier_name"
-                            style="@style/font_rr_12_gray1"/>
+                            android:text="@string/str_multiplier_name" />
+
                         <TextView
+                            style="@style/font_rr_12_black_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
-                            android:text="Large"
-                            style="@style/font_rr_12_black_daynight"/>
+                            android:layout_centerVertical="true"
+                            android:text="Large" />
                     </RelativeLayout>
 
                     <TextView
+                        style="@style/font_rr_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_16"
-                        android:text="@string/str_memo"
-                        style="@style/font_rr_12_gray1"/>
+                        android:text="@string/str_memo" />
+
                     <TextView
                         android:id="@+id/memo"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_8"
-                        android:lines="2"
                         android:ellipsize="end"
-                        style="@style/font_rr_12_black_daynight"/>
+                        android:lines="2" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -231,32 +257,34 @@
         android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_24">
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
+        android:layout_marginBottom="@dimen/space_24"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/btn_before"
+            style="@style/font_rr_14_black_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_rr_14_black_daynight"
-            android:textAllCaps="false"
-            android:text="@string/str_back"/>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_back"
+            android:textAllCaps="false" />
+
         <Button
             android:id="@+id/btn_confirm"
+            style="@style/font_rr_14_photon_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_rr_14_photon_daynight"
-            android:textAllCaps="false"
-            android:text="@string/str_confirm"/>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_confirm"
+            android:textAllCaps="false" />
     </LinearLayout>
 </RelativeLayout>

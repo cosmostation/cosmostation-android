@@ -8,8 +8,8 @@
         android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
         android:layout_marginBottom="@dimen/space_6"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -21,10 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_18"
-            android:layout_marginTop="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_18"
-            android:layout_marginBottom="@dimen/space_16"
+            android:layout_margin="@dimen/space_14"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -54,7 +51,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/mypool_market_img"
-                        android:layout_marginTop="@dimen/space_8"
                         android:gravity="center"
                         android:text="-" />
                 </LinearLayout>
