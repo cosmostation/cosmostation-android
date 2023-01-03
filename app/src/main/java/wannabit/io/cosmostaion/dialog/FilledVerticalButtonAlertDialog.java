@@ -181,10 +181,11 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
             dialog.messageTextView.setText(message);
             dialog.messageTextView.setVisibility(View.VISIBLE);
             dialog.btnLine.setVisibility(View.VISIBLE);
-            dialog.btnLine2.setVisibility(View.VISIBLE);
-            dialog.btnLine3.setVisibility(View.VISIBLE);
-            dialog.btnLine4.setVisibility(View.VISIBLE);
         }
+
+        dialog.btnLine2.setVisibility(View.VISIBLE);
+        dialog.btnLine3.setVisibility(View.VISIBLE);
+        dialog.btnLine4.setVisibility(View.VISIBLE);
 
         dialog.quadrupleButton.setText(quadrupleButtonTitle);
         dialog.quadrupleButton.setVisibility(View.VISIBLE);

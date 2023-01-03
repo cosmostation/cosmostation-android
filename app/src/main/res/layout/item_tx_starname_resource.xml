@@ -55,7 +55,7 @@
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_starnamne" />
+                    android:text="@string/str_starname" />
 
                 <TextView
                     android:id="@+id/tx_starname"
@@ -78,7 +78,7 @@
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_starnamne_fee" />
+                    android:text="@string/str_starname_fee" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"

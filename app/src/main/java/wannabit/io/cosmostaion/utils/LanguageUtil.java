@@ -14,12 +14,13 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 public class LanguageUtil {
     public static final String LANGUAGE_ENGLISH = "en";
     public static final String LANGUAGE_KOREAN = "ko";
+    public static final String LANGUAGE_JAPANESE = "ja";
     public static final String SYSTEM_MODE = "system";
 
     public static Context updateResources(Context context) {
         String language = modLoad(context);
         Locale locale;
-        if (language.equals(LANGUAGE_ENGLISH) || language.equals(LANGUAGE_KOREAN)) {
+        if (language.equals(LANGUAGE_ENGLISH) || language.equals(LANGUAGE_KOREAN) || language.equals(LANGUAGE_JAPANESE)) {
             locale = new Locale(language);
         } else {
             locale = Resources.getSystem().getConfiguration().getLocales().get(0);

@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/dialog_title"
-        style="@style/font_rm_15_black_daynight"
+        style="@style/font_rm_14_black_daynight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
