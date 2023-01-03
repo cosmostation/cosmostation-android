@@ -129,6 +129,7 @@
     <string name="str_web">web</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
+    <string name="str_wallet_title">Wallet</string>
 
     <string name="str_mnemonic_manage">Manage Mnemonic / Add Wallet</string>
     <string name="str_mnemonic_detail">Mnemonic Detail</string>
