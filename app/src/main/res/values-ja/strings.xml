@@ -633,12 +633,12 @@
     <string name="str_htlc_loading_progress_3">4/4両方のチェーンからそれぞれのトランザクションを確認中です。</string>
     <string name="str_incentive_participate_step_0">インセンティブを確認してください。</string>
     <string name="str_borrower">貸出手</string>
-    <string name="str_main_wallet">ウォーレット</string>
-    <string name="str_main_tokens">資産</string>
+    <string name="str_main_wallet">WALLET</string>
+    <string name="str_main_tokens">ASSETS</string>
     <string name="str_main_dapp">DAPP</string>
-    <string name="str_main_reward">リワード</string>
-    <string name="str_main_history">ヒストリー</string>
-    <string name="str_main_set">設定</string>
+    <string name="str_main_reward">REWARD</string>
+    <string name="str_main_history">HISTORY</string>
+    <string name="str_main_set">SETTING</string>
     <string name="str_password">パスワード</string>
     <string name="str_init_password">PIN番号を入力してください。</string>
     <string name="str_init_again">再度入力してください。</string>
@@ -843,6 +843,7 @@
     <string name="str_etc_token_title">その他のコイン</string>
     <string name="str_contract_token_title">Contract Tokens</string>
     <string name="str_oec_kip10_title">KIP10コイン</string>
+    <string name="str_oec_kip20_title">KIP20コイン</string>
     <string name="str_unknown_token_title">不明なコイン</string>
     <string name="str_kava_incentive_info_title">インセンティブ情報</string>
     <string name="str_kava_slippage_title">Slippage</string>
