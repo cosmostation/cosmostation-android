@@ -67,6 +67,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
             android:layout_marginLeft="@dimen/space_14"
             android:layout_marginRight="@dimen/space_14">
 
