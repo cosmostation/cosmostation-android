@@ -405,7 +405,7 @@ public class SendActivity extends BaseBroadCastActivity {
 
     private void onIntentTx(TaskResult result) {
         Intent txIntent;
-        if (isGRPC(mBaseChain)) {
+        if (isGRPC(mBaseChain) || mTxType == BaseConstant.CONST_PW_TX_EVM_TRANSFER) {
             txIntent = new Intent(SendActivity.this, TxDetailgRPCActivity.class);
         } else {
             txIntent = new Intent(SendActivity.this, TxDetailActivity.class);

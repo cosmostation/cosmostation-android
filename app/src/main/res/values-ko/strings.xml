@@ -845,7 +845,9 @@
     <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_contract_token_title">Contract Tokens</string>
     <string name="str_oec_kip10_title">KIP10 Coins</string>
+    <string name="str_oec_kip20_title">KIP20 Coins</string>
     <string name="str_unknown_token_title">Unknown Coins</string>
+
     <string name="str_kava_incentive_info_title">Incentive Info</string>
     <string name="str_kava_slippage_title">Slippage</string>
     <string name="str_kava_deposit_my_share_title">My Share</string>

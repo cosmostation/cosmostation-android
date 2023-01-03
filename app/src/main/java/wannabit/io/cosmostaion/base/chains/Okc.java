@@ -40,8 +40,10 @@ public class Okc extends ChainConfig {
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
+    public boolean erc20CoinSupport() { return true; }
 
     public String lcdUrl() { return "https://exchainrpc.okex.org/okexchain/v1/"; }
+    public String rpcUrl() { return "https://exchainrpc.okex.org"; }
 
     public String explorerUrl() { return "https://www.oklink.com/okexchain/"; }
     public String homeInfoLink() { return  "https://www.okx.com"; }
