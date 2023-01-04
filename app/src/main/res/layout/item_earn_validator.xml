@@ -8,13 +8,13 @@
         android:id="@+id/card_validator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
         android:layout_marginBottom="@dimen/space_6"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
+        app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true">
 
         <RelativeLayout
@@ -49,8 +49,8 @@
                 android:id="@+id/line_validator"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/space_10"
-                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_20"
+                android:layout_marginBottom="@dimen/space_20"
                 android:layout_toRightOf="@+id/views_validator"
                 android:background="@color/colorGray3" />
 
@@ -97,18 +97,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/liquidity_deposited_denom"
+                        android:layout_marginRight="@dimen/space_4"
                         android:layout_toLeftOf="@+id/liquidity_deposited_denom"
-                        android:layout_marginRight="@dimen/space_2"
                         android:text="-" />
 
                     <TextView
                         android:id="@+id/liquidity_deposited_denom"
                         style="@style/font_rr_12_black_daynight"
-                        android:textColor="@color/color_kava"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="KAVA" />
+                        android:text="KAVA"
+                        android:textColor="@color/color_kava" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -127,22 +127,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/my_deposited_denom"
+                        android:layout_marginRight="@dimen/space_4"
                         android:layout_toLeftOf="@+id/my_deposited_denom"
-                        android:layout_marginRight="@dimen/space_2"
                         android:text="-" />
 
                     <TextView
                         android:id="@+id/my_deposited_denom"
                         style="@style/font_rr_12_black_daynight"
-                        android:textColor="@color/color_kava"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="KAVA" />
+                        android:text="KAVA"
+                        android:textColor="@color/color_kava" />
                 </RelativeLayout>
-
             </LinearLayout>
-
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
