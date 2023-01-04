@@ -448,7 +448,7 @@
     <string name="str_cdp_total_fee">貸出利息</string>
     <string name="str_collateral_deposit">Deposit</string>
     <string name="str_collateral_withdraw">デポジット</string>
-    <string name="str_principal_drawdebt">추가 USDX 대출</string>
+    <string name="str_principal_drawdebt">追加USDX貸出</string>
     <string name="str_principal_repay">USDXを返済</string>
     <string name="str_star_name">スターネーム</string>
     <string name="str_max_global_debt">総発行可能USDX</string>
@@ -1129,7 +1129,7 @@
     <string name="tx_close_bid">入札を閉じる</string>
     <string name="tx_create_lease">リース生成</string>
     <string name="tx_withdraw_lease">リース撤回</string>
-    <string name="tx_close_lease">リース닫기</string>
+    <string name="tx_close_lease">リースを閉じる</string>
     <string name="tx_create_deployment">配置を開く</string>
     <string name="tx_deposit_deployment">配置デポジット</string>
     <string name="tx_close_deployment">配置を閉じる</string>
@@ -1171,7 +1171,7 @@
     <string name="tx_issue_denom">NFT Denom 発行</string>
     <string name="tx_issue_denom_id">Denom ID</string>
     <string name="tx_issue_denom_name">Denom ネーム</string>
-    <string name="tx_issue_denom_schema">스키마</string>
+    <string name="tx_issue_denom_schema">スキーマ</string>
     <string name="tx_mint_nft">NFT 発行</string>
     <string name="tx_mint_nft_token_id">トークン ID</string>
     <string name="tx_mint_nft_denom_id">Denom ID</string>
