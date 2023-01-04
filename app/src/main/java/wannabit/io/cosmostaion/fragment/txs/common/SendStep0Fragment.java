@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_EXECUTE_CONT
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_CONTRACT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ICNS;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import android.app.Activity;
@@ -12,6 +13,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,13 +60,16 @@ import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
+import wannabit.io.cosmostaion.dialog.NameConfirmDialog;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
-import wannabit.io.cosmostaion.dialog.StarNameConfirmDialog;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisCheckIcnsGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class SendStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
     private RelativeLayout mToChainList;
     private ImageView mToChainImg;
@@ -79,6 +84,9 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     private ArrayList<Account> mToAccountList;
     private Asset mAsset;
     private MintscanToken mMintscanToken;
+
+    private String mUserInput;
+    private ArrayList<String> mMatchAddressList = new ArrayList<>();
 
     public static SendStep0Fragment newInstance() {
         return new SendStep0Fragment();
@@ -191,6 +199,15 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
+    public void onRefreshTab() {
+        String userInput = String.valueOf(mAddressInput.getText()).trim();
+        if (userInput.contains(".")) {
+            mAddressInput.setText(userInput.replaceFirst(".$", ""));
+            mAddressInput.setSelection(userInput.replaceFirst(".$", "").length());
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.equals(mToChainList)) {
             Bundle bundleData = new Bundle();
@@ -208,6 +225,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
         } else if (v.equals(mNextBtn)) {
             String userInput = String.valueOf(mAddressInput.getText()).trim();
+            mMatchAddressList.clear();
 
             if (getSActivity().mAccount.address.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
@@ -231,7 +249,15 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 getSActivity().onNextStep();
 
             } else {
-                Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                if (userInput.contains("." + mToSendChainConfig.addressPrefix())) {
+                    mUserInput = userInput;
+                } else if (userInput.contains(".")) {
+                    mUserInput = userInput + mToSendChainConfig.addressPrefix();
+                } else {
+                    mUserInput = userInput + "." + mToSendChainConfig.addressPrefix();
+                }
+                onFetchCheckICNS(mUserInput);
+                onPathSetting();
             }
 
         } else if (v.equals(mCancel)) {
@@ -326,24 +352,23 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             public void onNext(QueryOuterClass.QueryStarnameResponse value) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
                     final String matchAddress = WUtil.checkStarnameWithResource(chainConfig, value.getAccount().getResourcesList());
+                    mMatchAddressList.add(matchAddress);
                     if (TextUtils.isEmpty(matchAddress)) {
                         Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    if (getSActivity().mAccount.address.equals(matchAddress)) {
-                        Toast.makeText(getContext(), R.string.error_starname_self_send, Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
                     Bundle bundleData = new Bundle();
-                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_BUNDLE_KEY, userInput);
-                    bundleData.putString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY, matchAddress);
+                    bundleData.putString("address", getSActivity().mAccount.address);
+                    bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, userInput);
+                    bundleData.putSerializable(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, mMatchAddressList);
+
                     if (!getSActivity().isFinishing()) {
-                        StarNameConfirmDialog dialog = StarNameConfirmDialog.newInstance(bundleData);
-                        dialog.show(getParentFragmentManager(), StarNameConfirmDialog.class.getName());
-                        getParentFragmentManager().setFragmentResultListener(StarNameConfirmDialog.STAR_NAME_CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
-                            String originAddress = bundle.getString(StarNameConfirmDialog.STAR_NAME_ORIGIN_ADDRESS_BUNDLE_KEY);
+                        NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
+                        dialog.show(getParentFragmentManager(), NameConfirmDialog.class.getName());
+                        getParentFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
+                            int result = bundle.getInt(BaseConstant.POSITION);
+                            String originAddress = mMatchAddressList.get(result);
                             getSActivity().mToAddress = originAddress;
                             getSActivity().onNextStep();
                         });
@@ -361,6 +386,48 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             public void onCompleted() {
             }
         });
+    }
+
+    private int mTaskCount = 0;
+    private void onFetchCheckICNS(String userInput) {
+        mTaskCount = 1;
+        new OsmosisCheckIcnsGrpcTask(getBaseApplication(), this, mToSendChainConfig, userInput).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_ICNS) {
+            if (result.isSuccess && result.resultData != null) {
+                String matchAddress = (String) result.resultData;
+                if (!TextUtils.isEmpty(matchAddress)) {
+                    mMatchAddressList.add(matchAddress);
+                }
+            }
+        }
+
+        if (mTaskCount == 0) {
+            if (mMatchAddressList.size() <= 0) {
+                Toast.makeText(getContext(), R.string.error_invalid_icns, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Bundle bundleData = new Bundle();
+            bundleData.putString("address", getSActivity().mAccount.address);
+            bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, mUserInput);
+            bundleData.putSerializable(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, mMatchAddressList);
+
+            if (!getSActivity().isFinishing()) {
+                NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
+                dialog.show(getParentFragmentManager(), NameConfirmDialog.class.getName());
+                getParentFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
+                    int position = bundle.getInt(BaseConstant.POSITION);
+                    String originAddress = mMatchAddressList.get(position);
+                    getSActivity().mToAddress = originAddress;
+                    getSActivity().onNextStep();
+                });
+            }
+        }
     }
 
     private void onSortToChain() {
