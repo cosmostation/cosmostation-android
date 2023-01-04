@@ -199,9 +199,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             public void onResponse(Call<ResVoteStatus> call, Response<ResVoteStatus> response) {
                 if (response.body() != null && response.isSuccessful() && response.body().votes != null) {
                     try {
-                        response.body().votes.forEach(votesData -> {
-                            statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet()));
-                        });
+                        response.body().votes.forEach(votesData -> statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet())));
                         mVoteListAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                     }
@@ -291,6 +289,10 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 holder.card_proposal.setOnClickListener(v -> {
                     Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
                     voteIntent.putExtra("proposalId", String.valueOf(item.id));
+                    if (statusMap.containsKey(item.id)) {
+                        Set<String> status = statusMap.get(item.id);
+                        voteIntent.putExtra("propsoalStatus", String.valueOf(status));
+                    }
                     startActivity(voteIntent);
                 });
             }

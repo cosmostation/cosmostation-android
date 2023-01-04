@@ -34,7 +34,6 @@ import com.google.gson.Gson;
 import java.math.BigDecimal;
 import java.util.Set;
 
-import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -58,13 +57,15 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     private VoteDetailsAdapter mVoteDetailsAdapter;
 
     private String mProposalId;
+    private String mProposalStatus;
 
     // proposal api
     private ResProposal mApiProposal;
     private final Set<ResProposal> selectedSet = Sets.newHashSet();
 
     //gRPC
-    private Gov.Vote mMyVote_gRPC;
+    //private Gov.Vote mMyVote_gRPC;
+
     //Certik
     private ResMyProposal mResMyProposal;
 
@@ -82,6 +83,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
     private void initView() {
         mProposalId = getIntent().getStringExtra("proposalId");
+        mProposalStatus = getIntent().getStringExtra("propsoalStatus");
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
@@ -160,9 +162,10 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             if (result.resultData != null) {
                 if (mBaseChain.equals(CERTIK_MAIN)) {
                     mResMyProposal = (ResMyProposal) result.resultData;
-                } else {
-                    mMyVote_gRPC = (Gov.Vote) result.resultData;
                 }
+//                else {
+//                    mMyVote_gRPC = (Gov.Vote) result.resultData;
+//                }
             }
 
         } else if (result.taskType == TASK_FETCH_MINTSCAN_PROPOSAL) {
@@ -357,34 +360,32 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain));
                         holder.itemAbstainCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                         holder.itemAbstainProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain)));
-
                     }
 
-                } else if (mMyVote_gRPC != null) {
+                } else if (mProposalStatus != null) {
                     initBgColor(holder);
-                    Gov.VoteOption voteOption = mMyVote_gRPC.getOption();
-                    if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_YES)) {
+                    if ("VOTE_OPTION_YES".equals(mProposalStatus)) {
                         holder.itemYesCard.setAlpha(1f);
                         holder.itemYesDone.setVisibility(View.VISIBLE);
                         holder.itemYesTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteYes));
                         holder.itemYesCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                         holder.itemYesProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteYes)));
 
-                    } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_NO)) {
+                    } else if ("VOTE_OPTION_NO".equals(mProposalStatus)) {
                         holder.itemNoCard.setAlpha(1f);
                         holder.itemNoDone.setVisibility(View.VISIBLE);
                         holder.itemNoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteNo));
                         holder.itemNoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                         holder.itemNoProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteNo)));
 
-                    } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO)) {
+                    } else if ("VOTE_OPTION_NO_WITH_VETO".equals(mProposalStatus)) {
                         holder.itemVetoCard.setAlpha(1f);
                         holder.itemVetoDone.setVisibility(View.VISIBLE);
                         holder.itemVetoTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteVeto));
                         holder.itemVetoCard.setBackground(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.box_vote_voted));
                         holder.itemVetoProgress.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteVeto)));
 
-                    } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_ABSTAIN)) {
+                    } else if ("VOTE_OPTION_ABSTAIN".equals(mProposalStatus)) {
                         holder.itemAbstainCard.setAlpha(1f);
                         holder.itemAbstainDone.setVisibility(View.VISIBLE);
                         holder.itemAbstainTitle.setTextColor(ContextCompat.getColor(VoteDetailsActivity.this, R.color.colorVoteAbstain));
