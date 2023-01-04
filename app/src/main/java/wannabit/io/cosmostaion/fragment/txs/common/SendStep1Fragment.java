@@ -237,7 +237,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (mMintscanToken != null) {
                 half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
             } else {
-                half = mMaxAvailable.divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
+                if (BaseChain.isGRPC(getSActivity().mChainConfig.baseChain())) {
+                    half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
+                } else {
+                    half = mMaxAvailable.divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
+                }
             }
             mAmountInput.setText(half.toPlainString());
 
@@ -245,13 +249,16 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (mMintscanToken != null) {
                 mAmountInput.setText(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN).toPlainString());
             } else {
-                mAmountInput.setText(mMaxAvailable.toPlainString());
+                if (BaseChain.isGRPC(getSActivity().mChainConfig.baseChain())) {
+                    mAmountInput.setText(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN).toPlainString());
+                } else {
+                    mAmountInput.setText(mMaxAvailable.toPlainString());
+                }
             }
             onShowEmptyBalanceWarnDialog();
 
         } else if (v.equals(mClearAll)) {
             mAmountInput.setText("");
-
         }
     }
 
