@@ -904,7 +904,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_square_with_border"
                     android:minHeight="@dimen/space_45"
-                    android:text="@string/str_paste"
+                    android:text="@string/str_paste_mnemonic"
                     android:textAllCaps="false" />
 
                 <Button

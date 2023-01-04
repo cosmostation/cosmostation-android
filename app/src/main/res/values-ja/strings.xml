@@ -27,6 +27,7 @@
     <string name="str_watch">観察する</string>
     <string name="str_address">アドレス</string>
     <string name="str_paste">Paste</string>
+    <string name="str_paste_mnemonic">貼り付け</string>
     <string name="str_send_c">送る</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3送る ＆ もらう]]></string>
 
@@ -838,14 +839,14 @@
     <string name="str_osmosis_join_deposit_coin">コインを入金する (最大)</string>
     <string name="str_osmosis_join_receive_lp_coin">LPコインの受け取り</string>
     <string name="str_exit_insert_lp_coin">LPコイン投入</string>
-    <string name="str_native_token_title">ネイティブコイン</string>
-    <string name="str_ibc_token_title">IBCコイン</string>
-    <string name="str_sif_ether_token_title">イーサブリッジ資産</string>
-    <string name="str_etc_token_title">その他のコイン</string>
+    <string name="str_native_token_title">Native Coins</string>
+    <string name="str_ibc_token_title">IBC Coins</string>
+    <string name="str_sif_ether_token_title">Ether Bridged Assets</string>
+    <string name="str_etc_token_title">Etc Coins</string>
     <string name="str_contract_token_title">Contract Tokens</string>
-    <string name="str_oec_kip10_title">KIP10コイン</string>
-    <string name="str_oec_kip20_title">KIP20コイン</string>
-    <string name="str_unknown_token_title">不明なコイン</string>
+    <string name="str_oec_kip10_title">KIP10 Coins</string>
+    <string name="str_oec_kip20_title">KIP20 Coins</string>
+    <string name="str_unknown_token_title">Unknown Coins</string>
     <string name="str_kava_incentive_info_title">インセンティブ情報</string>
     <string name="str_kava_slippage_title">Slippage</string>
     <string name="str_kava_deposit_my_share_title">My Share</string>
