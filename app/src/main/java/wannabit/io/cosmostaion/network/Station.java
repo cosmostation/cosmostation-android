@@ -26,7 +26,7 @@ public interface Station {
     @GET("v1/utils/params/chain/{chain}")
     Call<Param> getParam(@Path("chain") String chainName);
 
-    @GET("v1/{chain}/proposals/{proposalId}")
+    @GET("v2/{chain}/proposals/{proposalId}")
     Call<ResProposal> getProposal(@Path("chain") String chain, @Path("proposalId") String proposalId);
 
     @GET("v1/{chain}/account/{account}/votes")

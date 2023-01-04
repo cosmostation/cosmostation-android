@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_PROPOSAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSAL_MY_VOTE;
@@ -31,7 +32,6 @@ import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Set;
 
 import cosmos.gov.v1beta1.Gov;
@@ -61,7 +61,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
     // proposal api
     private ResProposal mApiProposal;
-    private Set<ResProposal> selectedSet = Sets.newHashSet();
+    private final Set<ResProposal> selectedSet = Sets.newHashSet();
 
     //gRPC
     private Gov.Vote mMyVote_gRPC;
@@ -237,9 +237,15 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     holder.itemStartTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_start_time));
                     holder.itemFinishTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_end_time));
                 }
-                holder.itemMsg.setText(mApiProposal.description);
-                if (isGRPC(mBaseChain)) {
-                    if (mApiProposal.content != null && mApiProposal.content.amount != null) {
+
+                if (mBaseChain.equals(EVMOS_MAIN)) {
+                    holder.itemMsg.setText(mApiProposal.messages.get(0).content.description);
+                } else {
+                    holder.itemMsg.setText(mApiProposal.messages.get(0).description);
+                }
+
+                if (!isGRPC(mBaseChain)) {
+                    if (mApiProposal.messages != null && mApiProposal.messages.get(0).amount != null) {
                         holder.itemRequestLayer.setVisibility(View.VISIBLE);
                         Coin requestCoin = mApiProposal.getAmounts();
                         if (requestCoin != null) {
@@ -252,12 +258,32 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         holder.itemRequestLayer.setVisibility(View.GONE);
                     }
                 } else {
-                    if (mApiProposal.content != null && mApiProposal.content.recipients != null && mApiProposal.content.recipients.get(0).amount != null) {
-                        holder.itemRequestLayer.setVisibility(View.VISIBLE);
-                        ArrayList<Coin> requestCoin = mApiProposal.content.recipients.get(0).amount;
-                        WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount);
+                    if (mBaseChain.equals(EVMOS_MAIN)) {
+                        if (mApiProposal.messages != null && mApiProposal.messages.get(0).content.amount != null) {
+                            holder.itemRequestLayer.setVisibility(View.VISIBLE);
+                            Coin requestCoin = mApiProposal.getEvmosAmounts();
+                            if (requestCoin != null) {
+                                WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin, holder.itemRequestAmountDenom, holder.itemRequestAmount);
+                            } else {
+                                holder.itemRequestAmountDenom.setText("N/A");
+                                holder.itemRequestAmount.setVisibility(View.GONE);
+                            }
+                        } else {
+                            holder.itemRequestLayer.setVisibility(View.GONE);
+                        }
                     } else {
-                        holder.itemRequestLayer.setVisibility(View.GONE);
+                        if (mApiProposal.messages != null && mApiProposal.messages.get(0).amount != null) {
+                            holder.itemRequestLayer.setVisibility(View.VISIBLE);
+                            Coin requestCoin = mApiProposal.getAmounts();
+                            if (requestCoin != null) {
+                                WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin, holder.itemRequestAmountDenom, holder.itemRequestAmount);
+                            } else {
+                                holder.itemRequestAmountDenom.setText("N/A");
+                                holder.itemRequestAmount.setVisibility(View.GONE);
+                            }
+                        } else {
+                            holder.itemRequestLayer.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
@@ -275,7 +301,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
                 mVoteDetailsAdapter.notifyDataSetChanged();
             });
-
         }
 
         private void onBindVoteTally(RecyclerView.ViewHolder viewHolder) {
