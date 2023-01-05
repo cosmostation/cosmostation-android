@@ -1022,6 +1022,7 @@
     <string name="str_ibc_transfer_msg2">Transfer your asset back to its origin chain by IBC before \nsending it to a centralized exchange.</string>
 
     <string name="str_icns_confirm_title">NameService Found</string>
+    <string name="str_icns_update_nickname_msg">Update wallet name with nameservice name</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
@@ -1125,6 +1126,7 @@
     <string name="error_exchange_address_memo_msg">Certain custodial wallets of CEX require DEPOSIT MEMO, and your assets may be lost forever if sent without MEMO.\n\nPlease check the DEPOSIT MEMO for your account.</string>
     <string name="error_not_enough_liquid_stake">Not enough balance.\nIBC transfer this asset from origin chain to continue</string>
     <string name="error_invalid_icns">Unregistered NameService.</string>
+    <string name="error_invalid_icns_address">The address of the registered name service is incorrect.</string>
 
 
     <string name="tx_send">Send</string>

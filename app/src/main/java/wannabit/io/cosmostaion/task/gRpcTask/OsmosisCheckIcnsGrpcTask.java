@@ -17,11 +17,13 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.dao.ICNSAddressInfoReq;
 import wannabit.io.cosmostaion.dao.ICNSInfoReq;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class OsmosisCheckIcnsGrpcTask extends CommonTask {
@@ -40,14 +42,27 @@ public class OsmosisCheckIcnsGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            ICNSInfoReq infoReq = new ICNSInfoReq(mUserInput);
-            String jsonData = new Gson().toJson(infoReq);
+            String jsonData;
+            if (!WDp.isValidChainAddress(mChainConfig, mUserInput)) {
+                ICNSInfoReq infoReq = new ICNSInfoReq(mUserInput);
+                jsonData = new Gson().toJson(infoReq);
+            } else {
+                ICNSAddressInfoReq infoReq = new ICNSAddressInfoReq(mUserInput);
+                jsonData = new Gson().toJson(infoReq);
+            }
             ByteString queryData = ByteString.copyFromUtf8(jsonData);
             QueryOuterClass.QuerySmartContractStateRequest request = QueryOuterClass.QuerySmartContractStateRequest.newBuilder().setAddress(BaseConstant.ICNS_OSMOSIS_ADDRESS).setQueryData(queryData).build();
             QueryOuterClass.QuerySmartContractStateResponse response = mStub.smartContractState(request);
 
             JSONObject json = new JSONObject(response.getData().toStringUtf8());
-            mResult.resultData = json.get("bech32_address").toString();
+            if (!WDp.isValidChainAddress(mChainConfig, mUserInput)) {
+                mResult.resultData = json.get("bech32_address").toString();
+            } else {
+                String name = json.get("name").toString();
+                if (!name.isEmpty()) {
+                    mResult.resultData = name + "." + mChainConfig.addressPrefix();
+                }
+            }
             mResult.isSuccess = true;
 
         } catch (Exception e) {
