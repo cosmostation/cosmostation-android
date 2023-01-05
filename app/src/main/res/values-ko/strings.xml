@@ -1038,6 +1038,8 @@
     <string name="error_not_enough_liquid_stake">수량이 충분하지 않습니다.\n원 체인으로 부터 IBC전송을 완료하신후 계속 진행하실 수 있습니다.</string>
     <string name="error_invalid_icns">등록되지 않은 네임서비스입니다.</string>
     <string name="error_invalid_icns_address">등록된 네임서비스의 주소가 부정확합니다.</string>
+    <string name="error_warning_title">경고!</string>
+    <string name="error_deprecated_account_msg">해당 주소는 체인에서 더 이상 추가 지원을 하지 않습니다.\n\n원활한 사용을 위해 공식 주소를 생성하여 자산을 이전하는 것을 강력히 권장합니다.\n(설정>지갑 추가 메뉴를 통해 공식 주소를 추가할 수 있습니다.)</string>
 
 
     <string name="tx_send">보내기</string>
