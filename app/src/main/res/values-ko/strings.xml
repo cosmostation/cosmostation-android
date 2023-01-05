@@ -27,6 +27,7 @@
     <string name="str_watch">관찰하기</string>
     <string name="str_address">주소</string>
     <string name="str_paste">Paste</string>
+    <string name="str_paste_translate">붙여넣기</string>
     <string name="str_send_c">보내기</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 보내기 & 받기]]></string>
 
