@@ -34,6 +34,11 @@
     <string name="str_moonPay" translatable="false">MOONPAY</string>
     <string name="str_kadoMoney" translatable="false">KADO</string>
 
+    <string name="str_language_english" translatable="false">English(United States)</string>
+    <string name="str_language_korean" translatable="false">한국어(대한민국)</string>
+    <string name="str_language_japanese" translatable="false">日本語(日本)</string>
+    <string name="str_language_system" translatable="false">System</string>
+
     <string name="str_start">START</string>
     <string name="str_ok">OK</string>
     <string name="str_next">Next</string>
@@ -149,10 +154,6 @@
     <string name="str_general">General</string>
     <string name="str_notice">Notice</string>
     <string name="str_language">Language</string>
-    <string name="str_language_english">English(United States)</string>
-    <string name="str_language_korean">한국어(대한민국)</string>
-    <string name="str_language_japanese">日本語(日本)</string>
-    <string name="str_language_system">System</string>
     <string name="str_theme">Theme</string>
     <string name="str_theme_system">System</string>
     <string name="str_theme_light">Light Mode</string>
