@@ -1031,6 +1031,7 @@
     <string name="error_exchange_address_msg">中央取引所アドレスにIBC出金時、資金が失われる可能性があります。\n\n中央取引所はIBC入金をサポートしていません。\n中央取引所へ送金する前に資産を元のチェーンで送信してください。</string>
     <string name="error_exchange_address_memo_msg">一部 中央化取引所は受諾アドレスを使用するため、デポジットメモが必要です。 取引所にメモなしで入金する場合、資産が永久に失われる可能性があります。\n\nデポジットメモをもう一度確認してください。</string>
     <string name="error_not_enough_liquid_stake">数量が足りません。\n元のチェーンからIBC転送を完了した後、続行できます。</string>
+    <string name="error_invalid_icns">未登録のネームサービスです。</string>
 
     <string name="tx_send">送る</string>
     <string name="tx_receive">もらう</string>
