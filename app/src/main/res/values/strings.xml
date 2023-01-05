@@ -1127,6 +1127,8 @@
     <string name="error_not_enough_liquid_stake">Not enough balance.\nIBC transfer this asset from origin chain to continue</string>
     <string name="error_invalid_icns">Unregistered NameService.</string>
     <string name="error_invalid_icns_address">The address of the registered name service is incorrect.</string>
+    <string name="error_warning_title">WARNING!</string>
+    <string name="error_deprecated_account_msg">You selected deprecated path wallet.\n\nFor your convenience, highly recommend using current official address type.\n(You can add a wallet with default Address type in [Setting] > [Manage Mnemonic / Add Wallet])</string>
 
 
     <string name="tx_send">Send</string>
