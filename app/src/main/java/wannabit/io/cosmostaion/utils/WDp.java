@@ -730,19 +730,6 @@ public class WDp {
                 }
             }
 
-            if (baseData.mCw20MyTokens.size() > 0) {
-                for (MintscanToken myAsset : baseData.mCw20MyTokens) {
-                    BigDecimal amount = myAsset.getAmount();
-                    totalValue = totalValue.add(assetValue(baseData, myAsset.coinGeckoId, amount, myAsset.decimals));
-                }
-
-            } else if (baseData.mErc20MyTokens.size() > 0) {
-                for (MintscanToken myAsset : baseData.mErc20MyTokens) {
-                    BigDecimal amount = myAsset.getAmount();
-                    totalValue = totalValue.add(assetValue(baseData, myAsset.coinGeckoId, amount, myAsset.decimals));
-                }
-            }
-
         } else if (baseChain.equals(BNB_MAIN)) {
             for (Balance balance : baseData.mBalances) {
                 BigDecimal allBnb = BigDecimal.ZERO;
@@ -764,6 +751,19 @@ public class WDp {
                 }
                 BigDecimal assetValue = assetValue(baseData, Okc.OKC_GECKO_ID, allOKT, 0);
                 totalValue = totalValue.add(assetValue);
+            }
+        }
+
+        if (baseData.mCw20MyTokens.size() > 0) {
+            for (MintscanToken myAsset : baseData.mCw20MyTokens) {
+                BigDecimal amount = myAsset.getAmount();
+                totalValue = totalValue.add(assetValue(baseData, myAsset.coinGeckoId, amount, myAsset.decimals));
+            }
+
+        } else if (baseData.mErc20MyTokens.size() > 0) {
+            for (MintscanToken myAsset : baseData.mErc20MyTokens) {
+                BigDecimal amount = myAsset.getAmount();
+                totalValue = totalValue.add(assetValue(baseData, myAsset.coinGeckoId, amount, myAsset.decimals));
             }
         }
         return totalValue;

@@ -890,7 +890,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 }
 
                 if (!mIcnsName.isEmpty()) {
-                    if (mAccount.nickName == null || !mAccount.nickName.equalsIgnoreCase(mIcnsName)) {
+                    if (mAccount.nickName == null || !mAccount.nickName.equals(mIcnsName)) {
                         mAccount.nickName = mIcnsName;
                         getBaseDao().onUpdateAccount(mAccount);
                         Toast.makeText(this, getString(R.string.str_icns_update_nickname_msg), Toast.LENGTH_SHORT).show();
