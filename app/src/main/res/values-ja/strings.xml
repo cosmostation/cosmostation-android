@@ -929,6 +929,7 @@
     <string name="str_ibc_transfer_msg1">集中型取引所では仮想資産IBC機能をサポートしません。</string>
     <string name="str_ibc_transfer_msg2">必ずIBCを通じて該当資産を元のチェーンに転送した後、\n取引所への出金を進めてください。</string>
 
+    <string name="str_icns_confirm_title">名前サービスアドレスの使用</string>
 
     <string name="error_invalid_mnemonic_count">不正確な修復文字です。正確な修復文字を入力してください。</string>
     <string name="error_msg_password_not_same">入力したPIN が正しくありません。\nもう一度入力してください。</string>
