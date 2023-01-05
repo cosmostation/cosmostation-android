@@ -5,20 +5,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/card_validator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
         android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="@dimen/space_4"
+        app:cardBackgroundColor="@color/colorTransBg"
+        app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_8"
-        app:cardBackgroundColor="@color/colorTransBg"
-        android:padding="@dimen/space_4"
-        app:cardUseCompatPadding="true" >
+        app:cardUseCompatPadding="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_72">
@@ -57,77 +59,83 @@
                 android:id="@+id/line_validator"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/views_validator"
-                android:background="@color/colorGray3"
                 android:layout_marginTop="@dimen/space_10"
-                android:layout_marginBottom="@dimen/space_10"/>
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_toRightOf="@+id/views_validator"
+                android:background="@color/colorGray3" />
 
             <ImageView
                 android:id="@+id/checked_validator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_off"
-                android:layout_marginRight="@dimen/space_4"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_marginRight="@dimen/space_4"
+                android:src="@drawable/ic_check_off" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/line_validator"
-                android:layout_toLeftOf="@+id/checked_validator"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                android:layout_toLeftOf="@+id/checked_validator"
+                android:layout_toRightOf="@+id/line_validator"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/moniker_validator"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
                         android:ellipsize="end"
-                        style="@style/font_rr_12_black_daynight"
-                        android:text="moniker"/>
+                        android:singleLine="true"
+                        android:text="moniker" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6">
+
                     <TextView
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_power_validator"
-                        style="@style/font_rr_11_gray1"
-                        android:text="@string/str_voting_power"/>
+                        android:text="@string/str_voting_power" />
+
                     <TextView
                         android:id="@+id/delegate_power_validator"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_rr_11_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/delegate_yield_commission"
-                        style="@style/font_rr_11_gray1"
-                        android:text="@string/str_average_yield"/>
+                        android:text="@string/str_average_yield" />
+
                     <TextView
                         android:id="@+id/delegate_yield_commission"
+                        style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        style="@style/font_rr_11_gray1"
-                        android:text="-"/>
+                        android:text="-" />
                 </RelativeLayout>
             </LinearLayout>
 

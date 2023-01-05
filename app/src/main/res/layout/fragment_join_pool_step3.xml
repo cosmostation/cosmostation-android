@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/main_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_12"
-        android:layout_marginEnd="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_12"
-        app:cardElevation="0dp"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,6 +75,7 @@
                 android:orientation="vertical"
                 android:paddingTop="@dimen/space_16"
                 android:paddingBottom="@dimen/space_16">
+
                 <TextView
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
@@ -90,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -161,8 +158,6 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -189,23 +184,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
+
                 <TextView
                     android:id="@+id/tx_slippage_title"
+                    style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_kava_slippage_title"
-                    style="@style/font_rr_12_gray1"/>
+                    android:text="@string/str_kava_slippage_title" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tx_slippage_title">
+
                     <TextView
                         android:id="@+id/tx_slippage"
+                        style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text=""
-                        style="@style/font_rr_12_black_daynight"/>
+                        android:text="" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -225,7 +223,7 @@
                 android:ellipsize="end"
                 android:lines="2"
                 android:text="" />
-            </LinearLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 
@@ -233,32 +231,34 @@
         android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_24">
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
+        android:layout_marginBottom="@dimen/space_24"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/btn_before"
+            style="@style/font_rr_14_black_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_rr_14_black_daynight"
-            android:textAllCaps="false"
-            android:text="@string/str_back"/>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_back"
+            android:textAllCaps="false" />
+
         <Button
             android:id="@+id/btn_confirm"
+            style="@style/font_rr_14_photon_daynight"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_photon_border"
-            style="@style/font_rr_14_photon_daynight"
-            android:textAllCaps="false"
-            android:text="@string/str_confirm"/>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_confirm"
+            android:textAllCaps="false" />
     </LinearLayout>
 </RelativeLayout>

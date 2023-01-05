@@ -77,7 +77,7 @@
                     android:layout_height="@dimen/space_40"
                     android:layout_marginRight="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_trans_with_border"
+                    android:background="@drawable/btn_trans_no_padding"
                     android:minHeight="@dimen/space_40"
                     android:text="@string/str_delegate"
                     android:textAllCaps="false" />
@@ -90,7 +90,7 @@
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_marginRight="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_trans_with_border"
+                    android:background="@drawable/btn_trans_no_padding"
                     android:minHeight="@dimen/space_40"
                     android:text="@string/str_undelegate"
                     android:textAllCaps="false" />
@@ -102,7 +102,7 @@
                     android:layout_height="@dimen/space_40"
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_trans_with_border"
+                    android:background="@drawable/btn_trans_no_padding"
                     android:minHeight="@dimen/space_40"
                     android:text="@string/str_redelegate"
                     android:textAllCaps="false" />
@@ -242,7 +242,7 @@
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_marginRight="@dimen/space_4"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_trans_with_border"
+                    android:background="@drawable/btn_trans_no_padding"
                     android:minHeight="@dimen/space_40"
                     android:text="@string/str_claim_reward"
                     android:textAllCaps="false" />
@@ -255,7 +255,7 @@
                     android:layout_marginLeft="@dimen/space_4"
                     android:layout_marginTop="@dimen/space_12"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_trans_with_border"
+                    android:background="@drawable/btn_trans_no_padding"
                     android:minHeight="@dimen/space_40"
                     android:text="@string/str_reinvest"
                     android:textAllCaps="false" />

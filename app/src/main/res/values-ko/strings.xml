@@ -5,7 +5,7 @@
     <string name="str_ok">OK</string>
     <string name="str_next">다음</string>
     <string name="str_import">등록</string>
-    <string name="str_sorting">정열</string>
+    <string name="str_sorting">정렬</string>
     <string name="str_restore_key">개인키로 지갑복원</string>
     <string name="str_restore_mnemonic">니모닉으로 지갑복원</string>
     <string name="str_mnemonic_delete">니모닉 삭제</string>
@@ -27,7 +27,7 @@
     <string name="str_private_key">개인키</string>
     <string name="str_watch">관찰하기</string>
     <string name="str_address">주소</string>
-    <string name="str_paste">붙여넣기</string>
+    <string name="str_paste">Paste</string>
     <string name="str_send_c">보내기</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 보내기 & 받기]]></string>
 
@@ -45,7 +45,7 @@
     <string name="str_connect">연결</string>
     <string name="str_wait">기다리기</string>
     <string name="str_recipient_address">받을 주소</string>
-    <string name="str_starname_recipient_address">스타네임 또는 받을 주소</string>
+    <string name="str_starname_recipient_address">네임 서비스 또는 받을 주소</string>
     <string name="str_recipient_chain">수취인 체인</string>
     <string name="str_claim_address">수신 요청 주소</string>
     <string name="str_done">완료</string>
@@ -96,7 +96,8 @@
     <string name="str_accounts">계정</string>
     <string name="str_web">웹</string>
     <string name="str_detail">자세히</string>
-    <string name="str_wallet">지갑</string>
+    <string name="str_wallet">Wallet</string>
+    <string name="str_wallet_title">지갑</string>
 
     <string name="str_mnemonic_manage">니모닉 관리 / 지갑 추가</string>
     <string name="str_mnemonic_detail">니모닉 상세</string>
@@ -117,6 +118,7 @@
     <string name="str_language">언어</string>
     <string name="str_language_english">영어</string>
     <string name="str_language_korean">한국어</string>
+    <string name="str_language_japanese">일본어</string>
     <string name="str_theme">테마</string>
     <string name="str_theme_system">시스템</string>
     <string name="str_theme_light">라이트 모드</string>
@@ -200,8 +202,8 @@
     <string name="str_add1">+ 1</string>
     <string name="str_add10">+ 10</string>
     <string name="str_add100">+ 100</string>
-    <string name="str_add_half">절반</string>
-    <string name="str_add_max">최대</string>
+    <string name="str_add_half">Half</string>
+    <string name="str_add_max">Max</string>
     <string name="str_max_available_delegate_amount"><![CDATA[최대 위임 가능량 : ]]></string>
     <string name="str_max_available_undelegate_amount"><![CDATA[최대 위임 철회 가능량 : ]]></string>
     <string name="str_max_available_redelegate_amount"><![CDATA[최대 재위임 가능량 : ]]></string>
@@ -370,7 +372,7 @@
     <string name="str_unknown_tx">이 메시지는 모바일에서 지원하지 않습니다.\n민트스캔 익스플로러에서 자세한 내용을 확인해 주세요.</string>
     <string name="str_buy_coin">%1$s 구입</string>
     <string name="str_buy_crypto">크립토 구입</string>
-    <string name="str_kava_dapp"><![CDATA[Kava DeFi]]> </string>
+    <string name="str_kava_dapp"><![CDATA[Kava De-Fi]]> </string>
     <string name="str_buy_without_key_msg">구매 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구매하시겠습니까?</string>
     <string name="str_buy_select_fiat_title">통화 선택</string>
     <string name="str_buy_select_fiat_msg">구매를 하기위한 통화를 선택하세요.</string>
@@ -576,7 +578,7 @@
     <string name="str_sorting_by_yield">이율로 정렬</string>
     <string name="str_sorting_by_my_delegated">내 위임 수량으로 정렬</string>
     <string name="str_sorting_by_reward">내 이자 수량으로 정렬</string>
-    <string name="str_qr_code">스캔</string>
+    <string name="str_qr_code">Scan</string>
     <string name="str_recent">최근 목록</string>
     <string name="str_delegate_notice">위임 시 해당 검증인에게 발생한 기존 이자는 사용 가능 수량으로 자동 정산 됩니다.</string>
     <string name="str_undelegate_notice">현재 이 검증인에게 받을 이자가 있다면,\n위임 철회를 하는 순간 모든 이자는 귀하의 사용가능\n수량으로 자동적으로 입금될 것입니다.</string>
@@ -690,8 +692,8 @@
     <string name="str_admin_address">관리자</string>
     <string name="str_domain">도메인</string>
     <string name="str_account">계정</string>
-    <string name="str_starnamne">스타네임</string>
-    <string name="str_starnamne_fee">스타네임 수수료</string>
+    <string name="str_starname">스타네임</string>
+    <string name="str_starname_fee">스타네임 수수료</string>
     <string name="str_owner">소유자</string>
     <string name="str_register">등록자</string>
     <string name="str_register_domain">프리미엄 스타네임 등록하기</string>
@@ -865,7 +867,7 @@
     <string name="str_ibc_recipient_chain">수신 체인</string>
     <string name="str_select_starname_domain">도메인 선택</string>
     <string name="str_picker_dialog_title">지정 경로를 선택 하세요</string>
-    <string name="str_sif_dex_title">SifChain DeFi</string>
+    <string name="str_sif_dex_title">SifChain De-Fi</string>
     <string name="str_sif_dex_swap">Swap</string>
     <string name="str_sif_dex_ibc_pool">IBC Pool</string>
     <string name="str_sif_dex_eth_pol">Eth Pool</string>
@@ -929,6 +931,8 @@
     <string name="str_ibc_transfer_title">IBC 전송하기</string>
     <string name="str_ibc_transfer_msg1">중앙화 거래소에서는 가상자산의 IBC 기능을 지원하지 않습니다.</string>
     <string name="str_ibc_transfer_msg2">반드시 IBC를 통해 해당 자산을 원래 체인으로 전송한 후, \n거래소로의 출금을 진행하세요.</string>
+
+    <string name="str_icns_confirm_title">네임서비스 주소 사용</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -1031,6 +1035,7 @@
     <string name="error_exchange_address_msg">중앙 거래소 주소로 IBC 출금시 자금이 손실될 수 있습니다.\n\n중앙 거래소는 IBC 입금을 지원하지 않습니다.\n중앙 거래소로 보내기전에 자산을 원래 체인으로 전송하세요.</string>
     <string name="error_exchange_address_memo_msg">일부 중앙화 거래소는 수탁 주소를 사용하기 때문에 입금 메모가 필요합니다. 거래소에 메모 없이 입금 시 자산이 영구 손실될 수 있습니다.\n\n입금 메모가 필요한지 다시 한번 확인해주세요!</string>
     <string name="error_not_enough_liquid_stake">수량이 충분하지 않습니다.\n원 체인으로 부터 IBC전송을 완료하신후 계속 진행하실 수 있습니다.</string>
+    <string name="error_invalid_icns">등록되지 않은 네임서비스입니다.</string>
 
 
     <string name="tx_send">보내기</string>
@@ -1270,12 +1275,10 @@
     <string name="tx_kava_earn_withdraw">어닝 리퀴디티 출금</string>
     <string name="tx_kava_earn_deposit">어닝 리퀴디티\n입금</string>
 
-    <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
-    <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
-    <string name="str_dp_time_format3" >HH:mm:ss</string>
+    <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
+    <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>
+    <string name="str_dp_time_format3">HH:mm:ss</string>
     <string name="str_dp_time_format4">yyyy-MM-dd</string>
-    <string name="str_dp_date_format" >yyyy-MM-dd</string>
-    <string name="str_wc_connect_dialog"> 연결을 허용하시겠습니까?</string>
-    <string name="str_wc_allow_title">연결 허용된 목록</string>
+    <string name="str_dp_date_format">yyyy-MM-dd</string>
 
 </resources>

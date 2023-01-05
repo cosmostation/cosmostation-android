@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_4"
-                android:text="@string/str_wallet" />
+                android:text="@string/str_wallet_title" />
 
             <FrameLayout
                 android:id="@+id/card_wallet"
