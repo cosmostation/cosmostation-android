@@ -116,9 +116,10 @@
     <string name="str_general">일반</string>
     <string name="str_notice">공지사항</string>
     <string name="str_language">언어</string>
-    <string name="str_language_english">영어</string>
-    <string name="str_language_korean">한국어</string>
-    <string name="str_language_japanese">일본어</string>
+    <string name="str_language_english">English(United States)</string>
+    <string name="str_language_korean">한국어(대한민국)</string>
+    <string name="str_language_japanese">日本語(日本)</string>
+    <string name="str_language_system">System</string>
     <string name="str_theme">테마</string>
     <string name="str_theme_system">시스템</string>
     <string name="str_theme_light">라이트 모드</string>
