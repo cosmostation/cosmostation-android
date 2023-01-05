@@ -263,7 +263,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mBtnLanguage)) {
             FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_theme_system), view -> setLanguage(getBaseActivity(), LanguageUtil.SYSTEM_MODE), null,
+                    getString(R.string.str_language_system), view -> setLanguage(getBaseActivity(), LanguageUtil.SYSTEM_MODE), null,
                     getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_ENGLISH), null,
                     getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_KOREAN), null,
                     getString(R.string.str_language_japanese), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_JAPANESE), null);

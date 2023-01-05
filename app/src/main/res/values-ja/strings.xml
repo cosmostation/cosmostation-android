@@ -116,9 +116,6 @@
     <string name="str_general">一般</string>
     <string name="str_notice">お知らせ</string>
     <string name="str_language">言語</string>
-    <string name="str_language_english">英語</string>
-    <string name="str_language_korean">韓国語</string>
-    <string name="str_language_japanese">日本語</string>
     <string name="str_theme">テーマ</string>
     <string name="str_theme_system">システム</string>
     <string name="str_theme_light">ライトモード</string>
