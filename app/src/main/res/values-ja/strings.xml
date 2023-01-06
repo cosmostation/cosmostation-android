@@ -116,9 +116,6 @@
     <string name="str_general">一般</string>
     <string name="str_notice">お知らせ</string>
     <string name="str_language">言語</string>
-    <string name="str_language_english">英語</string>
-    <string name="str_language_korean">韓国語</string>
-    <string name="str_language_japanese">日本語</string>
     <string name="str_theme">テーマ</string>
     <string name="str_theme_system">システム</string>
     <string name="str_theme_light">ライトモード</string>
@@ -930,6 +927,7 @@
     <string name="str_ibc_transfer_msg2">必ずIBCを通じて該当資産を元のチェーンに転送した後、\n取引所への出金を進めてください。</string>
 
     <string name="str_icns_confirm_title">名前サービスアドレスの使用</string>
+    <string name="str_icns_update_nickname_msg">Update wallet name with nameservice name</string>
 
     <string name="error_invalid_mnemonic_count">不正確な修復文字です。正確な修復文字を入力してください。</string>
     <string name="error_msg_password_not_same">入力したPIN が正しくありません。\nもう一度入力してください。</string>
@@ -1031,6 +1029,11 @@
     <string name="error_exchange_address_msg">中央取引所アドレスにIBC出金時、資金が失われる可能性があります。\n\n中央取引所はIBC入金をサポートしていません。\n中央取引所へ送金する前に資産を元のチェーンで送信してください。</string>
     <string name="error_exchange_address_memo_msg">一部 中央化取引所は受諾アドレスを使用するため、デポジットメモが必要です。 取引所にメモなしで入金する場合、資産が永久に失われる可能性があります。\n\nデポジットメモをもう一度確認してください。</string>
     <string name="error_not_enough_liquid_stake">数量が足りません。\n元のチェーンからIBC転送を完了した後、続行できます。</string>
+    <string name="error_invalid_icns">未登録のネームサービスです。</string>
+    <string name="error_invalid_icns_address">登録されたネームサービスのアドレスが不正確です。</string>
+    <string name="error_warning_title">警告!</string>
+    <string name="error_deprecated_account_msg">You selected deprecated path wallet.\n\nFor your convenience, highly recommend using current official address type.\n(You can add a wallet with default Address type in [Setting] > [Manage Mnemonic / Add Wallet])</string>
+
 
     <string name="tx_send">送る</string>
     <string name="tx_receive">もらう</string>

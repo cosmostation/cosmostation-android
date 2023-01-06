@@ -359,7 +359,6 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     }
 
                     Bundle bundleData = new Bundle();
-                    bundleData.putString("address", getSActivity().mAccount.address);
                     bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, userInput);
                     bundleData.putSerializable(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, mMatchAddressList);
 
@@ -367,6 +366,18 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                         NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
                         dialog.show(getParentFragmentManager(), NameConfirmDialog.class.getName());
                         getParentFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
+                            if (getSActivity().mAccount.address.equalsIgnoreCase(matchAddress)) {
+                                Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                return;
+                            }
+
+                            if (!WDp.isValidChainAddress(mToSendChainConfig, matchAddress)) {
+                                Toast.makeText(getContext(), R.string.error_invalid_icns_address, Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                return;
+                            }
+
                             int result = bundle.getInt(BaseConstant.POSITION);
                             String originAddress = mMatchAddressList.get(result);
                             getSActivity().mToAddress = originAddress;
@@ -413,7 +424,6 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
             Bundle bundleData = new Bundle();
-            bundleData.putString("address", getSActivity().mAccount.address);
             bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, mUserInput);
             bundleData.putSerializable(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, mMatchAddressList);
 
@@ -422,8 +432,21 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 dialog.show(getParentFragmentManager(), NameConfirmDialog.class.getName());
                 getParentFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, SendStep0Fragment.this, (requestKey, bundle) -> {
                     int position = bundle.getInt(BaseConstant.POSITION);
-                    String originAddress = mMatchAddressList.get(position);
-                    getSActivity().mToAddress = originAddress;
+                    String matchAddress = mMatchAddressList.get(position);
+
+                    if (getSActivity().mAccount.address.equalsIgnoreCase(matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        return;
+                    }
+
+                    if (!WDp.isValidChainAddress(mToSendChainConfig, matchAddress)) {
+                        Toast.makeText(getContext(), R.string.error_invalid_icns_address, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        return;
+                    }
+
+                    getSActivity().mToAddress = matchAddress;
                     getSActivity().onNextStep();
                 });
             }

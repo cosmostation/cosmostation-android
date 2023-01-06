@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -42,6 +43,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.fragment.DappFragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
@@ -254,6 +256,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(1).onRefreshTab();
             if (mPageAdapter.getItem(2) != null && mPageAdapter.mCurrentFragment != mPageAdapter.getItem(2))
                 ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(2).onRefreshTab();
+
+            if (mChainConfig.baseChain().equals(OKEX_MAIN) && !mChainConfig.getHdPath(mAccount.customPath, mAccount.path).contains("60")) {
+                CommonAlertDialog.showSingleButton(this, getString(R.string.error_warning_title), getString(R.string.error_deprecated_account_msg), getString(R.string.str_confirm), null);
+            }
+            mToolbarTitle.setText(mAccount.nickName);
         }
     }
 

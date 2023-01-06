@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class NameConfirmDialog extends DialogFragment {
@@ -32,7 +30,6 @@ public class NameConfirmDialog extends DialogFragment {
     private TextView mDialogTitle;
     private AccountListAdapter mAccountListAdapter;
 
-    private String mAddress;
     private String mNameService;
     private ArrayList<String> mMatchAddressList = new ArrayList<>();
 
@@ -49,7 +46,6 @@ public class NameConfirmDialog extends DialogFragment {
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mRecyclerView = view.findViewById(R.id.recycler);
 
-        mAddress = getArguments().getString("address");
         mNameService = getArguments().getString(NameConfirmDialog.NAME_BUNDLE_KEY);
         mMatchAddressList = (ArrayList<String>) getArguments().getSerializable(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY);
 
@@ -86,11 +82,6 @@ public class NameConfirmDialog extends DialogFragment {
             }
 
             holder.rootLayer.setOnClickListener(v -> {
-                if (mAddress.equalsIgnoreCase(matchAddress)) {
-                    Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
-                    dismiss();
-                    return;
-                }
                 Bundle result = new Bundle();
                 result.putInt(BaseConstant.POSITION, position);
                 getParentFragmentManager().setFragmentResult(NameConfirmDialog.CONFIRM_BUNDLE_KEY, result);

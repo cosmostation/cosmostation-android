@@ -27,6 +27,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_V
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ICNS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_CONFIG;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED_VALIDATORS;
@@ -140,6 +141,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.DelegationsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.Erc20BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaMarketPriceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisCheckIcnsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcConfigTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcFeeTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
@@ -162,6 +164,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public Account mAccount;
     public BaseChain mBaseChain;
     public ChainConfig mChainConfig;
+    public String mIcnsName = "";
 
     protected int mTaskCount;
     private FetchCallBack mFetchCallback;
@@ -546,6 +549,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         getBaseDao().mGrpcStarNameFee = null;
         getBaseDao().mGrpcStarNameConfig = null;
+        mIcnsName = "";
 
 
         if (mBaseChain.equals(BNB_MAIN)) {
@@ -620,7 +624,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-
     }
 
     @Override
@@ -718,11 +721,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             tendermint.p2p.Types.NodeInfo tempNodeInfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (tempNodeInfo != null) {
                 getBaseDao().mGRpcNodeInfo = tempNodeInfo;
-                mTaskCount = mTaskCount + 4;
+                mTaskCount = mTaskCount + 5;
                 new MintScanAssetsTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanCw20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintscanErc20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanUtilityParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new OsmosisCheckIcnsGrpcTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_AUTH) {
@@ -838,6 +842,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     }
                 }
             }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_ICNS) {
+            if (result.isSuccess && result.resultData != null) {
+                mIcnsName = (String) result.resultData;
+            }
         }
 
         if (mTaskCount == 0) {
@@ -872,6 +881,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         snapBalance.add(new Balance(mAccount.id, coin.denom, coin.amount, Calendar.getInstance().getTime().getTime(), "0", "0"));
                     }
                     getBaseDao().onUpdateBalances(mAccount.id, snapBalance);
+                }
+
+                if (!mIcnsName.isEmpty()) {
+                    if (mAccount.nickName == null || !mAccount.nickName.equals(mIcnsName)) {
+                        mAccount.nickName = mIcnsName;
+                        getBaseDao().onUpdateAccount(mAccount);
+                        Toast.makeText(this, getString(R.string.str_icns_update_nickname_msg), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             } else if (mBaseChain.equals(BNB_MAIN)) {

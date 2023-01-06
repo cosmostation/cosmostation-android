@@ -34,6 +34,11 @@
     <string name="str_moonPay" translatable="false">MOONPAY</string>
     <string name="str_kadoMoney" translatable="false">KADO</string>
 
+    <string name="str_language_english" translatable="false">English(United States)</string>
+    <string name="str_language_korean" translatable="false">한국어(대한민국)</string>
+    <string name="str_language_japanese" translatable="false">日本語(日本)</string>
+    <string name="str_language_system" translatable="false">System</string>
+
     <string name="str_start">START</string>
     <string name="str_ok">OK</string>
     <string name="str_next">Next</string>
@@ -150,9 +155,6 @@
     <string name="str_general">General</string>
     <string name="str_notice">Notice</string>
     <string name="str_language">Language</string>
-    <string name="str_language_english">English</string>
-    <string name="str_language_korean">Korean</string>
-    <string name="str_language_japanese">Japanese</string>
     <string name="str_theme">Theme</string>
     <string name="str_theme_system">System</string>
     <string name="str_theme_light">Light Mode</string>
@@ -368,7 +370,7 @@
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
     <string name="str_average_yield">Average Yield</string>
-    <string name="str_est_apr">Est. APY</string>
+    <string name="str_est_apr">Est. APR</string>
     <string name="str_daily_return">Est. Daily Reward</string>
     <string name="str_monthly_return">Est. Monthly Reward</string>
     <string name="str_home">Home Page</string>
@@ -382,7 +384,7 @@
     <string name="str_fee_speed_title_fixed">This chain support fixed Tx fee</string>
     <string name="str_empty_warnning_title">Warning!</string>
     <string name="str_empty_warnning_msg">You will be left with no available balance after this Tx. You will not have any available coin to be used as gas to make another Tx after this.</string>
-    <string name="str_validator">Validator</string>
+    <string name="str_validator">Validators</string>
     <string name="str_price">Price</string>
     <string name="str_current_delegation">Current Delegation</string>
     <string name="str_expected_delegation">Expected Delegation</string>
@@ -625,9 +627,9 @@
     <string name="str_start_delegate">Delegate your tokens with Cosmostation.\nStart earning staking rewards and contribute\nto the network ecosystem.</string>
     <string name="str_only_observe_title">No Private Key.</string>
     <string name="str_only_observe_msg">This account has only address with watch mode.\nYou need add mnemonics for generate transaction.\n</string>
-    <string name="str_top_100_validators">Top</string>
-    <string name="str_other_validators">Others</string>
-    <string name="str_my_validators">My</string>
+    <string name="str_top_100_validators">Top Validator</string>
+    <string name="str_other_validators">Others Node</string>
+    <string name="str_my_validators">My Validator</string>
     <string name="str_withdraw_all">Claim all Rewards</string>
     <string name="str_delegated">Delegated</string>
     <string name="str_unbonding">Unbonding</string>
@@ -665,8 +667,8 @@
     <string name="str_sorting_by_name">By Name</string>
     <string name="str_sorting_by_power">By Voting Power</string>
     <string name="str_sorting_by_yield">By APR</string>
-    <string name="str_sorting_by_my_delegated">By My Delegations</string>
-    <string name="str_sorting_by_reward">By Reward</string>
+    <string name="str_sorting_by_my_delegated">By My Delegated Amount</string>
+    <string name="str_sorting_by_reward">By Reward Amount</string>
     <string name="str_qr_code">Scan</string>
     <string name="str_recent">Recent</string>
     <string name="str_delegate_notice">When you delegate, your accumulated rewards will be automatically claimed to your available balance.</string>
@@ -1023,6 +1025,7 @@
     <string name="str_ibc_transfer_msg2">Transfer your asset back to its origin chain by IBC before \nsending it to a centralized exchange.</string>
 
     <string name="str_icns_confirm_title">NameService Found</string>
+    <string name="str_icns_update_nickname_msg">Update wallet name with nameservice name</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
@@ -1126,6 +1129,9 @@
     <string name="error_exchange_address_memo_msg">Certain custodial wallets of CEX require DEPOSIT MEMO, and your assets may be lost forever if sent without MEMO.\n\nPlease check the DEPOSIT MEMO for your account.</string>
     <string name="error_not_enough_liquid_stake">Not enough balance.\nIBC transfer this asset from origin chain to continue</string>
     <string name="error_invalid_icns">Unregistered NameService.</string>
+    <string name="error_invalid_icns_address">The address of the registered name service is incorrect.</string>
+    <string name="error_warning_title">WARNING!</string>
+    <string name="error_deprecated_account_msg">You selected deprecated path wallet.\n\nFor your convenience, highly recommend using current official address type.\n(You can add a wallet with default Address type in [Setting] > [Manage Mnemonic / Add Wallet])</string>
 
 
     <string name="tx_send">Send</string>
