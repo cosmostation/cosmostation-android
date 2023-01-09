@@ -245,7 +245,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else {
             if (account.isLedger()) {
                 keyState.setImageResource(R.drawable.icon_ledger_wallet_dark);
-                keyState.setColorFilter(null);
+                keyState.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
             } else {
                 keyState.setImageResource(R.drawable.watchmode);
                 keyState.setColorFilter(null);

@@ -124,7 +124,7 @@
     <string name="str_notification">알림</string>
     <string name="str_app_applock">앱 잠금</string>
     <string name="str_app_auto_pass">핀코드 자동 통과</string>
-    <string name="str_app_auto_pass_msg">최초 핀코드를 통과한 이후 설정한 시간동안 핀코드를 자동으로 통과합니다.\nTx 전송, 개인 데이터 확인에 해당 됩니다.\n(앱 잠금은 항상 작동합니다.)</string>
+    <string name="str_app_auto_pass_msg">최초 핀코드를 통과한 이후 설정한 시간동안 핀코드를\n자동으로 통과합니다.\nTx 전송, 개인 데이터 확인에 해당 됩니다.\n(앱 잠금은 항상 작동합니다.)</string>
     <string name="str_app_auto_pass_5m">5분</string>
     <string name="str_app_auto_pass_10m">10분</string>
     <string name="str_app_auto_pass_30m">30분</string>
@@ -932,6 +932,11 @@
 
     <string name="str_icns_confirm_title">네임서비스 주소 사용</string>
     <string name="str_icns_update_nickname_msg">지갑 이름을 네임서비스와 동기화 시켰습니다.</string>
+    <string name="str_connect_ledger_msg"><![CDATA[1. 렛저를 <font color=\'#05D2DD\'>해제</font>하세요.<br/>2. <font color=\'#05D2DD\'>코스모스 앱</font>을 실행하세요.]]></string>
+    <string name="str_pairing_ledger_title">렛저 연결중</string>
+    <string name="str_pairing_connect_bluetooth_msg">블루투스를 활성화시켜주세요.</string>
+    <string name="str_pairing_ledger_msg">블루투스 기기를 찾지 못했습니다.</string>
+    <string name="str_select_chain_title">체인 선택하기</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

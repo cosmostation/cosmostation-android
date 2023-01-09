@@ -12,6 +12,7 @@
     <string name="str_mnemonic_delete_msg">ニーモニックをバックアップしないと、二度と復元することができません!\n\nまた、つながった%1$s個のウォレットも削除されます。</string>
     <string name="str_clear_all">すべてクリア</string>
     <string name="str_create">ウォーレット生成</string>
+    <string name="str_ledger">Connect Ledger</string>
     <string name="str_check_mnemonic_c">復旧単語確認</string>
     <string name="str_check_private_key_c">プライベートキー確認</string>
     <string name="str_manage_mnemonic">ニーモニックの管理</string>
@@ -928,6 +929,12 @@
 
     <string name="str_icns_confirm_title">名前サービスアドレスの使用</string>
     <string name="str_icns_update_nickname_msg">Update wallet name with nameservice name</string>
+    <string name="str_connect_ledger_msg"><![CDATA[1. <font color=\'#05D2DD\'>Unlock</font> your Ledger.<br/>2. Open <font color=\'#05D2DD\'>Cosmos app</font>.]]></string>
+    <string name="str_pairing_ledger_title">Pairing Ledger</string>
+    <string name="str_pairing_connect_bluetooth_msg">Please turn on bluetooth.</string>
+    <string name="str_pairing_ledger_msg">No Bluetooth devices were detected.</string>
+    <string name="str_select_chain_title">Select a Chain</string>
+
 
     <string name="error_invalid_mnemonic_count">不正確な修復文字です。正確な修復文字を入力してください。</string>
     <string name="error_msg_password_not_same">入力したPIN が正しくありません。\nもう一度入力してください。</string>

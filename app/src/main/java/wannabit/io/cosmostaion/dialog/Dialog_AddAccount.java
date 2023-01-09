@@ -16,11 +16,12 @@ import wannabit.io.cosmostaion.activities.setting.MnemonicCreateActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
 import wannabit.io.cosmostaion.activities.setting.WatchingWalletAddActivity;
+import wannabit.io.cosmostaion.utils.LedgerManager;
 
 public class Dialog_AddAccount extends DialogFragment {
 
     private LinearLayout btn_import_key, btn_import_mnemonic, btn_watch_address;
-    private Button btn_create;
+    private Button btn_create, btn_ledger;
 
     public static Dialog_AddAccount newInstance(Bundle bundle) {
         Dialog_AddAccount frag = new Dialog_AddAccount();
@@ -37,6 +38,7 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_import_mnemonic = view.findViewById(R.id.btn_import_mnemonic);
         btn_watch_address = view.findViewById(R.id.btn_watch_address);
         btn_create = view.findViewById(R.id.btn_create);
+        btn_ledger = view.findViewById(R.id.btn_ledger);
 
         btn_import_key.setOnClickListener(v -> {
             Intent restoreIntent = new Intent(getActivity(), PrivateKeyRestoreActivity.class);
@@ -59,6 +61,10 @@ public class Dialog_AddAccount extends DialogFragment {
             Intent createIntent = new Intent(getActivity(), MnemonicCreateActivity.class);
             startActivity(createIntent);
             dismiss();
+        });
+
+        btn_ledger.setOnClickListener(v -> {
+            LedgerManager.getInstance().connectLedger(requireContext());
         });
 
         return view;

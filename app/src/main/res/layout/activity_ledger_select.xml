@@ -18,7 +18,7 @@
             style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select a Chain" />
+            android:text="@string/str_select_chain_title" />
 
         <RelativeLayout
             android:id="@+id/hd_path_layer"
@@ -92,4 +92,42 @@
         android:clipToPadding="false"
         android:overScrollMode="never"
         android:paddingTop="@dimen/space_4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
+        android:layout_marginBottom="@dimen/space_14"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_disconnect"
+            style="@style/font_ss_14_red"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:background="@drawable/btn_trans_with_red_border"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_delete_wallet"
+            android:textAllCaps="false" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/space_8" />
+
+        <Button
+            android:id="@+id/btn_connect"
+            style="@style/font_rr_14_photon_daynight"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:background="@drawable/btn_trans_with_photon_border"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_connect"
+            android:textAllCaps="false" />
+    </LinearLayout>
 </LinearLayout>
