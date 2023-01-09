@@ -311,7 +311,7 @@ public class Param {
         if (mParams != null) {
             if (mParams.mStargazeMintingParams != null && chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
                 return new BigDecimal(mParams.mStargazeMintingParams.params.blocks_per_year);
-            } else if (mParams.mMintingParams != null && mParams.mMintingParams.params != null) {
+            } else if (mParams.mMintingParams != null && mParams.mMintingParams.params != null && mParams.mMintingParams.params.blocks_per_year != null) {
                 return new BigDecimal(mParams.mMintingParams.params.blocks_per_year);
             } else {
                 return BigDecimal.ZERO;
@@ -378,9 +378,11 @@ public class Param {
 
     public boolean isOracleEnable(String valOpAddress) {
         if (mParams.mOracleActiveValidators == null) return true;
-        for (Param.OracleActiveValidators.Result.Oracle oracle : mParams.mOracleActiveValidators.result.oracles) {
-            if (oracle.address.equalsIgnoreCase(valOpAddress)) {
-                return true;
+        if (mParams.mOracleActiveValidators.validators != null) {
+            for (Param.OracleActiveValidators.validators oracle : mParams.mOracleActiveValidators.validators) {
+                if (oracle.address.equalsIgnoreCase(valOpAddress)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -683,17 +685,16 @@ public class Param {
     }
 
     public class OracleActiveValidators {
-        @SerializedName("result")
-        public Result result;
+        @SerializedName("validators")
+        public ArrayList<validators> validators;
 
-        public class Result {
-            @SerializedName("result")
-            public ArrayList<Oracle> oracles;
+        public class validators {
+            @SerializedName("address")
+            public String address;
 
-            public class Oracle {
-                @SerializedName("address")
-                public String address;
-            }
+            @SerializedName("power")
+            public String power;
+
         }
     }
 
