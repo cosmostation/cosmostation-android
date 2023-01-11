@@ -99,6 +99,10 @@ public class Msg {
         public String shares;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("strategy")
+        public Integer strategy;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("delegation")
         public Coin delegation;
 
@@ -119,15 +123,16 @@ public class Msg {
                 int temp = new Gson().fromJson(new Gson().toJson(option), Integer.class);
                 return String.valueOf(temp);
 
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
 
             try {
                 String temp = new Gson().fromJson(new Gson().toJson(option), String.class);
                 return temp;
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             return "";
         }
-
 
 
         //FOR KAVA
@@ -248,7 +253,6 @@ public class Msg {
         public Coin min_token_b;
 
 
-
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("swap_id")
         public String swap_id;
@@ -288,7 +292,6 @@ public class Msg {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("cross_chain")
         public Boolean cross_chain;
-
 
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
