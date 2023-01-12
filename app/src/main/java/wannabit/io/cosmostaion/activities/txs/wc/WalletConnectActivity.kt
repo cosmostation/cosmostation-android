@@ -44,6 +44,7 @@ import net.i2p.crypto.eddsa.Utils
 import okhttp3.OkHttpClient
 import org.apache.commons.lang3.StringUtils
 import org.bitcoinj.core.ECKey
+import org.json.JSONArray
 import org.json.JSONObject
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
@@ -857,36 +858,73 @@ class WalletConnectActivity : BaseActivity() {
         return listOf()
     }
 
+    private fun convertKavaTx(txString: String): JSONObject {
+        val kavaTx = JSONObject()
+        val jsonTx = JSONObject(txString)
+
+        kavaTx.put("chain_id", jsonTx.get("chainId"))
+        kavaTx.put("account_number", jsonTx.get("accountNumber"))
+
+        val messageArray = jsonTx.getJSONArray("messages")
+        val msgs = JSONArray()
+        for (i in 0 until messageArray.length()) {
+            val rawMessage = messageArray.getJSONObject(i).getJSONObject("rawJsonMessage")
+            val msg = JSONObject()
+            msg.put("type", rawMessage.getString("type"))
+            msg.put("value", JSONObject(rawMessage.getString("value")))
+            msgs.put(msg)
+        }
+        kavaTx.put("msgs", msgs)
+
+        val fee = jsonTx.getJSONObject("fee")
+        val amount = fee.getJSONArray("amounts")
+        val kavaFee = JSONObject()
+        kavaFee.put("gas", fee.getString("gas"))
+        kavaFee.put("amount", amount)
+        kavaTx.put("fee", kavaFee)
+
+        kavaTx.put("sequence", jsonTx.get("sequence"))
+        kavaTx.put("memo", jsonTx.get("memo"))
+
+        return kavaTx
+    }
+
     fun approveTrustRequest(id: Long, wcSignTransaction: String) {
         try {
-            val wcStdSignMsg = Gson().fromJson(wcSignTransaction, StdSignMsg::class.java)
-            val transactionJson = JSONObject(wcSignTransaction)
-            val messagesArray = transactionJson.getJSONArray("messages")
-            val msgList = arrayListOf<Msg>()
-            for (i in 0 until messagesArray.length()) {
-                val rawMessage = messagesArray.getJSONObject(i).getJSONObject("rawJsonMessage")
-                val msgModel = Msg()
-                msgModel.type = rawMessage.getString("type")
-                msgModel.value =
-                    Gson().fromJson(rawMessage.getString("value"), Msg.Value::class.java)
-                if (msgModel.value.amount != null) {
-                    msgModel.value.amount = parseAmount(msgModel.value.amount)
-                }
-                msgList.add(msgModel)
-            }
-            wcStdSignMsg.msgs = msgList
-            val account = Account()
-            account.accountNumber = wcStdSignMsg.account_number.toInt()
-            account.sequenceNumber = wcStdSignMsg.sequence.toInt()
-            val tx = MsgGenerator.getWcTrustBroadcaseReq(
-                account,
-                msgList,
-                wcStdSignMsg.fee,
-                wcStdSignMsg.memo,
-                getKey(WDp.getChainTypeByChainId(wcStdSignMsg.chain_id).chain),
-                wcStdSignMsg.chain_id
+            val kavaTx = convertKavaTx(wcSignTransaction)
+            val broadcaseReq = MsgGenerator.getKavaWcBroadcastReq(
+                kavaTx, getKey(WDp.getChainTypeByChainId(kavaTx.getString("chain_id")).chain)
             )
-            val result = GsonBuilder().disableHtmlEscaping().create().toJson(tx)
+            val result = GsonBuilder().disableHtmlEscaping().create().toJson(broadcaseReq)
+//
+//            val wcStdSignMsg = Gson().fromJson(wcSignTransaction, StdSignMsg::class.java)
+//            val transactionJson = JSONObject(wcSignTransaction)
+//            val messagesArray = transactionJson.getJSONArray("messages")
+//            val msgList = arrayListOf<Msg>()
+//            for (i in 0 until messagesArray.length()) {
+//                val rawMessage = messagesArray.getJSONObject(i).getJSONObject("rawJsonMessage")
+//                val msgModel = Msg()
+//                msgModel.type = rawMessage.getString("type")
+//                msgModel.value =
+//                    Gson().fromJson(rawMessage.getString("value"), Msg.Value::class.java)
+//                if (msgModel.value.amount != null) {
+//                    msgModel.value.amount = parseAmount(msgModel.value.amount)
+//                }
+//                msgList.add(msgModel)
+//            }
+//            wcStdSignMsg.msgs = msgList
+//            val account = Account()
+//            account.accountNumber = wcStdSignMsg.account_number.toInt()
+//            account.sequenceNumber = wcStdSignMsg.sequence.toInt()
+//            val tx = MsgGenerator.getWcTrustBroadcaseReq(
+//                account,
+//                msgList,
+//                wcStdSignMsg.fee,
+//                wcStdSignMsg.memo,
+//                getKey(WDp.getChainTypeByChainId(wcStdSignMsg.chain_id).chain),
+//                wcStdSignMsg.chain_id
+//            )
+//            val result = GsonBuilder().disableHtmlEscaping().create().toJson(tx)
             wcV1Client?.approveRequest(id, result)
             Toast.makeText(
                 baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT
