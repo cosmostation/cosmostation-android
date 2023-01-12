@@ -189,7 +189,8 @@ public class MainTokensFragment extends BaseFragment {
             @Override
             public String getSectionErcHeader(BaseChain baseChain, ArrayList<MintscanToken> mintscanTokens, int section) {
                 if (section == SECTION_CW_GRPC) {
-                    if (mChainConfig.baseChain().equals(OKEX_MAIN)) return getMainActivity().getString(R.string.str_oec_kip20_title);
+                    if (mChainConfig.baseChain().equals(OKEX_MAIN))
+                        return getMainActivity().getString(R.string.str_oec_kip20_title);
                     else return getMainActivity().getString(R.string.str_contract_token_title);
                 }
                 return getMainActivity().getString(R.string.str_unknown_token_title);
@@ -487,7 +488,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig, balance.symbol));
             holder.itemPath.setText(chainConfig.coinFullName(balance.symbol));
 
-            if (mBaseChain.equals(BNB_MAIN)) totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
+            if (mBaseChain.equals(BNB_MAIN))
+                totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
             else totalAmount = getBaseDao().getAllExToken(balance.symbol);
 
             holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), WDp.getGeckoId(getBaseDao(), chainConfig), totalAmount, 0));
@@ -559,7 +561,7 @@ public class MainTokensFragment extends BaseFragment {
                 else if (mChainConfig.erc20CoinSupport()) return defaultCount + mCwGrpc.size() + 1;
                 else return defaultCount;
             } else {
-                if (mChainConfig.erc20CoinSupport() && mChainConfig.getHdPath(mAccount.customPath, mAccount.path).contains("60")) {
+                if (mChainConfig.erc20CoinSupport()) {
                     return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
                 } else {
                     return getBaseDao().mBalances.size();
@@ -572,23 +574,29 @@ public class MainTokensFragment extends BaseFragment {
             if (isGRPC(mChainConfig.baseChain())) {
                 if (mChainConfig.bridgeCoinSupport()) {
                     if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mEtherGrpc.size()) return SECTION_ETHER_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size())
+                        return SECTION_IBC_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mEtherGrpc.size())
+                        return SECTION_ETHER_GRPC;
                 } else if (mChainConfig.erc20CoinSupport()) {
                     if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mCwGrpc.size()) return SECTION_CW_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size())
+                        return SECTION_IBC_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mCwGrpc.size())
+                        return SECTION_CW_GRPC;
                     else return SECITON_CONTRACT_EDIT;
                 } else {
                     if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size())
+                        return SECTION_IBC_GRPC;
                 }
 
             } else {
                 if (mChainConfig.erc20CoinSupport()) {
                     if (position < mNative.size()) return SECTION_NATIVE;
                     else if (position < mNative.size() + mEtc.size()) return SECTION_ETC;
-                    else if (position < mNative.size() + mEtc.size() + mCwGrpc.size()) return SECTION_CW_GRPC;
+                    else if (position < mNative.size() + mEtc.size() + mCwGrpc.size())
+                        return SECTION_CW_GRPC;
                     else return SECITON_CONTRACT_EDIT;
                 } else {
                     if (position < mNative.size()) return SECTION_NATIVE;
