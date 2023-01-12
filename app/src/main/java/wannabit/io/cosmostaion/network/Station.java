@@ -23,7 +23,7 @@ public interface Station {
     @GET("v2/utils/market/prices")
     Call<ArrayList<Price>> getPrice(@Query("currency") String currency);
 
-    @GET("v1/utils/params/chain/{chain}")
+    @GET("v2/utils/params/{chain}")
     Call<Param> getParam(@Path("chain") String chainName);
 
     @GET("v1/{chain}/proposals/{proposalId}")
