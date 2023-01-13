@@ -503,7 +503,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
 
             holder.itemRoot.setOnClickListener(view -> {
-                if (mChainConfig.baseChain().equals(OKEX_MAIN) && mAccount.customPath != 2) {
+                if (!mAccount.hasPrivateKey) {
                     getMainActivity().onInsertKeyDialog();
                     return;
                 }
@@ -572,7 +572,7 @@ public class MainTokensFragment extends BaseFragment {
                 else return defaultCount;
             } else {
                 if (mChainConfig.erc20CoinSupport()) {
-                    if (mChainConfig.baseChain().equals(OKEX_MAIN) && mAccount.customPath != 2) {
+                    if (mChainConfig.baseChain().equals(OKEX_MAIN) && !mAccount.hasPrivateKey) {
                         return getBaseDao().mBalances.size();
                     } else {
                         return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
@@ -588,29 +588,23 @@ public class MainTokensFragment extends BaseFragment {
             if (isGRPC(mChainConfig.baseChain())) {
                 if (mChainConfig.bridgeCoinSupport()) {
                     if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size())
-                        return SECTION_IBC_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mEtherGrpc.size())
-                        return SECTION_ETHER_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mEtherGrpc.size()) return SECTION_ETHER_GRPC;
                 } else if (mChainConfig.erc20CoinSupport()) {
                     if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size())
-                        return SECTION_IBC_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mCwGrpc.size())
-                        return SECTION_CW_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mCwGrpc.size()) return SECTION_CW_GRPC;
                     else return SECITON_CONTRACT_EDIT;
                 } else {
                     if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size())
-                        return SECTION_IBC_GRPC;
+                    else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
                 }
 
             } else {
                 if (mChainConfig.erc20CoinSupport()) {
                     if (position < mNative.size()) return SECTION_NATIVE;
                     else if (position < mNative.size() + mEtc.size()) return SECTION_ETC;
-                    else if (position < mNative.size() + mEtc.size() + mCwGrpc.size())
-                        return SECTION_CW_GRPC;
+                    else if (position < mNative.size() + mEtc.size() + mCwGrpc.size()) return SECTION_CW_GRPC;
                     else return SECITON_CONTRACT_EDIT;
                 } else {
                     if (position < mNative.size()) return SECTION_NATIVE;
