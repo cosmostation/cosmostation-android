@@ -189,7 +189,8 @@ public class MainTokensFragment extends BaseFragment {
             @Override
             public String getSectionErcHeader(BaseChain baseChain, ArrayList<MintscanToken> mintscanTokens, int section) {
                 if (section == SECTION_CW_GRPC) {
-                    if (mChainConfig.baseChain().equals(OKEX_MAIN)) return getMainActivity().getString(R.string.str_oec_kip20_title);
+                    if (mChainConfig.baseChain().equals(OKEX_MAIN))
+                        return getMainActivity().getString(R.string.str_oec_kip20_title);
                     else return getMainActivity().getString(R.string.str_contract_token_title);
                 }
                 return getMainActivity().getString(R.string.str_unknown_token_title);
@@ -487,7 +488,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig, balance.symbol));
             holder.itemPath.setText(chainConfig.coinFullName(balance.symbol));
 
-            if (mBaseChain.equals(BNB_MAIN)) totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
+            if (mBaseChain.equals(BNB_MAIN))
+                totalAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
             else totalAmount = getBaseDao().getAllExToken(balance.symbol);
 
             holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), WDp.getGeckoId(getBaseDao(), chainConfig), totalAmount, 0));
@@ -496,6 +498,11 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
 
             holder.itemRoot.setOnClickListener(view -> {
+                if (!mAccount.hasPrivateKey) {
+                    getMainActivity().onInsertKeyDialog();
+                    return;
+                }
+
                 if (balance.symbol.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
                     onSendDialog(balance.symbol);
                 } else {
@@ -559,8 +566,12 @@ public class MainTokensFragment extends BaseFragment {
                 else if (mChainConfig.erc20CoinSupport()) return defaultCount + mCwGrpc.size() + 1;
                 else return defaultCount;
             } else {
-                if (mChainConfig.erc20CoinSupport() && mChainConfig.getHdPath(mAccount.customPath, mAccount.path).contains("60")) {
-                    return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
+                if (mChainConfig.erc20CoinSupport()) {
+                    if (mAccount.hasPrivateKey && mAccount.customPath == 2) {
+                        return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
+                    } else {
+                        return getBaseDao().mBalances.size();
+                    }
                 } else {
                     return getBaseDao().mBalances.size();
                 }
