@@ -357,6 +357,11 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimals, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
+                    if (mChainConfig.baseChain().equals(OKEX_MAIN) && mAccount.customPath != 2) {
+                        getMainActivity().onInsertKeyDialog();
+                        return;
+                    }
+
                     Intent intent;
                     if (asset.origin_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                         intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
@@ -498,6 +503,11 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
 
             holder.itemRoot.setOnClickListener(view -> {
+                if (mChainConfig.baseChain().equals(OKEX_MAIN) && mAccount.customPath != 2) {
+                    getMainActivity().onInsertKeyDialog();
+                    return;
+                }
+
                 if (balance.symbol.equalsIgnoreCase(Binance.BNB_MAIN_DENOM)) {
                     onSendDialog(balance.symbol);
                 } else {
@@ -562,7 +572,11 @@ public class MainTokensFragment extends BaseFragment {
                 else return defaultCount;
             } else {
                 if (mChainConfig.erc20CoinSupport()) {
-                    return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
+                    if (mChainConfig.baseChain().equals(OKEX_MAIN) && mAccount.customPath != 2) {
+                        return getBaseDao().mBalances.size();
+                    } else {
+                        return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
+                    }
                 } else {
                     return getBaseDao().mBalances.size();
                 }
