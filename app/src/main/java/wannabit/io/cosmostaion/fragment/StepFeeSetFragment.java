@@ -142,7 +142,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulTransferNFTGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.DisplayUtils;
-import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
@@ -305,7 +304,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         getSActivity().onShowWaitDialog();
         if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
             new SimulSendGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mToAddress, getSActivity().mAmounts,
-                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    getSActivity().mTxMemo, mFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_DELEGATE) {
             new SimulDelegateGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mValAddress, getSActivity().mAmount,

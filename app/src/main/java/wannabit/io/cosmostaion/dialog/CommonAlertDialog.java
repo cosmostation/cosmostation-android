@@ -152,6 +152,13 @@ public class CommonAlertDialog extends AlertDialog {
         return dialog;
     }
 
+    public static CommonAlertDialog makeSecondImageSingleButton(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, int imageResourceId) {
+        CommonAlertDialog dialog = makeSingleButton(context, title, message, leftButtonTitle, leftButtonListener);
+        dialog.secondImageView.setImageResource(imageResourceId);
+        dialog.secondImageView.setVisibility(View.VISIBLE);
+        return dialog;
+    }
+
     private static CommonAlertDialog makeSecondImageDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, int imageResourceId) {
         CommonAlertDialog dialog = makeSingleButton(context, title, message, leftButtonTitle, leftButtonListener);
         dialog.secondImageView.setImageResource(imageResourceId);

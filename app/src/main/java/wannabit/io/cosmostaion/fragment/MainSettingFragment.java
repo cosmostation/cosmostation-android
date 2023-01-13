@@ -343,7 +343,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnLedger)) {
-            LedgerManager.getInstance().connectLedger(requireContext());
+            LedgerManager.getInstance().connectLedger(requireContext(), getMainActivity().mAccount.isLedger());
 
         } else if (v.equals(mBtnStarnameWc)) {
             CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg), getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> new TedPermission(getMainActivity()).setPermissionListener(new PermissionListener() {

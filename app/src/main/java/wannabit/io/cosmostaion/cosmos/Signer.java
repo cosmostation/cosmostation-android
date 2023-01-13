@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.cosmos;
 
+import static cosmos.crypto.secp256k1.Keys.*;
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_LEGACY_AMINO_JSON;
+import static cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub;
 import static desmos.profiles.v3.ModelsProfile.Profile;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
@@ -33,6 +35,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
 import cosmos.gov.v1beta1.Tx;
+import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
@@ -52,7 +55,9 @@ import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Signer {
@@ -97,39 +102,17 @@ public class Signer {
         return null;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcSendReq2(BaseChain baseChain, Account account, String toAddress, ArrayList<Coin> amounts, Fee fee, String memo, String chainId, byte[] pubkeybyte, byte[] sigbyte) {
-        QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain));
-        QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(account.address).build();
-        QueryOuterClass.QueryAccountResponse auth = authStub.account(request);
-        return getSignTx2(auth, getSendMsg(auth, toAddress, amounts), fee, memo, chainId, pubkeybyte, sigbyte);
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getSignTx2(QueryOuterClass.QueryAccountResponse auth, ArrayList<Any> msgAnys, Fee fee, String memo, String chainId, byte[] pubkeybyte, byte[] sigbyte) {
-        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgAnys, memo);
-        TxOuterClass.SignerInfo signerInfo = getGrpcSignerInfo2(auth, pubkeybyte);
-        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
-        TxOuterClass.TxRaw rawTx = getGrpcRawTx2(txBody, authInfo, chainId, sigbyte);
-        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
-    }
-
-    public static TxOuterClass.SignerInfo getGrpcSignerInfo2(QueryOuterClass.QueryAccountResponse auth, byte[] pubkeybyte) {
-        cosmos.crypto.secp256k1.Keys.PubKey pubKey = cosmos.crypto.secp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(pubkeybyte)).build();
-        TxOuterClass.ModeInfo.Single singleMode = TxOuterClass.ModeInfo.Single.newBuilder().setMode(SIGN_MODE_LEGACY_AMINO_JSON).build();
-        TxOuterClass.ModeInfo modeInfo = TxOuterClass.ModeInfo.newBuilder().setSingle(singleMode).build();
-        return TxOuterClass.SignerInfo.newBuilder().setPublicKey(Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build()).setModeInfo(modeInfo).setSequence((Long) onParseAuthGrpc(auth).get(2)).build();
-    }
-
-    public static TxOuterClass.TxRaw getGrpcRawTx2(TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, String chainId, byte[] sigbyte) {
-        return TxOuterClass.TxRaw.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).addSignatures(ByteString.copyFrom(sigbyte)).build();
-    }
-
     //gRpc Singer
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSendReq(QueryOuterClass.QueryAccountResponse auth, String toAddress, ArrayList<Coin> amounts, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
         return getSignTx(auth, getSendMsg(auth, toAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcSendSimulateReq(QueryOuterClass.QueryAccountResponse auth, String toAddress, ArrayList<Coin> amounts, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getSendMsg(auth, toAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcSendSimulateReq(QueryOuterClass.QueryAccountResponse auth, String toAddress, ArrayList<Coin> amounts, Fee fee, String memo) {
+        return getSignSimulTx(auth, getSendMsg(auth, toAddress, amounts), fee, memo);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerSendReq(QueryOuterClass.QueryAccountResponse auth, String toAddress, ArrayList<Coin> amounts, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getSendMsg(auth, toAddress, amounts), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getSendMsg(QueryOuterClass.QueryAccountResponse auth, String toAddress, ArrayList<Coin> amounts) {
@@ -146,6 +129,14 @@ public class Signer {
 
     public static ServiceOuterClass.SimulateRequest getGrpcDelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
         return getSignSimulTx(auth, getDelegateMsg(auth, toValAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerDelegateReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getDelegateMsg(auth, toValAddress, amounts), fee, memo, pubkeybyte, sigbyte);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerDelegateSimulReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getDelegateMsg(auth, toValAddress, amounts), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getDelegateMsg(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts) {
@@ -278,6 +269,10 @@ public class Signer {
 
     public static ServiceOuterClass.SimulateRequest getGrpcVoteSimulateReq(QueryOuterClass.QueryAccountResponse auth, Map<Integer, String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
         return getSignSimulTx(auth, getVoteMsg(auth, opinionMap), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerVoteReq(QueryOuterClass.QueryAccountResponse auth, Map<Integer, String> opinionMap, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getVoteMsg(auth, opinionMap), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getVoteMsg(QueryOuterClass.QueryAccountResponse auth, Map<Integer, String> opinionMap) {
@@ -1114,13 +1109,13 @@ public class Signer {
 
     public static TxOuterClass.TxRaw getGrpcRawTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
         TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber((Long) onParseAuthGrpc(auth).get(1)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleSignature(auth, pKey, signDoc.toByteArray(), pubKeyType, baseChain);
+        byte[] sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray(), pubKeyType, baseChain);
         return TxOuterClass.TxRaw.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
 
     public static TxOuterClass.Tx getGrpcSimulTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
         TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber((Long) onParseAuthGrpc(auth).get(1)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleSignature(auth, pKey, signDoc.toByteArray(), pubKeyType, baseChain);
+        byte[] sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray(), pubKeyType, baseChain);
         return TxOuterClass.Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
 
@@ -1140,7 +1135,50 @@ public class Signer {
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
-    public static byte[] getGrpcByteSingleSignature(QueryOuterClass.QueryAccountResponse auth, ECKey key, byte[] toSignByte, int pubKeyType, BaseChain baseChain) {
+    public static TxOuterClass.Tx getGrpcSimulTx(TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo) {
+        byte[] sigbyte = new byte[64];
+        return TxOuterClass.Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody).addSignatures(ByteString.copyFrom(sigbyte)).build();
+    }
+
+    public static TxOuterClass.TxRaw getGrpcLedgerRawTx(TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, byte[] sigbyte) {
+        return TxOuterClass.TxRaw.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).addSignatures(ByteString.copyFrom(sigbyte)).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getLedgerSignTx(QueryOuterClass.QueryAccountResponse auth, ArrayList<Any> msgAnys, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgAnys, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcLedgerSignerInfo(auth, pubkeybyte);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx = getGrpcLedgerRawTx(txBody, authInfo, sigbyte);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getSignSimulTx(QueryOuterClass.QueryAccountResponse auth, ArrayList<Any> msgAnys, Fee fee, String memo) {
+        TxOuterClass.TxBody txBody = getGrpcTxBodys(msgAnys, memo);
+        TxOuterClass.SignerInfo signerInfo = getGrpcLedgerSignerSimulInfo(auth);
+        TxOuterClass.AuthInfo authInfo = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx = getGrpcSimulTx(txBody, authInfo);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
+    public static TxOuterClass.SignerInfo getGrpcLedgerSignerInfo(QueryOuterClass.QueryAccountResponse auth, byte[] pubkeybyte) {
+        PubKey pubKey = PubKey.newBuilder().setKey(ByteString.copyFrom(pubkeybyte)).build();
+        TxOuterClass.ModeInfo.Single singleMode = TxOuterClass.ModeInfo.Single.newBuilder().setMode(SIGN_MODE_LEGACY_AMINO_JSON).build();
+        TxOuterClass.ModeInfo modeInfo = TxOuterClass.ModeInfo.newBuilder().setSingle(singleMode).build();
+        return TxOuterClass.SignerInfo.newBuilder().setPublicKey(Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build()).setModeInfo(modeInfo).setSequence((Long) onParseAuthGrpc(auth).get(2)).build();
+    }
+
+    public static TxOuterClass.SignerInfo getGrpcLedgerSignerSimulInfo(QueryOuterClass.QueryAccountResponse auth) {
+        TxOuterClass.ModeInfo.Single singleMode = TxOuterClass.ModeInfo.Single.newBuilder().setMode(SIGN_MODE_LEGACY_AMINO_JSON).build();
+        TxOuterClass.ModeInfo modeInfo = TxOuterClass.ModeInfo.newBuilder().setSingle(singleMode).build();
+        return TxOuterClass.SignerInfo.newBuilder().setPublicKey(Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").build()).setModeInfo(modeInfo).setSequence((Long) onParseAuthGrpc(auth).get(2)).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxResponse getGrpcLedgerBroadcastResponse(ServiceOuterClass.BroadcastTxRequest request, ChainConfig chainConfig) {
+        ServiceGrpc.ServiceBlockingStub txService = newBlockingStub(ChannelBuilder.getChain(chainConfig.baseChain()));
+        return txService.broadcastTx(request);
+    }
+
+    public static byte[] getGrpcByteSingleSignature(ECKey key, byte[] toSignByte, int pubKeyType, BaseChain baseChain) {
         byte[] sigData = new byte[64];
         if (baseChain.equals(BaseChain.INJ_MAIN) || baseChain.equals(BaseChain.EVMOS_MAIN) || baseChain.equals(BaseChain.XPLA_MAIN) && pubKeyType == 1) {
             BigInteger privateKey = new BigInteger(key.getPrivateKeyAsHex(), 16);

@@ -141,7 +141,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onCheckDelegate() {
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }

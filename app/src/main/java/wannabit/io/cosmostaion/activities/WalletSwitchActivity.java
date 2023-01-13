@@ -154,7 +154,7 @@ public class WalletSwitchActivity extends BaseActivity {
                 } else {
                     if (account.isLedger()) {
                         accountState.setImageResource(R.drawable.icon_ledger_wallet_dark);
-                        accountState.setColorFilter(null);
+                        accountState.setColorFilter(ContextCompat.getColor(WalletSwitchActivity.this, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
                     } else {
                         accountState.setImageResource(R.drawable.watchmode);
                         accountState.setColorFilter(null);

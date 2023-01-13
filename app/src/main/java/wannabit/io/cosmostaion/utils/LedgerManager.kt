@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.utils
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.Context
@@ -10,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.android.gms.common.util.CollectionUtils
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -43,6 +47,7 @@ class LedgerManager {
 
     fun connect(context: Context, listener: ConnectListener) {
         TedPermission(context).setPermissionListener(object : PermissionListener {
+            @SuppressLint("MissingPermission")
             override fun onPermissionGranted() {
                 val btAdapter = context.getSystemService(BluetoothManager::class.java).adapter
                 val pairedDevices = btAdapter.bondedDevices
@@ -64,7 +69,12 @@ class LedgerManager {
                 }
 
                 val nanoDevices = pairedDevices.filter { it.name.contains("Nano X") }
-                onSetBluetoothList(context, context.getString(R.string.str_pairing_ledger_title), nanoDevices, listener)
+                onSetBluetoothList(
+                    context,
+                    context.getString(R.string.str_pairing_ledger_title),
+                    nanoDevices,
+                    listener
+                )
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String?>?) {
@@ -77,7 +87,13 @@ class LedgerManager {
         ).check()
     }
 
-    fun onSetBluetoothList(context: Context, title: CharSequence, nanoDevices: List<BluetoothDevice>, listener: ConnectListener) {
+    @SuppressLint("MissingPermission")
+    fun onSetBluetoothList(
+        context: Context,
+        title: CharSequence,
+        nanoDevices: List<BluetoothDevice>,
+        listener: ConnectListener
+    ) {
         val dialog = FilledVerticalButtonAlertDialog(context)
 
         if (StringUtils.isEmpty(title)) {
@@ -89,12 +105,12 @@ class LedgerManager {
         dialog.firstButton.visibility = View.GONE
         dialog.secondButton.visibility = View.GONE
 
-        val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater: LayoutInflater =
+            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         dialog.hiddenView.visibility = View.VISIBLE
         dialog.hiddenView.removeAllViews()
 
-        nanoDevices.map {
-            val device = it
+        nanoDevices.map { blueToothDevice ->
             val ledgerLayout = inflater.inflate(R.layout.item_ledger_list, null)
             dialog.hiddenView.addView(ledgerLayout)
 
@@ -102,36 +118,78 @@ class LedgerManager {
             val ledgerName: TextView = ledgerLayout.findViewById(R.id.ledger_name)
             val ledgerStatus: TextView = ledgerLayout.findViewById(R.id.ledger_status)
 
-            ledgerName.text = device.name
-            bleManager.connect(address = device.address, onConnectError = {
-                WLog.w("test12345 : " + it.name)
-                WLog.w("test12345 : " + it.message)
-            }, onConnectSuccess = {
-                WLog.w("test1234 : " + it.name)
-                WLog.w("test1234 : " + it.id)
-                WLog.w("test1234 : " + it.serviceId)
-                WLog.w("test1234 : " + it.rssi)
-                WLog.w("test1234 : " + it)
-                WLog.w("test1234 : " + bleManager.isConnected)
-            })
-
+            ledgerName.text = blueToothDevice.name
             ledgerCard.setOnClickListener {
-                bleManager.connect(address = device.address, onConnectError = {
-                    if (BleError.CONNECTION_TIMEOUT == it) {
-                        listener.error(ErrorType.CONNECT_TIMEOUT)
-                    } else {
-                        listener.error(ErrorType.CONNECT_ERROR)
-                    }
-                }, onConnectSuccess = {
-                    connectedDevice = it
-                    listener.connected()
-                })
+                ledgerStatus.text = context.getString(R.string.str_connecting)
+                ledgerStatus.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.colorGray1
+                    )
+                )
+                onCheckConnectLedger(context, blueToothDevice, ledgerStatus, listener, dialog)
             }
         }
-
         dialog.setCancelable(true)
         dialog.create()
         dialog.show()
+    }
+
+    fun onCheckOpenLedgerApp(
+        context: Context,
+        ledgerStatus: TextView,
+        listener: ConnectListener,
+        dialog: FilledVerticalButtonAlertDialog
+    ) {
+        BleCosmosHelper.getAddress(bleManager,
+            listener = object : BleCosmosHelper.GetAddressListener {
+                override fun error(code: String, message: String) {
+                    val activity: Activity = context as Activity
+                    activity.runOnUiThread {
+                        ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
+                        ledgerStatus.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.colorRed
+                            )
+                        )
+                    }
+                }
+
+                override fun success(address: String, pubKey: ByteArray) {
+                    listener.connected()
+                    dialog.dismiss()
+                }
+            })
+    }
+
+    fun onCheckConnectLedger(
+        context: Context,
+        bluetoothDevice: BluetoothDevice,
+        ledgerStatus: TextView,
+        listener: ConnectListener,
+        dialog: FilledVerticalButtonAlertDialog
+    ) {
+        bleManager.connect(address = bluetoothDevice.address, onConnectError = { bleError ->
+            val activity: Activity = context as Activity
+            activity.runOnUiThread {
+                if (BleError.CONNECTION_TIMEOUT == bleError) {
+                    ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
+                    ledgerStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.colorRed
+                        )
+                    )
+                } else {
+                    onCheckConnectLedger(context, bluetoothDevice, ledgerStatus, listener, dialog)
+                }
+            }
+
+        }, onConnectSuccess = { bleDeviceModel ->
+            connectedDevice = bleDeviceModel
+            onCheckOpenLedgerApp(context, ledgerStatus, listener, dialog)
+        })
     }
 
     fun connectBluetooth(context: Context) {
@@ -152,7 +210,7 @@ class LedgerManager {
         )
     }
 
-    fun connectLedger(context: Context) {
+    fun connectLedger(context: Context, isLedger: Boolean) {
         CommonAlertDialog.showSecondImageDoubleButton(
             context,
             context.getString(R.string.str_ledger),
@@ -160,19 +218,25 @@ class LedgerManager {
             context.getString(R.string.str_cancel),
             null,
             Html.fromHtml("<font color=\"#05D2DD\">" + context.getString(R.string.str_connect) + "</font>"),
-            { checkedBluetoothConnect(context) },
+            { checkedBluetoothConnect(context, isLedger) },
             R.drawable.icon_ledger
         )
     }
 
-    fun checkedBluetoothConnect(context: Context) {
+    fun checkedBluetoothConnect(context: Context, isLedger: Boolean) {
         connect(context, object : ConnectListener {
             override fun error(errorType: ErrorType) {
-                WLog.w("여기 : " + errorType.name)
             }
 
             override fun connected() {
-                context.startActivity(Intent(context, LedgerSelectActivity::class.java))
+                if (isLedger) {
+                    val activity: Activity = context as Activity
+                    activity.runOnUiThread {
+                        Toast.makeText(context, "렛저 페어링 완료", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    context.startActivity(Intent(context, LedgerSelectActivity::class.java))
+                }
             }
         })
     }

@@ -183,7 +183,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             mEmptyProposalText.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.GONE);
         } else {
-            if (multiVoteSelectionMode || mVotingPeriodProposalsList.size() <= 1) {
+            if (multiVoteSelectionMode || mVotingPeriodProposalsList.size() <= 1 || mAccount.isLedger()) {
                 mMultiVoteBtn.setVisibility(View.GONE);
             } else {
                 mMultiVoteBtn.setVisibility(View.VISIBLE);

@@ -91,7 +91,7 @@ public class WalletStarNameDialog extends DialogFragment {
             } else {
                 if (account.isLedger()) {
                     holder.accountKeyState.setImageResource(R.drawable.icon_ledger_wallet_dark);
-                    holder.accountKeyState.setColorFilter(null);
+                    holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
                 } else {
                     holder.accountKeyState.setImageResource(R.drawable.watchmode);
                     holder.accountKeyState.setColorFilter(null);

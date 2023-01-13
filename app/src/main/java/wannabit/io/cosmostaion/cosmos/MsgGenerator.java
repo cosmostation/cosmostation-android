@@ -39,6 +39,7 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 import java.util.TreeMap;
 
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -84,6 +85,37 @@ public class MsgGenerator {
             result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
             result.value = value;
         }
+        return result;
+    }
+
+    public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.delegator_address = fromAddr;
+        value.validator_address = toValAddr;
+        value.amount = toDeleagteAmout;
+
+        result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genVoteMsg(String accountAddr, Map<Integer, String> opinionMap) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        opinionMap.forEach((id, opinion) -> {
+            value.proposal_id = String.valueOf(id);
+            int option;
+            if (opinion.equalsIgnoreCase("VOTE_OPTION_YES")) option = 1;
+            else if (opinion.contains("VOTE_OPTION_ABSTAIN")) option = 2;
+            else if (opinion.contains("VOTE_OPTION_NO")) option = 3;
+            else option = 4;
+            value.option = option;
+        });
+        value.voter = accountAddr;
+
+        result.type = BaseConstant.COSMOS_MSG_TYPE_VOTE;
+        result.value = value;
         return result;
     }
 

@@ -122,7 +122,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v.equals(mVoteBtn)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
                 onInsertKeyDialog();
                 return;
             }

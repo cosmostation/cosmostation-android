@@ -24,9 +24,8 @@ public class SimulSendGrpcTask extends CommonTask {
     private ArrayList<Coin> mAmount;
     private String          mMemo;
     private Fee             mFees;
-    private String          mChainId;
 
-    public SimulSendGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toAddress, ArrayList<Coin> amount, String memo, Fee fee, String chainId) {
+    public SimulSendGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toAddress, ArrayList<Coin> amount, String memo, Fee fee) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
@@ -34,14 +33,13 @@ public class SimulSendGrpcTask extends CommonTask {
         this.mAmount = amount;
         this.mMemo = memo;
         this.mFees = fee;
-        this.mChainId = chainId;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcSendSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mToAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcSendSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mToAddress, mAmount, mFees, mMemo);;
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();
