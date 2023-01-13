@@ -357,11 +357,6 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimals, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
-                    if (mChainConfig.baseChain().equals(OKEX_MAIN) && mAccount.customPath != 2) {
-                        getMainActivity().onInsertKeyDialog();
-                        return;
-                    }
-
                     Intent intent;
                     if (asset.origin_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                         intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
