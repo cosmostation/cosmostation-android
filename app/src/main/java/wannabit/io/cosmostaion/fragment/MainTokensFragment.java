@@ -572,10 +572,10 @@ public class MainTokensFragment extends BaseFragment {
                 else return defaultCount;
             } else {
                 if (mChainConfig.erc20CoinSupport()) {
-                    if (mChainConfig.baseChain().equals(OKEX_MAIN) && !mAccount.hasPrivateKey) {
-                        return getBaseDao().mBalances.size();
-                    } else {
+                    if (mAccount.hasPrivateKey && mAccount.customPath == 2) {
                         return getBaseDao().mBalances.size() + mCwGrpc.size() + 1;
+                    } else {
+                        return getBaseDao().mBalances.size();
                     }
                 } else {
                     return getBaseDao().mBalances.size();
