@@ -221,7 +221,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     private void onUpdateView() {
         mSwitchUsingAppLock.setChecked(getBaseDao().getUsingAppLock());
         mSwitchUsingUsingBio.setChecked(getBaseDao().getUsingFingerPrint());
-        mSwitchUsingHideAssets.setChecked(getBaseDao().getUsingHideAssets());
+        mSwitchUsingHideAssets.setChecked(!getBaseDao().getUsingHideAssets());
 
         FingerprintManagerCompat mFingerprintManagerCompat = FingerprintManagerCompat.from(getActivity());
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) && mFingerprintManagerCompat.isHardwareDetected() && mFingerprintManagerCompat.hasEnrolledFingerprints()) {
@@ -274,7 +274,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
         } else if (v.equals(mSwitchUsingHideAssets)) {
             getBaseDao().setUsingHideAssets(!getBaseDao().getUsingHideAssets());
-            onUpdateView();
 
         } else if (v.equals(mSwitchUsingAppLock)) {
             onClickAppLock();
