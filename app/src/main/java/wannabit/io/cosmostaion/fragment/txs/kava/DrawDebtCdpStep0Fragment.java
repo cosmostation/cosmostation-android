@@ -143,7 +143,7 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
         mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(mPDecimal - mCDecimal).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, mCDecimal, RoundingMode.DOWN);
         mBeforeRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mBeforeLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
         WUtil.DpRiskRate3(getContext(), mBeforeRiskRate, mBeforeRiskScore, mBeforeRisk);
-        mBeforePrincipalAmount.setText(WDp.getDpAmount2(getContext(), mCurrentTotalDebetAmount, mPDecimal, mPDecimal));
+        mBeforePrincipalAmount.setText(WDp.getDpAmount2(mCurrentTotalDebetAmount, mPDecimal, mPDecimal));
 
         mPrincipalInput.addTextChangedListener(new TextWatcher() {
             @Override

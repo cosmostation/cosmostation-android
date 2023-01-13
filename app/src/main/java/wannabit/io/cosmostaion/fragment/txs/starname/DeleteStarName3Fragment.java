@@ -48,7 +48,7 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
 
         if (getSActivity().mStarNameDomainType.equals(BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN)) {
             mStarName.setText( "*" + getSActivity().mStarNameDomain);

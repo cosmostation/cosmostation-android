@@ -121,7 +121,7 @@ public class OKValidatorMyFragment extends BaseFragment implements View.OnClickL
 
                 holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getSActivity(), getSActivity().mChainConfig.chainBgColor()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(new BigDecimal(validator.delegator_shares), 0, 0));
                 holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
                 try {

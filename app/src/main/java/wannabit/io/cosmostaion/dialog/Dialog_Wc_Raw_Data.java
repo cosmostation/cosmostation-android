@@ -153,7 +153,7 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
             String Chain = chainConfig.mainSymbol();
 
             int decimal = WDp.getDenomDecimal(getSActivity().getBaseDao(), chainConfig, denom);
-            SpannableString mAmount = WDp.getDpAmount2(getSActivity(), new BigDecimal(amount), decimal, 6);
+            SpannableString mAmount = WDp.getDpAmount2(new BigDecimal(amount), decimal, 6);
 
             fees.add(mAmount + " " + Chain);
 

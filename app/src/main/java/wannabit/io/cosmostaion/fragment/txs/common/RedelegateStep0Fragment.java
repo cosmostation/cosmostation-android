@@ -82,7 +82,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
         setDpDecimals(mDpDecimal);
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mDenomTitle);
         mMaxAvailable = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
-        mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
+        mAvailableAmount.setText(WDp.getDpAmount2(mMaxAvailable, mDpDecimal, mDpDecimal));
         mProgress.setVisibility(View.GONE);
         onAddAmountWatcher();
     }

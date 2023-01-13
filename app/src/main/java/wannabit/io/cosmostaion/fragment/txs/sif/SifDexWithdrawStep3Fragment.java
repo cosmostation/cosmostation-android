@@ -71,7 +71,7 @@ public class SifDexWithdrawStep3Fragment extends BaseFragment implements View.On
         BigDecimal externalWithDrawAmount = lpExternalAmount.multiply(myShareAmount).divide(lpUnitAmount, 0, RoundingMode.DOWN);
 
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeAmountSymbol, mFeeAmount);
-        mExitInAmount.setText(WDp.getDpAmount2(getSActivity(), lpUnitAmount, 18, 18));
+        mExitInAmount.setText(WDp.getDpAmount2(lpUnitAmount, 18, 18));
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), rowanWithAmount.toPlainString(), mExitOutput0AmountSymbol, mExitOutput0Amount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mSifPool.getExternalAsset().getSymbol(), externalWithDrawAmount.toPlainString(), mExitOutput1AmountSymbol, mExitOutput1Amount);
         mMemo.setText(getSActivity().mTxMemo);

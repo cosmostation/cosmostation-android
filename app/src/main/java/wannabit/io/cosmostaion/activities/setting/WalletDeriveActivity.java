@@ -322,7 +322,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
         private void loadBalance(AccountHolder holder, Derive derive) {
             ChainConfig chainConfig = ChainFactory.getChain(derive.baseChain);
             if (derive.coin != null) {
-                WDp.setDpCoin2(WalletDeriveActivity.this, getBaseDao(), chainConfig, derive.coin, holder.accountDenom, holder.accountAvailable);
+                WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), chainConfig, derive.coin, holder.accountDenom, holder.accountAvailable);
                 return;
             }
 
@@ -333,14 +333,14 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                         for (CoinOuterClass.Coin coin : balances) {
                             if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
                                 derive.coin = new Coin(coin.getDenom(), coin.getAmount());
-                                runOnUiThread(() -> WDp.setDpCoin2(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                                runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
                                 return;
                             }
                         }
                     }
 
                     derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                    runOnUiThread(() -> WDp.setDpCoin2(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                    runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
 
                 }, derive.baseChain, derive.dpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)).start();
 
@@ -353,7 +353,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                 for (ResBnbAccountInfo.BnbBalance balance : response.body().balances) {
                                     if (balance.symbol.equalsIgnoreCase(chainConfig.mainDenom())) {
                                         derive.coin = new Coin(balance.symbol, balance.free);
-                                        runOnUiThread(() -> WDp.setDpCoin2(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                                        runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
 
                                         return;
                                     }
@@ -361,7 +361,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                             }
 
                             derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                            runOnUiThread(() -> WDp.setDpCoin2(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                            runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
 
                         }
 
@@ -378,7 +378,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                                 for (ResOkAccountToken.OkCurrency balance : response.body().data.currencies) {
                                     if (balance.symbol.equals(chainConfig.mainDenom())) {
                                         derive.coin = new Coin(balance.symbol, balance.available);
-                                        runOnUiThread(() -> WDp.setDpCoin2(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                                        runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
 
                                         return;
                                     }
@@ -386,7 +386,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                             }
 
                             derive.coin = new Coin(chainConfig.mainDenom(), "0");
-                            runOnUiThread(() -> WDp.setDpCoin2(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
+                            runOnUiThread(() -> WDp.setDpCoin(WalletDeriveActivity.this, getBaseDao(), ChainFactory.getChain(derive.baseChain), derive.coin, holder.accountDenom, holder.accountAvailable));
                         }
 
                         @Override

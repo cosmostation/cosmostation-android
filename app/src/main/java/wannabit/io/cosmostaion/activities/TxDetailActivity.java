@@ -310,7 +310,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemHeight.setText(mResBnbTxInfo.height);
                 holder.itemMsgCnt.setText(String.valueOf(mResBnbTxInfo.tx.value.msg.size()));
                 holder.itemGas.setText("-");
-                holder.itemFee.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(FEE_BNB_SEND), 0, 8));
+                holder.itemFee.setText(WDp.getDpAmount2(new BigDecimal(FEE_BNB_SEND), 0, 8));
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
                 holder.itemblockLayer.setVisibility(View.GONE);
                 holder.itemHash.setText(mResBnbTxInfo.hash);
@@ -329,7 +329,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemHeight.setText(mResTxInfo.height);
                 holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.getMsgs().size()));
                 holder.itemGas.setText(String.format("%s / %s", mResTxInfo.gas_used, mResTxInfo.gas_wanted));
-                holder.itemFee.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleFee(), 0, 18));
+                holder.itemFee.setText(WDp.getDpAmount2(mResTxInfo.simpleFee(), 0, 18));
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
@@ -354,7 +354,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 }
                 ArrayList<Coin> toDpCoin = msg.value.inputs.get(0).coins;
                 WDp.setDpSymbol(getBaseContext(), getBaseDao(), mChainConfig, toDpCoin.get(0).denom, holder.itemAmountDenom);
-                holder.itemAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(toDpCoin.get(0).amount), 8, 8));
+                holder.itemAmount.setText(WDp.getDpAmount2(new BigDecimal(toDpCoin.get(0).amount), 8, 8));
 
             } else {
                 final Msg msg = mResTxInfo.getMsg(position - 1);

@@ -120,7 +120,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         public void onBindViewHolder(@NonNull final ToValidatorHolder holder, final int position) {
             final Staking.Validator mGrpcValidator = mGRpcTopValidators.get(position);
             final ChainConfig chainConfig = ChainFactory.getChain(getSActivity().mBaseChain);
-            holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), WDp.getDenomDecimal(getBaseDao(), chainConfig, chainConfig.mainDenom()), 6));
+            holder.itemTvVotingPower.setText(WDp.getDpAmount2(new BigDecimal(mGrpcValidator.getTokens()), WDp.getDenomDecimal(getBaseDao(), chainConfig, chainConfig.mainDenom()), 6));
             holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             try {
                 Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, mGrpcValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);

@@ -101,7 +101,7 @@ public class OKValidatorOtherFragment extends BaseFragment {
         public void onBindViewHolder(@NonNull OKOtherValidatorHolder holder, int position) {
             final Validator validator = getBaseDao().mOtherValidators.get(position);
             holder.itemTvMoniker.setText(validator.description.moniker);
-            holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
+            holder.itemTvVotingPower.setText(WDp.getDpAmount2(new BigDecimal(validator.delegator_shares), 0, 0));
             holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
             try {

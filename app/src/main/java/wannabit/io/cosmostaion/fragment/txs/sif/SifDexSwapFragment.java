@@ -118,7 +118,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         mInPutDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom);
         mOutPutDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom);
 
-        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), mInPutDecimal, mInPutDecimal));
+        mInputAmount.setText(WDp.getDpAmount2(getBaseDao().getAvailable(mInputCoinDenom), mInPutDecimal, mInPutDecimal));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("2")));
 
         WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputImg);
@@ -126,12 +126,12 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputImg);
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mOutputCoin);
 
-        mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
+        mSwapInputCoinRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, 6));
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinSymbol);
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinSymbol);
-        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), WUtil.getSifPoolPrice(mSelectedPool, mInputCoinDenom).movePointLeft(18), 0, 6));
+        mSwapOutputCoinRate.setText(WDp.getDpAmount2(WUtil.getSifPoolPrice(mSelectedPool, mInputCoinDenom).movePointLeft(18), 0, 6));
 
-        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
+        mSwapInputCoinExRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, 6));
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
 
@@ -142,7 +142,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
             mSwapOutputCoinExRate.setText("??????");
         } else {
             priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, 6));
+            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(priceRate, 0, 6));
         }
     }
 

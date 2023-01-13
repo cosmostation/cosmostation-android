@@ -92,7 +92,7 @@ public class AuthzDelegateStep1Fragment extends BaseFragment implements View.OnC
         }
 
         mGranterDelegatable = mAvailable.add(mVesting);
-        mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mGranterDelegatable, mDpDecimal, mDpDecimal));
+        mAvailableAmount.setText(WDp.getDpAmount2(mGranterDelegatable, mDpDecimal, mDpDecimal));
 
         if (getSActivity().mGrant.getAuthorization().getTypeUrl().contains(Authz.StakeAuthorization.getDescriptor().getFullName())) {
             try {

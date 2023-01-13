@@ -77,8 +77,8 @@ public class PoolOtherHolder extends BaseHolder {
 
         WDp.setDpSymbol(context, baseData, chainConfig, coin0.getDenom(), itemTotalDepositSymbol0);
         WDp.setDpSymbol(context, baseData, chainConfig, coin1.getDenom(), itemTotalDepositSymbol1);
-        itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
-        itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
+        itemTotalDepositAmount0.setText(WDp.getDpAmount2(new BigDecimal(coin0.getAmount()), coin0Decimal, 6));
+        itemTotalDepositAmount1.setText(WDp.getDpAmount2(new BigDecimal(coin1.getAmount()), coin1Decimal, 6));
 
         // available
         BigDecimal availableCoin0 = baseData.getAvailable(coin0.getDenom());
@@ -86,8 +86,8 @@ public class PoolOtherHolder extends BaseHolder {
 
         WDp.setDpSymbol(context, baseData, chainConfig, coin0.getDenom(), itemMyAvailableSymbol0);
         WDp.setDpSymbol(context, baseData, chainConfig, coin1.getDenom(), itemMyAvailableSymbol1);
-        itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableCoin0, coin0Decimal, 6));
-        itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
+        itemMyAvailableAmount0.setText(WDp.getDpAmount2(availableCoin0, coin0Decimal, 6));
+        itemMyAvailableAmount1.setText(WDp.getDpAmount2(availableCoin1, coin1Decimal, 6));
 
         itemRoot.setOnClickListener(v -> ((DAppsList5Activity) activity).onCheckStartJoinPool(otherPool));
     }
@@ -112,11 +112,11 @@ public class PoolOtherHolder extends BaseHolder {
 
         WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemTotalDepositSymbol0);
         WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemTotalDepositSymbol1);
-        itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, rowanAmount, rowanDecimal, 6));
+        itemTotalDepositAmount0.setText(WDp.getDpAmount2(rowanAmount, rowanDecimal, 6));
         if ("UNKNOWN".equalsIgnoreCase(WDp.getDpSymbol(baseData, chainConfig, exteranlDenom))) {
-            itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, BigDecimal.ZERO, externalDecimal, 6));
+            itemTotalDepositAmount1.setText(WDp.getDpAmount2(BigDecimal.ZERO, externalDecimal, 6));
         } else {
-            itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, externalAmount, externalDecimal, 6));
+            itemTotalDepositAmount1.setText(WDp.getDpAmount2(externalAmount, externalDecimal, 6));
         }
 
         //dp available
@@ -124,8 +124,8 @@ public class PoolOtherHolder extends BaseHolder {
         BigDecimal availableExternal = baseData.getAvailable(exteranlDenom);
         WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemMyAvailableSymbol0);
         WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemMyAvailableSymbol1);
-        itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableRowan, rowanDecimal, 6));
-        itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableExternal, externalDecimal, 6));
+        itemMyAvailableAmount0.setText(WDp.getDpAmount2(availableRowan, rowanDecimal, 6));
+        itemMyAvailableAmount1.setText(WDp.getDpAmount2(availableExternal, externalDecimal, 6));
 
         itemRoot.setOnClickListener(v -> ((SifDexListActivity) activity).onCheckStartDepositPool(otherPool));
     }

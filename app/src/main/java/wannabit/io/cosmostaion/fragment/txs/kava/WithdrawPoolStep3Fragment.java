@@ -64,7 +64,7 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
         mLpLayer.setVisibility(View.GONE);
         mShareLayer.setVisibility(View.VISIBLE);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeSymbol, mFeeAmount);
-        mExitMyShare.setText(WDp.getDpAmount2(getSActivity(), getSActivity().mKavaShareAmount, 6, 6));
+        mExitMyShare.setText(WDp.getDpAmount2(getSActivity().mKavaShareAmount, 6, 6));
 
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenA, mExitOutput0Symbol, mExitOutput0Amount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mKavaPoolTokenB, mExitOutput1Symbol, mExitOutput1Amount);

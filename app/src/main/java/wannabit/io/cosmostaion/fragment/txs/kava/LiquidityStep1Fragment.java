@@ -97,7 +97,7 @@ public class LiquidityStep1Fragment extends BaseFragment implements View.OnClick
                 mMaxAvailable = new BigDecimal(coin.get().amount);
             }
         }
-        mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
+        mAvailableAmount.setText(WDp.getDpAmount2(mMaxAvailable, mDpDecimal, mDpDecimal));
         onAddAmountWatcher();
     }
 

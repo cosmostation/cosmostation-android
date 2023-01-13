@@ -98,7 +98,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
 
         private void onBindValidatorStatusItemViewHolder(ToValidatorHolder holder, int position) {
             final Validator validator = getBaseDao().mAllValidators.get(position);
-            holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
+            holder.itemTvVotingPower.setText(WDp.getDpAmount2(new BigDecimal(validator.delegator_shares), 0, 8));
             holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
             try {
                 Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mChainConfig, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);

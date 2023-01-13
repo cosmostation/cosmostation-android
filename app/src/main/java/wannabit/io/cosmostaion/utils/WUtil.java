@@ -938,7 +938,7 @@ public class WUtil {
     }
 
     public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView imageview) {
-        textView.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        textView.setText(WDp.getDpAmount2(riskRate, 0, 2));
         if (riskRate.floatValue() <= 50) {
             textView.setTextColor(ContextCompat.getColor(c, R.color.colorCdpSafe));
             if (imageview != null) {
@@ -1004,7 +1004,7 @@ public class WUtil {
     }
 
     public static void DpRiskRate2(Context c, BigDecimal riskRate, TextView text, TextView rate, LinearLayout layer) {
-        rate.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        rate.setText(WDp.getDpAmount2(riskRate, 0, 2));
         if (riskRate.longValue() <= 50) {
             text.setText("SAFE");
             layer.setBackground(ContextCompat.getDrawable(c, R.drawable.btn_score_safe_fill));
@@ -1020,7 +1020,7 @@ public class WUtil {
     }
 
     public static void DpRiskRate3(Context c, BigDecimal riskRate, TextView score, TextView rate) {
-        score.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
+        score.setText(WDp.getDpAmount2(riskRate, 0, 2));
         if (riskRate.longValue() <= 50) {
             rate.setText("SAFE");
             rate.setTextColor(ContextCompat.getColor(c, R.color.colorCdpSafe));

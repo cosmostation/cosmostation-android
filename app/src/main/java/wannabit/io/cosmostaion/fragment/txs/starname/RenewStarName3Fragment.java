@@ -50,7 +50,7 @@ public class RenewStarName3Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onRefreshTab() {
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
 
         BigDecimal starnameFee = BigDecimal.ZERO;
         if (getSActivity().mRenewType.equals(BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN)) {
@@ -62,7 +62,7 @@ public class RenewStarName3Fragment extends BaseFragment implements View.OnClick
         }
         mCurrentExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mValidTime * 1000));
         mToExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getRenewExpireTime(getSActivity().mRenewType, getSActivity().mValidTime * 1000)));
-        mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starnameFee, 6, 6));
+        mStarnameFeeAmount.setText(WDp.getDpAmount2(starnameFee, 6, 6));
         mMemo.setText(getSActivity().mTxMemo);
     }
 

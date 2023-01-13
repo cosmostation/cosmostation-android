@@ -65,7 +65,7 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
 
         BigDecimal starNameFee = getBaseDao().getStarNameRegisterAccountFee("open");
         mSelectDomain.setText(mSelectedDomain);
-        mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
+        mStarNameFeeTv.setText(WDp.getDpAmount2(starNameFee, 6, 6));
         return rootView;
     }
 

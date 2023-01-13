@@ -167,8 +167,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mCollateralDenom, mCollateralDenomTx);
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mPrincipalDenom, mPrincipalSymbol);
         WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mPrincipalDenom, mPrincipalDenomTx);
-        mCollateralMinTx.setText(WDp.getDpAmount2(getContext(), mCollateralMinAmount, mCDecimal, mCDecimal));
-        mCollateralMaxTx.setText(WDp.getDpAmount2(getContext(), mCollateralMaxAmount, mCDecimal, mCDecimal));
+        mCollateralMinTx.setText(WDp.getDpAmount2(mCollateralMinAmount, mCDecimal, mCDecimal));
+        mCollateralMaxTx.setText(WDp.getDpAmount2(mCollateralMaxAmount, mCDecimal, mCDecimal));
         setDpDecimals(mCDecimal, mPDecimal);
 
         WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mCollateralDenom, mCollateralImg);
@@ -257,8 +257,8 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
             mCollateralValue.setText(WDp.getDpRawDollor(getContext(), collateralValue, 2));
 
             mPrincipalMaxAmount = mToCollateralAmount.movePointLeft(mCDecimal - mPDecimal).multiply(new BigDecimal("0.95")).multiply(new BigDecimal(getPrice().getPrice()).movePointLeft(18)).divide(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18), 0, RoundingMode.DOWN);
-            mPrincipalMinTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMinAmount, mPDecimal, mPDecimal));
-            mPrincipalMaxTx.setText(WDp.getDpAmount2(getContext(), mPrincipalMaxAmount, mPDecimal, mPDecimal));
+            mPrincipalMinTx.setText(WDp.getDpAmount2(mPrincipalMinAmount, mPDecimal, mPDecimal));
+            mPrincipalMaxTx.setText(WDp.getDpAmount2(mPrincipalMaxAmount, mPDecimal, mPDecimal));
 
             mPrincipalInput.addTextChangedListener(new TextWatcher() {
                 @Override

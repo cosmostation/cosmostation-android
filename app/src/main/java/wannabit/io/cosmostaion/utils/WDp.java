@@ -1,30 +1,8 @@
 package wannabit.io.cosmostaion.utils;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.LIKECOIN_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.ONOMY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CHAIN_BASE_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseChain.*;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 import android.content.Context;
 import android.text.SpannableString;
@@ -101,14 +79,6 @@ public class WDp {
         } else {
             return SpannableString.valueOf("••••••••");
         }
-    }
-
-    public static SpannableString getDpAmount2(Context c, BigDecimal input, int divideDecimal, int displayDecimal) {
-        SpannableString result;
-        BigDecimal amount = input.movePointLeft(divideDecimal).setScale(displayDecimal, BigDecimal.ROUND_DOWN);
-        result = new SpannableString(getDecimalFormat(displayDecimal).format(amount));
-        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - displayDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        return result;
     }
 
     public static SpannableString getDpAmount2(BigDecimal input, int divideDecimal, int displayDecimal) {
@@ -264,38 +234,33 @@ public class WDp {
         setDpCoin(c, baseData, chainConfig, coin.denom, coin.amount, denomTv, amountTv);
     }
 
-    public static void setDpCoin2(Context c, BaseData baseData, ChainConfig chainConfig, Coin coin, TextView denomTv, TextView amountTv) {
-        if (baseData.getUsingHideAssets()) {
-            setDpCoin(c, baseData, chainConfig, coin.denom, coin.amount, denomTv, amountTv);
-        } else {
-            amountTv.setText("••••••••");
-            setDpSymbol(c, baseData, chainConfig, coin.denom, denomTv);
-        }
-    }
-
     public static void setDpCoin(Context c, BaseData baseData, ChainConfig chainConfig, String denom, String amount, TextView denomTv, TextView amountTv) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return;
         setDpSymbol(c, baseData, chainConfig, denom, denomTv);
         int divideDecimal = 6;
         int displayDecimal = 6;
 
-        final Asset asset = baseData.getAsset(chainConfig, denom);
-        final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
-        if (asset != null) {
-            amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimals, asset.decimals));
+        if (baseData.getUsingHideAssets()) {
+            final Asset asset = baseData.getAsset(chainConfig, denom);
+            final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
+            if (asset != null) {
+                amountTv.setText(getDpAmount2(new BigDecimal(amount), asset.decimals, asset.decimals));
 
-        } else if (mintscanToken != null) {
-            amountTv.setText(getDpAmount2(new BigDecimal(amount), mintscanToken.decimals, mintscanToken.decimals));
+            } else if (mintscanToken != null) {
+                amountTv.setText(getDpAmount2(new BigDecimal(amount), mintscanToken.decimals, mintscanToken.decimals));
 
-        } else {
-            if (chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(OKEX_MAIN)) {
-                divideDecimal = getDenomDecimal(baseData, chainConfig, denom);
-                displayDecimal = mainDisplayDecimal(chainConfig.baseChain());
             } else {
-                divideDecimal = getDenomDecimal(baseData, chainConfig, denom);
-                displayDecimal = getDenomDecimal(baseData, chainConfig, denom);
+                if (chainConfig.baseChain().equals(BNB_MAIN) || chainConfig.baseChain().equals(OKEX_MAIN)) {
+                    divideDecimal = getDenomDecimal(baseData, chainConfig, denom);
+                    displayDecimal = mainDisplayDecimal(chainConfig.baseChain());
+                } else {
+                    divideDecimal = getDenomDecimal(baseData, chainConfig, denom);
+                    displayDecimal = getDenomDecimal(baseData, chainConfig, denom);
+                }
+                amountTv.setText(getDpAmount2(new BigDecimal(amount), divideDecimal, displayDecimal));
             }
-            amountTv.setText(getDpAmount2(new BigDecimal(amount), divideDecimal, displayDecimal));
+        } else {
+            amountTv.setText("••••••••");
         }
     }
 

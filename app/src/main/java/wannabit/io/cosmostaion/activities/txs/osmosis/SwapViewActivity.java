@@ -129,7 +129,7 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
             final int outputDecimal = outputAsset.decimals;
 
             final BigDecimal availableMaxAmount = getBaseDao().getAvailable(mInputCoinDenom);
-            mInputAmount.setText(WDp.getDpAmount2(this, availableMaxAmount, inputDecimal, inputDecimal));
+            mInputAmount.setText(WDp.getDpAmount2(availableMaxAmount, inputDecimal, inputDecimal));
             if (mSelectedPool != null) {
                 BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
                 mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
@@ -148,8 +148,8 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
             WDp.setDpSymbol(this, getBaseDao(), mChainConfig, mInputCoinDenom, mSwapInputCoinExSymbol);
             WDp.setDpSymbol(this, getBaseDao(), mChainConfig, mOutputCoinDenom, mSwapOutputCoinExSymbol);
 
-            mSwapInputCoinRate.setText(WDp.getDpAmount2(this, BigDecimal.ONE, 0, 6));
-            mSwapInputCoinExRate.setText(WDp.getDpAmount2(this, BigDecimal.ONE, 0, 6));
+            mSwapInputCoinRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, 6));
+            mSwapInputCoinExRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, 6));
 
             if (mSelectedPool != null) {
                 BigDecimal inputAssetAmount = BigDecimal.ZERO;
@@ -170,7 +170,7 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
                 inputAssetAmount = inputAssetAmount.movePointLeft(inputDecimal);
                 outputAssetAmount = outputAssetAmount.movePointLeft(outputDecimal);
                 BigDecimal swapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 16, RoundingMode.DOWN).divide(outputAssetWeight, 16, RoundingMode.DOWN);
-                mSwapOutputCoinRate.setText(WDp.getDpAmount2(this, swapRate, 0, 6));
+                mSwapOutputCoinRate.setText(WDp.getDpAmount2(swapRate, 0, 6));
 
             } else if (mSelectedStablePool != null) {
 
@@ -183,9 +183,9 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
                 mSwapOutputCoinExRate.setText("??????");
             } else {
                 priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-                mSwapOutputCoinExRate.setText(WDp.getDpAmount2(this, priceRate, 0, 6));
+                mSwapOutputCoinExRate.setText(WDp.getDpAmount2(priceRate, 0, 6));
             }
-            mSwapInputCoinExRate.setText(WDp.getDpAmount2(this, BigDecimal.ONE, 0, 6));
+            mSwapInputCoinExRate.setText(WDp.getDpAmount2(BigDecimal.ONE, 0, 6));
         }
     }
 

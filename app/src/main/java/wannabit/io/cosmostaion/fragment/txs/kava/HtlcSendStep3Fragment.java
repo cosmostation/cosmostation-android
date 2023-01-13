@@ -100,10 +100,10 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
         mClaimIcon.setColorFilter(ContextCompat.getColor(getSActivity(), toChainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
         if (getSActivity().mRecipientChain.equals(BaseChain.BNB_MAIN)) {
             BigDecimal relayFee = getSActivity().mKavaBep3Param2.getSupportedSwapAssetFee(getSActivity().mToSwapDenom);
-            mReceiveAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount.subtract(relayFee), mDecimal, mDecimal));
+            mReceiveAmountTv.setText(WDp.getDpAmount2(toSendAmount.subtract(relayFee), mDecimal, mDecimal));
             WDp.setDpSymbol(getSActivity(), getBaseDao(), toChainConfig, mToSwapDenom, mReceiveAmountDenomTv);
 
-            mRelayFeeAmountTv.setText(WDp.getDpAmount2(getContext(), relayFee, mDecimal, mDecimal));
+            mRelayFeeAmountTv.setText(WDp.getDpAmount2(relayFee, mDecimal, mDecimal));
             WDp.setDpSymbol(getSActivity(), getBaseDao(), toChainConfig, mToSwapDenom, mRelayFeeAmountDenomTv);
 
             WDp.setDpCoin(getSActivity(), getBaseDao(), toChainConfig, toChainConfig.mainDenom(), claimFeeAmount.toPlainString(), mClaimFeeDenomTv, mClaimFeeAmountTv);
@@ -111,10 +111,10 @@ public class HtlcSendStep3Fragment extends BaseFragment implements View.OnClickL
 
         } else if (getSActivity().mRecipientChain.equals(BaseChain.KAVA_MAIN)) {
             BigDecimal relayFee = getSActivity().mKavaBep3Param2.getSupportedSwapAssetFee(getSActivity().mToSwapDenom).movePointLeft(8);
-            mReceiveAmountTv.setText(WDp.getDpAmount2(getContext(), toSendAmount.subtract(relayFee), 0, 8));
+            mReceiveAmountTv.setText(WDp.getDpAmount2(toSendAmount.subtract(relayFee), 0, 8));
             WDp.setDpSymbol(getSActivity(), getBaseDao(), toChainConfig, mToSwapDenom, mReceiveAmountDenomTv);
 
-            mRelayFeeAmountTv.setText(WDp.getDpAmount2(getContext(), relayFee, 0, 8));
+            mRelayFeeAmountTv.setText(WDp.getDpAmount2(relayFee, 0, 8));
             WDp.setDpSymbol(getSActivity(), getBaseDao(), toChainConfig, mToSwapDenom, mRelayFeeAmountDenomTv);
 
             WDp.setDpCoin(getSActivity(), getBaseDao(), toChainConfig, toChainConfig.mainDenom(), claimFeeAmount.toPlainString(), mClaimFeeDenomTv, mClaimFeeAmountTv);

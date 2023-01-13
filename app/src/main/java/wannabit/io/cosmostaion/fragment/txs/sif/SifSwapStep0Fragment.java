@@ -114,7 +114,7 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
                 mAvailableMaxAmount = mAvailableMaxAmount.subtract(WDp.getMainDenomFee(getActivity(), getBaseDao(), getSActivity().mChainConfig));
             }
 
-            mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
+            mSwapAvailAmount.setText(WDp.getDpAmount2(mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
             WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapAvailAmountSymbol);
 
             WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, getSActivity().mInputDenom, mSwapInputImg);

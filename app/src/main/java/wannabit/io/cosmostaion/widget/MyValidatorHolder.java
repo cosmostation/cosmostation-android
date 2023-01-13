@@ -68,7 +68,7 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
                 delegatedAmount = new BigDecimal(delegation.getBalance().getAmount());
             }
         }
-        itemTvDelegateAmount.setText(WDp.getDpAmount2(itemView.getContext(), delegatedAmount, dpDecimal, 6));
+        itemTvDelegateAmount.setText(WDp.getDpAmount2(delegatedAmount, dpDecimal, 6));
         BigDecimal unbondingAmount = BigDecimal.ZERO;
         for (Staking.UnbondingDelegation unbonding : granterUndelegations) {
             if (unbonding.getValidatorAddress().equalsIgnoreCase(myValidator.getOperatorAddress())) {
@@ -77,7 +77,7 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
                 }
             }
         }
-        itemTvUndelegateAmount.setText(WDp.getDpAmount2(itemView.getContext(), unbondingAmount, dpDecimal, 6));
+        itemTvUndelegateAmount.setText(WDp.getDpAmount2(unbondingAmount, dpDecimal, 6));
 
         BigDecimal rewardAmount = BigDecimal.ZERO;
         for (Distribution.DelegationDelegatorReward reward : granterRewards) {
@@ -89,7 +89,7 @@ public class MyValidatorHolder extends RecyclerView.ViewHolder {
                 }
             }
         }
-        itemTvReward.setText(WDp.getDpAmount2(itemView.getContext(), rewardAmount.movePointLeft(18), dpDecimal, 6));
+        itemTvReward.setText(WDp.getDpAmount2(rewardAmount.movePointLeft(18), dpDecimal, 6));
 
         if (chainConfig.baseChain().equals(BaseChain.BAND_MAIN)) {
             if (!baseData.mParam.isOracleEnable(myValidator.getOperatorAddress())) {

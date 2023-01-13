@@ -400,7 +400,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
-            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
+            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
             if (mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             } else {
@@ -457,7 +457,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
-            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
+            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
             if (mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED)) {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
             } else {
@@ -474,9 +474,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             final MyActionHolder holder = (MyActionHolder) viewHolder;
             final int dpDecimal = WDp.getDenomDecimal(getBaseDao(), mChainConfig, mChainConfig.mainDenom());
             holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(ValidatorActivity.this, mChainConfig.chainBgColor()));
-            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), getBaseDao().getDelegation(mValOpAddress), dpDecimal, dpDecimal));
-            holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseContext(), getBaseDao().getUndelegation(mValOpAddress), dpDecimal, dpDecimal));
-            holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseContext(), getBaseDao().getReward(mChainConfig.mainDenom(), mValOpAddress), dpDecimal, dpDecimal));
+            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseDao().getDelegation(mValOpAddress), dpDecimal, dpDecimal));
+            holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseDao().getUndelegation(mValOpAddress), dpDecimal, dpDecimal));
+            holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseDao().getReward(mChainConfig.mainDenom(), mValOpAddress), dpDecimal, dpDecimal));
 
             if (!mGrpcValidator.getStatus().equals(BOND_STATUS_BONDED) || mGrpcMyDelegation == null) {
                 holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseDao(), BigDecimal.ONE, BigDecimal.ONE, mBaseChain));

@@ -212,7 +212,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             memoTv.setText(mResSendBnbTxInfo.tx.value.memo);
 
             Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
-            sendAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(sendCoin.amount), 8, 8));
+            sendAmount.setText(WDp.getDpAmount2(new BigDecimal(sendCoin.amount), 8, 8));
             sendDenom.setText(sendCoin.denom.toUpperCase());
             WDp.setDpCoin(this, getBaseDao(), mFromChainConfig, mSendFee.amount.get(0), feeDenom, feeAmount);
 
@@ -246,7 +246,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
 
                 Coin sendCoin = new Coin(msg.getAmount(0).getDenom(), msg.getAmount(0).getAmount());
                 sendDenom.setText(sendCoin.denom.toUpperCase());
-                sendAmount.setText(WDp.getDpAmount2(this, new BigDecimal(sendCoin.amount), 8, 8));
+                sendAmount.setText(WDp.getDpAmount2(new BigDecimal(sendCoin.amount), 8, 8));
                 WDp.setDpCoin(this, getBaseDao(), mFromChainConfig, mSendFee.amount.get(0), feeDenom, feeAmount);
 
                 senderTv.setText(msg.getFrom());

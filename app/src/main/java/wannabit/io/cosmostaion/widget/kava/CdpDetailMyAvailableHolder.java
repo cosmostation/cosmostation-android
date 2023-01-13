@@ -56,16 +56,16 @@ public class CdpDetailMyAvailableHolder extends BaseHolder {
         final BigDecimal kAvailable = baseData.getAvailable(chainConfig.mainDenom());
 
         WDp.setDpSymbol(context, baseData, chainConfig, collateralParam.getDenom(), mEmptyCollateralDenom);
-        mEmptyCollateralAmount.setText(WDp.getDpAmount2(context, cAvailable, WDp.getDenomDecimal(baseData, chainConfig, cDenom), WDp.getDenomDecimal(baseData, chainConfig, cDenom)));
+        mEmptyCollateralAmount.setText(WDp.getDpAmount2(cAvailable, WDp.getDenomDecimal(baseData, chainConfig, cDenom), WDp.getDenomDecimal(baseData, chainConfig, cDenom)));
         BigDecimal collateralValue = cAvailable.movePointLeft(WDp.getDenomDecimal(baseData, chainConfig, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mEmptyCollateralValue.setText(WDp.getDpRawDollor(context, collateralValue, 2));
 
         WDp.setDpSymbol(context, baseData, chainConfig, collateralParam.getDebtLimit().getDenom(), mEmptyPrincipalDenom);
-        mEmptyPrincipalAmount.setText(WDp.getDpAmount2(context, pAvailable, WDp.getDenomDecimal(baseData, chainConfig, pDenom), WDp.getDenomDecimal(baseData, chainConfig, pDenom)));
+        mEmptyPrincipalAmount.setText(WDp.getDpAmount2(pAvailable, WDp.getDenomDecimal(baseData, chainConfig, pDenom), WDp.getDenomDecimal(baseData, chainConfig, pDenom)));
         BigDecimal principalValue = pAvailable.movePointLeft(WDp.getDenomDecimal(baseData, chainConfig, pDenom)).setScale(2, RoundingMode.DOWN);
         mEmptyPrincipalValue.setText(WDp.getDpRawDollor(context, principalValue, 2));
 
-        mEmptyKavaAmount.setText(WDp.getDpAmount2(context, kAvailable, 6, 6));
+        mEmptyKavaAmount.setText(WDp.getDpAmount2(kAvailable, 6, 6));
         BigDecimal kavaValue = WDp.usdValue(baseData, chainConfig.mainDenom(), kAvailable, 6);
         mEmptyKavaValue.setText(WDp.getDpRawDollor(context, kavaValue, 2));
 

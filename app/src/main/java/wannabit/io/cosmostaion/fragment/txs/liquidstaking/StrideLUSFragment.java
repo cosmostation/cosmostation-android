@@ -108,7 +108,7 @@ public class StrideLUSFragment extends BaseFragment implements View.OnClickListe
         WDp.setDpSymbol(getActivity(), getBaseDao(), getSActivity().mChainConfig, mInputCoinDenom, mInputCoin);
 
         mAvailableMaxAmount = getBaseDao().getAvailable(mInputCoinDenom);
-        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), mAvailableMaxAmount, inputDecimal, inputDecimal));
+        mInputAmount.setText(WDp.getDpAmount2(mAvailableMaxAmount, inputDecimal, inputDecimal));
 
         onFetchUserHistory();
     }

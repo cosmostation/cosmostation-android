@@ -109,10 +109,10 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             if (mMaxAvailable.compareTo(maxOnce) > 0) {
                 mMaxAvailable = maxOnce;
             }
-            mMaxAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDecimal));
+            mMaxAmount.setText(WDp.getDpAmount2(mMaxAvailable, 0, mDecimal));
 
             mMinAvailable = getSActivity().mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom).movePointLeft(8);
-            mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, 0, mDecimal));
+            mMinAmount.setText(WDp.getDpAmount2(mMinAvailable, 0, mDecimal));
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             mDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mToSwapDenom);
@@ -130,10 +130,10 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
             if (mMaxAvailable.compareTo(maxOnce) > 0) {
                 mMaxAvailable = maxOnce;
             }
-            mMaxAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDecimal, mDecimal));
+            mMaxAmount.setText(WDp.getDpAmount2(mMaxAvailable, mDecimal, mDecimal));
 
             mMinAvailable = getSActivity().mKavaBep3Param2.getSupportedSwapAssetMin(mToSwapDenom);
-            mMinAmount.setText(WDp.getDpAmount2(getContext(), mMinAvailable, mDecimal, mDecimal));
+            mMinAmount.setText(WDp.getDpAmount2(mMinAvailable, mDecimal, mDecimal));
         }
 
         mAmountInput.addTextChangedListener(new TextWatcher() {

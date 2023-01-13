@@ -133,7 +133,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         mBeforeLiquidationPrice = mCurrentTotalDebetAmount.movePointLeft(mPDecimal - mCDecimal).multiply(new BigDecimal(getCParam().getLiquidationRatio()).movePointLeft(18)).divide(mCurrentCollateralAmount, mCDecimal, RoundingMode.DOWN);
         mBeforeRiskRate = new BigDecimal(100).subtract((mCurrentPrice.subtract(mBeforeLiquidationPrice)).movePointRight(2).divide(mCurrentPrice, 2, RoundingMode.DOWN));
         WUtil.DpRiskRate3(getContext(), mBeforeRiskRate, mBeforeRiskScore, mBeforeRisk);
-        mBeforeDepositAmount.setText(WDp.getDpAmount2(getContext(), mCurrentCollateralAmount, mCDecimal, mCDecimal));
+        mBeforeDepositAmount.setText(WDp.getDpAmount2(mCurrentCollateralAmount, mCDecimal, mCDecimal));
 
         mCollateralInput.addTextChangedListener(new TextWatcher() {
             @Override

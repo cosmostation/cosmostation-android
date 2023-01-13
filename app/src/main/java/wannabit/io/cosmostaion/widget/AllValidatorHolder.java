@@ -43,7 +43,7 @@ public class AllValidatorHolder extends RecyclerView.ViewHolder {
     public void onBindAuthzAllValidatorList(BaseData baseData, ChainConfig chainConfig, Staking.Validator otherValidator) {
         if (chainConfig == null) return;
         final int dpDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
-        itemTvVotingPower.setText(WDp.getDpAmount2(itemView.getContext(), new BigDecimal(otherValidator.getTokens()), dpDecimal, 6));
+        itemTvVotingPower.setText(WDp.getDpAmount2(new BigDecimal(otherValidator.getTokens()), dpDecimal, 6));
         itemTvCommission.setText(WDp.getDpEstAprCommission(baseData, chainConfig.baseChain(), new BigDecimal(otherValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
         try {
             Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, otherValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(itemAvatar);

@@ -91,30 +91,30 @@ public class CdpDetailMyStatusHolder extends BaseHolder {
         final int pDpDecimal = WDp.getDenomDecimal(baseData, chainConfig, pDenom);
         final BigDecimal currentPrice = baseData.getKavaOraclePrice(collateralParam.getLiquidationMarketId());
 
-        mMySelfDepositAmount.setText(WDp.getDpAmount2(context, selfDepositAmount, cDpDecimal, cDpDecimal));
+        mMySelfDepositAmount.setText(WDp.getDpAmount2(selfDepositAmount, cDpDecimal, cDpDecimal));
         BigDecimal selfDepositValue = selfDepositAmount.movePointLeft(WDp.getDenomDecimal(baseData, chainConfig, cDenom)).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mMySelfDepositValue.setText(WDp.getDpRawDollor(context, selfDepositValue, 2));
 
-        mMyTotalDepositAmount.setText(WDp.getDpAmount2(context, new BigDecimal(myCdp.getCollateral().getAmount()),cDpDecimal, cDpDecimal));
+        mMyTotalDepositAmount.setText(WDp.getDpAmount2(new BigDecimal(myCdp.getCollateral().getAmount()),cDpDecimal, cDpDecimal));
         BigDecimal totalDepositValue = new BigDecimal(myCdp.getCollateral().getAmount()).movePointLeft(cDpDecimal).multiply(currentPrice).setScale(2, RoundingMode.DOWN);
         mMyTotalDepositValue.setText(WDp.getDpRawDollor(context, totalDepositValue, 2));
 
         mMyWithdrawableAmountTitle.setText(context.getString(R.string.str_expected_withdrawable_amount) + " " + WDp.getDpSymbol(baseData, chainConfig, cDenom));
         BigDecimal maxWithdrawableAmount = WUtil.getWithdrawableAmount(context, baseData, chainConfig, myCdp, collateralParam, currentPrice, selfDepositAmount);
         BigDecimal maxWithdrawableValue = maxWithdrawableAmount.movePointLeft(cDpDecimal).multiply(currentPrice);
-        mMyWithdrawableAmount.setText(WDp.getDpAmount2(context, maxWithdrawableAmount, cDpDecimal, cDpDecimal));
+        mMyWithdrawableAmount.setText(WDp.getDpAmount2(maxWithdrawableAmount, cDpDecimal, cDpDecimal));
         mMyWithdrawableValue.setText(WDp.getDpRawDollor(context, maxWithdrawableValue, 2));
 
         final BigDecimal debtValue = new BigDecimal(myCdp.getPrincipal().getAmount());
-        mMyLoadnedAmount.setText(WDp.getDpAmount2(context, debtValue, pDpDecimal, pDpDecimal));
+        mMyLoadnedAmount.setText(WDp.getDpAmount2(debtValue, pDpDecimal, pDpDecimal));
         mMyLoadedValue.setText(WDp.getDpRawDollor(context, debtValue.movePointLeft(pDpDecimal), 2));
 
         final BigDecimal totalFeeValue = WUtil.getEstimatedTotalFee(context, myCdp, collateralParam);
-        mMyCdpFeeAmount.setText(WDp.getDpAmount2(context, totalFeeValue, pDpDecimal, pDpDecimal));
+        mMyCdpFeeAmount.setText(WDp.getDpAmount2(totalFeeValue, pDpDecimal, pDpDecimal));
         mMyCdpFeeValue.setText(WDp.getDpRawDollor(context, totalFeeValue.movePointLeft(pDpDecimal), 2));
 
         final BigDecimal moreDebtAmount = WUtil.getMoreLoanableAmount(context, myCdp, collateralParam);
-        mMyLoadableAmount.setText(WDp.getDpAmount2(context, moreDebtAmount, pDpDecimal, pDpDecimal));
+        mMyLoadableAmount.setText(WDp.getDpAmount2(moreDebtAmount, pDpDecimal, pDpDecimal));
         mMyLoadableValue.setText(WDp.getDpRawDollor(context, moreDebtAmount.movePointLeft(pDpDecimal), 2));
 
         mMyBtnDepositTxt.setText(String.format(context.getString(R.string.str_btn_text_deposit), WDp.getDpSymbol(baseData, chainConfig, cDenom)));
