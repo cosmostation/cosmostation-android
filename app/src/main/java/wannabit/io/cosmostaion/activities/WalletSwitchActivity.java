@@ -131,45 +131,47 @@ public class WalletSwitchActivity extends BaseActivity {
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             holder.hiddenView.removeAllViews();
             for (Account account : data.accounts) {
-                View accountLayout = inflater.inflate(R.layout.item_chain_account, null);
-                holder.hiddenView.addView(accountLayout);
+                if (account != null && account.lastTotal != null) {
+                    View accountLayout = inflater.inflate(R.layout.item_chain_account, null);
+                    holder.hiddenView.addView(accountLayout);
 
-                FrameLayout accountCard = accountLayout.findViewById(R.id.accountCard);
-                ImageView accountState = accountLayout.findViewById(R.id.accountKeyState);
-                TextView accountName = accountLayout.findViewById(R.id.accountName);
-                TextView accountAddress = accountLayout.findViewById(R.id.accountAddress);
-                TextView accountAvailable = accountLayout.findViewById(R.id.accountAvailable);
-                TextView accountDenom = accountLayout.findViewById(R.id.accountDenom);
+                    FrameLayout accountCard = accountLayout.findViewById(R.id.accountCard);
+                    ImageView accountState = accountLayout.findViewById(R.id.accountKeyState);
+                    TextView accountName = accountLayout.findViewById(R.id.accountName);
+                    TextView accountAddress = accountLayout.findViewById(R.id.accountAddress);
+                    TextView accountAvailable = accountLayout.findViewById(R.id.accountAvailable);
+                    TextView accountDenom = accountLayout.findViewById(R.id.accountDenom);
 
-                if (account.id.equals(mAccount.id)) {
-                    accountCard.setBackground(ContextCompat.getDrawable(WalletSwitchActivity.this, R.drawable.box_round_seleted_white_daynight));
-                } else {
-                    accountCard.setBackground(ContextCompat.getDrawable(WalletSwitchActivity.this, R.drawable.box_round_darkgray_daynight));
-                }
-                WDp.setDpSymbol(WalletSwitchActivity.this, getBaseDao(), chainConfig, chainConfig.mainDenom(), accountDenom);
-                accountAddress.setText(account.address);
-                accountAvailable.setText(WDp.getDpAmount(getBaseDao(), new BigDecimal(account.lastTotal), 6, 6));
-                if (account.hasPrivateKey) {
-                    accountState.setImageResource(R.drawable.key_off);
-                    accountState.setColorFilter(ContextCompat.getColor(WalletSwitchActivity.this, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
-                } else {
-                    accountState.setImageResource(R.drawable.watchmode);
-                    accountState.setColorFilter(null);
-                }
-
-                if (TextUtils.isEmpty(account.nickName)) {
-                    accountName.setText(getString(R.string.str_my_wallet) + account.id);
-                } else {
-                    accountName.setText(account.nickName);
-                }
-
-                accountCard.setOnClickListener(v -> {
                     if (account.id.equals(mAccount.id)) {
-                        finish();
-                        return;
+                        accountCard.setBackground(ContextCompat.getDrawable(WalletSwitchActivity.this, R.drawable.box_round_seleted_white_daynight));
+                    } else {
+                        accountCard.setBackground(ContextCompat.getDrawable(WalletSwitchActivity.this, R.drawable.box_round_darkgray_daynight));
                     }
-                    onChangeWallet(account.id);
-                });
+                    WDp.setDpSymbol(WalletSwitchActivity.this, getBaseDao(), chainConfig, chainConfig.mainDenom(), accountDenom);
+                    accountAddress.setText(account.address);
+                    accountAvailable.setText(WDp.getDpAmount(getBaseDao(), new BigDecimal(account.lastTotal), 6, 6));
+                    if (account.hasPrivateKey) {
+                        accountState.setImageResource(R.drawable.key_off);
+                        accountState.setColorFilter(ContextCompat.getColor(WalletSwitchActivity.this, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
+                    } else {
+                        accountState.setImageResource(R.drawable.watchmode);
+                        accountState.setColorFilter(null);
+                    }
+
+                    if (TextUtils.isEmpty(account.nickName)) {
+                        accountName.setText(getString(R.string.str_my_wallet) + account.id);
+                    } else {
+                        accountName.setText(account.nickName);
+                    }
+
+                    accountCard.setOnClickListener(v -> {
+                        if (account.id.equals(mAccount.id)) {
+                            finish();
+                            return;
+                        }
+                        onChangeWallet(account.id);
+                    });
+                }
             }
         }
 
