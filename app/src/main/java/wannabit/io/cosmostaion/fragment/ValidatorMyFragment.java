@@ -143,7 +143,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                 WDp.setDpSymbol(getActivity(), getBaseDao(), mChainConfig, mChainConfig.mainDenom(), holder.itemTvDenom);
                 final BigDecimal allRewardAmount = getBaseDao().getRewardSum(mChainConfig.mainDenom());
-                holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, dpDecimal, dpDecimal));
+                holder.itemTvAllRewards.setText(WDp.getDpAmount(getBaseDao(), allRewardAmount, dpDecimal, dpDecimal));
 
                 holder.itemBtnAllRewards.setOnClickListener(view -> getMainActivity().onCheckEasyClaim());
 
@@ -164,9 +164,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                 holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
-                holder.itemTvDelegateAmount.setText(WDp.getDpAmount2(getContext(), delegationAmount, dpDecimal, 6));
-                holder.itemTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), undelegationAmount, dpDecimal, 6));
-                holder.itemTvReward.setText(WDp.getDpAmount2(getContext(), rewardAmount, dpDecimal, 6));
+                holder.itemTvDelegateAmount.setText(WDp.getDpAmount(getBaseDao(), delegationAmount, dpDecimal, 6));
+                holder.itemTvUndelegateAmount.setText(WDp.getDpAmount(getBaseDao(), undelegationAmount, dpDecimal, 6));
+                holder.itemTvReward.setText(WDp.getDpAmount(getBaseDao(), rewardAmount, dpDecimal, 6));
 
                 if (validator.getJailed()) {
                     holder.itemAvatar.setBorderColor(ContextCompat.getColor(getMainActivity(), R.color.colorRed));

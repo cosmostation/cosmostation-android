@@ -1,8 +1,30 @@
 package wannabit.io.cosmostaion.utils;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static wannabit.io.cosmostaion.base.BaseChain.*;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.LIKECOIN_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ONOMY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.PROVENANCE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CHAIN_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
 
 import android.content.Context;
 import android.text.SpannableString;
@@ -69,6 +91,18 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 
 public class WDp {
+    public static SpannableString getDpAmount(BaseData baseData, BigDecimal input, int divideDecimal, int displayDecimal) {
+        if (baseData.getUsingHideAssets()) {
+            SpannableString result;
+            BigDecimal amount = input.movePointLeft(divideDecimal).setScale(displayDecimal, BigDecimal.ROUND_DOWN);
+            result = new SpannableString(getDecimalFormat(displayDecimal).format(amount));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - displayDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+            return result;
+        } else {
+            return SpannableString.valueOf("••••••••");
+        }
+    }
+
     public static SpannableString getDpAmount2(Context c, BigDecimal input, int divideDecimal, int displayDecimal) {
         SpannableString result;
         BigDecimal amount = input.movePointLeft(divideDecimal).setScale(displayDecimal, BigDecimal.ROUND_DOWN);
@@ -230,6 +264,15 @@ public class WDp {
         setDpCoin(c, baseData, chainConfig, coin.denom, coin.amount, denomTv, amountTv);
     }
 
+    public static void setDpCoin2(Context c, BaseData baseData, ChainConfig chainConfig, Coin coin, TextView denomTv, TextView amountTv) {
+        if (baseData.getUsingHideAssets()) {
+            setDpCoin(c, baseData, chainConfig, coin.denom, coin.amount, denomTv, amountTv);
+        } else {
+            amountTv.setText("••••••••");
+            setDpSymbol(c, baseData, chainConfig, coin.denom, denomTv);
+        }
+    }
+
     public static void setDpCoin(Context c, BaseData baseData, ChainConfig chainConfig, String denom, String amount, TextView denomTv, TextView amountTv) {
         if (chainConfig == null || denom == null || denom.isEmpty()) return;
         setDpSymbol(c, baseData, chainConfig, denom, denomTv);
@@ -296,7 +339,8 @@ public class WDp {
 
     public static boolean isTxFeePayable(Context c, BaseData baseData, ChainConfig chainConfig) {
         if (isGRPC(chainConfig.baseChain())) {
-            if (baseData == null || baseData.mParam == null || baseData.mParam.mGasPrice == null) return false;
+            if (baseData == null || baseData.mParam == null || baseData.mParam.mGasPrice == null)
+                return false;
 
             if (chainConfig.baseChain().equals(SIF_MAIN)) {
                 if (new BigDecimal("100000000000000000").compareTo(baseData.getAvailable(chainConfig.mainDenom())) < 0) {
@@ -693,9 +737,13 @@ public class WDp {
     }
 
     public static SpannableString dpAssetValue(BaseData baseData, String coinGeckoId, BigDecimal amount, int divider) {
-        BigDecimal totalValue = assetValue(baseData, coinGeckoId, amount, divider);
-        final String formatted = baseData.getCurrencySymbol() + " " + getDecimalFormat(3).format(totalValue);
-        return dpCurrencyValue(formatted, 3);
+        if (baseData.getUsingHideAssets()) {
+            BigDecimal totalValue = assetValue(baseData, coinGeckoId, amount, divider);
+            final String formatted = baseData.getCurrencySymbol() + " " + getDecimalFormat(3).format(totalValue);
+            return dpCurrencyValue(formatted, 3);
+        } else {
+            return SpannableString.valueOf("••••••••");
+        }
     }
 
     public static BigDecimal perUsdValue(BaseData baseData, String denom) {
@@ -770,9 +818,13 @@ public class WDp {
     }
 
     public static SpannableString dpAllAssetValue(BaseChain baseChain, BaseData baseData, ChainConfig chainConfig) {
-        BigDecimal totalValue = allAssetValue(baseChain, baseData, chainConfig);
-        final String formatted = baseData.getCurrencySymbol() + " " + getDecimalFormat(3).format(totalValue);
-        return dpCurrencyValue(formatted, 3);
+        if (baseData.getUsingHideAssets()) {
+            BigDecimal totalValue = allAssetValue(baseChain, baseData, chainConfig);
+            final String formatted = baseData.getCurrencySymbol() + " " + getDecimalFormat(3).format(totalValue);
+            return dpCurrencyValue(formatted, 3);
+        } else {
+            return SpannableString.valueOf("••••••••");
+        }
     }
 
     public static SpannableString dpCurrencyValue(String input, int dpPoint) {

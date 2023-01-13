@@ -55,11 +55,11 @@ public class WalletOkexHolder extends BaseHolder {
         final BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
 
 
-        mOkTotalAmount.setText(WDp.getDpAmount2(totalAmount, 0, 6));
-        mOkAvailable.setText(WDp.getDpAmount2(availableAmount, 0, 6));
-        mOkLocked.setText(WDp.getDpAmount2(lockedAmount, 0, 6));
-        mOkDeposit.setText(WDp.getDpAmount2(depositAmount, 0, 6));
-        mOkWithdrawing.setText(WDp.getDpAmount2(withdrawAmount, 0, 6));
+        mOkTotalAmount.setText(WDp.getDpAmount(baseData, totalAmount, 0, 6));
+        mOkAvailable.setText(WDp.getDpAmount(baseData, availableAmount, 0, 6));
+        mOkLocked.setText(WDp.getDpAmount(baseData, lockedAmount, 0, 6));
+        mOkDeposit.setText(WDp.getDpAmount(baseData, depositAmount, 0, 6));
+        mOkWithdrawing.setText(WDp.getDpAmount(baseData, withdrawAmount, 0, 6));
         mOkTotalValue.setText(WDp.dpAssetValue(baseData, WDp.getGeckoId(baseData, chainConfig), totalAmount, 0));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());

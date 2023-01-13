@@ -116,6 +116,7 @@
     <string name="str_general">一般</string>
     <string name="str_notice">お知らせ</string>
     <string name="str_language">言語</string>
+    <string name="str_hide_assets">資産を隠す</string>
     <string name="str_theme">テーマ</string>
     <string name="str_theme_system">システム</string>
     <string name="str_theme_light">ライトモード</string>

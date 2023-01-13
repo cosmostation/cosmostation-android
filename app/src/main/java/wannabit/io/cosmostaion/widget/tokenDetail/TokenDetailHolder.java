@@ -71,16 +71,16 @@ public class TokenDetailHolder extends BaseHolder {
         final int stakingDisplayDecimal = WDp.mainDisplayDecimal(chain);
         final BigDecimal totalToken = baseData.getAllMainAsset(denom);
 
-        mTotalAmount.setText(WDp.getDpAmount2(totalToken, stakingDivideDecimal, stakingDisplayDecimal));
-        mAvailableAmount.setText(WDp.getDpAmount2(baseData.getAvailable(denom), stakingDivideDecimal, stakingDisplayDecimal));
-        mDelegatedAmount.setText(WDp.getDpAmount2(baseData.getDelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
-        mUnbondingAmount.setText(WDp.getDpAmount2(baseData.getUndelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
-        mRewardAmount.setText(WDp.getDpAmount2(baseData.getRewardSum(denom), stakingDivideDecimal, stakingDisplayDecimal));
+        mTotalAmount.setText(WDp.getDpAmount(baseData, totalToken, stakingDivideDecimal, stakingDisplayDecimal));
+        mAvailableAmount.setText(WDp.getDpAmount(baseData, baseData.getAvailable(denom), stakingDivideDecimal, stakingDisplayDecimal));
+        mDelegatedAmount.setText(WDp.getDpAmount(baseData, baseData.getDelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
+        mUnbondingAmount.setText(WDp.getDpAmount(baseData, baseData.getUndelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
+        mRewardAmount.setText(WDp.getDpAmount(baseData, baseData.getRewardSum(denom), stakingDivideDecimal, stakingDisplayDecimal));
 
         final BigDecimal vestingAmount = baseData.getVesting(denom);
         if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
             mVestingLayer.setVisibility(View.VISIBLE);
-            mVestingAmount.setText(WDp.getDpAmount2(vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mVestingAmount.setText(WDp.getDpAmount(baseData, vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
         }
         mCardRoot.setCardBackgroundColor(ContextCompat.getColor(c, ChainFactory.getChain(chain).chainBgColor()));
     }
@@ -88,17 +88,17 @@ public class TokenDetailHolder extends BaseHolder {
     public void onBindNativeTokengRPC(Context c, ChainConfig chainConfig, BaseData baseData, String denom) {
         final int decimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
         final BigDecimal availableAmount = baseData.getAvailable(denom);
-        mAvailableAmount.setText(WDp.getDpAmount2(availableAmount, decimal, decimal));
+        mAvailableAmount.setText(WDp.getDpAmount(baseData, availableAmount, decimal, decimal));
 
         if (chainConfig.baseChain().equals(BaseChain.KAVA_MAIN)) {
             BigDecimal vestingAmount = baseData.getVesting(denom);
-            mTotalAmount.setText(WDp.getDpAmount2(availableAmount.add(vestingAmount), decimal, decimal));
+            mTotalAmount.setText(WDp.getDpAmount(baseData, availableAmount.add(vestingAmount), decimal, decimal));
             if (vestingAmount.compareTo(BigDecimal.ZERO) > 0){
                 mVestingLayer.setVisibility(View.VISIBLE);
-                mVestingAmount.setText(WDp.getDpAmount2(c, vestingAmount, decimal, decimal));
+                mVestingAmount.setText(WDp.getDpAmount(baseData, vestingAmount, decimal, decimal));
             }
         } else {
-            mTotalAmount.setText(WDp.getDpAmount2(availableAmount, decimal, decimal));
+            mTotalAmount.setText(WDp.getDpAmount(baseData, availableAmount, decimal, decimal));
         }
     }
 

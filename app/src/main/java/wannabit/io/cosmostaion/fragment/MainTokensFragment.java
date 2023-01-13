@@ -354,7 +354,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
                 WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.coinGeckoId, holder.itemUpDown);
                 holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, totalAmount, asset.decimals));
-                holder.itemBalance.setText(WDp.getDpAmount2(totalAmount, asset.decimals, 6));
+                holder.itemBalance.setText(WDp.getDpAmount(getBaseDao(), totalAmount, asset.decimals, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     Intent intent;
@@ -382,7 +382,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
                 WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.coinGeckoId, holder.itemUpDown);
                 holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, new BigDecimal(coin.amount), asset.decimals));
-                holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimals, 6));
+                holder.itemBalance.setText(WDp.getDpAmount(getBaseDao(), new BigDecimal(coin.amount), asset.decimals, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     if (!mAccount.hasPrivateKey) {
@@ -413,7 +413,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
                 WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.coinGeckoId, holder.itemUpDown);
                 holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, new BigDecimal(coin.amount), asset.decimals));
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), asset.decimals, 6));
+                holder.itemBalance.setText(WDp.getDpAmount(getBaseDao(), new BigDecimal(coin.amount), asset.decimals, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
                     if (!mAccount.hasPrivateKey) {
@@ -447,7 +447,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));
                 WDp.valueChangeStatus(getActivity(), getBaseDao(), asset.coinGeckoId, holder.itemUpDown);
 
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), asset.getAmount(), asset.decimals, 6));
+                holder.itemBalance.setText(WDp.getDpAmount(getBaseDao(), asset.getAmount(), asset.decimals, 6));
                 holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), asset.coinGeckoId, asset.getAmount(), asset.decimals));
 
                 holder.itemRoot.setOnClickListener(v -> {
@@ -495,7 +495,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpAssetValue(getBaseDao(), WDp.getGeckoId(getBaseDao(), chainConfig), totalAmount, 0));
             holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), WDp.getGeckoId(getBaseDao(), chainConfig)));
             WDp.valueChangeStatus(getActivity(), getBaseDao(), WDp.getGeckoId(getBaseDao(), chainConfig), holder.itemUpDown);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            holder.itemBalance.setText(WDp.getDpAmount(getBaseDao(), totalAmount, 0, 6));
 
             holder.itemRoot.setOnClickListener(view -> {
                 if (!mAccount.hasPrivateKey) {
@@ -537,7 +537,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemPerPrice.setVisibility(View.GONE);
                 holder.itemUpDown.setVisibility(View.GONE);
             }
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            holder.itemBalance.setText(WDp.getDpAmount(getBaseDao(), totalAmount, 0, 6));
 
             holder.itemRoot.setOnClickListener(v -> {
                 if (!mAccount.hasPrivateKey) {

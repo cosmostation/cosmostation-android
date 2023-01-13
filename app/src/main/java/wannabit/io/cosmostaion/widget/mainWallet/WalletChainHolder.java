@@ -83,12 +83,12 @@ public class WalletChainHolder extends BaseHolder {
         mTvChainDenom.setText(chainConfig.mainSymbol());
         mTvChainDenom.setTextColor(ContextCompat.getColor(mainActivity, chainConfig.chainColor()));
 
-        mTvChainTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, decimal, 6));
-        mTvChainAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, decimal, 6));
-        mTvChainVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, decimal, 6));
-        mTvChainDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, decimal, 6));
-        mTvChainUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, decimal, 6));
-        mTvChainRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, decimal, 6));
+        mTvChainTotal.setText(WDp.getDpAmount(baseData, totalAmount, decimal, 6));
+        mTvChainAvailable.setText(WDp.getDpAmount(baseData, availableAmount, decimal, 6));
+        mTvChainVesting.setText(WDp.getDpAmount(baseData, vestingAmount, decimal, 6));
+        mTvChainDelegated.setText(WDp.getDpAmount(baseData, delegateAmount, decimal, 6));
+        mTvChainUnBonding.setText(WDp.getDpAmount(baseData, unbondingAmount, decimal, 6));
+        mTvChainRewards.setText(WDp.getDpAmount(baseData, rewardAmount, decimal, 6));
         mTvChainValue.setText(WDp.dpAssetValue(baseData, WDp.getGeckoId(baseData, chainConfig), totalAmount, decimal));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) {

@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -182,7 +183,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
             WDp.setDpSymbol(AccountListActivity.this, getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
             holder.accountAddress.setText(account.address);
-            holder.accountAvailable.setText(account.getLastTotal(baseChain));
+            holder.accountAvailable.setText(WDp.getDpAmount(getBaseDao(), new BigDecimal(account.lastTotal), 6, 6));
             setAccountKeyStatus(AccountListActivity.this, account, chainConfig, holder.accountKeyState);
 
             if (TextUtils.isEmpty(account.nickName))

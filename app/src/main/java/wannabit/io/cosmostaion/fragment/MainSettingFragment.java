@@ -71,13 +71,13 @@ import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnHideAssets, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
 
     private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme, mTvLanguage;
 
     private ImageView mPriceColorUp, mPriceColorDown;
 
-    private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
+    private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio, mSwitchUsingHideAssets;
     private SwitchCompat alarmSwitch;
 
     public static MainSettingFragment newInstance() {
@@ -99,6 +99,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
         mBtnTheme = rootView.findViewById(R.id.card_theme);
         mBtnLanguage = rootView.findViewById(R.id.card_language);
+        mBtnHideAssets = rootView.findViewById(R.id.card_hide_assets);
         mBtnAutoPass = rootView.findViewById(R.id.card_auto_pass);
         mBtnCurrency = rootView.findViewById(R.id.card_currency);
         mBtnPriceColorChange = rootView.findViewById(R.id.card_price_color_change);
@@ -125,6 +126,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvBio = rootView.findViewById(R.id.bio_title);
         mSwitchUsingUsingBio = rootView.findViewById(R.id.switch_using_bio);
         mTvAutoPassTime = rootView.findViewById(R.id.auto_pass_time);
+        mSwitchUsingHideAssets = rootView.findViewById(R.id.switch_hide_assets);
 
         mBtnMnemonic.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
@@ -134,6 +136,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnLanguage.setOnClickListener(this);
         mSwitchUsingAppLock.setOnClickListener(this);
         mSwitchUsingUsingBio.setOnClickListener(this);
+        mSwitchUsingHideAssets.setOnClickListener(this);
         mBtnAutoPass.setOnClickListener(this);
         mBtnCurrency.setOnClickListener(this);
         mBtnPriceColorChange.setOnClickListener(this);
@@ -218,6 +221,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     private void onUpdateView() {
         mSwitchUsingAppLock.setChecked(getBaseDao().getUsingAppLock());
         mSwitchUsingUsingBio.setChecked(getBaseDao().getUsingFingerPrint());
+        mSwitchUsingHideAssets.setChecked(getBaseDao().getUsingHideAssets());
 
         FingerprintManagerCompat mFingerprintManagerCompat = FingerprintManagerCompat.from(getActivity());
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) && mFingerprintManagerCompat.isHardwareDetected() && mFingerprintManagerCompat.hasEnrolledFingerprints()) {
@@ -267,6 +271,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                     getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_ENGLISH), null,
                     getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_KOREAN), null,
                     getString(R.string.str_language_japanese), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_JAPANESE), null);
+
+        } else if (v.equals(mSwitchUsingHideAssets)) {
+            getBaseDao().setUsingHideAssets(!getBaseDao().getUsingHideAssets());
+            onUpdateView();
 
         } else if (v.equals(mSwitchUsingAppLock)) {
             onClickAppLock();

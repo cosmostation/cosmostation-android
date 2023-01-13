@@ -733,7 +733,7 @@ public class BaseData {
     }
 
     public void setValSorting(int sort) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).apply();
     }
 
     public int getValSorting() {
@@ -741,7 +741,7 @@ public class BaseData {
     }
 
     public void setMyValSorting(int sort) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_MY_VALIDATOR_SORTING, sort).commit();
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_MY_VALIDATOR_SORTING, sort).apply();
     }
 
     public int getMyValSorting() {
@@ -749,7 +749,7 @@ public class BaseData {
     }
 
     public void setAlarmEnable(Boolean enable) {
-        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_ALARM_STATUS, enable).commit();
+        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_ALARM_STATUS, enable).apply();
     }
 
     public Boolean getAlarmEnable() {
@@ -757,7 +757,7 @@ public class BaseData {
     }
 
     public void setLastUser(long user) {
-        getSharedPreferences().edit().putLong(BaseConstant.PRE_USER_ID, user).commit();
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_USER_ID, user).apply();
     }
 
     public String getLastUser() {
@@ -783,7 +783,7 @@ public class BaseData {
     }
 
     public void setLastChain(String chainName) {
-        getSharedPreferences().edit().putString(BaseConstant.PRE_SELECTED_CHAINS, chainName).commit();
+        getSharedPreferences().edit().putString(BaseConstant.PRE_SELECTED_CHAINS, chainName).apply();
     }
 
     public int getCurrency() {
@@ -869,7 +869,15 @@ public class BaseData {
     }
 
     public void setCurrency(int currency) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_CURRENCY, currency).commit();
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_CURRENCY, currency).apply();
+    }
+
+    public boolean getUsingHideAssets() {
+        return getSharedPreferences().getBoolean(BaseConstant.PRE_HIDE_ASSETS, false);
+    }
+
+    public void setUsingHideAssets(boolean using) {
+        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_HIDE_ASSETS, using).apply();
     }
 
     public boolean getUsingAppLock() {
@@ -877,7 +885,7 @@ public class BaseData {
     }
 
     public void setUsingAppLock(boolean using) {
-        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_APP_LOCK, using).commit();
+        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_APP_LOCK, using).apply();
     }
 
     public boolean getUsingFingerPrint() {
@@ -885,7 +893,7 @@ public class BaseData {
     }
 
     public void setUsingFingerPrint(boolean using) {
-        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_FINGERPRINT, using).commit();
+        getSharedPreferences().edit().putBoolean(BaseConstant.PRE_USING_FINGERPRINT, using).apply();
     }
 
     public int getUsingAutoPassTime() {
@@ -893,7 +901,7 @@ public class BaseData {
     }
 
     public void setUsingAutoPassTime(int time) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_USING_PASS, time).commit();
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_USING_PASS, time).apply();
     }
 
     public String getAutoPass(Context c) {
@@ -914,12 +922,12 @@ public class BaseData {
 
     public void setLastPassTime() {
         long now = Calendar.getInstance().getTimeInMillis();
-        getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PASS_TIME, now).commit();
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PASS_TIME, now).apply();
     }
 
     public void setLastPriceTime() {
         long now = Calendar.getInstance().getTimeInMillis();
-        getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PRICE_TIME, now).commit();
+        getSharedPreferences().edit().putLong(BaseConstant.PRE_LAST_PRICE_TIME, now).apply();
     }
 
     public boolean needPriceUpdate() {
@@ -948,7 +956,7 @@ public class BaseData {
     }
 
     public void setFCMToken(String token) {
-        getSharedPreferences().edit().putString(BaseConstant.PRE_FCM_TOKEN, token).commit();
+        getSharedPreferences().edit().putString(BaseConstant.PRE_FCM_TOKEN, token).apply();
     }
 
     public String getFCMToken() {
@@ -956,7 +964,7 @@ public class BaseData {
     }
 
     public void setDBVersion(int version) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_DB_VERSION, version).commit();
+        getSharedPreferences().edit().putInt(BaseConstant.PRE_DB_VERSION, version).apply();
     }
 
     public int getDBVersion() {
@@ -969,9 +977,9 @@ public class BaseData {
             array.put(baseChain.getChain());
         }
         if (!hidedChains.isEmpty()) {
-            getSharedPreferences().edit().putString(PRE_USER_HIDEN_CHAINS, array.toString()).commit();
+            getSharedPreferences().edit().putString(PRE_USER_HIDEN_CHAINS, array.toString()).apply();
         } else {
-            getSharedPreferences().edit().putString(PRE_USER_HIDEN_CHAINS, null).commit();
+            getSharedPreferences().edit().putString(PRE_USER_HIDEN_CHAINS, null).apply();
         }
     }
 
@@ -998,9 +1006,9 @@ public class BaseData {
             array.put(baseChain.getChain());
         }
         if (!displayedChains.isEmpty()) {
-            getSharedPreferences().edit().putString(PRE_USER_SORTED_CHAINS, array.toString()).commit();
+            getSharedPreferences().edit().putString(PRE_USER_SORTED_CHAINS, array.toString()).apply();
         } else {
-            getSharedPreferences().edit().putString(PRE_USER_SORTED_CHAINS, null).commit();
+            getSharedPreferences().edit().putString(PRE_USER_SORTED_CHAINS, null).apply();
         }
     }
 
@@ -1098,9 +1106,9 @@ public class BaseData {
             array.put(baseChain.getChain());
         }
         if (!chains.isEmpty()) {
-            getSharedPreferences().edit().putString(PRE_USER_EXPENDED_CHAINS, array.toString()).commit();
+            getSharedPreferences().edit().putString(PRE_USER_EXPENDED_CHAINS, array.toString()).apply();
         } else {
-            getSharedPreferences().edit().putString(PRE_USER_EXPENDED_CHAINS, null).commit();
+            getSharedPreferences().edit().putString(PRE_USER_EXPENDED_CHAINS, null).apply();
         }
     }
 
@@ -1122,7 +1130,7 @@ public class BaseData {
     }
 
     public void setUserFavoTokens(String address, Set<String> contractSet) {
-        getSharedPreferences().edit().putString(address + " " + PRE_USER_FAVO_TOKENS, StringUtils.join(contractSet, ",")).commit();
+        getSharedPreferences().edit().putString(address + " " + PRE_USER_FAVO_TOKENS, StringUtils.join(contractSet, ",")).apply();
     }
 
     public Set<String> getUserFavoTokens(String address) {

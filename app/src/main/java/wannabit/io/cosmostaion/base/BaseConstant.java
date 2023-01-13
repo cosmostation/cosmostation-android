@@ -38,6 +38,7 @@ public class BaseConstant {
     public final static String PRE_AUTO_SIGN                = "PRE_AUTO_SIGN";
     public final static String PRE_WC_WHITE_LIST            = "PRE_WC_WHITE_LIST";
     public final static String PRE_PRICE_COLOR              = "PRE_PRICE_COLOR";
+    public final static String PRE_HIDE_ASSETS              = "PRE_HIDE_ASSETS";
 
 
     public final static int TASK_FETCH_ACCOUNT                          = 2004;

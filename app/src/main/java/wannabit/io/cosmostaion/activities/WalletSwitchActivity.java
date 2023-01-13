@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -147,7 +148,7 @@ public class WalletSwitchActivity extends BaseActivity {
                 }
                 WDp.setDpSymbol(WalletSwitchActivity.this, getBaseDao(), chainConfig, chainConfig.mainDenom(), accountDenom);
                 accountAddress.setText(account.address);
-                accountAvailable.setText(account.getLastTotal(BaseChain.getChain(account.baseChain)));
+                accountAvailable.setText(WDp.getDpAmount(getBaseDao(), new BigDecimal(account.lastTotal), 6, 6));
                 if (account.hasPrivateKey) {
                     accountState.setImageResource(R.drawable.key_off);
                     accountState.setColorFilter(ContextCompat.getColor(WalletSwitchActivity.this, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -156,7 +157,7 @@ public class WalletSwitchActivity extends BaseActivity {
                     accountState.setColorFilter(null);
                 }
 
-                if (TextUtils.isEmpty(account.nickName)){
+                if (TextUtils.isEmpty(account.nickName)) {
                     accountName.setText(getString(R.string.str_my_wallet) + account.id);
                 } else {
                     accountName.setText(account.nickName);
@@ -164,8 +165,8 @@ public class WalletSwitchActivity extends BaseActivity {
 
                 accountCard.setOnClickListener(v -> {
                     if (account.id.equals(mAccount.id)) {
-                       finish();
-                       return;
+                        finish();
+                        return;
                     }
                     onChangeWallet(account.id);
                 });
@@ -191,12 +192,12 @@ public class WalletSwitchActivity extends BaseActivity {
 
             public ChainHolder(@NonNull View itemView) {
                 super(itemView);
-                accountCard         = itemView.findViewById(R.id.card_chain);
-                accountSelect       = itemView.findViewById(R.id.chain_layer);
-                accountChainImg     = itemView.findViewById(R.id.chain_img);
-                accountChainName    = itemView.findViewById(R.id.chain_name);
-                accountWalletCnt    = itemView.findViewById(R.id.wallet_cnt);
-                hiddenView          = itemView.findViewById(R.id.hidden_view);
+                accountCard = itemView.findViewById(R.id.card_chain);
+                accountSelect = itemView.findViewById(R.id.chain_layer);
+                accountChainImg = itemView.findViewById(R.id.chain_img);
+                accountChainName = itemView.findViewById(R.id.chain_name);
+                accountWalletCnt = itemView.findViewById(R.id.wallet_cnt);
+                hiddenView = itemView.findViewById(R.id.hidden_view);
             }
         }
     }
