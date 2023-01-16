@@ -378,12 +378,12 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_SWAP) {
             new SimulOsmosisSwaplnGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                     getSActivity().mOsmosisSwapAmountInRoute, getSActivity().mSwapInCoin, getSActivity().mSwapOutCoin,
-                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    getSActivity().mTxMemo, mFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER) {
             new SimulIBCTransferGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress,
-                    getSActivity().mAmounts.get(0).denom, getSActivity().mAmounts.get(0).amount, getSActivity().mAssetPath, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    getSActivity().mAmounts.get(0).denom, getSActivity().mAmounts.get(0).amount, getSActivity().mAssetPath, mFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_SIF_SWAP) {
             new SimulSifSwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address,

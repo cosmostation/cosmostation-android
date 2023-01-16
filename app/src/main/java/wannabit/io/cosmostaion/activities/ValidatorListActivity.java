@@ -545,7 +545,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 }
                 if (stakeCoin != null) {
                     BigDecimal rewardAmount = new BigDecimal(stakeCoin.getAmount()).movePointLeft(18).movePointLeft(WDp.getDenomDecimal(getBaseDao(), mChainConfig, stakeCoin.getDenom()));
-                    if (new BigDecimal("0.000").compareTo(rewardAmount) < 0) {
+                    if (new BigDecimal("0.01").compareTo(rewardAmount) < 0) {
                         result.add(reward);
                     }
                 }

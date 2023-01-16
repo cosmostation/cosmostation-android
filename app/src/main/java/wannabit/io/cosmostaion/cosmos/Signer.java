@@ -414,8 +414,12 @@ public class Signer {
         return getSignTx(auth, getSwapInMsg(auth, swapRoute, swapInputCoin, outputAmount), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcSwapInSimulateReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getSwapInMsg(auth, swapRoute, swapInputCoin, outputAmount), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcSwapInSimulateReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount, Fee fee, String memo) {
+        return getSignSimulTx(auth, getSwapInMsg(auth, swapRoute, swapInputCoin, outputAmount), fee, memo);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerSwapReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getSwapInMsg(auth, swapRoute, swapInputCoin, outputAmount), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getSwapInMsg(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, Coin swapInputCoin, String outputAmount) {
@@ -430,8 +434,12 @@ public class Signer {
         return getSignTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, lastHeight), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcIbcTransferSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, lastHeight), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcIbcTransferSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight, Fee fee, String memo) {
+        return getSignSimulTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, lastHeight), fee, memo);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerIbcTransferSimulReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, lastHeight), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getIbcTransferMsg(String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight) {

@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import org.bitcoinj.core.ECKey;
@@ -49,11 +48,13 @@ import java.util.TreeMap;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
+import ibc.core.client.v1.Client;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -217,6 +218,40 @@ public class MsgGenerator {
 
             result.add(msg);
         });
+        return result;
+    }
+
+    public static ArrayList<Msg> genIbcTransferMsgs(String sender, String receiver, Coin amount, AssetPath assetPath, Client.Height lastHeight) {
+        ArrayList<Msg> result = new ArrayList<>();
+        Msg msg  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.receiver = receiver;
+        value.sender = sender;
+        value.source_channel = assetPath.channel;
+        value.source_port = assetPath.port;
+        value.token = amount;
+        value.time_height = new Msg.TimeoutHeight(String.valueOf(lastHeight.getRevisionHeight() + 1000), String.valueOf(lastHeight.getRevisionNumber()));
+
+        msg.type = BaseConstant.COSMOS_MSG_TYPE_IBC_TRANSFER;
+        msg.value = value;
+        result.add(msg);
+        return result;
+    }
+
+    public static ArrayList<Msg> genSwapMsgs(String sender, String poolId, Coin swapInCoin, Coin swapOutCoin) {
+        ArrayList<Msg> result = new ArrayList<>();
+        Msg msg  = new Msg();
+        Msg.Value value = new Msg.Value();
+        Msg.Route route = new Msg.Route(poolId, swapOutCoin.denom);
+        value.routes = new ArrayList<>();
+        value.routes.add(route);
+        value.sender = sender;
+        value.token_in = swapInCoin;
+        value.token_out_min_amount = swapOutCoin.amount;
+
+        msg.type = BaseConstant.OSMOSIS_MSG_TYPE_SWAP;
+        msg.value = value;
+        result.add(msg);
         return result;
     }
 

@@ -29,12 +29,11 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
     private String                  mTokenDenom, mTokenAmount;
     private AssetPath               mAssetPath;
     private Fee                     mFees;
-    private String                  mChainId;
 
     private ibc.core.channel.v1.QueryGrpc.QueryBlockingStub mStub;
 
     public SimulIBCTransferGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recevier, String tokenDenom, String tokenAmount,
-                                    AssetPath assetPath, Fee fee, String chainId) {
+                                    AssetPath assetPath, Fee fee) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -44,7 +43,6 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
         this.mTokenAmount = tokenAmount;
         this.mAssetPath = assetPath;
         this.mFees = fee;
-        this.mChainId = chainId;
         this.mStub = ibc.core.channel.v1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
@@ -56,7 +54,7 @@ public class SimulIBCTransferGrpcTask extends CommonTask {
             Tendermint.ClientState value = Tendermint.ClientState.parseFrom(res.getIdentifiedClientState().getClientState().getValue());
 
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcIbcTransferSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSender, mReceiver, mTokenDenom, mTokenAmount, mAssetPath, value.getLatestHeight(), mFees, "", WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcIbcTransferSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSender, mReceiver, mTokenDenom, mTokenAmount, mAssetPath, value.getLatestHeight(), mFees, "");
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;
