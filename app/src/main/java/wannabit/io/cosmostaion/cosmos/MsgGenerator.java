@@ -23,12 +23,15 @@ import com.binance.dex.api.client.encoding.message.Token;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bouncycastle.util.Strings;
 import org.bouncycastle.util.encoders.Hex;
+import org.json.JSONObject;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Sign;
 
@@ -37,6 +40,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -372,6 +376,33 @@ public class MsgGenerator {
 
 
         return reqBroadCast;
+    }
+
+    public static ReqBroadCast getKavaWcBroadcastReq(JSONObject tx, ECKey key) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+        try {
+            String sortedTx = mapper.writeValueAsString(mapper.readValue(tx.toString(), TreeMap.class));
+            String signatureTx = MsgGenerator.getSignature(key, sortedTx.getBytes(StandardCharsets.UTF_8));
+            Signature signature = new Signature();
+            Pub_key pubKey = new Pub_key();
+            pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+            pubKey.value = WKey.getPubKeyValue(key);
+            signature.pub_key = pubKey;
+            signature.signature = signatureTx;
+            ArrayList<Signature> signatures = new ArrayList<>();
+            signatures.add(signature);
+            StdTx.Value value = new StdTx.Value();
+            value.fee = new Gson().fromJson(tx.getJSONObject("fee").toString(), Fee.class);
+            value.signatures = signatures;
+            value.memo = tx.getString("memo");
+            ReqBroadCast reqBroadCast = new ReqBroadCast();
+            reqBroadCast.returns = "block";
+            reqBroadCast.tx = value;
+            return reqBroadCast;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static ReqBroadCast getWcTrustBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, ECKey key, String chainId) {

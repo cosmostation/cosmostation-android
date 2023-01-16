@@ -257,7 +257,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             if (mPageAdapter.getItem(2) != null && mPageAdapter.mCurrentFragment != mPageAdapter.getItem(2))
                 ((MainViewPageAdapter) mContentsPager.getAdapter()).getItem(2).onRefreshTab();
 
-            if (mChainConfig.baseChain().equals(OKEX_MAIN) && !mChainConfig.getHdPath(mAccount.customPath, mAccount.path).contains("60")) {
+            if (mChainConfig.baseChain().equals(OKEX_MAIN) && mAccount.customPath != 2) {
                 CommonAlertDialog.showSingleButton(this, getString(R.string.error_warning_title), getString(R.string.error_deprecated_account_msg), getString(R.string.str_confirm), null);
             }
 
