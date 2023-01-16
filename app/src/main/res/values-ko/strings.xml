@@ -142,6 +142,7 @@
     <string name="str_starname_wallet_connect">스타네임 Wallet Connect</string>
     <string name="str_app_info">앱 정보</string>
     <string name="str_term">약관</string>
+    <string name="str_privacy">개인정보처리방침</string>
     <string name="str_github">오픈소스 (GitHub)</string>
     <string name="str_version">버전</string>
     <string name="str_with_mnemonic">전송가능 지갑(니모닉)</string>
