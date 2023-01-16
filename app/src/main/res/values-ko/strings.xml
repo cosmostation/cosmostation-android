@@ -945,6 +945,7 @@
     <string name="str_ledger_approve_msg">렛저에서 트랜젹션을 승인하세요.</string>
     <string name="str_ledger_tx_reject_msg">렛저에서 트랜잭션을 거절했습니다.</string>
     <string name="str_ledger_pairing_complete_msg">페어링 완료.</string>
+    <string name="str_with_ledger">렛저용 지갑</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

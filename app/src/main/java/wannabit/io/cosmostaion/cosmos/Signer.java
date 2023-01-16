@@ -127,15 +127,11 @@ public class Signer {
         return getSignTx(auth, getDelegateMsg(auth, toValAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcDelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getDelegateMsg(auth, toValAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcDelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo) {
+        return getSignSimulTx(auth, getDelegateMsg(auth, toValAddress, amounts), fee, memo);
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerDelegateReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
-        return getLedgerSignTx(auth, getDelegateMsg(auth, toValAddress, amounts), fee, memo, pubkeybyte, sigbyte);
-    }
-
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerDelegateSimulReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
         return getLedgerSignTx(auth, getDelegateMsg(auth, toValAddress, amounts), fee, memo, pubkeybyte, sigbyte);
     }
 
@@ -151,8 +147,12 @@ public class Signer {
         return getSignTx(auth, getUnDelegateMsg(auth, toValAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcUnDelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getUnDelegateMsg(auth, toValAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcUnDelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo) {
+        return getSignSimulTx(auth, getUnDelegateMsg(auth, toValAddress, amounts), fee, memo);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerUnDelegateReq(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getUnDelegateMsg(auth, toValAddress, amounts), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getUnDelegateMsg(QueryOuterClass.QueryAccountResponse auth, String toValAddress, Coin amounts) {
@@ -167,8 +167,12 @@ public class Signer {
         return getSignTx(auth, getClaimRewardsMsg(auth, toValAddresses), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcClaimRewardsSimulateReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<String> toValAddresses, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getClaimRewardsMsg(auth, toValAddresses), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcClaimRewardsSimulateReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<String> toValAddresses, Fee fee, String memo) {
+        return getSignSimulTx(auth, getClaimRewardsMsg(auth, toValAddresses), fee, memo);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerClaimRewardsReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<String> toValAddresses, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getClaimRewardsMsg(auth, toValAddresses), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getClaimRewardsMsg(QueryOuterClass.QueryAccountResponse auth, ArrayList<String> toValAddresses) {
@@ -185,8 +189,12 @@ public class Signer {
         return getSignTx(auth, getReDelegateMsg(auth, fromValAddress, toValAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcReDelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String fromValAddress, String toValAddress, Coin amounts, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getReDelegateMsg(auth, fromValAddress, toValAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcReDelegateSimulateReq(QueryOuterClass.QueryAccountResponse auth, String fromValAddress, String toValAddress, Coin amounts, Fee fee, String memo) {
+        return getSignSimulTx(auth, getReDelegateMsg(auth, fromValAddress, toValAddress, amounts), fee, memo);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerReDelegateReq(QueryOuterClass.QueryAccountResponse auth, String fromValAddress, String toValAddress, Coin amounts, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getReDelegateMsg(auth, fromValAddress, toValAddress, amounts), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getReDelegateMsg(QueryOuterClass.QueryAccountResponse auth, String fromValAddress, String toValAddress, Coin amounts) {
@@ -201,8 +209,12 @@ public class Signer {
         return getSignTx(auth, getReInvestMsg(auth, valAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcReInvestSimulateReq(QueryOuterClass.QueryAccountResponse auth, String valAddress, Coin amounts, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getReInvestMsg(auth, valAddress, amounts), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcReInvestSimulateReq(QueryOuterClass.QueryAccountResponse auth, String valAddress, Coin amounts, Fee fee, String memo) {
+        return getSignSimulTx(auth, getReInvestMsg(auth, valAddress, amounts), fee, memo);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerReinvestReq(QueryOuterClass.QueryAccountResponse auth, String valAddress, Coin amounts, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getReInvestMsg(auth, valAddress, amounts), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getReInvestMsg(QueryOuterClass.QueryAccountResponse auth, String valAddress, Coin amounts) {
@@ -222,8 +234,12 @@ public class Signer {
         return getSignTx(auth, getCompoundingMsg(auth, rewards, baseChain), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcCompoundingSimulateReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType) {
-        return getSignSimulTx(auth, getCompoundingMsg(auth, rewards, baseChain), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcCompoundingSimulateReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain, Fee fee, String memo) {
+        return getSignSimulTx(auth, getCompoundingMsg(auth, rewards, baseChain), fee, memo);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerCompoundingReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getCompoundingMsg(auth, rewards, baseChain), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getCompoundingMsg(QueryOuterClass.QueryAccountResponse auth, ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
@@ -252,8 +268,12 @@ public class Signer {
         return getSignTx(auth, getRewardAddressChangeMsg(auth, newAddress), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcRewardAddressChangeSimulateReq(QueryOuterClass.QueryAccountResponse auth, String newAddress, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getRewardAddressChangeMsg(auth, newAddress), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcRewardAddressChangeSimulateReq(QueryOuterClass.QueryAccountResponse auth, String newAddress, Fee fee, String memo) {
+        return getSignSimulTx(auth, getRewardAddressChangeMsg(auth, newAddress), fee, memo);
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerRewardAddressChangeReq(QueryOuterClass.QueryAccountResponse auth, String newAddress, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getRewardAddressChangeMsg(auth, newAddress), fee, memo, pubkeybyte, sigbyte);
     }
 
     public static ArrayList<Any> getRewardAddressChangeMsg(QueryOuterClass.QueryAccountResponse auth, String newAddress) {
@@ -267,8 +287,8 @@ public class Signer {
         return getSignTx(auth, getVoteMsg(auth, opinionMap), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcVoteSimulateReq(QueryOuterClass.QueryAccountResponse auth, Map<Integer, String> opinionMap, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getVoteMsg(auth, opinionMap), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcVoteSimulateReq(QueryOuterClass.QueryAccountResponse auth, Map<Integer, String> opinionMap, Fee fee, String memo) {
+        return getSignSimulTx(auth, getVoteMsg(auth, opinionMap), fee, memo);
     }
 
     public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerVoteReq(QueryOuterClass.QueryAccountResponse auth, Map<Integer, String> opinionMap, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {

@@ -176,7 +176,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     public void onCheckRedelegate() {
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }
@@ -209,7 +209,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onStartUndelegate() {
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }
@@ -234,7 +234,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onGetReward() {
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }
@@ -256,7 +256,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onCheckReInvest() {
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }

@@ -207,6 +207,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 mAccountPath.setTextColor(ContextCompat.getColor(AccountDetailActivity.this, R.color.colorPhoton));
             }
 
+        } else if (mAccount.isLedger()) {
+            mAccountState.setText(getString(R.string.str_with_ledger));
+            mAccountPath.setText(mAccount.path);
+            mPathLayer.setVisibility(View.VISIBLE);
+            mMnemonicLayer.setVisibility(View.GONE);
+            mImportMsg.setVisibility(View.GONE);
+            mBtnCheck.setVisibility(View.GONE);
+            mBtnCheckKey.setVisibility(View.GONE);
+
         } else {
             mAccountState.setText(getString(R.string.str_only_address));
             mPathLayer.setVisibility(View.GONE);
@@ -291,7 +300,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             onClickQrCopy(mChainConfig, mAccount);
 
         } else if (v.equals(mBtnRewardAddressChange)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
                 onInsertKeyDialog();
                 return;
             }

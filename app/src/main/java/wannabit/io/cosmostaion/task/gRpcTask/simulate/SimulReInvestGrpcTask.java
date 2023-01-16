@@ -23,9 +23,8 @@ public class SimulReInvestGrpcTask extends CommonTask {
     private Coin        mReInvestAmount;
     private String      mReInvestMemo;
     private Fee         mReInvestFees;
-    private String      mChainId;
 
-    public SimulReInvestGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mValidatorAddress, Coin mReInvestAmount, String mReInvestMemo, Fee mReInvestFees, String chainId) {
+    public SimulReInvestGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mValidatorAddress, Coin mReInvestAmount, String mReInvestMemo, Fee mReInvestFees) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = mAccount;
@@ -33,14 +32,13 @@ public class SimulReInvestGrpcTask extends CommonTask {
         this.mReInvestAmount = mReInvestAmount;
         this.mReInvestMemo = mReInvestMemo;
         this.mReInvestFees = mReInvestFees;
-        this.mChainId = chainId;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcReInvestSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mValidatorAddress, mReInvestAmount, mReInvestFees, mReInvestMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcReInvestSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mValidatorAddress, mReInvestAmount, mReInvestFees, mReInvestMemo);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();

@@ -1039,6 +1039,7 @@
     <string name="str_ledger_approve_msg">Approve transaction on Ledger.</string>
     <string name="str_ledger_tx_reject_msg">Transaction rejected on Ledger.</string>
     <string name="str_ledger_pairing_complete_msg">Pairing Completed.</string>
+    <string name="str_with_ledger">With Ledger</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>

@@ -23,9 +23,8 @@ public class SimulRedelegateGrpcTask extends CommonTask {
     private Coin            mAmount;
     private String          mMemo;
     private Fee             mFees;
-    private String          mChainId;
 
-    public SimulRedelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String fromValidatorAddress, String toValidatorAddress, Coin toDelegateAmount, String toDelegateMemo, Fee toFees, String chainId) {
+    public SimulRedelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String fromValidatorAddress, String toValidatorAddress, Coin toDelegateAmount, String toDelegateMemo, Fee toFees) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
@@ -34,14 +33,13 @@ public class SimulRedelegateGrpcTask extends CommonTask {
         this.mAmount = toDelegateAmount;
         this.mMemo = toDelegateMemo;
         this.mFees = toFees;
-        this.mChainId = chainId;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcReDelegateSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mFromValidatorAddress, mToValidatorAddress, mAmount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcReDelegateSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mFromValidatorAddress, mToValidatorAddress, mAmount, mFees, mMemo);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();

@@ -200,8 +200,10 @@ public class SendActivity extends BaseBroadCastActivity {
 
     private void onLedgerSendTx() {
         new Thread(() -> {
+            ArrayList<Msg> txMsgs = new ArrayList<>();
             Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mAmounts, getChain(mAccount.baseChain));
-            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, singleSendMsg, mTxFee, mTxMemo);
+            txMsgs.add(singleSendMsg);
+            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, txMsgs, mTxFee, mTxMemo);
 
             runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
                 @Override

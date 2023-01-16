@@ -22,23 +22,21 @@ public class SimulVoteGrpcTask extends CommonTask {
     private Map<Integer, String> opinionMap;
     private String               mMemo;
     private Fee                  mFees;
-    private String               mChainId;
 
-    public SimulVoteGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, Map<Integer, String> opinionMap, String memo, Fee fee, String chainId) {
+    public SimulVoteGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, Map<Integer, String> opinionMap, String memo, Fee fee) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
         this.opinionMap = opinionMap;
         this.mMemo = memo;
         this.mFees = fee;
-        this.mChainId = chainId;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcVoteSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), opinionMap, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcVoteSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), opinionMap, mFees, mMemo);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();

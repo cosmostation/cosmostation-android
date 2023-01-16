@@ -183,7 +183,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             mEmptyProposalText.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.GONE);
         } else {
-            if (multiVoteSelectionMode || mVotingPeriodProposalsList.size() <= 1 || mAccount.isLedger()) {
+            if (multiVoteSelectionMode || mVotingPeriodProposalsList.size() <= 1) {
                 mMultiVoteBtn.setVisibility(View.GONE);
             } else {
                 mMultiVoteBtn.setVisibility(View.VISIBLE);
@@ -235,7 +235,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             loadProposals();
 
         } else if (v.equals(mNextBtn)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
                 onInsertKeyDialog();
                 return;
             }

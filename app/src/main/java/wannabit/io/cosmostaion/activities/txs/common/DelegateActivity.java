@@ -1,19 +1,20 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
-import static cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -24,20 +25,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.gson.Gson;
 import com.ledger.live.ble.app.BleCosmosHelper;
 
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.SignatureDecodeException;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
-import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -53,9 +44,7 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.DelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.DelegateStep3Fragment;
-import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.utils.LedgerManager;
@@ -70,6 +59,8 @@ public class DelegateActivity extends BaseBroadCastActivity {
     private TextView mTvStep;
     private ViewPager mViewPager;
     private DelegatePageAdapter mPageAdapter;
+
+    private CommonAlertDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,81 +183,72 @@ public class DelegateActivity extends BaseBroadCastActivity {
 
     private void onDelegateByLedger() {
         new Thread(() -> {
-            ArrayList<Serializable> authInfo = Signer.onParseAuthGrpc(WKey.onAuthResponse(mBaseChain, mAccount));
-            ArrayList<Msg> msgs = new ArrayList<>();
-            Msg delgateMsg = MsgGenerator.genDelegateMsg(mAccount.address, mValAddress, mAmount);
-            msgs.add(delgateMsg);
+            ArrayList<Msg> delegateMsgs = MsgGenerator.genDelegateMsgs(mAccount.address, mValAddress, mAmount);
+            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, delegateMsgs, mTxFee, mTxMemo);
 
-            StdSignMsg tosign = MsgGenerator.genToSignMsg(getBaseDao().getChainIdGrpc(), "" + authInfo.get(1), "" + authInfo.get(2), msgs, mTxFee, mTxMemo);
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
-            String message = null;
-            try {
-                message = mapper.writeValueAsString(mapper.readValue(new Gson().toJson(tosign), TreeMap.class));
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-
-            String finalMessage = message;
             runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
-                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(DelegateActivity.this, "Ledger Error", errorType.name(), "Cancel", null, "Retry", view -> onStartDelegate()));
+                    if (isFinishing()) {
+                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(DelegateActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartDelegate()));
+                    }
                 }
 
                 @Override
                 public void connected() {
-                    String path = mAccount.path;
-                    if (path == null) {
-                        path = "44'/118'/0'/0/0";
-                    }
-                    String finalPath = path;
-                    BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), path, new BleCosmosHelper.GetAddressListener() {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.postDelayed(() -> {
+                        mDialog = CommonAlertDialog.makeSecondImageSingleButton(DelegateActivity.this, getString(R.string.str_ledger_approve_title), getString(R.string.str_ledger_approve_msg), getString(R.string.str_cancel), view -> finish(), R.drawable.icon_ledger);
+                        mDialog.setCancelable(false);
+                        mDialog.create();
+                    }, 0);
+
+                    BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), mAccount.path, new BleCosmosHelper.GetAddressListener() {
                         @Override
                         public void success(@NonNull String s, @NonNull byte[] bytes) {
                             LedgerManager.getInstance().setCurrentPubKey(bytes);
                             if (!mAccount.address.equals(s)) {
-                                //TODO not matched address with ledger
                                 return;
+                            } else {
+                                runOnUiThread(() -> {
+                                    mDialog.show();
+                                });
                             }
-                            BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), finalPath, finalMessage, new BleCosmosHelper.SignListener() {
+
+                            BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), mAccount.path, message, new BleCosmosHelper.SignListener() {
                                 @Override
                                 public void success(@NonNull byte[] bytes) {
-                                    try {
-                                        byte[] sigData = new byte[64];
-                                        ECKey.ECDSASignature Signature = ECKey.ECDSASignature.decodeFromDER(bytes);
-                                        System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
-                                        System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);
-                                        new Thread(() -> {
-                                            ServiceGrpc.ServiceBlockingStub txService = newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-                                            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerDelegateReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddress, mAmount, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), sigData);
-                                            ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
-                                            TaskResult mResult = new TaskResult();
-                                            mResult.resultData = response.getTxResponse().getTxhash();
-                                            if (response.getTxResponse().getCode() > 0) {
-                                                mResult.errorCode = response.getTxResponse().getCode();
-                                                mResult.errorMsg = response.getTxResponse().getRawLog();
-                                                mResult.isSuccess = false;
-                                            } else {
-                                                mResult.isSuccess = true;
-                                            }
-                                            onIntentTx(mResult);
-                                        }).start();
+                                    new Thread(() -> {
+                                        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerDelegateReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddress, mAmount, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(bytes));
+                                        ServiceOuterClass.BroadcastTxResponse response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, mChainConfig);
+                                        TaskResult mResult = new TaskResult();
+                                        mResult.resultData = response.getTxResponse().getTxhash();
 
-                                    } catch (SignatureDecodeException e) {
-                                        e.printStackTrace();
-                                    }
+                                        if (response.getTxResponse().getCode() > 0) {
+                                            mResult.errorCode = response.getTxResponse().getCode();
+                                            mResult.errorMsg = response.getTxResponse().getRawLog();
+                                            mResult.isSuccess = false;
+                                        } else {
+                                            mResult.isSuccess = true;
+                                        }
+                                        onIntentTx(mResult);
+                                    }).start();
                                 }
 
                                 @Override
                                 public void error(@NonNull String s, @NonNull String s1) {
+                                    runOnUiThread(() -> {
+                                        mDialog.dismiss();
+                                        if (s.equalsIgnoreCase("6986")) {
+                                            Toast.makeText(DelegateActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             });
                         }
 
                         @Override
                         public void error(@NonNull String s, @NonNull String s1) {
-
                         }
                     });
                 }

@@ -698,20 +698,17 @@ public class WKey {
         return authStub.account(request);
     }
 
-    public static StdSignMsg onSetLedgerSignMsg(BaseData baseData, ChainConfig chainConfig, Account account, Msg singleMsg, Fee fee, String memo) {
+    public static StdSignMsg onSetLedgerSignMsg(BaseData baseData, ChainConfig chainConfig, Account account, ArrayList<Msg> txMsgs, Fee fee, String memo) {
         ArrayList<Serializable> authInfo = Signer.onParseAuthGrpc(onAuthResponse(chainConfig.baseChain(), account));
-        ArrayList<Msg> msgs = new ArrayList<>();
-        msgs.add(singleMsg);
-
-        return MsgGenerator.genToSignMsg(baseData.getChainIdGrpc(), "" + authInfo.get(1), "" + authInfo.get(2), msgs, fee, memo);
+        return MsgGenerator.genToSignMsg(baseData.getChainIdGrpc(), "" + authInfo.get(1), "" + authInfo.get(2), txMsgs, fee, memo);
     }
 
-    public static String onGetLedgerMessage(BaseData baseData, ChainConfig chainConfig, Account account, Msg singleMsg, Fee fee, String memo) {
+    public static String onGetLedgerMessage(BaseData baseData, ChainConfig chainConfig, Account account, ArrayList<Msg> txMsgs, Fee fee, String memo) {
         String message = null;
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
         try {
-            message = mapper.writeValueAsString(mapper.readValue(new Gson().toJson(onSetLedgerSignMsg(baseData, chainConfig, account, singleMsg, fee, memo)), TreeMap.class));
+            message = mapper.writeValueAsString(mapper.readValue(new Gson().toJson(onSetLedgerSignMsg(baseData, chainConfig, account, txMsgs, fee, memo)), TreeMap.class));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

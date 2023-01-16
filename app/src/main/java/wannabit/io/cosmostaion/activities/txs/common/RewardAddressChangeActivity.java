@@ -6,23 +6,30 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.ledger.live.ble.app.BleCosmosHelper;
+
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
@@ -30,11 +37,18 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.cosmos.Signer;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RewardAddressChangeStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RewardAddressChangeStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
+import wannabit.io.cosmostaion.utils.LedgerManager;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class RewardAddressChangeActivity extends BaseBroadCastActivity {
 
@@ -48,6 +62,8 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
     public String mCurrentRewardAddress;
 
     private RewardAddressChangePageAdapter mPageAdapter;
+
+    private CommonAlertDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,13 +172,90 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
     }
 
     public void onStartRewardAddressChange() {
-        if (getBaseDao().isAutoPass()) {
+        if (mAccount.isLedger()) {
+            onRewardAddressChangeByLedger();
+        } else if (getBaseDao().isAutoPass()) {
             onBroadCastTx();
         } else {
             Intent intent = new Intent(RewardAddressChangeActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
+    }
+
+    private void onRewardAddressChangeByLedger() {
+        new Thread(() -> {
+            ArrayList<Msg> rewardAddressChangeMsgs = MsgGenerator.genRewardAddressChanges(mAccount.address, mNewRewardAddress);
+            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, rewardAddressChangeMsgs, mTxFee, mTxMemo);
+
+            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+                @Override
+                public void error(@NonNull LedgerManager.ErrorType errorType) {
+                    if (isFinishing()) {
+                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(RewardAddressChangeActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartRewardAddressChange()));
+                    }
+                }
+
+                @Override
+                public void connected() {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.postDelayed(() -> {
+                        mDialog = CommonAlertDialog.makeSecondImageSingleButton(RewardAddressChangeActivity.this, getString(R.string.str_ledger_approve_title), getString(R.string.str_ledger_approve_msg), getString(R.string.str_cancel), view -> finish(), R.drawable.icon_ledger);
+                        mDialog.setCancelable(false);
+                        mDialog.create();
+                    }, 0);
+
+                    BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), mAccount.path, new BleCosmosHelper.GetAddressListener() {
+                        @Override
+                        public void success(@NonNull String s, @NonNull byte[] bytes) {
+                            LedgerManager.getInstance().setCurrentPubKey(bytes);
+                            if (!mAccount.address.equals(s)) {
+                                return;
+                            } else {
+                                runOnUiThread(() -> {
+                                    mDialog.show();
+                                });
+                            }
+
+                            BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), mAccount.path, message, new BleCosmosHelper.SignListener() {
+                                @Override
+                                public void success(@NonNull byte[] bytes) {
+                                    new Thread(() -> {
+                                        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerRewardAddressChangeReq(WKey.onAuthResponse(mBaseChain, mAccount), mNewRewardAddress, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(bytes));
+                                        ServiceOuterClass.BroadcastTxResponse response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, mChainConfig);
+                                        TaskResult mResult = new TaskResult();
+                                        mResult.resultData = response.getTxResponse().getTxhash();
+
+                                        if (response.getTxResponse().getCode() > 0) {
+                                            mResult.errorCode = response.getTxResponse().getCode();
+                                            mResult.errorMsg = response.getTxResponse().getRawLog();
+                                            mResult.isSuccess = false;
+                                        } else {
+                                            mResult.isSuccess = true;
+                                        }
+                                        onIntentTx(mResult);
+                                    }).start();
+                                }
+
+                                @Override
+                                public void error(@NonNull String s, @NonNull String s1) {
+                                    runOnUiThread(() -> {
+                                        mDialog.dismiss();
+                                        if (s.equalsIgnoreCase("6986")) {
+                                            Toast.makeText(RewardAddressChangeActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void error(@NonNull String s, @NonNull String s1) {
+                        }
+                    });
+                }
+            }));
+        }).start();
     }
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -174,15 +267,19 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
 
     private void onBroadCastTx() {
         new ChangeRewardAddressGrpcTask(getBaseApplication(), result -> {
-            Intent txIntent = new Intent(RewardAddressChangeActivity.this, TxDetailgRPCActivity.class);
-            txIntent.putExtra("isGen", true);
-            txIntent.putExtra("isSuccess", result.isSuccess);
-            txIntent.putExtra("errorCode", result.errorCode);
-            txIntent.putExtra("errorMsg", result.errorMsg);
-            String hash = String.valueOf(result.resultData);
-            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-            startActivity(txIntent);
+            onIntentTx(result);
         }, mBaseChain, mAccount, mNewRewardAddress, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void onIntentTx(TaskResult result) {
+        Intent txIntent = new Intent(RewardAddressChangeActivity.this, TxDetailgRPCActivity.class);
+        txIntent.putExtra("isGen", true);
+        txIntent.putExtra("isSuccess", result.isSuccess);
+        txIntent.putExtra("errorCode", result.errorCode);
+        txIntent.putExtra("errorMsg", result.errorMsg);
+        String hash = String.valueOf(result.resultData);
+        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+        startActivity(txIntent);
     }
 
     private class RewardAddressChangePageAdapter extends FragmentPagerAdapter {
