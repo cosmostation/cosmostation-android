@@ -28,12 +28,17 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
-            android:layout_marginBottom="@dimen/space_30"
+            android:layout_marginBottom="@dimen/space_40"
             android:background="@drawable/btn_trans_with_photon_border"
             android:minHeight="@dimen/space_45"
             android:text="@string/str_cancel"
             android:textAllCaps="false" />
 
-    </RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_16"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorBlack"/>
 
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
