@@ -70,11 +70,9 @@ import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data.WcSignRawDataListener
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
-import wannabit.io.cosmostaion.model.StdSignMsg
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
 import wannabit.io.cosmostaion.model.type.Coin
-import wannabit.io.cosmostaion.model.type.Msg
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 import wannabit.io.cosmostaion.utils.WUtil
@@ -466,39 +464,26 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
-    private val processGetKeplrAccounts = { id: Long, strings: List<String> ->
+    private val processGetKeplrAccounts = { id: Long, strings: List<String>? ->
         runOnUiThread {
-            val chainId = strings.first()
-            loadedAccountMap[WDp.getChainTypeByChainId(
-                chainId
-            ).chain]?.let {
-                wcV1Client?.approveRequest(
-                    id, listOf(
-                        toKeplrWallet(
-                            it
-                        )
-                    )
-                )
-                moveToBackIfNeed()
-            } ?: run {
-                showKeplrAccountDialog(
-                    id, chainId
-                )
+            if (strings != null) {
+                val chainId = strings.first()
+                loadedAccountMap[WDp.getChainTypeByChainId(chainId).chain]?.let {
+                    wcV1Client?.approveRequest(id, listOf(toKeplrWallet(it)))
+                    moveToBackIfNeed()
+                } ?: run {
+                    showKeplrAccountDialog(id, chainId)
+                }
             }
         }
     }
 
-    private val processGetCosmosAccounts = { id: Long, strings: List<String> ->
+    private val processGetCosmosAccounts = { id: Long, strings: List<String>? ->
         runOnUiThread {
-            showAccountDialog(
-                strings, mutableListOf()
-            ) { accounts ->
-                fillConnectInfoAddressIfNeed()
-                wcV1Client?.approveRequest(id, accounts.mapNotNull {
-                    toCosmosatationAccount(
-                        it
-                    )
-                })
+            if (strings != null) {
+                showAccountDialog(strings, mutableListOf()) { accounts ->
+                    fillConnectInfoAddressIfNeed()
+                    wcV1Client?.approveRequest(id, accounts.mapNotNull { toCosmosatationAccount(it) }) }
             }
         }
     }
@@ -1170,37 +1155,39 @@ class WalletConnectActivity : BaseActivity() {
         }
 
         showErrorDialog(
-            String.format(
-                getString(R.string.str_error_not_support_chain_msg), chainId
-            )
+            String.format(getString(R.string.str_error_not_support_chain_msg), chainId)
         )
         return false
     }
 
-    private fun showKeplrAccountDialog(id: Long, chainId: String) {
-        if (!hasAccount(chainId)) {
-            wcV1Client?.approveRequest(id, listOf<Any>())
-            moveToBackIfNeed()
+    private fun showKeplrAccountDialog(id: Long, chainId: String?) {
+        if (chainId != null) {
+            if (!hasAccount(chainId)) {
+                wcV1Client?.approveRequest(id, listOf<Any>())
+                moveToBackIfNeed()
+                return
+            }
+
+            val bundle = Bundle()
+            bundle.putString("chainName", chainId)
+            val dialog = Dialog_Wc_Account.newInstance(bundle)
+            dialog.setOnSelectListener(object : OnDialogSelectListener {
+                override fun onSelect(account: Account) {
+                    loadedAccountMap[WDp.getChainTypeByChainId(chainId).chain] = account
+                    fillConnectInfoAddressIfNeed()
+                    wcV1Client?.approveRequest(id, listOf(toKeplrWallet(account)))
+                    moveToBackIfNeed()
+                }
+
+                override fun onCancel() {
+                    wcV1Client?.approveRequest(id, listOf<WCKeplrWallet>())
+                    moveToBackIfNeed()
+                }
+            })
+            dialog.show(supportFragmentManager, "dialog")
+        } else {
             return
         }
-
-        val bundle = Bundle()
-        bundle.putString("chainName", chainId)
-        val dialog = Dialog_Wc_Account.newInstance(bundle)
-        dialog.setOnSelectListener(object : OnDialogSelectListener {
-            override fun onSelect(account: Account) {
-                loadedAccountMap[WDp.getChainTypeByChainId(chainId).chain] = account
-                fillConnectInfoAddressIfNeed()
-                wcV1Client?.approveRequest(id, listOf(toKeplrWallet(account)))
-                moveToBackIfNeed()
-            }
-
-            override fun onCancel() {
-                wcV1Client?.approveRequest(id, listOf<WCKeplrWallet>())
-                moveToBackIfNeed()
-            }
-        })
-        dialog.show(supportFragmentManager, "dialog")
     }
 
     private fun showAccountDialog(
