@@ -3,10 +3,7 @@ package wannabit.io.cosmostaion.activities;
 import android.os.Bundle;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.journeyapps.barcodescanner.CaptureActivity;
-import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import wannabit.io.cosmostaion.R;
