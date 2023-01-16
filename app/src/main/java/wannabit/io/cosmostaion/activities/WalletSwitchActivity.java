@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.AutoTransition;
@@ -15,12 +16,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -29,6 +35,7 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
+import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class WalletSwitchActivity extends BaseActivity {
@@ -40,6 +47,8 @@ public class WalletSwitchActivity extends BaseActivity {
     private ArrayList<ChainAccounts> mChainAccounts = new ArrayList<>();
 
     private ImageView mBtnClose;
+    private ArrayList<MWords> mMyMnemonics;
+    private int filterIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +56,6 @@ public class WalletSwitchActivity extends BaseActivity {
         setContentView(R.layout.activity_wallet_switch);
         mBtnClose = findViewById(R.id.btn_close);
         mChainRecyclerView = findViewById(R.id.account_recycler);
-
         mBtnClose.setOnClickListener(v -> {
             setExpendChains();
             finish();
@@ -61,18 +69,53 @@ public class WalletSwitchActivity extends BaseActivity {
 
     private void loadChains() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        ArrayList<BaseChain> mDisplayChains = getBaseDao().dpSortedChains();
         mExpendedChains = getBaseDao().getExpendedChains();
         mSelectedChain = BaseChain.getChain(mAccount.baseChain);
+        mMyMnemonics = getBaseDao().onSelectAllMnemonics();
         getBaseDao().setLastChain(mSelectedChain.getChain());
+        TextView textView = findViewById(R.id.account);
+        textView.setOnClickListener(v -> {
+            ArrayList<MWords> mwords = Lists.newArrayList();
+            MWords tempMWords = new MWords();
+            tempMWords.id = -1L;
+            mwords.add(tempMWords);
+            mwords.addAll(mMyMnemonics);
+            String[] items = mwords.stream().map(item -> {
+                if (item.id == -1L) {
+                    return "All";
+                } else {
+                    return "Wallet " + item.id;
+                }
+            }).toArray(String[]::new);
+            new AlertDialog.Builder(this, R.style.DialogTheme).setItems(items, (DialogInterface dialogInterface, int i) -> {
+                filterIndex = i - 1;
+                changeFilter();
+            }).setNegativeButton(R.string.str_cancel, null).create().show();
 
+        });
+        changeFilter();
+    }
+
+    private void changeFilter() {
+        mChainAccounts.clear();
+        ArrayList<BaseChain> mDisplayChains = getBaseDao().dpSortedChains();
         for (BaseChain chain : mDisplayChains) {
-            if (mExpendedChains.contains(chain) || mSelectedChain.equals(chain)) {
-                mChainAccounts.add(new ChainAccounts(true, chain, getBaseDao().onSelectAccountsByChain(chain)));
-            } else {
-                mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().onSelectAccountsByChain(chain)));
+            List<Account> accounts = getBaseDao().onSelectAccountsByChain(chain);
+            if (filterIndex != -1L) {
+                accounts = accounts.stream().filter(account -> account.mnemonicId.equals(mMyMnemonics.get(filterIndex).id)).collect(Collectors.toList());
             }
+            if (accounts.size() == 0) {
+                continue;
+            }
+            mChainAccounts.add(new ChainAccounts(true, chain, accounts));
         }
+        TextView textView = findViewById(R.id.account);
+        if (filterIndex == -1) {
+            textView.setText("All");
+        } else {
+            textView.setText(mMyMnemonics.get(filterIndex).nickName == null ? getString(R.string.str_my_wallet) + mMyMnemonics.get(filterIndex).id : mMyMnemonics.get(filterIndex).nickName);
+        }
+
         mChainRecyclerView.scrollToPosition(getBaseDao().dpSortedChains().indexOf(mSelectedChain));
         mChainListAdapter.notifyDataSetChanged();
     }
@@ -156,7 +199,7 @@ public class WalletSwitchActivity extends BaseActivity {
                     accountState.setColorFilter(null);
                 }
 
-                if (TextUtils.isEmpty(account.nickName)){
+                if (TextUtils.isEmpty(account.nickName)) {
                     accountName.setText(getString(R.string.str_my_wallet) + account.id);
                 } else {
                     accountName.setText(account.nickName);
@@ -164,8 +207,8 @@ public class WalletSwitchActivity extends BaseActivity {
 
                 accountCard.setOnClickListener(v -> {
                     if (account.id.equals(mAccount.id)) {
-                       finish();
-                       return;
+                        finish();
+                        return;
                     }
                     onChangeWallet(account.id);
                 });
@@ -191,12 +234,12 @@ public class WalletSwitchActivity extends BaseActivity {
 
             public ChainHolder(@NonNull View itemView) {
                 super(itemView);
-                accountCard         = itemView.findViewById(R.id.card_chain);
-                accountSelect       = itemView.findViewById(R.id.chain_layer);
-                accountChainImg     = itemView.findViewById(R.id.chain_img);
-                accountChainName    = itemView.findViewById(R.id.chain_name);
-                accountWalletCnt    = itemView.findViewById(R.id.wallet_cnt);
-                hiddenView          = itemView.findViewById(R.id.hidden_view);
+                accountCard = itemView.findViewById(R.id.card_chain);
+                accountSelect = itemView.findViewById(R.id.chain_layer);
+                accountChainImg = itemView.findViewById(R.id.chain_img);
+                accountChainName = itemView.findViewById(R.id.chain_name);
+                accountWalletCnt = itemView.findViewById(R.id.wallet_cnt);
+                hiddenView = itemView.findViewById(R.id.hidden_view);
             }
         }
     }

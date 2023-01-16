@@ -1,65 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/chain_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@color/colorWhiteDayNight"/>
+    android:layout_height="match_parent"
+    android:background="@color/colorWhiteDayNight"
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/top_sheet"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhiteDayNight">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="7dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_bar_height">
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_votevalidator_20" />
 
-                <ImageView
-                    android:id="@+id/btn_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_10"
-                    android:padding="6dp"
-                    android:src="@drawable/close_btn" />
+        <TextView
+            android:id="@+id/account"
+            style="@style/font_rr_17_black_daynight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:paddingStart="5dp"
+            android:text="Account" />
 
-                <TextView
-                    style="@style/font_rr_17_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/str_switch_wallet" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <View
+            android:layout_width="0dip"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingTop="@dimen/space_4">
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_10"
+            android:padding="6dp"
+            android:src="@drawable/close_btn" />
+    </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/account_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clipToPadding="false"
-                        android:overScrollMode="never"
-                        android:paddingTop="@dimen/space_4" />
-                </LinearLayout>
-            </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:background="@drawable/box_round_black2_daywhite"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            style="@style/font_rr_14_gray1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Total Value" />
+
+        <TextView
+            android:id="@+id/total_balance"
+            style="@style/font_rr_24_black_daynight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="$1,000,000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="2dp"
+        android:paddingEnd="16dp">
+
+        <View
+            android:layout_width="0dip"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_round_search"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_plus" />
+
+            <TextView
+                android:id="@+id/add_chain"
+                style="@style/font_rr_14_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:paddingStart="5dp"
+                android:text="Add Chain" />
         </LinearLayout>
-    </FrameLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/account_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingTop="@dimen/space_4" />
+</LinearLayout>
