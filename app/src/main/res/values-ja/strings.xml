@@ -141,6 +141,7 @@
     <string name="str_starname_wallet_connect">スターネームウォレット コネクト</string>
     <string name="str_app_info">アプリ情報</string>
     <string name="str_term">利用規約</string>
+    <string name="str_privacy">個人情報処理方針</string>
     <string name="str_github">オープンソース (GitHub)</string>
     <string name="str_version">バージョン</string>
     <string name="str_with_mnemonic">転送可能ウォーレット(ニーモニック)</string>
