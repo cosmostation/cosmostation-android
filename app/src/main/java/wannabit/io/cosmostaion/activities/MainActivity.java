@@ -191,9 +191,17 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onChainSelect(mSelectedChain);
         }
 
-        if (TextUtils.isEmpty(mAccount.nickName))
-            mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
-        else mToolbarTitle.setText(mAccount.nickName);
+        if (TextUtils.isEmpty(mAccount.nickName)) {
+            if (mAccount.isLedger()) {
+                mAccount.nickName = "Ledger " + mAccount.id;
+                getBaseDao().onUpdateAccount(mAccount);
+                mToolbarTitle.setText(mAccount.nickName);
+            } else {
+                mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
+            }
+        } else {
+            mToolbarTitle.setText(mAccount.nickName);
+        }
 
         if (mPageAdapter.mCurrentFragment != null) {
             mPageAdapter.getCurrentFragment().onRefreshTab();
@@ -261,9 +269,17 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 CommonAlertDialog.showSingleButton(this, getString(R.string.error_warning_title), getString(R.string.error_deprecated_account_msg), getString(R.string.str_confirm), null);
             }
 
-            if (TextUtils.isEmpty(mAccount.nickName))
-                mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
-            else mToolbarTitle.setText(mAccount.nickName);
+            if (TextUtils.isEmpty(mAccount.nickName)) {
+                if (mAccount.isLedger()) {
+                    mAccount.nickName = "Ledger " + mAccount.id;
+                    getBaseDao().onUpdateAccount(mAccount);
+                    mToolbarTitle.setText(mAccount.nickName);
+                } else {
+                    mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
+                }
+            } else {
+                mToolbarTitle.setText(mAccount.nickName);
+            }
         }
     }
 

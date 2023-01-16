@@ -284,8 +284,13 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (v.equals(mBtnDelete)) {
-            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_delete_wallet), getString(R.string.str_delete_msg),
-                    CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(), getString(R.string.str_close), null);
+            if (mAccount.isLedger()) {
+                CommonAlertDialog.showDoubleButton(this, getString(R.string.str_delete_wallet), getString(R.string.str_ledger_delete_msg),
+                        CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(), getString(R.string.str_close), null);
+            } else {
+                CommonAlertDialog.showDoubleButton(this, getString(R.string.str_delete_wallet), getString(R.string.str_delete_msg),
+                        CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(), getString(R.string.str_close), null);
+            }
 
         } else if (v.equals(mNameEditImg) && !this.isFinishing()) {
             Bundle bundle = new Bundle();

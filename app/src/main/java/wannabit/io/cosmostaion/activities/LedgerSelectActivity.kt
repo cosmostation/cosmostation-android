@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities
 
 import android.os.AsyncTask
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -154,6 +155,7 @@ class LedgerSelectActivity : BaseActivity() {
                                 return@setOnClickListener
 
                             } else {
+                                if (TextUtils.isEmpty(account.nickName)) account.nickName = "Ledger " + account.id
                                 account.isFavo = true
                                 account.path = path
                                 baseDao.onUpdateAccount(account)

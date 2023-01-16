@@ -1329,6 +1329,7 @@ public class BaseData {
         if (account.accountNumber != null) values.put("accountNumber", account.accountNumber);
         if (account.fetchTime != null) values.put("fetchTime", account.fetchTime);
         if (account.baseChain != null) values.put("baseChain", account.baseChain);
+        if (account.path != null) values.put("path", account.path);
         return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{"" + account.id});
     }
 

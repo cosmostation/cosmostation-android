@@ -944,6 +944,9 @@
     <string name="str_ledger_tx_reject_msg">Transaction rejected on Ledger.</string>
     <string name="str_ledger_pairing_complete_msg">Pairing Completed.</string>
     <string name="str_with_ledger">With Ledger</string>
+    <string name="str_imported_ledger_title">Add Ledger</string>
+    <string name="str_imported_ledger_msg">Selected wallet is registered with ledger.\nIf you want to use wallet with mnemonic or private key,\n\nplease delete the wallet and add wallet through [Manage Mnemonic]</string>
+    <string name="str_ledger_delete_msg">All information about the ledger wallet will be deleted\nYou need to connect ledger again if you want to add ledger wallet back</string>
 
 
     <string name="error_invalid_mnemonic_count">不正確な修復文字です。正確な修復文字を入力してください。</string>

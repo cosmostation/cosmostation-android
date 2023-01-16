@@ -170,7 +170,9 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                 int status = -1;
                 Account checkAccount = getBaseDao().onSelectExistAccount(dpAddress, chain);
                 if (checkAccount != null) {
-                    if (checkAccount.hasPrivateKey) {
+                    if (checkAccount.isLedger()) {
+                        status = 3;
+                    } else if (checkAccount.hasPrivateKey) {
                         status = 2;
                     } else {
                         status = 1;
@@ -288,36 +290,38 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
             }
 
             holder.accountCard.setOnClickListener(view -> {
-                if (derive.status == 2) {
+                if (derive.status == 3) {
+                    CommonAlertDialog.showSingleButton(WalletDeriveActivity.this, getString(R.string.str_imported_ledger_title), getString(R.string.str_imported_ledger_msg), getString(R.string.str_confirm), null, false);
+                } else if (derive.status == 2) {
                     return;
-                }
-                derive.selected = !derive.selected;
-                if (derive.selected) {
-                    holder.accountCheck.setVisibility(View.VISIBLE);
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
-                    if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
-                        CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>", Html.FROM_HTML_MODE_COMPACT), null,
-                                getString(R.string.str_cancel),
-                                dialogView -> {
-                                    derive.selected = false;
-                                    holder.accountCheck.setVisibility(View.GONE);
-                                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
-                                },
-                                Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>", Html.FROM_HTML_MODE_COMPACT),
-                                dialogView -> {
-                                    holder.accountCheck.setVisibility(View.VISIBLE);
-                                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
-                                }, false);
-                    }
                 } else {
-                    holder.accountCheck.setVisibility(View.GONE);
-                    holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                    derive.selected = !derive.selected;
+                    if (derive.selected) {
+                        holder.accountCheck.setVisibility(View.VISIBLE);
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
+                        if (chainConfig.supportHdPaths().size() > 1 && !derive.fullPath.equalsIgnoreCase(chainConfig.defaultPath().replace("X", String.valueOf(mPath)))) {
+                            CommonAlertDialog.showDoubleButton(WalletDeriveActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<small>" + getString(R.string.str_key_path_warning) + "</small>" + "</font>", Html.FROM_HTML_MODE_COMPACT), null,
+                                    getString(R.string.str_cancel),
+                                    dialogView -> {
+                                        derive.selected = false;
+                                        holder.accountCheck.setVisibility(View.GONE);
+                                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                                    },
+                                    Html.fromHtml("<font color=\"#05d2dd\">" + getString(R.string.str_confirm) + "</font>", Html.FROM_HTML_MODE_COMPACT),
+                                    dialogView -> {
+                                        holder.accountCheck.setVisibility(View.VISIBLE);
+                                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_selected_photon));
+                                    }, false);
+                        }
+                    } else {
+                        holder.accountCheck.setVisibility(View.GONE);
+                        holder.accountCard.setBackground(ContextCompat.getDrawable(WalletDeriveActivity.this, R.drawable.box_account_unselected));
+                    }
                 }
             });
 
             loadBalance(holder, derive);
         }
-
 
         private void loadBalance(AccountHolder holder, Derive derive) {
             ChainConfig chainConfig = ChainFactory.getChain(derive.baseChain);
