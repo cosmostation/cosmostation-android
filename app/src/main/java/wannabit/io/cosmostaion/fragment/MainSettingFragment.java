@@ -5,7 +5,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_GITHUB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_HOMEPAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TELEGRAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_EN;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_KR;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
 import android.Manifest;
@@ -71,7 +70,7 @@ import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect, mBtnPrivacy;
 
     private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme, mTvLanguage;
 
@@ -114,6 +113,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnGithub = rootView.findViewById(R.id.card_github);
         mBtnVersion = rootView.findViewById(R.id.card_version);
         mBtnWalletConnect = rootView.findViewById(R.id.card_wallet_connect);
+        mBtnPrivacy = rootView.findViewById(R.id.card_privacy);
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mTvTheme = rootView.findViewById(R.id.theme_text);
@@ -142,6 +142,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnWalletConnect.setOnClickListener(this);
         mBtnHomepage.setOnClickListener(this);
         mBtnBlog.setOnClickListener(this);
+        mBtnPrivacy.setOnClickListener(this);
         mBtnTelegram.setOnClickListener(this);
         mBtnStarnameWc.setOnClickListener(this);
         mBtnTerm.setOnClickListener(this);
@@ -256,17 +257,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getBaseActivity(), WatchingWalletAddActivity.class));
 
         } else if (v.equals(mBtnTheme)) {
-            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_theme_system), view -> setTheme(getBaseActivity(), ThemeUtil.DEFAULT_MODE), null,
-                    getString(R.string.str_theme_light), view -> setTheme(getBaseActivity(), ThemeUtil.LIGHT_MODE), null,
-                    getString(R.string.str_theme_dark), view -> setTheme(getBaseActivity(), ThemeUtil.DARK_MODE), null);
+            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null, getString(R.string.str_theme_system), view -> setTheme(getBaseActivity(), ThemeUtil.DEFAULT_MODE), null, getString(R.string.str_theme_light), view -> setTheme(getBaseActivity(), ThemeUtil.LIGHT_MODE), null, getString(R.string.str_theme_dark), view -> setTheme(getBaseActivity(), ThemeUtil.DARK_MODE), null);
 
         } else if (v.equals(mBtnLanguage)) {
-            FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_language_system), view -> setLanguage(getBaseActivity(), LanguageUtil.SYSTEM_MODE), null,
-                    getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_ENGLISH), null,
-                    getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_KOREAN), null,
-                    getString(R.string.str_language_japanese), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_JAPANESE), null);
+            FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, null, getString(R.string.str_language_system), view -> setLanguage(getBaseActivity(), LanguageUtil.SYSTEM_MODE), null, getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_ENGLISH), null, getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_KOREAN), null, getString(R.string.str_language_japanese), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_JAPANESE), null);
 
         } else if (v.equals(mSwitchUsingAppLock)) {
             onClickAppLock();
@@ -302,6 +296,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnWalletConnect)) {
             startActivity(new Intent(getContext(), ManageWalletConnectActivity.class));
 
+        } else if (v.equals(mBtnPrivacy)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_PRIVACY_EN));
+            startActivity(intent);
+
         } else if (v.equals(mBtnNotice)) {
             String url = EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(getMainActivity().mBaseChain).chainName();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -320,13 +318,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mBtnTerm)) {
-            if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_KR));
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_EN));
-                startActivity(intent);
-            }
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_EN));
+            startActivity(intent);
 
         } else if (v.equals(mBtnGithub)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_GITHUB));
@@ -413,11 +406,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onShowAutoPassDialog() {
-        FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg),
-                getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null,
-                getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null,
-                getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null,
-                getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
+        FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg), getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null, getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null, getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null, getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
     }
 
     private void onSetAutoPass(int value) {
