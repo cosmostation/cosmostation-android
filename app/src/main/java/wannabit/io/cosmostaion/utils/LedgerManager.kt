@@ -232,7 +232,7 @@ class LedgerManager {
                 if (isLedger) {
                     val activity: Activity = context as Activity
                     activity.runOnUiThread {
-                        Toast.makeText(context, "렛저 페어링 완료", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.str_ledger_pairing_completed_msg), Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     context.startActivity(Intent(context, LedgerSelectActivity::class.java))

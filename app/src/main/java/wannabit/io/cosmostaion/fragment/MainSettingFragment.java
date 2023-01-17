@@ -336,7 +336,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnLedger)) {
-            LedgerManager.getInstance().connectLedger(requireContext(), getMainActivity().mAccount.isLedger());
+            if (getMainActivity().mAccount.isLedger()) {
+                FilledVerticalButtonAlertDialog.showDoubleButton(getActivity(), null, null, getString(R.string.str_pair_selected_account_title), view -> onLedgerConnect(true) , null, getString(R.string.str_pair_different_account_title), view -> onLedgerConnect(false), null);
+            } else {
+                onLedgerConnect(getMainActivity().mAccount.isLedger());
+            }
 
         } else if (v.equals(mBtnStarnameWc)) {
             CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg), getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> new TedPermission(getMainActivity()).setPermissionListener(new PermissionListener() {
@@ -426,6 +430,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     private void onUpdateAutoPass() {
         mTvAutoPassTime.setText(getBaseDao().getAutoPass(getActivity()));
+    }
+
+    private void onLedgerConnect(boolean isLedger) {
+        LedgerManager.getInstance().connectLedger(requireContext(), isLedger);
     }
 
     public MainActivity getMainActivity() {
