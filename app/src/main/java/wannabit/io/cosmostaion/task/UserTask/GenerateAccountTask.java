@@ -73,7 +73,7 @@ public class GenerateAccountTask extends CommonTask {
             newAccount.fromMnemonic     = true;
             newAccount.msize            = mWords.wordsCnt;
             newAccount.mnemonicId       = mWords.id;
-            newAccount.nickName         = mWords.getName() + " - " + String.valueOf(mDerive.path);
+            newAccount.nickName         = mWords.getName();
         }
 
         newAccount.path             = String.valueOf(mDerive.path);
