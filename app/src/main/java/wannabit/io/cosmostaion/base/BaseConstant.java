@@ -287,7 +287,8 @@ public class BaseConstant {
     public final static String COSMOSTATION_HOMEPAGE = "https://www.cosmostation.io/";
     public final static String COSMOSTATION_BLOG = "https://medium.com/cosmostation";
     public final static String COSMOSTATION_TELEGRAM = "https://t.me/cosmostation";
-    public final static String COSMOSTATION_PRIVACY_POLICY = "https://cosmostation.io/privacypolicy_term";
+    public final static String COSMOSTATION_TERM = "https://cosmostation.io/service_en";
+    public final static String COSMOSTATION_PRIVACY_POLICY = "https://cosmostation.io/privacy-policy";
     public final static String COSMOSTATION_GITHUB = "https://github.com/cosmostation/cosmostation-android";
 
 
