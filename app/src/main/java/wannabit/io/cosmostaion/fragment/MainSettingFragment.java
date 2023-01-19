@@ -3,8 +3,8 @@ package wannabit.io.cosmostaion.fragment;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_BLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_GITHUB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_HOMEPAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_PRIVACY_POLICY;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TELEGRAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
 import android.Manifest;
@@ -37,6 +37,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,7 +70,7 @@ import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect, mBtnPrivacy;
 
     private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme, mTvLanguage;
 
@@ -112,6 +113,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnGithub = rootView.findViewById(R.id.card_github);
         mBtnVersion = rootView.findViewById(R.id.card_version);
         mBtnWalletConnect = rootView.findViewById(R.id.card_wallet_connect);
+        mBtnPrivacy = rootView.findViewById(R.id.card_privacy);
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
         mTvTheme = rootView.findViewById(R.id.theme_text);
@@ -140,6 +142,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnWalletConnect.setOnClickListener(this);
         mBtnHomepage.setOnClickListener(this);
         mBtnBlog.setOnClickListener(this);
+        mBtnPrivacy.setOnClickListener(this);
         mBtnTelegram.setOnClickListener(this);
         mBtnStarnameWc.setOnClickListener(this);
         mBtnTerm.setOnClickListener(this);
@@ -293,6 +296,10 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mBtnWalletConnect)) {
             startActivity(new Intent(getContext(), ManageWalletConnectActivity.class));
 
+        } else if (v.equals(mBtnPrivacy)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_PRIVACY_POLICY));
+            startActivity(intent);
+
         } else if (v.equals(mBtnNotice)) {
             String url = EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(getMainActivity().mBaseChain).chainName();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -311,7 +318,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mBtnTerm)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_PRIVACY_POLICY));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM));
             startActivity(intent);
 
         } else if (v.equals(mBtnGithub)) {
