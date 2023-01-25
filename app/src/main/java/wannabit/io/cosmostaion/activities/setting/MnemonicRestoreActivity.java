@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
+import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -305,10 +306,13 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         if (result.getResultCode() == Activity.RESULT_OK) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
             if (id > 0) {
-                Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
-                checkIntent.putExtra("id", id);
-                startActivity(checkIntent);
-                finish();
+                Bundle bundle = new Bundle();
+                bundle.putInt("title", R.string.str_change_account_nickname);
+                bundle.putLong("id", id);
+                bundle.putInt(ChangeNickNameDialog.CHANGE_NICK_NAME_BUNDLE_KEY, ChangeNickNameDialog.MNEMONIC_CREATE_VALUE);
+                ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
+                dialog.setCancelable(false);
+                dialog.show(getSupportFragmentManager(), "dialog");
             }
         }
     });
