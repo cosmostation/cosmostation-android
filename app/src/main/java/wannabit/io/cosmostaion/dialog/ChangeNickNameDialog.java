@@ -21,9 +21,12 @@ import wannabit.io.cosmostaion.activities.setting.MnemonicCreateActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicDetailActivity;
 import wannabit.io.cosmostaion.activities.setting.WalletDeriveActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.MWords;
 
 public class ChangeNickNameDialog extends DialogFragment {
+
+    public static int MNEMONIC_CREATE_VALUE = 8507;
 
     public final static String CHANGE_NICK_NAME_BUNDLE_KEY = "changeNickName";
 
@@ -31,6 +34,8 @@ public class ChangeNickNameDialog extends DialogFragment {
     private Button btn_nega, btn_posi;
     private EditText mNameInput;
     private MWords mWords;
+
+    private int keyValue;
 
     public static ChangeNickNameDialog newInstance(Bundle bundle) {
         ChangeNickNameDialog frag = new ChangeNickNameDialog();
@@ -46,6 +51,8 @@ public class ChangeNickNameDialog extends DialogFragment {
         btn_nega = view.findViewById(R.id.btn_nega);
         btn_posi = view.findViewById(R.id.btn_posi);
         mNameInput = view.findViewById(R.id.et_nickname);
+
+        keyValue = getArguments().getInt(CHANGE_NICK_NAME_BUNDLE_KEY);
 
         String title = getString(getArguments().getInt("title"));
         mDialogTitle.setText(title);
@@ -69,13 +76,21 @@ public class ChangeNickNameDialog extends DialogFragment {
                 imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
             }
             if (!TextUtils.isEmpty(String.valueOf(mNameInput.getText()).trim())) {
-                mWords = getSActivity().getBaseDao().onSelectMnemonicById(getArguments().getLong("id"));
-                mWords.nickName = String.valueOf(mNameInput.getText()).trim();
-                getSActivity().getBaseDao().onUpdateMnemonic(mWords);
+                if(keyValue == MNEMONIC_CREATE_VALUE) {
+                    mWords = getSActivity().getBaseDao().onSelectMnemonicById(getArguments().getLong("id"));
+                    mWords.nickName = String.valueOf(mNameInput.getText()).trim();
+                    getSActivity().getBaseDao().onUpdateMnemonic(mWords);
 
-                Intent checkIntent = new Intent(getActivity(), WalletDeriveActivity.class);
-                checkIntent.putExtra("id", getArguments().getLong("id"));
-                startActivity(checkIntent);
+                    Intent checkIntent = new Intent(getActivity(), WalletDeriveActivity.class);
+                    checkIntent.putExtra("id", getArguments().getLong("id"));
+                    startActivity(checkIntent);
+                } else {
+                    if (title.equalsIgnoreCase(getString(R.string.str_change_mnemonic_nickname))) {
+                        ((MnemonicDetailActivity) getActivity()).onChangeNickName(String.valueOf(mNameInput.getText()).trim());
+                    } else {
+                        ((AccountDetailActivity) getActivity()).onChangeNickName(String.valueOf(mNameInput.getText()).trim());
+                    }
+                }
             }
             dismiss();
         });
