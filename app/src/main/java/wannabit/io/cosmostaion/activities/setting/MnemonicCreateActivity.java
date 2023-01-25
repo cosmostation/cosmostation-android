@@ -20,12 +20,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
-import wannabit.io.cosmostaion.dialog.StarNameDomainDialog;
+import wannabit.io.cosmostaion.dialog.NickNameSetDialog;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -82,13 +80,11 @@ public class MnemonicCreateActivity extends BaseActivity {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
             if (id > 0) {
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("title", R.string.str_change_account_nickname);
-//                bundle.putLong("id", id);
-//                bundle.putInt(ChangeNickNameDialog.CHANGE_NICK_NAME_BUNDLE_KEY, ChangeNickNameDialog.MNEMONIC_CREATE_VALUE);
-//                ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
-//                dialog.setCancelable(false);
-//                dialog.show(getSupportFragmentManager(), "dialog");
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", id);
+                bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CREATE_VALUE);
+                NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+                dialog.show(getSupportFragmentManager(), "dialog");
             }
         }
     });
