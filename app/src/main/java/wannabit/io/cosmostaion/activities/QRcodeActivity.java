@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -10,6 +11,7 @@ import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.LanguageUtil;
 
 public class QRcodeActivity extends CaptureActivity {
 
@@ -27,5 +29,10 @@ public class QRcodeActivity extends CaptureActivity {
     protected DecoratedBarcodeView initializeContent() {
         setContentView(R.layout.activity_qrcode);
         return findViewById(R.id.zxing_barcode_scanner);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LanguageUtil.updateResources(newBase));
     }
 }

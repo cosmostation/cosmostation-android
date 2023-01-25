@@ -4,7 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_BLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_GITHUB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_HOMEPAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TELEGRAM;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_EN;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
 import android.Manifest;
@@ -302,7 +302,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(new Intent(getContext(), ManageWalletConnectActivity.class));
 
         } else if (v.equals(mBtnPrivacy)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_PRIVACY_EN));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_PRIVACY_POLICY));
             startActivity(intent);
 
         } else if (v.equals(mBtnNotice)) {
@@ -323,7 +323,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mBtnTerm)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_EN));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM));
             startActivity(intent);
 
         } else if (v.equals(mBtnGithub)) {

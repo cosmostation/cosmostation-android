@@ -7,7 +7,7 @@
 <h1 align="center">Cosmostation Mobile Wallet</h1>
 <h3 align="center">Welcome to Cosmostation's Open Source Mobile Apps!</h3>
 
-[![MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/cosmostation/cosmosjs/blob/master/LICENSE)
+[![MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/cosmostation/cosmostation-android/blob/master/LICENSE.md)
 [![Twitter Follow](https://img.shields.io/twitter/follow/CosmostationVD.svg?label=Follow&style=social)](https://twitter.com/CosmostationVD)
 
 *:rocket: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
