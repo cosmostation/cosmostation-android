@@ -86,8 +86,10 @@ import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
+import wannabit.io.cosmostaion.activities.txs.common.UndelegateActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -485,15 +487,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
     }
 
-    public ECKey getEcKey(Account account) {
-        if (account.fromMnemonic) {
-            String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(account, entropy);
-            return ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
-        } else {
-            String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + account.uuid, account.resource, account.spec);
-            return ECKey.fromPrivate(new BigInteger(privateKey, 16));
-        }
+    public void onCommonIntentTx(Context context, TaskResult result) {
+        Intent txIntent = new Intent(context, TxDetailgRPCActivity.class);
+        txIntent.putExtra("isGen", true);
+        txIntent.putExtra("isSuccess", result.isSuccess);
+        txIntent.putExtra("errorCode", result.errorCode);
+        txIntent.putExtra("errorMsg", result.errorMsg);
+        String hash = String.valueOf(result.resultData);
+        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+        startActivity(txIntent);
     }
 
     public void onFetchAccountInfo(FetchCallBack callback) {

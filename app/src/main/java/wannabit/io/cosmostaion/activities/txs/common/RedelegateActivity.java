@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -33,7 +32,6 @@ import cosmos.staking.v1beta1.Staking;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -241,7 +239,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
                                         } else {
                                             mResult.isSuccess = true;
                                         }
-                                        onIntentTx(mResult);
+                                        onCommonIntentTx(RedelegateActivity.this, mResult);
                                     }).start();
                                 }
 
@@ -275,19 +273,8 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
     private void onBroadCastTx() {
         new RedelegateGrpcTask(getBaseApplication(), result -> {
-            onIntentTx(result);
+            onCommonIntentTx(RedelegateActivity.this, result);
         }, mBaseChain, mAccount, mValAddress, mToValAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    private void onIntentTx(TaskResult result) {
-        Intent txIntent = new Intent(RedelegateActivity.this, TxDetailgRPCActivity.class);
-        txIntent.putExtra("isGen", true);
-        txIntent.putExtra("isSuccess", result.isSuccess);
-        txIntent.putExtra("errorCode", result.errorCode);
-        txIntent.putExtra("errorMsg", result.errorMsg);
-        String hash = String.valueOf(result.resultData);
-        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-        startActivity(txIntent);
     }
 
     private void onFetchValidtors() {

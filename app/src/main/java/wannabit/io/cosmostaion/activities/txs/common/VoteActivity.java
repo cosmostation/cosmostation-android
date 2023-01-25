@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,7 +33,6 @@ import java.util.List;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -234,7 +232,7 @@ public class VoteActivity extends BaseBroadCastActivity {
                                         } else {
                                             mResult.isSuccess = true;
                                         }
-                                        onIntentTx(mResult);
+                                        onCommonIntentTx(VoteActivity.this, mResult);
                                     }).start();
                                 }
 
@@ -268,19 +266,8 @@ public class VoteActivity extends BaseBroadCastActivity {
 
     private void onBroadCastTx() {
         new VoteGrpcTask(getBaseApplication(), result -> {
-            onIntentTx(result);
+            onCommonIntentTx(VoteActivity.this, result);
         }, mBaseChain, mAccount, mSelectedOpinion, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    private void onIntentTx(TaskResult result) {
-        Intent txIntent = new Intent(VoteActivity.this, TxDetailgRPCActivity.class);;
-        txIntent.putExtra("isGen", true);
-        txIntent.putExtra("isSuccess", result.isSuccess);
-        txIntent.putExtra("errorCode", result.errorCode);
-        txIntent.putExtra("errorMsg", result.errorMsg);
-        String hash = String.valueOf(result.resultData);
-        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-        startActivity(txIntent);
     }
 
     private class VotePageAdapter extends FragmentPagerAdapter {
