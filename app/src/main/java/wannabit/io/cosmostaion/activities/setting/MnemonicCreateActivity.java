@@ -82,13 +82,13 @@ public class MnemonicCreateActivity extends BaseActivity {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
             if (id > 0) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("title", R.string.str_change_account_nickname);
-                bundle.putLong("id", id);
-                bundle.putInt(ChangeNickNameDialog.CHANGE_NICK_NAME_BUNDLE_KEY, ChangeNickNameDialog.MNEMONIC_CREATE_VALUE);
-                ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
-                dialog.setCancelable(false);
-                dialog.show(getSupportFragmentManager(), "dialog");
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("title", R.string.str_change_account_nickname);
+//                bundle.putLong("id", id);
+//                bundle.putInt(ChangeNickNameDialog.CHANGE_NICK_NAME_BUNDLE_KEY, ChangeNickNameDialog.MNEMONIC_CREATE_VALUE);
+//                ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
+//                dialog.setCancelable(false);
+//                dialog.show(getSupportFragmentManager(), "dialog");
             }
         }
     });

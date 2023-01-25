@@ -133,10 +133,8 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         if (v.equals(mBtnEditNick) && !this.isFinishing()) {
             Bundle bundle = new Bundle();
-            bundle.putInt("title", R.string.str_change_mnemonic_nickname);
             bundle.putLong("id", mWords.id);
-            bundle.putString("name", mWords.getName());
-            ChangeNickNameDialog deleteDialog = ChangeNickNameDialog.newInstance(bundle);
+            ChangeNickNameDialog deleteDialog = ChangeNickNameDialog.newInstance(bundle, this::onChangeNickName);
             deleteDialog.setCancelable(false);
             deleteDialog.show(getSupportFragmentManager(), "dialog");
 
