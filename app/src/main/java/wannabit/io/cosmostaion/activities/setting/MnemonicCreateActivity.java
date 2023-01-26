@@ -29,7 +29,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class MnemonicCreateActivity extends BaseActivity {
 
     private Toolbar mToolbar;
-    private TextView mToolbarTitle;
     private LinearLayout[] mWordsLayer = new LinearLayout[24];
     private TextView[] mTvWords = new TextView[24];
     private ImageView mBtnDisplay;
@@ -46,15 +45,12 @@ public class MnemonicCreateActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_create);
         mToolbar = findViewById(R.id.tool_bar);
-        mToolbarTitle = findViewById(R.id.toolbar_title);
         mBtnDisplay = findViewById(R.id.btn_display);
         mBtnDerive = findViewById(R.id.btn_derive);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mToolbarTitle.setText(getIntent().getStringExtra("nickname"));
 
         for (int i = 0; i < mWordsLayer.length; i++) {
             mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i, "id", this.getPackageName()));

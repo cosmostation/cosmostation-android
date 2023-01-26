@@ -47,7 +47,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 public class MnemonicRestoreActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar mToolbar;
-    private TextView mToolbarTitle;
     private Button mPaste, mBtnConfirm;
     private Button[] mAlphabetBtns = new Button[26];
     private ImageButton mBtnDelete;
@@ -70,7 +69,6 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_restore);
         mToolbar = findViewById(R.id.tool_bar);
-        mToolbarTitle = findViewById(R.id.toolbar_title);
         mPaste = findViewById(R.id.btn_paste);
         mBtnConfirm = findViewById(R.id.btn_confirm);
         mBtnDelete = findViewById(R.id.password_back);
@@ -89,8 +87,6 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mToolbarTitle.setText(getIntent().getStringExtra("nickname"));
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mAllMnemonic = new ArrayList<String>(MnemonicCode.INSTANCE.getWordList());

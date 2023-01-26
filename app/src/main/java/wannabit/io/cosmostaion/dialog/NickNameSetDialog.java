@@ -1,22 +1,21 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.setting.MnemonicCreateActivity;
-import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.MWords;
@@ -68,23 +67,36 @@ public class NickNameSetDialog extends DialogFragment {
             mDialogTitle.setText(getString(R.string.str_set_mnemonic_nickname));
         }
 
-        btn_nega.setOnClickListener(v -> {
-            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm.isActive()) {
-                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
+        mNameInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
-            dismiss();
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(mNameInput.getText().toString())) {
+                    mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_voted));
+                } else {
+                    mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_red));
+                }
+            }
         });
 
+        btn_nega.setOnClickListener(v -> dismiss());
+
         btn_posi.setOnClickListener(v -> {
-            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm.isActive()) {
-                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
-            }
-            if (listener != null) {
+            if (!TextUtils.isEmpty(mNameInput.getText().toString()) && listener != null) {
                 listener.confirm(String.valueOf(mNameInput.getText()).trim());
+                dismiss();
+            } else {
+                mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_red));
             }
-            dismiss();
         });
         return view;
     }

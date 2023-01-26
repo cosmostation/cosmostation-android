@@ -2,7 +2,7 @@
     <string name="app_name">Cosmostation</string>
 
     <string name="str_start">시작하기</string>
-    <string name="str_ok">OK</string>
+    <string name="str_ok">확인</string>
     <string name="str_next">다음</string>
     <string name="str_import">등록</string>
     <string name="str_sorting">정렬</string>
@@ -532,6 +532,7 @@
     <string name="str_change_account_nickname">지갑 별칭 변경</string>
     <string name="str_change_mnemonic_nickname">니모닉 별칭 변경</string>
     <string name="str_set_mnemonic_nickname">니모닉 별칭 설정</string>
+    <string name="str_input_nickname">닉네임</string>
     <string name="str_start_delegate">코스모스테이션에 코인을 위임하세요.\n컴파운딩 기능으로 복리 이자를 축적하고\n네트워크 생태계에 기여하세요.</string>
     <string name="str_only_observe_title">관찰 모드 지갑</string>
     <string name="str_only_observe_msg">관찰만 가능한 지갑입니다.\n모든 트랜잭션은 복구 단어 등록 후 이용 가능합니다.\n</string>
