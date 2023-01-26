@@ -26,6 +26,7 @@ import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -96,7 +97,8 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
             if (mSelectedProposalIds.size() > 0) {
                 ArrayList<ResProposal> proposals = new ArrayList<>();
                 for (String id : mSelectedProposalIds) {
-                    proposals.add(mVotingPeriodProposalsList.stream().filter(item -> String.valueOf(item.id) == id).findFirst().get());
+                    Optional<ResProposal> firstElement = mVotingPeriodProposalsList.stream().filter(item -> String.valueOf(item.id).equals(id)).findFirst();
+                    firstElement.ifPresent(proposals::add);
                 }
                 getSActivity().mProposalsList = proposals;
                 getSActivity().onNextStep();
