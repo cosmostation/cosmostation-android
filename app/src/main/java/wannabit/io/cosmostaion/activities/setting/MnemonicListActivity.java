@@ -21,8 +21,14 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
+import wannabit.io.cosmostaion.dialog.NickNameSetDialog;
+import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicListActivity extends BaseActivity implements View.OnClickListener {
 
@@ -33,6 +39,7 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
     private MnemonicListAdapter mAdapter;
 
     private ArrayList<MWords> mMyMnemonics = new ArrayList<>();
+    private ArrayList<String> mWordsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,8 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
 
         mBtnImportMnemonic.setOnClickListener(this);
         mBtnCreateMnemonic.setOnClickListener(this);
+
+        onCreateMnemonic();
 
     }
 
@@ -78,12 +87,51 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnImportMnemonic)) {
-            startActivity(new Intent(MnemonicListActivity.this, MnemonicRestoreActivity.class));
+            if (!getBaseDao().onHasPassword()) {
+                Intent intent = new Intent(MnemonicListActivity.this, PasswordSetActivity.class);
+                mnemonicImportResultLauncher.launch(intent);
+            } else {
+                Intent intent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
+                mnemonicImportResultLauncher.launch(intent);
+            }
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
         } else if (v.equals(mBtnCreateMnemonic)) {
-            startActivity(new Intent(MnemonicListActivity.this, MnemonicCreateActivity.class));
+            if (!getBaseDao().onHasPassword()) {
+                Intent intent = new Intent(MnemonicListActivity.this, PasswordSetActivity.class);
+                mnemonicCreateResultLauncher.launch(intent);
+            } else {
+                Intent intent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
+                mnemonicCreateResultLauncher.launch(intent);
+            }
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
     }
+
+    private final ActivityResultLauncher<Intent> mnemonicCreateResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            long id = getBaseDao().onInsertMnemonics(onGenMWords());
+            if (id > 0) {
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", id);
+                bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CREATE_VALUE);
+                NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+                dialog.show(getSupportFragmentManager(), "dialog");
+            }
+        }
+    });
+
+    private final ActivityResultLauncher<Intent> mnemonicImportResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            long id = getBaseDao().onInsertMnemonics(onGenMWords());
+            if (id > 0) {
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", id);
+                NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+                dialog.show(getSupportFragmentManager(), "dialog");
+            }
+        }
+    });
 
     private class MnemonicListAdapter extends RecyclerView.Adapter<MnemonicListAdapter.ListHolder> {
 
@@ -143,4 +191,20 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
             startActivity(checkintent);
         }
     });
+
+    private void onCreateMnemonic() {
+        byte[] mEntropy = WKey.getEntropy();
+        mWordsList = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
+    }
+
+    private MWords onGenMWords() {
+        MWords tempMWords = MWords.getNewInstance();
+        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWordsList));
+        EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
+
+        tempMWords.resource = encR.getEncDataString();
+        tempMWords.spec = encR.getIvDataString();
+        tempMWords.wordsCnt = mWordsList.size();
+        return tempMWords;
+    }
 }

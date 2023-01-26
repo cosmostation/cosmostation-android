@@ -38,12 +38,9 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dialog.NickNameSetDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicRestoreActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -304,27 +301,15 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
 
     private final ActivityResultLauncher<Intent> mnemonicRestoreResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
-            long id = getBaseDao().onInsertMnemonics(onGenMWords());
+            long id = getIntent().getLongExtra("id", 0);
             if (id > 0) {
-                Bundle bundle = new Bundle();
-                bundle.putLong("id", id);
-                bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CREATE_VALUE);
-                NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
-                dialog.show(getSupportFragmentManager(), "dialog");
+                Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
+                checkIntent.putExtra("id", id);
+                startActivity(checkIntent);
+                finish();
             }
         }
     });
-
-    private MWords onGenMWords() {
-        MWords tempMWords = MWords.getNewInstance();
-        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWords));
-        EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
-
-        tempMWords.resource = encR.getEncDataString();
-        tempMWords.spec = encR.getIvDataString();
-        tempMWords.wordsCnt = mWords.size();
-        return tempMWords;
-    }
 
     public class MnemonicAdapter extends RecyclerView.Adapter<MnemonicAdapter.MnemonicHolder> implements Filterable {
 

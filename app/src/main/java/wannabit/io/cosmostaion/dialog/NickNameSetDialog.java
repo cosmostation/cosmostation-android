@@ -15,7 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.setting.WalletDeriveActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicCreateActivity;
+import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.MWords;
@@ -81,12 +82,20 @@ public class NickNameSetDialog extends DialogFragment {
 
             if (listener != null) {
                 listener.confirm(String.valueOf(mNameInput.getText()).trim());
+            } else if (keyValue == NickNameSetDialog.MNEMONIC_CREATE_VALUE) {
+                MWords mWords = getSActivity().getBaseDao().onSelectMnemonicById(getArguments().getLong("id"));
+                mWords.nickName = String.valueOf(mNameInput.getText()).trim();
+                getSActivity().getBaseDao().onUpdateMnemonic(mWords);
+
+                Intent checkIntent = new Intent(getActivity(), MnemonicCreateActivity.class);
+                checkIntent.putExtra("id", getArguments().getLong("id"));
+                startActivity(checkIntent);
             } else {
                 MWords mWords = getSActivity().getBaseDao().onSelectMnemonicById(getArguments().getLong("id"));
                 mWords.nickName = String.valueOf(mNameInput.getText()).trim();
                 getSActivity().getBaseDao().onUpdateMnemonic(mWords);
 
-                Intent checkIntent = new Intent(getActivity(), WalletDeriveActivity.class);
+                Intent checkIntent = new Intent(getActivity(), MnemonicRestoreActivity.class);
                 checkIntent.putExtra("id", getArguments().getLong("id"));
                 startActivity(checkIntent);
             }
