@@ -532,7 +532,6 @@
     <string name="str_change_account_nickname">ウォレット名変更</string>
     <string name="str_change_mnemonic_nickname">ニーモニック名変更</string>
     <string name="str_set_mnemonic_nickname">ニーモニックエイリアスの設定</string>
-    <string name="str_input_nickname">ニックネーム</string>
     <string name="str_start_delegate">Cosmostationにトークンを委任してください。\nコンバウンディング機能で福利利子を貯めてネットワークエコシステムに寄与してください。</string>
     <string name="str_only_observe_title">観察モードウォーレット</string>
     <string name="str_only_observe_msg">観察だけ可能なウォーレットです。\nすべてのトランザクションは復旧単語登録後、利用可能です。\n</string>

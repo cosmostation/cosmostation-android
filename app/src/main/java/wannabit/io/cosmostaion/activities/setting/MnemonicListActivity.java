@@ -34,7 +34,6 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
     private MnemonicListAdapter mAdapter;
 
     private ArrayList<MWords> mMyMnemonics = new ArrayList<>();
-    private ArrayList<String> mWordsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
