@@ -42,6 +42,10 @@ public class NickNameSetDialog extends DialogFragment {
         return dialog;
     }
 
+    public void setNickNameListener(NickNameSetListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
@@ -71,6 +75,10 @@ public class NickNameSetDialog extends DialogFragment {
             if (imm.isActive()) {
                 imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
             }
+
+            if (listener != null) {
+                listener.cancel(getArguments().getLong("id"));
+            }
             dismiss();
         });
 
@@ -82,22 +90,6 @@ public class NickNameSetDialog extends DialogFragment {
 
             if (listener != null) {
                 listener.confirm(String.valueOf(mNameInput.getText()).trim());
-            } else if (keyValue == NickNameSetDialog.MNEMONIC_CREATE_VALUE) {
-                MWords mWords = getSActivity().getBaseDao().onSelectMnemonicById(getArguments().getLong("id"));
-                mWords.nickName = String.valueOf(mNameInput.getText()).trim();
-                getSActivity().getBaseDao().onUpdateMnemonic(mWords);
-
-                Intent checkIntent = new Intent(getActivity(), MnemonicCreateActivity.class);
-                checkIntent.putExtra("id", getArguments().getLong("id"));
-                startActivity(checkIntent);
-            } else {
-                MWords mWords = getSActivity().getBaseDao().onSelectMnemonicById(getArguments().getLong("id"));
-                mWords.nickName = String.valueOf(mNameInput.getText()).trim();
-                getSActivity().getBaseDao().onUpdateMnemonic(mWords);
-
-                Intent checkIntent = new Intent(getActivity(), MnemonicRestoreActivity.class);
-                checkIntent.putExtra("id", getArguments().getLong("id"));
-                startActivity(checkIntent);
             }
             dismiss();
         });
@@ -106,6 +98,7 @@ public class NickNameSetDialog extends DialogFragment {
 
     public interface NickNameSetListener {
         void confirm(String nickName);
+        void cancel(long id);
     }
 
     private BaseActivity getSActivity() {

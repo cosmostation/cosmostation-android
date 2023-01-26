@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
@@ -86,52 +85,61 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        long id = getBaseDao().onInsertMnemonics(onGenMWords());
         if (v.equals(mBtnImportMnemonic)) {
-            if (!getBaseDao().onHasPassword()) {
-                Intent intent = new Intent(MnemonicListActivity.this, PasswordSetActivity.class);
-                mnemonicImportResultLauncher.launch(intent);
-            } else {
-                Intent intent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
-                mnemonicImportResultLauncher.launch(intent);
+            if (id > 0) {
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", id);
+                NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+                dialog.setNickNameListener(new NickNameSetDialog.NickNameSetListener() {
+                    @Override
+                    public void confirm(String nickName) {
+                        MWords mWords = getBaseDao().onSelectMnemonicById(id);
+                        mWords.nickName = nickName;
+                        getBaseDao().onUpdateMnemonic(mWords);
+
+                        Intent checkIntent = new Intent(MnemonicListActivity.this, MnemonicRestoreActivity.class);
+                        checkIntent.putExtra("id", id);
+                        startActivity(checkIntent);
+                    }
+
+                    @Override
+                    public void cancel(long id) {
+                        onCancelMnemonic(getBaseDao().onSelectMnemonicById(id));
+                    }
+                });
+                dialog.show(getSupportFragmentManager(), "dialog");
             }
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
         } else if (v.equals(mBtnCreateMnemonic)) {
-            if (!getBaseDao().onHasPassword()) {
-                Intent intent = new Intent(MnemonicListActivity.this, PasswordSetActivity.class);
-                mnemonicCreateResultLauncher.launch(intent);
-            } else {
-                Intent intent = new Intent(MnemonicListActivity.this, PasswordCheckActivity.class);
-                mnemonicCreateResultLauncher.launch(intent);
-            }
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-        }
-    }
-
-    private final ActivityResultLauncher<Intent> mnemonicCreateResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-            long id = getBaseDao().onInsertMnemonics(onGenMWords());
             if (id > 0) {
                 Bundle bundle = new Bundle();
                 bundle.putLong("id", id);
                 bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CREATE_VALUE);
                 NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
-                dialog.show(getSupportFragmentManager(), "dialog");
-            }
-        }
-    });
+                dialog.setNickNameListener(new NickNameSetDialog.NickNameSetListener() {
+                    @Override
+                    public void confirm(String nickName) {
+                        MWords mWords = getBaseDao().onSelectMnemonicById(id);
+                        mWords.nickName = nickName;
+                        getBaseDao().onUpdateMnemonic(mWords);
 
-    private final ActivityResultLauncher<Intent> mnemonicImportResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-            long id = getBaseDao().onInsertMnemonics(onGenMWords());
-            if (id > 0) {
-                Bundle bundle = new Bundle();
-                bundle.putLong("id", id);
-                NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+                        Intent checkIntent = new Intent(MnemonicListActivity.this, MnemonicCreateActivity.class);
+                        checkIntent.putExtra("id", id);
+                        startActivity(checkIntent);
+                    }
+
+                    @Override
+                    public void cancel(long id) {
+                        onCancelMnemonic(getBaseDao().onSelectMnemonicById(id));
+                    }
+                });
                 dialog.show(getSupportFragmentManager(), "dialog");
             }
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
-    });
+    }
 
     private class MnemonicListAdapter extends RecyclerView.Adapter<MnemonicListAdapter.ListHolder> {
 
