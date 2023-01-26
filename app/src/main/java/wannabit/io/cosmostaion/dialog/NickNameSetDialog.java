@@ -66,18 +66,12 @@ public class NickNameSetDialog extends DialogFragment {
             mNameInput.setText(mWords.getName());
         } else {
             mDialogTitle.setText(getString(R.string.str_set_mnemonic_nickname));
-            MWords mWords = getSActivity().getBaseDao().onSelectMnemonicById(getArguments().getLong("id"));
-            mNameInput.setText(mWords.getName());
         }
 
         btn_nega.setOnClickListener(v -> {
             InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm.isActive()) {
                 imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
-            }
-
-            if (listener != null) {
-                listener.cancel(getArguments().getLong("id"));
             }
             dismiss();
         });
@@ -87,7 +81,6 @@ public class NickNameSetDialog extends DialogFragment {
             if (imm.isActive()) {
                 imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
             }
-
             if (listener != null) {
                 listener.confirm(String.valueOf(mNameInput.getText()).trim());
             }
@@ -98,7 +91,6 @@ public class NickNameSetDialog extends DialogFragment {
 
     public interface NickNameSetListener {
         void confirm(String nickName);
-        void cancel(long id);
     }
 
     private BaseActivity getSActivity() {

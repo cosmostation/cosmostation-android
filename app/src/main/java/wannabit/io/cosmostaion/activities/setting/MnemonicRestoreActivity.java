@@ -38,13 +38,16 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicRestoreActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar mToolbar;
+    private TextView mToolbarTitle;
     private Button mPaste, mBtnConfirm;
     private Button[] mAlphabetBtns = new Button[26];
     private ImageButton mBtnDelete;
@@ -58,7 +61,8 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
 
     private ArrayList<String> mAllMnemonic;
     private MnemonicAdapter mMnemonicAdapter;
-    private ArrayList<String> mWords = new ArrayList<>();
+    private ArrayList<String> mWordsList = new ArrayList<>();
+    private MWords mWords;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,7 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_mnemonic_restore);
         mToolbar = findViewById(R.id.tool_bar);
+        mToolbarTitle = findViewById(R.id.toolbar_title);
         mPaste = findViewById(R.id.btn_paste);
         mBtnConfirm = findViewById(R.id.btn_confirm);
         mBtnDelete = findViewById(R.id.password_back);
@@ -84,6 +89,8 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mToolbarTitle.setText(getIntent().getStringExtra("nickname"));
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mAllMnemonic = new ArrayList<String>(MnemonicCode.INSTANCE.getWordList());
@@ -152,17 +159,17 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     }
 
     private void onCheckMnemonicCnt() {
-        mWords.clear();
+        mWordsList.clear();
         for (int i = 0; i < mEtMnemonics.length; i++) {
             if (!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
-                mWords.add(mEtMnemonics[i].getText().toString().trim());
+                mWordsList.add(mEtMnemonics[i].getText().toString().trim());
             } else {
                 break;
             }
         }
 
-        mWordCnt.setText("" + mWords.size() + " words");
-        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) && WKey.isMnemonicWords(mWords)) {
+        mWordCnt.setText("" + mWordsList.size() + " words");
+        if ((mWordsList.size() == 12 || mWordsList.size() == 16 || mWordsList.size() == 24) && WKey.isMnemonicWords(mWordsList)) {
             mWordCnt.setTextColor(ContextCompat.getColor(MnemonicRestoreActivity.this, R.color.colorAuth));
         } else {
             mWordCnt.setTextColor(ContextCompat.getColor(MnemonicRestoreActivity.this, R.color.colorRed));
@@ -170,8 +177,8 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     }
 
     private boolean isValidWords() {
-        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
-                WKey.isMnemonicWords(mWords) && WKey.isValidStringHdSeedFromWords(mWords)) {
+        if ((mWordsList.size() == 12 || mWordsList.size() == 16 || mWordsList.size() == 24) &&
+                WKey.isMnemonicWords(mWordsList) && WKey.isValidStringHdSeedFromWords(mWordsList)) {
             return true;
         } else {
             return false;
@@ -239,16 +246,16 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
             return;
 
         } else if (v.equals(mBtnConfirm)) {
-            mWords.clear();
+            mWordsList.clear();
             for (int i = 0; i < mEtMnemonics.length; i++) {
                 if (!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
-                    mWords.add(mEtMnemonics[i].getText().toString().trim());
+                    mWordsList.add(mEtMnemonics[i].getText().toString().trim());
                 } else {
                     break;
                 }
             }
 
-            String word = String.join(" ", mWords).trim();
+            String word = String.join(" ", mWordsList).trim();
             for (MWords words : getBaseDao().onSelectAllMnemonics()) {
                 if (words.getWords(MnemonicRestoreActivity.this).equalsIgnoreCase(word)) {
                     Toast.makeText(this, R.string.error_alreay_imported_mnemonic, Toast.LENGTH_SHORT).show();
@@ -301,15 +308,22 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
 
     private final ActivityResultLauncher<Intent> mnemonicRestoreResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
-            long id = getIntent().getLongExtra("id", 0);
+            long id = getBaseDao().onInsertMnemonics(onGenMWords());
             if (id > 0) {
                 Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
+                mWords = getBaseDao().onSelectMnemonicById(id);
+                onChangeNickName(getIntent().getStringExtra("nickname"));
                 startActivity(checkIntent);
                 finish();
             }
         }
     });
+
+    public void onChangeNickName(String name) {
+        mWords.nickName = name;
+        getBaseDao().onUpdateMnemonic(mWords);
+    }
 
     public class MnemonicAdapter extends RecyclerView.Adapter<MnemonicAdapter.MnemonicHolder> implements Filterable {
 
@@ -382,5 +396,16 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
                 itemMnemonic = itemView.findViewById(R.id.tv_mnemonic);
             }
         }
+    }
+
+    private MWords onGenMWords() {
+        MWords tempMWords = MWords.getNewInstance();
+        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWordsList));
+        EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
+
+        tempMWords.resource = encR.getEncDataString();
+        tempMWords.spec = encR.getIvDataString();
+        tempMWords.wordsCnt = mWordsList.size();
+        return tempMWords;
     }
 }

@@ -136,16 +136,7 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
             bundle.putLong("id", mWords.id);
             bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CHANGE_NICKNAME);
             NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
-            dialog.setNickNameListener(new NickNameSetDialog.NickNameSetListener() {
-                @Override
-                public void confirm(String nickName) {
-                    onChangeNickName(nickName);
-                }
-
-                @Override
-                public void cancel(long id) {
-                }
-            });
+            dialog.setNickNameListener(nickName -> onChangeNickName(nickName));
             dialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnDisplay)) {

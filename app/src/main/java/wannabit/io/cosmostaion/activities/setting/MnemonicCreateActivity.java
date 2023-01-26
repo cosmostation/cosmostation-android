@@ -20,8 +20,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MnemonicCreateActivity extends BaseActivity {
 
@@ -33,6 +36,7 @@ public class MnemonicCreateActivity extends BaseActivity {
     private Button mBtnDerive;
 
     private ArrayList<String> mWordsList = new ArrayList<>();
+    private MWords mWords;
 
     private boolean mIsDisplay = false;
 
@@ -50,8 +54,7 @@ public class MnemonicCreateActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        MWords mWords = getBaseDao().onSelectMnemonicById(getIntent().getLongExtra("id", 0));
-        mToolbarTitle.setText(getString(R.string.str_mnemonic_create) + "(" + mWords.nickName + ")");
+        mToolbarTitle.setText(getIntent().getStringExtra("nickname"));
 
         for (int i = 0; i < mWordsLayer.length; i++) {
             mWordsLayer[i] = findViewById(getResources().getIdentifier("layer_mnemonic_" + i, "id", this.getPackageName()));
@@ -78,15 +81,22 @@ public class MnemonicCreateActivity extends BaseActivity {
 
     private final ActivityResultLauncher<Intent> mnemonicCreateResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-            long id = getIntent().getLongExtra("id", 0);
+            long id = getBaseDao().onInsertMnemonics(onGenMWords());
             if (id > 0) {
                 Intent checkIntent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
+                mWords = getBaseDao().onSelectMnemonicById(id);
+                onChangeNickName(getIntent().getStringExtra("nickname"));
                 startActivity(checkIntent);
                 finish();
             }
         }
     });
+
+    public void onChangeNickName(String name) {
+        mWords.nickName = name;
+        getBaseDao().onUpdateMnemonic(mWords);
+    }
 
     private void onCreateMnemonic() {
         byte[] mEntropy = WKey.getEntropy();
@@ -115,5 +125,16 @@ public class MnemonicCreateActivity extends BaseActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private MWords onGenMWords() {
+        MWords tempMWords = MWords.getNewInstance();
+        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWordsList));
+        EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
+
+        tempMWords.resource = encR.getEncDataString();
+        tempMWords.spec = encR.getIvDataString();
+        tempMWords.wordsCnt = mWordsList.size();
+        return tempMWords;
     }
 }

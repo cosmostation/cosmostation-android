@@ -491,26 +491,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
     }
 
-    public void onCancelMnemonic(MWords mWords) {
-        ArrayList<Account> linkedAccounts = getBaseDao().onSelectAccountsByMnemonic(mWords.id);
-        for (Account account : linkedAccounts) {
-            onDeleteAccount(account);
-        }
-        getBaseDao().onDeleteMnemonic(mWords);
-
-        if (getBaseDao().onSelectAccounts().size() > 0) {
-            Account lastAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-            if (lastAccount != null) {
-                getBaseDao().setLastUser(lastAccount.id);
-            } else {
-                getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
-            }
-
-        } else {
-            getBaseDao().setLastUser(-1);
-        }
-    }
-
     public ECKey getEcKey(Account account) {
         if (account.fromMnemonic) {
             String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
