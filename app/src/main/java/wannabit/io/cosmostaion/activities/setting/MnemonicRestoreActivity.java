@@ -61,7 +61,7 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
 
     private ArrayList<String> mAllMnemonic;
     private MnemonicAdapter mMnemonicAdapter;
-    private ArrayList<String> mWordsList = new ArrayList<>();
+    private final ArrayList<String> mWordsList = new ArrayList<>();
     private MWords mWords;
     private String mNickName;
 
@@ -309,7 +309,7 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     private final ActivityResultLauncher<Intent> mnemonicRestoreResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
-            if (id > 0) {
+            if (id > 0 && mNickName != null && mWords != null) {
                 Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
                 mWords = getBaseDao().onSelectMnemonicById(id);

@@ -82,7 +82,7 @@ public class MnemonicCreateActivity extends BaseActivity {
     private final ActivityResultLauncher<Intent> mnemonicCreateResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
-            if (id > 0) {
+            if (id > 0 && mNickName != null && mWords != null) {
                 Intent checkIntent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
                 mWords = getBaseDao().onSelectMnemonicById(id);
