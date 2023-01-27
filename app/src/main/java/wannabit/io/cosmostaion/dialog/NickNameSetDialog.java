@@ -31,7 +31,7 @@ public class NickNameSetDialog extends DialogFragment {
     public final static String CHANGE_NICK_NAME_BUNDLE_KEY = "changeNickName";
 
     private TextView mDialogTitle;
-    private Button btn_posi;
+    private Button btn_nega, btn_posi;
     private EditText mNameInput;
 
     private int keyValue;
@@ -50,8 +50,9 @@ public class NickNameSetDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_change_nickname, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_change_nickname, null);
         mDialogTitle = view.findViewById(R.id.dialog_title);
+        btn_nega = view.findViewById(R.id.btn_nega);
         btn_posi = view.findViewById(R.id.btn_posi);
         mNameInput = view.findViewById(R.id.et_nickname);
 
@@ -82,8 +83,21 @@ public class NickNameSetDialog extends DialogFragment {
                 if (!TextUtils.isEmpty(mNameInput.getText().toString())) {
                     mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_voted));
                 } else {
-                    mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_red));
+                    mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_unselected));
                 }
+            }
+        });
+
+        btn_nega.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()) {
+                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
+            }
+
+            if (keyValue == ACCOUNT_CHANGE_NICKNAME || keyValue == MNEMONIC_CHANGE_NICKNAME) {
+                dismiss();
+            } else {
+                getSActivity().finish();
             }
         });
 
@@ -97,7 +111,7 @@ public class NickNameSetDialog extends DialogFragment {
                 listener.confirm(String.valueOf(mNameInput.getText()).trim());
                 dismiss();
             } else {
-                mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_red));
+                mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_unselected));
             }
         });
         return view;
