@@ -528,7 +528,7 @@ public final class Callbacks {
       "\n\036stride/records/callbacks.proto\022\016stride" +
       ".records\"-\n\020TransferCallback\022\031\n\021deposit_" +
       "record_id\030\001 \001(\004B2Z0github.com/Stride-Lab" +
-      "s/stride/v3/x/records/typesb\006proto3"
+      "s/stride/v5/x/records/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

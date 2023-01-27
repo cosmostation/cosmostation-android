@@ -1354,7 +1354,7 @@ public final class Gov {
       "\021validator_address\030\005 \001(\tB\030\322\264-\024cosmos.Add" +
       "ressString\022#\n\007deposit\030\006 \001(\tB\022\362\336\037\016yaml:\"d" +
       "eposit\":\014\350\240\037\001\210\240\037\000\230\240\037\000B3Z1github.com/Stri" +
-      "de-Labs/stride/v3/x/stakeibc/typesb\006prot" +
+      "de-Labs/stride/v5/x/stakeibc/typesb\006prot" +
       "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

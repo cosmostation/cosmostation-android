@@ -31,25 +31,23 @@ public final class Tx {
         getCreatorBytes();
 
     /**
-     * <code>uint64 amount = 2;</code>
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
-    long getAmount();
+    java.lang.String getAmount();
+    /**
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    com.google.protobuf.ByteString
+        getAmountBytes();
 
     /**
-     * <pre>
-     * TODO(TEST-86): Update Denom -&gt; HostDenom
-     * </pre>
-     *
      * <code>string host_denom = 3;</code>
      * @return The hostDenom.
      */
     java.lang.String getHostDenom();
     /**
-     * <pre>
-     * TODO(TEST-86): Update Denom -&gt; HostDenom
-     * </pre>
-     *
      * <code>string host_denom = 3;</code>
      * @return The bytes for hostDenom.
      */
@@ -70,6 +68,7 @@ public final class Tx {
     }
     private MsgLiquidStake() {
       creator_ = "";
+      amount_ = "";
       hostDenom_ = "";
     }
 
@@ -109,9 +108,10 @@ public final class Tx {
               creator_ = s;
               break;
             }
-            case 16: {
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              amount_ = input.readUInt64();
+              amount_ = s;
               break;
             }
             case 26: {
@@ -191,23 +191,46 @@ public final class Tx {
     }
 
     public static final int AMOUNT_FIELD_NUMBER = 2;
-    private long amount_;
+    private volatile java.lang.Object amount_;
     /**
-     * <code>uint64 amount = 2;</code>
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
     @java.lang.Override
-    public long getAmount() {
-      return amount_;
+    public java.lang.String getAmount() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        amount_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAmountBytes() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        amount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int HOST_DENOM_FIELD_NUMBER = 3;
     private volatile java.lang.Object hostDenom_;
     /**
-     * <pre>
-     * TODO(TEST-86): Update Denom -&gt; HostDenom
-     * </pre>
-     *
      * <code>string host_denom = 3;</code>
      * @return The hostDenom.
      */
@@ -225,10 +248,6 @@ public final class Tx {
       }
     }
     /**
-     * <pre>
-     * TODO(TEST-86): Update Denom -&gt; HostDenom
-     * </pre>
-     *
      * <code>string host_denom = 3;</code>
      * @return The bytes for hostDenom.
      */
@@ -264,8 +283,8 @@ public final class Tx {
       if (!getCreatorBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, creator_);
       }
-      if (amount_ != 0L) {
-        output.writeUInt64(2, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, amount_);
       }
       if (!getHostDenomBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, hostDenom_);
@@ -282,9 +301,8 @@ public final class Tx {
       if (!getCreatorBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, creator_);
       }
-      if (amount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, amount_);
       }
       if (!getHostDenomBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, hostDenom_);
@@ -306,8 +324,8 @@ public final class Tx {
 
       if (!getCreator()
           .equals(other.getCreator())) return false;
-      if (getAmount()
-          != other.getAmount()) return false;
+      if (!getAmount()
+          .equals(other.getAmount())) return false;
       if (!getHostDenom()
           .equals(other.getHostDenom())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -324,8 +342,7 @@ public final class Tx {
       hash = (37 * hash) + CREATOR_FIELD_NUMBER;
       hash = (53 * hash) + getCreator().hashCode();
       hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getAmount());
+      hash = (53 * hash) + getAmount().hashCode();
       hash = (37 * hash) + HOST_DENOM_FIELD_NUMBER;
       hash = (53 * hash) + getHostDenom().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -463,7 +480,7 @@ public final class Tx {
         super.clear();
         creator_ = "";
 
-        amount_ = 0L;
+        amount_ = "";
 
         hostDenom_ = "";
 
@@ -548,8 +565,9 @@ public final class Tx {
           creator_ = other.creator_;
           onChanged();
         }
-        if (other.getAmount() != 0L) {
-          setAmount(other.getAmount());
+        if (!other.getAmount().isEmpty()) {
+          amount_ = other.amount_;
+          onChanged();
         }
         if (!other.getHostDenom().isEmpty()) {
           hostDenom_ = other.hostDenom_;
@@ -660,43 +678,84 @@ public final class Tx {
         return this;
       }
 
-      private long amount_ ;
+      private java.lang.Object amount_ = "";
       /**
-       * <code>uint64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The amount.
        */
-      @java.lang.Override
-      public long getAmount() {
-        return amount_;
+      public java.lang.String getAmount() {
+        java.lang.Object ref = amount_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          amount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for amount.
+       */
+      public com.google.protobuf.ByteString
+          getAmountBytes() {
+        java.lang.Object ref = amount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          amount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The amount to set.
        * @return This builder for chaining.
        */
-      public Builder setAmount(long value) {
-        
+      public Builder setAmount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         amount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAmount() {
         
-        amount_ = 0L;
+        amount_ = getDefaultInstance().getAmount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for amount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAmountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        amount_ = value;
         onChanged();
         return this;
       }
 
       private java.lang.Object hostDenom_ = "";
       /**
-       * <pre>
-       * TODO(TEST-86): Update Denom -&gt; HostDenom
-       * </pre>
-       *
        * <code>string host_denom = 3;</code>
        * @return The hostDenom.
        */
@@ -713,10 +772,6 @@ public final class Tx {
         }
       }
       /**
-       * <pre>
-       * TODO(TEST-86): Update Denom -&gt; HostDenom
-       * </pre>
-       *
        * <code>string host_denom = 3;</code>
        * @return The bytes for hostDenom.
        */
@@ -734,10 +789,6 @@ public final class Tx {
         }
       }
       /**
-       * <pre>
-       * TODO(TEST-86): Update Denom -&gt; HostDenom
-       * </pre>
-       *
        * <code>string host_denom = 3;</code>
        * @param value The hostDenom to set.
        * @return This builder for chaining.
@@ -753,10 +804,6 @@ public final class Tx {
         return this;
       }
       /**
-       * <pre>
-       * TODO(TEST-86): Update Denom -&gt; HostDenom
-       * </pre>
-       *
        * <code>string host_denom = 3;</code>
        * @return This builder for chaining.
        */
@@ -767,10 +814,6 @@ public final class Tx {
         return this;
       }
       /**
-       * <pre>
-       * TODO(TEST-86): Update Denom -&gt; HostDenom
-       * </pre>
-       *
        * <code>string host_denom = 3;</code>
        * @param value The bytes for hostDenom to set.
        * @return This builder for chaining.
@@ -1286,10 +1329,16 @@ public final class Tx {
         getChainIdBytes();
 
     /**
-     * <code>uint64 amount = 3;</code>
+     * <code>string amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
-    long getAmount();
+    java.lang.String getAmount();
+    /**
+     * <code>string amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    com.google.protobuf.ByteString
+        getAmountBytes();
 
     /**
      * <code>string channel = 4;</code>
@@ -1318,6 +1367,7 @@ public final class Tx {
     private MsgClearBalance() {
       creator_ = "";
       chainId_ = "";
+      amount_ = "";
       channel_ = "";
     }
 
@@ -1363,9 +1413,10 @@ public final class Tx {
               chainId_ = s;
               break;
             }
-            case 24: {
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              amount_ = input.readUInt64();
+              amount_ = s;
               break;
             }
             case 34: {
@@ -1483,14 +1534,41 @@ public final class Tx {
     }
 
     public static final int AMOUNT_FIELD_NUMBER = 3;
-    private long amount_;
+    private volatile java.lang.Object amount_;
     /**
-     * <code>uint64 amount = 3;</code>
+     * <code>string amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
     @java.lang.Override
-    public long getAmount() {
-      return amount_;
+    public java.lang.String getAmount() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        amount_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAmountBytes() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        amount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int CHANNEL_FIELD_NUMBER = 4;
@@ -1551,8 +1629,8 @@ public final class Tx {
       if (!getChainIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, chainId_);
       }
-      if (amount_ != 0L) {
-        output.writeUInt64(3, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, amount_);
       }
       if (!getChannelBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, channel_);
@@ -1572,9 +1650,8 @@ public final class Tx {
       if (!getChainIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, chainId_);
       }
-      if (amount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(3, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, amount_);
       }
       if (!getChannelBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, channel_);
@@ -1598,8 +1675,8 @@ public final class Tx {
           .equals(other.getCreator())) return false;
       if (!getChainId()
           .equals(other.getChainId())) return false;
-      if (getAmount()
-          != other.getAmount()) return false;
+      if (!getAmount()
+          .equals(other.getAmount())) return false;
       if (!getChannel()
           .equals(other.getChannel())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -1618,8 +1695,7 @@ public final class Tx {
       hash = (37 * hash) + CHAIN_ID_FIELD_NUMBER;
       hash = (53 * hash) + getChainId().hashCode();
       hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getAmount());
+      hash = (53 * hash) + getAmount().hashCode();
       hash = (37 * hash) + CHANNEL_FIELD_NUMBER;
       hash = (53 * hash) + getChannel().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -1759,7 +1835,7 @@ public final class Tx {
 
         chainId_ = "";
 
-        amount_ = 0L;
+        amount_ = "";
 
         channel_ = "";
 
@@ -1849,8 +1925,9 @@ public final class Tx {
           chainId_ = other.chainId_;
           onChanged();
         }
-        if (other.getAmount() != 0L) {
-          setAmount(other.getAmount());
+        if (!other.getAmount().isEmpty()) {
+          amount_ = other.amount_;
+          onChanged();
         }
         if (!other.getChannel().isEmpty()) {
           channel_ = other.channel_;
@@ -2037,33 +2114,78 @@ public final class Tx {
         return this;
       }
 
-      private long amount_ ;
+      private java.lang.Object amount_ = "";
       /**
-       * <code>uint64 amount = 3;</code>
+       * <code>string amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The amount.
        */
-      @java.lang.Override
-      public long getAmount() {
-        return amount_;
+      public java.lang.String getAmount() {
+        java.lang.Object ref = amount_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          amount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint64 amount = 3;</code>
+       * <code>string amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for amount.
+       */
+      public com.google.protobuf.ByteString
+          getAmountBytes() {
+        java.lang.Object ref = amount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          amount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The amount to set.
        * @return This builder for chaining.
        */
-      public Builder setAmount(long value) {
-        
+      public Builder setAmount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         amount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint64 amount = 3;</code>
+       * <code>string amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAmount() {
         
-        amount_ = 0L;
+        amount_ = getDefaultInstance().getAmount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for amount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAmountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        amount_ = value;
         onChanged();
         return this;
       }
@@ -2631,10 +2753,16 @@ public final class Tx {
         getCreatorBytes();
 
     /**
-     * <code>uint64 amount = 2;</code>
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
-    long getAmount();
+    java.lang.String getAmount();
+    /**
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    com.google.protobuf.ByteString
+        getAmountBytes();
 
     /**
      * <code>string host_zone = 3;</code>
@@ -2674,6 +2802,7 @@ public final class Tx {
     }
     private MsgRedeemStake() {
       creator_ = "";
+      amount_ = "";
       hostZone_ = "";
       receiver_ = "";
     }
@@ -2714,9 +2843,10 @@ public final class Tx {
               creator_ = s;
               break;
             }
-            case 16: {
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              amount_ = input.readUInt64();
+              amount_ = s;
               break;
             }
             case 26: {
@@ -2802,14 +2932,41 @@ public final class Tx {
     }
 
     public static final int AMOUNT_FIELD_NUMBER = 2;
-    private long amount_;
+    private volatile java.lang.Object amount_;
     /**
-     * <code>uint64 amount = 2;</code>
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
     @java.lang.Override
-    public long getAmount() {
-      return amount_;
+    public java.lang.String getAmount() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        amount_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAmountBytes() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        amount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int HOST_ZONE_FIELD_NUMBER = 3;
@@ -2905,8 +3062,8 @@ public final class Tx {
       if (!getCreatorBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, creator_);
       }
-      if (amount_ != 0L) {
-        output.writeUInt64(2, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, amount_);
       }
       if (!getHostZoneBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, hostZone_);
@@ -2926,9 +3083,8 @@ public final class Tx {
       if (!getCreatorBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, creator_);
       }
-      if (amount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, amount_);
       }
       if (!getHostZoneBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, hostZone_);
@@ -2953,8 +3109,8 @@ public final class Tx {
 
       if (!getCreator()
           .equals(other.getCreator())) return false;
-      if (getAmount()
-          != other.getAmount()) return false;
+      if (!getAmount()
+          .equals(other.getAmount())) return false;
       if (!getHostZone()
           .equals(other.getHostZone())) return false;
       if (!getReceiver()
@@ -2973,8 +3129,7 @@ public final class Tx {
       hash = (37 * hash) + CREATOR_FIELD_NUMBER;
       hash = (53 * hash) + getCreator().hashCode();
       hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getAmount());
+      hash = (53 * hash) + getAmount().hashCode();
       hash = (37 * hash) + HOST_ZONE_FIELD_NUMBER;
       hash = (53 * hash) + getHostZone().hashCode();
       hash = (37 * hash) + RECEIVER_FIELD_NUMBER;
@@ -3114,7 +3269,7 @@ public final class Tx {
         super.clear();
         creator_ = "";
 
-        amount_ = 0L;
+        amount_ = "";
 
         hostZone_ = "";
 
@@ -3202,8 +3357,9 @@ public final class Tx {
           creator_ = other.creator_;
           onChanged();
         }
-        if (other.getAmount() != 0L) {
-          setAmount(other.getAmount());
+        if (!other.getAmount().isEmpty()) {
+          amount_ = other.amount_;
+          onChanged();
         }
         if (!other.getHostZone().isEmpty()) {
           hostZone_ = other.hostZone_;
@@ -3318,33 +3474,78 @@ public final class Tx {
         return this;
       }
 
-      private long amount_ ;
+      private java.lang.Object amount_ = "";
       /**
-       * <code>uint64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The amount.
        */
-      @java.lang.Override
-      public long getAmount() {
-        return amount_;
+      public java.lang.String getAmount() {
+        java.lang.Object ref = amount_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          amount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for amount.
+       */
+      public com.google.protobuf.ByteString
+          getAmountBytes() {
+        java.lang.Object ref = amount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          amount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The amount to set.
        * @return This builder for chaining.
        */
-      public Builder setAmount(long value) {
-        
+      public Builder setAmount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         amount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAmount() {
         
-        amount_ = 0L;
+        amount_ = getDefaultInstance().getAmount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for amount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAmountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        amount_ = value;
         onChanged();
         return this;
       }
@@ -5373,11 +5574,6 @@ public final class Tx {
       com.google.protobuf.MessageOrBuilder {
   }
   /**
-   * <pre>
-   * TODO(TEST-53): Remove this pre-launch (no need for clients to create /
-   * interact with ICAs)
-   * </pre>
-   *
    * Protobuf type {@code stride.stakeibc.MsgRegisterHostZoneResponse}
    */
   public static final class MsgRegisterHostZoneResponse extends
@@ -5599,11 +5795,6 @@ public final class Tx {
       return builder;
     }
     /**
-     * <pre>
-     * TODO(TEST-53): Remove this pre-launch (no need for clients to create /
-     * interact with ICAs)
-     * </pre>
-     *
      * Protobuf type {@code stride.stakeibc.MsgRegisterHostZoneResponse}
      */
     public static final class Builder extends
@@ -15146,6 +15337,992 @@ public final class Tx {
 
   }
 
+  public interface MsgResetUnbondingRecordEpochNumbersOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:stride.stakeibc.MsgResetUnbondingRecordEpochNumbers)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string creator = 1;</code>
+     * @return The creator.
+     */
+    java.lang.String getCreator();
+    /**
+     * <code>string creator = 1;</code>
+     * @return The bytes for creator.
+     */
+    com.google.protobuf.ByteString
+        getCreatorBytes();
+  }
+  /**
+   * Protobuf type {@code stride.stakeibc.MsgResetUnbondingRecordEpochNumbers}
+   */
+  public static final class MsgResetUnbondingRecordEpochNumbers extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:stride.stakeibc.MsgResetUnbondingRecordEpochNumbers)
+      MsgResetUnbondingRecordEpochNumbersOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgResetUnbondingRecordEpochNumbers.newBuilder() to construct.
+    private MsgResetUnbondingRecordEpochNumbers(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgResetUnbondingRecordEpochNumbers() {
+      creator_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgResetUnbondingRecordEpochNumbers();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgResetUnbondingRecordEpochNumbers(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              creator_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers.class, stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers.Builder.class);
+    }
+
+    public static final int CREATOR_FIELD_NUMBER = 1;
+    private volatile java.lang.Object creator_;
+    /**
+     * <code>string creator = 1;</code>
+     * @return The creator.
+     */
+    @java.lang.Override
+    public java.lang.String getCreator() {
+      java.lang.Object ref = creator_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        creator_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string creator = 1;</code>
+     * @return The bytes for creator.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCreatorBytes() {
+      java.lang.Object ref = creator_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        creator_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getCreatorBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, creator_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getCreatorBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, creator_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers)) {
+        return super.equals(obj);
+      }
+      stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers other = (stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers) obj;
+
+      if (!getCreator()
+          .equals(other.getCreator())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CREATOR_FIELD_NUMBER;
+      hash = (53 * hash) + getCreator().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code stride.stakeibc.MsgResetUnbondingRecordEpochNumbers}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:stride.stakeibc.MsgResetUnbondingRecordEpochNumbers)
+        stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers.class, stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers.Builder.class);
+      }
+
+      // Construct using stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        creator_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_descriptor;
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers getDefaultInstanceForType() {
+        return stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers build() {
+        stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers buildPartial() {
+        stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers result = new stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers(this);
+        result.creator_ = creator_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers) {
+          return mergeFrom((stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers other) {
+        if (other == stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers.getDefaultInstance()) return this;
+        if (!other.getCreator().isEmpty()) {
+          creator_ = other.creator_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object creator_ = "";
+      /**
+       * <code>string creator = 1;</code>
+       * @return The creator.
+       */
+      public java.lang.String getCreator() {
+        java.lang.Object ref = creator_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          creator_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string creator = 1;</code>
+       * @return The bytes for creator.
+       */
+      public com.google.protobuf.ByteString
+          getCreatorBytes() {
+        java.lang.Object ref = creator_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          creator_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string creator = 1;</code>
+       * @param value The creator to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreator(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        creator_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string creator = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCreator() {
+        
+        creator_ = getDefaultInstance().getCreator();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string creator = 1;</code>
+       * @param value The bytes for creator to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        creator_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:stride.stakeibc.MsgResetUnbondingRecordEpochNumbers)
+    }
+
+    // @@protoc_insertion_point(class_scope:stride.stakeibc.MsgResetUnbondingRecordEpochNumbers)
+    private static final stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers();
+    }
+
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgResetUnbondingRecordEpochNumbers>
+        PARSER = new com.google.protobuf.AbstractParser<MsgResetUnbondingRecordEpochNumbers>() {
+      @java.lang.Override
+      public MsgResetUnbondingRecordEpochNumbers parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgResetUnbondingRecordEpochNumbers(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgResetUnbondingRecordEpochNumbers> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgResetUnbondingRecordEpochNumbers> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgResetUnbondingRecordEpochNumbersResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:stride.stakeibc.MsgResetUnbondingRecordEpochNumbersResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code stride.stakeibc.MsgResetUnbondingRecordEpochNumbersResponse}
+   */
+  public static final class MsgResetUnbondingRecordEpochNumbersResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:stride.stakeibc.MsgResetUnbondingRecordEpochNumbersResponse)
+      MsgResetUnbondingRecordEpochNumbersResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgResetUnbondingRecordEpochNumbersResponse.newBuilder() to construct.
+    private MsgResetUnbondingRecordEpochNumbersResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgResetUnbondingRecordEpochNumbersResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgResetUnbondingRecordEpochNumbersResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MsgResetUnbondingRecordEpochNumbersResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse.class, stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse)) {
+        return super.equals(obj);
+      }
+      stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse other = (stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code stride.stakeibc.MsgResetUnbondingRecordEpochNumbersResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:stride.stakeibc.MsgResetUnbondingRecordEpochNumbersResponse)
+        stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse.class, stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse.Builder.class);
+      }
+
+      // Construct using stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return stride.stakeibc.Tx.internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse getDefaultInstanceForType() {
+        return stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse build() {
+        stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse buildPartial() {
+        stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse result = new stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse) {
+          return mergeFrom((stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse other) {
+        if (other == stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:stride.stakeibc.MsgResetUnbondingRecordEpochNumbersResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:stride.stakeibc.MsgResetUnbondingRecordEpochNumbersResponse)
+    private static final stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse();
+    }
+
+    public static stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgResetUnbondingRecordEpochNumbersResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgResetUnbondingRecordEpochNumbersResponse>() {
+      @java.lang.Override
+      public MsgResetUnbondingRecordEpochNumbersResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MsgResetUnbondingRecordEpochNumbersResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgResetUnbondingRecordEpochNumbersResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgResetUnbondingRecordEpochNumbersResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_stride_stakeibc_MsgLiquidStake_descriptor;
   private static final 
@@ -15256,6 +16433,16 @@ public final class Tx {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_stride_stakeibc_MsgUpdateValidatorSharesExchRateResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -15268,81 +16455,91 @@ public final class Tx {
       "\n\030stride/stakeibc/tx.proto\022\017stride.stake" +
       "ibc\032!stride/stakeibc/ica_account.proto\032\024" +
       "gogoproto/gogo.proto\032\031cosmos_proto/cosmo" +
-      "s.proto\"E\n\016MsgLiquidStake\022\017\n\007creator\030\001 \001" +
-      "(\t\022\016\n\006amount\030\002 \001(\004\022\022\n\nhost_denom\030\003 \001(\t\"\030" +
-      "\n\026MsgLiquidStakeResponse\"U\n\017MsgClearBala" +
-      "nce\022\017\n\007creator\030\001 \001(\t\022\020\n\010chain_id\030\002 \001(\t\022\016" +
-      "\n\006amount\030\003 \001(\004\022\017\n\007channel\030\004 \001(\t\"\031\n\027MsgCl" +
-      "earBalanceResponse\"V\n\016MsgRedeemStake\022\017\n\007" +
-      "creator\030\001 \001(\t\022\016\n\006amount\030\002 \001(\004\022\021\n\thost_zo" +
-      "ne\030\003 \001(\t\022\020\n\010receiver\030\004 \001(\t\"\030\n\026MsgRedeemS" +
-      "takeResponse\"\305\002\n\023MsgRegisterHostZone\022/\n\r" +
-      "connection_id\030\002 \001(\tB\030\362\336\037\024yaml:\"connectio" +
-      "n_id\"\022\024\n\014bech32prefix\030\014 \001(\t\022)\n\nhost_deno" +
-      "m\030\004 \001(\tB\025\362\336\037\021yaml:\"host_denom\"\022\'\n\tibc_de" +
-      "nom\030\005 \001(\tB\024\362\336\037\020yaml:\"ibc_denom\"\022\017\n\007creat" +
-      "or\030\006 \001(\t\022;\n\023transfer_channel_id\030\n \001(\tB\036\362" +
-      "\336\037\032yaml:\"transfer_channel_id\"\022;\n\023unbondi" +
-      "ng_frequency\030\013 \001(\004B\036\362\336\037\032yaml:\"unbonding_" +
-      "frequency\":\010\350\240\037\000\210\240\037\000\"\035\n\033MsgRegisterHostZ" +
-      "oneResponse\"a\n\031MsgClaimUndelegatedTokens" +
-      "\022\017\n\007creator\030\001 \001(\t\022\024\n\014host_zone_id\030\002 \001(\t\022" +
-      "\r\n\005epoch\030\003 \001(\004\022\016\n\006sender\030\004 \001(\t\"#\n!MsgCla" +
-      "imUndelegatedTokensResponse\"S\n\026MsgRebala" +
-      "nceValidators\022\017\n\007creator\030\001 \001(\t\022\021\n\thost_z" +
-      "one\030\002 \001(\t\022\025\n\rnum_rebalance\030\003 \001(\004\" \n\036MsgR" +
-      "ebalanceValidatorsResponse\"\222\001\n\017MsgAddVal" +
-      "idator\022\017\n\007creator\030\001 \001(\t\022\021\n\thost_zone\030\002 \001" +
-      "(\t\022\014\n\004name\030\003 \001(\t\022)\n\007address\030\004 \001(\tB\030\322\264-\024c" +
-      "osmos.AddressString\022\022\n\ncommission\030\005 \001(\004\022" +
-      "\016\n\006weight\030\006 \001(\004\"\031\n\027MsgAddValidatorRespon" +
-      "se\"z\n\030MsgChangeValidatorWeight\022\017\n\007creato" +
-      "r\030\001 \001(\t\022\021\n\thost_zone\030\002 \001(\t\022*\n\010val_addr\030\003" +
-      " \001(\tB\030\322\264-\024cosmos.AddressString\022\016\n\006weight" +
-      "\030\004 \001(\004\"\"\n MsgChangeValidatorWeightRespon" +
-      "se\"d\n\022MsgDeleteValidator\022\017\n\007creator\030\001 \001(" +
-      "\t\022\021\n\thost_zone\030\002 \001(\t\022*\n\010val_addr\030\003 \001(\tB\030" +
-      "\322\264-\024cosmos.AddressString\"\034\n\032MsgDeleteVal" +
-      "idatorResponse\"w\n\033MsgRestoreInterchainAc" +
-      "count\022\017\n\007creator\030\001 \001(\t\022\020\n\010chain_id\030\002 \001(\t" +
-      "\0225\n\014account_type\030\003 \001(\0162\037.stride.stakeibc" +
-      ".ICAAccountType\"%\n#MsgRestoreInterchainA" +
-      "ccountResponse\"V\n MsgUpdateValidatorShar" +
-      "esExchRate\022\017\n\007creator\030\001 \001(\t\022\020\n\010chain_id\030" +
-      "\002 \001(\t\022\017\n\007valoper\030\003 \001(\t\"*\n(MsgUpdateValid" +
-      "atorSharesExchRateResponse2\256\t\n\003Msg\022W\n\013Li" +
-      "quidStake\022\037.stride.stakeibc.MsgLiquidSta" +
-      "ke\032\'.stride.stakeibc.MsgLiquidStakeRespo" +
-      "nse\022W\n\013RedeemStake\022\037.stride.stakeibc.Msg" +
-      "RedeemStake\032\'.stride.stakeibc.MsgRedeemS" +
-      "takeResponse\022f\n\020RegisterHostZone\022$.strid" +
-      "e.stakeibc.MsgRegisterHostZone\032,.stride." +
-      "stakeibc.MsgRegisterHostZoneResponse\022x\n\026" +
-      "ClaimUndelegatedTokens\022*.stride.stakeibc" +
-      ".MsgClaimUndelegatedTokens\0322.stride.stak" +
-      "eibc.MsgClaimUndelegatedTokensResponse\022o" +
-      "\n\023RebalanceValidators\022\'.stride.stakeibc." +
-      "MsgRebalanceValidators\032/.stride.stakeibc" +
-      ".MsgRebalanceValidatorsResponse\022Z\n\014AddVa" +
-      "lidator\022 .stride.stakeibc.MsgAddValidato" +
-      "r\032(.stride.stakeibc.MsgAddValidatorRespo" +
-      "nse\022u\n\025ChangeValidatorWeight\022).stride.st" +
-      "akeibc.MsgChangeValidatorWeight\0321.stride" +
-      ".stakeibc.MsgChangeValidatorWeightRespon" +
-      "se\022c\n\017DeleteValidator\022#.stride.stakeibc." +
-      "MsgDeleteValidator\032+.stride.stakeibc.Msg" +
-      "DeleteValidatorResponse\022~\n\030RestoreInterc" +
-      "hainAccount\022,.stride.stakeibc.MsgRestore" +
-      "InterchainAccount\0324.stride.stakeibc.MsgR" +
-      "estoreInterchainAccountResponse\022\215\001\n\035Upda" +
-      "teValidatorSharesExchRate\0221.stride.stake" +
-      "ibc.MsgUpdateValidatorSharesExchRate\0329.s" +
-      "tride.stakeibc.MsgUpdateValidatorSharesE" +
-      "xchRateResponse\022Z\n\014ClearBalance\022 .stride" +
-      ".stakeibc.MsgClearBalance\032(.stride.stake" +
-      "ibc.MsgClearBalanceResponseB3Z1github.co" +
-      "m/Stride-Labs/stride/v3/x/stakeibc/types" +
-      "b\006proto3"
+      "s.proto\"u\n\016MsgLiquidStake\022\017\n\007creator\030\001 \001" +
+      "(\t\022>\n\006amount\030\002 \001(\tB.\332\336\037&github.com/cosmo" +
+      "s/cosmos-sdk/types.Int\310\336\037\000\022\022\n\nhost_denom" +
+      "\030\003 \001(\t\"\030\n\026MsgLiquidStakeResponse\"\205\001\n\017Msg" +
+      "ClearBalance\022\017\n\007creator\030\001 \001(\t\022\020\n\010chain_i" +
+      "d\030\002 \001(\t\022>\n\006amount\030\003 \001(\tB.\332\336\037&github.com/" +
+      "cosmos/cosmos-sdk/types.Int\310\336\037\000\022\017\n\007chann" +
+      "el\030\004 \001(\t\"\031\n\027MsgClearBalanceResponse\"\206\001\n\016" +
+      "MsgRedeemStake\022\017\n\007creator\030\001 \001(\t\022>\n\006amoun" +
+      "t\030\002 \001(\tB.\332\336\037&github.com/cosmos/cosmos-sd" +
+      "k/types.Int\310\336\037\000\022\021\n\thost_zone\030\003 \001(\t\022\020\n\010re" +
+      "ceiver\030\004 \001(\t\"\030\n\026MsgRedeemStakeResponse\"\305" +
+      "\002\n\023MsgRegisterHostZone\022/\n\rconnection_id\030" +
+      "\002 \001(\tB\030\362\336\037\024yaml:\"connection_id\"\022\024\n\014bech3" +
+      "2prefix\030\014 \001(\t\022)\n\nhost_denom\030\004 \001(\tB\025\362\336\037\021y" +
+      "aml:\"host_denom\"\022\'\n\tibc_denom\030\005 \001(\tB\024\362\336\037" +
+      "\020yaml:\"ibc_denom\"\022\017\n\007creator\030\006 \001(\t\022;\n\023tr" +
+      "ansfer_channel_id\030\n \001(\tB\036\362\336\037\032yaml:\"trans" +
+      "fer_channel_id\"\022;\n\023unbonding_frequency\030\013" +
+      " \001(\004B\036\362\336\037\032yaml:\"unbonding_frequency\":\010\350\240" +
+      "\037\000\210\240\037\000\"\035\n\033MsgRegisterHostZoneResponse\"a\n" +
+      "\031MsgClaimUndelegatedTokens\022\017\n\007creator\030\001 " +
+      "\001(\t\022\024\n\014host_zone_id\030\002 \001(\t\022\r\n\005epoch\030\003 \001(\004" +
+      "\022\016\n\006sender\030\004 \001(\t\"#\n!MsgClaimUndelegatedT" +
+      "okensResponse\"S\n\026MsgRebalanceValidators\022" +
+      "\017\n\007creator\030\001 \001(\t\022\021\n\thost_zone\030\002 \001(\t\022\025\n\rn" +
+      "um_rebalance\030\003 \001(\004\" \n\036MsgRebalanceValida" +
+      "torsResponse\"\222\001\n\017MsgAddValidator\022\017\n\007crea" +
+      "tor\030\001 \001(\t\022\021\n\thost_zone\030\002 \001(\t\022\014\n\004name\030\003 \001" +
+      "(\t\022)\n\007address\030\004 \001(\tB\030\322\264-\024cosmos.AddressS" +
+      "tring\022\022\n\ncommission\030\005 \001(\004\022\016\n\006weight\030\006 \001(" +
+      "\004\"\031\n\027MsgAddValidatorResponse\"z\n\030MsgChang" +
+      "eValidatorWeight\022\017\n\007creator\030\001 \001(\t\022\021\n\thos" +
+      "t_zone\030\002 \001(\t\022*\n\010val_addr\030\003 \001(\tB\030\322\264-\024cosm" +
+      "os.AddressString\022\016\n\006weight\030\004 \001(\004\"\"\n MsgC" +
+      "hangeValidatorWeightResponse\"d\n\022MsgDelet" +
+      "eValidator\022\017\n\007creator\030\001 \001(\t\022\021\n\thost_zone" +
+      "\030\002 \001(\t\022*\n\010val_addr\030\003 \001(\tB\030\322\264-\024cosmos.Add" +
+      "ressString\"\034\n\032MsgDeleteValidatorResponse" +
+      "\"w\n\033MsgRestoreInterchainAccount\022\017\n\007creat" +
+      "or\030\001 \001(\t\022\020\n\010chain_id\030\002 \001(\t\0225\n\014account_ty" +
+      "pe\030\003 \001(\0162\037.stride.stakeibc.ICAAccountTyp" +
+      "e\"%\n#MsgRestoreInterchainAccountResponse" +
+      "\"V\n MsgUpdateValidatorSharesExchRate\022\017\n\007" +
+      "creator\030\001 \001(\t\022\020\n\010chain_id\030\002 \001(\t\022\017\n\007valop" +
+      "er\030\003 \001(\t\"*\n(MsgUpdateValidatorSharesExch" +
+      "RateResponse\"6\n#MsgResetUnbondingRecordE" +
+      "pochNumbers\022\017\n\007creator\030\001 \001(\t\"-\n+MsgReset" +
+      "UnbondingRecordEpochNumbersResponse2\307\n\n\003" +
+      "Msg\022W\n\013LiquidStake\022\037.stride.stakeibc.Msg" +
+      "LiquidStake\032\'.stride.stakeibc.MsgLiquidS" +
+      "takeResponse\022W\n\013RedeemStake\022\037.stride.sta" +
+      "keibc.MsgRedeemStake\032\'.stride.stakeibc.M" +
+      "sgRedeemStakeResponse\022f\n\020RegisterHostZon" +
+      "e\022$.stride.stakeibc.MsgRegisterHostZone\032" +
+      ",.stride.stakeibc.MsgRegisterHostZoneRes" +
+      "ponse\022x\n\026ClaimUndelegatedTokens\022*.stride" +
+      ".stakeibc.MsgClaimUndelegatedTokens\0322.st" +
+      "ride.stakeibc.MsgClaimUndelegatedTokensR" +
+      "esponse\022o\n\023RebalanceValidators\022\'.stride." +
+      "stakeibc.MsgRebalanceValidators\032/.stride" +
+      ".stakeibc.MsgRebalanceValidatorsResponse" +
+      "\022Z\n\014AddValidator\022 .stride.stakeibc.MsgAd" +
+      "dValidator\032(.stride.stakeibc.MsgAddValid" +
+      "atorResponse\022u\n\025ChangeValidatorWeight\022)." +
+      "stride.stakeibc.MsgChangeValidatorWeight" +
+      "\0321.stride.stakeibc.MsgChangeValidatorWei" +
+      "ghtResponse\022c\n\017DeleteValidator\022#.stride." +
+      "stakeibc.MsgDeleteValidator\032+.stride.sta" +
+      "keibc.MsgDeleteValidatorResponse\022~\n\030Rest" +
+      "oreInterchainAccount\022,.stride.stakeibc.M" +
+      "sgRestoreInterchainAccount\0324.stride.stak" +
+      "eibc.MsgRestoreInterchainAccountResponse" +
+      "\022\215\001\n\035UpdateValidatorSharesExchRate\0221.str" +
+      "ide.stakeibc.MsgUpdateValidatorSharesExc" +
+      "hRate\0329.stride.stakeibc.MsgUpdateValidat" +
+      "orSharesExchRateResponse\022Z\n\014ClearBalance" +
+      "\022 .stride.stakeibc.MsgClearBalance\032(.str" +
+      "ide.stakeibc.MsgClearBalanceResponse\022\226\001\n" +
+      " ResetUnbondingRecordEpochNumbers\0224.stri" +
+      "de.stakeibc.MsgResetUnbondingRecordEpoch" +
+      "Numbers\032<.stride.stakeibc.MsgResetUnbond" +
+      "ingRecordEpochNumbersResponseB3Z1github." +
+      "com/Stride-Labs/stride/v5/x/stakeibc/typ" +
+      "esb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -15483,12 +16680,26 @@ public final class Tx {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_MsgUpdateValidatorSharesExchRateResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_descriptor =
+      getDescriptor().getMessageTypes().get(22);
+    internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbers_descriptor,
+        new java.lang.String[] { "Creator", });
+    internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_stride_stakeibc_MsgResetUnbondingRecordEpochNumbersResponse_descriptor,
+        new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.scalar);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
     registry.add(com.google.protobuf2.GoGoProtos.equal);
     registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
     registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     stride.stakeibc.IcaAccount.getDescriptor();

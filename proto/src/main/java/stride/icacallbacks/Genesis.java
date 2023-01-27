@@ -1302,7 +1302,7 @@ public final class Genesis {
       "allbacks.ParamsB\004\310\336\037\000\022\017\n\007port_id\030\002 \001(\t\022C" +
       "\n\022callback_data_list\030\003 \003(\0132!.stride.icac" +
       "allbacks.CallbackDataB\004\310\336\037\000B7Z5github.co" +
-      "m/Stride-Labs/stride/v3/x/icacallbacks/t" +
+      "m/Stride-Labs/stride/v5/x/icacallbacks/t" +
       "ypesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

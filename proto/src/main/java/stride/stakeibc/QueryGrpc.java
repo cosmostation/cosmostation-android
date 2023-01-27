@@ -92,37 +92,6 @@ public final class QueryGrpc {
     return getValidatorsMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest,
-      stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse> getICAAccountMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "ICAAccount",
-      requestType = stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest.class,
-      responseType = stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest,
-      stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse> getICAAccountMethod() {
-    io.grpc.MethodDescriptor<stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest, stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse> getICAAccountMethod;
-    if ((getICAAccountMethod = QueryGrpc.getICAAccountMethod) == null) {
-      synchronized (QueryGrpc.class) {
-        if ((getICAAccountMethod = QueryGrpc.getICAAccountMethod) == null) {
-          QueryGrpc.getICAAccountMethod = getICAAccountMethod =
-              io.grpc.MethodDescriptor.<stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest, stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ICAAccount"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("ICAAccount"))
-              .build();
-        }
-      }
-    }
-    return getICAAccountMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<stride.stakeibc.QueryOuterClass.QueryGetHostZoneRequest,
       stride.stakeibc.QueryOuterClass.QueryGetHostZoneResponse> getHostZoneMethod;
 
@@ -309,6 +278,37 @@ public final class QueryGrpc {
     return getEpochTrackerAllMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest,
+      stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse> getNextPacketSequenceMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "NextPacketSequence",
+      requestType = stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest.class,
+      responseType = stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest,
+      stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse> getNextPacketSequenceMethod() {
+    io.grpc.MethodDescriptor<stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest, stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse> getNextPacketSequenceMethod;
+    if ((getNextPacketSequenceMethod = QueryGrpc.getNextPacketSequenceMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getNextPacketSequenceMethod = QueryGrpc.getNextPacketSequenceMethod) == null) {
+          QueryGrpc.getNextPacketSequenceMethod = getNextPacketSequenceMethod =
+              io.grpc.MethodDescriptor.<stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest, stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "NextPacketSequence"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("NextPacketSequence"))
+              .build();
+        }
+      }
+    }
+    return getNextPacketSequenceMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -382,16 +382,6 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Queries a ICAAccount by index.
-     * </pre>
-     */
-    public void iCAAccount(stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest request,
-        io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getICAAccountMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
      * Queries a HostZone by id.
      * </pre>
      */
@@ -451,6 +441,16 @@ public final class QueryGrpc {
       asyncUnimplementedUnaryCall(getEpochTrackerAllMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     * Queries the next packet sequence for one for a given channel
+     * </pre>
+     */
+    public void nextPacketSequence(stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest request,
+        io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getNextPacketSequenceMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -467,13 +467,6 @@ public final class QueryGrpc {
                 stride.stakeibc.QueryOuterClass.QueryGetValidatorsRequest,
                 stride.stakeibc.QueryOuterClass.QueryGetValidatorsResponse>(
                   this, METHODID_VALIDATORS)))
-          .addMethod(
-            getICAAccountMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest,
-                stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse>(
-                  this, METHODID_ICAACCOUNT)))
           .addMethod(
             getHostZoneMethod(),
             asyncUnaryCall(
@@ -516,6 +509,13 @@ public final class QueryGrpc {
                 stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest,
                 stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerResponse>(
                   this, METHODID_EPOCH_TRACKER_ALL)))
+          .addMethod(
+            getNextPacketSequenceMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest,
+                stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse>(
+                  this, METHODID_NEXT_PACKET_SEQUENCE)))
           .build();
     }
   }
@@ -557,17 +557,6 @@ public final class QueryGrpc {
         io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryGetValidatorsResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getValidatorsMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
-     * Queries a ICAAccount by index.
-     * </pre>
-     */
-    public void iCAAccount(stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest request,
-        io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getICAAccountMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -636,6 +625,17 @@ public final class QueryGrpc {
       asyncUnaryCall(
           getChannel().newCall(getEpochTrackerAllMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * Queries the next packet sequence for one for a given channel
+     * </pre>
+     */
+    public void nextPacketSequence(stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest request,
+        io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getNextPacketSequenceMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -673,16 +673,6 @@ public final class QueryGrpc {
     public stride.stakeibc.QueryOuterClass.QueryGetValidatorsResponse validators(stride.stakeibc.QueryOuterClass.QueryGetValidatorsRequest request) {
       return blockingUnaryCall(
           getChannel(), getValidatorsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Queries a ICAAccount by index.
-     * </pre>
-     */
-    public stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse iCAAccount(stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getICAAccountMethod(), getCallOptions(), request);
     }
 
     /**
@@ -745,6 +735,16 @@ public final class QueryGrpc {
       return blockingUnaryCall(
           getChannel(), getEpochTrackerAllMethod(), getCallOptions(), request);
     }
+
+    /**
+     * <pre>
+     * Queries the next packet sequence for one for a given channel
+     * </pre>
+     */
+    public stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse nextPacketSequence(stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getNextPacketSequenceMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -784,17 +784,6 @@ public final class QueryGrpc {
         stride.stakeibc.QueryOuterClass.QueryGetValidatorsRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getValidatorsMethod(), getCallOptions()), request);
-    }
-
-    /**
-     * <pre>
-     * Queries a ICAAccount by index.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse> iCAAccount(
-        stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getICAAccountMethod(), getCallOptions()), request);
     }
 
     /**
@@ -863,17 +852,28 @@ public final class QueryGrpc {
       return futureUnaryCall(
           getChannel().newCall(getEpochTrackerAllMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * Queries the next packet sequence for one for a given channel
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse> nextPacketSequence(
+        stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getNextPacketSequenceMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PARAMS = 0;
   private static final int METHODID_VALIDATORS = 1;
-  private static final int METHODID_ICAACCOUNT = 2;
-  private static final int METHODID_HOST_ZONE = 3;
-  private static final int METHODID_HOST_ZONE_ALL = 4;
-  private static final int METHODID_MODULE_ADDRESS = 5;
-  private static final int METHODID_INTERCHAIN_ACCOUNT_FROM_ADDRESS = 6;
-  private static final int METHODID_EPOCH_TRACKER = 7;
-  private static final int METHODID_EPOCH_TRACKER_ALL = 8;
+  private static final int METHODID_HOST_ZONE = 2;
+  private static final int METHODID_HOST_ZONE_ALL = 3;
+  private static final int METHODID_MODULE_ADDRESS = 4;
+  private static final int METHODID_INTERCHAIN_ACCOUNT_FROM_ADDRESS = 5;
+  private static final int METHODID_EPOCH_TRACKER = 6;
+  private static final int METHODID_EPOCH_TRACKER_ALL = 7;
+  private static final int METHODID_NEXT_PACKET_SEQUENCE = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -900,10 +900,6 @@ public final class QueryGrpc {
           serviceImpl.validators((stride.stakeibc.QueryOuterClass.QueryGetValidatorsRequest) request,
               (io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryGetValidatorsResponse>) responseObserver);
           break;
-        case METHODID_ICAACCOUNT:
-          serviceImpl.iCAAccount((stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest) request,
-              (io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse>) responseObserver);
-          break;
         case METHODID_HOST_ZONE:
           serviceImpl.hostZone((stride.stakeibc.QueryOuterClass.QueryGetHostZoneRequest) request,
               (io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryGetHostZoneResponse>) responseObserver);
@@ -927,6 +923,10 @@ public final class QueryGrpc {
         case METHODID_EPOCH_TRACKER_ALL:
           serviceImpl.epochTrackerAll((stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest) request,
               (io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerResponse>) responseObserver);
+          break;
+        case METHODID_NEXT_PACKET_SEQUENCE:
+          serviceImpl.nextPacketSequence((stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest) request,
+              (io.grpc.stub.StreamObserver<stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -991,13 +991,13 @@ public final class QueryGrpc {
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
               .addMethod(getParamsMethod())
               .addMethod(getValidatorsMethod())
-              .addMethod(getICAAccountMethod())
               .addMethod(getHostZoneMethod())
               .addMethod(getHostZoneAllMethod())
               .addMethod(getModuleAddressMethod())
               .addMethod(getInterchainAccountFromAddressMethod())
               .addMethod(getEpochTrackerMethod())
               .addMethod(getEpochTrackerAllMethod())
+              .addMethod(getNextPacketSequenceMethod())
               .build();
         }
       }

@@ -1703,7 +1703,7 @@ public final class Messages {
       "nse\0329.stride.interchainquery.v1.MsgSubmi" +
       "tQueryResponseResponse\"2\202\323\344\223\002,\"\'/interch" +
       "ainquery/tx/v1beta1/submitquery:\001*B:Z8gi" +
-      "thub.com/Stride-Labs/stride/v3/x/interch" +
+      "thub.com/Stride-Labs/stride/v5/x/interch" +
       "ainquery/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

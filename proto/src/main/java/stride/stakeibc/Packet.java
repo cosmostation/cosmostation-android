@@ -1233,7 +1233,7 @@ public final class Packet {
       "takeibc\"J\n\022StakeibcPacketData\022*\n\007no_data" +
       "\030\001 \001(\0132\027.stride.stakeibc.NoDataH\000B\010\n\006pac" +
       "ket\"\010\n\006NoDataB3Z1github.com/Stride-Labs/" +
-      "stride/v3/x/stakeibc/typesb\006proto3"
+      "stride/v5/x/stakeibc/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

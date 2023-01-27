@@ -263,10 +263,20 @@ public final class HostZoneOuterClass {
      * TODO(TEST-101) int to dec
      * </pre>
      *
-     * <code>uint64 staked_bal = 13;</code>
+     * <code>string staked_bal = 13 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The stakedBal.
      */
-    long getStakedBal();
+    java.lang.String getStakedBal();
+    /**
+     * <pre>
+     * TODO(TEST-101) int to dec
+     * </pre>
+     *
+     * <code>string staked_bal = 13 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for stakedBal.
+     */
+    com.google.protobuf.ByteString
+        getStakedBalBytes();
 
     /**
      * <code>string address = 18 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
@@ -307,6 +317,7 @@ public final class HostZoneOuterClass {
       hostDenom_ = "";
       lastRedemptionRate_ = "";
       redemptionRate_ = "";
+      stakedBal_ = "";
       address_ = "";
     }
 
@@ -440,9 +451,10 @@ public final class HostZoneOuterClass {
               transferChannelId_ = s;
               break;
             }
-            case 104: {
+            case 106: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              stakedBal_ = input.readUInt64();
+              stakedBal_ = s;
               break;
             }
             case 112: {
@@ -1043,18 +1055,49 @@ public final class HostZoneOuterClass {
     }
 
     public static final int STAKED_BAL_FIELD_NUMBER = 13;
-    private long stakedBal_;
+    private volatile java.lang.Object stakedBal_;
     /**
      * <pre>
      * TODO(TEST-101) int to dec
      * </pre>
      *
-     * <code>uint64 staked_bal = 13;</code>
+     * <code>string staked_bal = 13 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The stakedBal.
      */
     @java.lang.Override
-    public long getStakedBal() {
-      return stakedBal_;
+    public java.lang.String getStakedBal() {
+      java.lang.Object ref = stakedBal_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        stakedBal_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * TODO(TEST-101) int to dec
+     * </pre>
+     *
+     * <code>string staked_bal = 13 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for stakedBal.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStakedBalBytes() {
+      java.lang.Object ref = stakedBal_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        stakedBal_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int ADDRESS_FIELD_NUMBER = 18;
@@ -1145,8 +1188,8 @@ public final class HostZoneOuterClass {
       if (!getTransferChannelIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 12, transferChannelId_);
       }
-      if (stakedBal_ != 0L) {
-        output.writeUInt64(13, stakedBal_);
+      if (!getStakedBalBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, stakedBal_);
       }
       if (unbondingFrequency_ != 0L) {
         output.writeUInt64(14, unbondingFrequency_);
@@ -1210,9 +1253,8 @@ public final class HostZoneOuterClass {
       if (!getTransferChannelIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, transferChannelId_);
       }
-      if (stakedBal_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(13, stakedBal_);
+      if (!getStakedBalBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, stakedBal_);
       }
       if (unbondingFrequency_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
@@ -1285,8 +1327,8 @@ public final class HostZoneOuterClass {
           .equals(other.getRedemptionRate())) return false;
       if (getUnbondingFrequency()
           != other.getUnbondingFrequency()) return false;
-      if (getStakedBal()
-          != other.getStakedBal()) return false;
+      if (!getStakedBal()
+          .equals(other.getStakedBal())) return false;
       if (!getAddress()
           .equals(other.getAddress())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -1344,8 +1386,7 @@ public final class HostZoneOuterClass {
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getUnbondingFrequency());
       hash = (37 * hash) + STAKED_BAL_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getStakedBal());
+      hash = (53 * hash) + getStakedBal().hashCode();
       hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
       hash = (53 * hash) + getAddress().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -1541,7 +1582,7 @@ public final class HostZoneOuterClass {
 
         unbondingFrequency_ = 0L;
 
-        stakedBal_ = 0L;
+        stakedBal_ = "";
 
         address_ = "";
 
@@ -1768,8 +1809,9 @@ public final class HostZoneOuterClass {
         if (other.getUnbondingFrequency() != 0L) {
           setUnbondingFrequency(other.getUnbondingFrequency());
         }
-        if (other.getStakedBal() != 0L) {
-          setStakedBal(other.getStakedBal());
+        if (!other.getStakedBal().isEmpty()) {
+          stakedBal_ = other.stakedBal_;
+          onChanged();
         }
         if (!other.getAddress().isEmpty()) {
           address_ = other.address_;
@@ -3477,30 +3519,63 @@ public final class HostZoneOuterClass {
         return this;
       }
 
-      private long stakedBal_ ;
+      private java.lang.Object stakedBal_ = "";
       /**
        * <pre>
        * TODO(TEST-101) int to dec
        * </pre>
        *
-       * <code>uint64 staked_bal = 13;</code>
+       * <code>string staked_bal = 13 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The stakedBal.
        */
-      @java.lang.Override
-      public long getStakedBal() {
-        return stakedBal_;
+      public java.lang.String getStakedBal() {
+        java.lang.Object ref = stakedBal_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          stakedBal_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <pre>
        * TODO(TEST-101) int to dec
        * </pre>
        *
-       * <code>uint64 staked_bal = 13;</code>
+       * <code>string staked_bal = 13 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for stakedBal.
+       */
+      public com.google.protobuf.ByteString
+          getStakedBalBytes() {
+        java.lang.Object ref = stakedBal_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          stakedBal_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * TODO(TEST-101) int to dec
+       * </pre>
+       *
+       * <code>string staked_bal = 13 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The stakedBal to set.
        * @return This builder for chaining.
        */
-      public Builder setStakedBal(long value) {
-        
+      public Builder setStakedBal(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         stakedBal_ = value;
         onChanged();
         return this;
@@ -3510,12 +3585,32 @@ public final class HostZoneOuterClass {
        * TODO(TEST-101) int to dec
        * </pre>
        *
-       * <code>uint64 staked_bal = 13;</code>
+       * <code>string staked_bal = 13 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearStakedBal() {
         
-        stakedBal_ = 0L;
+        stakedBal_ = getDefaultInstance().getStakedBal();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * TODO(TEST-101) int to dec
+       * </pre>
+       *
+       * <code>string staked_bal = 13 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for stakedBal to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStakedBalBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        stakedBal_ = value;
         onChanged();
         return this;
       }
@@ -3666,7 +3761,7 @@ public final class HostZoneOuterClass {
       "e.stakeibc\032\037stride/stakeibc/validator.pr" +
       "oto\032!stride/stakeibc/ica_account.proto\032\024" +
       "gogoproto/gogo.proto\032\031cosmos_proto/cosmo" +
-      "s.proto\"\345\005\n\010HostZone\022\020\n\010chain_id\030\001 \001(\t\022\025" +
+      "s.proto\"\225\006\n\010HostZone\022\020\n\010chain_id\030\001 \001(\t\022\025" +
       "\n\rconnection_id\030\002 \001(\t\022\024\n\014bech32prefix\030\021 " +
       "\001(\t\022\033\n\023transfer_channel_id\030\014 \001(\t\022.\n\nvali" +
       "dators\030\003 \003(\0132\032.stride.stakeibc.Validator" +
@@ -3683,10 +3778,11 @@ public final class HostZoneOuterClass {
       "ypes.Dec\310\336\037\000\022U\n\017redemption_rate\030\013 \001(\tB<\322" +
       "\264-\ncosmos.Dec\332\336\037&github.com/cosmos/cosmo" +
       "s-sdk/types.Dec\310\336\037\000\022\033\n\023unbonding_frequen" +
-      "cy\030\016 \001(\004\022\022\n\nstaked_bal\030\r \001(\004\022#\n\007address\030" +
-      "\022 \001(\tB\022\362\336\037\016yaml:\"address\"J\004\010\017\020\020B3Z1githu" +
-      "b.com/Stride-Labs/stride/v3/x/stakeibc/t" +
-      "ypesb\006proto3"
+      "cy\030\016 \001(\004\022B\n\nstaked_bal\030\r \001(\tB.\332\336\037&github" +
+      ".com/cosmos/cosmos-sdk/types.Int\310\336\037\000\022#\n\007" +
+      "address\030\022 \001(\tB\022\362\336\037\016yaml:\"address\"J\004\010\017\020\020B" +
+      "3Z1github.com/Stride-Labs/stride/v5/x/st" +
+      "akeibc/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
