@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
+import wannabit.io.cosmostaion.dialog.NickNameSetDialog;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -36,6 +37,7 @@ public class MnemonicCreateActivity extends BaseActivity {
 
     private ArrayList<String> mWordsList = new ArrayList<>();
     private MWords mWords;
+    private String mNickName;
 
     private boolean mIsDisplay = false;
 
@@ -57,6 +59,8 @@ public class MnemonicCreateActivity extends BaseActivity {
             mTvWords[i] = findViewById(getResources().getIdentifier("tv_mnemonic_" + i, "id", this.getPackageName()));
         }
         onCreateMnemonic();
+
+        onNickNameSet();
 
         mBtnDisplay.setOnClickListener(view -> {
             mIsDisplay = !mIsDisplay;
@@ -82,12 +86,21 @@ public class MnemonicCreateActivity extends BaseActivity {
                 Intent checkIntent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
                 mWords = getBaseDao().onSelectMnemonicById(id);
-                onChangeNickName(getIntent().getStringExtra("nickname"));
+                onChangeNickName(mNickName);
                 startActivity(checkIntent);
                 finish();
             }
         }
     });
+
+    private void onNickNameSet() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CREATE_VALUE);
+        NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+        dialog.setNickNameListener(nickName -> mNickName = nickName);
+        dialog.show(getSupportFragmentManager(), "dialog");
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    }
 
     public void onChangeNickName(String name) {
         mWords.nickName = name;

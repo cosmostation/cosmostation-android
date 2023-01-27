@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dialog.NickNameSetDialog;
 
 public class MnemonicListActivity extends BaseActivity implements View.OnClickListener {
 
@@ -78,27 +77,10 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnImportMnemonic)) {
-            Bundle bundle = new Bundle();
-            NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
-            dialog.setNickNameListener(nickName -> {
-                Intent checkIntent = new Intent(MnemonicListActivity.this, MnemonicRestoreActivity.class);
-                checkIntent.putExtra("nickname", nickName);
-                startActivity(checkIntent);
-            });
-            dialog.show(getSupportFragmentManager(), "dialog");
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            startActivity(new Intent(MnemonicListActivity.this, MnemonicRestoreActivity.class));
 
         } else if (v.equals(mBtnCreateMnemonic)) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CREATE_VALUE);
-            NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
-            dialog.setNickNameListener(nickName -> {
-                Intent checkIntent = new Intent(MnemonicListActivity.this, MnemonicCreateActivity.class);
-                checkIntent.putExtra("nickname", nickName);
-                startActivity(checkIntent);
-            });
-            dialog.show(getSupportFragmentManager(), "dialog");
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            startActivity(new Intent(MnemonicListActivity.this, MnemonicCreateActivity.class));
         }
     }
 
