@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
+import wannabit.io.cosmostaion.dialog.NickNameSetDialog;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -60,7 +61,8 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
 
     private ArrayList<String> mAllMnemonic;
     private MnemonicAdapter mMnemonicAdapter;
-    private ArrayList<String> mWords = new ArrayList<>();
+    private final ArrayList<String> mWordsList = new ArrayList<>();
+    private String mNickName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +116,8 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         mRecyclerView.setAdapter(mMnemonicAdapter);
 
         onCheckMnemonicCnt();
+
+        onNickNameSet();
     }
 
     @Override
@@ -154,17 +158,17 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     }
 
     private void onCheckMnemonicCnt() {
-        mWords.clear();
+        mWordsList.clear();
         for (int i = 0; i < mEtMnemonics.length; i++) {
             if (!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
-                mWords.add(mEtMnemonics[i].getText().toString().trim());
+                mWordsList.add(mEtMnemonics[i].getText().toString().trim());
             } else {
                 break;
             }
         }
 
-        mWordCnt.setText("" + mWords.size() + " words");
-        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) && WKey.isMnemonicWords(mWords)) {
+        mWordCnt.setText("" + mWordsList.size() + " words");
+        if ((mWordsList.size() == 12 || mWordsList.size() == 16 || mWordsList.size() == 24) && WKey.isMnemonicWords(mWordsList)) {
             mWordCnt.setTextColor(ContextCompat.getColor(MnemonicRestoreActivity.this, R.color.colorAuth));
         } else {
             mWordCnt.setTextColor(ContextCompat.getColor(MnemonicRestoreActivity.this, R.color.colorRed));
@@ -172,8 +176,8 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     }
 
     private boolean isValidWords() {
-        if ((mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
-                WKey.isMnemonicWords(mWords) && WKey.isValidStringHdSeedFromWords(mWords)) {
+        if ((mWordsList.size() == 12 || mWordsList.size() == 16 || mWordsList.size() == 24) &&
+                WKey.isMnemonicWords(mWordsList) && WKey.isValidStringHdSeedFromWords(mWordsList)) {
             return true;
         } else {
             return false;
@@ -241,16 +245,16 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
             return;
 
         } else if (v.equals(mBtnConfirm)) {
-            mWords.clear();
+            mWordsList.clear();
             for (int i = 0; i < mEtMnemonics.length; i++) {
                 if (!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
-                    mWords.add(mEtMnemonics[i].getText().toString().trim());
+                    mWordsList.add(mEtMnemonics[i].getText().toString().trim());
                 } else {
                     break;
                 }
             }
 
-            String word = String.join(" ", mWords).trim();
+            String word = String.join(" ", mWordsList).trim();
             for (MWords words : getBaseDao().onSelectAllMnemonics()) {
                 if (words.getWords(MnemonicRestoreActivity.this).equalsIgnoreCase(word)) {
                     Toast.makeText(this, R.string.error_alreay_imported_mnemonic, Toast.LENGTH_SHORT).show();
@@ -298,7 +302,6 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
             Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordCheckActivity.class);
             mnemonicRestoreResultLauncher.launch(intent);
         }
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private final ActivityResultLauncher<Intent> mnemonicRestoreResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -313,15 +316,13 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         }
     });
 
-    private MWords onGenMWords() {
-        MWords tempMWords = MWords.getNewInstance();
-        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWords));
-        EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
-
-        tempMWords.resource = encR.getEncDataString();
-        tempMWords.spec = encR.getIvDataString();
-        tempMWords.wordsCnt = mWords.size();
-        return tempMWords;
+    private void onNickNameSet() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CREATE_VALUE);
+        NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+        dialog.setNickNameListener(nickName -> mNickName = nickName);
+        dialog.show(getSupportFragmentManager(), "dialog");
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     public class MnemonicAdapter extends RecyclerView.Adapter<MnemonicAdapter.MnemonicHolder> implements Filterable {
@@ -395,5 +396,17 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
                 itemMnemonic = itemView.findViewById(R.id.tv_mnemonic);
             }
         }
+    }
+
+    private MWords onGenMWords() {
+        MWords tempMWords = MWords.getNewInstance();
+        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWordsList));
+        EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
+
+        tempMWords.nickName = mNickName;
+        tempMWords.resource = encR.getEncDataString();
+        tempMWords.spec = encR.getIvDataString();
+        tempMWords.wordsCnt = mWordsList.size();
+        return tempMWords;
     }
 }

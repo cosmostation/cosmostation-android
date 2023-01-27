@@ -39,8 +39,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
+import wannabit.io.cosmostaion.dialog.NickNameSetDialog;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -280,11 +280,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mNameEditImg) && !this.isFinishing()) {
             Bundle bundle = new Bundle();
-            bundle.putInt("title", R.string.str_change_account_nickname);
+            bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.ACCOUNT_CHANGE_NICKNAME);
             bundle.putLong("id", mAccount.id);
-            bundle.putString("name", mAccount.nickName);
-            ChangeNickNameDialog dialog = ChangeNickNameDialog.newInstance(bundle);
-            dialog.setCancelable(false);
+            NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+            dialog.setNickNameListener(this::onChangeNickName);
             dialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnQr)) {

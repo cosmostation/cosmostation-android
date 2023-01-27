@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.MWords;
+import wannabit.io.cosmostaion.dialog.NickNameSetDialog;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -34,7 +35,8 @@ public class MnemonicCreateActivity extends BaseActivity {
     private ImageView mBtnDisplay;
     private Button mBtnDerive;
 
-    private ArrayList<String> mWords = new ArrayList<>();
+    private ArrayList<String> mWordsList = new ArrayList<>();
+    private String mNickName;
 
     private boolean mIsDisplay = false;
 
@@ -57,6 +59,8 @@ public class MnemonicCreateActivity extends BaseActivity {
         }
         onCreateMnemonic();
 
+        onNickNameSet();
+
         mBtnDisplay.setOnClickListener(view -> {
             mIsDisplay = !mIsDisplay;
             onUpdateView();
@@ -70,7 +74,6 @@ public class MnemonicCreateActivity extends BaseActivity {
                 Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
                 mnemonicCreateResultLauncher.launch(intent);
             }
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         });
     }
 
@@ -86,15 +89,24 @@ public class MnemonicCreateActivity extends BaseActivity {
         }
     });
 
+    private void onNickNameSet() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CREATE_VALUE);
+        NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+        dialog.setNickNameListener(nickName -> mNickName = nickName);
+        dialog.show(getSupportFragmentManager(), "dialog");
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    }
+
     private void onCreateMnemonic() {
         byte[] mEntropy = WKey.getEntropy();
-        mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
+        mWordsList = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
         onUpdateView();
     }
 
     private void onUpdateView() {
-        for (int i = 0; i < mWords.size(); i++) {
-            if (mIsDisplay) mTvWords[i].setText(mWords.get(i));
+        for (int i = 0; i < mWordsList.size(); i++) {
+            if (mIsDisplay) mTvWords[i].setText(mWordsList.get(i));
             else mTvWords[i].setText("****");
         }
         if (mIsDisplay) {
@@ -117,12 +129,13 @@ public class MnemonicCreateActivity extends BaseActivity {
 
     private MWords onGenMWords() {
         MWords tempMWords = MWords.getNewInstance();
-        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWords));
+        String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWordsList));
         EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
 
+        tempMWords.nickName = mNickName;
         tempMWords.resource = encR.getEncDataString();
         tempMWords.spec = encR.getIvDataString();
-        tempMWords.wordsCnt = mWords.size();
+        tempMWords.wordsCnt = mWordsList.size();
         return tempMWords;
     }
 }
