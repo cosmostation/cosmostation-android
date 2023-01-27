@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.HandlerCompat.postDelayed
 import com.google.android.gms.common.util.CollectionUtils
 import com.google.common.collect.Maps
 import com.google.gson.Gson
@@ -70,11 +71,9 @@ import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data.WcSignRawDataListener
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
-import wannabit.io.cosmostaion.model.StdSignMsg
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
 import wannabit.io.cosmostaion.model.type.Coin
-import wannabit.io.cosmostaion.model.type.Msg
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 import wannabit.io.cosmostaion.utils.WUtil
@@ -488,17 +487,15 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
-    private val processGetCosmosAccounts = { id: Long, strings: List<String> ->
+    private val processGetCosmosAccounts = { id: Long, strings: List<String>? ->
         runOnUiThread {
-            showAccountDialog(
-                strings, mutableListOf()
-            ) { accounts ->
-                fillConnectInfoAddressIfNeed()
-                wcV1Client?.approveRequest(id, accounts.mapNotNull {
-                    toCosmosatationAccount(
-                        it
-                    )
-                })
+            if (strings != null) {
+                showAccountDialog(strings, mutableListOf()) { accounts ->
+                    fillConnectInfoAddressIfNeed()
+                    wcV1Client?.approveRequest(id, accounts.mapNotNull {
+                        toCosmosatationAccount(it)
+                    })
+                }
             }
         }
     }
