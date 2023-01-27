@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.staking.v1beta1.Staking;
@@ -97,6 +98,7 @@ public class ListKavaEarnFragment extends BaseFragment implements TaskListener, 
     }
 
     private int mTaskCount = 0;
+
     public void onFetchEarnInfo() {
         mTaskCount = 1;
         mEarnDeposits.clear();
@@ -122,8 +124,10 @@ public class ListKavaEarnFragment extends BaseFragment implements TaskListener, 
             mEarnDeposits.sort(new Comparator<Coin>() {
                 @Override
                 public int compare(Coin o1, Coin o2) {
-                    if (o1.denom.equalsIgnoreCase("bkava-kavavaloper140g8fnnl46mlvfhygj3zvjqlku6x0fwu6lgey7")) return -1;
-                    if (o2.denom.equalsIgnoreCase("bkava-kavavaloper140g8fnnl46mlvfhygj3zvjqlku6x0fwu6lgey7")) return 1;
+                    if (o1.denom.equalsIgnoreCase("bkava-kavavaloper140g8fnnl46mlvfhygj3zvjqlku6x0fwu6lgey7"))
+                        return -1;
+                    if (o2.denom.equalsIgnoreCase("bkava-kavavaloper140g8fnnl46mlvfhygj3zvjqlku6x0fwu6lgey7"))
+                        return 1;
                     else return 0;
                 }
             });
@@ -161,7 +165,7 @@ public class ListKavaEarnFragment extends BaseFragment implements TaskListener, 
             for (Coin coin : mEarnDeposits) {
                 sum = sum.add(new BigDecimal(coin.amount));
             }
-            holder.mLiquidityTotal.setText(WDp.getDpAmount2(sum, 6,6));
+            holder.mLiquidityTotal.setText(WDp.getDpAmount2(sum, 6, 6));
             holder.mLiquidityAvailable.setText(WDp.getDpAmount2(getBaseDao().getAvailable(chainConfig.mainDenom()), 6, 6));
         }
 
@@ -172,15 +176,22 @@ public class ListKavaEarnFragment extends BaseFragment implements TaskListener, 
 
             holder.itemRoot.setCardBackgroundColor(ContextCompat.getColor(getActivity(), chainConfig.chainBgColor()));
             String valOpAddress = deposit.denom.replace("bkava-", "");
-            Staking.Validator validator = getBaseDao().mGRpcAllValidators.stream().filter(item -> item.getOperatorAddress().equalsIgnoreCase(valOpAddress)).findFirst().get();
-            try {
-                Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.mAvatar);
-            } catch (Exception e) { }
-            holder.mMoniker.setText(validator.getDescription().getMoniker());
+            Optional<Staking.Validator> gRpcAllValidators = getBaseDao().mGRpcAllValidators.stream().filter(item -> item.getOperatorAddress().equalsIgnoreCase(valOpAddress)).findFirst();
+            if (gRpcAllValidators.isPresent()) {
+                Staking.Validator validator = gRpcAllValidators.get();
+                try {
+                    Picasso.get().load(WDp.getMonikerImgUrl(chainConfig, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.mAvatar);
+                } catch (Exception e) {
+                }
+                holder.mMoniker.setText(validator.getDescription().getMoniker());
+            }
 
-            Coin totalBKava = getBaseDao().mParam.mParams.mBankSupply.supply.stream().filter(item -> item.denom.equalsIgnoreCase(deposit.denom)).findFirst().get();
-            holder.mLiquidityDeposited.setText(WDp.getDpAmount2(new BigDecimal(totalBKava.amount), 6, 6));
-            holder.mMyDeposited.setText(WDp.getDpAmount2(new BigDecimal(deposit.amount), 6, 6));
+            Optional<Coin> coinSupply = getBaseDao().mParam.mParams.mBankSupply.supply.stream().filter(item -> item.denom.equalsIgnoreCase(deposit.denom)).findFirst();
+            if (coinSupply.isPresent()) {
+                Coin totalBKava = coinSupply.get();
+                holder.mLiquidityDeposited.setText(WDp.getDpAmount2(new BigDecimal(totalBKava.amount), 6, 6));
+                holder.mMyDeposited.setText(WDp.getDpAmount2(new BigDecimal(deposit.amount), 6, 6));
+            }
         }
 
         @Override
