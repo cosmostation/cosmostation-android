@@ -62,7 +62,6 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     private ArrayList<String> mAllMnemonic;
     private MnemonicAdapter mMnemonicAdapter;
     private final ArrayList<String> mWordsList = new ArrayList<>();
-    private MWords mWords;
     private String mNickName;
 
     @Override
