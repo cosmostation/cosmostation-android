@@ -4,7 +4,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_BLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_GITHUB;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_HOMEPAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TELEGRAM;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_EN;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_KR;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
 import android.Manifest;
@@ -37,7 +38,6 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -318,8 +318,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mBtnTerm)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM));
-            startActivity(intent);
+            if(LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_KR));
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_EN));
+                startActivity(intent);
+            }
 
         } else if (v.equals(mBtnGithub)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_GITHUB));
