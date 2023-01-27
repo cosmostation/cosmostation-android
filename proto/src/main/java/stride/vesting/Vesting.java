@@ -3904,7 +3904,7 @@ public final class Vesting {
       "ntB\004\320\336\037\001\022O\n\017vesting_periods\030\003 \003(\0132\026.stri" +
       "de.vesting.PeriodB\036\362\336\037\026yaml:\"vesting_per" +
       "iods\"\310\336\037\000:\010\210\240\037\000\230\240\037\000B8Z6github.com/Stride" +
-      "-Labs/stride/v3/x/claim/vesting/typesb\006p" +
+      "-Labs/stride/v5/x/claim/vesting/typesb\006p" +
       "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

@@ -1233,7 +1233,7 @@ public final class Packet {
       "de.icacallbacks\"R\n\026IcacallbacksPacketDat" +
       "a\022.\n\007no_data\030\001 \001(\0132\033.stride.icacallbacks" +
       ".NoDataH\000B\010\n\006packet\"\010\n\006NoDataB7Z5github." +
-      "com/Stride-Labs/stride/v3/x/icacallbacks" +
+      "com/Stride-Labs/stride/v5/x/icacallbacks" +
       "/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

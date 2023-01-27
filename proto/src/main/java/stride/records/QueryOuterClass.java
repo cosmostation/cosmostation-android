@@ -11631,7 +11631,7 @@ public final class QueryOuterClass {
       "st\032-.stride.records.QueryAllDepositRecor" +
       "dResponse\"2\202\323\344\223\002,\022*/Stride-Labs/stride/r" +
       "ecords/deposit_recordB2Z0github.com/Stri" +
-      "de-Labs/stride/v3/x/records/typesb\006proto" +
+      "de-Labs/stride/v5/x/records/typesb\006proto" +
       "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

@@ -50,111 +50,44 @@ public final class Genesis {
      * list of zones that are registered by the protocol
      * </pre>
      *
-     * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-     * @return Whether the icaAccount field is set.
-     */
-    boolean hasIcaAccount();
-    /**
-     * <pre>
-     * list of zones that are registered by the protocol
-     * </pre>
-     *
-     * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-     * @return The icaAccount.
-     */
-    stride.stakeibc.IcaAccount.ICAAccount getIcaAccount();
-    /**
-     * <pre>
-     * list of zones that are registered by the protocol
-     * </pre>
-     *
-     * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-     */
-    stride.stakeibc.IcaAccount.ICAAccountOrBuilder getIcaAccountOrBuilder();
-
-    /**
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<stride.stakeibc.HostZoneOuterClass.HostZone> 
         getHostZoneListList();
     /**
+     * <pre>
+     * list of zones that are registered by the protocol
+     * </pre>
+     *
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     stride.stakeibc.HostZoneOuterClass.HostZone getHostZoneList(int index);
     /**
+     * <pre>
+     * list of zones that are registered by the protocol
+     * </pre>
+     *
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     int getHostZoneListCount();
     /**
+     * <pre>
+     * list of zones that are registered by the protocol
+     * </pre>
+     *
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     java.util.List<? extends stride.stakeibc.HostZoneOuterClass.HostZoneOrBuilder> 
         getHostZoneListOrBuilderList();
     /**
+     * <pre>
+     * list of zones that are registered by the protocol
+     * </pre>
+     *
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     stride.stakeibc.HostZoneOuterClass.HostZoneOrBuilder getHostZoneListOrBuilder(
         int index);
-
-    /**
-     * <code>uint64 host_zone_count = 6;</code>
-     * @return The hostZoneCount.
-     */
-    long getHostZoneCount();
-
-    /**
-     * <pre>
-     * stores a map from hostZone base denom to hostZone
-     * </pre>
-     *
-     * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-     */
-    int getDenomToHostZoneCount();
-    /**
-     * <pre>
-     * stores a map from hostZone base denom to hostZone
-     * </pre>
-     *
-     * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-     */
-    boolean containsDenomToHostZone(
-        java.lang.String key);
-    /**
-     * Use {@link #getDenomToHostZoneMap()} instead.
-     */
-    @java.lang.Deprecated
-    java.util.Map<java.lang.String, java.lang.String>
-    getDenomToHostZone();
-    /**
-     * <pre>
-     * stores a map from hostZone base denom to hostZone
-     * </pre>
-     *
-     * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-     */
-    java.util.Map<java.lang.String, java.lang.String>
-    getDenomToHostZoneMap();
-    /**
-     * <pre>
-     * stores a map from hostZone base denom to hostZone
-     * </pre>
-     *
-     * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-     */
-
-    java.lang.String getDenomToHostZoneOrDefault(
-        java.lang.String key,
-        java.lang.String defaultValue);
-    /**
-     * <pre>
-     * stores a map from hostZone base denom to hostZone
-     * </pre>
-     *
-     * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-     */
-
-    java.lang.String getDenomToHostZoneOrThrow(
-        java.lang.String key);
 
     /**
      * <code>repeated .stride.stakeibc.EpochTracker epoch_tracker_list = 10 [(.gogoproto.nullable) = false];</code>
@@ -252,19 +185,6 @@ public final class Genesis {
               portId_ = s;
               break;
             }
-            case 34: {
-              stride.stakeibc.IcaAccount.ICAAccount.Builder subBuilder = null;
-              if (icaAccount_ != null) {
-                subBuilder = icaAccount_.toBuilder();
-              }
-              icaAccount_ = input.readMessage(stride.stakeibc.IcaAccount.ICAAccount.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(icaAccount_);
-                icaAccount_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
             case 42: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 hostZoneList_ = new java.util.ArrayList<stride.stakeibc.HostZoneOuterClass.HostZone>();
@@ -274,28 +194,10 @@ public final class Genesis {
                   input.readMessage(stride.stakeibc.HostZoneOuterClass.HostZone.parser(), extensionRegistry));
               break;
             }
-            case 48: {
-
-              hostZoneCount_ = input.readUInt64();
-              break;
-            }
-            case 74: {
-              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                denomToHostZone_ = com.google.protobuf.MapField.newMapField(
-                    DenomToHostZoneDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000002;
-              }
-              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
-              denomToHostZone__ = input.readMessage(
-                  DenomToHostZoneDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-              denomToHostZone_.getMutableMap().put(
-                  denomToHostZone__.getKey(), denomToHostZone__.getValue());
-              break;
-            }
             case 82: {
-              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 epochTrackerList_ = new java.util.ArrayList<stride.stakeibc.EpochTrackerOuterClass.EpochTracker>();
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000002;
               }
               epochTrackerList_.add(
                   input.readMessage(stride.stakeibc.EpochTrackerOuterClass.EpochTracker.parser(), extensionRegistry));
@@ -319,7 +221,7 @@ public final class Genesis {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
           hostZoneList_ = java.util.Collections.unmodifiableList(hostZoneList_);
         }
-        if (((mutable_bitField0_ & 0x00000004) != 0)) {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
           epochTrackerList_ = java.util.Collections.unmodifiableList(epochTrackerList_);
         }
         this.unknownFields = unknownFields.build();
@@ -331,18 +233,6 @@ public final class Genesis {
       return stride.stakeibc.Genesis.internal_static_stride_stakeibc_GenesisState_descriptor;
     }
 
-    @SuppressWarnings({"rawtypes"})
-    @java.lang.Override
-    protected com.google.protobuf.MapField internalGetMapField(
-        int number) {
-      switch (number) {
-        case 9:
-          return internalGetDenomToHostZone();
-        default:
-          throw new RuntimeException(
-              "Invalid map field number: " + number);
-      }
-    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -415,47 +305,13 @@ public final class Genesis {
       }
     }
 
-    public static final int ICA_ACCOUNT_FIELD_NUMBER = 4;
-    private stride.stakeibc.IcaAccount.ICAAccount icaAccount_;
-    /**
-     * <pre>
-     * list of zones that are registered by the protocol
-     * </pre>
-     *
-     * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-     * @return Whether the icaAccount field is set.
-     */
-    @java.lang.Override
-    public boolean hasIcaAccount() {
-      return icaAccount_ != null;
-    }
-    /**
-     * <pre>
-     * list of zones that are registered by the protocol
-     * </pre>
-     *
-     * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-     * @return The icaAccount.
-     */
-    @java.lang.Override
-    public stride.stakeibc.IcaAccount.ICAAccount getIcaAccount() {
-      return icaAccount_ == null ? stride.stakeibc.IcaAccount.ICAAccount.getDefaultInstance() : icaAccount_;
-    }
-    /**
-     * <pre>
-     * list of zones that are registered by the protocol
-     * </pre>
-     *
-     * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-     */
-    @java.lang.Override
-    public stride.stakeibc.IcaAccount.ICAAccountOrBuilder getIcaAccountOrBuilder() {
-      return getIcaAccount();
-    }
-
     public static final int HOST_ZONE_LIST_FIELD_NUMBER = 5;
     private java.util.List<stride.stakeibc.HostZoneOuterClass.HostZone> hostZoneList_;
     /**
+     * <pre>
+     * list of zones that are registered by the protocol
+     * </pre>
+     *
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
@@ -463,6 +319,10 @@ public final class Genesis {
       return hostZoneList_;
     }
     /**
+     * <pre>
+     * list of zones that are registered by the protocol
+     * </pre>
+     *
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
@@ -471,6 +331,10 @@ public final class Genesis {
       return hostZoneList_;
     }
     /**
+     * <pre>
+     * list of zones that are registered by the protocol
+     * </pre>
+     *
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
@@ -478,6 +342,10 @@ public final class Genesis {
       return hostZoneList_.size();
     }
     /**
+     * <pre>
+     * list of zones that are registered by the protocol
+     * </pre>
+     *
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
@@ -485,120 +353,16 @@ public final class Genesis {
       return hostZoneList_.get(index);
     }
     /**
+     * <pre>
+     * list of zones that are registered by the protocol
+     * </pre>
+     *
      * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
     public stride.stakeibc.HostZoneOuterClass.HostZoneOrBuilder getHostZoneListOrBuilder(
         int index) {
       return hostZoneList_.get(index);
-    }
-
-    public static final int HOST_ZONE_COUNT_FIELD_NUMBER = 6;
-    private long hostZoneCount_;
-    /**
-     * <code>uint64 host_zone_count = 6;</code>
-     * @return The hostZoneCount.
-     */
-    @java.lang.Override
-    public long getHostZoneCount() {
-      return hostZoneCount_;
-    }
-
-    public static final int DENOM_TO_HOST_ZONE_FIELD_NUMBER = 9;
-    private static final class DenomToHostZoneDefaultEntryHolder {
-      static final com.google.protobuf.MapEntry<
-          java.lang.String, java.lang.String> defaultEntry =
-              com.google.protobuf.MapEntry
-              .<java.lang.String, java.lang.String>newDefaultInstance(
-                  stride.stakeibc.Genesis.internal_static_stride_stakeibc_GenesisState_DenomToHostZoneEntry_descriptor, 
-                  com.google.protobuf.WireFormat.FieldType.STRING,
-                  "",
-                  com.google.protobuf.WireFormat.FieldType.STRING,
-                  "");
-    }
-    private com.google.protobuf.MapField<
-        java.lang.String, java.lang.String> denomToHostZone_;
-    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
-    internalGetDenomToHostZone() {
-      if (denomToHostZone_ == null) {
-        return com.google.protobuf.MapField.emptyMapField(
-            DenomToHostZoneDefaultEntryHolder.defaultEntry);
-      }
-      return denomToHostZone_;
-    }
-
-    public int getDenomToHostZoneCount() {
-      return internalGetDenomToHostZone().getMap().size();
-    }
-    /**
-     * <pre>
-     * stores a map from hostZone base denom to hostZone
-     * </pre>
-     *
-     * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-     */
-
-    @java.lang.Override
-    public boolean containsDenomToHostZone(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      return internalGetDenomToHostZone().getMap().containsKey(key);
-    }
-    /**
-     * Use {@link #getDenomToHostZoneMap()} instead.
-     */
-    @java.lang.Override
-    @java.lang.Deprecated
-    public java.util.Map<java.lang.String, java.lang.String> getDenomToHostZone() {
-      return getDenomToHostZoneMap();
-    }
-    /**
-     * <pre>
-     * stores a map from hostZone base denom to hostZone
-     * </pre>
-     *
-     * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-     */
-    @java.lang.Override
-
-    public java.util.Map<java.lang.String, java.lang.String> getDenomToHostZoneMap() {
-      return internalGetDenomToHostZone().getMap();
-    }
-    /**
-     * <pre>
-     * stores a map from hostZone base denom to hostZone
-     * </pre>
-     *
-     * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-     */
-    @java.lang.Override
-
-    public java.lang.String getDenomToHostZoneOrDefault(
-        java.lang.String key,
-        java.lang.String defaultValue) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, java.lang.String> map =
-          internalGetDenomToHostZone().getMap();
-      return map.containsKey(key) ? map.get(key) : defaultValue;
-    }
-    /**
-     * <pre>
-     * stores a map from hostZone base denom to hostZone
-     * </pre>
-     *
-     * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-     */
-    @java.lang.Override
-
-    public java.lang.String getDenomToHostZoneOrThrow(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, java.lang.String> map =
-          internalGetDenomToHostZone().getMap();
-      if (!map.containsKey(key)) {
-        throw new java.lang.IllegalArgumentException();
-      }
-      return map.get(key);
     }
 
     public static final int EPOCH_TRACKER_LIST_FIELD_NUMBER = 10;
@@ -661,21 +425,9 @@ public final class Genesis {
       if (!getPortIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, portId_);
       }
-      if (icaAccount_ != null) {
-        output.writeMessage(4, getIcaAccount());
-      }
       for (int i = 0; i < hostZoneList_.size(); i++) {
         output.writeMessage(5, hostZoneList_.get(i));
       }
-      if (hostZoneCount_ != 0L) {
-        output.writeUInt64(6, hostZoneCount_);
-      }
-      com.google.protobuf.GeneratedMessageV3
-        .serializeStringMapTo(
-          output,
-          internalGetDenomToHostZone(),
-          DenomToHostZoneDefaultEntryHolder.defaultEntry,
-          9);
       for (int i = 0; i < epochTrackerList_.size(); i++) {
         output.writeMessage(10, epochTrackerList_.get(i));
       }
@@ -695,27 +447,9 @@ public final class Genesis {
       if (!getPortIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, portId_);
       }
-      if (icaAccount_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getIcaAccount());
-      }
       for (int i = 0; i < hostZoneList_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, hostZoneList_.get(i));
-      }
-      if (hostZoneCount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(6, hostZoneCount_);
-      }
-      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
-           : internalGetDenomToHostZone().getMap().entrySet()) {
-        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
-        denomToHostZone__ = DenomToHostZoneDefaultEntryHolder.defaultEntry.newBuilderForType()
-            .setKey(entry.getKey())
-            .setValue(entry.getValue())
-            .build();
-        size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(9, denomToHostZone__);
       }
       for (int i = 0; i < epochTrackerList_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -743,17 +477,8 @@ public final class Genesis {
       }
       if (!getPortId()
           .equals(other.getPortId())) return false;
-      if (hasIcaAccount() != other.hasIcaAccount()) return false;
-      if (hasIcaAccount()) {
-        if (!getIcaAccount()
-            .equals(other.getIcaAccount())) return false;
-      }
       if (!getHostZoneListList()
           .equals(other.getHostZoneListList())) return false;
-      if (getHostZoneCount()
-          != other.getHostZoneCount()) return false;
-      if (!internalGetDenomToHostZone().equals(
-          other.internalGetDenomToHostZone())) return false;
       if (!getEpochTrackerListList()
           .equals(other.getEpochTrackerListList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -773,20 +498,9 @@ public final class Genesis {
       }
       hash = (37 * hash) + PORT_ID_FIELD_NUMBER;
       hash = (53 * hash) + getPortId().hashCode();
-      if (hasIcaAccount()) {
-        hash = (37 * hash) + ICA_ACCOUNT_FIELD_NUMBER;
-        hash = (53 * hash) + getIcaAccount().hashCode();
-      }
       if (getHostZoneListCount() > 0) {
         hash = (37 * hash) + HOST_ZONE_LIST_FIELD_NUMBER;
         hash = (53 * hash) + getHostZoneListList().hashCode();
-      }
-      hash = (37 * hash) + HOST_ZONE_COUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getHostZoneCount());
-      if (!internalGetDenomToHostZone().getMap().isEmpty()) {
-        hash = (37 * hash) + DENOM_TO_HOST_ZONE_FIELD_NUMBER;
-        hash = (53 * hash) + internalGetDenomToHostZone().hashCode();
       }
       if (getEpochTrackerListCount() > 0) {
         hash = (37 * hash) + EPOCH_TRACKER_LIST_FIELD_NUMBER;
@@ -903,28 +617,6 @@ public final class Genesis {
         return stride.stakeibc.Genesis.internal_static_stride_stakeibc_GenesisState_descriptor;
       }
 
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMapField(
-          int number) {
-        switch (number) {
-          case 9:
-            return internalGetDenomToHostZone();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMutableMapField(
-          int number) {
-        switch (number) {
-          case 9:
-            return internalGetMutableDenomToHostZone();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -961,24 +653,15 @@ public final class Genesis {
         }
         portId_ = "";
 
-        if (icaAccountBuilder_ == null) {
-          icaAccount_ = null;
-        } else {
-          icaAccount_ = null;
-          icaAccountBuilder_ = null;
-        }
         if (hostZoneListBuilder_ == null) {
           hostZoneList_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           hostZoneListBuilder_.clear();
         }
-        hostZoneCount_ = 0L;
-
-        internalGetMutableDenomToHostZone().clear();
         if (epochTrackerListBuilder_ == null) {
           epochTrackerList_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
           epochTrackerListBuilder_.clear();
         }
@@ -1015,11 +698,6 @@ public final class Genesis {
           result.params_ = paramsBuilder_.build();
         }
         result.portId_ = portId_;
-        if (icaAccountBuilder_ == null) {
-          result.icaAccount_ = icaAccount_;
-        } else {
-          result.icaAccount_ = icaAccountBuilder_.build();
-        }
         if (hostZoneListBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0)) {
             hostZoneList_ = java.util.Collections.unmodifiableList(hostZoneList_);
@@ -1029,13 +707,10 @@ public final class Genesis {
         } else {
           result.hostZoneList_ = hostZoneListBuilder_.build();
         }
-        result.hostZoneCount_ = hostZoneCount_;
-        result.denomToHostZone_ = internalGetDenomToHostZone();
-        result.denomToHostZone_.makeImmutable();
         if (epochTrackerListBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) != 0)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             epochTrackerList_ = java.util.Collections.unmodifiableList(epochTrackerList_);
-            bitField0_ = (bitField0_ & ~0x00000004);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.epochTrackerList_ = epochTrackerList_;
         } else {
@@ -1096,9 +771,6 @@ public final class Genesis {
           portId_ = other.portId_;
           onChanged();
         }
-        if (other.hasIcaAccount()) {
-          mergeIcaAccount(other.getIcaAccount());
-        }
         if (hostZoneListBuilder_ == null) {
           if (!other.hostZoneList_.isEmpty()) {
             if (hostZoneList_.isEmpty()) {
@@ -1125,16 +797,11 @@ public final class Genesis {
             }
           }
         }
-        if (other.getHostZoneCount() != 0L) {
-          setHostZoneCount(other.getHostZoneCount());
-        }
-        internalGetMutableDenomToHostZone().mergeFrom(
-            other.internalGetDenomToHostZone());
         if (epochTrackerListBuilder_ == null) {
           if (!other.epochTrackerList_.isEmpty()) {
             if (epochTrackerList_.isEmpty()) {
               epochTrackerList_ = other.epochTrackerList_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureEpochTrackerListIsMutable();
               epochTrackerList_.addAll(other.epochTrackerList_);
@@ -1147,7 +814,7 @@ public final class Genesis {
               epochTrackerListBuilder_.dispose();
               epochTrackerListBuilder_ = null;
               epochTrackerList_ = other.epochTrackerList_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000002);
               epochTrackerListBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getEpochTrackerListFieldBuilder() : null;
@@ -1381,161 +1048,6 @@ public final class Genesis {
         return this;
       }
 
-      private stride.stakeibc.IcaAccount.ICAAccount icaAccount_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          stride.stakeibc.IcaAccount.ICAAccount, stride.stakeibc.IcaAccount.ICAAccount.Builder, stride.stakeibc.IcaAccount.ICAAccountOrBuilder> icaAccountBuilder_;
-      /**
-       * <pre>
-       * list of zones that are registered by the protocol
-       * </pre>
-       *
-       * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-       * @return Whether the icaAccount field is set.
-       */
-      public boolean hasIcaAccount() {
-        return icaAccountBuilder_ != null || icaAccount_ != null;
-      }
-      /**
-       * <pre>
-       * list of zones that are registered by the protocol
-       * </pre>
-       *
-       * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-       * @return The icaAccount.
-       */
-      public stride.stakeibc.IcaAccount.ICAAccount getIcaAccount() {
-        if (icaAccountBuilder_ == null) {
-          return icaAccount_ == null ? stride.stakeibc.IcaAccount.ICAAccount.getDefaultInstance() : icaAccount_;
-        } else {
-          return icaAccountBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * list of zones that are registered by the protocol
-       * </pre>
-       *
-       * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-       */
-      public Builder setIcaAccount(stride.stakeibc.IcaAccount.ICAAccount value) {
-        if (icaAccountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          icaAccount_ = value;
-          onChanged();
-        } else {
-          icaAccountBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * list of zones that are registered by the protocol
-       * </pre>
-       *
-       * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-       */
-      public Builder setIcaAccount(
-          stride.stakeibc.IcaAccount.ICAAccount.Builder builderForValue) {
-        if (icaAccountBuilder_ == null) {
-          icaAccount_ = builderForValue.build();
-          onChanged();
-        } else {
-          icaAccountBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * list of zones that are registered by the protocol
-       * </pre>
-       *
-       * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-       */
-      public Builder mergeIcaAccount(stride.stakeibc.IcaAccount.ICAAccount value) {
-        if (icaAccountBuilder_ == null) {
-          if (icaAccount_ != null) {
-            icaAccount_ =
-              stride.stakeibc.IcaAccount.ICAAccount.newBuilder(icaAccount_).mergeFrom(value).buildPartial();
-          } else {
-            icaAccount_ = value;
-          }
-          onChanged();
-        } else {
-          icaAccountBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * list of zones that are registered by the protocol
-       * </pre>
-       *
-       * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-       */
-      public Builder clearIcaAccount() {
-        if (icaAccountBuilder_ == null) {
-          icaAccount_ = null;
-          onChanged();
-        } else {
-          icaAccount_ = null;
-          icaAccountBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * list of zones that are registered by the protocol
-       * </pre>
-       *
-       * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-       */
-      public stride.stakeibc.IcaAccount.ICAAccount.Builder getIcaAccountBuilder() {
-        
-        onChanged();
-        return getIcaAccountFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * list of zones that are registered by the protocol
-       * </pre>
-       *
-       * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-       */
-      public stride.stakeibc.IcaAccount.ICAAccountOrBuilder getIcaAccountOrBuilder() {
-        if (icaAccountBuilder_ != null) {
-          return icaAccountBuilder_.getMessageOrBuilder();
-        } else {
-          return icaAccount_ == null ?
-              stride.stakeibc.IcaAccount.ICAAccount.getDefaultInstance() : icaAccount_;
-        }
-      }
-      /**
-       * <pre>
-       * list of zones that are registered by the protocol
-       * </pre>
-       *
-       * <code>.stride.stakeibc.ICAAccount ica_account = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          stride.stakeibc.IcaAccount.ICAAccount, stride.stakeibc.IcaAccount.ICAAccount.Builder, stride.stakeibc.IcaAccount.ICAAccountOrBuilder> 
-          getIcaAccountFieldBuilder() {
-        if (icaAccountBuilder_ == null) {
-          icaAccountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              stride.stakeibc.IcaAccount.ICAAccount, stride.stakeibc.IcaAccount.ICAAccount.Builder, stride.stakeibc.IcaAccount.ICAAccountOrBuilder>(
-                  getIcaAccount(),
-                  getParentForChildren(),
-                  isClean());
-          icaAccount_ = null;
-        }
-        return icaAccountBuilder_;
-      }
-
       private java.util.List<stride.stakeibc.HostZoneOuterClass.HostZone> hostZoneList_ =
         java.util.Collections.emptyList();
       private void ensureHostZoneListIsMutable() {
@@ -1549,6 +1061,10 @@ public final class Genesis {
           stride.stakeibc.HostZoneOuterClass.HostZone, stride.stakeibc.HostZoneOuterClass.HostZone.Builder, stride.stakeibc.HostZoneOuterClass.HostZoneOrBuilder> hostZoneListBuilder_;
 
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<stride.stakeibc.HostZoneOuterClass.HostZone> getHostZoneListList() {
@@ -1559,6 +1075,10 @@ public final class Genesis {
         }
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public int getHostZoneListCount() {
@@ -1569,6 +1089,10 @@ public final class Genesis {
         }
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public stride.stakeibc.HostZoneOuterClass.HostZone getHostZoneList(int index) {
@@ -1579,6 +1103,10 @@ public final class Genesis {
         }
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setHostZoneList(
@@ -1596,6 +1124,10 @@ public final class Genesis {
         return this;
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder setHostZoneList(
@@ -1610,6 +1142,10 @@ public final class Genesis {
         return this;
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addHostZoneList(stride.stakeibc.HostZoneOuterClass.HostZone value) {
@@ -1626,6 +1162,10 @@ public final class Genesis {
         return this;
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addHostZoneList(
@@ -1643,6 +1183,10 @@ public final class Genesis {
         return this;
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addHostZoneList(
@@ -1657,6 +1201,10 @@ public final class Genesis {
         return this;
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addHostZoneList(
@@ -1671,6 +1219,10 @@ public final class Genesis {
         return this;
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder addAllHostZoneList(
@@ -1686,6 +1238,10 @@ public final class Genesis {
         return this;
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder clearHostZoneList() {
@@ -1699,6 +1255,10 @@ public final class Genesis {
         return this;
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public Builder removeHostZoneList(int index) {
@@ -1712,6 +1272,10 @@ public final class Genesis {
         return this;
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public stride.stakeibc.HostZoneOuterClass.HostZone.Builder getHostZoneListBuilder(
@@ -1719,6 +1283,10 @@ public final class Genesis {
         return getHostZoneListFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public stride.stakeibc.HostZoneOuterClass.HostZoneOrBuilder getHostZoneListOrBuilder(
@@ -1729,6 +1297,10 @@ public final class Genesis {
         }
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<? extends stride.stakeibc.HostZoneOuterClass.HostZoneOrBuilder> 
@@ -1740,6 +1312,10 @@ public final class Genesis {
         }
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public stride.stakeibc.HostZoneOuterClass.HostZone.Builder addHostZoneListBuilder() {
@@ -1747,6 +1323,10 @@ public final class Genesis {
             stride.stakeibc.HostZoneOuterClass.HostZone.getDefaultInstance());
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public stride.stakeibc.HostZoneOuterClass.HostZone.Builder addHostZoneListBuilder(
@@ -1755,6 +1335,10 @@ public final class Genesis {
             index, stride.stakeibc.HostZoneOuterClass.HostZone.getDefaultInstance());
       }
       /**
+       * <pre>
+       * list of zones that are registered by the protocol
+       * </pre>
+       *
        * <code>repeated .stride.stakeibc.HostZone host_zone_list = 5 [(.gogoproto.nullable) = false];</code>
        */
       public java.util.List<stride.stakeibc.HostZoneOuterClass.HostZone.Builder> 
@@ -1776,199 +1360,12 @@ public final class Genesis {
         return hostZoneListBuilder_;
       }
 
-      private long hostZoneCount_ ;
-      /**
-       * <code>uint64 host_zone_count = 6;</code>
-       * @return The hostZoneCount.
-       */
-      @java.lang.Override
-      public long getHostZoneCount() {
-        return hostZoneCount_;
-      }
-      /**
-       * <code>uint64 host_zone_count = 6;</code>
-       * @param value The hostZoneCount to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHostZoneCount(long value) {
-        
-        hostZoneCount_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint64 host_zone_count = 6;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHostZoneCount() {
-        
-        hostZoneCount_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.MapField<
-          java.lang.String, java.lang.String> denomToHostZone_;
-      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
-      internalGetDenomToHostZone() {
-        if (denomToHostZone_ == null) {
-          return com.google.protobuf.MapField.emptyMapField(
-              DenomToHostZoneDefaultEntryHolder.defaultEntry);
-        }
-        return denomToHostZone_;
-      }
-      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
-      internalGetMutableDenomToHostZone() {
-        onChanged();;
-        if (denomToHostZone_ == null) {
-          denomToHostZone_ = com.google.protobuf.MapField.newMapField(
-              DenomToHostZoneDefaultEntryHolder.defaultEntry);
-        }
-        if (!denomToHostZone_.isMutable()) {
-          denomToHostZone_ = denomToHostZone_.copy();
-        }
-        return denomToHostZone_;
-      }
-
-      public int getDenomToHostZoneCount() {
-        return internalGetDenomToHostZone().getMap().size();
-      }
-      /**
-       * <pre>
-       * stores a map from hostZone base denom to hostZone
-       * </pre>
-       *
-       * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-       */
-
-      @java.lang.Override
-      public boolean containsDenomToHostZone(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        return internalGetDenomToHostZone().getMap().containsKey(key);
-      }
-      /**
-       * Use {@link #getDenomToHostZoneMap()} instead.
-       */
-      @java.lang.Override
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, java.lang.String> getDenomToHostZone() {
-        return getDenomToHostZoneMap();
-      }
-      /**
-       * <pre>
-       * stores a map from hostZone base denom to hostZone
-       * </pre>
-       *
-       * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-       */
-      @java.lang.Override
-
-      public java.util.Map<java.lang.String, java.lang.String> getDenomToHostZoneMap() {
-        return internalGetDenomToHostZone().getMap();
-      }
-      /**
-       * <pre>
-       * stores a map from hostZone base denom to hostZone
-       * </pre>
-       *
-       * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-       */
-      @java.lang.Override
-
-      public java.lang.String getDenomToHostZoneOrDefault(
-          java.lang.String key,
-          java.lang.String defaultValue) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, java.lang.String> map =
-            internalGetDenomToHostZone().getMap();
-        return map.containsKey(key) ? map.get(key) : defaultValue;
-      }
-      /**
-       * <pre>
-       * stores a map from hostZone base denom to hostZone
-       * </pre>
-       *
-       * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-       */
-      @java.lang.Override
-
-      public java.lang.String getDenomToHostZoneOrThrow(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, java.lang.String> map =
-            internalGetDenomToHostZone().getMap();
-        if (!map.containsKey(key)) {
-          throw new java.lang.IllegalArgumentException();
-        }
-        return map.get(key);
-      }
-
-      public Builder clearDenomToHostZone() {
-        internalGetMutableDenomToHostZone().getMutableMap()
-            .clear();
-        return this;
-      }
-      /**
-       * <pre>
-       * stores a map from hostZone base denom to hostZone
-       * </pre>
-       *
-       * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-       */
-
-      public Builder removeDenomToHostZone(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        internalGetMutableDenomToHostZone().getMutableMap()
-            .remove(key);
-        return this;
-      }
-      /**
-       * Use alternate mutation accessors instead.
-       */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, java.lang.String>
-      getMutableDenomToHostZone() {
-        return internalGetMutableDenomToHostZone().getMutableMap();
-      }
-      /**
-       * <pre>
-       * stores a map from hostZone base denom to hostZone
-       * </pre>
-       *
-       * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-       */
-      public Builder putDenomToHostZone(
-          java.lang.String key,
-          java.lang.String value) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        if (value == null) { throw new java.lang.NullPointerException(); }
-        internalGetMutableDenomToHostZone().getMutableMap()
-            .put(key, value);
-        return this;
-      }
-      /**
-       * <pre>
-       * stores a map from hostZone base denom to hostZone
-       * </pre>
-       *
-       * <code>map&lt;string, string&gt; denom_to_host_zone = 9;</code>
-       */
-
-      public Builder putAllDenomToHostZone(
-          java.util.Map<java.lang.String, java.lang.String> values) {
-        internalGetMutableDenomToHostZone().getMutableMap()
-            .putAll(values);
-        return this;
-      }
-
       private java.util.List<stride.stakeibc.EpochTrackerOuterClass.EpochTracker> epochTrackerList_ =
         java.util.Collections.emptyList();
       private void ensureEpochTrackerListIsMutable() {
-        if (!((bitField0_ & 0x00000004) != 0)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           epochTrackerList_ = new java.util.ArrayList<stride.stakeibc.EpochTrackerOuterClass.EpochTracker>(epochTrackerList_);
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -2118,7 +1515,7 @@ public final class Genesis {
       public Builder clearEpochTrackerList() {
         if (epochTrackerListBuilder_ == null) {
           epochTrackerList_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           epochTrackerListBuilder_.clear();
@@ -2195,7 +1592,7 @@ public final class Genesis {
           epochTrackerListBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               stride.stakeibc.EpochTrackerOuterClass.EpochTracker, stride.stakeibc.EpochTrackerOuterClass.EpochTracker.Builder, stride.stakeibc.EpochTrackerOuterClass.EpochTrackerOrBuilder>(
                   epochTrackerList_,
-                  ((bitField0_ & 0x00000004) != 0),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           epochTrackerList_ = null;
@@ -2260,11 +1657,6 @@ public final class Genesis {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_stride_stakeibc_GenesisState_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_stride_stakeibc_GenesisState_DenomToHostZoneEntry_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_stride_stakeibc_GenesisState_DenomToHostZoneEntry_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2276,29 +1668,22 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n\035stride/stakeibc/genesis.proto\022\017stride." +
       "stakeibc\032\024gogoproto/gogo.proto\032\034stride/s" +
-      "takeibc/params.proto\032!stride/stakeibc/ic" +
-      "a_account.proto\032\037stride/stakeibc/host_zo" +
-      "ne.proto\032#stride/stakeibc/epoch_tracker." +
-      "proto\"\247\003\n\014GenesisState\022-\n\006params\030\001 \001(\0132\027" +
-      ".stride.stakeibc.ParamsB\004\310\336\037\000\022\017\n\007port_id" +
-      "\030\002 \001(\t\0220\n\013ica_account\030\004 \001(\0132\033.stride.sta" +
-      "keibc.ICAAccount\0227\n\016host_zone_list\030\005 \003(\013" +
-      "2\031.stride.stakeibc.HostZoneB\004\310\336\037\000\022\027\n\017hos" +
-      "t_zone_count\030\006 \001(\004\022N\n\022denom_to_host_zone" +
-      "\030\t \003(\01322.stride.stakeibc.GenesisState.De" +
-      "nomToHostZoneEntry\022?\n\022epoch_tracker_list" +
-      "\030\n \003(\0132\035.stride.stakeibc.EpochTrackerB\004\310" +
-      "\336\037\000\0326\n\024DenomToHostZoneEntry\022\013\n\003key\030\001 \001(\t" +
-      "\022\r\n\005value\030\002 \001(\t:\0028\001J\004\010\003\020\004J\004\010\013\020\014B3Z1githu" +
-      "b.com/Stride-Labs/stride/v3/x/stakeibc/t" +
-      "ypesb\006proto3"
+      "takeibc/params.proto\032\037stride/stakeibc/ho" +
+      "st_zone.proto\032#stride/stakeibc/epoch_tra" +
+      "cker.proto\"\346\001\n\014GenesisState\022-\n\006params\030\001 " +
+      "\001(\0132\027.stride.stakeibc.ParamsB\004\310\336\037\000\022\017\n\007po" +
+      "rt_id\030\002 \001(\t\0227\n\016host_zone_list\030\005 \003(\0132\031.st" +
+      "ride.stakeibc.HostZoneB\004\310\336\037\000\022?\n\022epoch_tr" +
+      "acker_list\030\n \003(\0132\035.stride.stakeibc.Epoch" +
+      "TrackerB\004\310\336\037\000J\004\010\003\020\004J\004\010\004\020\005J\004\010\006\020\007J\004\010\t\020\nJ\004\010" +
+      "\013\020\014B3Z1github.com/Stride-Labs/stride/v5/" +
+      "x/stakeibc/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf2.GoGoProtos.getDescriptor(),
           stride.stakeibc.ParamsOuterClass.getDescriptor(),
-          stride.stakeibc.IcaAccount.getDescriptor(),
           stride.stakeibc.HostZoneOuterClass.getDescriptor(),
           stride.stakeibc.EpochTrackerOuterClass.getDescriptor(),
         });
@@ -2307,13 +1692,7 @@ public final class Genesis {
     internal_static_stride_stakeibc_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_GenesisState_descriptor,
-        new java.lang.String[] { "Params", "PortId", "IcaAccount", "HostZoneList", "HostZoneCount", "DenomToHostZone", "EpochTrackerList", });
-    internal_static_stride_stakeibc_GenesisState_DenomToHostZoneEntry_descriptor =
-      internal_static_stride_stakeibc_GenesisState_descriptor.getNestedTypes().get(0);
-    internal_static_stride_stakeibc_GenesisState_DenomToHostZoneEntry_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_stride_stakeibc_GenesisState_DenomToHostZoneEntry_descriptor,
-        new java.lang.String[] { "Key", "Value", });
+        new java.lang.String[] { "Params", "PortId", "HostZoneList", "EpochTrackerList", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.nullable);
@@ -2321,7 +1700,6 @@ public final class Genesis {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf2.GoGoProtos.getDescriptor();
     stride.stakeibc.ParamsOuterClass.getDescriptor();
-    stride.stakeibc.IcaAccount.getDescriptor();
     stride.stakeibc.HostZoneOuterClass.getDescriptor();
     stride.stakeibc.EpochTrackerOuterClass.getDescriptor();
   }

@@ -457,7 +457,7 @@ public final class ParamsOuterClass {
       "\n stride/icacallbacks/params.proto\022\023stri" +
       "de.icacallbacks\032\024gogoproto/gogo.proto\"\016\n" +
       "\006Params:\004\230\240\037\000B7Z5github.com/Stride-Labs/" +
-      "stride/v3/x/icacallbacks/typesb\006proto3"
+      "stride/v5/x/icacallbacks/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -2239,7 +2239,7 @@ public final class Genesis {
       "counting_started\030\006 \001(\010\022\"\n\032current_epoch_" +
       "start_height\030\007 \001(\003\">\n\014GenesisState\022.\n\006ep" +
       "ochs\030\001 \003(\0132\030.stride.epochs.EpochInfoB\004\310\336" +
-      "\037\000B1Z/github.com/Stride-Labs/stride/v3/x" +
+      "\037\000B1Z/github.com/Stride-Labs/stride/v5/x" +
       "/epochs/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

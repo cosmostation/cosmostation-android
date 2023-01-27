@@ -157,30 +157,6 @@ public final class IcaAccount {
         getAddressBytes();
 
     /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    java.util.List<stride.stakeibc.DelegationOuterClass.Delegation> 
-        getDelegationsList();
-    /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    stride.stakeibc.DelegationOuterClass.Delegation getDelegations(int index);
-    /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    int getDelegationsCount();
-    /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    java.util.List<? extends stride.stakeibc.DelegationOuterClass.DelegationOrBuilder> 
-        getDelegationsOrBuilderList();
-    /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    stride.stakeibc.DelegationOuterClass.DelegationOrBuilder getDelegationsOrBuilder(
-        int index);
-
-    /**
      * <code>.stride.stakeibc.ICAAccountType target = 3;</code>
      * @return The enum numeric value on the wire for target.
      */
@@ -192,11 +168,6 @@ public final class IcaAccount {
     stride.stakeibc.IcaAccount.ICAAccountType getTarget();
   }
   /**
-   * <pre>
-   * TODO(TEST-XX): Update these fields to be more useful (e.g. balances should be
-   * coins, maybe store port name directly)
-   * </pre>
-   *
    * Protobuf type {@code stride.stakeibc.ICAAccount}
    */
   public static final class ICAAccount extends
@@ -210,7 +181,6 @@ public final class IcaAccount {
     }
     private ICAAccount() {
       address_ = "";
-      delegations_ = java.util.Collections.emptyList();
       target_ = 0;
     }
 
@@ -234,7 +204,6 @@ public final class IcaAccount {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -249,15 +218,6 @@ public final class IcaAccount {
               java.lang.String s = input.readStringRequireUtf8();
 
               address_ = s;
-              break;
-            }
-            case 18: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                delegations_ = new java.util.ArrayList<stride.stakeibc.DelegationOuterClass.Delegation>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              delegations_.add(
-                  input.readMessage(stride.stakeibc.DelegationOuterClass.Delegation.parser(), extensionRegistry));
               break;
             }
             case 24: {
@@ -281,9 +241,6 @@ public final class IcaAccount {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          delegations_ = java.util.Collections.unmodifiableList(delegations_);
-        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -339,46 +296,6 @@ public final class IcaAccount {
       }
     }
 
-    public static final int DELEGATIONS_FIELD_NUMBER = 2;
-    private java.util.List<stride.stakeibc.DelegationOuterClass.Delegation> delegations_;
-    /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    @java.lang.Override
-    public java.util.List<stride.stakeibc.DelegationOuterClass.Delegation> getDelegationsList() {
-      return delegations_;
-    }
-    /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    @java.lang.Override
-    public java.util.List<? extends stride.stakeibc.DelegationOuterClass.DelegationOrBuilder> 
-        getDelegationsOrBuilderList() {
-      return delegations_;
-    }
-    /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    @java.lang.Override
-    public int getDelegationsCount() {
-      return delegations_.size();
-    }
-    /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    @java.lang.Override
-    public stride.stakeibc.DelegationOuterClass.Delegation getDelegations(int index) {
-      return delegations_.get(index);
-    }
-    /**
-     * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-     */
-    @java.lang.Override
-    public stride.stakeibc.DelegationOuterClass.DelegationOrBuilder getDelegationsOrBuilder(
-        int index) {
-      return delegations_.get(index);
-    }
-
     public static final int TARGET_FIELD_NUMBER = 3;
     private int target_;
     /**
@@ -415,9 +332,6 @@ public final class IcaAccount {
       if (!getAddressBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, address_);
       }
-      for (int i = 0; i < delegations_.size(); i++) {
-        output.writeMessage(2, delegations_.get(i));
-      }
       if (target_ != stride.stakeibc.IcaAccount.ICAAccountType.DELEGATION.getNumber()) {
         output.writeEnum(3, target_);
       }
@@ -432,10 +346,6 @@ public final class IcaAccount {
       size = 0;
       if (!getAddressBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, address_);
-      }
-      for (int i = 0; i < delegations_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, delegations_.get(i));
       }
       if (target_ != stride.stakeibc.IcaAccount.ICAAccountType.DELEGATION.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
@@ -458,8 +368,6 @@ public final class IcaAccount {
 
       if (!getAddress()
           .equals(other.getAddress())) return false;
-      if (!getDelegationsList()
-          .equals(other.getDelegationsList())) return false;
       if (target_ != other.target_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
@@ -474,10 +382,6 @@ public final class IcaAccount {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
       hash = (53 * hash) + getAddress().hashCode();
-      if (getDelegationsCount() > 0) {
-        hash = (37 * hash) + DELEGATIONS_FIELD_NUMBER;
-        hash = (53 * hash) + getDelegationsList().hashCode();
-      }
       hash = (37 * hash) + TARGET_FIELD_NUMBER;
       hash = (53 * hash) + target_;
       hash = (29 * hash) + unknownFields.hashCode();
@@ -576,11 +480,6 @@ public final class IcaAccount {
       return builder;
     }
     /**
-     * <pre>
-     * TODO(TEST-XX): Update these fields to be more useful (e.g. balances should be
-     * coins, maybe store port name directly)
-     * </pre>
-     *
      * Protobuf type {@code stride.stakeibc.ICAAccount}
      */
     public static final class Builder extends
@@ -613,7 +512,6 @@ public final class IcaAccount {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getDelegationsFieldBuilder();
         }
       }
       @java.lang.Override
@@ -621,12 +519,6 @@ public final class IcaAccount {
         super.clear();
         address_ = "";
 
-        if (delegationsBuilder_ == null) {
-          delegations_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          delegationsBuilder_.clear();
-        }
         target_ = 0;
 
         return this;
@@ -655,17 +547,7 @@ public final class IcaAccount {
       @java.lang.Override
       public stride.stakeibc.IcaAccount.ICAAccount buildPartial() {
         stride.stakeibc.IcaAccount.ICAAccount result = new stride.stakeibc.IcaAccount.ICAAccount(this);
-        int from_bitField0_ = bitField0_;
         result.address_ = address_;
-        if (delegationsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            delegations_ = java.util.Collections.unmodifiableList(delegations_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.delegations_ = delegations_;
-        } else {
-          result.delegations_ = delegationsBuilder_.build();
-        }
         result.target_ = target_;
         onBuilt();
         return result;
@@ -719,32 +601,6 @@ public final class IcaAccount {
           address_ = other.address_;
           onChanged();
         }
-        if (delegationsBuilder_ == null) {
-          if (!other.delegations_.isEmpty()) {
-            if (delegations_.isEmpty()) {
-              delegations_ = other.delegations_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureDelegationsIsMutable();
-              delegations_.addAll(other.delegations_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.delegations_.isEmpty()) {
-            if (delegationsBuilder_.isEmpty()) {
-              delegationsBuilder_.dispose();
-              delegationsBuilder_ = null;
-              delegations_ = other.delegations_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              delegationsBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getDelegationsFieldBuilder() : null;
-            } else {
-              delegationsBuilder_.addAllMessages(other.delegations_);
-            }
-          }
-        }
         if (other.target_ != 0) {
           setTargetValue(other.getTargetValue());
         }
@@ -776,7 +632,6 @@ public final class IcaAccount {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object address_ = "";
       /**
@@ -852,246 +707,6 @@ public final class IcaAccount {
         address_ = value;
         onChanged();
         return this;
-      }
-
-      private java.util.List<stride.stakeibc.DelegationOuterClass.Delegation> delegations_ =
-        java.util.Collections.emptyList();
-      private void ensureDelegationsIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          delegations_ = new java.util.ArrayList<stride.stakeibc.DelegationOuterClass.Delegation>(delegations_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          stride.stakeibc.DelegationOuterClass.Delegation, stride.stakeibc.DelegationOuterClass.Delegation.Builder, stride.stakeibc.DelegationOuterClass.DelegationOrBuilder> delegationsBuilder_;
-
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public java.util.List<stride.stakeibc.DelegationOuterClass.Delegation> getDelegationsList() {
-        if (delegationsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(delegations_);
-        } else {
-          return delegationsBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public int getDelegationsCount() {
-        if (delegationsBuilder_ == null) {
-          return delegations_.size();
-        } else {
-          return delegationsBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public stride.stakeibc.DelegationOuterClass.Delegation getDelegations(int index) {
-        if (delegationsBuilder_ == null) {
-          return delegations_.get(index);
-        } else {
-          return delegationsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public Builder setDelegations(
-          int index, stride.stakeibc.DelegationOuterClass.Delegation value) {
-        if (delegationsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureDelegationsIsMutable();
-          delegations_.set(index, value);
-          onChanged();
-        } else {
-          delegationsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public Builder setDelegations(
-          int index, stride.stakeibc.DelegationOuterClass.Delegation.Builder builderForValue) {
-        if (delegationsBuilder_ == null) {
-          ensureDelegationsIsMutable();
-          delegations_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          delegationsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public Builder addDelegations(stride.stakeibc.DelegationOuterClass.Delegation value) {
-        if (delegationsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureDelegationsIsMutable();
-          delegations_.add(value);
-          onChanged();
-        } else {
-          delegationsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public Builder addDelegations(
-          int index, stride.stakeibc.DelegationOuterClass.Delegation value) {
-        if (delegationsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureDelegationsIsMutable();
-          delegations_.add(index, value);
-          onChanged();
-        } else {
-          delegationsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public Builder addDelegations(
-          stride.stakeibc.DelegationOuterClass.Delegation.Builder builderForValue) {
-        if (delegationsBuilder_ == null) {
-          ensureDelegationsIsMutable();
-          delegations_.add(builderForValue.build());
-          onChanged();
-        } else {
-          delegationsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public Builder addDelegations(
-          int index, stride.stakeibc.DelegationOuterClass.Delegation.Builder builderForValue) {
-        if (delegationsBuilder_ == null) {
-          ensureDelegationsIsMutable();
-          delegations_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          delegationsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public Builder addAllDelegations(
-          java.lang.Iterable<? extends stride.stakeibc.DelegationOuterClass.Delegation> values) {
-        if (delegationsBuilder_ == null) {
-          ensureDelegationsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, delegations_);
-          onChanged();
-        } else {
-          delegationsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public Builder clearDelegations() {
-        if (delegationsBuilder_ == null) {
-          delegations_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          delegationsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public Builder removeDelegations(int index) {
-        if (delegationsBuilder_ == null) {
-          ensureDelegationsIsMutable();
-          delegations_.remove(index);
-          onChanged();
-        } else {
-          delegationsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public stride.stakeibc.DelegationOuterClass.Delegation.Builder getDelegationsBuilder(
-          int index) {
-        return getDelegationsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public stride.stakeibc.DelegationOuterClass.DelegationOrBuilder getDelegationsOrBuilder(
-          int index) {
-        if (delegationsBuilder_ == null) {
-          return delegations_.get(index);  } else {
-          return delegationsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public java.util.List<? extends stride.stakeibc.DelegationOuterClass.DelegationOrBuilder> 
-           getDelegationsOrBuilderList() {
-        if (delegationsBuilder_ != null) {
-          return delegationsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(delegations_);
-        }
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public stride.stakeibc.DelegationOuterClass.Delegation.Builder addDelegationsBuilder() {
-        return getDelegationsFieldBuilder().addBuilder(
-            stride.stakeibc.DelegationOuterClass.Delegation.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public stride.stakeibc.DelegationOuterClass.Delegation.Builder addDelegationsBuilder(
-          int index) {
-        return getDelegationsFieldBuilder().addBuilder(
-            index, stride.stakeibc.DelegationOuterClass.Delegation.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .stride.stakeibc.Delegation delegations = 2;</code>
-       */
-      public java.util.List<stride.stakeibc.DelegationOuterClass.Delegation.Builder> 
-           getDelegationsBuilderList() {
-        return getDelegationsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          stride.stakeibc.DelegationOuterClass.Delegation, stride.stakeibc.DelegationOuterClass.Delegation.Builder, stride.stakeibc.DelegationOuterClass.DelegationOrBuilder> 
-          getDelegationsFieldBuilder() {
-        if (delegationsBuilder_ == null) {
-          delegationsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              stride.stakeibc.DelegationOuterClass.Delegation, stride.stakeibc.DelegationOuterClass.Delegation.Builder, stride.stakeibc.DelegationOuterClass.DelegationOrBuilder>(
-                  delegations_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          delegations_ = null;
-        }
-        return delegationsBuilder_;
       }
 
       private int target_ = 0;
@@ -1215,21 +830,18 @@ public final class IcaAccount {
   static {
     java.lang.String[] descriptorData = {
       "\n!stride/stakeibc/ica_account.proto\022\017str" +
-      "ide.stakeibc\032 stride/stakeibc/delegation" +
-      ".proto\032\031cosmos_proto/cosmos.proto\"\232\001\n\nIC" +
-      "AAccount\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosmos.Ad" +
-      "dressString\0220\n\013delegations\030\002 \003(\0132\033.strid" +
-      "e.stakeibc.Delegation\022/\n\006target\030\003 \001(\0162\037." +
-      "stride.stakeibc.ICAAccountType*I\n\016ICAAcc" +
-      "ountType\022\016\n\nDELEGATION\020\000\022\007\n\003FEE\020\001\022\016\n\nWIT" +
-      "HDRAWAL\020\002\022\016\n\nREDEMPTION\020\003B3Z1github.com/" +
-      "Stride-Labs/stride/v3/x/stakeibc/typesb\006" +
-      "proto3"
+      "ide.stakeibc\032\031cosmos_proto/cosmos.proto\"" +
+      "n\n\nICAAccount\022)\n\007address\030\001 \001(\tB\030\322\264-\024cosm" +
+      "os.AddressString\022/\n\006target\030\003 \001(\0162\037.strid" +
+      "e.stakeibc.ICAAccountTypeJ\004\010\002\020\003*I\n\016ICAAc" +
+      "countType\022\016\n\nDELEGATION\020\000\022\007\n\003FEE\020\001\022\016\n\nWI" +
+      "THDRAWAL\020\002\022\016\n\nREDEMPTION\020\003B3Z1github.com" +
+      "/Stride-Labs/stride/v5/x/stakeibc/typesb" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          stride.stakeibc.DelegationOuterClass.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
         });
     internal_static_stride_stakeibc_ICAAccount_descriptor =
@@ -1237,13 +849,12 @@ public final class IcaAccount {
     internal_static_stride_stakeibc_ICAAccount_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_ICAAccount_descriptor,
-        new java.lang.String[] { "Address", "Delegations", "Target", });
+        new java.lang.String[] { "Address", "Target", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.scalar);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    stride.stakeibc.DelegationOuterClass.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();
   }
 

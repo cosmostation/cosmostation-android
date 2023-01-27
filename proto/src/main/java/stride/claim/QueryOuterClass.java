@@ -9025,7 +9025,7 @@ public final class QueryOuterClass {
       "ngsRequest\032\'.stride.claim.QueryUserVesti" +
       "ngsResponse\"&\202\323\344\223\002 \022\036/claim/user_vesting" +
       "s/{address}B0Z.github.com/Stride-Labs/st" +
-      "ride/v3/x/claim/typesb\006proto3"
+      "ride/v5/x/claim/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

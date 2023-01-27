@@ -63,10 +63,16 @@ public final class Genesis {
         getReceiverBytes();
 
     /**
-     * <code>uint64 amount = 4;</code>
+     * <code>string amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
-    long getAmount();
+    java.lang.String getAmount();
+    /**
+     * <code>string amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    com.google.protobuf.ByteString
+        getAmountBytes();
 
     /**
      * <code>string denom = 5;</code>
@@ -120,6 +126,7 @@ public final class Genesis {
       id_ = "";
       sender_ = "";
       receiver_ = "";
+      amount_ = "";
       denom_ = "";
       hostZoneId_ = "";
     }
@@ -172,9 +179,10 @@ public final class Genesis {
               receiver_ = s;
               break;
             }
-            case 32: {
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              amount_ = input.readUInt64();
+              amount_ = s;
               break;
             }
             case 42: {
@@ -354,14 +362,41 @@ public final class Genesis {
     }
 
     public static final int AMOUNT_FIELD_NUMBER = 4;
-    private long amount_;
+    private volatile java.lang.Object amount_;
     /**
-     * <code>uint64 amount = 4;</code>
+     * <code>string amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
     @java.lang.Override
-    public long getAmount() {
-      return amount_;
+    public java.lang.String getAmount() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        amount_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAmountBytes() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        amount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int DENOM_FIELD_NUMBER = 5;
@@ -485,8 +520,8 @@ public final class Genesis {
       if (!getReceiverBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, receiver_);
       }
-      if (amount_ != 0L) {
-        output.writeUInt64(4, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, amount_);
       }
       if (!getDenomBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, denom_);
@@ -518,9 +553,8 @@ public final class Genesis {
       if (!getReceiverBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, receiver_);
       }
-      if (amount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(4, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, amount_);
       }
       if (!getDenomBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, denom_);
@@ -557,8 +591,8 @@ public final class Genesis {
           .equals(other.getSender())) return false;
       if (!getReceiver()
           .equals(other.getReceiver())) return false;
-      if (getAmount()
-          != other.getAmount()) return false;
+      if (!getAmount()
+          .equals(other.getAmount())) return false;
       if (!getDenom()
           .equals(other.getDenom())) return false;
       if (!getHostZoneId()
@@ -585,8 +619,7 @@ public final class Genesis {
       hash = (37 * hash) + RECEIVER_FIELD_NUMBER;
       hash = (53 * hash) + getReceiver().hashCode();
       hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getAmount());
+      hash = (53 * hash) + getAmount().hashCode();
       hash = (37 * hash) + DENOM_FIELD_NUMBER;
       hash = (53 * hash) + getDenom().hashCode();
       hash = (37 * hash) + HOST_ZONE_ID_FIELD_NUMBER;
@@ -736,7 +769,7 @@ public final class Genesis {
 
         receiver_ = "";
 
-        amount_ = 0L;
+        amount_ = "";
 
         denom_ = "";
 
@@ -840,8 +873,9 @@ public final class Genesis {
           receiver_ = other.receiver_;
           onChanged();
         }
-        if (other.getAmount() != 0L) {
-          setAmount(other.getAmount());
+        if (!other.getAmount().isEmpty()) {
+          amount_ = other.amount_;
+          onChanged();
         }
         if (!other.getDenom().isEmpty()) {
           denom_ = other.denom_;
@@ -1134,33 +1168,78 @@ public final class Genesis {
         return this;
       }
 
-      private long amount_ ;
+      private java.lang.Object amount_ = "";
       /**
-       * <code>uint64 amount = 4;</code>
+       * <code>string amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The amount.
        */
-      @java.lang.Override
-      public long getAmount() {
-        return amount_;
+      public java.lang.String getAmount() {
+        java.lang.Object ref = amount_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          amount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint64 amount = 4;</code>
+       * <code>string amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for amount.
+       */
+      public com.google.protobuf.ByteString
+          getAmountBytes() {
+        java.lang.Object ref = amount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          amount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The amount to set.
        * @return This builder for chaining.
        */
-      public Builder setAmount(long value) {
-        
+      public Builder setAmount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         amount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint64 amount = 4;</code>
+       * <code>string amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAmount() {
         
-        amount_ = 0L;
+        amount_ = getDefaultInstance().getAmount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for amount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAmountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        amount_ = value;
         onChanged();
         return this;
       }
@@ -3064,10 +3143,16 @@ public final class Genesis {
     long getId();
 
     /**
-     * <code>int64 amount = 2;</code>
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
-    long getAmount();
+    java.lang.String getAmount();
+    /**
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    com.google.protobuf.ByteString
+        getAmountBytes();
 
     /**
      * <code>string denom = 3;</code>
@@ -3134,6 +3219,7 @@ public final class Genesis {
       super(builder);
     }
     private DepositRecord() {
+      amount_ = "";
       denom_ = "";
       hostZoneId_ = "";
       status_ = 0;
@@ -3175,9 +3261,10 @@ public final class Genesis {
               id_ = input.readUInt64();
               break;
             }
-            case 16: {
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              amount_ = input.readInt64();
+              amount_ = s;
               break;
             }
             case 26: {
@@ -3519,14 +3606,41 @@ public final class Genesis {
     }
 
     public static final int AMOUNT_FIELD_NUMBER = 2;
-    private long amount_;
+    private volatile java.lang.Object amount_;
     /**
-     * <code>int64 amount = 2;</code>
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
     @java.lang.Override
-    public long getAmount() {
-      return amount_;
+    public java.lang.String getAmount() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        amount_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAmountBytes() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        amount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int DENOM_FIELD_NUMBER = 3;
@@ -3671,8 +3785,8 @@ public final class Genesis {
       if (id_ != 0L) {
         output.writeUInt64(1, id_);
       }
-      if (amount_ != 0L) {
-        output.writeInt64(2, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, amount_);
       }
       if (!getDenomBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, denom_);
@@ -3702,9 +3816,8 @@ public final class Genesis {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, id_);
       }
-      if (amount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, amount_);
       }
       if (!getDenomBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, denom_);
@@ -3741,8 +3854,8 @@ public final class Genesis {
 
       if (getId()
           != other.getId()) return false;
-      if (getAmount()
-          != other.getAmount()) return false;
+      if (!getAmount()
+          .equals(other.getAmount())) return false;
       if (!getDenom()
           .equals(other.getDenom())) return false;
       if (!getHostZoneId()
@@ -3766,8 +3879,7 @@ public final class Genesis {
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getId());
       hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getAmount());
+      hash = (53 * hash) + getAmount().hashCode();
       hash = (37 * hash) + DENOM_FIELD_NUMBER;
       hash = (53 * hash) + getDenom().hashCode();
       hash = (37 * hash) + HOST_ZONE_ID_FIELD_NUMBER;
@@ -3914,7 +4026,7 @@ public final class Genesis {
         super.clear();
         id_ = 0L;
 
-        amount_ = 0L;
+        amount_ = "";
 
         denom_ = "";
 
@@ -4010,8 +4122,9 @@ public final class Genesis {
         if (other.getId() != 0L) {
           setId(other.getId());
         }
-        if (other.getAmount() != 0L) {
-          setAmount(other.getAmount());
+        if (!other.getAmount().isEmpty()) {
+          amount_ = other.amount_;
+          onChanged();
         }
         if (!other.getDenom().isEmpty()) {
           denom_ = other.denom_;
@@ -4090,33 +4203,78 @@ public final class Genesis {
         return this;
       }
 
-      private long amount_ ;
+      private java.lang.Object amount_ = "";
       /**
-       * <code>int64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The amount.
        */
-      @java.lang.Override
-      public long getAmount() {
-        return amount_;
+      public java.lang.String getAmount() {
+        java.lang.Object ref = amount_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          amount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>int64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for amount.
+       */
+      public com.google.protobuf.ByteString
+          getAmountBytes() {
+        java.lang.Object ref = amount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          amount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The amount to set.
        * @return This builder for chaining.
        */
-      public Builder setAmount(long value) {
-        
+      public Builder setAmount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         amount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAmount() {
         
-        amount_ = 0L;
+        amount_ = getDefaultInstance().getAmount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for amount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAmountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        amount_ = value;
         onChanged();
         return this;
       }
@@ -4469,16 +4627,28 @@ public final class Genesis {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint64 st_token_amount = 1;</code>
+     * <code>string st_token_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The stTokenAmount.
      */
-    long getStTokenAmount();
+    java.lang.String getStTokenAmount();
+    /**
+     * <code>string st_token_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for stTokenAmount.
+     */
+    com.google.protobuf.ByteString
+        getStTokenAmountBytes();
 
     /**
-     * <code>uint64 native_token_amount = 2;</code>
+     * <code>string native_token_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The nativeTokenAmount.
      */
-    long getNativeTokenAmount();
+    java.lang.String getNativeTokenAmount();
+    /**
+     * <code>string native_token_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for nativeTokenAmount.
+     */
+    com.google.protobuf.ByteString
+        getNativeTokenAmountBytes();
 
     /**
      * <code>string denom = 3;</code>
@@ -4559,6 +4729,8 @@ public final class Genesis {
       super(builder);
     }
     private HostZoneUnbonding() {
+      stTokenAmount_ = "";
+      nativeTokenAmount_ = "";
       denom_ = "";
       hostZoneId_ = "";
       status_ = 0;
@@ -4596,14 +4768,16 @@ public final class Genesis {
             case 0:
               done = true;
               break;
-            case 8: {
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              stTokenAmount_ = input.readUInt64();
+              stTokenAmount_ = s;
               break;
             }
-            case 16: {
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              nativeTokenAmount_ = input.readUInt64();
+              nativeTokenAmount_ = s;
               break;
             }
             case 26: {
@@ -4833,25 +5007,79 @@ public final class Genesis {
     }
 
     public static final int ST_TOKEN_AMOUNT_FIELD_NUMBER = 1;
-    private long stTokenAmount_;
+    private volatile java.lang.Object stTokenAmount_;
     /**
-     * <code>uint64 st_token_amount = 1;</code>
+     * <code>string st_token_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The stTokenAmount.
      */
     @java.lang.Override
-    public long getStTokenAmount() {
-      return stTokenAmount_;
+    public java.lang.String getStTokenAmount() {
+      java.lang.Object ref = stTokenAmount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        stTokenAmount_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string st_token_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for stTokenAmount.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStTokenAmountBytes() {
+      java.lang.Object ref = stTokenAmount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        stTokenAmount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int NATIVE_TOKEN_AMOUNT_FIELD_NUMBER = 2;
-    private long nativeTokenAmount_;
+    private volatile java.lang.Object nativeTokenAmount_;
     /**
-     * <code>uint64 native_token_amount = 2;</code>
+     * <code>string native_token_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The nativeTokenAmount.
      */
     @java.lang.Override
-    public long getNativeTokenAmount() {
-      return nativeTokenAmount_;
+    public java.lang.String getNativeTokenAmount() {
+      java.lang.Object ref = nativeTokenAmount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nativeTokenAmount_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string native_token_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for nativeTokenAmount.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNativeTokenAmountBytes() {
+      java.lang.Object ref = nativeTokenAmount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nativeTokenAmount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int DENOM_FIELD_NUMBER = 3;
@@ -5009,11 +5237,11 @@ public final class Genesis {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (stTokenAmount_ != 0L) {
-        output.writeUInt64(1, stTokenAmount_);
+      if (!getStTokenAmountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, stTokenAmount_);
       }
-      if (nativeTokenAmount_ != 0L) {
-        output.writeUInt64(2, nativeTokenAmount_);
+      if (!getNativeTokenAmountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, nativeTokenAmount_);
       }
       if (!getDenomBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, denom_);
@@ -5039,13 +5267,11 @@ public final class Genesis {
       if (size != -1) return size;
 
       size = 0;
-      if (stTokenAmount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(1, stTokenAmount_);
+      if (!getStTokenAmountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, stTokenAmount_);
       }
-      if (nativeTokenAmount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, nativeTokenAmount_);
+      if (!getNativeTokenAmountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, nativeTokenAmount_);
       }
       if (!getDenomBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, denom_);
@@ -5084,10 +5310,10 @@ public final class Genesis {
       }
       stride.records.Genesis.HostZoneUnbonding other = (stride.records.Genesis.HostZoneUnbonding) obj;
 
-      if (getStTokenAmount()
-          != other.getStTokenAmount()) return false;
-      if (getNativeTokenAmount()
-          != other.getNativeTokenAmount()) return false;
+      if (!getStTokenAmount()
+          .equals(other.getStTokenAmount())) return false;
+      if (!getNativeTokenAmount()
+          .equals(other.getNativeTokenAmount())) return false;
       if (!getDenom()
           .equals(other.getDenom())) return false;
       if (!getHostZoneId()
@@ -5109,11 +5335,9 @@ public final class Genesis {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ST_TOKEN_AMOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getStTokenAmount());
+      hash = (53 * hash) + getStTokenAmount().hashCode();
       hash = (37 * hash) + NATIVE_TOKEN_AMOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getNativeTokenAmount());
+      hash = (53 * hash) + getNativeTokenAmount().hashCode();
       hash = (37 * hash) + DENOM_FIELD_NUMBER;
       hash = (53 * hash) + getDenom().hashCode();
       hash = (37 * hash) + HOST_ZONE_ID_FIELD_NUMBER;
@@ -5260,9 +5484,9 @@ public final class Genesis {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        stTokenAmount_ = 0L;
+        stTokenAmount_ = "";
 
-        nativeTokenAmount_ = 0L;
+        nativeTokenAmount_ = "";
 
         denom_ = "";
 
@@ -5360,11 +5584,13 @@ public final class Genesis {
 
       public Builder mergeFrom(stride.records.Genesis.HostZoneUnbonding other) {
         if (other == stride.records.Genesis.HostZoneUnbonding.getDefaultInstance()) return this;
-        if (other.getStTokenAmount() != 0L) {
-          setStTokenAmount(other.getStTokenAmount());
+        if (!other.getStTokenAmount().isEmpty()) {
+          stTokenAmount_ = other.stTokenAmount_;
+          onChanged();
         }
-        if (other.getNativeTokenAmount() != 0L) {
-          setNativeTokenAmount(other.getNativeTokenAmount());
+        if (!other.getNativeTokenAmount().isEmpty()) {
+          nativeTokenAmount_ = other.nativeTokenAmount_;
+          onChanged();
         }
         if (!other.getDenom().isEmpty()) {
           denom_ = other.denom_;
@@ -5420,64 +5646,154 @@ public final class Genesis {
       }
       private int bitField0_;
 
-      private long stTokenAmount_ ;
+      private java.lang.Object stTokenAmount_ = "";
       /**
-       * <code>uint64 st_token_amount = 1;</code>
+       * <code>string st_token_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The stTokenAmount.
        */
-      @java.lang.Override
-      public long getStTokenAmount() {
-        return stTokenAmount_;
+      public java.lang.String getStTokenAmount() {
+        java.lang.Object ref = stTokenAmount_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          stTokenAmount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint64 st_token_amount = 1;</code>
+       * <code>string st_token_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for stTokenAmount.
+       */
+      public com.google.protobuf.ByteString
+          getStTokenAmountBytes() {
+        java.lang.Object ref = stTokenAmount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          stTokenAmount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string st_token_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The stTokenAmount to set.
        * @return This builder for chaining.
        */
-      public Builder setStTokenAmount(long value) {
-        
+      public Builder setStTokenAmount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         stTokenAmount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint64 st_token_amount = 1;</code>
+       * <code>string st_token_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearStTokenAmount() {
         
-        stTokenAmount_ = 0L;
+        stTokenAmount_ = getDefaultInstance().getStTokenAmount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string st_token_amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for stTokenAmount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStTokenAmountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        stTokenAmount_ = value;
         onChanged();
         return this;
       }
 
-      private long nativeTokenAmount_ ;
+      private java.lang.Object nativeTokenAmount_ = "";
       /**
-       * <code>uint64 native_token_amount = 2;</code>
+       * <code>string native_token_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The nativeTokenAmount.
        */
-      @java.lang.Override
-      public long getNativeTokenAmount() {
-        return nativeTokenAmount_;
+      public java.lang.String getNativeTokenAmount() {
+        java.lang.Object ref = nativeTokenAmount_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nativeTokenAmount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint64 native_token_amount = 2;</code>
+       * <code>string native_token_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for nativeTokenAmount.
+       */
+      public com.google.protobuf.ByteString
+          getNativeTokenAmountBytes() {
+        java.lang.Object ref = nativeTokenAmount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nativeTokenAmount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string native_token_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The nativeTokenAmount to set.
        * @return This builder for chaining.
        */
-      public Builder setNativeTokenAmount(long value) {
-        
+      public Builder setNativeTokenAmount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         nativeTokenAmount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint64 native_token_amount = 2;</code>
+       * <code>string native_token_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearNativeTokenAmount() {
         
-        nativeTokenAmount_ = 0L;
+        nativeTokenAmount_ = getDefaultInstance().getNativeTokenAmount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string native_token_amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for nativeTokenAmount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNativeTokenAmountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        nativeTokenAmount_ = value;
         onChanged();
         return this;
       }
@@ -8857,46 +9173,51 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n\034stride/records/genesis.proto\022\016stride.r" +
-      "ecords\032\024gogoproto/gogo.proto\"\251\001\n\024UserRed" +
+      "ecords\032\024gogoproto/gogo.proto\"\331\001\n\024UserRed" +
       "emptionRecord\022\n\n\002id\030\001 \001(\t\022\016\n\006sender\030\002 \001(" +
-      "\t\022\020\n\010receiver\030\003 \001(\t\022\016\n\006amount\030\004 \001(\004\022\r\n\005d" +
-      "enom\030\005 \001(\t\022\024\n\014host_zone_id\030\006 \001(\t\022\024\n\014epoc" +
-      "h_number\030\007 \001(\004\022\030\n\020claim_is_pending\030\010 \001(\010" +
-      "\"\016\n\006Params:\004\230\240\037\000\"H\n\021RecordsPacketData\022)\n" +
-      "\007no_data\030\001 \001(\0132\026.stride.records.NoDataH\000" +
-      "B\010\n\006packet\"\010\n\006NoData\"\364\002\n\rDepositRecord\022\n" +
-      "\n\002id\030\001 \001(\004\022\016\n\006amount\030\002 \001(\003\022\r\n\005denom\030\003 \001(" +
-      "\t\022\024\n\014host_zone_id\030\004 \001(\t\0224\n\006status\030\006 \001(\0162" +
-      "$.stride.records.DepositRecord.Status\022\034\n" +
-      "\024deposit_epoch_number\030\007 \001(\004\0224\n\006source\030\010 " +
-      "\001(\0162$.stride.records.DepositRecord.Sourc" +
-      "e\"h\n\006Status\022\022\n\016TRANSFER_QUEUE\020\000\022\030\n\024TRANS" +
-      "FER_IN_PROGRESS\020\002\022\024\n\020DELEGATION_QUEUE\020\001\022" +
-      "\032\n\026DELEGATION_IN_PROGRESS\020\003\"(\n\006Source\022\n\n" +
-      "\006STRIDE\020\000\022\022\n\016WITHDRAWAL_ICA\020\001J\004\010\005\020\006\"\342\002\n\021" +
-      "HostZoneUnbonding\022\027\n\017st_token_amount\030\001 \001" +
-      "(\004\022\033\n\023native_token_amount\030\002 \001(\004\022\r\n\005denom" +
-      "\030\003 \001(\t\022\024\n\014host_zone_id\030\004 \001(\t\022\026\n\016unbondin" +
-      "g_time\030\005 \001(\004\0228\n\006status\030\006 \001(\0162(.stride.re" +
-      "cords.HostZoneUnbonding.Status\022\037\n\027user_r" +
-      "edemption_records\030\007 \003(\t\"\177\n\006Status\022\023\n\017UNB" +
-      "ONDING_QUEUE\020\000\022\031\n\025UNBONDING_IN_PROGRESS\020" +
-      "\003\022\027\n\023EXIT_TRANSFER_QUEUE\020\001\022\035\n\031EXIT_TRANS" +
-      "FER_IN_PROGRESS\020\004\022\r\n\tCLAIMABLE\020\002\"s\n\024Epoc" +
-      "hUnbondingRecord\022\024\n\014epoch_number\030\001 \001(\004\022?" +
-      "\n\024host_zone_unbondings\030\003 \003(\0132!.stride.re" +
-      "cords.HostZoneUnbondingJ\004\010\002\020\003\"\365\002\n\014Genesi" +
-      "sState\022,\n\006params\030\001 \001(\0132\026.stride.records." +
-      "ParamsB\004\310\336\037\000\022\017\n\007port_id\030\002 \001(\t\022O\n\033user_re" +
-      "demption_record_list\030\003 \003(\0132$.stride.reco" +
-      "rds.UserRedemptionRecordB\004\310\336\037\000\022$\n\034user_r" +
-      "edemption_record_count\030\004 \001(\004\022O\n\033epoch_un" +
-      "bonding_record_list\030\005 \003(\0132$.stride.recor" +
-      "ds.EpochUnbondingRecordB\004\310\336\037\000\022@\n\023deposit" +
-      "_record_list\030\007 \003(\0132\035.stride.records.Depo" +
-      "sitRecordB\004\310\336\037\000\022\034\n\024deposit_record_count\030" +
-      "\010 \001(\0042\005\n\003MsgB2Z0github.com/Stride-Labs/s" +
-      "tride/v3/x/records/typesb\006proto3"
+      "\t\022\020\n\010receiver\030\003 \001(\t\022>\n\006amount\030\004 \001(\tB.\332\336\037" +
+      "&github.com/cosmos/cosmos-sdk/types.Int\310" +
+      "\336\037\000\022\r\n\005denom\030\005 \001(\t\022\024\n\014host_zone_id\030\006 \001(\t" +
+      "\022\024\n\014epoch_number\030\007 \001(\004\022\030\n\020claim_is_pendi" +
+      "ng\030\010 \001(\010\"\016\n\006Params:\004\230\240\037\000\"H\n\021RecordsPacke" +
+      "tData\022)\n\007no_data\030\001 \001(\0132\026.stride.records." +
+      "NoDataH\000B\010\n\006packet\"\010\n\006NoData\"\244\003\n\rDeposit" +
+      "Record\022\n\n\002id\030\001 \001(\004\022>\n\006amount\030\002 \001(\tB.\332\336\037&" +
+      "github.com/cosmos/cosmos-sdk/types.Int\310\336" +
+      "\037\000\022\r\n\005denom\030\003 \001(\t\022\024\n\014host_zone_id\030\004 \001(\t\022" +
+      "4\n\006status\030\006 \001(\0162$.stride.records.Deposit" +
+      "Record.Status\022\034\n\024deposit_epoch_number\030\007 " +
+      "\001(\004\0224\n\006source\030\010 \001(\0162$.stride.records.Dep" +
+      "ositRecord.Source\"h\n\006Status\022\022\n\016TRANSFER_" +
+      "QUEUE\020\000\022\030\n\024TRANSFER_IN_PROGRESS\020\002\022\024\n\020DEL" +
+      "EGATION_QUEUE\020\001\022\032\n\026DELEGATION_IN_PROGRES" +
+      "S\020\003\"(\n\006Source\022\n\n\006STRIDE\020\000\022\022\n\016WITHDRAWAL_" +
+      "ICA\020\001J\004\010\005\020\006\"\302\003\n\021HostZoneUnbonding\022G\n\017st_" +
+      "token_amount\030\001 \001(\tB.\332\336\037&github.com/cosmo" +
+      "s/cosmos-sdk/types.Int\310\336\037\000\022K\n\023native_tok" +
+      "en_amount\030\002 \001(\tB.\332\336\037&github.com/cosmos/c" +
+      "osmos-sdk/types.Int\310\336\037\000\022\r\n\005denom\030\003 \001(\t\022\024" +
+      "\n\014host_zone_id\030\004 \001(\t\022\026\n\016unbonding_time\030\005" +
+      " \001(\004\0228\n\006status\030\006 \001(\0162(.stride.records.Ho" +
+      "stZoneUnbonding.Status\022\037\n\027user_redemptio" +
+      "n_records\030\007 \003(\t\"\177\n\006Status\022\023\n\017UNBONDING_Q" +
+      "UEUE\020\000\022\031\n\025UNBONDING_IN_PROGRESS\020\003\022\027\n\023EXI" +
+      "T_TRANSFER_QUEUE\020\001\022\035\n\031EXIT_TRANSFER_IN_P" +
+      "ROGRESS\020\004\022\r\n\tCLAIMABLE\020\002\"s\n\024EpochUnbondi" +
+      "ngRecord\022\024\n\014epoch_number\030\001 \001(\004\022?\n\024host_z" +
+      "one_unbondings\030\003 \003(\0132!.stride.records.Ho" +
+      "stZoneUnbondingJ\004\010\002\020\003\"\365\002\n\014GenesisState\022," +
+      "\n\006params\030\001 \001(\0132\026.stride.records.ParamsB\004" +
+      "\310\336\037\000\022\017\n\007port_id\030\002 \001(\t\022O\n\033user_redemption" +
+      "_record_list\030\003 \003(\0132$.stride.records.User" +
+      "RedemptionRecordB\004\310\336\037\000\022$\n\034user_redemptio" +
+      "n_record_count\030\004 \001(\004\022O\n\033epoch_unbonding_" +
+      "record_list\030\005 \003(\0132$.stride.records.Epoch" +
+      "UnbondingRecordB\004\310\336\037\000\022@\n\023deposit_record_" +
+      "list\030\007 \003(\0132\035.stride.records.DepositRecor" +
+      "dB\004\310\336\037\000\022\034\n\024deposit_record_count\030\010 \001(\0042\005\n" +
+      "\003MsgB2Z0github.com/Stride-Labs/stride/v5" +
+      "/x/records/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8953,6 +9274,7 @@ public final class Genesis {
         new java.lang.String[] { "Params", "PortId", "UserRedemptionRecordList", "UserRedemptionRecordCount", "EpochUnbondingRecordList", "DepositRecordList", "DepositRecordCount", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
     registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
     registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor

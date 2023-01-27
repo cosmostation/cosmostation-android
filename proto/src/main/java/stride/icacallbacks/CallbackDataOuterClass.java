@@ -1196,7 +1196,7 @@ public final class CallbackDataOuterClass {
       "\024\n\014callback_key\030\001 \001(\t\022\017\n\007port_id\030\002 \001(\t\022\022" +
       "\n\nchannel_id\030\003 \001(\t\022\020\n\010sequence\030\004 \001(\004\022\023\n\013" +
       "callback_id\030\005 \001(\t\022\025\n\rcallback_args\030\006 \001(\014" +
-      "B7Z5github.com/Stride-Labs/stride/v3/x/i" +
+      "B7Z5github.com/Stride-Labs/stride/v5/x/i" +
       "cacallbacks/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

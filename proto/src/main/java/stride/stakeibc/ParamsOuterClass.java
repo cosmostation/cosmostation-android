@@ -186,6 +186,12 @@ public final class ParamsOuterClass {
      * @return The safetyNumValidators.
      */
     long getSafetyNumValidators();
+
+    /**
+     * <code>uint64 safety_max_slash_percent = 18;</code>
+     * @return The safetyMaxSlashPercent.
+     */
+    long getSafetyMaxSlashPercent();
   }
   /**
    * <pre>
@@ -329,6 +335,11 @@ public final class ParamsOuterClass {
             case 136: {
 
               safetyNumValidators_ = input.readUInt64();
+              break;
+            }
+            case 144: {
+
+              safetyMaxSlashPercent_ = input.readUInt64();
               break;
             }
             default: {
@@ -664,6 +675,17 @@ public final class ParamsOuterClass {
       return safetyNumValidators_;
     }
 
+    public static final int SAFETY_MAX_SLASH_PERCENT_FIELD_NUMBER = 18;
+    private long safetyMaxSlashPercent_;
+    /**
+     * <code>uint64 safety_max_slash_percent = 18;</code>
+     * @return The safetyMaxSlashPercent.
+     */
+    @java.lang.Override
+    public long getSafetyMaxSlashPercent() {
+      return safetyMaxSlashPercent_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -731,6 +753,9 @@ public final class ParamsOuterClass {
       }
       if (safetyNumValidators_ != 0L) {
         output.writeUInt64(17, safetyNumValidators_);
+      }
+      if (safetyMaxSlashPercent_ != 0L) {
+        output.writeUInt64(18, safetyMaxSlashPercent_);
       }
       unknownFields.writeTo(output);
     }
@@ -815,6 +840,10 @@ public final class ParamsOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(17, safetyNumValidators_);
       }
+      if (safetyMaxSlashPercent_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(18, safetyMaxSlashPercent_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -864,6 +893,8 @@ public final class ParamsOuterClass {
           != other.getIbcTransferTimeoutNanos()) return false;
       if (getSafetyNumValidators()
           != other.getSafetyNumValidators()) return false;
+      if (getSafetyMaxSlashPercent()
+          != other.getSafetyMaxSlashPercent()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -927,6 +958,9 @@ public final class ParamsOuterClass {
       hash = (37 * hash) + SAFETY_NUM_VALIDATORS_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getSafetyNumValidators());
+      hash = (37 * hash) + SAFETY_MAX_SLASH_PERCENT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSafetyMaxSlashPercent());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1120,6 +1154,8 @@ public final class ParamsOuterClass {
 
         safetyNumValidators_ = 0L;
 
+        safetyMaxSlashPercent_ = 0L;
+
         return this;
       }
 
@@ -1165,6 +1201,7 @@ public final class ParamsOuterClass {
         result.safetyMaxRedemptionRateThreshold_ = safetyMaxRedemptionRateThreshold_;
         result.ibcTransferTimeoutNanos_ = ibcTransferTimeoutNanos_;
         result.safetyNumValidators_ = safetyNumValidators_;
+        result.safetyMaxSlashPercent_ = safetyMaxSlashPercent_;
         onBuilt();
         return result;
       }
@@ -1262,6 +1299,9 @@ public final class ParamsOuterClass {
         }
         if (other.getSafetyNumValidators() != 0L) {
           setSafetyNumValidators(other.getSafetyNumValidators());
+        }
+        if (other.getSafetyMaxSlashPercent() != 0L) {
+          setSafetyMaxSlashPercent(other.getSafetyMaxSlashPercent());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1977,6 +2017,37 @@ public final class ParamsOuterClass {
         onChanged();
         return this;
       }
+
+      private long safetyMaxSlashPercent_ ;
+      /**
+       * <code>uint64 safety_max_slash_percent = 18;</code>
+       * @return The safetyMaxSlashPercent.
+       */
+      @java.lang.Override
+      public long getSafetyMaxSlashPercent() {
+        return safetyMaxSlashPercent_;
+      }
+      /**
+       * <code>uint64 safety_max_slash_percent = 18;</code>
+       * @param value The safetyMaxSlashPercent to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSafetyMaxSlashPercent(long value) {
+        
+        safetyMaxSlashPercent_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 safety_max_slash_percent = 18;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSafetyMaxSlashPercent() {
+        
+        safetyMaxSlashPercent_ = 0L;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2050,7 +2121,7 @@ public final class ParamsOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\034stride/stakeibc/params.proto\022\017stride.s" +
-      "takeibc\032\024gogoproto/gogo.proto\"\222\005\n\006Params" +
+      "takeibc\032\024gogoproto/gogo.proto\"\264\005\n\006Params" +
       "\022\030\n\020rewards_interval\030\001 \001(\004\022\031\n\021delegate_i" +
       "nterval\030\006 \001(\004\022\030\n\020deposit_interval\030\002 \001(\004\022" +
       " \n\030redemption_rate_interval\030\003 \001(\004\022\031\n\021str" +
@@ -2065,10 +2136,11 @@ public final class ParamsOuterClass {
       "_min_redemption_rate_threshold\030\016 \001(\004\022,\n$" +
       "safety_max_redemption_rate_threshold\030\017 \001" +
       "(\004\022\"\n\032ibc_transfer_timeout_nanos\030\020 \001(\004\022\035" +
-      "\n\025safety_num_validators\030\021 \001(\004\0325\n\023ZoneCom" +
-      "AddressEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t" +
-      ":\0028\001:\004\230\240\037\000B3Z1github.com/Stride-Labs/str" +
-      "ide/v3/x/stakeibc/typesb\006proto3"
+      "\n\025safety_num_validators\030\021 \001(\004\022 \n\030safety_" +
+      "max_slash_percent\030\022 \001(\004\0325\n\023ZoneComAddres" +
+      "sEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001:\004" +
+      "\230\240\037\000B3Z1github.com/Stride-Labs/stride/v5" +
+      "/x/stakeibc/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2080,7 +2152,7 @@ public final class ParamsOuterClass {
     internal_static_stride_stakeibc_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_Params_descriptor,
-        new java.lang.String[] { "RewardsInterval", "DelegateInterval", "DepositInterval", "RedemptionRateInterval", "StrideCommission", "ZoneComAddress", "ReinvestInterval", "ValidatorRebalancingThreshold", "IcaTimeoutNanos", "BufferSize", "IbcTimeoutBlocks", "FeeTransferTimeoutNanos", "MaxStakeIcaCallsPerEpoch", "SafetyMinRedemptionRateThreshold", "SafetyMaxRedemptionRateThreshold", "IbcTransferTimeoutNanos", "SafetyNumValidators", });
+        new java.lang.String[] { "RewardsInterval", "DelegateInterval", "DepositInterval", "RedemptionRateInterval", "StrideCommission", "ZoneComAddress", "ReinvestInterval", "ValidatorRebalancingThreshold", "IcaTimeoutNanos", "BufferSize", "IbcTimeoutBlocks", "FeeTransferTimeoutNanos", "MaxStakeIcaCallsPerEpoch", "SafetyMinRedemptionRateThreshold", "SafetyMaxRedemptionRateThreshold", "IbcTransferTimeoutNanos", "SafetyNumValidators", "SafetyMaxSlashPercent", });
     internal_static_stride_stakeibc_Params_ZoneComAddressEntry_descriptor =
       internal_static_stride_stakeibc_Params_descriptor.getNestedTypes().get(0);
     internal_static_stride_stakeibc_Params_ZoneComAddressEntry_fieldAccessorTable = new

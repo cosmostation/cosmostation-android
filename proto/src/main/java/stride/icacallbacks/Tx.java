@@ -25,7 +25,7 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\034stride/icacallbacks/tx.proto\022\023stride.i" +
       "cacallbacks2\005\n\003MsgB7Z5github.com/Stride-" +
-      "Labs/stride/v3/x/icacallbacks/typesb\006pro" +
+      "Labs/stride/v5/x/icacallbacks/typesb\006pro" +
       "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
