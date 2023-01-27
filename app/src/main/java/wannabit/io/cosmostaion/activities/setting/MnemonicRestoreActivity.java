@@ -28,6 +28,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.MnemonicCode;
 
 import java.util.ArrayList;
@@ -296,20 +297,23 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     }
 
     private void onConfirmedWords() {
-        if (!getBaseDao().onHasPassword()) {
-            Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordSetActivity.class);
-            mnemonicRestoreResultLauncher.launch(intent);
+        if (StringUtils.isEmpty(mNickName)) {
+            onNickNameSet();
         } else {
-            Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordCheckActivity.class);
-            mnemonicRestoreResultLauncher.launch(intent);
+            if (!getBaseDao().onHasPassword()) {
+                Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordSetActivity.class);
+                mnemonicRestoreResultLauncher.launch(intent);
+            } else {
+                Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordCheckActivity.class);
+                mnemonicRestoreResultLauncher.launch(intent);
+            }
         }
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private final ActivityResultLauncher<Intent> mnemonicRestoreResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
-            if (id > 0 && mNickName != null && mWords != null) {
+            if (id > 0) {
                 Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
                 mWords = getBaseDao().onSelectMnemonicById(id);

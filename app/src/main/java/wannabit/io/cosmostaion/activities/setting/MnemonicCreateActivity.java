@@ -14,6 +14,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -68,21 +70,24 @@ public class MnemonicCreateActivity extends BaseActivity {
         });
 
         mBtnDerive.setOnClickListener(view -> {
-            if (!getBaseDao().onHasPassword()) {
-                Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
-                mnemonicCreateResultLauncher.launch(intent);
+            if (StringUtils.isEmpty(mNickName)) {
+                onNickNameSet();
             } else {
-                Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
-                mnemonicCreateResultLauncher.launch(intent);
+                if (!getBaseDao().onHasPassword()) {
+                    Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
+                    mnemonicCreateResultLauncher.launch(intent);
+                } else {
+                    Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
+                    mnemonicCreateResultLauncher.launch(intent);
+                }
             }
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         });
     }
 
     private final ActivityResultLauncher<Intent> mnemonicCreateResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
             long id = getBaseDao().onInsertMnemonics(onGenMWords());
-            if (id > 0 && mNickName != null && mWords != null) {
+            if (id > 0) {
                 Intent checkIntent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
                 mWords = getBaseDao().onSelectMnemonicById(id);

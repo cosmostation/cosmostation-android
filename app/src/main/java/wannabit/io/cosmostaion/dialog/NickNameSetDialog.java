@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -86,9 +88,20 @@ public class NickNameSetDialog extends DialogFragment {
             }
         });
 
-        btn_nega.setOnClickListener(v -> dismiss());
+        btn_nega.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()) {
+                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
+            }
+            dismiss();
+        });
 
         btn_posi.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive()) {
+                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
+            }
+
             if (!TextUtils.isEmpty(mNameInput.getText().toString()) && listener != null) {
                 listener.confirm(String.valueOf(mNameInput.getText()).trim());
                 dismiss();
