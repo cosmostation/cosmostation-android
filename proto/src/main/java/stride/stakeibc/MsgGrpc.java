@@ -371,6 +371,37 @@ public final class MsgGrpc {
     return getClearBalanceMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers,
+      stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse> getResetUnbondingRecordEpochNumbersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ResetUnbondingRecordEpochNumbers",
+      requestType = stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers.class,
+      responseType = stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers,
+      stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse> getResetUnbondingRecordEpochNumbersMethod() {
+    io.grpc.MethodDescriptor<stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers, stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse> getResetUnbondingRecordEpochNumbersMethod;
+    if ((getResetUnbondingRecordEpochNumbersMethod = MsgGrpc.getResetUnbondingRecordEpochNumbersMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getResetUnbondingRecordEpochNumbersMethod = MsgGrpc.getResetUnbondingRecordEpochNumbersMethod) == null) {
+          MsgGrpc.getResetUnbondingRecordEpochNumbersMethod = getResetUnbondingRecordEpochNumbersMethod =
+              io.grpc.MethodDescriptor.<stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers, stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ResetUnbondingRecordEpochNumbers"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("ResetUnbondingRecordEpochNumbers"))
+              .build();
+        }
+      }
+    }
+    return getResetUnbondingRecordEpochNumbersMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -437,10 +468,6 @@ public final class MsgGrpc {
     }
 
     /**
-     * <pre>
-     * TODO(TEST-53): Remove this pre-launch (no need for clients to create /
-     * interact with ICAs)
-     * </pre>
      */
     public void registerHostZone(stride.stakeibc.Tx.MsgRegisterHostZone request,
         io.grpc.stub.StreamObserver<stride.stakeibc.Tx.MsgRegisterHostZoneResponse> responseObserver) {
@@ -497,13 +524,17 @@ public final class MsgGrpc {
     }
 
     /**
-     * <pre>
-     * this line is used by starport scaffolding # proto/tx/rpc
-     * </pre>
      */
     public void clearBalance(stride.stakeibc.Tx.MsgClearBalance request,
         io.grpc.stub.StreamObserver<stride.stakeibc.Tx.MsgClearBalanceResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getClearBalanceMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void resetUnbondingRecordEpochNumbers(stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers request,
+        io.grpc.stub.StreamObserver<stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getResetUnbondingRecordEpochNumbersMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -585,6 +616,13 @@ public final class MsgGrpc {
                 stride.stakeibc.Tx.MsgClearBalance,
                 stride.stakeibc.Tx.MsgClearBalanceResponse>(
                   this, METHODID_CLEAR_BALANCE)))
+          .addMethod(
+            getResetUnbondingRecordEpochNumbersMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers,
+                stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse>(
+                  this, METHODID_RESET_UNBONDING_RECORD_EPOCH_NUMBERS)))
           .build();
     }
   }
@@ -623,10 +661,6 @@ public final class MsgGrpc {
     }
 
     /**
-     * <pre>
-     * TODO(TEST-53): Remove this pre-launch (no need for clients to create /
-     * interact with ICAs)
-     * </pre>
      */
     public void registerHostZone(stride.stakeibc.Tx.MsgRegisterHostZone request,
         io.grpc.stub.StreamObserver<stride.stakeibc.Tx.MsgRegisterHostZoneResponse> responseObserver) {
@@ -691,14 +725,19 @@ public final class MsgGrpc {
     }
 
     /**
-     * <pre>
-     * this line is used by starport scaffolding # proto/tx/rpc
-     * </pre>
      */
     public void clearBalance(stride.stakeibc.Tx.MsgClearBalance request,
         io.grpc.stub.StreamObserver<stride.stakeibc.Tx.MsgClearBalanceResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getClearBalanceMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void resetUnbondingRecordEpochNumbers(stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers request,
+        io.grpc.stub.StreamObserver<stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getResetUnbondingRecordEpochNumbersMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -734,10 +773,6 @@ public final class MsgGrpc {
     }
 
     /**
-     * <pre>
-     * TODO(TEST-53): Remove this pre-launch (no need for clients to create /
-     * interact with ICAs)
-     * </pre>
      */
     public stride.stakeibc.Tx.MsgRegisterHostZoneResponse registerHostZone(stride.stakeibc.Tx.MsgRegisterHostZone request) {
       return blockingUnaryCall(
@@ -794,13 +829,17 @@ public final class MsgGrpc {
     }
 
     /**
-     * <pre>
-     * this line is used by starport scaffolding # proto/tx/rpc
-     * </pre>
      */
     public stride.stakeibc.Tx.MsgClearBalanceResponse clearBalance(stride.stakeibc.Tx.MsgClearBalance request) {
       return blockingUnaryCall(
           getChannel(), getClearBalanceMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse resetUnbondingRecordEpochNumbers(stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers request) {
+      return blockingUnaryCall(
+          getChannel(), getResetUnbondingRecordEpochNumbersMethod(), getCallOptions(), request);
     }
   }
 
@@ -838,10 +877,6 @@ public final class MsgGrpc {
     }
 
     /**
-     * <pre>
-     * TODO(TEST-53): Remove this pre-launch (no need for clients to create /
-     * interact with ICAs)
-     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<stride.stakeibc.Tx.MsgRegisterHostZoneResponse> registerHostZone(
         stride.stakeibc.Tx.MsgRegisterHostZone request) {
@@ -906,14 +941,19 @@ public final class MsgGrpc {
     }
 
     /**
-     * <pre>
-     * this line is used by starport scaffolding # proto/tx/rpc
-     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<stride.stakeibc.Tx.MsgClearBalanceResponse> clearBalance(
         stride.stakeibc.Tx.MsgClearBalance request) {
       return futureUnaryCall(
           getChannel().newCall(getClearBalanceMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse> resetUnbondingRecordEpochNumbers(
+        stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers request) {
+      return futureUnaryCall(
+          getChannel().newCall(getResetUnbondingRecordEpochNumbersMethod(), getCallOptions()), request);
     }
   }
 
@@ -928,6 +968,7 @@ public final class MsgGrpc {
   private static final int METHODID_RESTORE_INTERCHAIN_ACCOUNT = 8;
   private static final int METHODID_UPDATE_VALIDATOR_SHARES_EXCH_RATE = 9;
   private static final int METHODID_CLEAR_BALANCE = 10;
+  private static final int METHODID_RESET_UNBONDING_RECORD_EPOCH_NUMBERS = 11;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -989,6 +1030,10 @@ public final class MsgGrpc {
         case METHODID_CLEAR_BALANCE:
           serviceImpl.clearBalance((stride.stakeibc.Tx.MsgClearBalance) request,
               (io.grpc.stub.StreamObserver<stride.stakeibc.Tx.MsgClearBalanceResponse>) responseObserver);
+          break;
+        case METHODID_RESET_UNBONDING_RECORD_EPOCH_NUMBERS:
+          serviceImpl.resetUnbondingRecordEpochNumbers((stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbers) request,
+              (io.grpc.stub.StreamObserver<stride.stakeibc.Tx.MsgResetUnbondingRecordEpochNumbersResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1062,6 +1107,7 @@ public final class MsgGrpc {
               .addMethod(getRestoreInterchainAccountMethod())
               .addMethod(getUpdateValidatorSharesExchRateMethod())
               .addMethod(getClearBalanceMethod())
+              .addMethod(getResetUnbondingRecordEpochNumbersMethod())
               .build();
         }
       }

@@ -930,10 +930,20 @@ public final class ParamsOuterClass {
      * ustrd tokens claimed so far in the current period
      * </pre>
      *
-     * <code>int64 claimed_so_far = 6;</code>
+     * <code>string claimed_so_far = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The claimedSoFar.
      */
-    long getClaimedSoFar();
+    java.lang.String getClaimedSoFar();
+    /**
+     * <pre>
+     * ustrd tokens claimed so far in the current period
+     * </pre>
+     *
+     * <code>string claimed_so_far = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for claimedSoFar.
+     */
+    com.google.protobuf.ByteString
+        getClaimedSoFarBytes();
   }
   /**
    * Protobuf type {@code stride.claim.Airdrop}
@@ -951,6 +961,7 @@ public final class ParamsOuterClass {
       airdropIdentifier_ = "";
       claimDenom_ = "";
       distributorAddress_ = "";
+      claimedSoFar_ = "";
     }
 
     @java.lang.Override
@@ -1027,9 +1038,10 @@ public final class ParamsOuterClass {
               distributorAddress_ = s;
               break;
             }
-            case 48: {
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              claimedSoFar_ = input.readInt64();
+              claimedSoFar_ = s;
               break;
             }
             default: {
@@ -1271,18 +1283,49 @@ public final class ParamsOuterClass {
     }
 
     public static final int CLAIMED_SO_FAR_FIELD_NUMBER = 6;
-    private long claimedSoFar_;
+    private volatile java.lang.Object claimedSoFar_;
     /**
      * <pre>
      * ustrd tokens claimed so far in the current period
      * </pre>
      *
-     * <code>int64 claimed_so_far = 6;</code>
+     * <code>string claimed_so_far = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The claimedSoFar.
      */
     @java.lang.Override
-    public long getClaimedSoFar() {
-      return claimedSoFar_;
+    public java.lang.String getClaimedSoFar() {
+      java.lang.Object ref = claimedSoFar_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        claimedSoFar_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * ustrd tokens claimed so far in the current period
+     * </pre>
+     *
+     * <code>string claimed_so_far = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for claimedSoFar.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getClaimedSoFarBytes() {
+      java.lang.Object ref = claimedSoFar_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        claimedSoFar_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1314,8 +1357,8 @@ public final class ParamsOuterClass {
       if (!getDistributorAddressBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, distributorAddress_);
       }
-      if (claimedSoFar_ != 0L) {
-        output.writeInt64(6, claimedSoFar_);
+      if (!getClaimedSoFarBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, claimedSoFar_);
       }
       unknownFields.writeTo(output);
     }
@@ -1343,9 +1386,8 @@ public final class ParamsOuterClass {
       if (!getDistributorAddressBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, distributorAddress_);
       }
-      if (claimedSoFar_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(6, claimedSoFar_);
+      if (!getClaimedSoFarBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, claimedSoFar_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1378,8 +1420,8 @@ public final class ParamsOuterClass {
           .equals(other.getClaimDenom())) return false;
       if (!getDistributorAddress()
           .equals(other.getDistributorAddress())) return false;
-      if (getClaimedSoFar()
-          != other.getClaimedSoFar()) return false;
+      if (!getClaimedSoFar()
+          .equals(other.getClaimedSoFar())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1406,8 +1448,7 @@ public final class ParamsOuterClass {
       hash = (37 * hash) + DISTRIBUTOR_ADDRESS_FIELD_NUMBER;
       hash = (53 * hash) + getDistributorAddress().hashCode();
       hash = (37 * hash) + CLAIMED_SO_FAR_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getClaimedSoFar());
+      hash = (53 * hash) + getClaimedSoFar().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1559,7 +1600,7 @@ public final class ParamsOuterClass {
 
         distributorAddress_ = "";
 
-        claimedSoFar_ = 0L;
+        claimedSoFar_ = "";
 
         return this;
       }
@@ -1667,8 +1708,9 @@ public final class ParamsOuterClass {
           distributorAddress_ = other.distributorAddress_;
           onChanged();
         }
-        if (other.getClaimedSoFar() != 0L) {
-          setClaimedSoFar(other.getClaimedSoFar());
+        if (!other.getClaimedSoFar().isEmpty()) {
+          claimedSoFar_ = other.claimedSoFar_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2277,30 +2319,63 @@ public final class ParamsOuterClass {
         return this;
       }
 
-      private long claimedSoFar_ ;
+      private java.lang.Object claimedSoFar_ = "";
       /**
        * <pre>
        * ustrd tokens claimed so far in the current period
        * </pre>
        *
-       * <code>int64 claimed_so_far = 6;</code>
+       * <code>string claimed_so_far = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The claimedSoFar.
        */
-      @java.lang.Override
-      public long getClaimedSoFar() {
-        return claimedSoFar_;
+      public java.lang.String getClaimedSoFar() {
+        java.lang.Object ref = claimedSoFar_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          claimedSoFar_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <pre>
        * ustrd tokens claimed so far in the current period
        * </pre>
        *
-       * <code>int64 claimed_so_far = 6;</code>
+       * <code>string claimed_so_far = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for claimedSoFar.
+       */
+      public com.google.protobuf.ByteString
+          getClaimedSoFarBytes() {
+        java.lang.Object ref = claimedSoFar_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          claimedSoFar_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * ustrd tokens claimed so far in the current period
+       * </pre>
+       *
+       * <code>string claimed_so_far = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The claimedSoFar to set.
        * @return This builder for chaining.
        */
-      public Builder setClaimedSoFar(long value) {
-        
+      public Builder setClaimedSoFar(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         claimedSoFar_ = value;
         onChanged();
         return this;
@@ -2310,12 +2385,32 @@ public final class ParamsOuterClass {
        * ustrd tokens claimed so far in the current period
        * </pre>
        *
-       * <code>int64 claimed_so_far = 6;</code>
+       * <code>string claimed_so_far = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearClaimedSoFar() {
         
-        claimedSoFar_ = 0L;
+        claimedSoFar_ = getDefaultInstance().getClaimedSoFar();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ustrd tokens claimed so far in the current period
+       * </pre>
+       *
+       * <code>string claimed_so_far = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for claimedSoFar to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClaimedSoFarBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        claimedSoFar_ = value;
         onChanged();
         return this;
       }
@@ -2395,7 +2490,7 @@ public final class ParamsOuterClass {
       "m\032\024gogoproto/gogo.proto\032\036google/protobuf" +
       "/duration.proto\032\037google/protobuf/timesta" +
       "mp.proto\"1\n\006Params\022\'\n\010airdrops\030\001 \003(\0132\025.s" +
-      "tride.claim.Airdrop\"\345\002\n\007Airdrop\0229\n\022airdr" +
+      "tride.claim.Airdrop\"\225\003\n\007Airdrop\0229\n\022airdr" +
       "op_identifier\030\001 \001(\tB\035\362\336\037\031yaml:\"airdrop_i" +
       "dentifier\"\022]\n\022airdrop_start_time\030\002 \001(\0132\032" +
       ".google.protobuf.TimestampB%\220\337\037\001\310\336\037\000\362\336\037\031" +
@@ -2403,9 +2498,11 @@ public final class ParamsOuterClass {
       "ation\030\003 \001(\0132\031.google.protobuf.DurationBA" +
       "\310\336\037\000\230\337\037\001\352\336\037\032airdrop_duration,omitempty\362\336" +
       "\037\027yaml:\"airdrop_duration\"\022\023\n\013claim_denom" +
-      "\030\004 \001(\t\022\033\n\023distributor_address\030\005 \001(\t\022\026\n\016c" +
-      "laimed_so_far\030\006 \001(\003B0Z.github.com/Stride" +
-      "-Labs/stride/v3/x/claim/typesb\006proto3"
+      "\030\004 \001(\t\022\033\n\023distributor_address\030\005 \001(\t\022F\n\016c" +
+      "laimed_so_far\030\006 \001(\tB.\332\336\037&github.com/cosm" +
+      "os/cosmos-sdk/types.Int\310\336\037\000B0Z.github.co" +
+      "m/Stride-Labs/stride/v5/x/claim/typesb\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2428,6 +2525,7 @@ public final class ParamsOuterClass {
         new java.lang.String[] { "AirdropIdentifier", "AirdropStartTime", "AirdropDuration", "ClaimDenom", "DistributorAddress", "ClaimedSoFar", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
     registry.add(com.google.protobuf2.GoGoProtos.jsontag);
     registry.add(com.google.protobuf2.GoGoProtos.moretags);
     registry.add(com.google.protobuf2.GoGoProtos.nullable);

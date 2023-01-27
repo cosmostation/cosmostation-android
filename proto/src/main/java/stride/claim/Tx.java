@@ -5590,7 +5590,7 @@ public final class Tx {
       "DeleteAirdrop\022\036.stride.claim.MsgDeleteAi" +
       "rdrop\032&.stride.claim.MsgDeleteAirdropRes" +
       "ponseB0Z.github.com/Stride-Labs/stride/v" +
-      "3/x/claim/typesb\006proto3"
+      "5/x/claim/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

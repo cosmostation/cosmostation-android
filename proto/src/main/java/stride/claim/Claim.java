@@ -1398,7 +1398,7 @@ public final class Claim {
       "\010B\033\362\336\037\027yaml:\"action_completed\"*S\n\006Action" +
       "\022\017\n\013ACTION_FREE\020\000\022\027\n\023ACTION_LIQUID_STAKE" +
       "\020\001\022\031\n\025ACTION_DELEGATE_STAKE\020\002\032\004\210\243\036\000B0Z.g" +
-      "ithub.com/Stride-Labs/stride/v3/x/claim/" +
+      "ithub.com/Stride-Labs/stride/v5/x/claim/" +
       "typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

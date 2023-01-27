@@ -168,8 +168,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     private ArrayList<FeeInfo> mFeeInfo = new ArrayList<>();
     private FeeInfo.FeeData mFeeData;
-    private int mSelectedFeeInfo = 1;
-    private int mSelectedFeeData = 0;
+    private Integer mSelectedFeeInfo = 1;
+    private Integer mSelectedFeeData = 0;
 
     public static StepFeeSetFragment newInstance() {
         return new StepFeeSetFragment();
@@ -218,7 +218,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             btnTxt.setText(mFeeInfo.get(i).title);
         }
 
-        if (getBaseDao().mParam != null && getBaseDao().mParam.mGasPrice != null) {
+        if (getBaseDao().mParam != null && getBaseDao().mParam.mGasPrice != null && getBaseDao().mParam.mGasPrice.base != null) {
             mSelectedFeeInfo = Integer.parseInt(getBaseDao().mParam.mGasPrice.base);
         }
 
@@ -237,18 +237,22 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onCalculateFees() {
-        mFeeData = mFeeInfo.get(mSelectedFeeInfo).feeDatas.get(mSelectedFeeData);
-        if (mBaseChain.equals(BaseChain.SIF_MAIN)) {
-            mFeeCoin = new Coin(mFeeData.denom, "100000000000000000");
-        } else if (mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
-            if (mSelectedFeeInfo == 0) mFeeCoin = new Coin(mFeeData.denom, "1000000");
-            else if (mSelectedFeeInfo == 1) mFeeCoin = new Coin(mFeeData.denom, "5000000");
-            else mFeeCoin = new Coin(mFeeData.denom, "10000000");
-        } else {
-            BigDecimal amount = mFeeData.gasRate.multiply(mFeeGasAmount).setScale(0, RoundingMode.UP);
-            mFeeCoin = new Coin(mFeeData.denom, amount.toPlainString());
+        if (mFeeInfo != null && mSelectedFeeInfo != null && mSelectedFeeData != null) {
+            mFeeData = mFeeInfo.get(mSelectedFeeInfo).feeDatas.get(mSelectedFeeData);
+            if (mFeeData != null) {
+                if (mBaseChain.equals(BaseChain.SIF_MAIN)) {
+                    mFeeCoin = new Coin(mFeeData.denom, "100000000000000000");
+                } else if (mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
+                    if (mSelectedFeeInfo == 0) mFeeCoin = new Coin(mFeeData.denom, "1000000");
+                    else if (mSelectedFeeInfo == 1) mFeeCoin = new Coin(mFeeData.denom, "5000000");
+                    else mFeeCoin = new Coin(mFeeData.denom, "10000000");
+                } else {
+                    BigDecimal amount = mFeeData.gasRate.multiply(mFeeGasAmount).setScale(0, RoundingMode.UP);
+                    mFeeCoin = new Coin(mFeeData.denom, amount.toPlainString());
+                }
+                mFee = new Fee(mFeeGasAmount.toPlainString(), Lists.newArrayList(mFeeCoin));
+            }
         }
-        mFee = new Fee(mFeeGasAmount.toPlainString(), Lists.newArrayList(mFeeCoin));
     }
 
     private void onUpdateView() {

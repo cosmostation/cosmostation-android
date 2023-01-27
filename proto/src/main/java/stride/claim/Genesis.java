@@ -1211,7 +1211,7 @@ public final class Genesis {
       "claim.ParamsB\025\362\336\037\ryaml:\"params\"\310\336\037\000\022N\n\rc" +
       "laim_records\030\002 \003(\0132\031.stride.claim.ClaimR" +
       "ecordB\034\362\336\037\024yaml:\"claim_records\"\310\336\037\000B0Z.g" +
-      "ithub.com/Stride-Labs/stride/v3/x/claim/" +
+      "ithub.com/Stride-Labs/stride/v5/x/claim/" +
       "typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

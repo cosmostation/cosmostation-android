@@ -1039,7 +1039,7 @@ public class Signer {
 
     public static ArrayList<Any> getLiquidStakingMsg(String creator, String amount, String hostDenom) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        stride.stakeibc.Tx.MsgLiquidStake msgLiquidStake = stride.stakeibc.Tx.MsgLiquidStake.newBuilder().setCreator(creator).setAmount(Long.parseLong(amount)).setHostDenom(hostDenom).build();
+        stride.stakeibc.Tx.MsgLiquidStake msgLiquidStake = stride.stakeibc.Tx.MsgLiquidStake.newBuilder().setCreator(creator).setAmount(amount).setHostDenom(hostDenom).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/stride.stakeibc.MsgLiquidStake").setValue(msgLiquidStake.toByteString()).build());
         return msgAnys;
     }
@@ -1054,7 +1054,7 @@ public class Signer {
 
     public static ArrayList<Any> getLiquidUnStakingMsg(String creator, String amount, String hostZone, String receiver) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        stride.stakeibc.Tx.MsgRedeemStake msgLiquidUnStake = stride.stakeibc.Tx.MsgRedeemStake.newBuilder().setCreator(creator).setAmount(Long.parseLong(amount)).setHostZone(hostZone).setReceiver(receiver).build();
+        stride.stakeibc.Tx.MsgRedeemStake msgLiquidUnStake = stride.stakeibc.Tx.MsgRedeemStake.newBuilder().setCreator(creator).setAmount(amount).setHostZone(hostZone).setReceiver(receiver).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/stride.stakeibc.MsgRedeemStake").setValue(msgLiquidUnStake.toByteString()).build());
         return msgAnys;
     }

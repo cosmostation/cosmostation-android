@@ -25,7 +25,7 @@ public final class Tx {
     java.lang.String[] descriptorData = {
       "\n\027stride/vesting/tx.proto\022\016stride.vestin" +
       "g2\005\n\003MsgB8Z6github.com/Stride-Labs/strid" +
-      "e/v3/x/claim/vesting/typesb\006proto3"
+      "e/v5/x/claim/vesting/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
