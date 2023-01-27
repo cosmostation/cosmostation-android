@@ -28,7 +28,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.crypto.MnemonicCode;
 
 import java.util.ArrayList;
@@ -297,16 +296,12 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
     }
 
     private void onConfirmedWords() {
-        if (StringUtils.isEmpty(mNickName)) {
-            onNickNameSet();
+        if (!getBaseDao().onHasPassword()) {
+            Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordSetActivity.class);
+            mnemonicRestoreResultLauncher.launch(intent);
         } else {
-            if (!getBaseDao().onHasPassword()) {
-                Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordSetActivity.class);
-                mnemonicRestoreResultLauncher.launch(intent);
-            } else {
-                Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordCheckActivity.class);
-                mnemonicRestoreResultLauncher.launch(intent);
-            }
+            Intent intent = new Intent(MnemonicRestoreActivity.this, PasswordCheckActivity.class);
+            mnemonicRestoreResultLauncher.launch(intent);
         }
     }
 
@@ -316,8 +311,6 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
             if (id > 0) {
                 Intent checkIntent = new Intent(MnemonicRestoreActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
-                mWords = getBaseDao().onSelectMnemonicById(id);
-                onChangeNickName(mNickName);
                 startActivity(checkIntent);
                 finish();
             }
@@ -331,11 +324,6 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         dialog.setNickNameListener(nickName -> mNickName = nickName);
         dialog.show(getSupportFragmentManager(), "dialog");
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-    }
-
-    public void onChangeNickName(String name) {
-        mWords.nickName = name;
-        getBaseDao().onUpdateMnemonic(mWords);
     }
 
     public class MnemonicAdapter extends RecyclerView.Adapter<MnemonicAdapter.MnemonicHolder> implements Filterable {
@@ -416,6 +404,7 @@ public class MnemonicRestoreActivity extends BaseActivity implements View.OnClic
         String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWordsList));
         EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
 
+        tempMWords.nickName = mNickName;
         tempMWords.resource = encR.getEncDataString();
         tempMWords.spec = encR.getIvDataString();
         tempMWords.wordsCnt = mWordsList.size();

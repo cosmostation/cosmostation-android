@@ -14,8 +14,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -38,7 +36,6 @@ public class MnemonicCreateActivity extends BaseActivity {
     private Button mBtnDerive;
 
     private ArrayList<String> mWordsList = new ArrayList<>();
-    private MWords mWords;
     private String mNickName;
 
     private boolean mIsDisplay = false;
@@ -70,16 +67,12 @@ public class MnemonicCreateActivity extends BaseActivity {
         });
 
         mBtnDerive.setOnClickListener(view -> {
-            if (StringUtils.isEmpty(mNickName)) {
-                onNickNameSet();
+            if (!getBaseDao().onHasPassword()) {
+                Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
+                mnemonicCreateResultLauncher.launch(intent);
             } else {
-                if (!getBaseDao().onHasPassword()) {
-                    Intent intent = new Intent(MnemonicCreateActivity.this, PasswordSetActivity.class);
-                    mnemonicCreateResultLauncher.launch(intent);
-                } else {
-                    Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
-                    mnemonicCreateResultLauncher.launch(intent);
-                }
+                Intent intent = new Intent(MnemonicCreateActivity.this, PasswordCheckActivity.class);
+                mnemonicCreateResultLauncher.launch(intent);
             }
         });
     }
@@ -90,8 +83,6 @@ public class MnemonicCreateActivity extends BaseActivity {
             if (id > 0) {
                 Intent checkIntent = new Intent(MnemonicCreateActivity.this, WalletDeriveActivity.class);
                 checkIntent.putExtra("id", id);
-                mWords = getBaseDao().onSelectMnemonicById(id);
-                onChangeNickName(mNickName);
                 startActivity(checkIntent);
                 finish();
             }
@@ -105,11 +96,6 @@ public class MnemonicCreateActivity extends BaseActivity {
         dialog.setNickNameListener(nickName -> mNickName = nickName);
         dialog.show(getSupportFragmentManager(), "dialog");
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
-    }
-
-    public void onChangeNickName(String name) {
-        mWords.nickName = name;
-        getBaseDao().onUpdateMnemonic(mWords);
     }
 
     private void onCreateMnemonic() {
@@ -146,6 +132,7 @@ public class MnemonicCreateActivity extends BaseActivity {
         String entropy = WUtil.ByteArrayToHexString(WKey.toEntropy(mWordsList));
         EncResult encR = CryptoHelper.doEncryptData(getString(R.string.key_mnemonic) + tempMWords.uuid, entropy, false);
 
+        tempMWords.nickName = mNickName;
         tempMWords.resource = encR.getEncDataString();
         tempMWords.spec = encR.getIvDataString();
         tempMWords.wordsCnt = mWordsList.size();

@@ -283,7 +283,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.ACCOUNT_CHANGE_NICKNAME);
             bundle.putLong("id", mAccount.id);
             NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
-            dialog.setNickNameListener(nickName -> onChangeNickName(nickName));
+            dialog.setNickNameListener(this::onChangeNickName);
             dialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnQr)) {

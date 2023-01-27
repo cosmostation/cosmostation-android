@@ -1528,7 +1528,7 @@ public class BaseData {
 
         //insert keychain and db for mnemonic
         for (String alreadyWord : alreadyWords) {
-            if (!onSelectAllMnemonics().stream().filter(w -> w.getWords(mApp).equalsIgnoreCase(alreadyWord)).findFirst().isPresent()) {
+            if (onSelectAllMnemonics().stream().noneMatch(w -> w.getWords(mApp).equalsIgnoreCase(alreadyWord))) {
                 ArrayList<String> mnWords = new ArrayList<>();
                 for (int i = 0; i < alreadyWord.split(" ").length; i++) {
                     mnWords.add(alreadyWord.split(" ")[i]);
