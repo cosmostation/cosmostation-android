@@ -165,16 +165,18 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             final Asset inputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, mInputCoinDenom);
             final Asset outputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, mOutputCoinDenom);
 
-            BigDecimal priceInput = WDp.price(getBaseDao(), inputAsset.coinGeckoId);
-            BigDecimal priceOutput = WDp.price(getBaseDao(), outputAsset.coinGeckoId);
-            BigDecimal priceRate = BigDecimal.ZERO;
-            if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
-                mSwapOutputCoinExRate.setText("?.??????");
-            } else {
-                priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
-                mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, outputDecimal));
+            if (inputAsset != null && outputAsset != null) {
+                BigDecimal priceInput = WDp.price(getBaseDao(), inputAsset.coinGeckoId);
+                BigDecimal priceOutput = WDp.price(getBaseDao(), outputAsset.coinGeckoId);
+                BigDecimal priceRate = BigDecimal.ZERO;
+                if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
+                    mSwapOutputCoinExRate.setText("?.??????");
+                } else {
+                    priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
+                    mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, outputDecimal));
+                }
+                mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputDecimal));
             }
-            mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputDecimal));
         }
     }
 
