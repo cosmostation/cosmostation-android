@@ -22,7 +22,7 @@ public class NumberPickerDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_number_picker, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_number_picker, null);
 
         Button btnCancel = view.findViewById(R.id.btn_nega);
         Button btnConfirm = view.findViewById(R.id.btn_posi);

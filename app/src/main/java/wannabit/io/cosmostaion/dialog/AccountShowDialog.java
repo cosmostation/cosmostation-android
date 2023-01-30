@@ -41,7 +41,7 @@ public class AccountShowDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_account_show, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_account_show, null);
         btn_nega = view.findViewById(R.id.btn_nega);
         btn_posi = view.findViewById(R.id.btn_posi);
         mTitle = view.findViewById(R.id.wallet_name);

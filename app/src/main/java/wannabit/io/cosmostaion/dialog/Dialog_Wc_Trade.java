@@ -36,7 +36,7 @@ public class Dialog_Wc_Trade extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_trade, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_wc_trade, null);
         TextView side_tv = view.findViewById(R.id.wc_trade_side);
         TextView symbol_tv = view.findViewById(R.id.wc_trade_symbol);
         TextView price_tv = view.findViewById(R.id.wc_trade_price);

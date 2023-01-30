@@ -28,7 +28,7 @@ public class CommonAlertDialog extends AlertDialog {
 
     public CommonAlertDialog(Context context) {
         super(context);
-        getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
+        getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border_common);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_template_default, null);
 
         headerImageView = view.findViewById(R.id.dialog_header_image);

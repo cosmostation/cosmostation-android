@@ -22,8 +22,7 @@ public class WaitDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
         getDialog().getWindow().setDimAmount(0.2f);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wait, null);
 
-        return view;
+        return getLayoutInflater().inflate(R.layout.dialog_wait, null);
     }
 }
