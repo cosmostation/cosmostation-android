@@ -35,7 +35,7 @@ public class Dialog_Wc_Transfer extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_transfer, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_wc_transfer, null);
         TextView to_address = view.findViewById(R.id.wc_recipient_address);
         ImageView send_coin_icon = view.findViewById(R.id.wc_send_coin_icon);
         TextView send_coin_symbol = view.findViewById(R.id.wc_send_coin_symbol);

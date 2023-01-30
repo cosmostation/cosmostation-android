@@ -31,7 +31,7 @@ public class Dialog_AddAccount extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_account, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_add_account, null);
 
         btn_import_key = view.findViewById(R.id.btn_import_key);
         btn_import_mnemonic = view.findViewById(R.id.btn_import_mnemonic);

@@ -33,7 +33,7 @@ public class PriceColorChangeDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_template_recycler, null);
 
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mDialogTitle.setText(R.string.str_price_color_option_title);
