@@ -64,7 +64,7 @@ public class Dialog_AddAccount extends DialogFragment {
         });
 
         btn_ledger.setOnClickListener(v -> {
-            LedgerManager.getInstance().connectLedger(requireContext(), false);
+//            LedgerManager.getInstance().connectLedger(requireContext(), false);
         });
 
         return view;

@@ -199,7 +199,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
             ArrayList<Msg> claimRewardMsgs = MsgGenerator.genWithdrawDeleMsgs(mAccount.address, mValAddresses);
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, claimRewardMsgs, mTxFee, mTxMemo);
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {

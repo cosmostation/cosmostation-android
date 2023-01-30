@@ -184,7 +184,7 @@ public class DelegateActivity extends BaseBroadCastActivity {
             ArrayList<Msg> delegateMsgs = MsgGenerator.genDelegateMsgs(mAccount.address, mValAddress, mAmount);
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, delegateMsgs, mTxFee, mTxMemo);
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {

@@ -186,7 +186,7 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
             ArrayList<Msg> rewardAddressChangeMsgs = MsgGenerator.genRewardAddressChanges(mAccount.address, mNewRewardAddress);
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, rewardAddressChangeMsgs, mTxFee, mTxMemo);
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {

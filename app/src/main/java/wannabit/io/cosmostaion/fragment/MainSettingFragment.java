@@ -38,7 +38,6 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,12 +63,14 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.dialog.PriceColorChangeDialog;
+import wannabit.io.cosmostaion.dialog.WaitDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.PushStatusResponse;
 import wannabit.io.cosmostaion.utils.LanguageUtil;
 import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -81,6 +82,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
     private SwitchCompat alarmSwitch;
+
+    protected WaitDialog mDialogWait;
 
     public static MainSettingFragment newInstance() {
         return new MainSettingFragment();
@@ -174,6 +177,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+        if (isAdded()) return;
         if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.LIGHT_MODE)) {
             mTvTheme.setText(R.string.str_theme_light);
         } else if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.DARK_MODE)) {
@@ -336,11 +340,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mBtnLedger)) {
-            if (getMainActivity().mAccount.isLedger()) {
-                FilledVerticalButtonAlertDialog.showDoubleButton(getActivity(), null, null, getString(R.string.str_pair_selected_account_title), view -> onLedgerConnect(true) , null, getString(R.string.str_pair_different_account_title), view -> onLedgerConnect(false), null);
-            } else {
-                onLedgerConnect(getMainActivity().mAccount.isLedger());
-            }
+            onLedgerConnect();
 
         } else if (v.equals(mBtnStarnameWc)) {
             CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg), getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> new TedPermission(getMainActivity()).setPermissionListener(new PermissionListener() {
@@ -432,8 +432,23 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvAutoPassTime.setText(getBaseDao().getAutoPass(getActivity()));
     }
 
-    private void onLedgerConnect(boolean isLedger) {
-        LedgerManager.getInstance().connectLedger(requireContext(), isLedger);
+    private void onLedgerConnect() {
+        getActivity().runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(requireContext(), new LedgerManager.ConnectListener() {
+            @Override
+            public void error(@NonNull LedgerManager.ErrorType errorType) {
+                FilledVerticalButtonAlertDialog.showNoButton(
+                        getContext(),
+                        getString(R.string.str_pairing_ledger_title),
+                        getString(R.string.str_pairing_ledger_msg),
+                        true
+                );
+            }
+
+            @Override
+            public void connected() {
+                startActivity(new Intent(getActivity(), LedgerSelectActivity.class));
+            }
+        }));
     }
 
     public MainActivity getMainActivity() {
@@ -474,5 +489,26 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         LanguageUtil.updateResources(context);
         LanguageUtil.modSave(context, languageSet);
         getMainActivity().recreate();
+    }
+
+    public void onShowWaitDialog() {
+        WLog.w("다이얼로그 : " + isAdded());
+        WLog.w("다이얼로그 : " + getActivity().getSupportFragmentManager().findFragmentByTag("wait"));
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") == null) {
+            mDialogWait = new WaitDialog();
+        }
+        WLog.w("다이얼로그0 : " + mDialogWait);
+//        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") != null && getActivity().getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
+//            return;
+//        }
+        mDialogWait.setCancelable(false);
+        mDialogWait.show(getActivity().getSupportFragmentManager(), "wait");
+    }
+
+    public void onHideWaitDialog() {
+        if (mDialogWait != null) {
+            mDialogWait.dismissAllowingStateLoss();
+        }
+        WLog.w("다이얼로그1 : " + mDialogWait);
     }
 }

@@ -253,7 +253,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, easyClaimMsgs, fee, "");
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
@@ -384,7 +384,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, easyCompoundingMsgs, fee, "");
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {

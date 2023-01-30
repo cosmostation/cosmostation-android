@@ -168,7 +168,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
             ArrayList<Msg> undelegateMsgs = MsgGenerator.genUndelegateMsgs(mAccount.address, mValAddress, mAmount);
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, undelegateMsgs, mTxFee, mTxMemo);
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {

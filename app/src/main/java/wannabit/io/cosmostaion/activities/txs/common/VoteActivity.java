@@ -187,7 +187,7 @@ public class VoteActivity extends BaseBroadCastActivity {
             ArrayList<Msg> voteMsgs = MsgGenerator.genVoteMsgs(mAccount.address, mSelectedOpinion);
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, voteMsgs, mTxFee, mTxMemo);
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {

@@ -320,7 +320,7 @@ public class SendActivity extends BaseBroadCastActivity {
             txMsgs.add(singleSendMsg);
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, txMsgs, mTxFee, mTxMemo);
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
@@ -401,7 +401,7 @@ public class SendActivity extends BaseBroadCastActivity {
                 ArrayList<Msg> ibcTransferMsgs = MsgGenerator.genIbcTransferMsgs(mAccount.address, mToAddress, mAmounts.get(0), mAssetPath, value.getLatestHeight());
                 String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, ibcTransferMsgs, mTxFee, mTxMemo);
 
-                runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+                runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                     @Override
                     public void error(@NonNull LedgerManager.ErrorType errorType) {
                         if (isFinishing()) {

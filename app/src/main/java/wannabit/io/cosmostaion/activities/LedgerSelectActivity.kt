@@ -58,7 +58,7 @@ class LedgerSelectActivity : BaseActivity() {
     }
 
     private fun con() {
-        LedgerManager.instance.connect(this, object : LedgerManager.ConnectListener {
+        LedgerManager.instance.pickLedgerDevice(this, object : LedgerManager.ConnectListener {
             override fun error(errorType: LedgerManager.ErrorType) {
             }
 
@@ -155,7 +155,8 @@ class LedgerSelectActivity : BaseActivity() {
                                 return@setOnClickListener
 
                             } else {
-                                if (TextUtils.isEmpty(account.nickName)) account.nickName = "Ledger " + account.id
+                                if (TextUtils.isEmpty(account.nickName)) account.nickName =
+                                    "Ledger " + account.id
                                 account.isFavo = true
                                 account.path = path
                                 baseDao.onUpdateAccount(account)

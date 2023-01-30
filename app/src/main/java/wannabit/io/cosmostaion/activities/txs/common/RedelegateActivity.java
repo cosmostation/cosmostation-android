@@ -194,7 +194,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
             ArrayList<Msg> redelegateMsgs = MsgGenerator.genReDelegateMsgs(mAccount.address, mValAddress, mToValAddress, mAmount);
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, redelegateMsgs, mTxFee, mTxMemo);
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {

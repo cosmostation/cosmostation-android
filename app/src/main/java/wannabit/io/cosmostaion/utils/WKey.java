@@ -10,6 +10,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.XPLA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
+import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Base64;
 
 import androidx.annotation.NonNull;
@@ -68,6 +74,7 @@ import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -696,6 +703,35 @@ public class WKey {
         QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain));
         QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(account.address).build();
         return authStub.account(request);
+    }
+
+    public static BroadcastReceiver getLedgerReceiver(Context c) {
+        return new BroadcastReceiver() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                WLog.w("Test1234 : " + action);
+                if (BluetoothDevice.ACTION_FOUND.equalsIgnoreCase(action)) {
+                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    String deviceName = device.getName();
+                    String deviceAddress = device.getAddress();
+
+                    if (deviceName != null && deviceAddress != null && deviceName.contains("Nano X")) {
+//                        service = new BleServiceStateMachine(new BleGattCallbackFlow(), deviceAddress, device);
+//                        service.build(getActivity());
+                        device.createBond();
+                    }
+
+                } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                    FilledVerticalButtonAlertDialog.showNoButton(
+                            c,
+                            c.getString(R.string.str_pairing_ledger_title),
+                            c.getString(R.string.str_pairing_ledger_msg),
+                            true);
+                }
+            }
+        };
     }
 
     public static StdSignMsg onSetLedgerSignMsg(BaseData baseData, ChainConfig chainConfig, Account account, ArrayList<Msg> txMsgs, Fee fee, String memo) {

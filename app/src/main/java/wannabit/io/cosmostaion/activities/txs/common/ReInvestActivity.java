@@ -196,7 +196,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             reinvestMsgs.add(delegateMsgs.get(0));
             String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, reinvestMsgs, mTxFee, mTxMemo);
 
-            runOnUiThread(() -> LedgerManager.getInstance().connect(this, new LedgerManager.ConnectListener() {
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
