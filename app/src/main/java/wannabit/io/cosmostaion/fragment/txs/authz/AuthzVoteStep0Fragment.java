@@ -26,7 +26,6 @@ import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,7 +40,7 @@ import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClickListener{
+public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private VoteListAdapter mVoteListAdapter;
@@ -94,11 +93,13 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (mSelectedProposalIds.size() > 0) {
+            if (mSelectedProposalIds.size() > 0 && mVotingPeriodProposalsList.size() > 0) {
                 ArrayList<ResProposal> proposals = new ArrayList<>();
                 for (String id : mSelectedProposalIds) {
-                    Optional<ResProposal> firstElement = mVotingPeriodProposalsList.stream().filter(item -> String.valueOf(item.id).equals(id)).findFirst();
-                    firstElement.ifPresent(proposals::add);
+                    try {
+                        proposals.add(mVotingPeriodProposalsList.stream().filter(item -> String.valueOf(item.id).equals(id)).findFirst().get());
+                    } catch (Exception e) {
+                    }
                 }
                 getSActivity().mProposalsList = proposals;
                 getSActivity().onNextStep();
@@ -146,7 +147,8 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
                     try {
                         response.body().votes.forEach(votesData -> statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet())));
                         mVoteListAdapter.notifyDataSetChanged();
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
 

@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.HandlerCompat.postDelayed
 import com.google.android.gms.common.util.CollectionUtils
 import com.google.common.collect.Maps
 import com.google.gson.Gson
@@ -496,6 +495,9 @@ class WalletConnectActivity : BaseActivity() {
                         toCosmosatationAccount(it)
                     })
                 }
+            } else {
+                wcV1Client?.rejectRequest(id, "null point exception.")
+                Toast.makeText(baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT).show()
             }
         }
     }
