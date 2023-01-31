@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    android:text="@string/str_claim_incentive" />
+                    android:text="@string/str_participate_incentive" />
             </RelativeLayout>
 
         </LinearLayout>

@@ -69,7 +69,7 @@
     <string name="str_send_c">Send</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 Send & Claim]]></string>
 
-    <string name="str_participate_incentive">Incentive Claim</string>
+    <string name="str_participate_incentive">Claim Incentive</string>
     <string name="str_send">Send</string>
     <string name="str_change_reward_address_c">Change Reward Address</string>
     <string name="str_vote_c">Vote</string>
