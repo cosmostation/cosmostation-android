@@ -33,6 +33,6 @@ public class Mars extends ChainConfig {
     public String explorerUrl() { return EXPLORER_BASE_URL + "mars-protocol/"; }
     public String homeInfoLink() { return  "https://marsprotocol.io/"; }
     public String blogInfoLink() { return  "https://blog.marsprotocol.io/"; }
-    public String coingeckoLink() { return  COINGECKO_URL + "mars-protocol-a7fcbcfb-fd61-4017-92f0-7ee9f9cc6da3"; }
+    public String coingeckoLink() { return ""; }
 }
 
