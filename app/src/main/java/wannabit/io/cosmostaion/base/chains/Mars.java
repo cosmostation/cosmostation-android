@@ -16,7 +16,7 @@ public class Mars extends ChainConfig {
     public int chainColor() { return R.color.color_mars; }
     public int chainBgColor() { return R.color.colorTransBgMars; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_mars; }
-    public String chainName() { return "mars"; }
+    public String chainName() { return "mars-protocol"; }
     public String chainKoreanName() { return "마스"; }
     public String chainIdPrefix() { return "mars-"; }
 
@@ -26,13 +26,13 @@ public class Mars extends ChainConfig {
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
-    public boolean authzSupport() { return false; }
+    public boolean authzSupport() { return true; }
 
     public String grpcUrl() { return "grpc-mars-protocol.cosmostation.io"; }
 
-    public String explorerUrl() { return EXPLORER_BASE_URL + "mars/"; }
+    public String explorerUrl() { return EXPLORER_BASE_URL + "mars-protocol/"; }
     public String homeInfoLink() { return  "https://marsprotocol.io/"; }
     public String blogInfoLink() { return  "https://blog.marsprotocol.io/"; }
-    public String coingeckoLink() { return  COINGECKO_URL + "mars"; }
+    public String coingeckoLink() { return  COINGECKO_URL + "mars-protocol-a7fcbcfb-fd61-4017-92f0-7ee9f9cc6da3"; }
 }
 
