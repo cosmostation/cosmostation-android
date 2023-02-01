@@ -28,7 +28,7 @@ public class Mars extends ChainConfig {
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return false; }
 
-    public String grpcUrl() { return "grpc-mars.cosmostation.io"; }
+    public String grpcUrl() { return "grpc-mars-protocol.cosmostation.io"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "mars/"; }
     public String homeInfoLink() { return  "https://marsprotocol.io/"; }
