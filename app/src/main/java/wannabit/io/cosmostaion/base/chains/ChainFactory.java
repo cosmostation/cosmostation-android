@@ -118,6 +118,9 @@ public class ChainFactory {
                 case LUM_MAIN:
                     return new Lum();
 
+                case MARS_MAIN:
+                    return new Mars();
+
                 case MEDI_MAIN:
                     return new Medibloc();
 

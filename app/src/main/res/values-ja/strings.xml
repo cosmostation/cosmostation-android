@@ -271,7 +271,7 @@
     <string name="str_front_guide_msg_xpla"><![CDATA[Com2uS（コンツス）で独自展開するCosmos SDKブロックチェーンベースのゲームメディアコンテンツプラットフォーム。]]></string>
     <string name="str_front_guide_msg_onomy"><![CDATA[オーダーブックとAMMが結合されたOnomyデックス取引所とステーブルコイン発行のため設計されたコスモスSDKベースレイヤー1ブロックチェーンプロトコル。]]></string>
     <string name="str_front_guide_msg_quicksilver"><![CDATA[Cosmos Interchainエコシステムチェーンのためのリキッドステーキング プロトコル。]]></string>
-
+    <string name="str_front_guide_msg_mars"><![CDATA[Mars Hubは、Interchainエコシステム全体に配布されるMars Protocolのさまざまなディファイアプリの管理と運用のために設計されたブロックチェーンです。]]></string>
 
     <string name="str_current_reward_address">現在利子支給アドレス</string>
     <string name="str_new_reward_address">変更する利子支給アドレス</string>
