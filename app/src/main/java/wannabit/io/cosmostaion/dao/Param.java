@@ -113,6 +113,9 @@ public class Param {
 
         @SerializedName("stride_minting_epoch_provisions")
         public StrideMintingEpochProvisions mStrideMintingEpochProvisions;
+
+        @SerializedName("mars_vesting_balance")
+        public MarsVestingBalance mMarsVestingBalance;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -408,6 +411,15 @@ public class Param {
             return mGasPrice.rate;
         }
         return null;
+    }
+
+    public BigDecimal getTurnoutBondedAmount() {
+        if (mParams.mMarsVestingBalance != null && mParams.mMarsVestingBalance.balances.size() > 0) {
+            BigDecimal marsVestingAmount = new BigDecimal(mParams.mMarsVestingBalance.balances.get(0).amount);
+            return getBondedAmount().add(marsVestingAmount);
+        } else {
+            return getBondedAmount();
+        }
     }
 
     public class IrisMintingParams {
@@ -719,5 +731,10 @@ public class Param {
     public class StrideMintingEpochProvisions {
         @SerializedName("epoch_provisions")
         public String epoch_provisions;
+    }
+
+    public class MarsVestingBalance {
+        @SerializedName("balances")
+        public ArrayList<Coin> balances;
     }
 }

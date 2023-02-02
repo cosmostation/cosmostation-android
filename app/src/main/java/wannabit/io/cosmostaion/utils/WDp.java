@@ -1265,7 +1265,7 @@ public class WDp {
                 return BigDecimal.ZERO.setScale(2);
 
             } else {
-                BigDecimal bonded = baseData.mParam.getBondedAmount();
+                BigDecimal bonded = baseData.mParam.getTurnoutBondedAmount();
                 return geTallySum(proposal).movePointRight(2).divide(bonded, 2, RoundingMode.HALF_UP);
             }
         }
