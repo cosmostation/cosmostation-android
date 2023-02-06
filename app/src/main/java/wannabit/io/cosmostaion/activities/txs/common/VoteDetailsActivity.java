@@ -228,7 +228,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         holder.itemProposer.setText(mApiProposal.moniker);
                     }
                 }
-                holder.itemTitle.setText("# " + mApiProposal.id + ". " + mApiProposal.title);
+                holder.itemTitleId.setText("# " + mApiProposal.id);
+                holder.itemTitle.setText(mApiProposal.title);
                 holder.itemType.setText(mApiProposal.proposal_type);
                 if ("PROPOSAL_STATUS_DEPOSIT_PERIOD".equalsIgnoreCase(mApiProposal.proposal_status) || "DepositPeriod".equalsIgnoreCase(mApiProposal.proposal_status)) {
                     holder.itemStartTime.setText(R.string.str_vote_wait_deposit);
@@ -422,7 +423,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             private TextView itemStatusTxt;
             private RelativeLayout itemProposerLayer;
             private ImageView itemWebBtn;
-            private TextView itemProposer, itemTitle, itemType, itemStartTime, itemFinishTime, itemMsg;
+            private TextView itemProposer, itemTitleId, itemTitle, itemType, itemStartTime, itemFinishTime, itemMsg;
             private ImageView itemExpendBtn;
             private RelativeLayout itemRequestLayer;
             private TextView itemRequestAmount, itemRequestAmountDenom;
@@ -433,6 +434,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 itemStatusTxt = itemView.findViewById(R.id.vote_status);
                 itemProposerLayer = itemView.findViewById(R.id.vote_proposer_layer);
                 itemWebBtn = itemView.findViewById(R.id.vote_detail);
+                itemTitleId = itemView.findViewById(R.id.vote_title_id);
                 itemTitle = itemView.findViewById(R.id.vote_title);
                 itemProposer = itemView.findViewById(R.id.vote_proposer);
                 itemType = itemView.findViewById(R.id.vote_type);

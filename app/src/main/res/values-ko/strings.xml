@@ -98,6 +98,7 @@
     <string name="str_detail">자세히</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_title">지갑</string>
+    <string name="str_vote_show_all">모두 표시</string>
 
     <string name="str_mnemonic_manage">니모닉 관리 / 지갑 추가</string>
     <string name="str_mnemonic_detail">니모닉 상세</string>

@@ -98,6 +98,7 @@
     <string name="str_detail">詳細</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_title">ウォーレット</string>
+    <string name="str_vote_show_all">すべて表示</string>
 
     <string name="str_mnemonic_manage">ニーモニック管理 / ウォレット追加</string>
     <string name="str_mnemonic_detail">ニーモニック詳細</string>

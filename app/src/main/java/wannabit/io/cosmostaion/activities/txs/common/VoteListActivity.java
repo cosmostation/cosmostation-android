@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,18 +64,21 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private VoteHeaderRecyclerView mVoteHeaderRecyclerView;
     private Button mMultiVoteBtn, mCancelBtn, mNextBtn;
     private TextView mEmptyProposalText;
+    private CheckBox mCheckBoxShowAll;
 
     private VoteListAdapter mVoteListAdapter;
 
     // proposal api
     private List<ResProposal> mVotingPeriodProposalsList = Lists.newArrayList();
     private List<ResProposal> mExtraProposalsList = Lists.newArrayList();
+    private List<ResProposal> mDepositProposalsList = Lists.newArrayList();
     private Map<Integer, Set<String>> statusMap = Maps.newHashMap();
     private Set<ResProposal> selectedSet = Sets.newHashSet();
 
     private String mChain;
 
     private boolean multiVoteSelectionMode = false;
+    private boolean isShowAll = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +121,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         mCancelBtn = findViewById(R.id.btn_cancel);
         mNextBtn = findViewById(R.id.btn_next);
         mEmptyProposalText = findViewById(R.id.empty_proposal);
+        mCheckBoxShowAll = findViewById(R.id.check_showAll);
 
         mMultiVoteBtn.setOnClickListener(this);
         mCancelBtn.setOnClickListener(this);
@@ -128,6 +134,16 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             loadProposals();
             loadStatus();
+        });
+
+        mCheckBoxShowAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isShowAll = !isShowAll;
+                mDepositProposalsList = mExtraProposalsList;
+            } else {
+                mDepositProposalsList = mExtraProposalsList.stream().filter(item -> !"PROPOSAL_STATUS_DEPOSIT_PERIOD".equals(item.proposal_status)).collect(Collectors.toList());
+            }
+            mVoteListAdapter.notifyDataSetChanged();
         });
     }
 
@@ -149,11 +165,12 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 if (response.body() != null && response.isSuccessful()) {
                     mVotingPeriodProposalsList.clear();
                     mExtraProposalsList.clear();
+                    mDepositProposalsList.clear();
                     List<ResProposal> proposals = response.body();
                     proposals.sort((o1, o2) -> o2.id - o1.id);
                     mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     mExtraProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
-
+                    mDepositProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status) && !"PROPOSAL_STATUS_DEPOSIT_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     runOnUiThread(() -> {
                         mVoteListAdapter.notifyDataSetChanged();
                         checkEmptyView();
@@ -199,9 +216,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             public void onResponse(Call<ResVoteStatus> call, Response<ResVoteStatus> response) {
                 if (response.body() != null && response.isSuccessful() && response.body().votes != null) {
                     try {
-                        response.body().votes.forEach(votesData -> {
-                            statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet()));
-                        });
+                        response.body().votes.forEach(votesData -> statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet())));
                         mVoteListAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                     }
@@ -216,7 +231,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mMultiVoteBtn)) {
+         if (v.equals(mMultiVoteBtn)) {
             mMultiVoteBtn.setVisibility(View.GONE);
             mCancelBtn.setVisibility(View.VISIBLE);
             mNextBtn.setVisibility(View.VISIBLE);
@@ -297,9 +312,10 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         }
 
         public void onBindProposalItemViewHolder(VoteListViewHolder holder, int position) {
-            ResProposal item = mExtraProposalsList.get(position);
+            ResProposal item = mDepositProposalsList.get(position);
             holder.proposal_id.setText("# " + item.id);
             holder.proposal_title.setText(item.title);
+
             if (item.proposal_status.contains("DEPOSIT")) {
                 holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_deposit_img));
                 holder.proposal_status.setText("DepositPeriod");
@@ -371,7 +387,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
 
         @Override
         public int getItemCount() {
-            return mVotingPeriodProposalsList.size() + mExtraProposalsList.size();
+            return mVotingPeriodProposalsList.size() + mDepositProposalsList.size();
         }
 
         @Override
