@@ -31,8 +31,8 @@ public class Mars extends ChainConfig {
     public String grpcUrl() { return "grpc-mars-protocol.cosmostation.io"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "mars-protocol/"; }
-    public String homeInfoLink() { return  "https://marsprotocol.io/"; }
-    public String blogInfoLink() { return  "https://blog.marsprotocol.io/"; }
-    public String coingeckoLink() { return ""; }
+    public String homeInfoLink() { return "https://marsprotocol.io/"; }
+    public String blogInfoLink() { return "https://blog.marsprotocol.io/"; }
+    public String coingeckoLink() { return COINGECKO_URL + "mars-protocol"; }
 }
 
