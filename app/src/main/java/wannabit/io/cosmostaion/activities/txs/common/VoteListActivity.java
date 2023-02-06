@@ -165,12 +165,11 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 if (response.body() != null && response.isSuccessful()) {
                     mVotingPeriodProposalsList.clear();
                     mExtraProposalsList.clear();
-                    mDepositProposalsList.clear();
                     List<ResProposal> proposals = response.body();
                     proposals.sort((o1, o2) -> o2.id - o1.id);
                     mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     mExtraProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
-                    mDepositProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status) && !"PROPOSAL_STATUS_DEPOSIT_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
+                    mDepositProposalsList = mExtraProposalsList.stream().filter(item -> !"PROPOSAL_STATUS_DEPOSIT_PERIOD".equals(item.proposal_status)).collect(Collectors.toList());
                     runOnUiThread(() -> {
                         mVoteListAdapter.notifyDataSetChanged();
                         checkEmptyView();
