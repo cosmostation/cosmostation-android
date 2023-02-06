@@ -21,18 +21,29 @@
             android:layout_height="wrap_content"
             android:text="@string/str_proposal_list" />
 
-        <CheckBox
-            android:id="@+id/check_showAll"
-            style="@style/font_rr_12_gray1"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginRight="@dimen/space_16"
-            android:button="@null"
-            android:drawableLeft="@drawable/custom_checkbox"
-            android:drawablePadding="@dimen/space_6"
-            android:text="Show all"
-            android:textSize="@dimen/space_14" />
+            android:layout_marginRight="@dimen/space_16">
+
+            <CheckBox
+                android:id="@+id/check_showAll"
+                style="@style/font_rr_12_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableLeft="@drawable/custom_checkbox"
+                android:drawablePadding="@dimen/space_6"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Show all"
+                android:textSize="@dimen/space_14" />
+
+        </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
