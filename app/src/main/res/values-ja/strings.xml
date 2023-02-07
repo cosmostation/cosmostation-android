@@ -2,7 +2,7 @@
     <string name="app_name">Cosmostation</string>
 
     <string name="str_start">スタート</string>
-    <string name="str_ok">OK</string>
+    <string name="str_ok">オッケー</string>
     <string name="str_next">次</string>
     <string name="str_import">登録</string>
     <string name="str_sorting">整列</string>
@@ -99,6 +99,7 @@
     <string name="str_detail">詳細</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_title">ウォーレット</string>
+    <string name="str_vote_show_all">すべて表示</string>
 
     <string name="str_mnemonic_manage">ニーモニック管理 / ウォレット追加</string>
     <string name="str_mnemonic_detail">ニーモニック詳細</string>
@@ -272,7 +273,7 @@
     <string name="str_front_guide_msg_xpla"><![CDATA[Com2uS（コンツス）で独自展開するCosmos SDKブロックチェーンベースのゲームメディアコンテンツプラットフォーム。]]></string>
     <string name="str_front_guide_msg_onomy"><![CDATA[オーダーブックとAMMが結合されたOnomyデックス取引所とステーブルコイン発行のため設計されたコスモスSDKベースレイヤー1ブロックチェーンプロトコル。]]></string>
     <string name="str_front_guide_msg_quicksilver"><![CDATA[Cosmos Interchainエコシステムチェーンのためのリキッドステーキング プロトコル。]]></string>
-
+    <string name="str_front_guide_msg_mars"><![CDATA[Mars Hubは、Interchainエコシステム全体に配布されるMars Protocolのさまざまなディファイアプリの管理と運用のために設計されたブロックチェーンです。]]></string>
 
     <string name="str_current_reward_address">現在利子支給アドレス</string>
     <string name="str_new_reward_address">変更する利子支給アドレス</string>
@@ -532,6 +533,7 @@
     <string name="str_no_history_with_this_validator">取引内訳がありません。</string>
     <string name="str_change_account_nickname">ウォレット名変更</string>
     <string name="str_change_mnemonic_nickname">ニーモニック名変更</string>
+    <string name="str_set_mnemonic_nickname">ニーモニックエイリアスの設定</string>
     <string name="str_start_delegate">Cosmostationにトークンを委任してください。\nコンバウンディング機能で福利利子を貯めてネットワークエコシステムに寄与してください。</string>
     <string name="str_only_observe_title">観察モードウォーレット</string>
     <string name="str_only_observe_msg">観察だけ可能なウォーレットです。\nすべてのトランザクションは復旧単語登録後、利用可能です。\n</string>

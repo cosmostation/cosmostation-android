@@ -28,7 +28,7 @@ public class Dialog_Wc_Cancel extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_cancel, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_wc_cancel, null);
 
         TextView symbol_tv = view.findViewById(R.id.wc_cancel_symbol);
         Button btn_negative = view.findViewById(R.id.btn_nega);

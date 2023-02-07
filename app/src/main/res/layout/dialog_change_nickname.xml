@@ -12,21 +12,20 @@
 
         <TextView
             android:id="@+id/dialog_title"
-            style="@style/font_rm_17_black_daynight"
+            style="@style/font_rm_15_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_24"
+            android:layout_marginTop="@dimen/space_16"
             android:gravity="center" />
-
 
         <EditText
             android:id="@+id/et_nickname"
             style="@style/font_rr_14_black_daynight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginTop="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14"
             android:background="@drawable/box_chain_trans_border"
             android:gravity="center"
             android:imeOptions="actionDone"
@@ -34,13 +33,12 @@
             android:minHeight="@dimen/space_40"
             android:singleLine="true"
             android:textColorHint="@color/colorGray1"
-            android:textCursorDrawable="@color/colorBlackDayNight" />
-
+            android:textCursorDrawable="@null" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="@dimen/space_32"
+            android:layout_marginTop="@dimen/space_14"
             android:background="@color/colorGray4" />
 
         <LinearLayout

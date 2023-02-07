@@ -70,7 +70,7 @@
     <string name="str_send_c">Send</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 Send & Claim]]></string>
 
-    <string name="str_participate_incentive">Incentive Claim</string>
+    <string name="str_participate_incentive">Claim Incentive</string>
     <string name="str_send">Send</string>
     <string name="str_change_reward_address_c">Change Reward Address</string>
     <string name="str_vote_c">Vote</string>
@@ -137,6 +137,7 @@
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_title">Wallet</string>
+    <string name="str_vote_show_all">Show all</string>
 
     <string name="str_mnemonic_manage">Manage Mnemonic / Add Wallet</string>
     <string name="str_mnemonic_detail">Mnemonic Detail</string>
@@ -257,38 +258,38 @@
 
 
     <string name="str_front_guide_title_cosmos" translatable="false"><![CDATA[COSMOS HUB]]></string>
-    <string name="str_front_guide_title_iris" translatable="false"><![CDATA[IRIS HUB]]></string>
+    <string name="str_front_guide_title_iris" translatable="false"><![CDATA[IRIS]]></string>
     <string name="str_front_guide_title_binance" translatable="false"><![CDATA[BINANCE]]></string>
     <string name="str_front_guide_title_kava" translatable="false"><![CDATA[KAVA]]></string>
-    <string name="str_front_guide_title_starname" translatable="false"><![CDATA[STARNAME SERVICE]]></string>
-    <string name="str_front_guide_title_band" translatable="false"><![CDATA[BAND PROTOCOL]]></string>
+    <string name="str_front_guide_title_starname" translatable="false"><![CDATA[STARNAME]]></string>
+    <string name="str_front_guide_title_band" translatable="false"><![CDATA[BAND]]></string>
     <string name="str_front_guide_title_okx" translatable="false"><![CDATA[OKC]]></string>
     <string name="str_front_guide_title_shentu" translatable="false"><![CDATA[SHENTU]]></string>
-    <string name="str_front_guide_title_akash" translatable="false"><![CDATA[AKASH NETWORK]]></string>
-    <string name="str_front_guide_title_secret" translatable="false"><![CDATA[SECRET NETWORK]]></string>
-    <string name="str_front_guide_title_persistence" translatable="false"><![CDATA[PERSISTENCE NETWORK]]></string>
-    <string name="str_front_guide_title_sentinel" translatable="false"><![CDATA[SENTINEL HUB]]></string>
-    <string name="str_front_guide_title_fetch" translatable="false"><![CDATA[FETCH AI NETWORK]]></string>
+    <string name="str_front_guide_title_akash" translatable="false"><![CDATA[AKASH]]></string>
+    <string name="str_front_guide_title_secret" translatable="false"><![CDATA[SECRET]]></string>
+    <string name="str_front_guide_title_persistence" translatable="false"><![CDATA[PERSISTENCE]]></string>
+    <string name="str_front_guide_title_sentinel" translatable="false"><![CDATA[SENTINEL]]></string>
+    <string name="str_front_guide_title_fetch" translatable="false"><![CDATA[FETCH.AI]]></string>
     <string name="str_front_guide_title_crypto" translatable="false"><![CDATA[CRYPTO.ORG]]></string>
     <string name="str_front_guide_title_sif" translatable="false"><![CDATA[SIF]]></string>
-    <string name="str_front_guide_title_ki" translatable="false"><![CDATA[KI FOUNDATATION]]></string>
+    <string name="str_front_guide_title_ki" translatable="false"><![CDATA[KI]]></string>
     <string name="str_front_guide_title_rizon" translatable="false"><![CDATA[RIZON]]></string>
     <string name="str_front_guide_title_medi" translatable="false"><![CDATA[MEDIBLOC]]></string>
-    <string name="str_front_guide_title_althea" translatable="false"><![CDATA[ALTHEA NETWORK]]></string>
+    <string name="str_front_guide_title_althea" translatable="false"><![CDATA[ALTHEA]]></string>
     <string name="str_front_guide_title_osmosis" translatable="false"><![CDATA[OSMOSIS]]></string>
-    <string name="str_front_guide_title_umee" translatable="false"><![CDATA[UMEE (The Ocean)]]></string>
-    <string name="str_front_guide_title_axelar" translatable="false"><![CDATA[AXELAR NETWORK]]></string>
+    <string name="str_front_guide_title_umee" translatable="false"><![CDATA[UMEE]]></string>
+    <string name="str_front_guide_title_axelar" translatable="false"><![CDATA[AXELAR]]></string>
     <string name="str_front_guide_title_emoney" translatable="false"><![CDATA[E-Money]]></string>
     <string name="str_front_guide_title_juno" translatable="false"><![CDATA[JUNO]]></string>
-    <string name="str_front_guide_title_regen" translatable="false"><![CDATA[REGEN NETWORK]]></string>
-    <string name="str_front_guide_title_bitcanna" translatable="false"><![CDATA[BITCANNA NETWORK]]></string>
+    <string name="str_front_guide_title_regen" translatable="false"><![CDATA[REGEN]]></string>
+    <string name="str_front_guide_title_bitcanna" translatable="false"><![CDATA[BITCANNA]]></string>
     <string name="str_front_guide_title_stargaze" translatable="false"><![CDATA[STARGAZE]]></string>
-    <string name="str_front_guide_title_grabridge" translatable="false"><![CDATA[GRAVITY BRIDGE]]></string>
+    <string name="str_front_guide_title_grabridge" translatable="false"><![CDATA[G-BRIDGE]]></string>
     <string name="str_front_guide_title_comdex" translatable="false"><![CDATA[COMDEX]]></string>
-    <string name="str_front_guide_title_injective" translatable="false"><![CDATA[INJECTIVE PROTOCOL]]></string>
-    <string name="str_front_guide_title_bitsong" translatable="false"><![CDATA[BITSONG NETWORK]]></string>
-    <string name="str_front_guide_title_desmos" translatable="false"><![CDATA[DESMOS NETWORK]]></string>
-    <string name="str_front_guide_title_lum" translatable="false"><![CDATA[LUM NETWORK]]></string>
+    <string name="str_front_guide_title_injective" translatable="false"><![CDATA[INJECTIVE]]></string>
+    <string name="str_front_guide_title_bitsong" translatable="false"><![CDATA[BITSONG]]></string>
+    <string name="str_front_guide_title_desmos" translatable="false"><![CDATA[DESMOS]]></string>
+    <string name="str_front_guide_title_lum" translatable="false"><![CDATA[LUM]]></string>
     <string name="str_front_guide_title_chihuahua" translatable="false"><![CDATA[CHIHUAHUA]]></string>
     <string name="str_front_guide_title_konstellation" translatable="false"><![CDATA[KONSTELLATION]]></string>
     <string name="str_front_guide_title_evmos" translatable="false"><![CDATA[EVMOS]]></string>
@@ -297,7 +298,7 @@
     <string name="str_front_guide_title_cerberus" translatable="false"><![CDATA[CERBERUS]]></string>
     <string name="str_front_guide_title_omniflix" translatable="false"><![CDATA[OMNIFLIX]]></string>
     <string name="str_front_guide_title_crescent" translatable="false"><![CDATA[CRESCENT]]></string>
-    <string name="str_front_guide_title_assetmantle" translatable="false"><![CDATA[ASSET MANTLE]]></string>
+    <string name="str_front_guide_title_assetmantle" translatable="false"><![CDATA[ASSETMANTLE]]></string>
     <string name="str_front_guide_title_station" translatable="false"><![CDATA[STATION]]></string>
     <string name="str_front_guide_title_nyx" translatable="false"><![CDATA[NYX]]></string>
     <string name="str_front_guide_title_passage" translatable="false"><![CDATA[PASSAGE]]></string>
@@ -310,6 +311,7 @@
     <string name="str_front_guide_title_xpla" translatable="false"><![CDATA[XPLA]]></string>
     <string name="str_front_guide_title_onomy" translatable="false"><![CDATA[ONOMY]]></string>
     <string name="str_front_guide_title_quicksilver" translatable="false"><![CDATA[QUICKSILVER]]></string>
+    <string name="str_front_guide_title_mars" translatable="false"><![CDATA[MARS]]></string>
 
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
@@ -365,6 +367,7 @@
     <string name="str_front_guide_msg_xpla"><![CDATA[XPLA is a gaming media content-focused Cosmos SDK network built by Com2uS Corporation.]]></string>
     <string name="str_front_guide_msg_onomy"><![CDATA[Onomy is a Cosmos SDK-based layer-1 protocol designed for Onomy Exchange and Onomy Reserve.]]></string>
     <string name="str_front_guide_msg_quicksilver"><![CDATA[Quicksilver Protocol is an liquid staking protocol for the Cosmos Interchain ecosystem.]]></string>
+    <string name="str_front_guide_msg_mars"><![CDATA[Mars Hub is the governing app-chain that administers Mars Protocol’s various DeFi outposts across the Interchain ecosystem.]]></string>
 
 
     <string name="str_current_reward_address">Current Reward Address</string>
@@ -625,6 +628,7 @@
     <string name="str_no_history_with_this_validator">No history.</string>
     <string name="str_change_account_nickname">Change Wallet Name</string>
     <string name="str_change_mnemonic_nickname">Change Mnemonic Name</string>
+    <string name="str_set_mnemonic_nickname">Set Mnemonic</string>
     <string name="str_start_delegate">Delegate your tokens with Cosmostation.\nStart earning staking rewards and contribute\nto the network ecosystem.</string>
     <string name="str_only_observe_title">No Private Key.</string>
     <string name="str_only_observe_msg">This account has only address with watch mode.\nYou need add mnemonics for generate transaction.\n</string>
@@ -1382,8 +1386,8 @@
     <string name="title_liquid_unstaking" translatable="false">Unstaking</string>
     <string name="str_liquid_staking"><![CDATA[Liquid Staking]]></string>
     <string name="str_liquid_unstaking"><![CDATA[Liquid Unstaking]]></string>
-    <string name="str_start_staking">START STAKE</string>
-    <string name="str_start_unstaking">START UNSTAKE</string>
+    <string name="str_start_staking">Start Stake</string>
+    <string name="str_start_unstaking">Start Unstake</string>
     <string name="str_liquid_input">Insert Amount</string>
     <string name="str_liquid_output">Withdraw Amount(est)</string>
     <string name="str_liquid_creator">Creator</string>

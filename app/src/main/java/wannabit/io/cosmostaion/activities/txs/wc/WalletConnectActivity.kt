@@ -70,11 +70,9 @@ import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data.WcSignRawDataListener
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
-import wannabit.io.cosmostaion.model.StdSignMsg
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
 import wannabit.io.cosmostaion.model.type.Coin
-import wannabit.io.cosmostaion.model.type.Msg
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 import wannabit.io.cosmostaion.utils.WUtil
@@ -488,17 +486,18 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
-    private val processGetCosmosAccounts = { id: Long, strings: List<String> ->
+    private val processGetCosmosAccounts = { id: Long, strings: List<String>? ->
         runOnUiThread {
-            showAccountDialog(
-                strings, mutableListOf()
-            ) { accounts ->
-                fillConnectInfoAddressIfNeed()
-                wcV1Client?.approveRequest(id, accounts.mapNotNull {
-                    toCosmosatationAccount(
-                        it
-                    )
-                })
+            if (strings != null) {
+                showAccountDialog(strings, mutableListOf()) { accounts ->
+                    fillConnectInfoAddressIfNeed()
+                    wcV1Client?.approveRequest(id, accounts.mapNotNull {
+                        toCosmosatationAccount(it)
+                    })
+                }
+            } else {
+                wcV1Client?.rejectRequest(id, "null point exception.")
+                Toast.makeText(baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT).show()
             }
         }
     }

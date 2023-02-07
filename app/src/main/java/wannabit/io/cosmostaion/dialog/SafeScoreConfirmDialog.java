@@ -30,7 +30,7 @@ public class SafeScoreConfirmDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_safe_score_confirm, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_safe_score_confirm, null);
         LinearLayout before_risk_layer = view.findViewById(R.id.before_risk_layer);
         TextView before_risk_rate = view.findViewById(R.id.before_risk_rate);
         TextView before_risk_score = view.findViewById(R.id.before_risk_score);

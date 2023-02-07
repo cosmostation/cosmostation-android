@@ -84,7 +84,7 @@ public class Dialog_Wc_Raw_Data extends DialogFragment {
     }
 
     private View settingViews() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wc_raw_data, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_wc_raw_data, null);
         wcRawDetailLayout = view.findViewById(R.id.layout_wc_detail);
         wcRawDataLayout = view.findViewById(R.id.layout_wc_raw_data);
         buttonWrapLayout = view.findViewById(R.id.btn_wrap_layout);

@@ -42,7 +42,13 @@ public class MintscanOsmoPoolListTask extends CommonTask {
 
             if (response.body() != null && response.body().size() > 0) {
                 mResult.isSuccess = true;
-                mResult.resultData = response.body();
+                ArrayList<SupportPool> result = new ArrayList<>();
+                for (SupportPool pool : response.body()) {
+                    if (!pool.type.equalsIgnoreCase("/osmosis.gamm.poolmodels.stableswap.v1beta1.Pool")) {
+                        result.add(pool);
+                    }
+                }
+                mResult.resultData = result;
             }
 
         } catch (Exception e) {

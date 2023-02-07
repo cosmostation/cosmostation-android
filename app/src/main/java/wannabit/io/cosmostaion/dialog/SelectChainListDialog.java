@@ -84,7 +84,7 @@ public class SelectChainListDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_template_recycler, null);
         mSwapCoinList = getArguments().getStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY);
         mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable(SelectChainListDialog.FEE_DATA_LIST_BUNDLE_KEY);
         mSendCoinList = (ArrayList<Coin>) getArguments().getSerializable(SelectChainListDialog.SEND_COIN_LIST_BUNDLE_KEY);

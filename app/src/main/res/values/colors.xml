@@ -65,6 +65,7 @@
     <color name="colorTransBgXpla">#ebf9ff</color>
     <color name="colorTransBgOnomy">#eeeff9</color>
     <color name="colorTransBgQuicksilver">#eaebef</color>
+    <color name="colorTransBgMars">#F6DFDD</color>
 
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -215,6 +216,8 @@
     <color name="color_onomy">#8c94d3</color>
 
     <color name="color_quicksilver">#9b9b9b</color>
+
+    <color name="color_mars">#DA3A14</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

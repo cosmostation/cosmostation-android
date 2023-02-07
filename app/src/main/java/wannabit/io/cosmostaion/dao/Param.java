@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.dao;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 
@@ -113,6 +114,12 @@ public class Param {
 
         @SerializedName("stride_minting_epoch_provisions")
         public StrideMintingEpochProvisions mStrideMintingEpochProvisions;
+
+        @SerializedName("mars_vesting_balance")
+        public MarsVestingBalance mMarsVestingBalance;
+
+        @SerializedName("cudos_minting_params")
+        public CudosMintingParams mCudosMintingParams;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -178,6 +185,13 @@ public class Param {
                 BigDecimal epochProvisions = new BigDecimal(mParams.mStrideMintingEpochProvisions.epoch_provisions);
                 BigDecimal epochPeriods = new BigDecimal(mParams.mStrideMintingParams.params.reduction_period_in_epochs);
                 return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
+            }
+
+        } else if (chainConfig.baseChain().equals(CUDOS_MAIN)) {
+            if (mParams.mCudosMintingParams != null && !mParams.mCudosMintingParams.inflation.isEmpty()) {
+                return new BigDecimal(mParams.mCudosMintingParams.inflation);
+            } else {
+                return BigDecimal.ZERO;
             }
 
         } else {
@@ -285,6 +299,13 @@ public class Param {
                     if (mParams.mStrideMintingParams != null && mParams.mStrideMintingParams.params != null && mParams.mStrideMintingParams.params.mStrideDistributionProportions != null) {
                         BigDecimal stakingDistribution = new BigDecimal(mParams.mStrideMintingParams.params.mStrideDistributionProportions.staking);
                         return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                    }
+
+                } else if (chainConfig.baseChain().equals(CUDOS_MAIN)) {
+                    if (mParams.mCudosMintingParams != null && !mParams.mCudosMintingParams.apr.isEmpty()) {
+                        return new BigDecimal(mParams.mCudosMintingParams.apr);
+                    } else {
+                        return BigDecimal.ZERO;
                     }
 
                 } else {
@@ -408,6 +429,15 @@ public class Param {
             return mGasPrice.rate;
         }
         return null;
+    }
+
+    public BigDecimal getTurnoutBondedAmount() {
+        if (mParams.mMarsVestingBalance != null && mParams.mMarsVestingBalance.balances.size() > 0) {
+            BigDecimal marsVestingAmount = new BigDecimal(mParams.mMarsVestingBalance.balances.get(0).amount);
+            return getBondedAmount().add(marsVestingAmount);
+        } else {
+            return getBondedAmount();
+        }
     }
 
     public class IrisMintingParams {
@@ -719,5 +749,21 @@ public class Param {
     public class StrideMintingEpochProvisions {
         @SerializedName("epoch_provisions")
         public String epoch_provisions;
+    }
+
+    public class MarsVestingBalance {
+        @SerializedName("balances")
+        public ArrayList<Coin> balances;
+    }
+
+    public class CudosMintingParams {
+        @SerializedName("inflation")
+        public String inflation;
+
+        @SerializedName("apr")
+        public String apr;
+
+        @SerializedName("supply")
+        public String supply;
     }
 }
