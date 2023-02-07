@@ -103,7 +103,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_12"
-                                android:text="YES" />
+                                android:text="Yes" />
 
                             <ImageView
                                 android:id="@+id/checkImg_selected_yes"
@@ -133,7 +133,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="@dimen/space_12"
-                                android:text="NO" />
+                                android:text="No" />
 
                             <ImageView
                                 android:id="@+id/checkImg_selected_no"
