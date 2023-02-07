@@ -70,7 +70,7 @@
                 <TextView
                     android:id="@+id/vote_title_id"
                     style="@style/font_rb_14_black_daynight"
-                    android:layout_width="@dimen/space_30"
+                    android:layout_width="@dimen/space_36"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="" />
@@ -82,9 +82,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_8"
+                    android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/vote_title_id"
-                    android:ellipsize="middle"
+                    android:ellipsize="end"
                     android:singleLine="true" />
             </RelativeLayout>
 
