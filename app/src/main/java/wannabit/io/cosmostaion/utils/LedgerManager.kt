@@ -17,6 +17,7 @@ import com.ledger.live.ble.BleManager
 import com.ledger.live.ble.BleManagerFactory
 import com.ledger.live.ble.app.BleCosmosHelper
 import com.ledger.live.ble.model.BleDeviceModel
+import com.ledger.live.ble.model.BleError
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseApplication
@@ -47,6 +48,12 @@ class LedgerManager {
             return
         }
 
+        val btAdapter = context.getSystemService(BluetoothManager::class.java).adapter
+        if (!btAdapter.isEnabled) {
+            listener.error(ErrorType.BLUETOOTH_OFF)
+            return
+        }
+
         CommonAlertDialog.showSecondImageDoubleButton(
             context,
             context.getString(R.string.str_ledger),
@@ -58,33 +65,49 @@ class LedgerManager {
                 TedPermission(context).setPermissionListener(object : PermissionListener {
                     @SuppressLint("MissingPermission")
                     override fun onPermissionGranted() {
-                        val btAdapter =
-                            context.getSystemService(BluetoothManager::class.java).adapter
                         val pairedDevices = btAdapter.bondedDevices
 
-                        if (!btAdapter.isEnabled) {
-                            listener.error(ErrorType.BLUETOOTH_OFF)
-                            return
-                        }
-
                         val nanoDevices = pairedDevices.filter { it.name.contains("Nano X") }
-                        val dialog = showDevicePicker(
-                            context, context.getString(R.string.str_pairing_ledger_title)
-                        )
                         val bluetoothDevices = mutableListOf<BleDeviceModel>()
-                        nanoDevices.forEach { blueToothDevice ->
-                            showDialog(dialog, blueToothDevice.name, blueToothDevice.address)
-                        }
-                        bleManager.startScanning {
-                            it.forEach { blueToothDevice ->
-                                val matched = nanoDevices.find { it.address == blueToothDevice.id }
-                                val bleMatched =
-                                    bluetoothDevices.find { it.id == blueToothDevice.id }
-                                if (matched != null || bleMatched != null) {
-                                    return@forEach
+
+                        if (nanoDevices.isEmpty()) {
+                            val dialog = showDevicePicker(
+                                context, context.getString(R.string.str_pairing_ledger_title) + "..."
+                            )
+                            bleManager.startScanning {
+                                it.forEach { blueToothDevice ->
+                                    val matched = nanoDevices.find { it.address == blueToothDevice.id }
+                                    val bleMatched =
+                                        bluetoothDevices.find { it.id == blueToothDevice.id }
+                                    if (matched != null || bleMatched != null) {
+                                        return@forEach
+                                    }
+                                    bluetoothDevices.add(blueToothDevice)
+                                    if (bluetoothDevices.isNotEmpty()) {
+                                        dialog.dismiss()
+                                        showDialog(showDevicePicker(context, context.getString(R.string.str_pairing_ledger_title)), blueToothDevice.name, blueToothDevice.id)
+                                    }
                                 }
-                                bluetoothDevices.add(blueToothDevice)
-                                showDialog(dialog, blueToothDevice.name, blueToothDevice.id)
+                            }
+
+                        } else {
+                            nanoDevices.forEach { blueToothDevice ->
+                                showDialog(showDevicePicker(
+                                    context, context.getString(R.string.str_pairing_ledger_title)
+                                ), blueToothDevice.name, blueToothDevice.address)
+                            }
+
+                            bleManager.startScanning {
+                                it.forEach { blueToothDevice ->
+                                    val matched = nanoDevices.find { it.address == blueToothDevice.id }
+                                    val bleMatched =
+                                        bluetoothDevices.find { it.id == blueToothDevice.id }
+                                    if (matched != null || bleMatched != null) {
+                                        return@forEach
+                                    }
+                                    bluetoothDevices.add(blueToothDevice)
+                                    showDialog(showDevicePicker(context, context.getString(R.string.str_pairing_ledger_title)), blueToothDevice.name, blueToothDevice.id)
+                                }
                             }
                         }
                     }
@@ -203,7 +226,17 @@ class LedgerManager {
             } else {
                 val activity: Activity = context as Activity
                 activity.runOnUiThread {
-                    ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
+                    if (bleError.message.equals(BleError.PAIRING_FAILED)) {
+                        ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
+                    } else {
+                        dialog.dismiss()
+                        FilledVerticalButtonAlertDialog.showNoButton(
+                            context,
+                            null,
+                            context.getString(R.string.str_ledger_pairng_guide_msg),
+                            true
+                        )
+                    }
                     ledgerStatus.setTextColor(
                         ContextCompat.getColor(
                             context, R.color.colorRed

@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.LedgerSelectActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicCreateActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.setting.PrivateKeyRestoreActivity;
@@ -64,9 +66,32 @@ public class Dialog_AddAccount extends DialogFragment {
         });
 
         btn_ledger.setOnClickListener(v -> {
-//            LedgerManager.getInstance().connectLedger(requireContext(), false);
+            if (LedgerManager.getInstance().isConnected()) {
+                LedgerManager.getInstance().getBleManager().disconnect(() -> {
+                    showLedgerPicker();
+                    return null;
+                });
+            } else {
+                showLedgerPicker();
+            }
         });
 
         return view;
+    }
+
+    private void showLedgerPicker() {
+        getActivity().runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(requireContext(), new LedgerManager.ConnectListener() {
+            @Override
+            public void error(@NonNull LedgerManager.ErrorType errorType) {
+                if (errorType.equals(LedgerManager.ErrorType.BLUETOOTH_OFF)) {
+                    FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_pairing_connect_bluetooth_msg), true);
+                }
+            }
+
+            @Override
+            public void connected() {
+                startActivity(new Intent(getActivity(), LedgerSelectActivity.class));
+            }
+        }));
     }
 }

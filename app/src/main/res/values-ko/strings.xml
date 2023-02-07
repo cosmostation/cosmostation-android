@@ -940,7 +940,6 @@
     <string name="str_connect_ledger_msg"><![CDATA[1. 렛저를 <font color=\'#05D2DD\'>잠금 해제</font>하세요.<br/>2. <font color=\'#05D2DD\'>코스모스 앱</font>을 실행하세요.]]></string>
     <string name="str_pairing_ledger_title">렛저 연결중</string>
     <string name="str_pairing_connect_bluetooth_msg">블루투스를 활성화시켜주세요.</string>
-    <string name="str_pairing_ledger_msg">블루투스 기기를 찾지 못했습니다.</string>
     <string name="str_ledger_pairing_completed_msg">렛저 연결 완료.</string>
     <string name="str_select_chain_title">체인 선택하기</string>
     <string name="str_supporting_chain_title">지원하는 체인</string>
@@ -952,8 +951,7 @@
     <string name="str_imported_ledger_title">렛저 추가</string>
     <string name="str_imported_ledger_msg">선택한 지갑은 렛저로 이미 등록된 지갑입니다.\n\n니모닉이나 개인키로 지갑을 사용하려면 렛저지갑을 삭제 후 [니모닉 관리]를 통해 추가해주시기 바랍니다.</string>
     <string name="str_ledger_delete_msg">렛저지갑의 모든 정보가 삭제됩니다.\n다시 추가하시려면, 렛저를 다시 연결해서 지갑을 추가하실 수 있습니다.</string>
-    <string name="str_pair_selected_account_title">현재 계정으로 연결</string>
-    <string name="str_pair_different_account_title">다른 계정으로 연결</string>
+    <string name="str_ledger_pairng_guide_msg">GUIDE</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

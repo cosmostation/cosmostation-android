@@ -447,7 +447,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         getActivity().runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(requireContext(), new LedgerManager.ConnectListener() {
             @Override
             public void error(@NonNull LedgerManager.ErrorType errorType) {
-                FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_pairing_ledger_msg), true);
+                if (errorType.equals(LedgerManager.ErrorType.BLUETOOTH_OFF)) {
+                    FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_pairing_connect_bluetooth_msg), true);
+                }
             }
 
             @Override
