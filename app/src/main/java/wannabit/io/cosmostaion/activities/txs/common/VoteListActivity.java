@@ -431,7 +431,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             this.sticky = sticky;
             this.sectionCallback = sectionCallback;
 
-            topPadding = dpToPx(context, 26);
+            topPadding = dpToPx(context, 34);
         }
 
         // dp -> pixel 단위로 변경
