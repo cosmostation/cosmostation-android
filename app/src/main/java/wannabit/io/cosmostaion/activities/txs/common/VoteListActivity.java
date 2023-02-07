@@ -464,8 +464,8 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     title = sectionCallback.SectionHeader(mVotingPeriodProposalsList, mSection);
                     mItemCnt.setText("" + mVotingPeriodProposalsList.size());
                 } else if (mSection == SECTION_PROPOSALS) {
-                    title = sectionCallback.SectionHeader(mExtraProposalsList, mSection);
-                    mItemCnt.setText("" + mExtraProposalsList.size());
+                    title = sectionCallback.SectionHeader(mDepositProposalsList, mSection);
+                    mItemCnt.setText("" + mDepositProposalsList.size());
                 }
                 mHeaderTitle.setText(title);
                 if (!headerTitleSet.contains(title) || sectionCallback.isSection(position)) {
@@ -529,7 +529,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         return new SectionCallback() {
             @Override
             public boolean isSection(int position) {
-                return position == 0 || position == mVotingPeriodProposalsList.size() || position == mVotingPeriodProposalsList.size() + mExtraProposalsList.size();
+                return position == 0 || position == mVotingPeriodProposalsList.size() || position == mVotingPeriodProposalsList.size() + mDepositProposalsList.size();
             }
 
             @Override
