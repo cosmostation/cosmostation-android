@@ -49,15 +49,15 @@ class LedgerSelectActivity : BaseActivity() {
             val numberPicker = NumberPickerDialog.newInstance()
             numberPicker.selectListener = SelectListener { path: Int ->
                 binding.path.text = "$path"
-                con()
+                connectLedger()
             }
             numberPicker.isCancelable = false
             numberPicker.show(supportFragmentManager, NumberPickerDialog::class.java.name)
         }
-        con()
+        connectLedger()
     }
 
-    private fun con() {
+    private fun connectLedger() {
         LedgerManager.instance.pickLedgerDevice(this, object : LedgerManager.ConnectListener {
             override fun error(errorType: LedgerManager.ErrorType) {
             }

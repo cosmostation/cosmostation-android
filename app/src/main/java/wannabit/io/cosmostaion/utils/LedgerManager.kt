@@ -17,7 +17,6 @@ import com.ledger.live.ble.BleManager
 import com.ledger.live.ble.BleManagerFactory
 import com.ledger.live.ble.app.BleCosmosHelper
 import com.ledger.live.ble.model.BleDeviceModel
-import com.ledger.live.ble.model.BleError
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseApplication
@@ -72,18 +71,22 @@ class LedgerManager {
                         val dialog = showDevicePicker(
                             context, context.getString(R.string.str_pairing_ledger_title)
                         )
+                        val bluetoothDevices = mutableListOf<BleDeviceModel>()
                         nanoDevices.forEach { blueToothDevice ->
                             showDialog(dialog, blueToothDevice.name, blueToothDevice.address)
                         }
-//                        bleManager.startScanning {
-//                            it.forEach { blueToothDevice ->
-//                                val matched = nanoDevices.find { it.address == blueToothDevice.id }
-//                                if (matched != null) {
-//                                    return@forEach
-//                                }
-//                                showDialog(dialog, blueToothDevice.name, blueToothDevice.id)
-//                            }
-//                        }
+                        bleManager.startScanning {
+                            it.forEach { blueToothDevice ->
+                                val matched = nanoDevices.find { it.address == blueToothDevice.id }
+                                val bleMatched =
+                                    bluetoothDevices.find { it.id == blueToothDevice.id }
+                                if (matched != null || bleMatched != null) {
+                                    return@forEach
+                                }
+                                bluetoothDevices.add(blueToothDevice)
+                                showDialog(dialog, blueToothDevice.name, blueToothDevice.id)
+                            }
+                        }
                     }
 
                     private fun showDialog(
@@ -149,8 +152,7 @@ class LedgerManager {
         listener: ConnectListener,
         dialog: FilledVerticalButtonAlertDialog
     ) {
-        BleCosmosHelper.getAddress(
-            bleManager,
+        BleCosmosHelper.getAddress(bleManager,
             listener = object : BleCosmosHelper.GetAddressListener {
                 override fun error(code: String, message: String) {
                     val activity: Activity = context as Activity
@@ -178,30 +180,41 @@ class LedgerManager {
         listener: ConnectListener,
         dialog: FilledVerticalButtonAlertDialog
     ) {
-        bleManager.connect(address = devideId, onConnectError = { bleError ->
-            val activity: Activity = context as Activity
-            activity.runOnUiThread {
-                ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
-                ledgerStatus.setTextColor(
-                    ContextCompat.getColor(
-                        context, R.color.colorRed
-                    )
-                )
+        if (bleManager.isConnected) {
+            bleManager.disconnect {
+                connect(devideId, context, ledgerStatus, listener, dialog, 0)
             }
+        } else {
+            connect(devideId, context, ledgerStatus, listener, dialog, 0)
+        }
+    }
 
+    private fun connect(
+        devideId: String,
+        context: Context,
+        ledgerStatus: TextView,
+        listener: ConnectListener,
+        dialog: FilledVerticalButtonAlertDialog,
+        retryCount: Int
+    ) {
+        bleManager.connect(address = devideId, onConnectError = { bleError ->
+            if (retryCount == 0) {
+                connect(devideId, context, ledgerStatus, listener, dialog, 1)
+            } else {
+                val activity: Activity = context as Activity
+                activity.runOnUiThread {
+                    ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
+                    ledgerStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context, R.color.colorRed
+                        )
+                    )
+                }
+            }
         }, onConnectSuccess = { bleDeviceModel ->
             connectedDevice = bleDeviceModel
             onCheckOpenLedgerApp(context, ledgerStatus, listener, dialog)
         })
-    }
-
-    fun connectBluetooth(context: Context) {
-        FilledVerticalButtonAlertDialog.showNoButton(
-            context,
-            context.getString(R.string.str_pairing_ledger_title),
-            context.getString(R.string.str_pairing_connect_bluetooth_msg),
-            true
-        )
     }
 
     enum class ErrorType {

@@ -433,15 +433,21 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onLedgerConnect() {
+        if (LedgerManager.getInstance().isConnected()) {
+            LedgerManager.getInstance().getBleManager().disconnect(() -> {
+                showLedgerPicker();
+                return null;
+            });
+        } else {
+            showLedgerPicker();
+        }
+    }
+
+    private void showLedgerPicker() {
         getActivity().runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(requireContext(), new LedgerManager.ConnectListener() {
             @Override
             public void error(@NonNull LedgerManager.ErrorType errorType) {
-                FilledVerticalButtonAlertDialog.showNoButton(
-                        getContext(),
-                        getString(R.string.str_pairing_ledger_title),
-                        getString(R.string.str_pairing_ledger_msg),
-                        true
-                );
+                FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_pairing_ledger_msg), true);
             }
 
             @Override

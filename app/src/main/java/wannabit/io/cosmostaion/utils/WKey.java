@@ -705,35 +705,6 @@ public class WKey {
         return authStub.account(request);
     }
 
-    public static BroadcastReceiver getLedgerReceiver(Context c) {
-        return new BroadcastReceiver() {
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                WLog.w("Test1234 : " + action);
-                if (BluetoothDevice.ACTION_FOUND.equalsIgnoreCase(action)) {
-                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                    String deviceName = device.getName();
-                    String deviceAddress = device.getAddress();
-
-                    if (deviceName != null && deviceAddress != null && deviceName.contains("Nano X")) {
-//                        service = new BleServiceStateMachine(new BleGattCallbackFlow(), deviceAddress, device);
-//                        service.build(getActivity());
-                        device.createBond();
-                    }
-
-                } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                    FilledVerticalButtonAlertDialog.showNoButton(
-                            c,
-                            c.getString(R.string.str_pairing_ledger_title),
-                            c.getString(R.string.str_pairing_ledger_msg),
-                            true);
-                }
-            }
-        };
-    }
-
     public static StdSignMsg onSetLedgerSignMsg(BaseData baseData, ChainConfig chainConfig, Account account, ArrayList<Msg> txMsgs, Fee fee, String memo) {
         ArrayList<Serializable> authInfo = Signer.onParseAuthGrpc(onAuthResponse(chainConfig.baseChain(), account));
         return MsgGenerator.genToSignMsg(baseData.getChainIdGrpc(), "" + authInfo.get(1), "" + authInfo.get(2), txMsgs, fee, memo);
