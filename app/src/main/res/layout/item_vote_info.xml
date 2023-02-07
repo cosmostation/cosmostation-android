@@ -84,7 +84,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/vote_title_id"
-                    android:ellipsize="middle"
+                    android:ellipsize="end"
                     android:singleLine="true" />
             </RelativeLayout>
 
