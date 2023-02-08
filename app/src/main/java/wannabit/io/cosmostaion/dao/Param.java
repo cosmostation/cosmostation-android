@@ -120,6 +120,15 @@ public class Param {
 
         @SerializedName("cudos_minting_params")
         public CudosMintingParams mCudosMintingParams;
+
+        @SerializedName("axelar_key_mgmt_relative_inflation_rate")
+        public String axelarKeyInflationRate;
+
+        @SerializedName("axelar_external_chain_voting_inflation_rate")
+        public String axelarExternalInflationRate;
+
+        @SerializedName("axelar_evm_chains")
+        public ArrayList<String> axelarEvmChainList;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -172,7 +181,15 @@ public class Param {
             }
 
         } else if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN)) {
-            return new BigDecimal("0.150000000000000000");
+            BigDecimal baseInflation = new BigDecimal(mParams.mMintingInflation.inflation);
+            BigDecimal keyManageRate = new BigDecimal(mParams.axelarKeyInflationRate);
+            BigDecimal externalRate = new BigDecimal(mParams.axelarExternalInflationRate);
+            BigDecimal evmChainCnt = new BigDecimal(mParams.axelarEvmChainList.size());
+
+            BigDecimal keyManageInflation = baseInflation.multiply(keyManageRate);
+            BigDecimal externalEvmInflation = externalRate.multiply(evmChainCnt);
+            return baseInflation.add(keyManageInflation).add(externalEvmInflation);
+
 
         } else if (chainConfig.baseChain().equals(BaseChain.TERITORI_MAIN)) {
             if (mParams.mTeritoriMintingParams != null && mParams.mTeritoriMintingParams.params != null) {
