@@ -63,7 +63,18 @@ class DappFragment : BaseFragment() {
 
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 (activity as? MainActivity)?.let {
-                    if (!it.mAccount.hasPrivateKey) {
+                    if (it.mAccount.isLedger) {
+                        CommonAlertDialog.showSingleButton(
+                            it,
+                            it.getString(R.string.str_with_ledger),
+                            it.getString(R.string.str_ledger_not_support_dapp_msg),
+                            it.getString(R.string.str_confirm),
+                            null,
+                            true
+                        )
+                        return true
+
+                    } else if (!it.mAccount.hasPrivateKey) {
                         CommonAlertDialog.showDoubleButton(
                             it,
                             it.getString(R.string.str_only_observe_title),
@@ -74,17 +85,6 @@ class DappFragment : BaseFragment() {
                             null
                         )
                         return true
-
-                    } else if (it.mAccount.isLedger) {
-                        CommonAlertDialog.showDoubleButton(
-                            it,
-                            it.getString(R.string.str_only_observe_title),
-                            it.getString(R.string.str_only_observe_msg),
-                            Html.fromHtml("<font color=\"#9C6CFF\">" + it.getString(R.string.str_add_mnemonics) + "</font>", Html.FROM_HTML_MODE_COMPACT),
-                            { view: View? -> it.onAddMnemonicForAccount() },
-                            it.getString(R.string.str_close),
-                            null
-                        )
                     }
                 }
 

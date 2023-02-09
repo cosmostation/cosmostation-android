@@ -230,10 +230,12 @@ class LedgerManager {
                         ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
                     } else {
                         dialog.dismiss()
-                        FilledVerticalButtonAlertDialog.showNoButton(
+                        CommonAlertDialog.showSingleButton(
                             context,
-                            null,
+                            context.getString(R.string.str_ledger_pairng_guide_title),
                             context.getString(R.string.str_ledger_pairng_guide_msg),
+                            context.getString(R.string.str_confirm),
+                            null,
                             true
                         )
                     }
