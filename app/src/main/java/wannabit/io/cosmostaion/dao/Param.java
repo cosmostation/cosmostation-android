@@ -222,8 +222,7 @@ public class Param {
             if (mParams.mCantoInflationParams != null && mParams.mCantoInflationParams.params != null && mParams.mCantoEpochMintProvision.mEpochMintProvision != null) {
                 if (!mParams.mCantoInflationParams.params.enable_inflation) return BigDecimal.ZERO;
                 BigDecimal annualProvisions = new BigDecimal(mParams.mCantoEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
-                BigDecimal evmosSupply = getMainSupply().subtract(new BigDecimal("200000000000000000000000000"));
-                return annualProvisions.divide(evmosSupply, 18, RoundingMode.DOWN);
+                return annualProvisions.divide(getMainSupply(), 18, RoundingMode.DOWN);
             }
 
         } else {

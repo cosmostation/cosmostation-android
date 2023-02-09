@@ -38,8 +38,10 @@ public class Canto extends ChainConfig {
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
+    public boolean erc20CoinSupport() { return true; }
 
     public String grpcUrl() { return "grpc-canto.cosmostation.io"; }
+    public String rpcUrl() { return "https://rpc-canto-app.cosmostation.io"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "canto/"; }
     public String homeInfoLink() { return  "https://canto.io/"; }
