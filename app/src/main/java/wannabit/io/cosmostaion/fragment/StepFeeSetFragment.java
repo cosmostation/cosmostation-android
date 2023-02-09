@@ -526,7 +526,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onTaskResponse(TaskResult result) {
         if (result.isSuccess && result.resultData != null) {
-            if (mChainConfig.baseChain().equals(BaseChain.EVMOS_MAIN) && getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) {
+            if ((mChainConfig.baseChain().equals(BaseChain.EVMOS_MAIN) && getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) ||
+                mChainConfig.baseChain().equals(BaseChain.CANTO_MAIN) && getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) {
                 BigDecimal gasLimit = new BigDecimal((String) result.resultData);
                 BigDecimal gasPrice = new BigDecimal(result.resultData2);
                 getSActivity().mHexValue = result.resultData3;
