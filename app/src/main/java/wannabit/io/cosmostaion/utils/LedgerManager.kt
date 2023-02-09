@@ -72,7 +72,7 @@ class LedgerManager {
 
                         if (nanoDevices.isEmpty()) {
                             val dialog = showDevicePicker(
-                                context, context.getString(R.string.str_pairing_ledger_title) + "..."
+                                context, context.getString(R.string.str_pairing_ledger_title)
                             )
                             bleManager.startScanning {
                                 it.forEach { blueToothDevice ->
@@ -84,17 +84,16 @@ class LedgerManager {
                                     }
                                     bluetoothDevices.add(blueToothDevice)
                                     if (bluetoothDevices.isNotEmpty()) {
-                                        dialog.dismiss()
-                                        showDialog(showDevicePicker(context, context.getString(R.string.str_pairing_ledger_title)), blueToothDevice.name, blueToothDevice.id)
+                                        showDialog(dialog, blueToothDevice.name, blueToothDevice.id)
                                     }
                                 }
                             }
 
                         } else {
+                            val dialog = showDevicePicker(
+                                context, context.getString(R.string.str_pairing_ledger_title))
                             nanoDevices.forEach { blueToothDevice ->
-                                showDialog(showDevicePicker(
-                                    context, context.getString(R.string.str_pairing_ledger_title)
-                                ), blueToothDevice.name, blueToothDevice.address)
+                                showDialog(dialog, blueToothDevice.name, blueToothDevice.address)
                             }
 
                             bleManager.startScanning {
@@ -106,7 +105,7 @@ class LedgerManager {
                                         return@forEach
                                     }
                                     bluetoothDevices.add(blueToothDevice)
-                                    showDialog(showDevicePicker(context, context.getString(R.string.str_pairing_ledger_title)), blueToothDevice.name, blueToothDevice.id)
+                                    showDialog(dialog, blueToothDevice.name, blueToothDevice.id)
                                 }
                             }
                         }
