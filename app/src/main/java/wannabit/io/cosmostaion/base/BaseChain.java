@@ -89,7 +89,9 @@ public enum BaseChain {
     XPLA_MAIN("xpla-mainnet"),
     ONOMY_MAIN("onomy-mainnet"),
     QUICKSILVER_MAIN("quicksilver-mainnet"),
-    MARS_MAIN("mars-mainnet");
+    MARS_MAIN("mars-mainnet"),
+    CANTO_MAIN("canto-mainnet");
+
 
     private final String chainName;
 
@@ -288,6 +290,9 @@ public enum BaseChain {
         if (chainName.equals(MARS_MAIN.chainName)) {
             return MARS_MAIN;
         }
+        if (chainName.equals(CANTO_MAIN.chainName)) {
+            return CANTO_MAIN;
+        }
         return null;
     }
 
@@ -302,6 +307,7 @@ public enum BaseChain {
         result.add(BNB_MAIN);
         result.add(BITCANNA_MAIN);
         result.add(BITSONG_MAIN);
+        result.add(CANTO_MAIN);
         result.add(CERBERUS_MAIN);
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);

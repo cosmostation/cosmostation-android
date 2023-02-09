@@ -1083,13 +1083,13 @@ public class Signer {
 
     public static TxOuterClass.TxRaw getGrpcRawTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
         TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber((Long) onParseAuthGrpc(auth).get(1)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleSignature(auth, pKey, signDoc.toByteArray(), pubKeyType, baseChain);
+        byte[] sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray(), pubKeyType, baseChain);
         return TxOuterClass.TxRaw.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
 
     public static TxOuterClass.Tx getGrpcSimulTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
         TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber((Long) onParseAuthGrpc(auth).get(1)).build();
-        byte[] sigbyte = Signer.getGrpcByteSingleSignature(auth, pKey, signDoc.toByteArray(), pubKeyType, baseChain);
+        byte[] sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray(), pubKeyType, baseChain);
         return TxOuterClass.Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
 
@@ -1109,9 +1109,9 @@ public class Signer {
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
-    public static byte[] getGrpcByteSingleSignature(QueryOuterClass.QueryAccountResponse auth, ECKey key, byte[] toSignByte, int pubKeyType, BaseChain baseChain) {
+    public static byte[] getGrpcByteSingleSignature(ECKey key, byte[] toSignByte, int pubKeyType, BaseChain baseChain) {
         byte[] sigData = new byte[64];
-        if (baseChain.equals(BaseChain.INJ_MAIN) || baseChain.equals(BaseChain.EVMOS_MAIN) || baseChain.equals(BaseChain.XPLA_MAIN) && pubKeyType == 1) {
+        if (baseChain.equals(BaseChain.INJ_MAIN) || baseChain.equals(BaseChain.EVMOS_MAIN) || (baseChain.equals(BaseChain.XPLA_MAIN) && pubKeyType == 1) || baseChain.equals(BaseChain.CANTO_MAIN)) {
             BigInteger privateKey = new BigInteger(key.getPrivateKeyAsHex(), 16);
             Sign.SignatureData sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey));
             System.arraycopy(sig.getR(), 0, sigData, 0, 32);

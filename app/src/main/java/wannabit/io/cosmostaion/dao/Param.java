@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dao;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -129,6 +130,12 @@ public class Param {
 
         @SerializedName("axelar_evm_chains")
         public ArrayList<String> axelarEvmChainList;
+
+        @SerializedName("canto_inflation_params")
+        public CantoInflationParams mCantoInflationParams;
+
+        @SerializedName("canto_epoch_mint_provision")
+        public CantoEpochMintProvision mCantoEpochMintProvision;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -211,8 +218,15 @@ public class Param {
                 return BigDecimal.ZERO;
             }
 
+        } else if (chainConfig.baseChain().equals(CANTO_MAIN)) {
+            if (mParams.mCantoInflationParams != null && mParams.mCantoInflationParams.params != null && mParams.mCantoEpochMintProvision.mEpochMintProvision != null) {
+                if (!mParams.mCantoInflationParams.params.enable_inflation) return BigDecimal.ZERO;
+                BigDecimal annualProvisions = new BigDecimal(mParams.mCantoEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
+                return annualProvisions.divide(getMainSupply(), 18, RoundingMode.DOWN);
+            }
+
         } else {
-            if (mParams != null && mParams.mMintingInflation != null) {
+            if (mParams != null && mParams.mMintingInflation != null && mParams.mMintingInflation.inflation != null) {
                 return new BigDecimal(mParams.mMintingInflation.inflation);
             }
         }
@@ -323,6 +337,18 @@ public class Param {
                         return new BigDecimal(mParams.mCudosMintingParams.apr);
                     } else {
                         return BigDecimal.ZERO;
+                    }
+
+                } else if (chainConfig.baseChain().equals(CANTO_MAIN)) {
+                    if (mParams.mCantoInflationParams != null && mParams.mCantoInflationParams.params != null && mParams.mCantoEpochMintProvision != null) {
+                        if (!mParams.mCantoInflationParams.params.enable_inflation)
+                            return BigDecimal.ZERO;
+                        BigDecimal stakingRewardsFactor = BigDecimal.ZERO;
+                        BigDecimal ap = new BigDecimal(mParams.mCantoEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
+                        if (mParams.mCantoInflationParams.params.mInflationDistribution != null) {
+                            stakingRewardsFactor = new BigDecimal(mParams.mCantoInflationParams.params.mInflationDistribution.staking_rewards);
+                        }
+                        return ap.multiply(stakingRewardsFactor).divide(getBondedAmount(), 6, RoundingMode.DOWN);
                     }
 
                 } else {
@@ -782,5 +808,31 @@ public class Param {
 
         @SerializedName("supply")
         public String supply;
+    }
+
+    public class CantoInflationParams {
+        @SerializedName("params")
+        public CantoInflationParam params;
+
+        public class CantoInflationParam {
+            @SerializedName("inflation_distribution")
+            public InflationDistribution mInflationDistribution;
+
+            @SerializedName("enable_inflation")
+            public boolean enable_inflation;
+
+            @SerializedName("mint_denom")
+            public String mint_denom;
+
+            public class InflationDistribution {
+                @SerializedName("staking_rewards")
+                public String staking_rewards;
+            }
+        }
+    }
+
+    public class CantoEpochMintProvision {
+        @SerializedName("epoch_mint_provision")
+        public Coin mEpochMintProvision;
     }
 }
