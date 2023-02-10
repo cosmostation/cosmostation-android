@@ -937,20 +937,20 @@
     <string name="str_not_support_bluetooth">このデバイスはBluetoothをサポートしていません。</string>
     <string name="str_connecting">接続中...</string>
     <string name="str_ledger_error">Ledger エラー</string>
-    <string name="str_connect_ledger_msg"><![CDATA[1. ledger <font color=\'#05D2DD\'>ロック解除</font><br/>2. <font color=\'#05D2DD\'>Cosmostation アプリ</font>を実行してください。]]></string>
-    <string name="str_pairing_ledger_title">ledger 接続中</string>
+    <string name="str_connect_ledger_msg"><![CDATA[1. Ledger <font color=\'#05D2DD\'>ロック解除</font><br/>2. <font color=\'#05D2DD\'>Cosmostation アプリ</font>を実行してください。]]></string>
+    <string name="str_pairing_ledger_title">Ledger 接続中</string>
     <string name="str_pairing_connect_bluetooth_msg">Bluetoothを有効にしてください</string>
-    <string name="str_ledger_pairing_completed_msg">レジャー接続完了</string>
+    <string name="str_ledger_pairing_completed_msg">Ledger接続完了</string>
     <string name="str_select_chain_title">チェーンの選択</string>
     <string name="str_supporting_chain_title">サポートするチェーン</string>
     <string name="str_ledger_approve_title">Sign TX</string>
-    <string name="str_ledger_approve_msg">ledgerでTxを承認してください。</string>
-    <string name="str_ledger_tx_reject_msg">ledgerでTxを辞退しました。</string>
+    <string name="str_ledger_approve_msg">LedgerでTxを承認してください。</string>
+    <string name="str_ledger_tx_reject_msg">LedgerでTxを辞退しました。</string>
     <string name="str_ledger_pairing_complete_msg">ペアリング完了</string>
-    <string name="str_with_ledger">ledger用ウォレット</string>
-    <string name="str_imported_ledger_title">ledgerを追加</string>
-    <string name="str_imported_ledger_msg">選択したウォレットは、ledgerとしてすでに登録されているウォレットです。\n\nニーモニックまたは秘密鍵でウォレットを使用するには、ledgerウォレットを削除して[ニーモニック管理]で追加してください。</string>
-    <string name="str_ledger_delete_msg">Ledgerウォレットのすべての情報が削除されます。\nもう一度追加するには、ledgerを再接続して財布を追加できます。</string>
+    <string name="str_with_ledger">Ledger用ウォレット</string>
+    <string name="str_imported_ledger_title">Ledgerを追加</string>
+    <string name="str_imported_ledger_msg">選択したウォレットは、Ledgerとしてすでに登録されているウォレットです。\n\nニーモニックまたは秘密鍵でウォレットを使用するには、Ledgerウォレットを削除して[ニーモニック管理]で追加してください。</string>
+    <string name="str_ledger_delete_msg">Ledgerウォレットのすべての情報が削除されます。\nもう一度追加するには、Ledgerを再接続して財布を追加できます。</string>
     <string name="str_ledger_pairng_guide_title">接続 エラー</string>
     <string name="str_ledger_pairng_guide_msg">1. 携帯電話のBluetoothデバイス接続リストからLedgerデバイスを切断する。\n2. LedgerデバイスでCosmostationアプリを開く。\n3. Bluetoothデバイス接続リストからLedgerデバイスペアリングを接続する。\n\n問題が解決しない場合は、support@cosmostation.ioにお問い合わせください。</string>
     <string name="str_ledger_not_support_dapp_msg">Ledger用財布のDapp機能は開発中です。</string>
