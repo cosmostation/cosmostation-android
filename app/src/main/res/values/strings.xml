@@ -1037,7 +1037,7 @@
     <string name="str_not_support_bluetooth">This device does not support Bluetooth.</string>
     <string name="str_connecting">Connecting...</string>
     <string name="str_ledger_error">Ledger Error</string>
-    <string name="str_connect_ledger_msg"><![CDATA[1. <font color=\'#05D2DD\'>Unlock</font> your Ledger.<br/>2. Open <font color=\'#05D2DD\'>Cosmos app</font>.]]></string>
+    <string name="str_connect_ledger_msg"><![CDATA[1. <font color=\'#05D2DD\'>Unlock</font> your Ledger.<br/>2. Open <font color=\'#05D2DD\'>Cosmostation app</font>.]]></string>
     <string name="str_pairing_ledger_title">Pairing Ledger</string>
     <string name="str_pairing_connect_bluetooth_msg">Please turn on bluetooth.</string>
     <string name="str_ledger_pairing_completed_msg">Ledger Pairing Completed</string>
