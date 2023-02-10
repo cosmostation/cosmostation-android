@@ -940,14 +940,14 @@
     <string name="str_not_support_bluetooth">이 장치는 Bluetooth를 지원하지 않습니다.</string>
     <string name="str_connecting">연결중...</string>
     <string name="str_ledger_error">렛저 오류</string>
-    <string name="str_connect_ledger_msg"><![CDATA[1. 렛저를 <font color=\'#05D2DD\'>잠금 해제</font>하세요.<br/>2. <font color=\'#05D2DD\'>코스모스 앱</font>을 실행하세요.]]></string>
+    <string name="str_connect_ledger_msg"><![CDATA[1. 렛저를 <font color=\'#05D2DD\'>잠금 해제</font>하세요.<br/>2. <font color=\'#05D2DD\'>코스모스테이션 앱</font>을 실행하세요.]]></string>
     <string name="str_pairing_ledger_title">렛저 연결중</string>
     <string name="str_pairing_connect_bluetooth_msg">블루투스를 활성화시켜주세요.</string>
     <string name="str_ledger_pairing_completed_msg">렛저 연결 완료.</string>
     <string name="str_select_chain_title">체인 선택하기</string>
     <string name="str_supporting_chain_title">지원하는 체인</string>
     <string name="str_ledger_approve_title">Sign TX</string>
-    <string name="str_ledger_approve_msg">렛저에서 트랜젹션을 승인하세요.</string>
+    <string name="str_ledger_approve_msg">렛저에서 트랜잭션을 승인하세요.</string>
     <string name="str_ledger_tx_reject_msg">렛저에서 트랜잭션을 거절했습니다.</string>
     <string name="str_ledger_pairing_complete_msg">페어링 완료.</string>
     <string name="str_with_ledger">렛저용 지갑</string>
@@ -955,7 +955,7 @@
     <string name="str_imported_ledger_msg">선택한 지갑은 렛저로 이미 등록된 지갑입니다.\n\n니모닉이나 개인키로 지갑을 사용하려면 렛저지갑을 삭제 후 [니모닉 관리]를 통해 추가해주시기 바랍니다.</string>
     <string name="str_ledger_delete_msg">렛저지갑의 모든 정보가 삭제됩니다.\n다시 추가하시려면, 렛저를 다시 연결해서 지갑을 추가하실 수 있습니다.</string>
     <string name="str_ledger_pairng_guide_title">연결 오류</string>
-    <string name="str_ledger_pairng_guide_msg">1. 핸드폰의 Bluetooth 기기 연결 목록에서 Ledger 기기 연결 해제\n2. Ledger기기에서 Cosmos app 열기\n3. Bluetooth 기기 연결 목록에서 Ledger 기기 페어링 연결\n\n문제가 해결되지 않을 경우 support@cosmostation.io 로 문의 해주세요.</string>
+    <string name="str_ledger_pairng_guide_msg">1. 핸드폰의 Bluetooth 기기 연결 목록에서 Ledger 기기 연결 해제\n2. Ledger기기에서 Cosmostation app 열기\n3. Bluetooth 기기 연결 목록에서 Ledger 기기 페어링 연결\n\n문제가 해결되지 않을 경우 support@cosmostation.io 로 문의 해주세요.</string>
     <string name="str_ledger_not_support_dapp_msg">렛저용 지갑의 Dapp 기능은 개발 중입니다.</string>
 
 
