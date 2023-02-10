@@ -141,6 +141,14 @@ public class BaseConstant {
 
     public final static String COSMOS_MSG_TYPE_TRANSFER = "cosmos-sdk/Send";
     public final static String COSMOS_MSG_TYPE_TRANSFER2 = "cosmos-sdk/MsgSend";
+    public final static String COSMOS_MSG_TYPE_DELEGATE = "cosmos-sdk/MsgDelegate";
+    public final static String COSMOS_MSG_TYPE_UNDELEGATE = "cosmos-sdk/MsgUndelegate";
+    public final static String COSMOS_MSG_TYPE_REDELEGATE = "cosmos-sdk/MsgBeginRedelegate";
+    public final static String COSMOS_MSG_TYPE_WITHDRAW_DEL = "cosmos-sdk/MsgWithdrawDelegationReward";
+    public final static String COSMOS_MSG_TYPE_WITHDRAW_MODIFY = "cosmos-sdk/MsgModifyWithdrawAddress";
+    public final static String COSMOS_MSG_TYPE_VOTE = "cosmos-sdk/MsgVote";
+    public final static String COSMOS_MSG_TYPE_IBC_TRANSFER = "cosmos-sdk/MsgTransfer";
+    public final static String OSMOSIS_MSG_TYPE_SWAP = "osmosis/gamm/swap-exact-amount-in";
 
     public final static String OK_MSG_TYPE_TRANSFER = "okexchain/token/MsgTransfer";
     public final static String OK_MSG_TYPE_MULTI_TRANSFER = "okexchain/token/MsgMultiTransfer";

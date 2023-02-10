@@ -12,6 +12,7 @@
     <string name="str_mnemonic_delete_msg">해당 니모닉을 백업하지 않았을 경우 영구히 다시 복원할 수 없습니다!\n\n또한 연결된 %1$s개의 지갑도 삭제됩니다.</string>
     <string name="str_clear_all">전체 삭제</string>
     <string name="str_create">지갑 생성</string>
+    <string name="str_ledger">렛저 연결</string>
     <string name="str_check_mnemonic_c">복구 단어 확인</string>
     <string name="str_check_private_key_c">개인키 확인</string>
     <string name="str_manage_mnemonic">니모닉 관리</string>
@@ -124,7 +125,7 @@
     <string name="str_notification">알림</string>
     <string name="str_app_applock">앱 잠금</string>
     <string name="str_app_auto_pass">핀코드 자동 통과</string>
-    <string name="str_app_auto_pass_msg">최초 핀코드를 통과한 이후 설정한 시간동안 핀코드를 자동으로 통과합니다.\nTx 전송, 개인 데이터 확인에 해당 됩니다.\n(앱 잠금은 항상 작동합니다.)</string>
+    <string name="str_app_auto_pass_msg">최초 핀코드를 통과한 이후 설정한 시간동안 핀코드를\n자동으로 통과합니다.\nTx 전송, 개인 데이터 확인에 해당 됩니다.\n(앱 잠금은 항상 작동합니다.)</string>
     <string name="str_app_auto_pass_5m">5분</string>
     <string name="str_app_auto_pass_10m">10분</string>
     <string name="str_app_auto_pass_30m">30분</string>
@@ -936,6 +937,27 @@
     <string name="str_icns_confirm_title">네임서비스 주소 사용</string>
     <string name="str_icns_update_nickname_msg">지갑 이름을 네임서비스와 동기화 시켰습니다.</string>
 
+    <string name="str_not_support_bluetooth">이 장치는 Bluetooth를 지원하지 않습니다.</string>
+    <string name="str_connecting">연결중...</string>
+    <string name="str_ledger_error">렛저 오류</string>
+    <string name="str_connect_ledger_msg"><![CDATA[1. 렛저를 <font color=\'#05D2DD\'>잠금 해제</font>하세요.<br/>2. <font color=\'#05D2DD\'>코스모스 앱</font>을 실행하세요.]]></string>
+    <string name="str_pairing_ledger_title">렛저 연결중</string>
+    <string name="str_pairing_connect_bluetooth_msg">블루투스를 활성화시켜주세요.</string>
+    <string name="str_ledger_pairing_completed_msg">렛저 연결 완료.</string>
+    <string name="str_select_chain_title">체인 선택하기</string>
+    <string name="str_supporting_chain_title">지원하는 체인</string>
+    <string name="str_ledger_approve_title">Sign TX</string>
+    <string name="str_ledger_approve_msg">렛저에서 트랜젹션을 승인하세요.</string>
+    <string name="str_ledger_tx_reject_msg">렛저에서 트랜잭션을 거절했습니다.</string>
+    <string name="str_ledger_pairing_complete_msg">페어링 완료.</string>
+    <string name="str_with_ledger">렛저용 지갑</string>
+    <string name="str_imported_ledger_title">렛저 추가</string>
+    <string name="str_imported_ledger_msg">선택한 지갑은 렛저로 이미 등록된 지갑입니다.\n\n니모닉이나 개인키로 지갑을 사용하려면 렛저지갑을 삭제 후 [니모닉 관리]를 통해 추가해주시기 바랍니다.</string>
+    <string name="str_ledger_delete_msg">렛저지갑의 모든 정보가 삭제됩니다.\n다시 추가하시려면, 렛저를 다시 연결해서 지갑을 추가하실 수 있습니다.</string>
+    <string name="str_ledger_pairng_guide_title">연결 오류</string>
+    <string name="str_ledger_pairng_guide_msg">1. 핸드폰의 Bluetooth 기기 연결 목록에서 Ledger 기기 연결 해제\n2. Ledger기기에서 Cosmos app 열기\n3. Bluetooth 기기 연결 목록에서 Ledger 기기 페어링 연결\n\n문제가 해결되지 않을 경우 support@cosmostation.io 로 문의 해주세요.</string>
+    <string name="str_ledger_not_support_dapp_msg">렛저용 지갑의 Dapp 기능은 개발 중입니다.</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1041,6 +1063,7 @@
     <string name="error_invalid_icns_address">등록된 네임서비스의 주소가 부정확합니다.</string>
     <string name="error_warning_title">경고!</string>
     <string name="error_deprecated_account_msg">해당 주소는 체인에서 더 이상 추가 지원을 하지 않습니다.\n\n원활한 사용을 위해 공식 주소를 생성하여 자산을 이전하는 것을 강력히 권장합니다.\n(설정>지갑 추가 메뉴를 통해 공식 주소를 추가할 수 있습니다.)</string>
+    <string name="error_ledger_open_msg">레저에서 코스모스 앱을 실행하세요.</string>
 
 
     <string name="tx_send">보내기</string>

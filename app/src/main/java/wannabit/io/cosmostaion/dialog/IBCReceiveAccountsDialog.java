@@ -87,8 +87,13 @@ public class IBCReceiveAccountsDialog extends DialogFragment {
                 holder.accountKeyState.setImageResource(R.drawable.key_off);
                 holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
             } else {
-                holder.accountKeyState.setImageResource(R.drawable.watchmode);
-                holder.accountKeyState.setColorFilter(null);
+                if (account.isLedger()) {
+                    holder.accountKeyState.setImageResource(R.drawable.icon_ledger_wallet);
+                    holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
+                } else {
+                    holder.accountKeyState.setImageResource(R.drawable.watchmode);
+                    holder.accountKeyState.setColorFilter(null);
+                }
             }
             WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
             holder.accountAvailable.setText(account.getLastTotal(baseChain));

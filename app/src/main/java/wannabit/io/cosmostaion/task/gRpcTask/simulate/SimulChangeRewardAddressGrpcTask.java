@@ -20,23 +20,21 @@ public class SimulChangeRewardAddressGrpcTask extends CommonTask {
     private String      mToRewardAddress;
     private String      mMemo;
     private Fee         mFees;
-    private String      mChainId;
 
-    public SimulChangeRewardAddressGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mToRewardAddress, String mMemo, Fee mFees, String chainId) {
+    public SimulChangeRewardAddressGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mToRewardAddress, String mMemo, Fee mFees) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = mAccount;
         this.mToRewardAddress = mToRewardAddress;
         this.mMemo = mMemo;
         this.mFees = mFees;
-        this.mChainId = chainId;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcRewardAddressChangeSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mToRewardAddress, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcRewardAddressChangeSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mToRewardAddress, mFees, mMemo);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();

@@ -9,17 +9,33 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.XPLA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
+import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Base64;
 
+import androidx.annotation.NonNull;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
+import com.ledger.live.ble.BleManager;
+import com.ledger.live.ble.app.BleCosmosHelper;
 
 import org.bitcoinj.core.Bech32;
 import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.SignatureDecodeException;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicHierarchy;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -31,6 +47,7 @@ import org.bouncycastle.util.encoders.Hex;
 import org.web3j.crypto.Keys;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -38,6 +55,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,11 +67,18 @@ import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
+import wannabit.io.cosmostaion.model.StdSignMsg;
+import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 
 public class WKey {
@@ -672,5 +697,34 @@ public class WKey {
         QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain));
         QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(account.address).build();
         return authStub.account(request);
+    }
+
+    public static StdSignMsg onSetLedgerSignMsg(BaseData baseData, ChainConfig chainConfig, Account account, ArrayList<Msg> txMsgs, Fee fee, String memo) {
+        ArrayList<Serializable> authInfo = Signer.onParseAuthGrpc(onAuthResponse(chainConfig.baseChain(), account));
+        return MsgGenerator.genToSignMsg(baseData.getChainIdGrpc(), "" + authInfo.get(1), "" + authInfo.get(2), txMsgs, fee, memo);
+    }
+
+    public static String onGetLedgerMessage(BaseData baseData, ChainConfig chainConfig, Account account, ArrayList<Msg> txMsgs, Fee fee, String memo) {
+        String message = null;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+        try {
+            message = mapper.writeValueAsString(mapper.readValue(new Gson().toJson(onSetLedgerSignMsg(baseData, chainConfig, account, txMsgs, fee, memo)), TreeMap.class));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return message;
+    }
+
+    public static byte[] getLedgerSigData(byte[] bytes) {
+        byte[] sigData = new byte[64];
+        try {
+            ECKey.ECDSASignature Signature = ECKey.ECDSASignature.decodeFromDER(bytes);
+            System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
+            System.arraycopy(integerToBytes(Signature.s, 32), 0, sigData, 32, 32);
+        } catch (SignatureDecodeException e) {
+            e.printStackTrace();
+        }
+        return sigData;
     }
 }

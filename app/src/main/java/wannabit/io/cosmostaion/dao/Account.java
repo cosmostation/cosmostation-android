@@ -17,34 +17,34 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Account {
-    public Long     id;
-    public String   uuid;
-    public String   nickName;
-    public Boolean  isFavo;
-    public String   address;
-    public String   baseChain;
+    public Long id;
+    public String uuid;
+    public String nickName;
+    public Boolean isFavo;
+    public String address;
+    public String baseChain;
 
-    public Boolean  hasPrivateKey;
-    public String   resource;
-    public String   spec;
-    public Boolean  fromMnemonic;
-    public String   path;
+    public Boolean hasPrivateKey;
+    public String resource;
+    public String spec;
+    public Boolean fromMnemonic;
+    public String path;
 
-    public Boolean  isValidator;
-    public Integer  sequenceNumber;
-    public Integer  accountNumber;
-    public Long     fetchTime;
-    public int      msize;
-    public Long     importTime;
+    public Boolean isValidator;
+    public Integer sequenceNumber;
+    public Integer accountNumber;
+    public Long fetchTime;
+    public int msize;
+    public Long importTime;
 
-    public String   lastTotal;
-    public Long     sortOrder;
-    public Boolean  pushAlarm;
-    public Boolean  newBip44;
-    public Integer  customPath;
-    public Long     mnemonicId;
+    public String lastTotal;
+    public Long sortOrder;
+    public Boolean pushAlarm;
+    public Boolean newBip44;
+    public Integer customPath;
+    public Long mnemonicId;
 
-    public ArrayList<Balance>   balances;
+    public ArrayList<Balance> balances;
 
 
     public static Account getNewInstance() {
@@ -53,14 +53,22 @@ public class Account {
         return result;
     }
 
+    public static Account newLedgerAccount(String baseChain, String address, String path) {
+        Account newAccount = Account.getNewInstance();
+        newAccount.address = address.toLowerCase();
+        newAccount.baseChain = baseChain;
+        newAccount.hasPrivateKey = false;
+        newAccount.fromMnemonic = false;
+        newAccount.isFavo = true;
+        newAccount.path = path;
+        newAccount.importTime = System.currentTimeMillis();
+        return newAccount;
+    }
+
     public Account() {
     }
 
-    public Account(Long id, String uuid, String nickName, boolean isFavo, String address,
-                   String baseChain, boolean hasPrivateKey, String resource, String spec,
-                   boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber,
-                   int accountNumber, Long fetchTime, int msize, long importTime, String lastTotal,
-                   long sortOrder, boolean pushAlarm, boolean newBip, int customPath, Long mnemonicId) {
+    public Account(Long id, String uuid, String nickName, boolean isFavo, String address, String baseChain, boolean hasPrivateKey, String resource, String spec, boolean fromMnemonic, String path, boolean isValidator, int sequenceNumber, int accountNumber, Long fetchTime, int msize, long importTime, String lastTotal, long sortOrder, boolean pushAlarm, boolean newBip, int customPath, Long mnemonicId) {
         this.id = id;
         this.uuid = uuid;
         this.nickName = nickName;
@@ -96,16 +104,20 @@ public class Account {
 
     public BigDecimal getTokenBalance(String symbol) {
         BigDecimal result = BigDecimal.ZERO;
-        if (balances == null || balances.size() == 0)  {
+        if (balances == null || balances.size() == 0) {
             return result;
         }
-        for (Balance balance:balances) {
-            if(balance.symbol.equalsIgnoreCase(symbol)) {
+        for (Balance balance : balances) {
+            if (balance.symbol.equalsIgnoreCase(symbol)) {
                 result = balance.balance;
                 break;
             }
         }
         return result;
+    }
+
+    public Boolean isLedger() {
+        return isFavo && !hasPrivateKey;
     }
 
     public SpannableString getLastTotal(BaseChain chain) {

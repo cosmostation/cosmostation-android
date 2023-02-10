@@ -152,8 +152,13 @@ public class WalletSwitchActivity extends BaseActivity {
                     accountState.setImageResource(R.drawable.key_off);
                     accountState.setColorFilter(ContextCompat.getColor(WalletSwitchActivity.this, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
                 } else {
-                    accountState.setImageResource(R.drawable.watchmode);
-                    accountState.setColorFilter(null);
+                    if (account.isLedger()) {
+                        accountState.setImageResource(R.drawable.icon_ledger_wallet);
+                        accountState.setColorFilter(ContextCompat.getColor(WalletSwitchActivity.this, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
+                    } else {
+                        accountState.setImageResource(R.drawable.watchmode);
+                        accountState.setColorFilter(null);
+                    }
                 }
 
                 if (TextUtils.isEmpty(account.nickName)){

@@ -22,6 +22,17 @@
             android:visibility="gone" />
 
         <TextView
+            android:id="@+id/dialog_title2"
+            style="@style/font_rm_15_black_daynight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/space_14"
+            android:gravity="center"
+            android:text=""
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/dialog_msg"
             style="@style/font_rr_12_black_daynight"
             android:layout_width="match_parent"
@@ -29,6 +40,18 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/space_12"
             android:layout_marginBottom="@dimen/space_12"
+            android:gravity="center"
+            android:text=""
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/dialog_msg2"
+            style="@style/font_rr_12_gray1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginBottom="@dimen/space_14"
             android:gravity="center"
             android:text=""
             android:visibility="gone" />
@@ -111,6 +134,14 @@
             android:textAllCaps="false"
             android:visibility="gone" />
 
-
+        <LinearLayout
+            android:id="@+id/hidden_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14"
+            android:layout_marginLeft="@dimen/space_14"
+            android:visibility="gone" />
     </LinearLayout>
 </RelativeLayout>

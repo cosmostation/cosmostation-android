@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -14,9 +15,10 @@ import org.apache.commons.lang3.StringUtils;
 import wannabit.io.cosmostaion.R;
 
 public class FilledVerticalButtonAlertDialog extends AlertDialog {
-    TextView titleTextView, messageTextView;
-    Button firstButton, secondButton, thirdButton, quadrupleButton;
+    public TextView titleTextView, title2TextView, messageTextView, message2TextView;
+    public Button firstButton, secondButton, thirdButton, quadrupleButton;
     View btnLine, btnLine2, btnLine3, btnLine4;
+    public LinearLayout hiddenView;
 
     public FilledVerticalButtonAlertDialog(Context context) {
         super(context);
@@ -24,7 +26,9 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_template_filledvertical, null);
 
         titleTextView = view.findViewById(R.id.dialog_title);
+        title2TextView = view.findViewById(R.id.dialog_title2);
         messageTextView = view.findViewById(R.id.dialog_msg);
+        message2TextView = view.findViewById(R.id.dialog_msg2);
         firstButton = view.findViewById(R.id.btn_one);
         secondButton = view.findViewById(R.id.btn_two);
         thirdButton = view.findViewById(R.id.btn_three);
@@ -33,9 +37,19 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
         btnLine2 = view.findViewById(R.id.btn_line2);
         btnLine3 = view.findViewById(R.id.btn_line3);
         btnLine4 = view.findViewById(R.id.btn_line4);
+        hiddenView = view.findViewById(R.id.hidden_view);
 
         setView(view);
 
+    }
+
+    public static void showNoButton(Context context, CharSequence title, CharSequence message, Boolean cancelable) {
+        FilledVerticalButtonAlertDialog dialog = makeNoButton(context, title, message);
+        if (!((Activity) context).isFinishing()) {
+            dialog.setCancelable(cancelable);
+            dialog.create();
+            dialog.show();
+        }
     }
 
     public static void showDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, Drawable firstButtonImage,
@@ -86,6 +100,27 @@ public class FilledVerticalButtonAlertDialog extends AlertDialog {
                                            CharSequence thirdButtonTitle, View.OnClickListener thirdButtonListener, Drawable thirdButtonImage,
                                            CharSequence quadrupleButtonTitle, View.OnClickListener quadrupleButtonListener, Drawable quadrupleButtonImage) {
         showQuadrupleButton(context, title, message, firstButtonTitle, firstButtonListener, firstButtonImage, secondButtonTitle, secondButtonListener, secondButtonImage, thirdButtonTitle, thirdButtonListener, thirdButtonImage, quadrupleButtonTitle, quadrupleButtonListener, quadrupleButtonImage, true);
+    }
+
+    private static FilledVerticalButtonAlertDialog makeNoButton(Context context, CharSequence title, CharSequence message) {
+        FilledVerticalButtonAlertDialog dialog = new FilledVerticalButtonAlertDialog(context);
+        if (StringUtils.isEmpty(title)) {
+            dialog.title2TextView.setVisibility(View.GONE);
+        } else {
+            dialog.title2TextView.setText(title);
+            dialog.title2TextView.setVisibility(View.VISIBLE);
+        }
+
+        if (StringUtils.isEmpty(message)) {
+            dialog.message2TextView.setVisibility(View.GONE);
+        } else {
+            dialog.message2TextView.setText(message);
+            dialog.message2TextView.setVisibility(View.VISIBLE);
+        }
+        dialog.firstButton.setVisibility(View.GONE);
+        dialog.secondButton.setVisibility(View.GONE);
+
+        return dialog;
     }
 
     private static FilledVerticalButtonAlertDialog makeDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence firstButtonTitle, View.OnClickListener firstButtonListener, Drawable firstButtonImage,

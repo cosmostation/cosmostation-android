@@ -207,6 +207,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 mAccountPath.setTextColor(ContextCompat.getColor(AccountDetailActivity.this, R.color.colorPhoton));
             }
 
+        } else if (mAccount.isLedger()) {
+            mAccountState.setText(getString(R.string.str_with_ledger));
+            mAccountPath.setText(mAccount.path);
+            mPathLayer.setVisibility(View.VISIBLE);
+            mMnemonicLayer.setVisibility(View.GONE);
+            mImportMsg.setVisibility(View.GONE);
+            mBtnCheck.setVisibility(View.GONE);
+            mBtnCheckKey.setVisibility(View.GONE);
+
         } else {
             mAccountState.setText(getString(R.string.str_only_address));
             mPathLayer.setVisibility(View.GONE);
@@ -275,8 +284,13 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (v.equals(mBtnDelete)) {
-            CommonAlertDialog.showDoubleButton(this, getString(R.string.str_delete_wallet), getString(R.string.str_delete_msg),
-                    CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(), getString(R.string.str_close), null);
+            if (mAccount.isLedger()) {
+                CommonAlertDialog.showDoubleButton(this, getString(R.string.str_delete_wallet), getString(R.string.str_ledger_delete_msg),
+                        CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(), getString(R.string.str_close), null);
+            } else {
+                CommonAlertDialog.showDoubleButton(this, getString(R.string.str_delete_wallet), getString(R.string.str_delete_msg),
+                        CommonAlertDialog.highlightingText(getString(R.string.str_delete)), view -> onStartDeleteUser(), getString(R.string.str_close), null);
+            }
 
         } else if (v.equals(mNameEditImg) && !this.isFinishing()) {
             Bundle bundle = new Bundle();
@@ -290,7 +304,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             onClickQrCopy(mChainConfig, mAccount);
 
         } else if (v.equals(mBtnRewardAddressChange)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
                 onInsertKeyDialog();
                 return;
             }

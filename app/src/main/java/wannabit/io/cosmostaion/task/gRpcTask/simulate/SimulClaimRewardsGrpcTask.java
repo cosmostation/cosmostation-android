@@ -22,23 +22,21 @@ public class SimulClaimRewardsGrpcTask extends CommonTask {
     private ArrayList<String>   mValAddresses;
     private String              mMemo;
     private Fee                 mFees;
-    private String              mChainId;
 
-    public SimulClaimRewardsGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, ArrayList<String> valAddresses, String toDelegateMemo, Fee toFees, String chainId) {
+    public SimulClaimRewardsGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, ArrayList<String> valAddresses, String toDelegateMemo, Fee toFees) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
         this.mValAddresses = valAddresses;
         this.mMemo = toDelegateMemo;
         this.mFees = toFees;
-        this.mChainId = chainId;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcClaimRewardsSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddresses, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcClaimRewardsSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddresses, mFees, mMemo);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();

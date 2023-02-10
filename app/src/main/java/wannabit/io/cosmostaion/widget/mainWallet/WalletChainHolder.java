@@ -116,7 +116,7 @@ public class WalletChainHolder extends BaseHolder {
         WUtil.setDexTitle(mainActivity, chainConfig, mBtnDexTitle);
         mBtnDex.setOnClickListener(v -> mainActivity.startActivity(WUtil.getDexIntent(mainActivity, chainConfig)));
 
-        if (chainConfig.wcSupport()) {
+        if (chainConfig.wcSupport() && !mainActivity.mAccount.isLedger()) {
             mBtnWalletConnect.setVisibility(View.VISIBLE);
         } else {
             mBtnWalletConnect.setVisibility(View.GONE);

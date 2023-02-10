@@ -23,7 +23,7 @@ public class CommonAlertDialog extends AlertDialog {
     TextView messageTextView;
     Button rightButton;
     Button leftButton;
-    ImageView headerImageView;
+    ImageView headerImageView, secondImageView;
     View buttonBorder;
 
     public CommonAlertDialog(Context context) {
@@ -33,6 +33,7 @@ public class CommonAlertDialog extends AlertDialog {
 
         headerImageView = view.findViewById(R.id.dialog_header_image);
         titleTextView = view.findViewById(R.id.dialog_title);
+        secondImageView = view.findViewById(R.id.dialog_second_image);
         messageTextView = view.findViewById(R.id.dialog_msg);
         rightButton = view.findViewById(R.id.btn_right);
         leftButton = view.findViewById(R.id.btn_left);
@@ -61,6 +62,12 @@ public class CommonAlertDialog extends AlertDialog {
 
     public static void showHeaderImageDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, int imageResourceId) {
         CommonAlertDialog dialog = makeHeaderImageDoubleButton(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener, imageResourceId);
+        dialog.create();
+        dialog.show();
+    }
+
+    public static void showSecondImageDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, int imageResourceId) {
+        CommonAlertDialog dialog = makeSecondImageDoubleButton(context, title, message, leftButtonTitle, leftButtonListener, rightButtonTitle, rightButtonListener, imageResourceId);
         dialog.create();
         dialog.show();
     }
@@ -133,6 +140,29 @@ public class CommonAlertDialog extends AlertDialog {
         CommonAlertDialog dialog = makeSingleButton(context, title, message, leftButtonTitle, leftButtonListener);
         dialog.headerImageView.setImageResource(imageResourceId);
         dialog.headerImageView.setVisibility(View.VISIBLE);
+        dialog.buttonBorder.setVisibility(View.VISIBLE);
+        dialog.rightButton.setVisibility(View.VISIBLE);
+        dialog.rightButton.setText(rightButtonTitle);
+        dialog.rightButton.setOnClickListener(view -> {
+            if (rightButtonListener != null) {
+                rightButtonListener.onClick(view);
+            }
+            dialog.dismiss();
+        });
+        return dialog;
+    }
+
+    public static CommonAlertDialog makeSecondImageSingleButton(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, int imageResourceId) {
+        CommonAlertDialog dialog = makeSingleButton(context, title, message, leftButtonTitle, leftButtonListener);
+        dialog.secondImageView.setImageResource(imageResourceId);
+        dialog.secondImageView.setVisibility(View.VISIBLE);
+        return dialog;
+    }
+
+    private static CommonAlertDialog makeSecondImageDoubleButton(Context context, CharSequence title, CharSequence message, CharSequence leftButtonTitle, View.OnClickListener leftButtonListener, CharSequence rightButtonTitle, View.OnClickListener rightButtonListener, int imageResourceId) {
+        CommonAlertDialog dialog = makeSingleButton(context, title, message, leftButtonTitle, leftButtonListener);
+        dialog.secondImageView.setImageResource(imageResourceId);
+        dialog.secondImageView.setVisibility(View.VISIBLE);
         dialog.buttonBorder.setVisibility(View.VISIBLE);
         dialog.rightButton.setVisibility(View.VISIBLE);
         dialog.rightButton.setText(rightButtonTitle);

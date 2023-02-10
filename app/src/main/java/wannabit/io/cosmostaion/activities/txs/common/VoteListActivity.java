@@ -249,7 +249,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             loadProposals();
 
         } else if (v.equals(mNextBtn)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
                 onInsertKeyDialog();
                 return;
             }

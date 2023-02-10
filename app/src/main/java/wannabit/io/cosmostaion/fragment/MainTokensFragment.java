@@ -385,7 +385,7 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(new BigDecimal(coin.amount), asset.decimals, 6));
 
                 holder.itemRoot.setOnClickListener(v -> {
-                    if (!mAccount.hasPrivateKey) {
+                    if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
                         getMainActivity().onInsertKeyDialog();
                         return;
                     }

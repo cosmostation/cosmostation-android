@@ -50,6 +50,7 @@
     <string name="str_mnemonic_delete_msg">If you do not backup your mnemonics, you can not find it again!\n\nAnd %1$s derived wallets will also be deleted</string>
     <string name="str_clear_all">Clear All</string>
     <string name="str_create">CREATE</string>
+    <string name="str_ledger">Connect Ledger</string>
     <string name="str_check_mnemonic_c">CHECK MNEMONICS</string>
     <string name="str_check_private_key_c">CHECK PRIVATE KEY</string>
     <string name="str_manage_mnemonic">Manage Mnemonic</string>
@@ -162,7 +163,7 @@
     <string name="str_notification">Notification</string>
     <string name="str_app_applock">App Lock</string>
     <string name="str_app_auto_pass">PIN Auto Pass</string>
-    <string name="str_app_auto_pass_msg">After passing the first pin code, it automatically passes through the pin code for a set time.\nTx transfer, personal data verification.\n(App lock always works.)</string>
+    <string name="str_app_auto_pass_msg">After passing the first pin code,\nit automatically passes through the pin code for a set time.\nTx transfer, personal data verification.\n(App lock always works.)</string>
     <string name="str_app_auto_pass_5m">5min</string>
     <string name="str_app_auto_pass_10m">10min</string>
     <string name="str_app_auto_pass_30m">30min</string>
@@ -1033,6 +1034,27 @@
     <string name="str_icns_confirm_title">NameService Found</string>
     <string name="str_icns_update_nickname_msg">Update wallet name with nameservice name</string>
 
+    <string name="str_not_support_bluetooth">This device does not support Bluetooth.</string>
+    <string name="str_connecting">Connecting...</string>
+    <string name="str_ledger_error">Ledger Error</string>
+    <string name="str_connect_ledger_msg"><![CDATA[1. <font color=\'#05D2DD\'>Unlock</font> your Ledger.<br/>2. Open <font color=\'#05D2DD\'>Cosmos app</font>.]]></string>
+    <string name="str_pairing_ledger_title">Pairing Ledger</string>
+    <string name="str_pairing_connect_bluetooth_msg">Please turn on bluetooth.</string>
+    <string name="str_ledger_pairing_completed_msg">Ledger Pairing Completed</string>
+    <string name="str_select_chain_title">Select a Chain</string>
+    <string name="str_supporting_chain_title">Supporting Chains</string>
+    <string name="str_ledger_approve_title">Sign TX</string>
+    <string name="str_ledger_approve_msg">Approve transaction on Ledger.</string>
+    <string name="str_ledger_tx_reject_msg">Transaction rejected on Ledger.</string>
+    <string name="str_ledger_pairing_complete_msg">Pairing Completed.</string>
+    <string name="str_with_ledger">With Ledger</string>
+    <string name="str_imported_ledger_title">Add Ledger</string>
+    <string name="str_imported_ledger_msg">Selected wallet is registered with ledger.\nIf you want to use wallet with mnemonic or private key,\n\nplease delete the wallet and add wallet through [Manage Mnemonic]</string>
+    <string name="str_ledger_delete_msg">All information about the ledger wallet will be deleted\nYou need to connect ledger again if you want to add ledger wallet back</string>
+    <string name="str_ledger_pairng_guide_title">Connection Error</string>
+    <string name="str_ledger_pairng_guide_msg">1. Unpair Ledger device from your phone\'s Bluetooth devices list.\n2. Open Cosmos app on Ledger device.\n3. Search &amp; connect to Ledger device from Bluetooth devices list.\n\nContact support@cosmostation.io for additional assistance.</string>
+    <string name="str_ledger_not_support_dapp_msg">Our team is working on integrating dApp functionality with the Ledger device.</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1138,6 +1160,7 @@
     <string name="error_invalid_icns_address">The address of the registered name service is incorrect.</string>
     <string name="error_warning_title">WARNING!</string>
     <string name="error_deprecated_account_msg">You selected deprecated path wallet.\n\nFor your convenience, highly recommend using current official address type.\n(You can add a wallet with default Address type in [Setting] > [Manage Mnemonic / Add Wallet])</string>
+    <string name="error_ledger_open_msg">Open Cosmos app on Ledger.</string>
 
 
     <string name="tx_send">Send</string>

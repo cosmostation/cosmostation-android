@@ -3,10 +3,8 @@ package wannabit.io.cosmostaion.model.type;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import wannabit.io.cosmostaion.model.kava.DenomsToClaim;
 
@@ -306,6 +304,34 @@ public class Msg {
         @SerializedName("validator_addresses")
         public ArrayList<String> validator_addresses;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("source_channel")
+        public String source_channel;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("source_port")
+        public String source_port;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("timeout_height")
+        public TimeoutHeight time_height;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("token")
+        public Coin token;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("routes")
+        public ArrayList<Route> routes;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("token_in")
+        public Coin token_in;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("token_out_min_amount")
+        public String token_out_min_amount;
+
     }
 
     public class OkTransfer {
@@ -316,4 +342,29 @@ public class Msg {
         public ArrayList<Coin> coins;
     }
 
+    public static class TimeoutHeight {
+        @SerializedName("revision_height")
+        public String revision_height;
+
+        @SerializedName("revision_number")
+        public String revision_number;
+
+        public TimeoutHeight(String revision_height, String revision_number) {
+            this.revision_height = revision_height;
+            this.revision_number = revision_number;
+        }
+    }
+
+    public static class Route {
+        @SerializedName("pool_id")
+        public String pool_id;
+
+        @SerializedName("token_out_denom")
+        public String token_out_denom;
+
+        public Route(String pool_id, String token_out_denom) {
+            this.pool_id = pool_id;
+            this.token_out_denom = token_out_denom;
+        }
+    }
 }

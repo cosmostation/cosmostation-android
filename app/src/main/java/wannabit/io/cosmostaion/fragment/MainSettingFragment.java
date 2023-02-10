@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
@@ -47,6 +48,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
+import wannabit.io.cosmostaion.activities.LedgerSelectActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ManageWalletConnectActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -64,15 +66,18 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.dialog.PriceColorChangeDialog;
+import wannabit.io.cosmostaion.dialog.WaitDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.PushStatusResponse;
 import wannabit.io.cosmostaion.utils.LanguageUtil;
+import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect, mBtnPrivacy;
+    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect, mBtnPrivacy, mBtnLedger;
 
     private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme, mTvLanguage;
 
@@ -80,6 +85,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
     private SwitchCompat alarmSwitch;
+
+    protected WaitDialog mDialogWait;
 
     public static MainSettingFragment newInstance() {
         return new MainSettingFragment();
@@ -115,6 +122,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnGithub = rootView.findViewById(R.id.card_github);
         mBtnVersion = rootView.findViewById(R.id.card_version);
         mBtnWalletConnect = rootView.findViewById(R.id.card_wallet_connect);
+        mBtnLedger = rootView.findViewById(R.id.card_ledger);
         mBtnPrivacy = rootView.findViewById(R.id.card_privacy);
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
@@ -149,6 +157,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mBtnStarnameWc.setOnClickListener(this);
         mBtnTerm.setOnClickListener(this);
         mBtnGithub.setOnClickListener(this);
+        mBtnLedger.setOnClickListener(this);
         mBtnVersion.setOnClickListener(this);
 
         mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
@@ -171,6 +180,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
+        if (isAdded()) return;
         if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.LIGHT_MODE)) {
             mTvTheme.setText(R.string.str_theme_light);
         } else if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.DARK_MODE)) {
@@ -338,6 +348,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             intent.setData(Uri.parse("market://details?id=" + getMainActivity().getPackageName()));
             startActivity(intent);
 
+        } else if (v.equals(mBtnLedger)) {
+            onLedgerConnect();
+
         } else if (v.equals(mBtnStarnameWc)) {
             CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg), getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> new TedPermission(getMainActivity()).setPermissionListener(new PermissionListener() {
                 @Override
@@ -428,6 +441,33 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvAutoPassTime.setText(getBaseDao().getAutoPass(getActivity()));
     }
 
+    private void onLedgerConnect() {
+        if (LedgerManager.getInstance().isConnected()) {
+            LedgerManager.getInstance().getBleManager().disconnect(() -> {
+                showLedgerPicker();
+                return null;
+            });
+        } else {
+            showLedgerPicker();
+        }
+    }
+
+    private void showLedgerPicker() {
+        getActivity().runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(requireContext(), new LedgerManager.ConnectListener() {
+            @Override
+            public void error(@NonNull LedgerManager.ErrorType errorType) {
+                if (errorType.equals(LedgerManager.ErrorType.BLUETOOTH_OFF)) {
+                    FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_pairing_connect_bluetooth_msg), true);
+                }
+            }
+
+            @Override
+            public void connected() {
+                startActivity(new Intent(getActivity(), LedgerSelectActivity.class));
+            }
+        }));
+    }
+
     public MainActivity getMainActivity() {
         return (MainActivity) getBaseActivity();
     }
@@ -466,5 +506,26 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         LanguageUtil.updateResources(context);
         LanguageUtil.modSave(context, languageSet);
         getMainActivity().recreate();
+    }
+
+    public void onShowWaitDialog() {
+        WLog.w("다이얼로그 : " + isAdded());
+        WLog.w("다이얼로그 : " + getActivity().getSupportFragmentManager().findFragmentByTag("wait"));
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") == null) {
+            mDialogWait = new WaitDialog();
+        }
+        WLog.w("다이얼로그0 : " + mDialogWait);
+//        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") != null && getActivity().getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
+//            return;
+//        }
+        mDialogWait.setCancelable(false);
+        mDialogWait.show(getActivity().getSupportFragmentManager(), "wait");
+    }
+
+    public void onHideWaitDialog() {
+        if (mDialogWait != null) {
+            mDialogWait.dismissAllowingStateLoss();
+        }
+        WLog.w("다이얼로그1 : " + mDialogWait);
     }
 }

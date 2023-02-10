@@ -320,7 +320,7 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
             onUpdateView();
 
         } else if (v.equals(mBtnSwapStart)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
                 onInsertKeyDialog();
                 return;
             }

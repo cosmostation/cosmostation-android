@@ -25,6 +25,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.common.collect.Lists;
+import com.ledger.live.ble.app.BleCosmosHelper;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.core.ECKey;
@@ -50,17 +51,22 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.FeeInfo;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
+import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -80,6 +86,8 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     private Fee fee;
 
     private int mEasyMode = -1;
+
+    private CommonAlertDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +168,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     public void onStartDelegate() {
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }
@@ -188,7 +196,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     public void onCheckEasyClaim() {
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }
@@ -229,8 +237,86 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         }).start();
     }
 
+    private void onStartEasyClaimByLedger(int selectFee) {
+        new Thread(() -> {
+            ArrayList<String> toClaimValAddr = targetClaimValidatorAddresses();
+            ArrayList<Msg> easyClaimMsgs = MsgGenerator.genWithdrawDeleMsgs(mAccount.address, toClaimValAddr);
+            FeeInfo.FeeData feeData = calculateFee(selectFee);
+
+            ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateClaim(toClaimValAddr);
+            Abci.GasInfo gasInfo = simulateClaimResponse.getGasInfo();
+            feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
+            if (!mBaseChain.equals(BaseChain.SIF_MAIN) && !mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
+                BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
+                feeCoin = new Coin(feeData.denom, amount.toPlainString());
+            }
+            fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
+            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, easyClaimMsgs, fee, "");
+
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
+                @Override
+                public void error(@NonNull LedgerManager.ErrorType errorType) {
+                    if (isFinishing()) {
+                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ValidatorListActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartEasyClaimByLedger(selectFee)));
+                    }
+                }
+
+                @Override
+                public void connected() {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.postDelayed(() -> {
+                        mDialog = CommonAlertDialog.makeSecondImageSingleButton(ValidatorListActivity.this, getString(R.string.str_ledger_approve_title), getString(R.string.str_ledger_approve_msg), getString(R.string.str_cancel), view -> finish(), R.drawable.icon_ledger);
+                        mDialog.setCancelable(false);
+                        mDialog.create();
+                    }, 0);
+
+                    BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), mAccount.path, new BleCosmosHelper.GetAddressListener() {
+                        @Override
+                        public void success(@NonNull String s, @NonNull byte[] bytes) {
+                            LedgerManager.getInstance().setCurrentPubKey(bytes);
+                            if (!mAccount.address.equals(s)) {
+                                return;
+                            } else {
+                                runOnUiThread(() -> {
+                                    mDialog.show();
+                                });
+                            }
+
+                            BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), mAccount.path, message, new BleCosmosHelper.SignListener() {
+                                @Override
+                                public void success(@NonNull byte[] bytes) {
+                                    new Thread(() -> {
+                                        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerClaimRewardsReq(WKey.onAuthResponse(mBaseChain, mAccount), toClaimValAddr, fee, "", LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(bytes));
+                                        ServiceOuterClass.BroadcastTxResponse response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, mChainConfig);
+                                        TaskResult mResult = new TaskResult();
+                                        mResult.resultData = response.getTxResponse().getTxhash();
+                                        processResponse(response);
+                                    }).start();
+                                }
+
+                                @Override
+                                public void error(@NonNull String s, @NonNull String s1) {
+                                    runOnUiThread(() -> {
+                                        mDialog.dismiss();
+                                        if (s.equalsIgnoreCase("6986")) {
+                                            Toast.makeText(ValidatorListActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void error(@NonNull String s, @NonNull String s1) {
+                        }
+                    });
+                }
+            }));
+        }).start();
+    }
+
     public void onCheckEasyCompounding() {
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }
@@ -283,6 +369,83 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         }).start();
     }
 
+    private void onStartEasyCompoundingByLedger(int selectFee) {
+        new Thread(() -> {
+            ArrayList<Msg> easyCompoundingMsgs = MsgGenerator.genCompoundingMsgs(mAccount.address, getClaimableReward(), mChainConfig);
+            FeeInfo.FeeData feeData = calculateFee(selectFee);
+
+            ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mChainConfig.baseChain());
+            Abci.GasInfo gasInfo = simulateClaimResponse.getGasInfo();
+            feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
+            if (!mBaseChain.equals(BaseChain.SIF_MAIN) && !mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
+                BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
+                feeCoin = new Coin(feeData.denom, amount.toPlainString());
+            }
+            fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
+            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, easyCompoundingMsgs, fee, "");
+
+            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
+                @Override
+                public void error(@NonNull LedgerManager.ErrorType errorType) {
+                    if (isFinishing()) {
+                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ValidatorListActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartEasyClaimByLedger(selectFee)));
+                    }
+                }
+
+                @Override
+                public void connected() {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.postDelayed(() -> {
+                        mDialog = CommonAlertDialog.makeSecondImageSingleButton(ValidatorListActivity.this, getString(R.string.str_ledger_approve_title), getString(R.string.str_ledger_approve_msg), getString(R.string.str_cancel), view -> finish(), R.drawable.icon_ledger);
+                        mDialog.setCancelable(false);
+                        mDialog.create();
+                    }, 0);
+
+                    BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), mAccount.path, new BleCosmosHelper.GetAddressListener() {
+                        @Override
+                        public void success(@NonNull String s, @NonNull byte[] bytes) {
+                            LedgerManager.getInstance().setCurrentPubKey(bytes);
+                            if (!mAccount.address.equals(s)) {
+                                return;
+                            } else {
+                                runOnUiThread(() -> {
+                                    mDialog.show();
+                                });
+                            }
+
+                            BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), mAccount.path, message, new BleCosmosHelper.SignListener() {
+                                @Override
+                                public void success(@NonNull byte[] bytes) {
+                                    new Thread(() -> {
+                                        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerCompoundingReq(WKey.onAuthResponse(mBaseChain, mAccount), getClaimableReward(), mChainConfig.baseChain(), fee, "", LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(bytes));
+                                        ServiceOuterClass.BroadcastTxResponse response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, mChainConfig);
+                                        TaskResult mResult = new TaskResult();
+                                        mResult.resultData = response.getTxResponse().getTxhash();
+                                        processResponse(response);
+                                    }).start();
+                                }
+
+                                @Override
+                                public void error(@NonNull String s, @NonNull String s1) {
+                                    runOnUiThread(() -> {
+                                        mDialog.dismiss();
+                                        if (s.equalsIgnoreCase("6986")) {
+                                            Toast.makeText(ValidatorListActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void error(@NonNull String s, @NonNull String s1) {
+                        }
+                    });
+                }
+            }));
+        }).start();
+    }
+
     @NonNull
     private FeeInfo.FeeData calculateFee(int selectFee) {
         ArrayList<FeeInfo> feeInfo = WDp.getFeeInfos(this, getBaseDao());
@@ -304,7 +467,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     private ServiceOuterClass.SimulateResponse simulateClaim(ArrayList<String> toClaimValaddr) {
         ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcClaimRewardsSimulateReq(getAuthResponse(), toClaimValaddr, fee, "", getEcKey(), getBaseDao().getChainIdGrpc(), mAccount.customPath, mBaseChain);
+        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcClaimRewardsSimulateReq(getAuthResponse(), toClaimValaddr, fee, "");
         return txService.simulate(simulateTxRequest);
     }
 
@@ -324,7 +487,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     private ServiceOuterClass.SimulateResponse simulateCompounding(ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
         ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCompoundingSimulateReq(getAuthResponse(), rewards, baseChain, fee, "", getEcKey(), getBaseDao().getChainIdGrpc(), mAccount.customPath);
+        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCompoundingSimulateReq(getAuthResponse(), rewards, baseChain, fee, "");
         return txService.simulate(simulateTxRequest);
     }
 
@@ -404,7 +567,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     private void onPasswordCheck() {
-        if (getBaseDao().isAutoPass()) {
+        if (getBaseDao().isAutoPass() || mAccount.isLedger()) {
             onShowFeeDialog();
         } else {
             Intent intent = new Intent(ValidatorListActivity.this, PasswordCheckActivity.class);
@@ -417,13 +580,23 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         ArrayList<FeeInfo> feeInfo = WDp.getFeeInfos(this, getBaseDao());
         if (feeInfo.size() > 1) {
             new AlertDialog.Builder(this, R.style.DialogTheme).setItems(feeInfo.stream().map(item -> item.title).toArray(String[]::new), (DialogInterface dialogInterface, int i) -> {
-                if (mEasyMode == EASY_MODE_CLAIM_REWARDS) onStartEasyClaim(i);
-                else onStartEasyCompounding(i);
+                if (mEasyMode == EASY_MODE_CLAIM_REWARDS) {
+                    if (mAccount.isLedger()) onStartEasyClaimByLedger(i);
+                    else onStartEasyClaim(i);
+                } else {
+                    if (mAccount.isLedger()) onStartEasyCompoundingByLedger(i);
+                    else onStartEasyCompounding(i);
+                }
             }).setTitle(R.string.str_tx_step_fee).setNegativeButton(R.string.str_cancel, null).create().show();
 
         } else {
-            if (mEasyMode == EASY_MODE_CLAIM_REWARDS) onStartEasyClaim(0);
-            else onStartEasyCompounding(0);
+            if (mEasyMode == EASY_MODE_CLAIM_REWARDS) {
+                if (mAccount.isLedger()) onStartEasyClaimByLedger(0);
+                else onStartEasyClaim(0);
+            } else {
+                if (mAccount.isLedger()) onStartEasyCompoundingByLedger(0);
+                else onStartEasyCompounding(0);
+            }
         }
     }
 
