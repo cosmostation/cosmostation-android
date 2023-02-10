@@ -455,7 +455,7 @@ public class WDp {
         if (address != null) {
             if (address.startsWith("0x")) {
                 if (WKey.isValidEthAddress(address)) {
-                    return Lists.newArrayList(EVMOS_MAIN, KAVA_MAIN, OKEX_MAIN);
+                    return Lists.newArrayList(EVMOS_MAIN, KAVA_MAIN, OKEX_MAIN, XPLA_MAIN, CANTO_MAIN);
                 }
                 return null;
             }
@@ -1174,15 +1174,16 @@ public class WDp {
     }
 
     public static int mainDisplayDecimal(BaseChain chain) {
-        if (chain.equals(BNB_MAIN) || chain.equals(CRYPTO_MAIN)) {
-            return 8;
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN) || chain.equals(EVMOS_MAIN) || chain.equals(CUDOS_MAIN)) {
-            return 18;
-        } else if (chain.equals(PROVENANCE_MAIN) || chain.equals(LIKECOIN_MAIN)) {
-            return 9;
+        if (isGRPC(chain)) {
+            return ChainFactory.getChain(chain).decimal();
         } else {
-            return 6;
+            if (chain.equals(BNB_MAIN)) {
+                return 8;
+            } else if (chain.equals(OKEX_MAIN)) {
+                return 18;
+            }
         }
+        return 6;
     }
 
     public static ArrayList<Coin> getCoins(Object amount) {

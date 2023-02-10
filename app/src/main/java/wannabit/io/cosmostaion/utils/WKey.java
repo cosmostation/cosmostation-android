@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.utils;
 
 import static org.bitcoinj.core.ECKey.CURVE;
+import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
@@ -241,11 +242,7 @@ public class WKey {
             injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey pubKey = injective.crypto.v1beta1.ethsecp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
             return Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
 
-        } else if (baseChain.equals(EVMOS_MAIN)) {
-            ethermint.crypto.v1.ethsecp256k1.Keys.PubKey pubKey = ethermint.crypto.v1.ethsecp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
-            return Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
-
-        } else if (baseChain.equals(XPLA_MAIN) && pubkeyType == 1) {
+        } else if (baseChain.equals(EVMOS_MAIN) || (baseChain.equals(XPLA_MAIN) && pubkeyType == 1) || baseChain.equals(CANTO_MAIN)) {
             ethermint.crypto.v1.ethsecp256k1.Keys.PubKey pubKey = ethermint.crypto.v1.ethsecp256k1.Keys.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.getPubKey())).build();
             return Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").setValue(pubKey.toByteString()).build();
 
@@ -395,11 +392,8 @@ public class WKey {
         String addressResult = null;
         try {
             byte[] bytes = convertBits(pub, 8, 5, true);
-            if (baseChain.equals(KAVA_MAIN)) {
-                addressResult = Bech32.encode("kava", bytes);
-            } else {
-                addressResult = Bech32.encode("evmos", bytes);
-            }
+            ChainConfig chainConfig = ChainFactory.getChain(baseChain);
+            addressResult = Bech32.encode(chainConfig.addressPrefix(), bytes);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
