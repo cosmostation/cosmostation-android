@@ -506,7 +506,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_10"
                         android:layout_toLeftOf="@+id/price_color_down_text"
-                        tools:src="@drawable/icon_pricegreen" />
+                        android:src="@drawable/icon_pricegreen" />
 
                     <TextView
                         android:id="@+id/price_color_down_text"
@@ -525,7 +525,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/space_2"
                         android:layout_toLeftOf="@+id/arrow_price_color_change"
-                        tools:src="@drawable/icon_pricered" />
+                        android:src="@drawable/icon_pricered" />
                 </RelativeLayout>
             </FrameLayout>
 
