@@ -231,8 +231,8 @@ class LedgerManager {
                         dialog.dismiss()
                         CommonAlertDialog.showSingleButton(
                             context,
-                            context.getString(R.string.str_ledger_pairng_guide_title),
-                            context.getString(R.string.str_ledger_pairng_guide_msg),
+                            context.getString(R.string.str_ledger_pairing_guide_title),
+                            context.getString(R.string.str_ledger_pairing_guide_msg),
                             context.getString(R.string.str_confirm),
                             null,
                             true
