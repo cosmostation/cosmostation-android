@@ -134,6 +134,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_ALL_USER_REDEMPTION = 4303;
 
     public final static int TASK_GRPC_FETCH_OSMOSIS_ICNS = 4310;
+    public final static int TASK_GRPC_FETCH_STARGAZE_NS = 4311;
 
 
     public final static String COSMOS_AUTH_TYPE_STDTX = "auth/StdTx";
@@ -281,6 +282,7 @@ public class BaseConstant {
 
     // ICNS Contract Address
     public final static String ICNS_OSMOSIS_ADDRESS = "osmo1xk0s8xgktn9x5vwcgtjdxqzadg88fgn33p8u9cnpdxwemvxscvast52cdd";
+    public final static String NS_STARGZE_ADDRESS = "stars1fx74nkqkw2748av8j7ew7r3xt9cgjqduwn8m0ur5lhe49uhlsasszc5fhr";
 
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
 

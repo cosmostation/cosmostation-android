@@ -19,10 +19,12 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,6 +33,7 @@ import com.google.zxing.client.android.Intents;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.ClaimIncentiveActivity;
@@ -38,12 +41,14 @@ import wannabit.io.cosmostaion.activities.txs.wc.BnbWalletConnectActivity;
 import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
+import wannabit.io.cosmostaion.dialog.NameConfirmDialog;
 import wannabit.io.cosmostaion.fragment.DappFragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
@@ -191,17 +196,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onChainSelect(mSelectedChain);
         }
 
-        if (TextUtils.isEmpty(mAccount.nickName)) {
-            if (mAccount.isLedger()) {
-                mAccount.nickName = "Ledger " + mAccount.id;
-                getBaseDao().onUpdateAccount(mAccount);
-                mToolbarTitle.setText(mAccount.nickName);
-            } else {
-                mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
-            }
-        } else {
-            mToolbarTitle.setText(mAccount.nickName);
-        }
+        onSetAccountNickName();
 
         if (mPageAdapter.mCurrentFragment != null) {
             mPageAdapter.getCurrentFragment().onRefreshTab();
@@ -269,17 +264,35 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 CommonAlertDialog.showSingleButton(this, getString(R.string.error_warning_title), getString(R.string.error_deprecated_account_msg), getString(R.string.str_confirm), null);
             }
 
-            if (TextUtils.isEmpty(mAccount.nickName)) {
-                if (mAccount.isLedger()) {
-                    mAccount.nickName = "Ledger " + mAccount.id;
-                    getBaseDao().onUpdateAccount(mAccount);
-                    mToolbarTitle.setText(mAccount.nickName);
-                } else {
-                    mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
+            if (mAccount.nickName == null || (!mNameServices.isEmpty() && mNameServices.stream().filter(it -> it.name.equalsIgnoreCase(mAccount.nickName)).collect(Collectors.toList()).size() == 0)) {
+                if (mNameServices.size() == 2) {
+                    if (mNameServices.get(0).name.equalsIgnoreCase(mNameServices.get(1).name)) {
+                        onUpdateAccountNickName(mNameServices.get(0).name);
+
+                    } else {
+                        Bundle bundleData = new Bundle();
+                        bundleData.putSerializable(NameConfirmDialog.MATCH_NAME_SERVICE_BUNDLE_KEY, mNameServices);
+                        bundleData.putInt(NameConfirmDialog.SELECT_NAME_SERVICE_BUNDLE_KEY, NameConfirmDialog.SELECT_NAME_SERVICE_NAME);
+                        NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
+                        dialog.show(getSupportFragmentManager(), NameConfirmDialog.class.getName());
+                        dialog.setCancelable(false);
+
+                        getSupportFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, this, new FragmentResultListener() {
+                            @Override
+                            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                                int position = bundle.getInt(BaseConstant.POSITION);
+                                onUpdateAccountNickName(mNameServices.get(position).name);
+                                mToolbarTitle.setText(mAccount.nickName);
+                            }
+                        });
+                    }
+
+                } else if (mNameServices.size() == 1) {
+                    onUpdateAccountNickName(mNameServices.get(0).name);
                 }
-            } else {
-                mToolbarTitle.setText(mAccount.nickName);
             }
+
+            onSetAccountNickName();
         }
     }
 
@@ -289,6 +302,26 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onHideWaitDialog();
             if (mPageAdapter.mCurrentFragment != null) mPageAdapter.mCurrentFragment.onBusyFetch();
         }
+    }
+
+    private void onSetAccountNickName() {
+        if (TextUtils.isEmpty(mAccount.nickName)) {
+            if (mAccount.isLedger()) {
+                mAccount.nickName = "Ledger " + mAccount.id;
+                getBaseDao().onUpdateAccount(mAccount);
+                mToolbarTitle.setText(mAccount.nickName);
+            } else {
+                mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
+            }
+        } else {
+            mToolbarTitle.setText(mAccount.nickName);
+        }
+    }
+
+    private void onUpdateAccountNickName(String matchedName) {
+        mAccount.nickName = matchedName;
+        getBaseDao().onUpdateAccount(mAccount);
+        Toast.makeText(this, getString(R.string.str_icns_update_nickname_msg), Toast.LENGTH_SHORT).show();
     }
 
     public void onClickIncentive() {

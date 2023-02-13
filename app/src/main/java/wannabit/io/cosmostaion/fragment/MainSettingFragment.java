@@ -62,20 +62,16 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.dialog.PriceColorChangeDialog;
-import wannabit.io.cosmostaion.dialog.WaitDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.PushStatusResponse;
 import wannabit.io.cosmostaion.utils.LanguageUtil;
 import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
     private FragmentMainSettingBinding mainSettingBinding;
-
-    protected WaitDialog mDialogWait;
 
     public static MainSettingFragment newInstance() {
         return new MainSettingFragment();
@@ -461,26 +457,5 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         LanguageUtil.updateResources(context);
         LanguageUtil.modSave(context, languageSet);
         getMainActivity().recreate();
-    }
-
-    public void onShowWaitDialog() {
-        WLog.w("다이얼로그 : " + isAdded());
-        WLog.w("다이얼로그 : " + getActivity().getSupportFragmentManager().findFragmentByTag("wait"));
-        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") == null) {
-            mDialogWait = new WaitDialog();
-        }
-        WLog.w("다이얼로그0 : " + mDialogWait);
-//        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") != null && getActivity().getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
-//            return;
-//        }
-        mDialogWait.setCancelable(false);
-        mDialogWait.show(getActivity().getSupportFragmentManager(), "wait");
-    }
-
-    public void onHideWaitDialog() {
-        if (mDialogWait != null) {
-            mDialogWait.dismissAllowingStateLoss();
-        }
-        WLog.w("다이얼로그1 : " + mDialogWait);
     }
 }

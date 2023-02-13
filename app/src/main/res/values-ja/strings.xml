@@ -931,7 +931,7 @@
     <string name="str_ibc_transfer_msg1">集中型取引所では仮想資産IBC機能をサポートしません。</string>
     <string name="str_ibc_transfer_msg2">必ずIBCを通じて該当資産を元のチェーンに転送した後、\n取引所への出金を進めてください。</string>
 
-    <string name="str_icns_confirm_title">名前サービスアドレスの使用</string>
+    <string name="str_icns_confirm_title">ネームサービス同期</string>
     <string name="str_icns_update_nickname_msg">ウォレット名をネームサービスと同期させました。</string>
 
     <string name="str_not_support_bluetooth">このデバイスはBluetoothをサポートしていません。</string>
