@@ -115,9 +115,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mainSettingBinding.switchUsingBio.setOnClickListener(this);
         mainSettingBinding.switchAlaram.setOnCheckedChangeListener(switchListener());
 
+        onUpdateView();
+        loadPushStatus();
+
         mainSettingBinding.versionText.setText("v" + BuildConfig.VERSION_NAME);
         return mainSettingBinding.getRoot();
-
     }
 
     private CompoundButton.OnCheckedChangeListener switchListener() {
@@ -128,35 +130,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if (!getBaseDao().getAlarmEnable()) {
             PushManager.syncAddresses(requireContext(), getBaseDao(), getBaseDao().getFCMToken());
         }
-
         PushManager.updateStatus(requireContext(), getBaseDao(), mainSettingBinding.switchAlaram.isChecked(), getBaseDao().getFCMToken());
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (isAdded()) return;
-        if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.LIGHT_MODE)) {
-            mainSettingBinding.themeText.setText(R.string.str_theme_light);
-        } else if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.DARK_MODE)) {
-            mainSettingBinding.themeText.setText(R.string.str_theme_dark);
-        } else {
-            mainSettingBinding.themeText.setText(R.string.str_theme_system);
-        }
-
-        if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_ENGLISH)) {
-            mainSettingBinding.languageText.setText(R.string.str_language_english);
-        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN)) {
-            mainSettingBinding.languageText.setText(R.string.str_language_korean);
-        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_JAPANESE)) {
-            mainSettingBinding.languageText.setText(R.string.str_language_japanese);
-        } else {
-            mainSettingBinding.languageText.setText(R.string.str_theme_system);
-        }
-
-        onUpdatePriceColor(getMainActivity().getBaseDao().getPriceColorOption());
-        onUpdateView();
-        loadPushStatus();
+    public void onDestroy() {
+        super.onDestroy();
+        mainSettingBinding = null;
     }
 
     private void loadPushStatus() {
@@ -177,6 +157,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (isAdded()) return;
+    }
+
+    @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
         onUpdateCurrency();
@@ -184,6 +170,26 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onUpdateView() {
+        onUpdatePriceColor(getMainActivity().getBaseDao().getPriceColorOption());
+
+        if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.LIGHT_MODE)) {
+            mainSettingBinding.themeText.setText(R.string.str_theme_light);
+        } else if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.DARK_MODE)) {
+            mainSettingBinding.themeText.setText(R.string.str_theme_dark);
+        } else {
+            mainSettingBinding.themeText.setText(R.string.str_theme_system);
+        }
+
+        if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_ENGLISH)) {
+            mainSettingBinding.languageText.setText(R.string.str_language_english);
+        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN)) {
+            mainSettingBinding.languageText.setText(R.string.str_language_korean);
+        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_JAPANESE)) {
+            mainSettingBinding.languageText.setText(R.string.str_language_japanese);
+        } else {
+            mainSettingBinding.languageText.setText(R.string.str_theme_system);
+        }
+
         mainSettingBinding.switchUsingApplock.setChecked(getBaseDao().getUsingAppLock());
         mainSettingBinding.switchUsingBio.setChecked(getBaseDao().getUsingFingerPrint());
 
@@ -464,12 +470,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     public void onShowWaitDialog() {
-        WLog.w("다이얼로그 : " + isAdded());
-        WLog.w("다이얼로그 : " + getActivity().getSupportFragmentManager().findFragmentByTag("wait"));
+        WLog.w("dialog : " + isAdded());
+        WLog.w("dialog : " + getActivity().getSupportFragmentManager().findFragmentByTag("wait"));
         if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") == null) {
             mDialogWait = new WaitDialog();
         }
-        WLog.w("다이얼로그0 : " + mDialogWait);
+        WLog.w("dialog0 : " + mDialogWait);
 //        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") != null && getActivity().getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
 //            return;
 //        }
@@ -481,6 +487,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if (mDialogWait != null) {
             mDialogWait.dismissAllowingStateLoss();
         }
-        WLog.w("다이얼로그1 : " + mDialogWait);
+        WLog.w("dialog1 : " + mDialogWait);
     }
 }
