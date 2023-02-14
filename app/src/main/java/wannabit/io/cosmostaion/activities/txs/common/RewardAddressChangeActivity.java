@@ -190,8 +190,9 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(RewardAddressChangeActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartRewardAddressChange()));
+                        return;
                     }
+                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(RewardAddressChangeActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartRewardAddressChange()));
                 }
 
                 @Override

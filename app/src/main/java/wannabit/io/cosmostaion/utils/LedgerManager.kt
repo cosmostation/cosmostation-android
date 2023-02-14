@@ -23,6 +23,8 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseApplication
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog
+import java.util.*
+import kotlin.concurrent.timerTask
 
 
 class LedgerManager {
@@ -175,7 +177,8 @@ class LedgerManager {
         listener: ConnectListener,
         dialog: FilledVerticalButtonAlertDialog
     ) {
-        BleCosmosHelper.getAddress(bleManager,
+        BleCosmosHelper.getAddress(
+            bleManager,
             listener = object : BleCosmosHelper.GetAddressListener {
                 override fun error(code: String, message: String) {
                     val activity: Activity = context as Activity
@@ -207,12 +210,20 @@ class LedgerManager {
         try {
             if (bleManager.isConnected) {
                 bleManager.disconnect {
-                    connect(devideId, context, ledgerStatus, listener, dialog, retryCount)
+                    Timer().schedule(timerTask {
+                        connect(devideId, context, ledgerStatus, listener, dialog, retryCount)
+                    }, 1500)
                 }
             } else {
                 connect(devideId, context, ledgerStatus, listener, dialog, retryCount)
             }
         } catch (e: Exception) {
+            ledgerStatus.text = context.getString(R.string.str_ledger_error)
+            ledgerStatus.setTextColor(
+                ContextCompat.getColor(
+                    context, R.color.colorRed
+                )
+            )
         }
     }
 
@@ -256,8 +267,10 @@ class LedgerManager {
         })
     }
 
-    enum class ErrorType {
-        PERMISSION_DENIED, CONNECT_TIMEOUT, CONNECT_ERROR, NO_DEVICE, BLUETOOTH_OFF
+    enum class ErrorType(val descriptionResourceId: Int) {
+        PERMISSION_DENIED(R.string.error_permission),
+        BLUETOOTH_OFF(R.string.str_pairing_connect_bluetooth_msg),
+        UNKNOWN(R.string.str_ledger_error)
     }
 
     interface ConnectListener {

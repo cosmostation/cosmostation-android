@@ -200,8 +200,9 @@ public class SwapActivity extends BaseBroadCastActivity {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(SwapActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartSwap()));
+                        return;
                     }
+                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(SwapActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartSwap()));
                 }
 
                 @Override

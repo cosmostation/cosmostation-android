@@ -257,8 +257,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ValidatorListActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartEasyClaimByLedger(selectFee)));
+                        return;
                     }
+                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ValidatorListActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartEasyClaimByLedger(selectFee)));
                 }
 
                 @Override
@@ -410,7 +411,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ValidatorListActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartEasyClaimByLedger(selectFee)));
+                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ValidatorListActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartEasyClaimByLedger(selectFee)));
                     }
                 }
 

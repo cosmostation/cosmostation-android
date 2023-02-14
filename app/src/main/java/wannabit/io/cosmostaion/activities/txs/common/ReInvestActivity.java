@@ -200,8 +200,9 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ReInvestActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartReInvest()));
+                        return;
                     }
+                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ReInvestActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartReInvest()));
                 }
 
                 @Override

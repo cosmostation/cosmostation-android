@@ -203,8 +203,9 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ClaimRewardActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartReward()));
+                        return;
                     }
+                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ClaimRewardActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartReward()));
                 }
 
                 @Override

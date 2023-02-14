@@ -198,8 +198,9 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(RedelegateActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartRedelegate()));
+                        return;
                     }
+                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(RedelegateActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartRedelegate()));
                 }
 
                 @Override

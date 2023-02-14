@@ -404,23 +404,22 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     private void onLedgerConnect() {
         if (LedgerManager.getInstance().isConnected()) {
             LedgerManager.getInstance().getBleManager().disconnect(() -> {
-                showLedgerPicker();
+                onShowWaitDialog();
+                mainSettingBinding.cardLedger.postDelayed((Runnable) this::showLedgerPicker, 1500);
                 return null;
             });
         } else {
+            onShowWaitDialog();
             showLedgerPicker();
         }
     }
 
     private void showLedgerPicker() {
+        onHideWaitDialog();
         getActivity().runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(requireContext(), new LedgerManager.ConnectListener() {
             @Override
             public void error(@NonNull LedgerManager.ErrorType errorType) {
-                if (errorType.equals(LedgerManager.ErrorType.BLUETOOTH_OFF)) {
-                    FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_pairing_connect_bluetooth_msg), true);
-                } else {
-                    FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_unknown_error), true);
-                }
+                FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(errorType.getDescriptionResourceId()), true);
             }
 
             @Override

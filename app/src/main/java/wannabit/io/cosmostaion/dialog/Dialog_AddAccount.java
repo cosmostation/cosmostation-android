@@ -83,9 +83,7 @@ public class Dialog_AddAccount extends DialogFragment {
         getActivity().runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(requireContext(), new LedgerManager.ConnectListener() {
             @Override
             public void error(@NonNull LedgerManager.ErrorType errorType) {
-                if (errorType.equals(LedgerManager.ErrorType.BLUETOOTH_OFF)) {
-                    FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_pairing_connect_bluetooth_msg), true);
-                }
+                FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(errorType.getDescriptionResourceId()), true);
             }
 
             @Override

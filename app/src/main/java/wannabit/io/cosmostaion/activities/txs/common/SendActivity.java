@@ -324,8 +324,9 @@ public class SendActivity extends BaseBroadCastActivity {
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(SendActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartSend()));
+                        return;
                     }
+                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(SendActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartSend()));
                 }
 
                 @Override
@@ -427,7 +428,7 @@ public class SendActivity extends BaseBroadCastActivity {
                     @Override
                     public void error(@NonNull LedgerManager.ErrorType errorType) {
                         if (isFinishing()) {
-                            runOnUiThread(() -> CommonAlertDialog.showDoubleButton(SendActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartSend()));
+                            runOnUiThread(() -> CommonAlertDialog.showDoubleButton(SendActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartSend()));
                         }
                     }
 
@@ -509,7 +510,8 @@ public class SendActivity extends BaseBroadCastActivity {
         txIntent.putExtra("errorMsg", result.errorMsg);
         String hash = String.valueOf(result.resultData);
         if (!TextUtils.isEmpty(hash)) {
-            if (mTxType == BaseConstant.CONST_PW_TX_EVM_TRANSFER) txIntent.putExtra("ethTxHash", hash);
+            if (mTxType == BaseConstant.CONST_PW_TX_EVM_TRANSFER)
+                txIntent.putExtra("ethTxHash", hash);
             else txIntent.putExtra("txHash", hash);
         }
         startActivity(txIntent);
