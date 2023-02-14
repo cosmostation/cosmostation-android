@@ -19,8 +19,8 @@ android {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 24
         targetSdkVersion 32
-        versionCode 187
-        versionName "1.8.7"
+        versionCode 188
+        versionName "1.8.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -71,10 +71,6 @@ android {
     namespace 'wannabit.io.cosmostaion'
 
     viewBinding {
-        enabled = true
-    }
-
-    dataBinding {
         enabled = true
     }
 }

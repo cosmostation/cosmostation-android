@@ -198,8 +198,9 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
                 @Override
                 public void error(@NonNull LedgerManager.ErrorType errorType) {
                     if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(RedelegateActivity.this, getString(R.string.str_ledger_error), errorType.name(), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartRedelegate()));
+                        return;
                     }
+                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(RedelegateActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartRedelegate()));
                 }
 
                 @Override
@@ -214,6 +215,9 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
                     BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), mAccount.path, new BleCosmosHelper.GetAddressListener() {
                         @Override
                         public void success(@NonNull String s, @NonNull byte[] bytes) {
+                            if (isFinishing()) {
+                                return;
+                            }
                             LedgerManager.getInstance().setCurrentPubKey(bytes);
                             if (!mAccount.address.equals(s)) {
                                 return;
@@ -226,6 +230,9 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
                             BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), mAccount.path, message, new BleCosmosHelper.SignListener() {
                                 @Override
                                 public void success(@NonNull byte[] bytes) {
+                                    if (isFinishing()) {
+                                        return;
+                                    }
                                     new Thread(() -> {
                                         ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerReDelegateReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddress, mToValAddress, mAmount, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(bytes));
                                         ServiceOuterClass.BroadcastTxResponse response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, mChainConfig);
@@ -245,10 +252,15 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
                                 @Override
                                 public void error(@NonNull String s, @NonNull String s1) {
+                                    if (isFinishing()) {
+                                        return;
+                                    }
                                     runOnUiThread(() -> {
                                         mDialog.dismiss();
                                         if (s.equalsIgnoreCase("6986")) {
                                             Toast.makeText(RedelegateActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(RedelegateActivity.this, R.string.str_ledger_error, Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -257,6 +269,17 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
                         @Override
                         public void error(@NonNull String s, @NonNull String s1) {
+                            if (isFinishing()) {
+                                return;
+                            }
+                            runOnUiThread(() -> {
+                                mDialog.dismiss();
+                                if (s.equalsIgnoreCase("6986")) {
+                                    Toast.makeText(RedelegateActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RedelegateActivity.this, R.string.str_ledger_error, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     });
                 }

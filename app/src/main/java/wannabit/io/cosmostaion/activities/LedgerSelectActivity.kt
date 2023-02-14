@@ -66,7 +66,6 @@ class LedgerSelectActivity : BaseActivity() {
                 onShowWaitDialog()
                 loadAddress()
             }
-
         })
     }
 

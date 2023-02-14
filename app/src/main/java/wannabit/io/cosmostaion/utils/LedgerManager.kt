@@ -23,6 +23,8 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseApplication
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog
+import java.util.*
+import kotlin.concurrent.timerTask
 
 
 class LedgerManager {
@@ -40,9 +42,7 @@ class LedgerManager {
         return connectedDevice != null && bleManager.isConnected
     }
 
-    fun pickLedgerDevice(
-        context: Context, listener: ConnectListener
-    ) {
+    fun pickLedgerDevice(context: Context, listener: ConnectListener) {
         if (isConnected()) {
             listener.connected()
             return
@@ -76,7 +76,8 @@ class LedgerManager {
                             )
                             bleManager.startScanning {
                                 it.forEach { blueToothDevice ->
-                                    val matched = nanoDevices.find { it.address == blueToothDevice.id }
+                                    val matched =
+                                        nanoDevices.find { it.address == blueToothDevice.id }
                                     val bleMatched =
                                         bluetoothDevices.find { it.id == blueToothDevice.id }
                                     if (matched != null || bleMatched != null) {
@@ -91,14 +92,16 @@ class LedgerManager {
 
                         } else {
                             val dialog = showDevicePicker(
-                                context, context.getString(R.string.str_pairing_ledger_title))
+                                context, context.getString(R.string.str_pairing_ledger_title)
+                            )
                             nanoDevices.forEach { blueToothDevice ->
                                 showDialog(dialog, blueToothDevice.name, blueToothDevice.address)
                             }
 
                             bleManager.startScanning {
                                 it.forEach { blueToothDevice ->
-                                    val matched = nanoDevices.find { it.address == blueToothDevice.id }
+                                    val matched =
+                                        nanoDevices.find { it.address == blueToothDevice.id }
                                     val bleMatched =
                                         bluetoothDevices.find { it.id == blueToothDevice.id }
                                     if (matched != null || bleMatched != null) {
@@ -168,13 +171,14 @@ class LedgerManager {
         return dialog
     }
 
-    fun onCheckOpenLedgerApp(
+    private fun onCheckOpenLedgerApp(
         context: Context,
         ledgerStatus: TextView,
         listener: ConnectListener,
         dialog: FilledVerticalButtonAlertDialog
     ) {
-        BleCosmosHelper.getAddress(bleManager,
+        BleCosmosHelper.getAddress(
+            bleManager,
             listener = object : BleCosmosHelper.GetAddressListener {
                 override fun error(code: String, message: String) {
                     val activity: Activity = context as Activity
@@ -200,32 +204,44 @@ class LedgerManager {
         devideId: String,
         ledgerStatus: TextView,
         listener: ConnectListener,
-        dialog: FilledVerticalButtonAlertDialog
+        dialog: FilledVerticalButtonAlertDialog,
+        retryCount: Int = 3
     ) {
-        if (bleManager.isConnected) {
-            bleManager.disconnect {
-                connect(devideId, context, ledgerStatus, listener, dialog, 0)
+        try {
+            if (bleManager.isConnected) {
+                bleManager.disconnect {
+                    Timer().schedule(timerTask {
+                        connect(devideId, context, ledgerStatus, listener, dialog, retryCount)
+                    }, 1500)
+                }
+            } else {
+                connect(devideId, context, ledgerStatus, listener, dialog, retryCount)
             }
-        } else {
-            connect(devideId, context, ledgerStatus, listener, dialog, 0)
+        } catch (e: Exception) {
+            ledgerStatus.text = context.getString(R.string.str_ledger_error)
+            ledgerStatus.setTextColor(
+                ContextCompat.getColor(
+                    context, R.color.colorRed
+                )
+            )
         }
     }
 
     private fun connect(
-        devideId: String,
+        deviceId: String,
         context: Context,
         ledgerStatus: TextView,
         listener: ConnectListener,
         dialog: FilledVerticalButtonAlertDialog,
         retryCount: Int
     ) {
-        bleManager.connect(address = devideId, onConnectError = { bleError ->
-            if (retryCount == 0) {
-                connect(devideId, context, ledgerStatus, listener, dialog, 1)
+        bleManager.connect(address = deviceId, onConnectError = { bleError ->
+            if (retryCount > 0) {
+                onConnectLedger(context, deviceId, ledgerStatus, listener, dialog, retryCount - 1)
             } else {
                 val activity: Activity = context as Activity
                 activity.runOnUiThread {
-                    if (bleError.message.equals(BleError.PAIRING_FAILED)) {
+                    if (bleError.message == BleError.PAIRING_FAILED.message) {
                         ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
                     } else {
                         dialog.dismiss()
@@ -251,8 +267,10 @@ class LedgerManager {
         })
     }
 
-    enum class ErrorType {
-        PERMISSION_DENIED, CONNECT_TIMEOUT, CONNECT_ERROR, NO_DEVICE, BLUETOOTH_OFF
+    enum class ErrorType(val descriptionResourceId: Int) {
+        PERMISSION_DENIED(R.string.error_permission),
+        BLUETOOTH_OFF(R.string.str_pairing_connect_bluetooth_msg),
+        UNKNOWN(R.string.str_ledger_error)
     }
 
     interface ConnectListener {

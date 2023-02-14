@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.dialog.PriceColorChangeDialog;
+import wannabit.io.cosmostaion.dialog.WaitDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.PushStatusResponse;
 import wannabit.io.cosmostaion.utils.LanguageUtil;
@@ -72,6 +73,8 @@ import wannabit.io.cosmostaion.utils.ThemeUtil;
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
     private FragmentMainSettingBinding mainSettingBinding;
+
+    protected WaitDialog mDialogWait;
 
     public static MainSettingFragment newInstance() {
         return new MainSettingFragment();
@@ -111,9 +114,11 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mainSettingBinding.switchUsingBio.setOnClickListener(this);
         mainSettingBinding.switchAlaram.setOnCheckedChangeListener(switchListener());
 
+        onUpdateView();
+        loadPushStatus();
+
         mainSettingBinding.versionText.setText("v" + BuildConfig.VERSION_NAME);
         return mainSettingBinding.getRoot();
-
     }
 
     private CompoundButton.OnCheckedChangeListener switchListener() {
@@ -124,35 +129,13 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if (!getBaseDao().getAlarmEnable()) {
             PushManager.syncAddresses(requireContext(), getBaseDao(), getBaseDao().getFCMToken());
         }
-
         PushManager.updateStatus(requireContext(), getBaseDao(), mainSettingBinding.switchAlaram.isChecked(), getBaseDao().getFCMToken());
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (isAdded()) return;
-        if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.LIGHT_MODE)) {
-            mainSettingBinding.themeText.setText(R.string.str_theme_light);
-        } else if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.DARK_MODE)) {
-            mainSettingBinding.themeText.setText(R.string.str_theme_dark);
-        } else {
-            mainSettingBinding.themeText.setText(R.string.str_theme_system);
-        }
-
-        if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_ENGLISH)) {
-            mainSettingBinding.languageText.setText(R.string.str_language_english);
-        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN)) {
-            mainSettingBinding.languageText.setText(R.string.str_language_korean);
-        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_JAPANESE)) {
-            mainSettingBinding.languageText.setText(R.string.str_language_japanese);
-        } else {
-            mainSettingBinding.languageText.setText(R.string.str_theme_system);
-        }
-
-        onUpdatePriceColor(getMainActivity().getBaseDao().getPriceColorOption());
-        onUpdateView();
-        loadPushStatus();
+    public void onDestroy() {
+        super.onDestroy();
+        mainSettingBinding = null;
     }
 
     private void loadPushStatus() {
@@ -173,6 +156,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (isAdded()) return;
+    }
+
+    @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
         onUpdateCurrency();
@@ -180,6 +169,26 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onUpdateView() {
+        onUpdatePriceColor(getMainActivity().getBaseDao().getPriceColorOption());
+
+        if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.LIGHT_MODE)) {
+            mainSettingBinding.themeText.setText(R.string.str_theme_light);
+        } else if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.DARK_MODE)) {
+            mainSettingBinding.themeText.setText(R.string.str_theme_dark);
+        } else {
+            mainSettingBinding.themeText.setText(R.string.str_theme_system);
+        }
+
+        if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_ENGLISH)) {
+            mainSettingBinding.languageText.setText(R.string.str_language_english);
+        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN)) {
+            mainSettingBinding.languageText.setText(R.string.str_language_korean);
+        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_JAPANESE)) {
+            mainSettingBinding.languageText.setText(R.string.str_language_japanese);
+        } else {
+            mainSettingBinding.languageText.setText(R.string.str_theme_system);
+        }
+
         mainSettingBinding.switchUsingApplock.setChecked(getBaseDao().getUsingAppLock());
         mainSettingBinding.switchUsingBio.setChecked(getBaseDao().getUsingFingerPrint());
 
@@ -281,8 +290,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mainSettingBinding.cardTerm)) {
-            if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN) ||
-                    Locale.getDefault().getLanguage().equals(LanguageUtil.LANGUAGE_KOREAN)) {
+            if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN) || Locale.getDefault().getLanguage().equals(LanguageUtil.LANGUAGE_KOREAN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_KR));
                 startActivity(intent);
             } else {
@@ -395,21 +403,22 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     private void onLedgerConnect() {
         if (LedgerManager.getInstance().isConnected()) {
             LedgerManager.getInstance().getBleManager().disconnect(() -> {
-                showLedgerPicker();
+                onShowWaitDialog();
+                mainSettingBinding.cardLedger.postDelayed((Runnable) this::showLedgerPicker, 1500);
                 return null;
             });
         } else {
+            onShowWaitDialog();
             showLedgerPicker();
         }
     }
 
     private void showLedgerPicker() {
+        onHideWaitDialog();
         getActivity().runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(requireContext(), new LedgerManager.ConnectListener() {
             @Override
             public void error(@NonNull LedgerManager.ErrorType errorType) {
-                if (errorType.equals(LedgerManager.ErrorType.BLUETOOTH_OFF)) {
-                    FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_pairing_connect_bluetooth_msg), true);
-                }
+                FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(errorType.getDescriptionResourceId()), true);
             }
 
             @Override
@@ -457,5 +466,19 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         LanguageUtil.updateResources(context);
         LanguageUtil.modSave(context, languageSet);
         getMainActivity().recreate();
+    }
+
+    public void onShowWaitDialog() {
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") == null) {
+            mDialogWait = new WaitDialog();
+        }
+        mDialogWait.setCancelable(false);
+        mDialogWait.show(getActivity().getSupportFragmentManager(), "wait");
+    }
+
+    public void onHideWaitDialog() {
+        if (mDialogWait != null) {
+            mDialogWait.dismissAllowingStateLoss();
+        }
     }
 }
