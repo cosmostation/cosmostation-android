@@ -40,9 +40,7 @@ class LedgerManager {
         return connectedDevice != null && bleManager.isConnected
     }
 
-    fun pickLedgerDevice(
-        context: Context, listener: ConnectListener
-    ) {
+    fun pickLedgerDevice(context: Context, listener: ConnectListener) {
         if (isConnected()) {
             listener.connected()
             return
@@ -76,7 +74,8 @@ class LedgerManager {
                             )
                             bleManager.startScanning {
                                 it.forEach { blueToothDevice ->
-                                    val matched = nanoDevices.find { it.address == blueToothDevice.id }
+                                    val matched =
+                                        nanoDevices.find { it.address == blueToothDevice.id }
                                     val bleMatched =
                                         bluetoothDevices.find { it.id == blueToothDevice.id }
                                     if (matched != null || bleMatched != null) {
@@ -91,14 +90,16 @@ class LedgerManager {
 
                         } else {
                             val dialog = showDevicePicker(
-                                context, context.getString(R.string.str_pairing_ledger_title))
+                                context, context.getString(R.string.str_pairing_ledger_title)
+                            )
                             nanoDevices.forEach { blueToothDevice ->
                                 showDialog(dialog, blueToothDevice.name, blueToothDevice.address)
                             }
 
                             bleManager.startScanning {
                                 it.forEach { blueToothDevice ->
-                                    val matched = nanoDevices.find { it.address == blueToothDevice.id }
+                                    val matched =
+                                        nanoDevices.find { it.address == blueToothDevice.id }
                                     val bleMatched =
                                         bluetoothDevices.find { it.id == blueToothDevice.id }
                                     if (matched != null || bleMatched != null) {
@@ -168,7 +169,7 @@ class LedgerManager {
         return dialog
     }
 
-    fun onCheckOpenLedgerApp(
+    private fun onCheckOpenLedgerApp(
         context: Context,
         ledgerStatus: TextView,
         listener: ConnectListener,
@@ -200,32 +201,36 @@ class LedgerManager {
         devideId: String,
         ledgerStatus: TextView,
         listener: ConnectListener,
-        dialog: FilledVerticalButtonAlertDialog
+        dialog: FilledVerticalButtonAlertDialog,
+        retryCount: Int = 3
     ) {
-        if (bleManager.isConnected) {
-            bleManager.disconnect {
-                connect(devideId, context, ledgerStatus, listener, dialog, 0)
+        try {
+            if (bleManager.isConnected) {
+                bleManager.disconnect {
+                    connect(devideId, context, ledgerStatus, listener, dialog, retryCount)
+                }
+            } else {
+                connect(devideId, context, ledgerStatus, listener, dialog, retryCount)
             }
-        } else {
-            connect(devideId, context, ledgerStatus, listener, dialog, 0)
+        } catch (e: Exception) {
         }
     }
 
     private fun connect(
-        devideId: String,
+        deviceId: String,
         context: Context,
         ledgerStatus: TextView,
         listener: ConnectListener,
         dialog: FilledVerticalButtonAlertDialog,
         retryCount: Int
     ) {
-        bleManager.connect(address = devideId, onConnectError = { bleError ->
-            if (retryCount == 0) {
-                connect(devideId, context, ledgerStatus, listener, dialog, 1)
+        bleManager.connect(address = deviceId, onConnectError = { bleError ->
+            if (retryCount > 0) {
+                onConnectLedger(context, deviceId, ledgerStatus, listener, dialog, retryCount - 1)
             } else {
                 val activity: Activity = context as Activity
                 activity.runOnUiThread {
-                    if (bleError.message.equals(BleError.PAIRING_FAILED)) {
+                    if (bleError.message == BleError.PAIRING_FAILED.message) {
                         ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
                     } else {
                         dialog.dismiss()

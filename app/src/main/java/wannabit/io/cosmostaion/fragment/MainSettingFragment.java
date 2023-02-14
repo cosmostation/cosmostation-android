@@ -291,8 +291,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mainSettingBinding.cardTerm)) {
-            if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN) ||
-                    Locale.getDefault().getLanguage().equals(LanguageUtil.LANGUAGE_KOREAN)) {
+            if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN) || Locale.getDefault().getLanguage().equals(LanguageUtil.LANGUAGE_KOREAN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_KR));
                 startActivity(intent);
             } else {
@@ -419,6 +418,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             public void error(@NonNull LedgerManager.ErrorType errorType) {
                 if (errorType.equals(LedgerManager.ErrorType.BLUETOOTH_OFF)) {
                     FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_pairing_connect_bluetooth_msg), true);
+                } else {
+                    FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(R.string.str_unknown_error), true);
                 }
             }
 
