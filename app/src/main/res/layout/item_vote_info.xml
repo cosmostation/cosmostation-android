@@ -70,7 +70,7 @@
                 <TextView
                     android:id="@+id/vote_title_id"
                     style="@style/font_rb_14_black_daynight"
-                    android:layout_width="@dimen/space_36"
+                    android:layout_width="@dimen/space_40"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="" />
