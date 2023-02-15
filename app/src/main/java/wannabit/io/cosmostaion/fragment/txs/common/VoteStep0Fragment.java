@@ -35,7 +35,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
 
     private FragmentVoteStep0Binding fragmentVoteStep0Binding;
 
-    private Map<Integer, String> selectedMap = Maps.newHashMap();
+    private final Map<Integer, String> selectedMap = Maps.newHashMap();
 
     public List<ResProposal> mProposalList;
 
@@ -69,6 +69,11 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
         fragmentVoteStep0Binding.btnNext.setOnClickListener(this);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentVoteStep0Binding = null;
+    }
 
     public VoteActivity getSActivity() {
         return (VoteActivity) getBaseActivity();
@@ -200,7 +205,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
 
         public class ProposalSelectionHolder extends RecyclerView.ViewHolder {
 
-            private ItemProposalSelectionBinding itemProposalSelectionBinding;
+            private final ItemProposalSelectionBinding itemProposalSelectionBinding;
 
             public ProposalSelectionHolder(@NonNull ItemProposalSelectionBinding binding) {
                 super(binding.getRoot());

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.common.collect.Lists;
@@ -82,6 +83,12 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onStartVote();
 
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentVoteStep3Binding = null;
     }
 
     private VoteActivity getSActivity() {
