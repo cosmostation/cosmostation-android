@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -15,17 +13,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.VoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.databinding.FragmentVoteStep3Binding;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class VoteStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mOpinion;
-    private TextView mFeeAmount, mDenomFeeType;
-    private TextView mMemo;
-    private Button mBeforeBtn, mConfirmBtn;
+    private FragmentVoteStep3Binding fragmentVoteStep3Binding;
 
     public static VoteStep3Fragment newInstance() {
         return new VoteStep3Fragment();
@@ -38,22 +33,15 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_vote_step3, container, false);
-        mOpinion = rootView.findViewById(R.id.my_opinion);
-        mFeeAmount = rootView.findViewById(R.id.vote_fees);
-        mDenomFeeType = rootView.findViewById(R.id.vote_fees_type);
-        mMemo = rootView.findViewById(R.id.memo);
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
-
-        mBeforeBtn.setOnClickListener(this);
-        mConfirmBtn.setOnClickListener(this);
-        return rootView;
+        fragmentVoteStep3Binding = FragmentVoteStep3Binding.inflate(inflater, container, false);
+        fragmentVoteStep3Binding.btnBefore.setOnClickListener(this);
+        fragmentVoteStep3Binding.btnConfirm.setOnClickListener(this);
+        return fragmentVoteStep3Binding.getRoot();
     }
 
     @Override
     public void onRefreshTab() {
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mDenomFeeType, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), fragmentVoteStep3Binding.voteFeesType, fragmentVoteStep3Binding.voteFees);
 
         List<String> texts = Lists.newArrayList();
         getSActivity().mSelectedOpinion.forEach((key, value) -> {
@@ -61,8 +49,8 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
         });
         String opinionText = StringUtils.join(texts, "\n");
 
-        mOpinion.setText(opinionText);
-        mMemo.setText(getSActivity().mTxMemo);
+        fragmentVoteStep3Binding.myOpinion.setText(opinionText);
+        fragmentVoteStep3Binding.memo.setText(getSActivity().mTxMemo);
     }
 
     private String voteOptionConvert(String value) {
@@ -87,10 +75,10 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBeforeBtn)) {
+        if (v.equals(fragmentVoteStep3Binding.btnBefore)) {
             getSActivity().onBeforeStep();
 
-        } else if (v.equals(mConfirmBtn)) {
+        } else if (v.equals(fragmentVoteStep3Binding.btnConfirm)) {
             getSActivity().onStartVote();
 
         }
