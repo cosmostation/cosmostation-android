@@ -111,6 +111,11 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         voteDetailsBinding.recycler.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        voteDetailsBinding = null;
+    }
 
     @Override
     public void onClick(View v) {
