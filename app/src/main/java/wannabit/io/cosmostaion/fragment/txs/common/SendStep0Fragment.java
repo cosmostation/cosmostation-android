@@ -25,12 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -58,6 +52,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.MintscanToken;
+import wannabit.io.cosmostaion.databinding.FragmentSendStep0Binding;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog;
 import wannabit.io.cosmostaion.dialog.NameConfirmDialog;
@@ -71,13 +66,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
-    private RelativeLayout mToChainList;
-    private ImageView mToChainImg;
-    private TextView mToChainTxt;
-    private EditText mAddressInput;
-    private Button mCancel, mNextBtn;
-    private LinearLayout mIbcLayer;
-    private LinearLayout mBtnWallet, mBtnQr, mBtnPaste;
+    private FragmentSendStep0Binding fragmentSendStep0Binding;
 
     private ArrayList<ChainConfig> mToSendableChains = new ArrayList<>();
     private ChainConfig mToSendChainConfig;
@@ -99,25 +88,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_send_step0, container, false);
-        mToChainList = rootView.findViewById(R.id.btn_to_chain_list);
-        mToChainImg = rootView.findViewById(R.id.img_to_chain);
-        mToChainTxt = rootView.findViewById(R.id.txt_to_chain);
-        mAddressInput = rootView.findViewById(R.id.receiver_account);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
-        mCancel = rootView.findViewById(R.id.btn_cancel);
-        mIbcLayer = rootView.findViewById(R.id.ibc_layer);
+        fragmentSendStep0Binding = fragmentSendStep0Binding.inflate(inflater, container, false);
 
-        mBtnQr = rootView.findViewById(R.id.btn_qr);
-        mBtnPaste = rootView.findViewById(R.id.btn_paste);
-        mBtnWallet = rootView.findViewById(R.id.btn_wallet);
-
-        mToChainList.setOnClickListener(this);
-        mCancel.setOnClickListener(this);
-        mNextBtn.setOnClickListener(this);
-        mBtnQr.setOnClickListener(this);
-        mBtnPaste.setOnClickListener(this);
-        mBtnWallet.setOnClickListener(this);
+        fragmentSendStep0Binding.btnToChainList.setOnClickListener(this);
+        fragmentSendStep0Binding.btnCancel.setOnClickListener(this);
+        fragmentSendStep0Binding.btnNext.setOnClickListener(this);
+        fragmentSendStep0Binding.btnQr.setOnClickListener(this);
+        fragmentSendStep0Binding.btnPaste.setOnClickListener(this);
+        fragmentSendStep0Binding.btnWallet.setOnClickListener(this);
 
         mAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mDenom);
         mMintscanToken = getBaseDao().getCw20Asset(getSActivity().mChainConfig, getSActivity().mDenom);
@@ -157,7 +135,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         mToAccountList = getBaseDao().onSelectAccountsExceptSelfByChain(mToSendChainConfig.baseChain(), getSActivity().mAccount);
         onUpdateChainView();
 
-        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        fragmentSendStep0Binding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             private boolean alreadyOpen;
             private final int defaultKeyboardHeightDP = 100;
             private final int EstimatedKeyboardDP = defaultKeyboardHeightDP + (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 48 : 0);
@@ -165,51 +143,51 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void onGlobalLayout() {
-                int estimatedKeyboardHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, EstimatedKeyboardDP, rootView.getResources().getDisplayMetrics());
-                rootView.getWindowVisibleDisplayFrame(rect);
-                int heightDiff = rootView.getRootView().getHeight() - (rect.bottom - rect.top);
+                int estimatedKeyboardHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, EstimatedKeyboardDP, fragmentSendStep0Binding.getRoot().getResources().getDisplayMetrics());
+                fragmentSendStep0Binding.getRoot().getWindowVisibleDisplayFrame(rect);
+                int heightDiff = fragmentSendStep0Binding.getRoot().getRootView().getHeight() - (rect.bottom - rect.top);
                 boolean isShown = heightDiff >= estimatedKeyboardHeight;
                 if (isShown == alreadyOpen) {
                     return;
                 }
                 alreadyOpen = isShown;
                 if (alreadyOpen) {
-                    mIbcLayer.setVisibility(View.GONE);
+                    fragmentSendStep0Binding.ibcLayer.setVisibility(View.GONE);
                 } else {
                     new Handler().postDelayed(() -> {
                         if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain))
-                            mIbcLayer.setVisibility(View.GONE);
-                        else mIbcLayer.setVisibility(View.VISIBLE);
+                            fragmentSendStep0Binding.ibcLayer.setVisibility(View.GONE);
+                        else fragmentSendStep0Binding.ibcLayer.setVisibility(View.VISIBLE);
 
                     }, 100);
                 }
             }
         });
-        return rootView;
+        return fragmentSendStep0Binding.getRoot();
     }
 
     private void onUpdateChainView() {
-        mToChainImg.setImageResource(mToSendChainConfig.chainImg());
-        mToChainTxt.setText(mToSendChainConfig.chainTitleToUp());
-        mToChainTxt.setTextColor(ContextCompat.getColor(getActivity(), mToSendChainConfig.chainColor()));
-        mAddressInput.setText("");
+        fragmentSendStep0Binding.imgToChain.setImageResource(mToSendChainConfig.chainImg());
+        fragmentSendStep0Binding.txtToChain.setText(mToSendChainConfig.chainTitleToUp());
+        fragmentSendStep0Binding.txtToChain.setTextColor(ContextCompat.getColor(getActivity(), mToSendChainConfig.chainColor()));
+        fragmentSendStep0Binding.receiverAccount.setText("");
         if (mToSendChainConfig.baseChain().equals(getSActivity().mBaseChain))
-            mIbcLayer.setVisibility(View.GONE);
-        else mIbcLayer.setVisibility(View.VISIBLE);
+            fragmentSendStep0Binding.ibcLayer.setVisibility(View.GONE);
+        else fragmentSendStep0Binding.ibcLayer.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onRefreshTab() {
-        String userInput = String.valueOf(mAddressInput.getText()).trim();
+        String userInput = String.valueOf(fragmentSendStep0Binding.receiverAccount.getText()).trim();
         if (userInput.contains(".")) {
-            mAddressInput.setText(userInput.replaceFirst(".$", ""));
-            mAddressInput.setSelection(userInput.replaceFirst(".$", "").length());
+            fragmentSendStep0Binding.receiverAccount.setText(userInput.replaceFirst(".$", ""));
+            fragmentSendStep0Binding.receiverAccount.setSelection(userInput.replaceFirst(".$", "").length());
         }
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mToChainList)) {
+        if (v.equals(fragmentSendStep0Binding.btnToChainList)) {
             Bundle bundleData = new Bundle();
             bundleData.putSerializable(SelectChainListDialog.TO_SENDABLE_CHAIN_CONFIG_BUNDLE_KEY, mToSendableChains);
             bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_IBC_CHAIN_VALUE);
@@ -223,8 +201,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
             });
             getSActivity().onHideKeyboard();
 
-        } else if (v.equals(mNextBtn)) {
-            String userInput = String.valueOf(mAddressInput.getText()).trim();
+        } else if (v.equals(fragmentSendStep0Binding.btnNext)) {
+            String userInput = String.valueOf(fragmentSendStep0Binding.receiverAccount.getText()).trim();
             mMatchAddressList.clear();
 
             if (getSActivity().mAccount.address.equals(userInput)) {
@@ -260,10 +238,10 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 onPathSetting();
             }
 
-        } else if (v.equals(mCancel)) {
+        } else if (v.equals(fragmentSendStep0Binding.btnCancel)) {
             getSActivity().onBeforeStep();
 
-        } else if (v.equals(mBtnWallet)) {
+        } else if (v.equals(fragmentSendStep0Binding.btnWallet)) {
             if (mToSendChainConfig == null || mToAccountList.size() <= 0) {
                 Toast.makeText(getSActivity(), getString(R.string.error_no_wallet_this_chain), Toast.LENGTH_SHORT).show();
                 return;
@@ -275,17 +253,17 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 dialog.show(getParentFragmentManager(), IBCReceiveAccountsDialog.class.getName());
                 getParentFragmentManager().setFragmentResultListener(IBCReceiveAccountsDialog.IBC_RECEIVE_ACCOUNTS_BUNDLE_KEY, this, (requestKey, bundle) -> {
                     int result = bundle.getInt(BaseConstant.POSITION);
-                    mAddressInput.setText(mToAccountList.get(result).address);
+                    fragmentSendStep0Binding.receiverAccount.setText(mToAccountList.get(result).address);
                 });
             }
 
-        } else if (v.equals(mBtnQr)) {
+        } else if (v.equals(fragmentSendStep0Binding.btnQr)) {
             IntentIntegrator integrator = IntentIntegrator.forSupportFragment(this);
             integrator.setOrientationLocked(true);
             integrator.setCaptureActivity(QRcodeActivity.class);
             qrCodeResultLauncher.launch(integrator.createScanIntent());
 
-        } else if (v.equals(mBtnPaste)) {
+        } else if (v.equals(fragmentSendStep0Binding.btnPaste)) {
             ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
                 String userPaste = String.valueOf(clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity())).trim();
@@ -293,8 +271,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mAddressInput.setText(userPaste);
-                mAddressInput.setSelection(mAddressInput.getText().length());
+                fragmentSendStep0Binding.receiverAccount.setText(userPaste);
+                fragmentSendStep0Binding.receiverAccount.setSelection(fragmentSendStep0Binding.receiverAccount.getText().length());
 
             } else {
                 Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
@@ -339,8 +317,8 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
     private final ActivityResultLauncher<Intent> qrCodeResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-            mAddressInput.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
-            mAddressInput.setSelection(mAddressInput.getText().length());
+            fragmentSendStep0Binding.receiverAccount.setText(result.getData().getStringExtra(Intents.Scan.RESULT).trim());
+            fragmentSendStep0Binding.receiverAccount.setSelection(fragmentSendStep0Binding.receiverAccount.getText().length());
         }
     });
 
@@ -400,6 +378,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private int mTaskCount = 0;
+
     private void onFetchCheckICNS(String userInput) {
         mTaskCount = 1;
         new OsmosisCheckIcnsGrpcTask(getBaseApplication(), this, mToSendChainConfig, userInput).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

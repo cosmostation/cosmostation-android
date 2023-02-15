@@ -155,13 +155,13 @@ class LedgerManager {
         val dialog = FilledVerticalButtonAlertDialog(context)
 
         if (StringUtils.isEmpty(title)) {
-            dialog.title2TextView.visibility = View.GONE
+            dialog.filledVerticalBinding.dialogTitle2.visibility = View.GONE
         } else {
-            dialog.title2TextView.text = title
-            dialog.title2TextView.visibility = View.VISIBLE
+            dialog.filledVerticalBinding.dialogTitle.text = title
+            dialog.filledVerticalBinding.dialogTitle2.visibility = View.VISIBLE
         }
-        dialog.firstButton.visibility = View.GONE
-        dialog.secondButton.visibility = View.GONE
+        dialog.filledVerticalBinding.btnOne.visibility = View.GONE
+        dialog.filledVerticalBinding.btnTwo.visibility = View.GONE
 
         dialog.hiddenView.visibility = View.VISIBLE
         dialog.setCancelable(true)
