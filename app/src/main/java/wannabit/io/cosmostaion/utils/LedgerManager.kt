@@ -10,19 +10,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.ledger.live.ble.BleManager
 import com.ledger.live.ble.BleManagerFactory
 import com.ledger.live.ble.app.BleCosmosHelper
+import com.ledger.live.ble.app.BleCosmosHelper.Companion.getAddress
+import com.ledger.live.ble.app.BleCosmosHelper.Companion.sign
 import com.ledger.live.ble.model.BleDeviceModel
 import com.ledger.live.ble.model.BleError
+import cosmos.tx.v1beta1.ServiceOuterClass.*
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseApplication
+import wannabit.io.cosmostaion.base.chains.ChainFactory
+import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog
+import wannabit.io.cosmostaion.model.type.Fee
+import wannabit.io.cosmostaion.task.TaskResult
 import java.util.*
 import kotlin.concurrent.timerTask
 
@@ -177,31 +186,29 @@ class LedgerManager {
         listener: ConnectListener,
         dialog: FilledVerticalButtonAlertDialog
     ) {
-        BleCosmosHelper.getAddress(
-            bleManager,
-            listener = object : BleCosmosHelper.GetAddressListener {
-                override fun error(code: String, message: String) {
-                    val activity: Activity = context as Activity
-                    activity.runOnUiThread {
-                        ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
-                        ledgerStatus.setTextColor(
-                            ContextCompat.getColor(
-                                context, R.color.colorRed
-                            )
+        getAddress(bleManager, listener = object : BleCosmosHelper.GetAddressListener {
+            override fun error(code: String, message: String) {
+                val activity: Activity = context as Activity
+                activity.runOnUiThread {
+                    ledgerStatus.text = context.getString(R.string.error_ledger_open_msg)
+                    ledgerStatus.setTextColor(
+                        ContextCompat.getColor(
+                            context, R.color.colorRed
                         )
-                    }
+                    )
                 }
+            }
 
-                override fun success(address: String, pubKey: ByteArray) {
-                    listener.connected()
-                    dialog.dismiss()
-                }
-            })
+            override fun success(address: String, pubKey: ByteArray) {
+                listener.connected()
+                dialog.dismiss()
+            }
+        })
     }
 
     private fun onConnectLedger(
         context: Context,
-        devideId: String,
+        deviceId: String,
         ledgerStatus: TextView,
         listener: ConnectListener,
         dialog: FilledVerticalButtonAlertDialog,
@@ -211,11 +218,11 @@ class LedgerManager {
             if (bleManager.isConnected) {
                 bleManager.disconnect {
                     Timer().schedule(timerTask {
-                        connect(devideId, context, ledgerStatus, listener, dialog, retryCount)
+                        connect(deviceId, context, ledgerStatus, listener, dialog, retryCount)
                     }, 1500)
                 }
             } else {
-                connect(devideId, context, ledgerStatus, listener, dialog, retryCount)
+                connect(deviceId, context, ledgerStatus, listener, dialog, retryCount)
             }
         } catch (e: Exception) {
             ledgerStatus.text = context.getString(R.string.str_ledger_error)
@@ -224,6 +231,134 @@ class LedgerManager {
                     context, R.color.colorRed
                 )
             )
+        }
+    }
+
+    fun signAndBroadcast(activity: Activity, listener: LedgerSignListener) {
+        pickLedgerDevice(activity, object : ConnectListener {
+            val dialog = CommonAlertDialog.makeSecondImageSingleButton(
+                activity,
+                activity.getString(R.string.str_ledger_approve_title),
+                activity.getString(R.string.str_ledger_approve_msg),
+                activity.getString(R.string.str_cancel),
+                { activity.finish() },
+                R.drawable.icon_ledger
+            )
+
+            override fun error(errorType: ErrorType) {
+                processLedgerPickError(errorType)
+            }
+
+            override fun connected() {
+                processGetAddress()
+            }
+
+            private fun processGetAddress() {
+                getAddress(bleManager,
+                    ChainFactory.getChain(listener.getAccount().baseChain).addressPrefix(),
+                    listener.getAccount().path,
+                    object : BleCosmosHelper.GetAddressListener {
+                        override fun success(address: String, pubKey: ByteArray) {
+                            processSign(
+                                activity,
+                                pubKey,
+                                listener.getAccount(),
+                                address,
+                                dialog,
+                                listener.getMessage(),
+                                listener
+                            )
+                        }
+
+                        override fun error(code: String, message: String) {
+                            dialog.dismiss()
+                            processLedgerError(activity, code, message)
+                        }
+                    })
+            }
+
+            private fun processLedgerPickError(errorType: ErrorType) {
+                if (activity.isFinishing) {
+                    return
+                }
+
+                activity.runOnUiThread {
+                    CommonAlertDialog.showDoubleButton(
+                        activity,
+                        activity.getString(R.string.str_ledger_error),
+                        activity.getString(errorType.descriptionResourceId),
+                        activity.getString(R.string.str_cancel),
+                        null,
+                        activity.getString(R.string.str_retry)
+                    ) {
+                        signAndBroadcast(activity, listener)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun processSign(
+        activity: Activity,
+        pubKey: ByteArray,
+        account: Account,
+        address: String,
+        dialog: CommonAlertDialog,
+        message: String,
+        listener: LedgerSignListener
+    ) {
+        if (activity.isFinishing) {
+            return
+        }
+
+        currentPubKey = pubKey
+        if (account.address != address) {
+            return
+        } else {
+            dialog.show()
+        }
+        sign(bleManager, account.path, message, object : BleCosmosHelper.SignListener {
+            override fun success(signature: ByteArray) {
+                processBroadcast(activity, listener, pubKey, account)
+            }
+
+            override fun error(code: String, message: String) {
+                dialog.dismiss()
+                processLedgerError(activity, code, message)
+            }
+        })
+    }
+
+    private fun processBroadcast(
+        activity: Activity, listener: LedgerSignListener, pubKey: ByteArray, account: Account
+    ) {
+        if (activity.isFinishing) {
+            return
+        }
+        val broadcastTxRequest = listener.makeBroadcastTxRequest(pubKey)
+        val response = Signer.getGrpcLedgerBroadcastResponse(
+            broadcastTxRequest, ChainFactory.getChain(account.baseChain)
+        )
+        val mResult = TaskResult()
+        mResult.resultData = response.txResponse.txhash
+        listener.processResponse(response)
+    }
+
+    private fun processLedgerError(activity: Activity, code: String, message: String) {
+        if (activity.isFinishing) {
+            return
+        }
+
+        activity.runOnUiThread {
+            if (code.equals("6986", ignoreCase = true)) {
+                Toast.makeText(
+                    activity, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    activity, R.string.str_ledger_error, Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
@@ -237,7 +372,9 @@ class LedgerManager {
     ) {
         bleManager.connect(address = deviceId, onConnectError = { bleError ->
             if (retryCount > 0) {
-                onConnectLedger(context, deviceId, ledgerStatus, listener, dialog, retryCount - 1)
+                onConnectLedger(
+                    context, deviceId, ledgerStatus, listener, dialog, retryCount - 1
+                )
             } else {
                 val activity: Activity = context as Activity
                 activity.runOnUiThread {
@@ -268,13 +405,21 @@ class LedgerManager {
     }
 
     enum class ErrorType(val descriptionResourceId: Int) {
-        PERMISSION_DENIED(R.string.error_permission),
-        BLUETOOTH_OFF(R.string.str_pairing_connect_bluetooth_msg),
-        UNKNOWN(R.string.str_ledger_error)
+        PERMISSION_DENIED(R.string.error_permission), BLUETOOTH_OFF(R.string.str_pairing_connect_bluetooth_msg), UNKNOWN(
+            R.string.str_ledger_error
+        )
     }
 
     interface ConnectListener {
         fun error(errorType: ErrorType)
         fun connected()
+    }
+
+    interface LedgerSignListener {
+        fun processResponse(response: BroadcastTxResponse)
+        fun makeBroadcastTxRequest(currentPubKey: ByteArray): BroadcastTxRequest
+        fun getMessage(): String
+        fun getFee(): Fee
+        fun getAccount(): Account
     }
 }
