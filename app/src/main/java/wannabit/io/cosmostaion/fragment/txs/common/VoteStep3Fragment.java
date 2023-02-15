@@ -45,9 +45,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), fragmentVoteStep3Binding.voteFeesType, fragmentVoteStep3Binding.voteFees);
 
         List<String> texts = Lists.newArrayList();
-        getSActivity().mSelectedOpinion.forEach((key, value) -> {
-            texts.add(String.format("# %s - %s", key, voteOptionConvert(value)));
-        });
+        getSActivity().mSelectedOpinion.forEach((key, value) -> texts.add(String.format("# %s - %s", key, voteOptionConvert(value))));
         String opinionText = StringUtils.join(texts, "\n");
 
         fragmentVoteStep3Binding.myOpinion.setText(opinionText);
