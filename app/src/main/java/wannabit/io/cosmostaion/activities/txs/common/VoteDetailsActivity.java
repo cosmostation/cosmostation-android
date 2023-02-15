@@ -228,7 +228,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         holder.voteInfoBinding.voteProposer.setText(mApiProposal.moniker);
                     }
                 }
-                holder.voteInfoBinding.voteTitle.setText(Html.fromHtml("<b>" + "# " + mApiProposal.id + "</b>" + " " + mApiProposal.title, Html.FROM_HTML_MODE_COMPACT));
+                holder.voteInfoBinding.voteTitle.setText(Html.fromHtml("<b>" + "# " + mApiProposal.id + "</b>" + "&nbsp;&nbsp;" + mApiProposal.title, Html.FROM_HTML_MODE_COMPACT));
                 holder.voteInfoBinding.voteType.setText(mApiProposal.proposal_type);
                 if ("PROPOSAL_STATUS_DEPOSIT_PERIOD".equalsIgnoreCase(mApiProposal.proposal_status) || "DepositPeriod".equalsIgnoreCase(mApiProposal.proposal_status)) {
                     holder.voteInfoBinding.voteStartTime.setText(R.string.str_vote_wait_deposit);
