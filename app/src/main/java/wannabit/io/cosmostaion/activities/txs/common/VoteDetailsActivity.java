@@ -11,6 +11,7 @@ import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.databinding.ActivityVoteDetailsBinding;
 import wannabit.io.cosmostaion.databinding.ItemVoteInfoBinding;
 import wannabit.io.cosmostaion.databinding.ItemVoteTallyBinding;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -226,8 +228,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         holder.voteInfoBinding.voteProposer.setText(mApiProposal.moniker);
                     }
                 }
-                holder.voteInfoBinding.voteTitleId.setText("# " + mApiProposal.id);
-                holder.voteInfoBinding.voteTitle.setText(mApiProposal.title);
+                holder.voteInfoBinding.voteTitle.setText(Html.fromHtml("<b>" + "# " + mApiProposal.id + "</b>" + " " + mApiProposal.title, Html.FROM_HTML_MODE_COMPACT));
                 holder.voteInfoBinding.voteType.setText(mApiProposal.proposal_type);
                 if ("PROPOSAL_STATUS_DEPOSIT_PERIOD".equalsIgnoreCase(mApiProposal.proposal_status) || "DepositPeriod".equalsIgnoreCase(mApiProposal.proposal_status)) {
                     holder.voteInfoBinding.voteStartTime.setText(R.string.str_vote_wait_deposit);
@@ -393,7 +394,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         public class VoteInfoHolder extends RecyclerView.ViewHolder {
 
-            ItemVoteInfoBinding voteInfoBinding;
+            private ItemVoteInfoBinding voteInfoBinding;
 
             public VoteInfoHolder(@NonNull ItemVoteInfoBinding binding) {
                 super(binding.getRoot());
@@ -403,7 +404,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         public class VoteTallyHolder extends RecyclerView.ViewHolder {
 
-            ItemVoteTallyBinding voteTallyBinding;
+            private ItemVoteTallyBinding voteTallyBinding;
 
             public VoteTallyHolder(@NonNull ItemVoteTallyBinding binding) {
                 super(binding.getRoot());
