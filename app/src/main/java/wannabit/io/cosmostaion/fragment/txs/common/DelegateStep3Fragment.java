@@ -4,23 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.databinding.FragmentDelegateStep3Binding;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mDelegateAmount, mDelegateDenom;
-    private TextView mFeeAmount, mFeeType;
-    private TextView mValidatorName, mMemo;
-    private Button mBeforeBtn, mConfirmBtn;
+    private FragmentDelegateStep3Binding fragmentDelegateStep3Binding;
 
     public static DelegateStep3Fragment newInstance() {
         return new DelegateStep3Fragment();
@@ -33,36 +29,27 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_delegate_step3, container, false);
-        mDelegateAmount = rootView.findViewById(R.id.delegate_amount);
-        mDelegateDenom = rootView.findViewById(R.id.delegate_denom);
-        mFeeAmount = rootView.findViewById(R.id.delegate_fees);
-        mFeeType = rootView.findViewById(R.id.delegate_fees_type);
-        mValidatorName = rootView.findViewById(R.id.to_delegate_moniker);
-        mMemo = rootView.findViewById(R.id.memo);
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
-
-        mBeforeBtn.setOnClickListener(this);
-        mConfirmBtn.setOnClickListener(this);
-        return rootView;
+        fragmentDelegateStep3Binding = FragmentDelegateStep3Binding.inflate(getLayoutInflater());
+        fragmentDelegateStep3Binding.btnBefore.setOnClickListener(this);
+        fragmentDelegateStep3Binding.btnConfirm.setOnClickListener(this);
+        return fragmentDelegateStep3Binding.getRoot();
     }
 
     @Override
     public void onRefreshTab() {
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), getSActivity().mAmount.amount, mDelegateDenom, mDelegateAmount);
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeType, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), getSActivity().mAmount.amount, fragmentDelegateStep3Binding.delegateDenom, fragmentDelegateStep3Binding.delegateAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), fragmentDelegateStep3Binding.delegateFeesType, fragmentDelegateStep3Binding.delegateFees);
 
-        mValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
-        mMemo.setText(getSActivity().mTxMemo);
+        fragmentDelegateStep3Binding.toDelegateMoniker.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
+        fragmentDelegateStep3Binding.memo.setText(getSActivity().mTxMemo);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBeforeBtn)) {
+        if (v.equals(fragmentDelegateStep3Binding.btnBefore)) {
             getSActivity().onBeforeStep();
 
-        } else if (v.equals(mConfirmBtn)) {
+        } else if (v.equals(fragmentDelegateStep3Binding.btnConfirm)) {
             int unBondingTimeImage = 0;
             if (getBaseDao().mParam != null) {
                 int dpDay = getBaseDao().mParam.getUnbonding(getSActivity().mBaseChain);
