@@ -186,6 +186,12 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentSendStep0Binding = null;
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.equals(fragmentSendStep0Binding.btnToChainList)) {
             Bundle bundleData = new Bundle();

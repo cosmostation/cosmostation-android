@@ -6,11 +6,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,21 +17,17 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.databinding.FragmentRedelegateStep0Binding;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RedelegateStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button mCancel, mNextBtn;
-    private EditText mAmountInput;
-    private TextView mAvailableAmount;
-    private TextView mDenomTitle;
-    private ImageView mClearAll;
-    private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private FragmentRedelegateStep0Binding fragmentRedelegateStep0Binding;
+
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
-    private RelativeLayout mProgress;
 
     public static RedelegateStep0Fragment newInstance() {
         return new RedelegateStep0Fragment();
@@ -49,30 +40,17 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_redelegate_step0, container, false);
-        mCancel = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
-        mAmountInput = rootView.findViewById(R.id.et_amount_coin);
-        mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
-        mDenomTitle = rootView.findViewById(R.id.tv_symbol_coin);
-        mClearAll = rootView.findViewById(R.id.clearAll);
-        mAdd01 = rootView.findViewById(R.id.btn_add_01);
-        mAdd1 = rootView.findViewById(R.id.btn_add_1);
-        mAdd10 = rootView.findViewById(R.id.btn_add_10);
-        mAdd100 = rootView.findViewById(R.id.btn_add_100);
-        mAddHalf = rootView.findViewById(R.id.btn_add_half);
-        mAddMax = rootView.findViewById(R.id.btn_add_all);
-        mProgress = rootView.findViewById(R.id.reward_progress);
-        mCancel.setOnClickListener(this);
-        mNextBtn.setOnClickListener(this);
-        mClearAll.setOnClickListener(this);
-        mAdd01.setOnClickListener(this);
-        mAdd1.setOnClickListener(this);
-        mAdd10.setOnClickListener(this);
-        mAdd100.setOnClickListener(this);
-        mAddHalf.setOnClickListener(this);
-        mAddMax.setOnClickListener(this);
-        return rootView;
+        fragmentRedelegateStep0Binding = FragmentRedelegateStep0Binding.inflate(getLayoutInflater());
+        fragmentRedelegateStep0Binding.btnCancel.setOnClickListener(this);
+        fragmentRedelegateStep0Binding.btnNext.setOnClickListener(this);
+        fragmentRedelegateStep0Binding.clearAll.setOnClickListener(this);
+        fragmentRedelegateStep0Binding.btnAdd01.setOnClickListener(this);
+        fragmentRedelegateStep0Binding.btnAdd1.setOnClickListener(this);
+        fragmentRedelegateStep0Binding.btnAdd10.setOnClickListener(this);
+        fragmentRedelegateStep0Binding.btnAdd100.setOnClickListener(this);
+        fragmentRedelegateStep0Binding.btnAddHalf.setOnClickListener(this);
+        fragmentRedelegateStep0Binding.btnAddAll.setOnClickListener(this);
+        return fragmentRedelegateStep0Binding.getRoot();
     }
 
     @Override
@@ -80,15 +58,21 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
         super.onResume();
         mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom());
         setDpDecimals(mDpDecimal);
-        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mDenomTitle);
+        WDp.setDpSymbol(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), fragmentRedelegateStep0Binding.tvSymbolCoin);
         mMaxAvailable = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
-        mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
-        mProgress.setVisibility(View.GONE);
+        fragmentRedelegateStep0Binding.tvMaxCoin.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
+        fragmentRedelegateStep0Binding.rewardProgress.setVisibility(View.GONE);
         onAddAmountWatcher();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentRedelegateStep0Binding = null;
+    }
+
     private void onAddAmountWatcher() {
-        mAmountInput.addTextChangedListener(new TextWatcher() {
+        fragmentRedelegateStep0Binding.etAmountCoin.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -101,26 +85,26 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
                 if (es == null || es.length() == 0) {
-                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                    fragmentRedelegateStep0Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                 } else if (es.startsWith(".")) {
-                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
-                    mAmountInput.setText("");
+                    fragmentRedelegateStep0Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
+                    fragmentRedelegateStep0Binding.etAmountCoin.setText("");
                 } else if (es.endsWith(".")) {
-                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
-                    mAmountInput.setVisibility(View.VISIBLE);
+                    fragmentRedelegateStep0Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                    fragmentRedelegateStep0Binding.etAmountCoin.setVisibility(View.VISIBLE);
                 } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
-                    mAmountInput.setText("0");
-                    mAmountInput.setSelection(1);
+                    fragmentRedelegateStep0Binding.etAmountCoin.setText("0");
+                    fragmentRedelegateStep0Binding.etAmountCoin.setSelection(1);
                 }
 
                 if (es.equals(mDecimalChecker)) {
-                    mAmountInput.setText(mDecimalSetter);
-                    mAmountInput.setSelection(mDpDecimal + 1);
+                    fragmentRedelegateStep0Binding.etAmountCoin.setText(mDecimalSetter);
+                    fragmentRedelegateStep0Binding.etAmountCoin.setSelection(mDpDecimal + 1);
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
                         if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
-                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                            fragmentRedelegateStep0Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -128,17 +112,17 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                         if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
-                            mAmountInput.setText(recover);
-                            mAmountInput.setSelection(recover.length());
+                            fragmentRedelegateStep0Binding.etAmountCoin.setText(recover);
+                            fragmentRedelegateStep0Binding.etAmountCoin.setSelection(recover.length());
                             return;
                         }
 
                         if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN)) > 0) {
-                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                            fragmentRedelegateStep0Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         } else {
-                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
+                            fragmentRedelegateStep0Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         }
-                        mAmountInput.setSelection(mAmountInput.getText().length());
+                        fragmentRedelegateStep0Binding.etAmountCoin.setSelection(fragmentRedelegateStep0Binding.etAmountCoin.getText().length());
                     } catch (Exception e) {
                     }
                 }
@@ -148,69 +132,69 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        mProgress.setVisibility(View.GONE);
+        fragmentRedelegateStep0Binding.rewardProgress.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mCancel)) {
+        if (v.equals(fragmentRedelegateStep0Binding.btnCancel)) {
             getSActivity().onBeforeStep();
 
-        } else if (v.equals(mNextBtn)) {
+        } else if (v.equals(fragmentRedelegateStep0Binding.btnNext)) {
             if (isValidateReDelegateAmount()) {
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
             }
-        } else if (v.equals(mAdd01)) {
+        } else if (v.equals(fragmentRedelegateStep0Binding.btnAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().trim();
+            String es = fragmentRedelegateStep0Binding.etAmountCoin.getText().toString().trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("0.1")).toPlainString());
+            fragmentRedelegateStep0Binding.etAmountCoin.setText(existed.add(new BigDecimal("0.1")).toPlainString());
 
-        } else if (v.equals(mAdd1)) {
+        } else if (v.equals(fragmentRedelegateStep0Binding.btnAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().trim();
+            String es = fragmentRedelegateStep0Binding.etAmountCoin.getText().toString().trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("1")).toPlainString());
+            fragmentRedelegateStep0Binding.etAmountCoin.setText(existed.add(new BigDecimal("1")).toPlainString());
 
-        } else if (v.equals(mAdd10)) {
+        } else if (v.equals(fragmentRedelegateStep0Binding.btnAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().trim();
+            String es = fragmentRedelegateStep0Binding.etAmountCoin.getText().toString().trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
+            fragmentRedelegateStep0Binding.etAmountCoin.setText(existed.add(new BigDecimal("10")).toPlainString());
 
-        } else if (v.equals(mAdd100)) {
+        } else if (v.equals(fragmentRedelegateStep0Binding.btnAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = mAmountInput.getText().toString().trim();
+            String es = fragmentRedelegateStep0Binding.etAmountCoin.getText().toString().trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
+            fragmentRedelegateStep0Binding.etAmountCoin.setText(existed.add(new BigDecimal("100")).toPlainString());
 
-        } else if (v.equals(mAddHalf)) {
+        } else if (v.equals(fragmentRedelegateStep0Binding.btnAddHalf)) {
             BigDecimal half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
-            mAmountInput.setText(half.toPlainString());
+            fragmentRedelegateStep0Binding.etAmountCoin.setText(half.toPlainString());
 
-        } else if (v.equals(mAddMax)) {
+        } else if (v.equals(fragmentRedelegateStep0Binding.btnAddAll)) {
             BigDecimal max = mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
-            mAmountInput.setText(max.toPlainString());
+            fragmentRedelegateStep0Binding.etAmountCoin.setText(max.toPlainString());
 
-        } else if (v.equals(mClearAll)) {
-            mAmountInput.setText("");
+        } else if (v.equals(fragmentRedelegateStep0Binding.clearAll)) {
+            fragmentRedelegateStep0Binding.etAmountCoin.setText("");
 
         }
     }
 
     private boolean isValidateReDelegateAmount() {
         try {
-            BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(mDpDecimal).setScale(0);
+            BigDecimal userInput = new BigDecimal(fragmentRedelegateStep0Binding.etAmountCoin.getText().toString().trim()).movePointRight(mDpDecimal).setScale(0);
             if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (userInput.compareTo(mMaxAvailable) > 0) return false;
             Coin coin = new Coin(getSActivity().mChainConfig.mainDenom(), userInput.toPlainString());

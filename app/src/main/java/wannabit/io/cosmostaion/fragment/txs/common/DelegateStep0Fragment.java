@@ -70,6 +70,12 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         onAddAmountWatcher();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentDelegateStep0Binding = null;
+    }
+
     private void onAddAmountWatcher() {
         fragmentDelegateStep0Binding.etAmountCoin.addTextChangedListener(new TextWatcher() {
             @Override

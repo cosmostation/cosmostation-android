@@ -108,6 +108,12 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentSendStep4Binding = null;
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.equals(fragmentSendStep4Binding.btnBefore)) {
             getSActivity().onBeforeStep();

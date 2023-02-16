@@ -4,23 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.databinding.FragmentRedelegateStep4Binding;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mTvRedelegateAmount, mTvRedelegateDenom;
-    private TextView mFeeAmount, mFeeDenom;
-    private TextView mFromValidatorName, mToValidatorName, mMemo;
-    private Button mBeforeBtn, mConfirmBtn;
+    private FragmentRedelegateStep4Binding fragmentRedelegateStep4Binding;
 
     public static RedelegateStep4Fragment newInstance() {
         return new RedelegateStep4Fragment();
@@ -33,32 +29,27 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_redelegate_step4, container, false);
-        mTvRedelegateAmount = rootView.findViewById(R.id.redelegate_amount);
-        mTvRedelegateDenom = rootView.findViewById(R.id.redelegate_denom);
-        mFeeAmount = rootView.findViewById(R.id.redelegate_fees);
-        mFeeDenom = rootView.findViewById(R.id.redelegate_fees_type);
-        mFromValidatorName = rootView.findViewById(R.id.redelegate_from_moniker);
-        mToValidatorName = rootView.findViewById(R.id.redelegate_to_moniker);
-        mMemo = rootView.findViewById(R.id.memo);
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
-
-        mBeforeBtn.setOnClickListener(this);
-        mConfirmBtn.setOnClickListener(this);
-        return rootView;
+        fragmentRedelegateStep4Binding = FragmentRedelegateStep4Binding.inflate(getLayoutInflater());
+        fragmentRedelegateStep4Binding.btnBefore.setOnClickListener(this);
+        fragmentRedelegateStep4Binding.btnConfirm.setOnClickListener(this);
+        return fragmentRedelegateStep4Binding.getRoot();
     }
 
     @Override
     public void onRefreshTab() {
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), getSActivity().mAmount.amount, mTvRedelegateDenom, mTvRedelegateAmount);
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), getSActivity().mAmount.amount, fragmentRedelegateStep4Binding.redelegateDenom, fragmentRedelegateStep4Binding.redelegateAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), fragmentRedelegateStep4Binding.redelegateFeesType, fragmentRedelegateStep4Binding.redelegateFees);
 
-        mFromValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
-        mToValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValAddress).getDescription().getMoniker());
-        mMemo.setText(getSActivity().mTxMemo);
+        fragmentRedelegateStep4Binding.redelegateFromMoniker.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
+        fragmentRedelegateStep4Binding.redelegateToMoniker.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValAddress).getDescription().getMoniker());
+        fragmentRedelegateStep4Binding.memo.setText(getSActivity().mTxMemo);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentRedelegateStep4Binding = null;
+    }
 
     private RedelegateActivity getSActivity() {
         return (RedelegateActivity) getBaseActivity();
@@ -66,10 +57,10 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBeforeBtn)) {
+        if (v.equals(fragmentRedelegateStep4Binding.btnBefore)) {
             getSActivity().onBeforeStep();
 
-        } else if (v.equals(mConfirmBtn)) {
+        } else if (v.equals(fragmentRedelegateStep4Binding.btnConfirm)) {
             CommonAlertDialog.showDoubleButton(getSActivity(), getString(R.string.str_redelegation_warnning_title), getString(R.string.str_redelegation_warnning_msg),
                     getString(R.string.str_cancel), null,
                     getString(R.string.str_confirm), view -> getSActivity().onStartRedelegate());

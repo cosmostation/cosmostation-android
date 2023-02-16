@@ -45,6 +45,12 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentDelegateStep3Binding = null;
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.equals(fragmentDelegateStep3Binding.btnBefore)) {
             getSActivity().onBeforeStep();

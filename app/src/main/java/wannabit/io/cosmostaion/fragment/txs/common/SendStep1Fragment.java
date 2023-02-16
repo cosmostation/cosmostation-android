@@ -100,6 +100,12 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         onAddAmountWatcher();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentSendStep1Binding = null;
+    }
+
     private void onAddAmountWatcher() {
         fragmentSendStep1Binding.etAmountCoin.addTextChangedListener(new TextWatcher() {
             @Override
