@@ -7,10 +7,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -26,18 +22,14 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.MintscanToken;
+import wannabit.io.cosmostaion.databinding.FragmentSendStep1Binding;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class SendStep1Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button mBefore, mNextBtn;
-    private EditText mAmountInput;
-    private TextView mAvailableAmount;
-    private TextView mDenomTitle;
-    private ImageView mClearAll;
-    private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
+    private FragmentSendStep1Binding fragmentSendStep1Binding;
     private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
     private String mainDenom;
@@ -59,29 +51,17 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_send_step1, container, false);
-        mBefore = rootView.findViewById(R.id.btn_before);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
-        mAmountInput = rootView.findViewById(R.id.et_amount_coin);
-        mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
-        mDenomTitle = rootView.findViewById(R.id.tv_symbol_coin);
-        mClearAll = rootView.findViewById(R.id.clearAll);
-        mAdd01 = rootView.findViewById(R.id.btn_add_01);
-        mAdd1 = rootView.findViewById(R.id.btn_add_1);
-        mAdd10 = rootView.findViewById(R.id.btn_add_10);
-        mAdd100 = rootView.findViewById(R.id.btn_add_100);
-        mAddHalf = rootView.findViewById(R.id.btn_add_half);
-        mAddMax = rootView.findViewById(R.id.btn_add_all);
-        mBefore.setOnClickListener(this);
-        mNextBtn.setOnClickListener(this);
-        mClearAll.setOnClickListener(this);
-        mAdd01.setOnClickListener(this);
-        mAdd1.setOnClickListener(this);
-        mAdd10.setOnClickListener(this);
-        mAdd100.setOnClickListener(this);
-        mAddHalf.setOnClickListener(this);
-        mAddMax.setOnClickListener(this);
-        return rootView;
+        fragmentSendStep1Binding = FragmentSendStep1Binding.inflate(getLayoutInflater());
+        fragmentSendStep1Binding.btnBefore.setOnClickListener(this);
+        fragmentSendStep1Binding.btnNext.setOnClickListener(this);
+        fragmentSendStep1Binding.clearAll.setOnClickListener(this);
+        fragmentSendStep1Binding.btnAdd01.setOnClickListener(this);
+        fragmentSendStep1Binding.btnAdd1.setOnClickListener(this);
+        fragmentSendStep1Binding.btnAdd10.setOnClickListener(this);
+        fragmentSendStep1Binding.btnAdd100.setOnClickListener(this);
+        fragmentSendStep1Binding.btnAddHalf.setOnClickListener(this);
+        fragmentSendStep1Binding.btnAddAll.setOnClickListener(this);
+        return fragmentSendStep1Binding.getRoot();
     }
 
     @Override
@@ -115,13 +95,13 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 }
             }
         }
-        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
+        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, mMaxAvailable.toPlainString(), fragmentSendStep1Binding.tvSymbolCoin, fragmentSendStep1Binding.tvMaxCoin);
         setDisplayDecimals(mDpDecimal);
         onAddAmountWatcher();
     }
 
     private void onAddAmountWatcher() {
-        mAmountInput.addTextChangedListener(new TextWatcher() {
+        fragmentSendStep1Binding.etAmountCoin.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -134,26 +114,26 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             public void afterTextChanged(Editable et) {
                 String es = String.valueOf(et).trim();
                 if (TextUtils.isEmpty(es)) {
-                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
+                    fragmentSendStep1Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
-                    mAmountInput.setText("");
+                    fragmentSendStep1Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
+                    fragmentSendStep1Binding.etAmountCoin.setText("");
                 } else if (es.endsWith(".")) {
-                    mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
-                    mAmountInput.setVisibility(View.VISIBLE);
+                    fragmentSendStep1Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                    fragmentSendStep1Binding.etAmountCoin.setVisibility(View.VISIBLE);
                 } else if (es.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
-                    mAmountInput.setText("0");
-                    mAmountInput.setSelection(1);
+                    fragmentSendStep1Binding.etAmountCoin.setText("0");
+                    fragmentSendStep1Binding.etAmountCoin.setSelection(1);
                 }
 
                 if (es.equals(mDecimalChecker)) {
-                    mAmountInput.setText(mDecimalSetter);
-                    mAmountInput.setSelection(mDpDecimal + 1);
+                    fragmentSendStep1Binding.etAmountCoin.setText(mDecimalSetter);
+                    fragmentSendStep1Binding.etAmountCoin.setSelection(mDpDecimal + 1);
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
                         if (BigDecimal.ZERO.compareTo(inputAmount) >= 0) {
-                            mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                            fragmentSendStep1Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             return;
                         }
 
@@ -161,27 +141,28 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                         if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
-                            mAmountInput.setText(recover);
-                            mAmountInput.setSelection(recover.length());
+                            fragmentSendStep1Binding.etAmountCoin.setText(recover);
+                            fragmentSendStep1Binding.etAmountCoin.setSelection(recover.length());
                             return;
                         }
 
                         if (mMintscanToken != null) {
                             if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
-                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                                fragmentSendStep1Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             } else {
-                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
+                                fragmentSendStep1Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
 
                         } else {
                             if (inputAmount.compareTo(mMaxAvailable) > 0) {
-                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
+                                fragmentSendStep1Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                             } else {
-                                mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
+                                fragmentSendStep1Binding.etAmountCoin.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
                         }
-                        mAmountInput.setSelection(mAmountInput.getText().length());
-                    } catch (Exception e) { }
+                        fragmentSendStep1Binding.etAmountCoin.setSelection(fragmentSendStep1Binding.etAmountCoin.getText().length());
+                    } catch (Exception e) {
+                    }
                 }
             }
         });
@@ -189,10 +170,10 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBefore)) {
+        if (v.equals(fragmentSendStep1Binding.btnBefore)) {
             getSActivity().onBeforeStep();
 
-        } else if (v.equals(mNextBtn)) {
+        } else if (v.equals(fragmentSendStep1Binding.btnNext)) {
             if (isValidateSendAmount()) {
                 getSActivity().mAmounts = mToSendCoins;
                 getSActivity().onNextStep();
@@ -200,39 +181,39 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
             }
 
-        } else if (v.equals(mAdd01)) {
+        } else if (v.equals(fragmentSendStep1Binding.btnAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = String.valueOf(mAmountInput.getText()).trim();
+            String es = String.valueOf(fragmentSendStep1Binding.etAmountCoin.getText()).trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("0.1")).toPlainString());
+            fragmentSendStep1Binding.etAmountCoin.setText(existed.add(new BigDecimal("0.1")).toPlainString());
 
-        } else if (v.equals(mAdd1)) {
+        } else if (v.equals(fragmentSendStep1Binding.btnAdd1)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = String.valueOf(mAmountInput.getText()).trim();
+            String es = String.valueOf(fragmentSendStep1Binding.etAmountCoin.getText()).trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("1")).toPlainString());
+            fragmentSendStep1Binding.etAmountCoin.setText(existed.add(new BigDecimal("1")).toPlainString());
 
-        } else if (v.equals(mAdd10)) {
+        } else if (v.equals(fragmentSendStep1Binding.btnAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = String.valueOf(mAmountInput.getText()).trim();
+            String es = String.valueOf(fragmentSendStep1Binding.etAmountCoin.getText()).trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
+            fragmentSendStep1Binding.etAmountCoin.setText(existed.add(new BigDecimal("10")).toPlainString());
 
-        } else if (v.equals(mAdd100)) {
+        } else if (v.equals(fragmentSendStep1Binding.btnAdd100)) {
             BigDecimal existed = BigDecimal.ZERO;
-            String es = String.valueOf(mAmountInput.getText()).trim();
+            String es = String.valueOf(fragmentSendStep1Binding.etAmountCoin.getText()).trim();
             if (es.length() > 0) {
                 existed = new BigDecimal(es);
             }
-            mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
+            fragmentSendStep1Binding.etAmountCoin.setText(existed.add(new BigDecimal("100")).toPlainString());
 
-        } else if (v.equals(mAddHalf)) {
+        } else if (v.equals(fragmentSendStep1Binding.btnAddHalf)) {
             BigDecimal half;
             if (mMintscanToken != null) {
                 half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
@@ -243,22 +224,22 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                     half = mMaxAvailable.divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
                 }
             }
-            mAmountInput.setText(half.toPlainString());
+            fragmentSendStep1Binding.etAmountCoin.setText(half.toPlainString());
 
-        } else if (v.equals(mAddMax)) {
+        } else if (v.equals(fragmentSendStep1Binding.btnAddAll)) {
             if (mMintscanToken != null) {
-                mAmountInput.setText(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN).toPlainString());
+                fragmentSendStep1Binding.etAmountCoin.setText(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN).toPlainString());
             } else {
                 if (BaseChain.isGRPC(getSActivity().mChainConfig.baseChain())) {
-                    mAmountInput.setText(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN).toPlainString());
+                    fragmentSendStep1Binding.etAmountCoin.setText(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN).toPlainString());
                 } else {
-                    mAmountInput.setText(mMaxAvailable.toPlainString());
+                    fragmentSendStep1Binding.etAmountCoin.setText(mMaxAvailable.toPlainString());
                 }
             }
             onShowEmptyBalanceWarnDialog();
 
-        } else if (v.equals(mClearAll)) {
-            mAmountInput.setText("");
+        } else if (v.equals(fragmentSendStep1Binding.clearAll)) {
+            fragmentSendStep1Binding.etAmountCoin.setText("");
         }
     }
 
@@ -266,7 +247,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         mToSendCoins.clear();
         try {
             if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
+                BigDecimal sendTemp = new BigDecimal(String.valueOf(fragmentSendStep1Binding.etAmountCoin.getText()).trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
                 if (getSActivity().mBnbToken.type == BnbToken.BNB_TOKEN_TYPE_MINI) {
@@ -280,14 +261,15 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 return true;
 
             } else {
-                BigDecimal sendTemp = new BigDecimal(String.valueOf(mAmountInput.getText()).trim());
+                BigDecimal sendTemp = new BigDecimal(String.valueOf(fragmentSendStep1Binding.etAmountCoin.getText()).trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (getSActivity().mBaseChain.equals(BaseChain.OKEX_MAIN) && mMintscanToken == null) {
                     if (sendTemp.compareTo(mMaxAvailable) > 0) return false;
                     Coin coin = new Coin(getSActivity().mDenom, sendTemp.setScale(mDpDecimal).toPlainString());
                     mToSendCoins.add(coin);
                 } else {
-                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
+                    if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
+                        return false;
                     Coin coin = new Coin(getSActivity().mDenom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
                     mToSendCoins.add(coin);
                 }

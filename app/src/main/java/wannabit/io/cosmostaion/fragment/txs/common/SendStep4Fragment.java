@@ -9,16 +9,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import java.math.BigDecimal;
 
-import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -26,17 +22,12 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.MintscanToken;
+import wannabit.io.cosmostaion.databinding.FragmentSendStep4Binding;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class SendStep4Fragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mSendAmount;
-    private TextView mFeeAmount;
-    private TextView mCurrentBalance, mRemainingBalance;
-    private LinearLayout mRecipientLayer, mIbcLayer;
-    private TextView mRecipientChain, mRecipientAddress, mMemo;
-    private Button mBeforeBtn, mConfirmBtn;
-    private TextView mSendDenom, mFeeDenom, mCurrentDenom, mRemainDenom;
+    private FragmentSendStep4Binding fragmentSendStep4Binding;
 
     public static SendStep4Fragment newInstance() {
         return new SendStep4Fragment();
@@ -49,27 +40,10 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_send_step4, container, false);
-        mSendAmount = rootView.findViewById(R.id.send_amount);
-        mFeeAmount = rootView.findViewById(R.id.send_fees);
-        mCurrentBalance = rootView.findViewById(R.id.current_available);
-        mRemainingBalance = rootView.findViewById(R.id.remaining_available);
-        mRecipientLayer = rootView.findViewById(R.id.recipient_layer);
-        mRecipientChain = rootView.findViewById(R.id.recipient_chain);
-        mRecipientAddress = rootView.findViewById(R.id.recipient_address);
-        mIbcLayer = rootView.findViewById(R.id.ibc_layer);
-
-        mSendDenom = rootView.findViewById(R.id.send_denom);
-        mFeeDenom = rootView.findViewById(R.id.send_fees_type);
-        mCurrentDenom = rootView.findViewById(R.id.current_denom);
-        mRemainDenom = rootView.findViewById(R.id.remaining_denom);
-        mMemo = rootView.findViewById(R.id.memo);
-        mBeforeBtn = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
-
-        mBeforeBtn.setOnClickListener(this);
-        mConfirmBtn.setOnClickListener(this);
-        return rootView;
+        fragmentSendStep4Binding = FragmentSendStep4Binding.inflate(getLayoutInflater());
+        fragmentSendStep4Binding.btnBefore.setOnClickListener(this);
+        fragmentSendStep4Binding.btnConfirm.setOnClickListener(this);
+        return fragmentSendStep4Binding.getRoot();
     }
 
     @Override
@@ -78,8 +52,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         final BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         final String toSendDenom = getSActivity().mDenom;
 
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, toSendAmount.toPlainString(), mSendDenom, mSendAmount);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), fragmentSendStep4Binding.sendFeesType, fragmentSendStep4Binding.sendFees);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, toSendAmount.toPlainString(), fragmentSendStep4Binding.sendDenom, fragmentSendStep4Binding.sendAmount);
 
         Asset msAsset = getSActivity().mAsset;
         MintscanToken msMintscanToken = getSActivity().mMintscanToken;
@@ -104,17 +78,17 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 }
 
                 if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER || getSActivity().mTxType == CONST_PW_TX_IBC_CONTRACT) {
-                    mRecipientLayer.setVisibility(View.VISIBLE);
-                    mIbcLayer.setVisibility(View.VISIBLE);
+                    fragmentSendStep4Binding.recipientLayer.setVisibility(View.VISIBLE);
+                    fragmentSendStep4Binding.ibcLayer.setVisibility(View.VISIBLE);
                     ChainConfig chainConfig = ChainFactory.getChain(WDp.getChainsFromAddress(getSActivity().mToAddress).get(0));
                     if (chainConfig != null) {
-                        mRecipientChain.setText(chainConfig.chainTitleToUp());
-                        mRecipientChain.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
+                        fragmentSendStep4Binding.recipientChain.setText(chainConfig.chainTitleToUp());
+                        fragmentSendStep4Binding.recipientChain.setTextColor(ContextCompat.getColor(getActivity(), chainConfig.chainColor()));
                     }
 
                 } else {
-                    mRecipientLayer.setVisibility(View.GONE);
-                    mIbcLayer.setVisibility(View.GONE);
+                    fragmentSendStep4Binding.recipientLayer.setVisibility(View.GONE);
+                    fragmentSendStep4Binding.ibcLayer.setVisibility(View.GONE);
                 }
 
             } else {
@@ -124,21 +98,21 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 } else {
                     remainAvailable = currentAvai.subtract(toSendAmount);
                 }
-                mRecipientLayer.setVisibility(View.GONE);
+                fragmentSendStep4Binding.recipientLayer.setVisibility(View.GONE);
             }
         }
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, currentAvai.toPlainString(), mCurrentDenom, mCurrentBalance);
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAvailable.toPlainString(), mRemainDenom, mRemainingBalance);
-        mRecipientAddress.setText(getSActivity().mToAddress);
-        mMemo.setText(getSActivity().mTxMemo);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, currentAvai.toPlainString(), fragmentSendStep4Binding.currentDenom, fragmentSendStep4Binding.currentAvailable);
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, toSendDenom, remainAvailable.toPlainString(), fragmentSendStep4Binding.remainingDenom, fragmentSendStep4Binding.remainingAvailable);
+        fragmentSendStep4Binding.recipientAddress.setText(getSActivity().mToAddress);
+        fragmentSendStep4Binding.memo.setText(getSActivity().mTxMemo);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBeforeBtn)) {
+        if (v.equals(fragmentSendStep4Binding.btnBefore)) {
             getSActivity().onBeforeStep();
 
-        } else if (v.equals(mConfirmBtn)) {
+        } else if (v.equals(fragmentSendStep4Binding.btnConfirm)) {
             if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
                 getSActivity().onStartSend();
             } else if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER) {
