@@ -183,102 +183,25 @@ public class VoteActivity extends BaseBroadCastActivity {
     }
 
     private void onVoteByLedger() {
-        new Thread(() -> {
-            ArrayList<Msg> voteMsgs = MsgGenerator.genVoteMsgs(mAccount.address, mSelectedOpinion);
-            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, voteMsgs, mTxFee, mTxMemo);
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(VoteActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                ArrayList<Msg> voteMsgs = MsgGenerator.genVoteMsgs(mAccount.address, mSelectedOpinion);
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, voteMsgs, mTxFee, mTxMemo);
+            }
 
-            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
-                @Override
-                public void error(@NonNull LedgerManager.ErrorType errorType) {
-                    if (isFinishing()) {
-                        return;
-                    }
-                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(VoteActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartVote()));
-                }
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                return Signer.getGrpcLedgerVoteReq(WKey.onAuthResponse(mBaseChain, mAccount), mSelectedOpinion, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
 
-                @Override
-                public void connected() {
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.postDelayed(() -> {
-                        mDialog = CommonAlertDialog.makeSecondImageSingleButton(VoteActivity.this, getString(R.string.str_ledger_approve_title), getString(R.string.str_ledger_approve_msg), getString(R.string.str_cancel), view -> finish(), R.drawable.icon_ledger);
-                        mDialog.setCancelable(false);
-                        mDialog.create();
-                    }, 0);
-
-                    BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), mAccount.path, new BleCosmosHelper.GetAddressListener() {
-                        @Override
-                        public void success(@NonNull String s, @NonNull byte[] bytes) {
-                            if (isFinishing()) {
-                                return;
-                            }
-
-                            LedgerManager.getInstance().setCurrentPubKey(bytes);
-                            if (!mAccount.address.equals(s)) {
-                                return;
-                            } else {
-                                runOnUiThread(() -> {
-                                    mDialog.show();
-                                });
-                            }
-
-                            BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), mAccount.path, message, new BleCosmosHelper.SignListener() {
-                                @Override
-                                public void success(@NonNull byte[] bytes) {
-                                    if (isFinishing()) {
-                                        return;
-                                    }
-                                    new Thread(() -> {
-                                        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerVoteReq(WKey.onAuthResponse(mBaseChain, mAccount), mSelectedOpinion, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(bytes));
-                                        ServiceOuterClass.BroadcastTxResponse response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, mChainConfig);
-                                        TaskResult mResult = new TaskResult();
-                                        mResult.resultData = response.getTxResponse().getTxhash();
-
-                                        if (response.getTxResponse().getCode() > 0) {
-                                            mResult.errorCode = response.getTxResponse().getCode();
-                                            mResult.errorMsg = response.getTxResponse().getRawLog();
-                                            mResult.isSuccess = false;
-                                        } else {
-                                            mResult.isSuccess = true;
-                                        }
-                                        onCommonIntentTx(VoteActivity.this, mResult);
-                                    }).start();
-                                }
-
-                                @Override
-                                public void error(@NonNull String s, @NonNull String s1) {
-                                    if (isFinishing()) {
-                                        return;
-                                    }
-                                    runOnUiThread(() -> {
-                                        mDialog.dismiss();
-                                        if (s.equalsIgnoreCase("6986")) {
-                                            Toast.makeText(VoteActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(VoteActivity.this, getString(R.string.str_ledger_error), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void error(@NonNull String s, @NonNull String s1) {
-                            if (isFinishing()) {
-                                return;
-                            }
-                            runOnUiThread(() -> {
-                                mDialog.dismiss();
-                                if (s.equalsIgnoreCase("6986")) {
-                                    Toast.makeText(VoteActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(VoteActivity.this, R.string.str_ledger_error, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    });
-                }
-            }));
-        }).start();
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onCommonIntentTx(VoteActivity.this, mResult);
+            }
+        }));
     }
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {

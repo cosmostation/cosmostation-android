@@ -25,7 +25,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.common.collect.Lists;
-import com.ledger.live.ble.app.BleCosmosHelper;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bitcoinj.core.ECKey;
@@ -55,7 +54,6 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.FeeInfo;
-import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
@@ -86,8 +84,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     private Fee fee;
 
     private int mEasyMode = -1;
-
-    private CommonAlertDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,7 +226,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 if (executeClaimResponse == null) {
                     return;
                 }
-                ValidatorListActivity.this.processResponse(executeClaimResponse);
+                ValidatorListActivity.this.onProcessResponse(executeClaimResponse);
             } catch (Exception e) {
 
             }
@@ -238,104 +234,37 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     private void onStartEasyClaimByLedger(int selectFee) {
-        new Thread(() -> {
-            ArrayList<String> toClaimValAddr = targetClaimValidatorAddresses();
-            ArrayList<Msg> easyClaimMsgs = MsgGenerator.genWithdrawDeleMsgs(mAccount.address, toClaimValAddr);
-            FeeInfo.FeeData feeData = calculateFee(selectFee);
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(ValidatorListActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                ArrayList<String> toClaimValAddr = targetClaimValidatorAddresses();
+                ArrayList<Msg> easyClaimMsgs = MsgGenerator.genWithdrawDeleMsgs(mAccount.address, toClaimValAddr);
+                FeeInfo.FeeData feeData = calculateFee(selectFee);
 
-            ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateClaim(toClaimValAddr);
-            Abci.GasInfo gasInfo = simulateClaimResponse.getGasInfo();
-            feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
-            if (!mBaseChain.equals(BaseChain.SIF_MAIN) && !mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
-                BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
-                feeCoin = new Coin(feeData.denom, amount.toPlainString());
+                ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateClaim(toClaimValAddr);
+                Abci.GasInfo gasInfo = simulateClaimResponse.getGasInfo();
+                feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
+                if (!mBaseChain.equals(BaseChain.SIF_MAIN) && !mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
+                    BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
+                    feeCoin = new Coin(feeData.denom, amount.toPlainString());
+                }
+                fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, easyClaimMsgs, fee, "");
             }
-            fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
-            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, easyClaimMsgs, fee, "");
 
-            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
-                @Override
-                public void error(@NonNull LedgerManager.ErrorType errorType) {
-                    if (isFinishing()) {
-                        return;
-                    }
-                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ValidatorListActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartEasyClaimByLedger(selectFee)));
-                }
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                ArrayList<String> toClaimValAddr = targetClaimValidatorAddresses();
+                return Signer.getGrpcLedgerClaimRewardsReq(WKey.onAuthResponse(mBaseChain, mAccount), toClaimValAddr, fee, "", LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
 
-                @Override
-                public void connected() {
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.postDelayed(() -> {
-                        mDialog = CommonAlertDialog.makeSecondImageSingleButton(ValidatorListActivity.this, getString(R.string.str_ledger_approve_title), getString(R.string.str_ledger_approve_msg), getString(R.string.str_cancel), view -> finish(), R.drawable.icon_ledger);
-                        mDialog.setCancelable(false);
-                        mDialog.create();
-                    }, 0);
-
-                    BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), mAccount.path, new BleCosmosHelper.GetAddressListener() {
-                        @Override
-                        public void success(@NonNull String s, @NonNull byte[] bytes) {
-                            if (isFinishing()) {
-                                return;
-                            }
-                            LedgerManager.getInstance().setCurrentPubKey(bytes);
-                            if (!mAccount.address.equals(s)) {
-                                return;
-                            } else {
-                                runOnUiThread(() -> {
-                                    mDialog.show();
-                                });
-                            }
-
-                            BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), mAccount.path, message, new BleCosmosHelper.SignListener() {
-                                @Override
-                                public void success(@NonNull byte[] bytes) {
-                                    if (isFinishing()) {
-                                        return;
-                                    }
-                                    new Thread(() -> {
-                                        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerClaimRewardsReq(WKey.onAuthResponse(mBaseChain, mAccount), toClaimValAddr, fee, "", LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(bytes));
-                                        ServiceOuterClass.BroadcastTxResponse response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, mChainConfig);
-                                        TaskResult mResult = new TaskResult();
-                                        mResult.resultData = response.getTxResponse().getTxhash();
-                                        processResponse(response);
-                                    }).start();
-                                }
-
-                                @Override
-                                public void error(@NonNull String s, @NonNull String s1) {
-                                    if (isFinishing()) {
-                                        return;
-                                    }
-                                    runOnUiThread(() -> {
-                                        mDialog.dismiss();
-                                        if (s.equalsIgnoreCase("6986")) {
-                                            Toast.makeText(ValidatorListActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(ValidatorListActivity.this, R.string.str_ledger_error, Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void error(@NonNull String s, @NonNull String s1) {
-                            if (isFinishing()) {
-                                return;
-                            }
-                            runOnUiThread(() -> {
-                                mDialog.dismiss();
-                                if (s.equalsIgnoreCase("6986")) {
-                                    Toast.makeText(ValidatorListActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(ValidatorListActivity.this, R.string.str_ledger_error, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    });
-                }
-            }));
-        }).start();
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onProcessResponse(response);
+            }
+        }));
     }
 
     public void onCheckEasyCompounding() {
@@ -384,7 +313,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                     if (executeCompoundingResponse == null) {
                         return;
                     }
-                    ValidatorListActivity.this.processResponse(executeCompoundingResponse);
+                    ValidatorListActivity.this.onProcessResponse(executeCompoundingResponse);
                 }
             } catch (Exception e) {
 
@@ -393,80 +322,35 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     private void onStartEasyCompoundingByLedger(int selectFee) {
-        new Thread(() -> {
-            ArrayList<Msg> easyCompoundingMsgs = MsgGenerator.genCompoundingMsgs(mAccount.address, getClaimableReward(), mChainConfig);
-            FeeInfo.FeeData feeData = calculateFee(selectFee);
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(ValidatorListActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                ArrayList<Msg> easyCompoundingMsgs = MsgGenerator.genCompoundingMsgs(mAccount.address, getClaimableReward(), mChainConfig);
+                FeeInfo.FeeData feeData = calculateFee(selectFee);
 
-            ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mChainConfig.baseChain());
-            Abci.GasInfo gasInfo = simulateClaimResponse.getGasInfo();
-            feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
-            if (!mBaseChain.equals(BaseChain.SIF_MAIN) && !mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
-                BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
-                feeCoin = new Coin(feeData.denom, amount.toPlainString());
+                ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mChainConfig.baseChain());
+                Abci.GasInfo gasInfo = simulateClaimResponse.getGasInfo();
+                feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
+                if (!mBaseChain.equals(BaseChain.SIF_MAIN) && !mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
+                    BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
+                    feeCoin = new Coin(feeData.denom, amount.toPlainString());
+                }
+                fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, easyCompoundingMsgs, fee, "");
             }
-            fee = new Fee(feeGasAmount.toPlainString(), Lists.newArrayList(feeCoin));
-            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, easyCompoundingMsgs, fee, "");
 
-            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
-                @Override
-                public void error(@NonNull LedgerManager.ErrorType errorType) {
-                    if (isFinishing()) {
-                        runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ValidatorListActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartEasyClaimByLedger(selectFee)));
-                    }
-                }
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                return Signer.getGrpcLedgerCompoundingReq(WKey.onAuthResponse(mBaseChain, mAccount), getClaimableReward(), mChainConfig.baseChain(), fee, "", LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
 
-                @Override
-                public void connected() {
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.postDelayed(() -> {
-                        mDialog = CommonAlertDialog.makeSecondImageSingleButton(ValidatorListActivity.this, getString(R.string.str_ledger_approve_title), getString(R.string.str_ledger_approve_msg), getString(R.string.str_cancel), view -> finish(), R.drawable.icon_ledger);
-                        mDialog.setCancelable(false);
-                        mDialog.create();
-                    }, 0);
-
-                    BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), mAccount.path, new BleCosmosHelper.GetAddressListener() {
-                        @Override
-                        public void success(@NonNull String s, @NonNull byte[] bytes) {
-                            LedgerManager.getInstance().setCurrentPubKey(bytes);
-                            if (!mAccount.address.equals(s)) {
-                                return;
-                            } else {
-                                runOnUiThread(() -> {
-                                    mDialog.show();
-                                });
-                            }
-
-                            BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), mAccount.path, message, new BleCosmosHelper.SignListener() {
-                                @Override
-                                public void success(@NonNull byte[] bytes) {
-                                    new Thread(() -> {
-                                        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerCompoundingReq(WKey.onAuthResponse(mBaseChain, mAccount), getClaimableReward(), mChainConfig.baseChain(), fee, "", LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(bytes));
-                                        ServiceOuterClass.BroadcastTxResponse response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, mChainConfig);
-                                        TaskResult mResult = new TaskResult();
-                                        mResult.resultData = response.getTxResponse().getTxhash();
-                                        processResponse(response);
-                                    }).start();
-                                }
-
-                                @Override
-                                public void error(@NonNull String s, @NonNull String s1) {
-                                    runOnUiThread(() -> {
-                                        mDialog.dismiss();
-                                        if (s.equalsIgnoreCase("6986")) {
-                                            Toast.makeText(ValidatorListActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void error(@NonNull String s, @NonNull String s1) {
-                        }
-                    });
-                }
-            }));
-        }).start();
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onProcessResponse(response);
+            }
+        }));
     }
 
     @NonNull
@@ -528,7 +412,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         return broadcastTx.broadcastTx(broadcastTxRequest);
     }
 
-    private void processResponse(ServiceOuterClass.BroadcastTxResponse broadcastTxResponse) {
+    private void onProcessResponse(ServiceOuterClass.BroadcastTxResponse broadcastTxResponse) {
         runOnUiThread(() -> {
             if (StringUtils.isEmpty(broadcastTxResponse.getTxResponse().getTxhash())) {
                 return;

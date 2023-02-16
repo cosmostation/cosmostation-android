@@ -69,7 +69,6 @@ import wannabit.io.cosmostaion.utils.LanguageUtil;
 import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -477,15 +476,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     public void onShowWaitDialog() {
-        WLog.w("dialog : " + isAdded());
-        WLog.w("dialog : " + getActivity().getSupportFragmentManager().findFragmentByTag("wait"));
         if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") == null) {
             mDialogWait = new WaitDialog();
         }
-        WLog.w("dialog0 : " + mDialogWait);
-//        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") != null && getActivity().getSupportFragmentManager().findFragmentByTag("wait").isAdded()) {
-//            return;
-//        }
         mDialogWait.setCancelable(false);
         mDialogWait.show(getActivity().getSupportFragmentManager(), "wait");
     }
@@ -494,6 +487,5 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if (mDialogWait != null) {
             mDialogWait.dismissAllowingStateLoss();
         }
-        WLog.w("dialog1 : " + mDialogWait);
     }
 }

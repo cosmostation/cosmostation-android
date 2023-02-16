@@ -9,13 +9,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -25,8 +22,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
-import com.ledger.live.ble.app.BleCosmosHelper;
 
 import java.util.ArrayList;
 
@@ -39,7 +34,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.cosmos.Signer;
-import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RewardStep0Fragment;
@@ -64,8 +58,6 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
     public String mWithdrawAddress;
     private int mTaskCount;
-
-    private CommonAlertDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,101 +187,25 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     }
 
     private void onClaimRewardByLedger() {
-        new Thread(() -> {
-            ArrayList<Msg> claimRewardMsgs = MsgGenerator.genWithdrawDeleMsgs(mAccount.address, mValAddresses);
-            String message = WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, claimRewardMsgs, mTxFee, mTxMemo);
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(ClaimRewardActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                ArrayList<Msg> claimRewardMsgs = MsgGenerator.genWithdrawDeleMsgs(mAccount.address, mValAddresses);
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, claimRewardMsgs, mTxFee, mTxMemo);
+            }
 
-            runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(this, new LedgerManager.ConnectListener() {
-                @Override
-                public void error(@NonNull LedgerManager.ErrorType errorType) {
-                    if (isFinishing()) {
-                        return;
-                    }
-                    runOnUiThread(() -> CommonAlertDialog.showDoubleButton(ClaimRewardActivity.this, getString(R.string.str_ledger_error), getString(errorType.getDescriptionResourceId()), getString(R.string.str_cancel), null, getString(R.string.str_retry), view -> onStartReward()));
-                }
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                return Signer.getGrpcLedgerClaimRewardsReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddresses, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
 
-                @Override
-                public void connected() {
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.postDelayed(() -> {
-                        mDialog = CommonAlertDialog.makeSecondImageSingleButton(ClaimRewardActivity.this, getString(R.string.str_ledger_approve_title), getString(R.string.str_ledger_approve_msg), getString(R.string.str_cancel), view -> finish(), R.drawable.icon_ledger);
-                        mDialog.setCancelable(false);
-                        mDialog.create();
-                    }, 0);
-
-                    BleCosmosHelper.Companion.getAddress(LedgerManager.Companion.getInstance().getBleManager(), mChainConfig.addressPrefix(), mAccount.path, new BleCosmosHelper.GetAddressListener() {
-                        @Override
-                        public void success(@NonNull String s, @NonNull byte[] bytes) {
-                            if (isFinishing()) {
-                                return;
-                            }
-                            LedgerManager.getInstance().setCurrentPubKey(bytes);
-                            if (!mAccount.address.equals(s)) {
-                                return;
-                            } else {
-                                runOnUiThread(() -> {
-                                    mDialog.show();
-                                });
-                            }
-
-                            BleCosmosHelper.Companion.sign(LedgerManager.Companion.getInstance().getBleManager(), mAccount.path, message, new BleCosmosHelper.SignListener() {
-                                @Override
-                                public void success(@NonNull byte[] bytes) {
-                                    if (isFinishing()) {
-                                        return;
-                                    }
-                                    new Thread(() -> {
-                                        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcLedgerClaimRewardsReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddresses, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(bytes));
-                                        ServiceOuterClass.BroadcastTxResponse response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, mChainConfig);
-                                        TaskResult mResult = new TaskResult();
-                                        mResult.resultData = response.getTxResponse().getTxhash();
-
-                                        if (response.getTxResponse().getCode() > 0) {
-                                            mResult.errorCode = response.getTxResponse().getCode();
-                                            mResult.errorMsg = response.getTxResponse().getRawLog();
-                                            mResult.isSuccess = false;
-                                        } else {
-                                            mResult.isSuccess = true;
-                                        }
-                                        onCommonIntentTx(ClaimRewardActivity.this, mResult);
-                                    }).start();
-                                }
-
-                                @Override
-                                public void error(@NonNull String s, @NonNull String s1) {
-                                    if (isFinishing()) {
-                                        return;
-                                    }
-                                    runOnUiThread(() -> {
-                                        mDialog.dismiss();
-                                        if (s.equalsIgnoreCase("6986")) {
-                                            Toast.makeText(ClaimRewardActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(ClaimRewardActivity.this, R.string.str_ledger_error, Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void error(@NonNull String s, @NonNull String s1) {
-                            if (isFinishing()) {
-                                return;
-                            }
-                            runOnUiThread(() -> {
-                                mDialog.dismiss();
-                                if (s.equalsIgnoreCase("6986")) {
-                                    Toast.makeText(ClaimRewardActivity.this, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(ClaimRewardActivity.this, R.string.str_ledger_error, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    });
-                }
-            }));
-        }).start();
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onCommonIntentTx(ClaimRewardActivity.this, mResult);
+            }
+        }));
     }
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
