@@ -1140,8 +1140,8 @@
     <string name="tx_kava_drawdebt_cdp2">CDP 대출</string>
     <string name="tx_kava_repaydebt_cdp2">CDP 상환</string>
     <string name="tx_kava_liquidate_cdp2">CDP 청산</string>
-    <string name="tx_kava_incentive_reward2">USDX 발행 인센티브</string>
-    <string name="tx_kava_incentive_hard2">하드 풀 인센티브</string>
+    <string name="tx_kava_incentive_reward">Incentive Minting</string>
+    <string name="tx_kava_incentive_hard">하드 풀 인센티브</string>
     <string name="tx_kava_hard_deposit2">하드 풀 예치</string>
     <string name="tx_kava_hard_withdraw2">하드 풀 출금</string>
     <string name="tx_kava_hard_borrow2">하드 풀 대출</string>
