@@ -19,12 +19,10 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,7 +31,6 @@ import com.google.zxing.client.android.Intents;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.ClaimIncentiveActivity;
@@ -41,14 +38,12 @@ import wannabit.io.cosmostaion.activities.txs.wc.BnbWalletConnectActivity;
 import wannabit.io.cosmostaion.activities.txs.wc.WalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.base.chains.Kava;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.ChainAccounts;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
-import wannabit.io.cosmostaion.dialog.NameConfirmDialog;
 import wannabit.io.cosmostaion.fragment.DappFragment;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
@@ -291,7 +286,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 //                    onUpdateAccountNickName(mNameServices.get(0).name);
 //                }
 //            }
-
+            if (mNameServices.size() > 0) {
+                String matchName = mNameServices.get(0).name;
+                if (mAccount.nickName == null || !mAccount.nickName.equals(matchName)) {
+                    onUpdateAccountNickName(matchName);
+                }
+            }
             onSetAccountNickName();
         }
     }
