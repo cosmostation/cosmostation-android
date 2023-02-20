@@ -394,7 +394,7 @@ public class MainTokensFragment extends BaseFragment {
                         return;
                     }
                     Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                    intent.putExtra("sendTokenDenom", asset.denom);
+                    intent.putExtra("sendTokenDenom", coin.denom);
                     startActivity(intent);
                 });
             }
@@ -428,7 +428,7 @@ public class MainTokensFragment extends BaseFragment {
                         onSendDialog(asset.denom);
                     } else {
                         Intent intent = new Intent(getMainActivity(), SendActivity.class);
-                        intent.putExtra("sendTokenDenom", asset.denom);
+                        intent.putExtra("sendTokenDenom", coin.denom);
                         startActivity(intent);
                     }
                 });

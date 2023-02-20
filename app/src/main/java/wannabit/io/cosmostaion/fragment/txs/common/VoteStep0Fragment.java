@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,16 +26,16 @@ import java.util.Map;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.common.VoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.databinding.FragmentVoteStep0Binding;
+import wannabit.io.cosmostaion.databinding.ItemProposalSelectionBinding;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class VoteStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button mCancelBtn, mNextBtn;
+    private FragmentVoteStep0Binding fragmentVoteStep0Binding;
 
-    private RecyclerView mRecyclerView;
-    private ProposalSelectionAdapter mProposalSelectionAdapter;
-    private Map<Integer, String> selectedMap = Maps.newHashMap();
+    private final Map<Integer, String> selectedMap = Maps.newHashMap();
 
     public List<ResProposal> mProposalList;
 
@@ -47,14 +45,10 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_vote_step0, container, false);
-        mRecyclerView = rootView.findViewById(R.id.recycler);
-        mCancelBtn = rootView.findViewById(R.id.btn_cancel);
-        mNextBtn = rootView.findViewById(R.id.btn_next);
-
+        fragmentVoteStep0Binding = FragmentVoteStep0Binding.inflate(inflater, container, false);
         initView();
 
-        return rootView;
+        return fragmentVoteStep0Binding.getRoot();
     }
 
     private void initView() {
@@ -62,20 +56,24 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
         }.getType());
 
         mProposalList.sort((o1, o2) -> o2.id - o1.id);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemViewCacheSize(20);
-        mRecyclerView.setDrawingCacheEnabled(true);
-        mProposalSelectionAdapter = new ProposalSelectionAdapter();
-        mRecyclerView.setAdapter(mProposalSelectionAdapter);
-        mRecyclerView.setItemAnimator(null);
-        mProposalSelectionAdapter.notifyDataSetChanged();
+        fragmentVoteStep0Binding.recycler.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
 
-        mCancelBtn.setOnClickListener(this);
-        mNextBtn.setOnClickListener(this);
+        fragmentVoteStep0Binding.recycler.setHasFixedSize(true);
+        fragmentVoteStep0Binding.recycler.setItemViewCacheSize(20);
+        fragmentVoteStep0Binding.recycler.setDrawingCacheEnabled(true);
+        fragmentVoteStep0Binding.recycler.setAdapter(new ProposalSelectionAdapter());
+        fragmentVoteStep0Binding.recycler.setItemAnimator(null);
+        fragmentVoteStep0Binding.recycler.getAdapter().notifyDataSetChanged();
 
+        fragmentVoteStep0Binding.btnCancel.setOnClickListener(this);
+        fragmentVoteStep0Binding.btnNext.setOnClickListener(this);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentVoteStep0Binding = null;
+    }
 
     public VoteActivity getSActivity() {
         return (VoteActivity) getBaseActivity();
@@ -83,9 +81,9 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mCancelBtn)) {
+        if (v.equals(fragmentVoteStep0Binding.btnCancel)) {
             getSActivity().onBeforeStep();
-        } else if (v.equals(mNextBtn)) {
+        } else if (v.equals(fragmentVoteStep0Binding.btnNext)) {
             if (selectedMap.size() == mProposalList.size()) {
                 getSActivity().mSelectedOpinion = selectedMap;
                 getSActivity().onNextStep();
@@ -100,93 +98,92 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
         @NonNull
         @Override
         public ProposalSelectionHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new ProposalSelectionHolder(getLayoutInflater().inflate(R.layout.item_proposal_selection, viewGroup, false));
+            return new ProposalSelectionHolder(ItemProposalSelectionBinding.inflate(getLayoutInflater()));
         }
 
         @Override
         public void onBindViewHolder(@NonNull final ProposalSelectionHolder proposalSelectionHolder, int position) {
             ResProposal item = mProposalList.get(position);
-            proposalSelectionHolder.proposalId.setText("# " + item.id);
-            proposalSelectionHolder.proposalTitle.setText(item.title);
-            proposalSelectionHolder.proposalDeadLine.setText(WDp.getTimeVoteformat(getActivity(), item.voting_end_time)
+            proposalSelectionHolder.itemProposalSelectionBinding.proposalId.setText("# " + item.id);
+            proposalSelectionHolder.itemProposalSelectionBinding.proposalTitle.setText(item.title);
+            proposalSelectionHolder.itemProposalSelectionBinding.proposalDeadline.setText(WDp.getTimeVoteformat(getActivity(), item.voting_end_time)
                     + " " + WDp.getGapTime(WDp.convertDateToLong(getString(R.string.str_vote_time_format), item.voting_end_time)));
 
             bindVoteSelect(proposalSelectionHolder, position, item);
-
         }
 
         private void bindVoteSelect(ProposalSelectionHolder holder, int position, ResProposal item) {
-            holder.yesBtnLayout.setAlpha(0.5f);
-            holder.noBtnLayout.setAlpha(0.5f);
-            holder.noWithVetoBtnLayout.setAlpha(0.5f);
-            holder.abstainBtnLayout.setAlpha(0.5f);
-            holder.yesBtnLayout.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
-            holder.noBtnLayout.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
-            holder.noWithVetoBtnLayout.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
-            holder.abstainBtnLayout.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
-            holder.titleYesTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
-            holder.titleNoTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
-            holder.titleNoWithVetoTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
-            holder.titleAbstainTv.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
-            holder.selectedYesImage.clearColorFilter();
-            holder.selectedNoImage.clearColorFilter();
-            holder.selectedNoWithVetoImage.clearColorFilter();
-            holder.selectedAbstainImage.clearColorFilter();
+            holder.itemProposalSelectionBinding.checkBtnYes.setAlpha(0.5f);
+            holder.itemProposalSelectionBinding.checkBtnNo.setAlpha(0.5f);
+            holder.itemProposalSelectionBinding.checkBtnNowithveto.setAlpha(0.5f);
+            holder.itemProposalSelectionBinding.checkBtnAbstain.setAlpha(0.5f);
+            holder.itemProposalSelectionBinding.checkBtnYes.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
+            holder.itemProposalSelectionBinding.checkBtnNo.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
+            holder.itemProposalSelectionBinding.checkBtnNowithveto.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
+            holder.itemProposalSelectionBinding.checkBtnAbstain.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_quorum));
+            holder.itemProposalSelectionBinding.voteYesTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
+            holder.itemProposalSelectionBinding.voteNoTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
+            holder.itemProposalSelectionBinding.voteNowithvetoTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
+            holder.itemProposalSelectionBinding.voteAbstainTitle.setTextColor(ContextCompat.getColor(getSActivity(), R.color.colorGrayDayNight));
+            holder.itemProposalSelectionBinding.checkImgSelectedYes.clearColorFilter();
+            holder.itemProposalSelectionBinding.checkImgSelectedNo.clearColorFilter();
+            holder.itemProposalSelectionBinding.checkImgSelectedNowithveto.clearColorFilter();
+            holder.itemProposalSelectionBinding.checkImgSelectedAbstain.clearColorFilter();
 
             if (selectedMap.containsKey(item.id)) {
                 String selected = selectedMap.get(item.id);
                 switch (selected) {
                     case "VOTE_OPTION_YES":
-                        settingSelectedLayout(holder.yesBtnLayout, holder.titleYesTv, holder.selectedYesImage);
+                        settingSelectedLayout(holder.itemProposalSelectionBinding.checkBtnYes, holder.itemProposalSelectionBinding.voteYesTitle, holder.itemProposalSelectionBinding.checkImgSelectedYes);
                         break;
                     case "VOTE_OPTION_NO":
-                        settingSelectedLayout(holder.noBtnLayout, holder.titleNoTv, holder.selectedNoImage);
+                        settingSelectedLayout(holder.itemProposalSelectionBinding.checkBtnNo, holder.itemProposalSelectionBinding.voteNoTitle, holder.itemProposalSelectionBinding.checkImgSelectedNo);
                         break;
                     case "VOTE_OPTION_NO_WITH_VETO":
-                        settingSelectedLayout(holder.noWithVetoBtnLayout, holder.titleNoWithVetoTv, holder.selectedNoWithVetoImage);
+                        settingSelectedLayout(holder.itemProposalSelectionBinding.checkBtnNowithveto, holder.itemProposalSelectionBinding.voteNowithvetoTitle, holder.itemProposalSelectionBinding.checkImgSelectedNowithveto);
                         break;
                     case "VOTE_OPTION_ABSTAIN":
-                        settingSelectedLayout(holder.abstainBtnLayout, holder.titleAbstainTv, holder.selectedAbstainImage);
+                        settingSelectedLayout(holder.itemProposalSelectionBinding.checkBtnAbstain, holder.itemProposalSelectionBinding.voteAbstainTitle, holder.itemProposalSelectionBinding.checkImgSelectedAbstain);
                         break;
                     default:
                         break;
                 }
             }
 
-            holder.yesBtnLayout.setOnClickListener(v -> {
+            holder.itemProposalSelectionBinding.checkBtnYes.setOnClickListener(v -> {
                 if (selectedMap.containsKey(item.id) && "VOTE_OPTION_YES".equals(selectedMap.get(item.id))) {
                     selectedMap.remove(item.id);
                 } else {
                     selectedMap.put(item.id, "VOTE_OPTION_YES");
                 }
-                mProposalSelectionAdapter.notifyItemChanged(position);
+                fragmentVoteStep0Binding.recycler.getAdapter().notifyItemChanged(position);
             });
 
-            holder.noBtnLayout.setOnClickListener(v -> {
+            holder.itemProposalSelectionBinding.checkBtnNo.setOnClickListener(v -> {
                 if (selectedMap.containsKey(item.id) && "VOTE_OPTION_NO".equals(selectedMap.get(item.id))) {
                     selectedMap.remove(item.id);
                 } else {
                     selectedMap.put(item.id, "VOTE_OPTION_NO");
                 }
-                mProposalSelectionAdapter.notifyItemChanged(position);
+                fragmentVoteStep0Binding.recycler.getAdapter().notifyItemChanged(position);
             });
 
-            holder.noWithVetoBtnLayout.setOnClickListener(v -> {
+            holder.itemProposalSelectionBinding.checkBtnNowithveto.setOnClickListener(v -> {
                 if (selectedMap.containsKey(item.id) && "VOTE_OPTION_NO_WITH_VETO".equals(selectedMap.get(item.id))) {
                     selectedMap.remove(item.id);
                 } else {
                     selectedMap.put(item.id, "VOTE_OPTION_NO_WITH_VETO");
                 }
-                mProposalSelectionAdapter.notifyItemChanged(position);
+                fragmentVoteStep0Binding.recycler.getAdapter().notifyItemChanged(position);
             });
 
-            holder.abstainBtnLayout.setOnClickListener(v -> {
+            holder.itemProposalSelectionBinding.checkBtnAbstain.setOnClickListener(v -> {
                 if (selectedMap.containsKey(item.id) && "VOTE_OPTION_ABSTAIN".equals(selectedMap.get(item.id))) {
                     selectedMap.remove(item.id);
                 } else {
                     selectedMap.put(item.id, "VOTE_OPTION_ABSTAIN");
                 }
-                mProposalSelectionAdapter.notifyItemChanged(position);
+                fragmentVoteStep0Binding.recycler.getAdapter().notifyItemChanged(position);
             });
         }
 
@@ -207,29 +204,12 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
         }
 
         public class ProposalSelectionHolder extends RecyclerView.ViewHolder {
-            CardView cardProposal;
-            TextView proposalId, proposalTitle, proposalDeadLine, titleYesTv, titleNoTv, titleNoWithVetoTv, titleAbstainTv;
-            RelativeLayout yesBtnLayout, noBtnLayout, noWithVetoBtnLayout, abstainBtnLayout;
-            ImageView selectedYesImage, selectedNoImage, selectedNoWithVetoImage, selectedAbstainImage;
 
-            public ProposalSelectionHolder(@NonNull View itemView) {
-                super(itemView);
-                cardProposal = itemView.findViewById(R.id.card_proposal);
-                proposalId = itemView.findViewById(R.id.proposal_id);
-                proposalTitle = itemView.findViewById(R.id.proposal_title);
-                proposalDeadLine = itemView.findViewById(R.id.proposal_deadline);
-                titleYesTv = itemView.findViewById(R.id.vote_yes_title);
-                titleNoTv = itemView.findViewById(R.id.vote_no_title);
-                titleNoWithVetoTv = itemView.findViewById(R.id.vote_nowithveto_title);
-                titleAbstainTv = itemView.findViewById(R.id.vote_abstain_title);
-                yesBtnLayout = itemView.findViewById(R.id.check_btn_yes);
-                noBtnLayout = itemView.findViewById(R.id.check_btn_no);
-                noWithVetoBtnLayout = itemView.findViewById(R.id.check_btn_nowithveto);
-                abstainBtnLayout = itemView.findViewById(R.id.check_btn_abstain);
-                selectedYesImage = itemView.findViewById(R.id.checkImg_selected_yes);
-                selectedNoImage = itemView.findViewById(R.id.checkImg_selected_no);
-                selectedNoWithVetoImage = itemView.findViewById(R.id.checkImg_selected_nowithveto);
-                selectedAbstainImage = itemView.findViewById(R.id.checkImg_selected_abstain);
+            private final ItemProposalSelectionBinding itemProposalSelectionBinding;
+
+            public ProposalSelectionHolder(@NonNull ItemProposalSelectionBinding binding) {
+                super(binding.getRoot());
+                itemProposalSelectionBinding = binding;
             }
         }
     }
