@@ -264,33 +264,33 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 CommonAlertDialog.showSingleButton(this, getString(R.string.error_warning_title), getString(R.string.error_deprecated_account_msg), getString(R.string.str_confirm), null);
             }
 
-            if (mAccount.nickName == null || (!mNameServices.isEmpty() && mNameServices.stream().filter(it -> it.name.equalsIgnoreCase(mAccount.nickName)).collect(Collectors.toList()).size() == 0)) {
-                if (mNameServices.size() == 2) {
-                    if (mNameServices.get(0).name.equalsIgnoreCase(mNameServices.get(1).name)) {
-                        onUpdateAccountNickName(mNameServices.get(0).name);
-
-                    } else {
-                        Bundle bundleData = new Bundle();
-                        bundleData.putSerializable(NameConfirmDialog.MATCH_NAME_SERVICE_BUNDLE_KEY, mNameServices);
-                        bundleData.putInt(NameConfirmDialog.SELECT_NAME_SERVICE_BUNDLE_KEY, NameConfirmDialog.SELECT_NAME_SERVICE_NAME);
-                        NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
-                        dialog.show(getSupportFragmentManager(), NameConfirmDialog.class.getName());
-                        dialog.setCancelable(false);
-
-                        getSupportFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, this, new FragmentResultListener() {
-                            @Override
-                            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-                                int position = bundle.getInt(BaseConstant.POSITION);
-                                onUpdateAccountNickName(mNameServices.get(position).name);
-                                mToolbarTitle.setText(mAccount.nickName);
-                            }
-                        });
-                    }
-
-                } else if (mNameServices.size() == 1) {
-                    onUpdateAccountNickName(mNameServices.get(0).name);
-                }
-            }
+//            if (mAccount.nickName == null || (!mNameServices.isEmpty() && mNameServices.stream().filter(it -> it.name.equalsIgnoreCase(mAccount.nickName)).collect(Collectors.toList()).size() == 0)) {
+//                if (mNameServices.size() == 2) {
+//                    if (mNameServices.get(0).name.equalsIgnoreCase(mNameServices.get(1).name)) {
+//                        onUpdateAccountNickName(mNameServices.get(0).name);
+//
+//                    } else {
+//                        Bundle bundleData = new Bundle();
+//                        bundleData.putSerializable(NameConfirmDialog.MATCH_NAME_SERVICE_BUNDLE_KEY, mNameServices);
+//                        bundleData.putInt(NameConfirmDialog.SELECT_NAME_SERVICE_BUNDLE_KEY, NameConfirmDialog.SELECT_NAME_SERVICE_NAME);
+//                        NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
+//                        dialog.show(getSupportFragmentManager(), NameConfirmDialog.class.getName());
+//                        dialog.setCancelable(false);
+//
+//                        getSupportFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, this, new FragmentResultListener() {
+//                            @Override
+//                            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+//                                int position = bundle.getInt(BaseConstant.POSITION);
+//                                onUpdateAccountNickName(mNameServices.get(position).name);
+//                                mToolbarTitle.setText(mAccount.nickName);
+//                            }
+//                        });
+//                    }
+//
+//                } else if (mNameServices.size() == 1) {
+//                    onUpdateAccountNickName(mNameServices.get(0).name);
+//                }
+//            }
 
             onSetAccountNickName();
         }
