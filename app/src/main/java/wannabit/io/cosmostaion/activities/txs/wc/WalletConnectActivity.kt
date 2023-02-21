@@ -497,7 +497,9 @@ class WalletConnectActivity : BaseActivity() {
                 }
             } else {
                 wcV1Client?.rejectRequest(id, "null point exception.")
-                Toast.makeText(baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -1277,7 +1279,7 @@ class WalletConnectActivity : BaseActivity() {
             WCKeplrWallet(
                 WUtil.getWalletName(this, account),
                 "secp256k1",
-                it.pubKey,
+                Utils.bytesToHex(it.pubKey),
                 WKey.generateTenderAddressBytesFromPrivateKey(key.privateKeyAsHex),
                 account.address,
                 false
@@ -1291,7 +1293,7 @@ class WalletConnectActivity : BaseActivity() {
             WCCosmostationAccount(
                 WUtil.getWalletName(this, account),
                 "secp256k1",
-                it.pubKey,
+                Utils.bytesToHex(it.pubKey),
                 WKey.generateTenderAddressBytesFromPrivateKey(key.privateKeyAsHex),
                 account.address
             )
