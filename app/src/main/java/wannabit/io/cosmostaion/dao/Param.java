@@ -139,96 +139,102 @@ public class Param {
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
-        if (chainConfig.baseChain().equals(BaseChain.IRIS_MAIN)) {
-            if (mParams.mIrisMintingParams != null && mParams.mIrisMintingParams.mResult != null) {
-                return new BigDecimal(mParams.mIrisMintingParams.mResult.inflation);
-            }
+        try {
+            if (chainConfig.baseChain().equals(BaseChain.IRIS_MAIN)) {
+                if (mParams.mIrisMintingParams != null && mParams.mIrisMintingParams.mResult != null) {
+                    return new BigDecimal(mParams.mIrisMintingParams.mResult.inflation);
+                }
 
-        } else if (chainConfig.baseChain().equals(BaseChain.OSMOSIS_MAIN)) {
-            if (mParams.mOsmosisMintingEpochProvisions != null && mParams.mOsmosisMintingParams != null && mParams.mOsmosisMintingParams.params != null) {
-                BigDecimal epochProvisions = new BigDecimal(mParams.mOsmosisMintingEpochProvisions.epoch_provisions);
-                BigDecimal epochPeriods = new BigDecimal(mParams.mOsmosisMintingParams.params.reduction_period_in_epochs);
-                return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
-            }
+            } else if (chainConfig.baseChain().equals(BaseChain.OSMOSIS_MAIN)) {
+                if (mParams.mOsmosisMintingEpochProvisions != null && mParams.mOsmosisMintingParams != null && mParams.mOsmosisMintingParams.params != null) {
+                    BigDecimal epochProvisions = new BigDecimal(mParams.mOsmosisMintingEpochProvisions.epoch_provisions);
+                    BigDecimal epochPeriods = new BigDecimal(mParams.mOsmosisMintingParams.params.reduction_period_in_epochs);
+                    return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
+                }
 
-        } else if (chainConfig.baseChain().equals(BaseChain.EMONEY_MAIN)) {
-            if (mParams.mEmoneyMintingInflation != null && mParams.mEmoneyMintingInflation.assets != null) {
-                for (EmoneyMintingInflation.Asset asset : mParams.mEmoneyMintingInflation.assets) {
-                    if (asset.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
-                        return new BigDecimal(asset.inflation);
+            } else if (chainConfig.baseChain().equals(BaseChain.EMONEY_MAIN)) {
+                if (mParams.mEmoneyMintingInflation != null && mParams.mEmoneyMintingInflation.assets != null) {
+                    for (EmoneyMintingInflation.Asset asset : mParams.mEmoneyMintingInflation.assets) {
+                        if (asset.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                            return new BigDecimal(asset.inflation);
+                        }
                     }
                 }
-            }
 
-        } else if (chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
-            if (mParams.mStargazeMintingParams != null && mParams.mStargazeMintingParams.params != null) {
-                BigDecimal initialProvision = new BigDecimal(mParams.mStargazeMintingParams.params.initial_annual_provisions);
-                return initialProvision.divide(getMainSupply(), 18, RoundingMode.DOWN);
-            }
-
-        } else if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
-            if (mParams.mEvmosInflationParams != null && mParams.mEvmosInflationParams.params != null && mParams.mEvmosEpochMintProvision.mEpochMintProvision != null) {
-                if (!mParams.mEvmosInflationParams.params.enable_inflation) return BigDecimal.ZERO;
-                BigDecimal annualProvisions = new BigDecimal(mParams.mEvmosEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
-                BigDecimal evmosSupply = getMainSupply().subtract(new BigDecimal("200000000000000000000000000"));
-                return annualProvisions.divide(evmosSupply, 18, RoundingMode.DOWN);
-            }
-
-        } else if (chainConfig.baseChain().equals(BaseChain.CRESCENT_MAIN)) {
-            long now = Calendar.getInstance().getTime().getTime();
-            if (mParams.mCrescentMintingParams != null && mParams.mCrescentMintingParams.params != null && mParams.mCrescentMintingParams.params.inflation_schedules != null) {
-                BigDecimal genesisSupply = new BigDecimal("200000000000000");
-                BigDecimal thisInflation = getCurrentInflationAmount();
-                for (CrescentMintingParams.CrescentMintingParam.InflationSchedule schedules : mParams.mCrescentMintingParams.params.inflation_schedules) {
-                    if (schedules.getStart_time() < now && schedules.getEnd_time() < now) {
-                        genesisSupply = genesisSupply.add(schedules.getAmount());
-                    }
+            } else if (chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
+                if (mParams.mStargazeMintingParams != null && mParams.mStargazeMintingParams.params != null) {
+                    BigDecimal initialProvision = new BigDecimal(mParams.mStargazeMintingParams.params.initial_annual_provisions);
+                    return initialProvision.divide(getMainSupply(), 18, RoundingMode.DOWN);
                 }
-                return thisInflation.divide(genesisSupply, 18, RoundingMode.UP);
-            }
 
-        } else if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN)) {
-            BigDecimal baseInflation = new BigDecimal(mParams.mMintingInflation.inflation);
-            BigDecimal keyManageRate = new BigDecimal(mParams.axelarKeyInflationRate);
-            BigDecimal externalRate = new BigDecimal(mParams.axelarExternalInflationRate);
-            BigDecimal evmChainCnt = new BigDecimal(mParams.axelarEvmChainList.size());
+            } else if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
+                if (mParams.mEvmosInflationParams != null && mParams.mEvmosInflationParams.params != null && mParams.mEvmosEpochMintProvision.mEpochMintProvision != null) {
+                    if (!mParams.mEvmosInflationParams.params.enable_inflation)
+                        return BigDecimal.ZERO;
+                    BigDecimal annualProvisions = new BigDecimal(mParams.mEvmosEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
+                    BigDecimal evmosSupply = getMainSupply().subtract(new BigDecimal("200000000000000000000000000"));
+                    return annualProvisions.divide(evmosSupply, 18, RoundingMode.DOWN);
+                }
 
-            BigDecimal keyManageInflation = baseInflation.multiply(keyManageRate);
-            BigDecimal externalEvmInflation = externalRate.multiply(evmChainCnt);
-            return baseInflation.add(keyManageInflation).add(externalEvmInflation);
+            } else if (chainConfig.baseChain().equals(BaseChain.CRESCENT_MAIN)) {
+                long now = Calendar.getInstance().getTime().getTime();
+                if (mParams.mCrescentMintingParams != null && mParams.mCrescentMintingParams.params != null && mParams.mCrescentMintingParams.params.inflation_schedules != null) {
+                    BigDecimal genesisSupply = new BigDecimal("200000000000000");
+                    BigDecimal thisInflation = getCurrentInflationAmount();
+                    for (CrescentMintingParams.CrescentMintingParam.InflationSchedule schedules : mParams.mCrescentMintingParams.params.inflation_schedules) {
+                        if (schedules.getStart_time() < now && schedules.getEnd_time() < now) {
+                            genesisSupply = genesisSupply.add(schedules.getAmount());
+                        }
+                    }
+                    return thisInflation.divide(genesisSupply, 18, RoundingMode.UP);
+                }
+
+            } else if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN)) {
+                BigDecimal baseInflation = new BigDecimal(mParams.mMintingInflation.inflation);
+                BigDecimal keyManageRate = new BigDecimal(mParams.axelarKeyInflationRate);
+                BigDecimal externalRate = new BigDecimal(mParams.axelarExternalInflationRate);
+                BigDecimal evmChainCnt = new BigDecimal(mParams.axelarEvmChainList.size());
+
+                BigDecimal keyManageInflation = baseInflation.multiply(keyManageRate);
+                BigDecimal externalEvmInflation = externalRate.multiply(evmChainCnt);
+                return baseInflation.add(keyManageInflation).add(externalEvmInflation);
 
 
-        } else if (chainConfig.baseChain().equals(BaseChain.TERITORI_MAIN)) {
-            if (mParams.mTeritoriMintingParams != null && mParams.mTeritoriMintingParams.params != null) {
-                BigDecimal inflationNum = new BigDecimal(mParams.mTeritoriMintingParams.params.reduction_period_in_blocks).subtract(new BigDecimal(mParams.mTeritoriMintingParams.params.minting_rewards_distribution_start_block));
-                return inflationNum.multiply(new BigDecimal(mParams.mTeritoriMintingParams.params.genesis_block_provisions)).divide(getMainSupply(), 18, RoundingMode.DOWN);
-            }
+            } else if (chainConfig.baseChain().equals(BaseChain.TERITORI_MAIN)) {
+                if (mParams.mTeritoriMintingParams != null && mParams.mTeritoriMintingParams.params != null) {
+                    BigDecimal inflationNum = new BigDecimal(mParams.mTeritoriMintingParams.params.reduction_period_in_blocks).subtract(new BigDecimal(mParams.mTeritoriMintingParams.params.minting_rewards_distribution_start_block));
+                    return inflationNum.multiply(new BigDecimal(mParams.mTeritoriMintingParams.params.genesis_block_provisions)).divide(getMainSupply(), 18, RoundingMode.DOWN);
+                }
 
-        } else if (chainConfig.baseChain().equals(BaseChain.STRIDE_MAIN)) {
-            if (mParams.mStrideMintingParams != null && mParams.mStrideMintingParams.params != null) {
-                BigDecimal epochProvisions = new BigDecimal(mParams.mStrideMintingEpochProvisions.epoch_provisions);
-                BigDecimal epochPeriods = new BigDecimal(mParams.mStrideMintingParams.params.reduction_period_in_epochs);
-                return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
-            }
+            } else if (chainConfig.baseChain().equals(BaseChain.STRIDE_MAIN)) {
+                if (mParams.mStrideMintingParams != null && mParams.mStrideMintingParams.params != null) {
+                    BigDecimal epochProvisions = new BigDecimal(mParams.mStrideMintingEpochProvisions.epoch_provisions);
+                    BigDecimal epochPeriods = new BigDecimal(mParams.mStrideMintingParams.params.reduction_period_in_epochs);
+                    return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
+                }
 
-        } else if (chainConfig.baseChain().equals(CUDOS_MAIN)) {
-            if (mParams.mCudosMintingParams != null && !mParams.mCudosMintingParams.inflation.isEmpty()) {
-                return new BigDecimal(mParams.mCudosMintingParams.inflation);
+            } else if (chainConfig.baseChain().equals(CUDOS_MAIN)) {
+                if (mParams.mCudosMintingParams != null && !mParams.mCudosMintingParams.inflation.isEmpty()) {
+                    return new BigDecimal(mParams.mCudosMintingParams.inflation);
+                } else {
+                    return BigDecimal.ZERO;
+                }
+
+            } else if (chainConfig.baseChain().equals(CANTO_MAIN)) {
+                if (mParams.mCantoInflationParams != null && mParams.mCantoInflationParams.params != null && mParams.mCantoEpochMintProvision.mEpochMintProvision != null) {
+                    if (!mParams.mCantoInflationParams.params.enable_inflation)
+                        return BigDecimal.ZERO;
+                    BigDecimal annualProvisions = new BigDecimal(mParams.mCantoEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
+                    return annualProvisions.divide(getMainSupply(), 18, RoundingMode.DOWN);
+                }
+
             } else {
-                return BigDecimal.ZERO;
+                if (mParams != null && mParams.mMintingInflation != null && mParams.mMintingInflation.inflation != null) {
+                    return new BigDecimal(mParams.mMintingInflation.inflation);
+                }
             }
-
-        } else if (chainConfig.baseChain().equals(CANTO_MAIN)) {
-            if (mParams.mCantoInflationParams != null && mParams.mCantoInflationParams.params != null && mParams.mCantoEpochMintProvision.mEpochMintProvision != null) {
-                if (!mParams.mCantoInflationParams.params.enable_inflation) return BigDecimal.ZERO;
-                BigDecimal annualProvisions = new BigDecimal(mParams.mCantoEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
-                return annualProvisions.divide(getMainSupply(), 18, RoundingMode.DOWN);
-            }
-
-        } else {
-            if (mParams != null && mParams.mMintingInflation != null && mParams.mMintingInflation.inflation != null) {
-                return new BigDecimal(mParams.mMintingInflation.inflation);
-            }
+        } catch (ArithmeticException e) {
+            return BigDecimal.ZERO;
         }
         return BigDecimal.ZERO;
     }

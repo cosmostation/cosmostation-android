@@ -1116,7 +1116,7 @@
     <string name="tx_kava_hard_deposit">ハードプール\n預金</string>
     <string name="tx_kava_hard_withdraw">ハードプール\n出金</string>
     <string name="tx_kava_hard_borrow">ハードプール\n貸出</string>
-    <string name="tx_kava_hard_repay">ハードプール引き\n換え</string>
+    <string name="tx_kava_hard_repay">ハードプール引き\n返済</string>
     <string name="tx_kava_hard_liquidate">ハードプール\n清算</string>
     <string name="tx_kava_swap_token">コインスワップ</string>
     <string name="tx_kava_swap_deposit">スワッププール\n預金</string>
@@ -1137,8 +1137,8 @@
     <string name="tx_kava_drawdebt_cdp2">CDP 貸出</string>
     <string name="tx_kava_repaydebt_cdp2">CDP 返済</string>
     <string name="tx_kava_liquidate_cdp2">CDP 清算</string>
-    <string name="tx_kava_incentive_reward2">USDX発行 インセンティブ</string>
-    <string name="tx_kava_incentive_hard2">ハードプール インセンティブ</string>
+    <string name="tx_kava_incentive_reward">インセンティブ Minting</string>
+    <string name="tx_kava_incentive_hard">ハードプール インセンティブ</string>
     <string name="tx_kava_hard_deposit2">ハードプール 預金</string>
     <string name="tx_kava_hard_withdraw2">ハードプール 出金</string>
     <string name="tx_kava_hard_borrow2">ハードプール 貸出</string>

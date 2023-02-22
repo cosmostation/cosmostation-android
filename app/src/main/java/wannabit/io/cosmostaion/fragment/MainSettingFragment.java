@@ -142,7 +142,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         ApiClient.getCosmostationOld(requireContext()).getPushStatus(getBaseDao().getFCMToken()).enqueue(new Callback<PushStatusResponse>() {
             @Override
             public void onResponse(Call<PushStatusResponse> call, Response<PushStatusResponse> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     mainSettingBinding.switchAlaram.setChecked(response.body().subscribe);
                     getBaseDao().setAlarmEnable(response.body().subscribe);
                 }

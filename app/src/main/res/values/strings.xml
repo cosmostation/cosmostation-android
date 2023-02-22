@@ -390,7 +390,7 @@
     <string name="str_fee_speed_title_fixed">This chain support fixed Tx fee</string>
     <string name="str_empty_warnning_title">Warning!</string>
     <string name="str_empty_warnning_msg">You will be left with no available balance after this Tx. You will not have any available coin to be used as gas to make another Tx after this.</string>
-    <string name="str_validator">Validators</string>
+    <string name="str_validator">Validator</string>
     <string name="str_price">Price</string>
     <string name="str_current_delegation">Current Delegation</string>
     <string name="str_expected_delegation">Expected Delegation</string>
@@ -903,8 +903,8 @@
     <string name="str_ibc_recipent">Recipient</string>
     <string name="str_ibc_send_amount">Send Amount</string>
     <string name="str_pool_id">Pool ID</string>
-    <string name="str_token_in">Coin In</string>
-    <string name="str_token_out">Coin Out</string>
+    <string name="str_token_in">Token In</string>
+    <string name="str_token_out">Token Out</string>
     <string name="str_lock_token_duration">Duration</string>
     <string name="str_unlock_token_id">ID</string>
     <string name="str_unlock_token_complete_time">Unlock Complete Time</string>
@@ -1237,8 +1237,8 @@
     <string name="tx_kava_drawdebt_cdp2">CDP Borrow</string>
     <string name="tx_kava_repaydebt_cdp2">CDP Repay</string>
     <string name="tx_kava_liquidate_cdp2">CDP Liquidate</string>
-    <string name="tx_kava_incentive_reward2">Incentive Minting</string>
-    <string name="tx_kava_incentive_hard2">Hard Lend Incentive</string>
+    <string name="tx_kava_incentive_reward">Incentive Minting</string>
+    <string name="tx_kava_incentive_hard">Hard Lend Incentive</string>
     <string name="tx_kava_hard_deposit2">Hard Lend Deposit</string>
     <string name="tx_kava_hard_withdraw2">Hard Lend Withdraw</string>
     <string name="tx_kava_hard_borrow2">Hard Lend Borrow</string>
