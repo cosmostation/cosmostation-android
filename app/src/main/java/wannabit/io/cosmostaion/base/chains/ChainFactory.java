@@ -6,6 +6,10 @@ import wannabit.io.cosmostaion.base.BaseChain;
 
 public class ChainFactory {
 
+    public static ChainConfig getChain(String baseChainName) {
+        return getChain(BaseChain.getChain(baseChainName));
+    }
+
     public static ChainConfig getChain(BaseChain baseChain) {
         if (baseChain != null) {
             switch (baseChain) {

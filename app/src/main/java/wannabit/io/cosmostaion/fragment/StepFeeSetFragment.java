@@ -291,7 +291,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
-            if (!mSimulPassed && !mAccount.isLedger()) {
+            if (!mSimulPassed) {
                 Toast.makeText(getActivity(), getString(R.string.error_simul_error), Toast.LENGTH_SHORT).show();
                 return;
             }
