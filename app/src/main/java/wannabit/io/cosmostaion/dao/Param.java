@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.dao;
 import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SOMMELIER_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 
@@ -136,6 +137,9 @@ public class Param {
 
         @SerializedName("canto_epoch_mint_provision")
         public CantoEpochMintProvision mCantoEpochMintProvision;
+
+        @SerializedName("sommelier_apy")
+        public SommlierApy mSommlierApy;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -228,6 +232,13 @@ public class Param {
                     return annualProvisions.divide(getMainSupply(), 18, RoundingMode.DOWN);
                 }
 
+            } else if (chainConfig.baseChain().equals(SOMMELIER_MAIN)) {
+                if (mParams.mSommlierApy != null && !mParams.mSommlierApy.apy.isEmpty()) {
+                    BigDecimal calTax = BigDecimal.ONE.subtract(getTax(chainConfig));
+                    BigDecimal bondingRate = getBondedAmount().divide(getMainSupply(), 6, RoundingMode.DOWN);
+                    BigDecimal stakingApr = new BigDecimal(mParams.mSommlierApy.apy);
+                    return stakingApr.multiply(bondingRate).divide(calTax, 6, RoundingMode.DOWN);
+                }
             } else {
                 if (mParams != null && mParams.mMintingInflation != null && mParams.mMintingInflation.inflation != null) {
                     return new BigDecimal(mParams.mMintingInflation.inflation);
@@ -357,6 +368,12 @@ public class Param {
                         return ap.multiply(stakingRewardsFactor).divide(getBondedAmount(), 6, RoundingMode.DOWN);
                     }
 
+                } else if (chainConfig.baseChain().equals(SOMMELIER_MAIN)) {
+                    if (mParams.mSommlierApy != null && !mParams.mSommlierApy.apy.isEmpty()) {
+                        return new BigDecimal(mParams.mSommlierApy.apy);
+                    } else {
+                        return BigDecimal.ZERO;
+                    }
                 } else {
                     BigDecimal ap;
                     if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN))
@@ -840,5 +857,10 @@ public class Param {
     public class CantoEpochMintProvision {
         @SerializedName("epoch_mint_provision")
         public Coin mEpochMintProvision;
+    }
+
+    public class SommlierApy {
+        @SerializedName("apy")
+        public String apy;
     }
 }
