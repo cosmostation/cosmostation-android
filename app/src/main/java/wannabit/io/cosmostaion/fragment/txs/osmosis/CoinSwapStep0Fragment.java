@@ -54,8 +54,6 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private ImageView mSwapOutputImg;
     private TextView mSwapOutputSymbol;
     private TextView mSwapOutputAmount;
-    private Asset mInputAsset;
-    private Asset mOutputAsset;
     private int mInputCoinDecimal;
     private int mOutputCoinDecimal;
     private BigDecimal mStableSwapRateAmount;
@@ -260,10 +258,10 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
     @SuppressLint("CheckResult")
     private void onFetchEstimateOut() {
-        mInputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mInputDenom);
-        mOutputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mOutputDenom);
-        mInputCoinDecimal = mInputAsset.decimals;
-        mOutputCoinDecimal = mOutputAsset.decimals;
+        Asset inputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mInputDenom);
+        Asset outputAsset = getBaseDao().getAsset(getSActivity().mChainConfig, getSActivity().mOutputDenom);
+        mInputCoinDecimal = inputAsset.decimals;
+        mOutputCoinDecimal = outputAsset.decimals;
 
         QueryGrpc.QueryBlockingStub stub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(getSActivity().mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
         Tx.SwapAmountInRoute swapAmountInRoute = Tx.SwapAmountInRoute.newBuilder().setPoolId(getSActivity().mOsmosisPoolId).setTokenOutDenom(getSActivity().mOutputDenom).build();
