@@ -934,7 +934,7 @@
     <string name="str_ibc_transfer_msg1">중앙화 거래소에서는 가상자산의 IBC 기능을 지원하지 않습니다.</string>
     <string name="str_ibc_transfer_msg2">반드시 IBC를 통해 해당 자산을 원래 체인으로 전송한 후, \n거래소로의 출금을 진행하세요.</string>
 
-    <string name="str_icns_confirm_title">네임서비스 주소 사용</string>
+    <string name="str_icns_confirm_title">네임서비스 동기화</string>
     <string name="str_icns_update_nickname_msg">지갑 이름을 네임서비스와 동기화 시켰습니다.</string>
 
     <string name="str_not_support_bluetooth">이 장치는 Bluetooth를 지원하지 않습니다.</string>

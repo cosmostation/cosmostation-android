@@ -28,6 +28,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATI
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ICNS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARGAZE_NS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_CONFIG;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED_VALIDATORS;
@@ -63,14 +64,11 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.crypto.DeterministicKey;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,7 +87,6 @@ import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
-import wannabit.io.cosmostaion.activities.txs.common.UndelegateActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -99,6 +96,7 @@ import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.MintscanToken;
+import wannabit.io.cosmostaion.dao.NameService;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
@@ -146,6 +144,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisCheckIcnsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcConfigTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcFeeTask;
+import wannabit.io.cosmostaion.task.gRpcTask.StargazeCheckNSGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
@@ -166,7 +165,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public Account mAccount;
     public BaseChain mBaseChain;
     public ChainConfig mChainConfig;
-    public String mIcnsName = "";
+    public ArrayList<NameService> mNameServices = new ArrayList<>();
 
     protected int mTaskCount;
     private FetchCallBack mFetchCallback;
@@ -551,7 +550,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         getBaseDao().mGrpcStarNameFee = null;
         getBaseDao().mGrpcStarNameConfig = null;
-        mIcnsName = "";
+        mNameServices.clear();
 
 
         if (mBaseChain.equals(BNB_MAIN)) {
@@ -729,6 +728,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 new MintscanErc20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanUtilityParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new OsmosisCheckIcnsGrpcTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//                new StargazeCheckNSGrpcTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_AUTH) {
@@ -847,7 +847,18 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_ICNS) {
             if (result.isSuccess && result.resultData != null) {
-                mIcnsName = (String) result.resultData;
+                String icnsName = (String) result.resultData;
+                if (!TextUtils.isEmpty(icnsName)) {
+                    mNameServices.add(new NameService(NameService.NameServiceType.ICNS, icnsName, mAccount.address));
+                }
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_STARGAZE_NS) {
+            if (result.isSuccess && result.resultData != null) {
+                String icnsName = (String) result.resultData;
+                if (!TextUtils.isEmpty(icnsName)) {
+                    mNameServices.add(new NameService(NameService.NameServiceType.STARGAZE, icnsName, mAccount.address));
+                }
             }
         }
 
@@ -883,14 +894,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         snapBalance.add(new Balance(mAccount.id, coin.denom, coin.amount, Calendar.getInstance().getTime().getTime(), "0", "0"));
                     }
                     getBaseDao().onUpdateBalances(mAccount.id, snapBalance);
-                }
-
-                if (!mIcnsName.isEmpty()) {
-                    if (mAccount.nickName == null || !mAccount.nickName.equals(mIcnsName)) {
-                        mAccount.nickName = mIcnsName;
-                        getBaseDao().onUpdateAccount(mAccount);
-                        Toast.makeText(this, getString(R.string.str_icns_update_nickname_msg), Toast.LENGTH_SHORT).show();
-                    }
                 }
 
             } else if (mBaseChain.equals(BNB_MAIN)) {
