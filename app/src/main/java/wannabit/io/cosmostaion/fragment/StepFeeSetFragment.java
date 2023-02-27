@@ -237,7 +237,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onCalculateFees() {
-        if (mFeeInfo != null && mSelectedFeeInfo != null && mSelectedFeeData != null) {
+        if (mFeeInfo != null && mSelectedFeeInfo != null && mFeeInfo.get(mSelectedFeeInfo).feeDatas != null && mSelectedFeeData != null) {
             mFeeData = mFeeInfo.get(mSelectedFeeInfo).feeDatas.get(mSelectedFeeData);
             if (mFeeData != null) {
                 if (mBaseChain.equals(BaseChain.SIF_MAIN)) {

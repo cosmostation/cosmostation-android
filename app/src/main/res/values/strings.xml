@@ -445,7 +445,7 @@
     <string name="str_go_store">Go PlayStore</string>
     <string name="str_tx_detail">Transaction Detail</string>
     <string name="str_tx_msg_cnt">Message Size</string>
-    <string name="str_tx_gas_info">Gas (used/wanted)</string>
+    <string name="str_tx_gas_info">Gas (used/limit)</string>
     <string name="str_tx_status">Status</string>
     <string name="str_tx_height">Block Height</string>
     <string name="str_tx_time">Time</string>
