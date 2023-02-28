@@ -23,8 +23,6 @@ import com.ledger.live.ble.model.BleDeviceModel
 import com.ledger.live.ble.model.BleError
 import cosmos.tx.v1beta1.ServiceOuterClass.BroadcastTxRequest
 import cosmos.tx.v1beta1.ServiceOuterClass.BroadcastTxResponse
-import org.apache.commons.lang3.StringUtils
-import org.bouncycastle.asn1.x500.style.RFC4519Style.title
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseApplication
 import wannabit.io.cosmostaion.base.chains.ChainFactory
@@ -193,7 +191,14 @@ class LedgerManager {
             if (bleManager.isConnected) {
                 bleManager.disconnect {
                     Timer().schedule(timerTask {
-                        onConnectLeger(devideId, context, ledgerStatus, listener, dialog, retryCount)
+                        onConnectLeger(
+                            devideId,
+                            context,
+                            ledgerStatus,
+                            listener,
+                            dialog,
+                            retryCount
+                        )
                     }, 1500)
                 }
             } else {
@@ -275,7 +280,11 @@ class LedgerManager {
         })
     }
 
-    fun signAndBroadcast(activity: Activity, account: Account, ledgerSignListener: LedgerSignListener) {
+    fun signAndBroadcast(
+        activity: Activity,
+        account: Account,
+        ledgerSignListener: LedgerSignListener
+    ) {
         pickLedgerDevice(activity, object : ConnectListener {
             var dialog = CommonAlertDialog.makeSecondImageSingleButton(
                 activity,
@@ -353,34 +362,42 @@ class LedgerManager {
             }
         }
 
-        sign(bleManager, account.path, ledgerSignListener.getMessage(), object : BleCosmosHelper.SignListener {
-            override fun success(signature: ByteArray) {
-                if (activity.isFinishing) {
-                    return
+        sign(
+            bleManager,
+            account.path,
+            ledgerSignListener.getMessage(),
+            object : BleCosmosHelper.SignListener {
+                override fun success(signature: ByteArray) {
+                    if (activity.isFinishing) {
+                        return
+                    }
+
+                    Thread {
+                        val broadcastTxRequest =
+                            ledgerSignListener.makeBroadcastTxRequest(signature)
+                        val response = Signer.getGrpcLedgerBroadcastResponse(
+                            broadcastTxRequest,
+                            ChainFactory.getChain(account.baseChain)
+                        )
+                        val mResult = TaskResult()
+                        mResult.resultData = response.txResponse.txhash
+
+                        if (response.txResponse.code > 0) {
+                            mResult.errorCode = response.txResponse.code
+                            mResult.errorMsg = response.txResponse.rawLog
+                            mResult.isSuccess = false
+                        } else {
+                            mResult.isSuccess = true
+                        }
+                        ledgerSignListener.processResponse(mResult, response)
+                    }.start()
                 }
 
-                Thread {
-                    val broadcastTxRequest = ledgerSignListener.makeBroadcastTxRequest(signature)
-                    val response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, ChainFactory.getChain(account.baseChain))
-                    val mResult = TaskResult()
-                    mResult.resultData = response.txResponse.txhash
-
-                    if (response.txResponse.code > 0) {
-                        mResult.errorCode = response.txResponse.code
-                        mResult.errorMsg = response.txResponse.rawLog
-                        mResult.isSuccess = false
-                    } else {
-                        mResult.isSuccess = true
-                    }
-                    ledgerSignListener.processResponse(mResult, response)
-                }.start()
-            }
-
-            override fun error(code: String, message: String) {
-                dialog.dismiss()
-                processLedgerError(activity, code)
-            }
-        })
+                override fun error(code: String, message: String) {
+                    dialog.dismiss()
+                    processLedgerError(activity, code)
+                }
+            })
     }
 
     private fun processLedgerError(activity: Activity, code: String) {
@@ -389,7 +406,8 @@ class LedgerManager {
         }
         activity.runOnUiThread {
             if (code.equals("6986", true)) {
-                Toast.makeText(activity, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, R.string.str_ledger_tx_reject_msg, Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 Toast.makeText(activity, R.string.str_ledger_error, Toast.LENGTH_SHORT).show()
             }

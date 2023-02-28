@@ -1,13 +1,12 @@
 package wannabit.io.cosmostaion.dialog
 
-import android.widget.LinearLayout
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.widget.LinearLayout
 import org.apache.commons.lang3.StringUtils
-import kotlin.jvm.JvmOverloads
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.databinding.DialogTemplateFilledverticalBinding
 
@@ -352,9 +351,7 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
 
     init {
         window!!.setBackgroundDrawableResource(R.drawable.layout_trans_with_border)
-        filledVerticalBinding = DialogTemplateFilledverticalBinding.inflate(
-            layoutInflater
-        )
+        filledVerticalBinding = DialogTemplateFilledverticalBinding.inflate(layoutInflater)
         setView(filledVerticalBinding.root)
     }
 }

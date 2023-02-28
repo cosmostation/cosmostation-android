@@ -93,7 +93,7 @@ class MainSettingFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun switchListener(): CompoundButton.OnCheckedChangeListener {
-        return CompoundButton.OnCheckedChangeListener { view: CompoundButton?, checked: Boolean -> syncPushStatus() }
+        return CompoundButton.OnCheckedChangeListener { _: CompoundButton?, _: Boolean -> syncPushStatus() }
     }
 
     private fun syncPushStatus() {
@@ -265,9 +265,9 @@ class MainSettingFragment : BaseFragment(), View.OnClickListener {
                 Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_PRIVACY_POLICY))
             startActivity(intent)
         } else if (v == mainSettingBinding!!.cardNotice) {
-            val url = BaseConstant.EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(
-                mainActivity.mBaseChain
-            ).chainName()
+            val url =
+                BaseConstant.EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(mainActivity.mBaseChain)
+                    .chainName()
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         } else if (v == mainSettingBinding!!.cardHomepage) {
@@ -419,7 +419,6 @@ class MainSettingFragment : BaseFragment(), View.OnClickListener {
             instance.bleManager.disconnect {
                 onShowWaitDialog()
                 mainSettingBinding!!.cardLedger.postDelayed({ showLedgerPicker() }, 1500)
-                null
             }
         } else {
             onShowWaitDialog()
