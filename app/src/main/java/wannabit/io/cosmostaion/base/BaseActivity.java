@@ -37,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGA
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -421,7 +422,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShareType(String address) {
-        FilledVerticalButtonAlertDialog.showDoubleButton(this, null, null, getString(R.string.str_with_qr), view -> onShare(false, address), null, getString(R.string.str_with_text), view -> onShare(true, address), null);
+        FilledVerticalButtonAlertDialog.Companion.showDoubleButton(this, "", "", getString(R.string.str_with_qr), view -> onShare(false, address), null, getString(R.string.str_with_text), view -> onShare(true, address), null);
     }
 
     public void onDeleteAccount(Account account) {
@@ -969,7 +970,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onShowCryptoPay() {
         if (mChainConfig.moonPaySupport() && mChainConfig.kadoMoneySupport()) {
-            FilledVerticalButtonAlertDialog.showDoubleButton(this, "", "", getString(R.string.str_moonPay), view -> onStartMoonPaySignature(), null, getString(R.string.str_kadoMoney), view -> onShowBuyKado(), null);
+            FilledVerticalButtonAlertDialog.Companion.showDoubleButton(this, "", "", getString(R.string.str_moonPay), view -> onStartMoonPaySignature(), null, getString(R.string.str_kadoMoney), view -> onShowBuyKado(), null);
         } else {
             if (mChainConfig.moonPaySupport()) {
                 onStartMoonPaySignature();
