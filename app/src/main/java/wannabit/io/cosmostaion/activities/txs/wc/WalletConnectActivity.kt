@@ -1205,43 +1205,47 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private fun showAccountDialog(
-        chains: List<String>,
+        chains: List<String>?,
         selectedAccounts: MutableList<Account>,
         index: Int = 0,
         action: (selectedAccounts: List<Account>) -> Unit
     ) {
-        if (index >= chains.size) {
-            action(selectedAccounts)
-            moveToBackIfNeed()
-            return
-        }
-
-        loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain]?.let {
-            selectedAccounts.add(it)
-            showAccountDialog(chains, selectedAccounts, index + 1, action)
-            return
-        }
-
-        if (!hasAccount(chains[index])) {
-            showAccountDialog(chains, selectedAccounts, index + 1, action)
-            return
-        }
-
-        val bundle = Bundle()
-        bundle.putString("chainName", chains[index])
-        val dialog = Dialog_Wc_Account.newInstance(bundle)
-        dialog.setOnSelectListener(object : OnDialogSelectListener {
-            override fun onSelect(account: Account) {
-                loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain] = account
-                selectedAccounts.add(account)
-                showAccountDialog(chains, selectedAccounts, index + 1, action)
+        if (chains != null) {
+            if (index >= chains.size) {
+                action(selectedAccounts)
+                moveToBackIfNeed()
+                return
             }
 
-            override fun onCancel() {
+            loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain]?.let {
+                selectedAccounts.add(it)
                 showAccountDialog(chains, selectedAccounts, index + 1, action)
+                return
             }
-        })
-        dialog.show(supportFragmentManager, "dialog$index")
+
+            if (!hasAccount(chains[index])) {
+                showAccountDialog(chains, selectedAccounts, index + 1, action)
+                return
+            }
+
+            val bundle = Bundle()
+            bundle.putString("chainName", chains[index])
+            val dialog = Dialog_Wc_Account.newInstance(bundle)
+            dialog.setOnSelectListener(object : OnDialogSelectListener {
+                override fun onSelect(account: Account) {
+                    loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain] = account
+                    selectedAccounts.add(account)
+                    showAccountDialog(chains, selectedAccounts, index + 1, action)
+                }
+
+                override fun onCancel() {
+                    showAccountDialog(chains, selectedAccounts, index + 1, action)
+                }
+            })
+            dialog.show(supportFragmentManager, "dialog$index")
+        } else {
+            return
+        }
     }
 
     override fun onBackPressed() {

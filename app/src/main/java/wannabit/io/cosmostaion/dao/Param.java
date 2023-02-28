@@ -232,13 +232,6 @@ public class Param {
                     return annualProvisions.divide(getMainSupply(), 18, RoundingMode.DOWN);
                 }
 
-            } else if (chainConfig.baseChain().equals(SOMMELIER_MAIN)) {
-                if (mParams.mSommlierApy != null && !mParams.mSommlierApy.apy.isEmpty()) {
-                    BigDecimal calTax = BigDecimal.ONE.subtract(getTax(chainConfig));
-                    BigDecimal bondingRate = getBondedAmount().divide(getMainSupply(), 6, RoundingMode.DOWN);
-                    BigDecimal stakingApr = new BigDecimal(mParams.mSommlierApy.apy);
-                    return stakingApr.multiply(bondingRate).divide(calTax, 6, RoundingMode.DOWN);
-                }
             } else {
                 if (mParams != null && mParams.mMintingInflation != null && mParams.mMintingInflation.inflation != null) {
                     return new BigDecimal(mParams.mMintingInflation.inflation);

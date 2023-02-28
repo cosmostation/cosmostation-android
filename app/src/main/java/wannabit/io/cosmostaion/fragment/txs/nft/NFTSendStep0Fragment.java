@@ -184,13 +184,13 @@ public class NFTSendStep0Fragment extends BaseFragment implements View.OnClickLi
                     }
 
                     Bundle bundleData = new Bundle();
-                    bundleData.putString(NameConfirmDialog.NAME_BUNDLE_KEY, userInput);
-                    bundleData.putString(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY, matchAddress);
+                    bundleData.putString(NameConfirmDialog.MATCH_NAME_SERVICE_BUNDLE_KEY, matchAddress);
+                    
                     if (!getSActivity().isFinishing()) {
                         NameConfirmDialog dialog = NameConfirmDialog.newInstance(bundleData);
                         dialog.show(getParentFragmentManager(), NameConfirmDialog.class.getName());
                         getParentFragmentManager().setFragmentResultListener(NameConfirmDialog.CONFIRM_BUNDLE_KEY, NFTSendStep0Fragment.this, (requestKey, bundle) -> {
-                            String originAddress = bundle.getString(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY);
+                            String originAddress = bundle.getString(NameConfirmDialog.MATCH_NAME_SERVICE_BUNDLE_KEY);
                             getSActivity().mToAddress = originAddress;
                             getSActivity().onNextStep();
                         });

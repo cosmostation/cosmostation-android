@@ -445,7 +445,7 @@
     <string name="str_go_store">Go PlayStore</string>
     <string name="str_tx_detail">Transaction Detail</string>
     <string name="str_tx_msg_cnt">Message Size</string>
-    <string name="str_tx_gas_info">Gas (used/wanted)</string>
+    <string name="str_tx_gas_info">Gas (used/limit)</string>
     <string name="str_tx_status">Status</string>
     <string name="str_tx_height">Block Height</string>
     <string name="str_tx_time">Time</string>
@@ -1031,7 +1031,7 @@
     <string name="str_ibc_transfer_msg1">IBC transactions are NOT supported on centralized exchanges.</string>
     <string name="str_ibc_transfer_msg2">Transfer your asset back to its origin chain by IBC before \nsending it to a centralized exchange.</string>
 
-    <string name="str_icns_confirm_title">NameService Found</string>
+    <string name="str_icns_confirm_title">Synchronize Name Service</string>
     <string name="str_icns_update_nickname_msg">Update wallet name with nameservice name</string>
 
     <string name="str_not_support_bluetooth">This device does not support Bluetooth.</string>

@@ -18,6 +18,7 @@ public class Mars extends ChainConfig {
     public int chainTabColor() { return R.color.color_tab_myvalidator_mars; }
     public String chainName() { return "mars-protocol"; }
     public String chainKoreanName() { return "마스"; }
+    public String chainTitleToUp() { return "MARS"; }
     public String chainIdPrefix() { return "mars-"; }
 
     public int mainDenomImg() { return R.drawable.token_mars; }

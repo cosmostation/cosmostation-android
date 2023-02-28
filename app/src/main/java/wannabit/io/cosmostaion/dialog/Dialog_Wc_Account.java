@@ -54,8 +54,11 @@ public class Dialog_Wc_Account extends DialogFragment {
         mRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
         mRecyclerView.setAdapter(mAccountListAdapter);
-        getDialog().setOnDismissListener(dialogInterface -> mOnSelectListener.onCancel());
-
+        getDialog().setOnDismissListener(dialogInterface -> {
+            if (mOnSelectListener != null) {
+                mOnSelectListener.onCancel();
+            }
+        });
         return view;
     }
 
