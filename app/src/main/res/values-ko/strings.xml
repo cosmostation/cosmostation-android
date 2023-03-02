@@ -257,7 +257,6 @@
     <string name="str_front_guide_msg_evmos"><![CDATA[EVM(이더리움 가상 머신) 호환이 가능한 Cosmos SDK 기반 블록체인.]]></string>
     <string name="str_front_guide_msg_cudos"><![CDATA[Cudos는 탈중앙화된 고효율 클라우드 컴퓨팅 네트워크를 위해 설계된 텐더민트 기반 블록체인입니다.]]></string>
     <string name="str_front_guide_msg_provenance"><![CDATA[금융 서비스 산업의 블록체인 기술 도입을 위해 설계된 텐더민트 기반 블록체인입니다.]]></string>
-    <string name="str_front_guide_msg_cerberus"><![CDATA[지옥의 파수꾼 케르베로스를 모티브로 만들어진 코스모스 생태계 밈 코인입니다.]]></string>
     <string name="str_front_guide_msg_omniflix"><![CDATA[NFT 창작자들과 커뮤니티에게 탈중앙화된 미디어 플랫폼을 제공하는 블록체인 프로젝트.]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[$CRE 토큰과 인터-블록체인 통신기술을 활용한 텐더민트 기반 디파이 허브.]]></string>
     <string name="str_front_guide_msg_assetmantle"><![CDATA[Asset Mantle은 Persistence 생태계 내 NFT 창작자와 수집가 모두를 위해 구축된 NFT 마켓플레이스 및 플랫폼입니다.]]></string>

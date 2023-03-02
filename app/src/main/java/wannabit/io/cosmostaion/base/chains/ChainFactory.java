@@ -54,9 +54,6 @@ public class ChainFactory {
                 case CANTO_MAIN:
                     return new Canto();
 
-                case CERBERUS_MAIN:
-                    return new Cerberus();
-
                 case CERTIK_LEGACY1:
                 case CERTIK_LEGACY2:
                 case CERTIK_MAIN:
