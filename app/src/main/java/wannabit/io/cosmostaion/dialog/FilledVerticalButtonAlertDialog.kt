@@ -36,10 +36,10 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
             title: CharSequence,
             message: CharSequence,
             firstButtonTitle: CharSequence,
-            firstButtonListener: View.OnClickListener?,
+            firstButtonListener: View.OnClickListener,
             firstButtonImage: Drawable?,
             secondButtonTitle: CharSequence,
-            secondButtonListener: View.OnClickListener?,
+            secondButtonListener: View.OnClickListener,
             secondButtonImage: Drawable?,
             cancelable: Boolean? = true
         ) {
@@ -73,7 +73,7 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
             secondButtonListener: View.OnClickListener,
             secondButtonImage: Drawable?,
             thirdButtonTitle: CharSequence,
-            thirdButtonListener: View.OnClickListener?,
+            thirdButtonListener: View.OnClickListener,
             thirdButtonImage: Drawable?,
             cancelable: Boolean? = true
         ) {
@@ -113,7 +113,7 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
             thirdButtonListener: View.OnClickListener,
             thirdButtonImage: Drawable?,
             quadrupleButtonTitle: CharSequence,
-            quadrupleButtonListener: View.OnClickListener?,
+            quadrupleButtonListener: View.OnClickListener,
             quadrupleButtonImage: Drawable?,
             cancelable: Boolean? = true
         ) {
@@ -169,10 +169,10 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
             title: CharSequence?,
             message: CharSequence?,
             firstButtonTitle: CharSequence,
-            firstButtonListener: View.OnClickListener?,
+            firstButtonListener: View.OnClickListener,
             firstButtonImage: Drawable?,
             secondButtonTitle: CharSequence,
-            secondButtonListener: View.OnClickListener?,
+            secondButtonListener: View.OnClickListener,
             secondButtonImage: Drawable?
         ): FilledVerticalButtonAlertDialog {
             val dialog = FilledVerticalButtonAlertDialog(context)
@@ -216,13 +216,13 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
                 )
             }
             dialog.filledVerticalBinding.btnOne.text = firstButtonTitle
-            dialog.filledVerticalBinding.btnOne.setOnClickListener { view: View? ->
-                firstButtonListener?.onClick(view)
+            dialog.filledVerticalBinding.btnOne.setOnClickListener { view: View ->
+                firstButtonListener.onClick(view)
                 dialog.dismiss()
             }
             dialog.filledVerticalBinding.btnTwo.text = secondButtonTitle
-            dialog.filledVerticalBinding.btnTwo.setOnClickListener { view: View? ->
-                secondButtonListener?.onClick(view)
+            dialog.filledVerticalBinding.btnTwo.setOnClickListener { view: View ->
+                secondButtonListener.onClick(view)
                 dialog.dismiss()
             }
             dialog.filledVerticalBinding.btnLine2.visibility = View.VISIBLE
@@ -241,7 +241,7 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
             secondButtonListener: View.OnClickListener,
             secondButtonImage: Drawable?,
             thirdButtonTitle: CharSequence,
-            thirdButtonListener: View.OnClickListener?,
+            thirdButtonListener: View.OnClickListener,
             thirdButtonImage: Drawable?
         ): FilledVerticalButtonAlertDialog {
             val dialog = makeDoubleButton(
@@ -276,8 +276,8 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
             dialog.filledVerticalBinding.btnThree.visibility = View.VISIBLE
             dialog.filledVerticalBinding.btnLine2.visibility = View.VISIBLE
             dialog.filledVerticalBinding.btnLine3.visibility = View.VISIBLE
-            dialog.filledVerticalBinding.btnThree.setOnClickListener { view: View? ->
-                thirdButtonListener?.onClick(view)
+            dialog.filledVerticalBinding.btnThree.setOnClickListener { view: View ->
+                thirdButtonListener.onClick(view)
                 dialog.dismiss()
             }
             return dialog
@@ -297,7 +297,7 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
             thirdButtonListener: View.OnClickListener,
             thirdButtonImage: Drawable?,
             quadrupleButtonTitle: CharSequence,
-            quadrupleButtonListener: View.OnClickListener?,
+            quadrupleButtonListener: View.OnClickListener,
             quadrupleButtonImage: Drawable?
         ): FilledVerticalButtonAlertDialog {
             val dialog = makeTripleButton(
@@ -341,8 +341,8 @@ class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) 
             dialog.filledVerticalBinding.btnLine4.visibility = View.VISIBLE
             dialog.filledVerticalBinding.btnFour.text = quadrupleButtonTitle
             dialog.filledVerticalBinding.btnFour.visibility = View.VISIBLE
-            dialog.filledVerticalBinding.btnFour.setOnClickListener { view: View? ->
-                quadrupleButtonListener?.onClick(view)
+            dialog.filledVerticalBinding.btnFour.setOnClickListener { view: View ->
+                quadrupleButtonListener.onClick(view)
                 dialog.dismiss()
             }
             return dialog
