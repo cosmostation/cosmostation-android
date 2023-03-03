@@ -1,110 +1,118 @@
-package wannabit.io.cosmostaion.dialog;
+package wannabit.io.cosmostaion.dialog
 
-import static wannabit.io.cosmostaion.base.chains.Binance.BINANCE_COIN_IMG_URL;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import com.binance.dex.api.client.encoding.message.NewOrderMessage
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.activities.txs.wc.BnbWalletConnectActivity
+import wannabit.io.cosmostaion.base.chains.Binance
+import wannabit.io.cosmostaion.databinding.DialogWcTradeBinding
+import wannabit.io.cosmostaion.utils.WDp
+import java.math.BigDecimal
+import java.util.*
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-
-import com.binance.dex.api.client.encoding.message.NewOrderMessage;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.squareup.picasso.Picasso;
-
-import java.math.BigDecimal;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.wc.BnbWalletConnectActivity;
-import wannabit.io.cosmostaion.utils.WDp;
-
-public class Dialog_Wc_Trade extends DialogFragment {
-
-    public static Dialog_Wc_Trade newInstance(Bundle bundle) {
-        Dialog_Wc_Trade frag = new Dialog_Wc_Trade();
-        frag.setArguments(bundle);
-        return frag;
+class WcTradeDialog : DialogFragment() {
+    private var dialogWcTradeBinding: DialogWcTradeBinding? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        dialog!!.window!!.setBackgroundDrawableResource(R.color.colorTrans)
+        dialogWcTradeBinding = DialogWcTradeBinding.inflate(inflater, container, false)
+        val json = Gson().fromJson(
+            arguments!!.getString("param"), JsonObject::class.java
+        )
+        val rawMsg = Gson().fromJson(json.getAsJsonArray("msgs")[0], JsonObject::class.java)
+        val msg = Gson().fromJson(json.getAsJsonArray("msgs")[0], NewOrderMessage::class.java)
+        val pairDenom = msg.symbol.split("_").toTypedArray()
+        dialogWcTradeBinding!!.wcTradeSymbol.text = pairDenom[0].split("-").toTypedArray()[0]
+        dialogWcTradeBinding!!.wcTradePriceDenom.text = pairDenom[1].split("-").toTypedArray()[0]
+        val dpPrice = BigDecimal(msg.price).movePointLeft(8)
+        val dpAmount = BigDecimal(msg.quantity).movePointLeft(8)
+        dialogWcTradeBinding!!.wcTradePrice.text =
+            WDp.getDpAmount2(context, BigDecimal(msg.price), 8, 8)
+        if (rawMsg["side"].asLong == 1L) {
+            dialogWcTradeBinding!!.wcTradeSide.text = "BUY"
+            dialogWcTradeBinding!!.wcTradeSide.setTextColor(
+                ContextCompat.getColor(
+                    activity!!, R.color.color_bnbBuy
+                )
+            )
+            Picasso.get().load(
+                Binance.BINANCE_COIN_IMG_URL + pairDenom[1].split("-").toTypedArray()[0].lowercase(
+                    Locale.getDefault()
+                ) + ".png"
+            )
+                .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
+                .into(dialogWcTradeBinding!!.fromCoinIcon)
+            Picasso.get().load(
+                Binance.BINANCE_COIN_IMG_URL + pairDenom[0].split("-").toTypedArray()[0].lowercase(
+                    Locale.getDefault()
+                ) + ".png"
+            )
+                .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
+                .into(dialogWcTradeBinding!!.toCoinIcon)
+            dialogWcTradeBinding!!.fromCoinSymbol.text = pairDenom[1].split("-").toTypedArray()[0]
+            dialogWcTradeBinding!!.toCoinSymbol.text = pairDenom[0].split("-").toTypedArray()[0]
+            dialogWcTradeBinding!!.fromCoinAmount.text =
+                WDp.getDpAmount2(context, dpAmount.multiply(dpPrice), 0, 8)
+            dialogWcTradeBinding!!.toCoinAmount.text = WDp.getDpAmount2(context, dpAmount, 0, 8)
+        } else if (rawMsg["side"].asLong == 2L) {
+            dialogWcTradeBinding!!.wcTradeSide.text = "SELL"
+            dialogWcTradeBinding!!.wcTradeSide.setTextColor(
+                ContextCompat.getColor(
+                    activity!!, R.color.color_bnbSell
+                )
+            )
+            Picasso.get().load(
+                Binance.BINANCE_COIN_IMG_URL + pairDenom[0].split("-").toTypedArray()[0].lowercase(
+                    Locale.getDefault()
+                ) + ".png"
+            )
+                .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
+                .into(dialogWcTradeBinding!!.fromCoinIcon)
+            Picasso.get().load(
+                Binance.BINANCE_COIN_IMG_URL + pairDenom[1].split("-").toTypedArray()[0].lowercase(
+                    Locale.getDefault()
+                ) + ".png"
+            )
+                .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
+                .into(dialogWcTradeBinding!!.toCoinIcon)
+            dialogWcTradeBinding!!.fromCoinSymbol.text = pairDenom[0].split("-").toTypedArray()[0]
+            dialogWcTradeBinding!!.toCoinSymbol.text = pairDenom[1].split("-").toTypedArray()[0]
+            dialogWcTradeBinding!!.fromCoinAmount.text = WDp.getDpAmount2(context, dpAmount, 0, 8)
+            dialogWcTradeBinding!!.toCoinAmount.text =
+                WDp.getDpAmount2(context, dpAmount.multiply(dpPrice), 0, 8)
+        }
+        dialogWcTradeBinding!!.btnNega.setOnClickListener { dialog!!.dismiss() }
+        dialogWcTradeBinding!!.btnPosi.setOnClickListener {
+            (activity as BnbWalletConnectActivity?)!!.onBnbSign(
+                arguments!!.getLong("id")
+            )
+            dismiss()
+        }
+        return dialogWcTradeBinding!!.root
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = getLayoutInflater().inflate(R.layout.dialog_wc_trade, null);
-        TextView side_tv = view.findViewById(R.id.wc_trade_side);
-        TextView symbol_tv = view.findViewById(R.id.wc_trade_symbol);
-        TextView price_tv = view.findViewById(R.id.wc_trade_price);
-        TextView price_denom_tv = view.findViewById(R.id.wc_trade_price_denom);
-        ImageView fromCoinImg = view.findViewById(R.id.from_coin_icon);
-        TextView fromCoinSymbol = view.findViewById(R.id.from_coin_symbol);
-        TextView fromCoinAmount = view.findViewById(R.id.from_coin_amount);
-        ImageView toCoinImg = view.findViewById(R.id.to_coin_icon);
-        TextView toCoinSymbol = view.findViewById(R.id.to_coin_symbol);
-        TextView toCoinAmount = view.findViewById(R.id.to_coin_amount);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dialogWcTradeBinding = null
+    }
 
-        JsonObject json = new Gson().fromJson(getArguments().getString("param"), JsonObject.class);
-        JsonObject rawMsg = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), JsonObject.class);
-        NewOrderMessage msg = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), NewOrderMessage.class);
-
-        String[] pair_denom = msg.getSymbol().split("_");
-        symbol_tv.setText(pair_denom[0].split("-")[0]);
-        price_denom_tv.setText(pair_denom[1].split("-")[0]);
-
-        BigDecimal dpPrice = new BigDecimal(msg.getPrice()).movePointLeft(8);
-        BigDecimal dpAmount = new BigDecimal(msg.getQuantity()).movePointLeft(8);
-        price_tv.setText(WDp.getDpAmount2(getContext(), new BigDecimal(msg.getPrice()), 8, 8));
-
-        if (rawMsg.get("side").getAsLong() == 1L) {
-            side_tv.setText("BUY");
-            side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_bnbBuy));
-
-            Picasso.get().load(BINANCE_COIN_IMG_URL + pair_denom[1].split("-")[0].toLowerCase() + ".png")
-                    .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
-                    .into(fromCoinImg);
-            Picasso.get().load(BINANCE_COIN_IMG_URL + pair_denom[0].split("-")[0].toLowerCase() + ".png")
-                    .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
-                    .into(toCoinImg);
-
-            fromCoinSymbol.setText(pair_denom[1].split("-")[0]);
-            toCoinSymbol.setText(pair_denom[0].split("-")[0]);
-
-            fromCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount.multiply(dpPrice), 0, 8));
-            toCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount, 0, 8));
-
-        } else if (rawMsg.get("side").getAsLong() == 2L) {
-            side_tv.setText("SELL");
-            side_tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.color_bnbSell));
-
-            Picasso.get().load(BINANCE_COIN_IMG_URL + pair_denom[0].split("-")[0].toLowerCase() + ".png")
-                    .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
-                    .into(fromCoinImg);
-            Picasso.get().load(BINANCE_COIN_IMG_URL + pair_denom[1].split("-")[0].toLowerCase() + ".png")
-                    .fit().placeholder(R.drawable.token_default).error(R.drawable.token_default)
-                    .into(toCoinImg);
-
-            fromCoinSymbol.setText(pair_denom[0].split("-")[0]);
-            toCoinSymbol.setText(pair_denom[1].split("-")[0]);
-
-            fromCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount, 0, 8));
-            toCoinAmount.setText(WDp.getDpAmount2(getContext(), dpAmount.multiply(dpPrice), 0, 8));
-
+    companion object {
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): WcTradeDialog {
+            val frag = WcTradeDialog()
+            frag.arguments = bundle
+            return frag
         }
-
-        btn_negative.setOnClickListener(v -> getDialog().dismiss());
-
-        btn_positive.setOnClickListener(v -> {
-            ((BnbWalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
-            dismiss();
-        });
-
-        return view;
     }
 }

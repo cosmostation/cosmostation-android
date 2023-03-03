@@ -48,7 +48,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.WcCancelDialog;
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Trade;
+import wannabit.io.cosmostaion.dialog.WcTradeDialog;
 import wannabit.io.cosmostaion.dialog.WcTransferDialog;
 import wannabit.io.cosmostaion.model.type.BnbParam;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -59,7 +59,7 @@ public class BnbWalletConnectActivity extends BaseActivity implements View.OnCli
     private ImageView mWcImg;
     private TextView mWcName, mWcUrl, mWcAccount;
     private Button mBtnDisconnect;
-    private Dialog_Wc_Trade mDialogTrade;
+    private WcTradeDialog mDialogTrade;
     private WcCancelDialog mDialogCancel;
     private WcTransferDialog mDialogTransfer;
 
@@ -197,7 +197,7 @@ public class BnbWalletConnectActivity extends BaseActivity implements View.OnCli
 
     private void onShowNewOrderDialog(Bundle bundle) {
         if (!this.isFinishing()) {
-            mDialogTrade = Dialog_Wc_Trade.newInstance(bundle);
+            mDialogTrade = WcTradeDialog.newInstance(bundle);
             mDialogTrade.show(getSupportFragmentManager(), "dialog");
         }
     }
