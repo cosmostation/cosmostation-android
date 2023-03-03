@@ -1,50 +1,52 @@
-package wannabit.io.cosmostaion.dialog;
+package wannabit.io.cosmostaion.dialog
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import com.binance.dex.api.client.encoding.message.CancelOrderMessage
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.activities.txs.wc.BnbWalletConnectActivity
+import wannabit.io.cosmostaion.databinding.DialogWcCancelBinding
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-
-import com.binance.dex.api.client.encoding.message.CancelOrderMessage;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.wc.BnbWalletConnectActivity;
-
-public class Dialog_Wc_Cancel extends DialogFragment {
-
-    public static Dialog_Wc_Cancel newInstance(Bundle bundle) {
-        Dialog_Wc_Cancel frag = new Dialog_Wc_Cancel();
-        frag.setArguments(bundle);
-        return frag;
+class WcCancelDialog : DialogFragment() {
+    private var wcCancelBinding: DialogWcCancelBinding? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        dialog!!.window!!.setBackgroundDrawableResource(R.color.colorTrans)
+        wcCancelBinding = DialogWcCancelBinding.inflate(inflater, container, false)
+        val json = Gson().fromJson(
+            arguments!!.getString("param"), JsonObject::class.java
+        )
+        val msg = Gson().fromJson(json.getAsJsonArray("msgs")[0], CancelOrderMessage::class.java)
+        wcCancelBinding!!.wcCancelSymbol.text = msg.symbol
+        wcCancelBinding!!.btnNega.setOnClickListener { dismiss() }
+        wcCancelBinding!!.btnPosi.setOnClickListener {
+            (activity as BnbWalletConnectActivity?)!!.onBnbSign(
+                arguments!!.getLong("id")
+            )
+            dismiss()
+        }
+        return wcCancelBinding!!.root
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = getLayoutInflater().inflate(R.layout.dialog_wc_cancel, null);
+    override fun onDestroyView() {
+        super.onDestroyView()
+        wcCancelBinding = null
+    }
 
-        TextView symbol_tv = view.findViewById(R.id.wc_cancel_symbol);
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        Button btn_positive = view.findViewById(R.id.btn_posi);
-
-        JsonObject json = new Gson().fromJson(getArguments().getString("param"), JsonObject.class);
-        CancelOrderMessage msg = new Gson().fromJson(json.getAsJsonArray("msgs").get(0), CancelOrderMessage.class);
-        symbol_tv.setText(msg.getSymbol());
-
-        btn_negative.setOnClickListener(v -> dismiss());
-
-        btn_positive.setOnClickListener(v -> {
-            ((BnbWalletConnectActivity) getActivity()).onBnbSign(getArguments().getLong("id"));
-            dismiss();
-        });
-
-        return view;
+    companion object {
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): WcCancelDialog {
+            val frag = WcCancelDialog()
+            frag.arguments = bundle
+            return frag
+        }
     }
 }
