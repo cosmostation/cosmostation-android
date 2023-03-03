@@ -64,8 +64,8 @@ import wannabit.io.cosmostaion.crypto.CryptoHelper
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.databinding.ActivityConnectWalletBinding
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account.OnDialogSelectListener
+import wannabit.io.cosmostaion.dialog.WcAccountDialog
+import wannabit.io.cosmostaion.dialog.WcAccountDialog.OnDialogSelectListener
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data.WcSignRawDataListener
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
@@ -1187,7 +1187,7 @@ class WalletConnectActivity : BaseActivity() {
 
         val bundle = Bundle()
         bundle.putString("chainName", chainId)
-        val dialog = Dialog_Wc_Account.newInstance(bundle)
+        val dialog = WcAccountDialog.newInstance(bundle)
         dialog.setOnSelectListener(object : OnDialogSelectListener {
             override fun onSelect(account: Account) {
                 loadedAccountMap[WDp.getChainTypeByChainId(chainId).chain] = account
@@ -1230,7 +1230,7 @@ class WalletConnectActivity : BaseActivity() {
 
             val bundle = Bundle()
             bundle.putString("chainName", chains[index])
-            val dialog = Dialog_Wc_Account.newInstance(bundle)
+            val dialog = WcAccountDialog.newInstance(bundle)
             dialog.setOnSelectListener(object : OnDialogSelectListener {
                 override fun onSelect(account: Account) {
                     loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain] = account
