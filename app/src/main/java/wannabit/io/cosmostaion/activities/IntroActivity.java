@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.AlertDialogActivity;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
-import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.AddAccountDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.PushManager;
@@ -143,7 +143,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v.equals(mStart) && !this.isFinishing()) {
-            Dialog_AddAccount dialog = Dialog_AddAccount.newInstance(null);
+            AddAccountDialog dialog = AddAccountDialog.newInstance(null);
             dialog.show(getSupportFragmentManager(), "dialog");
         }
     }
