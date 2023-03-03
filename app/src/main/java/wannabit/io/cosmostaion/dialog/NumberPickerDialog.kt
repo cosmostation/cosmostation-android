@@ -1,52 +1,54 @@
-package wannabit.io.cosmostaion.dialog;
+package wannabit.io.cosmostaion.dialog
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.NumberPicker;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.NumberPicker
+import androidx.fragment.app.DialogFragment
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.databinding.DialogNumberPickerBinding
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+class NumberPickerDialog : DialogFragment() {
+    @JvmField
+    var selectListener: SelectListener? = null
+    private var numberPickerBinding: DialogNumberPickerBinding? = null
 
-import wannabit.io.cosmostaion.R;
-
-public class NumberPickerDialog extends DialogFragment {
-    public SelectListener selectListener;
-
-    public static NumberPickerDialog newInstance() {
-        return new NumberPickerDialog();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = getLayoutInflater().inflate(R.layout.dialog_number_picker, null);
-
-        Button btnCancel = view.findViewById(R.id.btn_nega);
-        Button btnConfirm = view.findViewById(R.id.btn_posi);
-
-        final NumberPicker numberPicker = view.findViewById(R.id.numberPicker);
-
-        btnCancel.setOnClickListener(view12 -> getDialog().dismiss());
-
-        btnConfirm.setOnClickListener(view1 -> {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        dialog!!.window!!.setBackgroundDrawableResource(R.color.colorTrans)
+        numberPickerBinding = DialogNumberPickerBinding.inflate(inflater, container, false)
+        numberPickerBinding!!.btnNega.setOnClickListener { dialog!!.dismiss() }
+        numberPickerBinding!!.btnPosi.setOnClickListener {
             if (selectListener != null) {
-                selectListener.onSelectValue(numberPicker.getValue());
+                selectListener!!.onSelectValue(numberPickerBinding!!.numberPicker.value)
             }
-            dismiss();
-        });
-
-        numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(9);
-        numberPicker.setWrapSelectorWheel(false);
-        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-
-        return view;
+            dismiss()
+        }
+        numberPickerBinding!!.numberPicker.minValue = 0
+        numberPickerBinding!!.numberPicker.maxValue = 9
+        numberPickerBinding!!.numberPicker.wrapSelectorWheel = false
+        numberPickerBinding!!.numberPicker.descendantFocusability =
+            NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        return numberPickerBinding!!.root
     }
 
-    public interface SelectListener {
-        void onSelectValue(int value);
+    override fun onDestroyView() {
+        super.onDestroyView()
+        numberPickerBinding = null
+    }
+
+    fun interface SelectListener {
+        fun onSelectValue(value: Int)
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(): NumberPickerDialog {
+            return NumberPickerDialog()
+        }
     }
 }
