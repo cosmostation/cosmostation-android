@@ -1,138 +1,117 @@
-package wannabit.io.cosmostaion.dialog;
+package wannabit.io.cosmostaion.dialog
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.CompoundButton
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.common.collect.Sets
+import com.squareup.picasso.Picasso
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.base.BaseActivity
+import wannabit.io.cosmostaion.base.BaseChain
+import wannabit.io.cosmostaion.dao.Account
+import wannabit.io.cosmostaion.dao.MintscanToken
+import wannabit.io.cosmostaion.databinding.DialogSelectDisplayTokenBinding
+import wannabit.io.cosmostaion.databinding.ItemDialogContractBinding
+import wannabit.io.cosmostaion.dialog.SelectCWTokenDialog.ContractListAdapter.ContractHolder
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.common.collect.Sets;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.Set;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.MintscanToken;
-
-public class SelectCWTokenDialog extends BottomSheetDialogFragment implements View.OnClickListener {
-
-    public final static String SELECT_CW_TOKEN_BUNDLE_KEY = "selectCWToken";
-
-    private RecyclerView mRecyclerView;
-    private TextView mDialogTitle;
-    private ContractListAdapter mContractListAdapter;
-    private Button mBtnCancel, mBtnConfirm;
-
-    private ArrayList<MintscanToken> mContractAssets = new ArrayList<>();
-    private Set<String> checkedContractSet = Sets.newHashSet();
-    private Account mAccount;
-
-    public static SelectCWTokenDialog newInstance(Bundle bundle) {
-        SelectCWTokenDialog frag = new SelectCWTokenDialog();
-        frag.setArguments(bundle);
-        return frag;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_select_display_token, null);
-        mDialogTitle = view.findViewById(R.id.dialog_title);
-        mRecyclerView = view.findViewById(R.id.recycler);
-        mBtnCancel = view.findViewById(R.id.btn_cancel);
-        mBtnConfirm = view.findViewById(R.id.btn_confirm);
-
-        mAccount = getSActivity().getBaseDao().onSelectAccount(getSActivity().getBaseDao().getLastUser());
-
-        mDialogTitle.setText(getString(R.string.str_select_contract_token));
-        ArrayList<MintscanToken> mintscanTokenList = new ArrayList<>();
-        if (getSActivity().mChainConfig.baseChain().equals(BaseChain.JUNO_MAIN)) mintscanTokenList = getSActivity().getBaseDao().mCw20Tokens;
-        else mintscanTokenList = getSActivity().getBaseDao().mErc20Tokens;
-        for (MintscanToken asset : mintscanTokenList) {
+class SelectCWTokenDialog : BottomSheetDialogFragment(), View.OnClickListener {
+    private var dialogSelectDisplayTokenBinding: DialogSelectDisplayTokenBinding? = null
+    private val mContractAssets = ArrayList<MintscanToken>()
+    private var checkedContractSet: MutableSet<String> = Sets.newHashSet()
+    private var mAccount: Account? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        dialogSelectDisplayTokenBinding =
+            DialogSelectDisplayTokenBinding.inflate(inflater, container, false)
+        mAccount = sActivity!!.baseDao.onSelectAccount(sActivity!!.baseDao.lastUser)
+        dialogSelectDisplayTokenBinding!!.dialogTitle.text =
+            getString(R.string.str_select_contract_token)
+        val mintScanTokenList: ArrayList<MintscanToken> = if (sActivity!!.mChainConfig.baseChain() == BaseChain.JUNO_MAIN) sActivity!!.baseDao.mCw20Tokens else sActivity!!.baseDao.mErc20Tokens
+        for (asset in mintScanTokenList) {
             if (!asset.default_show) {
-                mContractAssets.add(asset);
+                mContractAssets.add(asset)
             }
         }
-        checkedContractSet = getSActivity().getBaseDao().getUserFavoTokens(mAccount.address);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setHasFixedSize(true);
-        mContractListAdapter = new ContractListAdapter();
-        mRecyclerView.setAdapter(mContractListAdapter);
-
-        mBtnCancel.setOnClickListener(this);
-        mBtnConfirm.setOnClickListener(this);
-        return view;
+        checkedContractSet = sActivity!!.baseDao.getUserFavoTokens(mAccount!!.address)
+        dialogSelectDisplayTokenBinding!!.recycler.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        dialogSelectDisplayTokenBinding!!.recycler.setHasFixedSize(true)
+        dialogSelectDisplayTokenBinding!!.recycler.adapter = ContractListAdapter()
+        dialogSelectDisplayTokenBinding!!.btnCancel.setOnClickListener(this)
+        dialogSelectDisplayTokenBinding!!.btnConfirm.setOnClickListener(this)
+        return dialogSelectDisplayTokenBinding!!.root
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.equals(mBtnCancel)) {
-            dismiss();
-
-        } else if (v.equals(mBtnConfirm)) {
-            getSActivity().getBaseDao().setUserFavoTokens(mAccount.address, checkedContractSet);
-            getParentFragmentManager().setFragmentResult(SelectCWTokenDialog.SELECT_CW_TOKEN_BUNDLE_KEY, new Bundle());
-            dismiss();
+    override fun onClick(v: View) {
+        if (v == dialogSelectDisplayTokenBinding!!.btnCancel) {
+            dismiss()
+        } else if (v == dialogSelectDisplayTokenBinding!!.btnConfirm) {
+            sActivity!!.baseDao.setUserFavoTokens(mAccount!!.address, checkedContractSet)
+            parentFragmentManager.setFragmentResult(SELECT_CW_TOKEN_BUNDLE_KEY, Bundle())
+            dismiss()
         }
     }
 
-    private class ContractListAdapter extends RecyclerView.Adapter<ContractListAdapter.ContractHolder> {
-
-        @NonNull
-        @Override
-        public ContractListAdapter.ContractHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new ContractListAdapter.ContractHolder(getLayoutInflater().inflate(R.layout.item_dialog_contract, viewGroup, false));
+    private inner class ContractListAdapter : RecyclerView.Adapter<ContractHolder>() {
+        override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ContractHolder {
+            return ContractHolder(
+                ItemDialogContractBinding.inflate(
+                    layoutInflater
+                )
+            )
         }
 
-        @Override
-        public void onBindViewHolder(@NonNull ContractListAdapter.ContractHolder holder, int position) {
-            final MintscanToken asset = mContractAssets.get(position);
-            holder.itemDisplayToken.setOnCheckedChangeListener(null);
-            Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default).error(R.drawable.token_default).into(holder.itemChainImg);
-            holder.itemChainName.setText(asset.symbol);
-            holder.itemDisplayToken.setChecked(checkedContractSet.contains(asset.address));
-            holder.itemDisplayToken.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        override fun onBindViewHolder(holder: ContractHolder, position: Int) {
+            val asset = mContractAssets[position]
+            holder.itemDialogContractBinding.switchDisplayToken.setOnCheckedChangeListener(null)
+            Picasso.get().load(asset.assetImg()).fit().placeholder(R.drawable.token_default)
+                .error(R.drawable.token_default).into(holder.itemDialogContractBinding.chainImg)
+            holder.itemDialogContractBinding.chainName.text = asset.symbol
+            holder.itemDialogContractBinding.switchDisplayToken.isChecked =
+                checkedContractSet.contains(asset.address)
+            holder.itemDialogContractBinding.switchDisplayToken.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
                 if (isChecked) {
-                    checkedContractSet.add(asset.address);
+                    checkedContractSet.add(asset.address)
                 } else {
-                    checkedContractSet.remove(asset.address);
+                    checkedContractSet.remove(asset.address)
                 }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mContractAssets.size();
-        }
-
-        public class ContractHolder extends RecyclerView.ViewHolder {
-            private ImageView itemChainImg;
-            private TextView itemChainName;
-            private SwitchCompat itemDisplayToken;
-
-            public ContractHolder(@NonNull View itemView) {
-                super(itemView);
-                itemChainImg = itemView.findViewById(R.id.chainImg);
-                itemChainName = itemView.findViewById(R.id.chainName);
-                itemDisplayToken = itemView.findViewById(R.id.switch_display_token);
             }
         }
+
+        override fun getItemCount(): Int {
+            return mContractAssets.size
+        }
+
+        inner class ContractHolder(val itemDialogContractBinding: ItemDialogContractBinding) :
+            RecyclerView.ViewHolder(
+                itemDialogContractBinding.root
+            )
     }
 
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dialogSelectDisplayTokenBinding = null
+    }
+
+    private val sActivity: BaseActivity?
+        get() = activity as BaseActivity?
+
+    companion object {
+        const val SELECT_CW_TOKEN_BUNDLE_KEY = "selectCWToken"
+
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): SelectCWTokenDialog {
+            val frag = SelectCWTokenDialog()
+            frag.arguments = bundle
+            return frag
+        }
     }
 }
