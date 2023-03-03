@@ -1,127 +1,134 @@
-package wannabit.io.cosmostaion.dialog;
+package wannabit.io.cosmostaion.dialog
 
-import android.content.Context;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.content.Context
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.base.BaseActivity
+import wannabit.io.cosmostaion.databinding.DialogChangeNicknameBinding
 
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.MWords;
-
-public class NickNameSetDialog extends DialogFragment {
-    public NickNameSetListener listener = null;
-    public static int ACCOUNT_CHANGE_NICKNAME = 8507;
-    public static int MNEMONIC_CHANGE_NICKNAME = 8508;
-    public static int MNEMONIC_CREATE_VALUE = 8509;
-
-    public final static String CHANGE_NICK_NAME_BUNDLE_KEY = "changeNickName";
-
-    private TextView mDialogTitle;
-    private Button btn_nega, btn_posi;
-    private EditText mNameInput;
-
-    private int keyValue;
-
-    public static NickNameSetDialog newInstance(Bundle bundle) {
-        NickNameSetDialog dialog = new NickNameSetDialog();
-        dialog.setArguments(bundle);
-        dialog.setCancelable(false);
-        return dialog;
+class NickNameSetDialog : DialogFragment() {
+    var listener: NickNameSetListener? = null
+    private var dialogChangeNicknameBinding: DialogChangeNicknameBinding? = null
+    private var keyValue = 0
+    fun setNickNameListener(listener: NickNameSetListener?) {
+        this.listener = listener
     }
 
-    public void setNickNameListener(NickNameSetListener listener) {
-        this.listener = listener;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        View view = getLayoutInflater().inflate(R.layout.dialog_change_nickname, null);
-        mDialogTitle = view.findViewById(R.id.dialog_title);
-        btn_nega = view.findViewById(R.id.btn_nega);
-        btn_posi = view.findViewById(R.id.btn_posi);
-        mNameInput = view.findViewById(R.id.et_nickname);
-
-        keyValue = getArguments().getInt(CHANGE_NICK_NAME_BUNDLE_KEY);
-        if (keyValue == ACCOUNT_CHANGE_NICKNAME) {
-            mDialogTitle.setText(getString(R.string.str_change_account_nickname));
-            Account account = getSActivity().getBaseDao().onSelectAccount(String.valueOf(getArguments().getLong("id")));
-            mNameInput.setText(account.getName(getActivity()));
-        } else if (keyValue == MNEMONIC_CHANGE_NICKNAME) {
-            mDialogTitle.setText(getString(R.string.str_change_mnemonic_nickname));
-            MWords mWords = getSActivity().getBaseDao().onSelectMnemonicById(getArguments().getLong("id"));
-            mNameInput.setText(mWords.getName());
-        } else {
-            mDialogTitle.setText(getString(R.string.str_set_mnemonic_nickname));
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        dialog!!.window!!.setBackgroundDrawableResource(R.drawable.layout_trans_with_border)
+        dialogChangeNicknameBinding =
+            DialogChangeNicknameBinding.inflate(inflater, container, false)
+        keyValue = arguments!!.getInt(CHANGE_NICK_NAME_BUNDLE_KEY)
+        when (keyValue) {
+            ACCOUNT_CHANGE_NICKNAME -> {
+                dialogChangeNicknameBinding!!.dialogTitle.text =
+                    getString(R.string.str_change_account_nickname)
+                val account = sActivity!!.baseDao.onSelectAccount(
+                    arguments!!.getLong("id").toString()
+                )
+                dialogChangeNicknameBinding!!.etNickname.setText(account.getName(activity))
+            }
+            MNEMONIC_CHANGE_NICKNAME -> {
+                dialogChangeNicknameBinding!!.dialogTitle.text =
+                    getString(R.string.str_change_mnemonic_nickname)
+                val mWords = sActivity!!.baseDao.onSelectMnemonicById(arguments!!.getLong("id"))
+                dialogChangeNicknameBinding!!.etNickname.setText(mWords.name)
+            }
+            else -> {
+                dialogChangeNicknameBinding!!.dialogTitle.text =
+                    getString(R.string.str_set_mnemonic_nickname)
+            }
         }
-
-        mNameInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(mNameInput.getText().toString())) {
-                    mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_vote_voted));
+        dialogChangeNicknameBinding!!.etNickname.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                if (!TextUtils.isEmpty(dialogChangeNicknameBinding!!.etNickname.text.toString())) {
+                    dialogChangeNicknameBinding!!.etNickname.background = ContextCompat.getDrawable(
+                        sActivity!!, R.drawable.box_vote_voted
+                    )
                 } else {
-                    mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_unselected));
+                    dialogChangeNicknameBinding!!.etNickname.background = ContextCompat.getDrawable(
+                        sActivity!!, R.drawable.box_round_unselected
+                    )
                 }
             }
-        });
-
-        btn_nega.setOnClickListener(v -> {
-            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm.isActive()) {
-                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
+        })
+        dialogChangeNicknameBinding!!.btnNega.setOnClickListener {
+            val imm = dialogChangeNicknameBinding!!.etNickname.context.getSystemService(
+                Context.INPUT_METHOD_SERVICE
+            ) as InputMethodManager
+            if (imm.isActive) {
+                imm.hideSoftInputFromWindow(dialogChangeNicknameBinding!!.etNickname.windowToken, 0)
             }
-
             if (keyValue == ACCOUNT_CHANGE_NICKNAME || keyValue == MNEMONIC_CHANGE_NICKNAME) {
-                dismiss();
+                dismiss()
             } else {
-                getSActivity().finish();
+                sActivity!!.finish()
             }
-        });
-
-        btn_posi.setOnClickListener(v -> {
-            InputMethodManager imm = (InputMethodManager) mNameInput.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm.isActive()) {
-                imm.hideSoftInputFromWindow(mNameInput.getWindowToken(), 0);
+        }
+        dialogChangeNicknameBinding!!.btnPosi.setOnClickListener {
+            val imm = dialogChangeNicknameBinding!!.etNickname.context.getSystemService(
+                Context.INPUT_METHOD_SERVICE
+            ) as InputMethodManager
+            if (imm.isActive) {
+                imm.hideSoftInputFromWindow(dialogChangeNicknameBinding!!.etNickname.windowToken, 0)
             }
-
-            if (!TextUtils.isEmpty(mNameInput.getText().toString()) && listener != null) {
-                listener.confirm(String.valueOf(mNameInput.getText()).trim());
-                dismiss();
+            if (!TextUtils.isEmpty(dialogChangeNicknameBinding!!.etNickname.text.toString()) && listener != null) {
+                listener!!.confirm(
+                    dialogChangeNicknameBinding!!.etNickname.text.toString().trim { it <= ' ' })
+                dismiss()
             } else {
-                mNameInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_unselected));
+                dialogChangeNicknameBinding!!.etNickname.background = ContextCompat.getDrawable(
+                    sActivity!!, R.drawable.box_round_unselected
+                )
             }
-        });
-        return view;
+        }
+        return dialogChangeNicknameBinding!!.root
     }
 
-    public interface NickNameSetListener {
-        void confirm(String nickName);
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dialogChangeNicknameBinding = null
     }
 
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
+    interface NickNameSetListener {
+        fun confirm(nickName: String)
+    }
+
+    private val sActivity: BaseActivity?
+        get() = activity as BaseActivity?
+
+    companion object {
+        @JvmField
+        var ACCOUNT_CHANGE_NICKNAME = 8507
+
+        @JvmField
+        var MNEMONIC_CHANGE_NICKNAME = 8508
+
+        @JvmField
+        var MNEMONIC_CREATE_VALUE = 8509
+        const val CHANGE_NICK_NAME_BUNDLE_KEY = "changeNickName"
+
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): NickNameSetDialog {
+            val dialog = NickNameSetDialog()
+            dialog.arguments = bundle
+            dialog.isCancelable = false
+            return dialog
+        }
     }
 }
