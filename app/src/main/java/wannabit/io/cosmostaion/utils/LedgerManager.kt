@@ -23,6 +23,7 @@ import com.ledger.live.ble.model.BleDeviceModel
 import com.ledger.live.ble.model.BleError
 import cosmos.tx.v1beta1.ServiceOuterClass.BroadcastTxRequest
 import cosmos.tx.v1beta1.ServiceOuterClass.BroadcastTxResponse
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseApplication
 import wannabit.io.cosmostaion.base.chains.ChainFactory
@@ -162,20 +163,21 @@ class LedgerManager {
     ): FilledVerticalButtonAlertDialog {
         val dialog = FilledVerticalButtonAlertDialog(context)
 
-        if (title != null) {
+        if (StringUtils.isEmpty(title)) {
             dialog.filledVerticalBinding.dialogTitle2.visibility = View.GONE
         } else {
             dialog.filledVerticalBinding.dialogTitle2.text = title
             dialog.filledVerticalBinding.dialogTitle2.visibility = View.VISIBLE
         }
-        dialog.filledVerticalBinding.btnOne.visibility = View.GONE
-        dialog.filledVerticalBinding.btnTwo.visibility = View.GONE
 
-        dialog.filledVerticalBinding.hiddenView.visibility = View.VISIBLE
-        dialog.setCancelable(true)
-        dialog.create()
-        dialog.show()
-
+        if (dialog.filledVerticalBinding.btnOne != null && dialog.filledVerticalBinding.btnTwo != null && dialog.filledVerticalBinding.hiddenView != null) {
+            dialog.filledVerticalBinding.btnOne.visibility = View.GONE
+            dialog.filledVerticalBinding.btnTwo.visibility = View.GONE
+            dialog.filledVerticalBinding.hiddenView.visibility = View.VISIBLE
+            dialog.setCancelable(true)
+            dialog.create()
+            dialog.show()
+        }
         return dialog
     }
 

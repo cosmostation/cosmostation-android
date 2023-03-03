@@ -12,7 +12,6 @@ import wannabit.io.cosmostaion.databinding.DialogTemplateFilledverticalBinding
 
 class FilledVerticalButtonAlertDialog(context: Context?) : AlertDialog(context) {
     var filledVerticalBinding: DialogTemplateFilledverticalBinding
-    var hiddenView: LinearLayout? = null
 
     companion object {
         @JvmStatic
