@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/space_4"
     android:layout_marginBottom="@dimen/space_4"
-    android:background="@drawable/box_vote_quorum"
     android:clickable="true">
 
     <FrameLayout
         android:id="@+id/rootLayer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_50"
+        android:layout_marginTop="@dimen/space_8"
         android:background="@drawable/box_vote_quorum"
         android:clickable="true">
 
