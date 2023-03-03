@@ -1,64 +1,74 @@
-package wannabit.io.cosmostaion.dialog;
+package wannabit.io.cosmostaion.dialog
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.databinding.DialogSafeScoreCreateBinding
+import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.WUtil
+import java.math.BigDecimal
+import java.util.*
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-
-import java.math.BigDecimal;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
-
-public class SafeScoreCreateDialog extends DialogFragment {
-
-    public static SafeScoreCreateDialog newInstance(Bundle bundle) {
-        SafeScoreCreateDialog frag = new SafeScoreCreateDialog();
-        frag.setArguments(bundle);
-        return frag;
+class SafeScoreCreateDialog : DialogFragment() {
+    private var dialogSafeScoreCreateBinding: DialogSafeScoreCreateBinding? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        dialog!!.window!!.setBackgroundDrawableResource(R.color.colorTrans)
+        dialogSafeScoreCreateBinding =
+            DialogSafeScoreCreateBinding.inflate(inflater, container, false)
+        WUtil.DpRiskRate2(
+            context,
+            BigDecimal(arguments!!.getString("riskRate")),
+            dialogSafeScoreCreateBinding!!.riskRate,
+            dialogSafeScoreCreateBinding!!.riskScore,
+            dialogSafeScoreCreateBinding!!.riskLayer
+        )
+        dialogSafeScoreCreateBinding!!.currentPriceTitle.text = String.format(
+            getString(R.string.str_current_title3), arguments!!.getString("denom")!!
+                .uppercase(Locale.getDefault())
+        )
+        dialogSafeScoreCreateBinding!!.currentPrice.text = WDp.getDpRawDollor(
+            context, BigDecimal(
+                arguments!!.getString("currentPrice")
+            ).movePointLeft(18), 4
+        )
+        dialogSafeScoreCreateBinding!!.liquidationPriceTitle.text = String.format(
+            getString(R.string.str_liquidation_title3), arguments!!.getString("denom")!!
+                .uppercase(Locale.getDefault())
+        )
+        dialogSafeScoreCreateBinding!!.liquidationPrice.text = WDp.getDpRawDollor(
+            context, BigDecimal(
+                arguments!!.getString("liquidationPrice")
+            ), 4
+        )
+        dialogSafeScoreCreateBinding!!.btnNega.setOnClickListener { dialog!!.dismiss() }
+        dialogSafeScoreCreateBinding!!.btnPosi.setOnClickListener {
+            val resultIntent = Intent()
+            targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK, resultIntent)
+            dialog!!.dismiss()
+        }
+        return dialogSafeScoreCreateBinding!!.root
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = getLayoutInflater().inflate(R.layout.dialog_safe_score_create, null);
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dialogSafeScoreCreateBinding = null
+    }
 
-        LinearLayout risk_layer = view.findViewById(R.id.risk_layer);
-        TextView risk_rate = view.findViewById(R.id.risk_rate);
-        TextView risk_score = view.findViewById(R.id.risk_score);
-
-        TextView current_price_title = view.findViewById(R.id.current_price_title);
-        TextView current_price = view.findViewById(R.id.current_price);
-        TextView liquidation_price_title = view.findViewById(R.id.liquidation_price_title);
-        TextView liquidation_price = view.findViewById(R.id.liquidation_price);
-
-        WUtil.DpRiskRate2(getContext(), new BigDecimal(getArguments().getString("riskRate")), risk_rate, risk_score, risk_layer);
-
-        current_price_title.setText(String.format(getString(R.string.str_current_title3), getArguments().getString("denom").toUpperCase()));
-        current_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("currentPrice")).movePointLeft(18), 4));
-
-        liquidation_price_title.setText(String.format(getString(R.string.str_liquidation_title3), getArguments().getString("denom").toUpperCase()));
-        liquidation_price.setText(WDp.getDpRawDollor(getContext(), new BigDecimal(getArguments().getString("liquidationPrice")), 4));
-
-        Button btn_negative = view.findViewById(R.id.btn_nega);
-        btn_negative.setOnClickListener(v -> getDialog().dismiss());
-
-        Button btn_positive = view.findViewById(R.id.btn_posi);
-        btn_positive.setOnClickListener(v -> {
-            Intent resultIntent = new Intent();
-            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-            getDialog().dismiss();
-        });
-
-        return view;
+    companion object {
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): SafeScoreCreateDialog {
+            val frag = SafeScoreCreateDialog()
+            frag.arguments = bundle
+            return frag
+        }
     }
 }
