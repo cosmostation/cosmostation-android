@@ -1,124 +1,131 @@
-package wannabit.io.cosmostaion.dialog;
+package wannabit.io.cosmostaion.dialog
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.base.BaseActivity
+import wannabit.io.cosmostaion.base.BaseChain
+import wannabit.io.cosmostaion.base.BaseConstant
+import wannabit.io.cosmostaion.databinding.DialogTemplateRecyclerBinding
+import wannabit.io.cosmostaion.databinding.ItemDialogSwapCoinBinding
+import wannabit.io.cosmostaion.dialog.HtlcSendCoinDialog.ToSwapCoinListAdapter.ToSwapCoinHolder
+import wannabit.io.cosmostaion.utils.WDp
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.utils.WDp;
-
-public class HtlcSendCoinDialog extends DialogFragment {
-
-    public final static String HTLC_LIST_BUNDLE_KEY = "htlclist";
-
-    private RecyclerView mRecyclerView;
-    private TextView mDialogTitle;
-    private ToSwapCoinListAdapter mToSwapCoinListAdapter;
-    private BaseChain mBaseChain;
-    private ArrayList<String> mSwappableCoinList;
-
-    public static HtlcSendCoinDialog newInstance(Bundle bundle) {
-        HtlcSendCoinDialog frag = new HtlcSendCoinDialog();
-        frag.setArguments(bundle);
-        return frag;
+class HtlcSendCoinDialog : DialogFragment() {
+    private var dialogTemplateRecyclerBinding: DialogTemplateRecyclerBinding? = null
+    private var mBaseChain: BaseChain? = null
+    private var mSwappableCoinList: ArrayList<String>? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        dialog!!.window!!.setBackgroundDrawableResource(R.drawable.layout_trans_with_border)
+        dialogTemplateRecyclerBinding =
+            DialogTemplateRecyclerBinding.inflate(inflater, container, false)
+        mBaseChain = BaseChain.getChain(arguments!!.getString("chainName"))
+        mSwappableCoinList = BaseChain.getHtlcSwappableCoin(mBaseChain)
+        dialogTemplateRecyclerBinding!!.dialogTitle.setText(R.string.str_select_to_send_coin)
+        dialogTemplateRecyclerBinding!!.recycler.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        dialogTemplateRecyclerBinding!!.recycler.setHasFixedSize(true)
+        dialogTemplateRecyclerBinding!!.recycler.adapter = ToSwapCoinListAdapter()
+        return dialogTemplateRecyclerBinding!!.root
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        View view = getLayoutInflater().inflate(R.layout.dialog_template_recycler, null);
-        mDialogTitle = view.findViewById(R.id.dialog_title);
-        mRecyclerView = view.findViewById(R.id.recycler);
-        mBaseChain = BaseChain.getChain(getArguments().getString("chainName"));
-        mSwappableCoinList = BaseChain.getHtlcSwappableCoin(mBaseChain);
-
-        mDialogTitle.setText(R.string.str_select_to_send_coin);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setHasFixedSize(true);
-        mToSwapCoinListAdapter = new ToSwapCoinListAdapter();
-        mRecyclerView.setAdapter(mToSwapCoinListAdapter);
-
-        return view;
-    }
-
-    private class ToSwapCoinListAdapter extends RecyclerView.Adapter<ToSwapCoinListAdapter.ToSwapCoinHolder> {
-
-        @NonNull
-        @Override
-        public ToSwapCoinHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new ToSwapCoinHolder(getLayoutInflater().inflate(R.layout.item_dialog_swap_coin, viewGroup, false));
-
+    private inner class ToSwapCoinListAdapter : RecyclerView.Adapter<ToSwapCoinHolder>() {
+        override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ToSwapCoinHolder {
+            return ToSwapCoinHolder(
+                ItemDialogSwapCoinBinding.inflate(
+                    layoutInflater
+                )
+            )
         }
 
-        @Override
-        public void onBindViewHolder(@NonNull ToSwapCoinHolder holder, int position) {
-            onBindBep3CoinItemViewHolder(holder, position);
+        override fun onBindViewHolder(holder: ToSwapCoinHolder, position: Int) {
+            onBindBep3CoinItemViewHolder(holder, position)
         }
 
-        private void onBindBep3CoinItemViewHolder(ToSwapCoinHolder holder, int position) {
-            final String tosendCoin = mSwappableCoinList.get(position);
-            if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-                if (tosendCoin.equals(BaseConstant.TOKEN_HTLC_BINANCE_BNB)) {
-                    holder.coinImg.setImageResource(getSActivity().mChainConfig.mainDenomImg());
-                    holder.coinName.setText("BNB");
+        private fun onBindBep3CoinItemViewHolder(holder: ToSwapCoinHolder, position: Int) {
+            val tosendCoin = mSwappableCoinList!![position]
+            if (mBaseChain == BaseChain.BNB_MAIN) {
+                if (tosendCoin == BaseConstant.TOKEN_HTLC_BINANCE_BNB) {
+                    holder.itemDialogSwapCoinBinding.coinImg.setImageResource(sActivity!!.mChainConfig.mainDenomImg())
+                    holder.itemDialogSwapCoinBinding.coinName.text = "BNB"
                 } else {
-                    WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, tosendCoin, holder.coinImg);
-                    WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, tosendCoin, holder.coinName);
+                    WDp.setDpSymbolImg(
+                        sActivity!!.baseDao,
+                        sActivity!!.mChainConfig,
+                        tosendCoin,
+                        holder.itemDialogSwapCoinBinding.coinImg
+                    )
+                    WDp.setDpSymbol(
+                        sActivity,
+                        sActivity!!.baseDao,
+                        sActivity!!.mChainConfig,
+                        tosendCoin,
+                        holder.itemDialogSwapCoinBinding.coinName
+                    )
                 }
-
-            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                if (tosendCoin.equals(BaseConstant.TOKEN_HTLC_KAVA_BNB)) {
-                    holder.coinImg.setImageResource(R.drawable.token_binance);
-                    holder.coinName.setText("BNB");
+            } else if (mBaseChain == BaseChain.KAVA_MAIN) {
+                if (tosendCoin == BaseConstant.TOKEN_HTLC_KAVA_BNB) {
+                    holder.itemDialogSwapCoinBinding.coinImg.setImageResource(R.drawable.token_binance)
+                    holder.itemDialogSwapCoinBinding.coinName.text = "BNB"
                 } else {
-                    WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, tosendCoin, holder.coinImg);
-                    WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, tosendCoin, holder.coinName);
+                    WDp.setDpSymbolImg(
+                        sActivity!!.baseDao,
+                        sActivity!!.mChainConfig,
+                        tosendCoin,
+                        holder.itemDialogSwapCoinBinding.coinImg
+                    )
+                    WDp.setDpSymbol(
+                        sActivity,
+                        sActivity!!.baseDao,
+                        sActivity!!.mChainConfig,
+                        tosendCoin,
+                        holder.itemDialogSwapCoinBinding.coinName
+                    )
                 }
             }
-
-            holder.rootLayer.setOnClickListener(v -> {
-                Bundle result = new Bundle();
-                result.putInt(BaseConstant.POSITION, position);
-                getParentFragmentManager().setFragmentResult(HTLC_LIST_BUNDLE_KEY, result);
-                dismiss();
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mSwappableCoinList.size();
-        }
-
-        public class ToSwapCoinHolder extends RecyclerView.ViewHolder {
-            LinearLayout rootLayer;
-            ImageView coinImg;
-            TextView coinName;
-
-            public ToSwapCoinHolder(@NonNull View itemView) {
-                super(itemView);
-                rootLayer = itemView.findViewById(R.id.rootLayer);
-                coinImg = itemView.findViewById(R.id.coinImg);
-                coinName = itemView.findViewById(R.id.coinName);
+            holder.itemDialogSwapCoinBinding.rootLayer.setOnClickListener {
+                val result = Bundle()
+                result.putInt(BaseConstant.POSITION, position)
+                parentFragmentManager.setFragmentResult(HTLC_LIST_BUNDLE_KEY, result)
+                dismiss()
             }
         }
+
+        override fun getItemCount(): Int {
+            return mSwappableCoinList!!.size
+        }
+
+        inner class ToSwapCoinHolder(val itemDialogSwapCoinBinding: ItemDialogSwapCoinBinding) :
+            RecyclerView.ViewHolder(
+                itemDialogSwapCoinBinding.root
+            )
     }
 
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dialogTemplateRecyclerBinding = null
+    }
+
+    private val sActivity: BaseActivity?
+        get() = activity as BaseActivity?
+
+    companion object {
+        const val HTLC_LIST_BUNDLE_KEY = "htlclist"
+
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): HtlcSendCoinDialog {
+            val frag = HtlcSendCoinDialog()
+            frag.arguments = bundle
+            return frag
+        }
     }
 }
