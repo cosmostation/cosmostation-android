@@ -1,139 +1,148 @@
-package wannabit.io.cosmostaion.dialog;
+package wannabit.io.cosmostaion.dialog
 
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.graphics.PorterDuff
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.base.BaseActivity
+import wannabit.io.cosmostaion.base.BaseChain
+import wannabit.io.cosmostaion.base.chains.ChainFactory
+import wannabit.io.cosmostaion.dao.Account
+import wannabit.io.cosmostaion.databinding.DialogTemplateRecyclerBinding
+import wannabit.io.cosmostaion.databinding.ItemDialogAccountBinding
+import wannabit.io.cosmostaion.dialog.WalletStarNameDialog.WalletForStarNameAdapter.WalletForStarNameHolder
+import wannabit.io.cosmostaion.utils.StarnameAssets
+import wannabit.io.cosmostaion.utils.WDp
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-
-import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.chains.ChainConfig;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.utils.StarnameAssets;
-import wannabit.io.cosmostaion.utils.WDp;
-
-public class WalletStarNameDialog extends DialogFragment {
-
-    public final static String STAR_NAME_ASSET_BUNDLE_KEY = "asset";
-    public final static String STAR_NAME_URI_BUNDLE_KEY = "chainUri";
-
-    private RecyclerView mRecyclerView;
-    private WalletForStarNameAdapter mAdapter;
-    private TextView mDialogTitle;
-    private StarnameAssets mStarNameAsset;
-    private String mUri;
-    private ArrayList<Account> mWalletList = new ArrayList<>();
-
-    public static WalletStarNameDialog newInstance(Bundle bundle) {
-        WalletStarNameDialog frag = new WalletStarNameDialog();
-        frag.setArguments(bundle);
-        return frag;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        View view = getLayoutInflater().inflate(R.layout.dialog_template_recycler, null);
+class WalletStarNameDialog : DialogFragment() {
+    private var dialogTemplateRecyclerBinding: DialogTemplateRecyclerBinding? = null
+    private var mStarNameAsset: StarnameAssets? = null
+    private var mUri: String? = null
+    private var mWalletList = ArrayList<Account>()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        dialog!!.window!!.setBackgroundDrawableResource(R.drawable.layout_trans_with_border)
+        dialogTemplateRecyclerBinding =
+            DialogTemplateRecyclerBinding.inflate(inflater, container, false)
         try {
-            mStarNameAsset = getArguments().getParcelable(WalletStarNameDialog.STAR_NAME_ASSET_BUNDLE_KEY);
-            mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(mStarNameAsset.chainName));
-        } catch (Exception e) {
-            mUri = getArguments().getString(WalletStarNameDialog.STAR_NAME_URI_BUNDLE_KEY);
-            mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(StarnameAssets.getStarNameGetChain(mUri)));
+            mStarNameAsset = arguments!!.getParcelable(STAR_NAME_ASSET_BUNDLE_KEY)
+            mWalletList = sActivity!!.baseDao.onSelectAccountsByChain(
+                BaseChain.getChain(
+                    mStarNameAsset!!.chainName
+                )
+            )
+        } catch (e: Exception) {
+            mUri = arguments!!.getString(STAR_NAME_URI_BUNDLE_KEY)
+            mWalletList = sActivity!!.baseDao.onSelectAccountsByChain(
+                BaseChain.getChain(
+                    StarnameAssets.getStarNameGetChain(mUri)
+                )
+            )
         }
-        mDialogTitle = view.findViewById(R.id.dialog_title);
-        mRecyclerView = view.findViewById(R.id.recycler);
-
-        mDialogTitle.setText(R.string.str_select_wallet_for_address);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setHasFixedSize(true);
-        mAdapter = new WalletForStarNameAdapter();
-        mRecyclerView.setAdapter(mAdapter);
-        return view;
+        dialogTemplateRecyclerBinding!!.dialogTitle.setText(R.string.str_select_wallet_for_address)
+        dialogTemplateRecyclerBinding!!.recycler.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        dialogTemplateRecyclerBinding!!.recycler.setHasFixedSize(true)
+        dialogTemplateRecyclerBinding!!.recycler.adapter = WalletForStarNameAdapter()
+        return dialogTemplateRecyclerBinding!!.root
     }
 
-    private class WalletForStarNameAdapter extends RecyclerView.Adapter<WalletForStarNameAdapter.WalletForStarNameHolder> {
-        @NonNull
-        @Override
-        public WalletForStarNameHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new WalletForStarNameHolder(getLayoutInflater().inflate(R.layout.item_dialog_account, viewGroup, false));
-
+    private inner class WalletForStarNameAdapter : RecyclerView.Adapter<WalletForStarNameHolder>() {
+        override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): WalletForStarNameHolder {
+            return WalletForStarNameHolder(
+                ItemDialogAccountBinding.inflate(
+                    layoutInflater
+                )
+            )
         }
 
-        @Override
-        public void onBindViewHolder(@NonNull WalletForStarNameHolder holder, int position) {
-            final Account account = mWalletList.get(position);
-            final BaseChain baseChain = BaseChain.getChain(account.baseChain);
-            final ChainConfig chainConfig = ChainFactory.getChain(baseChain);
-            WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), chainConfig, chainConfig.mainDenom(), holder.accountDenom);
-            holder.accountAddress.setText(account.address);
-            holder.accountAvailable.setText(account.getLastTotal(baseChain));
-
-            holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+        override fun onBindViewHolder(holder: WalletForStarNameHolder, position: Int) {
+            val account = mWalletList[position]
+            val baseChain = BaseChain.getChain(account.baseChain)
+            val chainConfig = ChainFactory.getChain(baseChain)
+            WDp.setDpSymbol(
+                sActivity,
+                sActivity!!.baseDao,
+                chainConfig,
+                chainConfig.mainDenom(),
+                holder.itemDialogAccountBinding.accountDenom
+            )
+            holder.itemDialogAccountBinding.accountAddress.text = account.address
+            holder.itemDialogAccountBinding.accountAvailable.text = account.getLastTotal(baseChain)
+            holder.itemDialogAccountBinding.accountKeyState.setColorFilter(
+                ContextCompat.getColor(
+                    sActivity!!, R.color.colorGray0
+                ), PorterDuff.Mode.SRC_IN
+            )
             if (account.hasPrivateKey) {
-                holder.accountKeyState.setImageResource(R.drawable.key_off);
-                holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
+                holder.itemDialogAccountBinding.accountKeyState.setImageResource(R.drawable.key_off)
+                holder.itemDialogAccountBinding.accountKeyState.setColorFilter(
+                    ContextCompat.getColor(
+                        sActivity!!, chainConfig.chainColor()
+                    ), PorterDuff.Mode.SRC_IN
+                )
             } else {
-                if (account.isLedger()) {
-                    holder.accountKeyState.setImageResource(R.drawable.icon_ledger_wallet);
-                    holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
+                if (account.isLedger) {
+                    holder.itemDialogAccountBinding.accountKeyState.setImageResource(R.drawable.icon_ledger_wallet)
+                    holder.itemDialogAccountBinding.accountKeyState.setColorFilter(
+                        ContextCompat.getColor(
+                            sActivity!!, chainConfig.chainColor()
+                        ), PorterDuff.Mode.SRC_IN
+                    )
                 } else {
-                    holder.accountKeyState.setImageResource(R.drawable.watchmode);
-                    holder.accountKeyState.setColorFilter(null);
+                    holder.itemDialogAccountBinding.accountKeyState.setImageResource(R.drawable.watchmode)
+                    holder.itemDialogAccountBinding.accountKeyState.colorFilter = null
                 }
             }
-
             if (TextUtils.isEmpty(account.nickName)) {
-                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
+                holder.itemDialogAccountBinding.accountName.text =
+                    getString(R.string.str_my_wallet) + account.id
             } else {
-                holder.accountName.setText(account.nickName);
+                holder.itemDialogAccountBinding.accountName.text = account.nickName
             }
-            holder.accountlayer.setOnClickListener(v -> {
-                ((BaseActivity) getActivity()).onChoiceStarnameResourceAddress(account.address);
-                dismiss();
-            });
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return mWalletList.size();
-        }
-
-        public class WalletForStarNameHolder extends RecyclerView.ViewHolder {
-            RelativeLayout accountlayer;
-            ImageView accountKeyState;
-            TextView accountName, accountAddress, accountAvailable, accountDenom;
-
-            public WalletForStarNameHolder(@NonNull View itemView) {
-                super(itemView);
-                accountlayer = itemView.findViewById(R.id.rootLayer);
-                accountKeyState = itemView.findViewById(R.id.accountKeyState);
-                accountName = itemView.findViewById(R.id.accountName);
-                accountAddress = itemView.findViewById(R.id.accountAddress);
-                accountAvailable = itemView.findViewById(R.id.accountAvailable);
-                accountDenom = itemView.findViewById(R.id.accountDenom);
+            holder.itemDialogAccountBinding.rootLayer.setOnClickListener {
+                (activity as BaseActivity?)!!.onChoiceStarnameResourceAddress(account.address)
+                dismiss()
             }
         }
+
+        override fun getItemCount(): Int {
+            return mWalletList.size
+        }
+
+        inner class WalletForStarNameHolder(var itemDialogAccountBinding: ItemDialogAccountBinding) :
+            RecyclerView.ViewHolder(
+                itemDialogAccountBinding.root
+            )
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dialogTemplateRecyclerBinding = null
+    }
 
-    private BaseActivity getSActivity() {
-        return (BaseActivity) getActivity();
+    private val sActivity: BaseActivity?
+        get() = activity as BaseActivity?
+
+    companion object {
+        const val STAR_NAME_ASSET_BUNDLE_KEY = "asset"
+        const val STAR_NAME_URI_BUNDLE_KEY = "chainUri"
+
+        @JvmStatic
+        fun newInstance(bundle: Bundle?): WalletStarNameDialog {
+            val frag = WalletStarNameDialog()
+            frag.arguments = bundle
+            return frag
+        }
     }
 }
