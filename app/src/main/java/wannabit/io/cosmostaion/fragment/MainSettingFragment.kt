@@ -509,6 +509,11 @@ class MainSettingFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mainSettingBinding = null
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(): MainSettingFragment {
