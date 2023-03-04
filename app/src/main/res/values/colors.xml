@@ -49,7 +49,6 @@
     <color name="colorTransBgEvmos">#fef1ef</color>
     <color name="colorTransBgCudos">#edf6f8</color>
     <color name="colorTransBgProvenance">#eef3fc</color>
-    <color name="colorTransBgCerberus">#faf5e3</color>
     <color name="colorTransBgOmniflix">#f1f0ff</color>
     <color name="colorTransBgCrescent">#fbf2e9</color>
     <color name="colorTransBgAssetmantle">#fef8e8</color>
@@ -182,8 +181,6 @@
     <color name="color_cudos">#10aecc</color>
 
     <color name="color_provenance">#628ee4</color>
-
-    <color name="color_cerberus">#d7ad17</color>
 
     <color name="color_omniflix">#6c63ff</color>
 
