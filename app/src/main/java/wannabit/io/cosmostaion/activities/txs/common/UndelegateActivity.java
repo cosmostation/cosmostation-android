@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -22,18 +22,24 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.UndelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.UndelegateStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
+import wannabit.io.cosmostaion.utils.LedgerManager;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class UndelegateActivity extends BaseBroadCastActivity {
 
@@ -149,8 +155,32 @@ public class UndelegateActivity extends BaseBroadCastActivity {
         }
     }
 
+    private void onUndelegateByLedger() {
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(UndelegateActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                ArrayList<Msg> undelegateMsgs = MsgGenerator.genUndelegateMsgs(mAccount.address, mValAddress, mAmount);
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, undelegateMsgs, mTxFee, mTxMemo);
+            }
+
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                return Signer.getGrpcLedgerUnDelegateReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddress, mAmount, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
+
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onCommonIntentTx(UndelegateActivity.this, mResult);
+            }
+        }));
+    }
+
     public void onStartUndelegate() {
-        if (getBaseDao().isAutoPass()) {
+        if (mAccount.isLedger()) {
+            onUndelegateByLedger();
+        } else if (getBaseDao().isAutoPass()) {
             onBroadCastTx();
         } else {
             Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
@@ -168,14 +198,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
     private void onBroadCastTx() {
         new UndelegateGrpcTask(getBaseApplication(), result -> {
-            Intent txIntent = new Intent(UndelegateActivity.this, TxDetailgRPCActivity.class);
-            txIntent.putExtra("isGen", true);
-            txIntent.putExtra("isSuccess", result.isSuccess);
-            txIntent.putExtra("errorCode", result.errorCode);
-            txIntent.putExtra("errorMsg", result.errorMsg);
-            String hash = String.valueOf(result.resultData);
-            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-            startActivity(txIntent);
+            onCommonIntentTx(UndelegateActivity.this, result);
         }, mBaseChain, mAccount, mValAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

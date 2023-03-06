@@ -73,7 +73,6 @@ public enum BaseChain {
     EVMOS_MAIN("evmos-mainnet"),
     CUDOS_MAIN("cudos-mainnet"),
     PROVENANCE_MAIN("provenance-mainnet"),
-    CERBERUS_MAIN("cerberus-mainnet"),
     OMNIFLIX_MAIN("omniflix-mainnet"),
     CRESCENT_MAIN("crescent-mainnet"),
     ASSETMANTLE_MAIN("assetmantle-mainnet"),
@@ -88,7 +87,10 @@ public enum BaseChain {
     TERITORI_MAIN("teritori-mainnet"),
     XPLA_MAIN("xpla-mainnet"),
     ONOMY_MAIN("onomy-mainnet"),
-    QUICKSILVER_MAIN("quicksilver-mainnet");
+    QUICKSILVER_MAIN("quicksilver-mainnet"),
+    MARS_MAIN("mars-mainnet"),
+    CANTO_MAIN("canto-mainnet");
+
 
     private final String chainName;
 
@@ -236,9 +238,6 @@ public enum BaseChain {
         if (chainName.equals(PROVENANCE_MAIN.chainName)) {
             return PROVENANCE_MAIN;
         }
-        if (chainName.equals(CERBERUS_MAIN.chainName)) {
-            return CERBERUS_MAIN;
-        }
         if (chainName.equals(OMNIFLIX_MAIN.chainName)) {
             return OMNIFLIX_MAIN;
         }
@@ -284,6 +283,12 @@ public enum BaseChain {
         if (chainName.equals(QUICKSILVER_MAIN.chainName)) {
             return QUICKSILVER_MAIN;
         }
+        if (chainName.equals(MARS_MAIN.chainName)) {
+            return MARS_MAIN;
+        }
+        if (chainName.equals(CANTO_MAIN.chainName)) {
+            return CANTO_MAIN;
+        }
         return null;
     }
 
@@ -298,7 +303,7 @@ public enum BaseChain {
         result.add(BNB_MAIN);
         result.add(BITCANNA_MAIN);
         result.add(BITSONG_MAIN);
-        result.add(CERBERUS_MAIN);
+        result.add(CANTO_MAIN);
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
         result.add(CRESCENT_MAIN);
@@ -318,6 +323,7 @@ public enum BaseChain {
         result.add(KUJIRA_MAIN);
         result.add(LIKECOIN_MAIN);
         result.add(LUM_MAIN);
+        result.add(MARS_MAIN);
         result.add(MEDI_MAIN);
         result.add(NYX_MAIN);
         result.add(OKEX_MAIN);

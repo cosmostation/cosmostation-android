@@ -40,7 +40,7 @@ import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClickListener{
+public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private VoteListAdapter mVoteListAdapter;
@@ -93,10 +93,13 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (mSelectedProposalIds.size() > 0) {
+            if (mSelectedProposalIds.size() > 0 && mVotingPeriodProposalsList.size() > 0) {
                 ArrayList<ResProposal> proposals = new ArrayList<>();
                 for (String id : mSelectedProposalIds) {
-                    proposals.add(mVotingPeriodProposalsList.stream().filter(item -> String.valueOf(item.id) == id).findFirst().get());
+                    try {
+                        proposals.add(mVotingPeriodProposalsList.stream().filter(item -> String.valueOf(item.id).equals(id)).findFirst().get());
+                    } catch (Exception e) {
+                    }
                 }
                 getSActivity().mProposalsList = proposals;
                 getSActivity().onNextStep();
@@ -144,7 +147,8 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
                     try {
                         response.body().votes.forEach(votesData -> statusMap.put(votesData.id, votesData.voteDetails.stream().map(detail -> detail.option).collect(Collectors.toSet())));
                         mVoteListAdapter.notifyDataSetChanged();
-                    } catch (Exception e) { }
+                    } catch (Exception e) {
+                    }
                 }
             }
 

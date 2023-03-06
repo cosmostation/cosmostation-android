@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.base;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.webkit.WebView;
@@ -28,10 +29,16 @@ public class BaseApplication extends Application {
 
     private BaseData mBaseData;
     private AppStatus mAppStatus;
+    private static Application instance;
+
+    public static Context getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         FirebaseApp.initializeApp(this);
         new DeviceUuidFactory(this);
 
@@ -88,10 +95,8 @@ public class BaseApplication extends Application {
     }
 
     public boolean needShowLockScreen() {
-        if (!isReturnedForground() ||
-                !getBaseDao().onHasPassword() ||
-                !getBaseDao().getUsingAppLock() ||
-                (getBaseDao().onSelectAccounts().size() <= 0)) return false;
+        if (!isReturnedForground() || !getBaseDao().onHasPassword() || !getBaseDao().getUsingAppLock() || (getBaseDao().onSelectAccounts().size() <= 0))
+            return false;
         return true;
     }
 

@@ -94,7 +94,7 @@ public class SimulErc20SendGrpcTask extends CommonTask {
                 long chainID = web3.ethChainId().send().getChainId().longValue();
                 Transaction transaction = new Transaction(fromEthAddress, nonce, BigInteger.ZERO, BigInteger.ZERO, toEthAddress, BigInteger.ZERO, txData);
                 RawTransaction rawTransaction;
-                if (BaseChain.isGRPC(chainConfig.baseChain())) {
+                if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
                     rawTransaction = RawTransaction.createTransaction(
                             chainID,
                             nonce,

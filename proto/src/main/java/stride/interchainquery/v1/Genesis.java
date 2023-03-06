@@ -73,30 +73,6 @@ public final class Genesis {
     com.google.protobuf.ByteString getRequest();
 
     /**
-     * <code>string period = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-     * @return The period.
-     */
-    java.lang.String getPeriod();
-    /**
-     * <code>string period = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-     * @return The bytes for period.
-     */
-    com.google.protobuf.ByteString
-        getPeriodBytes();
-
-    /**
-     * <code>string last_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-     * @return The lastHeight.
-     */
-    java.lang.String getLastHeight();
-    /**
-     * <code>string last_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-     * @return The bytes for lastHeight.
-     */
-    com.google.protobuf.ByteString
-        getLastHeightBytes();
-
-    /**
      * <code>string callback_id = 8;</code>
      * @return The callbackId.
      */
@@ -115,10 +91,10 @@ public final class Genesis {
     long getTtl();
 
     /**
-     * <code>int64 height = 10;</code>
-     * @return The height.
+     * <code>bool request_sent = 11;</code>
+     * @return The requestSent.
      */
-    long getHeight();
+    boolean getRequestSent();
   }
   /**
    * Protobuf type {@code stride.interchainquery.v1.Query}
@@ -138,8 +114,6 @@ public final class Genesis {
       chainId_ = "";
       queryType_ = "";
       request_ = com.google.protobuf.ByteString.EMPTY;
-      period_ = "";
-      lastHeight_ = "";
       callbackId_ = "";
     }
 
@@ -202,18 +176,6 @@ public final class Genesis {
               request_ = input.readBytes();
               break;
             }
-            case 50: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              period_ = s;
-              break;
-            }
-            case 58: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              lastHeight_ = s;
-              break;
-            }
             case 66: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -225,9 +187,9 @@ public final class Genesis {
               ttl_ = input.readUInt64();
               break;
             }
-            case 80: {
+            case 88: {
 
-              height_ = input.readInt64();
+              requestSent_ = input.readBool();
               break;
             }
             default: {
@@ -425,82 +387,6 @@ public final class Genesis {
       return request_;
     }
 
-    public static final int PERIOD_FIELD_NUMBER = 6;
-    private volatile java.lang.Object period_;
-    /**
-     * <code>string period = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-     * @return The period.
-     */
-    @java.lang.Override
-    public java.lang.String getPeriod() {
-      java.lang.Object ref = period_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        period_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string period = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-     * @return The bytes for period.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getPeriodBytes() {
-      java.lang.Object ref = period_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        period_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int LAST_HEIGHT_FIELD_NUMBER = 7;
-    private volatile java.lang.Object lastHeight_;
-    /**
-     * <code>string last_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-     * @return The lastHeight.
-     */
-    @java.lang.Override
-    public java.lang.String getLastHeight() {
-      java.lang.Object ref = lastHeight_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        lastHeight_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string last_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-     * @return The bytes for lastHeight.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getLastHeightBytes() {
-      java.lang.Object ref = lastHeight_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        lastHeight_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     public static final int CALLBACK_ID_FIELD_NUMBER = 8;
     private volatile java.lang.Object callbackId_;
     /**
@@ -550,15 +436,15 @@ public final class Genesis {
       return ttl_;
     }
 
-    public static final int HEIGHT_FIELD_NUMBER = 10;
-    private long height_;
+    public static final int REQUEST_SENT_FIELD_NUMBER = 11;
+    private boolean requestSent_;
     /**
-     * <code>int64 height = 10;</code>
-     * @return The height.
+     * <code>bool request_sent = 11;</code>
+     * @return The requestSent.
      */
     @java.lang.Override
-    public long getHeight() {
-      return height_;
+    public boolean getRequestSent() {
+      return requestSent_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -590,20 +476,14 @@ public final class Genesis {
       if (!request_.isEmpty()) {
         output.writeBytes(5, request_);
       }
-      if (!getPeriodBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, period_);
-      }
-      if (!getLastHeightBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, lastHeight_);
-      }
       if (!getCallbackIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 8, callbackId_);
       }
       if (ttl_ != 0L) {
         output.writeUInt64(9, ttl_);
       }
-      if (height_ != 0L) {
-        output.writeInt64(10, height_);
+      if (requestSent_ != false) {
+        output.writeBool(11, requestSent_);
       }
       unknownFields.writeTo(output);
     }
@@ -630,12 +510,6 @@ public final class Genesis {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(5, request_);
       }
-      if (!getPeriodBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, period_);
-      }
-      if (!getLastHeightBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, lastHeight_);
-      }
       if (!getCallbackIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, callbackId_);
       }
@@ -643,9 +517,9 @@ public final class Genesis {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(9, ttl_);
       }
-      if (height_ != 0L) {
+      if (requestSent_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(10, height_);
+          .computeBoolSize(11, requestSent_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -672,16 +546,12 @@ public final class Genesis {
           .equals(other.getQueryType())) return false;
       if (!getRequest()
           .equals(other.getRequest())) return false;
-      if (!getPeriod()
-          .equals(other.getPeriod())) return false;
-      if (!getLastHeight()
-          .equals(other.getLastHeight())) return false;
       if (!getCallbackId()
           .equals(other.getCallbackId())) return false;
       if (getTtl()
           != other.getTtl()) return false;
-      if (getHeight()
-          != other.getHeight()) return false;
+      if (getRequestSent()
+          != other.getRequestSent()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -703,18 +573,14 @@ public final class Genesis {
       hash = (53 * hash) + getQueryType().hashCode();
       hash = (37 * hash) + REQUEST_FIELD_NUMBER;
       hash = (53 * hash) + getRequest().hashCode();
-      hash = (37 * hash) + PERIOD_FIELD_NUMBER;
-      hash = (53 * hash) + getPeriod().hashCode();
-      hash = (37 * hash) + LAST_HEIGHT_FIELD_NUMBER;
-      hash = (53 * hash) + getLastHeight().hashCode();
       hash = (37 * hash) + CALLBACK_ID_FIELD_NUMBER;
       hash = (53 * hash) + getCallbackId().hashCode();
       hash = (37 * hash) + TTL_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTtl());
-      hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getHeight());
+      hash = (37 * hash) + REQUEST_SENT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getRequestSent());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -858,15 +724,11 @@ public final class Genesis {
 
         request_ = com.google.protobuf.ByteString.EMPTY;
 
-        period_ = "";
-
-        lastHeight_ = "";
-
         callbackId_ = "";
 
         ttl_ = 0L;
 
-        height_ = 0L;
+        requestSent_ = false;
 
         return this;
       }
@@ -899,11 +761,9 @@ public final class Genesis {
         result.chainId_ = chainId_;
         result.queryType_ = queryType_;
         result.request_ = request_;
-        result.period_ = period_;
-        result.lastHeight_ = lastHeight_;
         result.callbackId_ = callbackId_;
         result.ttl_ = ttl_;
-        result.height_ = height_;
+        result.requestSent_ = requestSent_;
         onBuilt();
         return result;
       }
@@ -971,14 +831,6 @@ public final class Genesis {
         if (other.getRequest() != com.google.protobuf.ByteString.EMPTY) {
           setRequest(other.getRequest());
         }
-        if (!other.getPeriod().isEmpty()) {
-          period_ = other.period_;
-          onChanged();
-        }
-        if (!other.getLastHeight().isEmpty()) {
-          lastHeight_ = other.lastHeight_;
-          onChanged();
-        }
         if (!other.getCallbackId().isEmpty()) {
           callbackId_ = other.callbackId_;
           onChanged();
@@ -986,8 +838,8 @@ public final class Genesis {
         if (other.getTtl() != 0L) {
           setTtl(other.getTtl());
         }
-        if (other.getHeight() != 0L) {
-          setHeight(other.getHeight());
+        if (other.getRequestSent() != false) {
+          setRequestSent(other.getRequestSent());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1356,158 +1208,6 @@ public final class Genesis {
         return this;
       }
 
-      private java.lang.Object period_ = "";
-      /**
-       * <code>string period = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @return The period.
-       */
-      public java.lang.String getPeriod() {
-        java.lang.Object ref = period_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          period_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string period = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @return The bytes for period.
-       */
-      public com.google.protobuf.ByteString
-          getPeriodBytes() {
-        java.lang.Object ref = period_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          period_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string period = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @param value The period to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPeriod(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        period_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string period = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPeriod() {
-        
-        period_ = getDefaultInstance().getPeriod();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string period = 6 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @param value The bytes for period to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPeriodBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        period_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object lastHeight_ = "";
-      /**
-       * <code>string last_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @return The lastHeight.
-       */
-      public java.lang.String getLastHeight() {
-        java.lang.Object ref = lastHeight_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          lastHeight_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string last_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @return The bytes for lastHeight.
-       */
-      public com.google.protobuf.ByteString
-          getLastHeightBytes() {
-        java.lang.Object ref = lastHeight_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          lastHeight_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string last_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @param value The lastHeight to set.
-       * @return This builder for chaining.
-       */
-      public Builder setLastHeight(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        lastHeight_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string last_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearLastHeight() {
-        
-        lastHeight_ = getDefaultInstance().getLastHeight();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string last_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
-       * @param value The bytes for lastHeight to set.
-       * @return This builder for chaining.
-       */
-      public Builder setLastHeightBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        lastHeight_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object callbackId_ = "";
       /**
        * <code>string callback_id = 8;</code>
@@ -1615,33 +1315,33 @@ public final class Genesis {
         return this;
       }
 
-      private long height_ ;
+      private boolean requestSent_ ;
       /**
-       * <code>int64 height = 10;</code>
-       * @return The height.
+       * <code>bool request_sent = 11;</code>
+       * @return The requestSent.
        */
       @java.lang.Override
-      public long getHeight() {
-        return height_;
+      public boolean getRequestSent() {
+        return requestSent_;
       }
       /**
-       * <code>int64 height = 10;</code>
-       * @param value The height to set.
+       * <code>bool request_sent = 11;</code>
+       * @param value The requestSent to set.
        * @return This builder for chaining.
        */
-      public Builder setHeight(long value) {
+      public Builder setRequestSent(boolean value) {
         
-        height_ = value;
+        requestSent_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 height = 10;</code>
+       * <code>bool request_sent = 11;</code>
        * @return This builder for chaining.
        */
-      public Builder clearHeight() {
+      public Builder clearRequestSent() {
         
-        height_ = 0L;
+        requestSent_ = false;
         onChanged();
         return this;
       }
@@ -3467,25 +3167,21 @@ public final class Genesis {
     java.lang.String[] descriptorData = {
       "\n\'stride/interchainquery/v1/genesis.prot" +
       "o\022\031stride.interchainquery.v1\032\024gogoproto/" +
-      "gogo.proto\032\031cosmos_proto/cosmos.proto\"\264\002" +
+      "gogo.proto\032\031cosmos_proto/cosmos.proto\"\231\001" +
       "\n\005Query\022\n\n\002id\030\001 \001(\t\022\025\n\rconnection_id\030\002 \001" +
       "(\t\022\020\n\010chain_id\030\003 \001(\t\022\022\n\nquery_type\030\004 \001(\t" +
-      "\022\017\n\007request\030\005 \001(\014\022L\n\006period\030\006 \001(\tB<\322\264-\nc" +
-      "osmos.Int\332\336\037&github.com/cosmos/cosmos-sd" +
-      "k/types.Int\310\336\037\000\022Q\n\013last_height\030\007 \001(\tB<\322\264" +
-      "-\ncosmos.Int\332\336\037&github.com/cosmos/cosmos" +
-      "-sdk/types.Int\310\336\037\000\022\023\n\013callback_id\030\010 \001(\t\022" +
-      "\013\n\003ttl\030\t \001(\004\022\016\n\006height\030\n \001(\003\"\345\001\n\tDataPoi" +
-      "nt\022\n\n\002id\030\001 \001(\t\022S\n\rremote_height\030\002 \001(\tB<\322" +
-      "\264-\ncosmos.Int\332\336\037&github.com/cosmos/cosmo" +
-      "s-sdk/types.Int\310\336\037\000\022R\n\014local_height\030\003 \001(" +
-      "\tB<\322\264-\ncosmos.Int\332\336\037&github.com/cosmos/c" +
-      "osmos-sdk/types.Int\310\336\037\000\022#\n\005value\030\004 \001(\014B\024" +
-      "\352\336\037\020result,omitempty\"G\n\014GenesisState\0227\n\007" +
-      "queries\030\001 \003(\0132 .stride.interchainquery.v" +
-      "1.QueryB\004\310\336\037\000B:Z8github.com/Stride-Labs/" +
-      "stride/v3/x/interchainquery/typesb\006proto" +
-      "3"
+      "\022\017\n\007request\030\005 \001(\014\022\023\n\013callback_id\030\010 \001(\t\022\013" +
+      "\n\003ttl\030\t \001(\004\022\024\n\014request_sent\030\013 \001(\010\"\345\001\n\tDa" +
+      "taPoint\022\n\n\002id\030\001 \001(\t\022S\n\rremote_height\030\002 \001" +
+      "(\tB<\322\264-\ncosmos.Int\332\336\037&github.com/cosmos/" +
+      "cosmos-sdk/types.Int\310\336\037\000\022R\n\014local_height" +
+      "\030\003 \001(\tB<\322\264-\ncosmos.Int\332\336\037&github.com/cos" +
+      "mos/cosmos-sdk/types.Int\310\336\037\000\022#\n\005value\030\004 " +
+      "\001(\014B\024\352\336\037\020result,omitempty\"G\n\014GenesisStat" +
+      "e\0227\n\007queries\030\001 \003(\0132 .stride.interchainqu" +
+      "ery.v1.QueryB\004\310\336\037\000B:Z8github.com/Stride-" +
+      "Labs/stride/v5/x/interchainquery/typesb\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3498,7 +3194,7 @@ public final class Genesis {
     internal_static_stride_interchainquery_v1_Query_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_interchainquery_v1_Query_descriptor,
-        new java.lang.String[] { "Id", "ConnectionId", "ChainId", "QueryType", "Request", "Period", "LastHeight", "CallbackId", "Ttl", "Height", });
+        new java.lang.String[] { "Id", "ConnectionId", "ChainId", "QueryType", "Request", "CallbackId", "Ttl", "RequestSent", });
     internal_static_stride_interchainquery_v1_DataPoint_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_stride_interchainquery_v1_DataPoint_fieldAccessorTable = new

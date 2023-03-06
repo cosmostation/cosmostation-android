@@ -21,15 +21,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import com.google.zxing.client.android.Intents;
@@ -46,6 +43,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AccountListActivity;
+import wannabit.io.cosmostaion.activities.LedgerSelectActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ManageWalletConnectActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -59,26 +57,24 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.databinding.FragmentMainSettingBinding;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.CurrencySetDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
 import wannabit.io.cosmostaion.dialog.PriceColorChangeDialog;
+import wannabit.io.cosmostaion.dialog.WaitDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.PushStatusResponse;
 import wannabit.io.cosmostaion.utils.LanguageUtil;
+import wannabit.io.cosmostaion.utils.LedgerManager;
 import wannabit.io.cosmostaion.utils.PushManager;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
-    private FrameLayout mBtnWallet, mBtnMnemonic, mBtnImportKey, mBtnWatchAddress, mBtnTheme, mBtnLanguage, mBtnAutoPass, mBtnCurrency, mBtnPriceColorChange, mBtnExplore, mBtnNotice, mBtnHomepage, mBtnBlog, mBtnTelegram, mBtnStarnameWc, mBtnTerm, mBtnGithub, mBtnVersion, mBtnWalletConnect;
+    private FragmentMainSettingBinding mainSettingBinding;
 
-    private TextView mTvBio, mTvAutoPassTime, mTvCurrency, mTvVersion, mTvTheme, mTvLanguage;
-
-    private ImageView mPriceColorUp, mPriceColorDown;
-
-    private SwitchCompat mSwitchUsingAppLock, mSwitchUsingUsingBio;
-    private SwitchCompat alarmSwitch;
+    protected WaitDialog mDialogWait;
 
     public static MainSettingFragment newInstance() {
         return new MainSettingFragment();
@@ -92,65 +88,37 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main_setting, container, false);
-        mBtnWallet = rootView.findViewById(R.id.card_wallet);
-        mBtnMnemonic = rootView.findViewById(R.id.card_mnemonic);
-        mBtnImportKey = rootView.findViewById(R.id.card_key);
-        mBtnWatchAddress = rootView.findViewById(R.id.card_watch_address);
-        mBtnTheme = rootView.findViewById(R.id.card_theme);
-        mBtnLanguage = rootView.findViewById(R.id.card_language);
-        mBtnAutoPass = rootView.findViewById(R.id.card_auto_pass);
-        mBtnCurrency = rootView.findViewById(R.id.card_currency);
-        mBtnPriceColorChange = rootView.findViewById(R.id.card_price_color_change);
-        mPriceColorUp = rootView.findViewById(R.id.icon_price_color_up);
-        mPriceColorDown = rootView.findViewById(R.id.icon_price_color_down);
-        mBtnExplore = rootView.findViewById(R.id.card_explore);
-        mBtnNotice = rootView.findViewById(R.id.card_notice);
-        mBtnHomepage = rootView.findViewById(R.id.card_homepage);
-        mBtnBlog = rootView.findViewById(R.id.card_blog);
-        mBtnTelegram = rootView.findViewById(R.id.card_telegram);
-        mBtnStarnameWc = rootView.findViewById(R.id.card_starname_wallet_connect);
-        mBtnTerm = rootView.findViewById(R.id.card_term);
-        mBtnGithub = rootView.findViewById(R.id.card_github);
-        mBtnVersion = rootView.findViewById(R.id.card_version);
-        mBtnWalletConnect = rootView.findViewById(R.id.card_wallet_connect);
-        mTvCurrency = rootView.findViewById(R.id.currency_text);
-        mTvVersion = rootView.findViewById(R.id.version_text);
-        mTvTheme = rootView.findViewById(R.id.theme_text);
-        mTvLanguage = rootView.findViewById(R.id.language_text);
-        alarmSwitch = rootView.findViewById(R.id.switch_alaram);
-        alarmSwitch.setOnCheckedChangeListener(switchListener());
+        mainSettingBinding = FragmentMainSettingBinding.inflate(inflater, container, false);
+        mainSettingBinding.cardWallet.setOnClickListener(this);
+        mainSettingBinding.cardMnemonic.setOnClickListener(this);
+        mainSettingBinding.cardKey.setOnClickListener(this);
+        mainSettingBinding.cardWatchAddress.setOnClickListener(this);
+        mainSettingBinding.cardTheme.setOnClickListener(this);
+        mainSettingBinding.cardLanguage.setOnClickListener(this);
+        mainSettingBinding.cardAutoPass.setOnClickListener(this);
+        mainSettingBinding.cardCurrency.setOnClickListener(this);
+        mainSettingBinding.cardPriceColorChange.setOnClickListener(this);
+        mainSettingBinding.cardExplore.setOnClickListener(this);
+        mainSettingBinding.cardNotice.setOnClickListener(this);
+        mainSettingBinding.cardHomepage.setOnClickListener(this);
+        mainSettingBinding.cardBlog.setOnClickListener(this);
+        mainSettingBinding.cardTelegram.setOnClickListener(this);
+        mainSettingBinding.cardStarnameWalletConnect.setOnClickListener(this);
+        mainSettingBinding.cardTerm.setOnClickListener(this);
+        mainSettingBinding.cardGithub.setOnClickListener(this);
+        mainSettingBinding.cardVersion.setOnClickListener(this);
+        mainSettingBinding.cardWalletConnect.setOnClickListener(this);
+        mainSettingBinding.cardLedger.setOnClickListener(this);
+        mainSettingBinding.cardPrivacy.setOnClickListener(this);
+        mainSettingBinding.switchUsingApplock.setOnClickListener(this);
+        mainSettingBinding.switchUsingBio.setOnClickListener(this);
+        mainSettingBinding.switchAlaram.setOnCheckedChangeListener(switchListener());
 
-        mSwitchUsingAppLock = rootView.findViewById(R.id.switch_using_applock);
-        mTvBio = rootView.findViewById(R.id.bio_title);
-        mSwitchUsingUsingBio = rootView.findViewById(R.id.switch_using_bio);
-        mTvAutoPassTime = rootView.findViewById(R.id.auto_pass_time);
+        onUpdateView();
+        loadPushStatus();
 
-        mBtnMnemonic.setOnClickListener(this);
-        mBtnWallet.setOnClickListener(this);
-        mBtnImportKey.setOnClickListener(this);
-        mBtnWatchAddress.setOnClickListener(this);
-        mBtnTheme.setOnClickListener(this);
-        mBtnLanguage.setOnClickListener(this);
-        mSwitchUsingAppLock.setOnClickListener(this);
-        mSwitchUsingUsingBio.setOnClickListener(this);
-        mBtnAutoPass.setOnClickListener(this);
-        mBtnCurrency.setOnClickListener(this);
-        mBtnPriceColorChange.setOnClickListener(this);
-        mBtnExplore.setOnClickListener(this);
-        mBtnNotice.setOnClickListener(this);
-        mBtnWalletConnect.setOnClickListener(this);
-        mBtnHomepage.setOnClickListener(this);
-        mBtnBlog.setOnClickListener(this);
-        mBtnTelegram.setOnClickListener(this);
-        mBtnStarnameWc.setOnClickListener(this);
-        mBtnTerm.setOnClickListener(this);
-        mBtnGithub.setOnClickListener(this);
-        mBtnVersion.setOnClickListener(this);
-
-        mTvVersion.setText("v" + BuildConfig.VERSION_NAME);
-        return rootView;
-
+        mainSettingBinding.versionText.setText("v" + BuildConfig.VERSION_NAME);
+        return mainSettingBinding.getRoot();
     }
 
     private CompoundButton.OnCheckedChangeListener switchListener() {
@@ -161,42 +129,21 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if (!getBaseDao().getAlarmEnable()) {
             PushManager.syncAddresses(requireContext(), getBaseDao(), getBaseDao().getFCMToken());
         }
-
-        PushManager.updateStatus(requireContext(), getBaseDao(), alarmSwitch.isChecked(), getBaseDao().getFCMToken());
+        PushManager.updateStatus(requireContext(), getBaseDao(), mainSettingBinding.switchAlaram.isChecked(), getBaseDao().getFCMToken());
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.LIGHT_MODE)) {
-            mTvTheme.setText(R.string.str_theme_light);
-        } else if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.DARK_MODE)) {
-            mTvTheme.setText(R.string.str_theme_dark);
-        } else {
-            mTvTheme.setText(R.string.str_theme_system);
-        }
-
-        if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_ENGLISH)) {
-            mTvLanguage.setText(R.string.str_language_english);
-        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN)) {
-            mTvLanguage.setText(R.string.str_language_korean);
-        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_JAPANESE)) {
-            mTvLanguage.setText(R.string.str_language_japanese);
-        } else {
-            mTvLanguage.setText(R.string.str_theme_system);
-        }
-
-        onUpdatePriceColor(getMainActivity().getBaseDao().getPriceColorOption());
-        onUpdateView();
-        loadPushStatus();
+    public void onDestroy() {
+        super.onDestroy();
+        mainSettingBinding = null;
     }
 
     private void loadPushStatus() {
         ApiClient.getCosmostationOld(requireContext()).getPushStatus(getBaseDao().getFCMToken()).enqueue(new Callback<PushStatusResponse>() {
             @Override
             public void onResponse(Call<PushStatusResponse> call, Response<PushStatusResponse> response) {
-                if (response.isSuccessful()) {
-                    alarmSwitch.setChecked(response.body().subscribe);
+                if (response.isSuccessful() && response.body() != null) {
+                    mainSettingBinding.switchAlaram.setChecked(response.body().subscribe);
                     getBaseDao().setAlarmEnable(response.body().subscribe);
                 }
             }
@@ -209,6 +156,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (isAdded()) return;
+    }
+
+    @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
         onUpdateCurrency();
@@ -216,69 +169,89 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onUpdateView() {
-        mSwitchUsingAppLock.setChecked(getBaseDao().getUsingAppLock());
-        mSwitchUsingUsingBio.setChecked(getBaseDao().getUsingFingerPrint());
+        onUpdatePriceColor(getMainActivity().getBaseDao().getPriceColorOption());
+
+        if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.LIGHT_MODE)) {
+            mainSettingBinding.themeText.setText(R.string.str_theme_light);
+        } else if (ThemeUtil.modLoad(getBaseActivity()).equals(ThemeUtil.DARK_MODE)) {
+            mainSettingBinding.themeText.setText(R.string.str_theme_dark);
+        } else {
+            mainSettingBinding.themeText.setText(R.string.str_theme_system);
+        }
+
+        if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_ENGLISH)) {
+            mainSettingBinding.languageText.setText(R.string.str_language_english);
+        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN)) {
+            mainSettingBinding.languageText.setText(R.string.str_language_korean);
+        } else if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_JAPANESE)) {
+            mainSettingBinding.languageText.setText(R.string.str_language_japanese);
+        } else {
+            mainSettingBinding.languageText.setText(R.string.str_theme_system);
+        }
+
+        mainSettingBinding.switchUsingApplock.setChecked(getBaseDao().getUsingAppLock());
+        mainSettingBinding.switchUsingBio.setChecked(getBaseDao().getUsingFingerPrint());
 
         FingerprintManagerCompat mFingerprintManagerCompat = FingerprintManagerCompat.from(getActivity());
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) && mFingerprintManagerCompat.isHardwareDetected() && mFingerprintManagerCompat.hasEnrolledFingerprints()) {
-            mTvBio.setText(getString(R.string.str_using_fingerprints));
+            mainSettingBinding.bioTitle.setText(getString(R.string.str_using_fingerprints));
         } else {
-            mTvBio.setText("");
+            mainSettingBinding.bioTitle.setText("");
         }
     }
 
     private void onUpdateCurrency() {
-        mTvCurrency.setText(getBaseDao().getCurrencyString());
+        mainSettingBinding.currencyText.setText(getBaseDao().getCurrencyString());
     }
 
     private void onUpdatePriceColor(int value) {
         if (value == 1) {
-            mPriceColorUp.setImageResource(R.drawable.icon_pricegreen);
-            mPriceColorDown.setImageResource(R.drawable.icon_pricered);
+            mainSettingBinding.iconPriceColorUp.setImageResource(R.drawable.icon_pricegreen);
+            mainSettingBinding.iconPriceColorDown.setImageResource(R.drawable.icon_pricered);
         } else {
-            mPriceColorUp.setImageResource(R.drawable.icon_pricered);
-            mPriceColorDown.setImageResource(R.drawable.icon_pricegreen);
+            mainSettingBinding.iconPriceColorUp.setImageResource(R.drawable.icon_pricered);
+            mainSettingBinding.iconPriceColorDown.setImageResource(R.drawable.icon_pricegreen);
         }
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnWallet)) {
+        if (v.equals(mainSettingBinding.cardWallet)) {
             startActivity(new Intent(getBaseActivity(), AccountListActivity.class));
 
-        } else if (v.equals(mBtnMnemonic)) {
+        } else if (v.equals(mainSettingBinding.cardMnemonic)) {
             startActivity(new Intent(getBaseActivity(), MnemonicListActivity.class));
 
-        } else if (v.equals(mBtnImportKey)) {
+        } else if (v.equals(mainSettingBinding.cardKey)) {
             startActivity(new Intent(getBaseActivity(), PrivateKeyRestoreActivity.class));
 
-        } else if (v.equals(mBtnWatchAddress)) {
+        } else if (v.equals(mainSettingBinding.cardWatchAddress)) {
             startActivity(new Intent(getBaseActivity(), WatchingWalletAddActivity.class));
 
-        } else if (v.equals(mBtnTheme)) {
-            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_theme_system), view -> setTheme(getBaseActivity(), ThemeUtil.DEFAULT_MODE), null,
-                    getString(R.string.str_theme_light), view -> setTheme(getBaseActivity(), ThemeUtil.LIGHT_MODE), null,
-                    getString(R.string.str_theme_dark), view -> setTheme(getBaseActivity(), ThemeUtil.DARK_MODE), null);
+        } else if (v.equals(mainSettingBinding.cardTheme)) {
+            FilledVerticalButtonAlertDialog.showTripleButton(getBaseActivity(), null, null, getString(R.string.str_theme_system),
+                    view -> setTheme(getBaseActivity(), ThemeUtil.DEFAULT_MODE), null, getString(R.string.str_theme_light),
+                    view -> setTheme(getBaseActivity(), ThemeUtil.LIGHT_MODE), null, getString(R.string.str_theme_dark),
+                    view -> setTheme(getBaseActivity(), ThemeUtil.DARK_MODE), null);
 
-        } else if (v.equals(mBtnLanguage)) {
-            FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, null,
-                    getString(R.string.str_language_system), view -> setLanguage(getBaseActivity(), LanguageUtil.SYSTEM_MODE), null,
-                    getString(R.string.str_language_english), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_ENGLISH), null,
-                    getString(R.string.str_language_korean), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_KOREAN), null,
-                    getString(R.string.str_language_japanese), view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_JAPANESE), null);
+        } else if (v.equals(mainSettingBinding.cardLanguage)) {
+            FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, null, getString(R.string.str_language_system),
+                    view -> setLanguage(getBaseActivity(), LanguageUtil.SYSTEM_MODE), null, getString(R.string.str_language_english),
+                    view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_ENGLISH), null, getString(R.string.str_language_korean),
+                    view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_KOREAN), null, getString(R.string.str_language_japanese),
+                    view -> setLanguage(getBaseActivity(), LanguageUtil.LANGUAGE_JAPANESE), null);
 
-        } else if (v.equals(mSwitchUsingAppLock)) {
+        } else if (v.equals(mainSettingBinding.switchUsingApplock)) {
             onClickAppLock();
 
-        } else if (v.equals(mSwitchUsingUsingBio)) {
+        } else if (v.equals(mainSettingBinding.switchUsingBio)) {
             getBaseDao().setUsingFingerPrint(!getBaseDao().getUsingFingerPrint());
             onUpdateView();
 
-        } else if (v.equals(mBtnAutoPass)) {
+        } else if (v.equals(mainSettingBinding.cardAutoPass)) {
             onClickAutoPass();
 
-        } else if (v.equals(mBtnCurrency) && !getMainActivity().isFinishing()) {
+        } else if (v.equals(mainSettingBinding.cardCurrency) && !getMainActivity().isFinishing()) {
             CurrencySetDialog dialog = CurrencySetDialog.newInstance(null);
             dialog.show(getParentFragmentManager(), CurrencySetDialog.class.getName());
             getParentFragmentManager().setFragmentResultListener(CurrencySetDialog.CURRENCY_SET_BUNDLE_KEY, this, (requestKey, bundle) -> {
@@ -286,7 +259,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 onSetCurrency(result);
             });
 
-        } else if (v.equals(mBtnPriceColorChange) && !getMainActivity().isFinishing()) {
+        } else if (v.equals(mainSettingBinding.cardPriceColorChange) && !getMainActivity().isFinishing()) {
             PriceColorChangeDialog dialog = PriceColorChangeDialog.newInstance(null);
             dialog.show(getParentFragmentManager(), PriceColorChangeDialog.class.getName());
             getParentFragmentManager().setFragmentResultListener(BaseConstant.PRE_PRICE_COLOR, this, (requestKey, bundle) -> {
@@ -294,33 +267,37 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 onUpdatePriceColor(result);
             });
 
-        } else if (v.equals(mBtnExplore)) {
+        } else if (v.equals(mainSettingBinding.cardExplore)) {
             String url = getMainActivity().mChainConfig.explorerUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
 
-        } else if (v.equals(mBtnWalletConnect)) {
+        } else if (v.equals(mainSettingBinding.cardWalletConnect)) {
             startActivity(new Intent(getContext(), ManageWalletConnectActivity.class));
 
-        } else if (v.equals(mBtnNotice)) {
+        } else if (v.equals(mainSettingBinding.cardPrivacy)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_PRIVACY_POLICY));
+            startActivity(intent);
+
+        } else if (v.equals(mainSettingBinding.cardNotice)) {
             String url = EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(getMainActivity().mBaseChain).chainName();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
 
-        } else if (v.equals(mBtnHomepage)) {
+        } else if (v.equals(mainSettingBinding.cardHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_HOMEPAGE));
             startActivity(intent);
 
-        } else if (v.equals(mBtnBlog)) {
+        } else if (v.equals(mainSettingBinding.cardBlog)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_BLOG));
             startActivity(intent);
 
-        } else if (v.equals(mBtnTelegram)) {
+        } else if (v.equals(mainSettingBinding.cardTelegram)) {
             Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TELEGRAM));
             startActivity(telegram);
 
-        } else if (v.equals(mBtnTerm)) {
-            if (Locale.getDefault().getLanguage().equalsIgnoreCase("ko")) {
+        } else if (v.equals(mainSettingBinding.cardTerm)) {
+            if (LanguageUtil.modLoad(getBaseActivity()).equals(LanguageUtil.LANGUAGE_KOREAN) || Locale.getDefault().getLanguage().equals(LanguageUtil.LANGUAGE_KOREAN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_TERM_KR));
                 startActivity(intent);
             } else {
@@ -328,16 +305,19 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 startActivity(intent);
             }
 
-        } else if (v.equals(mBtnGithub)) {
+        } else if (v.equals(mainSettingBinding.cardGithub)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(COSMOSTATION_GITHUB));
             startActivity(intent);
 
-        } else if (v.equals(mBtnVersion)) {
+        } else if (v.equals(mainSettingBinding.cardVersion)) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + getMainActivity().getPackageName()));
             startActivity(intent);
 
-        } else if (v.equals(mBtnStarnameWc)) {
+        } else if (v.equals(mainSettingBinding.cardLedger)) {
+            onLedgerConnect();
+
+        } else if (v.equals(mainSettingBinding.cardStarnameWalletConnect)) {
             CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg), getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> new TedPermission(getMainActivity()).setPermissionListener(new PermissionListener() {
                 @Override
                 public void onPermissionGranted() {
@@ -413,11 +393,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onShowAutoPassDialog() {
-        FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg),
-                getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null,
-                getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null,
-                getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null,
-                getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
+        FilledVerticalButtonAlertDialog.showQuadrupleButton(getBaseActivity(), null, getString(R.string.str_app_auto_pass_msg), getString(R.string.str_app_auto_pass_5m), view -> onSetAutoPass(1), null, getString(R.string.str_app_auto_pass_10m), view -> onSetAutoPass(2), null, getString(R.string.str_app_auto_pass_30m), view -> onSetAutoPass(3), null, getString(R.string.str_app_auto_pass_never), view -> onSetAutoPass(0), null);
     }
 
     private void onSetAutoPass(int value) {
@@ -428,7 +404,35 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void onUpdateAutoPass() {
-        mTvAutoPassTime.setText(getBaseDao().getAutoPass(getActivity()));
+        mainSettingBinding.autoPassTime.setText(getBaseDao().getAutoPass(getActivity()));
+    }
+
+    private void onLedgerConnect() {
+        if (LedgerManager.getInstance().isConnected()) {
+            LedgerManager.getInstance().getBleManager().disconnect(() -> {
+                onShowWaitDialog();
+                mainSettingBinding.cardLedger.postDelayed((Runnable) this::showLedgerPicker, 1500);
+                return null;
+            });
+        } else {
+            onShowWaitDialog();
+            showLedgerPicker();
+        }
+    }
+
+    private void showLedgerPicker() {
+        onHideWaitDialog();
+        getActivity().runOnUiThread(() -> LedgerManager.getInstance().pickLedgerDevice(requireContext(), new LedgerManager.ConnectListener() {
+            @Override
+            public void error(@NonNull LedgerManager.ErrorType errorType) {
+                FilledVerticalButtonAlertDialog.showNoButton(getContext(), getString(R.string.str_pairing_ledger_title), getString(errorType.getDescriptionResourceId()), true);
+            }
+
+            @Override
+            public void connected() {
+                startActivity(new Intent(getActivity(), LedgerSelectActivity.class));
+            }
+        }));
     }
 
     public MainActivity getMainActivity() {
@@ -469,5 +473,19 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         LanguageUtil.updateResources(context);
         LanguageUtil.modSave(context, languageSet);
         getMainActivity().recreate();
+    }
+
+    public void onShowWaitDialog() {
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("wait") == null) {
+            mDialogWait = new WaitDialog();
+        }
+        mDialogWait.setCancelable(false);
+        mDialogWait.show(getActivity().getSupportFragmentManager(), "wait");
+    }
+
+    public void onHideWaitDialog() {
+        if (mDialogWait != null) {
+            mDialogWait.dismissAllowingStateLoss();
+        }
     }
 }

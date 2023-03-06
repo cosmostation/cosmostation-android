@@ -3501,7 +3501,7 @@ public final class Mint {
       "e\n(minting_rewards_distribution_start_ep" +
       "och\030\007 \001(\003B3\362\336\037/yaml:\"minting_rewards_dis" +
       "tribution_start_epoch\":\004\230\240\037\000B/Z-github.c" +
-      "om/Stride-Labs/stride/v3/x/mint/typesb\006p" +
+      "om/Stride-Labs/stride/v5/x/mint/typesb\006p" +
       "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

@@ -4005,7 +4005,7 @@ public final class QueryOuterClass {
       "DataRequest\0321.stride.icacallbacks.QueryA" +
       "llCallbackDataResponse\"6\202\323\344\223\0020\022./Stride-" +
       "Labs/stride/icacallbacks/callback_dataB7" +
-      "Z5github.com/Stride-Labs/stride/v3/x/ica" +
+      "Z5github.com/Stride-Labs/stride/v5/x/ica" +
       "callbacks/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

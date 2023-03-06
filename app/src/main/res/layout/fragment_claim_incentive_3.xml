@@ -130,7 +130,7 @@
                                 <TextView
                                     android:id="@+id/incen1_denom"
                                     style="@style/font_rr_12_black_daynight"
-                                    android:layout_width="@dimen/space_40"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_4"
                                     android:gravity="end" />
@@ -154,7 +154,7 @@
                                 <TextView
                                     android:id="@+id/incen2_denom"
                                     style="@style/font_rr_12_black_daynight"
-                                    android:layout_width="@dimen/space_40"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_4"
                                     android:gravity="end" />
@@ -178,7 +178,7 @@
                                 <TextView
                                     android:id="@+id/incen3_denom"
                                     style="@style/font_rr_12_black_daynight"
-                                    android:layout_width="@dimen/space_40"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_4"
                                     android:gravity="end" />
@@ -202,7 +202,7 @@
                                 <TextView
                                     android:id="@+id/incen4_denom"
                                     style="@style/font_rr_12_black_daynight"
-                                    android:layout_width="@dimen/space_40"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/space_4"
                                     android:gravity="end" />

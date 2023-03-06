@@ -48,7 +48,7 @@ public class WalletStarNameDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_template_recycler, null);
         try {
             mStarNameAsset = getArguments().getParcelable(WalletStarNameDialog.STAR_NAME_ASSET_BUNDLE_KEY);
             mWalletList = getSActivity().getBaseDao().onSelectAccountsByChain(BaseChain.getChain(mStarNameAsset.chainName));
@@ -89,8 +89,13 @@ public class WalletStarNameDialog extends DialogFragment {
                 holder.accountKeyState.setImageResource(R.drawable.key_off);
                 holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
             } else {
-                holder.accountKeyState.setImageResource(R.drawable.watchmode);
-                holder.accountKeyState.setColorFilter(null);
+                if (account.isLedger()) {
+                    holder.accountKeyState.setImageResource(R.drawable.icon_ledger_wallet);
+                    holder.accountKeyState.setColorFilter(ContextCompat.getColor(getSActivity(), chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
+                } else {
+                    holder.accountKeyState.setImageResource(R.drawable.watchmode);
+                    holder.accountKeyState.setColorFilter(null);
+                }
             }
 
             if (TextUtils.isEmpty(account.nickName)) {

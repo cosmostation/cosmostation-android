@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -26,21 +26,26 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RewardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RewardStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
+import wannabit.io.cosmostaion.utils.LedgerManager;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskListener {
 
@@ -169,13 +174,38 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     }
 
     public void onStartReward() {
-        if (getBaseDao().isAutoPass()) {
+        if (mAccount.isLedger()) {
+            onClaimRewardByLedger();
+
+        } else if (getBaseDao().isAutoPass()) {
             onBroadCastTx();
         } else {
             Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
+    }
+
+    private void onClaimRewardByLedger() {
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(ClaimRewardActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                ArrayList<Msg> claimRewardMsgs = MsgGenerator.genWithdrawDeleMsgs(mAccount.address, mValAddresses);
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, claimRewardMsgs, mTxFee, mTxMemo);
+            }
+
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                return Signer.getGrpcLedgerClaimRewardsReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddresses, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
+
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onCommonIntentTx(ClaimRewardActivity.this, mResult);
+            }
+        }));
     }
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -187,14 +217,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
     private void onBroadCastTx() {
         new ClaimRewardsGrpcTask(getBaseApplication(), result -> {
-            Intent txIntent = new Intent(ClaimRewardActivity.this, TxDetailgRPCActivity.class);
-            txIntent.putExtra("isGen", true);
-            txIntent.putExtra("isSuccess", result.isSuccess);
-            txIntent.putExtra("errorCode", result.errorCode);
-            txIntent.putExtra("errorMsg", result.errorMsg);
-            String hash = String.valueOf(result.resultData);
-            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-            startActivity(txIntent);
+            onCommonIntentTx(ClaimRewardActivity.this, result);
         }, mBaseChain, mAccount, mValAddresses, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

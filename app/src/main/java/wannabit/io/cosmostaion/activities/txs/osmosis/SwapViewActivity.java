@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.activities.txs.osmosis;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OSMOSIS_POOL_LIST;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,10 +24,15 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
 import osmosis.gamm.poolmodels.stableswap.v1beta1.StableswapPool;
 import osmosis.gamm.v1beta1.BalancerPool;
+import osmosis.gamm.v1beta1.QueryGrpc;
 import osmosis.gamm.v1beta1.QueryOuterClass;
+import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -34,11 +41,13 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.dao.SupportPool;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.FetchTask.MintscanOsmoPoolListTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class SwapViewActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -63,6 +72,12 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
     private StableswapPool.Pool mSelectedStablePool;
     public String mInputCoinDenom;
     public String mOutputCoinDenom;
+
+    private Asset mInputAsset;
+    private Asset mOutputAsset;
+    public int mInputDecimal;
+    public int mOutputDecimal;
+    public BigDecimal mStableSwapRateAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,13 +138,8 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
 
     private void onUpdateView() {
         if (mInputCoinDenom != null && mOutputCoinDenom != null) {
-            final Asset inputAsset = getBaseDao().getAsset(mChainConfig, mInputCoinDenom);
-            final Asset outputAsset = getBaseDao().getAsset(mChainConfig, mOutputCoinDenom);
-            final int inputDecimal = inputAsset.decimals;
-            final int outputDecimal = outputAsset.decimals;
-
             final BigDecimal availableMaxAmount = getBaseDao().getAvailable(mInputCoinDenom);
-            mInputAmount.setText(WDp.getDpAmount2(this, availableMaxAmount, inputDecimal, inputDecimal));
+            mInputAmount.setText(WDp.getDpAmount2(this, availableMaxAmount, mInputDecimal, mInputDecimal));
             if (mSelectedPool != null) {
                 BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
                 mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
@@ -150,34 +160,10 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
 
             mSwapInputCoinRate.setText(WDp.getDpAmount2(this, BigDecimal.ONE, 0, 6));
             mSwapInputCoinExRate.setText(WDp.getDpAmount2(this, BigDecimal.ONE, 0, 6));
+            mSwapOutputCoinRate.setText(WDp.getDpAmount2(this, mStableSwapRateAmount, mOutputDecimal, 6));
 
-            if (mSelectedPool != null) {
-                BigDecimal inputAssetAmount = BigDecimal.ZERO;
-                BigDecimal inputAssetWeight = BigDecimal.ZERO;
-                BigDecimal outputAssetAmount = BigDecimal.ZERO;
-                BigDecimal outputAssetWeight = BigDecimal.ZERO;
-
-                for (BalancerPool.PoolAsset poolAsset : mSelectedPool.getPoolAssetsList()) {
-                    if (poolAsset.getToken().getDenom().equalsIgnoreCase(mInputCoinDenom)) {
-                        inputAssetAmount = new BigDecimal(poolAsset.getToken().getAmount());
-                        inputAssetWeight = new BigDecimal(poolAsset.getWeight());
-                    }
-                    if (poolAsset.getToken().getDenom().equalsIgnoreCase(mOutputCoinDenom)) {
-                        outputAssetAmount = new BigDecimal(poolAsset.getToken().getAmount());
-                        outputAssetWeight = new BigDecimal(poolAsset.getWeight());
-                    }
-                }
-                inputAssetAmount = inputAssetAmount.movePointLeft(inputDecimal);
-                outputAssetAmount = outputAssetAmount.movePointLeft(outputDecimal);
-                BigDecimal swapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 16, RoundingMode.DOWN).divide(outputAssetWeight, 16, RoundingMode.DOWN);
-                mSwapOutputCoinRate.setText(WDp.getDpAmount2(this, swapRate, 0, 6));
-
-            } else if (mSelectedStablePool != null) {
-
-            }
-
-            BigDecimal priceInput = WDp.price(getBaseDao(), inputAsset.coinGeckoId);
-            BigDecimal priceOutput = WDp.price(getBaseDao(), outputAsset.coinGeckoId);
+            BigDecimal priceInput = WDp.price(getBaseDao(), mInputAsset.coinGeckoId);
+            BigDecimal priceOutput = WDp.price(getBaseDao(), mOutputAsset.coinGeckoId);
             BigDecimal priceRate = BigDecimal.ZERO;
             if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
                 mSwapOutputCoinExRate.setText("??????");
@@ -195,6 +181,25 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
         new MintscanOsmoPoolListTask(getBaseApplication(), this, mChainConfig).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
+    private int mTaskCount = 0;
+    private void onFetchPoolData() {
+        if (mTaskCount > 0) return;
+        mTaskCount = 2;
+        mSelectedPool = null;
+        mSelectedStablePool = null;
+
+        onFetchPoolInfo();
+        onFetchEstimateOut();
+    }
+
+    private void onFetchFinished() {
+        mTaskCount--;
+        if (mTaskCount > 0) return;
+
+        onHideWaitDialog();
+        onUpdateView();
+    }
+
     private void onFetchPoolInfo() {
         mSelectedPool = null;
         mSelectedStablePool = null;
@@ -207,11 +212,34 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
                     } else if (response.getPool().getTypeUrl().contains(StableswapPool.Pool.getDescriptor().getFullName())) {
                         mSelectedStablePool = StableswapPool.Pool.parseFrom(response.getPool().getValue());
                     }
-                    onHideWaitDialog();
-                    onUpdateView();
+                    onFetchFinished();
                 } catch (InvalidProtocolBufferException e) { e.printStackTrace(); }
             }
         }, mBaseChain, mSelectedPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @SuppressLint("CheckResult")
+    private void onFetchEstimateOut() {
+        mInputAsset = getBaseDao().getAsset(mChainConfig, mInputCoinDenom);
+        mOutputAsset = getBaseDao().getAsset(mChainConfig, mOutputCoinDenom);
+        mInputDecimal = mInputAsset.decimals;
+        mOutputDecimal = mOutputAsset.decimals;
+
+        QueryGrpc.QueryBlockingStub stub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        Tx.SwapAmountInRoute swapAmountInRoute = Tx.SwapAmountInRoute.newBuilder().setPoolId(mSelectedPoolId).setTokenOutDenom(mOutputCoinDenom).build();
+        Callable<QueryOuterClass.QuerySwapExactAmountInResponse> callable = () -> {
+            QueryOuterClass.QuerySwapExactAmountInRequest request = QueryOuterClass.QuerySwapExactAmountInRequest.newBuilder().setSender(mAccount.address).setPoolId(mSelectedPoolId).setTokenIn(new BigDecimal("1").movePointRight(mInputDecimal) + mInputCoinDenom).addRoutes(swapAmountInRoute).build();
+            return stub.estimateSwapExactAmountIn(request);
+        };
+        Observable<QueryOuterClass.QuerySwapExactAmountInResponse> observable = Observable.fromCallable(callable);
+        try {
+            observable.subscribe(response -> {
+                mStableSwapRateAmount = new BigDecimal(response.getTokenOutAmount());
+                onFetchFinished();
+            });
+        } catch (Exception e) {
+            WLog.w("error : " + e.getMessage());
+        }
     }
 
     @Override
@@ -234,7 +262,7 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
                     mSelectedPoolId = 1;
                     mInputCoinDenom = "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2";
                     mOutputCoinDenom = "uosmo";
-                    onFetchPoolInfo();
+                    onFetchPoolData();
                 }
             }
         }
@@ -274,13 +302,13 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
                     if (pool.adenom.equalsIgnoreCase(mInputCoinDenom)) {
                         mOutputCoinDenom = pool.bdenom;
                         mSelectedPoolId = Long.parseLong(pool.id);
-                        onFetchPoolInfo();
+                        onFetchPoolData();
                         return;
                     }
                     if (pool.bdenom.equalsIgnoreCase(mInputCoinDenom)) {
                         mOutputCoinDenom = pool.adenom;
                         mSelectedPoolId = Long.parseLong(pool.id);
-                        onFetchPoolInfo();
+                        onFetchPoolData();
                         return;
                     }
                 }
@@ -301,13 +329,13 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
                     if (pool.adenom.equalsIgnoreCase(mOutputCoinDenom) && pool.bdenom.equalsIgnoreCase(mInputCoinDenom)) {
                         mInputCoinDenom = pool.bdenom;
                         mSelectedPoolId = Integer.parseInt(pool.id);
-                        onFetchPoolInfo();
+                        onFetchPoolData();
                         return;
                     }
                     if (pool.bdenom.equalsIgnoreCase(mOutputCoinDenom) && pool.adenom.equalsIgnoreCase(mInputCoinDenom)) {
                         mInputCoinDenom = pool.adenom;
                         mSelectedPoolId = Integer.parseInt(pool.id);
-                        onFetchPoolInfo();
+                        onFetchPoolData();
                         return;
                     }
                 }
@@ -317,10 +345,10 @@ public class SwapViewActivity extends BaseActivity implements View.OnClickListen
             String temp = mInputCoinDenom;
             mInputCoinDenom = mOutputCoinDenom;
             mOutputCoinDenom = temp;
-            onUpdateView();
+            onFetchPoolData();
 
         } else if (v.equals(mBtnSwapStart)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
                 onInsertKeyDialog();
                 return;
             }

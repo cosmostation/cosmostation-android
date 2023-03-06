@@ -70,11 +70,9 @@ import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data.WcSignRawDataListener
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
-import wannabit.io.cosmostaion.model.StdSignMsg
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
 import wannabit.io.cosmostaion.model.type.Coin
-import wannabit.io.cosmostaion.model.type.Msg
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 import wannabit.io.cosmostaion.utils.WUtil
@@ -488,17 +486,20 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
-    private val processGetCosmosAccounts = { id: Long, strings: List<String> ->
+    private val processGetCosmosAccounts = { id: Long, strings: List<String>? ->
         runOnUiThread {
-            showAccountDialog(
-                strings, mutableListOf()
-            ) { accounts ->
-                fillConnectInfoAddressIfNeed()
-                wcV1Client?.approveRequest(id, accounts.mapNotNull {
-                    toCosmosatationAccount(
-                        it
-                    )
-                })
+            if (strings != null) {
+                showAccountDialog(strings, mutableListOf()) { accounts ->
+                    fillConnectInfoAddressIfNeed()
+                    wcV1Client?.approveRequest(id, accounts.mapNotNull {
+                        toCosmosatationAccount(it)
+                    })
+                }
+            } else {
+                wcV1Client?.rejectRequest(id, "null point exception.")
+                Toast.makeText(
+                    baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -1204,43 +1205,47 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private fun showAccountDialog(
-        chains: List<String>,
+        chains: List<String>?,
         selectedAccounts: MutableList<Account>,
         index: Int = 0,
         action: (selectedAccounts: List<Account>) -> Unit
     ) {
-        if (index >= chains.size) {
-            action(selectedAccounts)
-            moveToBackIfNeed()
-            return
-        }
-
-        loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain]?.let {
-            selectedAccounts.add(it)
-            showAccountDialog(chains, selectedAccounts, index + 1, action)
-            return
-        }
-
-        if (!hasAccount(chains[index])) {
-            showAccountDialog(chains, selectedAccounts, index + 1, action)
-            return
-        }
-
-        val bundle = Bundle()
-        bundle.putString("chainName", chains[index])
-        val dialog = Dialog_Wc_Account.newInstance(bundle)
-        dialog.setOnSelectListener(object : OnDialogSelectListener {
-            override fun onSelect(account: Account) {
-                loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain] = account
-                selectedAccounts.add(account)
-                showAccountDialog(chains, selectedAccounts, index + 1, action)
+        if (chains != null) {
+            if (index >= chains.size) {
+                action(selectedAccounts)
+                moveToBackIfNeed()
+                return
             }
 
-            override fun onCancel() {
+            loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain]?.let {
+                selectedAccounts.add(it)
                 showAccountDialog(chains, selectedAccounts, index + 1, action)
+                return
             }
-        })
-        dialog.show(supportFragmentManager, "dialog$index")
+
+            if (!hasAccount(chains[index])) {
+                showAccountDialog(chains, selectedAccounts, index + 1, action)
+                return
+            }
+
+            val bundle = Bundle()
+            bundle.putString("chainName", chains[index])
+            val dialog = Dialog_Wc_Account.newInstance(bundle)
+            dialog.setOnSelectListener(object : OnDialogSelectListener {
+                override fun onSelect(account: Account) {
+                    loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain] = account
+                    selectedAccounts.add(account)
+                    showAccountDialog(chains, selectedAccounts, index + 1, action)
+                }
+
+                override fun onCancel() {
+                    showAccountDialog(chains, selectedAccounts, index + 1, action)
+                }
+            })
+            dialog.show(supportFragmentManager, "dialog$index")
+        } else {
+            return
+        }
     }
 
     override fun onBackPressed() {
@@ -1278,7 +1283,7 @@ class WalletConnectActivity : BaseActivity() {
             WCKeplrWallet(
                 WUtil.getWalletName(this, account),
                 "secp256k1",
-                it.pubKey,
+                Utils.bytesToHex(it.pubKey),
                 WKey.generateTenderAddressBytesFromPrivateKey(key.privateKeyAsHex),
                 account.address,
                 false
@@ -1292,7 +1297,7 @@ class WalletConnectActivity : BaseActivity() {
             WCCosmostationAccount(
                 WUtil.getWalletName(this, account),
                 "secp256k1",
-                it.pubKey,
+                Utils.bytesToHex(it.pubKey),
                 WKey.generateTenderAddressBytesFromPrivateKey(key.privateKeyAsHex),
                 account.address
             )
@@ -1470,22 +1475,14 @@ class WalletConnectActivity : BaseActivity() {
             if (isFinishing) {
                 return true
             }
-            if (modifiedUrl.startsWith(
-                    "wc:"
-                )
-            ) {
-                processConnectScheme(
-                    modifiedUrl
-                )
+            if (modifiedUrl.startsWith("wc:")) {
+                processConnectScheme(modifiedUrl)
                 return true
-            } else if (modifiedUrl.startsWith(
-                    "intent:"
-                )
-            ) {
-                if (modifiedUrl.contains(
-                        "intent://wcV1"
-                    )
-                ) {
+            } else if (modifiedUrl.startsWith("keplrwallet://wcV1")) {
+                processConnectScheme(modifiedUrl)
+                return true
+            } else if (modifiedUrl.startsWith("intent:")) {
+                if (modifiedUrl.contains("intent://wcV1")) {
                     modifiedUrl = modifiedUrl.replace(
                         "#Intent;package=com.chainapsis.keplr;scheme=keplrwallet;end;",
                         "#Intent;package=wannabit.io.cosmostaion;scheme=cosmostation;end;"
@@ -1503,28 +1500,18 @@ class WalletConnectActivity : BaseActivity() {
                     )
                 }
                 try {
-                    val intent = Intent.parseUri(
-                        modifiedUrl, Intent.URI_INTENT_SCHEME
-                    )
+                    val intent = Intent.parseUri(modifiedUrl, Intent.URI_INTENT_SCHEME)
                     val existPackage = intent.getPackage()?.let {
-                        packageManager.getLaunchIntentForPackage(
-                            it
-                        )
+                        packageManager.getLaunchIntentForPackage(it)
                     }
                     existPackage?.let {
-                        startActivity(
-                            intent
-                        )
+                        startActivity(intent)
                     } ?: run {
                         val marketIntent = Intent(
                             Intent.ACTION_VIEW
                         )
-                        marketIntent.data = Uri.parse(
-                            "market://details?id=" + intent.getPackage()
-                        )
-                        startActivity(
-                            marketIntent
-                        )
+                        marketIntent.data = Uri.parse("market://details?id=" + intent.getPackage())
+                        startActivity(marketIntent)
                     }
                     return true
                 } catch (e: Exception) {

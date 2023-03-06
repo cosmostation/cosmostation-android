@@ -31,10 +31,16 @@ public final class Callbacks {
         getValidatorBytes();
 
     /**
-     * <code>uint64 amount = 2;</code>
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
-    long getAmount();
+    java.lang.String getAmount();
+    /**
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    com.google.protobuf.ByteString
+        getAmountBytes();
   }
   /**
    * <pre>
@@ -54,6 +60,7 @@ public final class Callbacks {
     }
     private SplitDelegation() {
       validator_ = "";
+      amount_ = "";
     }
 
     @java.lang.Override
@@ -92,9 +99,10 @@ public final class Callbacks {
               validator_ = s;
               break;
             }
-            case 16: {
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              amount_ = input.readUInt64();
+              amount_ = s;
               break;
             }
             default: {
@@ -168,14 +176,41 @@ public final class Callbacks {
     }
 
     public static final int AMOUNT_FIELD_NUMBER = 2;
-    private long amount_;
+    private volatile java.lang.Object amount_;
     /**
-     * <code>uint64 amount = 2;</code>
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amount.
      */
     @java.lang.Override
-    public long getAmount() {
-      return amount_;
+    public java.lang.String getAmount() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        amount_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amount.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAmountBytes() {
+      java.lang.Object ref = amount_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        amount_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -195,8 +230,8 @@ public final class Callbacks {
       if (!getValidatorBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, validator_);
       }
-      if (amount_ != 0L) {
-        output.writeUInt64(2, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, amount_);
       }
       unknownFields.writeTo(output);
     }
@@ -210,9 +245,8 @@ public final class Callbacks {
       if (!getValidatorBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, validator_);
       }
-      if (amount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, amount_);
+      if (!getAmountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, amount_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -231,8 +265,8 @@ public final class Callbacks {
 
       if (!getValidator()
           .equals(other.getValidator())) return false;
-      if (getAmount()
-          != other.getAmount()) return false;
+      if (!getAmount()
+          .equals(other.getAmount())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -247,8 +281,7 @@ public final class Callbacks {
       hash = (37 * hash) + VALIDATOR_FIELD_NUMBER;
       hash = (53 * hash) + getValidator().hashCode();
       hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getAmount());
+      hash = (53 * hash) + getAmount().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -388,7 +421,7 @@ public final class Callbacks {
         super.clear();
         validator_ = "";
 
-        amount_ = 0L;
+        amount_ = "";
 
         return this;
       }
@@ -470,8 +503,9 @@ public final class Callbacks {
           validator_ = other.validator_;
           onChanged();
         }
-        if (other.getAmount() != 0L) {
-          setAmount(other.getAmount());
+        if (!other.getAmount().isEmpty()) {
+          amount_ = other.amount_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -578,33 +612,78 @@ public final class Callbacks {
         return this;
       }
 
-      private long amount_ ;
+      private java.lang.Object amount_ = "";
       /**
-       * <code>uint64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The amount.
        */
-      @java.lang.Override
-      public long getAmount() {
-        return amount_;
+      public java.lang.String getAmount() {
+        java.lang.Object ref = amount_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          amount_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for amount.
+       */
+      public com.google.protobuf.ByteString
+          getAmountBytes() {
+        java.lang.Object ref = amount_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          amount_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The amount to set.
        * @return This builder for chaining.
        */
-      public Builder setAmount(long value) {
-        
+      public Builder setAmount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         amount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint64 amount = 2;</code>
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAmount() {
         
-        amount_ = 0L;
+        amount_ = getDefaultInstance().getAmount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for amount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAmountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        amount_ = value;
         onChanged();
         return this;
       }
@@ -5190,10 +5269,16 @@ public final class Callbacks {
         getDstValidatorBytes();
 
     /**
-     * <code>uint64 amt = 3;</code>
+     * <code>string amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amt.
      */
-    long getAmt();
+    java.lang.String getAmt();
+    /**
+     * <code>string amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amt.
+     */
+    com.google.protobuf.ByteString
+        getAmtBytes();
   }
   /**
    * Protobuf type {@code stride.stakeibc.Rebalancing}
@@ -5210,6 +5295,7 @@ public final class Callbacks {
     private Rebalancing() {
       srcValidator_ = "";
       dstValidator_ = "";
+      amt_ = "";
     }
 
     @java.lang.Override
@@ -5254,9 +5340,10 @@ public final class Callbacks {
               dstValidator_ = s;
               break;
             }
-            case 24: {
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              amt_ = input.readUInt64();
+              amt_ = s;
               break;
             }
             default: {
@@ -5368,14 +5455,41 @@ public final class Callbacks {
     }
 
     public static final int AMT_FIELD_NUMBER = 3;
-    private long amt_;
+    private volatile java.lang.Object amt_;
     /**
-     * <code>uint64 amt = 3;</code>
+     * <code>string amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The amt.
      */
     @java.lang.Override
-    public long getAmt() {
-      return amt_;
+    public java.lang.String getAmt() {
+      java.lang.Object ref = amt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        amt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for amt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAmtBytes() {
+      java.lang.Object ref = amt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        amt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -5398,8 +5512,8 @@ public final class Callbacks {
       if (!getDstValidatorBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, dstValidator_);
       }
-      if (amt_ != 0L) {
-        output.writeUInt64(3, amt_);
+      if (!getAmtBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, amt_);
       }
       unknownFields.writeTo(output);
     }
@@ -5416,9 +5530,8 @@ public final class Callbacks {
       if (!getDstValidatorBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, dstValidator_);
       }
-      if (amt_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(3, amt_);
+      if (!getAmtBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, amt_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5439,8 +5552,8 @@ public final class Callbacks {
           .equals(other.getSrcValidator())) return false;
       if (!getDstValidator()
           .equals(other.getDstValidator())) return false;
-      if (getAmt()
-          != other.getAmt()) return false;
+      if (!getAmt()
+          .equals(other.getAmt())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -5457,8 +5570,7 @@ public final class Callbacks {
       hash = (37 * hash) + DST_VALIDATOR_FIELD_NUMBER;
       hash = (53 * hash) + getDstValidator().hashCode();
       hash = (37 * hash) + AMT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getAmt());
+      hash = (53 * hash) + getAmt().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -5596,7 +5708,7 @@ public final class Callbacks {
 
         dstValidator_ = "";
 
-        amt_ = 0L;
+        amt_ = "";
 
         return this;
       }
@@ -5683,8 +5795,9 @@ public final class Callbacks {
           dstValidator_ = other.dstValidator_;
           onChanged();
         }
-        if (other.getAmt() != 0L) {
-          setAmt(other.getAmt());
+        if (!other.getAmt().isEmpty()) {
+          amt_ = other.amt_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5867,33 +5980,78 @@ public final class Callbacks {
         return this;
       }
 
-      private long amt_ ;
+      private java.lang.Object amt_ = "";
       /**
-       * <code>uint64 amt = 3;</code>
+       * <code>string amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The amt.
        */
-      @java.lang.Override
-      public long getAmt() {
-        return amt_;
+      public java.lang.String getAmt() {
+        java.lang.Object ref = amt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          amt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint64 amt = 3;</code>
+       * <code>string amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for amt.
+       */
+      public com.google.protobuf.ByteString
+          getAmtBytes() {
+        java.lang.Object ref = amt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          amt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The amt to set.
        * @return This builder for chaining.
        */
-      public Builder setAmt(long value) {
-        
+      public Builder setAmt(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         amt_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint64 amt = 3;</code>
+       * <code>string amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAmt() {
         
-        amt_ = 0L;
+        amt_ = getDefaultInstance().getAmt();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for amt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAmtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        amt_ = value;
         onChanged();
         return this;
       }
@@ -6944,29 +7102,31 @@ public final class Callbacks {
     java.lang.String[] descriptorData = {
       "\n\037stride/stakeibc/callbacks.proto\022\017strid" +
       "e.stakeibc\032\024gogoproto/gogo.proto\032\036cosmos" +
-      "/base/v1beta1/coin.proto\"4\n\017SplitDelegat" +
-      "ion\022\021\n\tvalidator\030\001 \001(\t\022\016\n\006amount\030\002 \001(\004\"\200" +
-      "\001\n\020DelegateCallback\022\024\n\014host_zone_id\030\001 \001(" +
-      "\t\022\031\n\021deposit_record_id\030\002 \001(\004\022;\n\021split_de" +
-      "legations\030\003 \003(\0132 .stride.stakeibc.SplitD" +
-      "elegation\"Z\n\rClaimCallback\022!\n\031user_redem" +
-      "ption_record_id\030\001 \001(\t\022\020\n\010chain_id\030\002 \001(\t\022" +
-      "\024\n\014epoch_number\030\003 \001(\004\"\215\001\n\020ReinvestCallba" +
-      "ck\022c\n\017reinvest_amount\030\001 \001(\0132\031.cosmos.bas" +
-      "e.v1beta1.CoinB/\310\336\037\000\252\337\037\'github.com/cosmo" +
-      "s/cosmos-sdk/types.Coin\022\024\n\014host_zone_id\030" +
-      "\003 \001(\t\"\213\001\n\022UndelegateCallback\022\024\n\014host_zon" +
-      "e_id\030\001 \001(\t\022;\n\021split_delegations\030\002 \003(\0132 ." +
-      "stride.stakeibc.SplitDelegation\022\"\n\032epoch" +
-      "_unbonding_record_ids\030\003 \003(\004\"N\n\022Redemptio" +
-      "nCallback\022\024\n\014host_zone_id\030\001 \001(\t\022\"\n\032epoch" +
-      "_unbonding_record_ids\030\002 \003(\004\"H\n\013Rebalanci" +
-      "ng\022\025\n\rsrc_validator\030\001 \001(\t\022\025\n\rdst_validat" +
-      "or\030\002 \001(\t\022\013\n\003amt\030\003 \001(\004\"]\n\021RebalanceCallba" +
-      "ck\022\024\n\014host_zone_id\030\001 \001(\t\0222\n\014rebalancings" +
-      "\030\002 \003(\0132\034.stride.stakeibc.RebalancingB3Z1" +
-      "github.com/Stride-Labs/stride/v3/x/stake" +
-      "ibc/typesb\006proto3"
+      "/base/v1beta1/coin.proto\"d\n\017SplitDelegat" +
+      "ion\022\021\n\tvalidator\030\001 \001(\t\022>\n\006amount\030\002 \001(\tB." +
+      "\332\336\037&github.com/cosmos/cosmos-sdk/types.I" +
+      "nt\310\336\037\000\"\200\001\n\020DelegateCallback\022\024\n\014host_zone" +
+      "_id\030\001 \001(\t\022\031\n\021deposit_record_id\030\002 \001(\004\022;\n\021" +
+      "split_delegations\030\003 \003(\0132 .stride.stakeib" +
+      "c.SplitDelegation\"Z\n\rClaimCallback\022!\n\031us" +
+      "er_redemption_record_id\030\001 \001(\t\022\020\n\010chain_i" +
+      "d\030\002 \001(\t\022\024\n\014epoch_number\030\003 \001(\004\"\215\001\n\020Reinve" +
+      "stCallback\022c\n\017reinvest_amount\030\001 \001(\0132\031.co" +
+      "smos.base.v1beta1.CoinB/\310\336\037\000\252\337\037\'github.c" +
+      "om/cosmos/cosmos-sdk/types.Coin\022\024\n\014host_" +
+      "zone_id\030\003 \001(\t\"\213\001\n\022UndelegateCallback\022\024\n\014" +
+      "host_zone_id\030\001 \001(\t\022;\n\021split_delegations\030" +
+      "\002 \003(\0132 .stride.stakeibc.SplitDelegation\022" +
+      "\"\n\032epoch_unbonding_record_ids\030\003 \003(\004\"N\n\022R" +
+      "edemptionCallback\022\024\n\014host_zone_id\030\001 \001(\t\022" +
+      "\"\n\032epoch_unbonding_record_ids\030\002 \003(\004\"x\n\013R" +
+      "ebalancing\022\025\n\rsrc_validator\030\001 \001(\t\022\025\n\rdst" +
+      "_validator\030\002 \001(\t\022;\n\003amt\030\003 \001(\tB.\332\336\037&githu" +
+      "b.com/cosmos/cosmos-sdk/types.Int\310\336\037\000\"]\n" +
+      "\021RebalanceCallback\022\024\n\014host_zone_id\030\001 \001(\t" +
+      "\0222\n\014rebalancings\030\002 \003(\0132\034.stride.stakeibc" +
+      ".RebalancingB3Z1github.com/Stride-Labs/s" +
+      "tride/v5/x/stakeibc/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7025,6 +7185,7 @@ public final class Callbacks {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
     registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);

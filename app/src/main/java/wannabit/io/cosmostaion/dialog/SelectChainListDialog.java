@@ -84,7 +84,7 @@ public class SelectChainListDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_template_recycler, null);
         mSwapCoinList = getArguments().getStringArrayList(SelectChainListDialog.SWAP_COIN_LIST_BUNDLE_KEY);
         mFeeDataList = (ArrayList<FeeInfo.FeeData>) getArguments().getSerializable(SelectChainListDialog.FEE_DATA_LIST_BUNDLE_KEY);
         mSendCoinList = (ArrayList<Coin>) getArguments().getSerializable(SelectChainListDialog.SEND_COIN_LIST_BUNDLE_KEY);
@@ -221,14 +221,11 @@ public class SelectChainListDialog extends DialogFragment {
 
             ArrayList<Account> watchAddressAccounts = getSActivity().getBaseDao().onSelectAccountsByChain(baseChain);
             for (Account account : watchAddressAccounts) {
-                if ((chainConfig.baseChain().equals(BaseChain.OKEX_MAIN) && account.address.equalsIgnoreCase(mWatchAddress))
-                        || account.address.equalsIgnoreCase(WKey.convertAddressEthToTender(chainConfig.baseChain(), mWatchAddress))) {
+                if (account.address.equals(mWatchAddress) || account.address.equalsIgnoreCase(WKey.convertAddressEthToTender(chainConfig.baseChain(), mWatchAddress))) {
                     holder.rootLayer.setClickable(false);
                     holder.rootLayer.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.box_round_gray));
                     holder.rootDimLayer.setVisibility(View.VISIBLE);
                     holder.rootDimLayer.setAlpha(0.5f);
-                } else {
-                    bindChainSelect(holder, position, baseChain);
                 }
             }
         }

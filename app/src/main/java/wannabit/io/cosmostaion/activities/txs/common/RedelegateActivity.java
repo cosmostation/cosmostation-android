@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -25,22 +25,27 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import cosmos.staking.v1beta1.Staking;
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RedelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.RedelegateStep4Fragment;
+import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
+import wannabit.io.cosmostaion.utils.LedgerManager;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RedelegateActivity extends BaseBroadCastActivity implements TaskListener {
@@ -166,13 +171,37 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     }
 
     public void onStartRedelegate() {
-        if (getBaseDao().isAutoPass()) {
+        if (mAccount.isLedger()) {
+            onRedelegateByLedger();
+        } else if (getBaseDao().isAutoPass()) {
             onBroadCastTx();
         } else {
             Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
+    }
+
+    private void onRedelegateByLedger() {
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(RedelegateActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                ArrayList<Msg> redelegateMsgs = MsgGenerator.genReDelegateMsgs(mAccount.address, mValAddress, mToValAddress, mAmount);
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, redelegateMsgs, mTxFee, mTxMemo);
+            }
+
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                return Signer.getGrpcLedgerReDelegateReq(WKey.onAuthResponse(mBaseChain, mAccount), mValAddress, mToValAddress, mAmount, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
+
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onCommonIntentTx(RedelegateActivity.this, mResult);
+            }
+        }));
     }
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -184,14 +213,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
     private void onBroadCastTx() {
         new RedelegateGrpcTask(getBaseApplication(), result -> {
-            Intent txIntent = new Intent(RedelegateActivity.this, TxDetailgRPCActivity.class);
-            txIntent.putExtra("isGen", true);
-            txIntent.putExtra("isSuccess", result.isSuccess);
-            txIntent.putExtra("errorCode", result.errorCode);
-            txIntent.putExtra("errorMsg", result.errorMsg);
-            String hash = String.valueOf(result.resultData);
-            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-            startActivity(txIntent);
+            onCommonIntentTx(RedelegateActivity.this, result);
         }, mBaseChain, mAccount, mValAddress, mToValAddress, mAmount, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

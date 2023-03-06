@@ -3,6 +3,9 @@ package wannabit.io.cosmostaion.dao;
 import com.google.gson.annotations.SerializedName;
 
 public class SupportPool {
+    @SerializedName("type")
+    public String type;
+
     @SerializedName("id")
     public String id;
 

@@ -3796,1045 +3796,6 @@ public final class QueryOuterClass {
 
   }
 
-  public interface QueryGetICAAccountRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:stride.stakeibc.QueryGetICAAccountRequest)
-      com.google.protobuf.MessageOrBuilder {
-  }
-  /**
-   * Protobuf type {@code stride.stakeibc.QueryGetICAAccountRequest}
-   */
-  public static final class QueryGetICAAccountRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:stride.stakeibc.QueryGetICAAccountRequest)
-      QueryGetICAAccountRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryGetICAAccountRequest.newBuilder() to construct.
-    private QueryGetICAAccountRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryGetICAAccountRequest() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryGetICAAccountRequest();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueryGetICAAccountRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest.class, stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest.Builder.class);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest)) {
-        return super.equals(obj);
-      }
-      stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest other = (stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest) obj;
-
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code stride.stakeibc.QueryGetICAAccountRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:stride.stakeibc.QueryGetICAAccountRequest)
-        stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest.class, stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest.Builder.class);
-      }
-
-      // Construct using stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest getDefaultInstanceForType() {
-        return stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest build() {
-        stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest buildPartial() {
-        stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest result = new stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest(this);
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest) {
-          return mergeFrom((stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest other) {
-        if (other == stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:stride.stakeibc.QueryGetICAAccountRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:stride.stakeibc.QueryGetICAAccountRequest)
-    private static final stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest();
-    }
-
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryGetICAAccountRequest>
-        PARSER = new com.google.protobuf.AbstractParser<QueryGetICAAccountRequest>() {
-      @java.lang.Override
-      public QueryGetICAAccountRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryGetICAAccountRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryGetICAAccountRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryGetICAAccountRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public stride.stakeibc.QueryOuterClass.QueryGetICAAccountRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryGetICAAccountResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:stride.stakeibc.QueryGetICAAccountResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-     * @return Whether the icaAccount field is set.
-     */
-    boolean hasIcaAccount();
-    /**
-     * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-     * @return The icaAccount.
-     */
-    stride.stakeibc.IcaAccount.ICAAccount getIcaAccount();
-    /**
-     * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    stride.stakeibc.IcaAccount.ICAAccountOrBuilder getIcaAccountOrBuilder();
-  }
-  /**
-   * Protobuf type {@code stride.stakeibc.QueryGetICAAccountResponse}
-   */
-  public static final class QueryGetICAAccountResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:stride.stakeibc.QueryGetICAAccountResponse)
-      QueryGetICAAccountResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryGetICAAccountResponse.newBuilder() to construct.
-    private QueryGetICAAccountResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryGetICAAccountResponse() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryGetICAAccountResponse();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private QueryGetICAAccountResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              stride.stakeibc.IcaAccount.ICAAccount.Builder subBuilder = null;
-              if (icaAccount_ != null) {
-                subBuilder = icaAccount_.toBuilder();
-              }
-              icaAccount_ = input.readMessage(stride.stakeibc.IcaAccount.ICAAccount.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(icaAccount_);
-                icaAccount_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse.class, stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse.Builder.class);
-    }
-
-    public static final int ICA_ACCOUNT_FIELD_NUMBER = 1;
-    private stride.stakeibc.IcaAccount.ICAAccount icaAccount_;
-    /**
-     * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-     * @return Whether the icaAccount field is set.
-     */
-    @java.lang.Override
-    public boolean hasIcaAccount() {
-      return icaAccount_ != null;
-    }
-    /**
-     * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-     * @return The icaAccount.
-     */
-    @java.lang.Override
-    public stride.stakeibc.IcaAccount.ICAAccount getIcaAccount() {
-      return icaAccount_ == null ? stride.stakeibc.IcaAccount.ICAAccount.getDefaultInstance() : icaAccount_;
-    }
-    /**
-     * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-     */
-    @java.lang.Override
-    public stride.stakeibc.IcaAccount.ICAAccountOrBuilder getIcaAccountOrBuilder() {
-      return getIcaAccount();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (icaAccount_ != null) {
-        output.writeMessage(1, getIcaAccount());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (icaAccount_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getIcaAccount());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse)) {
-        return super.equals(obj);
-      }
-      stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse other = (stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse) obj;
-
-      if (hasIcaAccount() != other.hasIcaAccount()) return false;
-      if (hasIcaAccount()) {
-        if (!getIcaAccount()
-            .equals(other.getIcaAccount())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasIcaAccount()) {
-        hash = (37 * hash) + ICA_ACCOUNT_FIELD_NUMBER;
-        hash = (53 * hash) + getIcaAccount().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code stride.stakeibc.QueryGetICAAccountResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:stride.stakeibc.QueryGetICAAccountResponse)
-        stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse.class, stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse.Builder.class);
-      }
-
-      // Construct using stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (icaAccountBuilder_ == null) {
-          icaAccount_ = null;
-        } else {
-          icaAccount_ = null;
-          icaAccountBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetICAAccountResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse getDefaultInstanceForType() {
-        return stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse build() {
-        stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse buildPartial() {
-        stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse result = new stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse(this);
-        if (icaAccountBuilder_ == null) {
-          result.icaAccount_ = icaAccount_;
-        } else {
-          result.icaAccount_ = icaAccountBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse) {
-          return mergeFrom((stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse other) {
-        if (other == stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse.getDefaultInstance()) return this;
-        if (other.hasIcaAccount()) {
-          mergeIcaAccount(other.getIcaAccount());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private stride.stakeibc.IcaAccount.ICAAccount icaAccount_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          stride.stakeibc.IcaAccount.ICAAccount, stride.stakeibc.IcaAccount.ICAAccount.Builder, stride.stakeibc.IcaAccount.ICAAccountOrBuilder> icaAccountBuilder_;
-      /**
-       * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-       * @return Whether the icaAccount field is set.
-       */
-      public boolean hasIcaAccount() {
-        return icaAccountBuilder_ != null || icaAccount_ != null;
-      }
-      /**
-       * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-       * @return The icaAccount.
-       */
-      public stride.stakeibc.IcaAccount.ICAAccount getIcaAccount() {
-        if (icaAccountBuilder_ == null) {
-          return icaAccount_ == null ? stride.stakeibc.IcaAccount.ICAAccount.getDefaultInstance() : icaAccount_;
-        } else {
-          return icaAccountBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder setIcaAccount(stride.stakeibc.IcaAccount.ICAAccount value) {
-        if (icaAccountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          icaAccount_ = value;
-          onChanged();
-        } else {
-          icaAccountBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder setIcaAccount(
-          stride.stakeibc.IcaAccount.ICAAccount.Builder builderForValue) {
-        if (icaAccountBuilder_ == null) {
-          icaAccount_ = builderForValue.build();
-          onChanged();
-        } else {
-          icaAccountBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder mergeIcaAccount(stride.stakeibc.IcaAccount.ICAAccount value) {
-        if (icaAccountBuilder_ == null) {
-          if (icaAccount_ != null) {
-            icaAccount_ =
-              stride.stakeibc.IcaAccount.ICAAccount.newBuilder(icaAccount_).mergeFrom(value).buildPartial();
-          } else {
-            icaAccount_ = value;
-          }
-          onChanged();
-        } else {
-          icaAccountBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public Builder clearIcaAccount() {
-        if (icaAccountBuilder_ == null) {
-          icaAccount_ = null;
-          onChanged();
-        } else {
-          icaAccount_ = null;
-          icaAccountBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public stride.stakeibc.IcaAccount.ICAAccount.Builder getIcaAccountBuilder() {
-        
-        onChanged();
-        return getIcaAccountFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      public stride.stakeibc.IcaAccount.ICAAccountOrBuilder getIcaAccountOrBuilder() {
-        if (icaAccountBuilder_ != null) {
-          return icaAccountBuilder_.getMessageOrBuilder();
-        } else {
-          return icaAccount_ == null ?
-              stride.stakeibc.IcaAccount.ICAAccount.getDefaultInstance() : icaAccount_;
-        }
-      }
-      /**
-       * <code>.stride.stakeibc.ICAAccount ica_account = 1 [(.gogoproto.nullable) = false];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          stride.stakeibc.IcaAccount.ICAAccount, stride.stakeibc.IcaAccount.ICAAccount.Builder, stride.stakeibc.IcaAccount.ICAAccountOrBuilder> 
-          getIcaAccountFieldBuilder() {
-        if (icaAccountBuilder_ == null) {
-          icaAccountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              stride.stakeibc.IcaAccount.ICAAccount, stride.stakeibc.IcaAccount.ICAAccount.Builder, stride.stakeibc.IcaAccount.ICAAccountOrBuilder>(
-                  getIcaAccount(),
-                  getParentForChildren(),
-                  isClean());
-          icaAccount_ = null;
-        }
-        return icaAccountBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:stride.stakeibc.QueryGetICAAccountResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:stride.stakeibc.QueryGetICAAccountResponse)
-    private static final stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse();
-    }
-
-    public static stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryGetICAAccountResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryGetICAAccountResponse>() {
-      @java.lang.Override
-      public QueryGetICAAccountResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new QueryGetICAAccountResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryGetICAAccountResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryGetICAAccountResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public stride.stakeibc.QueryOuterClass.QueryGetICAAccountResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface QueryGetHostZoneRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:stride.stakeibc.QueryGetHostZoneRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -9969,21 +8930,6 @@ public final class QueryOuterClass {
   public interface QueryAllEpochTrackerRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:stride.stakeibc.QueryAllEpochTrackerRequest)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-     * @return Whether the pagination field is set.
-     */
-    boolean hasPagination();
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-     * @return The pagination.
-     */
-    cosmos.base.query.v1beta1.Pagination.PageRequest getPagination();
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-     */
-    cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder();
   }
   /**
    * Protobuf type {@code stride.stakeibc.QueryAllEpochTrackerRequest}
@@ -10030,19 +8976,6 @@ public final class QueryOuterClass {
             case 0:
               done = true;
               break;
-            case 10: {
-              cosmos.base.query.v1beta1.Pagination.PageRequest.Builder subBuilder = null;
-              if (pagination_ != null) {
-                subBuilder = pagination_.toBuilder();
-              }
-              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageRequest.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(pagination_);
-                pagination_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -10075,32 +9008,6 @@ public final class QueryOuterClass {
               stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest.class, stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest.Builder.class);
     }
 
-    public static final int PAGINATION_FIELD_NUMBER = 1;
-    private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-     * @return Whether the pagination field is set.
-     */
-    @java.lang.Override
-    public boolean hasPagination() {
-      return pagination_ != null;
-    }
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-     * @return The pagination.
-     */
-    @java.lang.Override
-    public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
-      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
-    }
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-     */
-    @java.lang.Override
-    public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
-      return getPagination();
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -10115,9 +9022,6 @@ public final class QueryOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (pagination_ != null) {
-        output.writeMessage(1, getPagination());
-      }
       unknownFields.writeTo(output);
     }
 
@@ -10127,10 +9031,6 @@ public final class QueryOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (pagination_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getPagination());
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -10146,11 +9046,6 @@ public final class QueryOuterClass {
       }
       stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest other = (stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest) obj;
 
-      if (hasPagination() != other.hasPagination()) return false;
-      if (hasPagination()) {
-        if (!getPagination()
-            .equals(other.getPagination())) return false;
-      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -10162,10 +9057,6 @@ public final class QueryOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasPagination()) {
-        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
-        hash = (53 * hash) + getPagination().hashCode();
-      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -10299,12 +9190,6 @@ public final class QueryOuterClass {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (paginationBuilder_ == null) {
-          pagination_ = null;
-        } else {
-          pagination_ = null;
-          paginationBuilder_ = null;
-        }
         return this;
       }
 
@@ -10331,11 +9216,6 @@ public final class QueryOuterClass {
       @java.lang.Override
       public stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest buildPartial() {
         stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest result = new stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest(this);
-        if (paginationBuilder_ == null) {
-          result.pagination_ = pagination_;
-        } else {
-          result.pagination_ = paginationBuilder_.build();
-        }
         onBuilt();
         return result;
       }
@@ -10384,9 +9264,6 @@ public final class QueryOuterClass {
 
       public Builder mergeFrom(stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest other) {
         if (other == stride.stakeibc.QueryOuterClass.QueryAllEpochTrackerRequest.getDefaultInstance()) return this;
-        if (other.hasPagination()) {
-          mergePagination(other.getPagination());
-        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -10414,125 +9291,6 @@ public final class QueryOuterClass {
           }
         }
         return this;
-      }
-
-      private cosmos.base.query.v1beta1.Pagination.PageRequest pagination_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> paginationBuilder_;
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-       * @return Whether the pagination field is set.
-       */
-      public boolean hasPagination() {
-        return paginationBuilder_ != null || pagination_ != null;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-       * @return The pagination.
-       */
-      public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
-        if (paginationBuilder_ == null) {
-          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
-        } else {
-          return paginationBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-       */
-      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
-        if (paginationBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          pagination_ = value;
-          onChanged();
-        } else {
-          paginationBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-       */
-      public Builder setPagination(
-          cosmos.base.query.v1beta1.Pagination.PageRequest.Builder builderForValue) {
-        if (paginationBuilder_ == null) {
-          pagination_ = builderForValue.build();
-          onChanged();
-        } else {
-          paginationBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-       */
-      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageRequest value) {
-        if (paginationBuilder_ == null) {
-          if (pagination_ != null) {
-            pagination_ =
-              cosmos.base.query.v1beta1.Pagination.PageRequest.newBuilder(pagination_).mergeFrom(value).buildPartial();
-          } else {
-            pagination_ = value;
-          }
-          onChanged();
-        } else {
-          paginationBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-       */
-      public Builder clearPagination() {
-        if (paginationBuilder_ == null) {
-          pagination_ = null;
-          onChanged();
-        } else {
-          pagination_ = null;
-          paginationBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-       */
-      public cosmos.base.query.v1beta1.Pagination.PageRequest.Builder getPaginationBuilder() {
-        
-        onChanged();
-        return getPaginationFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-       */
-      public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
-        if (paginationBuilder_ != null) {
-          return paginationBuilder_.getMessageOrBuilder();
-        } else {
-          return pagination_ == null ?
-              cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
-        }
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder> 
-          getPaginationFieldBuilder() {
-        if (paginationBuilder_ == null) {
-          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              cosmos.base.query.v1beta1.Pagination.PageRequest, cosmos.base.query.v1beta1.Pagination.PageRequest.Builder, cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder>(
-                  getPagination(),
-                  getParentForChildren(),
-                  isClean());
-          pagination_ = null;
-        }
-        return paginationBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -10614,21 +9372,6 @@ public final class QueryOuterClass {
      */
     stride.stakeibc.EpochTrackerOuterClass.EpochTrackerOrBuilder getEpochTrackerOrBuilder(
         int index);
-
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     * @return Whether the pagination field is set.
-     */
-    boolean hasPagination();
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     * @return The pagination.
-     */
-    cosmos.base.query.v1beta1.Pagination.PageResponse getPagination();
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     */
-    cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder();
   }
   /**
    * Protobuf type {@code stride.stakeibc.QueryAllEpochTrackerResponse}
@@ -10684,19 +9427,6 @@ public final class QueryOuterClass {
               }
               epochTracker_.add(
                   input.readMessage(stride.stakeibc.EpochTrackerOuterClass.EpochTracker.parser(), extensionRegistry));
-              break;
-            }
-            case 18: {
-              cosmos.base.query.v1beta1.Pagination.PageResponse.Builder subBuilder = null;
-              if (pagination_ != null) {
-                subBuilder = pagination_.toBuilder();
-              }
-              pagination_ = input.readMessage(cosmos.base.query.v1beta1.Pagination.PageResponse.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(pagination_);
-                pagination_ = subBuilder.buildPartial();
-              }
-
               break;
             }
             default: {
@@ -10774,32 +9504,6 @@ public final class QueryOuterClass {
       return epochTracker_.get(index);
     }
 
-    public static final int PAGINATION_FIELD_NUMBER = 2;
-    private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     * @return Whether the pagination field is set.
-     */
-    @java.lang.Override
-    public boolean hasPagination() {
-      return pagination_ != null;
-    }
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     * @return The pagination.
-     */
-    @java.lang.Override
-    public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
-      return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
-    }
-    /**
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-     */
-    @java.lang.Override
-    public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
-      return getPagination();
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -10817,9 +9521,6 @@ public final class QueryOuterClass {
       for (int i = 0; i < epochTracker_.size(); i++) {
         output.writeMessage(1, epochTracker_.get(i));
       }
-      if (pagination_ != null) {
-        output.writeMessage(2, getPagination());
-      }
       unknownFields.writeTo(output);
     }
 
@@ -10832,10 +9533,6 @@ public final class QueryOuterClass {
       for (int i = 0; i < epochTracker_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, epochTracker_.get(i));
-      }
-      if (pagination_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getPagination());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -10854,11 +9551,6 @@ public final class QueryOuterClass {
 
       if (!getEpochTrackerList()
           .equals(other.getEpochTrackerList())) return false;
-      if (hasPagination() != other.hasPagination()) return false;
-      if (hasPagination()) {
-        if (!getPagination()
-            .equals(other.getPagination())) return false;
-      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -10873,10 +9565,6 @@ public final class QueryOuterClass {
       if (getEpochTrackerCount() > 0) {
         hash = (37 * hash) + EPOCH_TRACKER_FIELD_NUMBER;
         hash = (53 * hash) + getEpochTrackerList().hashCode();
-      }
-      if (hasPagination()) {
-        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
-        hash = (53 * hash) + getPagination().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -11018,12 +9706,6 @@ public final class QueryOuterClass {
         } else {
           epochTrackerBuilder_.clear();
         }
-        if (paginationBuilder_ == null) {
-          pagination_ = null;
-        } else {
-          pagination_ = null;
-          paginationBuilder_ = null;
-        }
         return this;
       }
 
@@ -11059,11 +9741,6 @@ public final class QueryOuterClass {
           result.epochTracker_ = epochTracker_;
         } else {
           result.epochTracker_ = epochTrackerBuilder_.build();
-        }
-        if (paginationBuilder_ == null) {
-          result.pagination_ = pagination_;
-        } else {
-          result.pagination_ = paginationBuilder_.build();
         }
         onBuilt();
         return result;
@@ -11138,9 +9815,6 @@ public final class QueryOuterClass {
               epochTrackerBuilder_.addAllMessages(other.epochTracker_);
             }
           }
-        }
-        if (other.hasPagination()) {
-          mergePagination(other.getPagination());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -11411,125 +10085,6 @@ public final class QueryOuterClass {
         }
         return epochTrackerBuilder_;
       }
-
-      private cosmos.base.query.v1beta1.Pagination.PageResponse pagination_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> paginationBuilder_;
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-       * @return Whether the pagination field is set.
-       */
-      public boolean hasPagination() {
-        return paginationBuilder_ != null || pagination_ != null;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-       * @return The pagination.
-       */
-      public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
-        if (paginationBuilder_ == null) {
-          return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
-        } else {
-          return paginationBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-       */
-      public Builder setPagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
-        if (paginationBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          pagination_ = value;
-          onChanged();
-        } else {
-          paginationBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-       */
-      public Builder setPagination(
-          cosmos.base.query.v1beta1.Pagination.PageResponse.Builder builderForValue) {
-        if (paginationBuilder_ == null) {
-          pagination_ = builderForValue.build();
-          onChanged();
-        } else {
-          paginationBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-       */
-      public Builder mergePagination(cosmos.base.query.v1beta1.Pagination.PageResponse value) {
-        if (paginationBuilder_ == null) {
-          if (pagination_ != null) {
-            pagination_ =
-              cosmos.base.query.v1beta1.Pagination.PageResponse.newBuilder(pagination_).mergeFrom(value).buildPartial();
-          } else {
-            pagination_ = value;
-          }
-          onChanged();
-        } else {
-          paginationBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-       */
-      public Builder clearPagination() {
-        if (paginationBuilder_ == null) {
-          pagination_ = null;
-          onChanged();
-        } else {
-          pagination_ = null;
-          paginationBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-       */
-      public cosmos.base.query.v1beta1.Pagination.PageResponse.Builder getPaginationBuilder() {
-        
-        onChanged();
-        return getPaginationFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-       */
-      public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
-        if (paginationBuilder_ != null) {
-          return paginationBuilder_.getMessageOrBuilder();
-        } else {
-          return pagination_ == null ?
-              cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
-        }
-      }
-      /**
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder> 
-          getPaginationFieldBuilder() {
-        if (paginationBuilder_ == null) {
-          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              cosmos.base.query.v1beta1.Pagination.PageResponse, cosmos.base.query.v1beta1.Pagination.PageResponse.Builder, cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder>(
-                  getPagination(),
-                  getParentForChildren(),
-                  isClean());
-          pagination_ = null;
-        }
-        return paginationBuilder_;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -11583,6 +10138,1213 @@ public final class QueryOuterClass {
 
   }
 
+  public interface QueryGetNextPacketSequenceRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:stride.stakeibc.QueryGetNextPacketSequenceRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string channel_id = 1;</code>
+     * @return The channelId.
+     */
+    java.lang.String getChannelId();
+    /**
+     * <code>string channel_id = 1;</code>
+     * @return The bytes for channelId.
+     */
+    com.google.protobuf.ByteString
+        getChannelIdBytes();
+
+    /**
+     * <code>string port_id = 2;</code>
+     * @return The portId.
+     */
+    java.lang.String getPortId();
+    /**
+     * <code>string port_id = 2;</code>
+     * @return The bytes for portId.
+     */
+    com.google.protobuf.ByteString
+        getPortIdBytes();
+  }
+  /**
+   * Protobuf type {@code stride.stakeibc.QueryGetNextPacketSequenceRequest}
+   */
+  public static final class QueryGetNextPacketSequenceRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:stride.stakeibc.QueryGetNextPacketSequenceRequest)
+      QueryGetNextPacketSequenceRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryGetNextPacketSequenceRequest.newBuilder() to construct.
+    private QueryGetNextPacketSequenceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryGetNextPacketSequenceRequest() {
+      channelId_ = "";
+      portId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryGetNextPacketSequenceRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryGetNextPacketSequenceRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              channelId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              portId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest.class, stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest.Builder.class);
+    }
+
+    public static final int CHANNEL_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object channelId_;
+    /**
+     * <code>string channel_id = 1;</code>
+     * @return The channelId.
+     */
+    @java.lang.Override
+    public java.lang.String getChannelId() {
+      java.lang.Object ref = channelId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        channelId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string channel_id = 1;</code>
+     * @return The bytes for channelId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getChannelIdBytes() {
+      java.lang.Object ref = channelId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        channelId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PORT_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object portId_;
+    /**
+     * <code>string port_id = 2;</code>
+     * @return The portId.
+     */
+    @java.lang.Override
+    public java.lang.String getPortId() {
+      java.lang.Object ref = portId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        portId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string port_id = 2;</code>
+     * @return The bytes for portId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPortIdBytes() {
+      java.lang.Object ref = portId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        portId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getChannelIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, channelId_);
+      }
+      if (!getPortIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, portId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getChannelIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, channelId_);
+      }
+      if (!getPortIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, portId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest)) {
+        return super.equals(obj);
+      }
+      stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest other = (stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest) obj;
+
+      if (!getChannelId()
+          .equals(other.getChannelId())) return false;
+      if (!getPortId()
+          .equals(other.getPortId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CHANNEL_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getChannelId().hashCode();
+      hash = (37 * hash) + PORT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getPortId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code stride.stakeibc.QueryGetNextPacketSequenceRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:stride.stakeibc.QueryGetNextPacketSequenceRequest)
+        stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest.class, stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest.Builder.class);
+      }
+
+      // Construct using stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        channelId_ = "";
+
+        portId_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest getDefaultInstanceForType() {
+        return stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest build() {
+        stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest buildPartial() {
+        stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest result = new stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest(this);
+        result.channelId_ = channelId_;
+        result.portId_ = portId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest) {
+          return mergeFrom((stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest other) {
+        if (other == stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest.getDefaultInstance()) return this;
+        if (!other.getChannelId().isEmpty()) {
+          channelId_ = other.channelId_;
+          onChanged();
+        }
+        if (!other.getPortId().isEmpty()) {
+          portId_ = other.portId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object channelId_ = "";
+      /**
+       * <code>string channel_id = 1;</code>
+       * @return The channelId.
+       */
+      public java.lang.String getChannelId() {
+        java.lang.Object ref = channelId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          channelId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string channel_id = 1;</code>
+       * @return The bytes for channelId.
+       */
+      public com.google.protobuf.ByteString
+          getChannelIdBytes() {
+        java.lang.Object ref = channelId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          channelId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string channel_id = 1;</code>
+       * @param value The channelId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setChannelId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        channelId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string channel_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearChannelId() {
+        
+        channelId_ = getDefaultInstance().getChannelId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string channel_id = 1;</code>
+       * @param value The bytes for channelId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setChannelIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        channelId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object portId_ = "";
+      /**
+       * <code>string port_id = 2;</code>
+       * @return The portId.
+       */
+      public java.lang.String getPortId() {
+        java.lang.Object ref = portId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          portId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string port_id = 2;</code>
+       * @return The bytes for portId.
+       */
+      public com.google.protobuf.ByteString
+          getPortIdBytes() {
+        java.lang.Object ref = portId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          portId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string port_id = 2;</code>
+       * @param value The portId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPortId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        portId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string port_id = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPortId() {
+        
+        portId_ = getDefaultInstance().getPortId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string port_id = 2;</code>
+       * @param value The bytes for portId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPortIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        portId_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:stride.stakeibc.QueryGetNextPacketSequenceRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:stride.stakeibc.QueryGetNextPacketSequenceRequest)
+    private static final stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest();
+    }
+
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryGetNextPacketSequenceRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryGetNextPacketSequenceRequest>() {
+      @java.lang.Override
+      public QueryGetNextPacketSequenceRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryGetNextPacketSequenceRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryGetNextPacketSequenceRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryGetNextPacketSequenceRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryGetNextPacketSequenceResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:stride.stakeibc.QueryGetNextPacketSequenceResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint64 sequence = 1;</code>
+     * @return The sequence.
+     */
+    long getSequence();
+  }
+  /**
+   * Protobuf type {@code stride.stakeibc.QueryGetNextPacketSequenceResponse}
+   */
+  public static final class QueryGetNextPacketSequenceResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:stride.stakeibc.QueryGetNextPacketSequenceResponse)
+      QueryGetNextPacketSequenceResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryGetNextPacketSequenceResponse.newBuilder() to construct.
+    private QueryGetNextPacketSequenceResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryGetNextPacketSequenceResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryGetNextPacketSequenceResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private QueryGetNextPacketSequenceResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              sequence_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse.class, stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse.Builder.class);
+    }
+
+    public static final int SEQUENCE_FIELD_NUMBER = 1;
+    private long sequence_;
+    /**
+     * <code>uint64 sequence = 1;</code>
+     * @return The sequence.
+     */
+    @java.lang.Override
+    public long getSequence() {
+      return sequence_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (sequence_ != 0L) {
+        output.writeUInt64(1, sequence_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (sequence_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, sequence_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse)) {
+        return super.equals(obj);
+      }
+      stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse other = (stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse) obj;
+
+      if (getSequence()
+          != other.getSequence()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SEQUENCE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSequence());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code stride.stakeibc.QueryGetNextPacketSequenceResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:stride.stakeibc.QueryGetNextPacketSequenceResponse)
+        stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse.class, stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse.Builder.class);
+      }
+
+      // Construct using stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        sequence_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return stride.stakeibc.QueryOuterClass.internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse getDefaultInstanceForType() {
+        return stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse build() {
+        stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse buildPartial() {
+        stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse result = new stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse(this);
+        result.sequence_ = sequence_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse) {
+          return mergeFrom((stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse other) {
+        if (other == stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse.getDefaultInstance()) return this;
+        if (other.getSequence() != 0L) {
+          setSequence(other.getSequence());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long sequence_ ;
+      /**
+       * <code>uint64 sequence = 1;</code>
+       * @return The sequence.
+       */
+      @java.lang.Override
+      public long getSequence() {
+        return sequence_;
+      }
+      /**
+       * <code>uint64 sequence = 1;</code>
+       * @param value The sequence to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSequence(long value) {
+        
+        sequence_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 sequence = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSequence() {
+        
+        sequence_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:stride.stakeibc.QueryGetNextPacketSequenceResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:stride.stakeibc.QueryGetNextPacketSequenceResponse)
+    private static final stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse();
+    }
+
+    public static stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryGetNextPacketSequenceResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryGetNextPacketSequenceResponse>() {
+      @java.lang.Override
+      public QueryGetNextPacketSequenceResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new QueryGetNextPacketSequenceResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryGetNextPacketSequenceResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryGetNextPacketSequenceResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public stride.stakeibc.QueryOuterClass.QueryGetNextPacketSequenceResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_stride_stakeibc_QueryInterchainAccountFromAddressRequest_descriptor;
   private static final 
@@ -11613,16 +11375,6 @@ public final class QueryOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_stride_stakeibc_QueryGetValidatorsResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_stride_stakeibc_QueryGetICAAccountRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_stride_stakeibc_QueryGetICAAccountRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_stride_stakeibc_QueryGetICAAccountResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_stride_stakeibc_QueryGetICAAccountResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_stride_stakeibc_QueryGetHostZoneRequest_descriptor;
   private static final 
@@ -11673,6 +11425,16 @@ public final class QueryOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_stride_stakeibc_QueryAllEpochTrackerResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -11687,81 +11449,79 @@ public final class QueryOuterClass {
       "/annotations.proto\032*cosmos/base/query/v1" +
       "beta1/pagination.proto\032\034stride/stakeibc/" +
       "params.proto\032\037stride/stakeibc/validator." +
-      "proto\032!stride/stakeibc/ica_account.proto" +
-      "\032\037stride/stakeibc/host_zone.proto\032#strid" +
-      "e/stakeibc/epoch_tracker.proto\"j\n(QueryI" +
-      "nterchainAccountFromAddressRequest\022\r\n\005ow" +
-      "ner\030\001 \001(\t\022/\n\rconnection_id\030\002 \001(\tB\030\362\336\037\024ya" +
-      "ml:\"connection_id\"\"v\n)QueryInterchainAcc" +
-      "ountFromAddressResponse\022I\n\032interchain_ac" +
-      "count_address\030\001 \001(\tB%\362\336\037!yaml:\"interchai" +
-      "n_account_address\"\"\024\n\022QueryParamsRequest" +
-      "\"D\n\023QueryParamsResponse\022-\n\006params\030\001 \001(\0132" +
-      "\027.stride.stakeibc.ParamsB\004\310\336\037\000\"-\n\031QueryG" +
-      "etValidatorsRequest\022\020\n\010chain_id\030\001 \001(\t\"L\n" +
-      "\032QueryGetValidatorsResponse\022.\n\nvalidator" +
-      "s\030\001 \003(\0132\032.stride.stakeibc.Validator\"\033\n\031Q" +
-      "ueryGetICAAccountRequest\"T\n\032QueryGetICAA" +
-      "ccountResponse\0226\n\013ica_account\030\001 \001(\0132\033.st" +
-      "ride.stakeibc.ICAAccountB\004\310\336\037\000\"+\n\027QueryG" +
-      "etHostZoneRequest\022\020\n\010chain_id\030\001 \001(\t\"N\n\030Q" +
-      "ueryGetHostZoneResponse\0222\n\thost_zone\030\001 \001" +
-      "(\0132\031.stride.stakeibc.HostZoneB\004\310\336\037\000\"U\n\027Q" +
-      "ueryAllHostZoneRequest\022:\n\npagination\030\001 \001" +
-      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
-      "st\"\213\001\n\030QueryAllHostZoneResponse\0222\n\thost_" +
-      "zone\030\001 \003(\0132\031.stride.stakeibc.HostZoneB\004\310" +
-      "\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.qu" +
-      "ery.v1beta1.PageResponse\")\n\031QueryModuleA" +
-      "ddressRequest\022\014\n\004name\030\001 \001(\t\"*\n\032QueryModu" +
-      "leAddressResponse\022\014\n\004addr\030\001 \001(\t\"7\n\033Query" +
-      "GetEpochTrackerRequest\022\030\n\020epoch_identifi" +
-      "er\030\001 \001(\t\"Z\n\034QueryGetEpochTrackerResponse" +
-      "\022:\n\repoch_tracker\030\001 \001(\0132\035.stride.stakeib" +
-      "c.EpochTrackerB\004\310\336\037\000\"Y\n\033QueryAllEpochTra" +
-      "ckerRequest\022:\n\npagination\030\001 \001(\0132&.cosmos" +
-      ".base.query.v1beta1.PageRequest\"\227\001\n\034Quer" +
-      "yAllEpochTrackerResponse\022:\n\repoch_tracke" +
-      "r\030\001 \003(\0132\035.stride.stakeibc.EpochTrackerB\004" +
-      "\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosmos.base.q" +
-      "uery.v1beta1.PageResponse2\221\013\n\005Query\022\177\n\006P" +
-      "arams\022#.stride.stakeibc.QueryParamsReque" +
-      "st\032$.stride.stakeibc.QueryParamsResponse" +
-      "\"*\202\323\344\223\002$\022\"/Stridelabs/stride/stakeibc/pa" +
-      "rams\022\241\001\n\nValidators\022*.stride.stakeibc.Qu" +
-      "eryGetValidatorsRequest\032+.stride.stakeib" +
-      "c.QueryGetValidatorsResponse\":\202\323\344\223\0024\0222/S" +
-      "tride-Labs/stride/stakeibc/validators/{c" +
-      "hain_id}\022\227\001\n\nICAAccount\022*.stride.stakeib" +
-      "c.QueryGetICAAccountRequest\032+.stride.sta" +
-      "keibc.QueryGetICAAccountResponse\"0\202\323\344\223\002*" +
-      "\022(/Stride-Labs/stride/stakeibc/ica_accou" +
-      "nt\022\232\001\n\010HostZone\022(.stride.stakeibc.QueryG" +
-      "etHostZoneRequest\032).stride.stakeibc.Quer" +
-      "yGetHostZoneResponse\"9\202\323\344\223\0023\0221/Stride-La" +
-      "bs/stride/stakeibc/host_zone/{chain_id}\022" +
-      "\222\001\n\013HostZoneAll\022(.stride.stakeibc.QueryA" +
-      "llHostZoneRequest\032).stride.stakeibc.Quer" +
-      "yAllHostZoneResponse\".\202\323\344\223\002(\022&/Stride-La" +
-      "bs/stride/stakeibc/host_zone\022\244\001\n\rModuleA" +
-      "ddress\022*.stride.stakeibc.QueryModuleAddr" +
-      "essRequest\032+.stride.stakeibc.QueryModule" +
-      "AddressResponse\":\202\323\344\223\0024\0222/Stride-Labs/st" +
-      "ride/stakeibc/module_address/{name}\022\225\001\n\034" +
-      "InterchainAccountFromAddress\0229.stride.st" +
-      "akeibc.QueryInterchainAccountFromAddress" +
-      "Request\032:.stride.stakeibc.QueryInterchai" +
-      "nAccountFromAddressResponse\022\262\001\n\014EpochTra" +
-      "cker\022,.stride.stakeibc.QueryGetEpochTrac" +
-      "kerRequest\032-.stride.stakeibc.QueryGetEpo" +
-      "chTrackerResponse\"E\202\323\344\223\002?\022=/Stride-Labs/" +
-      "stride/stakeibc/epoch_tracker/{epoch_ide" +
-      "ntifier}\022\242\001\n\017EpochTrackerAll\022,.stride.st" +
-      "akeibc.QueryAllEpochTrackerRequest\032-.str" +
-      "ide.stakeibc.QueryAllEpochTrackerRespons" +
-      "e\"2\202\323\344\223\002,\022*/Stride-Labs/stride/stakeibc/" +
-      "epoch_trackerB3Z1github.com/Stride-Labs/" +
-      "stride/v3/x/stakeibc/typesb\006proto3"
+      "proto\032\037stride/stakeibc/host_zone.proto\032#" +
+      "stride/stakeibc/epoch_tracker.proto\"j\n(Q" +
+      "ueryInterchainAccountFromAddressRequest\022" +
+      "\r\n\005owner\030\001 \001(\t\022/\n\rconnection_id\030\002 \001(\tB\030\362" +
+      "\336\037\024yaml:\"connection_id\"\"v\n)QueryIntercha" +
+      "inAccountFromAddressResponse\022I\n\032intercha" +
+      "in_account_address\030\001 \001(\tB%\362\336\037!yaml:\"inte" +
+      "rchain_account_address\"\"\024\n\022QueryParamsRe" +
+      "quest\"D\n\023QueryParamsResponse\022-\n\006params\030\001" +
+      " \001(\0132\027.stride.stakeibc.ParamsB\004\310\336\037\000\"-\n\031Q" +
+      "ueryGetValidatorsRequest\022\020\n\010chain_id\030\001 \001" +
+      "(\t\"L\n\032QueryGetValidatorsResponse\022.\n\nvali" +
+      "dators\030\001 \003(\0132\032.stride.stakeibc.Validator" +
+      "\"+\n\027QueryGetHostZoneRequest\022\020\n\010chain_id\030" +
+      "\001 \001(\t\"N\n\030QueryGetHostZoneResponse\0222\n\thos" +
+      "t_zone\030\001 \001(\0132\031.stride.stakeibc.HostZoneB" +
+      "\004\310\336\037\000\"U\n\027QueryAllHostZoneRequest\022:\n\npagi" +
+      "nation\030\001 \001(\0132&.cosmos.base.query.v1beta1" +
+      ".PageRequest\"\213\001\n\030QueryAllHostZoneRespons" +
+      "e\0222\n\thost_zone\030\001 \003(\0132\031.stride.stakeibc.H" +
+      "ostZoneB\004\310\336\037\000\022;\n\npagination\030\002 \001(\0132\'.cosm" +
+      "os.base.query.v1beta1.PageResponse\")\n\031Qu" +
+      "eryModuleAddressRequest\022\014\n\004name\030\001 \001(\t\"*\n" +
+      "\032QueryModuleAddressResponse\022\014\n\004addr\030\001 \001(" +
+      "\t\"7\n\033QueryGetEpochTrackerRequest\022\030\n\020epoc" +
+      "h_identifier\030\001 \001(\t\"Z\n\034QueryGetEpochTrack" +
+      "erResponse\022:\n\repoch_tracker\030\001 \001(\0132\035.stri" +
+      "de.stakeibc.EpochTrackerB\004\310\336\037\000\"\035\n\033QueryA" +
+      "llEpochTrackerRequest\"Z\n\034QueryAllEpochTr" +
+      "ackerResponse\022:\n\repoch_tracker\030\001 \003(\0132\035.s" +
+      "tride.stakeibc.EpochTrackerB\004\310\336\037\000\"H\n!Que" +
+      "ryGetNextPacketSequenceRequest\022\022\n\nchanne" +
+      "l_id\030\001 \001(\t\022\017\n\007port_id\030\002 \001(\t\"6\n\"QueryGetN" +
+      "extPacketSequenceResponse\022\020\n\010sequence\030\001 " +
+      "\001(\0042\311\013\n\005Query\022\177\n\006Params\022#.stride.stakeib" +
+      "c.QueryParamsRequest\032$.stride.stakeibc.Q" +
+      "ueryParamsResponse\"*\202\323\344\223\002$\022\"/Stridelabs/" +
+      "stride/stakeibc/params\022\241\001\n\nValidators\022*." +
+      "stride.stakeibc.QueryGetValidatorsReques" +
+      "t\032+.stride.stakeibc.QueryGetValidatorsRe" +
+      "sponse\":\202\323\344\223\0024\0222/Stride-Labs/stride/stak" +
+      "eibc/validators/{chain_id}\022\232\001\n\010HostZone\022" +
+      "(.stride.stakeibc.QueryGetHostZoneReques" +
+      "t\032).stride.stakeibc.QueryGetHostZoneResp" +
+      "onse\"9\202\323\344\223\0023\0221/Stride-Labs/stride/stakei" +
+      "bc/host_zone/{chain_id}\022\222\001\n\013HostZoneAll\022" +
+      "(.stride.stakeibc.QueryAllHostZoneReques" +
+      "t\032).stride.stakeibc.QueryAllHostZoneResp" +
+      "onse\".\202\323\344\223\002(\022&/Stride-Labs/stride/stakei" +
+      "bc/host_zone\022\244\001\n\rModuleAddress\022*.stride." +
+      "stakeibc.QueryModuleAddressRequest\032+.str" +
+      "ide.stakeibc.QueryModuleAddressResponse\"" +
+      ":\202\323\344\223\0024\0222/Stride-Labs/stride/stakeibc/mo" +
+      "dule_address/{name}\022\225\001\n\034InterchainAccoun" +
+      "tFromAddress\0229.stride.stakeibc.QueryInte" +
+      "rchainAccountFromAddressRequest\032:.stride" +
+      ".stakeibc.QueryInterchainAccountFromAddr" +
+      "essResponse\022\262\001\n\014EpochTracker\022,.stride.st" +
+      "akeibc.QueryGetEpochTrackerRequest\032-.str" +
+      "ide.stakeibc.QueryGetEpochTrackerRespons" +
+      "e\"E\202\323\344\223\002?\022=/Stride-Labs/stride/stakeibc/" +
+      "epoch_tracker/{epoch_identifier}\022\242\001\n\017Epo" +
+      "chTrackerAll\022,.stride.stakeibc.QueryAllE" +
+      "pochTrackerRequest\032-.stride.stakeibc.Que" +
+      "ryAllEpochTrackerResponse\"2\202\323\344\223\002,\022*/Stri" +
+      "de-Labs/stride/stakeibc/epoch_tracker\022\317\001" +
+      "\n\022NextPacketSequence\0222.stride.stakeibc.Q" +
+      "ueryGetNextPacketSequenceRequest\0323.strid" +
+      "e.stakeibc.QueryGetNextPacketSequenceRes" +
+      "ponse\"P\202\323\344\223\002J\022H/Stride-Labs/stride/stake" +
+      "ibc/next_packet_sequence/{channel_id}/{p" +
+      "ort_id}B3Z1github.com/Stride-Labs/stride" +
+      "/v5/x/stakeibc/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -11771,7 +11531,6 @@ public final class QueryOuterClass {
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
           stride.stakeibc.ParamsOuterClass.getDescriptor(),
           stride.stakeibc.ValidatorOuterClass.getDescriptor(),
-          stride.stakeibc.IcaAccount.getDescriptor(),
           stride.stakeibc.HostZoneOuterClass.getDescriptor(),
           stride.stakeibc.EpochTrackerOuterClass.getDescriptor(),
         });
@@ -11811,78 +11570,78 @@ public final class QueryOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryGetValidatorsResponse_descriptor,
         new java.lang.String[] { "Validators", });
-    internal_static_stride_stakeibc_QueryGetICAAccountRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_stride_stakeibc_QueryGetICAAccountRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_stride_stakeibc_QueryGetICAAccountRequest_descriptor,
-        new java.lang.String[] { });
-    internal_static_stride_stakeibc_QueryGetICAAccountResponse_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_stride_stakeibc_QueryGetICAAccountResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_stride_stakeibc_QueryGetICAAccountResponse_descriptor,
-        new java.lang.String[] { "IcaAccount", });
     internal_static_stride_stakeibc_QueryGetHostZoneRequest_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_stride_stakeibc_QueryGetHostZoneRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryGetHostZoneRequest_descriptor,
         new java.lang.String[] { "ChainId", });
     internal_static_stride_stakeibc_QueryGetHostZoneResponse_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_stride_stakeibc_QueryGetHostZoneResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryGetHostZoneResponse_descriptor,
         new java.lang.String[] { "HostZone", });
     internal_static_stride_stakeibc_QueryAllHostZoneRequest_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_stride_stakeibc_QueryAllHostZoneRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryAllHostZoneRequest_descriptor,
         new java.lang.String[] { "Pagination", });
     internal_static_stride_stakeibc_QueryAllHostZoneResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_stride_stakeibc_QueryAllHostZoneResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryAllHostZoneResponse_descriptor,
         new java.lang.String[] { "HostZone", "Pagination", });
     internal_static_stride_stakeibc_QueryModuleAddressRequest_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_stride_stakeibc_QueryModuleAddressRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryModuleAddressRequest_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_stride_stakeibc_QueryModuleAddressResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_stride_stakeibc_QueryModuleAddressResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryModuleAddressResponse_descriptor,
         new java.lang.String[] { "Addr", });
     internal_static_stride_stakeibc_QueryGetEpochTrackerRequest_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_stride_stakeibc_QueryGetEpochTrackerRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryGetEpochTrackerRequest_descriptor,
         new java.lang.String[] { "EpochIdentifier", });
     internal_static_stride_stakeibc_QueryGetEpochTrackerResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_stride_stakeibc_QueryGetEpochTrackerResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryGetEpochTrackerResponse_descriptor,
         new java.lang.String[] { "EpochTracker", });
     internal_static_stride_stakeibc_QueryAllEpochTrackerRequest_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_stride_stakeibc_QueryAllEpochTrackerRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryAllEpochTrackerRequest_descriptor,
-        new java.lang.String[] { "Pagination", });
+        new java.lang.String[] { });
     internal_static_stride_stakeibc_QueryAllEpochTrackerResponse_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_stride_stakeibc_QueryAllEpochTrackerResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_stride_stakeibc_QueryAllEpochTrackerResponse_descriptor,
-        new java.lang.String[] { "EpochTracker", "Pagination", });
+        new java.lang.String[] { "EpochTracker", });
+    internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_stride_stakeibc_QueryGetNextPacketSequenceRequest_descriptor,
+        new java.lang.String[] { "ChannelId", "PortId", });
+    internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_stride_stakeibc_QueryGetNextPacketSequenceResponse_descriptor,
+        new java.lang.String[] { "Sequence", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.protobuf2.GoGoProtos.moretags);
@@ -11895,7 +11654,6 @@ public final class QueryOuterClass {
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
     stride.stakeibc.ParamsOuterClass.getDescriptor();
     stride.stakeibc.ValidatorOuterClass.getDescriptor();
-    stride.stakeibc.IcaAccount.getDescriptor();
     stride.stakeibc.HostZoneOuterClass.getDescriptor();
     stride.stakeibc.EpochTrackerOuterClass.getDescriptor();
   }

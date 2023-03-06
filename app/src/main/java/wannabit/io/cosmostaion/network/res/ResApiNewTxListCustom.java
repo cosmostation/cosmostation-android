@@ -796,11 +796,11 @@ public class ResApiNewTxListCustom {
             for (int i = 0; i < getMsgs().length(); i++) {
                 String msgType = "";
                 try {
-                    msgType = getMsgs().getJSONObject(0).getString("@type");
+                    msgType = getMsgs().getJSONObject(i).getString("@type");
                 } catch (Exception e) {
                 }
                 try {
-                    msgType = getMsgs().getJSONObject(0).getString("type");
+                    msgType = getMsgs().getJSONObject(i).getString("type");
                 } catch (Exception e) {
                 }
                 if (!msgType.contains("MsgWithdrawDelegatorReward")) {

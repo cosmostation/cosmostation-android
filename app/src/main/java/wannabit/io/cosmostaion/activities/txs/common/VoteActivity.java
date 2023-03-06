@@ -6,15 +6,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -23,27 +25,34 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.ledger.live.ble.app.BleCosmosHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.cosmos.Signer;
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.VoteStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.VoteStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
+import wannabit.io.cosmostaion.utils.LedgerManager;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class VoteActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout mRootView;
     private Toolbar mToolbar;
     private TextView mTitle;
     private ImageView mIvStep;
@@ -53,11 +62,12 @@ public class VoteActivity extends BaseBroadCastActivity {
 
     public List<ResProposal> mProposal;
 
+    private CommonAlertDialog mDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
-        mRootView = findViewById(R.id.root_view);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
@@ -161,13 +171,37 @@ public class VoteActivity extends BaseBroadCastActivity {
     }
 
     public void onStartVote() {
-        if (getBaseDao().isAutoPass()) {
+        if (mAccount.isLedger()) {
+            onVoteByLedger();
+        } else if (getBaseDao().isAutoPass()) {
             onBroadCastTx();
         } else {
             Intent intent = new Intent(VoteActivity.this, PasswordCheckActivity.class);
             activityResultLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
         }
+    }
+
+    private void onVoteByLedger() {
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(VoteActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                ArrayList<Msg> voteMsgs = MsgGenerator.genVoteMsgs(mAccount.address, mSelectedOpinion);
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, voteMsgs, mTxFee, mTxMemo);
+            }
+
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                return Signer.getGrpcLedgerVoteReq(WKey.onAuthResponse(mBaseChain, mAccount), mSelectedOpinion, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
+
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onCommonIntentTx(VoteActivity.this, mResult);
+            }
+        }));
     }
 
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -179,14 +213,7 @@ public class VoteActivity extends BaseBroadCastActivity {
 
     private void onBroadCastTx() {
         new VoteGrpcTask(getBaseApplication(), result -> {
-            Intent txIntent = new Intent(VoteActivity.this, TxDetailgRPCActivity.class);
-            txIntent.putExtra("isGen", true);
-            txIntent.putExtra("isSuccess", result.isSuccess);
-            txIntent.putExtra("errorCode", result.errorCode);
-            txIntent.putExtra("errorMsg", result.errorMsg);
-            String hash = String.valueOf(result.resultData);
-            if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
-            startActivity(txIntent);
+            onCommonIntentTx(VoteActivity.this, result);
         }, mBaseChain, mAccount, mSelectedOpinion, mTxMemo, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

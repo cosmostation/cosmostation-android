@@ -28,6 +28,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATI
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ICNS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARGAZE_NS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_CONFIG;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED_VALIDATORS;
@@ -63,14 +64,11 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.crypto.DeterministicKey;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,6 +84,7 @@ import wannabit.io.cosmostaion.activities.IntroActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.activities.setting.MnemonicRestoreActivity;
 import wannabit.io.cosmostaion.activities.txs.common.SendActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.HtlcSendActivity;
@@ -97,6 +96,7 @@ import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.MintscanToken;
+import wannabit.io.cosmostaion.dao.NameService;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
@@ -144,6 +144,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisCheckIcnsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcConfigTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcFeeTask;
+import wannabit.io.cosmostaion.task.gRpcTask.StargazeCheckNSGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
@@ -164,7 +165,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public Account mAccount;
     public BaseChain mBaseChain;
     public ChainConfig mChainConfig;
-    public String mIcnsName = "";
+    public ArrayList<NameService> mNameServices = new ArrayList<>();
 
     protected int mTaskCount;
     private FetchCallBack mFetchCallback;
@@ -198,14 +199,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public BaseApplication getBaseApplication() {
-        if (mApplication == null)
-            mApplication = (BaseApplication) getApplication();
+        if (mApplication == null) mApplication = (BaseApplication) getApplication();
         return mApplication;
     }
 
     public BaseData getBaseDao() {
-        if (mData == null)
-            mData = getBaseApplication().getBaseDao();
+        if (mData == null) mData = getBaseApplication().getBaseDao();
         return mData;
     }
 
@@ -233,8 +232,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onInsertKeyDialog() {
-        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg),
-                getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(), getString(R.string.str_close), null);
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_only_observe_msg), getString(R.string.str_add_mnemonics), view -> onAddMnemonicForAccount(), getString(R.string.str_close), null);
     }
 
     public void onAddMnemonicForAccount() {
@@ -246,8 +244,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             keyState.setImageResource(R.drawable.key_off);
             keyState.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
-            keyState.setImageResource(R.drawable.watchmode);
-            keyState.setColorFilter(null);
+            if (account.isLedger()) {
+                keyState.setImageResource(R.drawable.icon_ledger_wallet);
+                keyState.setColorFilter(ContextCompat.getColor(c, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
+            } else {
+                keyState.setImageResource(R.drawable.watchmode);
+                keyState.setColorFilter(null);
+            }
         }
     }
 
@@ -273,9 +276,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (chainConfig.evmSupport()) {
             try {
                 String ethAddress = WKey.convertBech32ToEvm(account.address);
-                CommonAlertDialog.showDoubleButton(this, getString(R.string.str_address_type), "",
-                        getString(R.string.str_tender_type), view -> onClickShowAccountDialog(account.address, nickName),
-                        getString(R.string.str_eth_type), view -> onClickShowAccountDialog(ethAddress, nickName));
+                CommonAlertDialog.showDoubleButton(this, getString(R.string.str_address_type), "", getString(R.string.str_tender_type), view -> onClickShowAccountDialog(account.address, nickName), getString(R.string.str_eth_type), view -> onClickShowAccountDialog(ethAddress, nickName));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -313,7 +314,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onStartSendMainDenom() {
         if (mAccount == null) return;
-        if (!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
             onInsertKeyDialog();
             return;
         }
@@ -382,40 +383,36 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             try {
                 final Bitmap mBitmap = WUtil.toBitmap(qrCodeWriter.encode(address, BarcodeFormat.QR_CODE, 480, 480));
-                new TedPermission(this)
-                        .setPermissionListener(new PermissionListener() {
-                            @Override
-                            public void onPermissionGranted() {
-                                try {
-                                    ContentValues values = new ContentValues();
-                                    values.put(MediaStore.Images.Media.TITLE, address);
-                                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                                    Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                                    OutputStream outstream = getContentResolver().openOutputStream(uri);
-                                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
-                                    outstream.close();
+                new TedPermission(this).setPermissionListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        try {
+                            ContentValues values = new ContentValues();
+                            values.put(MediaStore.Images.Media.TITLE, address);
+                            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                            Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                            OutputStream outstream = getContentResolver().openOutputStream(uri);
+                            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                            outstream.close();
 
-                                    Intent shareIntent = new Intent();
-                                    shareIntent.setAction(Intent.ACTION_SEND);
-                                    shareIntent.putExtra(Intent.EXTRA_TEXT, address);
-                                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                                    shareIntent.setType("image/jpeg");
-                                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    startActivity(Intent.createChooser(shareIntent, "send"));
+                            Intent shareIntent = new Intent();
+                            shareIntent.setAction(Intent.ACTION_SEND);
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, address);
+                            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                            shareIntent.setType("image/jpeg");
+                            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivity(Intent.createChooser(shareIntent, "send"));
 
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                            @Override
-                            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                                Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .setRationaleMessage(getString(R.string.str_permission_qr))
-                        .check();
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                        Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
+                    }
+                }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(getString(R.string.str_permission_qr)).check();
 
             } catch (WriterException e) {
                 e.printStackTrace();
@@ -424,9 +421,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     public void onShareType(String address) {
-        FilledVerticalButtonAlertDialog.showDoubleButton(this, null, null,
-                getString(R.string.str_with_qr), view -> onShare(false, address), null,
-                getString(R.string.str_with_text), view -> onShare(true, address), null);
+        FilledVerticalButtonAlertDialog.showDoubleButton(this, null, null, getString(R.string.str_with_qr), view -> onShare(false, address), null, getString(R.string.str_with_text), view -> onShare(true, address), null);
     }
 
     public void onDeleteAccount(Account account) {
@@ -491,15 +486,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
     }
 
-    public ECKey getEcKey(Account account) {
-        if (account.fromMnemonic) {
-            String entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + account.uuid, account.resource, account.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(account, entropy);
-            return ECKey.fromPrivate(new BigInteger(deterministicKey.getPrivateKeyAsHex(), 16));
-        } else {
-            String privateKey = CryptoHelper.doDecryptData(getString(R.string.key_private) + account.uuid, account.resource, account.spec);
-            return ECKey.fromPrivate(new BigInteger(privateKey, 16));
-        }
+    public void onCommonIntentTx(Context context, TaskResult result) {
+        Intent txIntent = new Intent(context, TxDetailgRPCActivity.class);
+        txIntent.putExtra("isGen", true);
+        txIntent.putExtra("isSuccess", result.isSuccess);
+        txIntent.putExtra("errorCode", result.errorCode);
+        txIntent.putExtra("errorMsg", result.errorMsg);
+        String hash = String.valueOf(result.resultData);
+        if (!TextUtils.isEmpty(hash)) txIntent.putExtra("txHash", hash);
+        startActivity(txIntent);
     }
 
     public void onFetchAccountInfo(FetchCallBack callback) {
@@ -555,7 +550,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         getBaseDao().mGrpcStarNameFee = null;
         getBaseDao().mGrpcStarNameConfig = null;
-        mIcnsName = "";
+        mNameServices.clear();
 
 
         if (mBaseChain.equals(BNB_MAIN)) {
@@ -733,6 +728,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 new MintscanErc20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanUtilityParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new OsmosisCheckIcnsGrpcTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//                new StargazeCheckNSGrpcTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_AUTH) {
@@ -851,7 +847,18 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_ICNS) {
             if (result.isSuccess && result.resultData != null) {
-                mIcnsName = (String) result.resultData;
+                String icnsName = (String) result.resultData;
+                if (!TextUtils.isEmpty(icnsName)) {
+                    mNameServices.add(new NameService(NameService.NameServiceType.ICNS, icnsName, mAccount.address));
+                }
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_STARGAZE_NS) {
+            if (result.isSuccess && result.resultData != null) {
+                String icnsName = (String) result.resultData;
+                if (!TextUtils.isEmpty(icnsName)) {
+                    mNameServices.add(new NameService(NameService.NameServiceType.STARGAZE, icnsName, mAccount.address));
+                }
             }
         }
 
@@ -887,14 +894,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         snapBalance.add(new Balance(mAccount.id, coin.denom, coin.amount, Calendar.getInstance().getTime().getTime(), "0", "0"));
                     }
                     getBaseDao().onUpdateBalances(mAccount.id, snapBalance);
-                }
-
-                if (!mIcnsName.isEmpty()) {
-                    if (mAccount.nickName == null || !mAccount.nickName.equals(mIcnsName)) {
-                        mAccount.nickName = mIcnsName;
-                        getBaseDao().onUpdateAccount(mAccount);
-                        Toast.makeText(this, getString(R.string.str_icns_update_nickname_msg), Toast.LENGTH_SHORT).show();
-                    }
                 }
 
             } else if (mBaseChain.equals(BNB_MAIN)) {
@@ -965,15 +964,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public void onShowBuyWarnNoKey() {
-        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg),
-                getString(R.string.str_continue), view -> onShowCryptoPay(), getString(R.string.str_cancel), null);
+        CommonAlertDialog.showDoubleButton(this, getString(R.string.str_only_observe_title), getString(R.string.str_buy_without_key_msg), getString(R.string.str_continue), view -> onShowCryptoPay(), getString(R.string.str_cancel), null);
     }
 
     public void onShowCryptoPay() {
         if (mChainConfig.moonPaySupport() && mChainConfig.kadoMoneySupport()) {
-            FilledVerticalButtonAlertDialog.showDoubleButton(this, "", "",
-                    getString(R.string.str_moonPay), view -> onStartMoonPaySignature(), null,
-                    getString(R.string.str_kadoMoney), view -> onShowBuyKado(), null);
+            FilledVerticalButtonAlertDialog.showDoubleButton(this, "", "", getString(R.string.str_moonPay), view -> onStartMoonPaySignature(), null, getString(R.string.str_kadoMoney), view -> onShowBuyKado(), null);
         } else {
             if (mChainConfig.moonPaySupport()) {
                 onStartMoonPaySignature();

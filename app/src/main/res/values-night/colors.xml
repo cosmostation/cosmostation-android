@@ -49,7 +49,6 @@
     <color name="colorTransBgEvmos">#3b130d</color>
     <color name="colorTransBgCudos">#0a363f</color>
     <color name="colorTransBgProvenance">#182339</color>
-    <color name="colorTransBgCerberus">#362b06</color>
     <color name="colorTransBgOmniflix">#1b1940</color>
     <color name="colorTransBgCrescent">#3a2a16</color>
     <color name="colorTransBgAssetmantle">#382c0f</color>
@@ -65,6 +64,9 @@
     <color name="colorTransBgXpla">#00293b</color>
     <color name="colorTransBgOnomy">#232535</color>
     <color name="colorTransBgQuicksilver">#333135</color>
+    <color name="colorTransBgMars">#330E0B</color>
+    <color name="colorTransBgCanto">#032919</color>
+
 
     <color name="colorWhiteDayNight">#000000</color>
     <color name="colorWhite2DayNight">#232428</color>

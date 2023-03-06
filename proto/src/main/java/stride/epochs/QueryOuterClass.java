@@ -3942,7 +3942,7 @@ public final class QueryOuterClass {
       "pochs.QueryEpochInfoRequest\032%.stride.epo" +
       "chs.QueryEpochInfoResponse\",\202\323\344\223\002&\022$/Str" +
       "idelabs/stride/epochs/epoch_infoB1Z/gith" +
-      "ub.com/Stride-Labs/stride/v3/x/epochs/ty" +
+      "ub.com/Stride-Labs/stride/v5/x/epochs/ty" +
       "pesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

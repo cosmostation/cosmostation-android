@@ -45,7 +45,7 @@ public class Dialog_Wc_Account extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.layout_trans_with_border);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_template_recycler, null);
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mDialogTitle.setText(R.string.str_select_account);
         mRecyclerView = view.findViewById(R.id.recycler);
@@ -54,8 +54,11 @@ public class Dialog_Wc_Account extends DialogFragment {
         mRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
         mRecyclerView.setAdapter(mAccountListAdapter);
-        getDialog().setOnDismissListener(dialogInterface -> mOnSelectListener.onCancel());
-
+        getDialog().setOnDismissListener(dialogInterface -> {
+            if (mOnSelectListener != null) {
+                mOnSelectListener.onCancel();
+            }
+        });
         return view;
     }
 

@@ -1079,7 +1079,7 @@ public final class Genesis {
       "ide.mint.v1beta1.ParamsB\004\310\336\037\000\022C\n\027reducti" +
       "on_started_epoch\030\003 \001(\003B\"\362\336\037\036yaml:\"reduct" +
       "ion_started_epoch\"B/Z-github.com/Stride-" +
-      "Labs/stride/v3/x/mint/typesb\006proto3"
+      "Labs/stride/v5/x/mint/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

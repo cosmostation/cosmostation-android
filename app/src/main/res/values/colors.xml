@@ -49,7 +49,6 @@
     <color name="colorTransBgEvmos">#fef1ef</color>
     <color name="colorTransBgCudos">#edf6f8</color>
     <color name="colorTransBgProvenance">#eef3fc</color>
-    <color name="colorTransBgCerberus">#faf5e3</color>
     <color name="colorTransBgOmniflix">#f1f0ff</color>
     <color name="colorTransBgCrescent">#fbf2e9</color>
     <color name="colorTransBgAssetmantle">#fef8e8</color>
@@ -65,6 +64,8 @@
     <color name="colorTransBgXpla">#ebf9ff</color>
     <color name="colorTransBgOnomy">#eeeff9</color>
     <color name="colorTransBgQuicksilver">#eaebef</color>
+    <color name="colorTransBgMars">#F6DFDD</color>
+    <color name="colorTransBgCanto">#E6F9F1</color>
 
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -181,8 +182,6 @@
 
     <color name="color_provenance">#628ee4</color>
 
-    <color name="color_cerberus">#d7ad17</color>
-
     <color name="color_omniflix">#6c63ff</color>
 
     <color name="color_crescent">#f4bc76</color>
@@ -215,6 +214,10 @@
     <color name="color_onomy">#8c94d3</color>
 
     <color name="color_quicksilver">#9b9b9b</color>
+
+    <color name="color_mars">#DA3A14</color>
+
+    <color name="color_canto">#00DC80</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

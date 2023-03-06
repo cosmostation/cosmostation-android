@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
+import static ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest;
+import static ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateResponse;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import android.app.Activity;
@@ -15,17 +18,23 @@ import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
 
 import java.util.ArrayList;
 
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import ibc.core.channel.v1.QueryGrpc;
+import ibc.lightclients.tendermint.v1.Tendermint;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
@@ -35,14 +44,18 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
+import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.dao.Asset;
+import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.common.SendStep4Fragment;
+import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -51,6 +64,8 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Cw20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.Erc20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.IBCTransferGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SendGrpcTask;
+import wannabit.io.cosmostaion.utils.LedgerManager;
+import wannabit.io.cosmostaion.utils.WKey;
 
 public class SendActivity extends BaseBroadCastActivity {
 
@@ -172,7 +187,9 @@ public class SendActivity extends BaseBroadCastActivity {
     }
 
     public void onStartSend() {
-        if (getBaseDao().isAutoPass()) {
+        if (mAccount.isLedger()) {
+            onSendByLedger();
+        } else if (getBaseDao().isAutoPass()) {
             onBroadCastSendTx();
         } else {
             Intent intent = new Intent(this, PasswordCheckActivity.class);
@@ -182,7 +199,9 @@ public class SendActivity extends BaseBroadCastActivity {
     }
 
     public void onStartIbcSend() {
-        if (getBaseDao().isAutoPass()) {
+        if (mAccount.isLedger()) {
+            onIbcTransferByLedger();
+        } else if (getBaseDao().isAutoPass()) {
             onBroadCastIbcSendTx();
         } else {
             Intent intent = new Intent(this, PasswordCheckActivity.class);
@@ -211,7 +230,7 @@ public class SendActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void  onStartEVMSend() {
+    public void onStartEVMSend() {
         if (getBaseDao().isAutoPass()) {
             onBroadCastEvmSendsTx();
         } else {
@@ -288,6 +307,66 @@ public class SendActivity extends BaseBroadCastActivity {
         }
     }
 
+    private void onSendByLedger() {
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(SendActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                ArrayList<Msg> txMsgs = new ArrayList<>();
+                Msg singleSendMsg = MsgGenerator.genTransferMsg(mAccount.address, mToAddress, mAmounts, getChain(mAccount.baseChain));
+                txMsgs.add(singleSendMsg);
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, txMsgs, mTxFee, mTxMemo);
+            }
+
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                return Signer.getGrpcLedgerSendReq(WKey.onAuthResponse(mBaseChain, mAccount), mToAddress, mAmounts, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
+
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onIntentTx(mResult);
+            }
+        }));
+    }
+
+    private void onIbcTransferByLedger() {
+        runOnUiThread(() -> LedgerManager.getInstance().signAndBroadcast(SendActivity.this, mAccount, new LedgerManager.LedgerSignListener() {
+            @NonNull
+            @Override
+            public String getMessage() {
+                QueryGrpc.QueryBlockingStub txService = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
+                QueryChannelClientStateRequest req = QueryChannelClientStateRequest.newBuilder().setChannelId(mAssetPath.channel).setPortId(mAssetPath.port).build();
+                QueryChannelClientStateResponse res = txService.channelClientState(req);
+                Tendermint.ClientState value = null;
+                try {
+                    value = Tendermint.ClientState.parseFrom(res.getIdentifiedClientState().getClientState().getValue());
+                } catch (InvalidProtocolBufferException e) { }
+                ArrayList<Msg> ibcTransferMsgs = MsgGenerator.genIbcTransferMsgs(mAccount.address, mToAddress, mAmounts.get(0), mAssetPath, value.getLatestHeight());
+                return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, ibcTransferMsgs, mTxFee, mTxMemo);
+            }
+
+            @NonNull
+            @Override
+            public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
+                QueryGrpc.QueryBlockingStub txService = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
+                QueryChannelClientStateRequest req = QueryChannelClientStateRequest.newBuilder().setChannelId(mAssetPath.channel).setPortId(mAssetPath.port).build();
+                QueryChannelClientStateResponse res = txService.channelClientState(req);
+                Tendermint.ClientState value = null;
+                try {
+                    value = Tendermint.ClientState.parseFrom(res.getIdentifiedClientState().getClientState().getValue());
+                } catch (InvalidProtocolBufferException e) { }
+                return Signer.getGrpcLedgerIbcTransferSimulReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, value.getLatestHeight(), mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+            }
+
+            @Override
+            public void processResponse(@NonNull TaskResult mResult, @NonNull ServiceOuterClass.BroadcastTxResponse response) {
+                onIntentTx(mResult);
+            }
+        }));
+    }
+
     private void onIntentTx(TaskResult result) {
         Intent txIntent;
         if (isGRPC(mBaseChain) || mTxType == BaseConstant.CONST_PW_TX_EVM_TRANSFER) {
@@ -301,7 +380,8 @@ public class SendActivity extends BaseBroadCastActivity {
         txIntent.putExtra("errorMsg", result.errorMsg);
         String hash = String.valueOf(result.resultData);
         if (!TextUtils.isEmpty(hash)) {
-            if (mTxType == BaseConstant.CONST_PW_TX_EVM_TRANSFER) txIntent.putExtra("ethTxHash", hash);
+            if (mTxType == BaseConstant.CONST_PW_TX_EVM_TRANSFER)
+                txIntent.putExtra("ethTxHash", hash);
             else txIntent.putExtra("txHash", hash);
         }
         startActivity(txIntent);

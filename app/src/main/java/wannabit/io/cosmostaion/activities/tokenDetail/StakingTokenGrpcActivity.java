@@ -128,7 +128,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
             onClickQrCopy(mChainConfig, mAccount);
 
         } else if (v.equals(mBtnSend)) {
-            if (!mAccount.hasPrivateKey) {
+            if (!mAccount.hasPrivateKey && !mAccount.isLedger()) {
                 onInsertKeyDialog();
                 return;
             }

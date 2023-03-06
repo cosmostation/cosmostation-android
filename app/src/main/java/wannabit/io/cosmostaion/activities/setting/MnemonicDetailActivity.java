@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.MWords;
-import wannabit.io.cosmostaion.dialog.ChangeNickNameDialog;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
+import wannabit.io.cosmostaion.dialog.NickNameSetDialog;
 import wannabit.io.cosmostaion.utils.PushManager;
 
 public class MnemonicDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -133,12 +133,11 @@ public class MnemonicDetailActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         if (v.equals(mBtnEditNick) && !this.isFinishing()) {
             Bundle bundle = new Bundle();
-            bundle.putInt("title", R.string.str_change_mnemonic_nickname);
             bundle.putLong("id", mWords.id);
-            bundle.putString("name", mWords.getName());
-            ChangeNickNameDialog deleteDialog = ChangeNickNameDialog.newInstance(bundle);
-            deleteDialog.setCancelable(false);
-            deleteDialog.show(getSupportFragmentManager(), "dialog");
+            bundle.putInt(NickNameSetDialog.CHANGE_NICK_NAME_BUNDLE_KEY, NickNameSetDialog.MNEMONIC_CHANGE_NICKNAME);
+            NickNameSetDialog dialog = NickNameSetDialog.newInstance(bundle);
+            dialog.setNickNameListener(this::onChangeNickName);
+            dialog.show(getSupportFragmentManager(), "dialog");
 
         } else if (v.equals(mBtnDisplay)) {
             mIsDisplay = !mIsDisplay;

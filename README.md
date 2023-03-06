@@ -7,15 +7,15 @@
 <h1 align="center">Cosmostation Mobile Wallet</h1>
 <h3 align="center">Welcome to Cosmostation's Open Source Mobile Apps!</h3>
 
-[![MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/cosmostation/cosmosjs/blob/master/LICENSE)
+[![MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/cosmostation/cosmostation-android/blob/master/LICENSE.md)
 [![Twitter Follow](https://img.shields.io/twitter/follow/CosmostationVD.svg?label=Follow&style=social)](https://twitter.com/CosmostationVD)
 
 *:rocket: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
 ## About
 
-Cosmostation wallet apps are non-custodial tendermint-based wallet that supports [Cosmos Network](https://https://cosmos.network/). 
-We will add more tendermint-based blockchain projects in the coming updates, such as [IRISnet](https://www.irisnet.org/), [Starname](https://www.starname.me/), [Kava](https://kava.io/), [Binance](https://www.binance.org/), [OKEx](https://www.okex.com/), [Band Protocol](https://bandprotocol.com/), [Persistence](https://persistence.one/), [Certik](https://www.certik.io/), [Akash](https://akash.network/), [Sentinel Protocol](https://sentinel.co/), [Fetch AI](https://fetch.ai/), [Cryto.org](https://crypto.org/), [Sif Chain](https://sifchain.finance/), [Ki Chain](https://foundation.ki/), [Osmosis](https://osmosis.zone/), [Secret](https://scrt.network/),       
+Cosmostation wallet apps are non-custodial tendermint-based wallet that supports [COSMOS HUB](https://https://cosmos.network/). 
+We will add more tendermint-based blockchain projects in the coming updates, such as [AKASH](https://akash.network/), [ASSETMANTLE](https://assetmantle.one/), [AXELAR](https://axelar.network/), [BAND](https://bandprotocol.com/), [BINANCE](https://www.binance.org/), [BITCANNA](https://www.bitcanna.io/), [BITSONG](https://bitsong.io/), [CANTO](https://canto.io/), [CHIHUAHUA](https://chi.huahua.wtf/), [COMDEX](https://comdex.one/), [CRESCENT](https://crescent.network/), [CRYTO.ORG](https://crypto.org/), [CUDOS](https://www.cudos.org/), [DESMOS](https://www.desmos.network/), [EMONEY](https://www.e-money.com/), [EVMOS](https://evmos.org/), [FETCH.AI](https://fetch.ai/), [GRAVITYBRIDGE](https://www.gravitybridge.net/), [INJECTIVE](https://injectiveprotocol.com/), [IRIS](https://www.irisnet.org/), [IXO](https://www.ixo.world/), [JUNO](https://junochain.com/), [KAVA](https://www.kava.io/), [KI](https://foundation.ki/), [KONSTELLATION](https://konstellation.tech/), [KUJIRA](https://kujira.app/), [LIKECOIN](https://about.like.co/), [LUM](https://lum.network/), [MARS](https://marsprotocol.io/), [MEDIBLOC](https://medibloc.com/en/), [NYX](https://nymtech.net/), [OKC](https://www.okx.com/), [OMNIFLIX](https://www.omniflix.network/), [ONOMY](https://onomy.io/), [OSMOSIS](https://osmosis.zone/), [PASSAGE](https://passage3d.com/), [PERSISTENCE](https://persistence.one/), [PROVENANCE](https://www.provenance.io/), [QUICKSILVER](https://quicksilver.zone/), [REGEN](https://www.regen.network/), [RIZON](https://rizon.world/), [SECRET](https://scrt.network/), [SENTINEL](https://sentinel.co/), [SHENTU](https://www.certik.com/), [SIF](https://sifchain.finance/), [SOMMELIER](https://sommelier.finance/), [STARGAZE](https://stargaze.zone/), [STARNAME](https://www.starname.me/), [STRIDE](https://stride.zone/), [TERITORI](https://teritori.com/), [UMEE](https://www.umee.cc/), [XPLA](https://xpla.io/)
        
 
 

@@ -54,7 +54,6 @@ public class MnemonicListActivity extends BaseActivity implements View.OnClickLi
 
         mBtnImportMnemonic.setOnClickListener(this);
         mBtnCreateMnemonic.setOnClickListener(this);
-
     }
 
     @Override

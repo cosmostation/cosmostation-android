@@ -2125,7 +2125,7 @@ public final class QueryOuterClass {
       "visionsRequest\0321.stride.mint.v1beta1.Que" +
       "ryEpochProvisionsResponse\"&\202\323\344\223\002 \022\036/mint" +
       "/v1beta1/epoch_provisionsB/Z-github.com/" +
-      "Stride-Labs/stride/v3/x/mint/typesb\006prot" +
+      "Stride-Labs/stride/v5/x/mint/typesb\006prot" +
       "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor

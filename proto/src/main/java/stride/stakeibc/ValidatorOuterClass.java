@@ -699,10 +699,16 @@ public final class ValidatorOuterClass {
     long getCommissionRate();
 
     /**
-     * <code>uint64 delegation_amt = 5;</code>
+     * <code>string delegation_amt = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The delegationAmt.
      */
-    long getDelegationAmt();
+    java.lang.String getDelegationAmt();
+    /**
+     * <code>string delegation_amt = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for delegationAmt.
+     */
+    com.google.protobuf.ByteString
+        getDelegationAmtBytes();
 
     /**
      * <code>uint64 weight = 6;</code>
@@ -741,6 +747,7 @@ public final class ValidatorOuterClass {
       name_ = "";
       address_ = "";
       status_ = 0;
+      delegationAmt_ = "";
     }
 
     @java.lang.Override
@@ -796,9 +803,10 @@ public final class ValidatorOuterClass {
               commissionRate_ = input.readUInt64();
               break;
             }
-            case 40: {
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              delegationAmt_ = input.readUInt64();
+              delegationAmt_ = s;
               break;
             }
             case 48: {
@@ -1066,14 +1074,41 @@ public final class ValidatorOuterClass {
     }
 
     public static final int DELEGATION_AMT_FIELD_NUMBER = 5;
-    private long delegationAmt_;
+    private volatile java.lang.Object delegationAmt_;
     /**
-     * <code>uint64 delegation_amt = 5;</code>
+     * <code>string delegation_amt = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The delegationAmt.
      */
     @java.lang.Override
-    public long getDelegationAmt() {
-      return delegationAmt_;
+    public java.lang.String getDelegationAmt() {
+      java.lang.Object ref = delegationAmt_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        delegationAmt_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string delegation_amt = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+     * @return The bytes for delegationAmt.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDelegationAmtBytes() {
+      java.lang.Object ref = delegationAmt_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        delegationAmt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int WEIGHT_FIELD_NUMBER = 6;
@@ -1139,8 +1174,8 @@ public final class ValidatorOuterClass {
       if (commissionRate_ != 0L) {
         output.writeUInt64(4, commissionRate_);
       }
-      if (delegationAmt_ != 0L) {
-        output.writeUInt64(5, delegationAmt_);
+      if (!getDelegationAmtBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, delegationAmt_);
       }
       if (weight_ != 0L) {
         output.writeUInt64(6, weight_);
@@ -1171,9 +1206,8 @@ public final class ValidatorOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(4, commissionRate_);
       }
-      if (delegationAmt_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(5, delegationAmt_);
+      if (!getDelegationAmtBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, delegationAmt_);
       }
       if (weight_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
@@ -1205,8 +1239,8 @@ public final class ValidatorOuterClass {
       if (status_ != other.status_) return false;
       if (getCommissionRate()
           != other.getCommissionRate()) return false;
-      if (getDelegationAmt()
-          != other.getDelegationAmt()) return false;
+      if (!getDelegationAmt()
+          .equals(other.getDelegationAmt())) return false;
       if (getWeight()
           != other.getWeight()) return false;
       if (hasInternalExchangeRate() != other.hasInternalExchangeRate()) return false;
@@ -1235,8 +1269,7 @@ public final class ValidatorOuterClass {
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getCommissionRate());
       hash = (37 * hash) + DELEGATION_AMT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getDelegationAmt());
+      hash = (53 * hash) + getDelegationAmt().hashCode();
       hash = (37 * hash) + WEIGHT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getWeight());
@@ -1385,7 +1418,7 @@ public final class ValidatorOuterClass {
 
         commissionRate_ = 0L;
 
-        delegationAmt_ = 0L;
+        delegationAmt_ = "";
 
         weight_ = 0L;
 
@@ -1494,8 +1527,9 @@ public final class ValidatorOuterClass {
         if (other.getCommissionRate() != 0L) {
           setCommissionRate(other.getCommissionRate());
         }
-        if (other.getDelegationAmt() != 0L) {
-          setDelegationAmt(other.getDelegationAmt());
+        if (!other.getDelegationAmt().isEmpty()) {
+          delegationAmt_ = other.delegationAmt_;
+          onChanged();
         }
         if (other.getWeight() != 0L) {
           setWeight(other.getWeight());
@@ -1769,33 +1803,78 @@ public final class ValidatorOuterClass {
         return this;
       }
 
-      private long delegationAmt_ ;
+      private java.lang.Object delegationAmt_ = "";
       /**
-       * <code>uint64 delegation_amt = 5;</code>
+       * <code>string delegation_amt = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The delegationAmt.
        */
-      @java.lang.Override
-      public long getDelegationAmt() {
-        return delegationAmt_;
+      public java.lang.String getDelegationAmt() {
+        java.lang.Object ref = delegationAmt_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          delegationAmt_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint64 delegation_amt = 5;</code>
+       * <code>string delegation_amt = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @return The bytes for delegationAmt.
+       */
+      public com.google.protobuf.ByteString
+          getDelegationAmtBytes() {
+        java.lang.Object ref = delegationAmt_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          delegationAmt_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string delegation_amt = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @param value The delegationAmt to set.
        * @return This builder for chaining.
        */
-      public Builder setDelegationAmt(long value) {
-        
+      public Builder setDelegationAmt(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         delegationAmt_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint64 delegation_amt = 5;</code>
+       * <code>string delegation_amt = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearDelegationAmt() {
         
-        delegationAmt_ = 0L;
+        delegationAmt_ = getDefaultInstance().getDelegationAmt();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string delegation_amt = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
+       * @param value The bytes for delegationAmt to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDelegationAmtBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        delegationAmt_ = value;
         onChanged();
         return this;
       }
@@ -2027,16 +2106,17 @@ public final class ValidatorOuterClass {
       "eRate\022d\n\036internal_tokens_to_shares_rate\030" +
       "\001 \001(\tB<\322\264-\ncosmos.Dec\332\336\037&github.com/cosm" +
       "os/cosmos-sdk/types.Dec\310\336\037\000\022\024\n\014epoch_num" +
-      "ber\030\002 \001(\004\"\266\002\n\tValidator\022\014\n\004name\030\001 \001(\t\022)\n" +
+      "ber\030\002 \001(\004\"\346\002\n\tValidator\022\014\n\004name\030\001 \001(\t\022)\n" +
       "\007address\030\002 \001(\tB\030\322\264-\024cosmos.AddressString" +
       "\022:\n\006status\030\003 \001(\0162*.stride.stakeibc.Valid" +
       "ator.ValidatorStatus\022\027\n\017commission_rate\030" +
-      "\004 \001(\004\022\026\n\016delegation_amt\030\005 \001(\004\022\016\n\006weight\030" +
-      "\006 \001(\004\022F\n\026internal_exchange_rate\030\007 \001(\0132&." +
-      "stride.stakeibc.ValidatorExchangeRate\"+\n" +
-      "\017ValidatorStatus\022\n\n\006ACTIVE\020\000\022\014\n\010INACTIVE" +
-      "\020\001B3Z1github.com/Stride-Labs/stride/v3/x" +
-      "/stakeibc/typesb\006proto3"
+      "\004 \001(\004\022F\n\016delegation_amt\030\005 \001(\tB.\332\336\037&githu" +
+      "b.com/cosmos/cosmos-sdk/types.Int\310\336\037\000\022\016\n" +
+      "\006weight\030\006 \001(\004\022F\n\026internal_exchange_rate\030" +
+      "\007 \001(\0132&.stride.stakeibc.ValidatorExchang" +
+      "eRate\"+\n\017ValidatorStatus\022\n\n\006ACTIVE\020\000\022\014\n\010" +
+      "INACTIVE\020\001B3Z1github.com/Stride-Labs/str" +
+      "ide/v5/x/stakeibc/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

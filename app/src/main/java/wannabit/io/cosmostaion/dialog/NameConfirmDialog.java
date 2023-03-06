@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.dialog;
 
+import static wannabit.io.cosmostaion.dao.NameService.NameServiceType;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,20 +20,23 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.NameService;
 
 public class NameConfirmDialog extends DialogFragment {
 
-    public final static String NAME_BUNDLE_KEY = "name";
-    public final static String MATCH_ADDRESS_BUNDLE_KEY = "matchAddress";
+    public final static int SELECT_NAME_SERVICE_NAME = 8500;
+
+    public final static String SELECT_NAME_SERVICE_BUNDLE_KEY = "nameserviceType";
+    public final static String MATCH_NAME_SERVICE_BUNDLE_KEY = "nameservice";
 
     public final static String CONFIRM_BUNDLE_KEY = "confirm";
 
     private RecyclerView mRecyclerView;
     private TextView mDialogTitle;
     private AccountListAdapter mAccountListAdapter;
-
-    private String mNameService;
-    private ArrayList<String> mMatchAddressList = new ArrayList<>();
+    
+    private int mKeyValue;
+    private ArrayList<NameService> mNameServices = new ArrayList<>();
 
     public static NameConfirmDialog newInstance(Bundle bundle) {
         NameConfirmDialog frag = new NameConfirmDialog();
@@ -42,14 +47,18 @@ public class NameConfirmDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawableResource(R.color.colorTrans);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_template_recycler, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_template_recycler, null);
         mDialogTitle = view.findViewById(R.id.dialog_title);
         mRecyclerView = view.findViewById(R.id.recycler);
 
-        mNameService = getArguments().getString(NameConfirmDialog.NAME_BUNDLE_KEY);
-        mMatchAddressList = (ArrayList<String>) getArguments().getSerializable(NameConfirmDialog.MATCH_ADDRESS_BUNDLE_KEY);
+        mKeyValue = getArguments().getInt(SELECT_NAME_SERVICE_BUNDLE_KEY);
+        mNameServices = (ArrayList<NameService>) getArguments().getSerializable(MATCH_NAME_SERVICE_BUNDLE_KEY);
 
-        mDialogTitle.setText(mNameService);
+        if (mKeyValue == SELECT_NAME_SERVICE_NAME) {
+            mDialogTitle.setText(getString(R.string.str_icns_confirm_title));
+        } else {
+            mDialogTitle.setText(mNameServices.get(0).name);
+        }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -72,13 +81,24 @@ public class NameConfirmDialog extends DialogFragment {
         }
 
         public void onBindReceiveAccountItemViewHolder(AccountListAdapter.AccountHolder holder, int position) {
-            final String matchAddress = mMatchAddressList.get(position);
-            if (mNameService.contains("*")) {
+            final NameService nameService = mNameServices.get(position);
+            if (nameService.name.contains("*")) {
                 holder.icnsImg.setImageResource(R.drawable.icon_iov_icns);
-                holder.icnsAddress.setText(matchAddress);
+                holder.icnsAddress.setText(nameService.address);
             } else {
-                holder.icnsImg.setImageResource(R.drawable.icon_icns);
-                holder.icnsAddress.setText(matchAddress);
+                if (nameService.type.equals(NameServiceType.ICNS)) {
+                    holder.icnsImg.setImageResource(R.drawable.icon_icns);
+                } else if (nameService.type.equals(NameServiceType.STARGAZE)) {
+                    holder.icnsImg.setImageResource(R.drawable.icon_stargaze_ns);
+                } else {
+                    holder.icnsImg.setImageResource(R.drawable.icon_ns);
+                }
+
+                if (mKeyValue == SELECT_NAME_SERVICE_NAME) {
+                    holder.icnsAddress.setText(nameService.name);
+                } else {
+                    holder.icnsAddress.setText(nameService.address);
+                }
             }
 
             holder.rootLayer.setOnClickListener(v -> {
@@ -91,7 +111,7 @@ public class NameConfirmDialog extends DialogFragment {
 
         @Override
         public int getItemCount() {
-            return mMatchAddressList.size();
+            return mNameServices.size();
         }
 
         public class AccountHolder extends RecyclerView.ViewHolder {

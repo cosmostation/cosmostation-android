@@ -24,10 +24,9 @@ public class SimulOsmosisSwaplnGrpcTask extends CommonTask {
     private Coin                    mInputCoin, mOutputcoin;
     private String                  mMemo;
     private Fee                     mFees;
-    private String                  mChainId;
 
     public SimulOsmosisSwaplnGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, Tx.SwapAmountInRoute mSwapInRoute,
-                                      Coin inputCoin, Coin outputCoin, String memo, Fee fee, String chainId) {
+                                      Coin inputCoin, Coin outputCoin, String memo, Fee fee) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -36,14 +35,13 @@ public class SimulOsmosisSwaplnGrpcTask extends CommonTask {
         this.mOutputcoin = outputCoin;
         this.mMemo = memo;
         this.mFees = fee;
-        this.mChainId = chainId;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcSwapInSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSwapInRoute, mInputCoin, mOutputcoin.amount, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcSwapInSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSwapInRoute, mInputCoin, mOutputcoin.amount, mFees, mMemo);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;

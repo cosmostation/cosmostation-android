@@ -752,12 +752,6 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
-    <style name="font_ss_14_cerberus" parent="@android:style/TextAppearance">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">@color/color_cerberus</item>
-        <item name="android:textSize">@dimen/text_size_14</item>
-    </style>
-
     <style name="font_ss_14_omniflix" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/color_omniflix</item>

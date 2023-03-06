@@ -6,6 +6,10 @@ import wannabit.io.cosmostaion.base.BaseChain;
 
 public class ChainFactory {
 
+    public static ChainConfig getChain(String baseChainName) {
+        return getChain(BaseChain.getChain(baseChainName));
+    }
+
     public static ChainConfig getChain(BaseChain baseChain) {
         if (baseChain != null) {
             switch (baseChain) {
@@ -47,8 +51,8 @@ public class ChainFactory {
                 case BITSONG_MAIN:
                     return new Bitsong();
 
-                case CERBERUS_MAIN:
-                    return new Cerberus();
+                case CANTO_MAIN:
+                    return new Canto();
 
                 case CERTIK_LEGACY1:
                 case CERTIK_LEGACY2:
@@ -117,6 +121,9 @@ public class ChainFactory {
 
                 case LUM_MAIN:
                     return new Lum();
+
+                case MARS_MAIN:
+                    return new Mars();
 
                 case MEDI_MAIN:
                     return new Medibloc();

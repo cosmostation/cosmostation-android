@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import org.bitcoinj.core.ECKey;
@@ -38,17 +37,24 @@ import org.web3j.crypto.Sign;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 import java.util.TreeMap;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.distribution.v1beta1.Distribution;
+import ibc.core.client.v1.Client;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -88,6 +94,164 @@ public class MsgGenerator {
             result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
             result.value = value;
         }
+        return result;
+    }
+
+    public static ArrayList<Msg> genDelegateMsgs(String fromAddr, String toValAddr, Coin amount) {
+        ArrayList<Msg> result = new ArrayList<>();
+        Msg msg  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.delegator_address = fromAddr;
+        value.validator_address = toValAddr;
+        value.amount = amount;
+
+        msg.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+        msg.value = value;
+        result.add(msg);
+        return result;
+    }
+
+    public static ArrayList<Msg> genUndelegateMsgs(String requestAddr, String fromValAddr, Coin amount) {
+        ArrayList<Msg> result = new ArrayList<>();
+        Msg msg  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.delegator_address = requestAddr;
+        value.validator_address = fromValAddr;
+        value.amount = amount;
+
+        msg.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE;
+        msg.value = value;
+        result.add(msg);
+        return result;
+    }
+
+    public static ArrayList<Msg> genReDelegateMsgs(String accountAddr, String fromValAddr, String toValAddr, Coin amount) {
+        ArrayList<Msg> result = new ArrayList<>();
+        Msg msg  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.delegator_address = accountAddr;
+        value.validator_src_address = fromValAddr;
+        value.validator_dst_address = toValAddr;
+        value.amount = amount;
+
+        msg.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE;
+        msg.value = value;
+        result.add(msg);
+        return result;
+    }
+
+    public static ArrayList<Msg> genWithdrawDeleMsgs(String requestAddr, ArrayList<String> fromValAddresses) {
+        ArrayList<Msg> result = new ArrayList<>();
+        for (String valAddress : fromValAddresses) {
+            Msg msg  = new Msg();
+            Msg.Value value = new Msg.Value();
+            value.delegator_address = requestAddr;
+            value.validator_address = valAddress;
+
+            msg.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
+            msg.value = value;
+            result.add(msg);
+        }
+        return result;
+    }
+
+    public static ArrayList<Msg> genCompoundingMsgs(String requestAddr, ArrayList<Distribution.DelegationDelegatorReward> rewards, ChainConfig chainConfig) {
+        ArrayList<Msg> result = new ArrayList<>();
+        for (Distribution.DelegationDelegatorReward reward : rewards) {
+            Msg withdrawMsg = new Msg();
+            Msg.Value withdrawValue = new Msg.Value();
+            withdrawValue.delegator_address = requestAddr;
+            withdrawValue.validator_address = reward.getValidatorAddress();
+
+            withdrawMsg.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
+            withdrawMsg.value = withdrawValue;
+            result.add(withdrawMsg);
+
+            Msg delegateMsg = new Msg();
+            Msg.Value delegateValue = new Msg.Value();
+            Coin rewardCoin = null;
+            for (CoinOuterClass.DecCoin coin : reward.getRewardList()) {
+                if (coin.getDenom().equalsIgnoreCase(chainConfig.mainDenom())) {
+                    rewardCoin = new Coin(coin.getDenom(), new BigDecimal(coin.getAmount()).movePointLeft(18).setScale(0, RoundingMode.UP).toPlainString());
+                }
+            }
+            delegateValue.delegator_address = requestAddr;
+            delegateValue.validator_address = reward.getValidatorAddress();
+            delegateValue.amount = rewardCoin;
+
+            delegateMsg.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+            delegateMsg.value = delegateValue;
+            result.add(delegateMsg);
+        }
+        return result;
+    }
+
+    public static ArrayList<Msg> genRewardAddressChanges(String requestAddr, String newRewardAddr) {
+        ArrayList<Msg> result = new ArrayList<>();
+        Msg msg  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.delegator_address = requestAddr;
+        value.withdraw_address = newRewardAddr;
+
+        msg.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MODIFY;
+        msg.value = value;
+        result.add(msg);
+        return result;
+    }
+
+    public static ArrayList<Msg> genVoteMsgs(String accountAddr, Map<Integer, String> opinionMap) {
+        ArrayList<Msg> result = new ArrayList<>();
+        opinionMap.forEach((id, opinion) -> {
+            Msg msg = new Msg();
+            Msg.Value value = new Msg.Value();
+            value.proposal_id = String.valueOf(id);
+            int option;
+            if (opinion.equalsIgnoreCase("VOTE_OPTION_YES")) option = 1;
+            else if (opinion.contains("VOTE_OPTION_ABSTAIN")) option = 2;
+            else if (opinion.contains("VOTE_OPTION_NO")) option = 3;
+            else option = 4;
+            value.option = option;
+            value.voter = accountAddr;
+
+            msg.value = value;
+            msg.type = BaseConstant.COSMOS_MSG_TYPE_VOTE;
+
+            result.add(msg);
+        });
+        return result;
+    }
+
+    public static ArrayList<Msg> genIbcTransferMsgs(String sender, String receiver, Coin amount, AssetPath assetPath, Client.Height lastHeight) {
+        ArrayList<Msg> result = new ArrayList<>();
+        Msg msg  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.receiver = receiver;
+        value.sender = sender;
+        value.source_channel = assetPath.channel;
+        value.source_port = assetPath.port;
+        value.token = amount;
+        value.time_height = new Msg.TimeoutHeight(String.valueOf(lastHeight.getRevisionHeight() + 1000), String.valueOf(lastHeight.getRevisionNumber()));
+
+        msg.type = BaseConstant.COSMOS_MSG_TYPE_IBC_TRANSFER;
+        msg.value = value;
+        result.add(msg);
+        return result;
+    }
+
+    public static ArrayList<Msg> genSwapMsgs(String sender, String poolId, Coin swapInCoin, Coin swapOutCoin) {
+        ArrayList<Msg> result = new ArrayList<>();
+        Msg msg  = new Msg();
+        Msg.Value value = new Msg.Value();
+        Msg.Route route = new Msg.Route(poolId, swapOutCoin.denom);
+        value.routes = new ArrayList<>();
+        value.routes.add(route);
+        value.sender = sender;
+        value.token_in = swapInCoin;
+        value.token_out_min_amount = swapOutCoin.amount;
+
+        msg.type = BaseConstant.OSMOSIS_MSG_TYPE_SWAP;
+        msg.value = value;
+        result.add(msg);
         return result;
     }
 

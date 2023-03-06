@@ -814,7 +814,7 @@ public final class EpochTrackerOuterClass {
       "identifier\030\001 \001(\t\022\024\n\014epoch_number\030\002 \001(\004\022\035" +
       "\n\025next_epoch_start_time\030\003 \001(\004\022\020\n\010duratio" +
       "n\030\004 \001(\004B3Z1github.com/Stride-Labs/stride" +
-      "/v3/x/stakeibc/typesb\006proto3"
+      "/v5/x/stakeibc/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -136,7 +136,7 @@
                         style="@style/font_rr_12_black_daynight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cosmostation" />
+                        android:text="-" />
                 </LinearLayout>
 
                 <TextView
@@ -152,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_8"
-                    android:text="18-12-34 18:11:23 (D-13)" />
+                    android:text="-" />
 
                 <TextView
                     style="@style/font_rr_12_gray1"
@@ -169,7 +169,7 @@
                     android:layout_marginTop="@dimen/space_8"
                     android:ellipsize="end"
                     android:lines="2"
-                    android:text="java.util.concurrent.ExecutionException: com.android.builder.internal.aapt.v2.Aapt2Exception: Android resource compilation failed" />
+                    android:text="-" />
             </LinearLayout>
 
         </LinearLayout>

@@ -28,7 +28,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <Button
-        android:id="@+id/btn_action"
+        android:id="@+id/btn_vote"
         style="@style/font_rr_14_photon_daynight"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_45"
@@ -47,7 +47,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_action"
+        android:layout_above="@+id/btn_vote"
         android:layout_below="@+id/tool_bar"
         android:paddingBottom="@dimen/space_4">
 
