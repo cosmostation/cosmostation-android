@@ -8,11 +8,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import stride.stakeibc.EpochTrackerOuterClass;
 import stride.stakeibc.HostZoneOuterClass;
@@ -20,6 +22,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.liquidstaking.StrideLSActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
+import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -104,7 +108,12 @@ public class StrideLSFragment extends BaseFragment implements View.OnClickListen
             });
         
         } else if (v.equals(mBtnStartStake)) {
-            getSActivity().onStartStake(mHostZones.get(mSelectedPosition), mAvailableMaxAmount);
+            Optional<ChainConfig> configOptional = ChainFactory.SUPPRT_CONFIG().stream().filter(item -> item.mainDenom().equalsIgnoreCase(mHostZones.get(mSelectedPosition).getHostDenom())).findFirst();
+            if (configOptional.isPresent()) {
+                getSActivity().onStartStake(mHostZones.get(mSelectedPosition), mAvailableMaxAmount);
+            } else {
+                Toast.makeText(getContext(), getString(R.string.error_not_support_cosmostation), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
