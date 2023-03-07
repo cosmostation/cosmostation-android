@@ -257,6 +257,7 @@
     <string name="str_front_guide_msg_evmos"><![CDATA[EVM(イーサリアム仮想マシン)互換可能な (イーサリアム仮想マシン) Cosmos SDKベースのブロックチェーン。]]></string>
     <string name="str_front_guide_msg_cudos"><![CDATA[Cudos は分散された高効率クラウドコンピューティング ネットワークのため設計された、テンダーミントベースのブロックチェーンです。]]></string>
     <string name="str_front_guide_msg_provenance"><![CDATA[金融サービス業界のブロックチェーン技術導入のため設計された、テンダーミントベースのブロックチェーンです。]]></string>
+    <string name="str_front_guide_msg_cerberus"><![CDATA[地獄の見張人ケルベロスをモチーブにして作られたコスモス生態系ミームコインです。]]></string>
     <string name="str_front_guide_msg_omniflix"><![CDATA[NFTクリエイターやコミュニティに脱中央化されたミディアプラットフォームを提供するブロックチェーンプロジェクト。]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[$CREトークンとインター-ブロックチェーン通信技術を活用した、テンダーミントベースの ディファイブ・ハブ。]]></string>
     <string name="str_front_guide_msg_assetmantle"><![CDATA[AssetMantleは Persistence生態系内のNFT創作者と収集家の両方のために構築されたNFTマーケットプレイス及びプラットフォームです。]]></string>
