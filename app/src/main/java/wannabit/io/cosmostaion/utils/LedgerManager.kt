@@ -24,6 +24,7 @@ import com.ledger.live.ble.model.BleError
 import cosmos.tx.v1beta1.ServiceOuterClass.BroadcastTxRequest
 import cosmos.tx.v1beta1.ServiceOuterClass.BroadcastTxResponse
 import org.apache.commons.lang3.StringUtils
+import org.bouncycastle.asn1.x500.style.RFC4519Style.title
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseApplication
 import wannabit.io.cosmostaion.base.chains.ChainFactory
@@ -159,7 +160,7 @@ class LedgerManager {
 
     @SuppressLint("MissingPermission")
     fun showDevicePicker(
-        context: Context, title: CharSequence
+        context: Context, title: CharSequence?
     ): FilledVerticalButtonAlertDialog {
         val dialog = FilledVerticalButtonAlertDialog(context)
 
@@ -175,7 +176,9 @@ class LedgerManager {
         dialog.filledVerticalBinding.hiddenView.visibility = View.VISIBLE
         dialog.setCancelable(true)
         dialog.create()
-        dialog.show()
+        (context as? Activity)?.runOnUiThread {
+            dialog.show()
+        }
 
         return dialog
     }

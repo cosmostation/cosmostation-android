@@ -117,7 +117,7 @@
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gas (used/limit)" />
+                    android:text="@string/str_tx_gas_info" />
 
                 <TextView
                     android:id="@+id/tx_gas_info"
@@ -137,7 +137,7 @@
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Type" />
+                    android:text="@string/str_type" />
 
                 <TextView
                     android:id="@+id/tx_type"

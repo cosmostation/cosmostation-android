@@ -257,7 +257,6 @@
     <string name="str_front_guide_msg_evmos"><![CDATA[EVM(イーサリアム仮想マシン)互換可能な (イーサリアム仮想マシン) Cosmos SDKベースのブロックチェーン。]]></string>
     <string name="str_front_guide_msg_cudos"><![CDATA[Cudos は分散された高効率クラウドコンピューティング ネットワークのため設計された、テンダーミントベースのブロックチェーンです。]]></string>
     <string name="str_front_guide_msg_provenance"><![CDATA[金融サービス業界のブロックチェーン技術導入のため設計された、テンダーミントベースのブロックチェーンです。]]></string>
-    <string name="str_front_guide_msg_cerberus"><![CDATA[地獄の見張人ケルベロスをモチーブにして作られたコスモス生態系ミームコインです。]]></string>
     <string name="str_front_guide_msg_omniflix"><![CDATA[NFTクリエイターやコミュニティに脱中央化されたミディアプラットフォームを提供するブロックチェーンプロジェクト。]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[$CREトークンとインター-ブロックチェーン通信技術を活用した、テンダーミントベースの ディファイブ・ハブ。]]></string>
     <string name="str_front_guide_msg_assetmantle"><![CDATA[AssetMantleは Persistence生態系内のNFT創作者と収集家の両方のために構築されたNFTマーケットプレイス及びプラットフォームです。]]></string>
@@ -931,7 +930,7 @@
     <string name="str_ibc_transfer_msg1">集中型取引所では仮想資産IBC機能をサポートしません。</string>
     <string name="str_ibc_transfer_msg2">必ずIBCを通じて該当資産を元のチェーンに転送した後、\n取引所への出金を進めてください。</string>
 
-    <string name="str_icns_confirm_title">名前サービスアドレスの使用</string>
+    <string name="str_icns_confirm_title">ネームサービス同期</string>
     <string name="str_icns_update_nickname_msg">ウォレット名をネームサービスと同期させました。</string>
 
     <string name="str_not_support_bluetooth">このデバイスはBluetoothをサポートしていません。</string>

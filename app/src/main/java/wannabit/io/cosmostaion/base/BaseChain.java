@@ -73,7 +73,6 @@ public enum BaseChain {
     EVMOS_MAIN("evmos-mainnet"),
     CUDOS_MAIN("cudos-mainnet"),
     PROVENANCE_MAIN("provenance-mainnet"),
-    CERBERUS_MAIN("cerberus-mainnet"),
     OMNIFLIX_MAIN("omniflix-mainnet"),
     CRESCENT_MAIN("crescent-mainnet"),
     ASSETMANTLE_MAIN("assetmantle-mainnet"),
@@ -239,9 +238,6 @@ public enum BaseChain {
         if (chainName.equals(PROVENANCE_MAIN.chainName)) {
             return PROVENANCE_MAIN;
         }
-        if (chainName.equals(CERBERUS_MAIN.chainName)) {
-            return CERBERUS_MAIN;
-        }
         if (chainName.equals(OMNIFLIX_MAIN.chainName)) {
             return OMNIFLIX_MAIN;
         }
@@ -308,7 +304,6 @@ public enum BaseChain {
         result.add(BITCANNA_MAIN);
         result.add(BITSONG_MAIN);
         result.add(CANTO_MAIN);
-        result.add(CERBERUS_MAIN);
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
         result.add(CRESCENT_MAIN);
