@@ -1024,7 +1024,7 @@
     <string name="error_already_registered_domain">すでに登録されているドメインです。 別の値を入力してください。</string>
     <string name="error_not_enough_starname_fee">スターネームFeeを支払う金額がありません。</string>
     <string name="error_invalid_account_format">正確ではないアカウントです。別の値を入れてください。</string>
-    <string name="error_not_support_cosmostation">Cosmostaion walletでサポートしないチェーンです。</string>
+    <string name="error_not_support_cosmostation">Cosmostation walletでサポートしないチェーンです。</string>
     <string name="error_no_wallet_this_chain">該当チェーン用のウォーレットがありません。</string>
     <string name="error_no_address_added">1 つ以上のアドレスを入力してください。</string>
     <string name="error_cannot_delete_open_domain">オープンドメインを削除できません。</string>

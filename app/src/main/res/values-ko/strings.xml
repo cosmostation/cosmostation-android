@@ -1027,7 +1027,7 @@
     <string name="error_already_registered_domain">이미 등록된 도메인입니다. 다른값을 입력하세요.</string>
     <string name="error_not_enough_starname_fee">스타네임 Fee를 지불할 충분한 금액이 없습니다.</string>
     <string name="error_invalid_account_format">부정확한 Account 포멧 입니다. 다른값을 입력하세요.</string>
-    <string name="error_not_support_cosmostation">Cosmostaion wallet에서 지원하지 않는 체인 입니다.</string>
+    <string name="error_not_support_cosmostation">Cosmostation wallet에서 지원하지 않는 체인 입니다.</string>
     <string name="error_no_wallet_this_chain">해당 체인용 지갑이 없습니다.</string>
     <string name="error_no_address_added">최소 1개 이상의 주소를 입력하세요.</string>
     <string name="error_cannot_delete_open_domain">오픈 타입 도메인은 삭제할 수 없습니다.</string>
