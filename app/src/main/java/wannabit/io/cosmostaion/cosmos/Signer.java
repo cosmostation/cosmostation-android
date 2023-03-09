@@ -43,6 +43,7 @@ import ibc.core.client.v1.Client;
 import pstake.lscosmos.v1beta1.Msgs;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -1114,19 +1115,24 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcPersisLiquidStakeReq(QueryOuterClass.QueryAccountResponse auth, String delegator_address, Coin coin, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignTx(auth, getGrpcPersisLiquidStakeMsg(delegator_address, coin), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcPersisLiquidReq(QueryOuterClass.QueryAccountResponse auth, String delegator_address, Coin coin, int txType, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignTx(auth, getGrpcPersisLiquidMsg(delegator_address, coin, txType), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcPersisLiquidStakeSimulateReq(QueryOuterClass.QueryAccountResponse auth, String delegator_address, Coin coin, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getGrpcPersisLiquidStakeMsg(delegator_address, coin), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcPersisLiquidSimulateReq(QueryOuterClass.QueryAccountResponse auth, String delegator_address, Coin coin, int txType, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignSimulTx(auth, getGrpcPersisLiquidMsg(delegator_address, coin, txType), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ArrayList<Any> getGrpcPersisLiquidStakeMsg(String delegator_address, Coin coin) {
+    public static ArrayList<Any> getGrpcPersisLiquidMsg(String delegator_address, Coin coin, int txType) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         CoinOuterClass.Coin stakeCoin = CoinOuterClass.Coin.newBuilder().setAmount(coin.amount).setDenom(coin.denom).build();
-        Msgs.MsgLiquidStake msgLiquidStake = Msgs.MsgLiquidStake.newBuilder().setDelegatorAddress(delegator_address).setAmount(stakeCoin).build();
-        msgAnys.add(Any.newBuilder().setTypeUrl("/pstake.lscosmos.v1beta1.MsgLiquidStake").setValue(msgLiquidStake.toByteString()).build());
+        if (txType == BaseConstant.CONST_PW_TX_PERSIS_LIQUID_STAKING) {
+            Msgs.MsgLiquidStake msgLiquidStake = Msgs.MsgLiquidStake.newBuilder().setDelegatorAddress(delegator_address).setAmount(stakeCoin).build();
+            msgAnys.add(Any.newBuilder().setTypeUrl("/pstake.lscosmos.v1beta1.MsgLiquidStake").setValue(msgLiquidStake.toByteString()).build());
+        } else {
+            Msgs.MsgRedeem msgRedeem = Msgs.MsgRedeem.newBuilder().setDelegatorAddress(delegator_address).setAmount(stakeCoin).build();
+            msgAnys.add(Any.newBuilder().setTypeUrl("/pstake.lscosmos.v1beta1.MsgRedeem").setValue(msgRedeem.toByteString()).build());
+        }
         return msgAnys;
     }
 

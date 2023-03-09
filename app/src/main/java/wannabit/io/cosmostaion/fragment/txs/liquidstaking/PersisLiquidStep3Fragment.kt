@@ -80,11 +80,11 @@ class PersisLiquidStep3Fragment : BaseFragment() {
 
     private fun onBroadCastTx() {
         getSActivity()?.let {
-            val broadcastTxRequest = Signer.getGrpcPersisLiquidStakeReq(WKey.onAuthResponse(it.mBaseChain, it.mAccount), it.mAccount.address, it.mSwapInCoin,
+            val broadcastTxRequest = Signer.getGrpcPersisLiquidReq(WKey.onAuthResponse(it.mBaseChain, it.mAccount), it.mAccount.address, it.mSwapInCoin, it.mTxType,
                 it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain)
             persisLUSViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
         }
-        persisLUSViewModel.txResponse.observe(this, Observer { response ->
+        persisLUSViewModel.txResponse.observe(viewLifecycleOwner, Observer { response ->
             intentInfo(response)
         })
     }

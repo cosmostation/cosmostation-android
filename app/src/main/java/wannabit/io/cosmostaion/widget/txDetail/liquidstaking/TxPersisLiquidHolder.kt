@@ -32,6 +32,16 @@ class TxPersisLiquidHolder(itemView: View) : TxHolder(itemView) {
                 WDp.onParseLiquidAmountGrpc(response, position).find { it.denom.startsWith("stk/") }?.let { dpCoin ->
                     WDp.setDpCoin(c, baseData, chainConfig, dpCoin, binding.txLiquidAmountOutSymbol, binding.txLiquidAmountOut)
                 }
+
+            } else if (this.tx.body.getMessages(position).typeUrl.contains("MsgRedeem")) {
+                val msg = Msgs.MsgRedeem.parseFrom(response.tx.body.getMessages(position).value)
+                binding.liquidTitle.text = c.getString(R.string.tx_persis_liquid_redeem)
+                binding.txLiquidDelegator.text = msg.delegatorAddress
+
+                WDp.setDpCoin(c, baseData, chainConfig, msg.amount.denom, msg.amount.amount, binding.txLiquidAmountInSymbol, binding.txLiquidAmountIn)
+                WDp.onParseLiquidAmountGrpc(response, position).find { it.denom.startsWith("ibc/") }?.let { dpCoin ->
+                    WDp.setDpCoin(c, baseData, chainConfig, dpCoin, binding.txLiquidAmountOutSymbol, binding.txLiquidAmountOut)
+                }
             }
         }
     }

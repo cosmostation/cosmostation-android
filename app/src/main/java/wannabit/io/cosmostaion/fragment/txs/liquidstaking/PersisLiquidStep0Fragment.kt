@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentLiquidStep0Binding
 import wannabit.io.cosmostaion.model.type.Coin
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.WLog
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -65,6 +66,8 @@ class PersisLiquidStep0Fragment() : BaseFragment() {
 
         if (getSActivity()?.mTxType == BaseConstant.CONST_PW_TX_PERSIS_LIQUID_STAKING) {
             mOutputDenom = "stk/uatom"
+        } else if (getSActivity()?.mTxType == BaseConstant.CONST_PW_TX_PERSIS_LIQUID_REDEEM) {
+            mOutputDenom = "ibc/C8A74ABBE2AF892E15680D916A7C22130585CE5704F9B17A10F184A90D53BECA"
         }
 
         mOutputDenom?.let {
@@ -157,16 +160,17 @@ class PersisLiquidStep0Fragment() : BaseFragment() {
     private fun onUpdateOutputTextView(cValue: String) {
         val inputAmountTemp = BigDecimal(binding.lsInputAmount.text.toString().trim())
         val rate = BigDecimal(cValue).movePointLeft(18)
-        if (inputAmountTemp == BigDecimal.ZERO) {
+        if (inputAmountTemp.compareTo(BigDecimal.ZERO) == 0) {
             binding.lsPoolOutput.text = ""
             return
         }
         val outputAmount: BigDecimal = if (getSActivity()?.mTxType == BaseConstant.CONST_PW_TX_PERSIS_LIQUID_STAKING) {
-            inputAmountTemp.movePointRight(mInputCoinDecimal).multiply(rate).setScale(0, RoundingMode.DOWN)
+            inputAmountTemp.multiply(rate).setScale(12, RoundingMode.DOWN)
         } else {
-            inputAmountTemp.movePointRight(mInputCoinDecimal).divide(rate, 0, RoundingMode.DOWN)
+            val redeemFee = inputAmountTemp.multiply(BigDecimal("0.005"))
+            inputAmountTemp.divide(rate, 12, RoundingMode.DOWN).subtract(redeemFee)
         }
-        binding.lsPoolOutput.text = outputAmount.movePointLeft(mOutputCoinDecimal).toPlainString()
+        binding.lsPoolOutput.text = outputAmount.setScale(mOutputCoinDecimal, RoundingMode.DOWN).toPlainString()
     }
 
     private fun isValidateLSInputAmount(): Boolean {

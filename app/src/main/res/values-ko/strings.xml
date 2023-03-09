@@ -1289,6 +1289,7 @@
     <string name="str_liquid_unstaking">리퀴드 언스테이킹</string>
     <string name="str_start_staking">스테이킹 시작</string>
     <string name="str_start_unstaking">언스테이킹 시작</string>
+    <string name="str_start_redeem">상환 시작</string>
     <string name="str_liquid_input">입금 수량</string>
     <string name="str_liquid_output">출금 수량(예상)</string>
     <string name="str_liquid_creator">생성 주소</string>

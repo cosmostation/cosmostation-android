@@ -33,12 +33,8 @@ class PersisViewModel : ViewModel() {
     val txResponse: LiveData<Abci.TxResponse> get() = _txResponse
 
     fun broadCastTx(baseChain: BaseChain, broadcastTxRequest: BroadcastTxRequest) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain))
-            val response = txService.broadcastTx(broadcastTxRequest)
-            _txResponse.postValue(response.txResponse)
-        } catch (_: Exception) {
-            _txResponse.postValue(null)
-        }
+        val txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain))
+        val response = txService.broadcastTx(broadcastTxRequest)
+        _txResponse.postValue(response.txResponse)
     }
 }

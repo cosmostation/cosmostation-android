@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class SimulPersisLiquidStakingGrpcTask extends CommonTask {
+public class SimulPersisLiquidGrpcTask extends CommonTask {
 
     private Account mAccount;
     private BaseChain mBaseChain;
@@ -24,9 +24,10 @@ public class SimulPersisLiquidStakingGrpcTask extends CommonTask {
     private String mMemo;
     private Fee mFees;
     private String mChainId;
+    private int mTxType;
 
-    public SimulPersisLiquidStakingGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String delegatorAddress,
-                                            Coin swapInCoin, String memo, Fee fee, String chainId) {
+    public SimulPersisLiquidGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String delegatorAddress,
+                                     Coin swapInCoin, String memo, Fee fee, String chainId, int txType) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -35,19 +36,20 @@ public class SimulPersisLiquidStakingGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
+        this.mTxType = txType;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcPersisLiquidStakeSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mDelegatorAddress, mSwapInCoin, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcPersisLiquidSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mDelegatorAddress, mSwapInCoin, mTxType, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);;
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e("SimulPersisLiquidStakingGrpcTask " + e.getMessage());
+            WLog.e("SimulPersisLiquidGrpcTask " + e.getMessage());
             mResult.isSuccess = false;
             mResult.errorMsg = e.getMessage();
         }
