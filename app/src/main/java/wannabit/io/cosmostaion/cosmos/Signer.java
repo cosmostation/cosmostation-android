@@ -40,6 +40,7 @@ import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
 import ibc.core.client.v1.Client;
+import pstake.lscosmos.v1beta1.Msgs;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -1110,6 +1111,22 @@ public class Signer {
         ArrayList<Any> msgAnys = new ArrayList<>();
         stride.stakeibc.Tx.MsgRedeemStake msgLiquidUnStake = stride.stakeibc.Tx.MsgRedeemStake.newBuilder().setCreator(creator).setAmount(amount).setHostZone(hostZone).setReceiver(receiver).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/stride.stakeibc.MsgRedeemStake").setValue(msgLiquidUnStake.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcPersisLiquidStakeReq(QueryOuterClass.QueryAccountResponse auth, String delegator_address, Coin coin, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignTx(auth, getGrpcPersisLiquidStakeMsg(delegator_address, coin), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcPersisLiquidStakeSimulateReq(QueryOuterClass.QueryAccountResponse auth, String delegator_address, Coin coin, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignSimulTx(auth, getGrpcPersisLiquidStakeMsg(delegator_address, coin), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ArrayList<Any> getGrpcPersisLiquidStakeMsg(String delegator_address, Coin coin) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        CoinOuterClass.Coin stakeCoin = CoinOuterClass.Coin.newBuilder().setAmount(coin.amount).setDenom(coin.denom).build();
+        Msgs.MsgLiquidStake msgLiquidStake = Msgs.MsgLiquidStake.newBuilder().setDelegatorAddress(delegator_address).setAmount(stakeCoin).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/pstake.lscosmos.v1beta1.MsgLiquidStake").setValue(msgLiquidStake.toByteString()).build());
         return msgAnys;
     }
 

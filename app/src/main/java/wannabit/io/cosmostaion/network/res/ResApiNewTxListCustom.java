@@ -778,6 +778,19 @@ public class ResApiNewTxListCustom {
                     }
                 }
 
+                // persistence msg type
+                else if (msgType.contains("pstake.") && msgType.contains("lscosmos")) {
+                    if (msgType.contains("MsgLiquidStake")) {
+                        result = c.getString(R.string.tx_persis_liquid_stake);
+                    } else if (msgType.contains("MsgLiquidUnstake")) {
+                        result = c.getString(R.string.tx_persis_liquid_unstake);
+                    } else if (msgType.contains("MsgRedeem")) {
+                        result = c.getString(R.string.tx_persis_liquid_redeem);
+                    } else if (msgType.contains("MsgClaim")) {
+                        result = c.getString(R.string.tx_persis_liquid_claim);
+                    }
+                }
+
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }

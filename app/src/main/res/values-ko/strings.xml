@@ -615,6 +615,8 @@
     <string name="str_applock_time_30sec">30초 후 잠금</string>
     <string name="str_applock_time_60sec">60초 후 잠금</string>
     <string name="str_amount">수량</string>
+    <string name="str_amount_in">Amount In</string>
+    <string name="str_amount_out">Amount Out</string>
     <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
     <string name="str_vesting_amount">잠긴수량 (위임만 가능)</string>
     <string name="str_htlc_warn_title">BEP3 스왑에 관해서</string>
@@ -1302,6 +1304,11 @@
     <string name="str_tx_kava_earn_withdraw">어닝 리퀴디티\n출금</string>
     <string name="tx_kava_earn_withdraw">어닝 리퀴디티 출금</string>
     <string name="tx_kava_earn_deposit">어닝 리퀴디티\n입금</string>
+
+    <string name="tx_persis_liquid_stake">유동성 스테이크</string>
+    <string name="tx_persis_liquid_unstake">유동성 언스테이크</string>
+    <string name="tx_persis_liquid_redeem">유동성 상환</string>
+    <string name="tx_persis_liquid_claim">언스테이크 유동성 받기</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

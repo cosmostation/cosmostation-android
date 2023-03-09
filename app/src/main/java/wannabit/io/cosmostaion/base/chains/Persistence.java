@@ -34,7 +34,7 @@ public class Persistence extends ChainConfig {
     public int sendBgColor() { return R.color.colorBlack2; }
     public String addressPrefix() { return "persistence"; }
 
-    public boolean dexSupport() { return false; }
+    public boolean dexSupport() { return true; }
     public boolean wcSupport() { return false; }
     public boolean authzSupport() { return true; }
 
