@@ -1059,7 +1059,9 @@
     <string name="error_invalid_icns">未登録のネームサービスです。</string>
     <string name="error_invalid_icns_address">登録されたネームサービスのアドレスが不正確です。</string>
     <string name="error_warning_title">警告!</string>
+    <string name="error_closure_network_title">非アクティブなネットワーク!</string>
     <string name="error_deprecated_account_msg">その住所はチェーンでそれ以上サポートされていません。\n\n円滑な使用のために公式住所を作成して資産を転送することを強くお勧めします。\n（設定>ウォレット追加メニューから公式アドレスを追加できます。）</string>
+    <string name="error_closure_network_msg">このネットワークはもう機能しません。\n\nCosmostationウォレットはアーカイブされたデータのみを表示していますのでご注意ください。</string>
     <string name="error_ledger_open_msg">Ledger で Cosmos アプリを開きます。</string>
 
 
