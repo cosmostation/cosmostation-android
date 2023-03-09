@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import stride.records.Genesis;
 import stride.stakeibc.EpochTrackerOuterClass;
@@ -127,11 +129,17 @@ public class StrideLUSFragment extends BaseFragment implements View.OnClickListe
             });
 
         } else if (v.equals(mBtnStartUnStake)) {
-            getSActivity().onClickUnStake(mHostZones.get(mSelectedPosition), mAvailableMaxAmount);
+            Optional<ChainConfig> configOptional = ChainFactory.SUPPRT_CONFIG().stream().filter(item -> item.mainDenom().equalsIgnoreCase(mHostZones.get(mSelectedPosition).getHostDenom())).findFirst();
+            if (configOptional.isPresent()) {
+                getSActivity().onClickUnStake(mHostZones.get(mSelectedPosition), mAvailableMaxAmount);
+            } else {
+                Toast.makeText(getContext(), getString(R.string.error_not_support_cosmostation), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     int mTaskCount;
+
     private void onFetchUserHistory() {
         mTaskCount = 1;
         mRecords.clear();
@@ -180,9 +188,13 @@ public class StrideLUSFragment extends BaseFragment implements View.OnClickListe
             } else {
                 holder.mRequestDate.setText(gap + " Days Ago");
             }
-            ChainConfig recipientChain = ChainFactory.SUPPRT_CONFIG().stream().filter(item -> item.mainDenom().equalsIgnoreCase(mHostZones.get(mSelectedPosition).getHostDenom())).findFirst().get();
-            if (recipientChain != null) {
-                WDp.setDpCoin(getActivity(), getBaseDao(), recipientChain, recipientChain.mainDenom(), String.valueOf(mRecords.get(position).getAmount()), holder.mLiquidUnstakeDenom, holder.mLiquidUnstakeAmount);
+
+            Optional<ChainConfig> configOptional = ChainFactory.SUPPRT_CONFIG().stream().filter(item -> item.mainDenom().equalsIgnoreCase(mHostZones.get(mSelectedPosition).getHostDenom())).findFirst();
+            if (configOptional.isPresent()) {
+                WDp.setDpCoin(getActivity(), getBaseDao(), configOptional.get(), configOptional.get().mainDenom(), mRecords.get(position).getAmount(), holder.mLiquidUnstakeDenom, holder.mLiquidUnstakeAmount);
+            } else {
+                holder.mLiquidUnstakeDenom.setText("");
+                holder.mLiquidUnstakeAmount.setText(WDp.getDpAmount2(new BigDecimal(mRecords.get(position).getAmount()), 6, 6));
             }
             holder.mLiquidUnstakeRecipient.setText(mRecords.get(position).getReceiver());
         }
@@ -261,17 +273,11 @@ public class StrideLUSFragment extends BaseFragment implements View.OnClickListe
         }
 
         private void fixLayoutSize(View view, ViewGroup parent) {
-            int widthSpec = View.MeasureSpec.makeMeasureSpec(parent.getWidth(),
-                    View.MeasureSpec.EXACTLY);
-            int heightSpec = View.MeasureSpec.makeMeasureSpec(parent.getHeight(),
-                    View.MeasureSpec.UNSPECIFIED);
+            int widthSpec = View.MeasureSpec.makeMeasureSpec(parent.getWidth(), View.MeasureSpec.EXACTLY);
+            int heightSpec = View.MeasureSpec.makeMeasureSpec(parent.getHeight(), View.MeasureSpec.UNSPECIFIED);
 
-            int childWidth = ViewGroup.getChildMeasureSpec(widthSpec,
-                    parent.getPaddingLeft() + parent.getPaddingRight(),
-                    view.getLayoutParams().width);
-            int childHeight = ViewGroup.getChildMeasureSpec(heightSpec,
-                    parent.getPaddingTop() + parent.getPaddingBottom(),
-                    view.getLayoutParams().height);
+            int childWidth = ViewGroup.getChildMeasureSpec(widthSpec, parent.getPaddingLeft() + parent.getPaddingRight(), view.getLayoutParams().width);
+            int childHeight = ViewGroup.getChildMeasureSpec(heightSpec, parent.getPaddingTop() + parent.getPaddingBottom(), view.getLayoutParams().height);
 
             view.measure(childWidth, childHeight);
             view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());

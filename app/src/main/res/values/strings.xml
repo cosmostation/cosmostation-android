@@ -295,6 +295,7 @@
     <string name="str_front_guide_title_evmos" translatable="false"><![CDATA[EVMOS]]></string>
     <string name="str_front_guide_title_cudos" translatable="false"><![CDATA[CUDOS]]></string>
     <string name="str_front_guide_title_provenance" translatable="false"><![CDATA[PROVENANCE]]></string>
+    <string name="str_front_guide_title_cerberus" translatable="false"><![CDATA[CERBERUS]]></string>
     <string name="str_front_guide_title_omniflix" translatable="false"><![CDATA[OMNIFLIX]]></string>
     <string name="str_front_guide_title_crescent" translatable="false"><![CDATA[CRESCENT]]></string>
     <string name="str_front_guide_title_assetmantle" translatable="false"><![CDATA[ASSETMANTLE]]></string>
@@ -351,6 +352,7 @@
     <string name="str_front_guide_msg_evmos"><![CDATA[A Cosmos SDK based IBC & EVM-compatible(Ethereum Virtual Machine) blockchain.]]></string>
     <string name="str_front_guide_msg_cudos"><![CDATA[Cudos aims to build a high-performance, sustainable and decentralized cloud computing network.]]></string>
     <string name="str_front_guide_msg_provenance"><![CDATA[Provenance is a Tendermint-based blockchain network utilized by $HASH, designed to support financial service industry.]]></string>
+    <string name="str_front_guide_msg_cerberus"><![CDATA[Cerberus is a community-led tri-headed dog meme coin in Cosmos ecosystem.]]></string>
     <string name="str_front_guide_msg_omniflix"><![CDATA[OmniFlix Network is a blockchain specifically designed for creators and communities, powered by NFTs.]]></string>
     <string name="str_front_guide_msg_crescent"><![CDATA[Crescent is a Tendermint-based DeFi hub powered by $CRE tokens & Inter-Blockchain Communication protocol.]]></string>
     <string name="str_front_guide_msg_assetmantle"><![CDATA[AssetMantle is a community focused one-for-all NFT platform for creators and collectors, powered by $MNTL token.]]></string>
