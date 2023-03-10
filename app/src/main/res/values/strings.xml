@@ -712,6 +712,8 @@
     <string name="str_applock_time_30sec">Lock 30 Second After</string>
     <string name="str_applock_time_60sec">Lock 60 Second After</string>
     <string name="str_amount">Amount</string>
+    <string name="str_amount_in">Amount In</string>
+    <string name="str_amount_out">Amount Out</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_vesting_amount">Vesting (Only Delegable)</string>
     <string name="str_htlc_warn_title">BEP3 Swap Notice</string>
@@ -1394,6 +1396,7 @@
     <string name="str_liquid_unstaking"><![CDATA[Liquid Unstaking]]></string>
     <string name="str_start_staking">Start Stake</string>
     <string name="str_start_unstaking">Start Unstake</string>
+    <string name="str_start_redeem">Start Redeem</string>
     <string name="str_liquid_input">Insert Amount</string>
     <string name="str_liquid_output">Withdraw Amount(est)</string>
     <string name="str_liquid_creator">Creator</string>
@@ -1403,6 +1406,11 @@
     <string name="str_tip">Tip</string>
     <string name="str_msg_liquid_unstake">Unstaking requires a period set by origin chain(14-28 days).\n\nYou can instantly convert st assets into original assets in Osmosis Dex.</string>
     <string name="str_hint_msg_liquid_unstake">Insert Recipient Address</string>
+
+    <string name="tx_persis_liquid_stake">Liquid Stake</string>
+    <string name="tx_persis_liquid_unstake">Liquid Unstake</string>
+    <string name="tx_persis_liquid_redeem">Liquid Redeem</string>
+    <string name="tx_persis_liquid_claim">Liquid Unstaked Claim</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
