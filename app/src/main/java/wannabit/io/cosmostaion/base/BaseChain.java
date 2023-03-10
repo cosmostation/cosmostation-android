@@ -90,7 +90,8 @@ public enum BaseChain {
     ONOMY_MAIN("onomy-mainnet"),
     QUICKSILVER_MAIN("quicksilver-mainnet"),
     MARS_MAIN("mars-mainnet"),
-    CANTO_MAIN("canto-mainnet");
+    CANTO_MAIN("canto-mainnet"),
+    COREUM_MAIN("coreum-mainnet");
 
 
     private final String chainName;
@@ -293,6 +294,9 @@ public enum BaseChain {
         if (chainName.equals(CANTO_MAIN.chainName)) {
             return CANTO_MAIN;
         }
+        if (chainName.equals(COREUM_MAIN.chainName)) {
+            return COREUM_MAIN;
+        }
         return null;
     }
 
@@ -310,6 +314,7 @@ public enum BaseChain {
         result.add(CANTO_MAIN);
         result.add(CERBERUS_MAIN);
         result.add(CHIHUAHUA_MAIN);
+        result.add(COREUM_MAIN);
         result.add(COMDEX_MAIN);
         result.add(CRESCENT_MAIN);
         result.add(CRYPTO_MAIN);

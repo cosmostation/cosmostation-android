@@ -65,6 +65,9 @@ public class ChainFactory {
                 case CHIHUAHUA_MAIN:
                     return new Chihuahua();
 
+                case COREUM_MAIN:
+                    return new Coreum();
+
                 case COMDEX_MAIN:
                     return new Comdex();
 
