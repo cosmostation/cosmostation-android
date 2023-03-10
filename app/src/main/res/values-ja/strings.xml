@@ -613,6 +613,8 @@
     <string name="str_applock_time_30sec">30 秒後にロック</string>
     <string name="str_applock_time_60sec">60 秒後にロック</string>
     <string name="str_amount">数量</string>
+    <string name="str_amount_in">Amount In</string>
+    <string name="str_amount_out">Amount Out</string>
     <string name="str_ready_to_quite">もう一度押すとキャンセルされます。</string>
     <string name="str_vesting_amount">ロックされた数量（委任のみ可能）</string>
     <string name="str_htlc_warn_title">BEP3スワップについて</string>
@@ -1284,6 +1286,7 @@
     <string name="str_liquid_unstaking">リキッド アンステーキン</string>
     <string name="str_start_staking">ステーキング 開始</string>
     <string name="str_start_unstaking">アンステーキン 開始</string>
+    <string name="str_start_redeem">償還開始</string>
     <string name="str_liquid_input">入金数量</string>
     <string name="str_liquid_output">出金数量(予想)</string>
     <string name="str_liquid_creator">生成 アドレス</string>
@@ -1299,6 +1302,11 @@
     <string name="str_tx_kava_earn_withdraw">Earning Liquidity \n出金</string>
     <string name="tx_kava_earn_withdraw">Earning Liquidity 出金</string>
     <string name="tx_kava_earn_deposit">Earning Liquidity \n入金</string>
+
+    <string name="tx_persis_liquid_stake">流動性ステーキ</string>
+    <string name="tx_persis_liquid_unstake">流動性アンステーキ</string>
+    <string name="tx_persis_liquid_redeem">流動性償還</string>
+    <string name="tx_persis_liquid_claim">アンステーキの流動性を受ける</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>
