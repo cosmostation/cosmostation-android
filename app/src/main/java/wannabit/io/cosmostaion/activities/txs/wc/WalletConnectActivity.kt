@@ -329,6 +329,33 @@ class WalletConnectActivity : BaseActivity() {
         runOnUiThread {
             sessionRequest.request.apply {
                 when (method) {
+                    "cosmos_getAccounts" -> {
+                        sessionRequest.chainId?.let {
+                            val chainId = it.split(":")[1]
+                            showAccountDialog(listOf(chainId), mutableListOf()) { accounts ->
+                                val v2Accounts = accounts.map { toV2Account(it) }
+                                val response = Sign.Params.Response(
+                                    sessionTopic = sessionRequest.topic,
+                                    jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
+                                        id, Gson().toJson(v2Accounts)
+                                    )
+                                )
+                                SignClient.respond(response) { error ->
+                                    Log.e("WCV2", error.throwable.stackTraceToString())
+                                }
+                            }
+                        } ?: run {
+                            val response = Sign.Params.Response(
+                                sessionTopic = sessionRequest.topic,
+                                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
+                                    id, 500, "No account"
+                                )
+                            )
+                            SignClient.respond(response) { error ->
+                                Log.e("WCV2", error.throwable.stackTraceToString())
+                            }
+                        }
+                    }
                     "cosmos_signDirect" -> {
                         val signBundle = generateSignBundle(id, params)
                         showSignDialog(signBundle, object : WcSignRawDataListener {
@@ -1304,6 +1331,17 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
+    private fun toV2Account(account: Account): V2Account? {
+        val key = getKey(account.baseChain)
+        return key?.let {
+            V2Account(
+                account.address,
+                Utils.bytesToHex(it.pubKey),
+                "secp256k1",
+            )
+        }
+    }
+
     private fun showSignDialog(bundle: Bundle, signListener: WcSignRawDataListener) {
         val wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, signListener)
         wcRawDataDialog.show(supportFragmentManager, "dialog")
@@ -1529,4 +1567,10 @@ class WalletConnectActivity : BaseActivity() {
         const val WC_URL_SCHEME_COSMOSTATION = "cosmostation"
         const val WC_URL_SCHEME_COMMON = "wc"
     }
+
+    data class V2Account(
+        val algo: String,
+        val pubkey: String,
+        val address: String,
+    )
 }

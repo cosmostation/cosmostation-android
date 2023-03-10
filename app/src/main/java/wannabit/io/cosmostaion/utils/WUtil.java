@@ -107,6 +107,7 @@ import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
+import wannabit.io.cosmostaion.activities.txs.liquidstaking.PersisLSActivity;
 import wannabit.io.cosmostaion.activities.txs.liquidstaking.StrideLSActivity;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTListActivity;
 import wannabit.io.cosmostaion.activities.txs.osmosis.SwapViewActivity;
@@ -1513,7 +1514,7 @@ public class WUtil {
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_osmosislab), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
-        } else if (chainConfig.baseChain().equals(STRIDE_MAIN)) {
+        } else if (chainConfig.baseChain().equals(STRIDE_MAIN) || chainConfig.baseChain().equals(PERSIS_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_liquidstake), null, null, null);
             dexTitle.setText(R.string.str_liquid_staking);
         }
@@ -1532,6 +1533,8 @@ public class WUtil {
             return new Intent(mainActivity, SwapViewActivity.class);
         } else if (chainConfig.baseChain().equals(STRIDE_MAIN)) {
             return new Intent(mainActivity, StrideLSActivity.class);
+        } else if (chainConfig.baseChain().equals(PERSIS_MAIN)) {
+            return new Intent(mainActivity, PersisLSActivity.class);
         } else {
             return null;
         }

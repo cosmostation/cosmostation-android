@@ -1386,6 +1386,35 @@ public class WDp {
         return result;
     }
 
+    public static ArrayList<Coin> onParseLiquidAmountGrpc(ServiceOuterClass.GetTxResponse response, int position) {
+        ArrayList<Coin> result = new ArrayList<>();
+        if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
+            for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
+                if (event.getType().equals("transfer")) {
+                    for (int i = 0; i < event.getAttributesList().size(); i++) {
+                        if (event.getAttributes(i).getKey().equals("recipient")) {
+                            for (int j = i; j < event.getAttributesList().size(); j++) {
+                                if (event.getAttributes(j).getKey().equals("amount") && event.getAttributes(j).getValue() != null) {
+                                    String rawValue = event.getAttributes(j).getValue();
+                                    for (String rawCoin : rawValue.split(",")) {
+                                        Pattern p = Pattern.compile("([0-9])+");
+                                        Matcher m = p.matcher(rawCoin);
+                                        if (m.find()) {
+                                            String amount = m.group();
+                                            String denom = rawCoin.substring(m.end());
+                                            result.add(new Coin(denom, amount));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
     public static long onParsePeriodicUnLockTime(Vesting.PeriodicVestingAccount vestingAccount, int position) {
         long result = vestingAccount.getStartTime();
         for (int i = 0; i <= position; i++) {
