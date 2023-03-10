@@ -91,7 +91,7 @@
                     android:layout_height="@dimen/space_44"
                     android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/swap_available_symbol_layer"
-                    android:background="@drawable/edittext_box"
+                    android:background="@drawable/btn_trans_no_padding"
                     android:gravity="center_vertical|left"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
@@ -121,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_50"
-                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginTop="@dimen/space_8"
                     android:orientation="horizontal">
 
                     <Button
@@ -129,7 +129,6 @@
                         style="@style/font_rr_12_black_daynight"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/space_32"
-                        android:layout_marginLeft="@dimen/space_8"
                         android:layout_weight="1"
                         android:background="@drawable/btn_trans_no_padding"
                         android:text="@string/str_add_one_fourths"
@@ -229,7 +228,7 @@
                     android:layout_height="@dimen/space_44"
                     android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/swap_output_symbol_layer"
-                    android:background="@drawable/edittext_box"
+                    android:background="@drawable/btn_trans_no_padding"
                     android:gravity="center_vertical|left"
                     android:maxLength="46"
                     android:paddingRight="@dimen/space_60"
