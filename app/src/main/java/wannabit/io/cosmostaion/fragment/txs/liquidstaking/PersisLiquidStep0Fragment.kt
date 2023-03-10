@@ -100,25 +100,27 @@ class PersisLiquidStep0Fragment() : BaseFragment() {
                     binding.lsInputAmount.setText(mInDecimalSetter)
                     binding.lsInputAmount.setSelection(mInputCoinDecimal + 1)
                 } else {
-                    val inputAmount = BigDecimal(es)
-                    if (BigDecimal.ZERO >= inputAmount) {
-                        binding.lsInputAmount.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_box_error)
-                        return
-                    }
-                    val checkPosition = inputAmount.movePointRight(mInputCoinDecimal)
-                    val checkMax = checkPosition.setScale(0, RoundingMode.DOWN)
-                    if (checkPosition.compareTo(checkMax) != 0 || checkPosition != checkMax) {
-                        val recover = es.substring(0, es.length - 1)
-                        binding.lsInputAmount.setText(recover)
-                        binding.lsInputAmount.setSelection(recover.length)
-                        return
-                    }
-                    if (inputAmount > mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.CEILING)) {
-                        binding.lsInputAmount.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_box_error)
-                    } else {
-                        binding.lsInputAmount.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_box)
-                    }
-                    binding.lsInputAmount.setSelection(binding.lsInputAmount.text.length)
+                    try {
+                        val inputAmount = BigDecimal(es)
+                        if (BigDecimal.ZERO >= inputAmount) {
+                            binding.lsInputAmount.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_box_error)
+                            return
+                        }
+                        val checkPosition = inputAmount.movePointRight(mInputCoinDecimal)
+                        val checkMax = checkPosition.setScale(0, RoundingMode.DOWN)
+                        if (checkPosition.compareTo(checkMax) != 0 || checkPosition != checkMax) {
+                            val recover = es.substring(0, es.length - 1)
+                            binding.lsInputAmount.setText(recover)
+                            binding.lsInputAmount.setSelection(recover.length)
+                            return
+                        }
+                        if (inputAmount > mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.CEILING)) {
+                            binding.lsInputAmount.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_box_error)
+                        } else {
+                            binding.lsInputAmount.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_box)
+                        }
+                        binding.lsInputAmount.setSelection(binding.lsInputAmount.text.length)
+                    } catch (_: Exception) { }
                 }
             }
         })
@@ -158,19 +160,21 @@ class PersisLiquidStep0Fragment() : BaseFragment() {
     }
 
     private fun onUpdateOutputTextView(cValue: String) {
-        val inputAmountTemp = BigDecimal(binding.lsInputAmount.text.toString().trim())
-        val rate = BigDecimal(cValue).movePointLeft(18)
-        if (inputAmountTemp.compareTo(BigDecimal.ZERO) == 0) {
-            binding.lsPoolOutput.text = ""
-            return
-        }
-        val outputAmount: BigDecimal = if (getSActivity()?.mTxType == BaseConstant.CONST_PW_TX_PERSIS_LIQUID_STAKING) {
-            inputAmountTemp.multiply(rate).setScale(12, RoundingMode.DOWN)
-        } else {
-            val redeemFee = inputAmountTemp.multiply(BigDecimal("0.005"))
-            inputAmountTemp.divide(rate, 12, RoundingMode.DOWN).subtract(redeemFee)
-        }
-        binding.lsPoolOutput.text = outputAmount.setScale(mOutputCoinDecimal, RoundingMode.DOWN).toPlainString()
+        try {
+            val inputAmountTemp = BigDecimal(binding.lsInputAmount.text.toString().trim())
+            val rate = BigDecimal(cValue).movePointLeft(18)
+            if (inputAmountTemp.compareTo(BigDecimal.ZERO) == 0) {
+                binding.lsPoolOutput.text = ""
+                return
+            }
+            val outputAmount: BigDecimal = if (getSActivity()?.mTxType == BaseConstant.CONST_PW_TX_PERSIS_LIQUID_STAKING) {
+                inputAmountTemp.multiply(rate).setScale(12, RoundingMode.DOWN)
+            } else {
+                val redeemFee = inputAmountTemp.multiply(BigDecimal("0.005"))
+                inputAmountTemp.divide(rate, 12, RoundingMode.DOWN).subtract(redeemFee)
+            }
+            binding.lsPoolOutput.text = outputAmount.setScale(mOutputCoinDecimal, RoundingMode.DOWN).toPlainString()
+        } catch (_: Exception) { }
     }
 
     private fun isValidateLSInputAmount(): Boolean {

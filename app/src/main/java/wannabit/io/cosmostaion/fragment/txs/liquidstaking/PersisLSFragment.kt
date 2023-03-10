@@ -81,6 +81,7 @@ class PersisLSFragment : BaseFragment() {
                 val toast = Toast(requireContext())
                 toast.view = bindingLayout.root
                 toast.show()
+                return@setOnClickListener
             }
 
             Intent(requireContext(), PersisLiquidActivity::class.java).apply {
