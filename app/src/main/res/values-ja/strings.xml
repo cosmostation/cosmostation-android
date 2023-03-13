@@ -1026,7 +1026,7 @@
     <string name="error_already_registered_domain">すでに登録されているドメインです。 別の値を入力してください。</string>
     <string name="error_not_enough_starname_fee">スターネームFeeを支払う金額がありません。</string>
     <string name="error_invalid_account_format">正確ではないアカウントです。別の値を入れてください。</string>
-    <string name="error_not_support_cosmostation">Cosmostaion walletでサポートしないチェーンです。</string>
+    <string name="error_not_support_cosmostation">Cosmostation walletでサポートしないチェーンです。</string>
     <string name="error_no_wallet_this_chain">該当チェーン用のウォーレットがありません。</string>
     <string name="error_no_address_added">1 つ以上のアドレスを入力してください。</string>
     <string name="error_cannot_delete_open_domain">オープンドメインを削除できません。</string>
@@ -1061,7 +1061,9 @@
     <string name="error_invalid_icns">未登録のネームサービスです。</string>
     <string name="error_invalid_icns_address">登録されたネームサービスのアドレスが不正確です。</string>
     <string name="error_warning_title">警告!</string>
+    <string name="error_closure_network_title">非アクティブなネットワーク!</string>
     <string name="error_deprecated_account_msg">その住所はチェーンでそれ以上サポートされていません。\n\n円滑な使用のために公式住所を作成して資産を転送することを強くお勧めします。\n（設定>ウォレット追加メニューから公式アドレスを追加できます。）</string>
+    <string name="error_closure_network_msg">このネットワークはもう機能しません。\n\nCosmostationウォレットはアーカイブされたデータのみを表示していますのでご注意ください。</string>
     <string name="error_ledger_open_msg">Ledger で Cosmos アプリを開きます。</string>
 
 

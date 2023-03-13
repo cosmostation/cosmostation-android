@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERBERUS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 
 import android.app.Activity;
@@ -257,6 +258,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
             if (mChainConfig.baseChain().equals(OKEX_MAIN) && mAccount.customPath != 2) {
                 CommonAlertDialog.showSingleButton(this, getString(R.string.error_warning_title), getString(R.string.error_deprecated_account_msg), getString(R.string.str_confirm), null);
+            }
+
+            if (mChainConfig.baseChain().equals(CERBERUS_MAIN)) {
+                CommonAlertDialog.showSingleButton(this, getString(R.string.error_closure_network_title), getString(R.string.error_closure_network_msg), getString(R.string.str_confirm), null);
             }
 
 //            if (mAccount.nickName == null || (!mNameServices.isEmpty() && mNameServices.stream().filter(it -> it.name.equalsIgnoreCase(mAccount.nickName)).collect(Collectors.toList()).size() == 0)) {
