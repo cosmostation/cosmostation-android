@@ -308,7 +308,6 @@ public enum BaseChain {
         result.add(BITCANNA_MAIN);
         result.add(BITSONG_MAIN);
         result.add(CANTO_MAIN);
-        result.add(CERBERUS_MAIN);
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
         result.add(CRESCENT_MAIN);
@@ -353,6 +352,7 @@ public enum BaseChain {
         result.add(UMEE_MAIN);
         result.add(XPLA_MAIN);
         result.add(STATION_TEST);
+        result.add(CERBERUS_MAIN);
 
         return result;
     }
