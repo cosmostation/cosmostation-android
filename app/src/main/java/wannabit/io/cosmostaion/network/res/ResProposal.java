@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -41,41 +40,30 @@ public class ResProposal {
     @SerializedName("voting_end_time")
     public String voting_end_time;
 
-    @SerializedName("notification_status")
-    public String notification_status;
-
-    @SerializedName("content")
-    public Content content;
+    @SerializedName("messages")
+    public List<Messages> messages;
 
     @SerializedName("moniker")
     public String moniker;
 
-    @SerializedName("initial_deposit")
-    public Coin initialDeposit;
-
-    @SerializedName("total_deposit")
-    public Object totalDeposit;
-
     @SerializedName("voteMeta")
     public VoteMeta voteMeta;
 
-    public class Content {
-        @SerializedName("type")
+    public class Messages {
+        @SerializedName("@type")
         public String type;
+
+        @SerializedName("title")
+        public String title;
+
+        @SerializedName("description")
+        public String description;
 
         @SerializedName("recipient")
         public String recipient;
 
-        @SerializedName("recipient_list")
-        public ArrayList<Recipient> recipients;
-
         @SerializedName("amount")
-        public Object amount;
-
-        public class Recipient {
-            @SerializedName("amount")
-            public ArrayList<Coin> amount;
-        }
+        public List<Coin> amount;
     }
 
     public class VoteMeta {
@@ -106,11 +94,13 @@ public class ResProposal {
 
     public Coin getAmounts() {
         try {
-            ArrayList<Coin> temp = new Gson().fromJson(new Gson().toJson(content.amount), new TypeToken<List<Coin>>(){}.getType());
+            ArrayList<Coin> temp = new Gson().fromJson(new Gson().toJson(messages.get(0).amount), new TypeToken<List<Coin>>() {
+            }.getType());
             if (temp != null && temp.size() > 0) {
                 return temp.get(0);
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
         return null;
     }
 }

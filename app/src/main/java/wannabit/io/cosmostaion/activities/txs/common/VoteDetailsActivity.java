@@ -30,7 +30,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import cosmos.gov.v1beta1.Gov;
@@ -40,8 +40,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.databinding.ActivityVoteDetailsBinding;
 import wannabit.io.cosmostaion.databinding.ItemVoteInfoBinding;
+import wannabit.io.cosmostaion.databinding.ItemVoteMemoBinding;
+import wannabit.io.cosmostaion.databinding.ItemVoteMemoListBinding;
 import wannabit.io.cosmostaion.databinding.ItemVoteTallyBinding;
-import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResProposal;
@@ -179,13 +180,16 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
     private class VoteDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_TX_INFO = 0;
-        private static final int TYPE_TX_TALLY = 1;
+        private static final int TYPE_TX_MEMO = 1;
+        private static final int TYPE_TX_TALLY = 2;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_TX_INFO) {
                 return new VoteInfoHolder(ItemVoteInfoBinding.inflate(getLayoutInflater()));
+            } else if (viewType == TYPE_TX_MEMO) {
+                return new VoteMemoListHolder(ItemVoteMemoListBinding.inflate(getLayoutInflater()));
             } else {
                 return new VoteTallyHolder(ItemVoteTallyBinding.inflate(getLayoutInflater()));
             }
@@ -196,19 +200,23 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             if (position == 0) {
                 onBindVoteInfo(viewHolder);
             } else if (position == 1) {
+                onBindVoteMemo(viewHolder);
+            } else {
                 onBindVoteTally(viewHolder);
             }
         }
 
         @Override
         public int getItemCount() {
-            return 2;
+            return 3;
         }
 
         @Override
         public int getItemViewType(int position) {
             if (position == 0) {
                 return TYPE_TX_INFO;
+            } else if (position == 1) {
+                return TYPE_TX_MEMO;
             } else {
                 return TYPE_TX_TALLY;
             }
@@ -239,7 +247,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
                 holder.voteInfoBinding.voteMsg.setText(mApiProposal.description);
                 if (isGRPC(mBaseChain)) {
-                    if (mApiProposal.content != null && mApiProposal.content.amount != null) {
+                    if (mApiProposal.messages != null && mApiProposal.messages.get(0).amount != null) {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.VISIBLE);
                         Coin requestCoin = mApiProposal.getAmounts();
                         if (requestCoin != null) {
@@ -252,9 +260,9 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.GONE);
                     }
                 } else {
-                    if (mApiProposal.content != null && mApiProposal.content.recipients != null && mApiProposal.content.recipients.get(0).amount != null) {
+                    if (mApiProposal.messages != null && mApiProposal.messages.get(0).recipient != null && mApiProposal.messages.get(0).amount != null) {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.VISIBLE);
-                        ArrayList<Coin> requestCoin = mApiProposal.content.recipients.get(0).amount;
+                        List<Coin> requestCoin = mApiProposal.messages.get(0).amount;
                         WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin.get(0), holder.voteInfoBinding.requestAmountDenom, holder.voteInfoBinding.requestAmount);
                     } else {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.GONE);
@@ -276,6 +284,18 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 voteDetailsBinding.recycler.getAdapter().notifyDataSetChanged();
             });
 
+        }
+
+        private void onBindVoteMemo(RecyclerView.ViewHolder viewHolder) {
+            final VoteMemoListHolder holder = (VoteMemoListHolder) viewHolder;
+            holder.voteMemoListBinding.memoTitle.setText("Messages" + " " + "(" + mApiProposal.messages.size() + ")");
+            holder.voteMemoListBinding.recycler.setLayoutManager(new LinearLayoutManager(VoteDetailsActivity.this, LinearLayoutManager.VERTICAL, false));
+            holder.voteMemoListBinding.recycler.setHasFixedSize(true);
+            holder.voteMemoListBinding.recycler.setItemViewCacheSize(20);
+            holder.voteMemoListBinding.recycler.setDrawingCacheEnabled(true);
+            holder.voteMemoListBinding.recycler.setAdapter(new VoteMemoListAdapter());
+            holder.voteMemoListBinding.recycler.setItemAnimator(null);
+            holder.voteMemoListBinding.recycler.getAdapter().notifyDataSetChanged();
         }
 
         private void onBindVoteTally(RecyclerView.ViewHolder viewHolder) {
@@ -412,6 +432,59 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
             }
         }
+
+        public class VoteMemoListHolder extends RecyclerView.ViewHolder {
+
+            private ItemVoteMemoListBinding voteMemoListBinding;
+
+            public VoteMemoListHolder(@NonNull ItemVoteMemoListBinding binding) {
+                super(binding.getRoot());
+                voteMemoListBinding = binding;
+            }
+        }
     }
 
+    private class VoteMemoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new VoteMemoHolder(ItemVoteMemoBinding.inflate(getLayoutInflater()));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+            final VoteMemoHolder holder = (VoteMemoHolder) viewHolder;
+            if (position > 0) {
+                holder.voteMemoBinding.viewLine.setVisibility(View.VISIBLE);
+            }
+            holder.voteMemoBinding.voteMessagesTitle.setText(mApiProposal.messages.get(position).title);
+            holder.voteMemoBinding.voteMessages.setText(mApiProposal.messages.get(position).description);
+            holder.voteMemoBinding.voteMemoBtnExpend.setOnClickListener(v -> {
+                if (holder.voteMemoBinding.voteMessages.getMaxLines() == 500) {
+                    holder.voteMemoBinding.voteMessages.setMaxLines(1);
+                    holder.voteMemoBinding.voteMemoBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_down_gr));
+
+                } else {
+                    holder.voteMemoBinding.voteMessages.setMaxLines(500);
+                    holder.voteMemoBinding.voteMemoBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_up_gr));
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return mApiProposal.messages.size();
+        }
+
+        public class VoteMemoHolder extends RecyclerView.ViewHolder {
+
+            private ItemVoteMemoBinding voteMemoBinding;
+
+            public VoteMemoHolder(@NonNull ItemVoteMemoBinding binding) {
+                super(binding.getRoot());
+                voteMemoBinding = binding;
+            }
+        }
+    }
 }
