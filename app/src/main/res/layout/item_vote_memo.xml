@@ -7,7 +7,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_6"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
@@ -24,6 +23,7 @@
                 android:layout_height="@dimen/space_view"
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16"
+                android:layout_marginBottom="@dimen/space_6"
                 android:background="@color/colorGrayDayNight"
                 android:visibility="gone" />
 

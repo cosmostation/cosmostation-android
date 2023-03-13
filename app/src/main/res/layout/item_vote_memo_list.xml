@@ -24,6 +24,7 @@
                 android:id="@+id/memo_title"
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginBottom="@dimen/space_12"
                 style="@style/font_rb_14_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
