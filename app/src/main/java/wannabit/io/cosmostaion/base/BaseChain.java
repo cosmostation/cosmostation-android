@@ -297,6 +297,7 @@ public enum BaseChain {
         }
 
 
+
         if (chainName.equals(KYVE_MAIN.chainName)) {
             return KYVE_MAIN;
         }
