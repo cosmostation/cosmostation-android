@@ -254,6 +254,7 @@
     <string name="str_front_guide_msg_lum"><![CDATA[商品評価及びビューをチェーンに保存し、トークンで補償を支給するCosmos SDKベースのブロックチェーン。]]></string>
     <string name="str_front_guide_msg_chihuahua"><![CDATA[チワワをモチーブにして作られたCosmos生態系内の初ミーム コイン。]]></string>
     <string name="str_front_guide_msg_konstellation"><![CDATA[脱中央化された資本市場のためのインフラを提供するCosmos SDK ベースのブロックチェーンプロトコル。]]></string>
+    <string name="str_front_guide_msg_kyve"><![CDATA[KYVEネットワークは、脱中央化されたデータレイクソリューションを提供するCosmos SDKベースのブロックチェーンです。]]></string>
     <string name="str_front_guide_msg_evmos"><![CDATA[EVM(イーサリアム仮想マシン)互換可能な (イーサリアム仮想マシン) Cosmos SDKベースのブロックチェーン。]]></string>
     <string name="str_front_guide_msg_cudos"><![CDATA[Cudos は分散された高効率クラウドコンピューティング ネットワークのため設計された、テンダーミントベースのブロックチェーンです。]]></string>
     <string name="str_front_guide_msg_provenance"><![CDATA[金融サービス業界のブロックチェーン技術導入のため設計された、テンダーミントベースのブロックチェーンです。]]></string>

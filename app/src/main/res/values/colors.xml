@@ -27,6 +27,7 @@
     <color name="colorTransBgCryto">#e5f4ff</color>
     <color name="colorTransBgSif">#f7f3e4</color>
     <color name="colorTransBgKi">#eceeff</color>
+    <color name="colorTransBgKyve">#E9F5F3</color>
     <color name="colorTransBgRizon">#eeeefd</color>
     <color name="colorTransBgMedi">#eef5ff</color>
     <color name="colorTransBgAlthea">#fdf4ed</color>
@@ -137,6 +138,8 @@
     <color name="color_sif">#c19f33</color>
 
     <color name="color_ki">#3756fc</color>
+
+    <color name="color_kyve">#4DAF9D</color>
 
     <color name="color_rizon">#8c8af2</color>
 

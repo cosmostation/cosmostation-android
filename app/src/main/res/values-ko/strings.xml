@@ -254,6 +254,7 @@
     <string name="str_front_guide_msg_lum"><![CDATA[상품평 및 리뷰를 체인에 저장하고, 토큰으로 보상을 지급하는 Cosmos SDK 기반 블록체인.]]></string>
     <string name="str_front_guide_msg_chihuahua"><![CDATA[치와와를 모티브로 만들어진 Cosmos 생태계 내 첫 밈(meme) 코인.]]></string>
     <string name="str_front_guide_msg_konstellation"><![CDATA[탈중앙화된 자본 시장을 위한 인프라를 제공하는 Cosmos SDK 기반 블록체인 프로토콜.]]></string>
+    <string name="str_front_guide_msg_kyve"><![CDATA[KYVE 네트워크는 탈중앙화된 데이터 레이크 솔루션을 제공하는 Cosmos SDK 기반 블록체인입니다.]]></string>
     <string name="str_front_guide_msg_evmos"><![CDATA[EVM(이더리움 가상 머신) 호환이 가능한 Cosmos SDK 기반 블록체인.]]></string>
     <string name="str_front_guide_msg_cudos"><![CDATA[Cudos는 탈중앙화된 고효율 클라우드 컴퓨팅 네트워크를 위해 설계된 텐더민트 기반 블록체인입니다.]]></string>
     <string name="str_front_guide_msg_provenance"><![CDATA[금융 서비스 산업의 블록체인 기술 도입을 위해 설계된 텐더민트 기반 블록체인입니다.]]></string>
