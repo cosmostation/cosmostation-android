@@ -65,8 +65,14 @@ public class ResProposal {
         @SerializedName("content")
         public Content content;
 
+        @SerializedName("recipient_list")
+        public List<RecipientList> recipientList;
+
         @SerializedName("amount")
         public List<Coin> amount;
+    }
+
+    public class RecipientList {
     }
 
     public class Content {
@@ -109,9 +115,9 @@ public class ResProposal {
         public String abstain_amount;
     }
 
-    public Coin getAmounts() {
+    public Coin getAmounts(List<Coin> amount) {
         try {
-            ArrayList<Coin> temp = new Gson().fromJson(new Gson().toJson(messages.get(0).amount), new TypeToken<List<Coin>>() {
+            ArrayList<Coin> temp = new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>() {
             }.getType());
             if (temp != null && temp.size() > 0) {
                 return temp.get(0);

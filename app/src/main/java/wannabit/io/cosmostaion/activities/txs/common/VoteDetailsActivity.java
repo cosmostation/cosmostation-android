@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_PROPOSAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSAL_MY_VOTE;
@@ -248,9 +249,17 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
                 holder.voteInfoBinding.voteMsg.setText(mApiProposal.description);
                 if (isGRPC(mBaseChain)) {
-                    if (mApiProposal.messages != null && mApiProposal.messages.get(0).amount != null) {
+                    if (mApiProposal.messages != null && mApiProposal.messages.get(0) != null) {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.VISIBLE);
-                        Coin requestCoin = mApiProposal.getAmounts();
+                        Coin requestCoin = null;
+                        if (mChainConfig.baseChain().equals(EVMOS_MAIN) && mApiProposal.messages.get(0).content != null && mApiProposal.messages.get(0).content.amount != null) {
+                            requestCoin = mApiProposal.getAmounts(mApiProposal.messages.get(0).content.amount);
+                        } else if (mChainConfig.baseChain().equals(KAVA_MAIN) && mApiProposal.messages.get(0).recipientList.size() == 0) {
+                            holder.voteInfoBinding.requestAmountDenom.setText("N/A");
+                            holder.voteInfoBinding.requestAmount.setVisibility(View.GONE);
+                        } else {
+                            requestCoin = mApiProposal.getAmounts(mApiProposal.messages.get(0).amount);
+                        }
                         if (requestCoin != null) {
                             WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin, holder.voteInfoBinding.requestAmountDenom, holder.voteInfoBinding.requestAmount);
                         } else {

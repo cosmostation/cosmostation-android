@@ -35,29 +35,11 @@ public class ResVote {
     @SerializedName("voting_end_time")
     public String voting_end_time;
 
-    @SerializedName("messages")
-    public List<Messages> messages;
-
     @SerializedName("moniker")
     public String moniker;
 
     @SerializedName("voteMeta")
     public VoteMeta voteMeta;
-
-    public class Messages {
-        @SerializedName("@type")
-        public String type;
-
-        @SerializedName("title")
-        public String title;
-
-        @SerializedName("description")
-        public String description;
-
-        @SerializedName("recipient")
-        public String recipient;
-
-    }
 
     public class VoteMeta {
         @SerializedName("yes")
