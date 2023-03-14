@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_PROPOSAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSAL_MY_VOTE;
@@ -458,18 +459,26 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             if (position > 0) {
                 holder.voteMemoBinding.viewLine.setVisibility(View.VISIBLE);
             }
-            holder.voteMemoBinding.voteMessagesTitle.setText(mApiProposal.messages.get(position).title);
-            holder.voteMemoBinding.voteMessages.setText(mApiProposal.messages.get(position).description);
-            holder.voteMemoBinding.voteMemoBtnExpend.setOnClickListener(v -> {
-                if (holder.voteMemoBinding.voteMessages.getMaxLines() == 500) {
-                    holder.voteMemoBinding.voteMessages.setMaxLines(1);
-                    holder.voteMemoBinding.voteMemoBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_down_gr));
 
+            if (mApiProposal.messages != null && mApiProposal.messages.get(position) != null && mApiProposal.messages.get(position).content != null) {
+                if (mChainConfig.baseChain().equals(EVMOS_MAIN)) {
+                    holder.voteMemoBinding.voteMessagesTitle.setText(mApiProposal.messages.get(position).content.title);
+                    holder.voteMemoBinding.voteMessages.setText(mApiProposal.messages.get(position).content.description);
                 } else {
-                    holder.voteMemoBinding.voteMessages.setMaxLines(500);
-                    holder.voteMemoBinding.voteMemoBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_up_gr));
+                    holder.voteMemoBinding.voteMessagesTitle.setText(mApiProposal.messages.get(position).title);
+                    holder.voteMemoBinding.voteMessages.setText(mApiProposal.messages.get(position).description);
                 }
-            });
+                holder.voteMemoBinding.voteMemoBtnExpend.setOnClickListener(v -> {
+                    if (holder.voteMemoBinding.voteMessages.getMaxLines() == 500) {
+                        holder.voteMemoBinding.voteMessages.setMaxLines(1);
+                        holder.voteMemoBinding.voteMemoBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_down_gr));
+
+                    } else {
+                        holder.voteMemoBinding.voteMessages.setMaxLines(500);
+                        holder.voteMemoBinding.voteMemoBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_up_gr));
+                    }
+                });
+            }
         }
 
         @Override

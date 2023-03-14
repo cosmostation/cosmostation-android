@@ -62,6 +62,23 @@ public class ResProposal {
         @SerializedName("recipient")
         public String recipient;
 
+        @SerializedName("content")
+        public Content content;
+
+        @SerializedName("amount")
+        public List<Coin> amount;
+    }
+
+    public class Content {
+        @SerializedName("@type")
+        public String type;
+
+        @SerializedName("title")
+        public String title;
+
+        @SerializedName("description")
+        public String description;
+
         @SerializedName("amount")
         public List<Coin> amount;
     }
