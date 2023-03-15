@@ -252,9 +252,9 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     if (mApiProposal.messages != null && mApiProposal.messages.get(0) != null) {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.VISIBLE);
                         Coin requestCoin = null;
-                        if (mChainConfig.baseChain().equals(EVMOS_MAIN) && mApiProposal.messages.get(0).content != null && mApiProposal.messages.get(0).content.amount != null) {
+                        if (mApiProposal.messages.get(0).content != null && mApiProposal.messages.get(0).content.amount != null) {
                             requestCoin = mApiProposal.getAmounts(mApiProposal.messages.get(0).content.amount);
-                        } else if (mChainConfig.baseChain().equals(KAVA_MAIN) && mApiProposal.messages.get(0).recipientList.size() == 0) {
+                        } else if (mApiProposal.messages.contains("recipient_list")) {
                             holder.voteInfoBinding.requestAmountDenom.setText("N/A");
                             holder.voteInfoBinding.requestAmount.setVisibility(View.GONE);
                         } else {
