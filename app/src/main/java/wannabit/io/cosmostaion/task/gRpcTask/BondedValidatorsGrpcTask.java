@@ -28,7 +28,7 @@ public class BondedValidatorsGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_BONDED_VALIDATORS;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
 

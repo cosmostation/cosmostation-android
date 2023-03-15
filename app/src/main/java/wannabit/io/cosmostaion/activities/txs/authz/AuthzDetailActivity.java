@@ -73,8 +73,8 @@ public class AuthzDetailActivity extends BaseActivity implements TaskListener {
 
     private Any mGranterAuth;
     private ArrayList<Coin> mGranterBalance = new ArrayList<>();
-    private ArrayList<Coin> mGranterAvailable = new ArrayList<>();;
-    private ArrayList<Coin> mGranterVesting = new ArrayList<>();;
+    private ArrayList<Coin> mGranterAvailable = new ArrayList<>();
+    private ArrayList<Coin> mGranterVesting = new ArrayList<>();
     private ArrayList<Staking.DelegationResponse> mGranterDelegations = new ArrayList<>();
     private ArrayList<Staking.UnbondingDelegation> mGranterUndelegations = new ArrayList<>();
     private ArrayList<Distribution.DelegationDelegatorReward> mGranterRewards = new ArrayList<>();

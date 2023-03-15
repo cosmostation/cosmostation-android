@@ -30,7 +30,7 @@ public class DelegationsGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAddress = address;
         this.mResult.taskType = TASK_GRPC_FETCH_DELEGATIONS;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override

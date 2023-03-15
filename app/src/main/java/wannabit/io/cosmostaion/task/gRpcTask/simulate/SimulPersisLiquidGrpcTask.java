@@ -43,7 +43,7 @@ public class SimulPersisLiquidGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcPersisLiquidSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mDelegatorAddress, mSwapInCoin, mTxType, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);;
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcPersisLiquidSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mDelegatorAddress, mSwapInCoin, mTxType, mFees, mMemo, WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;

@@ -28,7 +28,7 @@ public class UnBondingValidatorsGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
 

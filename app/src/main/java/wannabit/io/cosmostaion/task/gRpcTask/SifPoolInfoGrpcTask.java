@@ -25,7 +25,7 @@ public class SifPoolInfoGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mDenom = denom;
         this.mResult.taskType = TASK_GRPC_FETCH_SIF_POOL_INFO;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override

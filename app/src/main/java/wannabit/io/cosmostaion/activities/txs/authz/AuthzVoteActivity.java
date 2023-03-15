@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.fragment.txs.authz.AuthzVoteStep0Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzVoteStep1Fragment;
 import wannabit.io.cosmostaion.fragment.txs.authz.AuthzVoteStep4Fragment;
 import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.network.res.ResVote;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzVoteGrpcTask;
 
 public class AuthzVoteActivity extends BaseBroadCastActivity {
@@ -50,7 +51,7 @@ public class AuthzVoteActivity extends BaseBroadCastActivity {
     private ViewPager mViewPager;
     private AuthzVotePageAdapter mPageAdapter;
 
-    public ArrayList<ResProposal> mProposalsList = Lists.newArrayList();
+    public ArrayList<ResVote> mProposalsList = Lists.newArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -31,7 +31,7 @@ public class CommissionGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mValOpAddress = valOpAddress;
         this.mResult.taskType = TASK_GRPC_FETCH_COMMISSION;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override

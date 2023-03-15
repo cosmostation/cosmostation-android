@@ -29,7 +29,7 @@ public class BalanceGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAddress = address;
         this.mResult.taskType = TASK_GRPC_FETCH_BALANCE;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override

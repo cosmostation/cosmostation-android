@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzVoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.network.res.ResVote;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClickListener {
@@ -37,7 +38,7 @@ public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClick
 
     private Button mCancel, mNextBtn;
 
-    private ArrayList<ResProposal> mSelectedProposalsList = new ArrayList<>();
+    private ArrayList<ResVote> mSelectedProposalsList = new ArrayList<>();
     private Map<Integer, String> selectedMap = Maps.newHashMap();
 
     public static AuthzVoteStep1Fragment newInstance() {
@@ -99,7 +100,7 @@ public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClick
 
         @Override
         public void onBindViewHolder(@NonNull final ProposalSelectionHolder proposalSelectionHolder, int position) {
-            ResProposal proposal = mSelectedProposalsList.get(position);
+            ResVote proposal = mSelectedProposalsList.get(position);
             proposalSelectionHolder.proposalId.setText("# " + proposal.id);
             proposalSelectionHolder.proposalTitle.setText(proposal.title);
             proposalSelectionHolder.proposalDeadLine.setText(WDp.getTimeVoteformat(getActivity(), proposal.voting_end_time)
@@ -109,7 +110,7 @@ public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClick
 
         }
 
-        private void bindVoteSelect(ProposalSelectionHolder holder, int position, ResProposal item) {
+        private void bindVoteSelect(ProposalSelectionHolder holder, int position, ResVote item) {
             holder.yesBtnLayout.setAlpha(0.5f);
             holder.noBtnLayout.setAlpha(0.5f);
             holder.noWithVetoBtnLayout.setAlpha(0.5f);

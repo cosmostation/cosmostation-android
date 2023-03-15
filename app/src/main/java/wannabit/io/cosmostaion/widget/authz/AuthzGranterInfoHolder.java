@@ -45,7 +45,7 @@ public class AuthzGranterInfoHolder extends RecyclerView.ViewHolder {
         mGranterReward = itemView.findViewById(R.id.granter_reward);
         mGranterCommission = itemView.findViewById(R.id.granter_commission);
 
-        mGranterVestingLayer = itemView.findViewById(R.id.vesting_layer);
+        mGranterVestingLayer = itemView.findViewById(R.id.granter_vesting_layer);
         mGranterCommissionLayer = itemView.findViewById(R.id.commission_layer);
 
         mBtnExploer = itemView.findViewById(R.id.btn_explorer);

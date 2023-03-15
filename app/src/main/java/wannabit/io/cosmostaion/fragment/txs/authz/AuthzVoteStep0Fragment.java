@@ -36,7 +36,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzVoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.network.res.ResVote;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -50,7 +50,7 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
     private LinearLayout mEmptyLayer;
 
     private String mGranter;
-    private List<ResProposal> mVotingPeriodProposalsList = Lists.newArrayList();
+    private List<ResVote> mVotingPeriodProposalsList = Lists.newArrayList();
     private Map<Integer, Set<String>> statusMap = Maps.newHashMap();
     private ArrayList<String> mSelectedProposalIds = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
 
         } else if (v.equals(mNextBtn)) {
             if (mSelectedProposalIds.size() > 0 && mVotingPeriodProposalsList.size() > 0) {
-                ArrayList<ResProposal> proposals = new ArrayList<>();
+                ArrayList<ResVote> proposals = new ArrayList<>();
                 for (String id : mSelectedProposalIds) {
                     try {
                         proposals.add(mVotingPeriodProposalsList.stream().filter(item -> String.valueOf(item.id).equals(id)).findFirst().get());
@@ -114,11 +114,11 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
     private void loadProposals() {
         mVotingPeriodProposalsList.clear();
 
-        ApiClient.getMintscan(getActivity()).getProposalList(getSActivity().mChainConfig.chainName()).enqueue(new Callback<ArrayList<ResProposal>>() {
+        ApiClient.getMintscan(getActivity()).getVoteList(getSActivity().mChainConfig.chainName()).enqueue(new Callback<ArrayList<ResVote>>() {
             @Override
-            public void onResponse(Call<ArrayList<ResProposal>> call, Response<ArrayList<ResProposal>> response) {
+            public void onResponse(Call<ArrayList<ResVote>> call, Response<ArrayList<ResVote>> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    List<ResProposal> proposals = response.body();
+                    List<ResVote> proposals = response.body();
                     proposals.sort((o1, o2) -> o2.id - o1.id);
                     mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     getSActivity().runOnUiThread(() -> {
@@ -134,7 +134,7 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
             }
 
             @Override
-            public void onFailure(Call<ArrayList<ResProposal>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<ResVote>> call, Throwable t) {
             }
         });
     }
@@ -172,7 +172,7 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
         }
 
         public void onBindPeriodProposalItemViewHolder(VoteListViewHolder holder, int position) {
-            ResProposal proposal = mVotingPeriodProposalsList.get(position);
+            ResVote proposal = mVotingPeriodProposalsList.get(position);
             holder.card_proposal.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorTransBg));
             holder.proposal_status_img.setVisibility(View.GONE);
             holder.proposal_status.setVisibility(View.GONE);

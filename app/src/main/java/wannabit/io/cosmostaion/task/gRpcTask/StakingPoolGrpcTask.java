@@ -23,7 +23,7 @@ public class StakingPoolGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_STAKING_POOL;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
     }
 
     @Override
