@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_view"
                 android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_4"
                 android:layout_marginRight="@dimen/space_16"
                 android:layout_marginBottom="@dimen/space_8"
                 android:background="@color/colorGrayDayNight"
@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_16"
+                    android:layout_marginRight="@dimen/space_16"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -61,6 +62,7 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_4"
                 android:layout_marginRight="@dimen/space_16"
+                android:layout_marginBottom="@dimen/space_12"
                 android:autoLink="web"
                 android:clickable="true"
                 android:textColorLink="@color/colorPhotonDayNight" />
