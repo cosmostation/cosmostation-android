@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.base.chains;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 
 import wannabit.io.cosmostaion.R;
@@ -32,7 +31,7 @@ public class Kyve extends ChainConfig {
     public String grpcUrl() { return "grpc-kyve.cosmostation.io"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "kyve/"; }
-    public String homeInfoLink() { return  "https://www.kyve.network/"; }
-    public String blogInfoLink() { return  "https://blog.kyve.network/"; }
-    public String coingeckoLink() { return  COINGECKO_URL + "kyve"; }
+    public String homeInfoLink() { return "https://www.kyve.network/"; }
+    public String blogInfoLink() { return "https://blog.kyve.network/"; }
+    public String coingeckoLink() { return ""; }
 }
