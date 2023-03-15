@@ -12,6 +12,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +36,8 @@ import com.google.gson.Gson;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
@@ -246,6 +252,26 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     holder.voteInfoBinding.voteEndTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_end_time));
                 }
                 holder.voteInfoBinding.voteMsg.setText(mApiProposal.description);
+
+                Pattern URL_PATTERN = Pattern.compile("((http|https|rstp):\\/\\/\\S*)");
+                Matcher m = URL_PATTERN.matcher(mApiProposal.description);
+                while (m.find()) {
+                    String url = mApiProposal.description.substring(m.start(), m.end());
+                    SpannableStringBuilder sp = new SpannableStringBuilder(url);
+                    URLSpan[] spans = sp.getSpans(0, sp.length(), URLSpan.class);
+                    for (URLSpan urlSpan : spans) {
+                        int start = sp.getSpanStart(urlSpan);
+                        int end = sp.getSpanEnd(urlSpan);
+                        ClickableSpan clickableSpan = new ClickableSpan() {
+                            @Override
+                            public void onClick(@NonNull View widget) {
+                                Toast.makeText(VoteDetailsActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
+                            }
+                        };
+                        sp.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+                    }
+                }
+
                 if (isGRPC(mBaseChain)) {
                     if (mApiProposal.messages != null && mApiProposal.messages.get(0).amount != null) {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.VISIBLE);
@@ -283,7 +309,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
                 voteDetailsBinding.recycler.getAdapter().notifyDataSetChanged();
             });
-
         }
 
         private void onBindVoteMemo(RecyclerView.ViewHolder viewHolder) {
