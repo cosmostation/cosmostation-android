@@ -470,7 +470,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             }
 
             if (mApiProposal.messages != null && mApiProposal.messages.get(position) != null) {
-                if (mChainConfig.baseChain().equals(EVMOS_MAIN) && mApiProposal.messages.get(position).content != null) {
+                if (mApiProposal.messages.get(position).content != null) {
                     holder.voteMemoBinding.voteMessagesTitle.setText(mApiProposal.messages.get(position).content.title);
                     holder.voteMemoBinding.voteMessages.setText(mApiProposal.messages.get(position).content.description);
                 } else {
