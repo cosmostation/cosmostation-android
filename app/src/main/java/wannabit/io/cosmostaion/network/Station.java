@@ -34,9 +34,6 @@ public interface Station {
     Call<ResVoteStatus> getVoteStatus(@Path("chain") String chain, @Path("account") String account);
 
     @GET("v1/{chain}/proposals")
-    Call<ArrayList<ResProposal>> getProposalList(@Path("chain") String chain);
-
-    @GET("v1/{chain}/proposals")
     Call<ArrayList<ResVote>> getVoteList(@Path("chain") String chain);
 
     @GET("v3/assets")
