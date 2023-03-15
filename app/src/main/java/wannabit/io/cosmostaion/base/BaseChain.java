@@ -90,7 +90,9 @@ public enum BaseChain {
     ONOMY_MAIN("onomy-mainnet"),
     QUICKSILVER_MAIN("quicksilver-mainnet"),
     MARS_MAIN("mars-mainnet"),
-    CANTO_MAIN("canto-mainnet");
+    CANTO_MAIN("canto-mainnet"),
+
+    KYVE_MAIN("kyve-mainnet");
 
 
     private final String chainName;
@@ -293,6 +295,12 @@ public enum BaseChain {
         if (chainName.equals(CANTO_MAIN.chainName)) {
             return CANTO_MAIN;
         }
+
+
+
+        if (chainName.equals(KYVE_MAIN.chainName)) {
+            return KYVE_MAIN;
+        }
         return null;
     }
 
@@ -325,6 +333,7 @@ public enum BaseChain {
         result.add(KI_MAIN);
         result.add(KONSTELL_MAIN);
         result.add(KUJIRA_MAIN);
+        result.add(KYVE_MAIN);
         result.add(LIKECOIN_MAIN);
         result.add(LUM_MAIN);
         result.add(MARS_MAIN);
