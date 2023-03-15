@@ -119,6 +119,9 @@ public class ChainFactory {
                 case KUJIRA_MAIN:
                     return new Kujira();
 
+                case KYVE_MAIN:
+                    return new Kyve();
+
                 case LIKECOIN_MAIN:
                     return new LikeCoin();
 

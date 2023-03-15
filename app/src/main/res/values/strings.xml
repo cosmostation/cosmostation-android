@@ -273,6 +273,7 @@
     <string name="str_front_guide_title_crypto" translatable="false"><![CDATA[CRYPTO.ORG]]></string>
     <string name="str_front_guide_title_sif" translatable="false"><![CDATA[SIF]]></string>
     <string name="str_front_guide_title_ki" translatable="false"><![CDATA[KI]]></string>
+    <string name="str_front_guide_title_kyve" translatable="false"><![CDATA[KYVE]]></string>
     <string name="str_front_guide_title_rizon" translatable="false"><![CDATA[RIZON]]></string>
     <string name="str_front_guide_title_medi" translatable="false"><![CDATA[MEDIBLOC]]></string>
     <string name="str_front_guide_title_althea" translatable="false"><![CDATA[ALTHEA]]></string>
@@ -349,6 +350,7 @@
     <string name="str_front_guide_msg_lum"><![CDATA[A Cosmos SDK-based blockchain designed for on-chain user reviews and rewards.]]></string>
     <string name="str_front_guide_msg_chihuahua"><![CDATA[Chihuahua chain is the first meme coin in the Cosmos ecosystem.]]></string>
     <string name="str_front_guide_msg_konstellation"><![CDATA[A Cosmos SDK-based decentralized cross-chain capital markets network.]]></string>
+    <string name="str_front_guide_msg_kyve"><![CDATA[KYVE is a Cosmos SDK-based network that provides a decentralized data lake solution.]]></string>
     <string name="str_front_guide_msg_evmos"><![CDATA[A Cosmos SDK based IBC & EVM-compatible(Ethereum Virtual Machine) blockchain.]]></string>
     <string name="str_front_guide_msg_cudos"><![CDATA[Cudos aims to build a high-performance, sustainable and decentralized cloud computing network.]]></string>
     <string name="str_front_guide_msg_provenance"><![CDATA[Provenance is a Tendermint-based blockchain network utilized by $HASH, designed to support financial service industry.]]></string>
