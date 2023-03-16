@@ -243,7 +243,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     holder.voteInfoBinding.voteStartTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_start_time));
                     holder.voteInfoBinding.voteEndTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_end_time));
                 }
-                holder.voteInfoBinding.voteMsg.setText(mApiProposal.description);
+                holder.voteInfoBinding.voteDescription.setText(mApiProposal.description);
                 Pattern URL_PATTERN = Pattern.compile("(([A-Za-z]{3,9}:(?://)?)(?:[-;:&=+$,\\w]+@)?[A-Za-z0-9.-]+|(?:www\\.|[-;:&=+$,\\w]+@)[A-Za-z0-9.-]+)((?:/[+~%/.\\w-]*)?\\??(?:[-+=&;%@.\\w]*)#?(?:[.!/\\\\\\w]*))?", Pattern.CASE_INSENSITIVE);
                 Matcher m = URL_PATTERN.matcher(mApiProposal.description);
                 SpannableStringBuilder sb = new SpannableStringBuilder(mApiProposal.description);
@@ -259,8 +259,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     };
                     sb.setSpan(clickableSpan, m.start(), m.end(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
                 }
-                holder.voteInfoBinding.voteMsg.setText(sb);
-                holder.voteInfoBinding.voteMsg.setMovementMethod(LinkMovementMethod.getInstance());
+                holder.voteInfoBinding.voteDescription.setText(sb);
+                holder.voteInfoBinding.voteDescription.setMovementMethod(LinkMovementMethod.getInstance());
 
                 if (isGRPC(mBaseChain)) {
                     if (mApiProposal.content != null && mApiProposal.content.amount != null) {
@@ -289,12 +289,12 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             holder.voteInfoBinding.voteDetail.setOnClickListener(v -> onExplorerLink());
 
             holder.voteInfoBinding.voteBtnExpend.setOnClickListener(v -> {
-                if (holder.voteInfoBinding.voteMsg.getMaxLines() == 500) {
-                    holder.voteInfoBinding.voteMsg.setMaxLines(3);
+                if (holder.voteInfoBinding.voteDescription.getMaxLines() == 500) {
+                    holder.voteInfoBinding.voteDescription.setMaxLines(3);
                     holder.voteInfoBinding.voteBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_down_gr));
 
                 } else {
-                    holder.voteInfoBinding.voteMsg.setMaxLines(500);
+                    holder.voteInfoBinding.voteDescription.setMaxLines(500);
                     holder.voteInfoBinding.voteBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_up_gr));
                 }
                 voteDetailsBinding.recycler.getAdapter().notifyDataSetChanged();
