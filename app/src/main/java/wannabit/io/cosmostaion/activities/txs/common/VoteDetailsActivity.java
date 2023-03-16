@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
 import android.view.MenuItem;
@@ -251,26 +252,22 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     holder.voteInfoBinding.voteStartTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_start_time));
                     holder.voteInfoBinding.voteEndTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_end_time));
                 }
-                holder.voteInfoBinding.voteMsg.setText(mApiProposal.description);
-
                 Pattern URL_PATTERN = Pattern.compile("((http|https|rstp):\\/\\/\\S*)");
                 Matcher m = URL_PATTERN.matcher(mApiProposal.description);
+                SpannableStringBuilder sp = new SpannableStringBuilder(mApiProposal.description);
+
                 while (m.find()) {
-                    String url = mApiProposal.description.substring(m.start(), m.end());
-                    SpannableStringBuilder sp = new SpannableStringBuilder(url);
-                    URLSpan[] spans = sp.getSpans(0, sp.length(), URLSpan.class);
-                    for (URLSpan urlSpan : spans) {
-                        int start = sp.getSpanStart(urlSpan);
-                        int end = sp.getSpanEnd(urlSpan);
-                        ClickableSpan clickableSpan = new ClickableSpan() {
-                            @Override
-                            public void onClick(@NonNull View widget) {
-                                Toast.makeText(VoteDetailsActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
-                            }
-                        };
-                        sp.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-                    }
+                    String url = m.toMatchResult().group();
+                    ClickableSpan clickableSpan = new ClickableSpan() {
+                        @Override
+                        public void onClick(@NonNull View widget) {
+                            Toast.makeText(VoteDetailsActivity.this, url, Toast.LENGTH_SHORT).show();
+                        }
+                    };
+                    sp.setSpan(clickableSpan, m.start(), m.end()-1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
                 }
+                holder.voteInfoBinding.voteMsg.setText(sp);
+                holder.voteInfoBinding.voteMsg.setMovementMethod(LinkMovementMethod.getInstance());
 
                 if (isGRPC(mBaseChain)) {
                     if (mApiProposal.messages != null && mApiProposal.messages.get(0).amount != null) {
@@ -336,10 +333,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 holder.voteTallyBinding.voteVetosRate.setText(WDp.getDpString(WDp.getVetoPer(mApiProposal).toPlainString() + "%", 3));
                 holder.voteTallyBinding.voteAbstainRate.setText(WDp.getDpString(WDp.getAbstainPer(mApiProposal).toPlainString() + "%", 3));
 
-                if (mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") ||
-                        mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD") ||
-                        mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD") ||
-                        mApiProposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
+                if (mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") || mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD") || mApiProposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD") || mApiProposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
                     onDisplayVote(holder);
                     holder.voteTallyBinding.turnoutLayer.setVisibility(View.VISIBLE);
                     holder.voteTallyBinding.currentTurnout.setText(WDp.getDpString(WDp.getTurnout(getBaseDao(), mApiProposal).setScale(2).toPlainString() + "%", 3));

@@ -252,6 +252,7 @@
                 android:layout_marginRight="@dimen/space_16"
                 android:autoLink="web"
                 android:clickable="true"
+                android:linksClickable="false"
                 android:lineSpacingExtra="1sp"
                 android:maxLines="3"
                 android:textColorLink="@color/colorPhotonDayNight" />
