@@ -229,6 +229,7 @@
                     android:layout_marginLeft="@dimen/space_10"
                     android:layout_toRightOf="@+id/swap_output_symbol_layer"
                     android:background="@drawable/btn_trans_no_padding"
+                    android:paddingLeft="@dimen/space_8"
                     android:gravity="center_vertical|left"
                     android:maxLength="46"
                     android:paddingRight="@dimen/space_60"
