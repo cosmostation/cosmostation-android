@@ -29,9 +29,9 @@ public class BaseApplication extends Application {
 
     private BaseData mBaseData;
     private AppStatus mAppStatus;
-    private static Application instance;
+    private static BaseApplication instance;
 
-    public static Context getInstance() {
+    public static BaseApplication getInstance() {
         return instance;
     }
 

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities.txs.wc
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
@@ -58,6 +59,7 @@ import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
 import wannabit.io.cosmostaion.base.BaseActivity
+import wannabit.io.cosmostaion.base.BaseApplication
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.cosmos.MsgGenerator
 import wannabit.io.cosmostaion.crypto.CryptoHelper
@@ -78,6 +80,7 @@ import wannabit.io.cosmostaion.utils.WKey
 import wannabit.io.cosmostaion.utils.WUtil
 import wannabit.io.cosmostaion.utils.WalletConnectManager.addWhiteList
 import wannabit.io.cosmostaion.utils.WalletConnectManager.getWhiteList
+import java.io.BufferedReader
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
@@ -174,7 +177,9 @@ class WalletConnectActivity : BaseActivity() {
         binding.btnDisconnect.visibility = View.GONE
         changeDappConnectStatus(false)
         binding.dappWebView.loadUrl(url)
+        binding.dappWebView.addJavascriptInterface(CustomJavaScript(), "station")
         WebStorage.getInstance().deleteAllData()
+
     }
 
     private fun setupWalletConnectTypeView(url: String) {
@@ -1506,6 +1511,17 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private val dappWebViewClient = object : WebViewClient() {
+        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+            super.onPageStarted(view, url, favicon)
+
+            try {
+                val inputStream = assets.open("injectScript.js")
+                inputStream.bufferedReader().use(BufferedReader::readText)
+            } catch (e: Exception) {
+                null
+            }?.let { view?.loadUrl("javascript:(function(){$it})()") }
+        }
+
         override fun shouldOverrideUrlLoading(
             view: WebView, request: WebResourceRequest
         ): Boolean {
@@ -1557,6 +1573,177 @@ class WalletConnectActivity : BaseActivity() {
                 }
             }
             return false
+        }
+    }
+
+
+    fun processRequest(message: String) {
+        try {
+            val json = JSONObject(message)
+            val method = json.getString("method")
+            if (method == "cos_requestAccount" || method == "cos_account" || method == "ten_requestAccount" || method == "ten_account") {
+                val params = json.getJSONObject("params")
+                val chainId = params.getString("chainName")
+                val dataJson = JSONObject()
+                dataJson.put("isKeystone", false)
+                dataJson.put("isEthermint", false)
+                dataJson.put("isLedger", false)
+                val baseDao = BaseApplication.getInstance().baseDao
+                val account = baseDao.onSelectAccount(baseDao.lastUser)
+                val key = ECKey.fromPrivate(BigInteger(getPrivateKey(account), 16))
+                val baseChain = WDp.getChainTypeByChainId(chainId)
+                dataJson.put(
+                    "address", WKey.genTendermintBech32Address(
+                        baseChain, Utils.bytesToHex(key.pubKey)
+                    )
+                )
+                dataJson.put("name", WUtil.getWalletName(this, account))
+                dataJson.put("publicKey", Utils.bytesToHex(key.pubKey))
+                val responseJson = JSONObject()
+                responseJson.put("result", dataJson)
+                val resJson = JSONObject()
+                resJson.put("response", responseJson)
+                resJson.put("message", json)
+                runOnUiThread {
+                    binding.dappWebView.evaluateJavascript(
+                        String.format("window.postMessage(%s);", resJson.toString()), null
+                    )
+                }
+            } else if (method == "cos_supportedChainIds") {
+                val dataJson = JSONObject()
+                dataJson.put(
+                    "official", listOf("cosmoshub-4", "osmosis-1", "stride-1", "injective-1")
+                )
+                dataJson.put("unofficial", listOf("a"))
+                val responseJson = JSONObject()
+                responseJson.put("result", dataJson)
+                val resJson = JSONObject()
+                resJson.put("response", responseJson)
+                resJson.put("message", json)
+                runOnUiThread {
+                    binding.dappWebView.evaluateJavascript(
+                        String.format("window.postMessage(%s);", resJson.toString()), null
+                    )
+                }
+            } else if (method == "cos_signAmino") {
+                val params = json.getJSONObject("params")
+                val doc = params.getJSONObject("doc")
+                val signBundle = generateSignBundle(0, doc.toString())
+                showSignDialog(signBundle, object : WcSignRawDataListener {
+                    override fun sign(id: Long, transaction: String) {
+                        val transactionJson = Gson().fromJson(transaction, JsonObject::class.java)
+                        val chainId = transactionJson.get("chain_id").asString
+                        val baseDao = BaseApplication.getInstance().baseDao
+                        val account = baseDao.onSelectAccount(baseDao.lastUser)
+                        val key = ECKey.fromPrivate(BigInteger(getPrivateKey(account), 16))
+                        val signModel = WcSignModel(transactionJson, key)
+                        val signed = JSONObject()
+                        signed.put("signature", signModel.signature.signature)
+                        signed.put(
+                            "pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key))
+                        )
+                        signed.put("signed_doc", JSONObject(transaction))
+                        val responseJson = JSONObject()
+                        responseJson.put("result", signed)
+                        val resJson = JSONObject()
+                        resJson.put("response", responseJson)
+                        resJson.put("message", json)
+                        runOnUiThread {
+                            binding.dappWebView.evaluateJavascript(
+                                String.format("window.postMessage(%s);", resJson.toString()), null
+                            )
+                        }
+                    }
+
+                    override fun cancel(id: Long) {
+                        val responseJson = JSONObject()
+                        responseJson.put("error", "cancel")
+                        val resJson = JSONObject()
+                        resJson.put("response", responseJson)
+                        resJson.put("message", json)
+                        runOnUiThread {
+                            binding.dappWebView.evaluateJavascript(
+                                String.format("window.postMessage(%s);", resJson.toString()), null
+                            )
+                        }
+                    }
+                })
+            } else if (method == "cos_signDirect") {
+                val params = json.getJSONObject("params")
+                val doc = params.getJSONObject("doc")
+                val signBundle = generateSignBundle(0, doc.toString())
+                showSignDialog(signBundle, object : WcSignRawDataListener {
+                    override fun sign(id: Long, transaction: String) {
+                        val transactionJson = Gson().fromJson(transaction, JsonObject::class.java)
+                        val chainId = transactionJson["chain_id"].asString
+                        val txBody =
+                            TxBody.parseFrom(Utils.hexToBytes(transactionJson["body_bytes"].asString))
+                        val authInfo =
+                            TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(transactionJson["auth_info_bytes"].asString))
+                        val accountNumber = transactionJson["account_number"].asLong
+                        val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString())
+                            .setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId)
+                            .setAccountNumber(accountNumber).build()
+                        val baseDao = BaseApplication.getInstance().baseDao
+                        val account = baseDao.onSelectAccount(baseDao.lastUser)
+                        val key = ECKey.fromPrivate(BigInteger(getPrivateKey(account), 16))
+                        val signModel =
+                            WcSignDirectModel(signDoc.toByteArray(), transactionJson, key)
+                        val signed = JSONObject()
+                        signed.put("signature", signModel.signature.signature)
+                        signed.put(
+                            "pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key))
+                        )
+                        signed.put("signed_doc", JSONObject(transaction))
+                        val responseJson = JSONObject()
+                        responseJson.put("result", signed)
+                        val resJson = JSONObject()
+                        resJson.put("response", responseJson)
+                        resJson.put("message", json)
+                        runOnUiThread {
+                            binding.dappWebView.evaluateJavascript(
+                                String.format("window.postMessage(%s);", resJson.toString()), null
+                            )
+                        }
+                    }
+
+                    override fun cancel(id: Long) {
+                        val responseJson = JSONObject()
+                        responseJson.put("error", "cancel")
+                        val resJson = JSONObject()
+                        resJson.put("response", responseJson)
+                        resJson.put("message", json)
+                        runOnUiThread {
+                            binding.dappWebView.evaluateJavascript(
+                                String.format("window.postMessage(%s);", resJson.toString()), null
+                            )
+                        }
+                    }
+                })
+            } else if (method == "cos_sendTransaction") {
+            }
+        } catch (e: Exception) {
+            if (message == "undefined") {
+                return
+            }
+            val responseJson = JSONObject()
+            responseJson.put("error", e.message)
+            val resJson = JSONObject()
+            resJson.put("response", responseJson)
+            runOnUiThread {
+                binding.dappWebView.evaluateJavascript(
+                    String.format("window.postMessage(%s);", resJson.toString()), null
+                )
+            }
+        }
+    }
+
+    inner class CustomJavaScript {
+        @JavascriptInterface
+        fun request(message: String) {
+            runOnUiThread {
+                processRequest(message)
+            }
         }
     }
 
