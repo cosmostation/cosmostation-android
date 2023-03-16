@@ -986,8 +986,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query + "&onRevCurrency=" + "USDT"));
             startActivity(intent);
         } else if(mChainConfig.baseChain().equals(COSMOS_MAIN)) {
-            String query2 = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + mChainConfig.chainName() + "&networkList=" + "Cosmos Hub" + "&onToAddress=" + mAccount.address;
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query2 + "&onRevCurrency=" + "ATOM"));
+            String cosmosQuery = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + mChainConfig.chainName() + "&networkList=" + "Cosmos Hub" + "&onToAddress=" + mAccount.address;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + cosmosQuery + "&onRevCurrency=" + "ATOM"));
             startActivity(intent);
         } else {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query));
