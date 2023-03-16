@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.ProposalMyVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class VoteDetailsActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -247,22 +248,20 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
                 holder.voteInfoBinding.voteMsg.setText(mApiProposal.description);
                 if (isGRPC(mBaseChain)) {
-                    if (mApiProposal.messages != null && mApiProposal.messages.get(0) != null) {
+                    if (!mApiProposal.messages.isEmpty() && mApiProposal.messages.get(0) != null) {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.VISIBLE);
                         Coin requestCoin = null;
                         if (mApiProposal.messages.get(0).content != null && mApiProposal.messages.get(0).content.amount != null) {
                             requestCoin = mApiProposal.getAmounts(mApiProposal.messages.get(0).content.amount);
                         } else if (mApiProposal.messages.contains("recipient_list")) {
-                            holder.voteInfoBinding.requestAmountDenom.setText("N/A");
-                            holder.voteInfoBinding.requestAmount.setVisibility(View.GONE);
+                            holder.voteInfoBinding.requestAmountLayer.setVisibility(View.GONE);
                         } else {
                             requestCoin = mApiProposal.getAmounts(mApiProposal.messages.get(0).amount);
                         }
                         if (requestCoin != null) {
                             WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin, holder.voteInfoBinding.requestAmountDenom, holder.voteInfoBinding.requestAmount);
                         } else {
-                            holder.voteInfoBinding.requestAmountDenom.setText("N/A");
-                            holder.voteInfoBinding.requestAmount.setVisibility(View.GONE);
+                            holder.voteInfoBinding.requestAmountLayer.setVisibility(View.GONE);
                         }
                     } else {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.GONE);
