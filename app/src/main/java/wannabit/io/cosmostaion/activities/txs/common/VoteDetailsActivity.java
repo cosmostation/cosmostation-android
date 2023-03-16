@@ -267,7 +267,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.GONE);
                     }
                 } else {
-                    if (mApiProposal.messages != null && mApiProposal.messages.get(0).recipient != null && mApiProposal.messages.get(0).amount != null) {
+                    if (!mApiProposal.messages.isEmpty() && mApiProposal.messages.get(0).recipient != null && mApiProposal.messages.get(0).amount != null) {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.VISIBLE);
                         List<Coin> requestCoin = mApiProposal.messages.get(0).amount;
                         WDp.setDpCoin(getBaseContext(), getBaseDao(), mChainConfig, requestCoin.get(0), holder.voteInfoBinding.requestAmountDenom, holder.voteInfoBinding.requestAmount);
@@ -466,7 +466,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 holder.voteMemoBinding.viewLine.setVisibility(View.VISIBLE);
             }
 
-            if (mApiProposal.messages != null && mApiProposal.messages.get(position) != null) {
+            if (!mApiProposal.messages.isEmpty() && mApiProposal.messages.get(position) != null) {
                 if (mApiProposal.messages.get(position).content != null) {
                     if (mApiProposal.messages.get(position).content.type != null && mApiProposal.messages.get(position).content.title != null) {
                         holder.voteMemoBinding.voteMessagesType.setText(mApiProposal.messages.get(position).content.type);
