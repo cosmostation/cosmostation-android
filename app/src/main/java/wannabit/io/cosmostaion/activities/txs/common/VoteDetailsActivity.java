@@ -12,6 +12,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +36,8 @@ import com.google.gson.Gson;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cosmos.gov.v1beta1.Gov;
 import wannabit.io.cosmostaion.R;
@@ -237,7 +243,25 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     holder.voteInfoBinding.voteStartTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_start_time));
                     holder.voteInfoBinding.voteEndTime.setText(WDp.getTimeVoteformat(VoteDetailsActivity.this, mApiProposal.voting_end_time));
                 }
-                holder.voteInfoBinding.voteMsg.setText(mApiProposal.description);
+                holder.voteInfoBinding.voteDescription.setText(mApiProposal.description);
+                Pattern URL_PATTERN = Pattern.compile("(([A-Za-z]{3,9}:(?://)?)(?:[-;:&=+$,\\w]+@)?[A-Za-z0-9.-]+|(?:www\\.|[-;:&=+$,\\w]+@)[A-Za-z0-9.-]+)((?:/[+~%/.\\w-]*)?\\??(?:[-+=&;%@.\\w]*)#?(?:[.!/\\\\\\w]*))?", Pattern.CASE_INSENSITIVE);
+                Matcher m = URL_PATTERN.matcher(mApiProposal.description);
+                SpannableStringBuilder sb = new SpannableStringBuilder(mApiProposal.description);
+                while (m.find()) {
+                    String url = m.toMatchResult().group();
+                    ClickableSpan clickableSpan = new ClickableSpan() {
+                        @Override
+                        public void onClick(@NonNull View widget) {
+                            CommonAlertDialog.showDoubleButton(VoteDetailsActivity.this, Html.fromHtml("<font color=\"#f31963\">" + "<bold>" + getString(R.string.str_caution) + "</bold>" + "</font>", Html.FROM_HTML_MODE_COMPACT), getString(R.string.str_caution_msg),
+                                    getString(R.string.str_cancel), null,
+                                    Html.fromHtml("<font color=\"#f31963\">" + "<bold>" + getString(R.string.str_confirm) + "</bold>" + "</font>", Html.FROM_HTML_MODE_COMPACT), view -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))));
+                        }
+                    };
+                    sb.setSpan(clickableSpan, m.start(), m.end(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+                }
+                holder.voteInfoBinding.voteDescription.setText(sb);
+                holder.voteInfoBinding.voteDescription.setMovementMethod(LinkMovementMethod.getInstance());
+
                 if (isGRPC(mBaseChain)) {
                     if (mApiProposal.content != null && mApiProposal.content.amount != null) {
                         holder.voteInfoBinding.requestAmountLayer.setVisibility(View.VISIBLE);
@@ -265,12 +289,12 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             holder.voteInfoBinding.voteDetail.setOnClickListener(v -> onExplorerLink());
 
             holder.voteInfoBinding.voteBtnExpend.setOnClickListener(v -> {
-                if (holder.voteInfoBinding.voteMsg.getMaxLines() == 500) {
-                    holder.voteInfoBinding.voteMsg.setMaxLines(3);
+                if (holder.voteInfoBinding.voteDescription.getMaxLines() == 500) {
+                    holder.voteInfoBinding.voteDescription.setMaxLines(3);
                     holder.voteInfoBinding.voteBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_down_gr));
 
                 } else {
-                    holder.voteInfoBinding.voteMsg.setMaxLines(500);
+                    holder.voteInfoBinding.voteDescription.setMaxLines(500);
                     holder.voteInfoBinding.voteBtnExpend.setImageDrawable(ContextCompat.getDrawable(VoteDetailsActivity.this, R.drawable.arrow_up_gr));
                 }
                 voteDetailsBinding.recycler.getAdapter().notifyDataSetChanged();

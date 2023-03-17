@@ -31,6 +31,8 @@
     <string name="str_paste_translate">붙여넣기</string>
     <string name="str_send_c">보내기</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 보내기 & 받기]]></string>
+    <string name="str_caution">경고</string>
+    <string name="str_caution_msg">피싱에 주의하세요. 작성자를 신뢰하지 않는 한 링크를 열지 마세요.</string>
 
     <string name="str_participate_incentive">인센티브 청구</string>
     <string name="str_send">보내기</string>
