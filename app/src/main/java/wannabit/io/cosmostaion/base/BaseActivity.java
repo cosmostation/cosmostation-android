@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.base;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -983,6 +984,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         String query = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + mChainConfig.chainName() + "&networkList=" + mChainConfig.chainName() + "&onToAddress=" + mAccount.address;
         if (mChainConfig.baseChain().equals(INJ_MAIN)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query + "&onRevCurrency=" + "USDT"));
+            startActivity(intent);
+        } else if(mChainConfig.baseChain().equals(COSMOS_MAIN)) {
+            String cosmosQuery = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + "cosmos hub" + "&networkList=" + "cosmos hub" + "&onToAddress=" + mAccount.address;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + cosmosQuery + "&onRevCurrency=" + "ATOM"));
             startActivity(intent);
         } else {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query));
