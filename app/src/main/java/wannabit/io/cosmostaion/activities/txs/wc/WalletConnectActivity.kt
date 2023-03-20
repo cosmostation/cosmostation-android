@@ -537,6 +537,24 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private val processSignAmino = { id: Long, jsonArray: JsonArray ->
+        try {
+            if (jsonArray.get(0).asString == "osmosis-1") {
+                val msgJson = jsonArray.get(2).asJsonObject
+                val fee = msgJson.get("fee").asJsonObject
+                val amounts = fee.get("amount").asJsonArray
+                if (amounts.size() == 0) {
+                    val jsonObject = JsonObject()
+                    jsonObject.addProperty("amount", "6250")
+                    jsonObject.addProperty("denom", "uosmo")
+                    amounts.add(jsonObject)
+                }
+                val firstAmount = amounts.get(0).asJsonObject
+                if (firstAmount.get("denom").asString == "uosmo" && firstAmount.get("amount").asString == "0") {
+                    firstAmount.addProperty("amount", "6250")
+                }
+            }
+        } catch (_: Exception) {
+        }
         runOnUiThread {
             val signBundle = generateSignBundle(
                 id, jsonArray.toString()

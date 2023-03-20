@@ -19,8 +19,8 @@ android {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 192
-        versionName "1.9.2"
+        versionCode 193
+        versionName "1.9.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -118,7 +118,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     //firebase
     implementation 'com.google.firebase:firebase-messaging:23.1.0'
-    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation 'com.google.firebase:firebase-core:20.0.0'
     //for qr code
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
     implementation 'org.apache.commons:commons-lang3:3.6'
