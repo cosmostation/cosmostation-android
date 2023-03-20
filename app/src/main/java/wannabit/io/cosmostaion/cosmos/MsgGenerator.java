@@ -208,8 +208,8 @@ public class MsgGenerator {
             int option;
             if (opinion.equalsIgnoreCase("VOTE_OPTION_YES")) option = 1;
             else if (opinion.contains("VOTE_OPTION_ABSTAIN")) option = 2;
-            else if (opinion.contains("VOTE_OPTION_NO")) option = 3;
-            else option = 4;
+            else if (opinion.contains("VOTE_OPTION_NO_WITH_VETO")) option = 4;
+            else option = 3;
             value.option = option;
             value.voter = accountAddr;
 

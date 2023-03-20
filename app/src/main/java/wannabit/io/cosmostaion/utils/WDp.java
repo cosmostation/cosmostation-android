@@ -1316,19 +1316,20 @@ public class WDp {
             for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
                 if (event.getType().equals("withdraw_rewards")) {
                     for (int i = 0; i < event.getAttributesList().size(); i++) {
-                        String rawValue = event.getAttributes(i).getValue();
-                        if (rawValue != null) {
-                            for (String rawCoin : rawValue.split(",")) {
-                                Pattern p = Pattern.compile("([0-9])+");
-                                Matcher m = p.matcher(rawCoin);
-                                if (m.find()) {
-                                    String amount = m.group();
-                                    String denom = rawCoin.substring(m.end());
-                                    result.add(new Coin(denom, amount));
+                        if (event.getAttributes(i).getKey().equals("amount")) {
+                            String rawValue = event.getAttributes(i).getValue();
+                            if (rawValue != null) {
+                                for (String rawCoin : rawValue.split(",")) {
+                                    Pattern p = Pattern.compile("([0-9])+");
+                                    Matcher m = p.matcher(rawCoin);
+                                    if (m.find()) {
+                                        String amount = m.group();
+                                        String denom = rawCoin.substring(m.end());
+                                        result.add(new Coin(denom, amount));
+                                    }
                                 }
                             }
                         }
-
                     }
                 }
             }

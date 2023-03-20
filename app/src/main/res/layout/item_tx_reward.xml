@@ -86,9 +86,11 @@
                     android:text="-"
                     style="@style/font_rr_11_black_daynight"/>
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_16">
                 <TextView
                     android:id="@+id/tx_reward_amount_title"
@@ -96,27 +98,96 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_amount"
                     style="@style/font_rr_12_gray1"/>
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_toRightOf="@+id/tx_reward_amount_title">
-                    <TextView
-                        android:id="@+id/tx_reward_amount_symbol"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/reward_layout0"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="-"
-                        style="@style/font_rr_12_black_daynight"/>
-                    <TextView
-                        android:id="@+id/tx_reward_amount"
-                        android:layout_width="wrap_content"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/tx_reward_symbol0"
+                            style="@style/font_rr_12_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true" />
+                        <TextView
+                            android:id="@+id/tx_reward_amount0"
+                            style="@style/font_rr_12_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/tx_reward_symbol0"
+                            android:layout_marginRight="@dimen/space_2"
+                            android:layout_toLeftOf="@+id/tx_reward_symbol0" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/reward_layout1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_reward_amount_symbol"
-                        android:layout_toLeftOf="@+id/tx_reward_amount_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_rr_12_black_daynight"/>
-                </RelativeLayout>
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/tx_reward_symbol1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            style="@style/font_rr_12_black_daynight"/>
+
+                        <TextView
+                            android:id="@+id/tx_reward_amount1"
+                            style="@style/font_rr_12_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/tx_reward_symbol1"
+                            android:layout_marginRight="@dimen/space_2"
+                            android:layout_toLeftOf="@+id/tx_reward_symbol1" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/reward_layout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/tx_reward_symbol2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            style="@style/font_rr_12_black_daynight"/>
+
+                        <TextView
+                            android:id="@+id/tx_reward_amount2"
+                            style="@style/font_rr_12_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/tx_reward_symbol2"
+                            android:layout_marginRight="@dimen/space_2"
+                            android:layout_toLeftOf="@+id/tx_reward_symbol2" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/reward_layout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/tx_reward_symbol3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            style="@style/font_rr_12_black_daynight"/>
+
+                        <TextView
+                            android:id="@+id/tx_reward_amount3"
+                            style="@style/font_rr_12_black_daynight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/tx_reward_symbol3"
+                            android:layout_marginRight="@dimen/space_2"
+                            android:layout_toLeftOf="@+id/tx_reward_symbol3" />
+                    </RelativeLayout>
+                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -243,7 +243,7 @@
                 android:text="@string/str_voting_description" />
 
             <TextView
-                android:id="@+id/vote_msg"
+                android:id="@+id/vote_description"
                 style="@style/font_rr_11_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -252,7 +252,6 @@
                 android:layout_marginRight="@dimen/space_16"
                 android:autoLink="web"
                 android:clickable="true"
-                android:lineSpacingExtra="1sp"
                 android:maxLines="3"
                 android:textColorLink="@color/colorPhotonDayNight" />
 

@@ -31,6 +31,8 @@
     <string name="str_paste_translate">貼り付け</string>
     <string name="str_send_c">送る</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3送る ＆ もらう]]></string>
+    <string name="str_caution">警告</string>
+    <string name="str_caution_msg">フィッシングに注意してください。 作成者を信頼しない限り、リンクを開かないでください。</string>
 
     <string name="str_participate_incentive">インセンティブ請求</string>
     <string name="str_send">送る</string>

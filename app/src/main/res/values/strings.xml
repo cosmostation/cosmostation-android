@@ -69,6 +69,8 @@
     <string name="str_paste_translate">Paste</string>
     <string name="str_send_c">Send</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 Send & Claim]]></string>
+    <string name="str_caution">CAUTION</string>
+    <string name="str_caution_msg">Be wary of phishing. Do not open the link unless you trust the author.</string>
 
     <string name="str_participate_incentive">Claim Incentive</string>
     <string name="str_send">Send</string>

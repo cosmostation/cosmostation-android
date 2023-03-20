@@ -28,6 +28,7 @@ public class Cosmos extends ChainConfig {
     public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
     public boolean moonPaySupport() { return true; }
+    public boolean kadoMoneySupport() { return true; }
 
     public String grpcUrl() { return "grpc-cosmos.cosmostation.io"; }
 
