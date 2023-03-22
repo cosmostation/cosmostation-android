@@ -61,16 +61,14 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseApplication
 import wannabit.io.cosmostaion.base.BaseChain
+import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.cosmos.MsgGenerator
 import wannabit.io.cosmostaion.crypto.CryptoHelper
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.databinding.ActivityConnectWalletBinding
-import wannabit.io.cosmostaion.dialog.CommonAlertDialog
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account
+import wannabit.io.cosmostaion.dialog.*
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account.OnDialogSelectListener
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data.WcSignRawDataListener
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
+import wannabit.io.cosmostaion.dialog.DappSignDialog.WcSignRawDataListener
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
@@ -81,6 +79,7 @@ import wannabit.io.cosmostaion.utils.WUtil
 import wannabit.io.cosmostaion.utils.WalletConnectManager.addWhiteList
 import wannabit.io.cosmostaion.utils.WalletConnectManager.getWhiteList
 import java.io.BufferedReader
+import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
@@ -175,6 +174,9 @@ class WalletConnectActivity : BaseActivity() {
         binding.wcLayer.visibility = View.GONE
         binding.loadingLayer.visibility = View.GONE
         binding.btnDisconnect.visibility = View.GONE
+        binding.dappLeft.setOnClickListener { if (binding.dappWebView.canGoBack()) binding.dappWebView.goBack() }
+        binding.dappRight.setOnClickListener { if (binding.dappWebView.canGoForward()) binding.dappWebView.goForward() }
+        binding.dappRefresh.setOnClickListener { binding.dappWebView.reload() }
         changeDappConnectStatus(false)
         binding.dappWebView.loadUrl(url)
         binding.dappWebView.addJavascriptInterface(CustomJavaScript(), "station")
@@ -200,15 +202,6 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private fun changeDappConnectStatus(connected: Boolean) {
-        if (connected) {
-            binding.wcLight.setImageResource(R.drawable.ic_passed_img)
-            binding.wcState.setText(R.string.str_wc_dapp_connected)
-            binding.wcState.setTextColor(getColor(R.color.colorBlackDayNight))
-        } else {
-            binding.wcLight.setImageResource(R.drawable.ic_pass_gr)
-            binding.wcState.setText(R.string.str_wc_dapp_not_connected)
-            binding.wcState.setTextColor(getColor(R.color.colorGray5))
-        }
     }
 
     private fun fromCosmostationScheme(data: Uri): Boolean {
@@ -234,8 +227,7 @@ class WalletConnectActivity : BaseActivity() {
         binding.dappWebView.apply {
             settings.apply {
                 javaScriptEnabled = true
-                userAgentString =
-                    "$userAgentString Cosmostation/APP/Android/${BuildConfig.VERSION_NAME}"
+                userAgentString = "$userAgentString Cosmostation/APP/Android/${BuildConfig.VERSION_NAME}"
                 domStorageEnabled = true
                 mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                 webChromeClient = dappWebChromeClient
@@ -271,8 +263,7 @@ class WalletConnectActivity : BaseActivity() {
                     return
                 }
 
-                val sessionNamespaces: MutableMap<String, Sign.Model.Namespace.Session> =
-                    mutableMapOf()
+                val sessionNamespaces: MutableMap<String, Sign.Model.Namespace.Session> = mutableMapOf()
                 val methods = sessionProposal.requiredNamespaces.values.flatMap { it.methods }
                 val events = sessionProposal.requiredNamespaces.values.flatMap { it.events }
                 runOnUiThread {
@@ -283,16 +274,12 @@ class WalletConnectActivity : BaseActivity() {
                             val chainName = chain.split(":")[0]
                             loadedAccountMap[WDp.getChainTypeByChainId(chainId).chain]?.address?.let {
                                 sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
-                                    accounts = listOf("$chain:$it"),
-                                    methods = methods,
-                                    events = events,
-                                    extensions = null
+                                    accounts = listOf("$chain:$it"), methods = methods, events = events, extensions = null
                                 )
                             }
                         }
                         val approveProposal = Sign.Params.Approve(
-                            proposerPublicKey = sessionProposal.proposerPublicKey,
-                            namespaces = sessionNamespaces
+                            proposerPublicKey = sessionProposal.proposerPublicKey, namespaces = sessionNamespaces
                         )
 
                         if (!connectType.isDapp()) {
@@ -340,8 +327,7 @@ class WalletConnectActivity : BaseActivity() {
                             showAccountDialog(listOf(chainId), mutableListOf()) { accounts ->
                                 val v2Accounts = accounts.map { toV2Account(it) }
                                 val response = Sign.Params.Response(
-                                    sessionTopic = sessionRequest.topic,
-                                    jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
+                                    sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
                                         id, Gson().toJson(v2Accounts)
                                     )
                                 )
@@ -351,8 +337,7 @@ class WalletConnectActivity : BaseActivity() {
                             }
                         } ?: run {
                             val response = Sign.Params.Response(
-                                sessionTopic = sessionRequest.topic,
-                                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
+                                sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
                                     id, 500, "No account"
                                 )
                             )
@@ -392,10 +377,7 @@ class WalletConnectActivity : BaseActivity() {
 
     private fun connectWalletConnectV1(uri: String) {
         val meta = WCPeerMeta(
-            getString(R.string.str_wc_peer_name),
-            getString(R.string.str_wc_peer_url),
-            getString(R.string.str_wc_peer_desc),
-            listOf()
+            getString(R.string.str_wc_peer_name), getString(R.string.str_wc_peer_url), getString(R.string.str_wc_peer_desc), listOf()
         )
         wcV1Session = WCSession.from(uri)
         val client: OkHttpClient = OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build()
@@ -538,20 +520,23 @@ class WalletConnectActivity : BaseActivity() {
 
     private val processSignAmino = { id: Long, jsonArray: JsonArray ->
         try {
-            if (jsonArray.get(0).asString == "osmosis-1") {
-                val msgJson = jsonArray.get(2).asJsonObject
-                val fee = msgJson.get("fee").asJsonObject
-                val amounts = fee.get("amount").asJsonArray
-                if (amounts.size() == 0) {
-                    val jsonObject = JsonObject()
-                    jsonObject.addProperty("amount", "6250")
-                    jsonObject.addProperty("denom", "uosmo")
-                    amounts.add(jsonObject)
-                }
-                val firstAmount = amounts.get(0).asJsonObject
-                if (firstAmount.get("denom").asString == "uosmo" && firstAmount.get("amount").asString == "0") {
-                    firstAmount.addProperty("amount", "6250")
-                }
+            val chainId = jsonArray.get(0).asString
+            val chainType = WDp.getChainTypeByChainId(chainId)
+            val chainConfig = ChainFactory.getChain(chainType)
+            val denom = chainConfig.mainDenom()
+            val msgJson = jsonArray.get(2).asJsonObject
+            val fee = msgJson.get("fee").asJsonObject
+            val gas = fee.get("gas").asString
+            val amounts = fee.get("amount").asJsonArray
+            if (amounts.size() == 0) {
+                val jsonObject = JsonObject()
+                jsonObject.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
+                jsonObject.addProperty("denom", denom)
+                amounts.add(jsonObject)
+            }
+            val firstAmount = amounts.get(0).asJsonObject
+            if (firstAmount.get("amount").asString == "0") {
+                firstAmount.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
             }
         } catch (_: Exception) {
         }
@@ -841,28 +826,15 @@ class WalletConnectActivity : BaseActivity() {
                 }
             }
             val transaction = Transaction(
-                wcEthereumTransaction.from,
-                nonce,
-                BigInteger.ZERO,
-                BigInteger.ZERO,
-                wcEthereumTransaction.to,
-                value,
-                wcEthereumTransaction.data
+                wcEthereumTransaction.from, nonce, BigInteger.ZERO, BigInteger.ZERO, wcEthereumTransaction.to, value, wcEthereumTransaction.data
             )
             val limit = web3.ethEstimateGas(
                 transaction
             ).sendAsync().get()
             val rawTransaction = RawTransaction.createTransaction(
-                9001,
-                nonce,
-                limit.amountUsed,
-                wcEthereumTransaction.to,
-                value,
-                wcEthereumTransaction.data,
-                BigInteger.valueOf(
+                9001, nonce, limit.amountUsed, wcEthereumTransaction.to, value, wcEthereumTransaction.data, BigInteger.valueOf(
                     500000000L
-                ),
-                BigInteger.valueOf(
+                ), BigInteger.valueOf(
                     27500000000L
                 )
             )
@@ -1036,9 +1008,7 @@ class WalletConnectActivity : BaseActivity() {
                 Base64.decode(jsonObject["authInfoBytes"].asString, Base64.DEFAULT)
             )
             val accountNumber = jsonObject["accountNumber"].asLong
-            val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString())
-                .setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId)
-                .setAccountNumber(accountNumber).build()
+            val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
             val key = getKey(WDp.getChainTypeByChainId(chainId).chain)
             val signModel = WcSignDirectModel(signDoc.toByteArray(), jsonObject, key)
             wcV1Client?.approveRequest(id, signModel)
@@ -1062,17 +1032,13 @@ class WalletConnectActivity : BaseActivity() {
             val signDocJson = jsonObject["signDoc"].asJsonObject
             val chainId = signDocJson["chainId"].asString
             val txBody = TxBody.parseFrom(Utils.hexToBytes(signDocJson["bodyBytes"].asString))
-            val authInfo =
-                TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(signDocJson["authInfoBytes"].asString))
+            val authInfo = TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(signDocJson["authInfoBytes"].asString))
             val accountNumber = signDocJson["accountNumber"].asLong
-            val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString())
-                .setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId)
-                .setAccountNumber(accountNumber).build()
+            val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
             val key = getKey(WDp.getChainTypeByChainId(chainId).chain)
             val signModel = WcSignDirectModel(signDoc.toByteArray(), signDocJson, key)
             val response = Sign.Params.Response(
-                sessionTopic = sessionRequest.topic,
-                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
+                sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
                     id, Gson().toJson(signModel.signature)
                 )
             )
@@ -1084,8 +1050,7 @@ class WalletConnectActivity : BaseActivity() {
             ).show()
         } catch (e: Exception) {
             val response = Sign.Params.Response(
-                sessionTopic = sessionRequest.topic,
-                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
+                sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
                     id, 500, "Signing error."
                 )
             )
@@ -1106,11 +1071,9 @@ class WalletConnectActivity : BaseActivity() {
             val jsonObject = Gson().fromJson(transaction, JsonObject::class.java)
             val signDocJson = jsonObject["signDoc"].asJsonObject
             val chainId = signDocJson["chain_id"].asString
-            val signModel =
-                WcSignModel(signDocJson, getKey(WDp.getChainTypeByChainId(chainId).chain))
+            val signModel = WcSignModel(signDocJson, getKey(WDp.getChainTypeByChainId(chainId).chain))
             val response = Sign.Params.Response(
-                sessionTopic = sessionRequest.topic,
-                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
+                sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
                     id, Gson().toJson(signModel.signature)
                 )
             )
@@ -1122,8 +1085,7 @@ class WalletConnectActivity : BaseActivity() {
             ).show()
         } catch (e: Exception) {
             val response = Sign.Params.Response(
-                sessionTopic = sessionRequest.topic,
-                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
+                sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
                     id, 500, "Signing error."
                 )
             )
@@ -1168,8 +1130,7 @@ class WalletConnectActivity : BaseActivity() {
 
         if (meta != null) {
             if (!CollectionUtils.isEmpty(meta.icons)) {
-                Picasso.get().load(meta.icons.first()).fit()
-                    .placeholder(R.drawable.validator_none_img).into(binding.wcImg)
+                Picasso.get().load(meta.icons.first()).fit().placeholder(R.drawable.validator_none_img).into(binding.wcImg)
             } else {
                 binding.wcImg.setImageResource(R.drawable.validator_none_img)
             }
@@ -1192,8 +1153,7 @@ class WalletConnectActivity : BaseActivity() {
         fillConnectInfoAddressIfNeed()
 
         if (!CollectionUtils.isEmpty(proposal.icons)) {
-            Picasso.get().load(proposal.icons.first().path).fit()
-                .placeholder(R.drawable.validator_none_img).into(binding.wcImg)
+            Picasso.get().load(proposal.icons.first().path).fit().placeholder(R.drawable.validator_none_img).into(binding.wcImg)
         } else {
             binding.wcImg.setImageResource(R.drawable.validator_none_img)
         }
@@ -1255,10 +1215,7 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private fun showAccountDialog(
-        chains: List<String>?,
-        selectedAccounts: MutableList<Account>,
-        index: Int = 0,
-        action: (selectedAccounts: List<Account>) -> Unit
+        chains: List<String>?, selectedAccounts: MutableList<Account>, index: Int = 0, action: (selectedAccounts: List<Account>) -> Unit
     ) {
         if (chains != null) {
             if (index >= chains.size) {
@@ -1331,12 +1288,7 @@ class WalletConnectActivity : BaseActivity() {
         val key = getKey(account.baseChain)
         return key?.let {
             WCKeplrWallet(
-                WUtil.getWalletName(this, account),
-                "secp256k1",
-                Utils.bytesToHex(it.pubKey),
-                WKey.generateTenderAddressBytesFromPrivateKey(key.privateKeyAsHex),
-                account.address,
-                false
+                WUtil.getWalletName(this, account), "secp256k1", Utils.bytesToHex(it.pubKey), WKey.generateTenderAddressBytesFromPrivateKey(key.privateKeyAsHex), account.address, false
             )
         }
     }
@@ -1345,11 +1297,7 @@ class WalletConnectActivity : BaseActivity() {
         val key = getKey(account.baseChain)
         return key?.let {
             WCCosmostationAccount(
-                WUtil.getWalletName(this, account),
-                "secp256k1",
-                Utils.bytesToHex(it.pubKey),
-                WKey.generateTenderAddressBytesFromPrivateKey(key.privateKeyAsHex),
-                account.address
+                WUtil.getWalletName(this, account), "secp256k1", Utils.bytesToHex(it.pubKey), WKey.generateTenderAddressBytesFromPrivateKey(key.privateKeyAsHex), account.address
             )
         }
     }
@@ -1366,7 +1314,7 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private fun showSignDialog(bundle: Bundle, signListener: WcSignRawDataListener) {
-        val wcRawDataDialog = Dialog_Wc_Raw_Data.newInstance(bundle, signListener)
+        val wcRawDataDialog = DappSignDialog.newInstance(bundle.getLong("id"), bundle.getString("data")!!, bundle.getString("url"), signListener)
         wcRawDataDialog.show(supportFragmentManager, "dialog")
     }
 
@@ -1386,8 +1334,7 @@ class WalletConnectActivity : BaseActivity() {
         id: Long, sessionRequest: Sign.Model.SessionRequest
     ) {
         val response = Sign.Params.Response(
-            sessionTopic = sessionRequest.topic,
-            jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
+            sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
                 id, 300, getString(R.string.str_cancel)
             )
         )
@@ -1402,12 +1349,7 @@ class WalletConnectActivity : BaseActivity() {
 
     private fun showErrorDialog(message: String) {
         CommonAlertDialog.showSingleButton(
-            this,
-            getString(R.string.str_error_not_support_chain_title),
-            message,
-            getString(R.string.str_ok),
-            null,
-            false
+            this, getString(R.string.str_error_not_support_chain_title), message, getString(R.string.str_ok), null, false
         )
     }
 
@@ -1466,14 +1408,13 @@ class WalletConnectActivity : BaseActivity() {
         super.onDestroy()
     }
 
-    private val connectWalletResultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == RESULT_OK) {
-                fillByConnectType()
-            } else {
-                finish()
-            }
+    private val connectWalletResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == RESULT_OK) {
+            fillByConnectType()
+        } else {
+            finish()
         }
+    }
 
     private val webViewTouchListener = { _: View?, event: MotionEvent ->
         if (event.action == MotionEvent.ACTION_DOWN) {
@@ -1484,22 +1425,21 @@ class WalletConnectActivity : BaseActivity() {
         false
     }
 
-    private val webViewScrollChangeListener =
-        View.OnScrollChangeListener { _: View?, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
-            if (lastClickPositionY == -1) {
-                lastClickPositionY = oldScrollY
-            }
-            if (lastClickPositionY > scrollY && Math.abs(scrollY - oldScrollY) > 50 && isHideToolbar) {
-                isHideToolbar = false
-                supportActionBar?.show()
-            } else if (lastClickPositionY < scrollY && Math.abs(
-                    scrollY - oldScrollY
-                ) > 50 && !isHideToolbar
-            ) {
-                isHideToolbar = true
-                supportActionBar?.hide()
-            }
+    private val webViewScrollChangeListener = View.OnScrollChangeListener { _: View?, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
+        if (lastClickPositionY == -1) {
+            lastClickPositionY = oldScrollY
         }
+        if (lastClickPositionY > scrollY && Math.abs(scrollY - oldScrollY) > 50 && isHideToolbar) {
+            isHideToolbar = false
+            supportActionBar?.show()
+        } else if (lastClickPositionY < scrollY && Math.abs(
+                scrollY - oldScrollY
+            ) > 50 && !isHideToolbar
+        ) {
+            isHideToolbar = true
+            supportActionBar?.hide()
+        }
+    }
 
     private val dappWebChromeClient = object : WebChromeClient() {
         override fun onJsAlert(
@@ -1507,10 +1447,7 @@ class WalletConnectActivity : BaseActivity() {
         ): Boolean {
             AlertDialog.Builder(
                 view.context, R.style.DialogTheme
-            ).setMessage(message)
-                .setPositiveButton("OK") { dialog: DialogInterface?, which: Int -> result.confirm() }
-                .setOnDismissListener { dialog: DialogInterface? -> result.confirm() }.create()
-                .show()
+            ).setMessage(message).setPositiveButton("OK") { dialog: DialogInterface?, which: Int -> result.confirm() }.setOnDismissListener { dialog: DialogInterface? -> result.confirm() }.create().show()
             return true
         }
 
@@ -1519,11 +1456,7 @@ class WalletConnectActivity : BaseActivity() {
         ): Boolean {
             AlertDialog.Builder(
                 view.context, R.style.DialogTheme
-            ).setMessage(message)
-                .setPositiveButton("OK") { _: DialogInterface?, _: Int -> result.confirm() }
-                .setNegativeButton("Cancel") { _: DialogInterface?, _: Int -> result.cancel() }
-                .setOnDismissListener { dialog: DialogInterface? -> result.cancel() }.create()
-                .show()
+            ).setMessage(message).setPositiveButton("OK") { _: DialogInterface?, _: Int -> result.confirm() }.setNegativeButton("Cancel") { _: DialogInterface?, _: Int -> result.cancel() }.setOnDismissListener { dialog: DialogInterface? -> result.cancel() }.create().show()
             return true
         }
     }
@@ -1532,12 +1465,17 @@ class WalletConnectActivity : BaseActivity() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
 
+            binding.wcPeer.text = Uri.parse(url).host
             try {
                 val inputStream = assets.open("injectScript.js")
                 inputStream.bufferedReader().use(BufferedReader::readText)
             } catch (e: Exception) {
                 null
             }?.let { view?.loadUrl("javascript:(function(){$it})()") }
+        }
+
+        override fun onPageFinished(view: WebView?, url: String?) {
+            super.onPageFinished(view, url)
         }
 
         override fun shouldOverrideUrlLoading(
@@ -1556,8 +1494,7 @@ class WalletConnectActivity : BaseActivity() {
             } else if (modifiedUrl.startsWith("intent:")) {
                 if (modifiedUrl.contains("intent://wcV1")) {
                     modifiedUrl = modifiedUrl.replace(
-                        "#Intent;package=com.chainapsis.keplr;scheme=keplrwallet;end;",
-                        "#Intent;package=wannabit.io.cosmostaion;scheme=cosmostation;end;"
+                        "#Intent;package=com.chainapsis.keplr;scheme=keplrwallet;end;", "#Intent;package=wannabit.io.cosmostaion;scheme=cosmostation;end;"
                     )
                     modifiedUrl = modifiedUrl.replace(
                         "intent://wcV1", "intent://wc"
@@ -1694,19 +1631,14 @@ class WalletConnectActivity : BaseActivity() {
                     override fun sign(id: Long, transaction: String) {
                         val transactionJson = Gson().fromJson(transaction, JsonObject::class.java)
                         val chainId = transactionJson["chain_id"].asString
-                        val txBody =
-                            TxBody.parseFrom(Utils.hexToBytes(transactionJson["body_bytes"].asString))
-                        val authInfo =
-                            TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(transactionJson["auth_info_bytes"].asString))
+                        val txBody = TxBody.parseFrom(Utils.hexToBytes(transactionJson["body_bytes"].asString))
+                        val authInfo = TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(transactionJson["auth_info_bytes"].asString))
                         val accountNumber = transactionJson["account_number"].asLong
-                        val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString())
-                            .setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId)
-                            .setAccountNumber(accountNumber).build()
+                        val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
                         val baseDao = BaseApplication.getInstance().baseDao
                         val account = baseDao.onSelectAccount(baseDao.lastUser)
                         val key = ECKey.fromPrivate(BigInteger(getPrivateKey(account), 16))
-                        val signModel =
-                            WcSignDirectModel(signDoc.toByteArray(), transactionJson, key)
+                        val signModel = WcSignDirectModel(signDoc.toByteArray(), transactionJson, key)
                         val signed = JSONObject()
                         signed.put("signature", signModel.signature.signature)
                         signed.put(
