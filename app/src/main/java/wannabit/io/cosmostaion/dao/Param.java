@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.dao;
 import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.QUICKSILVER_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SOMMELIER_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
@@ -140,6 +141,12 @@ public class Param {
 
         @SerializedName("sommelier_apy")
         public SommlierApy mSommlierApy;
+
+        @SerializedName("quicksilver_minting_params")
+        public QuicksilverMintingParams mQuicksilverMintingParams;
+
+        @SerializedName("quicksilver_minting_epoch_provisions")
+        public QuicksilverMintProvision mQuicksilverMintProvision;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -230,6 +237,13 @@ public class Param {
                         return BigDecimal.ZERO;
                     BigDecimal annualProvisions = new BigDecimal(mParams.mCantoEpochMintProvision.mEpochMintProvision.amount).multiply(new BigDecimal("365"));
                     return annualProvisions.divide(getMainSupply(), 18, RoundingMode.DOWN);
+                }
+
+            } else if (chainConfig.baseChain().equals(QUICKSILVER_MAIN)) {
+                if (mParams.mQuicksilverMintingParams != null && mParams.mQuicksilverMintingParams.params != null && mParams.mQuicksilverMintProvision != null) {
+                    BigDecimal epochProvisions = new BigDecimal(mParams.mQuicksilverMintProvision.epochProvisions);
+                    BigDecimal epochPeriods = new BigDecimal(mParams.mQuicksilverMintingParams.params.reduction_period_in_epochs);
+                    return epochProvisions.multiply(epochPeriods).divide(getMainSupply(), 18, RoundingMode.DOWN);
                 }
 
             } else {
@@ -366,6 +380,12 @@ public class Param {
                         return new BigDecimal(mParams.mSommlierApy.apy);
                     } else {
                         return BigDecimal.ZERO;
+                    }
+
+                } else if (chainConfig.baseChain().equals(QUICKSILVER_MAIN)) {
+                    if (mParams.mQuicksilverMintingParams != null && mParams.mQuicksilverMintingParams.params != null && mParams.mQuicksilverMintingParams.params.mDistributionProportion != null) {
+                        BigDecimal stakingDistribution = new BigDecimal(mParams.mQuicksilverMintingParams.params.mDistributionProportion.staking);
+                        return inflation.multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
                     }
                 } else {
                     BigDecimal ap;
@@ -855,5 +875,28 @@ public class Param {
     public class SommlierApy {
         @SerializedName("apy")
         public String apy;
+    }
+
+    public class QuicksilverMintingParams {
+        @SerializedName("params")
+        public QuicksilverMintingParam params;
+
+        public class QuicksilverMintingParam {
+            @SerializedName("reduction_period_in_epochs")
+            public String reduction_period_in_epochs;
+
+            @SerializedName("distribution_proportions")
+            public DistributionProportion mDistributionProportion;
+
+            public class DistributionProportion {
+                @SerializedName("staking")
+                public String staking;
+            }
+        }
+    }
+
+    public class QuicksilverMintProvision {
+        @SerializedName("epoch_provisions")
+        public String epochProvisions;
     }
 }
