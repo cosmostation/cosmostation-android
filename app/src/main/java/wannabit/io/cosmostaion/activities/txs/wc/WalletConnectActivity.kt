@@ -534,10 +534,8 @@ class WalletConnectActivity : BaseActivity() {
                 jsonObject.addProperty("denom", denom)
                 amounts.add(jsonObject)
             }
-            val firstAmount = amounts.get(0).asJsonObject
-            if (firstAmount.get("amount").asString == "0") {
-                firstAmount.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
-            }
+            val mainDenomFee = amounts.firstOrNull { it.asJsonObject["denom"].asString == denom && it.asJsonObject["amount"].asString == "0" }
+            mainDenomFee?.asJsonObject?.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
         } catch (_: Exception) {
         }
         runOnUiThread {
