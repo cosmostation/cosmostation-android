@@ -68,6 +68,7 @@
     <color name="colorTransBgQuicksilver">#eaebef</color>
     <color name="colorTransBgMars">#F6DFDD</color>
     <color name="colorTransBgCanto">#E6F9F1</color>
+    <color name="colorTransBgQuasar">#EBEEFE</color>
 
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -224,6 +225,8 @@
     <color name="color_mars">#DA3A14</color>
 
     <color name="color_canto">#00DC80</color>
+
+    <color name="color_quasar">#3D62FC</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

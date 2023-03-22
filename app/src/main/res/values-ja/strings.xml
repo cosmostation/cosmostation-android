@@ -278,6 +278,8 @@
     <string name="str_front_guide_msg_quicksilver"><![CDATA[Cosmos Interchainエコシステムチェーンのためのリキッドステーキング プロトコル。]]></string>
     <string name="str_front_guide_msg_mars"><![CDATA[Mars Hubは、Interchainエコシステム全体に配布されるMars Protocolのさまざまなディファイアプリの管理と運用のために設計されたブロックチェーンです。]]></string>
     <string name="str_front_guide_msg_canto"><![CDATA[Cantoは、イーサリアム仮想マシン（EVM）を実行できるように設計されたCosmos SDKベースのレイヤ1ブロックチェーンです。]]></string>
+    <string name="str_front_guide_msg_quasar"><![CDATA[Quasarはボルトとボルト戦略を活用した分散型資産管理(DAM)サービスを提供している。]]></string>
+
 
     <string name="str_current_reward_address">現在利子支給アドレス</string>
     <string name="str_new_reward_address">変更する利子支給アドレス</string>

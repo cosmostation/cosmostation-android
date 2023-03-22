@@ -159,6 +159,9 @@ public class ChainFactory {
                 case PROVENANCE_MAIN:
                     return new Provenance();
 
+                case QUASAR_MAIN:
+                    return new Quasar();
+
                 case QUICKSILVER_MAIN:
                     return new Quicksilver();
 
