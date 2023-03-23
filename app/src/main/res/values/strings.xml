@@ -316,6 +316,7 @@
     <string name="str_front_guide_title_quicksilver" translatable="false"><![CDATA[QUICKSILVER]]></string>
     <string name="str_front_guide_title_mars" translatable="false"><![CDATA[MARS]]></string>
     <string name="str_front_guide_title_canto" translatable="false"><![CDATA[CANTO]]></string>
+    <string name="str_front_guide_title_quasar" translatable="false"><![CDATA[QUASAR]]></string>
 
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
@@ -374,6 +375,7 @@
     <string name="str_front_guide_msg_quicksilver"><![CDATA[Quicksilver Protocol is an liquid staking protocol for the Cosmos Interchain ecosystem.]]></string>
     <string name="str_front_guide_msg_mars"><![CDATA[Mars Hub is the governing app-chain that administers Mars Protocol’s various DeFi outposts across the Interchain ecosystem.]]></string>
     <string name="str_front_guide_msg_canto"><![CDATA[Canto is a Cosmos SDK based Layer-1 blockchain that runs Ethereum Virtual Machine.]]></string>
+    <string name="str_front_guide_msg_quasar"><![CDATA[Quasar provides decentralized asset management (DAM) service utilizing vaults and vault strategies.]]></string>
 
 
     <string name="str_current_reward_address">Current Reward Address</string>
