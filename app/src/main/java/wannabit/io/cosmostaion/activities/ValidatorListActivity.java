@@ -374,7 +374,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     private ServiceOuterClass.SimulateResponse simulateClaim(ArrayList<String> toClaimValaddr) {
         ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcClaimRewardsSimulateReq(getAuthResponse(), toClaimValaddr, fee, "");
+        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcClaimRewardsSimulateReq(getAuthResponse(), toClaimValaddr, fee, "", mAccount.customPath, mBaseChain);
         return txService.simulate(simulateTxRequest);
     }
 
@@ -394,7 +394,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
     private ServiceOuterClass.SimulateResponse simulateCompounding(ArrayList<Distribution.DelegationDelegatorReward> rewards, BaseChain baseChain) {
         ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCompoundingSimulateReq(getAuthResponse(), rewards, baseChain, fee, "");
+        ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcCompoundingSimulateReq(getAuthResponse(), rewards, fee, "", mAccount.customPath, baseChain);
         return txService.simulate(simulateTxRequest);
     }
 
