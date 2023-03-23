@@ -68,6 +68,9 @@ public class ChainFactory {
                 case COMDEX_MAIN:
                     return new Comdex();
 
+                case COREUM_MAIN:
+                    return new Coreum();
+
                 case CRESCENT_MAIN:
                     return new Crescent();
 

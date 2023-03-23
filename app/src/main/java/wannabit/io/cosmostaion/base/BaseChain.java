@@ -91,8 +91,8 @@ public enum BaseChain {
     QUICKSILVER_MAIN("quicksilver-mainnet"),
     MARS_MAIN("mars-mainnet"),
     CANTO_MAIN("canto-mainnet"),
-
     KYVE_MAIN("kyve-mainnet"),
+    COREUM_MAIN("coreum-mainnet"),
     QUASAR_MAIN("quasar-mainnet");
 
 
@@ -299,6 +299,9 @@ public enum BaseChain {
         if (chainName.equals(KYVE_MAIN.chainName)) {
             return KYVE_MAIN;
         }
+        if (chainName.equals(COREUM_MAIN.chainName)) {
+            return COREUM_MAIN;
+        }
         if (chainName.equals(QUASAR_MAIN.chainName)) {
             return QUASAR_MAIN;
         }
@@ -319,6 +322,7 @@ public enum BaseChain {
         result.add(CANTO_MAIN);
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
+        result.add(COREUM_MAIN);
         result.add(CRESCENT_MAIN);
         result.add(CRYPTO_MAIN);
         result.add(CUDOS_MAIN);
