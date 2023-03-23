@@ -546,7 +546,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             } else {
                 Abci.GasInfo gasInfo = ((Abci.GasInfo) result.resultData);
                 long gasused = gasInfo.getGasUsed();
-                if (mBaseChain.equals(BaseChain.PROVENANCE_MAIN) || mBaseChain.equals(BaseChain.TERITORI_MAIN))
+                if (mBaseChain.equals(BaseChain.PROVENANCE_MAIN) || mBaseChain.equals(BaseChain.TERITORI_MAIN) || mBaseChain.equals(BaseChain.IXO_MAIN))
                     gasused = (long) ((double) gasused * 1.3d);
                 else gasused = (long) ((double) gasused * 1.15d);
                 mFeeGasAmount = new BigDecimal(gasused);

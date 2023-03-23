@@ -41,7 +41,7 @@ public class SimulOsmosisSwaplnGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcSwapInSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSwapInRoute, mInputCoin, mOutputcoin.amount, mFees, mMemo);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcSwapInSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mSwapInRoute, mInputCoin, mOutputcoin.amount, mFees, mMemo, mAccount.customPath, mBaseChain);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;

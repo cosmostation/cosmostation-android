@@ -34,7 +34,7 @@ public class SimulChangeRewardAddressGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcRewardAddressChangeSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mToRewardAddress, mFees, mMemo);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcRewardAddressChangeSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mToRewardAddress, mFees, mMemo, mAccount.customPath, mBaseChain);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();

@@ -39,7 +39,7 @@ public class SimulRedelegateGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcReDelegateSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mFromValidatorAddress, mToValidatorAddress, mAmount, mFees, mMemo);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcReDelegateSimulateReq(WKey.onAuthResponse(mBaseChain, mAccount), mFromValidatorAddress, mToValidatorAddress, mAmount, mFees, mMemo, mAccount.customPath, mBaseChain);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
 
             mResult.resultData = response.getGasInfo();
