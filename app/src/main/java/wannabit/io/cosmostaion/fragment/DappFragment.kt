@@ -31,7 +31,7 @@ class DappFragment : BaseFragment() {
     override fun onRefreshTab() {
         super.onRefreshTab()
         webView.loadUrl(
-            "https://wc.dev.cosmostation.io/?chain=" + baseActivity.mChainConfig.chainName() + "&theme=" + ThemeUtil.currentMode(
+            "https://dapps.cosmostation.io?chain=" + baseActivity.mChainConfig.chainName() + "&theme=" + ThemeUtil.currentMode(
                 context
             )
         )
