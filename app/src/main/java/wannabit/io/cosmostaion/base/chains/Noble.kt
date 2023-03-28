@@ -20,7 +20,7 @@ class Noble : ChainConfig() {
     override fun chainIdPrefix(): String { return "noble-" }
 
     override fun mainDenomImg(): Int { return R.drawable.token_noble }
-    override fun mainDenom(): String { return "uusdc" }
+    override fun mainDenom(): String { return "ustake" }
     override fun addressPrefix(): String { return "noble" }
 
     override fun dexSupport(): Boolean { return false }
