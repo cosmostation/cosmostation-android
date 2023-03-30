@@ -92,6 +92,7 @@ class WalletConnectActivity : BaseActivity() {
     private var wcV1Client: WCClient? = null
     private var wcV1Session: WCSession? = null
     private var wcV1PeerMeta: WCPeerMeta? = null
+    private var currentV2PairingUri: String? = null
 
     private var connectType = ConnectType.QRWalletConnect
 
@@ -173,7 +174,7 @@ class WalletConnectActivity : BaseActivity() {
         binding.btnDisconnect.visibility = View.GONE
         binding.dappLeft.setOnClickListener { if (binding.dappWebView.canGoBack()) binding.dappWebView.goBack() }
         binding.wcPeer.setOnClickListener {
-            DappUrlDialog.newInstance(url, object : DappUrlDialog.UrlListener {
+            DappUrlDialog.newInstance(binding.dappWebView.url ?: "", object : DappUrlDialog.UrlListener {
                 override fun input(url: String) {
                     if (StringUtils.isNotEmpty(binding.dappWebView.url) && binding.dappWebView.url != url) {
                         binding.dappWebView.loadUrl(url)
@@ -249,10 +250,11 @@ class WalletConnectActivity : BaseActivity() {
 
     private fun connectWalletConnectV2(uri: String) {
         wcVersion = 2
+        currentV2PairingUri = mWalletConnectURI
 
         val pairingParams = Core.Params.Pair(uri)
         CoreClient.Pairing.pair(pairingParams) { error ->
-            Log.e("WCV2", error.throwable.stackTraceToString())
+            currentV2PairingUri = null
         }
 
         SignClient.setWalletDelegate(object : SignInterface.WalletDelegate {
@@ -263,13 +265,13 @@ class WalletConnectActivity : BaseActivity() {
             }
 
             override fun onSessionDelete(deletedSession: Sign.Model.DeletedSession) {
+                currentV2PairingUri = null
             }
 
             override fun onSessionProposal(sessionProposal: Sign.Model.SessionProposal) {
                 if (isFinishing) {
                     return
                 }
-
                 val sessionNamespaces: MutableMap<String, Sign.Model.Namespace.Session> = mutableMapOf()
                 val methods = sessionProposal.requiredNamespaces.values.flatMap { it.methods }
                 val events = sessionProposal.requiredNamespaces.values.flatMap { it.events }
@@ -1329,12 +1331,12 @@ class WalletConnectActivity : BaseActivity() {
             }
 
             if (WC_URL_SCHEME_HOST_WC == data.host) {
-                if (isSessionConnected()) return
                 mWalletConnectURI = if (data.query?.startsWith("uri=") == true) {
                     data.query?.replace("uri=", "")
                 } else {
                     data.query
                 }
+                if (mWalletConnectURI?.startsWith("wc") == false || isSessionConnected()) return
                 binding.loadingLayer.visibility = View.VISIBLE
                 connectWalletConnect()
             } else if (WC_URL_SCHEME_HOST_DAPP_EXTERNAL == data.host || WC_URL_SCHEME_HOST_DAPP_INTERNAL == data.host) {
@@ -1353,6 +1355,11 @@ class WalletConnectActivity : BaseActivity() {
         if (wcV1Session != null && wcV1Client != null && wcV1Client?.session != null && wcV1Client?.isConnected == true) {
             return true
         }
+
+        if (currentV2PairingUri == mWalletConnectURI) {
+            return true
+        }
+
         return false
     }
 
