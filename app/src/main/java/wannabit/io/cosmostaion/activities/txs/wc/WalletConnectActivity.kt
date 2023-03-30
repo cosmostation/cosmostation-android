@@ -167,12 +167,21 @@ class WalletConnectActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         binding.toolbarTitle.visibility = View.GONE
         binding.dappLayout.visibility = View.VISIBLE
-        binding.wcPeer.text = url
         binding.dappWebView.visibility = View.VISIBLE
         binding.wcLayer.visibility = View.GONE
         binding.loadingLayer.visibility = View.GONE
         binding.btnDisconnect.visibility = View.GONE
         binding.dappLeft.setOnClickListener { if (binding.dappWebView.canGoBack()) binding.dappWebView.goBack() }
+        binding.wcPeer.setOnClickListener {
+            DappUrlDialog.newInstance(url, object : DappUrlDialog.UrlListener {
+                override fun input(url: String) {
+                    if (StringUtils.isNotEmpty(binding.dappWebView.url) && binding.dappWebView.url != url) {
+                        binding.dappWebView.loadUrl(url)
+                    }
+                }
+
+            }).show(supportFragmentManager, "dialog")
+        }
         binding.dappRight.setOnClickListener { if (binding.dappWebView.canGoForward()) binding.dappWebView.goForward() }
         binding.dappRefresh.setOnClickListener { binding.dappWebView.reload() }
         changeDappConnectStatus(false)
@@ -1271,9 +1280,7 @@ class WalletConnectActivity : BaseActivity() {
         wcRawDataDialog.show(supportFragmentManager, "dialog")
     }
 
-    private fun showEvmSignDialog(
-        bundle: Bundle, listener: WcEvmosSignRawDataListener
-    ) {
+    private fun showEvmSignDialog(bundle: Bundle, listener: WcEvmosSignRawDataListener) {
         val dialog = Dialog_Wc_Raw_Data_Evmos.newInstance(bundle, listener)
         dialog.show(supportFragmentManager, "dialog")
     }
