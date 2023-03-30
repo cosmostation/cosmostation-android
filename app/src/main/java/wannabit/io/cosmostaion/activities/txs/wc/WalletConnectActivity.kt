@@ -66,8 +66,8 @@ import wannabit.io.cosmostaion.crypto.CryptoHelper
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.databinding.ActivityConnectWalletBinding
 import wannabit.io.cosmostaion.dialog.*
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account.OnDialogSelectListener
 import wannabit.io.cosmostaion.dialog.DappSignDialog.WcSignRawDataListener
+import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account.OnDialogSelectListener
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
@@ -1323,7 +1323,11 @@ class WalletConnectActivity : BaseActivity() {
 
             if (WC_URL_SCHEME_HOST_WC == data.host) {
                 if (isSessionConnected()) return
-                mWalletConnectURI = data.query
+                mWalletConnectURI = if (data.query?.startsWith("uri=") == true) {
+                    data.query?.replace("uri=", "")
+                } else {
+                    data.query
+                }
                 binding.loadingLayer.visibility = View.VISIBLE
                 connectWalletConnect()
             } else if (WC_URL_SCHEME_HOST_DAPP_EXTERNAL == data.host || WC_URL_SCHEME_HOST_DAPP_INTERNAL == data.host) {
@@ -1438,7 +1442,10 @@ class WalletConnectActivity : BaseActivity() {
             if (isFinishing) {
                 return true
             }
-            if (modifiedUrl.startsWith("wc:")) {
+            if (modifiedUrl.startsWith("cosmostation://wc")) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(modifiedUrl)))
+                return true
+            } else if (modifiedUrl.startsWith("wc:")) {
                 processConnectScheme(modifiedUrl)
                 return true
             } else if (modifiedUrl.startsWith("keplrwallet://wcV1")) {
