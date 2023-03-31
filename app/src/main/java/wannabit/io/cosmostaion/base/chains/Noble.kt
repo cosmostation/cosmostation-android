@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.base.chains
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
+import java.util.*
 
 class Noble : ChainConfig() {
 
@@ -21,6 +22,7 @@ class Noble : ChainConfig() {
 
     override fun mainDenomImg(): Int { return R.drawable.token_noble }
     override fun mainDenom(): String { return "ustake" }
+    override fun mainSymbol(): String { return "NOBLE" }
     override fun addressPrefix(): String { return "noble" }
 
     override fun dexSupport(): Boolean { return false }
