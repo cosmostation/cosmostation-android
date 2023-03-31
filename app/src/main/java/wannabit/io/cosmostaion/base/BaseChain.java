@@ -93,7 +93,8 @@ public enum BaseChain {
     CANTO_MAIN("canto-mainnet"),
     KYVE_MAIN("kyve-mainnet"),
     COREUM_MAIN("coreum-mainnet"),
-    QUASAR_MAIN("quasar-mainnet");
+    QUASAR_MAIN("quasar-mainnet"),
+    NOBLE_MAIN("noble-mainnet");
 
 
     private final String chainName;
@@ -305,6 +306,9 @@ public enum BaseChain {
         if (chainName.equals(QUASAR_MAIN.chainName)) {
             return QUASAR_MAIN;
         }
+        if (chainName.equals(NOBLE_MAIN.chainName)) {
+            return NOBLE_MAIN;
+        }
         return null;
     }
 
@@ -343,6 +347,7 @@ public enum BaseChain {
         result.add(LUM_MAIN);
         result.add(MARS_MAIN);
         result.add(MEDI_MAIN);
+        result.add(NOBLE_MAIN);
         result.add(NYX_MAIN);
         result.add(OKEX_MAIN);
         result.add(OMNIFLIX_MAIN);
@@ -374,10 +379,6 @@ public enum BaseChain {
 
     public static boolean IS_SUPPORT_CHAIN(String chain) {
         return SUPPORT_CHAINS().contains(getChain(chain));
-    }
-
-    public static boolean IS_TESTNET(BaseChain chain) {
-        return false;
     }
 
     public static ArrayList<BaseChain> getHtlcSendable(BaseChain fromChain) {
