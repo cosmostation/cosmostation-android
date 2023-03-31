@@ -90,7 +90,7 @@
     <string name="str_voting_start_time">투표 시작 시간</string>
     <string name="str_voting_end_time">투표 종료 시간</string>
     <string name="str_request_amount">요청 금액</string>
-    <string name="str_current_turnout">현재 투표율</string>
+    <string name="str_current_turnout">투표율</string>
     <string name="str_voting_description">설명</string>
     <string name="str_history_title">최근 기록</string>
     <string name="str_no_history">거래 내역이 없습니다.</string>
@@ -335,6 +335,8 @@
     <string name="str_wc_transfer_side">종류</string>
     <string name="str_wc_transfer_symbol">심볼</string>
     <string name="str_wc_transfer_price">가격</string>
+    <string name="str_current_status">현재 상황 : </string>
+    <string name="str_my_vote">나의 투표</string>
     <string name="str_quorum">정족율</string>
     <string name="str_voting_period">Voting Period Proposals</string>
     <string name="str_vote_proposals">Proposals</string>
@@ -342,6 +344,7 @@
     <string name="str_vote_no">반대</string>
     <string name="str_vote_veto">절대반대</string>
     <string name="str_vote_abstain">기권</string>
+    <string name="str_vote_not">안함</string>
     <string name="str_vote_wait_deposit">디파짓 대기중</string>
     <string name="str_opinion">내 투표</string>
     <string name="str_proposal_id">의제 번호</string>
@@ -434,6 +437,10 @@
     <string name="str_hd_path">HD 경로 : </string>
     <string name="str_search">체인이나 토큰을 검색하세요</string>
     <string name="str_no_search_result">검색 결과가 없습니다</string>
+    <string name="str_vote_reject_by_quorum">정족수가 충족되지 못했습니다. 더 많은 투표가 필요합니다.</string>
+    <string name="str_vote_reject_by_veto">정족수가 충족 되었지만, VETO 상태입니다.</string>
+    <string name="str_vote_reject_by_no">정족수가 충족 되었지만, 찬성률을 넘기지 못했습니다.</string>
+    <string name="str_vote_pass_by_yes">정족수가 충족 되었고, 찬성률을 넘겼습니다.</string>
 
     <string name="str_min_collateral_rate">최소 담보 비율</string>
     <string name="str_stability_fee">연간 수수료</string>

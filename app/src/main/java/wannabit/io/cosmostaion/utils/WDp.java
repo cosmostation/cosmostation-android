@@ -1203,30 +1203,6 @@ public class WDp {
         return result;
     }
 
-    public static void getProposalStatus(Context c, ResProposal proposal, ImageView
-            statusImg, TextView status) {
-        if (proposal != null) {
-            if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD") || proposal.proposal_status.equalsIgnoreCase("DepositPeriod")) {
-                statusImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.ic_deposit_img));
-                status.setText("DepositPeriod");
-
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
-                statusImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.ic_voting_img));
-                status.setText("VotingPeriod");
-
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_REJECTED") || proposal.proposal_status.equalsIgnoreCase("Rejected")) {
-                statusImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.ic_rejected_img));
-                status.setText("Rejected");
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_PASSED") || proposal.proposal_status.equalsIgnoreCase("Passed")) {
-                statusImg.setImageDrawable(ContextCompat.getDrawable(c, R.drawable.ic_passed_img));
-                status.setText("Passed");
-            }
-        }
-    }
-
     public static BigDecimal geTallySum(ResProposal proposal) {
         return new BigDecimal(proposal.voteMeta.yes_amount).add(new BigDecimal(proposal.voteMeta.no_amount)).add(new BigDecimal(proposal.voteMeta.no_with_veto_amount)).add(new BigDecimal(proposal.voteMeta.abstain_amount));
     }

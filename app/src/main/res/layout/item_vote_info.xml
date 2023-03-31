@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_6"
+        android:layout_marginBottom="@dimen/space_8"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
@@ -18,249 +18,55 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/space_15">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_10">
-
-                <LinearLayout
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/vote_id"
+                    style="@style/font_rr_16_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/space_16"
-                    android:background="@drawable/box_round_vote"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/vote_status_img"
-                        android:layout_width="@dimen/space_6"
-                        android:layout_height="@dimen/space_6"
-                        android:src="@drawable/ic_rejected_img" />
-
-                    <TextView
-                        android:id="@+id/vote_status"
-                        style="@style/font_rr_11_black_daynight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:text="DepositPeriod" />
-                </LinearLayout>
+                    android:layout_centerVertical="true"/>
 
                 <ImageView
-                    android:id="@+id/vote_detail"
+                    android:id="@+id/vote_expedited_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/vote_expedited"
+                    android:layout_toRightOf="@+id/vote_id"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/vote_remain_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/round_vote_remain"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingTop="@dimen/space_2"
+                    android:paddingBottom="@dimen/space_2"
+                    android:textColor="@color/colorBlackDayWhite"
+                    android:textSize="@dimen/text_size_11"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:padding="@dimen/space_8"
-                    android:src="@drawable/icon_explorer" />
+                    android:text="23 hours ago"/>
             </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/vote_title_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_80">
-
-                <TextView
-                    android:id="@+id/vote_title"
-                    style="@style/font_rr_14_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:ellipsize="end"
-                    android:singleLine="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/vote_proposer_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_12"
-                android:layout_marginRight="@dimen/space_16">
-
-                <TextView
-                    android:id="@+id/vote_proposer_title"
-                    style="@style/font_rr_12_gray1"
-                    android:layout_width="@dimen/space_180"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_proposer" />
-
-                <TextView
-                    android:id="@+id/vote_proposer"
-                    style="@style/font_rr_12_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:layout_toRightOf="@+id/vote_proposer_title"
-                    android:ellipsize="middle"
-                    android:gravity="right"
-                    android:singleLine="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
-                android:layout_marginRight="@dimen/space_16">
-
-                <TextView
-                    android:id="@+id/vote_type_title"
-                    style="@style/font_rr_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_proposal_type" />
-
-                <TextView
-                    android:id="@+id/vote_type"
-                    style="@style/font_rr_12_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:layout_toRightOf="@+id/vote_type_title"
-                    android:ellipsize="end"
-                    android:gravity="right"
-                    android:singleLine="true"
-                    android:text="-" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
-                android:layout_marginRight="@dimen/space_16">
-
-                <TextView
-                    android:id="@+id/vote_startTime_title"
-                    style="@style/font_rr_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_voting_start_time" />
-
-                <TextView
-                    android:id="@+id/vote_startTime"
-                    style="@style/font_rr_12_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:layout_toRightOf="@+id/vote_startTime_title"
-                    android:gravity="right"
-                    android:text="-" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
-                android:layout_marginRight="@dimen/space_16">
-
-                <TextView
-                    android:id="@+id/vote_endTime_title"
-                    style="@style/font_rr_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_voting_end_time" />
-
-                <TextView
-                    android:id="@+id/vote_endTime"
-                    style="@style/font_rr_12_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:layout_toRightOf="@+id/vote_endTime_title"
-                    android:gravity="right"
-                    android:text="-" />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/request_amount_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
-                android:layout_marginRight="@dimen/space_16"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/request_amount_title"
-                    style="@style/font_rr_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_request_amount" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/request_amount_title">
-
-                    <TextView
-                        android:id="@+id/request_amount_denom"
-                        style="@style/font_rr_12_black_daynight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true" />
-
-                    <TextView
-                        android:id="@+id/request_amount"
-                        style="@style/font_rr_12_black_daynight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/request_amount_denom"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:layout_toLeftOf="@+id/request_amount_denom"
-                        android:text="-" />
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_view"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_16"
-                android:background="@color/colorGrayDayNight" />
 
             <TextView
-                style="@style/font_rr_12_gray1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_16"
-                android:text="@string/str_voting_description" />
-
-            <TextView
-                android:id="@+id/vote_description"
-                style="@style/font_rr_11_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_4"
-                android:layout_marginRight="@dimen/space_16"
-                android:autoLink="web"
-                android:clickable="true"
-                android:maxLines="3"
-                android:textColorLink="@color/colorPhotonDayNight" />
-
-            <ImageView
-                android:id="@+id/vote_btn_expend"
+                android:id="@+id/vote_title"
+                style="@style/font_rm_14_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/space_8"
-                android:src="@drawable/arrow_down_gr" />
+                android:layout_marginTop="@dimen/space_8"
+                android:ellipsize="end"
+                android:maxLines="2" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

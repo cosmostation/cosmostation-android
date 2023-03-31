@@ -18,6 +18,7 @@ import java.util.Calendar;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class Param {
@@ -466,13 +467,17 @@ public class Param {
         return budgetRate;
     }
 
-    public BigDecimal getQuorum(ChainConfig chainConfig) {
+    public BigDecimal getQuorum(ChainConfig chainConfig, ResProposal resProposal) {
         if (chainConfig.baseChain().equals(CERTIK_MAIN) && mParams.mShentuGovTallyParams != null) {
-            return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.quorum).movePointRight(2);
-        } else if (isGRPC(chainConfig.baseChain()) && mParams.mGovTallyParams.mTallyParams != null) {
-            return new BigDecimal(mParams.mGovTallyParams.mTallyParams.quorum).movePointRight(2);
+            return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.quorum);
+        } else if (isGRPC(chainConfig.baseChain()) && mParams.mGovTallyParams.mTallyParams != null && resProposal != null) {
+            if (resProposal.is_expedited) {
+                return new BigDecimal(mParams.mGovTallyParams.mTallyParams.expedited_threshold);
+            } else {
+                return new BigDecimal(mParams.mGovTallyParams.mTallyParams.quorum);
+            }
         } else {
-            return new BigDecimal(mParams.mGovTallyParams.quorum).movePointRight(2);
+            return new BigDecimal(mParams.mGovTallyParams.quorum);
         }
     }
 
@@ -517,6 +522,30 @@ public class Param {
         } else {
             return getBondedAmount();
         }
+    }
+
+    public BigDecimal getThreshold(ChainConfig chainConfig) {
+        if (mParams != null && mParams.mGovTallyParams != null) {
+            if (chainConfig.baseChain().equals(CERTIK_MAIN)) {
+                return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.threshold);
+            } else if (isGRPC(chainConfig.baseChain())) {
+                return new BigDecimal(mParams.mGovTallyParams.mTallyParams.threshold);
+            } else {
+                return new BigDecimal(mParams.mGovTallyParams.threshold);
+            }
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public BigDecimal getVetoThreshold(ChainConfig chainConfig) {
+        if (mParams != null && mParams.mGovTallyParams != null) {
+            if (chainConfig.baseChain().equals(CERTIK_MAIN)) {
+                return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.veto_threshold);
+            } else {
+                return new BigDecimal(mParams.mGovTallyParams.mTallyParams.veto_threshold);
+            }
+        }
+        return BigDecimal.ZERO;
     }
 
     public class IrisMintingParams {
@@ -604,9 +633,24 @@ public class Param {
         @SerializedName("quorum")
         public String quorum;
 
+        @SerializedName("threshold")
+        public String threshold;
+
+        @SerializedName("veto")
+        public String veto;
+
         public class TallyParams {
             @SerializedName("quorum")
             public String quorum;
+
+            @SerializedName("threshold")
+            public String threshold;
+
+            @SerializedName("veto_threshold")
+            public String veto_threshold;
+
+            @SerializedName("expedited_threshold")
+            public String expedited_threshold;
         }
     }
 
@@ -621,6 +665,12 @@ public class Param {
             public class DefaultTally {
                 @SerializedName("quorum")
                 public String quorum;
+
+                @SerializedName("threshold")
+                public String threshold;
+
+                @SerializedName("veto_threshold")
+                public String veto_threshold;
             }
         }
     }
