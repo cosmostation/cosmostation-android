@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class VoteListActivity extends BaseActivity implements Serializable, View.OnClickListener {
     private static final int SECTION_VOTING_PERIOD = 0;
@@ -141,7 +142,9 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 isShowAll = !isShowAll;
                 mDepositProposalsList = mExtraProposalsList;
             } else {
+                mVotingPeriodProposalsList = mVotingPeriodProposalsList.stream().filter(item -> !item.isScam()).collect(Collectors.toList());
                 mDepositProposalsList = mExtraProposalsList.stream().filter(item -> !"PROPOSAL_STATUS_DEPOSIT_PERIOD".equals(item.proposal_status)).collect(Collectors.toList());
+                mDepositProposalsList = mDepositProposalsList.stream().filter(item -> !item.isScam()).collect(Collectors.toList());
             }
             mVoteListAdapter.notifyDataSetChanged();
         });
@@ -170,6 +173,9 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                     mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     mExtraProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
                     mDepositProposalsList = mExtraProposalsList.stream().filter(item -> !"PROPOSAL_STATUS_DEPOSIT_PERIOD".equals(item.proposal_status)).collect(Collectors.toList());
+
+                    mVotingPeriodProposalsList = mVotingPeriodProposalsList.stream().filter(item -> !item.isScam()).collect(Collectors.toList());
+                    mDepositProposalsList = mDepositProposalsList.stream().filter(item -> !item.isScam()).collect(Collectors.toList());
                     runOnUiThread(() -> {
                         mVoteListAdapter.notifyDataSetChanged();
                         checkEmptyView();
@@ -297,13 +303,18 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             holder.proposal_deadline.setVisibility(View.VISIBLE);
             holder.proposal_deadline.setText(WDp.getTimeVoteformat(VoteListActivity.this, item.voting_end_time)
                     + " " + WDp.getGapTime(WDp.convertDateToLong(getString(R.string.str_vote_time_format), item.voting_end_time)));
+            if (item.is_expedited) {
+                holder.vote_expedited_img.setVisibility(View.VISIBLE);
+            } else {
+                holder.vote_expedited_img.setVisibility(View.GONE);
+            }
 
             if (multiVoteSelectionMode) {
                 bindVoteSelect(holder, position, item);
             } else {
                 bindVoteStatus(holder, item);
                 holder.card_proposal.setOnClickListener(v -> {
-                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailActivity.class);
                     voteIntent.putExtra("proposalId", String.valueOf(item.id));
                     startActivity(voteIntent);
                 });
@@ -328,10 +339,11 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_failed_img));
                 holder.proposal_status.setText("Failed");
             }
-
-            holder.proposal_id.setText("# " + item.id);
-            holder.proposal_title.setText(item.title);
-
+            if (item.is_expedited) {
+                holder.vote_expedited_img.setVisibility(View.VISIBLE);
+            } else {
+                holder.vote_expedited_img.setVisibility(View.GONE);
+            }
             bindVoteStatus(holder, item);
 
             holder.card_proposal.setOnClickListener(v -> {
@@ -401,7 +413,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         public class VoteListViewHolder extends RecyclerView.ViewHolder {
             private RelativeLayout card_proposal;
             private TextView proposal_id, proposal_status, proposal_title, proposal_deadline;
-            private ImageView proposal_status_img, vote_status;
+            private ImageView proposal_status_img, vote_status, vote_expedited_img;
 
             public VoteListViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -412,6 +424,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 proposal_status_img = itemView.findViewById(R.id.proposal_status_img);
                 proposal_deadline = itemView.findViewById(R.id.proposal_deadline);
                 vote_status = itemView.findViewById(R.id.vote_status);
+                vote_expedited_img = itemView.findViewById(R.id.vote_expedited_img);
             }
         }
     }

@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.network;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -26,7 +27,7 @@ public interface Station {
     @GET("v2/utils/params/{chain}")
     Call<Param> getParam(@Path("chain") String chainName);
 
-    @GET("v1/{chain}/proposals/{proposalId}")
+    @GET("v2/{chain}/proposals/{proposalId}")
     Call<ResProposal> getProposal(@Path("chain") String chain, @Path("proposalId") String proposalId);
 
     @GET("v1/{chain}/account/{account}/votes")

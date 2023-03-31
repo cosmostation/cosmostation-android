@@ -252,6 +252,7 @@
     <color name="colorVoteNo">#f31963</color>
     <color name="colorVoteVeto">#f07e7e</color>
     <color name="colorVoteAbstain">#7a7f88</color>
+    <color name="colorVoteWeight">#00B7C0</color>
     <color name="colorVoteBg">#bec6d1</color>
 
 

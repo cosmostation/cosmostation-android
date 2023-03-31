@@ -96,6 +96,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_6"
                             android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/vote_expedited_img"
+                            android:layout_width="@dimen/space_24"
+                            android:layout_height="@dimen/space_24"
+                            android:layout_marginLeft="@dimen/space_6"
+                            android:src="@drawable/vote_expedited"
+                            android:visibility="gone"/>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>

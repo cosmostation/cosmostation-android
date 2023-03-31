@@ -335,6 +335,8 @@
     <string name="str_wc_transfer_side">種類</string>
     <string name="str_wc_transfer_symbol">シンボル</string>
     <string name="str_wc_transfer_price">価格</string>
+    <string name="str_current_status">現在の状態 : </string>
+    <string name="str_my_vote">私の投票</string>
     <string name="str_quorum">定足数</string>
     <string name="str_voting_period">投票期間の提案</string>
     <string name="str_vote_proposals">提案</string>
@@ -342,6 +344,7 @@
     <string name="str_vote_no">反対</string>
     <string name="str_vote_veto">絶対反対</string>
     <string name="str_vote_abstain">棄権</string>
+    <string name="str_vote_not">しない</string>
     <string name="str_vote_wait_deposit">預金待機中</string>
     <string name="str_opinion">私の投票</string>
     <string name="str_proposal_id">議題番号</string>
@@ -434,6 +437,11 @@
     <string name="str_hd_path">HD 経路 : </string>
     <string name="str_search">チェーンやトークンを検索してください。</string>
     <string name="str_no_search_result">検索結果がありません。</string>
+    <string name="str_vote_reject_by_quorum">定足数が満たされていません。 もっと多くの投票が必要です。</string>
+    <string name="str_vote_reject_by_veto">定足数は決まっているが、拒否権はある。</string>
+    <string name="str_vote_reject_by_no">定足数は確定したが、過半数がNOに投票した。</string>
+    <string name="str_vote_pass_by_yes">定足数が確定し、過半数が賛成票を投じた。</string>
+
 
     <string name="str_min_collateral_rate">最小担保率</string>
     <string name="str_stability_fee">年間手数料</string>

@@ -128,7 +128,7 @@
     <string name="str_voting_start_time">Voting Start Time</string>
     <string name="str_voting_end_time">Voting End Time</string>
     <string name="str_request_amount">Request Amount</string>
-    <string name="str_current_turnout">Current Turnout</string>
+    <string name="str_current_turnout">Turnout</string>
     <string name="str_voting_description">Description</string>
     <string name="str_history_title">Recently Histories</string>
     <string name="str_no_history">No History</string>
@@ -433,13 +433,16 @@
     <string name="str_wc_transfer_side">Side</string>
     <string name="str_wc_transfer_symbol">Symbol</string>
     <string name="str_wc_transfer_price">Price</string>
+    <string name="str_current_status">Current Status : </string>
+    <string name="str_my_vote">My Vote</string>
     <string name="str_quorum">Quorum</string>
     <string name="str_voting_period">Voting Period Proposals</string>
     <string name="str_vote_proposals">Proposals</string>
-    <string name="str_vote_yes">YES</string>
-    <string name="str_vote_no">NO</string>
-    <string name="str_vote_veto">NoWithVeto</string>
+    <string name="str_vote_yes">Yes</string>
+    <string name="str_vote_no">No</string>
+    <string name="str_vote_veto">Veto</string>
     <string name="str_vote_abstain">Abstain</string>
+    <string name="str_vote_not">Not Voted</string>
     <string name="str_vote_wait_deposit">Waiting Deposit</string>
     <string name="str_opinion">My Vote</string>
     <string name="str_proposal_id">Proposal Id</string>
@@ -532,6 +535,11 @@
     <string name="str_hd_path">HD Path : </string>
     <string name="str_search">Search by Chain or Token</string>
     <string name="str_no_search_result">No Results</string>
+    <string name="str_vote_reject_by_quorum">The quorum is NOT established, need more votes.</string>
+    <string name="str_vote_reject_by_veto">The quorum is established, but VETO.</string>
+    <string name="str_vote_reject_by_no">The quorum is established, but the majority has voted NO.</string>
+    <string name="str_vote_pass_by_yes">The quorum is established, and the majority has voted YES.</string>
+
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
