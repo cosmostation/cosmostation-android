@@ -443,6 +443,7 @@ class WalletConnectActivity : BaseActivity() {
                 Toast.makeText(
                     baseContext, getString(R.string.str_wc_not_connected), Toast.LENGTH_SHORT
                 ).show()
+                wcV1Client = null
             } else {
                 finish()
             }
@@ -1336,7 +1337,7 @@ class WalletConnectActivity : BaseActivity() {
                 } else {
                     data.query
                 }
-                if (mWalletConnectURI?.startsWith("wc") == false || isSessionConnected()) return
+                if (mWalletConnectURI == null || mWalletConnectURI?.startsWith("wc") == false || isSessionConnected()) return
                 binding.loadingLayer.visibility = View.VISIBLE
                 connectWalletConnect()
             } else if (WC_URL_SCHEME_HOST_DAPP_EXTERNAL == data.host || WC_URL_SCHEME_HOST_DAPP_INTERNAL == data.host) {
@@ -1356,7 +1357,7 @@ class WalletConnectActivity : BaseActivity() {
             return true
         }
 
-        if (currentV2PairingUri == mWalletConnectURI) {
+        if (mWalletConnectURI != null && currentV2PairingUri == mWalletConnectURI) {
             return true
         }
 
@@ -1514,19 +1515,19 @@ class WalletConnectActivity : BaseActivity() {
                 return
             }
             isCosmostation = true
-
+            val messageId = requestJson.getLong("messageId")
             val messageJson = requestJson.getJSONObject("message")
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     val params = messageJson.getJSONObject("params")
                     val chainId = params.getString("chainName")
-                    appToWebResult(messageJson, makeAppToWebAccount(chainId))
+                    appToWebResult(messageJson, makeAppToWebAccount(chainId), messageId)
                 }
                 "cos_supportedChainIds" -> {
                     val dataJson = JSONObject()
                     dataJson.put("official", listOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1"))
                     dataJson.put("unofficial", listOf<String>())
-                    appToWebResult(messageJson, dataJson)
+                    appToWebResult(messageJson, dataJson, messageId)
                 }
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
@@ -1540,11 +1541,11 @@ class WalletConnectActivity : BaseActivity() {
                             signed.put("signature", signModel.signature.signature)
                             signed.put("pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key)))
                             signed.put("signed_doc", JSONObject(transaction))
-                            appToWebResult(messageJson, signed)
+                            appToWebResult(messageJson, signed, messageId)
                         }
 
                         override fun cancel(id: Long) {
-                            appToWebError("Canceled")
+                            appToWebError("Canceled", messageId)
                         }
                     })
                 }
@@ -1565,21 +1566,21 @@ class WalletConnectActivity : BaseActivity() {
                             signed.put("signature", signModel.signature.signature)
                             signed.put("pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key)))
                             signed.put("signed_doc", JSONObject(transaction))
-                            appToWebResult(messageJson, signed)
+                            appToWebResult(messageJson, signed, messageId)
                         }
 
                         override fun cancel(id: Long) {
-                            appToWebError("Canceled")
+                            appToWebError("Canceled", messageId)
                         }
                     })
                 }
                 "cos_sendTransaction" -> {
-                    appToWebError("Not implemented")
+                    appToWebError("Not implemented", messageId)
                 }
             }
         } catch (e: Exception) {
             if (isCosmostation) {
-                appToWebError(e.message)
+                appToWebError(e.message, 0L)
             }
         }
     }
@@ -1603,23 +1604,25 @@ class WalletConnectActivity : BaseActivity() {
         return ECKey.fromPrivate(BigInteger(getPrivateKey(account), 16))
     }
 
-    private fun appToWebError(error: String?) {
+    private fun appToWebError(error: String?, messageId: Long) {
         val responseJson = JSONObject()
         responseJson.put("error", error)
         val postMessageJson = JSONObject()
         postMessageJson.put("response", responseJson)
         postMessageJson.put("isCosmostation", true)
+        postMessageJson.put("messageId", messageId)
         runOnUiThread {
             binding.dappWebView.evaluateJavascript(String.format("window.postMessage(%s);", postMessageJson.toString()), null)
         }
     }
 
-    private fun appToWebResult(messageJson: JSONObject, resultJson: JSONObject) {
+    private fun appToWebResult(messageJson: JSONObject, resultJson: JSONObject, messageId: Long) {
         val responseJson = JSONObject()
         responseJson.put("result", resultJson)
         val postMessageJson = JSONObject()
         postMessageJson.put("message", messageJson)
         postMessageJson.put("response", responseJson)
+        postMessageJson.put("messageId", messageId)
         postMessageJson.put("isCosmostation", true)
         runOnUiThread {
             binding.dappWebView.evaluateJavascript(String.format("window.postMessage(%s);", postMessageJson.toString()), null)
