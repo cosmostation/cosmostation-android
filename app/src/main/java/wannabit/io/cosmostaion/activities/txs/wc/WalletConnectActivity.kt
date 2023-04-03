@@ -224,6 +224,7 @@ class WalletConnectActivity : BaseActivity() {
         val currentAccount = baseDao.onSelectAccount(baseDao.lastUser)
         loadedAccountMap[currentAccount.baseChain] = currentAccount
         mBaseChain = BaseChain.getChain(currentAccount.baseChain)
+        mChainConfig = ChainFactory.getChain(mBaseChain)
     }
 
     private fun setupViews() {
@@ -1519,9 +1520,14 @@ class WalletConnectActivity : BaseActivity() {
             val messageJson = requestJson.getJSONObject("message")
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
-                    val params = messageJson.getJSONObject("params")
-                    val chainId = params.getString("chainName")
-                    appToWebResult(messageJson, makeAppToWebAccount(chainId), messageId)
+                    if (mChainConfig.defaultPath() != "m/44'/118'/0'/0/X") {
+                        Toast.makeText(baseContext, getString(R.string.str_wc_not_support_wallet), Toast.LENGTH_SHORT).show()
+                        appToWebError(getString(R.string.str_wc_not_support_wallet), messageId)
+                    } else {
+                        val params = messageJson.getJSONObject("params")
+                        val chainId = params.getString("chainName")
+                        appToWebResult(messageJson, makeAppToWebAccount(chainId), messageId)
+                    }
                 }
                 "cos_supportedChainIds" -> {
                     val dataJson = JSONObject()

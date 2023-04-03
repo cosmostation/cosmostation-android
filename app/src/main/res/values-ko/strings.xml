@@ -323,6 +323,7 @@
     <string name="str_wc_not_supported">W·C를 지원하지 않는 URL입니다.</string>
     <string name="str_wc_connected">지갑이 연결되었습니다.</string>
     <string name="str_wc_not_connected">지갑 연결이 해제되었습니다.</string>
+    <string name="str_wc_not_support_wallet">지원하지 않는 지갑입니다.(지갑을 변경해주세요.)</string>
     <string name="str_wc_sign_title">지갑 사인 요청</string>
     <string name="str_wc_sign_result_msg">Tx를 전송하였습니다. \nDex 거래소 화면을 확인해 주세요.</string>
     <string name="str_wc_request_responsed">전송 완료</string>

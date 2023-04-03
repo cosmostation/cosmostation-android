@@ -418,6 +418,7 @@
     <string name="str_wc_connected">Wallet is connected.</string>
     <string name="str_wc_not_supported">URL does not support W·C.</string>
     <string name="str_wc_not_connected">Wallet is disconnected.</string>
+    <string name="str_wc_not_support_wallet">This wallet is not supported. (Please change the wallet.)</string>
     <string name="str_wc_request_responsed">Responsed for Request</string>
     <string name="str_wc_sign_title">Request Transaction Sign</string>
     <string name="str_wc_sign_result_msg">Tx is broadcasted. \nPlese check your Dex screen!</string>

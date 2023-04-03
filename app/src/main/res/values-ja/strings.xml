@@ -323,6 +323,7 @@
     <string name="str_wc_not_supported">W.C をサポートしていない URL です。</string>
     <string name="str_wc_connected">ウォレットが接続されました。</string>
     <string name="str_wc_not_connected">ウォレット接続が解除されました。</string>
+    <string name="str_wc_not_support_wallet">サポートしていない財布です。（財布を変更してください。）</string>
     <string name="str_wc_sign_title">ウォーレットサイン要請</string>
     <string name="str_wc_sign_result_msg">Txが転送されました。\nDex取引所画面をご確認ください。</string>
     <string name="str_wc_request_responsed">転送完了</string>
