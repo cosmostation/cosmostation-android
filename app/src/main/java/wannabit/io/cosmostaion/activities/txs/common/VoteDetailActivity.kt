@@ -110,10 +110,12 @@ class VoteDetailActivity : BaseActivity() {
 
     private fun onUpdateView() {
         if (voteViewModel.myVote.value != null && voteViewModel.proposal.value != null) {
-            voteDetailsBinding.loadingLayer.visibility = View.GONE
-            voteDetailsBinding.btnVote.visibility = View.VISIBLE
-            voteDetailsBinding.recycler.visibility = View.VISIBLE
-            voteDetailsBinding.recycler.adapter?.notifyDataSetChanged()
+            voteDetailsBinding.apply {
+                loadingLayer.visibility = View.GONE
+                btnVote.visibility = View.VISIBLE
+                recycler.visibility = View.VISIBLE
+                recycler.adapter?.notifyDataSetChanged()
+            }
         }
     }
 
@@ -144,22 +146,19 @@ class VoteDetailActivity : BaseActivity() {
     }
 
     private inner class VoteDetailAdapter : RecyclerView.Adapter<ViewHolder>() {
-        private val TYPE_VOTE_INFO = 0
-        private val TYPE_VOTE_TALLY = 1
-        private val TYPE_VOTE_MESSAGE = 2
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             return when (viewType) {
-                TYPE_VOTE_INFO -> VoteInfoHolder(ItemVoteInfoBinding.inflate(layoutInflater, parent, false))
-                TYPE_VOTE_TALLY -> VoteTallyHolder(ItemVoteTallyInfoBinding.inflate(layoutInflater, parent, false))
+                voteViewType.TYPE_VOTE_INFO.ordinal -> VoteInfoHolder(ItemVoteInfoBinding.inflate(layoutInflater, parent, false))
+                voteViewType.TYPE_VOTE_TALLY.ordinal -> VoteTallyHolder(ItemVoteTallyInfoBinding.inflate(layoutInflater, parent, false))
                 else -> VoteMessageHolder(ItemVoteMessageBinding.inflate(layoutInflater, parent, false))
             }
         }
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
             when (position) {
-                0 -> (viewHolder as VoteInfoHolder).bind()
-                1 -> (viewHolder as VoteTallyHolder).bind()
+                voteViewType.TYPE_VOTE_INFO.ordinal -> (viewHolder as VoteInfoHolder).bind()
+                voteViewType.TYPE_VOTE_TALLY.ordinal -> (viewHolder as VoteTallyHolder).bind()
                 else -> (viewHolder as VoteMessageHolder).bind(position - 2)
             }
         }
@@ -170,98 +169,106 @@ class VoteDetailActivity : BaseActivity() {
 
         override fun getItemViewType(position: Int): Int {
             return when (position) {
-                0 -> TYPE_VOTE_INFO
-                1 -> TYPE_VOTE_TALLY
-                else -> TYPE_VOTE_MESSAGE
+                0 -> voteViewType.TYPE_VOTE_INFO.ordinal
+                1 -> voteViewType.TYPE_VOTE_TALLY.ordinal
+                else -> voteViewType.TYPE_VOTE_MESSAGE.ordinal
             }
         }
 
         inner class VoteInfoHolder(val voteInfoBinding: ItemVoteInfoBinding) : ViewHolder(voteInfoBinding.root) {
             fun bind() {
-                voteViewModel.proposal.value?.let { proposal ->
-                    voteInfoBinding.voteId.text = "# ${proposal.id}"
-                    voteInfoBinding.voteTitle.text = proposal.title
-                    voteInfoBinding.voteRemainTime.text = getGapTime(WDp.convertDateToLong(resources.getString(R.string.str_vote_time_format), proposal.voting_end_time))
-                    voteInfoBinding.voteExpeditedImg.visibleOrGone(proposal.is_expedited)
+                voteInfoBinding.apply {
+                    voteViewModel.proposal.value?.let { proposal ->
+                        voteId.text = "# ${proposal.id}"
+                        voteTitle.text = proposal.title
+                        voteRemainTime.text = getGapTime(WDp.convertDateToLong(resources.getString(R.string.str_vote_time_format), proposal.voting_end_time))
+                        voteExpeditedImg.visibleOrGone(proposal.is_expedited)
+                    }
                 }
             }
         }
 
         inner class VoteTallyHolder(val voteTallyInfoBinding: ItemVoteTallyInfoBinding) : ViewHolder(voteTallyInfoBinding.root) {
             fun bind() {
-                voteViewModel.proposal.value?.let { proposal ->
-                    if (proposal.getVoteStatus(baseDao, mChainConfig, proposal)) {
-                        voteTallyInfoBinding.currentStatus.text = " PASS"
-                        voteTallyInfoBinding.currentStatus.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, R.color.colorVoteYes))
-                    } else {
-                        voteTallyInfoBinding.currentStatus.text = " REJECT"
-                        voteTallyInfoBinding.currentStatus.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, R.color.colorVoteNo))
-                    }
-                    voteTallyInfoBinding.currentStatusMessage.text = proposal.getVoteStatus(this@VoteDetailActivity, baseDao, mChainConfig, proposal)
-                    mMyVoteData?.voteDetails?.let {
-                        if (it.isNotEmpty()) {
-                            if (it.count() > 1) {
-                                voteTallyInfoBinding.myVote.text = "WEIGHT"
-                                voteTallyInfoBinding.myVote.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, R.color.colorVoteWeight))
-                                voteTallyInfoBinding.myVoteImg.setImageResource(R.drawable.icon_my_vote_weight)
-                            } else {
-                                val voteOption = it[0].option
-                                voteTallyInfoBinding.myVoteImg.setImageResource(voteOptionImage(voteOption))
-                                voteTallyInfoBinding.myVote.text = voteOptionConvert(voteOption)
-                                voteTallyInfoBinding.myVote.setTextColor(voteOptionColor(voteOption))
-                            }
+                voteTallyInfoBinding.apply {
+                    voteViewModel.proposal.value?.let { proposal ->
+                        if (proposal.getVoteStatus(baseDao, mChainConfig, proposal)) {
+                            currentStatus.text = " PASS"
+                            currentStatus.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, R.color.colorVoteYes))
+                        } else {
+                            currentStatus.text = " REJECT"
+                            currentStatus.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, R.color.colorVoteNo))
                         }
-                    } ?: run {
-                        voteTallyInfoBinding.myVote.text = resources.getString(R.string.str_vote_not).uppercase()
-                        voteTallyInfoBinding.myVote.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, R.color.colorVoteAbstain))
-                        voteTallyInfoBinding.myVoteImg.setImageResource(R.drawable.icon_not_voted)
+                        currentStatusMessage.text = proposal.getVoteStatus(this@VoteDetailActivity, baseDao, mChainConfig, proposal)
+                        mMyVoteData?.voteDetails?.let {
+                            if (it.isNotEmpty()) {
+                                if (it.count() > 1) {
+                                    myVote.text = "WEIGHT"
+                                    myVote.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, R.color.colorVoteWeight))
+                                    myVoteImg.setImageResource(R.drawable.icon_my_vote_weight)
+                                } else {
+                                    val voteOption = it[0].option
+                                    myVoteImg.setImageResource(voteOptionImage(voteOption))
+                                    myVote.text = voteOptionConvert(voteOption)
+                                    myVote.setTextColor(voteOptionColor(voteOption))
+                                }
+                            }
+                        } ?: run {
+                            myVote.text = resources.getString(R.string.str_vote_not).uppercase()
+                            myVote.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, R.color.colorVoteAbstain))
+                            myVoteImg.setImageResource(R.drawable.icon_not_voted)
+                        }
+                        quorum.text = WDp.getPercentDp(baseDao.mParam.getQuorum(mChainConfig, proposal).movePointRight(2))
+                        currentTurnout.text = WDp.getDpString(WDp.getTurnout(baseDao, proposal).setScale(2).toPlainString() + "%", 3)
+
+                        voteYesProgress.progress = WDp.getYesPer(proposal).toInt()
+                        voteNoProgress.progress = WDp.getNoPer(proposal).toInt()
+                        voteVetoProgress.progress = WDp.getVetoPer(proposal).toInt()
+                        voteAbstainProgress.progress = WDp.getAbstainPer(proposal).toInt()
+
+                        voteYesPercent.text = WDp.getDpString(WDp.getYesPer(proposal).toPlainString() + "%", 3)
+                        voteNoPercent.text = WDp.getDpString(WDp.getNoPer(proposal).toPlainString() + "%", 3)
+                        voteVetoPercent.text = WDp.getDpString(WDp.getVetoPer(proposal).toPlainString() + "%", 3)
+                        voteAbstainPercent.text = WDp.getDpString(WDp.getAbstainPer(proposal).toPlainString() + "%", 3)
                     }
-                    voteTallyInfoBinding.quorum.text = WDp.getPercentDp(baseDao.mParam.getQuorum(mChainConfig, proposal).movePointRight(2))
-                    voteTallyInfoBinding.currentTurnout.text = WDp.getDpString(WDp.getTurnout(baseDao, proposal).setScale(2).toPlainString() + "%", 3)
-
-                    voteTallyInfoBinding.voteYesProgress.progress = WDp.getYesPer(proposal).toInt()
-                    voteTallyInfoBinding.voteNoProgress.progress = WDp.getNoPer(proposal).toInt()
-                    voteTallyInfoBinding.voteVetoProgress.progress = WDp.getVetoPer(proposal).toInt()
-                    voteTallyInfoBinding.voteAbstainProgress.progress = WDp.getAbstainPer(proposal).toInt()
-
-                    voteTallyInfoBinding.voteYesPercent.text = WDp.getDpString(WDp.getYesPer(proposal).toPlainString() + "%", 3)
-                    voteTallyInfoBinding.voteNoPercent.text = WDp.getDpString(WDp.getNoPer(proposal).toPlainString() + "%", 3)
-                    voteTallyInfoBinding.voteVetoPercent.text = WDp.getDpString(WDp.getVetoPer(proposal).toPlainString() + "%", 3)
-                    voteTallyInfoBinding.voteAbstainPercent.text = WDp.getDpString(WDp.getAbstainPer(proposal).toPlainString() + "%", 3)
                 }
             }
         }
 
         inner class VoteMessageHolder(val voteMessageBinding: ItemVoteMessageBinding) : ViewHolder(voteMessageBinding.root) {
             fun bind(position: Int) {
-                voteViewModel.proposal.value?.let { proposal ->
-                    voteMessageBinding.messageType.text = (position + 1).toString() + ". " + proposal.getProposalType(position).substringAfterLast(".")
-                    voteMessageBinding.messageType.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, mChainConfig.chainColor()))
-                    voteMessageBinding.messageTitle.text = proposal.getProposalTitle(position)
-                    voteMessageBinding.messageDescription.text = proposal.getProposalDescription(position)
-                    if (proposal.getProposalAmount(position) != null) {
-                        WDp.setDpCoin(this@VoteDetailActivity, baseDao, mChainConfig, proposal.getProposalAmount(position), voteMessageBinding.requestDenom, voteMessageBinding.requestAmount)
-                    } else {
-                        voteMessageBinding.amountLayout.visibility = View.GONE
-                    }
-
-                    voteMessageBinding.messageBtnExpend.setOnClickListener {
-                        if (voteMessageBinding.messageDescription.maxLines == 500) {
-                            voteMessageBinding.messageDescription.maxLines = 0
-                            voteMessageBinding.messageBtnExpend.setImageResource(R.drawable.arrow_down_gr)
-                            voteMessageBinding.view2.visibility = View.GONE
+                voteMessageBinding.apply {
+                    voteViewModel.proposal.value?.let { proposal ->
+                        messageType.text = (position + 1).toString() + ". " + proposal.getProposalType(position).substringAfterLast(".")
+                        messageType.setTextColor(ContextCompat.getColor(this@VoteDetailActivity, mChainConfig.chainColor()))
+                        messageTitle.text = proposal.getProposalTitle(position)
+                        messageDescription.text = proposal.getProposalDescription(position)
+                        if (proposal.getProposalAmount(position) != null) {
+                            WDp.setDpCoin(this@VoteDetailActivity, baseDao, mChainConfig, proposal.getProposalAmount(position), requestDenom, requestAmount)
                         } else {
-                            voteMessageBinding.messageDescription.maxLines = 500
-                            voteMessageBinding.messageBtnExpend.setImageResource(R.drawable.arrow_up_gr)
-                            voteMessageBinding.view2.visibility = View.VISIBLE
+                            amountLayout.visibility = View.GONE
                         }
-                        voteDetailsBinding.recycler.adapter?.notifyDataSetChanged()
+
+                        messageBtnExpend.setOnClickListener {
+                            if (messageDescription.maxLines == 500) {
+                                messageDescription.maxLines = 0
+                                messageBtnExpend.setImageResource(R.drawable.arrow_down_gr)
+                                view2.visibility = View.GONE
+                            } else {
+                                messageDescription.maxLines = 500
+                                messageBtnExpend.setImageResource(R.drawable.arrow_up_gr)
+                                view2.visibility = View.VISIBLE
+                            }
+                            voteDetailsBinding.recycler.adapter?.notifyDataSetChanged()
+                        }
+                        onSpamLink(proposal, position, this)
                     }
-                    onSpamLink(proposal, position, voteMessageBinding)
                 }
             }
         }
     }
+
+    enum class voteViewType() { TYPE_VOTE_INFO, TYPE_VOTE_TALLY, TYPE_VOTE_MESSAGE }
 
     private fun onExplorerLink() {
         val url = mChainConfig.explorerUrl() + "proposals/" + mProposalId

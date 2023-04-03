@@ -2,56 +2,26 @@ package wannabit.io.cosmostaion.network.res;
 
 import android.content.Context;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResProposal {
     @SerializedName("id")
     public int id;
-
-    @SerializedName("proposer")
-    public String proposer;
 
     @SerializedName("title")
     public String title;
 
     @SerializedName("description")
     public String description;
-
-    @SerializedName("proposal_type")
-    public String proposal_type;
-
-    @SerializedName("proposal_status")
-    public String proposal_status;
-
-    @SerializedName("yes")
-    public String yes;
-
-    @SerializedName("no")
-    public String no;
-
-    @SerializedName("no_with_veto")
-    public String no_with_veto;
-
-    @SerializedName("abstain")
-    public String abstain;
-
-    @SerializedName("voting_start_time")
-    public String voting_start_time;
 
     @SerializedName("voting_end_time")
     public String voting_end_time;
@@ -101,18 +71,6 @@ public class ResProposal {
     }
 
     public class VoteMeta {
-        @SerializedName("yes")
-        public String yes;
-
-        @SerializedName("no")
-        public String no;
-
-        @SerializedName("no_with_veto")
-        public String no_with_veto;
-
-        @SerializedName("abstain")
-        public String abstain;
-
         @SerializedName("yes_amount")
         public String yes_amount;
 
@@ -124,23 +82,6 @@ public class ResProposal {
 
         @SerializedName("abstain_amount")
         public String abstain_amount;
-    }
-
-    public BigDecimal getSum() {
-        return new BigDecimal(yes).
-                add(new BigDecimal(no)).
-                add(new BigDecimal(abstain)).
-                add(new BigDecimal(no_with_veto));
-    }
-
-    public Boolean isScam() {
-        if (new BigDecimal(yes).equals(BigDecimal.ZERO) || getSum().equals(BigDecimal.ZERO)) {
-            return true;
-        }
-        if (new BigDecimal(yes).divide(getSum(), 6 , RoundingMode.DOWN).compareTo(new BigDecimal("0.1")) > 0) {
-            return false;
-        }
-        return true;
     }
 
     public BigDecimal getValidAmount() {

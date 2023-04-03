@@ -60,10 +60,6 @@ public class VoteActivity extends BaseBroadCastActivity {
     private ViewPager mViewPager;
     private VotePageAdapter mPageAdapter;
 
-    public List<ResProposal> mProposal;
-
-    private CommonAlertDialog mDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,9 +82,6 @@ public class VoteActivity extends BaseBroadCastActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
         mTxType = CONST_PW_TX_VOTE;
-
-        mProposal = new Gson().fromJson(getIntent().getStringExtra("proposal"), new TypeToken<List<ResProposal>>() {
-        }.getType());
 
         mPageAdapter = new VotePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -123,7 +116,6 @@ public class VoteActivity extends BaseBroadCastActivity {
             }
         });
         mViewPager.setCurrentItem(0);
-
     }
 
     @Override
@@ -131,7 +123,6 @@ public class VoteActivity extends BaseBroadCastActivity {
         super.onResume();
         if (mAccount == null) finish();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

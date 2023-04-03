@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,10 +47,9 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class VoteListActivity extends BaseActivity implements Serializable, View.OnClickListener {
     private static final int SECTION_VOTING_PERIOD = 0;
@@ -70,11 +68,11 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private VoteListAdapter mVoteListAdapter;
 
     // proposal api
-    private List<ResProposal> mVotingPeriodProposalsList = Lists.newArrayList();
-    private List<ResProposal> mExtraProposalsList = Lists.newArrayList();
-    private List<ResProposal> mDepositProposalsList = Lists.newArrayList();
+    private List<ResV1Proposal> mVotingPeriodProposalsList = Lists.newArrayList();
+    private List<ResV1Proposal> mExtraProposalsList = Lists.newArrayList();
+    private List<ResV1Proposal> mDepositProposalsList = Lists.newArrayList();
     private Map<Integer, Set<String>> statusMap = Maps.newHashMap();
-    private Set<ResProposal> selectedSet = Sets.newHashSet();
+    private Set<ResV1Proposal> selectedSet = Sets.newHashSet();
 
     private String mChain;
 
@@ -143,7 +141,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 mDepositProposalsList = mExtraProposalsList;
             } else {
                 mVotingPeriodProposalsList = mVotingPeriodProposalsList.stream().filter(item -> !item.isScam()).collect(Collectors.toList());
-                mDepositProposalsList = mExtraProposalsList.stream().filter(item -> !"PROPOSAL_STATUS_DEPOSIT_PERIOD".equals(item.proposal_status)).collect(Collectors.toList());
+                mDepositProposalsList = mExtraProposalsList.stream().filter(item -> !item.isDepositPeriod()).collect(Collectors.toList());
                 mDepositProposalsList = mDepositProposalsList.stream().filter(item -> !item.isScam()).collect(Collectors.toList());
             }
             mVoteListAdapter.notifyDataSetChanged();
@@ -162,17 +160,18 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     private void loadProposals() {
         if (mAccount == null) return;
         onShowWaitDialog();
-        ApiClient.getMintscan(VoteListActivity.this).getProposalList(mChain).enqueue(new Callback<ArrayList<ResProposal>>() {
+
+        ApiClient.getMintscan(VoteListActivity.this).getProposalLists(mChain).enqueue(new Callback<ArrayList<ResV1Proposal>>() {
             @Override
-            public void onResponse(Call<ArrayList<ResProposal>> call, Response<ArrayList<ResProposal>> response) {
+            public void onResponse(Call<ArrayList<ResV1Proposal>> call, Response<ArrayList<ResV1Proposal>> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     mVotingPeriodProposalsList.clear();
                     mExtraProposalsList.clear();
-                    List<ResProposal> proposals = response.body();
-                    proposals.sort((o1, o2) -> o2.id - o1.id);
-                    mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
-                    mExtraProposalsList.addAll(proposals.stream().filter(item -> !"PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
-                    mDepositProposalsList = mExtraProposalsList.stream().filter(item -> !"PROPOSAL_STATUS_DEPOSIT_PERIOD".equals(item.proposal_status)).collect(Collectors.toList());
+                    List<ResV1Proposal> proposals = response.body();
+                    proposals.sort((o1, o2) -> o2.getId() - o1.getId());
+                    mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> item.isVotingPeriod()).collect(Collectors.toList()));
+                    mExtraProposalsList.addAll(proposals.stream().filter(item -> !item.isVotingPeriod()).collect(Collectors.toList()));
+                    mDepositProposalsList = mExtraProposalsList.stream().filter(item -> !item.isDepositPeriod()).collect(Collectors.toList());
 
                     mVotingPeriodProposalsList = mVotingPeriodProposalsList.stream().filter(item -> !item.isScam()).collect(Collectors.toList());
                     mDepositProposalsList = mDepositProposalsList.stream().filter(item -> !item.isScam()).collect(Collectors.toList());
@@ -189,7 +188,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             }
 
             @Override
-            public void onFailure(Call<ArrayList<ResProposal>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<ResV1Proposal>> call, Throwable t) {
                 runOnUiThread(() -> {
                     mSwipeRefreshLayout.setRefreshing(false);
                     onHideWaitDialog();
@@ -295,15 +294,15 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         }
 
         public void onBindPeriodProposalItemViewHolder(VoteListViewHolder holder, int position) {
-            ResProposal item = mVotingPeriodProposalsList.get(position);
+            ResV1Proposal item = mVotingPeriodProposalsList.get(position);
             holder.proposal_status_img.setVisibility(View.GONE);
             holder.proposal_status.setVisibility(View.GONE);
-            holder.proposal_id.setText("# " + item.id);
-            holder.proposal_title.setText(item.title);
+            holder.proposal_id.setText("# " + item.getId());
+            holder.proposal_title.setText(item.getTitle());
             holder.proposal_deadline.setVisibility(View.VISIBLE);
-            holder.proposal_deadline.setText(WDp.getTimeVoteformat(VoteListActivity.this, item.voting_end_time)
-                    + " " + WDp.getGapTime(WDp.convertDateToLong(getString(R.string.str_vote_time_format), item.voting_end_time)));
-            if (item.is_expedited) {
+            holder.proposal_deadline.setText(WDp.getTimeVoteformat(VoteListActivity.this, item.getVoting_end_time())
+                    + " " + WDp.getGapTime(WDp.convertDateToLong(getString(R.string.str_vote_time_format), item.getVoting_end_time())));
+            if (item.is_expedited()) {
                 holder.vote_expedited_img.setVisibility(View.VISIBLE);
             } else {
                 holder.vote_expedited_img.setVisibility(View.GONE);
@@ -315,31 +314,19 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 bindVoteStatus(holder, item);
                 holder.card_proposal.setOnClickListener(v -> {
                     Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailActivity.class);
-                    voteIntent.putExtra("proposalId", String.valueOf(item.id));
+                    voteIntent.putExtra("proposalId", String.valueOf(item.getId()));
                     startActivity(voteIntent);
                 });
             }
         }
 
         public void onBindProposalItemViewHolder(VoteListViewHolder holder, int position) {
-            ResProposal item = mDepositProposalsList.get(position);
-            holder.proposal_id.setText("# " + item.id);
-            holder.proposal_title.setText(item.title);
-
-            if (item.proposal_status.contains("DEPOSIT")) {
-                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_deposit_img));
-                holder.proposal_status.setText("DepositPeriod");
-            } else if (item.proposal_status.contains("REJECTED")) {
-                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_rejected_img));
-                holder.proposal_status.setText("Rejected");
-            } else if (item.proposal_status.contains("PASSED")) {
-                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_passed_img));
-                holder.proposal_status.setText("Passed");
-            } else if (item.proposal_status.contains("FAILED")) {
-                holder.proposal_status_img.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.ic_failed_img));
-                holder.proposal_status.setText("Failed");
-            }
-            if (item.is_expedited) {
+            ResV1Proposal item = mDepositProposalsList.get(position);
+            holder.proposal_id.setText("# " + item.getId());
+            holder.proposal_title.setText(item.getTitle());
+            holder.proposal_status_img.setImageDrawable(item.onProposalStatusImg(VoteListActivity.this));
+            holder.proposal_status.setText(item.onProposalStatusTxt());
+            if (item.is_expedited()) {
                 holder.vote_expedited_img.setVisibility(View.VISIBLE);
             } else {
                 holder.vote_expedited_img.setVisibility(View.GONE);
@@ -347,13 +334,13 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             bindVoteStatus(holder, item);
 
             holder.card_proposal.setOnClickListener(v -> {
-                String url = mChainConfig.explorerUrl() + "proposals/" + item.id;
+                String url = mChainConfig.explorerUrl() + "proposals/" + item.getId();
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             });
         }
 
-        private void bindVoteSelect(VoteListViewHolder holder, int position, ResProposal item) {
+        private void bindVoteSelect(VoteListViewHolder holder, int position, ResV1Proposal item) {
             if (selectedSet.contains(item)) {
                 Drawable roundBackground = ContextCompat.getDrawable(VoteListActivity.this, R.drawable.box_round_multi_vote);
                 roundBackground = DrawableCompat.wrap(roundBackground);
@@ -372,11 +359,11 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             }
         }
 
-        private void bindVoteStatus(VoteListViewHolder holder, ResProposal item) {
+        private void bindVoteStatus(VoteListViewHolder holder, ResV1Proposal item) {
             holder.card_proposal.setBackgroundColor(ContextCompat.getColor(VoteListActivity.this, R.color.colorTransBg));
 
-            if (statusMap.containsKey(item.id)) {
-                Set<String> status = statusMap.get(item.id);
+            if (statusMap.containsKey(item.getId())) {
+                Set<String> status = statusMap.get(item.getId());
                 if (status.contains("VOTE_OPTION_YES")) {
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_yes));
                 } else if (status.contains("VOTE_OPTION_NO")) {
@@ -392,7 +379,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
                 }
             } else {
                 holder.vote_status.setImageDrawable(ContextCompat.getDrawable(VoteListActivity.this, R.drawable.icon_vote_not_voted));
-                statusMap.put(item.id, Sets.newHashSet());
+                statusMap.put(item.getId(), Sets.newHashSet());
             }
         }
 
@@ -535,7 +522,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     public interface SectionCallback {
         boolean isSection(int position);
 
-        String SectionHeader(List<ResProposal> proposalList, int section);
+        String SectionHeader(List<ResV1Proposal> proposalList, int section);
     }
 
     private SectionCallback getSectionCall() {
@@ -546,7 +533,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
             }
 
             @Override
-            public String SectionHeader(List<ResProposal> proposalArrayList, int section) {
+            public String SectionHeader(List<ResV1Proposal> proposalArrayList, int section) {
                 if (section == SECTION_VOTING_PERIOD) {
                     return getString(R.string.str_voting_period);
                 } else if (section == SECTION_PROPOSALS) {

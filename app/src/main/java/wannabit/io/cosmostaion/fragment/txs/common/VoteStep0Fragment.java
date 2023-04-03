@@ -28,7 +28,7 @@ import wannabit.io.cosmostaion.activities.txs.common.VoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.databinding.FragmentVoteStep0Binding;
 import wannabit.io.cosmostaion.databinding.ItemProposalSelectionBinding;
-import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class VoteStep0Fragment extends BaseFragment implements View.OnClickListener {
@@ -37,7 +37,7 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
 
     private final Map<Integer, String> selectedMap = Maps.newHashMap();
 
-    public List<ResProposal> mProposalList;
+    public List<ResV1Proposal> mProposalList;
 
     public static VoteStep0Fragment newInstance() {
         return new VoteStep0Fragment();
@@ -52,10 +52,10 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initView() {
-        mProposalList = new Gson().fromJson(getActivity().getIntent().getStringExtra("proposal"), new TypeToken<List<ResProposal>>() {
+        mProposalList = new Gson().fromJson(getActivity().getIntent().getStringExtra("proposal"), new TypeToken<List<ResV1Proposal>>() {
         }.getType());
 
-        mProposalList.sort((o1, o2) -> o2.id - o1.id);
+        mProposalList.sort((o1, o2) -> o2.getId() - o1.getId());
         fragmentVoteStep0Binding.recycler.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
 
         fragmentVoteStep0Binding.recycler.setHasFixedSize(true);
@@ -103,16 +103,16 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
 
         @Override
         public void onBindViewHolder(@NonNull final ProposalSelectionHolder proposalSelectionHolder, int position) {
-            ResProposal item = mProposalList.get(position);
-            proposalSelectionHolder.itemProposalSelectionBinding.proposalId.setText("# " + item.id);
-            proposalSelectionHolder.itemProposalSelectionBinding.proposalTitle.setText(item.title);
-            proposalSelectionHolder.itemProposalSelectionBinding.proposalDeadline.setText(WDp.getTimeVoteformat(getActivity(), item.voting_end_time)
-                    + " " + WDp.getGapTime(WDp.convertDateToLong(getString(R.string.str_vote_time_format), item.voting_end_time)));
+            ResV1Proposal item = mProposalList.get(position);
+            proposalSelectionHolder.itemProposalSelectionBinding.proposalId.setText("# " + item.getId());
+            proposalSelectionHolder.itemProposalSelectionBinding.proposalTitle.setText(item.getTitle());
+            proposalSelectionHolder.itemProposalSelectionBinding.proposalDeadline.setText(WDp.getTimeVoteformat(getActivity(), item.getVoting_end_time())
+                    + " " + WDp.getGapTime(WDp.convertDateToLong(getString(R.string.str_vote_time_format), item.getVoting_end_time())));
 
             bindVoteSelect(proposalSelectionHolder, position, item);
         }
 
-        private void bindVoteSelect(ProposalSelectionHolder holder, int position, ResProposal item) {
+        private void bindVoteSelect(ProposalSelectionHolder holder, int position, ResV1Proposal item) {
             holder.itemProposalSelectionBinding.checkBtnYes.setAlpha(0.5f);
             holder.itemProposalSelectionBinding.checkBtnNo.setAlpha(0.5f);
             holder.itemProposalSelectionBinding.checkBtnNowithveto.setAlpha(0.5f);
@@ -130,8 +130,8 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
             holder.itemProposalSelectionBinding.checkImgSelectedNowithveto.clearColorFilter();
             holder.itemProposalSelectionBinding.checkImgSelectedAbstain.clearColorFilter();
 
-            if (selectedMap.containsKey(item.id)) {
-                String selected = selectedMap.get(item.id);
+            if (selectedMap.containsKey(item.getId())) {
+                String selected = selectedMap.get(item.getId());
                 switch (selected) {
                     case "VOTE_OPTION_YES":
                         settingSelectedLayout(holder.itemProposalSelectionBinding.checkBtnYes, holder.itemProposalSelectionBinding.voteYesTitle, holder.itemProposalSelectionBinding.checkImgSelectedYes);
@@ -151,37 +151,37 @@ public class VoteStep0Fragment extends BaseFragment implements View.OnClickListe
             }
 
             holder.itemProposalSelectionBinding.checkBtnYes.setOnClickListener(v -> {
-                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_YES".equals(selectedMap.get(item.id))) {
-                    selectedMap.remove(item.id);
+                if (selectedMap.containsKey(item.getId()) && "VOTE_OPTION_YES".equals(selectedMap.get(item.getId()))) {
+                    selectedMap.remove(item.getId());
                 } else {
-                    selectedMap.put(item.id, "VOTE_OPTION_YES");
+                    selectedMap.put(item.getId(), "VOTE_OPTION_YES");
                 }
                 fragmentVoteStep0Binding.recycler.getAdapter().notifyItemChanged(position);
             });
 
             holder.itemProposalSelectionBinding.checkBtnNo.setOnClickListener(v -> {
-                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_NO".equals(selectedMap.get(item.id))) {
-                    selectedMap.remove(item.id);
+                if (selectedMap.containsKey(item.getId()) && "VOTE_OPTION_NO".equals(selectedMap.get(item.getId()))) {
+                    selectedMap.remove(item.getId());
                 } else {
-                    selectedMap.put(item.id, "VOTE_OPTION_NO");
+                    selectedMap.put(item.getId(), "VOTE_OPTION_NO");
                 }
                 fragmentVoteStep0Binding.recycler.getAdapter().notifyItemChanged(position);
             });
 
             holder.itemProposalSelectionBinding.checkBtnNowithveto.setOnClickListener(v -> {
-                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_NO_WITH_VETO".equals(selectedMap.get(item.id))) {
-                    selectedMap.remove(item.id);
+                if (selectedMap.containsKey(item.getId()) && "VOTE_OPTION_NO_WITH_VETO".equals(selectedMap.get(item.getId()))) {
+                    selectedMap.remove(item.getId());
                 } else {
-                    selectedMap.put(item.id, "VOTE_OPTION_NO_WITH_VETO");
+                    selectedMap.put(item.getId(), "VOTE_OPTION_NO_WITH_VETO");
                 }
                 fragmentVoteStep0Binding.recycler.getAdapter().notifyItemChanged(position);
             });
 
             holder.itemProposalSelectionBinding.checkBtnAbstain.setOnClickListener(v -> {
-                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_ABSTAIN".equals(selectedMap.get(item.id))) {
-                    selectedMap.remove(item.id);
+                if (selectedMap.containsKey(item.getId()) && "VOTE_OPTION_ABSTAIN".equals(selectedMap.get(item.getId()))) {
+                    selectedMap.remove(item.getId());
                 } else {
-                    selectedMap.put(item.id, "VOTE_OPTION_ABSTAIN");
+                    selectedMap.put(item.getId(), "VOTE_OPTION_ABSTAIN");
                 }
                 fragmentVoteStep0Binding.recycler.getAdapter().notifyItemChanged(position);
             });

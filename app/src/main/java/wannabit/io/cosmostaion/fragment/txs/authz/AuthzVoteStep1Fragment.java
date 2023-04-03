@@ -27,7 +27,7 @@ import java.util.Map;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzVoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClickListener {
@@ -37,7 +37,7 @@ public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClick
 
     private Button mCancel, mNextBtn;
 
-    private ArrayList<ResProposal> mSelectedProposalsList = new ArrayList<>();
+    private ArrayList<ResV1Proposal> mSelectedProposalsList = new ArrayList<>();
     private Map<Integer, String> selectedMap = Maps.newHashMap();
 
     public static AuthzVoteStep1Fragment newInstance() {
@@ -99,17 +99,17 @@ public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClick
 
         @Override
         public void onBindViewHolder(@NonNull final ProposalSelectionHolder proposalSelectionHolder, int position) {
-            ResProposal proposal = mSelectedProposalsList.get(position);
-            proposalSelectionHolder.proposalId.setText("# " + proposal.id);
-            proposalSelectionHolder.proposalTitle.setText(proposal.title);
-            proposalSelectionHolder.proposalDeadLine.setText(WDp.getTimeVoteformat(getActivity(), proposal.voting_end_time)
-                    + " " + WDp.convertDateToLong(getString(R.string.str_vote_time_format), proposal.voting_end_time));
+            ResV1Proposal proposal = mSelectedProposalsList.get(position);
+            proposalSelectionHolder.proposalId.setText("# " + proposal.getId());
+            proposalSelectionHolder.proposalTitle.setText(proposal.getTitle());
+            proposalSelectionHolder.proposalDeadLine.setText(WDp.getTimeVoteformat(getActivity(), proposal.getVoting_end_time())
+                    + " " + WDp.convertDateToLong(getString(R.string.str_vote_time_format), proposal.getVoting_end_time()));
 
             bindVoteSelect(proposalSelectionHolder, position, proposal);
 
         }
 
-        private void bindVoteSelect(ProposalSelectionHolder holder, int position, ResProposal item) {
+        private void bindVoteSelect(ProposalSelectionHolder holder, int position, ResV1Proposal item) {
             holder.yesBtnLayout.setAlpha(0.5f);
             holder.noBtnLayout.setAlpha(0.5f);
             holder.noWithVetoBtnLayout.setAlpha(0.5f);
@@ -127,8 +127,8 @@ public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClick
             holder.selectedNoWithVetoImage.clearColorFilter();
             holder.selectedAbstainImage.clearColorFilter();
 
-            if (selectedMap.containsKey(item.id)) {
-                String selected = selectedMap.get(item.id);
+            if (selectedMap.containsKey(item.getId())) {
+                String selected = selectedMap.get(item.getId());
                 switch (selected) {
                     case "VOTE_OPTION_YES":
                         settingSelectedLayout(holder.yesBtnLayout, holder.titleYesTv, holder.selectedYesImage);
@@ -148,37 +148,37 @@ public class AuthzVoteStep1Fragment extends BaseFragment implements View.OnClick
             }
 
             holder.yesBtnLayout.setOnClickListener(v -> {
-                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_YES".equals(selectedMap.get(item.id))) {
-                    selectedMap.remove(item.id);
+                if (selectedMap.containsKey(item.getId()) && "VOTE_OPTION_YES".equals(selectedMap.get(item.getId()))) {
+                    selectedMap.remove(item.getId());
                 } else {
-                    selectedMap.put(item.id, "VOTE_OPTION_YES");
+                    selectedMap.put(item.getId(), "VOTE_OPTION_YES");
                 }
                 mProposalSelectionAdapter.notifyItemChanged(position);
             });
 
             holder.noBtnLayout.setOnClickListener(v -> {
-                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_NO".equals(selectedMap.get(item.id))) {
-                    selectedMap.remove(item.id);
+                if (selectedMap.containsKey(item.getId()) && "VOTE_OPTION_NO".equals(selectedMap.get(item.getId()))) {
+                    selectedMap.remove(item.getId());
                 } else {
-                    selectedMap.put(item.id, "VOTE_OPTION_NO");
+                    selectedMap.put(item.getId(), "VOTE_OPTION_NO");
                 }
                 mProposalSelectionAdapter.notifyItemChanged(position);
             });
 
             holder.noWithVetoBtnLayout.setOnClickListener(v -> {
-                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_NO_WITH_VETO".equals(selectedMap.get(item.id))) {
-                    selectedMap.remove(item.id);
+                if (selectedMap.containsKey(item.getId()) && "VOTE_OPTION_NO_WITH_VETO".equals(selectedMap.get(item.getId()))) {
+                    selectedMap.remove(item.getId());
                 } else {
-                    selectedMap.put(item.id, "VOTE_OPTION_NO_WITH_VETO");
+                    selectedMap.put(item.getId(), "VOTE_OPTION_NO_WITH_VETO");
                 }
                 mProposalSelectionAdapter.notifyItemChanged(position);
             });
 
             holder.abstainBtnLayout.setOnClickListener(v -> {
-                if (selectedMap.containsKey(item.id) && "VOTE_OPTION_ABSTAIN".equals(selectedMap.get(item.id))) {
-                    selectedMap.remove(item.id);
+                if (selectedMap.containsKey(item.getId()) && "VOTE_OPTION_ABSTAIN".equals(selectedMap.get(item.getId()))) {
+                    selectedMap.remove(item.getId());
                 } else {
-                    selectedMap.put(item.id, "VOTE_OPTION_ABSTAIN");
+                    selectedMap.put(item.getId(), "VOTE_OPTION_ABSTAIN");
                 }
                 mProposalSelectionAdapter.notifyItemChanged(position);
             });

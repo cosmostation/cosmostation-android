@@ -36,7 +36,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.authz.AuthzVoteActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -50,7 +50,7 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
     private LinearLayout mEmptyLayer;
 
     private String mGranter;
-    private List<ResProposal> mVotingPeriodProposalsList = Lists.newArrayList();
+    private List<ResV1Proposal> mVotingPeriodProposalsList = Lists.newArrayList();
     private Map<Integer, Set<String>> statusMap = Maps.newHashMap();
     private ArrayList<String> mSelectedProposalIds = new ArrayList<>();
 
@@ -94,10 +94,10 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
 
         } else if (v.equals(mNextBtn)) {
             if (mSelectedProposalIds.size() > 0 && mVotingPeriodProposalsList.size() > 0) {
-                ArrayList<ResProposal> proposals = new ArrayList<>();
+                ArrayList<ResV1Proposal> proposals = new ArrayList<>();
                 for (String id : mSelectedProposalIds) {
                     try {
-                        proposals.add(mVotingPeriodProposalsList.stream().filter(item -> String.valueOf(item.id).equals(id)).findFirst().get());
+                        proposals.add(mVotingPeriodProposalsList.stream().filter(item -> String.valueOf(item.getId()).equals(id)).findFirst().get());
                     } catch (Exception e) {
                     }
                 }
@@ -114,13 +114,13 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
     private void loadProposals() {
         mVotingPeriodProposalsList.clear();
 
-        ApiClient.getMintscan(getActivity()).getProposalList(getSActivity().mChainConfig.chainName()).enqueue(new Callback<ArrayList<ResProposal>>() {
+        ApiClient.getMintscan(getActivity()).getProposalLists(getSActivity().mChainConfig.chainName()).enqueue(new Callback<ArrayList<ResV1Proposal>>() {
             @Override
-            public void onResponse(Call<ArrayList<ResProposal>> call, Response<ArrayList<ResProposal>> response) {
+            public void onResponse(Call<ArrayList<ResV1Proposal>> call, Response<ArrayList<ResV1Proposal>> response) {
                 if (response.body() != null && response.isSuccessful()) {
-                    List<ResProposal> proposals = response.body();
-                    proposals.sort((o1, o2) -> o2.id - o1.id);
-                    mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> "PROPOSAL_STATUS_VOTING_PERIOD".equals(item.proposal_status)).collect(Collectors.toList()));
+                    List<ResV1Proposal> proposals = response.body();
+                    proposals.sort((o1, o2) -> o2.getId() - o1.getId());
+                    mVotingPeriodProposalsList.addAll(proposals.stream().filter(item -> item.isVotingPeriod()).collect(Collectors.toList()));
                     getSActivity().runOnUiThread(() -> {
                         if (mVotingPeriodProposalsList.size() > 0) {
                             mEmptyLayer.setVisibility(View.GONE);
@@ -134,7 +134,7 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
             }
 
             @Override
-            public void onFailure(Call<ArrayList<ResProposal>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<ResV1Proposal>> call, Throwable t) {
             }
         });
     }
@@ -172,18 +172,18 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
         }
 
         public void onBindPeriodProposalItemViewHolder(VoteListViewHolder holder, int position) {
-            ResProposal proposal = mVotingPeriodProposalsList.get(position);
+            ResV1Proposal proposal = mVotingPeriodProposalsList.get(position);
             holder.card_proposal.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorTransBg));
             holder.proposal_status_img.setVisibility(View.GONE);
             holder.proposal_status.setVisibility(View.GONE);
-            holder.proposal_id.setText("# " + proposal.id);
-            holder.proposal_title.setText(proposal.title);
+            holder.proposal_id.setText("# " + proposal.getId());
+            holder.proposal_title.setText(proposal.getTitle());
             holder.proposal_deadline.setVisibility(View.VISIBLE);
-            holder.proposal_deadline.setText(WDp.getTimeVoteformat(getActivity(), proposal.voting_end_time) + " " +
-                    WDp.convertDateToLong(getString(R.string.str_vote_time_format), proposal.voting_end_time));
+            holder.proposal_deadline.setText(WDp.getTimeVoteformat(getActivity(), proposal.getVoting_end_time()) + " " +
+                    WDp.convertDateToLong(getString(R.string.str_vote_time_format), proposal.getVoting_end_time()));
 
-            if (statusMap.containsKey(proposal.id)) {
-                Set<String> status = statusMap.get(proposal.id);
+            if (statusMap.containsKey(proposal.getId())) {
+                Set<String> status = statusMap.get(proposal.getId());
                 if (status.contains("VOTE_OPTION_YES")) {
                     holder.vote_status.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.icon_vote_yes));
                 } else if (status.contains("VOTE_OPTION_NO")) {
@@ -199,19 +199,19 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
                 }
             } else {
                 holder.vote_status.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.icon_vote_not_voted));
-                statusMap.put(proposal.id, Sets.newHashSet());
+                statusMap.put(proposal.getId(), Sets.newHashSet());
             }
 
             holder.card_proposal.setOnClickListener(view -> {
-                if (mSelectedProposalIds.contains(String.valueOf(proposal.id))) {
-                    mSelectedProposalIds.remove(String.valueOf(proposal.id));
+                if (mSelectedProposalIds.contains(String.valueOf(proposal.getId()))) {
+                    mSelectedProposalIds.remove(String.valueOf(proposal.getId()));
                 } else {
-                    mSelectedProposalIds.add(String.valueOf(proposal.id));
+                    mSelectedProposalIds.add(String.valueOf(proposal.getId()));
                 }
                 mVoteListAdapter.notifyItemChanged(position);
             });
 
-            if (mSelectedProposalIds.contains(String.valueOf(proposal.id))) {
+            if (mSelectedProposalIds.contains(String.valueOf(proposal.getId()))) {
                 Drawable roundBackground = ContextCompat.getDrawable(getActivity(), R.drawable.box_round_multi_vote);
                 roundBackground = DrawableCompat.wrap(roundBackground);
                 DrawableCompat.setTint(roundBackground, ContextCompat.getColor(getActivity(), getSActivity().mChainConfig.chainColor()));

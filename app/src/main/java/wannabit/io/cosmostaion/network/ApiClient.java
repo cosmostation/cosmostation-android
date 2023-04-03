@@ -87,21 +87,6 @@ public class ApiClient {
         return service_kava;
     }
 
-    //Services for Certik chain
-    private static Station service_certik = null;
-    public static Station getCertikChain(Context c) {
-        if (service_certik == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_certik_main))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_certik = retrofit.create(Station.class);
-            }
-        }
-        return service_certik;
-    }
-
     //Services for Binance net
     private static BinanceChain service_binance = null;
     public static BinanceChain getBnbChain() {

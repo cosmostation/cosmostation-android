@@ -41,7 +41,7 @@ public class Kava extends ChainConfig {
     public boolean moonPaySupport() { return true; }
 
     public String grpcUrl() { return "grpc-kava.cosmostation.io"; }
-    public String lcdUrl() { return "https://lcd-kava-app.cosmostation.io/"; }
+    public String lcdUrl() { return "https://lcd-kava.cosmostation.io/"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "kava/"; }
     public String homeInfoLink() { return  "https://www.kava.io"; }

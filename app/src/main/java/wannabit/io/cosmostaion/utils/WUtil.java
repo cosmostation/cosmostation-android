@@ -1329,6 +1329,7 @@ public class WUtil {
     }
 
     public static boolean isValidStarName(String starname) {
+        if (starname.startsWith("*") && starname.length() > 3) return true;
         String[] names = starname.split("\\*");
         if (names.length != 2) {
             return false;
