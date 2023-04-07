@@ -11,10 +11,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pstake.lscosmos.v1beta1.QueryOuterClass
 import wannabit.io.cosmostaion.base.BaseChain
+import wannabit.io.cosmostaion.model.BaseViewModel
 import wannabit.io.cosmostaion.network.ChannelBuilder
 import java.util.concurrent.TimeUnit
 
-class PersisViewModel : ViewModel() {
+class PersisViewModel : BaseViewModel() {
     private var _cValue = MutableLiveData<String>()
     val cValue: LiveData<String> get() = _cValue
 
