@@ -269,7 +269,11 @@ public class AuthzExecuteInfoHolder extends RecyclerView.ViewHolder {
 
         if (grant != null) {
             setColor(chainConfig, true);
-            mGrantImportTime.setText(WDp.getTimeWithoutTransVerse(grant.getExpiration().getSeconds() * 1000));
+            if (!grant.getExpiration().toString().isEmpty()) {
+                mGrantImportTime.setText(WDp.getTimeWithoutTransVerse(grant.getExpiration().getSeconds() * 1000));
+            } else {
+                mGrantImportTime.setText("");
+            }
             mLimitedAmount.setText("-");
             mLimitedAddress.setText("-");
         } else {

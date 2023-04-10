@@ -395,7 +395,7 @@ public class SendActivity extends BaseBroadCastActivity {
         public SendPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(SendStep0Fragment.newInstance());
+            mFragments.add(new SendStep0Fragment());
             mFragments.add(SendStep1Fragment.newInstance());
             mFragments.add(StepMemoFragment.newInstance());
             if (isGRPC(mBaseChain)) {

@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResV1Proposal;
+import wannabit.io.cosmostaion.network.res.ResRelayer;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 
 public interface Station {
@@ -51,15 +52,14 @@ public interface Station {
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);
 
+    @GET("v2/relayer/{chainId}/{channelId}")
+    Call<ResRelayer> getRelayer(@Path("chainId") String chainId, @Path("channelId") String channelId);
+
     @GET("v1/{chain}/evm/tx/{etherTxHash}")
     Call<Object> getEvmTxHash(@Path("chain") String chain, @Path("etherTxHash") String etherTxHash);
 
     @GET("v1/{chain}/account/{address}/txs")
     Call<ArrayList<ResApiNewTxListCustom>> getNewAccountTxCustom(@Path("chain") String chain, @Path("address") String address, @Query("limit") String limit, @Query("from") int id);
-
-    //certik lcd
-    @GET("/shentu/gov/v1alpha1/proposals/{proposal_id}/votes/{voter}")
-    Call<ResMyProposal> getCertikProposal(@Path("proposal_id") String proposal_id, @Path("voter") String voter);
 
     //okc history tx
     @GET("v1/utils/proxy/okc-transaction-list")
