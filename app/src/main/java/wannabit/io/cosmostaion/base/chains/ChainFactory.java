@@ -211,6 +211,9 @@ public class ChainFactory {
 
                 case STATION_TEST:
                     return new StationTest();
+
+                case NEUTRON_TEST:
+                    return new NeutronTest();
             }
         }
         return null;
