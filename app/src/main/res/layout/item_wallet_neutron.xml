@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -90,7 +89,7 @@
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Available" />
+                    android:text="@string/str_available" />
 
                 <TextView
                     android:id="@+id/chain_available"
@@ -104,46 +103,24 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/chain_lock_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
 
                 <TextView
+                    android:id="@+id/bond_title"
                     style="@style/font_rr_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Locked" />
+                    android:text="@string/str_bonded" />
 
                 <TextView
-                    android:id="@+id/chain_lock"
+                    android:id="@+id/chain_bond"
                     style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:text="-" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8">
-
-                <TextView
-                    android:id="@+id/vault_title"
-                    style="@style/font_rr_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vaulted" />
-
-                <TextView
-                    android:id="@+id/chain_vault"
-                    style="@style/font_rr_12_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@+id/vault_title"
+                    android:layout_toRightOf="@+id/bond_title"
                     android:gravity="end"
                     android:text="-" />
             </RelativeLayout>
@@ -175,7 +152,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/btn_vote"
+                    android:id="@+id/btn_dao"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_5"
@@ -198,12 +175,11 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_swap"
+                android:id="@+id/btn_defi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
-                android:clickable="true"
                 android:minHeight="@dimen/space_40">
 
                 <TextView
@@ -211,33 +187,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/cdp_s_ic"
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
-                    android:drawableLeft="@drawable/icon_osmosislab"
-                    android:text="Astroport (Swap)" />
+                    android:text="Neutron De-Fi" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_lending"
+                android:id="@+id/btn_wallet_connect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
-                android:clickable="true"
                 android:minHeight="@dimen/space_40">
 
                 <TextView
-                    android:id="@+id/lending_title"
                     style="@style/font_rr_14_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/icon_walletconnect"
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
-                    android:drawableLeft="@drawable/icon_search"
-                    android:text="Apollo (Lending)" />
+                    android:text="Wallet Connect" />
             </RelativeLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

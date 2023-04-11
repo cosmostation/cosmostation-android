@@ -587,6 +587,7 @@
     <string name="str_to_unbonding">회수</string>
     <string name="str_deposit">예금 하기</string>
     <string name="str_withdraw">출금 하기</string>
+    <string name="str_bonded">예치된 수량</string>
     <string name="str_vote_for_validator">검증인 선출</string>
     <string name="str_name_service">스타네임 서비스</string>
     <string name="str_promotion_title">위임하고 이자받기</string>

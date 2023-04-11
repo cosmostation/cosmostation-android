@@ -291,6 +291,7 @@ public class BaseConstant {
     public final static String NFT_INFURA = "https://ipfs.infura.io/ipfs/";
 
     public final static String EXPLORER_BASE_URL = "https://www.mintscan.io/";
+    public final static String EXPLORER_TESTNET_URL = "https://testnet.mintscan.io/";
     public final static String CHAIN_BASE_URL = "https://raw.githubusercontent.com/cosmostation/chainlist/master/chain/";
     public final static String COINGECKO_URL = "https://www.coingecko.com/en/coins/";
 

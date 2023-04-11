@@ -684,6 +684,7 @@
     <string name="str_to_unbonding">Withdraw</string>
     <string name="str_deposit">Deposit</string>
     <string name="str_withdraw">Withdraw</string>
+    <string name="str_bonded">Bonded</string>
     <string name="str_vote_for_validator">Vote for Validator</string>
     <string name="str_name_service">Starname Service</string>
     <string name="str_promotion_title">START DELEGATING FOR REWARDS</string>
