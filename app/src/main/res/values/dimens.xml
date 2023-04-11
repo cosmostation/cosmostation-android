@@ -16,6 +16,7 @@
     <dimen name="space_6">6dp</dimen>
     <dimen name="space_8">8dp</dimen>
     <dimen name="space_10">10dp</dimen>
+    <dimen name="space_11">11dp</dimen>
     <dimen name="space_12">12dp</dimen>
     <dimen name="space_14">14dp</dimen>
     <dimen name="space_15">15dp</dimen>
