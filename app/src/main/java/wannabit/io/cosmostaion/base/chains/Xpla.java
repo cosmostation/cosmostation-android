@@ -35,7 +35,7 @@ public class Xpla extends ChainConfig {
     public boolean ethAccountType() { return true; }
 
     public boolean dexSupport() { return false; }
-    public boolean wcSupport() { return false; }
+    public boolean wcSupport() { return true; }
     public boolean authzSupport() { return true; }
     public boolean evmSupport() { return true; }
 
