@@ -1339,7 +1339,7 @@ public class WUtil {
 
     public static boolean isValidDomain(String starname) {
         boolean result = false;
-        String regex = "^[mabcdefghijklnopqrstuvwxy][-a-z0-9_]{0,2}$|^[-a-z0-9_]{4,32}$";
+        String regex = "^[mabcdefghijklnopqrstuvwxyz0123456789][-a-z0-9_]{0,2}$|^[-a-z0-9_]{4,32}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(starname);
         if (m.matches()) {
