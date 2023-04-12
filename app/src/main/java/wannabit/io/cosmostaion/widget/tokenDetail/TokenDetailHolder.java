@@ -43,6 +43,9 @@ public class TokenDetailHolder extends BaseHolder {
     private CardView            mNftRawRoot;
     private TextView            mNftRawData;
 
+    // neutron
+    private TextView            mBondedAmount;
+
     public TokenDetailHolder(@NonNull View itemView) {
         super(itemView);
         mCardRoot           = itemView.findViewById(R.id.card_root);
@@ -63,24 +66,37 @@ public class TokenDetailHolder extends BaseHolder {
 
         mNftRawRoot         = itemView.findViewById(R.id.nft_raw_card_root);
         mNftRawData         = itemView.findViewById(R.id.nft_raw_data);
+
+        mBondedAmount         = itemView.findViewById(R.id.bond_amount);
     }
 
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
         final int stakingDivideDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(chain), denom);
         final int stakingDisplayDecimal = WDp.mainDisplayDecimal(chain);
-        final BigDecimal totalToken = baseData.getAllMainAsset(denom);
 
-        mTotalAmount.setText(WDp.getDpAmount2(totalToken, stakingDivideDecimal, stakingDisplayDecimal));
-        mAvailableAmount.setText(WDp.getDpAmount2(baseData.getAvailable(denom), stakingDivideDecimal, stakingDisplayDecimal));
-        mDelegatedAmount.setText(WDp.getDpAmount2(baseData.getDelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
-        mUnbondingAmount.setText(WDp.getDpAmount2(baseData.getUndelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
-        mRewardAmount.setText(WDp.getDpAmount2(baseData.getRewardSum(denom), stakingDivideDecimal, stakingDisplayDecimal));
+        if (chain.equals(BaseChain.NEUTRON_TEST)) {
+            BigDecimal availableAmount = baseData.getAvailable(denom);
+            BigDecimal bondAmount = BigDecimal.ZERO;
+            BigDecimal totalAmount = availableAmount.add(bondAmount);
 
-        final BigDecimal vestingAmount = baseData.getVesting(denom);
-        if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
-            mVestingLayer.setVisibility(View.VISIBLE);
-            mVestingAmount.setText(WDp.getDpAmount2(vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mTotalAmount.setText(WDp.getDpAmount2(totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mAvailableAmount.setText(WDp.getDpAmount2(availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mBondedAmount.setText(WDp.getDpAmount2(bondAmount, stakingDivideDecimal, stakingDisplayDecimal));
+        } else {
+            final BigDecimal totalToken = baseData.getAllMainAsset(denom);
+
+            mTotalAmount.setText(WDp.getDpAmount2(totalToken, stakingDivideDecimal, stakingDisplayDecimal));
+            mAvailableAmount.setText(WDp.getDpAmount2(baseData.getAvailable(denom), stakingDivideDecimal, stakingDisplayDecimal));
+            mDelegatedAmount.setText(WDp.getDpAmount2(baseData.getDelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
+            mUnbondingAmount.setText(WDp.getDpAmount2(baseData.getUndelegationSum(), stakingDivideDecimal, stakingDisplayDecimal));
+            mRewardAmount.setText(WDp.getDpAmount2(baseData.getRewardSum(denom), stakingDivideDecimal, stakingDisplayDecimal));
+
+            final BigDecimal vestingAmount = baseData.getVesting(denom);
+            if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
+                mVestingLayer.setVisibility(View.VISIBLE);
+                mVestingAmount.setText(WDp.getDpAmount2(vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            }
         }
         mCardRoot.setCardBackgroundColor(ContextCompat.getColor(c, ChainFactory.getChain(chain).chainBgColor()));
     }
@@ -93,7 +109,7 @@ public class TokenDetailHolder extends BaseHolder {
         if (chainConfig.baseChain().equals(BaseChain.KAVA_MAIN)) {
             BigDecimal vestingAmount = baseData.getVesting(denom);
             mTotalAmount.setText(WDp.getDpAmount2(availableAmount.add(vestingAmount), decimal, decimal));
-            if (vestingAmount.compareTo(BigDecimal.ZERO) > 0){
+            if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
                 mVestingLayer.setVisibility(View.VISIBLE);
                 mVestingAmount.setText(WDp.getDpAmount2(c, vestingAmount, decimal, decimal));
             }

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="@dimen/space_4"
+        android:layout_marginEnd="12dp"
+        app:cardBackgroundColor="@color/colorTransBgNeutron"
+        app:cardCornerRadius="@dimen/space_8"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/space_14">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp">
+
+                <ImageView
+                    android:id="@+id/chain_icon"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:src="@drawable/token_neutron" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:layout_toRightOf="@+id/chain_icon"
+                    android:textSize="@dimen/text_size_16"
+                    android:textColor="@color/color_neutron"
+                    android:text="NTRN" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/chain_amount"
+                        style="@style/font_rm_18_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="-" />
+
+                    <TextView
+                        android:id="@+id/chain_value"
+                        style="@style/font_ss_14_gray1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="-" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_view"
+                android:layout_marginTop="@dimen/space_12"
+                android:background="@color/colorGrayDayNight" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12">
+
+                <TextView
+                    android:id="@+id/available_title"
+                    style="@style/font_rr_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_available" />
+
+                <TextView
+                    android:id="@+id/chain_available"
+                    style="@style/font_rr_12_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/available_title"
+                    android:gravity="end"
+                    android:text="-" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8">
+
+                <TextView
+                    android:id="@+id/bond_title"
+                    style="@style/font_rr_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_bonded" />
+
+                <TextView
+                    android:id="@+id/chain_bond"
+                    style="@style/font_rr_12_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/bond_title"
+                    android:gravity="end"
+                    android:text="-" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/btn_valut"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="@dimen/space_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_trans_with_border"
+                    android:minHeight="@dimen/space_40">
+
+                    <TextView
+                        style="@style/font_rr_14_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableLeft="@drawable/icon_vault"
+                        android:drawablePadding="@dimen/space_4"
+                        android:gravity="center"
+                        android:text="Vault" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/btn_dao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_trans_with_border"
+                    android:clickable="true"
+                    android:minHeight="@dimen/space_40">
+
+                    <TextView
+                        style="@style/font_rr_14_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableLeft="@drawable/icon_dao"
+                        android:drawablePadding="@dimen/space_4"
+                        android:gravity="center"
+                        android:text="Dao" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_defi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_trans_with_border"
+                android:minHeight="@dimen/space_40">
+
+                <TextView
+                    style="@style/font_rr_14_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/icon_neutron_defi"
+                    android:drawablePadding="@dimen/space_8"
+                    android:gravity="center"
+                    android:text="Neutron De-Fi" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_wallet_connect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_trans_with_border"
+                android:minHeight="@dimen/space_40">
+
+                <TextView
+                    style="@style/font_rr_14_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/icon_walletconnect"
+                    android:drawablePadding="@dimen/space_8"
+                    android:gravity="center"
+                    android:text="Wallet Connect" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -72,6 +72,7 @@
     <color name="colorTransBgQuasar">#EBEEFE</color>
     <color name="colorTransBgNoble">#ECF0FE</color>
     <color name="colorTransBgStafi">#ECEBFF</color>
+    <color name="colorTransBgNeutron">#ECEFFE</color>
 
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -236,6 +237,9 @@
     <color name="color_noble">#6A8AF8</color>
 
     <color name="color_stafi">#6758FF</color>
+
+    <color name="color_neutron">#465DF3</color>
+
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

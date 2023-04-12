@@ -316,6 +316,8 @@
     <string name="str_front_guide_title_quasar" translatable="false"><![CDATA[QUASAR]]></string>
     <string name="str_front_guide_title_noble" translatable="false"><![CDATA[NOBLE]]></string>
     <string name="str_front_guide_title_stafi" translatable="false"><![CDATA[STAFI HUB]]></string>
+    <string name="str_front_guide_title_neutron" translatable="false"><![CDATA[NEUTRON]]></string>
+
 
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
@@ -378,6 +380,7 @@
     <string name="str_front_guide_msg_quasar"><![CDATA[Quasar provides decentralized asset management (DAM) service utilizing vaults and vault strategies.]]></string>
     <string name="str_front_guide_msg_noble"><![CDATA[Noble is a Cosmos chain bringing native asset issuance to the IBC ecosystem.]]></string>
     <string name="str_front_guide_msg_stafi"><![CDATA[StaFi Hub is a sovereign Cosmos SDK based blockchain designed for cross-chain liquid staking.]]></string>
+    <string name="str_front_guide_msg_neutron"><![CDATA[Neutron is a permissionless CosmWasm platform secured by Cosmos Hub’s Interchain Security.]]></string>
 
 
     <string name="str_current_reward_address">Current Reward Address</string>
@@ -684,6 +687,7 @@
     <string name="str_to_unbonding">Withdraw</string>
     <string name="str_deposit">Deposit</string>
     <string name="str_withdraw">Withdraw</string>
+    <string name="str_bonded">Bonded</string>
     <string name="str_vote_for_validator">Vote for Validator</string>
     <string name="str_name_service">Starname Service</string>
     <string name="str_promotion_title">START DELEGATING FOR REWARDS</string>
