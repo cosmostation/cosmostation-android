@@ -160,7 +160,11 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         @Override
         public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_STAKE_NEW) {
-                return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.layout_card_staking_new, viewGroup, false));
+                if (mChainConfig.baseChain().equals(BaseChain.NEUTRON_TEST)) {
+                    return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.layout_card_neutron, viewGroup, false));
+                } else {
+                    return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.layout_card_staking_new, viewGroup, false));
+                }
             } else if (viewType == TYPE_VESTING) {
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
             } else {
