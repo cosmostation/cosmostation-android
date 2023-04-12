@@ -94,7 +94,8 @@ public enum BaseChain {
     KYVE_MAIN("kyve-mainnet"),
     COREUM_MAIN("coreum-mainnet"),
     QUASAR_MAIN("quasar-mainnet"),
-    NOBLE_MAIN("noble-mainnet");
+    NOBLE_MAIN("noble-mainnet"),
+    STAFI_MAIN("stafi-mainnet");
 
 
     private final String chainName;
@@ -309,6 +310,9 @@ public enum BaseChain {
         if (chainName.equals(NOBLE_MAIN.chainName)) {
             return NOBLE_MAIN;
         }
+        if (chainName.equals(STAFI_MAIN.chainName)) {
+            return STAFI_MAIN;
+        }
         return null;
     }
 
@@ -365,6 +369,7 @@ public enum BaseChain {
         result.add(CERTIK_MAIN);
         result.add(SIF_MAIN);
         result.add(SOMMELIER_MAIN);
+        result.add(STAFI_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(STRIDE_MAIN);
         result.add(TERITORI_MAIN);

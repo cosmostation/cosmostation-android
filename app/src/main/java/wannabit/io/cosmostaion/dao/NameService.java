@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.dao;
 
-public class NameService {
+import java.io.Serializable;
+
+public class NameService implements Serializable {
     public NameServiceType type;
     public String name;
     public String address;

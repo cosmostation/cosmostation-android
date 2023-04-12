@@ -281,6 +281,7 @@
     <string name="str_front_guide_msg_coreum"><![CDATA[CoreumはISO2022基準を満たす機関級レイヤー-1ブロックチェーンで、未来の脱中央化アプリケーションのための核心インフラを提供します。]]></string>
     <string name="str_front_guide_msg_quasar"><![CDATA[Quasarはボルトとボルト戦略を活用した分散型資産管理(DAM)サービスを提供している。]]></string>
     <string name="str_front_guide_msg_noble"><![CDATA[NobleはIBC生態系上、ネイティブトークン発行のために設計されたCosmosSDKベースのブロックチェーンです。]]></string>
+    <string name="str_front_guide_msg_stafi"><![CDATA[StaFi Hubはクロスチェーンリキッドステーキングのために設計されたCosmos SDKベースのブロックチェーンネットワークです。]]></string>
 
 
     <string name="str_current_reward_address">現在利子支給アドレス</string>
@@ -1081,6 +1082,7 @@
     <string name="error_deprecated_account_msg">その住所はチェーンでそれ以上サポートされていません。\n\n円滑な使用のために公式住所を作成して資産を転送することを強くお勧めします。\n（設定>ウォレット追加メニューから公式アドレスを追加できます。）</string>
     <string name="error_closure_network_msg">このネットワークはもう機能しません。\n\nCosmostationウォレットはアーカイブされたデータのみを表示していますのでご注意ください。</string>
     <string name="error_ledger_open_msg">Ledger で Cosmos アプリを開きます。</string>
+    <string name="error_no_staking">このチェーンはステーキングをサポートしていません。</string>
 
 
     <string name="tx_send">送る</string>
