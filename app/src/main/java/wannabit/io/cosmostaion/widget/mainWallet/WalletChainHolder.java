@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.txs.common.VoteListActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
@@ -100,6 +101,10 @@ public class WalletChainHolder extends BaseHolder {
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnStake.setOnClickListener(v -> {
+            if (mainActivity.mBaseChain.equals(BaseChain.STAFI_MAIN)) {
+                Toast.makeText(mainActivity, mainActivity.getString(R.string.error_no_staking), Toast.LENGTH_SHORT).show();
+                return;
+            }
             Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
             mainActivity.startActivity(validators);
         });

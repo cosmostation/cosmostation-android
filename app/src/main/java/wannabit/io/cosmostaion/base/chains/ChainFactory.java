@@ -190,6 +190,9 @@ public class ChainFactory {
                 case SOMMELIER_MAIN:
                     return new Sommelier();
 
+                case STAFI_MAIN:
+                    return new Stafi();
+
                 case STARGAZE_MAIN:
                     return new Stargaze();
 

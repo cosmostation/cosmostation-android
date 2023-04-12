@@ -71,6 +71,7 @@
     <color name="colorTransBgCoreum">#E5F7F0</color>
     <color name="colorTransBgQuasar">#EBEEFE</color>
     <color name="colorTransBgNoble">#ECF0FE</color>
+    <color name="colorTransBgStafi">#ECEBFF</color>
 
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -233,6 +234,8 @@
     <color name="color_quasar">#3D62FC</color>
 
     <color name="color_noble">#6A8AF8</color>
+
+    <color name="color_stafi">#6758FF</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>
