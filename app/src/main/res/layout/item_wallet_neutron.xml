@@ -145,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:drawableLeft="@drawable/reward_ic"
+                        android:drawableLeft="@drawable/icon_vault"
                         android:drawablePadding="@dimen/space_4"
                         android:gravity="center"
                         android:text="Vault" />
@@ -167,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:drawableLeft="@drawable/vote_ic"
+                        android:drawableLeft="@drawable/icon_dao"
                         android:drawablePadding="@dimen/space_4"
                         android:gravity="center"
                         android:text="Dao" />
@@ -187,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:drawableLeft="@drawable/cdp_s_ic"
+                    android:drawableLeft="@drawable/icon_neutron_defi"
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
                     android:text="Neutron De-Fi" />
