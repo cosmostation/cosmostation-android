@@ -221,6 +221,11 @@ class SendStep0Fragment : BaseFragment() {
             btnNext.setOnClickListener {
                 mNameServices.clear()
                 receiverAccount.text.trim().toString().apply {
+                    if (this.isEmpty()) {
+                        requireContext().makeToast(R.string.error_invalid_address)
+                        return@setOnClickListener
+                    }
+
                     if (getSActivity().mAccount.address.equals(this, ignoreCase = true)) {
                         requireContext().makeToast(R.string.error_self_sending)
                         return@setOnClickListener

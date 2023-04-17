@@ -49,20 +49,21 @@ class SendViewModel : BaseViewModel() {
     val nameServices: LiveData<ArrayList<NameService>> get() = _nameServices
 
     fun loadIcnsAddress(chainConfig: ChainConfig, userInput: String) = backScope.launch {
+        val nameServiceList = ArrayList<NameService>()
         if (chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
             val osIcns = async { getOSIcnsAddress(userInput) }
             val sgIcns = async { getSGIcnsAddress(userInput.substring(0, userInput.indexOf("."))) }
 
             val icnsAll = awaitAll(osIcns, sgIcns)
 
-            val nameServiceList = ArrayList<NameService>()
             if (icnsAll[0].isNotEmpty()) nameServiceList.add(NameService(NameServiceType.ICNS, userInput, icnsAll[0]))
             if (icnsAll[1].isNotEmpty()) nameServiceList.add(NameService(NameServiceType.STARGAZE, userInput, icnsAll[1]))
 
             _nameServices.postValue(nameServiceList)
         } else {
             val address = getOSIcnsAddress(userInput)
-            _nameServices.postValue(Lists.newArrayList(NameService(NameServiceType.ICNS, userInput, address)))
+            if (address.isNotEmpty()) nameServiceList.add(NameService(NameServiceType.ICNS, userInput, address))
+            _nameServices.postValue(nameServiceList)
         }
     }
 
