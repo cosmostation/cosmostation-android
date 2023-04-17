@@ -180,7 +180,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
                         }
-                        mAmountInput.setSelection(mAmountInput.getText().length());
                     } catch (Exception e) { }
                 }
             }

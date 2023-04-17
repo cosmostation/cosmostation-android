@@ -158,9 +158,7 @@ public class LiquidityStep1Fragment extends BaseFragment implements View.OnClick
                         } else {
                             mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                         }
-                        mAmountInput.setSelection(mAmountInput.getText().length());
-                    } catch (Exception e) {
-                    }
+                    } catch (Exception e) { }
                 }
             }
         });

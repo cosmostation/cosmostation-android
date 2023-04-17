@@ -203,10 +203,7 @@ public class HtlcSendStep2Fragment extends BaseFragment implements View.OnClickL
                                 mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
                             }
                         }
-                        mAmountInput.setSelection(mAmountInput.getText().length());
-
-                    } catch (Exception e) {
-                    }
+                    } catch (Exception e) { }
                 }
             }
         });
