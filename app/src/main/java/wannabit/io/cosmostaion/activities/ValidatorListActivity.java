@@ -244,7 +244,11 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
                 ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateClaim(toClaimValAddr);
                 Abci.GasInfo gasInfo = simulateClaimResponse.getGasInfo();
-                feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
+                if (mBaseChain.equals(BaseChain.IXO_MAIN)) {
+                    feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.5")).setScale(0, RoundingMode.UP);
+                } else {
+                    feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("3")).setScale(0, RoundingMode.UP);
+                }
                 if (!mBaseChain.equals(BaseChain.SIF_MAIN) && !mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
                     BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
                     feeCoin = new Coin(feeData.denom, amount.toPlainString());
@@ -331,7 +335,11 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
                 ServiceOuterClass.SimulateResponse simulateClaimResponse = ValidatorListActivity.this.simulateCompounding(getClaimableReward(), mChainConfig.baseChain());
                 Abci.GasInfo gasInfo = simulateClaimResponse.getGasInfo();
-                feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.1")).setScale(0, RoundingMode.UP);
+                if (mBaseChain.equals(BaseChain.IXO_MAIN)) {
+                    feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("1.5")).setScale(0, RoundingMode.UP);
+                } else {
+                    feeGasAmount = new BigDecimal(gasInfo.getGasUsed()).multiply(new BigDecimal("3")).setScale(0, RoundingMode.UP);
+                }
                 if (!mBaseChain.equals(BaseChain.SIF_MAIN) && !mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
                     BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
                     feeCoin = new Coin(feeData.denom, amount.toPlainString());
