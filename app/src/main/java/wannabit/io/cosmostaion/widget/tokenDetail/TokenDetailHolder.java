@@ -45,6 +45,8 @@ public class TokenDetailHolder extends BaseHolder {
 
     // neutron
     private TextView            mBondedAmount;
+    private View                mView;
+    private RelativeLayout      mAvailableLayout;
 
     public TokenDetailHolder(@NonNull View itemView) {
         super(itemView);
@@ -68,6 +70,9 @@ public class TokenDetailHolder extends BaseHolder {
         mNftRawData         = itemView.findViewById(R.id.nft_raw_data);
 
         mBondedAmount         = itemView.findViewById(R.id.bond_amount);
+
+        mView = itemView.findViewById(R.id.view2);
+        mAvailableLayout = itemView.findViewById(R.id.available_layout);
     }
 
     @Override
@@ -83,6 +88,15 @@ public class TokenDetailHolder extends BaseHolder {
             mTotalAmount.setText(WDp.getDpAmount2(totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
             mAvailableAmount.setText(WDp.getDpAmount2(availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
             mBondedAmount.setText(WDp.getDpAmount2(bondAmount, stakingDivideDecimal, stakingDisplayDecimal));
+
+        } else if (chain.equals(BaseChain.NOBLE_MAIN)) {
+            BigDecimal availableAmount = baseData.getAvailable(denom);
+            mTotalAmount.setText(WDp.getDpAmount2(availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            mAvailableAmount.setText(WDp.getDpAmount2(availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
+
+            mView.setVisibility(View.GONE);
+            mAvailableLayout.setVisibility(View.GONE);
+
         } else {
             final BigDecimal totalToken = baseData.getAllMainAsset(denom);
 
