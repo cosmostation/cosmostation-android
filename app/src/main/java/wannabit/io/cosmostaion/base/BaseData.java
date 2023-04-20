@@ -6,6 +6,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -149,7 +150,7 @@ public class BaseData {
     }
 
     public MintscanToken getCw20Asset(ChainConfig chainConfig, String denom) {
-        if (chainConfig.baseChain().equals(JUNO_MAIN)) {
+        if (chainConfig.baseChain().equals(JUNO_MAIN) || chainConfig.baseChain().equals(NEUTRON_TEST)) {
             if (mCw20Tokens != null && mCw20Tokens.size() > 0) {
                 for (MintscanToken asset : mCw20Tokens) {
                     if (asset.symbol.equalsIgnoreCase(denom)) {
@@ -172,7 +173,7 @@ public class BaseData {
 
     public void setMyTokens(ChainConfig chainConfig, String address) {
         Set<String> listingContractAddressSet = getUserFavoTokens(address);
-        if (chainConfig.baseChain().equals(JUNO_MAIN)) {
+        if (chainConfig.baseChain().equals(JUNO_MAIN) || chainConfig.baseChain().equals(NEUTRON_TEST)) {
             listingContractAddressSet.addAll(mCw20Tokens.stream().filter(item -> item.default_show).map(item -> item.address).collect(Collectors.toSet()));
             mCw20MyTokens.addAll(mCw20Tokens.stream().filter(item -> listingContractAddressSet.contains(item.address)).collect(Collectors.toList()));
         } else {
@@ -182,7 +183,7 @@ public class BaseData {
     }
 
     public void setMyTokenBalance(ChainConfig chainConfig, String contractAddress, String amount) {
-        if (chainConfig.baseChain().equals(JUNO_MAIN)) {
+        if (chainConfig.baseChain().equals(JUNO_MAIN) || chainConfig.baseChain().equals(NEUTRON_TEST)) {
             for (MintscanToken myAsset : mCw20MyTokens) {
                 if (myAsset.address.equalsIgnoreCase(contractAddress)) {
                     myAsset.setAmount(amount);

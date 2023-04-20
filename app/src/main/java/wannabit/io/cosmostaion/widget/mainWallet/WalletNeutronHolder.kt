@@ -1,8 +1,10 @@
 package wannabit.io.cosmostaion.widget.mainWallet
 
+import android.content.Intent
 import android.view.View
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.NeutronDefiActivity
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ItemWalletNeutronBinding
 import wannabit.io.cosmostaion.utils.WDp
@@ -49,8 +51,9 @@ class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
             }
 
             btnDefi.setOnClickListener {
-                mainActivity.makeToast(R.string.error_prepare)
-                return@setOnClickListener
+                Intent(mainActivity, NeutronDefiActivity::class.java).apply {
+                    mainActivity.startActivity(this)
+                }
             }
 
             btnWalletConnect.setOnClickListener {

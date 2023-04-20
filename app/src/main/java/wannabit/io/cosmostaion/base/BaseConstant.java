@@ -286,6 +286,9 @@ public class BaseConstant {
     public final static String ICNS_OSMOSIS_ADDRESS = "osmo1xk0s8xgktn9x5vwcgtjdxqzadg88fgn33p8u9cnpdxwemvxscvast52cdd";
     public final static String NS_STARGZE_ADDRESS = "stars1fx74nkqkw2748av8j7ew7r3xt9cgjqduwn8m0ur5lhe49uhlsasszc5fhr";
 
+    // Neutron Contract Address
+    public final static String NEUTRON_PAIR_ADDRESS = "neutron1elmg309fvdas002z2yausyygsyfht9qpyxeadqxjx38tazryjtvql3v69x";
+
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
 
     public final static String NFT_INFURA = "https://ipfs.infura.io/ipfs/";
