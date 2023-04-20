@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.NOBLE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import android.content.Intent;
@@ -49,6 +50,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletKavaIncentiveHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletMedipassHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletMintHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletNeutronHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletNobleHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPriceHolder;
 
@@ -195,6 +197,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_BINANCE = 1;
         private static final int TYPE_OKEX = 2;
         private static final int TYPE_NEUTRON = 3;
+        private static final int TYPE_NOBLE = 4;
 
         private static final int TYPE_KAVA_INCENTIVE = 40;
         private static final int TYPE_DESMOS_APP = 50;
@@ -215,6 +218,9 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_NEUTRON) {
                 return new WalletNeutronHolder(getLayoutInflater().inflate(R.layout.item_wallet_neutron, viewGroup, false));
+
+            } else if (viewType == TYPE_NOBLE) {
+                return new WalletNobleHolder(getLayoutInflater().inflate(R.layout.item_wallet_noble, viewGroup, false));
 
             } else if (viewType == TYPE_WALLET) {
                 return new WalletChainHolder(getLayoutInflater().inflate(R.layout.item_wallet_chain, viewGroup, false));
@@ -256,6 +262,7 @@ public class MainSendFragment extends BaseFragment {
 
             if (getMainActivity().mChainConfig.baseChain().equals(KAVA_MAIN) || getMainActivity().mChainConfig.baseChain().equals(MEDI_MAIN) ||
                     getMainActivity().mChainConfig.baseChain().equals(DESMOS_MAIN)) return 6;
+            else if (getMainActivity().mChainConfig.baseChain().equals(NOBLE_MAIN)) return 4;
             else if (getMainActivity().mChainConfig.authzSupport()) return 5;
             else if (getMainActivity().mChainConfig.baseChain().equals(NEUTRON_TEST)) return 3;
             else if (isGRPC(getMainActivity().mChainConfig.baseChain())) return 4;
@@ -295,10 +302,16 @@ public class MainSendFragment extends BaseFragment {
                 else if (position == 4) return TYPE_GIUDE;
 
             } else if (getItemCount() == 4) {
-                if (position == 0) return TYPE_WALLET;
-                else if (position == 1) return TYPE_PRICE;
-                else if (position == 2) return TYPE_MINT;
-                else if (position == 3) return TYPE_GIUDE;
+                if (getMainActivity().mChainConfig.baseChain().equals(NOBLE_MAIN)) {
+                    if (position == 0) return TYPE_NOBLE;
+                    else if (position == 2) return TYPE_AUTHZ;
+                    else if (position == 3) return TYPE_GIUDE;
+                } else {
+                    if (position == 0) return TYPE_WALLET;
+                    else if (position == 2) return TYPE_MINT;
+                    else if (position == 3) return TYPE_GIUDE;
+                }
+                if (position == 1) return TYPE_PRICE;
 
             } else {
                 if (position == 0) {

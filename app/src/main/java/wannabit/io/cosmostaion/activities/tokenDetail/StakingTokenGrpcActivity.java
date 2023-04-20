@@ -162,6 +162,8 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
             if (viewType == TYPE_STAKE_NEW) {
                 if (mChainConfig.baseChain().equals(BaseChain.NEUTRON_TEST)) {
                     return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.layout_card_neutron, viewGroup, false));
+                } else if (mChainConfig.baseChain().equals(BaseChain.NOBLE_MAIN)) {
+                    return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
                 } else {
                     return new TokenDetailHolder(getLayoutInflater().inflate(R.layout.layout_card_staking_new, viewGroup, false));
                 }
