@@ -33,7 +33,7 @@ class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
         binding.apply {
             chainAmount.text = WDp.getDpAmount2(totalAmount, decimal, 6)
             chainValue.text = WDp.dpAssetValue(baseData, WDp.getGeckoId(baseData, chainConfig), totalAmount, decimal)
-            chainAvailable.text = WDp.getDpAmount2(totalAmount, decimal, 6)
+            chainAvailable.text = WDp.getDpAmount2(availableAmount, decimal, 6)
             chainBond.text = WDp.getDpAmount2(bondAmount, decimal, 6)
 
             baseData.onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString())

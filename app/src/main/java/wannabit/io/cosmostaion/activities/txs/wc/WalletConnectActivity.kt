@@ -1531,9 +1531,21 @@ class WalletConnectActivity : BaseActivity() {
                 }
                 "cos_supportedChainIds" -> {
                     val dataJson = JSONObject()
-                    dataJson.put("official", listOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1"))
-                    dataJson.put("unofficial", listOf<String>())
+                    dataJson.put("official", JSONArray(arrayListOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1", "omniflixhub-1")))
+                    dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
                     appToWebResult(messageJson, dataJson, messageId)
+                }
+                "cos_supportedChainNames" -> {
+                    val dataJson = JSONObject()
+                    dataJson.put("official", JSONArray(arrayListOf("cosmos", "osmosis", "stride", "stargaze", "omniflix")))
+                    dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
+                    appToWebResult(messageJson, dataJson, messageId)
+                }
+                "cos_activatedChainIds" -> {
+                    appToWebResult(messageJson, JSONArray(arrayListOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1", "omniflixhub-1")), messageId)
+                }
+                "cos_activatedChainNames" -> {
+                    appToWebResult(messageJson, JSONArray(arrayListOf("cosmos", "osmosis", "stride", "stargaze", "omniflix")), messageId)
                 }
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
@@ -1623,6 +1635,19 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private fun appToWebResult(messageJson: JSONObject, resultJson: JSONObject, messageId: Long) {
+        val responseJson = JSONObject()
+        responseJson.put("result", resultJson)
+        val postMessageJson = JSONObject()
+        postMessageJson.put("message", messageJson)
+        postMessageJson.put("response", responseJson)
+        postMessageJson.put("messageId", messageId)
+        postMessageJson.put("isCosmostation", true)
+        runOnUiThread {
+            binding.dappWebView.evaluateJavascript(String.format("window.postMessage(%s);", postMessageJson.toString()), null)
+        }
+    }
+
+    private fun appToWebResult(messageJson: JSONObject, resultJson: JSONArray, messageId: Long) {
         val responseJson = JSONObject()
         responseJson.put("result", resultJson)
         val postMessageJson = JSONObject()

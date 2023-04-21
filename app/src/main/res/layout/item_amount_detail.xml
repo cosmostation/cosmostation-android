@@ -25,7 +25,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_14"
+                android:layout_marginHorizontal="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
                 android:orientation="vertical">
 
                 <TextView
@@ -33,6 +34,7 @@
                     style="@style/font_rr_12_black_daynight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="@string/str_total_amount" />
 
                 <RelativeLayout
@@ -52,13 +54,15 @@
             </RelativeLayout>
 
             <View
+                android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_view"
-                android:layout_marginLeft="@dimen/space_14"
-                android:layout_marginRight="@dimen/space_14"
+                android:layout_marginHorizontal="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
                 android:background="@color/colorGrayDayNight" />
 
             <RelativeLayout
+                android:id="@+id/available_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_14"
