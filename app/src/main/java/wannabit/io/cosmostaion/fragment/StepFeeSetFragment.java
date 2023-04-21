@@ -48,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_STRIDE_LIQUID_STAKING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_STRIDE_LIQUID_UNSTAKING;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VAULT_BOND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
@@ -95,6 +96,8 @@ import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.network.req.neutron.Bond;
+import wannabit.io.cosmostaion.network.req.neutron.BondReq;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimCommissionGrpcTask;
@@ -106,6 +109,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzUndelegateGrpcTa
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzVoteGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulClaimRewardsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulContractExecuteGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulCw20IbcSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulCw20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
@@ -529,6 +533,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         } else if (getSActivity().mTxType == CONST_PW_TX_PERSIS_LIQUID_STAKING || getSActivity().mTxType == CONST_PW_TX_PERSIS_LIQUID_REDEEM) {
             new SimulPersisLiquidGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mSwapInCoin,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else {
+            new SimulContractExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAmount,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }

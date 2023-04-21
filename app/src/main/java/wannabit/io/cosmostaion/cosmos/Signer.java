@@ -42,6 +42,7 @@ import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
+import cosmwasm.wasm.v1.Tx.MsgExecuteContract;
 import ibc.core.client.v1.Client;
 import pstake.lscosmos.v1beta1.Msgs;
 import starnamed.x.starname.v1beta1.Types;
@@ -913,7 +914,7 @@ public class Signer {
         Cw20TransferReq req = new Cw20TransferReq(toAddress, amount.get(0).amount);
         String jsonData = new Gson().toJson(req);
         ByteString msg = ByteString.copyFromUtf8(jsonData);
-        cosmwasm.wasm.v1.Tx.MsgExecuteContract msgExecuteContract = cosmwasm.wasm.v1.Tx.MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
+        MsgExecuteContract msgExecuteContract = MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build());
         return msgAnys;
     }
@@ -936,7 +937,7 @@ public class Signer {
         Cw20IbcTransferReq req = new Cw20IbcTransferReq(assetPath.getIBCContract(), amount.get(0).amount, encodedMsg);
         String jsonData = new Gson().toJson(req);
         ByteString msg = ByteString.copyFromUtf8(jsonData);
-        cosmwasm.wasm.v1.Tx.MsgExecuteContract msgExecuteContract = cosmwasm.wasm.v1.Tx.MsgExecuteContract.newBuilder().setSender(sender).setContract(contractAddress).setMsg(msg).build();
+        MsgExecuteContract msgExecuteContract = MsgExecuteContract.newBuilder().setSender(sender).setContract(contractAddress).setMsg(msg).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build());
         return msgAnys;
     }
@@ -1134,6 +1135,24 @@ public class Signer {
             msgAnys.add(Any.newBuilder().setTypeUrl("/pstake.lscosmos.v1beta1.MsgRedeem").setValue(msgRedeem.toByteString()).build());
         }
         return msgAnys;
+    }
+
+    public static ArrayList<Any> getContractMsg(Object req, String fromAddress, String contractAddress, Coin fund) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        String jsonData = new Gson().toJson(req);
+        CoinOuterClass.Coin fundCoin = CoinOuterClass.Coin.newBuilder().setAmount(fund.amount).setDenom(fund.denom).build();
+        ByteString msg = ByteString.copyFromUtf8(jsonData);
+        MsgExecuteContract msgExecuteContract = MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).addFunds(fundCoin).build();
+        msgAnys.add(Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcContractReq(QueryOuterClass.QueryAccountResponse auth, Object req, String sender, String contractAddress, Coin fund, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignTx(auth, getContractMsg(req, sender, contractAddress, fund), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcContractSimulateReq(QueryOuterClass.QueryAccountResponse auth, Object req, String sender, String contractAddress, Coin fund, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignSimulTx(auth, getContractMsg(req, sender, contractAddress, fund), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
 

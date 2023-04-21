@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.txs.neutron
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.gson.Gson
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
@@ -18,6 +20,7 @@ import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ResConfigData
 import wannabit.io.cosmostaion.network.res.neutron.ResVotingData
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.makeToast
 import java.math.BigDecimal
 
 class VaultListActivity : BaseActivity() {
@@ -82,6 +85,7 @@ class VaultListActivity : BaseActivity() {
     }
 
     fun loadDataObserve() {
+        mVaultList.clear()
         neutronViewModel.data.observe(this) { response ->
             response?.let {
                 Gson().fromJson(it[0].toString(), ResConfigData::class.java).let { data ->
@@ -89,6 +93,26 @@ class VaultListActivity : BaseActivity() {
                 }
                 onUpdateView()
             }
+        }
+    }
+
+    fun onStartVaultBond() {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog()
+            return
+        }
+        if (!WDp.isTxFeePayable(this, baseDao, mChainConfig)) {
+            this.makeToast(R.string.error_not_enough_fee)
+        }
+        val available0MaxAmount = baseDao.getAvailable(mChainConfig.mainDenom())
+        if (BigDecimal.ZERO >= available0MaxAmount) {
+            this.makeToast(R.string.error_not_enough_to_deposit_pool)
+            return
+        }
+
+        Intent(baseContext, VaultActivity::class.java).apply {
+            putExtra("txType", BaseConstant.CONST_PW_TX_VAULT_BOND)
+            startActivity(this)
         }
     }
 
@@ -125,7 +149,7 @@ class VaultListActivity : BaseActivity() {
                         myAvailable.text = WDp.getDpAmount2(baseDao.getAvailable(mChainConfig.mainDenom()), mChainConfig.decimal(), mChainConfig.decimal())
 
                         cardRoot.setOnClickListener {
-
+                            onStartVaultBond()
                         }
                     }
                 }

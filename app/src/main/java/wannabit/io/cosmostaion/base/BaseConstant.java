@@ -228,6 +228,8 @@ public class BaseConstant {
     public final static int CONST_PW_TX_PERSIS_LIQUID_STAKING = 5084;
     public final static int CONST_PW_TX_PERSIS_LIQUID_REDEEM = 5085;
 
+    public final static int CONST_PW_TX_VAULT_BOND = 5086;
+
 
     public final static int ERROR_CODE_UNKNOWN = 8000;
     public final static int ERROR_CODE_NETWORK = 8001;
