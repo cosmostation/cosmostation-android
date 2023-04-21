@@ -15,11 +15,9 @@ import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityNeutronDefiBinding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
-import wannabit.io.cosmostaion.fragment.txs.liquidstaking.PersisViewModel
 import wannabit.io.cosmostaion.fragment.txs.neutron.NeutronPoolFragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.NeutronSwapFragment
-import wannabit.io.cosmostaion.model.NeutronViewModel
-import wannabit.io.cosmostaion.utils.WLog
+import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 
 class NeutronDefiActivity : BaseActivity() {
 

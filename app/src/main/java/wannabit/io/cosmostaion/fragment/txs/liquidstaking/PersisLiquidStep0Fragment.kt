@@ -15,9 +15,9 @@ import wannabit.io.cosmostaion.activities.txs.liquidstaking.PersisLiquidActivity
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentLiquidStep0Binding
+import wannabit.io.cosmostaion.model.viewModel.PersisViewModel
 import wannabit.io.cosmostaion.model.type.Coin
 import wannabit.io.cosmostaion.utils.WDp
-import wannabit.io.cosmostaion.utils.WLog
 import java.math.BigDecimal
 import java.math.RoundingMode
 

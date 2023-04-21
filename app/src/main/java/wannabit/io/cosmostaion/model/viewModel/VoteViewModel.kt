@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.model
+package wannabit.io.cosmostaion.model.viewModel
 
 import android.content.Context
 import androidx.lifecycle.LiveData

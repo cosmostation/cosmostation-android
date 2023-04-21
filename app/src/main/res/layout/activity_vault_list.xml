@@ -26,22 +26,77 @@
             android:text="Vault List" />
     </androidx.appcompat.widget.Toolbar>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_15"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorTransBgNoble"
+        app:cardCornerRadius="@dimen/space_8"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/space_15"
+            android:paddingVertical="@dimen/space_11">
+
+            <TextView
+                android:id="@+id/dashboard_title"
+                style="@style/font_rr_14_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Vault DashBoard" />
+
+            <TextView
+                android:id="@+id/my_total_title"
+                style="@style/font_rr_11_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dashboard_title"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="My Total Voting Power" />
+
+            <TextView
+                android:id="@+id/my_total_voting_denom"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignBaseline="@+id/my_total_title"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="NTRN"/>
+
+            <TextView
+                android:id="@+id/my_total_voting"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/my_total_voting_denom"
+                android:layout_toLeftOf="@+id/my_total_voting_denom"
+                android:layout_marginRight="@dimen/space_4"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
+        android:layout_marginTop="@dimen/space_8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tool_bar">
+        app:layout_constraintTop_toBottomOf="@+id/card_root">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:overScrollMode="never" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

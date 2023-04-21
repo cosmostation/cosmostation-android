@@ -5,7 +5,6 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,7 +17,7 @@ import wannabit.io.cosmostaion.databinding.ActivityLiquidListBinding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
 import wannabit.io.cosmostaion.fragment.txs.liquidstaking.PersisLSFragment
 import wannabit.io.cosmostaion.fragment.txs.liquidstaking.PersisLUSFragment
-import wannabit.io.cosmostaion.fragment.txs.liquidstaking.PersisViewModel
+import wannabit.io.cosmostaion.model.viewModel.PersisViewModel
 
 class PersisLSActivity : BaseActivity() {
 

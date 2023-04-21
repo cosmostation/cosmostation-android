@@ -37,7 +37,7 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog
 import wannabit.io.cosmostaion.dialog.IBCReceiveAccountsDialog
 import wannabit.io.cosmostaion.dialog.NameConfirmDialog
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog
-import wannabit.io.cosmostaion.model.SendViewModel
+import wannabit.io.cosmostaion.model.viewModel.SendViewModel
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WUtil
 import wannabit.io.cosmostaion.utils.makeToast

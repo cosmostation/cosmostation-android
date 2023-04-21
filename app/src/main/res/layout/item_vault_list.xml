@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +12,7 @@
         android:layout_marginHorizontal="@dimen/space_15"
         android:layout_marginBottom="@dimen/space_8"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/colorTransBgNeutron"
+        app:cardBackgroundColor="@color/colorTransBg"
         app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
@@ -26,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/space_15"
-            android:paddingVertical="@dimen/space_11">
+            android:paddingVertical="@dimen/space_12">
 
             <ImageView
                 android:id="@+id/vault_img"
@@ -39,16 +38,36 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/pool_market_type"
+                android:id="@+id/vault_name"
                 style="@style/font_rm_17_black_daynight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_8"
-                android:text="NTRN VAULT"
+                android:layout_marginLeft="@dimen/space_6"
+                android:maxLines="1"
+                android:ellipsize="middle"
                 app:layout_constraintBottom_toBottomOf="@+id/vault_img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/vault_img"
                 app:layout_constraintTop_toTopOf="@+id/vault_img" />
+
+            <TextView
+                android:id="@+id/total_voting_value_title"
+                style="@style/font_rr_12_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="Total Voting Value(TVL)"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vault_img" />
+
+            <TextView
+                android:id="@+id/total_voting_value"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/total_voting_value_title" />
 
             <TextView
                 android:id="@+id/total_voting_title"
@@ -56,20 +75,55 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
-                android:text="Total voting power"
+                android:text="Total Voting Power"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vault_img" />
+                app:layout_constraintTop_toBottomOf="@+id/total_voting_value_title" />
+
+            <TextView
+                android:id="@+id/total_voting_denom"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NTRN"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/total_voting_title" />
 
             <TextView
                 android:id="@+id/total_voting"
                 style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1500724.98"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/total_voting_title"
+                android:layout_marginRight="@dimen/space_4"
+                app:layout_constraintEnd_toStartOf="@+id/total_voting_denom"
                 app:layout_constraintTop_toTopOf="@+id/total_voting_title" />
+
+            <TextView
+                android:id="@+id/lock_time_tile"
+                style="@style/font_rr_12_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="LockTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/total_voting_title" />
+
+            <TextView
+                android:id="@+id/lock_time"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Freely"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lock_time_tile" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_view"
+                android:layout_marginTop="@dimen/space_8"
+                android:background="@color/colorGrayDayNight"
+                app:layout_constraintTop_toBottomOf="@+id/lock_time_tile"
+                tools:layout_editor_absoluteX="15dp" />
 
             <TextView
                 android:id="@+id/my_voting_title"
@@ -77,29 +131,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
-                android:text="My voting power"
+                android:text="My Voting Power"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/total_voting_title" />
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <TextView
+                android:id="@+id/my_voting_denom"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NTRN"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/my_voting_title"
+                app:layout_constraintTop_toTopOf="@+id/my_voting_title" />
 
             <TextView
                 android:id="@+id/my_voting"
                 style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="90000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/my_voting_title"
+                android:layout_marginRight="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/my_voting_denom"
                 app:layout_constraintTop_toTopOf="@+id/my_voting_title" />
-
-            <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_view"
-                android:layout_marginVertical="@dimen/space_8"
-                android:background="@color/colorGrayDayNight"
-                app:layout_constraintTop_toBottomOf="@+id/my_voting_title"
-                tools:layout_editor_absoluteX="15dp" />
 
             <TextView
                 android:id="@+id/my_available_title"
@@ -109,17 +163,24 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:text="My Available"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2" />
+                app:layout_constraintTop_toBottomOf="@+id/my_voting_title" />
+
+            <TextView
+                android:id="@+id/my_available_denom"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NTRN"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/my_available_title" />
 
             <TextView
                 android:id="@+id/my_available"
                 style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1000 NTRN"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/my_available_title"
+                android:layout_marginRight="@dimen/space_4"
+                app:layout_constraintEnd_toStartOf="@+id/my_available_denom"
                 app:layout_constraintTop_toTopOf="@+id/my_available_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

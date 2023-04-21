@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.model
+package wannabit.io.cosmostaion.model.viewModel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope

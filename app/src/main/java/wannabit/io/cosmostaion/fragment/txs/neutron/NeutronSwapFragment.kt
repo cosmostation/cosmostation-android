@@ -9,9 +9,8 @@ import androidx.fragment.app.activityViewModels
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentNeutronSwapBinding
-import wannabit.io.cosmostaion.model.NeutronViewModel
+import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.utils.WDp
-import wannabit.io.cosmostaion.utils.WLog
 import java.math.BigDecimal
 
 class NeutronSwapFragment : BaseFragment() {

@@ -5,6 +5,7 @@ import android.view.View
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.NeutronDefiActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.VaultListActivity
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ItemWalletNeutronBinding
 import wannabit.io.cosmostaion.utils.WDp
@@ -38,11 +39,9 @@ class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
             baseData.onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString())
 
             btnValut.setOnClickListener {
-//                Intent(mainActivity, VaultListActivity::class.java).apply {
-//                    mainActivity.startActivity(this)
-//                }
-                mainActivity.makeToast(R.string.error_prepare)
-                return@setOnClickListener
+                Intent(mainActivity, VaultListActivity::class.java).apply {
+                    mainActivity.startActivity(this)
+                }
             }
 
             btnDao.setOnClickListener {

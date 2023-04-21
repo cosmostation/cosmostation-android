@@ -27,7 +27,7 @@ import wannabit.io.cosmostaion.databinding.ActivityVoteDetailsBinding
 import wannabit.io.cosmostaion.databinding.ItemVoteInfoBinding
 import wannabit.io.cosmostaion.databinding.ItemVoteMessageBinding
 import wannabit.io.cosmostaion.databinding.ItemVoteTallyInfoBinding
-import wannabit.io.cosmostaion.model.VoteViewModel
+import wannabit.io.cosmostaion.model.viewModel.VoteViewModel
 import wannabit.io.cosmostaion.network.res.ResProposal
 import wannabit.io.cosmostaion.network.res.ResVoteStatus
 import wannabit.io.cosmostaion.utils.WDp
