@@ -22,6 +22,8 @@ import wannabit.io.cosmostaion.databinding.FragmentVaultStep3Binding
 import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.network.req.neutron.Bond
 import wannabit.io.cosmostaion.network.req.neutron.BondReq
+import wannabit.io.cosmostaion.network.req.neutron.Unbond
+import wannabit.io.cosmostaion.network.req.neutron.UnbondReq
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 
@@ -80,8 +82,16 @@ class VaultStep3Fragment : BaseFragment() {
 
     private fun onBroadCastTx() {
         getSActivity()?.let {
-            val req = BondReq(Bond())
-            val contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS
+            var req: Any? = null
+            var contractAddress: String? = null
+            if (it.mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
+                req = BondReq(Bond())
+                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS
+            } else if (it.mTxType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
+                req = UnbondReq(Unbond(it.mAmount.amount))
+                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS
+            }
+
             val broadcastTxRequest = Signer.getGrpcContractReq(
                 WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, contractAddress, it.mAmount,
                 it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain)

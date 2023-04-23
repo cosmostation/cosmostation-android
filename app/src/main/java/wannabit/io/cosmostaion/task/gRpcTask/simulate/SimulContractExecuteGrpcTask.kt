@@ -11,6 +11,8 @@ import wannabit.io.cosmostaion.model.type.Fee
 import wannabit.io.cosmostaion.network.ChannelBuilder
 import wannabit.io.cosmostaion.network.req.neutron.Bond
 import wannabit.io.cosmostaion.network.req.neutron.BondReq
+import wannabit.io.cosmostaion.network.req.neutron.Unbond
+import wannabit.io.cosmostaion.network.req.neutron.UnbondReq
 import wannabit.io.cosmostaion.task.CommonTask
 import wannabit.io.cosmostaion.task.TaskListener
 import wannabit.io.cosmostaion.task.TaskResult
@@ -33,8 +35,11 @@ class SimulContractExecuteGrpcTask(
         var req: Any? = null
         var contractAddress: String? = null
         try {
-            if (txType == BaseConstant.CONST_PW_TX_VAULT_BOND) {
+            if (txType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
                 req = BondReq(Bond())
+                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS
+            } else if (txType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
+                req = UnbondReq(Unbond(fund?.amount))
                 contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS
             }
 

@@ -1074,6 +1074,12 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
+    <style name="font_rm_17_white_daynight" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/colorWhiteDayNight</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
     <style name="font_rm_18_black_daynight" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/colorBlackDayNight</item>

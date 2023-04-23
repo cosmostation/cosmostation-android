@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseChain
+import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityTxStepBinding
@@ -23,14 +24,12 @@ class VaultActivity : BaseBroadCastActivity() {
 
     private lateinit var mPageAdapter: VaultPageAdapter
 
+    var mDepositAmount: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTxStepBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbarTitle.text = "Vault Bonded"
-        mAccount = baseDao.onSelectAccount(baseDao.lastUser)
-        mBaseChain = BaseChain.getChain(mAccount.baseChain)
-        mChainConfig = ChainFactory.getChain(mBaseChain)
         mTxType = intent.getIntExtra("txType", -1)
 
         setSupportActionBar(binding.toolBar)
@@ -39,11 +38,28 @@ class VaultActivity : BaseBroadCastActivity() {
 
         mPageAdapter = VaultPageAdapter(this)
         binding.viewPager.adapter = mPageAdapter
+        binding.viewPager.isUserInputEnabled = false
 
         binding.viewPager.setCurrentItem(0, false)
         binding.viewPager.offscreenPageLimit = 3
         onSetPageSelected()
         binding.rootView.setOnClickListener { onHideKeyboard() }
+
+        initView()
+    }
+
+    private fun initView() {
+        mAccount = baseDao.onSelectAccount(baseDao.lastUser)
+        mBaseChain = BaseChain.getChain(mAccount.baseChain)
+        mChainConfig = ChainFactory.getChain(mBaseChain)
+
+        if (mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
+            binding.toolbarTitle.text = "Vault Bonded"
+
+        } else {
+            binding.toolbarTitle.text = "Vault Unbonded"
+            mDepositAmount = intent.getStringExtra("depositAmount")
+        }
     }
 
     private fun onSetPageSelected() {

@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
@@ -15,11 +18,13 @@ import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityVaultListBinding
+import wannabit.io.cosmostaion.databinding.BottomSheetDialogBinding
 import wannabit.io.cosmostaion.databinding.ItemVaultListBinding
 import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ResConfigData
 import wannabit.io.cosmostaion.network.res.neutron.ResVotingData
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.WLog
 import wannabit.io.cosmostaion.utils.makeToast
 import java.math.BigDecimal
 
@@ -41,7 +46,7 @@ class VaultListActivity : BaseActivity() {
     }
 
     fun initView() {
-        binding.toolbarTitle.text = "Vault List"
+        binding.toolbarTitle.text = getString(R.string.str_vault_list)
         mAccount = baseDao.onSelectAccount(baseDao.lastUser)
         mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain))
 
@@ -56,7 +61,7 @@ class VaultListActivity : BaseActivity() {
         loadDataObserve()
     }
 
-    fun onSwipeRefresh() {
+    private fun onSwipeRefresh() {
         binding.layerRefresher.setOnRefreshListener {
             loadDataObserve()
         }
@@ -64,7 +69,7 @@ class VaultListActivity : BaseActivity() {
 
     private fun onUpdateView() {
         onHideWaitDialog()
-        binding.apply {
+        with(binding) {
             neutronViewModel.data.value?.let {
                 val myVotingData = Gson().fromJson(it[2].toString(), ResVotingData::class.java)
                 myTotalVoting.text = WDp.getDpAmount2(BigDecimal(myVotingData.power), mChainConfig.decimal(), mChainConfig.decimal())
@@ -84,7 +89,7 @@ class VaultListActivity : BaseActivity() {
         }
     }
 
-    fun loadDataObserve() {
+    private fun loadDataObserve() {
         mVaultList.clear()
         neutronViewModel.data.observe(this) { response ->
             response?.let {
@@ -96,7 +101,7 @@ class VaultListActivity : BaseActivity() {
         }
     }
 
-    fun onStartVaultBond() {
+    private fun onStartVaultDeposit() {
         if (!mAccount.hasPrivateKey) {
             onInsertKeyDialog()
             return
@@ -104,15 +109,57 @@ class VaultListActivity : BaseActivity() {
         if (!WDp.isTxFeePayable(this, baseDao, mChainConfig)) {
             this.makeToast(R.string.error_not_enough_fee)
         }
-        val available0MaxAmount = baseDao.getAvailable(mChainConfig.mainDenom())
-        if (BigDecimal.ZERO >= available0MaxAmount) {
+        val availableMaxAmount = baseDao.getAvailable(mChainConfig.mainDenom())
+        if (BigDecimal.ZERO >= availableMaxAmount) {
             this.makeToast(R.string.error_not_enough_to_deposit_pool)
             return
         }
 
         Intent(baseContext, VaultActivity::class.java).apply {
-            putExtra("txType", BaseConstant.CONST_PW_TX_VAULT_BOND)
+            putExtra("txType", BaseConstant.CONST_PW_TX_VAULT_DEPOSIT)
             startActivity(this)
+        }
+    }
+
+    private fun onStartVaultWithdraw() {
+        if (!mAccount.hasPrivateKey) {
+            onInsertKeyDialog()
+            return
+        }
+        if (!WDp.isTxFeePayable(this, baseDao, mChainConfig)) {
+            this.makeToast(R.string.error_not_enough_fee)
+        }
+
+        neutronViewModel.data.value?.let {
+            val myVotingData = Gson().fromJson(it[2].toString(), ResVotingData::class.java)
+            if (BigDecimal(myVotingData.power) <= BigDecimal.ZERO) {
+                Toast.makeText(this, "부족", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            Intent(baseContext, VaultActivity::class.java).apply {
+                putExtra("txType", BaseConstant.CONST_PW_TX_VAULT_WITHDRAW)
+                putExtra("depositAmount", myVotingData.power)
+                startActivity(this)
+            }
+        }
+    }
+
+    private fun onVaultDialog(vaultInfo: ResConfigData) {
+        BottomSheetDialog(this).apply {
+            val dialog = BottomSheetDialogBinding.inflate(layoutInflater)
+            setContentView(dialog.root)
+            dialog.vaultTitle.text = vaultInfo.name?.uppercase()
+            dialog.btnDepost.setBackgroundColor(ContextCompat.getColor(this@VaultListActivity, R.color.color_noble))
+            dialog.btnWithdraw.setBackgroundColor(ContextCompat.getColor(this@VaultListActivity, R.color.color_noble))
+
+            dialog.btnDepost.setOnClickListener {
+                onStartVaultDeposit()
+            }
+            dialog.btnWithdraw.setOnClickListener {
+                onStartVaultWithdraw()
+            }
+            show()
         }
     }
 
@@ -135,7 +182,7 @@ class VaultListActivity : BaseActivity() {
             fun bind(position: Int) {
                 val vaultInfo = mVaultList[position]
                 neutronViewModel.data.value?.let {
-                    vaultBinding.apply {
+                    with(vaultBinding) {
                         vaultName.text = vaultInfo.name?.uppercase()
 
                         val totalVotingData = Gson().fromJson(it[1].toString(), ResVotingData::class.java)
@@ -149,7 +196,7 @@ class VaultListActivity : BaseActivity() {
                         myAvailable.text = WDp.getDpAmount2(baseDao.getAvailable(mChainConfig.mainDenom()), mChainConfig.decimal(), mChainConfig.decimal())
 
                         cardRoot.setOnClickListener {
-                            onStartVaultBond()
+                            onVaultDialog(vaultInfo)
                         }
                     }
                 }

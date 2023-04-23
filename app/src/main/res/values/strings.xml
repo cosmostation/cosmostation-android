@@ -1434,6 +1434,8 @@
     <string name="tx_persis_liquid_redeem">Liquid Redeem</string>
     <string name="tx_persis_liquid_claim">Liquid Unstaked Claim</string>
 
+    <string name="str_vault_list" translatable="false">Vault List</string>
+
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
     <string name="str_dp_time_format3">HH:mm:ss</string>
@@ -1501,6 +1503,4 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
