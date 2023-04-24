@@ -8,3 +8,6 @@ class TotalPower
 
 data class VotingPowerReq(val voting_power_at_height: VotingPower)
 data class VotingPower(val address: String)
+
+data class ProposalListReq(val reverse_proposals: ProposalList)
+class ProposalList

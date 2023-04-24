@@ -24,7 +24,6 @@ import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ResConfigData
 import wannabit.io.cosmostaion.network.res.neutron.ResVotingData
 import wannabit.io.cosmostaion.utils.WDp
-import wannabit.io.cosmostaion.utils.WLog
 import wannabit.io.cosmostaion.utils.makeToast
 import java.math.BigDecimal
 

@@ -1,7 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_15"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="14dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorTransBgNoble"
+        app:cardCornerRadius="@dimen/space_8"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/space_15"
+            android:paddingVertical="@dimen/space_11">
+
+            <TextView
+                android:id="@+id/dashboard_title"
+                style="@style/font_rr_14_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Main Dao" />
+
+            <TextView
+                android:id="@+id/my_total_title"
+                style="@style/font_rr_11_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dashboard_title"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="My Total Voting Power" />
+
+            <TextView
+                android:id="@+id/my_total_voting_denom"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/my_total_title"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="NTRN" />
+
+            <TextView
+                android:id="@+id/my_total_voting"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/my_total_voting_denom"
+                android:layout_marginRight="@dimen/space_4"
+                android:layout_toLeftOf="@+id/my_total_voting_denom" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

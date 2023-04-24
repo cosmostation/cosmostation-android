@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.txs.neutron
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -10,7 +11,9 @@ import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityDaoListBinding
+import wannabit.io.cosmostaion.databinding.ItemMainDaoBinding
 import wannabit.io.cosmostaion.databinding.ItemVoteInfoBinding
+import wannabit.io.cosmostaion.databinding.ItemVoteMessageBinding
 import wannabit.io.cosmostaion.databinding.ItemVoteTallyInfoBinding
 
 class DaoListActivity : BaseActivity() {
@@ -59,11 +62,10 @@ class DaoListActivity : BaseActivity() {
     private inner class DaoListAdapter : RecyclerView.Adapter<ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//            return when (viewType) {
-//                DaoViewType.TYPE_MAIN_DAO.ordinal -> DaoMainHolder(ItemVoteInfoBinding.inflate(layoutInflater, parent, false))
-//                else -> DaoSubHolder(ItemVoteMessageBinding.inflate(layoutInflater, parent, false))
-//            }
-            return DaoMainHolder(ItemVoteInfoBinding.inflate(layoutInflater, parent, false))
+            return when (viewType) {
+                DaoViewType.TYPE_MAIN_DAO.ordinal -> DaoMainHolder(ItemMainDaoBinding.inflate(layoutInflater, parent, false))
+                else -> DaoSubHolder(ItemVoteTallyInfoBinding.inflate(layoutInflater, parent, false))
+            }
         }
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
@@ -84,10 +86,14 @@ class DaoListActivity : BaseActivity() {
             }
         }
 
-        inner class DaoMainHolder(val voteInfoBinding: ItemVoteInfoBinding) : ViewHolder(voteInfoBinding.root) {
+        inner class DaoMainHolder(val mainDaoBinding: ItemMainDaoBinding) : ViewHolder(mainDaoBinding.root) {
             fun bind() {
-                voteInfoBinding.apply {
-
+                mainDaoBinding.apply {
+                    cardRoot.setOnClickListener {
+                        Intent(this@DaoListActivity, DaoProposalListActivity::class.java).apply {
+                            startActivity(this)
+                        }
+                    }
                 }
             }
         }
@@ -100,5 +106,5 @@ class DaoListActivity : BaseActivity() {
         }
     }
 
-    enum class DaoViewType() { TYPE_MAIN_DAO, TYPE_SUB_DAO }
+    enum class DaoViewType { TYPE_MAIN_DAO, TYPE_SUB_DAO }
 }

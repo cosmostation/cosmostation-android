@@ -11,6 +11,7 @@ import cosmwasm.wasm.v1.QueryGrpc
 import cosmwasm.wasm.v1.QueryOuterClass.QuerySmartContractStateRequest
 import kotlinx.coroutines.*
 import org.json.JSONObject
+import pstake.lscosmos.v1beta1.QueryOuterClass
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.chains.ChainConfig
@@ -41,6 +42,11 @@ class NeutronViewModel : BaseViewModel() {
             async { getData(VotingPowerReq(VotingPower(account.address)), chainConfig, contractAddress) })
 
         _data.postValue(loadData.awaitAll())
+    }
+
+    fun loadDaoProposalListData(chainConfig: ChainConfig) = backScope.launch {
+        val loadData = listOf(getData(ProposalListReq(ProposalList()), chainConfig, BaseConstant.NEUTRON_NTRN_DAO_ADDRESS))
+        _data.postValue(loadData)
     }
 
     private fun getData(req: Any?, chainConfig: ChainConfig, contractAddress: String): String? {

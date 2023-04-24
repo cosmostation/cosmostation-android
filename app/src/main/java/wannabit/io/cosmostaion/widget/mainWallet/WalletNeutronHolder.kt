@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.View
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.DaoListActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.NeutronDefiActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.VaultListActivity
 import wannabit.io.cosmostaion.base.chains.ChainFactory
@@ -45,8 +46,9 @@ class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
             }
 
             btnDao.setOnClickListener {
-                mainActivity.makeToast(R.string.error_prepare)
-                return@setOnClickListener
+                Intent(mainActivity, DaoListActivity::class.java).apply {
+                    mainActivity.startActivity(this)
+                }
             }
 
             btnDefi.setOnClickListener {
