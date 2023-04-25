@@ -45,7 +45,19 @@ class NeutronViewModel : BaseViewModel() {
     }
 
     fun loadDaoProposalListData(chainConfig: ChainConfig) = backScope.launch {
-        val loadData = listOf(getData(ProposalListReq(ProposalList()), chainConfig, BaseConstant.NEUTRON_NTRN_DAO_ADDRESS))
+        val loadData = listOf(async { getData(ProposalListReq(ProposalList()), chainConfig, BaseConstant.NEUTRON_NTRN_DAO_SINGLE_ADDRESS) },
+            async { getData(ProposalListReq(ProposalList()), chainConfig, BaseConstant.NEUTRON_NTRN_DAO_MULTI_ADDRESS) })
+
+        _data.postValue(loadData.awaitAll())
+    }
+
+    fun loadDaoSingleProposalData(chainConfig: ChainConfig, proposal_id: Int) = backScope.launch {
+        val loadData = listOf(getData(ProposalDataReq(Proposal(proposal_id)), chainConfig, BaseConstant.NEUTRON_NTRN_DAO_SINGLE_ADDRESS))
+        _data.postValue(loadData)
+    }
+
+    fun loadDaoMultiProposalData(chainConfig: ChainConfig, proposal_id: Int) = backScope.launch {
+        val loadData = listOf(getData(ProposalDataReq(Proposal(proposal_id)), chainConfig, BaseConstant.NEUTRON_NTRN_DAO_SINGLE_ADDRESS))
         _data.postValue(loadData)
     }
 

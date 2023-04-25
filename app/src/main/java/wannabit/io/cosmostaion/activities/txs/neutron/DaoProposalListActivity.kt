@@ -35,8 +35,8 @@ class DaoProposalListActivity : BaseActivity() {
 
     private val neutronViewModel: NeutronViewModel by viewModels()
 
-    private var mProposalPeriodList = listOf<ProposalData?>()
-    private var mProposalList = listOf<ProposalData?>()
+    private var mProposalPeriodList = mutableListOf<ProposalData?>()
+    private var mProposalList = mutableListOf<ProposalData?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ class DaoProposalListActivity : BaseActivity() {
 
     fun onSwipeRefresh() {
         binding.layerRefresher.setOnRefreshListener {
-
+            loadDataObserve()
         }
     }
 
@@ -81,11 +81,22 @@ class DaoProposalListActivity : BaseActivity() {
     }
 
     private fun loadDataObserve() {
+        mProposalPeriodList.clear()
+        mProposalList.clear()
         neutronViewModel.data.observe(this) { response ->
             response?.let { proposals ->
                 Gson().fromJson(proposals[0].toString(), ResProposalData::class.java).let { data ->
-                    mProposalList = data.proposals.filter { proposal -> "open" != proposal?.proposal?.status }
-                    mProposalPeriodList = data.proposals.filter { proposal -> "open" == proposal?.proposal?.status }
+                    data.proposals.forEach {
+                        if ("open" == it?.proposal?.status) mProposalPeriodList.add(it)
+                        else mProposalList.add(it)
+                    }
+                }
+
+                Gson().fromJson(proposals[1].toString(), ResProposalData::class.java).let { data ->
+                    data.proposals.forEach {
+                        if ("open" == it?.proposal?.status) mProposalPeriodList.add(it)
+                        else mProposalList.add(it)
+                    }
                 }
                 onUpdateView()
             }
@@ -97,7 +108,7 @@ class DaoProposalListActivity : BaseActivity() {
             neutronViewModel.data.value?.let {
                 onHideWaitDialog()
                 layerRefresher.isRefreshing = false
-                binding.recycler.adapter?.notifyDataSetChanged()
+                recycler.adapter?.notifyDataSetChanged()
             }
         }
     }

@@ -95,6 +95,12 @@ import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.network.req.neutron.Bond;
+import wannabit.io.cosmostaion.network.req.neutron.BondReq;
+import wannabit.io.cosmostaion.network.req.neutron.Unbond;
+import wannabit.io.cosmostaion.network.req.neutron.UnbondReq;
+import wannabit.io.cosmostaion.network.req.neutron.Vote;
+import wannabit.io.cosmostaion.network.req.neutron.VoteReq;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimCommissionGrpcTask;
@@ -150,6 +156,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.DisplayUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -533,8 +540,20 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
-            new SimulContractExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAmount,
-                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            Object req = null;
+            String contractAddress = null;
+            if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
+                req = new BondReq(new Bond());
+                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS;
+            } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
+                req = new UnbondReq(new Unbond(getSActivity().mAmount.amount));
+                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS;
+            } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_PROPOSAL) {
+                req = new VoteReq(new Vote(getSActivity().mProposal_id, getSActivity().mOpinion));
+                contractAddress = BaseConstant.NEUTRON_NTRN_DAO_SINGLE_ADDRESS;
+            }
+            new SimulContractExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, req, contractAddress, getSActivity().mAmount,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 

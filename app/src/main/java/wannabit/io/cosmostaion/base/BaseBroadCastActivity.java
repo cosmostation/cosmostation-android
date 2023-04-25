@@ -31,6 +31,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public ArrayList<String>            mValAddresses = new ArrayList<>();  //ClaimReward
     public String                       mNewRewardAddress;                  //SetRewardAddress
     public Map<Integer, String>         mSelectedOpinion;                   //Vote
+    public int                          mProposal_id;
+    public String                       mOpinion;
 
     public String                       mStarNameDomain;                            //starname domain
     public String                       mStarNameDomainType;                        //starname domain type

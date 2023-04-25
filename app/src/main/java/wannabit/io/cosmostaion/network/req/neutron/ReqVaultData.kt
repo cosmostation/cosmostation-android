@@ -11,3 +11,6 @@ data class VotingPower(val address: String)
 
 data class ProposalListReq(val reverse_proposals: ProposalList)
 class ProposalList
+
+data class ProposalDataReq(val proposal: Proposal)
+data class Proposal(val proposal_id: Int)

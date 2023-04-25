@@ -230,6 +230,7 @@ public class BaseConstant {
 
     public final static int CONST_PW_TX_VAULT_DEPOSIT = 5086;
     public final static int CONST_PW_TX_VAULT_WITHDRAW = 5087;
+    public final static int CONST_PW_TX_DAO_PROPOSAL = 5088;
 
 
     public final static int ERROR_CODE_UNKNOWN = 8000;
@@ -291,7 +292,8 @@ public class BaseConstant {
 
     // Neutron Contract Address
     public final static String NEUTRON_NTRN_VAULT_ADDRESS = "neutron1qeyjez6a9dwlghf9d6cy44fxmsajztw257586akk6xn6k88x0gus5djz4e";
-    public final static String NEUTRON_NTRN_DAO_ADDRESS = "neutron1436kxs0w2es6xlqpp9rd35e3d0cjnw4sv8j3a7483sgks29jqwgshlt6zh";
+    public final static String NEUTRON_NTRN_DAO_SINGLE_ADDRESS = "neutron1436kxs0w2es6xlqpp9rd35e3d0cjnw4sv8j3a7483sgks29jqwgshlt6zh";
+    public final static String NEUTRON_NTRN_DAO_MULTI_ADDRESS = "neutron1pvrwmjuusn9wh34j7y520g8gumuy9xtl3gvprlljfdpwju3x7ucsj3fj40";
     public final static String NEUTRON_PAIR_ADDRESS = "neutron1elmg309fvdas002z2yausyygsyfht9qpyxeadqxjx38tazryjtvql3v69x";
 
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";

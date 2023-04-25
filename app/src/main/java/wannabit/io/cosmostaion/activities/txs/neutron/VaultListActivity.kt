@@ -183,6 +183,7 @@ class VaultListActivity : BaseActivity() {
                 neutronViewModel.data.value?.let {
                     with(vaultBinding) {
                         vaultName.text = vaultInfo.name?.uppercase()
+                        vaultDescription.text = vaultInfo.description?.capitalize()
 
                         val totalVotingData = Gson().fromJson(it[1].toString(), ResVotingData::class.java)
                         totalVotingValue.text = WDp.dpAssetValue(baseDao, WDp.getGeckoId(baseDao, mChainConfig), BigDecimal(totalVotingData.power), mChainConfig.decimal())

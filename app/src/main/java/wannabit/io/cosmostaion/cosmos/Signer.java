@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Signer {
@@ -1139,10 +1140,17 @@ public class Signer {
 
     public static ArrayList<Any> getContractMsg(Object req, String fromAddress, String contractAddress, Coin fund) {
         ArrayList<Any> msgAnys = new ArrayList<>();
+        MsgExecuteContract msgExecuteContract = null;
+        CoinOuterClass.Coin fundCoin = null;
+
         String jsonData = new Gson().toJson(req);
-        CoinOuterClass.Coin fundCoin = CoinOuterClass.Coin.newBuilder().setAmount(fund.amount).setDenom(fund.denom).build();
         ByteString msg = ByteString.copyFromUtf8(jsonData);
-        MsgExecuteContract msgExecuteContract = MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).addFunds(fundCoin).build();
+        if (fund != null) {
+            fundCoin = CoinOuterClass.Coin.newBuilder().setAmount(fund.amount).setDenom(fund.denom).build();
+            msgExecuteContract = MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).addFunds(fundCoin).build();
+        } else {
+            msgExecuteContract = MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
+        }
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract").setValue(msgExecuteContract.toByteString()).build());
         return msgAnys;
     }

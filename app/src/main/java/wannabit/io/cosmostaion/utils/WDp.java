@@ -979,8 +979,6 @@ public class WDp {
         try {
             long now = Calendar.getInstance().getTimeInMillis();
             long left = finishTime - now;
-            WLog.w("Test1234 : " + finishTime);
-            WLog.w("Test12345 : " + now);
 
             if (left >= BaseConstant.CONSTANT_D) {
                 result = "(D-" + (left / BaseConstant.CONSTANT_D) + ")";

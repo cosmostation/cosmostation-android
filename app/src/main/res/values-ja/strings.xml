@@ -590,6 +590,7 @@
     <string name="str_deposit">貯金する</string>
     <string name="str_withdraw">出金</string>
     <string name="str_bonded">預けられた</string>
+    <string name="str_vaulted_amount">ボルトの預け入れ数量</string>
     <string name="str_vote_for_validator">検証人投票</string>
     <string name="str_name_service">スターネームサービス</string>
     <string name="str_promotion_title">委任して利子をもらう</string>
