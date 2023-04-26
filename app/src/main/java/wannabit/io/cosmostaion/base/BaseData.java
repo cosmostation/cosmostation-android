@@ -86,6 +86,7 @@ import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseData {
@@ -387,8 +388,8 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Fees mGrpcStarNameFee;
     public starnamed.x.configuration.v1beta1.Types.Config mGrpcStarNameConfig;
 
-    //Osmosis pool list
-    public ArrayList<BalancerPool.Pool> mGrpcOsmosisPool = new ArrayList<>();
+    //Neutron
+    public String mVaultAmount = null;
 
     //gRPC funcs
     public String getChainIdGrpc() {
@@ -605,6 +606,14 @@ public class BaseData {
 
     public BigDecimal getAllMainAsset(String denom) {
         return getAvailable(denom).add(getVesting(denom)).add(getDelegationSum()).add(getUndelegationSum()).add(getRewardSum(denom));
+    }
+
+    public BigDecimal getVaultAmount() {
+        BigDecimal result = BigDecimal.ZERO;
+        if (mVaultAmount != null) {
+            result = new BigDecimal(mVaultAmount);
+        }
+        return result;
     }
 
     public Staking.Validator getValidatorInfo(String valOpAddress) {

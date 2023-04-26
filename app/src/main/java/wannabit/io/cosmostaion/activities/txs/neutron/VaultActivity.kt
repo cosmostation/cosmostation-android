@@ -54,10 +54,10 @@ class VaultActivity : BaseBroadCastActivity() {
         mChainConfig = ChainFactory.getChain(mBaseChain)
 
         if (mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
-            binding.toolbarTitle.text = "Vault Bonded"
+            binding.toolbarTitle.text = getString(R.string.str_vault_deposit)
 
         } else {
-            binding.toolbarTitle.text = "Vault Unbonded"
+            binding.toolbarTitle.text = getString(R.string.str_vault_withdraw)
             mDepositAmount = intent.getStringExtra("depositAmount")
         }
     }

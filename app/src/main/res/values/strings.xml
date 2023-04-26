@@ -1188,6 +1188,7 @@
     <string name="error_closure_network_msg">This network is no longer operational.\n\nNote that Cosmostation Wallet is showing archived data only.</string>
     <string name="error_ledger_open_msg">Open Cosmos app on Ledger.</string>
     <string name="error_no_staking">The chain does not support staking.</string>
+    <string name="error_no_withdraw_vault">No amount deposited in the vault.</string>
 
 
     <string name="tx_send">Send</string>
@@ -1435,7 +1436,9 @@
     <string name="tx_persis_liquid_redeem">Liquid Redeem</string>
     <string name="tx_persis_liquid_claim">Liquid Unstaked Claim</string>
 
-    <string name="str_vault_list" translatable="false">Vault List</string>
+    <string name="str_vault_list">Vault List</string>
+    <string name="str_vault_deposit">Vault Deposit</string>
+    <string name="str_vault_withdraw">Vault Withdraw</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
@@ -1504,6 +1507,4 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

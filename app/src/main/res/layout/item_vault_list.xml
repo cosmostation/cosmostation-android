@@ -24,8 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/space_15"
-            android:paddingVertical="@dimen/space_12">
+            android:padding="@dimen/space_15">
 
             <ImageView
                 android:id="@+id/vault_img"
@@ -33,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
-                android:src="@drawable/icon_pool"
+                android:src="@drawable/icon_main_vault"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,13 +51,12 @@
 
             <TextView
                 android:id="@+id/vault_description"
-                style="@style/font_rr_12_gray1"
+                style="@style/font_rr_12_black_daynight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vault_img" />
 
@@ -67,17 +65,15 @@
                 style="@style/font_rr_12_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:text="Total Voting Value(TVL)"
+                android:layout_marginTop="@dimen/space_12"
+                android:text="Token"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vault_description" />
 
-            <TextView
-                android:id="@+id/total_voting_value"
-                style="@style/font_rr_12_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$0.0"
+            <ImageView
+                android:layout_width="@dimen/space_16"
+                android:layout_height="@dimen/space_16"
+                android:src="@drawable/token_neutron"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/total_voting_value_title" />
 
@@ -92,21 +88,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/total_voting_value_title" />
 
             <TextView
-                android:id="@+id/total_voting_denom"
-                style="@style/font_rr_12_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NTRN"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/total_voting_title" />
-
-            <TextView
                 android:id="@+id/total_voting"
                 style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/space_4"
-                app:layout_constraintEnd_toStartOf="@+id/total_voting_denom"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/total_voting_title" />
 
             <TextView
@@ -132,7 +118,7 @@
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_view"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_12"
                 android:background="@color/colorGrayDayNight"
                 app:layout_constraintTop_toBottomOf="@+id/lock_time_tile"
                 tools:layout_editor_absoluteX="15dp" />
@@ -142,58 +128,67 @@
                 style="@style/font_rr_12_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_12"
                 android:text="My Voting Power"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-            <TextView
-                android:id="@+id/my_voting_denom"
-                style="@style/font_rr_12_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NTRN"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/my_voting_title"
-                app:layout_constraintTop_toTopOf="@+id/my_voting_title" />
 
             <TextView
                 android:id="@+id/my_voting"
                 style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                app:layout_constraintEnd_toStartOf="@+id/my_voting_denom"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/my_voting_title" />
 
-            <TextView
-                android:id="@+id/my_available_title"
-                style="@style/font_rr_12_gray1"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:text="My Available"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/my_voting_title" />
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/my_voting_title"
+                tools:layout_editor_absoluteX="15dp">
 
-            <TextView
-                android:id="@+id/my_available_denom"
-                style="@style/font_rr_12_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NTRN"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/my_available_title" />
+                <RelativeLayout
+                    android:id="@+id/btn_deposit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="@dimen/space_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_trans_with_border"
+                    android:minHeight="@dimen/space_40">
 
-            <TextView
-                android:id="@+id/my_available"
-                style="@style/font_rr_12_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/space_4"
-                app:layout_constraintEnd_toStartOf="@+id/my_available_denom"
-                app:layout_constraintTop_toTopOf="@+id/my_available_title" />
+                    <TextView
+                        style="@style/font_rr_14_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawablePadding="@dimen/space_4"
+                        android:gravity="center"
+                        android:text="Deposit" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/btn_withdraw"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_trans_with_border"
+                    android:clickable="true"
+                    android:minHeight="@dimen/space_40">
+
+                    <TextView
+                        style="@style/font_rr_14_black_daynight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawablePadding="@dimen/space_4"
+                        android:gravity="center"
+                        android:text="Withdraw" />
+                </RelativeLayout>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

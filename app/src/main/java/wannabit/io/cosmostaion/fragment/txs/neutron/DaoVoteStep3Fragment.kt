@@ -54,13 +54,9 @@ class DaoVoteStep3Fragment : BaseFragment() {
 
     private fun onClick() {
         with(binding) {
-            btnBefore.setOnClickListener {
-                getSActivity()?.onBeforeStep()
-            }
+            btnBefore.setOnClickListener { getSActivity()?.onBeforeStep() }
 
-            btnConfirm.setOnClickListener {
-
-            }
+            btnConfirm.setOnClickListener { onStartVote() }
         }
     }
 

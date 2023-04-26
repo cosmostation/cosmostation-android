@@ -9,22 +9,33 @@ import cosmos.tx.v1beta1.ServiceGrpc
 import cosmos.tx.v1beta1.ServiceOuterClass
 import cosmwasm.wasm.v1.QueryGrpc
 import cosmwasm.wasm.v1.QueryOuterClass.QuerySmartContractStateRequest
-import kotlinx.coroutines.*
-import org.json.JSONObject
-import pstake.lscosmos.v1beta1.QueryOuterClass
+import io.ipfs.multibase.Multibase.Base
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import retrofit2.awaitResponse
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.chains.ChainConfig
 import wannabit.io.cosmostaion.dao.Account
+import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.ChannelBuilder
 import wannabit.io.cosmostaion.network.req.neutron.*
+import wannabit.io.cosmostaion.network.res.neutron.ResConfigData
 import wannabit.io.cosmostaion.network.res.neutron.ResPairData
+import wannabit.io.cosmostaion.utils.WLog
 import java.util.concurrent.TimeUnit
 
 class NeutronViewModel : BaseViewModel() {
 
     private var _pair = MutableLiveData<ResPairData?>()
     val pair: LiveData<ResPairData?> get() = _pair
+
+    private var _neutronData = MutableLiveData<List<ResConfigData?>?>()
+    val neutronData: MutableLiveData<List<ResConfigData?>?> get() = _neutronData
+
+    private var _depositData = MutableLiveData<List<String?>>()
+    val depositData: LiveData<List<String?>> get() = _depositData
 
     private var _data = MutableLiveData<List<String?>>()
     val data: LiveData<List<String?>> get() = _data
@@ -36,7 +47,37 @@ class NeutronViewModel : BaseViewModel() {
         _pair.postValue(loadData[0].await())
     }
 
-    fun loadVaultData(account: Account, chainConfig: ChainConfig, contractAddress: String) = backScope.launch {
+    fun loadNeutronData(chainConfig: ChainConfig) = backScope.launch {
+        try {
+            val response = ApiClient.getChainBase().getVaultData(chainConfig.chainName()).awaitResponse()
+
+            if (response.isSuccessful) {
+                _neutronData.postValue(response.body())
+            } else {
+                _neutronData.postValue(null)
+            }
+        } catch (_: Exception) {
+            _neutronData.postValue(listOf())
+        }
+    }
+
+    fun loadNeutronDepositData(chainConfig: ChainConfig, account: Account) = backScope.launch {
+        var contractAddress = ""
+        if (chainConfig.baseChain().equals(BaseChain.NEUTRON_TEST)) {
+            contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS
+        }
+        val loadData = listOf(async { getData(TotalPowerReq(TotalPower()), chainConfig, contractAddress) },
+            async { getData(VotingPowerReq(VotingPower(account.address)), chainConfig, contractAddress) })
+
+        _depositData.postValue(loadData.awaitAll())
+    }
+
+    // github disconnect
+    fun loadMainVaultData(account: Account, chainConfig: ChainConfig) = backScope.launch {
+        var contractAddress = ""
+        if (chainConfig.baseChain().equals(BaseChain.NEUTRON_TEST)) {
+            contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS
+        }
         val loadData = listOf(async { getData(ConfigReq(GetConfig()), chainConfig, contractAddress) },
             async { getData(TotalPowerReq(TotalPower()), chainConfig, contractAddress) },
             async { getData(VotingPowerReq(VotingPower(account.address)), chainConfig, contractAddress) })
@@ -61,7 +102,7 @@ class NeutronViewModel : BaseViewModel() {
         _data.postValue(loadData)
     }
 
-    private fun getData(req: Any?, chainConfig: ChainConfig, contractAddress: String): String? {
+    private fun getData(req: Any?, chainConfig: ChainConfig, contractAddress: String?): String? {
         try {
             val jsonData = Gson().toJson(req)
             val queryData = ByteString.copyFromUtf8(jsonData)

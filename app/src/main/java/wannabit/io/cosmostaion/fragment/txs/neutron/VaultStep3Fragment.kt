@@ -86,10 +86,10 @@ class VaultStep3Fragment : BaseFragment() {
             var contractAddress: String? = null
             if (it.mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
                 req = BondReq(Bond())
-                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS
+                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS
             } else if (it.mTxType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
                 req = UnbondReq(Unbond(it.mAmount.amount))
-                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS
+                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS
             }
 
             val broadcastTxRequest = Signer.getGrpcContractReq(

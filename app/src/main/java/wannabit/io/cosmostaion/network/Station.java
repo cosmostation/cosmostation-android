@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.network;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -19,6 +20,7 @@ import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.network.res.ResRelayer;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
+import wannabit.io.cosmostaion.network.res.neutron.ResConfigData;
 
 public interface Station {
 
@@ -48,6 +50,9 @@ public interface Station {
 
     @GET("/cosmostation/chainlist/master/chain/{chain}/pool.json")
     Call<ArrayList<SupportPool>> getSupportPools(@Path("chain") String chain);
+
+    @GET("/cosmostation/chainlist/master/chain/{chain}/vaults.json")
+    Call<List<ResConfigData>> getVaultData(@Path("chain") String chain);
 
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);

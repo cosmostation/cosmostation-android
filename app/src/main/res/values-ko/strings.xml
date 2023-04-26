@@ -1088,6 +1088,7 @@
     <string name="error_closure_network_msg">이 네트워크는 더 이상 작동하지 않습니다.\n\n코스모스테이션 월렛은 보관된 데이터만 보여드리고 있으니 참고하세요.</string>
     <string name="error_ledger_open_msg">레저에서 코스모스 앱을 실행하세요.</string>
     <string name="error_no_staking">해당 체인은 스테이킹을 지원하지 않습니다.</string>
+    <string name="error_no_withdraw_vault">볼트에 예치된 양이 없습니다.</string>
 
 
     <string name="tx_send">보내기</string>
@@ -1332,6 +1333,10 @@
     <string name="tx_persis_liquid_unstake">유동성 언스테이크</string>
     <string name="tx_persis_liquid_redeem">유동성 상환</string>
     <string name="tx_persis_liquid_claim">언스테이크 유동성 받기</string>
+
+    <string name="str_vault_list">볼트 목록</string>
+    <string name="str_vault_deposit">볼트 입금</string>
+    <string name="str_vault_withdraw">볼트 출금</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

@@ -4,13 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
@@ -18,7 +16,6 @@ import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityVaultListBinding
-import wannabit.io.cosmostaion.databinding.BottomSheetDialogBinding
 import wannabit.io.cosmostaion.databinding.ItemVaultListBinding
 import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ResConfigData
@@ -33,7 +30,7 @@ class VaultListActivity : BaseActivity() {
 
     private val neutronViewModel: NeutronViewModel by viewModels()
 
-    private val mVaultList = mutableListOf<ResConfigData>()
+    private var mVaultList = mutableListOf<ResConfigData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +53,7 @@ class VaultListActivity : BaseActivity() {
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.adapter = VaultListAdapter()
 
-        neutronViewModel.loadVaultData(mAccount, mChainConfig, BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS)
+        neutronViewModel.loadNeutronData(mChainConfig)
         loadDataObserve()
     }
 
@@ -69,10 +66,6 @@ class VaultListActivity : BaseActivity() {
     private fun onUpdateView() {
         onHideWaitDialog()
         with(binding) {
-            neutronViewModel.data.value?.let {
-                val myVotingData = Gson().fromJson(it[2].toString(), ResVotingData::class.java)
-                myTotalVoting.text = WDp.getDpAmount2(BigDecimal(myVotingData.power), mChainConfig.decimal(), mChainConfig.decimal())
-            }
             layerRefresher.isRefreshing = false
             binding.recycler.adapter?.notifyDataSetChanged()
         }
@@ -90,6 +83,20 @@ class VaultListActivity : BaseActivity() {
 
     private fun loadDataObserve() {
         mVaultList.clear()
+        neutronViewModel.neutronData.observe(this) { response ->
+            response?.let {
+                mVaultList = response as MutableList<ResConfigData>
+                neutronViewModel.loadNeutronDepositData(mChainConfig, mAccount)
+
+            } ?: run {
+                neutronViewModel.loadMainVaultData(mAccount, mChainConfig)
+            }
+        }
+
+        neutronViewModel.depositData.observe(this) {
+            onUpdateView()
+        }
+
         neutronViewModel.data.observe(this) { response ->
             response?.let {
                 Gson().fromJson(it[0].toString(), ResConfigData::class.java).let { data ->
@@ -129,36 +136,23 @@ class VaultListActivity : BaseActivity() {
             this.makeToast(R.string.error_not_enough_fee)
         }
 
-        neutronViewModel.data.value?.let {
-            val myVotingData = Gson().fromJson(it[2].toString(), ResVotingData::class.java)
-            if (BigDecimal(myVotingData.power) <= BigDecimal.ZERO) {
-                Toast.makeText(this, "부족", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            Intent(baseContext, VaultActivity::class.java).apply {
-                putExtra("txType", BaseConstant.CONST_PW_TX_VAULT_WITHDRAW)
-                putExtra("depositAmount", myVotingData.power)
-                startActivity(this)
-            }
+        var myVotingData: ResVotingData? = null
+        neutronViewModel.depositData.value?.let {
+            myVotingData = Gson().fromJson(it[1].toString(), ResVotingData::class.java)
         }
-    }
 
-    private fun onVaultDialog(vaultInfo: ResConfigData) {
-        BottomSheetDialog(this).apply {
-            val dialog = BottomSheetDialogBinding.inflate(layoutInflater)
-            setContentView(dialog.root)
-            dialog.vaultTitle.text = vaultInfo.name?.uppercase()
-            dialog.btnDepost.setBackgroundColor(ContextCompat.getColor(this@VaultListActivity, R.color.color_noble))
-            dialog.btnWithdraw.setBackgroundColor(ContextCompat.getColor(this@VaultListActivity, R.color.color_noble))
+        neutronViewModel.data.value?.let {
+            myVotingData = Gson().fromJson(it[2].toString(), ResVotingData::class.java)
+        }
 
-            dialog.btnDepost.setOnClickListener {
-                onStartVaultDeposit()
-            }
-            dialog.btnWithdraw.setOnClickListener {
-                onStartVaultWithdraw()
-            }
-            show()
+        if (BigDecimal(myVotingData?.power) <= BigDecimal.ZERO) {
+            this.makeToast(R.string.error_no_withdraw_vault)
+            return
+        }
+        Intent(baseContext, VaultActivity::class.java).apply {
+            putExtra("txType", BaseConstant.CONST_PW_TX_VAULT_WITHDRAW)
+            putExtra("depositAmount", myVotingData?.power)
+            startActivity(this)
         }
     }
 
@@ -179,26 +173,39 @@ class VaultListActivity : BaseActivity() {
 
         inner class VaultHolder(val vaultBinding: ItemVaultListBinding) : ViewHolder(vaultBinding.root) {
             fun bind(position: Int) {
-                val vaultInfo = mVaultList[position]
-                neutronViewModel.data.value?.let {
-                    with(vaultBinding) {
-                        vaultName.text = vaultInfo.name?.uppercase()
-                        vaultDescription.text = vaultInfo.description?.capitalize()
-
-                        val totalVotingData = Gson().fromJson(it[1].toString(), ResVotingData::class.java)
-                        totalVotingValue.text = WDp.dpAssetValue(baseDao, WDp.getGeckoId(baseDao, mChainConfig), BigDecimal(totalVotingData.power), mChainConfig.decimal())
-                        totalVoting.text = WDp.getDpAmount2(BigDecimal(totalVotingData.power), mChainConfig.decimal(), mChainConfig.decimal())
-                        totalVotingDenom.text = mChainConfig.mainSymbol()
-
-                        val myVotingData = Gson().fromJson(it[2].toString(), ResVotingData::class.java)
-                        myVoting.text = WDp.getDpAmount2(BigDecimal(myVotingData.power), mChainConfig.decimal(), mChainConfig.decimal())
-                        myVotingDenom.text = mChainConfig.mainSymbol()
-                        myAvailable.text = WDp.getDpAmount2(baseDao.getAvailable(mChainConfig.mainDenom()), mChainConfig.decimal(), mChainConfig.decimal())
-
-                        cardRoot.setOnClickListener {
-                            onVaultDialog(vaultInfo)
+                with(vaultBinding) {
+                    when(position) {
+                        0 -> {
+                            cardRoot.setCardBackgroundColor(ContextCompat.getColor(this@VaultListActivity, mChainConfig.chainBgColor()))
+                            vaultImg.setImageDrawable(ContextCompat.getDrawable(this@VaultListActivity, R.drawable.icon_main_vault))
+                        }
+                        else -> {
+                            cardRoot.setCardBackgroundColor(ContextCompat.getColor(this@VaultListActivity, R.color.colorTransBg))
+                            vaultImg.setImageDrawable(ContextCompat.getDrawable(this@VaultListActivity, R.drawable.icon_sub_vault))
                         }
                     }
+                    val vaultInfo = mVaultList[position]
+                    vaultName.text = vaultInfo.name?.uppercase()
+                    vaultDescription.text = vaultInfo.description?.capitalize()
+
+                    var totalVotingData: ResVotingData? = null
+                    var myVotingData: ResVotingData? = null
+
+                    neutronViewModel.depositData.value?.let {
+                        totalVotingData = Gson().fromJson(it[0].toString(), ResVotingData::class.java)
+                        myVotingData = Gson().fromJson(it[1].toString(), ResVotingData::class.java)
+                    }
+
+                    neutronViewModel.data.value?.let {
+                        totalVotingData = Gson().fromJson(it[1].toString(), ResVotingData::class.java)
+                        myVotingData = Gson().fromJson(it[2].toString(), ResVotingData::class.java)
+                    }
+
+                    totalVoting.text = WDp.getDpAmount2(BigDecimal(totalVotingData?.power), mChainConfig.decimal(), mChainConfig.decimal())
+                    myVoting.text = WDp.getDpAmount2(BigDecimal(myVotingData?.power), mChainConfig.decimal(), mChainConfig.decimal())
+
+                    btnDeposit.setOnClickListener { onStartVaultDeposit() }
+                    btnWithdraw.setOnClickListener { onStartVaultWithdraw() }
                 }
             }
         }

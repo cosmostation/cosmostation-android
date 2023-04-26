@@ -28,7 +28,7 @@ class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
         val decimal = WDp.getDenomDecimal(baseData, chainConfig, denom)
 
         val availableAmount = baseData.getAvailable(denom)
-        val bondAmount = BigDecimal.ZERO
+        val bondAmount = baseData.vaultAmount
         val totalAmount = availableAmount.add(bondAmount)
 
         binding.apply {

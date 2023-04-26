@@ -544,10 +544,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             String contractAddress = null;
             if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
                 req = new BondReq(new Bond());
-                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS;
+                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS;
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
                 req = new UnbondReq(new Unbond(getSActivity().mAmount.amount));
-                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_ADDRESS;
+                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS;
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_PROPOSAL) {
                 req = new VoteReq(new Vote(getSActivity().mProposal_id, getSActivity().mOpinion));
                 contractAddress = BaseConstant.NEUTRON_NTRN_DAO_SINGLE_ADDRESS;
