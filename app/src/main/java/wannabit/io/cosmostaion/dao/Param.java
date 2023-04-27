@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.dao;
 import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.QUICKSILVER_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SOMMELIER_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -148,6 +149,9 @@ public class Param {
 
         @SerializedName("quicksilver_minting_epoch_provisions")
         public QuicksilverMintProvision mQuicksilverMintProvision;
+
+        @SerializedName("omniflix_alloc_params")
+        public OmniflixAllocParams mOmniflixAllocParams;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -394,7 +398,11 @@ public class Param {
                         ap = getMainSupply().multiply(getMintInflation(chainConfig));
                     else ap = getAnnualProvision();
                     if (ap.compareTo(BigDecimal.ZERO) > 0) {
-                        return ap.multiply(calTax).divide(getBondedAmount(), 6, RoundingMode.DOWN);
+                        if (chainConfig.baseChain().equals(BaseChain.OMNIFLIX_MAIN)) {
+                            return ap.multiply(calTax).multiply(new BigDecimal(mParams.mOmniflixAllocParams.mDistributionProportions.staking_rewards)).divide(getBondedAmount(), 6, RoundingMode.DOWN);
+                        } else {
+                            return ap.multiply(calTax).divide(getBondedAmount(), 6, RoundingMode.DOWN);
+                        }
                     } else {
                         return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
                     }
@@ -948,5 +956,15 @@ public class Param {
     public class QuicksilverMintProvision {
         @SerializedName("epoch_provisions")
         public String epochProvisions;
+    }
+
+    public class OmniflixAllocParams {
+        @SerializedName("distribution_proportions")
+        public DistributionProportions mDistributionProportions;
+
+        public class DistributionProportions {
+            @SerializedName("staking_rewards")
+            public String staking_rewards;
+        }
     }
 }
