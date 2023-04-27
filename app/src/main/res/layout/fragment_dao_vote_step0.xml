@@ -73,12 +73,23 @@
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_view"
                     android:layout_marginTop="@dimen/space_8"
                     android:background="@color/colorGrayDayNight" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:layout_marginTop="@dimen/space_7"
+                    android:overScrollMode="never"
+                    android:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/single_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -87,16 +98,16 @@
                         android:id="@+id/check_btn_yes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_16"
+                        android:layout_marginTop="@dimen/space_15"
                         android:layout_marginRight="@dimen/space_4"
-                        android:layout_marginBottom="@dimen/space_4"
+                        android:layout_marginBottom="@dimen/space_8"
                         android:layout_weight="0.3"
                         android:background="@drawable/box_vote_quorum"
                         android:clickable="true">
 
                         <TextView
                             android:id="@+id/vote_yes_title"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_14_gray_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -118,15 +129,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/space_4"
-                        android:layout_marginBottom="@dimen/space_4"
-                        android:layout_toRightOf="@+id/checkBtn_yes"
-                        android:layout_weight="0.3"
+                        android:layout_marginBottom="@dimen/space_8"
                         android:background="@drawable/box_vote_quorum"
-                        android:clickable="true">
+                        android:clickable="true"
+                        android:layout_below="@+id/check_btn_yes">
 
                         <TextView
                             android:id="@+id/vote_no_title"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_14_gray_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -147,14 +157,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/space_4"
-                        android:layout_toRightOf="@+id/checkBtn_yes"
-                        android:layout_weight="0.3"
+                        android:layout_below="@+id/check_btn_no"
                         android:background="@drawable/box_vote_quorum"
                         android:clickable="true">
 
                         <TextView
                             android:id="@+id/vote_abstain_title"
-                            style="@style/font_rr_14_black_daynight"
+                            style="@style/font_rr_14_gray_daynight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -169,7 +178,7 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/icon_vote_not_selection" />
                     </RelativeLayout>
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

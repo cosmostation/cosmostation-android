@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.neutron
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,7 @@ import com.google.gson.Gson
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
+import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityDaoProposalListBinding
 import wannabit.io.cosmostaion.databinding.ItemDaoProposalListBinding
@@ -27,7 +30,7 @@ import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ResProposalData
 import wannabit.io.cosmostaion.utils.WDp
-import wannabit.io.cosmostaion.utils.WLog
+import wannabit.io.cosmostaion.utils.makeToast
 
 class DaoProposalListActivity : BaseActivity() {
 
@@ -98,7 +101,6 @@ class DaoProposalListActivity : BaseActivity() {
                 }
 
                 Gson().fromJson(proposals[1].toString(), ResProposalData::class.java).let { data ->
-                    WLog.w("test1234 : " + data.proposals[0]?.proposal?.title)
                     data.proposals.forEach {
                         if ("open" == it?.proposal?.status) mProposalMultiList.add(it)
                     }
@@ -187,7 +189,7 @@ class DaoProposalListActivity : BaseActivity() {
             } else if (getItemViewType(position) == ProposalViewType.TYPE_MULTI.ordinal) {
                 (viewHolder as ProposalMultiHolder).bind(position - mProposalSingleList.size)
             } else {
-                (viewHolder as ProposalMultiHolder).bind(position - mProposalSingleList.size - mProposalMultiList.size)
+                (viewHolder as ProposalOverruleHolder).bind(position - mProposalSingleList.size - mProposalMultiList.size)
             }
         }
 
@@ -207,24 +209,51 @@ class DaoProposalListActivity : BaseActivity() {
 
         inner class ProposalSingleHolder(val proposalListBinding: ItemDaoProposalListBinding) : RecyclerView.ViewHolder(proposalListBinding.root) {
             fun bind(position: Int) {
-                mProposalSingleList[position]?.let {
-                    onBindProposalItemViewHolder(proposalListBinding, it)
+                with(proposalListBinding) {
+                    mProposalSingleList[position]?.let { proposalData ->
+                        onBindProposalItemViewHolder(this, proposalData)
+
+                        cardRoot.setOnClickListener {
+                            Intent(this@DaoProposalListActivity, DaoProposalActivity::class.java).apply {
+                                putExtra("txType", BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL)
+                                putExtra("proposal_id", proposalData.id)
+                                startActivity(this)
+                            }
+                        }
+                    }
                 }
             }
         }
 
         inner class ProposalMultiHolder(val proposalListBinding: ItemDaoProposalListBinding) : RecyclerView.ViewHolder(proposalListBinding.root) {
             fun bind(position: Int) {
-                mProposalMultiList[position]?.let {
-                    onBindProposalItemViewHolder(proposalListBinding, it)
+                with(proposalListBinding) {
+                    mProposalMultiList[position]?.let { proposalData ->
+                        onBindProposalItemViewHolder(this, proposalData)
+
+                        cardRoot.setOnClickListener {
+                            Intent(this@DaoProposalListActivity, DaoProposalActivity::class.java).apply {
+                                putExtra("txType", BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL)
+                                putExtra("proposal_id", proposalData.id)
+                                startActivity(this)
+                            }
+                        }
+                    }
                 }
             }
         }
 
         inner class ProposalOverruleHolder(val proposalListBinding: ItemDaoProposalListBinding) : RecyclerView.ViewHolder(proposalListBinding.root) {
             fun bind(position: Int) {
-                mProposalOverruleList[position]?.let {
-                    onBindProposalItemViewHolder(proposalListBinding, it)
+                with(proposalListBinding) {
+                    mProposalOverruleList[position]?.let { proposalData ->
+                        onBindProposalItemViewHolder(proposalListBinding, proposalData)
+
+                        cardRoot.setOnClickListener {
+                            this@DaoProposalListActivity.makeToast(R.string.error_prepare)
+                            return@setOnClickListener
+                        }
+                    }
                 }
             }
         }
@@ -250,6 +279,11 @@ class DaoProposalListActivity : BaseActivity() {
                             "failed" -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalListActivity, R.drawable.ic_failed_img))
                         }
                         proposalStatus.text = it.status?.capitalize()
+
+                        cardRoot.setOnClickListener {
+                            Toast.makeText(this@DaoProposalListActivity, "패스", Toast.LENGTH_SHORT).show()
+                            return@setOnClickListener
+                        }
                     }
                 }
             }

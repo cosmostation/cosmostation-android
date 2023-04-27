@@ -19,9 +19,6 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.DaoVoteStep0Fragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.DaoVoteStep3Fragment
 import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
-import wannabit.io.cosmostaion.model.viewModel.PersisViewModel
-import wannabit.io.cosmostaion.network.res.ResV1Proposal
-import wannabit.io.cosmostaion.utils.WLog
 
 class DaoProposalActivity : BaseBroadCastActivity() {
 
@@ -35,7 +32,7 @@ class DaoProposalActivity : BaseBroadCastActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDaoProposalBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        mTxType = BaseConstant.CONST_PW_TX_DAO_PROPOSAL
+        mTxType = intent.getIntExtra("txType", -1)
 
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -57,11 +54,13 @@ class DaoProposalActivity : BaseBroadCastActivity() {
         mBaseChain = BaseChain.getChain(mAccount.baseChain)
         mChainConfig = ChainFactory.getChain(mBaseChain)
 
-        binding.toolbarTitle.text = "Vote"
-
         intent.getStringExtra("proposal_id")?.let {
-            neutronViewModel.loadDaoSingleProposalData(mChainConfig, it.toInt())
-            mProposal_id = it.toInt()
+            if (mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
+                neutronViewModel.loadDaoSingleProposalData(mChainConfig, it.toInt())
+            } else {
+                neutronViewModel.loadDaoMultiProposalData(mChainConfig, it.toInt())
+            }
+            mProposalId = it.toInt()
         }
     }
 
@@ -72,7 +71,7 @@ class DaoProposalActivity : BaseBroadCastActivity() {
                 when (position) {
                     0 -> {
                         binding.sendStep.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalActivity, R.drawable.step_4_img_1))
-                        binding.sendStepMsg.text = getString(R.string.str_authz_send_step_1)
+                        binding.sendStepMsg.text = getString(R.string.str_vote_step_0)
                     }
                     1 -> {
                         binding.sendStep.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalActivity, R.drawable.step_4_img_2))

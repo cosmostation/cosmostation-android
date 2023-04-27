@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.txs.neutron.VaultActivity
 import wannabit.io.cosmostaion.base.BaseConstant
+import wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VAULT_DEPOSIT
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentVaultStep0Binding
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog
@@ -98,7 +99,10 @@ class VaultStep0Fragment : BaseFragment() {
         if (!isAdded || getSActivity() == null || getSActivity()?.mAccount == null) getSActivity()?.onBackPressed()
         onAddAmountWatcher()
 
-        binding.apply {
+        with(binding) {
+            if (getSActivity()?.mTxType == CONST_PW_TX_VAULT_DEPOSIT) availableTitle.text = getString(R.string.str_vault_max_depositable)
+            else availableTitle.text = getString(R.string.str_vault_max_withdrawable)
+
             getSActivity()?.mChainConfig?.let {
                 mInputCoinDecimal = WDp.getDenomDecimal(baseDao, it, it.mainDenom())
                 setDpDecimals(mInputCoinDecimal)

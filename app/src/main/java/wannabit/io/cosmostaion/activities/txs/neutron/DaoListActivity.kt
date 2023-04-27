@@ -119,11 +119,11 @@ class DaoListActivity : BaseActivity() {
                     when(position) {
                         0 -> {
                             cardRoot.setCardBackgroundColor(ContextCompat.getColor(this@DaoListActivity, mChainConfig.chainBgColor()))
-                            daoImg.setImageDrawable(ContextCompat.getDrawable(this@DaoListActivity, R.drawable.icon_main_vault))
+                            daoImg.setImageDrawable(ContextCompat.getDrawable(this@DaoListActivity, R.drawable.icon_main_dao))
                         }
                         else -> {
                             cardRoot.setCardBackgroundColor(ContextCompat.getColor(this@DaoListActivity, R.color.colorTransBg))
-                            daoImg.setImageDrawable(ContextCompat.getDrawable(this@DaoListActivity, R.drawable.icon_sub_vault))
+                            daoImg.setImageDrawable(ContextCompat.getDrawable(this@DaoListActivity, R.drawable.icon_sub_dao))
                         }
                     }
                     val daoInfo = mDaoList[position]

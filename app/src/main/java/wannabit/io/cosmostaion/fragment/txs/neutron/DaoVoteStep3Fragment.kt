@@ -20,8 +20,7 @@ import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.databinding.FragmentDaoVoteStep3Binding
 import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
-import wannabit.io.cosmostaion.network.req.neutron.Vote
-import wannabit.io.cosmostaion.network.req.neutron.VoteReq
+import wannabit.io.cosmostaion.network.req.neutron.*
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 
@@ -46,7 +45,11 @@ class DaoVoteStep3Fragment : BaseFragment() {
         with(binding) {
             getSActivity()?.let {
                 WDp.setDpCoin(requireContext(), baseDao, baseActivity.mChainConfig, it.mTxFee.amount[0], feeSymbol, feeAmount)
-                myOpinion.text = "# " + it.mProposal_id + " - " + it.mOpinion
+                if (it.mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
+                    myOpinion.text = "# " + it.mProposalId + " - " + it.mOpinion
+                } else {
+                    myOpinion.text = "# " + it.mProposalId + " - " + it.mOptionId
+                }
                 memo.text = it.mTxMemo
             }
         }
@@ -80,8 +83,18 @@ class DaoVoteStep3Fragment : BaseFragment() {
 
     private fun onBroadCastTx() {
         getSActivity()?.let {
+            var req: Any? = null
+            var contractAddress: String? = null
+            if (it.mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
+                req = VoteReq(Vote(it.mProposalId, it.mOpinion))
+                contractAddress = BaseConstant.NEUTRON_NTRN_DAO_SINGLE_TESTNET_ADDRESS
+            } else if (it.mTxType == BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL) {
+                req = MultiVoteReq(MultiVote(it.mProposalId, WeightVote(it.mOptionId)))
+                contractAddress = BaseConstant.NEUTRON_NTRN_DAO_MULTI_TESTNET_ADDRESS
+            }
+
             val broadcastTxRequest = Signer.getGrpcContractReq(
-                WKey.onAuthResponse(it.mBaseChain, it.mAccount), VoteReq(Vote(it.mProposal_id, it.mOpinion)), it.mAccount.address, BaseConstant.NEUTRON_NTRN_DAO_SINGLE_TESTNET_ADDRESS, it.mAmount,
+                WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, contractAddress, it.mAmount,
                 it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain, it.mTxType)
             neutronViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
         }
