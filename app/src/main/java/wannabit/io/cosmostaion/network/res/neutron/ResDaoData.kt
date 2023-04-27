@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.network.res.neutron
 
-data class ResConfigData(
+data class ResDaoData(
     val name: String?,
     val description: String?,
     val address: String?,
+    val owner: String?,
+    val manager: String?,
+    val denom: String?,
 )
 
-data class ResVotingData(val power: String?)
+

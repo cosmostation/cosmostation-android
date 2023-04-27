@@ -1439,6 +1439,10 @@
     <string name="str_vault_list">Vault List</string>
     <string name="str_vault_deposit">Vault Deposit</string>
     <string name="str_vault_withdraw">Vault Withdraw</string>
+    <string name="str_dao_list">Dao List</string>
+    <string name="str_dao_single_list" translatable="false">Single Proposal</string>
+    <string name="str_dao_multi_list" translatable="false">Multi Proposal</string>
+    <string name="str_vault_max_available">Max Available</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

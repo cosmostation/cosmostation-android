@@ -1138,15 +1138,14 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ArrayList<Any> getContractMsg(Object req, String fromAddress, String contractAddress, Coin fund) {
+    public static ArrayList<Any> getContractMsg(Object req, String fromAddress, String contractAddress, Coin fund, int type) {
         ArrayList<Any> msgAnys = new ArrayList<>();
         MsgExecuteContract msgExecuteContract = null;
-        CoinOuterClass.Coin fundCoin = null;
 
         String jsonData = new Gson().toJson(req);
         ByteString msg = ByteString.copyFromUtf8(jsonData);
-        if (fund != null) {
-            fundCoin = CoinOuterClass.Coin.newBuilder().setAmount(fund.amount).setDenom(fund.denom).build();
+        if (type == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
+            CoinOuterClass.Coin fundCoin = CoinOuterClass.Coin.newBuilder().setAmount(fund.amount).setDenom(fund.denom).build();
             msgExecuteContract = MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).addFunds(fundCoin).build();
         } else {
             msgExecuteContract = MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).build();
@@ -1155,12 +1154,12 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcContractReq(QueryOuterClass.QueryAccountResponse auth, Object req, String sender, String contractAddress, Coin fund, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignTx(auth, getContractMsg(req, sender, contractAddress, fund), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcContractReq(QueryOuterClass.QueryAccountResponse auth, Object req, String sender, String contractAddress, Coin fund, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain, int type) {
+        return getSignTx(auth, getContractMsg(req, sender, contractAddress, fund, type), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcContractSimulateReq(QueryOuterClass.QueryAccountResponse auth, Object req, String sender, String contractAddress, Coin fund, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getContractMsg(req, sender, contractAddress, fund), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcContractSimulateReq(QueryOuterClass.QueryAccountResponse auth, Object req, String sender, String contractAddress, Coin fund, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain, int type) {
+        return getSignSimulTx(auth, getContractMsg(req, sender, contractAddress, fund, type), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
 

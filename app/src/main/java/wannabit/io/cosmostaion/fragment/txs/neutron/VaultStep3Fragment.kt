@@ -94,7 +94,7 @@ class VaultStep3Fragment : BaseFragment() {
 
             val broadcastTxRequest = Signer.getGrpcContractReq(
                 WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, contractAddress, it.mAmount,
-                it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain)
+                it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain, it.mTxType)
             neutronViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
         }
 

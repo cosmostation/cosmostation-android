@@ -81,8 +81,8 @@ class DaoVoteStep3Fragment : BaseFragment() {
     private fun onBroadCastTx() {
         getSActivity()?.let {
             val broadcastTxRequest = Signer.getGrpcContractReq(
-                WKey.onAuthResponse(it.mBaseChain, it.mAccount), VoteReq(Vote(it.mProposal_id, it.mOpinion)), it.mAccount.address, BaseConstant.NEUTRON_NTRN_DAO_SINGLE_ADDRESS, it.mAmount,
-                it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain)
+                WKey.onAuthResponse(it.mBaseChain, it.mAccount), VoteReq(Vote(it.mProposal_id, it.mOpinion)), it.mAccount.address, BaseConstant.NEUTRON_NTRN_DAO_SINGLE_TESTNET_ADDRESS, it.mAmount,
+                it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain, it.mTxType)
             neutronViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
         }
 

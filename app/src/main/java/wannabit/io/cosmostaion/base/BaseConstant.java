@@ -293,8 +293,10 @@ public class BaseConstant {
 
     // Neutron Contract Address
     public final static String NEUTRON_NTRN_VAULT_TESTNET_ADDRESS = "neutron1qeyjez6a9dwlghf9d6cy44fxmsajztw257586akk6xn6k88x0gus5djz4e";
-    public final static String NEUTRON_NTRN_DAO_SINGLE_ADDRESS = "neutron1436kxs0w2es6xlqpp9rd35e3d0cjnw4sv8j3a7483sgks29jqwgshlt6zh";
-    public final static String NEUTRON_NTRN_DAO_MULTI_ADDRESS = "neutron1pvrwmjuusn9wh34j7y520g8gumuy9xtl3gvprlljfdpwju3x7ucsj3fj40";
+    public final static String NEUTRON_NTRN_DAO_TESTNET_ADDRESS = "neutron1suhgf5svhu4usrurvxzlgn54ksxmn8gljarjtxqnapv8kjnp4nrstdxvff";
+    public final static String NEUTRON_NTRN_DAO_SINGLE_TESTNET_ADDRESS = "neutron1436kxs0w2es6xlqpp9rd35e3d0cjnw4sv8j3a7483sgks29jqwgshlt6zh";
+    public final static String NEUTRON_NTRN_DAO_MULTI_TESTNET_ADDRESS = "neutron1pvrwmjuusn9wh34j7y520g8gumuy9xtl3gvprlljfdpwju3x7ucsj3fj40";
+    public final static String NEUTRON_NTRN_DAO_OVERRULE_TESTNET_ADDRESS = "neutron12pwnhtv7yat2s30xuf4gdk9qm85v4j3e6p44let47pdffpklcxlq56v0te";
     public final static String NEUTRON_PAIR_ADDRESS = "neutron1elmg309fvdas002z2yausyygsyfht9qpyxeadqxjx38tazryjtvql3v69x";
 
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";

@@ -1335,6 +1335,8 @@
     <string name="str_vault_list">ボルトの一覧</string>
     <string name="str_vault_deposit">ボルト入金</string>
     <string name="str_vault_withdraw">ボルト出金</string>
+    <string name="str_dao_list">ダオリスト</string>
+    <string name="str_vault_max_available">最大可能量</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

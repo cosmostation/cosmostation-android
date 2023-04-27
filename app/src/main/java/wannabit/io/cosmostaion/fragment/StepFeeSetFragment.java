@@ -550,10 +550,10 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS;
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_PROPOSAL) {
                 req = new VoteReq(new Vote(getSActivity().mProposal_id, getSActivity().mOpinion));
-                contractAddress = BaseConstant.NEUTRON_NTRN_DAO_SINGLE_ADDRESS;
+                contractAddress = BaseConstant.NEUTRON_NTRN_DAO_SINGLE_TESTNET_ADDRESS;
             }
             new SimulContractExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, req, contractAddress, getSActivity().mAmount,
-                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 

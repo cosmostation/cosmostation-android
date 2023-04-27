@@ -1337,6 +1337,8 @@
     <string name="str_vault_list">볼트 목록</string>
     <string name="str_vault_deposit">볼트 입금</string>
     <string name="str_vault_withdraw">볼트 출금</string>
+    <string name="str_dao_list">다오 목록</string>
+    <string name="str_vault_max_available">최대 가능량</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

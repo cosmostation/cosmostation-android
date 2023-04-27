@@ -24,13 +24,14 @@ class SimulContractExecuteGrpcTask(
     val fund: Coin?,
     val memo: String?,
     val fee: Fee?,
-    val chainId: String?
+    val chainId: String?,
+    val txType: Int
 ) : CommonTask(app, listener) {
 
     override fun doInBackground(vararg strings: String?): TaskResult {
         try {
             val txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain))
-            val simulateTxRequest = Signer.getGrpcContractSimulateReq(WKey.onAuthResponse(baseChain, account), req, account?.address, contractAddress, fund, fee, memo, WKey.getECKey(mApp, account), chainId, account!!.customPath, baseChain)
+            val simulateTxRequest = Signer.getGrpcContractSimulateReq(WKey.onAuthResponse(baseChain, account), req, account?.address, contractAddress, fund, fee, memo, WKey.getECKey(mApp, account), chainId, account!!.customPath, baseChain, txType)
             val response = txService.simulate(simulateTxRequest)
             mResult.resultData = response.gasInfo
             mResult.isSuccess = true

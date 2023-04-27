@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.network.res.ResRelayer;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
 import wannabit.io.cosmostaion.network.res.neutron.ResConfigData;
+import wannabit.io.cosmostaion.network.res.neutron.ResDaoData;
 
 public interface Station {
 
@@ -53,6 +54,9 @@ public interface Station {
 
     @GET("/cosmostation/chainlist/master/chain/{chain}/vaults.json")
     Call<List<ResConfigData>> getVaultData(@Path("chain") String chain);
+
+    @GET("/cosmostation/chainlist/master/chain/{chain}/daos.json")
+    Call<List<ResDaoData>> getDaoData(@Path("chain") String chain);
 
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);

@@ -42,19 +42,20 @@ class VaultListActivity : BaseActivity() {
     }
 
     fun initView() {
-        binding.toolbarTitle.text = getString(R.string.str_vault_list)
-        mAccount = baseDao.onSelectAccount(baseDao.lastUser)
-        mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain))
+        with(binding) {
+            mAccount = baseDao.onSelectAccount(baseDao.lastUser)
+            mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain))
 
-        setSupportActionBar(binding.toolBar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            setSupportActionBar(toolBar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.recycler.layoutManager = LinearLayoutManager(this)
-        binding.recycler.adapter = VaultListAdapter()
+            recycler.layoutManager = LinearLayoutManager(this@VaultListActivity)
+            recycler.adapter = VaultListAdapter()
 
-        neutronViewModel.loadNeutronData(mChainConfig)
-        loadDataObserve()
+            neutronViewModel.loadNeutronData(mChainConfig)
+            loadDataObserve()
+        }
     }
 
     private fun onSwipeRefresh() {
@@ -67,7 +68,7 @@ class VaultListActivity : BaseActivity() {
         onHideWaitDialog()
         with(binding) {
             layerRefresher.isRefreshing = false
-            binding.recycler.adapter?.notifyDataSetChanged()
+            recycler.adapter?.notifyDataSetChanged()
         }
     }
 
@@ -86,7 +87,7 @@ class VaultListActivity : BaseActivity() {
         neutronViewModel.neutronData.observe(this) { response ->
             response?.let {
                 mVaultList = response as MutableList<ResConfigData>
-                neutronViewModel.loadNeutronDepositData(mChainConfig, mAccount)
+                neutronViewModel.loadNeutronDepositData(mChainConfig, mAccount, it[0]?.address)
 
             } ?: run {
                 neutronViewModel.loadMainVaultData(mAccount, mChainConfig)

@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.activities.txs.neutron
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Bundle
@@ -28,6 +27,7 @@ import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ResProposalData
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.WLog
 
 class DaoProposalListActivity : BaseActivity() {
 
@@ -35,8 +35,11 @@ class DaoProposalListActivity : BaseActivity() {
 
     private val neutronViewModel: NeutronViewModel by viewModels()
 
-    private var mProposalPeriodList = mutableListOf<ProposalData?>()
-    private var mProposalList = mutableListOf<ProposalData?>()
+    private var mProposalSingleList = mutableListOf<ProposalData?>()
+    private var mProposalMultiList = mutableListOf<ProposalData?>()
+    private var mProposalOverruleList = mutableListOf<ProposalData?>()
+
+    private var isShowAll = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,20 +51,22 @@ class DaoProposalListActivity : BaseActivity() {
     }
 
     fun initView() {
-        binding.toolbarTitle.text = "Proposal List"
-        mAccount = baseDao.onSelectAccount(baseDao.lastUser)
-        mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain))
+        with(binding) {
+            mAccount = baseDao.onSelectAccount(baseDao.lastUser)
+            mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain))
 
-        setSupportActionBar(binding.toolBar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            setSupportActionBar(toolBar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.recycler.layoutManager = LinearLayoutManager(this)
-        binding.recycler.adapter = ProposalListAdapter()
-        binding.recycler.addItemDecoration(proposalHeaderRecyclerView(this, true, getSectionCall()))
+            recycler.layoutManager = LinearLayoutManager(this@DaoProposalListActivity)
+            recycler.adapter = ProposalListAdapter()
+            recycler.addItemDecoration(proposalHeaderRecyclerView(this@DaoProposalListActivity, true, getSectionCall()))
 
-        neutronViewModel.loadDaoProposalListData(mChainConfig)
-        loadDataObserve()
+            neutronViewModel.loadDaoProposalListData(mChainConfig)
+            loadDataObserve()
+            onCheckShowAll()
+        }
     }
 
     fun onSwipeRefresh() {
@@ -81,21 +86,27 @@ class DaoProposalListActivity : BaseActivity() {
     }
 
     private fun loadDataObserve() {
-        mProposalPeriodList.clear()
-        mProposalList.clear()
+        mProposalSingleList.clear()
+        mProposalMultiList.clear()
+        mProposalOverruleList.clear()
         neutronViewModel.data.observe(this) { response ->
             response?.let { proposals ->
                 Gson().fromJson(proposals[0].toString(), ResProposalData::class.java).let { data ->
                     data.proposals.forEach {
-                        if ("open" == it?.proposal?.status) mProposalPeriodList.add(it)
-                        else mProposalList.add(it)
+                        if ("open" == it?.proposal?.status) mProposalSingleList.add(it)
                     }
                 }
 
                 Gson().fromJson(proposals[1].toString(), ResProposalData::class.java).let { data ->
+                    WLog.w("test1234 : " + data.proposals[0]?.proposal?.title)
                     data.proposals.forEach {
-                        if ("open" == it?.proposal?.status) mProposalPeriodList.add(it)
-                        else mProposalList.add(it)
+                        if ("open" == it?.proposal?.status) mProposalMultiList.add(it)
+                    }
+                }
+
+                Gson().fromJson(proposals[2].toString(), ResProposalData::class.java).let { data ->
+                    data.proposals.forEach {
+                        if ("open" == it?.proposal?.status) mProposalOverruleList.add(it)
                     }
                 }
                 onUpdateView()
@@ -113,84 +124,139 @@ class DaoProposalListActivity : BaseActivity() {
         }
     }
 
-    private inner class ProposalListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            if (viewType == ProposalViewType.TYPE_PERIOD.ordinal) {
-                return ProposalPeriodListHolder(ItemDaoProposalListBinding.inflate(layoutInflater, parent, false))
-            } else {
-                return ProposalListHolder(ItemDaoProposalListBinding.inflate(layoutInflater, parent, false))
-            }
-        }
-
-        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-            if (getItemViewType(position) == ProposalViewType.TYPE_PERIOD.ordinal) {
-                (viewHolder as ProposalPeriodListHolder).bind(position)
-            } else {
-                (viewHolder as ProposalListHolder).bind(position - mProposalPeriodList.size)
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return mProposalPeriodList.size + mProposalList.size
-        }
-
-        override fun getItemViewType(position: Int): Int {
-            return if (position < mProposalPeriodList.size) {
-                ProposalViewType.TYPE_PERIOD.ordinal
-            } else {
-                ProposalViewType.TYPE_PASSED.ordinal
-            }
-        }
-
-        inner class ProposalPeriodListHolder(val proposalPeriodBinding: ItemDaoProposalListBinding) : RecyclerView.ViewHolder(proposalPeriodBinding.root) {
-            fun bind(position: Int) {
-                proposalPeriodBinding.apply {
-                    mProposalPeriodList[position]?.let { proposalData ->
-                        proposalTitle.text = "# " + proposalData.id + " " + proposalData.proposal?.title
-                        proposalExpiration.visibility = View.VISIBLE
-                        proposalStatusLayout.visibility = View.GONE
-                        proposalData.proposal?.expiration?.at_time?.toLong()?.let { expiration ->
-                            proposalExpiration.text = WDp.getDpTime(this@DaoProposalListActivity, expiration.div(1000000)) + " " +
-                                    WDp.getGapTime(expiration.div(1000000))
+    private fun onCheckShowAll() {
+        with(binding) {
+            checkShowAll.setOnCheckedChangeListener { buttonView, isChecked ->
+                neutronViewModel.data.value?.let { response ->
+                    response.let { proposals ->
+                        Gson().fromJson(proposals[0].toString(), ResProposalData::class.java).let { data ->
+                            if (isChecked) {
+                                isShowAll = !isShowAll
+                                mProposalSingleList = data.proposals as MutableList<ProposalData?>
+                            } else {
+                                mProposalSingleList.clear()
+                                data.proposals.forEach {
+                                    if ("open" == it?.proposal?.status) mProposalSingleList.add(it)
+                                }
+                            }
                         }
 
-                        cardRoot.setOnClickListener {
-                            Intent(this@DaoProposalListActivity, DaoProposalDetailActivity::class.java).apply {
-                                putExtra("proposal_id", proposalData.id)
-                                startActivity(this)
+                        Gson().fromJson(proposals[1].toString(), ResProposalData::class.java).let { data ->
+                            if (isChecked) {
+                                isShowAll = !isShowAll
+                                mProposalMultiList = data.proposals as MutableList<ProposalData?>
+                            } else {
+                                mProposalMultiList.clear()
+                                data.proposals.forEach {
+                                    if ("open" == it?.proposal?.status) mProposalMultiList.add(it)
+                                }
+                            }
+                        }
+
+                        Gson().fromJson(proposals[2].toString(), ResProposalData::class.java).let { data ->
+                            if (isChecked) {
+                                isShowAll = !isShowAll
+                                mProposalOverruleList = data.proposals as MutableList<ProposalData?>
+                            } else {
+                                mProposalOverruleList.clear()
+                                data.proposals.forEach {
+                                    if ("open" == it?.proposal?.status) mProposalOverruleList.add(it)
+                                }
                             }
                         }
                     }
                 }
+                recycler.adapter?.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private inner class ProposalListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return when (viewType) {
+                ProposalViewType.TYPE_SINGLE.ordinal -> ProposalSingleHolder(ItemDaoProposalListBinding.inflate(layoutInflater, parent, false))
+                ProposalViewType.TYPE_MULTI.ordinal -> ProposalMultiHolder(ItemDaoProposalListBinding.inflate(layoutInflater, parent, false))
+                else -> ProposalOverruleHolder(ItemDaoProposalListBinding.inflate(layoutInflater, parent, false))
             }
         }
 
-        inner class ProposalListHolder(val proposalListBinding: ItemDaoProposalListBinding) : RecyclerView.ViewHolder(proposalListBinding.root) {
+        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+            if (getItemViewType(position) == ProposalViewType.TYPE_SINGLE.ordinal) {
+                (viewHolder as ProposalSingleHolder).bind(position)
+            } else if (getItemViewType(position) == ProposalViewType.TYPE_MULTI.ordinal) {
+                (viewHolder as ProposalMultiHolder).bind(position - mProposalSingleList.size)
+            } else {
+                (viewHolder as ProposalMultiHolder).bind(position - mProposalSingleList.size - mProposalMultiList.size)
+            }
+        }
+
+        override fun getItemCount(): Int {
+            return mProposalSingleList.size + mProposalMultiList.size + mProposalOverruleList.size
+        }
+
+        override fun getItemViewType(position: Int): Int {
+            return if (position < mProposalSingleList.size) {
+                ProposalViewType.TYPE_SINGLE.ordinal
+            } else if (position < mProposalSingleList.size + mProposalMultiList.size) {
+                ProposalViewType.TYPE_MULTI.ordinal
+            } else {
+                ProposalViewType.TYPE_OVERRULE.ordinal
+            }
+        }
+
+        inner class ProposalSingleHolder(val proposalListBinding: ItemDaoProposalListBinding) : RecyclerView.ViewHolder(proposalListBinding.root) {
             fun bind(position: Int) {
-                proposalListBinding.apply {
-                    mProposalList[position]?.let { proposalData ->
-                        proposalTitle.text = "# " + proposalData.id + " " + proposalData.proposal?.title
+                mProposalSingleList[position]?.let {
+                    onBindProposalItemViewHolder(proposalListBinding, it)
+                }
+            }
+        }
+
+        inner class ProposalMultiHolder(val proposalListBinding: ItemDaoProposalListBinding) : RecyclerView.ViewHolder(proposalListBinding.root) {
+            fun bind(position: Int) {
+                mProposalMultiList[position]?.let {
+                    onBindProposalItemViewHolder(proposalListBinding, it)
+                }
+            }
+        }
+
+        inner class ProposalOverruleHolder(val proposalListBinding: ItemDaoProposalListBinding) : RecyclerView.ViewHolder(proposalListBinding.root) {
+            fun bind(position: Int) {
+                mProposalOverruleList[position]?.let {
+                    onBindProposalItemViewHolder(proposalListBinding, it)
+                }
+            }
+        }
+
+        fun onBindProposalItemViewHolder(proposalPeriodBinding: ItemDaoProposalListBinding, proposalData: ProposalData) {
+            with(proposalPeriodBinding) {
+                proposalTitle.text = "# " + proposalData.id + " " + proposalData.proposal?.title
+                proposalData.proposal?.let {
+                    if ("open" == it.status) {
+                        proposalExpiration.visibility = View.VISIBLE
+                        proposalStatusLayout.visibility = View.GONE
+                        it.expiration?.at_time?.toLong()?.let { expiration ->
+                            proposalExpiration.text = WDp.getDpTime(this@DaoProposalListActivity, expiration.div(1000000)) + " " +
+                                    WDp.getGapTime(expiration.div(1000000))
+                        }
+
+                    } else {
                         proposalExpiration.visibility = View.GONE
                         proposalStatusLayout.visibility = View.VISIBLE
-
-                        when(proposalData.proposal?.status) {
+                        when (it.status) {
                             "executed", "passed" -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalListActivity, R.drawable.ic_passed_img))
                             "rejected" -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalListActivity, R.drawable.ic_rejected_img))
                             "failed" -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalListActivity, R.drawable.ic_failed_img))
                         }
-                        proposalStatus.text = proposalData.proposal?.status?.capitalize()
-
-                        cardRoot.setOnClickListener {
-
-                        }
+                        proposalStatus.text = it.status?.capitalize()
                     }
                 }
             }
         }
     }
 
-    enum class ProposalViewType { TYPE_PERIOD, TYPE_PASSED }
+    enum class ProposalViewType { TYPE_SINGLE, TYPE_MULTI, TYPE_OVERRULE }
 
     private inner class proposalHeaderRecyclerView(context: Context, private val sticky: Boolean, private val sectionCallback: SectionCallback) : ItemDecoration() {
 
@@ -199,7 +265,9 @@ class DaoProposalListActivity : BaseActivity() {
         private var mHeaderTitle: TextView? = null
         private var mItemCnt: TextView? = null
 
-        init { topPadding = dpToPx(context, 34) }
+        init {
+            topPadding = dpToPx(context, 34)
+        }
 
         private fun dpToPx(context: Context, dp: Int): Int {
             return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()
@@ -222,12 +290,12 @@ class DaoProposalListActivity : BaseActivity() {
 
                 var title = ""
                 val mSection = parent.adapter?.getItemViewType(position)
-                if (mSection == ProposalViewType.TYPE_PERIOD.ordinal) {
-                    title = sectionCallback.SectionHeader(mProposalPeriodList, mSection)
-                    mItemCnt?.text = "" + mProposalPeriodList.size
-                } else if (mSection == ProposalViewType.TYPE_PASSED.ordinal) {
-                    title = sectionCallback.SectionHeader(mProposalList, mSection)
-                    mItemCnt?.text = "" + mProposalList.size
+                if (mSection == ProposalViewType.TYPE_SINGLE.ordinal) {
+                    title = sectionCallback.SectionHeader(mProposalSingleList, mSection)
+                    mItemCnt?.text = "" + mProposalSingleList.size
+                } else if (mSection == ProposalViewType.TYPE_MULTI.ordinal) {
+                    title = sectionCallback.SectionHeader(mProposalMultiList, mSection)
+                    mItemCnt?.text = "" + mProposalMultiList.size
                 }
 
                 mHeaderTitle?.text = title
@@ -241,7 +309,9 @@ class DaoProposalListActivity : BaseActivity() {
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
             super.getItemOffsets(outRect, view, parent, state)
             val position = parent.getChildAdapterPosition(view)
-            if (sectionCallback.isSection(position)) { outRect.top = topPadding }
+            if (sectionCallback.isSection(position)) {
+                outRect.top = topPadding
+            }
         }
 
         private fun drawHeader(c: Canvas, child: View, headerView: View?) {
@@ -277,14 +347,14 @@ class DaoProposalListActivity : BaseActivity() {
     private fun getSectionCall(): SectionCallback {
         return object : SectionCallback {
             override fun isSection(position: Int): Boolean {
-                return position == 0 || position == mProposalPeriodList.size
+                return position == 0 || position == mProposalSingleList.size
             }
 
             override fun SectionHeader(proposalList: List<ProposalData?>, section: Int): String {
-                return if (section == ProposalViewType.TYPE_PERIOD.ordinal) {
-                    getString(R.string.str_voting_period)
-                } else {
-                    getString(R.string.str_vote_proposals)
+                return when (section) {
+                    ProposalViewType.TYPE_SINGLE.ordinal -> getString(R.string.str_dao_single_list)
+                    ProposalViewType.TYPE_MULTI.ordinal -> getString(R.string.str_dao_multi_list)
+                    else -> getString(R.string.str_dao_multi_list)
                 }
             }
 
