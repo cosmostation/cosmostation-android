@@ -3,13 +3,13 @@ package wannabit.io.cosmostaion.activities.txs.neutron
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.google.gson.Gson
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
@@ -18,6 +18,8 @@ import wannabit.io.cosmostaion.databinding.ActivityDaoListBinding
 import wannabit.io.cosmostaion.databinding.ItemDaoBinding
 import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ResDaoData
+import wannabit.io.cosmostaion.utils.WDp
+import java.math.BigDecimal
 
 class DaoListActivity : BaseActivity() {
 
@@ -64,7 +66,6 @@ class DaoListActivity : BaseActivity() {
         with(binding) {
             layerRefresher.isRefreshing = false
             recycler.adapter?.notifyDataSetChanged()
-            daoCount.text = mDaoList.size.toString()
         }
     }
 
@@ -84,16 +85,7 @@ class DaoListActivity : BaseActivity() {
                 mDaoList = response as MutableList<ResDaoData>
                 onUpdateView()
             } ?: run {
-                neutronViewModel.loadMainDaoData(mChainConfig)
-            }
-        }
-
-        neutronViewModel.data.observe(this) { response ->
-            response?.let {
-                Gson().fromJson(it[0].toString(), ResDaoData::class.java).let { data ->
-                    mDaoList.add(data)
-                }
-                onUpdateView()
+                // github disconncet
             }
         }
     }
@@ -124,14 +116,23 @@ class DaoListActivity : BaseActivity() {
                         else -> {
                             cardRoot.setCardBackgroundColor(ContextCompat.getColor(this@DaoListActivity, R.color.colorTransBg))
                             daoImg.setImageDrawable(ContextCompat.getDrawable(this@DaoListActivity, R.drawable.icon_sub_dao))
+                            view2.visibility = View.GONE
+                            myVotingPowerTitle.visibility = View.GONE
+                            myVotingPower.visibility = View.GONE
                         }
                     }
                     val daoInfo = mDaoList[position]
-                    daoName.text = daoInfo.name?.uppercase()
-                    daoDescription.text = daoInfo.description?.capitalize()
+                    neutronViewModel.daoData.value?.let {
+                        daoName.text = daoInfo.name?.uppercase()
+                        daoDescription.text = daoInfo.description?.capitalize()
+                        moduleCount.text = daoInfo.proposal_modules.size.toString()
+                        daoUrl.text = daoInfo.dao_uri
+                    }
+                    myVotingPower.text = WDp.getDpAmount2(BigDecimal(baseDao.mVaultAmount), mChainConfig.decimal(), mChainConfig.decimal())
 
                     cardRoot.setOnClickListener {
                         Intent(this@DaoListActivity, DaoProposalListActivity::class.java).apply {
+                            putExtra("contractAddress", daoInfo.address)
                             startActivity(this)
                         }
                     }

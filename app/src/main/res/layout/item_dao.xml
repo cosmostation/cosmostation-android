@@ -11,12 +11,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_15"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="8dp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@color/colorTransBgNoble"
         app:cardCornerRadius="@dimen/space_8"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -42,8 +44,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_6"
-                android:maxLines="1"
                 android:ellipsize="middle"
+                android:maxLines="1"
                 app:layout_constraintBottom_toBottomOf="@+id/dao_img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/dao_img"
@@ -55,28 +57,72 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
-                android:maxLines="2"
                 android:ellipsize="end"
+                android:maxLines="2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dao_img" />
 
             <TextView
-                android:id="@+id/proposals_count_title"
+                android:id="@+id/module_count_title"
                 style="@style/font_rr_12_gray1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12"
-                android:text="Proposals"
+                android:text="Proposals Module Counts"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dao_description" />
 
             <TextView
-                android:id="@+id/proposals_count"
+                android:id="@+id/module_count"
                 style="@style/font_rr_12_black_daynight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/proposals_count_title" />
+                app:layout_constraintTop_toTopOf="@+id/module_count_title" />
+
+            <TextView
+                android:id="@+id/dao_url_title"
+                style="@style/font_rr_12_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="Dao URL"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/module_count_title" />
+
+            <TextView
+                android:id="@+id/dao_url"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dao_url_title" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_view"
+                android:layout_marginTop="@dimen/space_12"
+                android:background="@color/colorGrayDayNight"
+                app:layout_constraintTop_toBottomOf="@+id/dao_url_title" />
+
+            <TextView
+                android:id="@+id/my_voting_power_title"
+                style="@style/font_rr_12_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="My Voting Power"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <TextView
+                android:id="@+id/my_voting_power"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/my_voting_power_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

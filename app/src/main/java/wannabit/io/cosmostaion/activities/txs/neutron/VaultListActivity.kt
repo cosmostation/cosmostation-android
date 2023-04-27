@@ -88,23 +88,13 @@ class VaultListActivity : BaseActivity() {
             response?.let {
                 mVaultList = response as MutableList<ResConfigData>
                 neutronViewModel.loadNeutronDepositData(mChainConfig, mAccount, it[0]?.address)
-
             } ?: run {
-                neutronViewModel.loadMainVaultData(mAccount, mChainConfig)
+                // github disconnect
             }
         }
 
         neutronViewModel.depositData.observe(this) {
             onUpdateView()
-        }
-
-        neutronViewModel.data.observe(this) { response ->
-            response?.let {
-                Gson().fromJson(it[0].toString(), ResConfigData::class.java).let { data ->
-                    mVaultList.add(data)
-                }
-                onUpdateView()
-            }
         }
     }
 
@@ -189,22 +179,15 @@ class VaultListActivity : BaseActivity() {
                     vaultName.text = vaultInfo.name?.uppercase()
                     vaultDescription.text = vaultInfo.description?.capitalize()
 
-                    var totalVotingData: ResVotingData? = null
-                    var myVotingData: ResVotingData? = null
-
                     neutronViewModel.depositData.value?.let {
-                        totalVotingData = Gson().fromJson(it[0].toString(), ResVotingData::class.java)
-                        myVotingData = Gson().fromJson(it[1].toString(), ResVotingData::class.java)
+                        Gson().fromJson(it[0].toString(), ResVotingData::class.java)?.let { totalVotingData ->
+                            totalVoting.text = WDp.getDpAmount2(BigDecimal(totalVotingData.power), mChainConfig.decimal(), mChainConfig.decimal())
+                        }
+
+                        Gson().fromJson(it[1].toString(), ResVotingData::class.java)?.let { myVotingData ->
+                            myVoting.text = WDp.getDpAmount2(BigDecimal(myVotingData.power), mChainConfig.decimal(), mChainConfig.decimal())
+                        }
                     }
-
-                    neutronViewModel.data.value?.let {
-                        totalVotingData = Gson().fromJson(it[1].toString(), ResVotingData::class.java)
-                        myVotingData = Gson().fromJson(it[2].toString(), ResVotingData::class.java)
-                    }
-
-                    totalVoting.text = WDp.getDpAmount2(BigDecimal(totalVotingData?.power), mChainConfig.decimal(), mChainConfig.decimal())
-                    myVoting.text = WDp.getDpAmount2(BigDecimal(myVotingData?.power), mChainConfig.decimal(), mChainConfig.decimal())
-
                     btnDeposit.setOnClickListener { onStartVaultDeposit() }
                     btnWithdraw.setOnClickListener { onStartVaultWithdraw() }
                 }

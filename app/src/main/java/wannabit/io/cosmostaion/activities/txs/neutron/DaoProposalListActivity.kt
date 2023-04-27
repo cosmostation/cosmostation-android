@@ -28,8 +28,10 @@ import wannabit.io.cosmostaion.databinding.ActivityDaoProposalListBinding
 import wannabit.io.cosmostaion.databinding.ItemDaoProposalListBinding
 import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
+import wannabit.io.cosmostaion.network.res.neutron.ResConfigData
 import wannabit.io.cosmostaion.network.res.neutron.ResProposalData
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.WLog
 import wannabit.io.cosmostaion.utils.makeToast
 
 class DaoProposalListActivity : BaseActivity() {
@@ -66,7 +68,7 @@ class DaoProposalListActivity : BaseActivity() {
             recycler.adapter = ProposalListAdapter()
             recycler.addItemDecoration(proposalHeaderRecyclerView(this@DaoProposalListActivity, true, getSectionCall()))
 
-            neutronViewModel.loadDaoProposalListData(mChainConfig)
+            neutronViewModel.loadDaoData(mChainConfig)
             loadDataObserve()
             onCheckShowAll()
         }
@@ -92,6 +94,15 @@ class DaoProposalListActivity : BaseActivity() {
         mProposalSingleList.clear()
         mProposalMultiList.clear()
         mProposalOverruleList.clear()
+
+        neutronViewModel.daoData.observe(this) { response ->
+            response?.let {
+                response[0]?.let {
+                    neutronViewModel.loadDaoProposalListData(mChainConfig, it.proposal_modules)
+                }
+            }
+        }
+
         neutronViewModel.data.observe(this) { response ->
             response?.let { proposals ->
                 Gson().fromJson(proposals[0].toString(), ResProposalData::class.java).let { data ->
@@ -391,7 +402,6 @@ class DaoProposalListActivity : BaseActivity() {
                     else -> getString(R.string.str_dao_multi_list)
                 }
             }
-
         }
     }
 }

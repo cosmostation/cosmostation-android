@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.ChannelBuilder
 import wannabit.io.cosmostaion.network.req.neutron.*
+import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
 import wannabit.io.cosmostaion.network.res.neutron.ResConfigData
 import wannabit.io.cosmostaion.network.res.neutron.ResDaoData
 import wannabit.io.cosmostaion.network.res.neutron.ResPairData
@@ -49,6 +50,7 @@ class NeutronViewModel : BaseViewModel() {
         _pair.postValue(loadData[0].await())
     }
 
+    // vault github
     fun loadNeutronData(chainConfig: ChainConfig) = backScope.launch {
         try {
             val response = ApiClient.getChainBase().getVaultData(chainConfig.chainName()).awaitResponse()
@@ -70,19 +72,7 @@ class NeutronViewModel : BaseViewModel() {
         _depositData.postValue(loadData.awaitAll())
     }
 
-    // github disconnect
-    fun loadMainVaultData(account: Account, chainConfig: ChainConfig) = backScope.launch {
-        var contractAddress = ""
-        if (chainConfig.baseChain().equals(BaseChain.NEUTRON_TEST)) {
-            contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS
-        }
-        val loadData = listOf(async { getData(GetConfigReq(GetConfig()), chainConfig, contractAddress) },
-            async { getData(TotalPowerReq(TotalPower()), chainConfig, contractAddress) },
-            async { getData(VotingPowerReq(VotingPower(account.address)), chainConfig, contractAddress) })
-
-        _data.postValue(loadData.awaitAll())
-    }
-
+    // dao github
     fun loadDaoData(chainConfig: ChainConfig) = backScope.launch {
         try {
             val response = ApiClient.getChainBase().getDaoData(chainConfig.chainName()).awaitResponse()
@@ -97,20 +87,10 @@ class NeutronViewModel : BaseViewModel() {
         }
     }
 
-    fun loadMainDaoData(chainConfig: ChainConfig) = backScope.launch {
-        var contractAddress = ""
-        if (chainConfig.baseChain().equals(BaseChain.NEUTRON_TEST)) {
-            contractAddress = BaseConstant.NEUTRON_NTRN_DAO_TESTNET_ADDRESS
-        }
-        val loadData = listOf(async { getData(ConfigReq(Config()), chainConfig, contractAddress) })
-
-        _data.postValue(loadData.awaitAll())
-    }
-
-    fun loadDaoProposalListData(chainConfig: ChainConfig) = backScope.launch {
-        val loadData = listOf(async { getData(ProposalListReq(ProposalList()), chainConfig, BaseConstant.NEUTRON_NTRN_DAO_SINGLE_TESTNET_ADDRESS) },
-            async { getData(ProposalListReq(ProposalList()), chainConfig, BaseConstant.NEUTRON_NTRN_DAO_MULTI_TESTNET_ADDRESS) },
-            async { getData(ProposalListReq(ProposalList()), chainConfig, BaseConstant.NEUTRON_NTRN_DAO_OVERRULE_TESTNET_ADDRESS) })
+    fun loadDaoProposalListData(chainConfig: ChainConfig, proposalModules: List<ProposalModule?>) = backScope.launch {
+        val loadData = listOf(async { getData(ProposalListReq(ProposalList()), chainConfig, proposalModules[0]?.address) },
+            async { getData(ProposalListReq(ProposalList()), chainConfig, proposalModules[1]?.address) },
+            async { getData(ProposalListReq(ProposalList()), chainConfig, proposalModules[2]?.address) })
 
         _data.postValue(loadData.awaitAll())
     }
