@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.network.res.neutron
 
-data class ResConfigData(
+data class ResVaultData(
     val name: String?,
     val description: String?,
     val address: String?,

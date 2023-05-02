@@ -9,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.activities.txs.neutron.VaultActivity
-import wannabit.io.cosmostaion.base.BaseConstant
+import wannabit.io.cosmostaion.activities.txs.neutron.Vault.VaultActivity
 import wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VAULT_DEPOSIT
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentVaultStep0Binding
@@ -108,10 +107,10 @@ class VaultStep0Fragment : BaseFragment() {
                 setDpDecimals(mInputCoinDecimal)
                 WDp.setDpSymbol(requireContext(), baseDao, it, it.mainDenom(), tvSymbolCoin)
 
-                mMaxAvailable = if (getSActivity()?.mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
+                mMaxAvailable = if (getSActivity()?.mTxType == CONST_PW_TX_VAULT_DEPOSIT) {
                     baseDao.getAvailable(it.mainDenom()).subtract(WDp.getMainDenomFee(requireContext(), baseDao, it))
                 } else {
-                    BigDecimal(getSActivity()?.mDepositAmount)
+                    BigDecimal(baseDao.mVaultAmount)
                 }
                 tvMaxCoin.text = WDp.getDpAmount2(mMaxAvailable, mInputCoinDecimal, mInputCoinDecimal)
             }

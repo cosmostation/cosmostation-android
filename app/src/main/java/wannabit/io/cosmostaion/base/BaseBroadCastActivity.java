@@ -89,6 +89,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     // Liquid
     public HostZoneOuterClass.HostZone mHostZone;
 
+    public String mContractAddress;
+
     public void onNextStep() { }
 
     public void onBeforeStep() { }

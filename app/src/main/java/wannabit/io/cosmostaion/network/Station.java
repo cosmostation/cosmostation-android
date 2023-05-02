@@ -13,15 +13,14 @@ import wannabit.io.cosmostaion.dao.SupportPool;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResMintscanAssets;
-import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResProposal;
-import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.network.res.ResRelayer;
+import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
-import wannabit.io.cosmostaion.network.res.neutron.ResConfigData;
 import wannabit.io.cosmostaion.network.res.neutron.ResDaoData;
+import wannabit.io.cosmostaion.network.res.neutron.ResVaultData;
 
 public interface Station {
 
@@ -53,7 +52,7 @@ public interface Station {
     Call<ArrayList<SupportPool>> getSupportPools(@Path("chain") String chain);
 
     @GET("/cosmostation/chainlist/master/chain/{chain}/vaults.json")
-    Call<List<ResConfigData>> getVaultData(@Path("chain") String chain);
+    Call<List<ResVaultData>> getVaultData(@Path("chain") String chain);
 
     @GET("/cosmostation/chainlist/master/chain/{chain}/daos.json")
     Call<List<ResDaoData>> getDaoData(@Path("chain") String chain);

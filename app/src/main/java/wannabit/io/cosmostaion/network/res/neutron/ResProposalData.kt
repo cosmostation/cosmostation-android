@@ -19,3 +19,5 @@ data class Hold(val percent: String?)
 data class Quorum(val percent: String?)
 
 data class Choice(val index: Int?, val option_type: String?)
+
+data class Proposals(val contractAddress: String?, val proposals: ResProposalData?)

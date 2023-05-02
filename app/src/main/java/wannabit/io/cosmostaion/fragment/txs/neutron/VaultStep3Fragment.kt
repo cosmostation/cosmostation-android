@@ -13,7 +13,7 @@ import cosmos.base.abci.v1beta1.Abci
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity
-import wannabit.io.cosmostaion.activities.txs.neutron.VaultActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.Vault.VaultActivity
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
@@ -83,17 +83,14 @@ class VaultStep3Fragment : BaseFragment() {
     private fun onBroadCastTx() {
         getSActivity()?.let {
             var req: Any? = null
-            var contractAddress: String? = null
             if (it.mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
                 req = BondReq(Bond())
-                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS
             } else if (it.mTxType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
                 req = UnbondReq(Unbond(it.mAmount.amount))
-                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS
             }
 
             val broadcastTxRequest = Signer.getGrpcContractReq(
-                WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, contractAddress, it.mAmount,
+                WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, it.mContractAddress, it.mAmount,
                 it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain, it.mTxType)
             neutronViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
         }

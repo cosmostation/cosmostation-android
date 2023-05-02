@@ -27,13 +27,4 @@ class PersisViewModel : BaseViewModel() {
             _cValue.postValue("")
         }
     }
-
-    private var _txResponse = MutableLiveData<Abci.TxResponse>()
-    val txResponse: LiveData<Abci.TxResponse> get() = _txResponse
-
-    fun broadCastTx(baseChain: BaseChain, broadcastTxRequest: BroadcastTxRequest) = CoroutineScope(Dispatchers.IO).launch {
-        val txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain))
-        val response = txService.broadcastTx(broadcastTxRequest)
-        _txResponse.postValue(response.txResponse)
-    }
 }

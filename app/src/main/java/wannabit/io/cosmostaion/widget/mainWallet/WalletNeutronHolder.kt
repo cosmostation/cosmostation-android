@@ -6,13 +6,12 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.DaoListActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.NeutronDefiActivity
-import wannabit.io.cosmostaion.activities.txs.neutron.VaultListActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.Vault.VaultListActivity
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ItemWalletNeutronBinding
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.makeToast
 import wannabit.io.cosmostaion.widget.BaseHolder
-import java.math.BigDecimal
 
 class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
 

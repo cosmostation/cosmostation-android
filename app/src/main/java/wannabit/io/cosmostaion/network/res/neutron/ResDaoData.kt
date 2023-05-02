@@ -14,6 +14,6 @@ data class ProposalModule(
     val description: String?,
     val address: String?,
     val prefix: String?,
-    val status: String
+    val status: String?
 )
 

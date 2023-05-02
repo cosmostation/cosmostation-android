@@ -544,21 +544,16 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         } else {
             Object req = null;
-            String contractAddress = null;
             if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
                 req = new BondReq(new Bond());
-                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS;
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
                 req = new UnbondReq(new Unbond(getSActivity().mAmount.amount));
-                contractAddress = BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS;
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
                 req = new VoteReq(new Vote(getSActivity().mProposalId, getSActivity().mOpinion));
-                contractAddress = BaseConstant.NEUTRON_NTRN_DAO_SINGLE_TESTNET_ADDRESS;
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL) {
                 req = new MultiVoteReq(new MultiVote(getSActivity().mProposalId, new WeightVote(getSActivity().mOptionId)));
-                contractAddress = BaseConstant.NEUTRON_NTRN_DAO_MULTI_TESTNET_ADDRESS;
             }
-            new SimulContractExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, req, contractAddress, getSActivity().mAmount,
+            new SimulContractExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, req, getSActivity().mContractAddress, getSActivity().mAmount,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }

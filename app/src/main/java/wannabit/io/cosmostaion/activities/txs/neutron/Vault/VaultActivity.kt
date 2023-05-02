@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities.txs.neutron
+package wannabit.io.cosmostaion.activities.txs.neutron.Vault
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -24,13 +24,12 @@ class VaultActivity : BaseBroadCastActivity() {
 
     private lateinit var mPageAdapter: VaultPageAdapter
 
-    var mDepositAmount: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTxStepBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mTxType = intent.getIntExtra("txType", -1)
+        mContractAddress = intent.getStringExtra("contractAddress")
 
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -55,10 +54,8 @@ class VaultActivity : BaseBroadCastActivity() {
 
         if (mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
             binding.toolbarTitle.text = getString(R.string.str_vault_deposit)
-
         } else {
             binding.toolbarTitle.text = getString(R.string.str_vault_withdraw)
-            mDepositAmount = intent.getStringExtra("depositAmount")
         }
     }
 
