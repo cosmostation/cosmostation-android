@@ -33,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:layout_toLeftOf="@+id/vote_status"
                 android:maxLines="1" />
 
             <LinearLayout
@@ -57,16 +58,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6" />
+
+                <TextView
+                    android:id="@+id/proposal_expiration"
+                    style="@style/font_rr_11_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/proposal_expiration"
-                style="@style/font_rr_11_gray1"
+            <ImageView
+                android:id="@+id/vote_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/proposal_title"
-                android:layout_marginTop="@dimen/space_6"
-                android:visibility="gone" />
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/space_8"
+                android:src="@drawable/icon_vote_yes" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

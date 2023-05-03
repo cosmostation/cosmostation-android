@@ -1,10 +1,9 @@
-package wannabit.io.cosmostaion.activities.txs.neutron
+package wannabit.io.cosmostaion.activities.txs.neutron.dao
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import wannabit.io.cosmostaion.activities.txs.neutron.dao.DaoListAdapter
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.chains.ChainFactory

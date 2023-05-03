@@ -1,12 +1,12 @@
-package wannabit.io.cosmostaion.activities.txs.neutron
+package wannabit.io.cosmostaion.activities.txs.neutron.dao
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.gson.Gson
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseChain
@@ -18,7 +18,8 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment
 import wannabit.io.cosmostaion.fragment.StepMemoFragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.DaoVoteStep0Fragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.DaoVoteStep3Fragment
-import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
+import wannabit.io.cosmostaion.network.res.neutron.ProposalData
+import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
 
 class DaoProposalActivity : BaseBroadCastActivity() {
 
@@ -26,13 +27,13 @@ class DaoProposalActivity : BaseBroadCastActivity() {
 
     private lateinit var mPageAdapter: ProposalPageAdapter
 
-    private val neutronViewModel: NeutronViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDaoProposalBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mTxType = intent.getIntExtra("txType", -1)
+        mProposalModule = Gson().fromJson(intent.getStringExtra("proposalModule"), ProposalModule::class.java)
+        mProposalData = Gson().fromJson(intent.getStringExtra("proposalData"), ProposalData::class.java)
 
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -49,18 +50,18 @@ class DaoProposalActivity : BaseBroadCastActivity() {
 
         initView()
     }
+
     private fun initView() {
         mAccount = baseDao.onSelectAccount(baseDao.lastUser)
         mBaseChain = BaseChain.getChain(mAccount.baseChain)
         mChainConfig = ChainFactory.getChain(mBaseChain)
 
-        intent.getStringExtra("proposal_id")?.let {
-            if (mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
-                neutronViewModel.loadDaoSingleProposalData(mChainConfig, it.toInt())
-            } else {
-                neutronViewModel.loadDaoMultiProposalData(mChainConfig, it.toInt())
+        binding.apply {
+            when (mTxType) {
+                BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL -> toolbarTitle.text = getString(R.string.str_dao_single_vote)
+                BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL -> toolbarTitle.text = getString(R.string.str_dao_multi_vote)
+                BaseConstant.CONST_PW_TX_DAO_OVERRULE_PROPOSAL -> toolbarTitle.text = getString(R.string.str_dao_overrule_vote)
             }
-            mProposalId = it.toInt()
         }
     }
 
@@ -128,10 +129,7 @@ class DaoProposalActivity : BaseBroadCastActivity() {
 
     class ProposalPageAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
         val fragmentList = listOf(
-            DaoVoteStep0Fragment(),
-            StepMemoFragment.newInstance(),
-            StepFeeSetFragment.newInstance(),
-            DaoVoteStep3Fragment()
+            DaoVoteStep0Fragment(), StepMemoFragment.newInstance(), StepFeeSetFragment.newInstance(), DaoVoteStep3Fragment()
         )
 
         override fun getItemCount(): Int {

@@ -1089,6 +1089,7 @@
     <string name="error_ledger_open_msg">레저에서 코스모스 앱을 실행하세요.</string>
     <string name="error_no_staking">해당 체인은 스테이킹을 지원하지 않습니다.</string>
     <string name="error_no_withdraw_vault">볼트에 예치된 양이 없습니다.</string>
+    <string name="error_no_revote">재투표를 지원하지 않는 프로포절 입니다.</string>
 
 
     <string name="tx_send">보내기</string>
@@ -1338,6 +1339,9 @@
     <string name="str_vault_deposit">볼트 입금</string>
     <string name="str_vault_withdraw">볼트 출금</string>
     <string name="str_dao_list">다오 목록</string>
+    <string name="str_dao_single_vote">다오 투표 (싱글)</string>
+    <string name="str_dao_multi_vote">다오 투표 (멀티)</string>
+    <string name="str_dao_overrule_vote">다오 투표 (오버룰)</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

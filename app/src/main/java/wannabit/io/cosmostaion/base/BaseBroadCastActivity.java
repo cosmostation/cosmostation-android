@@ -16,6 +16,8 @@ import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.network.res.neutron.ProposalData;
+import wannabit.io.cosmostaion.network.res.neutron.ProposalModule;
 
 public class BaseBroadCastActivity extends BaseActivity {
 
@@ -90,6 +92,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public HostZoneOuterClass.HostZone mHostZone;
 
     public String mContractAddress;
+    public ProposalModule mProposalModule;
+    public ProposalData mProposalData;
 
     public void onNextStep() { }
 

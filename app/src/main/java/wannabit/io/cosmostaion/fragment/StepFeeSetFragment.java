@@ -159,7 +159,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.DisplayUtils;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -549,9 +548,11 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
                 req = new UnbondReq(new Unbond(getSActivity().mAmount.amount));
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
-                req = new VoteReq(new Vote(getSActivity().mProposalId, getSActivity().mOpinion));
+                req = new VoteReq(new Vote(Integer.parseInt(getSActivity().mProposalData.getId()), getSActivity().mOpinion));
+                getSActivity().mContractAddress = getSActivity().mProposalModule.getAddress();
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL) {
-                req = new MultiVoteReq(new MultiVote(getSActivity().mProposalId, new WeightVote(getSActivity().mOptionId)));
+                req = new MultiVoteReq(new MultiVote(Integer.parseInt(getSActivity().mProposalData.getId()), new WeightVote(getSActivity().mOptionId)));
+                getSActivity().mContractAddress = getSActivity().mProposalModule.getAddress();
             }
             new SimulContractExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, req, getSActivity().mContractAddress, getSActivity().mAmount,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

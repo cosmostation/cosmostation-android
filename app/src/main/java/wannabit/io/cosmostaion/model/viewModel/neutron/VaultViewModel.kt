@@ -42,11 +42,6 @@ class VaultViewModel(private val vaultRepository: VaultRepository) : BaseViewMod
                     _vaultDepositData.postValue(response)
                 }
             }
-
-//            val loadData = listOf(async { vaultRepository.getVaultDepositData(TotalPowerReq(TotalPower()), chainConfig, contractAddress) },
-//                async { vaultRepository.getVaultDepositData(VotingPowerReq(VotingPower(account.address)), chainConfig, contractAddress) })
-//
-//            _vaultDepositdata.postValue(loadData.awaitAll())
         } catch (_: Exception) { }
     }
 }

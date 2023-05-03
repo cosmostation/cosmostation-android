@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.View
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
-import wannabit.io.cosmostaion.activities.txs.neutron.DaoListActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.dao.DaoListActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.NeutronDefiActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.Vault.VaultListActivity
 import wannabit.io.cosmostaion.base.chains.ChainFactory

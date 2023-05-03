@@ -13,7 +13,7 @@ import cosmos.base.abci.v1beta1.Abci
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity
-import wannabit.io.cosmostaion.activities.txs.neutron.DaoProposalActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.dao.DaoProposalActivity
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
@@ -46,9 +46,9 @@ class DaoVoteStep3Fragment : BaseFragment() {
             getSActivity()?.let {
                 WDp.setDpCoin(requireContext(), baseDao, baseActivity.mChainConfig, it.mTxFee.amount[0], feeSymbol, feeAmount)
                 if (it.mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
-                    myOpinion.text = "# " + it.mProposalId + " - " + it.mOpinion
+                    myOpinion.text = "# " + it.mProposalData.id + " - " + it.mOpinion
                 } else {
-                    myOpinion.text = "# " + it.mProposalId + " - " + it.mOptionId
+                    myOpinion.text = "# " + it.mProposalData.id + " - " + it.mOptionId
                 }
                 memo.text = it.mTxMemo
             }

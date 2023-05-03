@@ -1189,6 +1189,7 @@
     <string name="error_ledger_open_msg">Open Cosmos app on Ledger.</string>
     <string name="error_no_staking">The chain does not support staking.</string>
     <string name="error_no_withdraw_vault">No amount deposited in the vault.</string>
+    <string name="error_no_revote">No amount deposited in the vault.</string>
 
 
     <string name="tx_send">Send</string>
@@ -1444,6 +1445,9 @@
     <string name="str_dao_multi_list" translatable="false">Multi Proposal</string>
     <string name="str_vault_max_depositable" translatable="false">Max Depositable</string>
     <string name="str_vault_max_withdrawable" translatable="false">Max Withdrawable</string>
+    <string name="str_dao_single_vote">Dao Vote (Single)</string>
+    <string name="str_dao_multi_vote">Dao Vote (Multi)</string>
+    <string name="str_dao_overrule_vote">Dao Vote (Overrule)</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

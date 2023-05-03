@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.activities.txs.neutron.MainDaoProposalListActivity
 import wannabit.io.cosmostaion.base.BaseData
 import wannabit.io.cosmostaion.base.chains.ChainConfig
 import wannabit.io.cosmostaion.databinding.ItemDaoBinding
@@ -68,21 +67,10 @@ class DaoListAdapter(
                     myVotingPower.text = WDp.getDpAmount2(BigDecimal(baseDao.mVaultAmount), chainConfig.decimal(), chainConfig.decimal())
 
                     cardRoot.setOnClickListener {
-                        if (position == 0) {
-                            Intent(context, MainDaoProposalListActivity::class.java).apply {
-                                context.startActivity(this)
-                            }
+                        Intent(context, DaoProposalListActivity::class.java).apply {
+                            putExtra("position", position)
+                            context.startActivity(this)
                         }
-//                    if (position == 0) {
-//                        Intent(this@DaoListActivity, MainDaoProposalListActivity::class.java).apply {
-//                            startActivity(this)
-//                        }
-//                    } else {
-//                        Intent(this@DaoListActivity, SubDaoProposalListActivity::class.java).apply {
-//                            putExtra("contractAddress", daoInfo.proposal_modules[0]?.address)
-//                            startActivity(this)
-//                        }
-//                    }
                     }
                 }
             }

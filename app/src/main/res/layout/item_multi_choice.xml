@@ -22,9 +22,22 @@
             style="@style/font_rr_14_gray_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginLeft="@dimen/space_15"
+            android:layout_marginTop="@dimen/space_12"
             android:text="Yes" />
+
+        <TextView
+            android:id="@+id/choice_description"
+            style="@style/font_rr_12_gray1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/choice_title"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginLeft="@dimen/space_15"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_marginBottom="@dimen/space_12"
+            />
 
         <ImageView
             android:id="@+id/choice_img"

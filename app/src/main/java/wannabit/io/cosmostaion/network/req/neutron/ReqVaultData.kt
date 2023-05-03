@@ -11,3 +11,6 @@ class ProposalList
 
 data class ProposalDataReq(val proposal: Proposal)
 data class Proposal(val proposal_id: Int)
+
+data class ProposalMyVote(val get_vote: MyVote)
+data class MyVote(val proposal_id: Int, val voter: String)

@@ -1087,6 +1087,7 @@
     <string name="error_ledger_open_msg">Ledger で Cosmos アプリを開きます。</string>
     <string name="error_no_staking">このチェーンはステーキングをサポートしていません。</string>
     <string name="error_no_withdraw_vault">ボルトに預けられた量がありません。</string>
+    <string name="error_no_revote">No amount deposited in the vault.</string>
 
 
     <string name="tx_send">送る</string>
@@ -1336,6 +1337,9 @@
     <string name="str_vault_deposit">ボルト入金</string>
     <string name="str_vault_withdraw">ボルト出金</string>
     <string name="str_dao_list">ダオリスト</string>
+    <string name="str_dao_single_vote">Dao 投票です (シングル)</string>
+    <string name="str_dao_multi_vote">ダオ投票 (複数)</string>
+    <string name="str_dao_overrule_vote">ダオ投票 (オーバールール)</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

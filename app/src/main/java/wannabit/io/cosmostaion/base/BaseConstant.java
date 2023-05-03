@@ -233,6 +233,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_VAULT_WITHDRAW = 5087;
     public final static int CONST_PW_TX_DAO_SINGLE_PROPOSAL = 5088;
     public final static int CONST_PW_TX_DAO_MULTI_PROPOSAL = 5089;
+    public final static int CONST_PW_TX_DAO_OVERRULE_PROPOSAL = 5090;
 
 
     public final static int ERROR_CODE_UNKNOWN = 8000;

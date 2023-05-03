@@ -56,6 +56,16 @@
                         android:singleLine="true" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/proposal_description"
+                    style="@style/font_rr_12_black_daynight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
