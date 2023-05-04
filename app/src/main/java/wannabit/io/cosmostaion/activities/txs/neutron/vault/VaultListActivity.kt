@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities.txs.neutron.Vault
+package wannabit.io.cosmostaion.activities.txs.neutron.vault
 
 import android.content.Intent
 import android.net.Uri

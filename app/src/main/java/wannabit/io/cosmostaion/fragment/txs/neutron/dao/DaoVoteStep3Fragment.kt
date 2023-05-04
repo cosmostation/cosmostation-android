@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.neutron
+package wannabit.io.cosmostaion.fragment.txs.neutron.dao
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,34 +8,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import cosmos.base.abci.v1beta1.Abci
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity
-import wannabit.io.cosmostaion.activities.txs.neutron.Vault.VaultActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.dao.DaoProposalActivity
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.cosmos.Signer
-import wannabit.io.cosmostaion.databinding.FragmentVaultStep3Binding
-import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
-import wannabit.io.cosmostaion.network.req.neutron.Bond
-import wannabit.io.cosmostaion.network.req.neutron.BondReq
-import wannabit.io.cosmostaion.network.req.neutron.Unbond
-import wannabit.io.cosmostaion.network.req.neutron.UnbondReq
+import wannabit.io.cosmostaion.databinding.FragmentDaoVoteStep3Binding
+import wannabit.io.cosmostaion.model.factory.neutron.DaoViewModelProviderFactory
+import wannabit.io.cosmostaion.model.repository.neutron.DaoRepository
+import wannabit.io.cosmostaion.model.viewModel.neutron.DaoViewModel
+import wannabit.io.cosmostaion.network.req.neutron.*
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 
-class VaultStep3Fragment : BaseFragment() {
+class DaoVoteStep3Fragment : BaseFragment() {
 
-    private var _binding: FragmentVaultStep3Binding? = null
+    private var _binding: FragmentDaoVoteStep3Binding? = null
     private val binding get() = _binding!!
 
-    private val neutronViewModel: NeutronViewModel by viewModels()
+    private lateinit var daoViewModel: DaoViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentVaultStep3Binding.inflate(layoutInflater, container, false)
+        _binding = FragmentDaoVoteStep3Binding.inflate(layoutInflater, container, false)
+        val daoViewModelFactory = DaoViewModelProviderFactory(DaoRepository())
+        daoViewModel = ViewModelProvider(this, daoViewModelFactory)[DaoViewModel::class.java]
         return binding.root
     }
 
@@ -45,24 +46,27 @@ class VaultStep3Fragment : BaseFragment() {
     }
 
     override fun onRefreshTab() {
-        getSActivity()?.let {
-            binding.apply {
-                WDp.setDpCoin(requireContext(), baseDao, baseActivity.mChainConfig, it.mTxFee.amount[0], feeAmountSymbol, feeAmount)
-                WDp.setDpCoin(context, baseDao, baseActivity.mChainConfig, it.mAmount, vaultAmountSymbol, vaultAmount)
+        binding.apply {
+            getSActivity()?.let {
+                WDp.setDpCoin(requireContext(), baseDao, baseActivity.mChainConfig, it.mTxFee.amount[0], feeSymbol, feeAmount)
+                if (it.mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
+                    myOpinion.text = "# ${it.mProposalData.id} - ${it.mOpinion}"
+                } else {
+                    myOpinion.text = "# ${it.mProposalData.id} - ${it.mOptionId}"
+                }
                 memo.text = it.mTxMemo
             }
         }
     }
 
     private fun onClick() {
-        binding.btnBefore.setOnClickListener { getSActivity()?.onBeforeStep() }
-
-        binding.btnConfirm.setOnClickListener {
-            onStartLiquid()
+        binding.apply {
+            btnBefore.setOnClickListener { getSActivity()?.onBeforeStep() }
+            btnConfirm.setOnClickListener { onStartVote() }
         }
     }
 
-    private fun onStartLiquid() {
+    private fun onStartVote() {
         if (baseDao.isAutoPass) {
             onBroadCastTx()
         } else {
@@ -83,19 +87,19 @@ class VaultStep3Fragment : BaseFragment() {
     private fun onBroadCastTx() {
         getSActivity()?.let {
             var req: Any? = null
-            if (it.mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
-                req = BondReq(Bond())
-            } else if (it.mTxType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
-                req = UnbondReq(Unbond(it.mAmount.amount))
+            if (it.mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
+                req = VoteReq(Vote(it.mProposalData.id?.toInt(), it.mOpinion))
+            } else if (it.mTxType == BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL) {
+                req = MultiVoteReq(MultiVote(it.mProposalData.id?.toInt(), WeightVote(it.mOptionId)))
             }
 
             val broadcastTxRequest = Signer.getGrpcContractReq(
-                WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, it.mContractAddress, it.mAmount,
+                WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, it.mProposalModule.address, it.mAmount,
                 it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain, it.mTxType)
-            neutronViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
+            daoViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
         }
 
-        neutronViewModel.txResponse.observe(viewLifecycleOwner) {
+        daoViewModel.txResponse.observe(requireActivity()) {
             intentInfo(it)
         }
     }
@@ -121,7 +125,7 @@ class VaultStep3Fragment : BaseFragment() {
         super.onDestroyView()
     }
 
-    private fun getSActivity(): VaultActivity? {
-        return baseActivity as? VaultActivity
+    private fun getSActivity(): DaoProposalActivity? {
+        return baseActivity as? DaoProposalActivity
     }
 }

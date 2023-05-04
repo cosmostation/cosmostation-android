@@ -558,7 +558,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.txs.neutron.Vault.VaultListActivity"
+            android:name=".activities.txs.neutron.vault.VaultListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
@@ -568,12 +568,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.txs.neutron.NeutronDefiActivity"
+            android:name=".activities.txs.neutron.defi.NeutronDefiActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.txs.neutron.Vault.VaultActivity"
+            android:name=".activities.txs.neutron.vault.VaultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />

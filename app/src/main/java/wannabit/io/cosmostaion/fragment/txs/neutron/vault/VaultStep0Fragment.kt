@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.neutron
+package wannabit.io.cosmostaion.fragment.txs.neutron.vault
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.activities.txs.neutron.Vault.VaultActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.vault.VaultActivity
 import wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VAULT_DEPOSIT
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentVaultStep0Binding

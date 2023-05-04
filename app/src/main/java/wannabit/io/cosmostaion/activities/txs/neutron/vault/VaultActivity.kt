@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities.txs.neutron.Vault
+package wannabit.io.cosmostaion.activities.txs.neutron.vault
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -15,8 +15,8 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityTxStepBinding
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment
 import wannabit.io.cosmostaion.fragment.StepMemoFragment
-import wannabit.io.cosmostaion.fragment.txs.neutron.VaultStep0Fragment
-import wannabit.io.cosmostaion.fragment.txs.neutron.VaultStep3Fragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.vault.VaultStep0Fragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.vault.VaultStep3Fragment
 
 class VaultActivity : BaseBroadCastActivity() {
 

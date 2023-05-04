@@ -16,8 +16,8 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityDaoProposalBinding
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment
 import wannabit.io.cosmostaion.fragment.StepMemoFragment
-import wannabit.io.cosmostaion.fragment.txs.neutron.DaoVoteStep0Fragment
-import wannabit.io.cosmostaion.fragment.txs.neutron.DaoVoteStep3Fragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.dao.DaoVoteStep0Fragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.dao.DaoVoteStep3Fragment
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
 

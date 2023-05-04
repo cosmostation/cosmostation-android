@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.neutron.dao
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +30,7 @@ class DaoListActivity : BaseActivity() {
 
         initView()
         onSwipeRefresh()
+        onClick()
         onShowWaitDialog()
     }
 
@@ -66,6 +69,15 @@ class DaoListActivity : BaseActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun onClick() {
+        binding.btnExplorer.setOnClickListener {
+            // dao list link
+            val url = mChainConfig.explorerUrl()
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
         }
     }
 

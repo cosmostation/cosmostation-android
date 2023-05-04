@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities.txs.neutron
+package wannabit.io.cosmostaion.activities.txs.neutron.defi
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2.*
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
@@ -15,8 +15,8 @@ import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityNeutronDefiBinding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
-import wannabit.io.cosmostaion.fragment.txs.neutron.NeutronPoolFragment
-import wannabit.io.cosmostaion.fragment.txs.neutron.NeutronSwapFragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.defi.NeutronPoolFragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.defi.NeutronSwapFragment
 import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
 
 class NeutronDefiActivity : BaseActivity() {
@@ -27,14 +27,11 @@ class NeutronDefiActivity : BaseActivity() {
 
     private val neutronViewModel: NeutronViewModel by viewModels()
 
-    private var mAllDenoms = ArrayList<String>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNeutronDefiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.toolbarTitle.text = getText(R.string.str_liquid_staking)
         mAccount = baseDao.onSelectAccount(baseDao.lastUser)
         mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain))
 
@@ -50,9 +47,6 @@ class NeutronDefiActivity : BaseActivity() {
 
         createTab()
         onSetPageSelected()
-
-        neutronViewModel.loadData(mChainConfig)
-        onDataObserve()
     }
 
     private fun onSetPageSelected() {
@@ -75,28 +69,25 @@ class NeutronDefiActivity : BaseActivity() {
     }
 
     fun createTab() {
-        TabLayoutMediator(binding.labTab, binding.labViewPager) { tab, position ->
-            val tabBinding = ViewTabMyvalidatorBinding.inflate(layoutInflater)
-            when (position) {
-                0 -> tabBinding.tabItemText.setText(R.string.title_liquid_staking)
-                else -> tabBinding.tabItemText.setText(R.string.str_swap)
-            }
-            tabBinding.tabItemText.setTextColor(
-                ContextCompat.getColorStateList(
-                    this, mChainConfig.chainTabColor()
+        binding.apply {
+            TabLayoutMediator(labTab, labViewPager) { tab, position ->
+                val tabBinding = ViewTabMyvalidatorBinding.inflate(layoutInflater)
+                when (position) {
+                    0 -> tabBinding.tabItemText.setText(R.string.str_swap)
+                    else -> tabBinding.tabItemText.setText(R.string.str_pool)
+                }
+                tabBinding.tabItemText.setTextColor(
+                    ContextCompat.getColorStateList(
+                        this@NeutronDefiActivity, mChainConfig.chainTabColor()
+                    )
                 )
-            )
-            tab.customView = tabBinding.root
-            binding.labTab.setSelectedTabIndicatorColor(
-                ContextCompat.getColor(
-                    this, mChainConfig.chainColor()
+                tab.customView = tabBinding.root
+                labTab.setSelectedTabIndicatorColor(
+                    ContextCompat.getColor(
+                        this@NeutronDefiActivity, mChainConfig.chainColor()
+                    )
                 )
-            )
-        }.attach()
-    }
-
-    fun onDataObserve() {
-        neutronViewModel.pair.observe(this) { response ->
+            }.attach()
         }
     }
 

@@ -23,7 +23,7 @@
             style="@style/font_rr_17_black_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-" />
+            android:text="Neutron DeFi" />
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout

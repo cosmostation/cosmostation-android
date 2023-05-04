@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.neutron
+package wannabit.io.cosmostaion.fragment.txs.neutron.defi
 
 import android.os.Bundle
 import android.view.LayoutInflater

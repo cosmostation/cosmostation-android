@@ -5,8 +5,8 @@ import android.view.View
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.dao.DaoListActivity
-import wannabit.io.cosmostaion.activities.txs.neutron.NeutronDefiActivity
-import wannabit.io.cosmostaion.activities.txs.neutron.Vault.VaultListActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronDefiActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.vault.VaultListActivity
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ItemWalletNeutronBinding
 import wannabit.io.cosmostaion.utils.WDp
