@@ -64,7 +64,7 @@ class DaoListAdapter(
                     moduleCount.text = daoInfo.proposal_modules.size.toString()
                     daoUrl.text = daoInfo.dao_uri
 
-                    myVotingPower.text = WDp.getDpAmount2(BigDecimal(baseDao.mVaultAmount), chainConfig.decimal(), chainConfig.decimal())
+                    myVotingPower.text = WDp.getDpAmount2(baseDao.vaultAmount, chainConfig.decimal(), chainConfig.decimal())
 
                     cardRoot.setOnClickListener {
                         Intent(context, DaoProposalListActivity::class.java).apply {

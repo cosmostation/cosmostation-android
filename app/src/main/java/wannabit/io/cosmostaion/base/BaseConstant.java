@@ -322,6 +322,9 @@ public class BaseConstant {
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM = "station";
 
+    //Dev Mintscan Api
+    public final static String DEV_MINTSCAN_API_URL = "https://dev.api.mintscan.io/";
+
 
     public final static BigDecimal DAY_SEC = new BigDecimal("86400");
     public final static BigDecimal MONTH_SEC = DAY_SEC.multiply(new BigDecimal("30"));

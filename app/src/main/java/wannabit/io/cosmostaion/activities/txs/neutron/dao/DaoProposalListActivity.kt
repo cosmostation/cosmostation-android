@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.model.repository.neutron.DaoRepository
 import wannabit.io.cosmostaion.model.viewModel.neutron.DaoViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
+import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WLog
 import wannabit.io.cosmostaion.utils.makeToast
@@ -29,7 +30,10 @@ class DaoProposalListActivity : BaseActivity() {
 
     private lateinit var daoViewModel: DaoViewModel
 
-    private var isShowAll = false
+    private var proposalModules = listOf<ProposalModule?>()
+    private var proposalMyVoteStatus = listOf<ResMyVoteStatus>()
+
+    private var isShowAll: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,23 +73,28 @@ class DaoProposalListActivity : BaseActivity() {
     }
 
     private fun loadDataObserve() {
-        var proposalModuleList = listOf<ProposalModule?>()
         daoViewModel.daoListData.observe(this) { response ->
             response?.let { daoData ->
                 val contractAddressList = mutableListOf<String?>()
-                proposalModuleList = daoData[intent.getIntExtra("position", -1)]?.proposal_modules!!
-                proposalModuleList.forEach {
+                proposalModules = daoData[intent.getIntExtra("position", -1)]?.proposal_modules!!
+                proposalModules.forEach {
                     contractAddressList.add(it?.address)
                 }
                 daoViewModel.loadDaoProposalListData(mChainConfig, contractAddressList)
             }
+            onHideWaitDialog()
         }
 
         daoViewModel.daoProposalListData.observe(this) { response ->
             response?.let {
-                binding.recycler.layoutManager = LinearLayoutManager(this@DaoProposalListActivity)
-                binding.recycler.adapter = DaoProposalListAdapter(this, mChainConfig, proposalModuleList, it, listener = voteClickAction)
-                binding.recycler.addItemDecoration(DaoProposalListHeader(this, true, it, getSectionCall()))
+                daoViewModel.loadDaoProposalMyVoteData(mChainConfig, mAccount)
+            }
+        }
+
+        daoViewModel.daoMyVoteStatusData.observe(this) { response ->
+            onHideWaitDialog()
+            response?.let {
+                proposalMyVoteStatus = it
                 onUpdateView()
             }
         }
@@ -93,9 +102,12 @@ class DaoProposalListActivity : BaseActivity() {
 
     private fun onUpdateView() {
         binding.apply {
-            daoViewModel.daoProposalListData.value?.let {
-                emptyProposal.visibleOrGone(it.isEmpty())
-                onHideWaitDialog()
+            daoViewModel.daoProposalListData.value?.let { pairs ->
+                recycler.layoutManager = LinearLayoutManager(this@DaoProposalListActivity)
+                recycler.adapter = DaoProposalListAdapter(this@DaoProposalListActivity, mChainConfig, proposalModules, getProposals(pairs), proposalMyVoteStatus, voteClickAction)
+                recycler.addItemDecoration(DaoProposalListHeader(this@DaoProposalListActivity, true, getProposals(pairs), getSectionCall()))
+
+                emptyProposal.visibleOrGone(getProposals(pairs).isEmpty())
                 recycler.adapter?.notifyDataSetChanged()
             }
         }
@@ -135,14 +147,12 @@ class DaoProposalListActivity : BaseActivity() {
 
     private fun onCheckShowAll() {
         binding.apply {
-            checkShowAll.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) {
+            checkShowAll.setOnCheckedChangeListener { _, _ ->
+                daoViewModel.daoProposalListData.value?.let {
                     isShowAll = !isShowAll
-                } else {
-
                 }
+                recycler.adapter?.notifyDataSetChanged()
             }
-            recycler.adapter?.notifyDataSetChanged()
         }
     }
 
@@ -221,5 +231,19 @@ class DaoProposalListActivity : BaseActivity() {
                 return ""
             }
         }
+    }
+
+    private fun getProposals(pairs: List<Pair<String?, ProposalData?>>) : MutableList<Pair<String?, ProposalData?>> {
+        var proposalPairs = mutableListOf<Pair<String?, ProposalData?>>()
+        if (isShowAll) {
+            proposalPairs = pairs.toMutableList()
+        } else {
+            pairs.forEach {
+                if ("executed" == it.second?.proposal?.status) {
+                    proposalPairs.add(Pair(it.first, it.second))
+                }
+            }
+        }
+        return proposalPairs
     }
 }

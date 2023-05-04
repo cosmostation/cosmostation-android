@@ -5,12 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.base.chains.ChainConfig
+import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.model.repository.neutron.DaoRepository
 import wannabit.io.cosmostaion.model.viewModel.BaseViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ResDaoData
+import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
 import wannabit.io.cosmostaion.network.res.neutron.ResProposalData
-import wannabit.io.cosmostaion.utils.WLog
 
 class DaoViewModel(private val daoRepository: DaoRepository) : BaseViewModel() {
 
@@ -36,27 +37,20 @@ class DaoViewModel(private val daoRepository: DaoRepository) : BaseViewModel() {
         try {
             val proposalMap = contractAddressList.flatMap { address ->
                 val response = daoRepository.getDaoProposalListData(chainConfig, address)
-                    Gson().fromJson(response, ResProposalData::class.java).proposals.map { Pair(address, it) }
+                Gson().fromJson(response, ResProposalData::class.java).proposals.map { Pair(address, it) }
             }
             _daoProposalListData.postValue(proposalMap)
         } catch (_: Exception) { }
     }
 
-    fun loadDaoProposalMyVoteData(chainConfig: ChainConfig, contractAddressList: MutableList<String?>) = backScope.launch {
+    private var _daoMyVoteStatusData = MutableLiveData<List<ResMyVoteStatus>>()
+    val daoMyVoteStatusData: LiveData<List<ResMyVoteStatus>> get() = _daoMyVoteStatusData
+
+    fun loadDaoProposalMyVoteData(chainConfig: ChainConfig, account: Account) = backScope.launch {
         try {
-
-        } catch (_: Exception) { }
-    }
-
-    private var _daoProposalData = MutableLiveData<String?>()
-    val daoProposalData: LiveData<String?> get() = _daoProposalData
-
-    fun loadDaoProposalData(chainConfig: ChainConfig, contractAddress: String, proposalId: Int) = backScope.launch {
-        try {
-            daoRepository.getDaoProposalData(chainConfig, contractAddress, proposalId).let { response ->
-                response?.let {
-                    WLog.w("Test1234 : $it")
-                    _daoProposalData.postValue(response)
+            daoRepository.getMyVoteStatus(chainConfig, account).let { response ->
+                if (response.isSuccessful) {
+                    _daoMyVoteStatusData.postValue(response.body())
                 }
             }
         } catch (_: Exception) { }

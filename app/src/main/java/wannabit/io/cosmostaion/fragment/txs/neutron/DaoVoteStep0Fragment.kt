@@ -48,6 +48,10 @@ class DaoVoteStep0Fragment : BaseFragment() {
                     proposalDescription.text = proposalData.proposal?.description
                     proposalData.proposal?.expiration?.at_time?.toLong()?.let { expiration ->
                         proposalDeadline.text = WDp.getDpTime(requireContext(), expiration.div(1000000)) + " " + WDp.getGapTime(expiration.div(1000000))
+                    } ?: run {
+                        proposalData.proposal?.expiration?.at_height?.let {
+                            proposalDeadline.text = "Expiration at : ${it} Block"
+                        }
                     }
                 }
             }

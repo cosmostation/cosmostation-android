@@ -24,3 +24,17 @@ data class Quorum(val percent: String?)
 data class Choice(val index: Int?, val option_type: String?, val description: String?)
 
 data class Proposals(val contractAddress: String?, val proposals: ResProposalData?)
+
+data class ResMyVoteStatus(
+    val id: Int?,
+    val chain: String?,
+    val chain_id: String?,
+    val height: Long?,
+    val tx_hash: String?,
+    val contract_address: String?,
+    val address: String?,
+    val proposal_id: Int?,
+    val power: String?,
+    val option: String?,
+    val voted_at: String?
+)

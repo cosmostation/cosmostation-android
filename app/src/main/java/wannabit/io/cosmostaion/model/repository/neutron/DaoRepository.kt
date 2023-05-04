@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.network.ChannelBuilder
 import wannabit.io.cosmostaion.network.req.neutron.*
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ResDaoData
+import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
 import java.util.concurrent.TimeUnit
 
 class DaoRepository {
@@ -37,12 +38,8 @@ class DaoRepository {
         return null
     }
 
-    fun getDaoProposalData(chainConfig: ChainConfig, contractAddress: String?, proposalId: Int): String? {
-        try {
-            val req = ProposalDataReq(Proposal(proposalId))
-            return getData(req, chainConfig, contractAddress)
-        } catch (_: Exception) { }
-        return null
+    suspend fun getMyVoteStatus(chainConfig: ChainConfig, account: Account): Response<List<ResMyVoteStatus>> {
+        return ApiClient.getNeutron().getDaoMyVoteStatus(chainConfig.chainName(), account.address).awaitResponse()
     }
 
     fun getData(req: Any?, chainConfig: ChainConfig, contractAddress: String?): String? {
