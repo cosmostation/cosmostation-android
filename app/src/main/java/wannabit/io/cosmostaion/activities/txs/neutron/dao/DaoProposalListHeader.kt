@@ -16,9 +16,9 @@ import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 
 class DaoProposalListHeader(
     context: Context,
-    private val sticky: Boolean,
-    private val pairs: List<Pair<String?, ProposalData?>>,
-    private val sectionCallback: SectionCallback
+    private val sticky: Boolean = true,
+    var pairs: List<Pair<String?, ProposalData?>> = listOf(),
+    var sectionCallback: SectionCallback
 ) : ItemDecoration() {
 
     private val topPadding: Int = dpToPx(context, 34)
@@ -39,18 +39,18 @@ class DaoProposalListHeader(
             fixLayoutSize(headerView, parent)
         }
 
-        val headerTitleSet: MutableSet<String> = Sets.newHashSet()
+        val headerTitleSet: MutableSet<String?> = Sets.newHashSet()
         for (i in 0 until parent.childCount) {
             val child = parent.getChildAt(i)
             val position = parent.getChildAdapterPosition(child)
             if (position == RecyclerView.NO_POSITION) return
 
-            val title = sectionCallback.sectionHeader(pairs, position)
-            val cnt = sectionCallback.sectionCnt(pairs, position)
+            val title = sectionCallback?.sectionHeader(pairs, position)
+            val cnt = sectionCallback?.sectionCnt(pairs, position)
             mHeaderTitle?.text = title
             mItemCnt?.text = cnt
 
-            if (!headerTitleSet.contains(title) || sectionCallback.isSection(pairs, position) == true) {
+            if (!headerTitleSet.contains(title) || sectionCallback?.isSection(pairs, position) == true) {
                 drawHeader(c, child, headerView)
                 headerTitleSet.add(title)
             }
@@ -60,7 +60,7 @@ class DaoProposalListHeader(
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         val position = parent.getChildAdapterPosition(view)
-        if (sectionCallback.isSection(pairs, position) == true) {
+        if (sectionCallback?.isSection(pairs, position) == true) {
             outRect.top = topPadding
         }
     }

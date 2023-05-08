@@ -13,13 +13,14 @@ import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
 import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.makeToast
 
 class DaoProposalListAdapter(
     private val context: Context,
     val chainConfig: ChainConfig,
-    private val proposalModuleList: List<ProposalModule?>,
-    private val pairs: List<Pair<String?, ProposalData?>> = listOf(),
-    private val proposalMyVoteStatus: List<ResMyVoteStatus>,
+    var proposalModuleList: List<ProposalModule?> = listOf(),
+    var pairs: List<Pair<String?, ProposalData?>> = listOf(),
+    var proposalMyVoteStatus: List<ResMyVoteStatus> = listOf(),
     var listener: ClickListener
 ) : RecyclerView.Adapter<DaoProposalListAdapter.DaoProposalHolder>() {
 
@@ -30,9 +31,7 @@ class DaoProposalListAdapter(
         return DaoProposalHolder(binding)
     }
 
-    override fun onBindViewHolder(
-        holder: DaoProposalHolder, position: Int
-    ) {
+    override fun onBindViewHolder(holder: DaoProposalHolder, position: Int) {
         holder.bind(position)
     }
 
@@ -40,9 +39,7 @@ class DaoProposalListAdapter(
         return pairs.size
     }
 
-    inner class DaoProposalHolder(
-        private val itemDaoProposalListBinding: ItemDaoProposalListBinding
-    ) : RecyclerView.ViewHolder(itemDaoProposalListBinding.root) {
+    inner class DaoProposalHolder(private val itemDaoProposalListBinding: ItemDaoProposalListBinding) : RecyclerView.ViewHolder(itemDaoProposalListBinding.root) {
         fun bind(position: Int) {
             itemDaoProposalListBinding.apply {
                 pairs[position].let { pairData ->
@@ -65,28 +62,61 @@ class DaoProposalListAdapter(
                         } else {
                             when (proposalData.proposal?.status) {
                                 "executed", "passed" -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_passed_img))
-                                "rejected, failed" -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_rejected_img))
+                                "rejected", "failed" -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_rejected_img))
                             }
                             proposalStatus.text = proposalData.proposal?.status?.capitalize()
                         }
 
                         pairData.first?.let { address ->
-                            proposalMyVoteStatus.forEach {
-                                if (address == it.contract_address && proposalData.id?.toInt() == it.proposal_id) {
-
+                            val myStatus = proposalMyVoteStatus.find { item -> item.contract_address == address && item.proposal_id == proposalData.id?.toInt() }?.option
+                            if (myStatus != null) {
+                                if (isInteger(myStatus)) {
+                                    voteStatus.visibility = View.GONE
+                                    multiVoteStatus.text = "Option $myStatus"
+                                } else {
+                                    voteStatus.visibility = View.VISIBLE
+                                    multiVoteStatus.text = ""
+                                    when (myStatus) {
+                                        "yes" -> voteStatus.setImageResource(R.drawable.icon_vote_yes)
+                                        "no" -> voteStatus.setImageResource(R.drawable.icon_vote_no)
+                                        "abstain" -> voteStatus.setImageResource(R.drawable.icon_vote_abstain)
+                                    }
                                 }
+                            } else {
+                                voteStatus.visibility = View.VISIBLE
+                                multiVoteStatus.text = ""
+                                voteStatus.setImageResource(R.drawable.icon_vote_not_voted)
                             }
-
 
                             cardRoot.setOnClickListener {
                                 proposalModuleList.find { it?.address.equals(address) }?.let {
-                                    listener.voteClickAction(proposalData, it)
+                                    if ("open" != proposalData.proposal?.status) {
+                                        context.makeToast(R.string.error_not_voting_period)
+                                        return@setOnClickListener
+
+                                    } else {
+                                        if (!proposalData.proposal.allow_revoting && myStatus != null) {
+                                            context.makeToast(R.string.error_no_revote)
+                                            return@setOnClickListener
+                                        } else {
+                                            listener.voteClickAction(proposalData, it)
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        }
+    }
+
+    fun isInteger(option: String?): Boolean {
+        return try {
+            option?.toInt()
+            true
+        } catch (e: java.lang.NumberFormatException) {
+            false
         }
     }
 

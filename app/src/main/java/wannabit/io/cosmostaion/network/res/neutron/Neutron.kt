@@ -7,5 +7,5 @@ import retrofit2.http.Path
 interface Neutron {
 
     @GET("v1/{chain}/dao/address/{address}/votes")
-    suspend fun getDaoMyVoteStatus(@Path("chain") chain: String?, @Path("address") address: String?): Call<List<ResMyVoteStatus>>
+    fun getDaoMyVoteStatus(@Path("chain") chain: String?, @Path("address") address: String?): Call<List<ResMyVoteStatus>>
 }

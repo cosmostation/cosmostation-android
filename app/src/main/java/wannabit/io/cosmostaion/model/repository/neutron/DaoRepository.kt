@@ -10,8 +10,10 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.ChannelBuilder
-import wannabit.io.cosmostaion.network.req.neutron.*
-import wannabit.io.cosmostaion.network.res.neutron.ProposalData
+import wannabit.io.cosmostaion.network.req.neutron.MyVote
+import wannabit.io.cosmostaion.network.req.neutron.ProposalList
+import wannabit.io.cosmostaion.network.req.neutron.ProposalListReq
+import wannabit.io.cosmostaion.network.req.neutron.ProposalMyVote
 import wannabit.io.cosmostaion.network.res.neutron.ResDaoData
 import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
 import java.util.concurrent.TimeUnit
