@@ -2,9 +2,9 @@ package wannabit.io.cosmostaion.activities.txs.neutron.defi
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayoutMediator
@@ -17,7 +17,9 @@ import wannabit.io.cosmostaion.databinding.ActivityNeutronDefiBinding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
 import wannabit.io.cosmostaion.fragment.txs.neutron.defi.NeutronPoolFragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.defi.NeutronSwapFragment
-import wannabit.io.cosmostaion.model.viewModel.NeutronViewModel
+import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
+import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
+import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
 
 class NeutronDefiActivity : BaseActivity() {
 
@@ -25,7 +27,7 @@ class NeutronDefiActivity : BaseActivity() {
 
     private lateinit var mPageAdapter: NeutronDefiPageAdapter
 
-    private val neutronViewModel: NeutronViewModel by viewModels()
+    private lateinit var astroportViewModel: AstroportViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,9 @@ class NeutronDefiActivity : BaseActivity() {
 
         createTab()
         onSetPageSelected()
+
+        val astroportViewModelProviderFactory = AstroportViewModelProviderFactory(AstroportRepository())
+        astroportViewModel = ViewModelProvider(this, astroportViewModelProviderFactory)[AstroportViewModel::class.java]
     }
 
     private fun onSetPageSelected() {
@@ -68,7 +73,7 @@ class NeutronDefiActivity : BaseActivity() {
         }
     }
 
-    fun createTab() {
+    private fun createTab() {
         binding.apply {
             TabLayoutMediator(labTab, labViewPager) { tab, position ->
                 val tabBinding = ViewTabMyvalidatorBinding.inflate(layoutInflater)

@@ -6,6 +6,9 @@ import retrofit2.http.Path
 
 interface Neutron {
 
-    @GET("v1/{chain}/dao/address/{address}/votes")
-    fun getDaoMyVoteStatus(@Path("chain") chain: String?, @Path("address") address: String?): Call<List<ResMyVoteStatus>>
+    @GET("/cosmostation/chainlist/master/chain/{chain}/vaults.json")
+    fun getVaultData(@Path("chain") chain: String?): Call<List<ResVaultData>>
+
+    @GET("/cosmostation/chainlist/master/chain/{chain}/daos.json")
+    fun getDaoData(@Path("chain") chain: String?): Call<List<ResDaoData>>
 }

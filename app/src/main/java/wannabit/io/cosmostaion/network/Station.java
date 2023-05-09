@@ -19,8 +19,7 @@ import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResRelayer;
 import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
-import wannabit.io.cosmostaion.network.res.neutron.ResDaoData;
-import wannabit.io.cosmostaion.network.res.neutron.ResVaultData;
+import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus;
 
 public interface Station {
 
@@ -51,17 +50,14 @@ public interface Station {
     @GET("/cosmostation/chainlist/master/chain/{chain}/pool.json")
     Call<ArrayList<SupportPool>> getSupportPools(@Path("chain") String chain);
 
-    @GET("/cosmostation/chainlist/master/chain/{chain}/vaults.json")
-    Call<List<ResVaultData>> getVaultData(@Path("chain") String chain);
-
-    @GET("/cosmostation/chainlist/master/chain/{chain}/daos.json")
-    Call<List<ResDaoData>> getDaoData(@Path("chain") String chain);
-
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);
 
     @GET("v2/relayer/{chainId}/{channelId}")
     Call<ResRelayer> getRelayer(@Path("chainId") String chainId, @Path("channelId") String channelId);
+
+    @GET("v1/{chain}/dao/address/{address}/votes")
+    Call<List<ResMyVoteStatus>> getDaoMyVoteStatus(@Path("chain") String chain, @Path("address") String address);
 
     @GET("v1/{chain}/evm/tx/{etherTxHash}")
     Call<Object> getEvmTxHash(@Path("chain") String chain, @Path("etherTxHash") String etherTxHash);

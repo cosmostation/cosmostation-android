@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 class VaultRepository {
 
     suspend fun getVaultData(chainConfig: ChainConfig): Response<List<ResVaultData>> {
-        return ApiClient.getChainBase().getVaultData(chainConfig.chainName()).awaitResponse()
+        return ApiClient.getNeutron().getVaultData(chainConfig.chainName()).awaitResponse()
     }
 
     fun getVaultDepositData(chainConfig: ChainConfig, contractAddress: String?): String? {

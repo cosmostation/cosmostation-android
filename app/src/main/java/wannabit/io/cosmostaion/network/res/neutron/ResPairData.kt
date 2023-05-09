@@ -8,7 +8,10 @@ data class Pair(
     val liquidity_token: String,
 )
 
-data class AssetInfo(val native_token: NativeToken?, val token: Token?)
+data class AssetInfo(
+    val native_token: NativeToken?,
+    val token: Token?
+)
 
 data class NativeToken(val denom: String)
 data class Token(val contract_addr: String)

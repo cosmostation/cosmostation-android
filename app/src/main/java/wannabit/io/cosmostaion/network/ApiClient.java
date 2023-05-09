@@ -36,12 +36,26 @@ public class ApiClient {
         return mintscan;
     }
 
+    private static Station devMintscan = null;
+    public static Station getDevMintscan() {
+        if (devMintscan == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BaseConstant.DEV_MINTSCAN_API_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                devMintscan = retrofit.create(Station.class);
+            }
+        }
+        return devMintscan;
+    }
+
     private static Neutron neutron = null;
     public static Neutron getNeutron(){
         if (neutron == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(BaseConstant.DEV_MINTSCAN_API_URL)
+                        .baseUrl(BaseConstant.CHAIN_BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 neutron = retrofit.create(Neutron.class);

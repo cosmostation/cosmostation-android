@@ -4,34 +4,20 @@ import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import cosmwasm.wasm.v1.QueryGrpc
 import cosmwasm.wasm.v1.QueryOuterClass
-import retrofit2.Response
-import retrofit2.awaitResponse
 import wannabit.io.cosmostaion.base.chains.ChainConfig
-import wannabit.io.cosmostaion.dao.Account
-import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.ChannelBuilder
-import wannabit.io.cosmostaion.network.req.neutron.ProposalList
-import wannabit.io.cosmostaion.network.req.neutron.ProposalListReq
-import wannabit.io.cosmostaion.network.res.neutron.ResDaoData
-import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
+import wannabit.io.cosmostaion.network.req.neutron.Pairs
+import wannabit.io.cosmostaion.network.req.neutron.SwapListReq
 import java.util.concurrent.TimeUnit
 
-class DaoRepository {
+class AstroportRepository {
 
-    suspend fun getDaoData(chainConfig: ChainConfig): Response<List<ResDaoData>> {
-        return ApiClient.getNeutron().getDaoData(chainConfig.chainName()).awaitResponse()
-    }
-
-    fun getDaoProposalListData(chainConfig: ChainConfig, contractAddress: String?): String? {
+    fun getSwapPairListData(chainConfig: ChainConfig, contractAddress: String?): String? {
         try {
-            val req = ProposalListReq(ProposalList())
+            val req = SwapListReq(Pairs())
             return getData(req, chainConfig, contractAddress)
         } catch (_: Exception) { }
         return null
-    }
-
-    suspend fun getMyVoteStatus(chainConfig: ChainConfig, account: Account): Response<List<ResMyVoteStatus>> {
-        return ApiClient.getDevMintscan().getDaoMyVoteStatus(chainConfig.chainName(), account.address).awaitResponse()
     }
 
     fun getData(req: Any?, chainConfig: ChainConfig, contractAddress: String?): String? {
