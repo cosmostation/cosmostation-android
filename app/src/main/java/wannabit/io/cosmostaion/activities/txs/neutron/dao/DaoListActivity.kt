@@ -74,8 +74,7 @@ class DaoListActivity : BaseActivity() {
 
     private fun onClick() {
         binding.btnExplorer.setOnClickListener {
-            // dao list link
-            val url = mChainConfig.explorerUrl()
+            val url = mChainConfig.explorerUrl() + "dao/proposals"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
         }
