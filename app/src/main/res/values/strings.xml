@@ -136,6 +136,7 @@
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_title">Wallet</string>
     <string name="str_vote_show_all">Show all</string>
+    <string name="str_no_period_proposal">No Period Proposals</string>
 
     <string name="str_mnemonic_manage">Manage Mnemonic / Add Wallet</string>
     <string name="str_mnemonic_detail">Mnemonic Detail</string>
