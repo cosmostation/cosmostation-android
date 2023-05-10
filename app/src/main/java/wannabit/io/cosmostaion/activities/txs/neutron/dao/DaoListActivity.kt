@@ -62,16 +62,6 @@ class DaoListActivity : BaseActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     private fun onClick() {
         binding.btnExplorer.setOnClickListener {
             val url = mChainConfig.explorerUrl() + "dao/proposals"

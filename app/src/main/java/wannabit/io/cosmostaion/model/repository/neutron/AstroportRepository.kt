@@ -5,9 +5,9 @@ import com.google.protobuf.ByteString
 import cosmwasm.wasm.v1.QueryGrpc
 import cosmwasm.wasm.v1.QueryOuterClass
 import wannabit.io.cosmostaion.base.chains.ChainConfig
+import wannabit.io.cosmostaion.model.type.Coin
 import wannabit.io.cosmostaion.network.ChannelBuilder
-import wannabit.io.cosmostaion.network.req.neutron.Pairs
-import wannabit.io.cosmostaion.network.req.neutron.SwapListReq
+import wannabit.io.cosmostaion.network.req.neutron.*
 import java.util.concurrent.TimeUnit
 
 class AstroportRepository {
@@ -15,6 +15,14 @@ class AstroportRepository {
     fun getSwapPairListData(chainConfig: ChainConfig, contractAddress: String?): String? {
         try {
             val req = SwapListReq(Pairs())
+            return getData(req, chainConfig, contractAddress)
+        } catch (_: Exception) { }
+        return null
+    }
+
+    fun getSwapRateData(chainConfig: ChainConfig, offerCoin: Coin, askDenom: String, contractAddress: String?): String? {
+        try {
+            val req = SwapRateReq(Simulation(OfferAsset(Info(NativeToken(offerCoin.denom)), offerCoin.amount), AskAssetInfo(NativeToken(askDenom))))
             return getData(req, chainConfig, contractAddress)
         } catch (_: Exception) { }
         return null

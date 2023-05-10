@@ -46,16 +46,6 @@ class DaoProposalListActivity : BaseActivity() {
         onCheckShowAll()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     fun initView() {
         binding.apply {
             mAccount = baseDao.onSelectAccount(baseDao.lastUser)

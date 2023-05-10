@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.activities.txs.neutron.defi
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -15,8 +14,8 @@ import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityNeutronDefiBinding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
-import wannabit.io.cosmostaion.fragment.txs.neutron.defi.NeutronPoolFragment
-import wannabit.io.cosmostaion.fragment.txs.neutron.defi.NeutronSwapFragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.defi.NeutronLiquidityFragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap.NeutronSwapFragment
 import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
 import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
 import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
@@ -63,23 +62,13 @@ class NeutronDefiActivity : BaseActivity() {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     private fun createTab() {
         binding.apply {
             TabLayoutMediator(labTab, labViewPager) { tab, position ->
                 val tabBinding = ViewTabMyvalidatorBinding.inflate(layoutInflater)
                 when (position) {
                     0 -> tabBinding.tabItemText.setText(R.string.str_swap)
-                    else -> tabBinding.tabItemText.setText(R.string.str_pool)
+                    else -> tabBinding.tabItemText.setText("Liquidity")
                 }
                 tabBinding.tabItemText.setTextColor(
                     ContextCompat.getColorStateList(
@@ -97,7 +86,7 @@ class NeutronDefiActivity : BaseActivity() {
     }
 
     class NeutronDefiPageAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-        val fragments = listOf(NeutronSwapFragment(), NeutronPoolFragment())
+        val fragments = listOf(NeutronSwapFragment(), NeutronLiquidityFragment())
 
         override fun getItemCount(): Int {
             return fragments.size

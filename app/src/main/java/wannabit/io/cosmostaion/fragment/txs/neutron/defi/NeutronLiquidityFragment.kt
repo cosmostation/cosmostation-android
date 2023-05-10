@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentNeutronPoolBinding
-import wannabit.io.cosmostaion.databinding.FragmentNeutronSwapBinding
 
-class NeutronPoolFragment : BaseFragment() {
+class NeutronLiquidityFragment : BaseFragment() {
 
     private var _binding: FragmentNeutronPoolBinding? = null
     private val binding get() = _binding!!

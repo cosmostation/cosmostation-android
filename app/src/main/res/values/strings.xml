@@ -945,7 +945,7 @@
     <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
     <string name="str_token_swap_rate_coin">Rate</string>
     <string name="str_token_swap_fee">Swap Fee</string>
-    <string name="str_token_swap_start">START SWAP</string>
+    <string name="str_token_swap_start">Start Swap</string>
     <string name="str_select_coin_swap_in">Select Coin to Swap In</string>
     <string name="str_select_coin_swap_out">Select Coin to Swap Out</string>
     <string name="str_pool_total_liquidity_value">Total Deposited Value (TVL)</string>
@@ -1517,4 +1517,6 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

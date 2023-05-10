@@ -86,16 +86,6 @@ class VaultActivity : BaseBroadCastActivity() {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun onBackPressed() {
         onHideKeyboard()
         if (binding.viewPager.currentItem > 0) {

@@ -97,8 +97,13 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.req.neutron.Bond;
 import wannabit.io.cosmostaion.network.req.neutron.BondReq;
+import wannabit.io.cosmostaion.network.req.neutron.InfoData;
 import wannabit.io.cosmostaion.network.req.neutron.MultiVote;
 import wannabit.io.cosmostaion.network.req.neutron.MultiVoteReq;
+import wannabit.io.cosmostaion.network.req.neutron.NativeData;
+import wannabit.io.cosmostaion.network.req.neutron.Offer;
+import wannabit.io.cosmostaion.network.req.neutron.Swap;
+import wannabit.io.cosmostaion.network.req.neutron.SwapReq;
 import wannabit.io.cosmostaion.network.req.neutron.Unbond;
 import wannabit.io.cosmostaion.network.req.neutron.UnbondReq;
 import wannabit.io.cosmostaion.network.req.neutron.Vote;
@@ -553,6 +558,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL) {
                 req = new MultiVoteReq(new MultiVote(Integer.parseInt(getSActivity().mProposalData.getId()), new WeightVote(getSActivity().mOptionId)));
                 getSActivity().mContractAddress = getSActivity().mProposalModule.getAddress();
+            } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_NEUTRON_SWAP) {
+                req = new SwapReq(new Swap(new Offer(new InfoData(new NativeData(getSActivity().mAmount.denom)), getSActivity().mAmount.amount)));
             }
             new SimulContractExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, req, getSActivity().mContractAddress, getSActivity().mAmount,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

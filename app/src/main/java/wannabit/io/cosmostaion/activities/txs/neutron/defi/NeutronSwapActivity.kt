@@ -1,40 +1,40 @@
-package wannabit.io.cosmostaion.activities.txs.neutron.dao
+package wannabit.io.cosmostaion.activities.txs.neutron.defi
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.gson.Gson
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
-import wannabit.io.cosmostaion.databinding.ActivityDaoProposalBinding
+import wannabit.io.cosmostaion.databinding.ActivityNeutronSwapBinding
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment
 import wannabit.io.cosmostaion.fragment.StepMemoFragment
-import wannabit.io.cosmostaion.fragment.txs.neutron.dao.DaoVoteStep0Fragment
-import wannabit.io.cosmostaion.fragment.txs.neutron.dao.DaoVoteStep3Fragment
-import wannabit.io.cosmostaion.network.res.neutron.ProposalData
-import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
+import wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap.NeutronSwapStep0Fragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap.NeutronSwapStep3Fragment
 
-class DaoProposalActivity : BaseBroadCastActivity() {
+class NeutronSwapActivity : BaseBroadCastActivity() {
 
-    private lateinit var binding: ActivityDaoProposalBinding
+    private lateinit var binding: ActivityNeutronSwapBinding
 
     private lateinit var mPageAdapter: ProposalPageAdapter
 
+    var inputDenom: String? = ""
+    var outputDenom: String? = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDaoProposalBinding.inflate(layoutInflater)
+        binding = ActivityNeutronSwapBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        mTxType = intent.getIntExtra("txType", -1)
-        mProposalModule = Gson().fromJson(intent.getStringExtra("proposalModule"), ProposalModule::class.java)
-        mProposalData = Gson().fromJson(intent.getStringExtra("proposalData"), ProposalData::class.java)
+        initView()
+        loadData()
+    }
 
+    private fun initView() {
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -47,21 +47,17 @@ class DaoProposalActivity : BaseBroadCastActivity() {
         binding.viewPager.offscreenPageLimit = 3
         onSetPageSelected()
         binding.rootView.setOnClickListener { onHideKeyboard() }
-
-        initView()
     }
 
-    private fun initView() {
+    private fun loadData() {
         mAccount = baseDao.onSelectAccount(baseDao.lastUser)
         mBaseChain = BaseChain.getChain(mAccount.baseChain)
         mChainConfig = ChainFactory.getChain(mBaseChain)
+        mTxType = BaseConstant.CONST_PW_TX_NEUTRON_SWAP
 
-        binding.apply {
-            when (mTxType) {
-                BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL -> toolbarTitle.text = getString(R.string.str_dao_single_vote)
-                BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL -> toolbarTitle.text = getString(R.string.str_dao_multi_vote)
-                BaseConstant.CONST_PW_TX_DAO_OVERRULE_PROPOSAL -> toolbarTitle.text = getString(R.string.str_dao_overrule_vote)
-            }
+        intent.apply {
+            inputDenom = getStringExtra("inputDenom")
+            outputDenom = getStringExtra("outputDenom")
         }
     }
 
@@ -71,20 +67,20 @@ class DaoProposalActivity : BaseBroadCastActivity() {
                 mPageAdapter.fragmentList[position].onRefreshTab()
                 when (position) {
                     0 -> {
-                        binding.sendStep.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalActivity, R.drawable.step_4_img_1))
-                        binding.sendStepMsg.text = getString(R.string.str_vote_step_0)
+                        binding.step.setImageDrawable(ContextCompat.getDrawable(this@NeutronSwapActivity, R.drawable.step_4_img_1))
+                        binding.stepMsg.text = getString(R.string.str_swap_step_0)
                     }
                     1 -> {
-                        binding.sendStep.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalActivity, R.drawable.step_4_img_2))
-                        binding.sendStepMsg.text = getString(R.string.str_tx_step_memo)
+                        binding.step.setImageDrawable(ContextCompat.getDrawable(this@NeutronSwapActivity, R.drawable.step_4_img_2))
+                        binding.stepMsg.text = getString(R.string.str_tx_step_memo)
                     }
                     2 -> {
-                        binding.sendStep.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalActivity, R.drawable.step_4_img_3))
-                        binding.sendStepMsg.text = getString(R.string.str_tx_step_fee)
+                        binding.step.setImageDrawable(ContextCompat.getDrawable(this@NeutronSwapActivity, R.drawable.step_4_img_3))
+                        binding.stepMsg.text = getString(R.string.str_tx_step_fee)
                     }
                     else -> {
-                        binding.sendStep.setImageDrawable(ContextCompat.getDrawable(this@DaoProposalActivity, R.drawable.step_4_img_4))
-                        binding.sendStepMsg.text = getString(R.string.str_tx_step_confirm)
+                        binding.step.setImageDrawable(ContextCompat.getDrawable(this@NeutronSwapActivity, R.drawable.step_4_img_4))
+                        binding.stepMsg.text = getString(R.string.str_tx_step_confirm)
                     }
                 }
                 super.onPageSelected(position)
@@ -119,7 +115,7 @@ class DaoProposalActivity : BaseBroadCastActivity() {
 
     class ProposalPageAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
         val fragmentList = listOf(
-            DaoVoteStep0Fragment(), StepMemoFragment.newInstance(), StepFeeSetFragment.newInstance(), DaoVoteStep3Fragment()
+            NeutronSwapStep0Fragment(), StepMemoFragment.newInstance(), StepFeeSetFragment.newInstance(), NeutronSwapStep3Fragment()
         )
 
         override fun getItemCount(): Int {

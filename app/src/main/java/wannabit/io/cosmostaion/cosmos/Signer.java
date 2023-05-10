@@ -1144,7 +1144,7 @@ public class Signer {
 
         String jsonData = new Gson().toJson(req);
         ByteString msg = ByteString.copyFromUtf8(jsonData);
-        if (type == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
+        if (type == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT || type == BaseConstant.CONST_PW_TX_NEUTRON_SWAP) {
             CoinOuterClass.Coin fundCoin = CoinOuterClass.Coin.newBuilder().setAmount(fund.amount).setDenom(fund.denom).build();
             msgExecuteContract = MsgExecuteContract.newBuilder().setSender(fromAddress).setContract(contractAddress).setMsg(msg).addFunds(fundCoin).build();
         } else {

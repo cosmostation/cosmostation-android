@@ -15,3 +15,5 @@ data class AssetInfo(
 
 data class NativeToken(val denom: String)
 data class Token(val contract_addr: String)
+
+data class ResSwapRateData(val return_amount: String, val spread_amount: String, val commission_amount: String)
