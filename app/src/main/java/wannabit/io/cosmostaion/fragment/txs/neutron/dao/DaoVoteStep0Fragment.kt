@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentDaoVoteStep0Binding
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.makeToast
 
 class DaoVoteStep0Fragment : BaseFragment() {
 
@@ -91,22 +92,22 @@ class DaoVoteStep0Fragment : BaseFragment() {
     }
 
     fun onClick() {
-        var mMyVote: String? = null
+        var myVote: String? = null
         with(binding) {
             getSActivity()?.let { extend ->
                 checkBtnYes.setOnClickListener {
-                    mMyVote = "yes"
-                    onCheckUpdateView(mMyVote)
+                    myVote = "yes"
+                    onCheckUpdateView(myVote)
                 }
 
                 checkBtnNo.setOnClickListener {
-                    mMyVote = "no"
-                    onCheckUpdateView(mMyVote)
+                    myVote = "no"
+                    onCheckUpdateView(myVote)
                 }
 
                 checkBtnAbstain.setOnClickListener {
-                    mMyVote = "abstain"
-                    onCheckUpdateView(mMyVote)
+                    myVote = "abstain"
+                    onCheckUpdateView(myVote)
                 }
 
                 btnCancel.setOnClickListener {
@@ -115,11 +116,24 @@ class DaoVoteStep0Fragment : BaseFragment() {
 
                 btnNext.setOnClickListener {
                     if (extend.mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
-                        extend.mOpinion = mMyVote
+                        if (myVote != null) {
+                            extend.mOpinion = myVote
+                            extend.onNextStep()
+                        } else {
+                            requireActivity().makeToast(R.string.error_not_selected_vote)
+                            return@setOnClickListener
+                        }
+
+                    } else if (extend.mTxType == BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL) {
+                        if (extend.mOptionId != -1) {
+                            extend.onNextStep()
+                        } else {
+                            requireActivity().makeToast(R.string.error_not_selected_vote)
+                            return@setOnClickListener
+                        }
                     } else {
 
                     }
-                    extend.onNextStep()
                 }
             }
         }

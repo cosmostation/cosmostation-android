@@ -18,13 +18,23 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/choice_title"
-            style="@style/font_rr_14_gray_daynight"
+            android:id="@+id/choice_option_id"
+            style="@style/font_rm_14_gray_daynight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_15"
             android:layout_marginTop="@dimen/space_12"
-            android:text="Yes" />
+            android:text="0." />
+
+        <TextView
+            android:id="@+id/choice_title"
+            style="@style/font_rr_14_gray_daynight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_toRightOf="@+id/choice_option_id"
+            android:text="Test" />
 
         <TextView
             android:id="@+id/choice_description"

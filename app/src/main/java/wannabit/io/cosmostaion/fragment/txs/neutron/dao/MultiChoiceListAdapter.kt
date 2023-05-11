@@ -39,6 +39,7 @@ class MultiChoiceListAdapter(
         fun bind(position: Int) {
             itemMultiChoiceBinding.apply {
                 choiceList?.get(position)?.let { choiceInfo ->
+                    choiceOptionId.text = "${position}."
                     choiceTitle.text = choiceInfo.option_type
                     choiceDescription.text = choiceInfo.description
 
@@ -49,10 +50,12 @@ class MultiChoiceListAdapter(
                     }
 
                     if (optionId == choiceInfo.index) {
+                        choiceOptionId.setTextColor(ContextCompat.getColor(context, R.color.colorBlackDayNight))
                         choiceTitle.setTextColor(ContextCompat.getColor(context, R.color.colorBlackDayNight))
                         choiceLayout.background = context.resources.getDrawable(R.drawable.box_vote_selected)
                         choiceImg.setColorFilter(ContextCompat.getColor(context, R.color.colorBlackDayNight), android.graphics.PorterDuff.Mode.SRC_IN)
                     } else {
+                        choiceOptionId.setTextColor(ContextCompat.getColor(context, R.color.colorGrayDayNight))
                         choiceTitle.setTextColor(ContextCompat.getColor(context, R.color.colorGrayDayNight))
                         choiceLayout.background = context.resources.getDrawable(R.drawable.box_vote_quorum)
                         choiceImg.setColorFilter(ContextCompat.getColor(context, R.color.colorGrayDayNight), android.graphics.PorterDuff.Mode.SRC_IN);
