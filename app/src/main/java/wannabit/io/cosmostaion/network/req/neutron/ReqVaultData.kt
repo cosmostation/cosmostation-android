@@ -9,5 +9,8 @@ data class VotingPower(val address: String)
 data class ProposalListReq(val reverse_proposals: ProposalList)
 class ProposalList
 
-data class ProposalDataReq(val proposal: Proposal)
-data class Proposal(val proposal_id: Int)
+data class GroupContractReq(val group_contract: GroupContract)
+class GroupContract
+
+data class ListMemberReq(val list_members: ListMember)
+class ListMember

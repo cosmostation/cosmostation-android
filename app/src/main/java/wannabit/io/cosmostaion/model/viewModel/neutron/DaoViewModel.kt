@@ -8,10 +8,8 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.model.repository.neutron.DaoRepository
 import wannabit.io.cosmostaion.model.viewModel.BaseViewModel
-import wannabit.io.cosmostaion.network.res.neutron.ProposalData
-import wannabit.io.cosmostaion.network.res.neutron.ResDaoData
-import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
-import wannabit.io.cosmostaion.network.res.neutron.ResProposalData
+import wannabit.io.cosmostaion.network.res.neutron.*
+import kotlin.Pair
 
 class DaoViewModel(private val daoRepository: DaoRepository) : BaseViewModel() {
 
@@ -54,5 +52,22 @@ class DaoViewModel(private val daoRepository: DaoRepository) : BaseViewModel() {
                 }
             }
         } catch (_: Exception) { }
+    }
+
+    private var _daoMemberStatus = MutableLiveData<ResMemberList?>()
+    val daoMemberStatus: LiveData<ResMemberList?> get() = _daoMemberStatus
+
+    fun loadMemberList(chainConfig: ChainConfig, contractAddress: String?) =  backScope.launch {
+        try {
+            daoRepository.getListMemberData(chainConfig, contractAddress)?.let { response ->
+                if (response.isNotEmpty()) {
+                    _daoMemberStatus.postValue(Gson().fromJson(response, ResMemberList::class.java))
+                } else {
+                    _daoMemberStatus.postValue(null)
+                }
+            }
+        } catch (_: Exception) {
+            _daoMemberStatus.postValue(null)
+        }
     }
 }

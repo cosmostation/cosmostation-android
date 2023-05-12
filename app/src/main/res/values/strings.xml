@@ -1191,6 +1191,7 @@
     <string name="error_no_staking">The chain does not support staking.</string>
     <string name="error_no_withdraw_vault">No amount deposited in the vault.</string>
     <string name="error_no_revote">No amount deposited in the vault.</string>
+    <string name="error_not_dao_member">You are not this Dao member.</string>
 
 
     <string name="tx_send">Send</string>
@@ -1450,6 +1451,7 @@
     <string name="str_dao_multi_vote">Dao Vote (Multi)</string>
     <string name="str_dao_overrule_vote">Dao Vote (Overrule)</string>
     <string name="str_astro_swap">Swap</string>
+    <string name="str_astro_description" translatable="false">Astroport is an AMM(Automated Market Maker)-style\ndecentralized exchange built with\nCosmWasm smart contracts.</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

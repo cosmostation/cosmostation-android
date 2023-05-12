@@ -10,8 +10,7 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.ChannelBuilder
-import wannabit.io.cosmostaion.network.req.neutron.ProposalList
-import wannabit.io.cosmostaion.network.req.neutron.ProposalListReq
+import wannabit.io.cosmostaion.network.req.neutron.*
 import wannabit.io.cosmostaion.network.res.neutron.ResDaoData
 import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
 import java.util.concurrent.TimeUnit
@@ -32,6 +31,14 @@ class DaoRepository {
 
     suspend fun getMyVoteStatus(chainConfig: ChainConfig, account: Account): Response<List<ResMyVoteStatus>> {
         return ApiClient.getDevMintscan().getDaoMyVoteStatus(chainConfig.chainName(), account.address).awaitResponse()
+    }
+
+    fun getListMemberData(chainConfig: ChainConfig, contractAddress: String?): String? {
+        try {
+            val req = ListMemberReq(ListMember())
+            return getData(req, chainConfig, contractAddress)
+        } catch (_: Exception) { }
+        return null
     }
 
     fun getData(req: Any?, chainConfig: ChainConfig, contractAddress: String?): String? {

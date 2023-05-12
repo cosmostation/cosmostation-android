@@ -1091,6 +1091,7 @@
     <string name="error_no_staking">해당 체인은 스테이킹을 지원하지 않습니다.</string>
     <string name="error_no_withdraw_vault">볼트에 예치된 양이 없습니다.</string>
     <string name="error_no_revote">재투표를 지원하지 않는 프로포절 입니다.</string>
+    <string name="error_not_dao_member">이 Dao의 회원이 아닙니다.</string>
 
 
     <string name="tx_send">보내기</string>

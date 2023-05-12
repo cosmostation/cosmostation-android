@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.network.res.neutron
 
 data class ResProposalData(val proposals: List<ProposalData?>)
-
-
 data class ProposalData(val id: String?, val proposal: Proposal?)
 
 data class Proposal(
@@ -23,8 +21,6 @@ data class Quorum(val percent: String?)
 
 data class Choice(val index: Int?, val option_type: String?, val description: String?)
 
-data class Proposals(val contractAddress: String?, val proposals: ResProposalData?)
-
 data class ResMyVoteStatus(
     val id: Int?,
     val chain: String?,
@@ -38,3 +34,6 @@ data class ResMyVoteStatus(
     val option: String?,
     val voted_at: String?
 )
+
+data class ResMemberList(val members: List<Member>)
+data class Member(val addr: String?, val weight: Int?)

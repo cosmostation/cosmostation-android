@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.chains.ChainConfig
+import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.databinding.ItemDaoProposalListBinding
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
@@ -18,9 +19,11 @@ import wannabit.io.cosmostaion.utils.makeToast
 class DaoProposalListAdapter(
     private val context: Context,
     val chainConfig: ChainConfig,
+    val account: Account,
     var proposalModuleList: List<ProposalModule?> = listOf(),
     var pairs: List<Pair<String?, ProposalData?>> = listOf(),
     var proposalMyVoteStatus: List<ResMyVoteStatus> = listOf(),
+    var daoMemberList: MutableList<String?> = mutableListOf(),
     var listener: ClickListener
 ) : RecyclerView.Adapter<DaoProposalListAdapter.DaoProposalHolder>() {
 
@@ -90,6 +93,13 @@ class DaoProposalListAdapter(
 
                             cardRoot.setOnClickListener {
                                 proposalModuleList.find { it?.address.equals(address) }?.let {
+                                    if (daoMemberList.size > 0) {
+                                        if (!daoMemberList.contains(account.address)) {
+                                            context.makeToast(R.string.error_not_dao_member)
+                                            return@setOnClickListener
+                                        }
+                                    }
+
                                     if ("open" != proposalData.proposal?.status) {
                                         context.makeToast(R.string.error_not_voting_period)
                                         return@setOnClickListener

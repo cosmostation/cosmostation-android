@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities.txs.neutron.dao
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -51,7 +50,7 @@ class DaoProposalListActivity : BaseActivity() {
             mAccount = baseDao.onSelectAccount(baseDao.lastUser)
             mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain))
 
-            adapter = DaoProposalListAdapter(this@DaoProposalListActivity, mChainConfig, listener = voteClickAction)
+            adapter = DaoProposalListAdapter(this@DaoProposalListActivity, mChainConfig, mAccount, listener = voteClickAction)
             header = DaoProposalListHeader(this@DaoProposalListActivity, sectionCallback = getSectionCall())
 
             setSupportActionBar(toolBar)
@@ -72,6 +71,10 @@ class DaoProposalListActivity : BaseActivity() {
                     contractAddressList.add(it?.address)
                 }
                 daoViewModel.loadDaoProposalListData(mChainConfig, contractAddressList)
+                val groupContractAddress = daoData[intent.getIntExtra("position", -1)]?.group_contract_address
+                if (groupContractAddress != null) {
+                    daoViewModel.loadMemberList(mChainConfig, groupContractAddress)
+                }
             }
         }
 
@@ -85,9 +88,21 @@ class DaoProposalListActivity : BaseActivity() {
 
         daoViewModel.daoMyVoteStatusData.observe(this) { response ->
             response?.let {
-                onHideWaitDialog()
                 adapter.proposalMyVoteStatus = it
+                onHideWaitDialog()
                 onUpdateView()
+            }
+        }
+
+        daoViewModel.daoMemberStatus.observe(this) { response ->
+            response?.let {
+                val daoMemberList: MutableList<String?> = mutableListOf()
+                it.members.forEach { member ->
+                    if (!daoMemberList.contains(member.addr)) {
+                        daoMemberList.add(member.addr)
+                    }
+                }
+                adapter.daoMemberList = daoMemberList
             }
         }
     }

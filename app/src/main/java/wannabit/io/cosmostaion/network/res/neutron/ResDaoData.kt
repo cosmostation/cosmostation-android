@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.network.res.neutron
 
 data class ResDaoData(
-    val name: String?, val description: String?, val dao_uri: String?, val address: String?, val voting_module: String?, val proposal_modules: List<ProposalModule?>
+    val name: String?, val description: String?, val dao_uri: String?, val address: String?, val voting_module: String?, val group_contract_address: String?, val proposal_modules: List<ProposalModule?>
 )
 
 data class ProposalModule(
